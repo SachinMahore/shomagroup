@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<script src="~/Areas/Admin/Content/Pages/PremiumType/PremiumType.js"></script>
+<input type="hidden" id="hndPTID" value="" />
+<input type="hidden" id="hdnSearchType" value="1" />
+<input type="hidden" id="hdnCurrentPage" value="1" />
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container" style="width:100% !important">
+        <div class="breadcrumb">
+            <h4 class="">Add / Edit Premium Type</h4>
+        </div>
+        <div class="col-md-12 padding-5">
+            <div class="form-group pull-right clearfix" style="padding-top:5px;">
+                <button type="button" class="btn btn-primary" id="btnPremiumType" style="text-transform:uppercase!important" onclick="clearPremiumType()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-plus"></i> New</button>
+                <button type="button" class="btn btn-success" id="btnSavePremiumType" style="text-transform:uppercase!important" onclick="saveUpdatePremiumType()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">Save</span></button>
+            </div>
+        </div>
+        <div class="form-group clearfix panel">
+            <div class="col-md-7">
+                <div class="form-inline clearfix panel hidden">
+                    <div class="form-group col-md-3 padding-5">
+                        <label class="control-label" style="padding:0px 5px;">Search Premium Type</label>
+                    </div>
+                    <div class="form-group col-md-3 padding-5">
+                        <input type="text" id="txtCriteriaPremiumType" name="Criteria" class="form-control form-control-small" />
+                    </div>
+                    <div class="form-group col-md-2 padding-5">
+                        <button id="btnSearchPremiumType" class='btn btn-next btn-primary' name='Search' style="text-transform:uppercase!important" onclick="getPremiumTypeList()"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
+                        <button id="btnGoToPremiumType" class="btn btn-success pull-right hidden" style="margin-right:15px;text-transform:uppercase!important;" @*onclick="goToPetPlace()"*@><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-arrow-circle-o-right"></i> Go to</button>
+                    </div>
+                </div>
+             
+                <div class="form-group clearfix"><br />
+                    <table id="tblPremiumType" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:45%!important;">Premium Type</th>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:40%!important;">Details</th>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:15%!important;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-5">
+             
+                <div class="form-group clearfix padding-5">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="txtPremiumType" class="star">Premium Type</label>
+                                <input class="form-control form-control-small" id="txtPremiumType" type="text" value="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="txtDetails">Details</label>
+                                <textarea class="form-control form-control-small" id="txtDetails"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script>
+        $(document).ready(function () {
+            setTimeout(function () { $("#ddlProperty").find("option[value='" + @Model.PropertyID + "']").attr('selected', 'selected'); }, 1200);
+        });
+    </script>*@

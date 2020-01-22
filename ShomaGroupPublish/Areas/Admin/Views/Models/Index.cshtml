@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<script src="~/Areas/Admin/Content/Pages/Models/Models.js"></script>
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumb">
+                <h4 class="">Models List</h4>
+            </div>
+
+            <div class="col-md-12  pr0  properties-page">
+                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                    <div class="panel-heading">
+                        <div class="col-sm-12">
+                            <div class="form-group" style="Padding-bottom:4%">
+                                <button type="button" class="btn btn-success Custome-pull-right" id="btnSaveUpdate" onclick="addNewModels()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">NEW</span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body search-widget">
+                        <div class="col-md-12 clear">
+
+                            <table id="tblModels" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%; text-align:center !important;">
+                                <thead>
+                                    <tr>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;text-align:center !important;">Floor Plan</th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;text-align:center !important;">Name</th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;text-align:center !important;">Area</th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;text-align:center !important;">Rent</th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;text-align:center !important;">Bedroom</th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;text-align:center !important;">Bathroom</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .Custome-pull-right {
+        float: right !important;
+    }
+</style>

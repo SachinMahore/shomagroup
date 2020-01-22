@@ -1,0 +1,678 @@
+﻿==============================
+
+Date : 09/26/2019 07:01:04 PM
+==============================
+RESULT : 
+09/26/2019|Declined|This transaction has been declined.|61934045525
+09/26/2019|Declined|This transaction has been declined.|61934045571
+09/26/2019|Declined|This transaction has been declined.|61934045618
+09/26/2019|Declined|This transaction has been declined.|61934045647
+09/26/2019|Approved|This transaction has been approved.|61934045690
+09/26/2019|Approved|This transaction has been approved.|61934045749
+09/26/2019|Declined|This transaction has been declined.|61934045785
+09/26/2019|Approved|This transaction has been approved.|61934045811
+09/26/2019|Approved|This transaction has been approved.|61934045845
+09/26/2019|Approved|This transaction has been approved.|61934045872
+09/26/2019|Approved|This transaction has been approved.|61934045906
+09/26/2019|Declined|This transaction has been declined.|61934045935
+09/26/2019|Approved|This transaction has been approved.|61934045969
+09/26/2019|Declined|This transaction has been declined.|61934046028
+09/26/2019|Approved|This transaction has been approved.|61934046071
+09/26/2019|Declined|This transaction has been declined.|61934046107
+09/26/2019|Declined|This transaction has been declined.|61934046150
+09/26/2019|Approved|This transaction has been approved.|61934046171
+09/26/2019|Approved|This transaction has been approved.|61934046213
+09/26/2019|Approved|This transaction has been approved.|61934046256
+09/26/2019|Approved|This transaction has been approved.|61934046298
+09/26/2019|Approved|This transaction has been approved.|61934046339
+09/26/2019|Approved|This transaction has been approved.|61934046374
+09/26/2019|Approved|This transaction has been approved.|61934046441
+09/26/2019|Approved|This transaction has been approved.|61934046484
+09/26/2019|Approved|This transaction has been approved.|61934046525
+09/26/2019|Declined|This transaction has been declined.|61934046571
+09/26/2019|Approved|This transaction has been approved.|61934046600
+09/26/2019|Approved|This transaction has been approved.|61934046644
+09/26/2019|Approved|This transaction has been approved.|61934046676
+09/26/2019|Approved|This transaction has been approved.|61934046759
+09/26/2019|Approved|This transaction has been approved.|61934046807
+09/26/2019|Approved|This transaction has been approved.|61934046856
+09/26/2019|Approved|This transaction has been approved.|61934046885
+09/26/2019|Declined|This transaction has been declined.|61934046925
+09/26/2019|Declined|This transaction has been declined.|61934046958
+09/26/2019|Approved|This transaction has been approved.|61934046981
+09/26/2019|Approved|This transaction has been approved.|61934047010
+09/26/2019|Declined|This transaction has been declined.|61934047057
+09/26/2019|Approved|This transaction has been approved.|61934047085
+
+==============================
+
+Date : 09/26/2019 10:01:08 PM
+==============================
+RESULT : 
+
+==============================
+
+Date : 09/27/2019 09:33:43 AM
+==============================
+RESULT : 
+09/27/2019|Declined|This transaction has been declined.|61934709615
+
+==============================
+
+Date : 09/27/2019 07:00:46 PM
+==============================
+RESULT : 
+09/27/2019|Declined|This transaction has been declined.|61935734483
+09/27/2019|Approved|This transaction has been approved.|61935734529
+09/27/2019|Declined|The credit card has expired.|0
+09/27/2019|Approved|This transaction has been approved.|61935734604
+09/27/2019|Approved|This transaction has been approved.|61935734673
+09/27/2019|Approved|This transaction has been approved.|61935734734
+09/27/2019|Approved|This transaction has been approved.|61935734774
+09/27/2019|Declined|This transaction has been declined.|61935734831
+09/27/2019|Approved|This transaction has been approved.|61935734874
+09/27/2019|Approved|This transaction has been approved.|61935734918
+09/27/2019|Approved|This transaction has been approved.|61935734970
+09/27/2019|Declined|This transaction has been declined.|61935735021
+09/27/2019|Approved|This transaction has been approved.|61935735050
+09/27/2019|Declined|This transaction has been declined.|61935735094
+09/27/2019|Declined|This transaction has been declined.|61935735133
+09/27/2019|Declined|This transaction has been declined.|61935735159
+09/27/2019|Approved|This transaction has been approved.|61935735194
+09/27/2019|Approved|This transaction has been approved.|61935735230
+09/27/2019|Approved|This transaction has been approved.|61935735262
+09/27/2019|Approved|This transaction has been approved.|61935735305
+09/27/2019|Approved|This transaction has been approved.|61935735341
+09/27/2019|Approved|This transaction has been approved.|61935735389
+09/27/2019|Approved|This transaction has been approved.|61935735430
+09/27/2019|Approved|This transaction has been approved.|61935735461
+09/27/2019|Approved|This transaction has been approved.|61935735492
+09/27/2019|Approved|This transaction has been approved.|61935735545
+
+==============================
+
+Date : 09/27/2019 10:00:46 PM
+==============================
+RESULT : 
+
+==============================
+
+Date : 09/28/2019 07:01:13 PM
+==============================
+RESULT : 
+09/28/2019|Declined|The credit card has expired.|0
+09/28/2019|Approved|This transaction has been approved.|61936924350
+09/28/2019|Declined|This transaction has been declined.|61936924400
+09/28/2019|Declined|The credit card has expired.|0
+09/28/2019|Approved|This transaction has been approved.|61936924449
+09/28/2019|Approved|This transaction has been approved.|61936924497
+09/28/2019|Approved|This transaction has been approved.|61936924548
+09/28/2019|Approved|This transaction has been approved.|61936924581
+09/28/2019|Approved|This transaction has been approved.|61936924620
+09/28/2019|Declined|This transaction has been declined.|61936924658
+09/28/2019|Approved|This transaction has been approved.|61936924686
+09/28/2019|Approved|This transaction has been approved.|61936924713
+09/28/2019|Declined|This transaction has been declined.|61936924755
+09/28/2019|Approved|This transaction has been approved.|61936924783
+09/28/2019|Declined|This transaction has been declined.|61936924819
+09/28/2019|Declined|This transaction has been declined.|61936924852
+09/28/2019|Approved|This transaction has been approved.|61936924878
+09/28/2019|Approved|This transaction has been approved.|61936924910
+09/28/2019|Approved|This transaction has been approved.|61936924936
+09/28/2019|Approved|This transaction has been approved.|61936924964
+09/28/2019|Approved|This transaction has been approved.|61936924990
+09/28/2019|Approved|This transaction has been approved.|61936925035
+09/28/2019|Approved|This transaction has been approved.|61936925075
+09/28/2019|Approved|This transaction has been approved.|61936925100
+09/28/2019|Approved|This transaction has been approved.|61936925138
+09/28/2019|Declined|This transaction has been declined.|61936925166
+09/28/2019|Declined|A duplicate transaction has been submitted.|0
+09/28/2019|Approved|This transaction has been approved.|61936925205
+09/28/2019|Declined|This transaction has been declined.|61936925279
+09/28/2019|Declined|This transaction has been declined.|61936925315
+09/28/2019|Declined|This transaction has been declined.|61936925353
+09/28/2019|Approved|This transaction has been approved.|61936925368
+09/28/2019|Declined|This transaction has been declined.|61936925397
+09/28/2019|Approved|This transaction has been approved.|61936925423
+09/28/2019|Approved|This transaction has been approved.|61936925451
+09/28/2019|Approved|This transaction has been approved.|61936925487
+09/28/2019|Approved|This transaction has been approved.|61936925515
+09/28/2019|Approved|This transaction has been approved.|61936925548
+09/28/2019|Approved|This transaction has been approved.|61936925559
+09/28/2019|Approved|This transaction has been approved.|61936925577
+09/28/2019|Approved|This transaction has been approved.|61936925599
+09/28/2019|Approved|This transaction has been approved.|61936925620
+09/28/2019|Approved|This transaction has been approved.|61936925635
+
+==============================
+
+Date : 09/28/2019 10:01:06 PM
+==============================
+RESULT : 
+
+==============================
+
+Date : 09/29/2019 07:00:54 PM
+==============================
+RESULT : 
+09/29/2019|Approved|This transaction has been approved.|61937824355
+09/29/2019|Approved|This transaction has been approved.|61937824389
+09/29/2019|Approved|This transaction has been approved.|61937824409
+09/29/2019|Approved|This transaction has been approved.|61937824441
+09/29/2019|Declined|This transaction has been declined.|61937824460
+09/29/2019|Approved|This transaction has been approved.|61937824489
+09/29/2019|Approved|This transaction has been approved.|61937824513
+09/29/2019|Declined|This transaction has been declined.|61937824533
+09/29/2019|Approved|This transaction has been approved.|61937824553
+09/29/2019|Approved|This transaction has been approved.|61937824571
+09/29/2019|Approved|This transaction has been approved.|61937824592
+09/29/2019|Approved|This transaction has been approved.|61937824634
+09/29/2019|Approved|This transaction has been approved.|61937824653
+09/29/2019|Approved|This transaction has been approved.|61937824681
+09/29/2019|Approved|This transaction has been approved.|61937824698
+09/29/2019|Approved|This transaction has been approved.|61937824724
+09/29/2019|Approved|This transaction has been approved.|61937824740
+09/29/2019|Approved|This transaction has been approved.|61937824766
+09/29/2019|Approved|This transaction has been approved.|61937824784
+09/29/2019|Approved|This transaction has been approved.|61937824811
+09/29/2019|Approved|This transaction has been approved.|61937824831
+09/29/2019|Declined|This transaction has been declined.|61937824855
+09/29/2019|Declined|This transaction has been declined.|61937824871
+09/29/2019|Declined|This transaction has been declined.|61937824879
+09/29/2019|Approved|This transaction has been approved.|61937824900
+09/29/2019|Approved|This transaction has been approved.|61937824937
+09/29/2019|Declined|This transaction has been declined.|61937824970
+09/29/2019|Declined|This transaction has been declined.|61937825006
+09/29/2019|Approved|This transaction has been approved.|61937825032
+09/29/2019|Approved|This transaction has been approved.|61937825056
+09/29/2019|Approved|This transaction has been approved.|61937825087
+09/29/2019|Approved|This transaction has been approved.|61937825113
+09/29/2019|Approved|This transaction has been approved.|61937825136
+09/29/2019|Approved|This transaction has been approved.|61937825158
+09/29/2019|Approved|This transaction has been approved.|61937825185
+09/29/2019|Approved|This transaction has been approved.|61937825212
+09/29/2019|Approved|This transaction has been approved.|61937825245
+
+==============================
+
+Date : 09/29/2019 10:01:17 PM
+==============================
+RESULT : 
+
+==============================
+
+Date : 09/30/2019 09:00:23 AM
+==============================
+RESULT : 
+
+==============================
+
+Date : 09/30/2019 01:46:53 PM
+==============================
+RESULT : 
+
+==============================
+
+Date : 09/30/2019 07:01:39 PM
+==============================
+RESULT : 
+09/30/2019|Approved|This transaction has been approved.|61939540193
+09/30/2019|Declined|This transaction has been declined.|61939540232
+09/30/2019|Declined|The credit card has expired.|0
+09/30/2019|Declined|This transaction has been declined.|61939540291
+09/30/2019|Declined|This transaction has been declined.|61939540321
+09/30/2019|Approved|This transaction has been approved.|61939540351
+09/30/2019|Declined|This transaction has been declined.|61939540387
+09/30/2019|Approved|This transaction has been approved.|61939540458
+09/30/2019|Approved|This transaction has been approved.|61939540504
+09/30/2019|Declined|This transaction has been declined.|61939540537
+09/30/2019|Approved|This transaction has been approved.|61939540576
+09/30/2019|Approved|This transaction has been approved.|61939540608
+09/30/2019|Declined|This transaction has been declined.|61939540654
+09/30/2019|Approved|This transaction has been approved.|61939540683
+09/30/2019|Approved|This transaction has been approved.|61939540712
+09/30/2019|Declined|This transaction has been declined.|61939540744
+09/30/2019|Approved|This transaction has been approved.|61939540771
+09/30/2019|Approved|This transaction has been approved.|61939540805
+09/30/2019|Declined|This transaction has been declined.|61939540852
+09/30/2019|Declined|This transaction has been declined.|61939540873
+09/30/2019|Approved|This transaction has been approved.|61939540911
+09/30/2019|Approved|This transaction has been approved.|61939540946
+09/30/2019|Approved|This transaction has been approved.|61939540991
+09/30/2019|Declined|This transaction has been declined.|61939541025
+09/30/2019|Approved|This transaction has been approved.|61939541058
+09/30/2019|Approved|This transaction has been approved.|61939541102
+09/30/2019|Approved|This transaction has been approved.|61939541124
+09/30/2019|Approved|This transaction has been approved.|61939541146
+09/30/2019|Declined|This transaction has been declined.|61939541178
+09/30/2019|Declined|This transaction has been declined.|61939541203
+09/30/2019|Approved|This transaction has been approved.|61939541225
+09/30/2019|Declined|This transaction has been declined.|61939541271
+09/30/2019|Approved|This transaction has been approved.|61939541290
+09/30/2019|Approved|This transaction has been approved.|61939541309
+09/30/2019|Approved|This transaction has been approved.|61939541344
+09/30/2019|Approved|This transaction has been approved.|61939541367
+09/30/2019|Declined|This transaction has been declined.|61939541390
+09/30/2019|Approved|This transaction has been approved.|61939541411
+09/30/2019|Approved|This transaction has been approved.|61939541449
+09/30/2019|Declined|This transaction has been declined.|61939541482
+09/30/2019|Approved|This transaction has been approved.|61939541509
+09/30/2019|Declined|The credit card has expired.|0
+09/30/2019|Approved|This transaction has been approved.|61939541543
+09/30/2019|Declined|This transaction has been declined.|61939541580
+09/30/2019|Approved|This transaction has been approved.|61939541602
+09/30/2019|Approved|This transaction has been approved.|61939541655
+09/30/2019|Approved|This transaction has been approved.|61939541684
+09/30/2019|Approved|This transaction has been approved.|61939541710
+09/30/2019|Approved|This transaction has been approved.|61939541745
+09/30/2019|Approved|This transaction has been approved.|61939541778
+09/30/2019|Approved|This transaction has been approved.|61939541804
+09/30/2019|Declined|This transaction has been declined.|61939541840
+09/30/2019|Approved|This transaction has been approved.|61939541881
+09/30/2019|Approved|This transaction has been approved.|61939541926
+09/30/2019|Approved|This transaction has been approved.|61939541955
+09/30/2019|Approved|This transaction has been approved.|61939542006
+09/30/2019|Approved|This transaction has been approved.|61939542047
+09/30/2019|Approved|This transaction has been approved.|61939542086
+09/30/2019|Approved|This transaction has been approved.|61939542124
+09/30/2019|Declined|This transaction has been declined.|61939542163
+09/30/2019|Declined|This transaction has been declined.|61939542211
+09/30/2019|Approved|This transaction has been approved.|61939542250
+09/30/2019|Approved|This transaction has been approved.|61939542305
+09/30/2019|Approved|This transaction has been approved.|61939542345
+09/30/2019|Declined|This transaction has been declined.|61939542386
+09/30/2019|Approved|This transaction has been approved.|61939542417
+09/30/2019|Approved|This transaction has been approved.|61939542444
+09/30/2019|Declined|This transaction has been declined.|61939542485
+09/30/2019|Declined|This transaction has been declined.|61939542514
+09/30/2019|Approved|This transaction has been approved.|61939542546
+09/30/2019|Approved|This transaction has been approved.|61939542568
+09/30/2019|Approved|This transaction has been approved.|61939542593
+09/30/2019|Approved|This transaction has been approved.|61939542618
+09/30/2019|Approved|This transaction has been approved.|61939542646
+
+==============================
+
+Date : 09/30/2019 10:01:48 PM
+==============================
+RESULT : 
+
+==============================
+
+Date : 10/01/2019 04:02:57 PM
+==============================
+RESULT : 
+
+==============================
+
+Date : 10/01/2019 07:00:52 PM
+==============================
+RESULT : 
+10/01/2019|Declined|The credit card has expired.|0
+10/01/2019|Approved|This transaction has been approved.|61941983252
+10/01/2019|Approved|This transaction has been approved.|61941983316
+10/01/2019|Declined|This transaction has been declined.|61941983354
+10/01/2019|Declined|This transaction has been declined.|61941983389
+10/01/2019|Approved|This transaction has been approved.|61941983426
+10/01/2019|Approved|This transaction has been approved.|61941983455
+10/01/2019|Approved|This transaction has been approved.|61941983493
+10/01/2019|Approved|This transaction has been approved.|61941983524
+10/01/2019|Approved|This transaction has been approved.|61941983569
+10/01/2019|Approved|This transaction has been approved.|61941983609
+10/01/2019|Approved|This transaction has been approved.|61941983644
+10/01/2019|Approved|This transaction has been approved.|61941983700
+10/01/2019|Approved|This transaction has been approved.|61941983737
+10/01/2019|Approved|This transaction has been approved.|61941983780
+10/01/2019|Approved|This transaction has been approved.|61941983832
+10/01/2019|Approved|This transaction has been approved.|61941983868
+10/01/2019|Approved|This transaction has been approved.|61941983907
+10/01/2019|Approved|This transaction has been approved.|61941983940
+10/01/2019|Approved|This transaction has been approved.|61941983981
+10/01/2019|Declined|This transaction has been declined.|61941984012
+10/01/2019|Approved|This transaction has been approved.|61941984048
+10/01/2019|Approved|This transaction has been approved.|61941984088
+10/01/2019|Declined|This transaction has been declined.|61941984139
+10/01/2019|Declined|This transaction has been declined.|61941984182
+10/01/2019|Approved|This transaction has been approved.|61941984210
+10/01/2019|Declined|This transaction has been declined.|61941984298
+10/01/2019|Approved|This transaction has been approved.|61941984340
+10/01/2019|Approved|This transaction has been approved.|61941984394
+10/01/2019|Approved|This transaction has been approved.|61941984452
+10/01/2019|Approved|This transaction has been approved.|61941984503
+10/01/2019|Approved|This transaction has been approved.|61941984546
+10/01/2019|Approved|This transaction has been approved.|61941984587
+10/01/2019|Approved|This transaction has been approved.|61941984642
+10/01/2019|Approved|This transaction has been approved.|61941984690
+10/01/2019|Approved|This transaction has been approved.|61941984735
+
+==============================
+
+Date : 10/01/2019 10:01:07 PM
+==============================
+RESULT : 
+
+==============================
+
+Date : 10/02/2019 07:00:37 PM
+==============================
+RESULT : 
+10/02/2019|Declined|This transaction has been declined.|61943643915
+10/02/2019|Declined|This transaction has been declined.|61943644000
+10/02/2019|Approved|This transaction has been approved.|61943644031
+10/02/2019|Approved|This transaction has been approved.|61943644077
+10/02/2019|Approved|This transaction has been approved.|61943644106
+10/02/2019|Declined|This transaction has been declined.|61943644182
+10/02/2019|Approved|This transaction has been approved.|61943644208
+10/02/2019|Approved|This transaction has been approved.|61943644242
+10/02/2019|Approved|This transaction has been approved.|61943644267
+10/02/2019|Declined|This transaction has been declined.|61943644317
+10/02/2019|Approved|This transaction has been approved.|61943644344
+10/02/2019|Approved|This transaction has been approved.|61943644372
+10/02/2019|Approved|This transaction has been approved.|61943644405
+10/02/2019|Approved|This transaction has been approved.|61943644441
+10/02/2019|Approved|This transaction has been approved.|61943644466
+10/02/2019|Declined|This transaction has been declined.|61943644507
+10/02/2019|Approved|This transaction has been approved.|61943644545
+10/02/2019|Approved|This transaction has been approved.|61943644574
+10/02/2019|Approved|This transaction has been approved.|61943644599
+10/02/2019|Declined|This transaction has been declined.|61943644626
+10/02/2019|Approved|This transaction has been approved.|61943644660
+10/02/2019|Approved|This transaction has been approved.|61943644685
+10/02/2019|Approved|This transaction has been approved.|61943644729
+10/02/2019|Approved|This transaction has been approved.|61943644758
+10/02/2019|Approved|This transaction has been approved.|61943644799
+
+==============================
+
+Date : 10/02/2019 10:00:57 PM
+==============================
+RESULT : 
+
+==============================
+
+Date : 10/03/2019 01:30:36 PM
+==============================
+RESULT : 
+10/03/2019|Approved|This transaction has been approved.|61944895045
+
+==============================
+
+Date : 10/03/2019 01:30:48 PM
+==============================
+RESULT : 
+10/03/2019|Approved|This transaction has been approved.|61944895433
+
+==============================
+
+Date : 10/03/2019 01:31:09 PM
+==============================
+RESULT : 
+10/03/2019|Approved|This transaction has been approved.|61944896126
+
+==============================
+
+Date : 10/03/2019 07:00:07 PM
+==============================
+ERROR : 
+   at MalaGroupERP.Models.CardScheduleModel.ChargeScheduleCards()
+   at MalaGroupERP.Controllers.MGAPIController.ChargeScheduleCard()
+==============================
+
+Date : 10/03/2019 09:32:58 PM
+==============================
+RESULT : 
+10/03/2019|Declined|This transaction has been declined.|61945623774
+10/03/2019|Approved|This transaction has been approved.|61945623794
+10/03/2019|Approved|This transaction has been approved.|61945623830
+10/03/2019|Declined|This transaction has been declined.|61945623846
+10/03/2019|Approved|This transaction has been approved.|61945623868
+10/03/2019|Approved|This transaction has been approved.|61945623887
+10/03/2019|Approved|This transaction has been approved.|61945623909
+10/03/2019|Declined|This transaction has been declined.|61945623932
+10/03/2019|Declined|This transaction has been declined.|61945623956
+10/03/2019|Approved|This transaction has been approved.|61945623985
+10/03/2019|Approved|This transaction has been approved.|61945624001
+10/03/2019|Approved|This transaction has been approved.|61945624021
+10/03/2019|Approved|This transaction has been approved.|61945624041
+10/03/2019|Declined|This transaction has been declined.|61945624067
+10/03/2019|Approved|This transaction has been approved.|61945624086
+10/03/2019|Declined|This transaction has been declined.|61945624103
+10/03/2019|Declined|This transaction has been declined.|61945624126
+10/03/2019|Approved|This transaction has been approved.|61945624146
+10/03/2019|Declined|This transaction has been declined.|61945624166
+10/03/2019|Approved|This transaction has been approved.|61945624184
+10/03/2019|Approved|This transaction has been approved.|61945624220
+10/03/2019|Approved|This transaction has been approved.|61945624244
+10/03/2019|Approved|This transaction has been approved.|61945624263
+10/03/2019|Declined|This transaction has been declined.|61945624282
+10/03/2019|Approved|This transaction has been approved.|61945624302
+10/03/2019|Approved|This transaction has been approved.|61945624325
+10/03/2019|Approved|This transaction has been approved.|61945624349
+10/03/2019|Declined|This transaction has been declined.|61945624372
+10/03/2019|Declined|This transaction has been declined.|61945624394
+10/03/2019|Approved|This transaction has been approved.|61945624416
+10/03/2019|Declined|This transaction has been declined.|61945624436
+10/03/2019|Approved|This transaction has been approved.|61945624461
+10/03/2019|Approved|This transaction has been approved.|61945624475
+10/03/2019|Approved|This transaction has been approved.|61945624485
+10/03/2019|Approved|This transaction has been approved.|61945624506
+10/03/2019|Approved|This transaction has been approved.|61945624519
+10/03/2019|Approved|This transaction has been approved.|61945624536
+10/03/2019|Approved|This transaction has been approved.|61945624582
+
+==============================
+
+Date : 10/03/2019 10:00:04 PM
+==============================
+RESULT : 
+
+==============================
+
+Date : 10/04/2019 07:00:29 PM
+==============================
+RESULT : 
+10/04/2019|Declined|A valid amount is required.|0
+10/04/2019|Approved|This transaction has been approved.|61947247760
+10/04/2019|Approved|This transaction has been approved.|61947247800
+10/04/2019|Declined|This transaction has been declined.|61947247832
+10/04/2019|Approved|This transaction has been approved.|61947247855
+10/04/2019|Approved|This transaction has been approved.|61947247894
+10/04/2019|Approved|This transaction has been approved.|61947247917
+10/04/2019|Approved|This transaction has been approved.|61947247948
+10/04/2019|Approved|This transaction has been approved.|61947247981
+10/04/2019|Approved|This transaction has been approved.|61947248026
+10/04/2019|Approved|This transaction has been approved.|61947248066
+10/04/2019|Declined|This transaction has been declined.|61947248094
+10/04/2019|Declined|This transaction has been declined.|61947248110
+10/04/2019|Approved|This transaction has been approved.|61947248141
+10/04/2019|Approved|This transaction has been approved.|61947248167
+10/04/2019|Approved|This transaction has been approved.|61947248211
+10/04/2019|Approved|This transaction has been approved.|61947248247
+10/04/2019|Approved|This transaction has been approved.|61947248271
+10/04/2019|Approved|This transaction has been approved.|61947248292
+10/04/2019|Approved|This transaction has been approved.|61947248334
+10/04/2019|Approved|This transaction has been approved.|61947248362
+
+==============================
+
+Date : 10/04/2019 10:00:40 PM
+==============================
+RESULT : 
+
+==============================
+
+Date : 10/05/2019 07:01:09 PM
+==============================
+RESULT : 
+10/05/2019|Declined|This transaction has been declined.|61948515367
+10/05/2019|Approved|This transaction has been approved.|61948515414
+10/05/2019|Declined|This transaction has been declined.|61948515441
+10/05/2019|Approved|This transaction has been approved.|61948515467
+10/05/2019|Approved|This transaction has been approved.|61948515491
+10/05/2019|Approved|This transaction has been approved.|61948515516
+10/05/2019|Approved|This transaction has been approved.|61948515536
+10/05/2019|Declined|This transaction has been declined.|61948515554
+10/05/2019|Approved|This transaction has been approved.|61948515578
+10/05/2019|Approved|This transaction has been approved.|61948515615
+10/05/2019|Approved|This transaction has been approved.|61948515645
+10/05/2019|Approved|This transaction has been approved.|61948515655
+10/05/2019|Approved|This transaction has been approved.|61948515676
+10/05/2019|Approved|This transaction has been approved.|61948515694
+10/05/2019|Approved|This transaction has been approved.|61948515713
+10/05/2019|Declined|This transaction has been declined.|61948515750
+10/05/2019|Approved|This transaction has been approved.|61948515772
+10/05/2019|Approved|This transaction has been approved.|61948515789
+10/05/2019|Approved|This transaction has been approved.|61948515819
+10/05/2019|Approved|This transaction has been approved.|61948515839
+10/05/2019|Declined|This transaction has been declined.|61948515854
+10/05/2019|Approved|This transaction has been approved.|61948515879
+10/05/2019|Declined|This transaction has been declined.|61948515910
+10/05/2019|Declined|This transaction has been declined.|61948515938
+10/05/2019|Approved|This transaction has been approved.|61948515961
+10/05/2019|Approved|This transaction has been approved.|61948515995
+10/05/2019|Approved|This transaction has been approved.|61948516012
+10/05/2019|Approved|This transaction has been approved.|61948516040
+10/05/2019|Approved|This transaction has been approved.|61948516064
+10/05/2019|Approved|This transaction has been approved.|61948516083
+10/05/2019|Approved|This transaction has been approved.|61948516136
+10/05/2019|Approved|This transaction has been approved.|61948516175
+10/05/2019|Approved|This transaction has been approved.|61948516198
+10/05/2019|Approved|This transaction has been approved.|61948516234
+10/05/2019|Approved|This transaction has been approved.|61948516254
+10/05/2019|Approved|This transaction has been approved.|61948516273
+10/05/2019|Approved|This transaction has been approved.|61948516298
+10/05/2019|Approved|This transaction has been approved.|61948516321
+10/05/2019|Approved|This transaction has been approved.|61948516337
+10/05/2019|Approved|This transaction has been approved.|61948516355
+10/05/2019|Approved|This transaction has been approved.|61948516369
+10/05/2019|Declined|This transaction has been declined.|61948516385
+10/05/2019|Approved|This transaction has been approved.|61948516398
+10/05/2019|Approved|This transaction has been approved.|61948516428
+10/05/2019|Approved|This transaction has been approved.|61948516450
+10/05/2019|Approved|This transaction has been approved.|61948516491
+10/05/2019|Approved|This transaction has been approved.|61948516519
+10/05/2019|Approved|This transaction has been approved.|61948516538
+10/05/2019|Approved|This transaction has been approved.|61948516563
+10/05/2019|Approved|This transaction has been approved.|61948516580
+10/05/2019|Approved|This transaction has been approved.|61948516600
+10/05/2019|Declined|This transaction has been declined.|61948516674
+
+==============================
+
+Date : 10/05/2019 10:01:34 PM
+==============================
+RESULT : 
+
+==============================
+
+Date : 10/06/2019 07:00:44 PM
+==============================
+RESULT : 
+10/06/2019|Declined|This transaction has been declined.|61949728571
+10/06/2019|Declined|This transaction has been declined.|61949728643
+10/06/2019|Approved|This transaction has been approved.|61949728664
+10/06/2019|Approved|This transaction has been approved.|61949728697
+10/06/2019|Approved|This transaction has been approved.|61949728727
+10/06/2019|Approved|This transaction has been approved.|61949728762
+10/06/2019|Approved|This transaction has been approved.|61949728803
+10/06/2019|Declined|This transaction has been declined.|61949728835
+10/06/2019|Approved|This transaction has been approved.|61949728859
+10/06/2019|Approved|This transaction has been approved.|61949728888
+10/06/2019|Approved|This transaction has been approved.|61949728915
+10/06/2019|Approved|This transaction has been approved.|61949728941
+10/06/2019|Approved|This transaction has been approved.|61949728969
+10/06/2019|Approved|This transaction has been approved.|61949729005
+10/06/2019|Declined|This transaction has been declined.|61949729035
+10/06/2019|Approved|This transaction has been approved.|61949729053
+10/06/2019|Approved|This transaction has been approved.|61949729069
+10/06/2019|Approved|This transaction has been approved.|61949729091
+10/06/2019|Approved|This transaction has been approved.|61949729112
+10/06/2019|Approved|This transaction has been approved.|61949729133
+10/06/2019|Approved|This transaction has been approved.|61949729152
+10/06/2019|Approved|This transaction has been approved.|61949729212
+10/06/2019|Declined|This transaction has been declined.|61949729236
+10/06/2019|Approved|This transaction has been approved.|61949729261
+10/06/2019|Approved|This transaction has been approved.|61949729282
+10/06/2019|Approved|This transaction has been approved.|61949729305
+10/06/2019|Approved|This transaction has been approved.|61949729343
+10/06/2019|Approved|This transaction has been approved.|61949729373
+10/06/2019|Approved|This transaction has been approved.|61949729393
+10/06/2019|Approved|This transaction has been approved.|61949729414
+10/06/2019|Approved|This transaction has been approved.|61949729430
+10/06/2019|Declined|This transaction has been declined.|61949729471
+
+==============================
+
+Date : 10/06/2019 10:01:09 PM
+==============================
+RESULT : 
+
+==============================
+
+Date : 10/07/2019 07:00:35 PM
+==============================
+RESULT : 
+10/07/2019|Approved|This transaction has been approved.|61952217308
+10/07/2019|Approved|This transaction has been approved.|61952217356
+10/07/2019|Approved|This transaction has been approved.|61952217416
+10/07/2019|Approved|This transaction has been approved.|61952217460
+10/07/2019|Declined|This transaction has been declined.|61952217505
+10/07/2019|Approved|This transaction has been approved.|61952217544
+10/07/2019|Approved|This transaction has been approved.|61952217574
+10/07/2019|Declined|This transaction has been declined.|61952217610
+10/07/2019|Declined|This transaction has been declined.|61952217646
+10/07/2019|Declined|This transaction has been declined.|61952217687
+10/07/2019|Approved|This transaction has been approved.|61952217729
+10/07/2019|Approved|This transaction has been approved.|61952217764
+10/07/2019|Declined|This transaction has been declined.|61952217800
+10/07/2019|Approved|This transaction has been approved.|61952217834
+10/07/2019|Approved|This transaction has been approved.|61952217877
+10/07/2019|Approved|This transaction has been approved.|61952217935
+10/07/2019|Approved|This transaction has been approved.|61952217982
+10/07/2019|Approved|This transaction has been approved.|61952218024
+10/07/2019|Approved|This transaction has been approved.|61952218069
+10/07/2019|Declined|This transaction has been declined.|61952218138
+10/07/2019|Approved|This transaction has been approved.|61952218174
+10/07/2019|Declined|This transaction has been declined.|61952218219
+10/07/2019|Declined|This transaction has been declined.|61952218268
+10/07/2019|Approved|This transaction has been approved.|61952218301
+
+==============================
+
+Date : 10/07/2019 10:00:44 PM
+==============================
+RESULT : 
+
+==============================
+
+Date : 10/08/2019 07:00:21 PM
+==============================
+RESULT : 
+10/08/2019|Approved|This transaction has been approved.|61954199267
+10/08/2019|Declined|This transaction has been declined.|61954199314
+10/08/2019|Declined|This transaction has been declined.|61954199342
+10/08/2019|Declined|The credit card has expired.|0
+10/08/2019|Declined|The credit card has expired.|0
+10/08/2019|Approved|This transaction has been approved.|61954199383
+10/08/2019|Declined|This transaction has been declined.|61954199413
+10/08/2019|Approved|This transaction has been approved.|61954199452
+10/08/2019|Declined|This transaction has been declined.|61954199482
+10/08/2019|Approved|This transaction has been approved.|61954199497
+10/08/2019|Declined|This transaction has been declined.|61954199517
+10/08/2019|Approved|This transaction has been approved.|61954199539
+10/08/2019|Approved|This transaction has been approved.|61954199558
+10/08/2019|Approved|This transaction has been approved.|61954199582
+10/08/2019|Approved|This transaction has been approved.|61954199604
+10/08/2019|Approved|This transaction has been approved.|61954199627
+10/08/2019|Approved|This transaction has been approved.|61954199671
+10/08/2019|Approved|This transaction has been approved.|61954199701
+10/08/2019|Approved|This transaction has been approved.|61954199738
+
+==============================
+
+Date : 10/08/2019 10:00:44 PM
+==============================
+RESULT : 
+
+==============================
+

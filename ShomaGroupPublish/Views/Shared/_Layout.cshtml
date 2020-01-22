@@ -1,0 +1,733 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Shoma Group | Residential Manager</title>
+    <meta name="description" content="Shoma is Residential Management Web Portal">
+    <meta name="author" content="Shoma">
+    <meta name="keyword" content="Shoma Residential Management">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/normalize.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/font-awesome.min.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/fontello.css")">
+    <link href="@Url.Content("/content/assets/fonts/icon-7-stroke/css/pe-icon-7-stroke.css")" rel="stylesheet">
+    <link href="@Url.Content("/content/assets/fonts/icon-7-stroke/css/helper.css")" rel="stylesheet">
+    <link href="@Url.Content("/content/assets/css/animate.css")" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/datepicker.css")" />
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/bootstrap-select.min.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/bootstrap/css/bootstrap.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/icheck.min_all.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/price-range.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/owl.carousel.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/owl.theme.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/owl.transitions.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/lightslider.min.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/jquery.slitslider.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/wizard.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/style.css")">
+    <link rel="stylesheet" href="@Url.Content("/Content/jquery-confirm-master/css/jquery-confirm.css")" />
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/popupwindow.css")">
+    @*<link rel="stylesheet" href="@Url.Content("/content/assets/css/glDatePicker.darkneon.css")">
+        <link rel="stylesheet" href="@Url.Content("/content/assets/css/glDatePicker.flatwhite.css")">*@
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/responsive.css")">
+    <script src="@Url.Content("/content/assets/js/jquery-1.10.2.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/modernizr-2.6.2.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/popupwindow.js")"></script>
+    <script src="@Url.Content("~/Content/Pages/common.js")"></script>
+    <script src="@Url.Content("/content/assets/js/jquery.simplePagination.js")"></script>
+    <script src="~/Content/Pages/Home.js"></script>
+    <link rel="stylesheet" href="@Url.Content("/Content/fileUpload.css")" />
+
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
+    </div>
+    <!-- Body content -->
+    @RenderBody()
+    <div id="divLoader" style="display:none"></div>
+    <!-- Footer area-->
+    <div class="footer-area">
+        <div class=" footer" style="padding:0 !important">
+
+            <div class="container">
+                <div class="row grid-container" style="text-align: center;">
+                    <div class="col-sm-3">
+                        <h3><i class="fa fa-map-marker"></i> Location</h3>
+                        <p>
+                            <a id="btnmapcontact" href="javascript:void(0);" style="font-weight:300;color:#777"><i class="pe-7s-map-marker strong"> </i> 9400 NW 41st Street,<br />Doral, FL 33178</a>
+                            <br>
+                            <strong>USA</strong>
+                        </p>
+                    </div>
+                    <!-- /.col-sm-4 -->
+                    <div class="col-sm-3">
+                        <h3><i class="fa fa-phone"></i> Call Us</h3>
+                        <p class="text-muted">
+                            Call us to schedule an appointment
+                        </p>
+                        <p><strong>786.437.8658</strong></p>
+                    </div>
+                    <!-- /.col-sm-4 -->
+                    <div class="col-sm-3">
+                        <h3><i class="fa fa-envelope"></i> Message Us</h3>
+                        <p class="text-muted">Send us a message or use our Live Chat.</p>
+                        <p><strong><a href="mailto:" style="color:#B4ADA5">info@sanctuarydoral.com</a></strong></p>
+                    </div>
+                    <div class="col-sm-3">
+                        <button id="btnContact" class="nav-button wow bounceInRight login" data-wow-delay="0.5s" style="margin-top: 55px;">Appointment</button>
+                    </div>
+
+                    <!-- /.col-sm-4 -->
+
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 wow fadeInRight animated">
+                        <div class="single-footer news-letter">
+                            <h4>Office Hours</h4>
+                            <div class="footer-title-line"></div>
+                            <p>M-F : 9AM - 6PM</p>
+                            <p>SAT : 9AM - 5PM</p>
+                            <p>SUN : 1PM - 5PM</p>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 wow fadeInRight animated hidden">
+
+                    </div>
+                    <div class="col-md-4 col-sm-6 wow fadeInRight animated ">
+
+                    </div>
+                    <div class="col-md-4 col-sm-6 wow fadeInRight animated " style="margin-top: 90px;">
+                        <div class="single-footer">
+                            <div class="social pull-right">
+                                <ul>
+                                    <li><a class="wow fadeInUp animated" href="https://twitter.com/SHOMA_GROUP"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a class="wow fadeInUp animated" href="https://www.facebook.com/shomagroup" data-wow-delay="0.2s"><i class="fa fa-facebook"></i></a></li>
+                                    @*<li><a class="wow fadeInUp animated" href="https://plus.google.com/shomagroup" data-wow-delay="0.3s"><i class="fa fa-google-plus"></i></a></li>*@
+                                    <li><a class="wow fadeInUp animated" href="https://instagram.com/shomagroup" data-wow-delay="0.4s"><i class="fa fa-instagram"></i></a></li>
+                                    @*<li><a class="wow fadeInUp animated" href="https://instagram.com/shomagroup" data-wow-delay="0.6s"><i class="fa fa-dribbble"></i></a></li>*@
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-copy text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="pull-left">
+                        <span>©  <a href="http://www.shomagroup.com">Shoma Group</a>, All rights reserved @DateTime.Now.ToString("yyyy")   </span>
+                    </div>
+                    <div class="bottom-menu pull-right">
+                        <ul>
+                            <li><a class="wow fadeInUp animated" href="~/Home/Index" data-wow-delay="0.2s">Home</a></li>
+                            <li><a id="btnsignIn" class="wow fadeInUp animated" href="javascript:void(0);" data-wow-delay="0.3s">Sign In</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modalMaplayout" class="modal">
+        <div class="modal-header">
+            <span class="close" id="closemap" onclick="startcarousel()">&times;</span>
+        </div>
+        <!-- Modal content -->
+        <div class="modal-content" style="padding:10px">
+            <div class="text-center">
+                <div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3591.7607993421484!2d-80.35277818497806!3d25.811464383614155!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b9e7b900cb39%3A0x50b56af187485767!2s9400+NW+41st+St%2C+Doral%2C+FL+33178%2C+USA!5e0!3m2!1sen!2sin!4v1564668417941!5m2!1sen!2sin" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="modal" id="popContactForm">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width:732px; height:657px;">
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+                <!-- Modal Header -->
+                <div class="modal-header" style="width: 100%; padding:0px;">
+                    <h5 class="modal-title">Appointment Request</h5>
+
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="firstname" class="star">First Name</label>
+                            <input type="text" class="form-control" id="txtFirstName">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="lastname" class="star">Last Name</label>
+                            <input type="text" class="form-control" id="txtLastName">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="email" class="star">Email</label>
+                            <input type="text" class="form-control" id="txtEmail">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="subject" class="star">Phone Number</label>
+                            <input type="text" class="form-control" maxlength="15" id="txtPhone" onkeypress="return isOnlyNumber(event)">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3 hidden">
+                        <div class="form-group">
+                            <label class="star"> State</label>
+                            <select id="ddlState" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 hidden">
+                        <div class="form-group">
+                            <label> City</label>
+                            <select id="ddlCity" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Visit Date </label>
+                            <input type="text" id="txtMoveDate" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")">
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="email">Market Source</label>
+                            <select id="ddlMarketSource" class="form-control"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 hidden">
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <textarea id="txtAddress" class="form-control" maxlength="300"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="txtMessage" class="form-control" maxlength="100"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 hidden">
+                        <div class="form-group">
+                            <label>Do you have Pets?</label>
+                            <div class="checkbox">
+
+                                <label>
+                                    <input type="checkbox" id="chkPets"> Yes
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-12">
+                        <div class="dot-hr"></div>
+                    </div>
+                    <div class="col-sm-12 text-justify">
+                        By clicking submit, you agree that you are the individual whose information has been entered above or that you have that individual's express consent to submit their information. Additionally, you agree and acknowledge that by submitting this information, you may be contacted regarding your inquiry for more information from the relevant property.
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="dot-hr"></div>
+                    </div>
+                    <div class="col-sm-12 text-center">
+                        <button type="submit" class="btn btn-primary" onclick="saveProspectForm()"><i class="fa fa-envelope-o"></i> Submit</button>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer-custom">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="popSignIn" class="modal">
+        <div class="modal-header">
+            <span class="closeSign">&times;</span>
+        </div>
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="text-center">
+                <h5 style="">Sign In</h5>
+            </div>
+            <div class="text-justify">
+                <div class="form-group">
+                    <label for="email">Email ID</label>
+                    <input type="text" class="form-control" id="UserName" name="UserName">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="Password">
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary" onclick="SignIn()"> Sign In</button>
+            </div>
+        </div>
+
+    </div>
+    <script src="@Url.Content("/content/bootstrap/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/bootstrap-datepicker.js")"></script>
+    <script src="@Url.Content("/content/assets/js/bootstrap-select.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/bootstrap-hover-dropdown.js")"></script>
+    <script src="@Url.Content("/content/assets/js/easypiechart.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/jquery.easypiechart.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/owl.carousel.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/wow.js")"></script>
+    <script src="@Url.Content("/content/assets/js/icheck.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/price-range.js")"></script>
+    <script src="@Url.Content("/content/assets/js/lightslider.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/jquery.ba-cond.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/jquery.slitslider.js")"></script>
+    <script src="@Url.Content("/content/assets/js/jquery.bootstrap.wizard.js")"></script>
+    <script src="@Url.Content("/content/assets/js/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/wizard.js")"></script>
+
+    <script src="@Url.Content("/Content/file-Upload.js")"></script>
+    <script src="@Url.Content("/Content/jquery.countdown.js")"></script>
+    <script src="@Url.Content("/Content/jquery.countdown.min.js")"></script>
+ 
+    <script src="@Url.Content("/content/assets/js/main.js")"></script>
+    <script src="@Url.Content("/Content/jquery-confirm-master/js/jquery-confirm.js")"></script>
+</body>
+</html>
+<style>
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        /*z-index: 1;*/ /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    .modal-header {
+        margin: auto;
+        padding: 20px;
+        width: 45%;
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 40%;
+        text-align: justify;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #fff;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        opacity: 1;
+    }
+    .closeSign {
+        color: #fff;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        opacity: 1;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+            opacity: 1;
+        }
+    .closeSign:hover,
+    .closeSign:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+        opacity: 1;
+    }
+
+    #btnsearchpropertyslider.btn-primary {
+        color: #fff !important;
+        background-color: #4D738A;
+        border-color: #4D738A;
+        padding: 10px 20px;
+        font-weight: 600;
+        font-family: FuturaMedium !important;
+    }
+
+    .grid-container {
+        box-sizing: content-box;
+        width: auto;
+        height: auto;
+        margin-top: 10px;
+        border: 2px solid black;
+    }
+    #btnAddVehicle {
+        margin: 15px !important;
+    }
+</style>
+<style>
+    #divLoader {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        /*background: url(../../Content/assets/images/giphy.gif) center no-repeat rgba(255,255,255,0.5);*/
+        background: url(/Content/assets/img/loader.gif) center no-repeat rgba(255,255,255,0.5);
+        display: none;
+    }
+
+    .popupwindow_container {
+        z-index: 9999 !important;
+    }
+</style>
+
+<script type="text/javascript">
+    var SignIn = function () {
+        var msg = "";
+        var email = $("#UserName").val();
+        var pass = $("#password").val();
+
+        if (email == "") {
+            msg += "Enter Registerd Email ID</br>";
+        }
+        if (pass == "") {
+            msg += "Enter Password</br>";
+        }
+
+        if (msg != "") {
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
+
+        var model = {
+            UserName: email,
+            Password: pass,
+
+        };
+
+        $.ajax({
+            url: "/ApplyNow/SignIn/",
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+
+                if (response != "0") {
+                    window.location = "/ApplyNow/Index/" + response;
+                    
+                    $("#popSignIn").PopupWindow("close");
+                } else {
+                    alert("Invalid Email ID / password.")
+                }
+
+            }
+
+
+        });
+
+    }
+    function gotoLogin() {
+
+        window.location = "/Account/Login";
+    }
+
+    function gotoApplyNow() {
+        window.location = "/ApplyNow/Index/0";
+    }
+    function stopcarousel() {
+        var owl = $("#bg-slider").data('owlCarousel');
+        owl.stop();
+    }
+
+    function startcarousel() {
+        var owl = $("#bg-slider").data('owlCarousel');
+        owl.play();
+        owl.next();
+    }
+</script>
+<script>
+
+    // Get the modal
+    var modal = document.getElementById("popSignIn");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("btnsignIn");
+   
+    var span = document.getElementsByClassName("closeSign")[0];
+
+   
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function () {
+        var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/5ba1e602c9abba579677af49/1dhol8k6b';
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
+    })();
+
+
+    $(function () {
+        $("#txtMoveDate").datepicker({ autoclose: true });
+
+    });
+    $(document).ready(function () {
+        $("#btnContact").on("click", function (event) {
+            $("#popContactForm").modal("show");
+        });
+      
+        fillLStateDDL();
+        $("#ddlState").on('change', function (evt, params) {
+            var selected = $(this).val();
+            if (selected != null) {
+                fillLCityList(selected);
+            }
+        });
+        fillMarketSourceDDL();
+    });
+    var saveProspectForm = function () {
+
+        $("#divLoader").show();
+        var msg = "";
+        var fname = $("#txtFirstName").val();
+        var lname = $("#txtLastName").val();
+        var phone = $("#txtPhone").val();
+        var email = $("#txtEmail").val();
+        var address = $("#txtAddress").val();
+        var message = $("#txtMessage").val();
+        var pets = $(".icheckbox_square-yellow").hasClass("checked") ? 1 : 0;
+        var pid = $("#hndPID").val();
+        var unit = $("#hndUID").val();
+        var state = $("#ddlState").val();
+        var city = $("#ddlCity").val();
+        var visittime = $("#txtMoveDate").val();
+        var marketSource = $("#ddlMarketSource").val();
+
+        if (!fname) {
+            msg += "Enter First Name</br>";
+        }
+        if (!lname) {
+            msg += "Enter Last Name</br>";
+        }
+        if (phone == '') {
+            msg += "Enter Phone</br>";
+        }
+        else {
+            if (!validatePhone(phone)) {
+                msg += 'Invalid Phone No.<br/>';
+            }
+        }
+        if (email == '') {
+            msg += "Enter email Id</br>";
+        }
+        else {
+            if (!validateEmail(email)) {
+                msg += "Invalid email address.<br/>"
+            }
+        }
+        //if (state == 0) {
+        //    msg += "Select State</br>";
+        //}
+        if (msg != "") {
+            $("#divLoader").hide();
+            $.alert({
+                title: '',
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
+        var model = { FirstName: fname, LastName: lname, PhoneNo: phone, EmailId: email, Address: address, Message: message, HavingPets: pets, UnitID: unit, PropertyID: pid, State: state, City: city, VisitDateTime: visittime, MarketSource: marketSource };
+        $.ajax({
+            url: "/Prospect/SaveProspectForm/",
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                $("#divLoader").hide();
+                $.alert({
+                    title: '',
+                    content: "Request Sent.",
+                    type: 'blue',
+                });
+                clearProspectForm();
+                $("#popContactForm").modal("hide");
+            }
+        });
+    }
+
+    function clearProspectForm() {
+        $("#txtFirstName").val("");
+        $("#txtLastName").val("");
+        $("#txtPhone").val("");
+        $("#txtEmail").val("");
+        $("#txtAddress").val("");
+        $("#txtMessage").val("");
+        $(".icheckbox_square-yellow").removeClass("checked");
+        $("#hndUID").val(0);
+        $("#ddlState").val(0);
+        $("#ddlCity").val(0);
+        $("#txtMoveDate").val("");
+    }
+
+    var fillLStateDDL = function () {
+
+        $.ajax({
+            url: '/City/FillStateDropDownList',
+            method: "post",
+            //data: JSON.stringify(param),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if ($.trim(response.error) != "") {
+                    //this.cancelChanges();
+                } else {
+                    $("#ddlState").empty();
+                    $("#ddlState").append("<option value='0'>Select State</option>");
+                    $.each(response, function (index, elementValue) {
+                        $("#ddlState").append("<option value=" + elementValue.ID + ">" + elementValue.StateName + "</option>");
+                    });
+                }
+            }
+        });
+    }
+    var fillLCityList = function (stateid) {
+        var params = { StateID: stateid };
+        $.ajax({
+            url: '/City/GetCityListbyState',
+            method: "post",
+            data: JSON.stringify(params),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if ($.trim(response.error) != "") {
+                    //this.cancelChanges();
+                } else {
+                    $("#ddlCity").empty();
+                    $("#ddlCity").append("<option value='0'>Select City</option>");
+                    $.each(response, function (index, elementValue) {
+                        console.log(response)
+                        $("#ddlCity").append("<option value=" + elementValue.ID + ">" + elementValue.CityName + "</option>");
+                    });
+                }
+            }
+        });
+    }
+    var fillMarketSourceDDL = function () {
+        $.ajax({
+            url: '/Admin/ProspectManagement/GetDdlMarketSourceList',
+            method: "post",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+
+                $("#ddlMarketSource").empty();
+                $("#ddlMarketSource").append("<option value='0'>-- Select Market Source --</option>");
+                $.each(response.model, function (index, elementValue) {
+                    $("#ddlMarketSource").append("<option value=" + elementValue.AdID + ">" + elementValue.Advertiser + "</option>");
+                });
+
+            }
+        });
+    }
+</script>
+<script>
+    // Get the modal
+    var layoutmodal = document.getElementById("modalMaplayout");
+    // Get the button that opens the modal
+
+
+    // Get the <span> element that closes the modal
+    var closeMap = document.getElementById("closemap");
+
+    // When the user clicks the button, open the modal
+
+    // When the user clicks on <span> (x), close the modal
+    closeMap.onclick = function () {
+        layoutmodal.style.display = "none";
+        startcarousel();
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == layoutmodal) {
+            layoutmodal.style.display = "none";
+        }
+    }
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#btnmapfloor,#btnmaplayout,#btnmapIndex,#btnmapcontact").on('click', function (e) {
+            $("#modalMaplayout").css("display", "block");
+        });
+        $('.owl-carousel').trigger('stop.owl.autoplay');
+    });
+</script>

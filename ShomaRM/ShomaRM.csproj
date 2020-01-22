@@ -1,0 +1,840 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{434D1E46-E0D4-4E53-BD19-9563EEE0254C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ShomaRM</RootNamespace>
+    <AssemblyName>ShomaRM</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="DocuSign.eSign, Version=4.0.4.0, Culture=neutral, PublicKeyToken=7fca6fcbbc219ede, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocuSign.eSign.dll.4.0.4\lib\net45\DocuSign.eSign.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.5.4.0\lib\net451\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.5.4.0\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.5.4.0\lib\net451\Microsoft.IdentityModel.Protocols.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.4.0\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=100.0.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharpSigned.105.2.3\lib\net46\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGrid.SmtpApi, Version=1.2.1.0, Culture=neutral, PublicKeyToken=2ae73662c35d80e4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SendGrid.SmtpApi.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.4.0\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="USAePayAPI, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\USAePayAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminHomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Amenities\AmenitiesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BankAccount\BankAccountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CashReceipt\CashReceiptController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ChargeType\ChargeTypeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\City\CityController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CommunityManagment\CommunityManagmentController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Document\DocumentController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Event\EventController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Facility\FacilityController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FOB\FOBController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Invoice\InvoiceController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LeaseManagement\LeaseManagementController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LeaseTerms\LeaseTermsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MarketSource\MarketSourceController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Models\ModelsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Notice\NoticeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Parking\ParkingController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PetManagement\PetManagementController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Premium Type\PremiumTypeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Promotion\PromotionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PropertyManagement\PropertyManagementController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProspectManagement\ProspectManagementController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProspectVerification\ProspectVerificationController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PurchaseOrder\PurchaseOrderController.cs" />
+    <Compile Include="Areas\Admin\Controllers\State\StateController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Storage\StorageController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Tenant\TenantController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Transaction\TransactionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Users\UsersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Utility\UtilityController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Vendor\VendorController.cs" />
+    <Compile Include="Areas\Admin\Models\AdminCommonModel.cs" />
+    <Compile Include="Areas\Admin\Models\Amenities\AmenitiesModel.cs" />
+    <Compile Include="Areas\Admin\Models\BankAccount\BankAccountModel.cs" />
+    <Compile Include="Areas\Admin\Models\CashReceipt\CashReceiptModel.cs" />
+    <Compile Include="Areas\Admin\Models\ChargeType\ChargeTypeModel.cs" />
+    <Compile Include="Areas\Admin\Models\City\CityModel.cs" />
+    <Compile Include="Areas\Admin\Models\CommunityActivity\CommunityActivityModel.cs" />
+    <Compile Include="Areas\Admin\Models\Document\DocumentModel.cs" />
+    <Compile Include="Areas\Admin\Models\Event\EventModel.cs" />
+    <Compile Include="Areas\Admin\Models\Facility\FacilityModel.cs" />
+    <Compile Include="Areas\Admin\Models\FOB\FOBModel.cs" />
+    <Compile Include="Areas\Admin\Models\Invoice\InvoiceModel.cs" />
+    <Compile Include="Areas\Admin\Models\LeaseManagement\LeaseManagementModel.cs" />
+    <Compile Include="Areas\Admin\Models\LeaseTerms\LeaseTermsModel.cs" />
+    <Compile Include="Areas\Admin\Models\MarketSource\MarketSourceModel.cs" />
+    <Compile Include="Areas\Admin\Models\Notice\NoticeModel.cs" />
+    <Compile Include="Areas\Admin\Models\Parking\ParkingModel.cs" />
+    <Compile Include="Areas\Admin\Models\PetManagement\PetManagementModel.cs" />
+    <Compile Include="Areas\Admin\Models\PremiumType\PremiumTypeModel.cs" />
+    <Compile Include="Areas\Admin\Models\Promotion\PromotionModel.cs" />
+    <Compile Include="Areas\Admin\Models\PropertyManagement\PropertyManagementModel.cs" />
+    <Compile Include="Areas\Admin\Models\ProspectManagement\ProspectManagementModel.cs" />
+    <Compile Include="Areas\Admin\Models\ProspectVerification\ProspectVerificationModel.cs" />
+    <Compile Include="Areas\Admin\Models\PurchaseOrder\PurchaseOrderModel.cs" />
+    <Compile Include="Areas\Admin\Models\SendGrid\EmailSendModel.cs" />
+    <Compile Include="Areas\Admin\Models\SendGrid\InvalidApiRequestException.cs" />
+    <Compile Include="Areas\Admin\Models\SendGrid\ISendGrid.cs" />
+    <Compile Include="Areas\Admin\Models\SendGrid\ITransport.cs" />
+    <Compile Include="Areas\Admin\Models\SendGrid\SendGrid.cs" />
+    <Compile Include="Areas\Admin\Models\SendGrid\Web.cs" />
+    <Compile Include="Areas\Admin\Models\State\StateModel.cs" />
+    <Compile Include="Areas\Admin\Models\Storage\StorageModel.cs" />
+    <Compile Include="Areas\Admin\Models\Tenant\TenantModel.cs" />
+    <Compile Include="Areas\Admin\Models\Transaction\TransactionModel.cs" />
+    <Compile Include="Areas\Admin\Models\Users\UsersModel.cs" />
+    <Compile Include="Areas\Admin\Models\Utility\UtilityModel.cs" />
+    <Compile Include="Areas\Admin\Models\Vendor\VendorModel.cs" />
+    <Compile Include="Areas\Tenant\Controllers\Applicant\ApplicantController.cs" />
+    <Compile Include="Areas\Tenant\Controllers\CommunityActivity\CommunityActivityController.cs" />
+    <Compile Include="Areas\Tenant\Controllers\Dashboard\DashboardController.cs" />
+    <Compile Include="Areas\Tenant\Controllers\EventBooking\EventBookingController.cs" />
+    <Compile Include="Areas\Tenant\Controllers\FacilityBooking\FacilityBookingController.cs" />
+    <Compile Include="Areas\Tenant\Controllers\FontTest\FontTestController.cs" />
+    <Compile Include="Areas\Tenant\Controllers\GuestRegistration\GuestRegistrationController.cs" />
+    <Compile Include="Areas\Tenant\Controllers\Lease\LeaseController.cs" />
+    <Compile Include="Areas\Tenant\Controllers\MyAccount\MyAccountController.cs" />
+    <Compile Include="Areas\Tenant\Controllers\MyCommunity\MyCommunityController.cs" />
+    <Compile Include="Areas\Tenant\Controllers\Myprofile\MyProfileController.cs" />
+    <Compile Include="Areas\Tenant\Controllers\MyTransaction\MyTransactionController.cs" />
+    <Compile Include="Areas\Tenant\Controllers\PaymentAccounts\PaymentAccountsController.cs" />
+    <Compile Include="Areas\Tenant\Controllers\Pet\PetController.cs" />
+    <Compile Include="Areas\Tenant\Controllers\ServiceRequest\ServiceRequestController.cs" />
+    <Compile Include="Areas\Tenant\Controllers\TenantHomeController.cs" />
+    <Compile Include="Areas\Tenant\Controllers\UtilityBilling\UtilityBillingController.cs" />
+    <Compile Include="Areas\Tenant\Controllers\Vehicle\VehicleController.cs" />
+    <Compile Include="Areas\Tenant\Controllers\WorkOrder\WorkOrderController.cs" />
+    <Compile Include="Areas\Tenant\Models\ApplicantHistory\ApplicantHistoryModel.cs" />
+    <Compile Include="Areas\Tenant\Models\Applicant\ApplicantModel.cs" />
+    <Compile Include="Areas\Tenant\Models\CommunityActivity\CommunityActivityModel.cs" />
+    <Compile Include="Areas\Tenant\Models\EventBooking\EventBookingModel.cs" />
+    <Compile Include="Areas\Tenant\Models\FacilityBooking\FacilityBookingModel.cs" />
+    <Compile Include="Areas\Tenant\Models\GuestRegistration\GuestRegistrationModel.cs" />
+    <Compile Include="Areas\Tenant\Models\Lease\LeaseModel.cs" />
+    <Compile Include="Areas\Tenant\Models\MyAccount\MyAccountModel.cs" />
+    <Compile Include="Areas\Tenant\Models\MyCommunity\MyCommunityModel.cs" />
+    <Compile Include="Areas\Tenant\Models\MyTransaction\MyTransactionModel.cs" />
+    <Compile Include="Areas\Tenant\Models\PaymentAccounts\PaymentAccountsModel.cs" />
+    <Compile Include="Areas\Tenant\Models\Pet\PetModel.cs" />
+    <Compile Include="Areas\Tenant\Models\Ratings\RatingModel.cs" />
+    <Compile Include="Areas\Tenant\Models\ServiceRequest\ServiceRequestModel.cs" />
+    <Compile Include="Areas\Tenant\Models\UtilityBilling\UtilityBillingModel.cs" />
+    <Compile Include="Areas\Tenant\Models\Vehicle\VehicleModel.cs" />
+    <Compile Include="Areas\Tenant\Models\WorkOrder\WorkOrderModel.cs" />
+    <Compile Include="Areas\Tenant\TenantAreaRegistration.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApplyNow\ApplyNowController.cs" />
+    <Compile Include="Controllers\ApplyNow\CheckListController.cs" />
+    <Compile Include="Controllers\ApplyNow\PayLinkController.cs" />
+    <Compile Include="Controllers\EmbeddedSigningController.cs" />
+    <Compile Include="Controllers\Gallery\GalleryController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Property\PropertyController.cs" />
+    <Compile Include="Controllers\Prospect\ProspectController.cs" />
+    <Compile Include="Controllers\ShomaGroupWebAuthorizationController.cs" />
+    <Compile Include="Controllers\Verification\VerificationController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountViewModel.cs" />
+    <Compile Include="Models\Admin\Gallery\GalleryModel.cs" />
+    <Compile Include="Models\ApplyNow\ApplyNowModel.cs" />
+    <Compile Include="Models\ApplyNow\CheckListModel.cs" />
+    <Compile Include="Models\ApplyNow\OnlineProspectModule.cs" />
+    <Compile Include="Models\CommonModel.cs" />
+    <Compile Include="Models\Property\PropertyModel.cs" />
+    <Compile Include="Models\Prospect\ProspectModel.cs" />
+    <Compile Include="Models\SendGrid\EmailSendModel.cs" />
+    <Compile Include="Models\SendGrid\InvalidApiRequestException.cs" />
+    <Compile Include="Models\SendGrid\ISendGrid.cs" />
+    <Compile Include="Models\SendGrid\ITransport.cs" />
+    <Compile Include="Models\SendGrid\SendGrid.cs" />
+    <Compile Include="Models\SendGrid\Web.cs" />
+    <Compile Include="Models\ShomaGroupWebSession.cs" />
+    <Compile Include="Models\TenantOnline\TenantOnlineModel.cs" />
+    <Compile Include="Models\Transaction\UsaePayModel.cs" />
+    <Compile Include="Models\Verification\VerificationModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Content\Pages\BankAccount\BankAccount.js" />
+    <Content Include="Areas\Admin\Content\Pages\BankAccount\BankAccountList.js" />
+    <Content Include="Areas\Admin\Content\Pages\CashReceipt\CashReceipt.js" />
+    <Content Include="Areas\Admin\Content\Pages\CashReceipt\CashReceiptList.js" />
+    <Content Include="Areas\Admin\Content\Pages\ChargeType\ChargeType.js" />
+    <Content Include="Areas\Admin\Content\Pages\CommunityManagment\CommunityActivityList.js" />
+    <Content Include="Areas\Admin\Content\Pages\Document\Document.js" />
+    <Content Include="Areas\Admin\Content\Pages\Event\Event.js" />
+    <Content Include="Areas\Admin\Content\Pages\Event\EventList.js" />
+    <Content Include="Areas\Admin\Content\Pages\Facility\Facility.js" />
+    <Content Include="Areas\Admin\Content\Pages\Facility\FacilityList.js" />
+    <Content Include="Areas\Admin\Content\Pages\FOB\FOB.js" />
+    <Content Include="Areas\Admin\Content\Pages\Invoice\Invoice.js" />
+    <Content Include="Areas\Admin\Content\Pages\Invoice\InvoiceList.js" />
+    <Content Include="Areas\Admin\Content\Pages\LeaseTerms\LeaseTerms.js" />
+    <Content Include="Areas\Admin\Content\Pages\MarketSource\MarketSource.js" />
+    <Content Include="Areas\Admin\Content\Pages\Models\Models.js" />
+    <Content Include="Areas\Admin\Content\Pages\Notice\Notice.js" />
+    <Content Include="Areas\Admin\Content\Pages\Notice\NoticeList.js" />
+    <Content Include="Areas\Admin\Content\Pages\Parking\Parking.js" />
+    <Content Include="Areas\Admin\Content\Pages\PetManagement\PetManagement.js" />
+    <Content Include="Areas\Admin\Content\Pages\PremiumType\PremiumType.js" />
+    <Content Include="Areas\Admin\Content\Pages\Promotion\Promotion.js" />
+    <Content Include="Areas\Admin\Content\Pages\PropertyManagement\PropertyList.js" />
+    <Content Include="Areas\Admin\Content\Pages\ProspectManagement\ProspectList.js" />
+    <Content Include="Areas\Admin\Content\Pages\ProspectVerification\ProspectVerification.js" />
+    <Content Include="Areas\Admin\Content\Pages\ProspectVerification\ProspectVerificationList.js" />
+    <Content Include="Areas\Admin\Content\Pages\PurchaseOrder\PurchaseOrder.js" />
+    <Content Include="Areas\Admin\Content\Pages\PurchaseOrder\PurchaseOrderList.js" />
+    <Content Include="Areas\Admin\Content\Pages\State\StateList.js" />
+    <Content Include="Areas\Admin\Content\Pages\Storage\Storage.js" />
+    <Content Include="Areas\Admin\Content\Pages\Transaction\Transaction.js" />
+    <Content Include="Areas\Admin\Content\Pages\Transaction\TransactionList.js" />
+    <Content Include="Areas\Admin\Content\Pages\Utility\Utility.js" />
+    <Content Include="Areas\Admin\Content\Pages\Vendor\Vendor.js" />
+    <Content Include="Areas\Admin\Content\Pages\Vendor\VendorList.js" />
+    <Content Include="Areas\Tenant\Content\Pages\Dashboard\Dashboard.js" />
+    <Content Include="Areas\Tenant\Content\Pages\EventBooking\EventBooking.js" />
+    <Content Include="Areas\Tenant\Content\Pages\FacilityBooking\FacilityBooking.js" />
+    <Content Include="Areas\Tenant\Content\Pages\MyAccount\MyAccount.js" />
+    <Content Include="Areas\Tenant\Content\Pages\MyCommunity\MyCommunity.js" />
+    <Content Include="Areas\Tenant\Content\Pages\MyProfile\Myrofile.js" />
+    <Content Include="Areas\Tenant\Content\Pages\UtilityBilling\UtilityBilling.js" />
+    <Content Include="Areas\Tenant\Content\Pages\WorkOrder\WorkOrder.js" />
+    <Content Include="Content\assets\Assets\alarm.png" />
+    <Content Include="Content\assets\Assets\angle-arrow-down.png" />
+    <Content Include="Content\assets\Assets\cheers-whight.png" />
+    <Content Include="Content\assets\Assets\cheers.png" />
+    <Content Include="Content\assets\Assets\clarisse-meyer-x9cXI2eQLBw-unsplash.jpg" />
+    <Content Include="Content\assets\Assets\dashboard.png" />
+    <Content Include="Content\assets\Assets\handyman-tools.png" />
+    <Content Include="Content\assets\Assets\home.png" />
+    <Content Include="Content\assets\Assets\hunter-johnson-OK7VpKfbb_c-unsplash.jpg" />
+    <Content Include="Content\assets\Assets\hunter-johnson-OK7VpKfbb_c-unsplash_123.jpg" />
+    <Content Include="Content\assets\Assets\icon.png" />
+    <Content Include="Content\assets\Assets\id-card.png" />
+    <Content Include="Content\assets\Assets\max-andrey-6_9TzlWhpdM-unsplash.jpg" />
+    <Content Include="Content\assets\Assets\multiple-users-silhouette.png" />
+    <Content Include="Content\assets\Assets\paperclip.png" />
+    <Content Include="Content\assets\Assets\user-64.png" />
+    <Content Include="Content\assets\css\animate.css" />
+    <Content Include="Content\assets\css\bootstrap-datetimepicker.css" />
+    <Content Include="Content\assets\css\bootstrap-select.min.css" />
+    <Content Include="Content\assets\css\bootstrap-theme.css" />
+    <Content Include="Content\assets\css\datepicker.css" />
+    <Content Include="Content\assets\css\font-awesome.min.css" />
+    <Content Include="Content\assets\css\fontello.css" />
+    <Content Include="Content\assets\css\icheck.min_all.css" />
+    <Content Include="Content\assets\css\ion.rangeSlider.css" />
+    <Content Include="Content\assets\css\ion.rangeSlider.skinFlat.css" />
+    <Content Include="Content\assets\css\ion.rangeSlider.skinNice.css" />
+    <Content Include="Content\assets\css\jAlert.css" />
+    <Content Include="Content\assets\css\jquery.slitslider.css" />
+    <Content Include="Content\assets\css\lightslider.min.css" />
+    <Content Include="Content\assets\css\normalize.css" />
+    <Content Include="Content\assets\css\owl.carousel.css" />
+    <Content Include="Content\assets\css\owl.theme.css" />
+    <Content Include="Content\assets\css\owl.transitions.css" />
+    <Content Include="Content\assets\css\popupwindow.css" />
+    <Content Include="Content\assets\css\price-range.css" />
+    <Content Include="Content\assets\css\PrintGuest.css" />
+    <Content Include="Content\assets\css\responsive.css" />
+    <Content Include="Content\assets\css\slider.css" />
+    <Content Include="Content\assets\css\style.css" />
+    <Content Include="Content\assets\css\styleNoJS.css" />
+    <Content Include="Content\assets\css\wizard.css" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont_1.svg" />
+    <Content Include="Content\assets\fonts\fontello\fontello.svg" />
+    <Content Include="Content\assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\assets\fonts\icon-7-stroke\css\helper.css" />
+    <Content Include="Content\assets\fonts\icon-7-stroke\css\pe-icon-7-stroke.css" />
+    <Content Include="Content\assets\fonts\icon-7-stroke\fonts\Pe-icon-7-stroke.svg" />
+    <Content Include="Content\assets\img\Ad sanctuary promotions.png" />
+    <Content Include="Content\assets\img\ads.jpg" />
+    <Content Include="Content\assets\img\ads.png" />
+    <Content Include="Content\assets\img\ads1.png" />
+    <Content Include="Content\assets\img\arrow-left.svg" />
+    <Content Include="Content\assets\img\arrow-right.svg" />
+    <Content Include="Content\assets\img\arrows-small.png" />
+    <Content Include="Content\assets\img\arrows.png" />
+    <Content Include="Content\assets\img\bg-footer.jpg" />
+    <Content Include="Content\assets\img\blog1.jpg" />
+    <Content Include="Content\assets\img\blog2.jpg" />
+    <Content Include="Content\assets\img\chevron-down.png" />
+    <Content Include="Content\assets\img\client-face1.png" />
+    <Content Include="Content\assets\img\client-face2.png" />
+    <Content Include="Content\assets\img\controls.png" />
+    <Content Include="Content\assets\img\default-property.jpg" />
+    <Content Include="Content\assets\img\demo\property-1.jpg" />
+    <Content Include="Content\assets\img\demo\property-2.jpg" />
+    <Content Include="Content\assets\img\demo\property-3.jpg" />
+    <Content Include="Content\assets\img\demo\property-4.jpg" />
+    <Content Include="Content\assets\img\demo\property-5.jpg" />
+    <Content Include="Content\assets\img\demo\property-6.jpg" />
+    <Content Include="Content\assets\img\demo\small-proerty-2.jpg" />
+    <Content Include="Content\assets\img\demo\small-property-1.jpg" />
+    <Content Include="Content\assets\img\demo\small-property-2.jpg" />
+    <Content Include="Content\assets\img\demo\small-property-3.jpg" />
+    <Content Include="Content\assets\img\Document\EmailTemplate.html" />
+    <Content Include="Content\assets\img\Document\EmailTemplateProspect.html" />
+    <Content Include="Content\assets\img\Document\EmailTemplateProspect1.html" />
+    <Content Include="Content\assets\img\Document\EmailTemplateProspect2.html" />
+    <Content Include="Content\assets\img\Document\ForgetPassword.html" />
+    <Content Include="Content\assets\img\Document\images\divider.png" />
+    <Content Include="Content\assets\img\Document\images\facebook%402x.png" />
+    <Content Include="Content\assets\img\Document\images\googleplus%402x.png" />
+    <Content Include="Content\assets\img\Document\images\rounder-dwn.png" />
+    <Content Include="Content\assets\img\Document\images\rounder-up.png" />
+    <Content Include="Content\assets\img\Document\images\twitter%402x.png" />
+    <Content Include="Content\assets\img\dsdsds33 - Copy.png" />
+    <Content Include="Content\assets\img\footer-logo-2.png" />
+    <Content Include="Content\assets\img\footer-logo.png" />
+    <Content Include="Content\assets\img\footer-logo1.png" />
+    <Content Include="Content\assets\img\icon-shearch.png" />
+    <Content Include="Content\assets\img\icon\bed-orange.png" />
+    <Content Include="Content\assets\img\icon\bed.png" />
+    <Content Include="Content\assets\img\icon\cars-orange.png" />
+    <Content Include="Content\assets\img\icon\cars.png" />
+    <Content Include="Content\assets\img\icon\os-orange.png" />
+    <Content Include="Content\assets\img\icon\os.png" />
+    <Content Include="Content\assets\img\icon\picine-orange.png" />
+    <Content Include="Content\assets\img\icon\picine.png" />
+    <Content Include="Content\assets\img\icon\rent-orange.png" />
+    <Content Include="Content\assets\img\icon\room-orange.png" />
+    <Content Include="Content\assets\img\icon\room.png" />
+    <Content Include="Content\assets\img\icon\sale-orange.png" />
+    <Content Include="Content\assets\img\icon\shawer-orange.png" />
+    <Content Include="Content\assets\img\icon\shawer.png" />
+    <Content Include="Content\assets\img\loader.gif" />
+    <Content Include="Content\assets\img\logo.png" />
+    <Content Include="Content\assets\img\logo1.png" />
+    <Content Include="Content\assets\img\page-header.jpg" />
+    <Content Include="Content\assets\img\preloader.gif" />
+    <Content Include="Content\assets\img\pro-ads.jpg" />
+    <Content Include="Content\assets\img\property-video.jpg" />
+    <Content Include="Content\assets\img\ProUntitled.png" />
+    <Content Include="Content\assets\img\similar\property-1.jpg" />
+    <Content Include="Content\assets\img\similar\property-2.jpg" />
+    <Content Include="Content\assets\img\similar\property-3.jpg" />
+    <Content Include="Content\assets\img\skin\aero%402x.png" />
+    <Content Include="Content\assets\img\skin\aero.png" />
+    <Content Include="Content\assets\img\skin\blue%402x.png" />
+    <Content Include="Content\assets\img\skin\blue.png" />
+    <Content Include="Content\assets\img\skin\green%402x.png" />
+    <Content Include="Content\assets\img\skin\green.png" />
+    <Content Include="Content\assets\img\skin\grey%402x.png" />
+    <Content Include="Content\assets\img\skin\grey.png" />
+    <Content Include="Content\assets\img\skin\orange%402x.png" />
+    <Content Include="Content\assets\img\skin\orange.png" />
+    <Content Include="Content\assets\img\skin\pink%402x.png" />
+    <Content Include="Content\assets\img\skin\pink.png" />
+    <Content Include="Content\assets\img\skin\purple%402x.png" />
+    <Content Include="Content\assets\img\skin\purple.png" />
+    <Content Include="Content\assets\img\skin\red%402x.png" />
+    <Content Include="Content\assets\img\skin\red.png" />
+    <Content Include="Content\assets\img\skin\sanctuary%402x.png" />
+    <Content Include="Content\assets\img\skin\sanctuary.png" />
+    <Content Include="Content\assets\img\skin\square%402x.png" />
+    <Content Include="Content\assets\img\skin\square.png" />
+    <Content Include="Content\assets\img\skin\yellow%402x.png" />
+    <Content Include="Content\assets\img\skin\yellow.png" />
+    <Content Include="Content\assets\img\skin\yellow_1.png" />
+    <Content Include="Content\assets\img\slide-2.jpg" />
+    <Content Include="Content\assets\img\slide2\1.jpg" />
+    <Content Include="Content\assets\img\social_big\delicious_grey.png" />
+    <Content Include="Content\assets\img\social_big\delicious_white.png" />
+    <Content Include="Content\assets\img\social_big\digg_grey.png" />
+    <Content Include="Content\assets\img\social_big\digg_white.png" />
+    <Content Include="Content\assets\img\social_big\dribbble_grey.png" />
+    <Content Include="Content\assets\img\social_big\dribbble_white.png" />
+    <Content Include="Content\assets\img\social_big\facebook_grey.png" />
+    <Content Include="Content\assets\img\social_big\facebook_white.png" />
+    <Content Include="Content\assets\img\social_big\linkedin_grey.png" />
+    <Content Include="Content\assets\img\social_big\linkedin_white.png" />
+    <Content Include="Content\assets\img\social_big\rss_grey.png" />
+    <Content Include="Content\assets\img\social_big\rss_white.png" />
+    <Content Include="Content\assets\img\social_big\tumblr_grey.png" />
+    <Content Include="Content\assets\img\social_big\tumblr_white.png" />
+    <Content Include="Content\assets\img\social_big\twitter_grey.png" />
+    <Content Include="Content\assets\img\social_big\twitter_white.png" />
+    <Content Include="Content\assets\img\social_big\vimeo_grey.png" />
+    <Content Include="Content\assets\img\social_big\vimeo_white.png" />
+    <Content Include="Content\assets\img\social_big\youtube_grey.png" />
+    <Content Include="Content\assets\img\social_big\youtube_white.png" />
+    <Content Include="Content\assets\img\welcome-bg.png" />
+    <Content Include="Content\assets\js\bootstrap-datepicker.js" />
+    <Content Include="Content\assets\js\bootstrap-datetimepicker.js" />
+    <Content Include="Content\assets\js\bootstrap-hover-dropdown.js" />
+    <Content Include="Content\assets\js\bootstrap-select.min.js" />
+    <Content Include="Content\assets\js\bootstrap-slider.js" />
+    <Content Include="Content\assets\js\bootstrap-wizard.min.js" />
+    <Content Include="Content\assets\js\bootstrap.min.js" />
+    <Content Include="Content\assets\js\easypiechart.min.js" />
+    <Content Include="Content\assets\js\glDatePicker.js" />
+    <Content Include="Content\assets\js\glDatePicker.min.js" />
+    <Content Include="Content\assets\js\gmaps.init.js" />
+    <Content Include="Content\assets\js\gmaps.js" />
+    <Content Include="Content\assets\js\icheck.min.js" />
+    <Content Include="Content\assets\js\jAlert.min.js" />
+    <Content Include="Content\assets\js\jquery-1.10.2.min.js" />
+    <Content Include="Content\assets\js\jquery.ba-cond.min.js" />
+    <Content Include="Content\assets\js\jquery.bootstrap.wizard.js" />
+    <Content Include="Content\assets\js\jquery.easypiechart.min.js" />
+    <Content Include="Content\assets\js\jquery.maphilight.js" />
+    <Content Include="Content\assets\js\jquery.min.js" />
+    <Content Include="Content\assets\js\jquery.simplePagination.js" />
+    <Content Include="Content\assets\js\jquery.slitslider.js" />
+    <Content Include="Content\assets\js\jquery.validate.min.js" />
+    <Content Include="Content\assets\js\jTimeout.js" />
+    <Content Include="Content\assets\js\lightslider.min.js" />
+    <Content Include="Content\assets\js\main.js" />
+    <Content Include="Content\assets\js\modernizr-2.6.2.min.js" />
+    <Content Include="Content\assets\js\modernizr.custom.79639.js" />
+    <Content Include="Content\assets\js\owl.carousel.min.js" />
+    <Content Include="Content\assets\js\plugins.js" />
+    <Content Include="Content\assets\js\popupwindow.js" />
+    <Content Include="Content\assets\js\price-range.js" />
+    <Content Include="Content\assets\js\wizard.js" />
+    <Content Include="Content\assets\js\wow.js" />
+    <Content Include="Content\assets\js\wow.min.js" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\bootstrap\js\npm.js" />
+    <Content Include="Content\file-Upload.js" />
+    <Content Include="Content\fileUpload.css" />
+    <Content Include="Content\jquery-confirm-master\animations.html" />
+    <Content Include="Content\jquery-confirm-master\callback.html" />
+    <Content Include="Content\jquery-confirm-master\css\jquery-confirm.css" />
+    <Content Include="Content\jquery-confirm-master\demo\demo.css" />
+    <Content Include="Content\jquery-confirm-master\demo\demo.js" />
+    <Content Include="Content\jquery-confirm-master\demo\libs\bundled.css" />
+    <Content Include="Content\jquery-confirm-master\demo\libs\bundled.js" />
+    <Content Include="Content\jquery-confirm-master\demo\libs\fonts\fontawesome-webfont.svg">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Content\jquery-confirm-master\demo\logo-name.svg" />
+    <Content Include="Content\jquery-confirm-master\dist\jquery-confirm.min.css" />
+    <Content Include="Content\jquery-confirm-master\dist\jquery-confirm.min.js" />
+    <Content Include="Content\jquery-confirm-master\form.html" />
+    <Content Include="Content\jquery-confirm-master\index.html" />
+    <Content Include="Content\jquery-confirm-master\jquery-confirm.png" />
+    <Content Include="Content\jquery-confirm-master\js\jquery-confirm.js" />
+    <Content Include="Content\jquery-confirm-master\table.html" />
+    <Content Include="Content\jquery-confirm-master\text.txt" />
+    <Content Include="Content\jquery-confirm-master\themelayout.png" />
+    <Content Include="Content\jquery-confirm-master\themes.html" />
+    <Content Include="Areas\Admin\Content\Pages\Amenities\Amenities.js" />
+    <Content Include="Areas\Admin\Content\Pages\City\City.js" />
+    <Content Include="Areas\Admin\Content\Pages\LeaseManagement\LeaseManagement.js" />
+    <Content Include="Areas\Admin\Content\Pages\PropertyManagement\Property.js" />
+    <Content Include="Areas\Admin\Content\Pages\ProspectManagement\ProspectManagement.js" />
+    <Content Include="Areas\Admin\Content\Pages\State\State.js" />
+    <Content Include="Areas\Admin\Content\Pages\Tenant\Tenant.js" />
+    <Content Include="Areas\Admin\Content\Pages\Tenant\TenantList.js" />
+    <Content Include="Areas\Admin\Content\Pages\Users\Users.js" />
+    <Content Include="Areas\Admin\Content\Pages\Users\UsersList.js" />
+    <Content Include="Content\jquery.countdown.js" />
+    <Content Include="Content\jquery.countdown.min.js" />
+    <Content Include="Content\Pages\ApplyNow\ApplyNow.js" />
+    <Content Include="Content\Pages\ApplyNow\DocumentVerification.js" />
+    <Content Include="Content\Pages\common.js" />
+    <Content Include="Content\Pages\Gallery\Gallery.js" />
+    <Content Include="Content\Pages\Home.js" />
+    <Content Include="Content\Pages\Property\Property.js" />
+    <Content Include="Content\Pages\Prospect\Prospect.js" />
+    <Content Include="Content\Pages\Tenant\Tenant.js" />
+    <Content Include="Content\Pages\Verification\Verification.js" />
+    <Content Include="Content\zabuto_calendar.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont_1.eot" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont_1.ttf" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont_1.woff" />
+    <Content Include="Content\assets\fonts\FontAwesome.otf" />
+    <Content Include="Content\assets\fonts\FontAwesome_1.otf" />
+    <Content Include="Content\assets\fonts\fontello\fontello.eot" />
+    <Content Include="Content\assets\fonts\fontello\fontello.ttf" />
+    <Content Include="Content\assets\fonts\fontello\fontello.woff" />
+    <Content Include="Content\assets\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\assets\fonts\icon-7-stroke\fonts\Pe-icon-7-stroke.eot" />
+    <Content Include="Content\assets\fonts\icon-7-stroke\fonts\Pe-icon-7-stroke.ttf" />
+    <Content Include="Content\assets\fonts\icon-7-stroke\fonts\Pe-icon-7-stroke.woff" />
+    <Content Include="Content\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\AddEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\City\AddEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\City\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\State\AddEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\State\Index.cshtml" />
+    <Content Include="Areas\Tenant\Views\web.config" />
+    <Content Include="Areas\Tenant\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Tenant\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Tenant\Views\Property\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\PropertyManagement\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PropertyManagement\EditProperty.cshtml" />
+    <Content Include="Areas\Tenant\Views\TenantHome\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Amenities\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Tenant\AddEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\Tenant\Index.cshtml" />
+    <Content Include="Areas\Tenant\Views\MyAccount\Index.cshtml" />
+    <Content Include="Content\jquery-confirm-master\.github\ISSUE_TEMPLATE.md" />
+    <Content Include="Content\jquery-confirm-master\.gitignore" />
+    <Content Include="Content\jquery-confirm-master\bower.json" />
+    <Content Include="Content\jquery-confirm-master\css\jquery-confirm.less" />
+    <Content Include="Content\jquery-confirm-master\demo\libs\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\jquery-confirm-master\demo\libs\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\jquery-confirm-master\demo\libs\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\jquery-confirm-master\demo\libs\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\jquery-confirm-master\demo\libs\fonts\FontAwesome.otf" />
+    <Content Include="Content\jquery-confirm-master\LICENSE" />
+    <Content Include="Content\jquery-confirm-master\package.json" />
+    <Content Include="Content\jquery-confirm-master\README.md" />
+    <Content Include="Areas\Tenant\Views\WorkOrder\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProspectManagement\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProspectManagement\AddEdit.cshtml" />
+    <Content Include="Areas\Tenant\Views\UtilityBilling\Index.cshtml" />
+    <Content Include="Areas\Tenant\Views\UtilityBilling\Edit.cshtml" />
+    <Content Include="Areas\Tenant\Views\Lease\Index.cshtml" />
+    <Content Include="Areas\Tenant\Views\WorkOrder\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\LeaseManagement\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\LeaseManagement\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Notice\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Utility\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ChargeType\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Invoice\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Invoice\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PurchaseOrder\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\PurchaseOrder\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Vendor\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Vendor\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Notice\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\PropertyManagement\_EditPropUnit.cshtml" />
+    <Content Include="Areas\Admin\Views\CashReceipt\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\CashReceipt\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\LeaseManagement\_Edit.cshtml" />
+    <Content Include="Areas\Tenant\Views\Lease\_Lease.cshtml" />
+    <Content Include="Areas\Admin\Views\Transaction\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Transaction\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Event\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Event\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Facility\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Facility\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\BankAccount\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\BankAccount\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Document\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Document\Index.cshtml" />
+    <Content Include="Areas\Tenant\Views\EventBooking\Edit.cshtml" />
+    <Content Include="Areas\Tenant\Views\EventBooking\Index.cshtml" />
+    <Content Include="Areas\Tenant\Views\FacilityBooking\Edit.cshtml" />
+    <Content Include="Areas\Tenant\Views\FacilityBooking\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProspectVerification\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProspectVerification\EditProspect.cshtml" />
+    <Content Include="Areas\Admin\Views\MarketSource\AddEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\MarketSource\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Parking\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Storage\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Promotion\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Promotion\Index.cshtml" />
+    <Content Include="Content\assets\img\Document\Pet_Policies.pdf" />
+    <Content Include="Areas\Admin\Views\Models\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Models\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PropertyManagement\_EditPropModel.cshtml" />
+    <Content Include="Areas\Admin\Views\LeaseTerms\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PremiumType\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\FOB\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PetManagement\Index.cshtml" />
+    <Content Include="Areas\Tenant\Views\MyCommunity\Index.cshtml" />
+    <Content Include="Areas\Tenant\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Tenant\Views\MyProfile\Index.cshtml" />
+    <Content Include="Areas\Tenant\Views\TenantHome\TenantIndex.cshtml" />
+    <Content Include="Areas\Tenant\Views\FontTest\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CommunityActivity\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Property\Index.cshtml" />
+    <Content Include="Views\Property\AddEdit.cshtml" />
+    <Content Include="Views\Property\Details.cshtml" />
+    <Content Include="Views\Admin\Users\AddEdit.cshtml" />
+    <Content Include="Views\Admin\Users\Index.cshtml" />
+    <Content Include="Views\Gallery\Index.cshtml" />
+    <Content Include="Views\Prospect\Index.cshtml" />
+    <Content Include="Views\Home\FAQ.cshtml" />
+    <Content Include="Views\Home\Terms.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\ApplyNow\Index.cshtml" />
+    <Content Include="Views\Verification\Index.cshtml" />
+    <Content Include="Views\ApplyNow\PrintSummary.cshtml" />
+    <Content Include="Views\EmbeddedSigning\Index.cshtml" />
+    <Content Include="Views\PayLink\Index.cshtml" />
+    <Content Include="Views\PayLink\LeaseNow.cshtml" />
+    <Content Include="Views\CheckList\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Views\CommunityManagment\" />
+    <Folder Include="Areas\Tenant\Views\Applicant\" />
+    <Folder Include="Areas\Tenant\Views\CommunityActivity\" />
+    <Folder Include="Areas\Tenant\Views\MyTransaction\" />
+    <Folder Include="Areas\Tenant\Views\PaymentAccounts\" />
+    <Folder Include="Areas\Tenant\Views\ServiceRequest\" />
+    <Folder Include="Content\assets\img\property-1\" />
+    <Folder Include="Content\assets\img\slide1\" />
+    <Folder Include="Views\ShomaGroupWebAuthorization\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ShomaRM.Data\ShomaRM.Data.csproj">
+      <Project>{68cf2378-f894-4de1-8819-9795a5ef4156}</Project>
+      <Name>ShomaRM.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>53673</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:53680/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

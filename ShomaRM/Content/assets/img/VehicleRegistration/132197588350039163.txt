@@ -1,0 +1,13 @@
+Wednesday---
+
+1) Add 2 fields in Models Table in database.
+2) create changes in save, update function.
+3) create changes in show method function
+4) add 2 fields and design the page for same.
+
+
+Thursday---
+
+1) currency function
+2) masking ssn on focus and blur
+3) masking Identity on focus and blur 

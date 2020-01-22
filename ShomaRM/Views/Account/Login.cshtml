@@ -1,0 +1,145 @@
+﻿@using ShomaRM.Models
+@model LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+}
+<div class="page-head">
+    <div class="container">
+        <div class="row">
+            <div class="page-head-content">
+                <h1 class="page-title">Sign in </h1>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End page header -->
+<!-- register-area -->
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="box-for overflow">
+                <div class="col-md-12 col-xs-12 login-blocks">
+                    <h2>Sign In : </h2>
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "m-t", role = "form", id = "Loginform" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-red" })
+                        <form action="" method="post">
+                            <div class="form-group">
+                                <label for="email">User Name</label>
+                                <input type="text" class="form-control" id="UserName" name="UserName">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" name="Password">
+                            </div>
+                            <div class="form-group">
+                                <div class="controls pull-right">
+                                    <span><input type="checkbox" id="chkRemeber"/> Remember Me?</span>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary"> Sign in</button>
+                            </div>
+                            <div class="text-center">
+                                <a href="javascript:void(0);" onclick="ForgetPassword()" class="pull-right" style="padding-top:3%">Forget Password?</a>
+                            </div>
+                        </form>
+                    }
+                    <br>
+
+                    
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+<div id="popForgetIn" class="modal">
+    <div class="modal-header">
+        <span class="close" data-dismiss="modal">&times;</span>
+    </div>
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div id="forgtPassHead" class="text-center hide">
+            <h5 style="">Retrive Password</h5>
+        </div>
+        <div class="text-justify">
+            <div class="form-group">
+                <label for="email">Email ID</label>
+                <input type="text" class="form-control" id="txtEmailForgetPassword" name="UserName">
+            </div>
+        </div>
+        <div id="Signinbtn" class="text-center">
+            <button type="submit" class="btn btn-primary" onclick="RetrieveForgetPasswordss()"> Verify</button>
+            <a href="javascript:void(0);" onclick="SignInPass();" class="pull-right" style="padding-top:6%">Sign In</a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function ForgetPassword() {
+        $("#popForgetIn").modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+    };
+    function SignInPass() {
+        $("#popForgetIn").modal('hide');
+    };
+
+    var RetrieveForgetPasswordss = function () {
+        var msg = "";
+        var email = $("#txtEmailForgetPassword").val();
+
+        if (email == "") {
+            msg += "Enter Registerd Email ID</br>";
+        }
+
+        if (msg != "") {
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
+
+        var model = {
+            Email: email,
+        };
+        $.ajax({
+            url: "/ApplyNow/ForgetPassword/",
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                var msg = response.model.Message;
+
+                if (msg == "Invalid UserName") {
+                    $.alert({
+                        title: "",
+                        content: "Invalid UserName Please Try With Valid Id",
+                        type: 'red'
+                    });
+                }
+                else {
+                    $.alert({
+                        title: "",
+                        content: "Password send to your registered email",
+                        type: 'red'
+                    });
+                }
+            }
+
+
+        });
+    };
+</script>
+

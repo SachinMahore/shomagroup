@@ -1,0 +1,517 @@
+﻿@using ShomaRM.Areas.Admin.Models
+@model PropertyUnits
+@{
+    Layout = null;
+}
+<script src="~/Areas/Admin/Content/Pages/PropertyManagement/Property.js?v=@AdminCommonModel.ScriptVersion()"></script>
+<input type="hidden" id="hndPID" value="@Model.PID" />
+<input type="hidden" id="hndUID" value="@Model.UID" />
+<input type="hidden" id="hndPageNo" value="0" />
+<!-- property area -->
+
+<div class="tab-pane" id="step5">
+    <div class="row p-b-15  ">
+        <div class="col-sm-12">
+            <h4 class="info-text pull-left"> Let's start with the Unit information</h4>
+            <div class="pull-left"  style="margin-left:80px">
+                <input type='button' class='btn btn-default' value='Unit List' onclick="goToStep(5)" />
+            </div>
+            <div class="pull-right">
+                <button type='button' class='btn btn-default' style="width:120px;" id="prevm" onclick="goToStep(6,@Model.PreviousID)"><i class="glyphicon glyphicon-arrow-left"></i> Previous</button>
+                <button type='button' class='btn btn-default' style="width:90px;"  onclick="SaveUpdatePropertyUnit()"><i class="glyphicon glyphicon-floppy-save"></i> Save</button>
+                <button type="button" class="btn btn-success " id="btnSaveUpdate" onclick="clearUnit()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">NEW</span></button>
+                <button type='button' class='btn btn-default' style="width:100px;" onclick="delUnit(@Model.UID)"><i class="glyphicon glyphicon-trash"></i> Delete</button>
+                <button type='button' class='btn btn-default' style="width:100px;" id="nextm"  onclick="goToStep(6,@Model.NextID)">Next <i class="glyphicon glyphicon-arrow-right"></i></button>
+            </div>
+            
+           
+        </div>
+
+        <div class="col-sm-4">
+            <img src="/content/assets/img/plan/@(Model.Building).jpg" class="picture-src" id="modelPicturePreview" title="@Model.UnitNo" tooltip="Select Floor Plan" />
+            <input type="file" class="hidden" id="unit-picture">
+        </div>
+        <div class="col-sm-8">
+            <div class="col-sm-12">
+
+                <div class="col-sm-2">
+                    <div class="form-group">
+            
+                        <label class="star">Model</label>
+                        <select id="ddlModel" class="form-control"></select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="star">Bed</label>
+                        <input id="txtBedroom" type="text" class="form-control" placeholder="2" onkeypress="return isOnlyNumber(event)" value="@Model.Bedroom" disabled="disabled">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="star">Bath</label>
+                        <input id="txtBathroom" type="text" class="form-control" placeholder="1" onkeypress="return isOnlyNumber(event)" value="@Model.Bathroom" disabled="disabled">
+                    </div>
+                </div>
+               
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="star">Interior SF</label>
+                        <div class="input-group">
+                            <input id="txtInteriorArea" type="text" onkeypress="return isNumber(event)" placeholder="Interior SF" class="form-control"  style="text-align:right;width:80px" onkeyup="areaAddition()">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary search SqFtCustome" type="button" style="text-transform:unset">SF</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="star">Balcony SF</label>
+                        <div class="input-group">
+                            <input id="txtBalconyArea" type="text" onkeypress="return isNumber(event)" placeholder="Balcony SF" class="form-control"  style="text-align:right;width:80px" onkeyup="areaAddition()">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary search SqFtCustome" type="button" style="text-transform:unset">SF</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+
+                    <div class="form-group">
+                        <label class="star">Total SF</label>
+                        <div class="input-group">
+                            <input name="area" id="txtArea" type="text" onkeypress="return isNumber(event)" placeholder="0" class="form-control" style="text-align:right;width:80px" readonly="readonly">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary search SqFtCustome" type="button" style="text-transform:unset">SF</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        
+            <div class="col-sm-12">
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="star">Min Rent</label>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                </span>
+                                <input id="txtMinfRent" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" disabled="disabled" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="star">Max Rent</label>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                </span>
+                                <input id="txtMaxfRent" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" disabled="disabled" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="star">Deposit</label>
+
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                </span>
+                                <input id="txtDeposit" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" value="@Model.Deposit" disabled="disabled" />
+                            </div>
+                        </div>
+                    </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="star"> Rent</label>
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                            </span>
+                            <input id="txtCurrentRent" type="text" class="form-control" placeholder="18000" onkeypress="return isNumber(event)">
+                        </div>
+
+                    </div>
+                </div>
+                </div>
+            <div class="col-sm-12">
+
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="star">Unit Name</label>
+                            <input name="unitname" id="txtPropUnit" type="text" class="form-control" placeholder="Unit 302." value="@Model.UnitNo">
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+
+                            <label class="star">Premium Type</label>
+                            <select id="ddlPremium" class="form-control">
+                                <option value="1">Location</option>
+                                <option value="2">Oversized Balcony</option>
+                                <option value="3">Interior features</option>
+                            </select>
+                        </div>
+                    </div>
+               
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="star">Available Date</label>
+                            <input id="txtAvailableDate" type="text" class="form-control" value="@Model.AvailableDateText">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Actual MoveIn Date</label>
+                            <input id="txtActualMoveInDate" type="text" class="form-control" value="@Model.ActualMoveInDateText">
+                        </div>
+                    </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Actual MoveOut Date</label>
+                        <input id="txtActualMoveOutDate" type="text" class="form-control" value="@Model.ActualMoveOutDate">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Lease End Date</label>
+                        <input id="txtLeaseEndDate" type="text" class="form-control" value="@Model.VacancyLoss_Date">
+                    </div>
+                </div>
+
+                    <div class="col-sm-3 hidden">
+                        <div class="form-group">
+                            <label>Leased</label>
+                            <input id="txtLeased" type="text" class="form-control" placeholder="13 Month" value="@Model.Leased">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 hidden">
+                        <div class="form-group">
+                            <label class="star">PetDetails</label>
+                            <input id="txtPetDetails" type="text" class="form-control" value="@Model.PetDetails">
+                        </div>
+                    </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea id="txtUnitNotes" type="text" class="form-control">@Model.Notes</textarea>
+                    </div>
+                </div>
+                </div>
+
+                <div class="col-sm-12 ">
+
+                    <div class="col-sm-3 hidden">
+                        <div class="form-group">
+                            <label>Previous Rent</label>
+                            <input id="txtPreviousRent" type="text" class="form-control" placeholder="12000" onkeypress="return isNumber(event)" value="@Model.Previous_Rent">
+                        </div>
+                    </div>
+                    <div class="col-sm-3 hidden">
+                        <div class="form-group">
+                            <label>Market Rent</label>
+                            <input id="txtMarketRent" type="text" class="form-control" placeholder="13000" onkeypress="return isNumber(event)" value="@Model.Market_Rent">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        <div class="col-sm-12  hidden">
+            <h4 class="info-text pull-left"> How much your Unit is Beautiful ? </h4>
+        </div>
+        <div class="row hidden">
+            <div class="col-sm-12">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="star">Rooms</label>
+                        <input id="txtRooms" type="text" class="form-control" placeholder="3" onkeypress="return isOnlyNumber(event)" value="@Model.Rooms">
+                    </div>
+                </div>
+             
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="star">Hall</label>
+                        <input id="txtHall" type="text" class="form-control" placeholder="1" onkeypress="return isOnlyNumber(event)" value="@Model.Hall">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>Carpet_Color</label>
+                        <input id="txtCarpet_Color" type="text" class="form-control" placeholder="Red Velvet" value="@Model.Carpet_Color">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>Wall_Paint_Color</label>
+                        <input id="txtWall_Paint_Color" type="text" class="form-control" placeholder="Maroon" value="@Model.Wall_Paint_Color">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 ">
+                <div class="col-xs-2">
+                    <div class="checkbox">
+                        <label>  <input type="checkbox" id="chkFurnished" @(Model.Furnished == 1 ? "checked" : "")> Furnished </label>
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div class="checkbox">
+                        <label>  <input type="checkbox" id="chkCarpet" @(Model.Carpet == 1 ? "checked" : "")> Carpet </label>
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div class="checkbox">
+                        <label>  <input type="checkbox" id="chkAir_Conditioning" @(Model.Air_Conditioning == 1 ? "checked" : "")> Air_Conditioning </label>
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div class="checkbox">
+                        <label>  <input type="checkbox" id="chkFireplace" @(Model.Fireplace == 1 ? "checked" : "")> Fireplace </label>
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div class="checkbox">
+                        <label>  <input type="checkbox" id="chkWasher" @(Model.Washer == 1 ? "checked" : "")> Washer </label>
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div class="checkbox">
+                        <label>  <input type="checkbox" id="chkDryer" @(Model.Dryer == 1 ? "checked" : "")> Dryer </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="col-xs-2">
+                    <div class="checkbox">
+                        <label>  <input type="checkbox" id="chkRefrigerator" @(Model.Refrigerator == 1 ? "checked" : "")> Refrigerator </label>
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div class="checkbox">
+                        <label>  <input type="checkbox" id="chkDishwasher" @(Model.Dishwasher == 1 ? "checked" : "")> Dishwasher </label>
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div class="checkbox">
+                        <label>  <input type="checkbox" id="chkDisposal" @(Model.Disposal == 1 ? "checked" : "")> Disposal </label>
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div class="checkbox">
+                        <label>  <input type="checkbox" id="chkGas_Range" @(Model.Gas_Range == 1 ? "checked" : "")> Gas_Range </label>
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div class="checkbox">
+                        <label>  <input type="checkbox" id="chkElec_Range" @(Model.Elec_Range == 1 ? "checked" : "")> Elec_Range </label>
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div class="checkbox">
+                        <label>  <input type="checkbox" id="chkDen" @(Model.Den == 1 ? "checked" : "")> Den </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--  End step 1 -->
+
+<div class="tab-pane hidden" id="step6">
+    <div class="col-sm-12">
+        <h4 class="info-text pull-left"> Lease Information </h4>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+         
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Occupancy Date</label>
+                    <input id="txtOccupancyDate" type="text" class="form-control" value="@Model.OccupancyDate">
+                </div>
+            </div>
+   
+        </div>
+        <div class="col-sm-12">
+            <div class="col-xs-3">
+                <div class="checkbox">
+                    <label>  <input type="checkbox" id="chkPendingMoveIn" @(Model.PendingMoveIn == 1 ? "checked" : "")> PendingMoveIn </label>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Intended MoveIn Date</label>
+                    <input id="txtIntendedMoveIn_Date" type="text" class="form-control" value="@Model.IntendedMoveIn_Date">
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="checkbox">
+                    <label>  <input type="checkbox" id="chkPendingMoveOut" @(Model.PendingMoveOut == 1 ? "checked" : "")> PendingMoveOut </label>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Intended MoveOut Date</label>
+                    <input id="txtIntendMoveOutDate" type="text" class="form-control" value="@Model.IntendMoveOutDate">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  End step 3 -->
+
+<div class="tab-pane" id="step7">
+    <div class="col-sm-12">
+        <h4 class="info-text pull-left">Add Floor Unit Coordinates</h4>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="col-sm-4" style="margin-left:150px;">
+                <div>
+                    @*<img src="" id="unit_img" usemap="#unit_2">*@
+                    <div class="popup-content" id="popUnitPlan">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-sm-4">
+                <div>
+                    <div class="form-group">
+                        <label>Floors No. :</label>
+                        <select id="ddlFloorNo" class="form-control"></select>
+                    </div>
+                </div>
+                <div id="divUnitCord">
+                    <textarea class="form-control" id="txtunitcord">@Model.Coordinates</textarea>
+                </div>
+                <div class="pull-left">
+                    <input type='button' class='btn btn-default' value='Reset' onclick="resetunitcords()" />
+                </div>
+                <div class="pull-right">
+                    <input type='button' class='btn btn-default' value='Check' onclick="checkUnitCords()" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="pull-left text-center">
+            <button type="submit" class="btn btn-primary" onclick="goToStep(5,5)"> Back</button>
+        </div>
+       
+    </div>
+</div>
+<script src="~/Content/assets/js/jquery.maphilight.js"></script>
+<!--  End step 4 -->
+<script>
+    $(document).ready(function () {
+        getFloorList();
+        $("#ddlModel").on('change', function (evt, params) {
+            var selected = $(this).val();
+            if (selected != null) {
+                getPropertyModelDetails(selected);
+            }
+        });
+        setTimeout(function () {
+            $("#ddlPremium").val('@Model.Premium');
+            $("#ddlPremium").trigger('change');
+            $("#ddlFloorNo").val(@Model.FloorNo);
+            $("#ddlFloorNo").trigger('change');
+            $("#ddlModel").val('@Model.Building');
+            $("#ddlModel").trigger('change');
+        }, 900);
+
+         if (@Model.PreviousID==0)
+        {
+            $('#prevm').prop("disabled", true);
+            $("#prevm").css("background-color", "#b4ada5");
+        }
+         if (@Model.NextID==0)
+        {
+             $('#nextm').prop("disabled", true);
+             $("#nextm").css("background-color", "#b4ada5");
+        }
+
+
+        $("#ddlFloorNo").on('change', function (evt, params) {
+            var selected = $(this).val();
+
+            if (selected != null) {
+                showFloorPlan(selected);
+            }
+        });
+        $('.map').maphilight();
+        //$("#unit_img").maphilight();
+        //$("#apartimg_2").maphilight();
+        $("#imgFloorCoordinate").maphilight();
+
+        $("area").mouseover(function () {
+            $(this).addClass('active_mouse').data('maphilight', { alwaysOn: true, fillColor: 'FF6347', strokeColor: 'FF6347', }).trigger('alwaysOn.maphilight');
+            if ($("#hndUID").val()) {
+                var cont = $("#hndUID").val();
+                $("#ua" + cont).addClass('active_area').data('maphilight', { alwaysOn: true, fillOpacity: 1, fillColor: 'f62030', strokeColor: '6f0e0e', }).trigger('alwaysOn.maphilight');
+            }
+        });
+    });
+    var checkUnitCords = function () {
+        if ($("#txtunitcord").val() != "") {
+            $("#ua" + $("#hndUID").val()).attr("coords", $("#txtunitcord").val());
+            $("#ua" + $("#hndUID").val()).addClass('active_area').data('maphilight', { alwaysOn: true, fillOpacity: 1, fillColor: 'f62030', strokeColor: '6f0e0e', }).trigger('alwaysOn.maphilight');
+        }
+        else {
+            alert("Please select Cordinates");
+        }
+
+    }
+
+    var resetunitcords = function () {
+
+        $("#txtunitcord").remove();
+        var uc = "  <textarea class='form-control'id='txtunitcord'></textarea>";
+        $("#divUnitCord").append(uc);
+        $("#ua" + $("#hndUID").val()).attr("coords", null);
+        $("#ua" + $("#hndUID").val()).removeClass('active_mouse').data('maphilight', { alwaysOn: false }).trigger('alwaysOn.maphilight');
+    }
+    $("#txtCurrentRent").focusout(function () { $("#txtCurrentRent").val(formatMoney($("#txtCurrentRent").val())); })
+        .focus(function () {
+            $("#txtCurrentRent").val(unformatText($("#txtCurrentRent").val()));
+        });
+    $("#txtCurrentRent").val(formatMoney(@Model.Current_Rent));
+</script>
+<script>
+    $(function () {
+        //getPropertyModelDetails('@Model.Building');
+        setTimeout(function () {
+            $("#txtArea").val(@Model.Area);
+            $("#txtBalconyArea").val(@Model.BalconyArea);
+            $("#txtInteriorArea").val(@Model.InteriorArea);
+        }, 1500);
+        $("#txtAvailableDate").datepicker();
+        $("#txtLeaseEndDate").datepicker();
+        $("#txtOccupancyDate").datepicker();
+        $("#txtActualMoveInDate").datepicker();
+        $("#txtIntendedMoveIn_Date").datepicker();
+        $("#txtActualMoveOutDate").datepicker();
+    });
+</script>
+
+<style>
+    input[type="radio"] {
+        margin: 8px;
+        margin-top: 1px\9;
+        line-height: normal;
+    }
+</style>

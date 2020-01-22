@@ -1,0 +1,143 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<script src="~/Content/Pages/Prospect/Prospect.js"></script>
+<div class="page-head">
+    <div class="container">
+        <div class="row">
+            <div class="page-head-content">
+                <h1 class="page-title">Prospect Form  </h1>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End page header -->
+<!-- register-area -->
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="firstname" class="star">First Name</label>
+                    <input type="text" class="form-control" id="txtFirstName">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="lastname" class="star">Last Name</label>
+                    <input type="text" class="form-control" id="txtLastName">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="email" class="star">Email</label>
+                    <input type="text" class="form-control" id="txtEmail">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="subject" class="star">Phone Number</label>
+                    <input type="text" class="form-control" onkeypress="return isOnlyNumber(event)" maxlength="10" id="txtPhone">
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="star"> State :</label>
+                    <select id="ddlState" class="form-control"></select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label> City :</label>
+                    <select id="ddlCity" class="form-control"></select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Visit Date  :</label>
+                    <input type="text" id="txtMoveDate" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")">
+                </div>
+
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Do u have Pets?:</label>
+                    <div class="checkbox">
+
+                        <label>
+                            <input type="checkbox" id="chkPets"> Yes
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="property-geo">Min bed :</label>
+                    <input type="text" class="span2" value="" data-slider-min="0"
+                           data-slider-max="10" data-slider-step="1"
+                           data-slider-value="[1,10]" id="min-bed"><br />
+                    <b class="pull-left color">1</b>
+                    <b class="pull-right color">10</b>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="price-range">Min baths :</label>
+                    <input type="text" class="span2" value="" data-slider-min="0"
+                           data-slider-max="5" data-slider-step="1"
+                           data-slider-value="[1,5]" id="min-baths"><br />
+                    <b class="pull-left color">1</b>
+                    <b class="pull-right color">5</b>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="property-geo">Price Range ($):</label>
+                    <input type="text" class="span2" value="" data-slider-min="0"
+                           data-slider-max="100000" data-slider-step="100"
+                           data-slider-value="[100,100000]" id="property-geo"><br />
+                    <b class="pull-left color">$100</b>
+                    <b class="pull-right color">$100000</b>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea id="txtAddress" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="txtMessage" class="form-control" maxlength="100"></textarea>
+                </div>
+            </div>
+
+
+
+            <div class="col-sm-12">
+                <div class="dot-hr"></div>
+            </div>
+            <div class="col-sm-12 text-justify">
+                By clicking submit, you agree that you are the individual whose information has been entered above or that you have that individual's express consent to submit their information. Additionally, you agree and acknowledge that by submitting this information, you may be contacted regarding your inquiry for more information from the relevant property.
+
+            </div>
+            <div class="col-sm-12">
+                <div class="dot-hr"></div>
+            </div>
+            <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-primary" onclick="saveProspectForm()"><i class="fa fa-envelope-o"></i> Submit</button>
+            </div>
+        </div>
+       
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#txtMoveDate").datepicker();
+    });
+</script>

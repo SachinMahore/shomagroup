@@ -1,0 +1,1015 @@
+﻿@{
+    ViewBag.Title = (ViewBag.TenantID == 0 ? "Add" : "Edit") + " Tenant";
+    var TenantID = ViewBag.TenantID;
+    var pageTitle = (ViewBag.TenantID == 0 ? "Add Tenant" : "Edit Tenant");
+
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<script src="@Url.Content("~/Content/pages/common.js")"></script>
+
+<script src="~/Areas/Admin/Content/Pages/Tenant/Tenant.js"></script>
+
+<input type="hidden" id="hndTenantID" value="@TenantID" />
+<input type="hidden" id="hndTenID" value="0" />
+<input type="hidden" id="hndProspectID" value="0" />
+
+
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container" style="width:100%!important">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <div>
+                    <div class="wizard-header">
+                        <h3>
+                            <b>Tenant </b>Details <br>
+                        </h3>
+                    </div>
+                    <ul>
+
+                        <li class="active" id="li1"><a href="javascript:void(0);" onclick="goToStep(1)">Tenant Details </a></li>
+                        <li id="li2"><a href="javascript:void(0);" onclick="goToStep(2)">Tenant History </a></li>
+                        <li id="li3"><a href="javascript:void(0);" onclick="goToStep(3)">Vehicle Details </a></li>
+                        <li id="li4"><a href="javascript:void(0);" onclick="goToStep(4)">Pet Details </a></li>
+                        <li id="li5"><a href="javascript:void(0);" onclick="goToStep(5,@TenantID)">Lease Details</a></li>
+                        <li id="li6"><a href="javascript:void(0);" onclick="goToStep(6)">Account Details </a></li>
+                        <li id="li7"><a href="javascript:void(0);" onclick="goToStep(7,0)">Notice </a></li>
+                    </ul>
+                    <div class="tab-content">
+
+                        <!--  End step 1 -->
+                        <div class="" id="step1">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h4 class="info-text pull-left"> Tenant Information</h4><button type="button" class="btn btn-primary pull-right" id="btnSaveUpdate" onclick="searchTenant()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate"> Tenant List</span></button>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <label>
+                                            International Applicant ?
+                                        </label>
+                                        <div class="form-group">
+                                            <select id="ddlIsInter" class="form-control" style="width:100%!important">
+                                                <option value="1">Yes</option>
+                                                <option value="0">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>First Name</label>
+                                            <input class="form-control form-control-small" id="txtFirstNamePersonal" maxlength="50" value="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtMiddleInitial">Middle Initial</label>
+                                            <input id="txtMiddleInitial" class="form-control form-control-small" maxlength="1" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Last Name</label>
+                                            <input class="form-control form-control-small" id="txtLastNamePersonal" maxlength="50" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtDateOfBirth">Date of Birth</label>
+                                            <input id="txtDateOfBirth" class="form-control" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label for="ddlGender">Gender</label>
+                                            <select id="ddlGender" class=" form-control" style="width:100%!important">
+                                                <option value="0">-Status-</option>
+                                                <option value="1">Male</option>
+                                                <option value="2">Female</option>
+                                                <option value="3">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label>&nbsp;</label>
+                                            <input id="txtOtherGender" class="form-control" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4" id="divSSNNumber">
+                                        <div class="form-group">
+                                            <label id="lblSSNNumber" for="txtSSNNumber">SSN Number</label>
+                                            <input class="form-control form-control-small" id="txtSSNNumber" value="" maxlength="9" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="txtEmailNew">Email</label>
+                                            <input id="txtEmailNew" class="form-control form-control-small" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="txtMobileNumber">Mobile Number</label>
+                                            <input id="txtMobileNumber" class="form-control form-control-small" maxlength="10" type="text" onkeypress="return isOnlyNumber(event)" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="passportDiv" class="">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Passport Information </h3>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="txtPassportNum">Passport Number</label>
+                                                <input id="txtPassportNum" class="form-control form-control-small" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="txtCOI">Country Of Issuance</label>
+                                                <input id="txtCOI" class="form-control form-control-small" maxlength="30" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="txtDateOfIssuance">Date of Issuance</label>
+                                                <input id="txtDateOfIssuance" class="form-control form-control-small" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="txtDateOfExpiration">Date of Expiration</label>
+                                                <input id="txtDateOfExpiration" class="form-control form-control-small" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Download Passport</label><br />
+                                                <a id="downPassport" href="" class="btn btn-primary" target="_parent"><i class="fa fa-upload fa-2x"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Identification </h3>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="ddlDocumentType">ID Type</label>
+                                            <select id="ddlDocumentTypePersonal" class="form-control " style="width:100%!important">
+                                                <option value="0">Select</option>
+                                                <option value="1">Driver's License</option>
+                                                <option value="2">Military ID</option>
+                                                <option value="4">State Issued ID</option>
+                                                <option value="3">Passport</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label id="lblStatePersonal"> State :</label>
+                                            <select id="ddlStatePersonal" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label id="lblIDNumber" for="txtIDNumber">ID Number</label>
+                                            <input class="form-control form-control-small" id="txtIDNumber" value="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Download <span id="lblUploadIdentity"></span></label><br />
+                                            <a id="downIdentity" href="" class="btn btn-primary" target="_parent"><i class="fa fa-upload fa-2x"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Employment and Income</h3>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtEmployerName">Employer Name</label>
+                                            <input id="txtEmployerName" class="form-control form-control-small" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtJobTitle">Job Title</label>
+                                            <input id="txtJobTitle" class="form-control form-control-small" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Job Type </label>
+                                            <select id="ddlJobType" class="form-control form-control-small">
+                                                <option value="0">Select</option>
+                                                <option value="1">Permanent</option>
+                                                <option value="2">Contract Basis</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Start Date</label>
+                                            <input id="txtStartDate" class="form-control form-control-small" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="txtAnnualIncome"> Annual Income </label>
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                            </span>
+                                            <input id="txtAnnualIncome" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtAddAnnualIncome"> Additional Annual Income</label>
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                </span>
+                                                <input id="txtAddAnnualIncome" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Supervisor Name</label>
+                                            <input id="txtSupervisiorName" class="form-control form-control-small" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Supervisor Phone</label>
+                                            <input id="txtSupervisiorPhone" class="form-control form-control-small" type="text" onkeypress="return isOnlyNumber(event)" maxlength="10" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Supervisor Email</label>
+                                            <input id="txtSupervisiorEmail" class="form-control form-control-small" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <p>Download last 3 paystubs or if self-employed last 2 year's Fedral Tax Returns</p>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <input id="rbtnPaystub" class="form-control form-control-small" type="radio" name="tax" />
+                                            <label for="rbtnPaystub">Paystub</label>
+                                            <input id="rbtnFedralTax" class="form-control form-control-small" type="radio" name="tax" />
+                                            <label for="rbtnFedralTax">Fedral Tax Return</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label id="lblUpload1">Download 1</label><br />
+                                            <a id="downUpload1" href="" class="btn btn-primary" target="_parent"><i class="fa fa-upload fa-2x"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label id="lblUpload2">Upload 2</label><br />
+                                            <a id="downUpload2" href="" class="btn btn-primary" target="_parent"><i class="fa fa-upload fa-2x"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4" id="divUpload3">
+                                        <div class="form-group">
+                                            <label id="lblUpload3">Upload 3</label><br />
+                                            <a id="downUpload3" href="" class="btn btn-primary" target="_parent"><i class="fa fa-upload fa-2x"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtCountryOffice">Country</label>
+                                            <select id="txtCountryOffice" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="txtofficeAddress1">Address Line 1</label>
+                                            <input id="txtofficeAddress1" type="text" class="form-control form-control-small" maxlength="300" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="txtofficeAddress2">Address Line 2</label>
+                                            <input id="txtofficeAddress2" type="text" class="form-control form-control-small" maxlength="300" />
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>State</label>
+                                            <select id="ddlStateEmployee" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>City</label>
+                                            <input id="ddlCityEmployee" type="text" class="form-control form-control-small" maxlength="100" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtZip">Zip</label>
+                                            <input class="form-control form-control-small" id="txtZipOffice" maxlength="7" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Emergency Contacts </h3>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Relationship</label>
+                                            <input id="txtRelationship" class="form-control form-control-small" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtFirstName">First Name</label>
+                                            <input class="form-control form-control-small" id="txtEmergencyFirstName" maxlength="50" value="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtLastName">Last Name</label>
+                                            <input class="form-control form-control-small" id="txtEmergencyLastName" maxlength="50" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label> Mobile Number</label>
+                                            <input id="txtEmergencyMobile" type="text" class="form-control form-control-small" maxlength="10" onkeypress="return isOnlyNumber(event)" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Home Phone Number</label>
+                                            <input id="txtEmergencyHomePhone" type="text" class="form-control form-control-small" maxlength="10" onkeypress="return isOnlyNumber(event)" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label> Work Phone Number</label>
+                                            <input id="txtEmergencyWorkPhone" type="text" class="form-control form-control-small" maxlength="10" onkeypress="return isOnlyNumber(event)" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input id="txtEmergencyEmail" type="text" class="form-control form-control-small" maxlength="300" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtCountry">Country</label>
+                                            <select id="txtEmergencyCountry" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Address Line 1</label>
+                                            <input id="txtEmergencyAddress1" type="text" class="form-control form-control-small" maxlength="300" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Address Line 2</label>
+                                            <input id="txtEmergencyAddress2" type="text" class="form-control form-control-small" maxlength="300" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>State</label>
+                                            <select id="ddlStateContact" class="form-control"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>City</label>
+                                            @*<select id="ddlCityContact" class="form-control"></select>*@
+                                            <input id="ddlCityContact" type="text" class="form-control form-control-small" maxlength="100" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtZip">Zip</label>
+                                            <input class="form-control form-control-small" id="txtEmergencyZip" maxlength="7" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="pull-right text-center">
+                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(2); saveupdateTenantOnline();">Continue</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden" id="step2">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">History of Residence </h3>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtCountry">Country</label>
+                                            @*<input id="txtCountry" type="text" class="form-control form-control-small" maxlength="300" />*@
+                                            <select id="txtCountry" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="txtAddress1">Address Line 1</label>
+                                            <input id="txtAddress1" type="text" class="form-control form-control-small" maxlength="300" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="txtAddress2">Address Line 2</label>
+                                            <input id="txtAddress2" type="text" class="form-control form-control-small" maxlength="300" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>State</label>
+                                            <select id="ddlStateHome" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>City</label>
+                                            <input id="ddlCityHome" type="text" class="form-control form-control-small" maxlength="100" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtZip">Zip</label>
+                                            <input class="form-control form-control-small" id="txtZip" maxlength="7" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="ddlRentOwn"> Do you rent or own </label>
+                                            <select id="ddlRentOwn" class="form-control form-control-small">
+                                                <option value="0">Select</option>
+                                                <option value="1">Rent</option>
+                                                <option value="2">Own</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="txtMoveInDate">Move In Date</label>
+                                            <input id="txtMoveInDateFrom" type="text" class="form-control form-control-small" value="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="txtMoveInDate">Move Out Date</label>
+                                            <input id="txtMoveInDateTo" type="text" class="form-control form-control-small" value="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label for="txtMonthlyPayment">Monthly Payment</label>
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                            </span>
+                                            <input id="txtMonthlyPayment" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="txtReasonforleaving">Reason for leaving</label>
+                                            <input id="txtReasonforleaving" type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6">
+                                        <div class="panel panel-default sidebar-menu wow fadeInRight animated  pull-left">
+                                            <div class="panel-heading">
+                                                <a href="javascript:void(0);"><h3 class="panel-title">Additional History of Residence </h3></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 ">&nbsp;</div>
+                                <div id="residence2">
+                                    <div class="col-sm-12">
+                                        <table id="tblAHR" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th style="background-color: #c7cdd5;color:#3d3939">Country</th>
+                                                    <th style="background-color: #c7cdd5;color:#3d3939">Address Line1</th>
+                                                    <th style="background-color: #c7cdd5;color:#3d3939">Address Line2</th>
+                                                    <th style="background-color: #c7cdd5;color:#3d3939">State</th>
+                                                    <th style="background-color: #c7cdd5;color:#3d3939">City</th>
+                                                    <th style="background-color: #c7cdd5;color:#3d3939">Zip</th>
+                                                    <th style="background-color: #c7cdd5;color:#3d3939">Move In Date From</th>
+                                                    <th style="background-color: #c7cdd5;color:#3d3939">Move In Date To</th>
+                                                    <th style="background-color: #c7cdd5;color:#3d3939">Monthly Payment</th>
+                                                    <th style="background-color: #c7cdd5;color:#3d3939">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="pull-left text-center">
+                                        <button type="submit" class="btn btn-primary" onclick="goToStep(1)"> Back</button>
+                                    </div>
+                                    <div class="pull-right text-center">
+                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(3)"> Continue</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden" id="step3">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Vehicle Information </h3>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <input type="checkbox" id="chkDontHaveVehicle" />  I don't have a vehicle.
+                                                    <input type="hidden" id="hndDontHaveVehicle" value="0" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-md-12 clear">
+                                                <table id="tblVehicle" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939">Owner Name</th>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939">Vehicle Make</th>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939">Model</th>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939">Year</th>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939">Color</th>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939">License Plate</th>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="pull-left text-center">
+                                        <button type="submit" class="btn btn-primary" onclick="goToStep(2)"> Back</button>
+                                    </div>
+                                    <div class="pull-right text-center">
+                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(4)"> Continue</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden" id="step4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Pet Information</h3>
+                                            <input type="hidden" id="hndPetPlaceCount" value="0" />
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group" id="chkDontHavePetDiv">
+                                                    <input type="checkbox" id="chkDontHavePet" />  I don't have a pet.
+                                                    <input type="hidden" id="hndDontHavePet" value="0" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-md-12 clear">
+
+                                                <table id="tblPet" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939">Photo</th>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939">Pet Name</th>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939">Breed</th>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939">Weight</th>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939">Vet's Name</th>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="pull-left text-center">
+                                        <button type="submit" class="btn btn-primary" onclick="goToStep(3)"> Back</button>
+                                    </div>
+                                    <div class="pull-right text-center">
+                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(5)"> Continue</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden" id="step5">
+                            <!-- Lease Partial page -->
+                        </div>
+                        <div class="hidden" id="step6">
+
+                        </div>
+                        <div class="hidden" id="step7">
+                            <div class="col-sm-12">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <h3 class="panel-title">From Date</h3>
+                                        <input id="txtFromDate" type="text" class="form-control" value="@DateTime.Now.AddDays(-100).ToString("MM/dd/yyyy")">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <h3 class="panel-title">To Date</h3>
+                                        <input id="txtToDate" type="text" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")">
+                                    </div>
+                                </div>
+
+                                <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="addNewNotice()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate"> New Notice</span></button>
+                                <div class="col-sm-2 padding-top-15">
+                                    <button class='btn btn-default ' value='Search' onclick="getNoticeLists()"><i class="glyphicon glyphicon-search"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 clear">
+
+                                <table id="tblNotice" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="background-color: #c7cdd566;color:#3d3939">Notice ID</th>
+
+                                            <th style="background-color: #c7cdd566;color:#3d3939">Revision No</th>
+                                            <th style="background-color: #c7cdd566;color:#3d3939">Notice Date</th>
+                                            <th style="background-color: #c7cdd566;color:#3d3939">Termination Reason</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="pull-left text-center">
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(6)">Back</button>
+                                </div>
+                                <div class="pull-right text-center">
+                                    <button type="submit" class="btn btn-primary" id="btnnext">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  End step 4 -->
+                    </div>
+
+                </div>
+            </div>
+            <!-- End submit form -->
+        </div>
+
+    </div>
+</div>
+<div class="modal" id="popApplicantHistory">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:732px; height:605px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -21px; margin-right: -10px;">&times;</button>
+            <!-- Modal Header -->
+            <div class="modal-header" style="width: 100%; padding:15px;">
+                <h5 class="modal-title">Applicant History</h5>
+
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input id="hdnAHRId" type="hidden" value="0" />
+
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="txtCountry">Country</label>
+                            <select id="txtCountry2" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="txtAddress1">Address Line 1</label>
+                            <input id="txtAddress12" type="text" class="form-control form-control-small" maxlength="300" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="txtAddress2">Address Line 2</label>
+                            <input id="txtAddress22" type="text" class="form-control form-control-small" maxlength="300" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label> State :</label>
+                            <select id="ddlStateHome2" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label> City :</label>
+                            <input id="ddlCityHome2" type="text" class="form-control form-control-small" maxlength="100" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="txtZip">Zip</label>
+                            <input class="form-control form-control-small" id="txtZip2" maxlength="7" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="ddlRentOwn"> Do you rent or own </label>
+                            <select id="ddlRentOwn2" class="form-control form-control-small">
+                                <option value="0">Select</option>
+                                <option value="1">Rent</option>
+                                <option value="2">Own</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="txtMoveInDate"> Move In Date</label>
+                            <input id="txtMoveInDateFrom2" type="text" class="form-control form-control-small" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="txtMoveInDate"> Move Out Date</label>
+                            <input id="txtMoveInDateTo2" type="text" class="form-control form-control-small" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="txtMonthlyPayment"> Monthly Payment </label>
+                            <input id="txtMonthlyPayment2" type="text" class="form-control form-control-small" onkeypress="return isNumber(event)" />
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="txtReasonforleaving"> Reason for leaving </label>
+                            <input id="txtReasonforleaving2" type="text" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer-custom">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal" id="popVehicle">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:732px; height:530px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -21px; margin-right: -10px;">&times;</button>
+            <!-- Modal Header -->
+            <div class="modal-header" style="width: 100%; padding:15px;">
+                <h5 class="modal-title">Vehicle Details</h5>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input type="hidden" id="hndVehicleID" value="0" />
+                <div class="col-sm-7">
+                    <div class="form-group">
+                        <label class="">Owner Name</label>
+                        <input id="txtVehicleOwnerName" type="text" class="form-control" maxlength="20" placeholder="Owner Name" value="">
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label>Download Vehicle Registration</label><br />
+                        <a id="dwnldVehicleRegistration" href="" class="btn btn-primary" target="_parent"><i class="fa fa-upload fa-2x"></i></a>
+                        <input type="hidden" id="hndVehicleRegistation" value="0" />
+                        <input type="hidden" id="hndOriginalVehicleRegistation" value="0" />
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Year</label>
+                        <select id="ddlVehicleyear" class="form-control form-control-small">
+                            <option value="0" selected="selected">Select Year</option>
+                            @for (int i = DateTime.Now.AddYears(-10).Year; i <= DateTime.Now.Year; i++)
+                            {
+                            <option value="@i">@i</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Make</label>
+                        <input id="txtVehicleMake" type="text" class="form-control" maxlength="20" placeholder="Vehicle Make" value="">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Model</label>
+                        <input id="txtVehicleModel" type="text" class="form-control" maxlength="20" placeholder="Vehicle Model" value="">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Color</label>
+                        <input id="txtVehicleColor" type="text" class="form-control" maxlength="20" placeholder="Vehicle Color" value="">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>License Plate</label>
+                        <input id="txtVehicleLicence" type="text" class="form-control" maxlength="20" placeholder="Vehicle license" value="">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="ddlVState">State</label>
+                        <select id="ddlVState" class="form-control form-control-small"></select>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea id="txtVehicleNote" class="form-control" maxlength="20"></textarea>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer-custom">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="popPet">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 100%; height:432px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -21px; margin-right: -10px;">&times;</button>
+            <!-- Modal Header -->
+            <div class="modal-header" style="width: 100%; padding:15px;">
+                <h5 class="modal-title">Pet Details</h5>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input type="hidden" id="hndPetID" value="0" />
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>What is your Pet's Name?</label>
+                        <input id="txtpetName" type="text" class="form-control" maxlength="20" placeholder="Pet Name" value="">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Breed</label>
+                        <input id="txtpetBreed" type="text" class="form-control" maxlength="20" placeholder="Breed" value="">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Weight</label>
+                        <input id="txtpetWeight" type="text" class="form-control" maxlength="20" placeholder="Weight" value="">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Vet's Name</label>
+                        <input id="txtpetVetsName" type="text" class="form-control" placeholder="Vet's Name'" value="">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Download Photo</label><br />
+                        <a id="dwnldPetPhoto" href="" class="btn btn-primary" target="_parent"><i class="fa fa-upload fa-2x"></i></a>
+                        <input type="hidden" id="hndPetPicture" value="0" />
+                        <input type="hidden" id="hndOriginalPetPicture" value="0" />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Download pet vaccination certificate</label><br />
+                        <a id="dwnldVaccinationCertificate" href="" class="btn btn-primary" target="_parent"><i class="fa fa-upload fa-2x"></i></a>
+                        <input type="hidden" id="hndPetVaccinationCertificate" value="0" />
+                        <input type="hidden" id="hndOriginalPetVaccinationCertificate" value="0" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer-custom">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#txtDateOfBirth").datepicker();
+        $("#txtDateOfIssuance").datepicker();
+        $("#txtDateOfExpiration").datepicker();
+        $("#txtMoveInDate").datepicker();
+        $("#txtStartDate").datepicker();
+        $("#hndTenID").val('@TenantID');
+    });
+
+    $(document).ready(function () {
+
+    })
+</script>
+

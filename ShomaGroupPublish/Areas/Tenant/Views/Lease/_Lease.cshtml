@@ -1,0 +1,250 @@
+﻿@using ShomaRM.Areas.Tenant.Models
+@model LeaseModel
+@{
+    Layout = null;
+}
+<script src="~/Areas/Tenant/Content/Pages/MyAccount/MyAccount.js"></script>
+<input type="hidden" id="hndLID" value="@Model.LID" />
+<div class="tab-pane" id="step5">
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="info-text pull-left"> Lease Information</h4>
+ <div class="pull-right">
+                <input type='button' class='btn btn-default' value='Save' onclick="saveupdateLease()" />
+            </div>
+        </div>
+        <div class="col-sm-12">
+
+
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Revision Number :</label>
+                    <input id="txtRevision" type="text" class="form-control" placeholder="Revision Number" value="@Model.Revision_Num">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Status:</label>
+                    <select id="ddlStatus" class="selectpicker show-tick form-control">
+                        <option value="0"> -Select Status- </option>
+                        <option value="1">New</option>
+                        <option value="2">Pending</option>
+                        <option value="3">Completed</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Phase :</label>
+                    <input id="txtPhase" type="text" class="form-control" placeholder="Enter Phase" value="@Model.Phase">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Original Lease Start Date :</label>
+                    <input id="txtOriginalStart" type="text" class="form-control" placeholder="Original Lease Start Date" value="@Model.Original_Start">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Original Lease End Date :</label>
+                    <input id="txtOriginalEnd" type="text" class="form-control" placeholder="Original Lease End Date" value="@Model.Original_Lease_End">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Actual Lease Start Date :</label>
+                    <input id="txtActualStart" type="text" class="form-control" placeholder="Actual Lease Start Date" value="@Model.Actual_Start">
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Actual Lease End Date :</label>
+                    <input id="txtActualEnd" type="text" class="form-control" placeholder="Actual Lease End Date" value="@Model.Actual_Lease_End">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Intended MoveIn Date :</label>
+                    <input id="txtIntendedMoveIn" type="text" class="form-control" placeholder="Intended MoveIn Date" value="@Model.Intended_MoveIn_Date">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Intended MoveOut Date :</label>
+                    <input id="txtIntendedMoveOut" type="text" class="form-control" placeholder="Intended MoveOut Date" value="@Model.Intend_MoveOut_Date">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Actual MoveIn Date :</label>
+                    <input id="txtActualMoveIn" type="text" class="form-control" placeholder="Actual MoveIn Date" value="@Model.Actual_MoveIn_Date">
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Actual MoveOut Date :</label>
+                    <input id="txtActualMoveOut" type="text" class="form-control" placeholder="Actual MoveOut Date" value="@Model.Actual_MoveOut_Date">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Reconciled Date :</label>
+                    <input id="txtReconciledDate" type="text" class="form-control" placeholder="Reconciled Date" value="@Model.Reconciled">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+
+
+
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Balanced :</label>
+                    <input id="txtBalance" type="number" step="0.01" min="0.00" class="form-control" placeholder="Balanced" value="@Model.Balance">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Previous Balanced :</label>
+                    <input id="txtPreviousbalance" type="number" step="0.01" min="0.00" class="form-control" placeholder="Previous Balanced" value="@Model.Previous_Balance">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Statement Type :</label>
+                    <input id="txtStatementType" type="text" class="form-control" placeholder="Statement Type" value="@Model.Statement_Type">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Last Rent Roll Date :</label>
+                    <input id="txtLastRentDate" type="text" class="form-control" placeholder="Last Rent Roll Date" value="@Model.Last_Rent_Roll_Date">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Created By :</label>
+                    <input id="txtCreatedBy" type="text" class="form-control" placeholder="Created By" value="@Model.CreatedBy">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Created Date :</label>
+                    <input id="txtCreatedDate" type="text" class="form-control" placeholder="Created Date" value="@Model.CreatedDate">
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-12">
+
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label>Terms :</label>
+                    <textarea name="Terms" id="txtTerms" class="form-control">@Model.Term</textarea>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Number of Returned Checks :</label>
+                    <input id="txtNRChecks" type="number" min="0" class="form-control" placeholder="Number of Returned Checks" value="@Model.Number_Returned_Checks">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Last Return Check Date :</label>
+                    <input id="txtLastReturnDate" type="text" class="form-control" placeholder="Last Return Check Date" value="@Model.Last_Return_Ck_Date">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Last Return Payment ID :</label>
+                    <input id="txtLastReturnPmt" type="text" class="form-control" placeholder="Last Return Payment ID" value="@Model.Last_Return_Pmt_ID">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Last Return Check Number :</label>
+                    <input id="txtLastReturnCheckNum" type="text" class="form-control" placeholder="Last Return Check Number" value="@Model.Last_Return_Ck_Num">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Being Terminated:</label>
+                    <select id="ddlBeingTerminated" class="selectpicker show-tick form-control">
+                        <option value="0"> -Select Reason- </option>
+                        <option value="1">Fails to pay rent</option>
+                        <option value="2">Violates a clause in the Lease</option>
+                        <option value="3">Violates a responsibility</option>
+                        <option value="4">Other Reason</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Notice Date :</label>
+                    <input id="txtNoticeDate" type="text" class="form-control" placeholder="Notice Date" value="">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Termination Reason :</label>
+                    <input id="txtTerminateReason" type="text" class="form-control" placeholder="Termination Reason" value="@Model.Termination_Reason">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Return Check Limit:</label>
+                    <select id="ddlRetrunCheck" class="selectpicker show-tick form-control">
+                        <option value="0"> -Select Limit- </option>
+                        <option value="1">0-1000</option>
+                        <option value="2">1001-10000</option>
+                        <option value="3">10001-100000</option>
+                        <option value="4">100001-1000000</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#txtNoticeDate").datepicker();
+        $("#txtLastReturnDate").datepicker();
+        $("#txtOriginalStart").datepicker();
+        $("#txtActualStart").datepicker();
+        $("#txtOriginalEnd").datepicker();
+        $("#txtActualEnd").datepicker();
+        $("#txtIntendedMoveIn").datepicker();
+        $("#txtActualMoveIn").datepicker();
+        $("#txtIntendedMoveOut").datepicker();
+        $("#txtActualMoveOut").datepicker();
+        $("#txtLastRentDate").datepicker();
+        $("#txtCreatedDate").datepicker();
+        $("#txtReconciledDate").datepicker();
+
+    });
+    $(document).ready(function () {
+    setTimeout(function ()
+      {
+          $("#ddlProperty").val(@Model.PID);
+        $("#ddlProperty").trigger('change');
+
+      }, 1200);
+      setTimeout(function ()
+      {
+
+        $("#ddlUnit").val(@Model.UID);
+        $("#ddlUnit").trigger('change');
+      }, 1600);
+        $("#ddlStatus").val(@Model.Status);
+        $("#ddlStatus").trigger('change');
+        $("#ddlBeingTerminated").val(@Model.Being_Terminated);
+        $("#ddlBeingTerminated").trigger('change');
+        $("#ddlRetrunCheck").val(@Model.Returned_Check_Limit);
+        $("#ddlRetrunCheck").trigger('change');
+    });
+</script>

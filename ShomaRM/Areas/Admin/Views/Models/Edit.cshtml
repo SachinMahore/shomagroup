@@ -1,0 +1,110 @@
+﻿@using ShomaRM.Areas.Admin.Models
+@model ModelsModel
+@{
+    ViewBag.Title = "Models";
+}
+<script src="~/Areas/Admin/Content/Pages/Models/Models.js"></script>
+<input type="hidden" id="hndModelsId" value="@Model.ModelID" />
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <form action="" method="">
+                    <div class="wizard-header">
+                        <h3>
+                            <b>Models </b>Details<br>
+                        </h3>
+                    </div>
+                    <ul>
+                        <li><a href="#step1" data-toggle="tab" style="background-color:#4D738A;"> </a></li>
+
+                    </ul>
+                    <div class="tab-content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h4 class="info-text pull-left star">Upload Floor Plan</h4>
+                                <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="goModelsList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">Models List</span></button>
+                                <div class="pull-right" style="padding-right:2px;">
+                                    <input type='button' class='btn btn-default' value='Save' onclick="saveUpdateModels();" />
+                                </div>
+
+                            </div>
+                            <!--  End step 1 -->
+                            <div class="col-sm-4">
+                                <div class="picture-container">
+                                    <div class="picture">
+                                        <img src="/content/assets/img/plan/@Model.FloorPlan" class="picture-src" id="wizardPicturePreview" title="" />
+                                        <input type="file" id="wizard-picture" value="@Model.FloorPlan" accept=".jpg,.JPG,.jpeg,.JPEG,.png,.PNG" />
+                                        <input type="hidden" id="hndModelsPicture" value="@Model.FloorPlan" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="star">Model Name</label>
+                                            <input id="txtModelName" type="text" placeholder="Model Name" class="form-control" value="@Model.ModelName">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="star">Area</label>
+                                            <input name="area" id="txtArea" type="text" onkeypress="return isNumber(event)" class="form-control" placeholder="0" value="@Model.Area" style="text-align:right">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="star">Rent</label>
+                                            <input id="txtRent" type="text" class="form-control" placeholder="0.00" value="@Model.Rent" onkeypress="return isNumber(event)"  style="text-align:right">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="star">Bedroom</label>
+                                            <select id="ddlBedroom" class="form-control">
+                                                <option value="0">Select Bedroom</option>
+                                                <option value="1">Bedroom 1</option>
+                                                <option value="2">Bedroom 2</option>
+                                                <option value="3">Bedroom 3</option>
+                                                <option value="4">Bedroom 4</option>
+                                                <option value="5">Bedroom 5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="star">Bathroom</label>
+                                            <select id="ddlBathroom" class="form-control">
+                                                <option value="0">Select Bathroom</option>
+                                                <option value="1">Bathroom 1</option>
+                                                <option value="2">Bathroom 2</option>
+                                                <option value="3">Bathroom 3</option>
+                                                <option value="4">Bathroom 4</option>
+                                                <option value="5">Bathroom 5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  End step 4 -->
+                    </div>
+                </form>
+            </div>
+            <!-- End submit form -->
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ddlBedroom').find('option[value = "@Model.Bedroom"]').attr('selected', 'selected');
+        $('#ddlBathroom').find('option[value = "@Model.Bathroom"]').attr('selected', 'selected');
+    });
+</script>

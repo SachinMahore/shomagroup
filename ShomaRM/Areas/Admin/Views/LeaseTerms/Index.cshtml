@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<script src="~/Areas/Admin/Content/Pages/LeaseTerms/LeaseTerms.js"></script>
+<input type="hidden" id="hndLTID" value="" />
+<input type="hidden" id="hdnSearchType" value="1" />
+<input type="hidden" id="hdnCurrentPage" value="1" />
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container" style="width:100% !important">
+        <div class="breadcrumb">
+            <h4 class="">Add / Edit Lease Terms</h4>
+        </div>
+        <div class="form-group clearfix panel">
+            <div class="col-md-12 padding-5">
+                <div class="form-group pull-right clearfix" style="padding-top:5px;">
+                    <button type="button" class="btn btn-primary" id="btnLeaseTerms" style="text-transform:uppercase!important" onclick="clearLeaseTerms()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-plus"></i> New</button>
+                    <button type="button" class="btn btn-primary" id="btnSaveLeaseTerms" style="text-transform:uppercase!important" onclick="saveUpdateLeaseTerms()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">Save</span></button>
+                </div>
+            </div>
+            <div class="col-md-7">
+                
+                <div class="form-group clearfix">
+                    <br />
+                    <table id="tblLeaseTerms" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:35%!important;">Lease Terms</th>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:35%!important;">Offer Terms</th>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:15%!important;">Agent</th>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:15%!important;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-5">
+              
+                <div class="form-group clearfix padding-5">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="txtLeaseTerms" class="star">Lease Terms (Months)</label>
+                                <input class="form-control form-control-small" id="txtLeaseTerms" type="text" placeholder="Lease Terms" value="" maxlength="2" min="0" onkeypress="return isOnlyNumber(event)" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="txtOfferTerms">Offer Terms (Months)</label>
+                                <input class="form-control form-control-small" id="txtOfferTerms" type="text" placeholder="Offer Terms" value="" maxlength="2" min="0" onkeypress="return isOnlyNumber(event)" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <input class="form-control form-control-small" id="chkIsAgent" type="checkbox" />
+                                <label for="chkIsAgent">Agent</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script>
+        $(document).ready(function () {
+            setTimeout(function () { $("#ddlProperty").find("option[value='" + @Model.PropertyID + "']").attr('selected', 'selected'); }, 1200);
+        });
+    </script>*@

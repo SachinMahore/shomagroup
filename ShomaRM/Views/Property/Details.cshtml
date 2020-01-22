@@ -1,0 +1,585 @@
+﻿@using ShomaRM.Models
+@model PropertyModel
+
+@{
+    ViewBag.Title = "Details";
+}
+<script src="~/Content/Pages/Property/Property.js"></script>
+
+<script src="~/Content/assets/js/jquery.maphilight.js"></script>
+
+
+<input type="hidden" id="hndPID" value="@Model.PID" />
+
+<!-- End page header -->
+<!-- property area -->
+
+<div class="content-area single-property" style="background-color: #FCFCFC;">
+    <br />
+    <br />
+    <br />
+    <div class="container">
+        <div class="clearfix ">
+            <div class="col-md-8 single-property-content prp-style-1 ">
+                <div class="row">
+                    <div class="single-property-wrapper">
+
+                        <div class=" entry-meta clearfix ">
+                            <div class="col-md-12 popup-overlay">
+                                <p class="padding-5" style="height:87px;text-align:center;padding-top:10px;" id="UnitListDesc">Your luxurious apartment awaits you with interior finishes showcasing modern wood style floors, quartz countertops, chef's islands, digital programmable thermostats, signature Italian cabinetry, stainless steel high-efficiency appliances, keyless entry, rain showers, and walk-in closets just to name a few.</p>
+                            </div>
+
+                            <div class="col-xs-12 padding-5 form-inline">
+
+                                <h5 class="col-xs-1">Move_In</h5>
+                                <div class="col-xs-3">
+
+                                    <input type="text" id="txtDate" data-date-format="mm/dd/yyyy" class="form-control" value="@Model.MoveInDate.ToString("MM/dd/yyyy")" />
+                                </div>
+                                <h5 class="col-sm-1">Beds:</h5>
+                                <div class="col-xs-2 ">
+
+                                    <select id="ddlRoom" class="form-control">
+                                        <option value='0'>All</option>
+                                        <option value='1'>1 Bed</option>
+                                        <option value='2'>2 Bed</option>
+                                        <option value='3'>3 Bed</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-2">Max Rent:</label>
+                                <div class="col-xs-2  form-group-sm">
+
+                                    <input type="text" id="txtMaxRent" class="form-control" value="@Model.MaxRent" placeholder="Max Rent" />
+                                </div>
+                                <input type="hidden" id="hndbuilding" value="1" />
+                                <div class="col-xs-1">
+                                    <button class="btn-primary hollow btn" style="padding: 7px 7px;" id="btnSearch" onclick="getPropertyUnitList()" data-wow-delay="0.5s">Search</button>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-12 clear ">
+                                <div id="listUnitDiv" class="hidden">
+
+                                    <div class="col-md-12 clearfix">
+                                        <br />
+                                    </div>
+                                    <div id="listUnit" class="proerty-th">
+
+                                    </div>
+                                </div>
+
+                                <div id="divFloor">
+
+                                    <img src="/content/assets/img/demo/@Model.Picture" usemap="#apartment_2" id="apartimg_2">
+                                    <map name="apartment_2" id="floorImgdiv">
+                                        @foreach (var lstcord in Model.lstPropertyFloor)
+                                        {
+                                            <area id="fa_@lstcord.FloorID" data-aval="@lstcord.IsAvail" data-floorid="@lstcord.FloorID" shape="poly" class="tooltip buildplan" @*data-title="Floor -@lstcord.FloorID"*@ href="javascript:void(0);" coords="@lstcord.Coordinates" onclick="showFloorPlan(@lstcord.FloorID)">
+                                            @*<span style="display: none">@lstcord.FloorID</span>*@
+                                            <div id="dfa_@lstcord.FloorID" class="hidden divtooltip">
+                                                <span>Floor - @lstcord.FloorID</span>
+                                            </div>
+                                        }
+                                    </map>
+                                    <input type="hidden" id="hndSelectedFloor" value="" />
+                                    <input type="hidden" id="hndSelectedAval" value="0" />
+                                </div>
+                            </div>
+                        </div>
+
+                        @*<div class="light-slide-item padding-top-15">
+                                <div class="clearfix">
+                                    <div class="favorite-and-print">
+                                        <a class="add-to-fav" href="#login-modal" data-toggle="modal">
+                                            <i class="fa fa-star-o"></i>
+                                        </a>
+                                        <a class="printer-icon " href="javascript:window.print()">
+                                            <i class="fa fa-print"></i>
+                                        </a>
+                                    </div>
+                                    <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
+                                        <li data-thumb="/content/assets/img/property-1/property1.png">
+                                            <img src="~/content/assets/img/property-1/property1.png" />
+                                        </li>
+                                        <li data-thumb="/content/assets/img/property-1/property2.png">
+                                            <img src="~/content/assets/img/property-1/property2.png" />
+                                        </li>
+                                        <li data-thumb="/content/assets/img/property-1/property3.png">
+                                            <img src="~/content/assets/img/property-1/property3.png" />
+                                        </li>
+                                        <li data-thumb="/content/assets/img/property-1/property4.png">
+                                            <img src="~/content/assets/img/property-1/property4.png" />
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>*@
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-4 p0">
+                <aside class="sidebar sidebar-property blog-asside-right" style="margin-top: -20px;">
+
+                    <div class="popup-overlay hidden" id="popUnitDet">
+                        <!--Creates the popup content-->
+                        <div class="" style="background:#fff;color:#4d738a;">
+                            <br />
+                            <p class="padding-5" style="width: 90%; margin:auto">Select your Floor & Unit by clicking on the building or click link below to see all the units available by floor.</p>
+
+                            <p style="text-align:center"><button class="btn-primary hollow btn" type="submit" onclick="showFloor()"><span id="btnShowfloor">Show List</span></button></p>
+
+                        </div>
+                    </div>
+                    <br />
+                    <div style="margin-bottom: 28px;padding: 0;">
+                        <a id="returnButton" class="pull-right" href="javascript:void()" onclick="showFloor()" style="color:#4d738a">Return to Building View</a>
+                    </div>
+                    <div class="popup-overlay hidden" id="popPromotion">
+                        <!--Creates the popup content-->
+                        <div id="promoList" class=""></div>
+                    </div>
+                    <hr style="border-top: 1px solid #838383" />
+                    <div class="hidden" id="popFloorCoordinate" style="border-color:#b4ada5">
+                        <!--Creates the popup content-->
+                        <br>
+
+                        <div class="" id="popUnitPlan" style="background:#fff;color:#4d738a; padding-top:5px;">
+
+                        </div>
+                    </div>
+                    <div class="panel panel-default sidebar-menu similar-property-wdg wow fadeInRight animated hidden" id="divUdet">
+                        <div class="col-xs-12 col-sm-12 dealer-face">
+                            <a href="JavaScript:Void(0)" onclick="displayImg()">
+                                <img src="" id="imgFloorPlan" class="img-responsive">
+                            </a>
+
+                        </div>
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span id="lblUnitNo"></span></h3>
+                            <span class="property-price pull-right"><span id="lblRent1"></span></span>
+                            <input type="hidden" id="hndUID" />
+                        </div>
+                        <div class="panel-body recent-property-widget" style="background:#fff">
+
+                            <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
+                                <!-- Hide Icon For Now Aug 15
+                                <span class="property-info icon-area">
+                                    <img src="~/content/assets/img/icon/AreaIcon.png">
+                                </span>
+                                -->
+                                <span class="property-info-entry">
+                                    <span class="property-info-label">Area</span>
+                                    <span class="property-info-value"><span id="lblArea"></span><b class="property-info-unit">Sq Ft</b></span>
+                                </span>
+                            </div>
+
+
+                            <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
+                                <!-- Hide Icon For Now Aug 15
+                                <span class="property-info-icon icon-garage">
+                                    <img src="~/content/assets/img/icon/DepositIcon.png">
+                                </span>
+                                -->
+                                <span class="property-info-entry">
+                                    <span class="property-info-label">Deposit</span>
+                                    <span class="property-info-value"><span id="lblDeposit"></span></span>
+                                </span>
+                            </div>
+                            <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
+                                <!-- Hide Icon For Now Aug 15
+                                <span class="property-info-icon icon-garage">
+                                    <img src="~/content/assets/img/icon/rent-orange.png">
+                                </span>
+                                -->
+                                <span class="property-info-entry">
+                                    <span class="property-info-label">Rent</span>
+                                    <span class="property-info-value"><span id="lblRent"></span></span>
+                                </span>
+                            </div>
+                            <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
+                                <!-- Hide Icon For Now Aug 15
+                                <span class="property-info-icon icon-garage">
+                                    <img src="~/content/assets/img/icon/LeaseIcon.png">
+                                </span>
+                                -->
+                                <span class="property-info-entry">
+                                    <span class="property-info-label">Lease</span>
+                                    <span class="property-info-value"><span id="lblLease"></span> Mo</span>
+                                </span>
+                            </div>
+                            <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
+                                <!-- Hide Icon For Now Aug 15
+                                <span class="property-info-icon icon-bed">
+                                    <img src="~/content/assets/img/icon/bed-orange.png">
+                                </span>
+                                -->
+                                <span class="property-info-entry">
+                                    <span class="property-info-label">Bedrooms</span>
+                                    <span class="property-info-value"><span id="lblBed"></span></span>
+                                </span>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
+                                <!-- Hide Icon For Now Aug 15
+                                <span class="property-info-icon icon-bath">
+                                    <img src="~/content/assets/img/icon/os-orange.png">
+                                </span>
+                                -->
+                                <span class="property-info-entry">
+                                    <span class="property-info-label">Bathrooms</span>
+                                    <span class="property-info-value"><span id="lblBath"></span></span>
+                                </span>
+                            </div>
+
+
+                            <div class="col-xs-12 text-center">
+                                <button class="btn-primary hollow btn" id="btnapplynow" style="padding:10px 50px;" data-wow-delay="0.5s" @*onclick="applyNow(@Model.PID)"*@>Apply Now</button>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="panel  wow fadeInRight animated">
+                        <div class="panel-body recent-property-widget">
+                            <img src="~/content/assets/img/ads.png">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="dealer-widget">
+                        <div class="dealer-content">
+                            <div class="inner-wrapper">
+
+                                <div class="clear">
+
+                                    <ul class="dealer-contacts">
+                                        <li><a href="javascript:void(0);" id="btnPapp" style="color:#ffffff !important; font-weight:300 !important"><i class="pe-7s-timer strong" style="color:black"> </i>&nbsp;&nbsp;Appointment</a></li>
+                                        <li>
+                                            <a id="btnmapfloor" href="javascript:void(0);" style="color:#ffffff !important; font-weight:300 !important"><i class="pe-7s-map-marker strong"> </i> @Model.Location</a>
+                                        </li>
+                                        <li><i class="pe-7s-mail strong"> </i>  info@sanctuarydoral.com</li>
+                                        <li><i class="pe-7s-call strong"> </i> +786.437.8658</li>
+                                    </ul>
+                                    <a href="javascript:void(0);" title="Header" data-toggle="popover" data-placement="top" data-content="Content">Top</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </aside>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Creates the popup body-->
+
+<div id="popFloorPlan" class="example_content">
+    <img src="" id="imgFloorPlan2" class="img-responsive">
+</div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-header">
+        <span class="close">&times;</span>
+    </div>
+    <!-- Modal content -->
+    <div class="modal-content">
+
+        <div class="text-center">
+            <h5 style="color:#4d738a;font-weight:bold">WELCOME TO ONLINE LEASING</h5>
+        </div>
+        <div class="text-justify">
+            <p style="font-size:13px;font-weight:bold;color:#4d738a">Congratulations! You have selected your new home. Great choice. We've made your move-in process seamless and fun, so let's get started. </p>
+            <p style="font-size:13px;font-weight:bold;color:#4d738a;">First you apply, receive confirmation, complete your lease, pay and you are all done. </p>
+            <p style="font-size:13px;font-weight:bold;color:#4d738a;">Once we receive your lease and payment, we will quickly review, approve and conatct you to set up your move-in. Easy right?</p>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary" onclick="applyNow(@Model.PID)"> Start</button>
+        </div>
+    </div>
+
+</div>
+
+<!--modal style-->
+<style>
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        /*z-index: 1;*/ /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    .modal-header {
+        margin: auto;
+        padding: 20px;
+        width: 45%;
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 40%;
+        text-align: justify;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #fff;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        opacity: 1;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+            opacity: 1;
+        }
+</style>
+
+<style type="text/css">
+    .popup-overlay {
+        /*Hides pop-up when there is no "active" class*/
+        background: #4d738a;
+        color: white;
+        height: 27%;
+        font-weight: bold;
+        /*left: 25%;*/
+        /*z-index: 15;*/ ` qq
+    }
+
+        .popup-overlay.active {
+            /*displays pop-up when "active" class is present*/
+            visibility: visible;
+            text-align: center;
+        }
+
+    .popup-content {
+        /*Hides pop-up content when there is no "active" class */
+        /*visibility: hidden;*/
+    }
+
+        .popup-content.active {
+            /*Shows pop-up content when "active" class is present */
+            visibility: visible;
+            background: #e6dfdf;
+            color: #180fea;
+        }
+
+    #ddlRoom {
+        line-height: 20px;
+    }
+</style>
+
+<!--modal script-->
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("btnapplynow");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+<script>
+    $(function () {
+        $("#txtMoveDate").datepicker();
+        $("#txtDate").datepicker();
+    });
+</script>
+<script>
+
+    $(document).ready(function () {
+       // $('input').glDatePicker();
+        $('[data-toggle="tooltip"]').tooltip();
+        $('#image-gallery').lightSlider({
+            gallery: true,
+            item: 1,
+            thumbItem: 9,
+            slideMargin: 0,
+            speed: 500,
+            auto: true,
+            loop: true,
+            onSliderLoad: function () {
+                $('#image-gallery').removeClass('cS-hidden');
+            }
+        });
+        @*if (@Model.FromHome)
+        {
+            $("#btnShowfloor").text("Show Building")
+            $("#divFloor").addClass("hidden");
+            $("#listUnitDiv").removeClass("hidden");
+            $("#returnButton").html("Return to List View");
+            $("#UnitListDesc").text("Click on the unit of your choice to view the information, layout, and interactive videos");
+        }*@
+        $("#ddlRoom").val(@Model.Bedroom);
+        $("#ddlRoom").trigger('change');
+        //getPropertyUnitList();
+      setAddAmenity("@Model.Amenities");
+    });
+        var setAddAmenity = function (aid) {
+
+            var array = [];
+            var amtArray = [];
+            if (aid.toString().indexOf(',') > -1) {
+                array = aid.split(',')
+            } else {
+                array.push(aid);
+            }
+
+            var params = { Amenity: "" };
+            $.ajax({
+                url: '/Admin/Amenities/GetAmenityList',
+                method: "post",
+                data: JSON.stringify(params),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if ($.trim(response.error) != "") {
+                        this.cancelChanges();
+                    } else {
+                        $("#tblAminities").empty();
+                        $.each(response, function (index, elementValue) {
+                            $.each(array, function (i) {
+                                if (array[i] == elementValue.ID) {
+                                    var html = '';
+                                    html += "<li><a href='JavaScript:Void(0)'>" + elementValue.Amenity + "</a> </li>";
+                                    $("#tblAminities").append(html);
+                                }
+
+                            });
+
+
+                        });
+
+                    }
+
+                }
+            });
+
+        }
+
+</script>
+<script type="text/javascript">
+        $(document).ready(function () {
+            $("#apartimg_2").maphilight();
+
+        });
+        $(function () {
+            $('area').click(function () {
+                $("#hndSelectedFloor").val($(this).attr("id"));
+                $("#hndSelectedAval").val($(this).attr("data-aval"));
+                var floorid = $(this).attr("data-floorid");
+                $("#dfa_" + floorid).addClass("hidden");
+                var isAval = $(this).attr("data-aval");
+                var color = "ff6347";
+                if (isAval == 1) {
+                    color = "0af11c";
+                }
+                else if (isAval == 2) {
+                    color = "ffff00";
+                }
+                $('.active_area').data('maphilight', { alwaysOn: false }).trigger('alwaysOn.maphilight');
+                $(this).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: color, strokeColor: color }).trigger('alwaysOn.maphilight');
+            });
+            $("area").mouseout(function (e) {
+                $(".divtooltip").addClass("hidden");
+            });
+
+            $("area").mouseover(function (e) {
+                var offset = $(this).offset();
+                var X = (e.pageX - offset.left);
+                var Y = (e.pageY - offset.top);
+                Y = Y - 75;
+
+
+                var floorid = $(this).attr("data-floorid");
+                $(".divtooltip").addClass("hidden");
+                $("#dfa_" + floorid).removeClass("hidden");
+
+                $("#dfa_" + floorid).css({ top: Y, left: X, position: 'absolute' });
+
+
+                var isAval = $(this).attr("data-aval");
+                var color = "ff6347";
+                if (isAval == 1) {
+                    color = "0af11c";
+                }
+                else if (isAval == 2) {
+                    color = "ffff00";
+                }
+                $(this).addClass('active_mouse').data('maphilight', { alwaysOn: true, fillColor: color, strokeColor: color }).trigger('alwaysOn.maphilight');
+                if ($("#hndSelectedFloor").val()) {
+                    var cont = $("#hndSelectedFloor").val();
+                    var isAvalFill = $("#hndSelectedAval").val();
+                    var colorfill = "ff6347";
+                    if (isAvalFill == 1) {
+                        colorfill = "0af11c";
+                    }
+                    else if (isAvalFill == 2) {
+                        colorfill = "ffff00";
+                    }
+                    $("#" + cont).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: colorfill, strokeColor: colorfill }).trigger('alwaysOn.maphilight');
+                }
+            });
+            $(".buildplan").mouseout(function () {
+                $(".buildplan").removeClass('active_mouse').data('maphilight', { alwaysOn: false }).trigger('alwaysOn.maphilight');
+
+                if ($("#hndSelectedFloor").val()) {
+                    var cont = $("#hndSelectedFloor").val();
+                    var isAval = $("#hndSelectedAval").val();
+                    var color = "ff6347";
+                    if (isAval == 1) {
+                        color = "0af11c";
+                    }
+                    else if (isAval == 2) {
+                        color = "ffff00";
+                    }
+                    $("#" + cont).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: color, strokeColor: color }).trigger('alwaysOn.maphilight');
+                }
+            });
+            //$('.Uarea').addClass('active_unavil').data('maphilight', { alwaysOn: true, fillColor: 'FF0000', strokeColor: 'FF0000', }).trigger('alwaysOn.maphilight');
+            //$('.UAarea').addClass('active_unavil').data('maphilight', { alwaysOn: true, fillColor: '006400', strokeColor: '006400',}).trigger('alwaysOn.maphilight');
+            //$('.UYarea').addClass('active_unavil').data('maphilight', { alwaysOn: true, fillColor: 'ffff00', strokeColor: 'ffff00', }).trigger('alwaysOn.maphilight');
+        });
+
+</script>

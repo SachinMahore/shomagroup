@@ -1,0 +1,563 @@
+﻿@using ShomaRM.Areas.Admin.Models
+@model ProspectManagementModel
+@{
+    ViewBag.Title = "Prospect Details ";
+}
+<script src="~/Areas/Admin/Content/Pages/ProspectManagement/ProspectManagement.js"></script>
+<input type="hidden" id="hndProspectID" value="@Model.PID" />
+
+<!-- property area -->
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container" style="width:100%!important">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <div>
+                    <div class="wizard-header">
+                        <h3>
+                            <b>Prospect </b>Convertion <br>
+                        </h3>
+                    </div>
+                    <ul>
+                        <li class="active" id="li1"><a href="javascript:void(0);" onclick="goToStep(1)">Prospect Details </a></li>
+                        <li id="li2"><a href="javascript:void(0);" onclick="goToStep(2)">Visit Details </a></li>
+                        <li id="li3"><a href="javascript:void(0);" onclick="goToStep(3)">Transaction Details </a></li>
+                        <li id="li4"><a href="javascript:void(0);" onclick="goToStep(4)">Upload Documents </a></li>
+                        <li id="li5"><a href="javascript:void(0);" onclick="goToStep(5)">Finished </a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="" id="step1">
+                            <div class="row p-b-15  ">
+                                <div class="col-sm-12">
+                                    <h4 class="info-text pull-left"> Prospect Form Information submitted by Customer</h4>
+
+                                    <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="gotoProspList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">Prospect List</span></button>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="firstname" class="star">First Name</label>
+                                        <input type="text" class="form-control" id="txtFirstName" value="@Model.FirstName">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="lastname" class="star">Last Name</label>
+                                        <input type="text" class="form-control" id="txtLastName" value="@Model.LastName">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="email" class="star">Email</label>
+                                        <input type="text" class="form-control" id="txtEmail" value="@Model.EmailId">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="subject" class="star">Phone Number</label>
+                                        <input type="text" class="form-control" id="txtPhone" maxlength="15" onkeypress="return isOnlyNumber(event)" value="@Model.PhoneNo">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="star">Property Interested</label>
+                                        <select id="ddlProperty" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="star">Unit Interested</label>
+                                        <select id="ddlUnit" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Required Date  :</label>
+                                        <input type="text" id="txtRequiredDate" class="form-control" value="@Model.RequiredDate">
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Created Date  :</label>
+                                        <input type="text" id="txtCreatedDate" class="form-control" value="@Model.CreatedDate">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="star"> State :</label>
+                                        <select id="ddlState" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label> City :</label>
+                                        <select id="ddlCity" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Visit Date  :</label>
+                                        <input type="text" id="txtMoveDate" class="form-control" value="@Model.VisitDateTime">
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Having Pets?:</label>
+                                        <div class="checkbox">
+
+                                            <label>
+                                                <input type="checkbox" id="chkPets" @(Model.HavingPets == 1 ? "checked" : "")> Yes
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="address">Address</label>
+                                        <textarea id="txtAddress" class="form-control"> @Model.Address</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="message">Message</label>
+                                        <textarea id="txtMessage" class="form-control" maxlength="100">@Model.Message</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="email">Market Source</label>
+                                        @*<input type="text" class="form-control" id="txtMarketSource" maxlength="20" value="@Model.MarketSource">*@
+                                        <select id="ddlMarketSource" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="subject">PetsDetails</label>
+                                        <input type="text" class="form-control" id="txtPetsDetails" value="@Model.PetsDetails">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 text-center">
+                                    <button type="submit" class="btn btn-primary" onclick="saveupdateProspect()"> Save</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  End step 1 -->
+                        <div class="hidden" id="step2">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h4 class="info-text pull-left"> Visit Details </h4>
+
+                                    <button type="button" class="btn btn-default pull-right" id="btnAddVisit"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> Add Visit</button>
+                                </div>
+
+                                <div class="col-md-12 clear">
+
+                                    <table id="tblVisit" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th style="background-color: #c7cdd566;color:#3d3939">Visit ID</th>
+                                                <th style="background-color: #c7cdd566;color:#3d3939">Visit No</th>
+                                                <th style="background-color: #c7cdd566;color:#3d3939">Visit Date</th>
+                                                <th style="background-color: #c7cdd566;color:#3d3939">Slot</th>
+                                                <th style="background-color: #c7cdd566;color:#3d3939">Visit Incharge</th>
+                                                <th style="background-color: #c7cdd566;color:#3d3939">Visit Details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- End step 2 -->
+                        <div class="hidden" id="step3">
+
+                            <div class="row">
+                                <div class="col-md-12 clear">
+
+                                    <div class="col-sm-12">
+                                        <h4 class="info-text pull-left"> Make Transaction </h4>
+                                        <button type="button" class="btn btn-default pull-right" id="btnAddTrans"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> Add Transaction</button>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12 clear">
+
+                                    <table id="tblTransaction" class="table-bordered" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th style="background-color: #c7cdd566;color:#3d3939">Sr. No.</th>
+                                                @*<th style="background-color: #c7cdd566;color:#3d3939">Tenant Name</th>*@
+                                                <th style="background-color: #c7cdd566;color:#3d3939">Trans Date</th>
+                                                <th style="background-color: #c7cdd566;color:#3d3939">Amount</th>
+                                                <th style="background-color: #c7cdd566;color:#3d3939">Trans Type</th>
+                                                <th style="background-color: #c7cdd566;color:#3d3939">Charge Type</th>
+                                                <th style="background-color: #c7cdd566;color:#3d3939">Bank Name</th>
+                                                <th style="background-color: #c7cdd566;color:#3d3939">Created Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- End step 3 -->
+                        <div class="hidden" id="step4">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h4 class="info-text pull-left"> Document Details </h4>
+                                </div>
+                                <div class="col-sm-12">
+                                    <input type="hidden" id="hdnDocumentId" value="0" />
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="ddlDocumentType">Document Type</label>
+                                            <select id="ddlDocumentType" class="form-control form-control-small">
+                                                <option value="1">Electric Bill</option>
+                                                <option value="2">Green Card</option>
+                                                <option value="3">Driving Licence</option>
+                                                <option value="4">Lease Agreement</option>
+                                            </select>
+                                        </div>
+
+                                    </div><div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="txtDocumentNumber">Document Number</label>
+                                            <input id="txtDocumentNumber" class="form-control form-control-small" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="picture-container">
+                                            <div class="">
+                                                <label>Upload Document</label>
+                                                <input type="file" id="wizard-picture">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-sm-3 pull-right">
+                                        <button type="submit" class="btn btn-primary" onclick="SaveUpdateDocument()"><i class="glyphicon glyphicon-paperclip"></i> Upload</button>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12 clear">
+
+                                    <table id="tblDocument" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                
+                                                <th style="background-color: #c7cdd566;color:#3d3939">Document</th>
+                                                <th style="background-color: #c7cdd566;color:#3d3939">Document Type</th>
+                                                <th style="background-color: #c7cdd566;color:#3d3939">Document Number</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="hidden" id="step5">
+                            <h4 class="info-text"> Finished and submit </h4>
+                            <div class="row">
+
+                                <div class="col-sm-12 text-center">
+                                    <button type="submit" class="btn btn-primary" onclick="convertToTenant()">Convert To Tenant</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  End step 4 -->
+                    </div>
+                  
+                </div>
+            </div>
+            <!-- End submit form -->
+        </div>
+
+    </div>
+</div>
+<div id="popVisit" class="example_content">
+    <input type="hidden" id="hndVisitID" value="0" />
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label class="star">Visit Incharge :</label>
+            <select id="ddlVisitIncharge" class="form-control"></select>
+        </div>
+    </div>
+
+
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label class="star">Visit Date</label>
+            <input id="txtVisitDate" type="text" class="form-control" placeholder="Visit Date">
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label>Visit Slot :</label>
+            <select id="ddlVisitSlot" class="  form-control">
+                <option value="0">-- Select Slot --</option>
+                <option value="1">9:00-10:00</option>
+                <option value="2">10:00-11:00</option>
+                <option value="3">11:00-12:00</option>
+                <option value="4">12:00-13:00</option>
+                <option value="5">13:00-14:00</option>
+                <option value="6">14:00-15:00</option>
+                <option value="7">15:00-16:00</option>
+                <option value="8">16:00-17:00</option>
+
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label class="star">Result :</label>
+            <select id="ddlVisitResult" class="  form-control">
+                <option value="PA">PA</option>
+                <option value="FO">FO</option>
+                <option value="RS">RS</option>
+                <option value="EMP">EMP</option>
+                <option value="OH">OH</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label>Visit Number :</label>
+            <select id="ddlVisitNumber" class="  form-control">
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label>Activity:</label>
+            <select id="ddlVisitActivity" class="form-control">
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Visit Details</label>
+            <textarea name="txtVisitDetails" id="txtVisitDetails" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="dot-hr"></div>
+    </div>
+    <div class="col-sm-12 text-center">
+        <button type="submit" class="btn btn-primary" onclick="saveupdateVisit()">Save</button>
+    </div>
+
+</div>
+<div id="popTransaction" class="example_content">
+    <input type="hidden" id="hndTransID" value="0" />
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label>Transaction Type :</label>
+            <select id="ddlTransactionType" class="  form-control">
+                <option value='0'>Select Type</option>
+                <option value='5'>Application Fees (Non Refundable)</option>
+                <option value='6'>Admin Fees</option>
+                <option value='7'>Security Deposit</option>
+
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label>Charge Type :</label>
+            <select id="ddlChargeType" class="  form-control"></select>
+        </div>
+    </div>
+
+
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label>Charge Date</label>
+            <input id="txtChargeDate" type="text" class="form-control" value="@DateTime.Now" placeholder="Charge Date">
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label>Charge Amount</label>
+            <input id="txtChargeAmount" type="number" class="form-control" onkeypress="return isNumber(event)" placeholder="Charge Amount" value="">
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label>Summary (Charge Type)</label>
+            <input id="txtSummaryCharge" type="text" class="form-control" placeholder="Summary Charge Type" maxlength="10" value="">
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+
+            <input type="button" class='btn btn-next btn-primary' id="chkBank" onclick="clearBank()" value="ACH">
+            <input type="button" class='btn btn-next btn-primary' id="chkACH" onclick="clearCard()" value="CARD">
+
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <label id="lblPaymentDet">The bank must be based on United State. Enter Bank Details.</label>
+
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label>Bank Name</label>
+            <input id="txtBankName" type="text" class="form-control" placeholder="Bank Name" value="">
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label id="lblAccCardname">Account Name</label>
+            <input id="txtAccountName" type="text" class="form-control" placeholder="Account Name" value="">
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label id="lblAccCardnum">Account Number</label>
+            <input id="txtAccountNumber" type="text" class="form-control" placeholder="Account Number" onkeypress="return isOnlyNumber(event)" maxlength="29" value="">
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label>Routing Number</label>
+            <input id="txtRoutingNumber" type="text" class="form-control" placeholder="Routing Number" onkeypress="return isNumber(event)" value="">
+        </div>
+    </div>
+    <div class="col-sm-8 hidden" id="divCard">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label>Exp Month</label>
+                <select id="ddlCEMonth" class="form-control">
+                    <option value="0">MM</option>
+                   
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label>Year</label>
+                <select id="ddlCEYear" class="form-control">
+                    <option value="0">YYYY</option>
+                   @for (int i = DateTime.Now.Year; i < DateTime.Now.AddYears(10).Year; i++)
+                   {
+                    <option value="@i">@i</option>
+                   }
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label>CVV Number</label>
+                <input id="txtSecurityNumber" type="text" class="form-control" placeholder="CVV Number" maxlength="3" value="">
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 hidden">
+        <div class="form-group">
+            <label>Description :</label>
+            <textarea name="description" id="txtDesc" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="dot-hr"></div>
+    </div>
+    <div class="col-sm-12 text-center">
+        <button type="submit" class="btn btn-primary" onclick="saveupdateTransaction()"><i class="fa fa-envelope-o"></i> Pay Now</button>
+    </div>
+
+</div>
+
+    <script>
+        $(function () {
+            $("#txtRequiredDate").datepicker();
+            $("#txtMoveDate").datepicker();
+            $("#txtVisitDate").datepicker();
+            $("#txtChargeDate").datepicker();
+        });
+    </script>
+    <script>
+    $(document).ready(function () {
+        fillStateDDL();
+        getPropertyList();
+
+      setTimeout(function ()
+      {
+
+        $("#ddlState").val(@Model.State);
+          $("#ddlState").trigger('change');
+          $("#ddlProperty").val(@Model.PropertyID);
+          $("#ddlProperty").trigger('change');
+          $("#ddlMarketSource").val(@Model.MarketSource);
+          $("#ddlMarketSource").trigger('change');
+          
+
+        }, 1200);
+
+        $("#ddlProperty").on('change', function (evt, params) {
+            var selected = $(this).val();
+
+            if (selected != null) {
+                getPropertyUnitList(selected);
+            }
+        });
+
+        $("#ddlState").on('change', function (evt, params) {
+            var selected = $(this).val();
+            if (selected != null) {
+                fillCityList(selected);
+            }
+        });
+         setTimeout(function ()
+         {
+
+        $("#ddlCity").val(@Model.City);
+        $("#ddlCity").trigger('change');
+        $("#ddlUnit").val(@Model.UnitID);
+          $("#ddlUnit").trigger('change');
+        }, 1900);
+
+
+
+
+        $("#ddlTransactionType").val(0);
+        $("#ddlTransactionType").trigger('change');
+
+        setTimeout(function () {
+            $("#ddlChargeType").val(2);
+            $("#ddlChargeType").trigger('change');
+        }, 3000);
+
+    });
+
+    </script>

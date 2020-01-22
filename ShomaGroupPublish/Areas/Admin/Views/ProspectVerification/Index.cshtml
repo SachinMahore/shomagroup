@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "Prospect Verification";
+}
+
+<script src="~/Areas/Admin/Content/Pages/ProspectVerification/ProspectVerificationList.js"></script>
+<!-- property area -->
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container"  style="width:100%!important">
+        <div class="row">
+            <div class="breadcrumb" style="margin-bottom:0px">
+                <h4 class="">Online Application List</h4>
+            </div>
+
+            <div class="col-md-12  pr0  properties-page">
+                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                    <div class="panel-heading">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <h3 class="panel-title">From Date</h3>
+                                <input id="txtFromDate" type="text" class="form-control" value="@DateTime.Now.AddDays(-30).ToString("MM/dd/yyyy")">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <h3 class="panel-title">To Date</h3>
+                                <input id="txtToDate" type="text" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <h3 class="panel-title" style="border-bottom: #fff !important;">&nbsp;</h3>
+                                <input type='button' class='btn btn-next btn-primary' name='Search' value='Search' onclick="getProspectVerificationList()" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group  padding-top-25">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 form-group" id="divPagination_ProspectVerifyList">
+                        <div id="divPgn" class="col-sm-8 pagination">
+                            <ul id="ulPagination_ProspectVerifyList"></ul>
+                        </div>
+                        <div class="col-sm-3 padding-0 pull-right">
+                            <div class="col-sm-6">
+                                <label class="control-label">Row/Page</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <select id="ddlRPP_ProspectVerifyList" class="form-control form-control-small"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body search-widget">
+                        <div class="col-md-12 clear">
+                            <table id="tblProspectVerify" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;padding:10px;">First Name</th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;padding:10px;">Last Name</th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;padding:10px;">Phone No</th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;padding:10px;">Email Address</th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;padding:10px;" onclick="sortTable('CreatedDate')">Apply Date <span></span></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;padding:10px;" onclick="sortTable('PropertyId')">Unit No <span></span></th>
+                                        @*<th style="background-color: #c7cdd5;color:#3d3939;padding:10px;">Action</th>*@
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#txtFromDate").datepicker();
+        $("#txtToDate").datepicker();
+    });
+</script>

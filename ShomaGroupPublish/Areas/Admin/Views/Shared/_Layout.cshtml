@@ -1,0 +1,300 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Shoma Group | RMAdmin</title>
+    <meta name="description" content="Shoma is Residential Management Web Portal">
+    <meta name="author" content="Shoma">
+    <meta name="keyword" content="Shoma Residential Management">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+
+    <link href="~/Content/assets/css/bootstrap-datetimepicker.css" rel="stylesheet" />
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/normalize.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/font-awesome.min.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/fontello.css")">
+    <link href="@Url.Content("/content/assets/fonts/icon-7-stroke/css/pe-icon-7-stroke.css")" rel="stylesheet">
+    <link href="@Url.Content("/content/assets/fonts/icon-7-stroke/css/helper.css")" rel="stylesheet">
+    <link href="@Url.Content("/content/assets/css/animate.css")" rel="stylesheet" media="screen">
+
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/bootstrap-select.min.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/bootstrap/css/bootstrap.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/datepicker.css")" />
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/icheck.min_all.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/price-range.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/owl.carousel.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/owl.theme.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/owl.transitions.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/lightslider.min.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/jquery.slitslider.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/wizard.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/style.css")">
+    <link rel="stylesheet" href="@Url.Content("/Content/jquery-confirm-master/css/jquery-confirm.css")" />
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/popupwindow.css")">
+    <link href="~/Content/fileUpload.css" rel="stylesheet" />
+        @*<link rel="stylesheet" href="@Url.Content("/content/assets/css/glDatePicker.darkneon.css")">
+        
+                <link rel="stylesheet" href="@Url.Content("/content/assets/css/glDatePicker.flatwhite.css")">*@
+
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/responsive.css")">
+    <script src="@Url.Content("/content/assets/js/jquery-1.10.2.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/modernizr-2.6.2.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/popupwindow.js")"></script>
+
+    <link rel="stylesheet" href="@Url.Content("/Content/assets/css/jAlert.css")" />
+
+    <script src="@Url.Content("/content/assets/js/jAlert.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/jTimeout.js")"></script>
+    <script src="@Url.Content("~/Content/Pages/common.js")"></script>
+    <script src="@Url.Content("/content/assets/js/jquery.simplePagination.js")"></script>
+    <script src="@Url.Content("/Content/jquery.countdown.js")"></script>
+    <script src="@Url.Content("/Content/jquery.countdown.min.js")"></script>
+    <script src="~/Content/file-Upload.js"></script>
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
+    </div>
+    <!-- Body content -->
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="~/Home/Index"><img src="~/content/assets/img/logoAdmin.png" alt=""></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse yamm" id="navigation">
+                <div class="button navbar-right">
+                    @*@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.Username*@
+                    <button class="navbar-btn nav-button wow bounceInRight login" onclick="gotoLogin()" data-wow-delay="0.4s">Logout</button>
+
+                </div>
+                <ul class="main-nav nav navbar-nav navbar-right">
+
+                    <li class="wow fadeInDown @(ViewBag.ActiveMenu == "home" ? "active" : "")" data-wow-delay="0.1s"><a class="" href="~/Home/Index">Home</a></li>
+                    <li class="dropdown yamm-fw @(ViewBag.ActiveMenu == "admin" ? "active" : "")" data-wow-delay="0.4s">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">Admin <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="yamm-content">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h5>Masters</h5>
+                                            <ul>
+                                                <li>
+                                                    <a href="/Admin/State">State Management</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="/Admin/City">City Management</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="/Admin/Amenities">Amenity Management</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Admin/Utility">Utility Management</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Admin/Marketsource/Index/0">Marketsource Management</a>
+                                                </li>
+                                       
+                                                <li>
+                                                    <a href="/Admin/Parking/Index/0">Parking Management</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Admin/PetManagement/Index/0">Pet Management</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Admin/Storage/Index/0">Storage Management</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Admin/FOB/Index/0">FOB Management</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Admin/PremiumType">Premium Type Management</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Admin/LeaseTerms">Lease Term Management</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="col-sm-3 hidden">
+                                            <h5>Community</h5>
+                                            <ul>
+                                                <li><a href="/Admin/Notice">Notice List</a>  </li>
+                                                <li><a href="/Admin/Notice/Edit/0">Add/Edit Notice</a>  </li>
+                                                <li><a href="/Admin/Facility">Facility List</a>  </li>
+                                                <li><a href="/Admin/Facility/Edit/0">Add Facility</a>  </li>
+                                                <li><a href="/Admin/Event">Event List</a>  </li>
+                                                <li><a href="/Admin/Event/Edit/0">Add/EditEvent</a>  </li>
+                                                <li><a href="/Admin/City">Booking List</a>  </li>
+
+                                            </ul>
+                                        </div>
+                                        <div class="col-sm-3 hidden">
+                                            <h5>Purchase</h5>
+                                            <ul>
+                                                <li><a href="/Admin/Vendor">Vendor List</a>  </li>
+                                                <li><a href="/Admin/Vendor/Edit/0">Add/Edit Vendor</a>  </li>
+                                                <li><a href="/Admin/PurchaseOrder">Purchase Order List</a>  </li>
+                                                <li><a href="/Admin/PurchaseOrder/Edit/0">Add/Edit Purchase</a>  </li>
+
+                                                <li><a href="/Admin/Invoice">Invoice List</a>  </li>
+                                                <li><a href="/Admin/Invoice/Edit/0">Add/Edit Invoice</a>  </li>
+                                                <li><a href="/Admin/CashReceipt">Cash Receipts List</a>  </li>
+                                                <li><a href="/Admin/CashReceipt/Edit/0">Add/Edit Cash Receipts</a>  </li>
+
+                                            </ul>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h5>User</h5>
+                                            <ul>
+                                                <li>
+                                                    <a href="/Admin/Users">User List</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Admin/Users/New">Add/Edit User</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Admin/Users">Assign Roles</a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.yamm-content -->
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "property" ? "active" : "")" data-wow-delay="0.1s">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="200">Property <b class="caret"></b></a>
+                        <ul class="dropdown-menu navbar-nav">
+                            <li>
+                                <a href="/Admin/PropertyManagement/">Property List</a>
+                            </li>
+                            <li>
+                                <a href="/Admin/PropertyManagement/AddProperty/0">Add New Property</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "prospectverification" ? "active" : "")" data-wow-delay="0.1s"><a class="" href="~/Admin/ProspectVerification">Online Application</a></li>
+                    <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "prospect" ? "active" : "")" data-wow-delay="0.1s">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="200">Appointment <b class="caret"></b></a>
+                        <ul class="dropdown-menu navbar-nav">
+                            <li>
+                                <a href="/Admin/ProspectManagement/">Appointment List</a>
+                            </li>
+                            <li>
+                                <a href="/Admin/ProspectManagement/AddEdit/0">Add New Appointment</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "tenant" ? "active" : "")" data-wow-delay="0.1s">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="200">Tenant <b class="caret"></b></a>
+                        <ul class="dropdown-menu navbar-nav">
+                            <li>
+                                <a href="/Admin/Tenant/">Tenant List</a>
+                            </li>
+                            <li>
+                                <a href="/Admin/Tenant/New">Add New Tenant</a>
+                            </li>
+
+                        </ul>
+                    </li>
+            
+                    
+                </ul>
+            </div><!-- /.navbar-collapse -->
+
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div class="row"><br /><br /><br /></div>
+    <!-- End of nav bar -->
+
+    @RenderBody()
+    <div id="divLoader" style="display:none"></div>
+    <!-- Footer area-->
+    <div class="footer-area navbar-fixed-bottom">
+
+        <div class="footer-copy text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="pull-left">
+                        <span> (C) <a href="http://www.shomagroup.com">Shoma Group</a> , All rights reserved @DateTime.Now.ToString("yyyy")   </span>
+                    </div>
+                    <div class="bottom-menu pull-right">
+                        <ul>
+                            <li><a class="wow fadeInUp animated" href="~/Home/Index" data-wow-delay="0.2s">Home</a></li>
+                            <li><a class="wow fadeInUp animated" href="~/Property/Index" data-wow-delay="0.3s">Property</a></li>
+                            <li><a class="wow fadeInUp animated" href="~/Home/FAQ" data-wow-delay="0.4s">Faq</a></li>
+                            <li><a class="wow fadeInUp animated" href="~/Home/Contact" data-wow-delay="0.6s">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="@Url.Content("/content/bootstrap/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/bootstrap-datepicker.js")"></script>
+    <script src="@Url.Content("/content/assets/js/bootstrap-select.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/bootstrap-hover-dropdown.js")"></script>
+    <script src="@Url.Content("/content/assets/js/easypiechart.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/jquery.easypiechart.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/owl.carousel.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/wow.js")"></script>
+    <script src="@Url.Content("/content/assets/js/icheck.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/price-range.js")"></script>
+    <script src="@Url.Content("/content/assets/js/lightslider.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/jquery.ba-cond.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/jquery.slitslider.js")"></script>
+    <script src="@Url.Content("/content/assets/js/jquery.bootstrap.wizard.js")"></script>
+    <script src="@Url.Content("/content/assets/js/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/wizard.js")"></script>
+
+    <script src="@Url.Content("/content/assets/js/main.js")"></script>
+    <script src="@Url.Content("/Content/jquery-confirm-master/js/jquery-confirm.js")"></script>
+</body>
+</html>
+<style>
+    #divLoader {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: url(/Content/assets/img/loader.gif) center no-repeat rgba(255,255,255,0.5);
+        display: none;
+    }
+</style>
+<script type="text/javascript">
+    function gotoLogin() {
+        window.location.href = "../../../Home/Index";
+    }
+</script>

@@ -1,0 +1,8 @@
+﻿
+@*@model ShomaRM.Models.EmbeddedSigning*@
+@{
+    ViewData["Title"] = "Embedded Signing Ceremony";
+}
+
+    <input type="submit" value="Sign the document!"
+           style="width:13em;height:2em;background:#1f32bb;color:white;font:bold 1.5em arial;margin: 3em;" onclick="location.href='@Url.Action("OnPostAsync","EmbeddedSigning")'" />

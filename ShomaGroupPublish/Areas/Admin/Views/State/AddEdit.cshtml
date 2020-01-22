@@ -1,0 +1,69 @@
+﻿@{
+        ViewBag.Title = (ViewBag.StateID == 0 ? "Add" : "Edit") + " State";
+        var StateID = ViewBag.StateID;
+        var pageTitle = (ViewBag.StateID == 0 ? "Add State" : "Edit State");
+
+        Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<script src="@Url.Content("~/Areas/Admin/Content/Pages/State/State.js")"></script>
+
+<input type="hidden" id="hndStateID" value="@StateID" />
+
+
+<!-- register-area -->
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container">
+        <div class="breadcrumb">
+            <h4 class="">Add / Edit State  </h4>
+        </div>
+        <div class="form-group clearfix panel">
+            <div class="col-md-12">
+                <div class="form-group pull-right clearfix" style="padding-top:5px;">
+                    <button type="button" class="btn btn-primary" id="btnSearch" onclick="searchState()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-search"></i> Search</button>
+                    @*<button type="button" class="btn btn-primary" id="btnNew" onclick="newUser()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-plus"></i> New</button>*@
+                    <button type="button" class="btn btn-success" id="btnSaveUpdate" onclick="saveUpdateState()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">Save</span></button>
+                </div>
+            </div>
+            <div class="form-group clearfix padding-5">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="firstname">State Name</label>
+                            <input class="form-control form-control-small" id="txtStateName" maxlength="100" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="lastname">State Abbreviation</label>
+                            <input class="form-control form-control-small" id="txtAbbreviation" maxlength="2" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .required {
+        color: red;
+    }
+
+    .k-button {
+        line-height: 1.5em !important;
+    }
+
+    .gridbtn {
+        background-color: #e0e0e0;
+        font-size: 12px;
+        padding: 3px 4px !important;
+    }
+
+    .btn {
+        border-radius: 3px;
+        padding: 3px 12px;
+        font-size: 12px;
+    }
+</style>
+

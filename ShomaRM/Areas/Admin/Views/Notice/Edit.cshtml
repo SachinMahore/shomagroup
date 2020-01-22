@@ -1,0 +1,117 @@
+﻿@using ShomaRM.Areas.Admin.Models
+@model NoticeModel
+@{
+    ViewBag.Title = "Notice";
+}
+<script src="~/Areas/Admin/Content/Pages/Notice/Notice.js"></script>
+<input type="hidden" id="hndNoticeID" value="@Model.NoticeID" />
+<input type="hidden" id="hndLeaseID" value="" />
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <form action="" method="">
+                    <div class="wizard-header">
+                        <h3>
+                            <b>Notice </b>Details<br>
+                        </h3>
+                    </div>
+                    <ul>
+                        <li><a href="#step1" data-toggle="tab"> </a></li>
+
+                    </ul>
+                    <div class="tab-content">
+
+                        <!--  End step 1 -->
+                        <div class="tab-pane" id="step1">
+                            <div class="row">
+                                <div class="col-sm-12">                               
+                                    <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="noticeList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">Notice List</span></button>
+                                    <div class="pull-right" style="padding-right:2px;">
+                                        <input type='button' class='btn btn-default' value='Save' onclick="saveupdateNotice()" />
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Property  :</label>
+                                            <select id="ddlProperty" class="  form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Property Unit :</label>
+                                            <select id="ddlUnit" class="  form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Tenant :</label>
+                                            <select id="ddlTenant" class="  form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Revision Number :</label>
+                                            <input id="txtRevisionNumber" type="text" class="form-control" placeholder="Revision Number" onkeypress="return isOnlyNumber(event)" value="@Model.Revision_Num">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Notice Date :</label>
+                                            <input id="txtNoticeDate" type="text" class="form-control" placeholder="Notice Date" value="@(Model.NoticeDate!=null?Model.NoticeDate.Value.ToString("MM/dd/yyyy"):"")">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Intended MoveOut Date:</label>
+                                            <input id="txtIntendedMoveOut" type="text" class="form-control" placeholder="Intended MoveOut Date" value="@(Model.IntendedMoveOut!=null?Model.IntendedMoveOut.Value.ToString("MM/dd/yyyy"):"")">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Cancel Notice Date:</label>
+                                            <input id="txtCancelNoticeDate" type="text" class="form-control" placeholder="Cancel Notice Date" value="@(Model.CancelNoticeDate!=null?Model.CancelNoticeDate.Value.ToString("MM/dd/yyyy"):"")">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="star">Termination Reason :</label>
+                                            <textarea name="resolution" id="txtTerminationReason" class="form-control">@Model.TerminationReason</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                            </div>
+                        </div>
+
+
+                        <!--  End step 4 -->
+                    </div>
+                   
+                </form>
+            </div>
+            <!-- End submit form -->
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#txtNoticeDate").datepicker();
+        $("#txtIntendedMoveOut").datepicker();
+        $("#txtCancelNoticeDate").datepicker();
+    });
+
+    $(document).ready(function () {
+        setTimeout(function () { $("#ddlProperty").find("option[value='" + @Model.PID + "']").attr('selected', 'selected'); }, 1500);
+        getPropertyUnitList(@Model.PID);
+        setTimeout(function () { $("#ddlUnit").find("option[value='" + @Model.UID + "']").attr('selected', 'selected'); }, 2200);
+        getTenantList(@Model.UID);
+        setTimeout(function () { $("#ddlTenant").find("option[value='" + @Model.TID + "']").attr('selected', 'selected'); }, 3000);
+    });
+</script>

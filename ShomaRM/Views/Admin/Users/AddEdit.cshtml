@@ -1,0 +1,129 @@
+﻿@using ShomaRM.Models;
+@{
+    ViewBag.Title = (ViewBag.UserID == "0" ? "Add" : "Edit") + " User";
+    var UserID = ViewBag.UserID;
+    var pageTitle = (ViewBag.CampaignID == "0" ? "Add User" : "Edit User");
+}
+<script src="@Url.Content("~/Content/pages/Admin/Users/Users.js")"></script>
+<input type="hidden" id="hndUserType" value="0" />
+<input type="hidden" id="hndUserID" value="@UserID" />
+<div class="page-header">
+    <h3 class="page-title">Add/Edit User</h3>
+</div>
+<div class="panel-body">
+    <div class="form-group clearfix panel">
+        <div class="col-md-12">
+            <div class="form-group pull-right clearfix" style="padding-top:5px;">
+                <button type="button" class="btn btn-primary" id="btnSearch" onclick="searchUser()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-search"></i> Search</button>
+                <button type="button" class="btn btn-primary" id="btnNew" onclick="newUser()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-plus"></i> New</button>
+                <button type="button" class="btn btn-success" id="btnSaveUpdate" onclick="saveUpdateUser()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">Save</span></button>
+            </div>
+        </div>
+        <div class="form-group clearfix">
+            <div class="col-md-6 padding-0">
+                <div class="form-group clearfix">
+                    <label class="col-sm-3 control-label">First Name<span class="required">*</span></label>
+                    <div class="col-sm-9 padding-0">
+                        <input class="form-control form-control-small" id="txtFirstName" maxlength="100" />
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-3 control-label">Last Name<span class="required">*</span></label>
+                    <div class="col-sm-9 padding-0">
+                        <input class="form-control form-control-small" id="txtLastName" maxlength="100" />
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-3 control-label">Address 1</label>
+                    <div class="col-sm-9 padding-0">
+                        <input class="form-control form-control-small" id="txtAddress1" maxlength="200" />
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-3 control-label">Address 2</label>
+                    <div class="col-sm-9 padding-0">
+                        <input class="form-control form-control-small" id="txtAddress2" maxlength="200" />
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-3 control-label">City/State/Zip</label>
+                    <div class="form-inline clearfix col-sm-9 padding-0">
+                        <input id="txtCity" class=" form-control form-control-small" style="width:39%!important" type="text" maxlength="100" />
+                        <input id="txtState" class="form-control form-control-small" style="width:20%!important" type="text" maxlength="50" />
+                        <input id="txtZIP" class="form-control form-control-small" style="width:39%!important" type="text" maxlength="5" onkeypress="return isOnlyNumber(event)" />
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-3 control-label">Work Phone</label>
+                    @*<div class="form-inline clearfix col-sm-9 padding-0">
+                        <input id="txtWorkPhone" class="form-control form-control-small" style="width:28%!important" type="text" maxlength="10" onkeypress="return isNumber(event)" />
+                        <label class="control-label">&nbsp;Ext&nbsp;</label>
+                        <input id="txtExtension" class="form-control form-control-small" style="width:12%!important" type="text" maxlength="3" onkeypress="return isNumber(event)" />
+                        <label class="control-label">&nbsp;Cell Phone&nbsp;</label>
+                        <input id="txtCellPhone" class="form-control form-control-small pull-right" style="width:27%!important" maxlength="10" type="text" onkeypress="return isNumber(event)" />
+                    </div>*@
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-3 control-label">Email</label>
+                    <div class="col-sm-9 padding-0">
+                        <input id="txtEmail" type="text" class="form-control form-control-small" name="txtEmail" maxlength="255" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 padding-0">
+                <div class="form-group clearfix">
+                    <label class="col-sm-3 control-label">User Type<span class="required">*</span></label>
+                    <div class="col-sm-9 padding-0">
+                        <select id="ddlUserType" class="selectpicker show-tick" style="width:100%!important"></select>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-3 control-label">User Name<span class="required">*</span></label>
+                    <div class="col-sm-9 padding-0">
+                        <input id="txtUserName" type="text" class="form-control form-control-small" name="txtUserName" maxlength="255" />
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-3 control-label">Password<span class="required">*</span></label>
+                    <div class="col-sm-9 padding-0">
+                        <input id="txtPassword" type="password" class="form-control form-control-small" name="txtPassword" maxlength="255" />
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-3 control-label">Confirm Password<span class="required">*</span></label>
+                    <div class="col-sm-9 padding-0">
+                        <input id="txtConfirmPassword" type="password" class="form-control form-control-small" name="txtConfirmPassword" maxlength="255" />
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-3 control-label">Is Active?</label>
+                    <div class="col-sm-9 padding-0">
+                        <input type="checkbox" id="chkIsActive" name="chkIsActive" class="chkIsActive" checked="checked" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .required {
+        color: red;
+    }
+
+    .k-button {
+        line-height: 1.5em !important;
+    }
+
+    .gridbtn {
+        background-color: #e0e0e0;
+        font-size: 12px;
+        padding: 3px 4px !important;
+    }
+
+    .btn {
+        border-radius: 3px;
+        padding: 3px 12px;
+        font-size: 12px;
+    }
+</style>
+

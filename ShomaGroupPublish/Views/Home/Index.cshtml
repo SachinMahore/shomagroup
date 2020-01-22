@@ -1,0 +1,616 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<script src="~/Content/Pages/Home.js"></script>
+<div class="slide-2">
+    <div class="slider-area">
+        <div class="slider">
+            <div id="bg-slider" class="owl-carousel owl-theme">
+                <div class="item">
+                    <img src="../content/assets/img/slide2/1.jpg" alt="The Last of us">
+                    <div class="col-xs-12 text-center search-form wow pulse">
+                        <h4 class="sliderSlogans">
+                            <br /> WE BUILD HOMES SO YOU CAN BUILD YOURSELF A DREAM.<br /><br />
+                        </h4>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="../content/assets/img/slide2/2.jpg" alt="GTA V">
+                    <div class="col-xs-12 text-center search-form wow pulse">
+                        <h4 class="sliderSlogans">
+                            LIFE AT SANCTUARY IS ALL ABOUT BREATHING ROOM.
+                        </h4>
+                        <h5 class="sliderSlogans">
+                            We offer you approximately 8 acres of Amenity packed land so you can enjoy what South Florida is best known<br />for, our enviable climate. Our community is located in the heart of Doral, at <a id="btnmapIndex" href="javascript:void(0);" onclick="stopcarousel()"><b><i class="fa fa-map-marker"></i> 9400 NW 41 St.</b></a><br />
+                        </h5>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="../content/assets/img/slide2/4.jpg" alt="The Last of us">
+                    <div class="col-xs-12 text-center search-form wow pulse">
+                        <h4 class="sliderSlogans">
+                            COME PLAY SOCCER IN YOUR OWN FIELD OR STROLL ALONG UNIQUE<br />RETAIL SHOPS AND ENJOY FOOD AND DRINKS FROM OUR FOOD COURT.
+                        </h4>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="../content/assets/img/slide2/5.jpg" alt="The Last of us">
+                    <div class="col-xs-12 text-center search-form wow pulse">
+                        <h4 class="sliderSlogans">
+                            TAKE YOUR DOG TO THE PARK WITH AN INTERACTIVE SPLASH PAD
+                        </h4>
+                        <h5 class="sliderSlogans">
+                            or go for a ride on the bike path, and when you need refreshing, head to your pool deck and relax in your private<br />
+                            cabana or day bed. <a id="btnShowAmenities" href="javascript:void(0);" onclick="stopcarousel()"><i class="fa fa-gamepad"></i><b> Click here to see some of our amenities</b></a>
+                            <a id="btnShowPetPolicy" href="javascript:void(0);" onclick="stopcarousel()"><i class="fa fa-paw"></i><b> Click here to read our pet policy.</b></a>
+                        </h5>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="../content/assets/img/slide2/3.jpg" alt="GTA V">
+                    <div class="col-xs-12 text-center search-form wow pulse">
+                        <h4 class="sliderSlogans">
+                            IF A SPACIOUS, LUXURIOUS APARTMENT IS WHAT YOUR HEART DESIRES,
+                        </h4>
+                        <h5 class="sliderSlogans">
+                            come check out our one, two, or three-bedroom floorplans which feature state of the art finishes and caters to your<br />appetite. <a id="btnShowBuilding" href="~/Property/GetPropertyDetails/8"><b><i class="fa fa-building"></i> Click here to see some of our units</b></a><br />
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container slider-content">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
+                    <img src="../Content/assets/img/HomepageMsg.png" style="width:300px;height:300px;" />
+
+                </div>
+
+               
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--Welcome area -->
+<!--TESTIMONIALS -->
+<div class="testimonial-area recent-property" style="background-color: #FCFCFC; padding-top: 100px;">
+    <div class="container">
+        <div class="row">
+            &nbsp;
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="">
+        <div class="col-md-12" style="margin-top:15px!important;">
+            <div class="">
+                <div class="form-horizontal">
+                    <div class="col-md-12" style="margin: 10px;">
+                        <div class="col-md-5">
+                            <div class="col-md-4">
+                                <button class="btn btn-primary search" type="button">Desired Move In</button>
+                            </div>
+                            <div class="col-md-2"></div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                                        </span>
+                                        <input type="text" id="txtMoveInDate" class="form-control" value="@DateTime.Now.AddDays(30).ToString("MM/dd/yyyy")" style="color:#6c6e72;background-color:white;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                               
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary search" type="button"><i class="fa-info-circle fa"></i></button>
+                                        </span>
+                                        <select id="ddlLease" class="form-control" style="background-color:white;height:44px;">
+                                            <option value='0'>Lease Term</option>
+                                            <option value='1'>7 Months</option>
+                                            <option value='2'>12 Months</option>
+                                           
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary search" type="button"><i class="fa-bed fa"></i></button>
+                                        </span>
+                                        <select id="ddlBedroom" class="form-control" style="background-color:white;height:44px;">
+                                            <option value='0'>Beds</option>
+                                            <option value='1'>1</option>
+                                            <option value='2'>2</option>
+                                            <option value='3'>3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <button id="btnsearchpropertyslider" type="submit" value="Search" onclick="getPropertyUnitList()" class="btn nav-button login">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Count area -->
+<div class="count-area hidden">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 col-sm-12 text-center page-title">
+                <!-- /.feature title -->
+                <h2>You can trust Us </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 percent-blocks m-main" data-waypoint-scroll="true">
+                <div class="row">
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="count-item">
+                            <div class="count-item-circle">
+                                <span class="pe-7s-users"></span>
+                            </div>
+                            <div class="chart" data-percent="5000">
+                                <h2 class="percent" id="counter">0</h2>
+                                <h5>HAPPY CUSTOMER </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="count-item">
+                            <div class="count-item-circle">
+                                <span class="pe-7s-home"></span>
+                            </div>
+                            <div class="chart" data-percent="12000">
+                                <h2 class="percent" id="counter1">0</h2>
+                                <h5>Properties in stock</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="count-item">
+                            <div class="count-item-circle">
+                                <span class="pe-7s-flag"></span>
+                            </div>
+                            <div class="chart" data-percent="120">
+                                <h2 class="percent" id="counter2">0</h2>
+                                <h5>City registered </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="count-item">
+                            <div class="count-item-circle">
+                                <span class="pe-7s-graph2"></span>
+                            </div>
+                            <div class="chart" data-percent="5000">
+                                <h2 class="percent" id="counter3">5000</h2>
+                                <h5>DEALER BRANCHES</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- boy-sale area -->
+<div class="boy-sale-area hidden" style="z-index:9999!important">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-10 col-sm-offset-1 col-md-offset-0 col-xs-12">
+                <div class="asks-first">
+                    <div class="asks-first-circle">
+                        <span class="fa fa-search"></span>
+                    </div>
+                    <div class="asks-first-info">
+                        <h2>ARE YOU LOOKING FOR A Property?</h2>
+                        <p> varius od lio eget conseq uat blandit, lorem auglue comm lodo nisl no us nibh mas lsa</p>
+                    </div>
+                    <div class="asks-first-arrow">
+                        <a href="~/Property/Index"><span class="fa fa-angle-right"></span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-10 col-sm-offset-1 col-xs-12 col-md-offset-0">
+                <div class="asks-first">
+                    <div class="asks-first-circle">
+                        <span class="fa fa-usd"></span>
+                    </div>
+                    <div class="asks-first-info">
+                        <h2>DO YOU WANT TO SELL A Property?</h2>
+                        <p> varius od lio eget conseq uat blandit, lorem auglue comm lodo nisl no us nibh mas lsa</p>
+                    </div>
+                    <div class="asks-first-arrow">
+                        <a href="~/Property/AddEdit"><span class="fa fa-angle-right"></span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <p class="asks-call">QUESTIONS? CALL US  : <span class="strong">+ 786.437.8658</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modalMap" class="modal" style="z-index:9999!important">
+    <div class="modal-header">
+        <span class="close" onclick="startcarousel()">&times;</span>
+    </div>
+    <!-- Modal content -->
+    <div class="modal-content">
+
+        <div class="text-center">
+            <div style="padding:30px"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3591.7607993421484!2d-80.35277818497806!3d25.811464383614155!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b9e7b900cb39%3A0x50b56af187485767!2s9400+NW+41st+St%2C+Doral%2C+FL+33178%2C+USA!5e0!3m2!1sen!2sin!4v1564668417941!5m2!1sen!2sin" width="500" height="450" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+
+        </div>
+
+    </div>
+
+</div>
+<div id="modalPetPolicy" class="modal-pet" style="z-index:9999!important">
+    <div class="modal-header-pet">
+        <span class="close" id="closePetP" onclick="startcarousel()">&times;</span>
+    </div>
+    <!-- Modal content -->
+    <div class="modal-content-pet">
+
+        <div class="text-center">
+            <div><iframe src="~/Content/assets/img/Document/Pet_Policies.pdf" width="100%" height="500" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+
+        </div>
+
+    </div>
+
+</div>
+<div id="modalAmenities" class="modal-Amenities" style="z-index:9999!important">
+    <div class="modal-header-Amenities">
+        <span class="close-Amenities" id="closeAm" onclick="startcarousel()">&times;</span>
+    </div>
+    <!-- Modal content -->
+    <div class="modal-content-Amenities">
+        <div class="col-lg-4">
+            <div class="text-center fa-border">
+                <div class="header panel-heading media-heading" style="color:#4d738a"><b>Apartment Amenities</b></div>
+            </div>
+            <ul>
+                <li>Carefully thought out spacious floorplans</li>
+                <li>Unique wood-style floors throughout</li>
+                <li>Linen Closets</li>
+                <li>Designer Blinds</li>
+                <li>Front load full size washer & dryers</li>
+                <li>Private balcony’s</li>
+                <li>Walk-in Master closets</li>
+                <li>Digital Programable Thermostats</li>
+                <li>Digital Keyless entry</li>
+                <li>Designer lighting fixtures</li>
+            </ul>
+        </div>
+        <div class="col-lg-4">
+            <div class="text-center fa-border">
+                <div class="header panel-heading media-heading" style="color:#4d738a"><b>Chef-Caliber Kitchens</b></div>
+            </div>
+            <ul>
+                <li>Quartz countertops</li>
+                <li>Italian Cabinetry with undercabinet lighting</li>
+                <li>Island area for entertainment</li>
+                <li>Usb charging stations</li>
+                <li>Subway tile backsplash</li>
+                <li>Italian Cabinet pantry</li>
+                <li>Multi-feature Kitchen Faucet</li>
+                <li>Stainless steel high efficiency appliances</li>
+            </ul>
+        </div>
+        <div class="col-lg-4">
+            <div class="text-center fa-border">
+                <div class="header panel-heading media-heading" style="color:#4d738a"><b>Spa Inspired Baths</b></div>
+            </div>
+            <ul>
+                <li>Contemporary bath hardware</li>
+                <li>Quartz countertops</li>
+                <li>Designer vanity’s with lighted mirrors</li>
+                <li>Full height porcelain wet walls in Showers & Tubs</li>
+                <li>Frameless Glass shower enclosures</li>
+                <li>Rain showers and hand showers in Master bath</li>
+                <li>Oversize bath tubs</li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        /*z-index: 1;*/ /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    .modal-header {
+        margin: auto;
+        padding: 20px;
+        width: 45%;
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 40%;
+        text-align: justify;
+    }
+
+    .modal-pet {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        /*z-index: 1;*/ /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    .modal-header-pet {
+        margin: auto;
+        padding: 20px;
+        width: 86%;
+    }
+
+    /* Modal Content */
+    .modal-content-pet {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        text-align: justify;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #fff;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        opacity: 1;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+            opacity: 1;
+        }
+
+    #btnsearchpropertyslider.btn-primary {
+        color: #fff !important;
+        background-color: #4D738A;
+        border-color: #4D738A;
+        padding: 10px 20px;
+        font-weight: 600;
+        font-family: FuturaMedium !important;
+    }
+
+
+    /*For Amenities*/
+    .modal-Amenities {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        /*z-index: 1;*/ /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        z-index: 2;
+    }
+
+    .modal-header-Amenities {
+        margin: auto;
+        padding: 20px;
+        width: 32%;
+    }
+
+    /* Modal Content */
+    .modal-content-Amenities {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 78%;
+        height: 70%;
+        text-align: justify;
+    }
+
+    /* The Close Button */
+    .close-Amenities {
+        color: #fff;
+        float: left;
+        font-size: 28px;
+        font-weight: bold;
+        opacity: 1;
+        padding-left: 807px;
+    }
+
+        .close-Amenities:hover,
+        .close-Amenities:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+            opacity: 1;
+        }
+</style>
+<script type="text/javascript">
+    $(function () {
+
+        var Page = (function () {
+
+            var $nav = $('#nav-dots > span'),
+                slitslider = $('#slider').slitslider({
+                    onBeforeChange: function (slide, pos) {
+
+                        $nav.removeClass('nav-dot-current');
+                        $nav.eq(pos).addClass('nav-dot-current');
+
+                    }
+                }),
+                init = function () {
+
+                    initEvents();
+
+                },
+                initEvents = function () {
+
+                    $nav.each(function (i) {
+
+                        $(this).on('click', function (event) {
+
+                            var $dot = $(this);
+
+                            if (!slitslider.isActive()) {
+
+                                $nav.removeClass('nav-dot-current');
+                                $dot.addClass('nav-dot-current');
+
+                            }
+
+                            slitslider.jump(i + 1);
+                            return false;
+
+                        });
+
+                    });
+
+                };
+
+            return { init: init };
+
+        })();
+
+        Page.init();
+
+        /**
+         * Notes:
+         *
+         * example how to add items:
+         */
+
+        /*
+
+         var $items  = $('<div class="sl-slide sl-slide-color-2" data-orientation="horizontal" data-slice1-rotation="-5" data-slice2-rotation="10" data-slice1-scale="2" data-slice2-scale="1"><div class="sl-slide-inner bg-1"><div class="sl-deco" data-icon="t"></div><h2>some text</h2><blockquote><p>bla bla</p><cite>Margi Clarke</cite></blockquote></div></div>');
+
+         // call the plugin's add method
+         ss.add($items);
+
+         */
+
+    });</script>
+
+<script>
+    // Get the modal
+    var owl = $('.owl-carousel');
+    var modal = document.getElementById("modalMap");
+    var modalPetPolicy = document.getElementById("modalPetPolicy");
+    var modalAmenities = document.getElementById("modalAmenities");
+
+    // Get the button that opens the modal
+
+    var btnPetPolicy = document.getElementById("btnShowPetPolicy");
+    var btnAmenities = document.getElementById("btnShowAmenities");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    var spanPetPolicy = document.getElementById("closePetP");
+    var spanAmenities = document.getElementById("closeAm");
+
+    // When the user clicks the button, open the modal
+    //btn.onclick = function () {
+    //    modal.style.display = "block";
+    //}
+
+    btnPetPolicy.onclick = function () {
+        modalPetPolicy.style.display = "block";
+        startcarousel();
+    }
+
+    btnAmenities.onclick = function () {
+        modalAmenities.style.display = "block";
+        startcarousel();
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    spanPetPolicy.onclick = function () {
+        modalPetPolicy.style.display = "none";
+        startcarousel();
+    }
+
+    spanAmenities.onclick = function () {
+        modalAmenities.style.display = "none";
+        startcarousel();
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modalPetPolicy) {
+            modalPetPolicy.style.display = "none";
+        }
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modalAmenities) {
+            modalAmenities.style.display = "none";
+        }
+    }
+</script>
+<script type="text/javascript">
+
+    $(function () {
+
+        //$("#txtMoveInDate").datepicker();
+
+        $("#txtMoveInDate").datepicker({
+
+            autoclose: true,
+
+        });
+
+    });
+</script>

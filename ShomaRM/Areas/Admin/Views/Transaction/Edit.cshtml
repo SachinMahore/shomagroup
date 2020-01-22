@@ -1,0 +1,306 @@
+﻿@using ShomaRM.Areas.Admin.Models
+@model TransactionModel
+@{
+    ViewBag.Title = "Transaction Management";
+}
+<script src="~/Areas/Admin/Content/Pages/Transaction/Transaction.js"></script>
+<input type="hidden" id="hndTransID" value="@Model.TransID" />
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container" style="width:100% !important">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <div>
+                    <div class="wizard-header">
+                        <h3>
+                            <b>Transaction </b>Management<br>
+                        </h3>
+                    </div>
+                    <ul>
+                        <li><a href="#step1" data-toggle="tab"></a></li>
+
+                    </ul>
+                    <div class="tab-content">
+
+                        <!--  End step 1 -->
+                        <div class="tab-pane" id="step1">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="transactionList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">Transaction List</span></button>
+                                    <div class="pull-right pa" style="padding-right:2px;">
+                                        <input type='button' class='btn btn-default' value='Save' onclick="saveupdateTransaction()" />
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Property  :</label>
+                                            <select id="ddlProperty" class="  form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Property Unit :</label>
+                                            <select id="ddlUnit" class="  form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Tenant :</label>
+                                            <select id="ddlTenant" class="  form-control"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Lease :</label>
+                                            <input id="txtLease" type="number" class="form-control" placeholder="Lease" value="@Model.LeaseID" onkeypress="return isOnlyNumber(event)">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Created Date:</label>
+                                            <input id="txtCreatedDate" type="text" class="form-control" placeholder="Created Date" value="@Model.CreatedDate">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Revision Number :</label>
+                                            <input id="txtRevisionNumber" type="number" class="form-control" placeholder="Revision Number" min="0" onkeypress="return isOnlyNumber(event)" value="@Model.Revision_Num" >
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Payment ID:</label>
+                                            <input id="txtPaymentID" type="number" class="form-control" placeholder="Payment ID" min="0" onkeypress="return isOnlyNumber(event)" value="@Model.Payment_ID">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Transaction Date:</label>
+                                            <input id="txtTransactionDate" type="text" class="form-control" placeholder="Transaction Date" value="@Model.Transaction_Date">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Transaction Type :</label>
+                                            <select id="ddlTransactionType" class="  form-control">
+                                                <option value='0'>Select Property</option>
+                                                <option value='1'>Credit</option>
+                                                <option value='2'>Debit</option>
+                                                <option value='3'>Refund</option>
+                                                <option value='4'>Deposite</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Credit Amount:</label>
+                                            <input id="txtCreaditAmount" type="number" class="form-control" onkeypress="return isNumber(event)" placeholder="Creadit Amount" min="0.00" step="0.01" value="@Model.Credit_Amount">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Charge Date</label>
+                                            <input id="txtChargeDate" type="text" class="form-control" placeholder="Charge Date" value="@Model.Charge_Date">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Charge Type :</label>
+                                            <select id="ddlChargeType" class="  form-control"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Charge Amount</label>
+                                            <input id="txtChargeAmount" type="number" class="form-control" placeholder="Charge Amount" onkeypress="return isNumber(event)" value="@Model.Charge_Amount">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Summary (Charge Type)</label>
+                                            <input id="txtSummaryCharge" type="text" class="form-control" placeholder="Summary Charge Type" value="@Model.Summary_Charge_Type">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Cash Debit Account :</label>
+                                            @*<input id="dllCashDebitAccount" type="text" class="form-control" placeholder="Cash Debit Account" value="@Model.Cash_Debit_Account">*@
+                                            <select id="ddlCashDebitAccount" class="form-control"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Cash Credit Account :</label>
+                                            @*<input id="txtCashCreditAccount" type="text" class="form-control" placeholder="Cash Credit Account" value="@Model.Cash_Credit_Account">*@
+                                            <select id="ddlCashCreditAccount" class="form-control"></select>
+                                         </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Accrual Debit Account</label>
+                                            @*<input id="txtAccrualDebitAccount" type="text" class="form-control" placeholder="Accrual Debit Account" value="@Model.Accrual_Debit_Acct">*@
+                                            <select id="ddlAccrualDebitAccount" class="form-control"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Accrual Credit Account</label>
+                                            @*<input id="txtAccrualCreditAccount" type="text" class="form-control" placeholder="Accrual Credit Account" value="@Model.Accrual_Credit_Acct">*@
+                                            <select id="ddlAccrualCreditAccount" class="form-control"></select></div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Batch:</label>
+                                            <input id="txtBatch" type="number" class="form-control" placeholder="Batch" min="0" value="@Model.Batch">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Batch Source:</label>
+                                            <input id="txtBatchSource" type="text" class="form-control" placeholder="Batch Source" value="@Model.Batch_Source">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Journal:</label>
+                                            <input id="txtJournal" type="number" class="form-control" placeholder="Journal" min="0" onkeypress="return isOnlyNumber(event)" value="@Model.Journal">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Run</label>
+                                            <input id="txtRun" type="number" class="form-control" placeholder="Run" onkeypress="return isOnlyNumber(event)" value="@Model.Run">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Tax Sequence</label>
+                                            <input id="txtTaxSequence" type="number" class="form-control" placeholder="Tax Sequence" onkeypress="return isOnlyNumber(event)" value="@Model.Tax_Sequence">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Reference :</label>
+                                            <input id="txtReference" type="text" class="form-control" placeholder="Reference" value="@Model.Reference">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Description :</label>
+                                            <textarea name="description" id="txtDesc" class="form-control">@Model.Description</textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Application of Origin</label>
+                                            <input id="txtApplicationofOrigin" type="text" class="form-control" placeholder="Application of Origin" value="@Model.Appl_of_Origin">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Entries Created</label>
+                                            <input id="txtEntriesCreated" type="number" class="form-control" placeholder="Entries Created" min="0" value="@Model.GL_Entries_Created">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Tranasaction Reference 1</label>
+                                            <input id="txtTranasactionReference1" type="text" class="form-control" placeholder="Tranasaction Reference 1" value="@Model.GL_Trans_Reference_1">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Tranasaction Reference 2</label>
+                                            <input id="txtTranasactionReference2" type="text" class="form-control" placeholder="Tranasaction Reference 2" value="@Model.GL_Trans_Reference_2">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <label class="star">Tranasaction Description :</label>
+                                            <textarea id="txtTransDesc" name="TransDesc" class="form-control">@Model.GL_Trans_Description</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <!-- End submit form -->
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            
+            $("#txtChargeDate").datepicker();
+            $("#txtTransactionDate").datepicker();
+            $("#txtCreatedDate").datepicker();
+            $("#txtDepositeDate").datepicker();
+            
+            getPropertyList(@Model.PropertyID);
+           
+        });
+
+        $(document).ready(function () {
+
+            $("#ddlTransactionType").val(@Model.Transaction_Type);
+            $("#ddlTransactionType").trigger('change');
+           
+                
+            setTimeout(function () {
+                 $("#ddlChargeType").val(@Model.Charge_Type);
+                $("#ddlChargeType").trigger('change');
+            }, 3000);
+
+            setTimeout(function () {
+                $("#ddlUnit").val(@Model.UnitID);
+                $("#ddlUnit").trigger('change');
+                $("#ddlTenant").val(@Model.TenantID);
+                $("#ddlTenant").trigger('change');
+            }, 3500);
+            setTimeout(function () {
+                $("#ddlCashDebitAccount").val(@Model.Cash_Debit_Account);
+                $("#ddlCashDebitAccount").trigger('change');
+                $("#ddlCashCreditAccount").val(@Model.Cash_Credit_Account);
+                $("#ddlCashCreditAccount").trigger('change');
+                $("#ddlAccrualDebitAccount").val(@Model.Accrual_Debit_Acct);
+                $("#ddlAccrualDebitAccount").trigger('change');
+                $("#ddlAccrualCreditAccount").val(@Model.Accrual_Credit_Acct);
+                $("#ddlAccrualCreditAccount").trigger('change');
+            }, 3000);
+            
+        });
+    </script>
+
+

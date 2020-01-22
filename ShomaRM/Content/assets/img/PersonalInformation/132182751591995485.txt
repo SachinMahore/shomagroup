@@ -1,0 +1,33 @@
+Shoma Changes : After demo with Tania - 11/12/19
+
+1. Change the Pet feel to $500 
+
+2. Add Guarantor fee on Move- in charges page 
+
+3. Change the Vehicle charges as per the number of vehicles allowed per category of the apartment. 
+	1-2 BHK : 1 parking space 
+	3-4 BHK- 2 parking space, addtional at $15 
+
+4. Pre-fill the primary applicant to 100% charges, in case only 1 applicant is applying. 
+
+5. Put all the apartments as available, and should show green.
+
+6. Format the social security number(SSN) 
+
+7. For payments, give co-applicant options as per the no. of persons allowed in each category of the apartment.
+
+8.Updated the Appication fee on they payment page, 135$ 
+
+9. In the end of the application it should not allow to click on no pets, if previously pets were added. 
+
+ADMIN
+
+1. Change the address : remove city and state columb just keep it as address. 
+
+2.  In the Models list page, segregate : Area as Balcony sq.ft , interior sq.ft. 
+
+3. In add Property, add (Next) button. 
+
+4. Change the Alert MSG- to message. ( Check spelling) 
+
+5. Remove the actual move-in date. 

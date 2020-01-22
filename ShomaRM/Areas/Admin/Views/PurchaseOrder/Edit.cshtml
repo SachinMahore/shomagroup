@@ -1,0 +1,135 @@
+﻿@using ShomaRM.Areas.Admin.Models;
+@model PurchaseOrderModel
+@{
+    ViewBag.Title = "Purchase Order";
+}
+<script src="~/Areas/Admin/Content/Pages/PurchaseOrder/PurchaseOrder.js"></script>
+<input type="hidden" id="hdnPurchaseOrderId" value="@Model.POID" />
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <form action="" method="">
+                    <div class="wizard-header">
+                        <h3>
+                            <b>Purchase </b>Order<br>
+                        </h3>
+                    </div>
+                    <ul>
+                        <li><a href="#step1" data-toggle="tab"> </a></li>
+                    </ul>
+                    <div class="tab-content">
+
+                        <!--  End step 1 -->
+                        <div class="tab-pane" id="step1">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="goPOList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">Purchase Order List</span></button>
+                                    <div class="pull-right" style="padding-right:2px;">
+                                        <input type='button' class='btn btn-default' value='Save' onclick="SaveUpdatePurchaseOrder()" />
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="ddlProperty" class="star">Property</label>
+                                            <select id="ddlProperty" class="form-control form-control-small"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtOrderNumber" class="star">Order No.</label>
+                                            <input id="txtOrderNumber" class="form-control form-control-small" maxlength="50" value="@Model.OrderNumber" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="ddlVendor" class="star">Vendor</label>
+                                            <select id="ddlVendor" class="form-control form-control-small"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtPurchaseOrderDesc">Purchase Order Desc</label>
+                                            <input id="txtPurchaseOrderDesc" class="form-control form-control-small" type="text" value="@Model.PODesc" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtPurchaseOrderDate" class="star">Purchase Order Date</label>
+                                            <input id="txtPurchaseOrderDate" class="form-control form-control-small" type="text" value="@(Model.PODate!=null?Model.PODate.Value.ToString("MM/dd/yyyy"):"")" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtTotalAmount" class="star">Total Amount</label>
+                                            <input id="txtTotalAmount" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" value="@Model.TotalAmount" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtRoute">Route</label>
+                                            <input id="txtRoute" class="form-control form-control-small" value="@Model.Route" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtApprovedDate">Approved Date</label>
+                                            <input id="txtApprovedDate" class="form-control form-control-small" maxlength="20" type="text" value="@(Model.ApprovedDate!=null?Model.ApprovedDate.Value.ToString("MM/dd/yyyy"):"")" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtApprovedBy">Approved By</label>
+                                            <input id="txtApprovedBy" class="form-control form-control-small" maxlength="20" type="text" value="@Model.ApprovedBy" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtCancelDate">Cancel Date</label>
+                                            <input id="txtCancelDate" type="text" class="form-control form-control-small" maxlength="100" value="@(Model.CanceledDate!=null?Model.CanceledDate.Value.ToString("MM/dd/yyyy"):"")" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="ddlCancelBy">Cancel By</label>
+                                            <select id="ddlCancelBy" class="form-control">
+                                                <option value="0">-Select Status-</option>
+                                                <option value="1">Atul</option>
+                                                <option value="2">Sachin</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <br>
+                            </div>
+                        </div>
+
+
+                        <!--  End step 4 -->
+                    </div>
+                  
+                </form>
+            </div>
+            <!-- End submit form -->
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#txtPurchaseOrderDate").datepicker();
+        $("#txtApprovedDate").datepicker();
+        $("#txtCancelDate").datepicker();
+    });
+    $(document).ready(function () {
+        setTimeout(function () { $("#ddlProperty").find("option[value='" + @Model.PropertyID + "']").attr('selected', 'selected'); }, 1500);
+        setTimeout(function () { $("#ddlVendor").find("option[value='" + @Model.Vendor + "']").attr('selected', 'selected'); }, 1500);
+        setTimeout(function () { $("#ddlCancelBy").find("option[value='" + @Model.CanceledBy + "']").attr('selected', 'selected'); }, 1500);
+    });
+</script>

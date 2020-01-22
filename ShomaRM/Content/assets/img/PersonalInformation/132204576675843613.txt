@@ -1,0 +1,67 @@
+1) Change heading color 'ONLINE Application' color to blue.
+2) All non clickable text change to black
+3) all the links text change to blue and on hover change to beige
+4) in footer email text link change to blue and on hover change to beige
+5) in footer social media icon color change to blue and on hover its change to beige
+6) in 'select your unit' page all non clickable text change to black in color, link text change to blue
+   and on hover beige.
+7) in select your unit page modify the given table adjust the header as per columns and row also non clickable
+   text change to black
+8) on summary page all the information text change to black, add item buttons change to blue and on hover beige in color
+   also total amount text color change to green
+9) in quotation page all the total amount text color change to green
+10) in accept policies and terms all the non clickable text change to black and link text change to blue and on hover beige
+11) in 'rental qualification standards and community rules and policies' heading change in its font style made it black
+    also increase its font weight all the headers on this page change to black and also increase its font weight
+12) all the back and continue button color change to blue and on hover its in beige
+13) changes made throughout the application all the links text change to blue in color and on hover its turns to beige
+14) all the buttons change to blue and made them beige on hover
+
+------------------------------------
+
+1) in property unit tab changes made in table centre the text to looks good, fix the bug that unit not showing wrong changes made in sp
+2) fix the bug that some units missing
+3) all the next back buttons remove from the bottom in same page
+4) fix the bug of price range showing incorrectly
+5) add a currency format in summary rental charges to show comma in thousand
+6) add a comma next to word sewer
+7) removed the lease start date and replaced with desired move in
+8) added period after $15
+9) fixed the bug in adding pet
+10) design a modal popup for if user forget password 
+11) create function to retrive the password with the help of user id
+12) create email function  to send the forget password to email
+13) design email template for forget password
+
+
+Date 3-12-2019 and 4-12-2019
+
+1) Change heading color 'ONLINE Application' color to blue.
+2) All non clickable text change to black
+3) all the links text change to blue and on hover change to beige
+4) in footer email text link change to blue and on hover change to beige
+5) in footer social media icon color change to blue and on hover its change to beige
+6) in 'select your unit' page all non clickable text change to black in color, link text change to blue
+   and on hover beige.
+7) in select your unit page modify the given table adjust the header as per columns and row also non clickable
+   text change to black
+8) on summary page all the information text change to black, add item buttons change to blue and on hover beige in color
+   also total amount text color change to green
+9) in quotation page all the total amount text color change to green
+10) in accept policies and terms all the non clickable text change to black and link text change to blue and on hover beige
+11) in 'rental qualification standards and community rules and policies' heading change in its font style made it black
+    also increase its font weight all the headers on this page change to black and also increase its font weight
+12) all the back and continue button color change to blue and on hover its in beige
+13) changes made throughout the application all the links text change to blue in color and on hover its turns to beige
+14) all the buttons change to blue and made them beige on hover
+
+date 6-12-2019
+
+1) in property unit tab changes made in table centre the text to looks good, fix the bug that unit not showing wrong changes made in sp
+2) fix the bug that some units missing
+3) all the next back buttons remove from the bottom in same page
+4) fix the bug of price range showing incorrectly
+5) add a currency format in summary rental charges to show comma in thousand
+6) add a comma next to word sewer
+7) removed the lease start date and replaced with desired move in
+8) added period after $15

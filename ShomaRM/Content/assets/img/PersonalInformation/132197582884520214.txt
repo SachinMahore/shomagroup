@@ -1,0 +1,223 @@
+<div class="modal fade" id="PopSummary" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content-summary">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -60px; margin-right: -52px;">&times;</button>
+                <div id="abc">
+                    <div class="col-md-5">
+
+                        <a >
+                            <img src="~/content/assets/img/plan/B1-7.jpg" id="imgFloorPlanSumm" >
+                        </a>
+                        <div class="panel panel-default sidebar-menu similar-property-wdg wow fadeInRight animated">
+
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span id="lblUnitNo"></span></h3>
+                                <span class="property-price pull-right"><span id="lblRent"></span></span>
+                                <input type="hidden" id="hndUID" value="@Model.SUID" />
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="col-sm-7">
+                                    <span id="">Lease Term: </span>
+                                </div>
+                                <div class="col-sm-5">
+                                    <span><span id="lblLease4"></span> Mo</span>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-7">
+                                    <span id="">Lease Start Date: </span>
+                                </div>
+                                <div class="col-sm-5">
+                                    <span id="lblLeaseStartDate">@Model.MoveInDateTxt</span>
+                                </div>
+
+                                @*<div class="col-sm-6">
+                            <span id="">&nbsp;</span>
+                        </div>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="col-md-12">
+                            <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">SUMMARY OF RENTAL CHARGES </h3>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-9">
+                            <div class="row p-b-15  ">
+
+                                <div class="col-sm-12">
+                                    <div class="=col-sm-6">
+                                        <div class="col-sm-2">
+                                            <span id="">Unit: </span>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <span id="lblUnitTitle3" style="text-decoration:underline;font-weight:bold;"></span>
+                                        </div>
+                                    </div>
+                                    <div class="=col-sm-6">
+                                        <div class="col-sm-2">
+                                            <span id="">Modal: </span>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <span id="txtModal" style="text-decoration:underline; font-weight:bold"></span>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <span id="">&nbsp;</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="col-sm-7">
+                                        <span id="">Bedrooms: </span>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <span id="lblBed1"></span>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-7">
+                                        <span id="">Bathrooms: </span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span id="lblBath1"></span>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-7">
+                                        <span id="">Square feet: </span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span id="lblArea1"></span>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-7">
+                                        <span id="">Occupancy: </span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span id="lblOccupancy"></span>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-7">
+                                        <span id="">Deposite: </span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span id="lblDeposit1"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <span id="">&nbsp;</span>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-12">
+                                        <b>SUMMARY OF MONTHLY CHARGES</b>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <span id="">Base Rent</span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span id="lblRent2"></span>
+                                    </div>
+
+                                    <div class="col-sm-7">
+                                        <span id="">premium </span><span class="hidden"</span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        $<span id="lblpremium"></span>
+                                    </div>
+
+                                    <div class="col-sm-7">
+                                        <span id="">Promotion </span><span class="hidden"</span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        $<span id="lbPromotion"></span>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <span id="">Subtotal </span><span class="hidden"</span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        $<span id="lblSubtotal"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <span id="">&nbsp;</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+
+                                    <div class="col-sm-7">
+                                        <span id="">Additional Services </span>
+                                    </div>
+
+                                    <div class="col-sm-7">
+                                        <span id="">Pest Control </span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        $<span id="lblPestControl">10.00</span>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <span id="">Trash/Recycle </span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        $<span id="lblTrash">10.00</span>
+                                    </div>
+
+                                    <div class="col-sm-7">
+                                        <span id="">Convergent billing fee  </span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        $<span id="lblConvergentAmt">6.50</span>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <span id="">Subtotal</span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        $<span id="lblSubtotal"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <span id="">&nbsp;</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-7">
+                                        <b>Total monthly rent</b>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <b>$<span id="lbltotalAmount"></span></b>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="=col-sm-12">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-8">
+                            <i>*Does not include water & sewer charges baise on actual monthly consumtion</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="printDiv('abc')" value="print a div!">Print</button>
+            </div>
+        </div>
+    </div>
+</div>

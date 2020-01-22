@@ -1,0 +1,94 @@
+﻿@using ShomaRM.Areas.Tenant.Models
+@model EventBookingModel
+@{
+    ViewBag.Title = "Event Booking";
+}
+<script src="~/Areas/Tenant/Content/Pages/EventBooking/EventBooking.js"></script>
+<input type="hidden" id="hdnEventBookingId" value="@Model.EventBookingID" />
+<input type="hidden" id="hdnTenantId" value="" />
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <form action="" method="">
+                    <div class="wizard-header">
+                        <h3>
+                            <b>Event Booking</b> Details<br>
+                        </h3>
+                    </div>
+                    <ul>
+                        <li><a href="#step1" data-toggle="tab"> </a></li>
+                    </ul>
+                    <div class="tab-content">
+
+                        <!--  End step 1 -->
+                        <div class="tab-pane" id="step1">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="goEventBookingList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">Event Booking List</span></button>
+                                    <div class="pull-right">
+                                        <input type='button' class='btn btn-default' value='Save' onclick="SaveUpdateEventBooking()" />
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="ddlEvent" class="star">Event</label>
+                                            <select id="ddlEvent" class="form-control form-control-small"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="txtBookingDate" class="star">Booking Date</label>
+                                            <input id="txtBookingDate" class="form-control form-control-small" maxlength="50" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="txtNoOfGuest" class="star">No. Of Guest</label>
+                                            <input id="txtNoOfGuest" class="form-control form-control-small" maxlength="50" onkeypress="return isOnlyNumber(event)" value="@Model.NoOfGuest" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="txtBookingDetails">Booking Details</label>
+                                            <textarea id="txtBookingDetails" class="form-control form-control-small">@Model.BookingDetails</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                            </div>
+                        </div>
+
+
+                        <!--  End step 4 -->
+                    </div>
+
+                </form>
+            </div>
+            <!-- End submit form -->
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#txtBookingDate").datepicker();
+        $("#txtRequiredFromDate").datepicker();
+        $("#txtRequiredToDate").datepicker();
+    });
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#ddlEvent").val(@Model.EventID);
+            $("#ddlEvent").trigger('change');
+        }, 200);
+    });
+</script>
