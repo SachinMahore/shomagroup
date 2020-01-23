@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/ShomaRM/bin
+/ShomaRM/obj/Debug
+/ShomaRM.Data/bin/Debug
+/ShomaRM.Data/obj/Debug/edmxResourcesToEmbed
+/ShomaRM.Data/obj/Debug
+/ShomaRM.Tests/bin/Debug
+/ShomaRM.Tests/obj
