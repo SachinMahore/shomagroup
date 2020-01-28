@@ -56,8 +56,29 @@
                                             <div class="form-group">
                                                 <label for="txtEventDate" class="star">Date</label>
                                                 <input id="txtEventDate" class="form-control form-control-small" value="@(Model.EventDate!=null?Model.EventDate.Value.ToString("MM/dd/yyyy"):"")" />
+                                                <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:167px;">
+                                                    <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                                                </span>
                                             </div>
                                         </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="txtEventTime" class="star">Time</label>
+                                                <input id="txtEventTime" class="form-control form-control-small" type="time" value="@(Model.EventTime)" />
+                                                <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:167px;">
+                                                    <button class="btn btn-primary search" type="button"><i class="fa-clock-o fa"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtEventFees" class="star">Fees</label>
+                                            <input id="txtEventFees" class="form-control form-control-small" style="text-align:right;" value="@(Model.Fees)" />
+                                            <span class="input-group-btn pull-left" style="margin-top: -34px;">
+                                                <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="ddlEventType" class="star">Type</label>

@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "AmenitiesReservationRequest";
+}
+
+<script src="~/Areas/Admin/Content/Pages/AmenitiesReservationRequest/AmenitiesReservationRequestList.js"></script>
+<input type="hidden" id="hdnSearchType_EL" value="1" />
+<input type="hidden" id="hdnCurrentPage_EL" value="1" />
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumb">
+                <h4 class="">Amenity ReservationRequest List</h4>
+            </div>
+
+            <div class="col-md-12  pr0  properties-page">
+                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                    <div class="panel-heading">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <h3 class="panel-title">From Date</h3>
+                                <input id="txtFromDate" type="text" class="form-control" value="@DateTime.Now.AddDays(-10).ToString("MM/dd/yyyy")">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <h3 class="panel-title">To Date</h3>
+                                <input id="txtToDate" type="text" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group  padding-top-25">
+                                <button class='btn btn-next btn-primary' name='Search' value='Search' style="margin-left: -30px;height: 34px;margin-top: 2px;" onclick="buildPaganationReservationRequestList(1)"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group  padding-top-25 hidden">
+                                <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="addNewReservationRequest()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">NEW</span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 form-group" id="divPagination_ReservationRequestList">
+                        <div id="divPgn" class="col-sm-8 pagination">
+                            <ul id="ulPagination_ReservationRequestList"></ul>
+                        </div>
+                        <div class="col-sm-3 padding-0 pull-right" style="margin-top:22px">
+                            <div class="col-sm-6">
+                                <label class="control-label" style="margin-left:52px;">Row/Page</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <select id="ddlRPP_ReservationRequestList" class="form-control form-control-small"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body search-widget">
+                        <div class="col-md-12 clear">
+                            <table id="tblReservationRequest" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th width="30%" style="background-color: #c7cdd5;color:#3d3939">Tenant</th>
+                                        <th width="30%" style="background-color: #c7cdd5;color:#3d3939">Amenity</th>
+                                        <th width="10%" style="background-color: #c7cdd5;color:#3d3939">Desire Date</th>
+                                        <th width="10%" style="background-color: #c7cdd5;color:#3d3939">Desire Time</th>
+                                        <th width="10%" style="background-color: #c7cdd5;color:#3d3939">Desire Duration</th>
+                                        <th width="10%" style="background-color: #c7cdd5;color:#3d3939">Status</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#txtFromDate").datepicker();
+        $("#txtToDate").datepicker();
+
+    });
+</script>
+

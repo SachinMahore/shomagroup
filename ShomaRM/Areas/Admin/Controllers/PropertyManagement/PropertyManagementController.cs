@@ -86,6 +86,7 @@ namespace ShomaRM.Areas.Admin.Controllers
         {
             try
             {
+                Session["UNOR"] = NOR;
                 return Json((new PropertyManagementModel()).FillPUSearchGrid(PID, PN, NOR, SortBy, OrderBy), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

@@ -1,0 +1,231 @@
+﻿
+@{
+    ViewBag.Title = "Service List";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<script src="@Url.Content("~/Areas/Admin/Content/Pages/ServiceManagement/ServiceRequestList.js")"></script>
+<input type="hidden" id="hdnCurrentPage_PVL" value="1" />
+<!-- property area -->
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container" style="width:100%!important">
+        <div class="row">
+            <div class="breadcrumb" style="margin-bottom:0px">
+                <h4 class="">Service Requested List</h4>
+            </div>
+
+            <div class="col-md-12  pr0  properties-page">
+                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                    <div class="panel-heading">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <h3 class="panel-title">From Date</h3>
+                                <input id="txtFromDate" type="text" class="form-control" value="@DateTime.Now.AddDays(-30).ToString("MM/dd/yyyy")">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <h3 class="panel-title">To Date</h3>
+                                <input id="txtToDate" type="text" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <h3 class="panel-title">Status</h3>
+                                <select id="ddlStatus" class="form-control">
+                                    <option value='1'>Open</option>
+                                    <option value='2'>Completed</option>
+                                    <option value='3'>Cancelled</option>
+                                    <option value='4'>In Progess</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group padding-top-25">
+                                <button type='button' class='btn btn-next btn-primary' name='Search' value='Search' onclick="buildPaganationUserList(1)"><i class="fa fa-search"></i> SEARCH</button>
+                            </div>
+                        </div>
+                      
+                    </div>
+                    <div class="col-sm-12 form-group" id="divPagination_UserList">
+                        <div id="divPgn" class="col-sm-8 pagination">
+                            <ul id="ulPagination_UserList"></ul>
+                        </div>
+                        <div class="col-sm-3 padding-0 pull-right" style="margin-top: 23px;">
+                            <div class="col-sm-6">
+                                <label class="control-label">Row/Page</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <select id="ddlRPP_UserList" class="form-control form-control-small"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body search-widget">
+                        <div class="col-md-12 clear">
+                            <table id="tblServiceRequest" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="pds-name" style="background-color: #c7cdd566;color:#3d3939">Tennant Name</th>
+                                        <th class="pds-Category" style="background-color: #c7cdd566;color:#3d3939">Problem Category</th>
+                                        <th class="pds-Caussing" style="background-color: #c7cdd566;color:#3d3939">Problem Caussing</th>
+                                        <th class="pds-Issue" style="background-color: #c7cdd566;color:#3d3939">Problem Issue</th>
+                                        <th class="pds-Status" style="background-color: #c7cdd566;color:#3d3939">Location</th>
+                                        <th class="pds-date" style="background-color: #c7cdd566;color:#3d3939">Piority</th>
+                                        <th class="pds-Picture" style="background-color: #c7cdd566;color:#3d3939">Status</th>
+                                        <th class="pds-Picture" style="background-color: #c7cdd566;color:#3d3939">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="popSDetails">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:900px; height:650px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <!-- Modal Header -->
+            <div class="modal-header" style="width: 100%;">
+                <h3 class="modal-title">Service Details</h3>
+
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body table-bordered">
+                <input type="hidden" id="hndServiceID" value="0" />
+                <div class="row" style="margin-left: 0px;">
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label>Tenant Name :</label>
+                            <span style="font-weight:bold;" id="lbltenantName"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label id="">Unit No :</label>
+                            <span style="font-weight:bold;" id="lblUnitNo"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Contact No :</label>
+                            <span style="font-weight:bold;" id="lblContactNo"></span>
+                        </div>
+                    </div>
+                </div>
+               
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Problem Category :</label>
+                            <span style="font-weight:bold;" id="ProblemCatrgory"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label id="">Other Details :</label>
+                            <span id="lblProbleOther"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Caussing Issue :</label>
+                            <span style="font-weight:bold;" id="lblcaussingIssue"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Other Details :</label>
+                            <span style="font-weight:bold;" id="lblCaussingOther"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Problem Issue :</label>
+                            <span style="font-weight:bold;" id="lblIssue"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Other Details :</label>
+                            <span style="font-weight:bold;" id="lblIssueOther"></span>
+                        </div>
+                    </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Location :</label>
+                        <span style="font-weight:bold;" id="lblLocation"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label id="">Current Status :</label>
+                        <span style="font-weight:bold;" id="lblCurrentStatus"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label id="">Emergency Contact :</label>
+                        <span style="font-weight:bold;" id="lblEmergencyNo"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Entery Note :</label>
+                        <span style="font-weight:bold;" id="lblEnteryNote"></span>
+                    </div>
+                </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="ddlStatus1" class="form-control" style="width:40%!important">
+                                <option value="0">Select</option>
+                                <option value="4">In Progress</option>
+                                <option value="2">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+                <div class="row">
+                    <div class="col-sm-4" style="max-width: 40%;">
+                        <div class="picture-container">
+                            <div class="picture" style="height:auto!important">
+                                <img src="~/Content/assets/img/aaa.png"  class="picture-src" id="wizardPicturePreview" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 text-center">
+                        <button type="submit" class="btn btn-primary" onclick="StatusUpdateServiceRequest()">Save</button>
+                        <button type="submit" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+                    </div>
+                </div>
+                    @*<div class="row">
+
+                    </div>*@
+            
+                </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer-custom">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#txtFromDate").datepicker();
+        $("#txtToDate").datepicker();
+    });
+</script>
+<style>
+    .wizard-card .picture-src {
+        width: 100%;
+    }
+</style>
+

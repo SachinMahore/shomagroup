@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = (ViewBag.ServiceID == 0 ? "Add" : "Edit") + "";
+    var ServiceID = ViewBag.ServiceID;
+    var pageTitle = (ViewBag.ServiceID == 0 ? "Add" : "Edit");
+
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<script src="@Url.Content("~/Content/pages/common.js")"></script>
+@*<script src="@Url.Content("~/Areas/Admin/Content/Pages/Users/Users.js")"></script>*@
+
+<input type="hidden" id="hndUserType" value="0" />
+
+<input type="hidden" id="hndServiceID" value="@ServiceID" />
+
+<!-- register-area -->
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container" style="width:100%!important">
+        <div class="breadcrumb">
+            <h4 class="">Service Details</h4>
+        </div>
+        <div class="form-group clearfix panel">
+            <div class="col-md-12">
+                <div class="form-group pull-right clearfix" style="padding-top:5px;">
+                   
+                   
+                </div>
+            </div>
+            <div class="form-group clearfix padding-5">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

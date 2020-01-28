@@ -5,6 +5,7 @@ using System.Web;
 using ShomaRM.Data;
 using System.Data;
 using System.Data.Common;
+using System.IO;
 
 namespace ShomaRM.Areas.Tenant
 {
@@ -39,6 +40,15 @@ namespace ShomaRM.Areas.Tenant
         public string PermissionComeDateString { get; set; }
         public string PermissionComeTime { get; set; }
         public Nullable<System.DateTime> ServiceDate { get; set; }
+        public Nullable<int> Priority { get; set; }
+        public string PriorityString { get; set; }
+        public string OriginalServiceFile { get; set; }
+        public string TempServiceFile { get; set; }
+        public int LocationId { get; set; }
+        public string LocationString { get; set; }
+        public int ServiceIssueID { get; set; }
+        public string ServiceIssueString { get; set; }
+        public string EmergencyMobile { get; set; }
 
         public string SaveUpdateServiceRequest(ServiceRequestModel model)
         {
@@ -54,7 +64,7 @@ namespace ShomaRM.Areas.Tenant
                     PermissionEnterApartment = model.PermissionEnterApartment,
                     PermissionComeDate = model.PermissionComeDate,
                     PetInforChange = model.PetInforChange,
-                   // AlarmCodeChange = model.AlarmCodeChange,
+                    // AlarmCodeChange = model.AlarmCodeChange,
                     Notes = model.Notes,
                     Status = 1,
                     Location = model.Location,
@@ -62,11 +72,15 @@ namespace ShomaRM.Areas.Tenant
                     ItemIssue = model.ItemIssue,
                     OtherItemCaussing = model.OtherItemCaussing,
                     OtherItemIssue = model.OtherItemIssue,
-                    ServiceDate = DateTime.Now
+                    ServiceDate = DateTime.Now,
+                    Priority = model.Priority,
+                    OriginalServiceFile = model.OriginalServiceFile,
+                    TempServiceFile = model.TempServiceFile,
+                    EmergencyMobile = model.EmergencyMobile,
                 };
                 db.tbl_ServiceRequest.Add(saveServiceRequest);
                 db.SaveChanges();
-                msg = "Progress Saved";
+                msg = "Service Request Saved Successfully";
             }
             else
             {
@@ -89,8 +103,12 @@ namespace ShomaRM.Areas.Tenant
                     updateServiceRequest.OtherItemCaussing = model.OtherItemCaussing;
                     updateServiceRequest.OtherItemIssue = model.OtherItemIssue;
                     updateServiceRequest.ServiceDate = DateTime.Now;
+                    updateServiceRequest.Priority = model.Priority;
+                    updateServiceRequest.OriginalServiceFile = model.OriginalServiceFile;
+                    updateServiceRequest.TempServiceFile = model.TempServiceFile;
+                    updateServiceRequest.EmergencyMobile = model.EmergencyMobile;
                     db.SaveChanges();
-                    msg = "Progress Updated";
+                    msg = "Service Request Updated Successfully";
                 }
             }
             db.Dispose();
@@ -121,7 +139,7 @@ namespace ShomaRM.Areas.Tenant
         {
             List<ServiceRequestModel> listServiceRequestList = new List<ServiceRequestModel>();
             ShomaRMEntities db = new ShomaRMEntities();
-            if (model.ServiceRequest==4)
+            if (model.ServiceRequest == 4)
             {
                 var getServiceRequestList = db.tbl_ServiceRequest.Where(co => co.TenantID == model.TenantID).ToList();
                 if (getServiceRequestList != null)
@@ -141,7 +159,10 @@ namespace ShomaRM.Areas.Tenant
                             Notes = item.Notes,
                             Status = item.Status,
                             DateString = item.PermissionComeDate != null ? item.PermissionComeDate.Value.ToString("MM/dd/yyyy") : "Any Time",
-                            StatusString = item.Status == 1 ? "Open" : item.Status == 2 ? "Completed" : item.Status == 3 ? "Cancelled" : ""
+                            StatusString = item.Status == 1 ? "Open" : item.Status == 2 ? "Completed" : item.Status == 3 ? "Cancelled" : "",
+                            PriorityString = item.Priority == 1 ? "Normal" : item.Priority == 2 ? "Medium" : item.Priority == 3 ? "High" : item.Priority == 4 ? "Emergency" : "",
+                            OriginalServiceFile = item.OriginalServiceFile,
+                            TempServiceFile = item.TempServiceFile,
                         });
                     }
                 }
@@ -166,12 +187,15 @@ namespace ShomaRM.Areas.Tenant
                             Notes = item.Notes,
                             Status = item.Status,
                             DateString = item.PermissionComeDate != null ? item.PermissionComeDate.Value.ToString("MM/dd/yyyy") : "Any Time",
-                            StatusString = item.Status == 1 ? "Open" : item.Status == 2 ? "Completed" : item.Status == 3 ? "Cancelled" : ""
+                            StatusString = item.Status == 1 ? "Open" : item.Status == 2 ? "Completed" : item.Status == 3 ? "Cancelled" : "",
+                            PriorityString = item.Priority == 1 ? "Normal" : item.Priority == 2 ? "Medium" : item.Priority == 3 ? "High" : item.Priority == 4 ? "Emergency" : "",
+                            OriginalServiceFile = item.OriginalServiceFile,
+                            TempServiceFile = item.TempServiceFile,
                         });
                     }
                 }
             }
-            
+
             db.Dispose();
             return listServiceRequestList;
         }
@@ -237,13 +261,178 @@ namespace ShomaRM.Areas.Tenant
                     lstpr.Add(pr);
                 }
                 db.Dispose();
-                
+
             }
             catch
             {
-                
+
             }
             return lstpr.ToList();
         }
+
+        public ServiceRequestModel UploadServiceFile(HttpPostedFileBase fileBaseUpload, ServiceRequestModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            ServiceRequestModel ServiceFile = new ServiceRequestModel();
+
+            string filePath = "";
+            string fileName = "";
+            string sysFileName = "";
+            string Extension = "";
+
+            if (fileBaseUpload != null && fileBaseUpload.ContentLength > 0)
+            {
+                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                DirectoryInfo di = new DirectoryInfo(filePath);
+                FileInfo _FileInfo = new FileInfo(filePath);
+                if (!di.Exists)
+                {
+                    di.Create();
+                }
+                fileName = fileBaseUpload.FileName;
+                Extension = Path.GetExtension(fileBaseUpload.FileName);
+                sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseUpload.FileName);
+                fileBaseUpload.SaveAs(filePath + "//" + sysFileName);
+                if (!string.IsNullOrWhiteSpace(fileBaseUpload.FileName))
+                {
+                    string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/") + "/" + sysFileName;
+
+                }
+                ServiceFile.TempServiceFile = sysFileName.ToString();
+                ServiceFile.OriginalServiceFile = fileName;
+            }
+
+            return ServiceFile;
+        }
+
+        public List<ServiceRequestModel> GetDdlLocation()
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            var Location = db.tbl_ServiceLocation.OrderBy(co => co.Location).ToList();
+            List<ServiceRequestModel> li = new List<ServiceRequestModel>();
+
+            foreach (var item in Location)
+            {
+                li.Add(new ServiceRequestModel
+                {
+                    LocationId = item.LocationID,
+                    LocationString = item.Location
+                });
+            }
+
+            return li.ToList();
+        }
+
+        public List<ServiceRequestModel> GetDdlServiceCategory()
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            var ServiceIssue = db.tbl_ServiceIssue.OrderBy(co => co.ServiceIssueID).ToList();
+            List<ServiceRequestModel> li = new List<ServiceRequestModel>();
+
+            foreach (var item in ServiceIssue)
+            {
+                li.Add(new ServiceRequestModel
+                {
+                    ServiceIssueID = item.ServiceIssueID,
+                    ServiceIssueString = item.ServiceIssue
+                });
+            }
+
+            return li.ToList();
+        }
+
+        public class CaussingIssueList
+        {
+            public long CausingIssueID { get; set; }
+            public string CausingIssue { get; set; }
+            public long IssueID { get; set; }
+            public string Issue { get; set; }
+        }
+
+        public List<CaussingIssueList> GetDdlCausingIssue(long ServiceIssueID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<CaussingIssueList> lstData = new List<CaussingIssueList>();
+            DataTable dtTable = new DataTable();
+            try
+            {
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_FillCausingIssueID";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter param4 = cmd.CreateParameter();
+                    param4.ParameterName = "ServiceIssueID";
+                    param4.Value = ServiceIssueID;
+                    cmd.Parameters.Add(param4);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (System.Data.DataRow dr in dtTable.Rows)
+                {
+                    CaussingIssueList model = new CaussingIssueList();
+                    model.CausingIssueID = Convert.ToInt64(dr["CausingIssueID"].ToString());
+                    model.CausingIssue = dr["CausingIssue"].ToString();
+                    lstData.Add(model);
+                }
+                db.Dispose();
+                return lstData.ToList();
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
+
+        public List<CaussingIssueList> GetDdlIssue(long CausingIssueID, long ServiceIssueID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<CaussingIssueList> lstData = new List<CaussingIssueList>();
+            DataTable dtTable = new DataTable();
+            try
+            {
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_FillIssueID";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter param1 = cmd.CreateParameter();
+                    param1.ParameterName = "CausingIssueID";
+                    param1.Value = CausingIssueID;
+                    cmd.Parameters.Add(param1);
+
+                    DbParameter param2 = cmd.CreateParameter();
+                    param2.ParameterName = "ServiceIssueID";
+                    param2.Value = ServiceIssueID;
+                    cmd.Parameters.Add(param2);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (System.Data.DataRow dr in dtTable.Rows)
+                {
+                    CaussingIssueList model = new CaussingIssueList();
+                    model.IssueID = Convert.ToInt64(dr["IssueID"].ToString());
+                    model.Issue = dr["Issue"].ToString();
+                    lstData.Add(model);
+                }
+                db.Dispose();
+                return lstData.ToList();
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
+
     }
 }

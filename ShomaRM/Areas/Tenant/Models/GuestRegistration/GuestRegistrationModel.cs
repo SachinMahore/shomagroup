@@ -1,6 +1,8 @@
 ﻿using ShomaRM.Data;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -25,6 +27,9 @@ namespace ShomaRM.Areas.Tenant.Models
         public Nullable<long> TenantID { get; set; }
         public string OriginalDriverLicence { get; set; }
         public string OriginalVehicleRegistration { get; set; }
+        public string TenantName { get; set; }
+        public string VisitStartDateString { get; set; }
+        public string VisitEndDateString { get; set; }
 
         public GuestRegistrationModel UploadGuestDriverLicence(HttpPostedFileBase fileBaseGuestDriverLicence, GuestRegistrationModel model)
         {
@@ -146,6 +151,87 @@ namespace ShomaRM.Areas.Tenant.Models
                 }
             }
             return Msg;
+        }
+
+        public List<GuestRegistrationModel> GetGuestRegistrationList()
+        {
+            List<GuestRegistrationModel> listGuestRegistration = new List<GuestRegistrationModel>();
+            ShomaRMEntities db = new ShomaRMEntities();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "sp_GetGuestRegistrationList";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    //DbParameter paramF = cmd.CreateParameter();
+                    //paramF.ParameterName = "FromDate";
+                    //paramF.Value = FromDate;
+                    //cmd.Parameters.Add(paramF);
+
+                    //DbParameter paramC = cmd.CreateParameter();
+                    //paramC.ParameterName = "ToDate";
+                    //paramC.Value = ToDate;
+                    //cmd.Parameters.Add(paramC);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    GuestRegistrationModel pr = new GuestRegistrationModel();
+                    
+                    pr.GuestID = Convert.ToInt64(dr["GuestId"].ToString());
+                    pr.FirstName = dr["FirstName"].ToString();
+                    pr.LastName = dr["LastName"].ToString();
+                    pr.Address = dr["Address"].ToString();
+                    pr.Phone = dr["Phone"].ToString();
+                    pr.Email = dr["Email"].ToString();
+                    pr.VisitStartDate = Convert.ToDateTime(dr["VisitStartDate"].ToString());
+                    pr.VisitEndDate = Convert.ToDateTime(dr["VisitEndDate"].ToString());
+                    pr.VehicleMake = dr["VehicleMake"].ToString();
+                    pr.VehicleModel = dr["VehicleModel"].ToString();
+                    pr.Tag = dr["Tag"].ToString();
+                    pr.DriverLicence = dr["DriverLicence"].ToString();
+                    pr.VehicleRegistration = dr["VehicleRegistration"].ToString();
+                    pr.TenantID = Convert.ToInt64(dr["TenantID"].ToString());
+                    pr.OriginalDriverLicence = dr["OriginalDriverLicence"].ToString();
+                    pr.OriginalVehicleRegistration = dr["OriginalVehicleRegistration"].ToString();
+                    pr.TenantName = dr["TenantName"].ToString();
+                    pr.VisitStartDateString = dr["VisitStartDate"].ToString();
+                    pr.VisitEndDateString = dr["VisitEndDate"].ToString();
+                    listGuestRegistration.Add(pr);
+                }
+                db.Dispose();
+                return listGuestRegistration.ToList();
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
+
+        public string DeleteGuestRegistrationList(long GuestID)
+        {
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+            var deleteGuestRegistration = db.tbl_GuestRegistration.Where(co => co.GuestID == GuestID).FirstOrDefault();
+            if (deleteGuestRegistration!=null)
+            {
+                db.tbl_GuestRegistration.Remove(deleteGuestRegistration);
+                db.SaveChanges();
+                msg = "Data Removed Successfully";
+            }
+            else
+            {
+                msg = "Data Not Remove";
+            }
+            return msg;
         }
     }
 }

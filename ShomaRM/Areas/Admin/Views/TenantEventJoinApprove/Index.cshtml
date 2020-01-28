@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<script src="~/Areas/Admin/Content/Pages/TenantEventJoinApprove/TenantEventJoinApprove.js"></script>
+<input id="hdnEventStatusValue" value="0" />
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container" style="width:100% !important">
+        <div class="breadcrumb">
+            <h4 class="">Tenant Event Joining Approve</h4>
+        </div>
+        <div class="form-group clearfix panel">
+            <div class="col-md-12">
+                <div class="col-sm-12 form-group">
+                    <div class="col-sm-7">
+                        <ul id="ulPagination_PetPlace"></ul>
+                    </div>
+                    <div class="col-sm-4 padding-0 pull-right" style="margin-top: 22px;">
+                        <div class="col-sm-5">
+                            <label class="control-label" style="margin-left:6px">Event Statuswise</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <select id="ddlEventDatewise" class="form-control form-control-small" onchange="getTenantEventJoinList();">
+                                <option value="1">Approve</option>
+                                <option value="2">Decline</option>
+                                <option value="3" selected="selected">New</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <table id="tblTenantEventJoinApprove" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;">Event</th>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;">Date</th>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;">Time</th>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;">Name</th>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;">Description</th>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;">Status</th>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

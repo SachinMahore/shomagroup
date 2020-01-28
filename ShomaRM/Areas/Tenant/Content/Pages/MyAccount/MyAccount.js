@@ -2,8 +2,9 @@
     focuss();
     getServiceRequestOnAlarm();
     onFocus();
+    breakdownPaymentFunction();
     getAllDues();
-    getPaymentAccounts();
+    getPaymentAccountsCreditCard();
     getTransationLists();
     getUpTransationLists();
     fromDashboardGoToRecurringPayment();
@@ -13,11 +14,39 @@
     amountToPayRadioButtonFunction();
     radioButtonPaymentMethodMakePayment();
     fromDashboardGoToSubmitServiceRequest();
+    ddlPaymentMethod();
     fillDropdowns();
     getLeaseInfoDocuments();
     getPetLeaseInfoDocuments();
     getVehicleLeaseInfoDocuments();
-    getTenantData($("#hndTenantID").val());
+    getAmenityList();
+    getReservationRequestList();
+    $("#ddlAmenities").on("change", function () {
+        console.log();
+        $("#SelectedAminity").html($(this).find(":selected").text());
+        $("#SelectedAminity").attr("data-value", $(this).find(":selected").val());
+    });
+
+    $("#txtDesiredTime").on("keyup", function () {
+        $("#SelectedTime").html($(this).val());
+    });
+
+
+
+    $("#ddlAmenities").on("change", function () {
+        var selectedOption = $(this).val();
+
+        getDurationSlot(selectedOption);
+    });
+
+    $("#ddlDesiredDuration").on("change", function () {
+        var optionDep = $(this).find(":selected").attr("data-dep");
+        var optionRes = $(this).find(":selected").attr("data-res");
+        $("#AmenitySDR").html(optionDep);
+        $("#AmenityRF").html(optionRes);
+
+    });
+
     $("#rbtnApertmentPermission1").prop("checked", true);
 
     $('input[type=radio]').on('ifChanged', function (event) {
@@ -30,32 +59,95 @@
             $("#PreferredDate").addClass('hidden');
         }
     });
-    $("#ddlAccountHistory").on("click", function (event) {
-        if ($(this).val() == 4)
-        {
+    $("#ddlPaymentHistory").on("click", function (event) {
+
+        if ($(this).val() == 4) {
             dateRangeAccountHistory();
+        }
+        else {
+            getTransationLists();
         }
     });
     r();
-    getAmenityList();
+    ddlPayMethodSelect();
+    ddlBankAccountListShow();
+    ddlPaymentMethodSelectFunction();
+    ddlPayMethodPageLoadFunction();
+    tenantAccountHistory();
 
-    $("#ddlAmenities").on("change", function () {
-        console.log();
-        $("#SelectedAminity").html($(this).find(":selected").text());
-        $("#SelectedAminity").attr("data-value", $(this).find(":selected").val());
-    });
 
-    $("#txtDesiredTime").on("keyup", function () {
-        $("#SelectedTime").html($(this).val());
+    document.getElementById('fileUploadService').onchange = function () {
+        uploadServiceFile();
+    };
+    fillDdlLocation();
+    fillDdlServiceCategory();
+    $("#ddlProblemCategory").on('change', function (evt, params) {
+        var selected = $(this).val();
+        if (selected != null) {
+            if (selected == 10 || selected == 0) {
+                $("#ddlProblemCategory1").empty();
+                $("#Issue").addClass("hidden");
+                $("#MoreDetails").removeClass("hidden");
+                $("#CausingIssue").addClass("hidden");
+                $("#OtherCausingIssue").addClass("hidden");
+                $("#OtherIssue").addClass("hidden");
+            }
+            else {
+                fillCaussingIssue(selected);
+                $("#MoreDetails").addClass("hidden");
+                $("#CausingIssue").removeClass("hidden");
+                $("#ddlProblemCategory2").empty();
+                $("#Issue").addClass("hidden");
+                $("#OtherIssue").addClass("hidden");
+                $("#OtherCausingIssue").addClass("hidden");
+            }
+        }
     });
+    $("#ddlProblemCategory1").on('change', function (evt, params) {
+        var i = $("#ddlProblemCategory").val();
+        var selected = $(this).find(":Selected").val();
+        if (selected != null) {
+            if (selected == 8 || selected == 11 || selected == 18 || selected == 40 || selected == 41 || selected == 42 || selected == 52) {
+                $("#OtherCausingIssue").removeClass("hidden");
+                $("#Issue").addClass("hidden");
+                $("#OtherIssue").addClass("hidden");
+            }
+            else {
+                $("#OtherIssue").addClass("hidden");
+                $("#Issue").removeClass("hidden");
+                $("#OtherCausingIssue").addClass("hidden");
+                fillDdlIssue(selected, i);
+            }
 
-    $("#ddlAmenities, #ddlDesiredDuration").on("change", function () {
-        checkRequestButton();
+        }
     });
-    $("#txtDesiredDate, #txtDesiredTime").on("blur", function () {
-        checkRequestButton();
+    $("#ddlProblemCategory2").on('change', function (evt, params) {
+        var selected = $(this).find(":Selected").val();
+        if (selected != null) {
+            if (selected == 5 || selected == 14 || selected == 23 || selected == 27 || selected == 34 || selected == 43 || selected == 60 || selected == 61 || selected == 62 || selected == 67 || selected == 71 || selected == 78 || selected == 83 || selected == 88 || selected == 90 || selected == 100 || selected == 103 || selected == 106 || selected == 114 || selected == 115 || selected == 118 || selected == 122 || selected == 123 || selected == 126 || selected == 134 || selected == 139 || selected == 144 || selected == 147 || selected == 149 || selected == 173 || selected == 175 || selected == 179) {
+                $("#OtherIssue").removeClass("hidden");
+
+            }
+            else {
+                $("#Issue").removeClass("hidden");
+                $("#OtherIssue").addClass("hidden");
+                fillDdlIssue(selected, i);
+            }
+
+        }
     });
-    
+    $("#ddlPriority").on('change', function (evt, params) {
+        var selected = $(this).find(":Selected").val();
+        if (selected != null) {
+            if (selected == 4) {
+                $("#Mobile").removeClass("hidden");
+            }
+            else {
+                $("#Mobile").addClass("hidden");
+            }
+
+        }
+    });
 });
 
 var checkRequestButton = function () {
@@ -82,14 +174,11 @@ var getTenantData = function (userID) {
         contentType: "application/json; charset=utf-8", // content type sent to server
         dataType: "json", //Expected data format from server
         success: function (response) {
+
             if ($.trim(response.error) != "") {
                 //showMessage("Error!", response.error);
             } else {
                 $("#hndTenantID").val(response.ID);
-                $("#hndUnitID").val(response.UnitID);
-                $("#AmenityUnit").html(response.UnitName);
-                $("#AmenityTenant").html(response.FirstName + " " + response.LastName);
-                
                 $("#txtFirstName").val(response.FirstName);
                 $("#txtMiddleInitial").val(response.MiddleInitial);
                 $("#txtLastName").val(response.LastName);
@@ -459,7 +548,6 @@ var fillCityListContact = function (stateid) {
     });
 }
 
-
 var goToStep = function (stepid, id) {
     if (stepid == "1") {
         $("#li1").addClass("active");
@@ -497,10 +585,10 @@ var goToStep = function (stepid, id) {
         $("#li7").removeClass("active");
     }
     if (stepid == "3") {
-        getUpTransationLists();
-        getAllDues();
-        getTransationLists();
-        getPaymentAccounts();
+        //getUpTransationLists();
+        //getAllDues();
+        //getTransationLists();
+        //getPaymentAccountsCreditCard();
         $("#li3").addClass("active");
         $("#li2").removeClass("active");
         $("#li1").removeClass("active");
@@ -739,10 +827,9 @@ function saveupdateLease() {
 }
 
 var getTransationLists = function () {
-    var totalAmount = '';
     var model = {
         TenantID: $("#hndTenantID").val(),
-        AccountHistoryDDL: $('#ddlAccountHistory').val()
+        AccountHistoryDDL: $('#ddlPaymentHistory').val()
     }
     $.ajax({
         url: "/MyTransaction/GetTenantTransactionList",
@@ -751,57 +838,70 @@ var getTransationLists = function () {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            totalAmount = 0;
-            $("#tblTransaction>tbody").empty();
+            var bal = 0;
+            $("#tblPaymentHistory>tbody").empty();
+            $.each(response.model, function (elementType, elementValue) {
+                var html = "<tr data-value=" + elementValue.TransID + ">";
+                html += "<td>" + elementValue.Transaction_DateString + "</td>";
+                html += "<td>" + elementValue.Description + "</td>";
+                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
+                if (elementValue.Credit_Amount != "0.00")
+                {
+                    html += "<td style='text-align: right;'><b>$" + formatMoney(elementValue.Credit_Amount) + "</b></td>";
+                } else
+                {
+                    html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Credit_Amount) + "</td>";
+                }
+               
+                bal = parseFloat((parseFloat(bal) + parseFloat(elementValue.Charge_Amount)) - parseFloat(elementValue.Credit_Amount));
+                html += "<td style='text-align: right;'>$" + formatMoney(bal) + "</td>";
+                html += "</tr>";
+                $("#tblPaymentHistory>tbody").append(html);
 
-            if ($('#ddlAccountHistory').val() == '1') {
-                var balAmount = unformatText(localStorage.getItem('currentAmountDue'));
-                var balanceAmount = '';
-                $.each(response.model, function (elementType, elementValue) {
-                    balanceAmount = parseFloat(balAmount) - parseFloat(elementValue.Charge_Amount);
-                    balAmount = balanceAmount;
-
-                    var html = "<tr data-value=" + elementValue.TransID + ">";
-                    html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                    html += "<td>" + elementValue.Description + "</td>";
-                    html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                    html += "<td style='text-align: right;'>$" + formatMoney(balanceAmount) + "</td>";
-                    html += "</tr>";
-                    $("#tblTransaction>tbody").append(html);
-                    totalAmount += parseFloat(elementValue.Charge_Amount);
-                });
-            }
-            else {
-                $.each(response.model, function (elementType, elementValue) {
-                    var html = "<tr data-value=" + elementValue.TransID + ">";
-                    html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                    html += "<td>" + elementValue.Description + "</td>";
-                    html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                    html += "<td>" + elementValue.Charge_Type + "</td>";
-                    html += "</tr>";
-                    $("#tblTransaction>tbody").append(html);
-                    totalAmount += parseFloat(elementValue.Charge_Amount);
-                });
-            }
-           
-
+            });
+            
         }
     });
 }
-var getUpTransationLists = function () {
-    var totalAmount = '';
-
+var getAllDues = function () { 
     var model = {
-        TenantID: $("#hndTenantID").val(),
-    }
+        TenantID: $("#hndTenantID").val()      
+    };
     $.ajax({
-        url: "/MyTransaction/GetTenantUpTransactionList",
+        url: '/MyTransaction/GetTotalDue',
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            totalAmount = 0;
+        
+            $('#spanCurrentAmountDue').text(formatMoney(response.model));
+            if ($("#hdnARId").val() != "0")
+            {
+                getAmenityReservationPay();
+            } else
+            {
+                $("#lblCurrentPrePayAmount").text('$' + formatMoney(response.model));
+            }
+           
+            
+        }
+    });
+};
+var getUpTransationLists = function () {
+   
+    var model = {
+        TenantID: $("#hndTenantID").val(),
+        AccountHistoryDDL: "2"
+    }
+    $.ajax({
+        url: "/MyTransaction/GetTenantTransactionList",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            var bal = 0;
             $("#tblUpcomingCharges>tbody").empty();
 
             $.each(response.model, function (elementType, elementValue) {
@@ -809,15 +909,15 @@ var getUpTransationLists = function () {
 
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
                 html += "<td>" + elementValue.Description + "</td>";
-                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.CurrentUpcomingChargesString) + "</td>";
-
-                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.CurrentUpcomingChargesString) + "</td>";
+                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount)  + "</td>";
+                bal = parseFloat((parseFloat(bal) + parseFloat(elementValue.Charge_Amount)) - parseFloat(elementValue.Credit_Amount));
+                html += "<td style='text-align: right;'>$" + formatMoney(bal) + "</td>";
 
                 html += "</tr>";
                 $("#tblUpcomingCharges>tbody").append(html);
-                totalAmount += parseFloat(elementValue.CurrentUpcomingChargesString);
+               
             });
-            localStorage.setItem('totalUpcomingCharges', totalAmount);
+           
         }
     });
 }
@@ -842,17 +942,17 @@ var getChargeType = function () {
 };
 var TableClick = function () {
 
-    $('#tblTransaction tbody').on('click', 'tr', function () {
-        $('#tblTransaction tr').removeClass("pds-selected-row");
+    $('#tblPaymentHistory tbody').on('click', 'tr', function () {
+        $('#tblPaymentHistory tr').removeClass("pds-selected-row");
         $(this).addClass("pds-selected-row")
     });
-    $('#tblTransaction tbody').on('dblclick', 'tr', function () {
+    $('#tblPaymentHistory tbody').on('dblclick', 'tr', function () {
         goToEditTransaction();
     });
 }
 var goToEditTransaction = function () {
 
-    var row = $('#tblTransaction tbody tr.pds-selected-row').closest('tr');
+    var row = $('#tblPaymentHistory tbody tr.pds-selected-row').closest('tr');
     var ID = $(row).attr("data-value");
     if (ID != null) {
 
@@ -924,7 +1024,7 @@ function saveupdateTransaction() {
         Transaction_Type: transtype,
         Charge_Date: chargeDate,
         Charge_Type: chargeType,
-        Charge_Amount: chargeAmount,
+        Credit_Amount: chargeAmount,
         Summary_Charge_Type: summaryCharge,
         Description: desc,
     };
@@ -943,6 +1043,7 @@ function saveupdateTransaction() {
             });
             clearTrans();
             getTransationLists();
+            getAllDues();
         }
 
 
@@ -1510,41 +1611,42 @@ var getTenantOnlineData = function (id) {
 var goToPayStep = function (stepid, id) {
 
     if (stepid == "1") {
+        clearMakePaymentFields();
+        ddlPaymentMethod();
+        ddlPayMethodPageLoadFunction();
         $("#pay1").addClass("active1");
         $("#pay2").removeClass("active1");
         $("#pay3").removeClass("active1");
         $("#pay4").removeClass("active1");
         $("#pay5").removeClass("active1");
+        $("#pay6").removeClass("active1");
 
         $("#payStep1").removeClass("hidden");
         $("#payStep2").addClass("hidden");
         $("#payStep3").addClass("hidden");
         $("#payStep4").addClass("hidden");
         $("#payStep5").addClass("hidden");
-        $('#btnPaymentSnapshot').removeClass('hidden');
-        $('#btnRecurringPayment').removeClass('hidden');
-        $('#btnAccountHistoryPrint').removeClass('hidden');
-        $('#DivNote').removeClass('hidden');
+        $("#payStep6").addClass("hidden");
+        $('#btnAccountHistoryPrint').addClass('hidden');
+        $('#DivNote').addClass('hidden');
 
     }
     if (stepid == "2") {
-        getPaymentMethods();
-        clearMakePaymentFields();
         $("#pay1").removeClass("active1");
         $("#pay2").addClass("active1");
         $("#pay3").removeClass("active1");
         $("#pay4").removeClass("active1");
         $("#pay5").removeClass("active1");
+        $("#pay6").removeClass("active1");
 
         $("#payStep1").addClass("hidden");
         $("#payStep2").removeClass("hidden");
         $("#payStep3").addClass("hidden");
         $("#payStep4").addClass("hidden");
         $("#payStep5").addClass("hidden");
-        $('#btnPaymentSnapshot').addClass('hidden');
-        $('#btnRecurringPayment').removeClass('hidden');
-        $('#btnAccountHistoryPrint').addClass('hidden');
-        $('#DivNote').addClass('hidden');
+        $("#payStep6").addClass("hidden");
+        $('#btnAccountHistoryPrint').removeClass('hidden');
+        $('#DivNote').removeClass('hidden');
     }
     if (stepid == "3") {
         $("#pay1").removeClass("active1");
@@ -1552,14 +1654,14 @@ var goToPayStep = function (stepid, id) {
         $("#pay3").addClass("active1");
         $("#pay4").removeClass("active1");
         $("#pay5").removeClass("active1");
+        $("#pay6").removeClass("active1");
 
         $("#payStep1").addClass("hidden");
         $("#payStep2").addClass("hidden");
         $("#payStep3").removeClass("hidden");
         $("#payStep4").addClass("hidden");
         $("#payStep5").addClass("hidden");
-        $('#btnPaymentSnapshot').removeClass('hidden');
-        $('#btnRecurringPayment').removeClass('hidden');
+        $("#payStep6").addClass("hidden");
         $('#btnAccountHistoryPrint').addClass('hidden');
         $('#DivNote').addClass('hidden');
     }
@@ -1569,14 +1671,14 @@ var goToPayStep = function (stepid, id) {
         $("#pay3").removeClass("active1");
         $("#pay4").addClass("active1");
         $("#pay5").removeClass("active1");
+        $("#pay6").removeClass("active1");
 
         $("#payStep1").addClass("hidden");
         $("#payStep2").addClass("hidden");
         $("#payStep3").addClass("hidden");
         $("#payStep4").removeClass("hidden");
         $("#payStep5").addClass("hidden");
-        $('#btnPaymentSnapshot').removeClass('hidden');
-        $('#btnRecurringPayment').addClass('hidden');
+        $("#payStep6").addClass("hidden");
         $('#btnAccountHistoryPrint').addClass('hidden');
         $('#DivNote').addClass('hidden');
     }
@@ -1586,14 +1688,31 @@ var goToPayStep = function (stepid, id) {
         $("#pay3").removeClass("active1");
         $("#pay4").removeClass("active1");
         $("#pay5").addClass("active1");
+        $("#pay6").removeClass("active1");
 
         $("#payStep1").addClass("hidden");
         $("#payStep2").addClass("hidden");
         $("#payStep3").addClass("hidden");
         $("#payStep4").addClass("hidden");
         $("#payStep5").removeClass("hidden");
-        $('#btnPaymentSnapshot').removeClass('hidden');
-        $('#btnRecurringPayment').removeClass('hidden');
+        $("#payStep6").addClass("hidden");
+        $('#btnAccountHistoryPrint').addClass('hidden');
+        $('#DivNote').addClass('hidden');
+    }
+    if (stepid == "6") {
+        $("#pay1").removeClass("active1");
+        $("#pay2").removeClass("active1");
+        $("#pay3").removeClass("active1");
+        $("#pay4").removeClass("active1");
+        $("#pay5").removeClass("active1");
+        $("#pay6").addClass("active1");
+
+        $("#payStep1").addClass("hidden");
+        $("#payStep2").addClass("hidden");
+        $("#payStep3").addClass("hidden");
+        $("#payStep4").addClass("hidden");
+        $("#payStep5").addClass("hidden");
+        $("#payStep6").removeClass("hidden");
         $('#btnAccountHistoryPrint').addClass('hidden');
         $('#DivNote').addClass('hidden');
     }
@@ -1628,28 +1747,46 @@ var savePaymentAccounts = function () {
     var msg = '';
     var PaymentAccountId = $("#hndPaymentAccountsID").val();
     var tenantId = $("#hndTenantID").val();
-    var accountNickName = $("#txtAccountTitle").val();
+    //for credit card
     var cardType = $("#ddlCardType").val();
     var nameOnCard = $("#txtNameOnCard").val();
     var cardNumber = $("#txtCardNumber").val();
     var cardMonth = $("#ddlCardMonth").val();
     var cardYear = $("#ddlCardYear").val();
+    //for bank account
+    if ($("#ddlPayMethodPaymentAccounts").val() == '1') {
+        if (cardType == 0) {
+            msg = 'Select The Card Type</br>'
+        }
+        if (nameOnCard == '') {
+            msg = 'Enter The Name On Card</br>'
+        }
+        if (cardNumber == '') {
+            msg = 'Enter The Card Number</br>'
+        }
+        if (cardMonth == 0) {
+            msg = 'Select The Card Month</br>'
+        }
+        if (cardYear == 0) {
+            msg = 'Select The Card Year</br>'
+        }
+    }
+    else if ($("#ddlPayMethodPaymentAccounts").val() == '2') {
+        if ($("#txtBankNamePayMethod").val() == '') {
+            msg = 'Enter the bank name</br>'
+        }
+        if ($("#txtAccountNumberPayMethod").val() == '') {
+            msg = 'Enter the account number</br>'
+        }
+        if ($("#txtRoutingNumberPayMethod").val() == '') {
+            msg = 'Enter the routing number</br>'
+        }
+    }
 
-    if (cardType == 0) {
-        msg = 'Select The Card Type</br>'
+    if ($("#txtAccountNamePayMethod").val() == '') {
+        msg = 'Enter the account name</br>'
     }
-    if (nameOnCard == '') {
-        msg = 'Enter The Name On Card</br>'
-    }
-    if (cardNumber == '') {
-        msg = 'Enter The Card Number</br>'
-    }
-    if (cardMonth == 0) {
-        msg = 'Select The Card Month</br>'
-    }
-    if (cardYear == 0) {
-        msg = 'Select The Card Year</br>'
-    }
+
 
     if (msg != '') {
         $.alert({
@@ -1663,12 +1800,16 @@ var savePaymentAccounts = function () {
     var model = {
         PAID: PaymentAccountId,
         TenantId: tenantId,
-        NickName: accountNickName,
         NameOnCard: nameOnCard,
         CardNumber: cardNumber,
         Month: cardMonth,
         Year: cardYear,
-        CardType: cardType
+        CardType: cardType,
+        PayMethod: $("#ddlPayMethodPaymentAccounts").val(),
+        BankName: $("#txtBankNamePayMethod").val(),
+        AccountName: $("#txtAccountNamePayMethod").val(),
+        AccountNumber: $("#txtAccountNumberPayMethod").val(),
+        RoutingNumber: $("#txtRoutingNumberPayMethod").val(),
     };
     $.ajax({
         url: '/PaymentAccounts/SaveUpdatePaymentAccounts',
@@ -1677,29 +1818,20 @@ var savePaymentAccounts = function () {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            getPaymentAccounts();
+            getPaymentAccountsCreditCard();
             $.alert({
                 title: '',
                 content: response.model,
                 type: 'blue'
             });
-            clearPaymentAccountsFields();
+            clearSavePaymentAccounts();
             $('#popAddNewAccount').modal('hide');
+            $("#hndPaymentAccountsID").val('0');
         }
     });
 };
 
-var clearPaymentAccountsFields = function () {
-    $("#hndPaymentAccountsID").val('0');
-    $("#txtAccountTitle").val('');
-    $("#ddlCardType").val('0');
-    $("#txtNameOnCard").val('');
-    $("#txtCardNumber").val('');
-    //$("#ddlCardMonth").val();
-    //$("#ddlCardYear").val();
-};
-
-var getPaymentAccounts = function () {
+var getPaymentAccountsCreditCard = function () {
     var tenantId = $("#hndTenantID").val();
     var model = {
         TenantId: tenantId,
@@ -1713,7 +1845,8 @@ var getPaymentAccounts = function () {
         success: function (response) {
             var cNum = '';
             var checked = '';
-            $('#tblPaymentAccounts>tbody').empty();
+            var cla = '';
+            $('#tblPaymentAccountsCreditCard>tbody').empty();
             $.each(response.model, function (elementType, elementValue) {
 
                 if (elementValue.Default == '1') {
@@ -1722,65 +1855,67 @@ var getPaymentAccounts = function () {
                 else {
                     checked = "<a href='javascript:void(0)' onclick='makeDefaultPayment(" + elementValue.PAID + ");'>Make Default</a>";
                 }
+                if (elementValue.IsLessThanSevenDays == true) {
+                    cla = 'class="disabled" style="cursor:pointer;" tooltip="Cant edit or delete before 7 days of payment date"';
+                }
+                else {
+                    cla = 'class="" style="cursor:pointer;"';
+                }
                 var html = "<tr data-value=" + elementValue.PAID + ">";
-                html += "<td>" + elementValue.CardTypeString + "</td>";
-                html += "<td>" + elementValue.NickName + "</td>";
+                //html += "<td>" + elementValue.CardTypeString + "</td>";
+                html += "<td>" + elementValue.AccountName + "</td>";
                 html += "<td>" + elementValue.NameOnCard + "</td>";
                 html += "<td>" + MaskCardNumber(elementValue.CardNumber) + "</td>";
-                html += "<td><a href='javascript:void(0);' onclick='editPaymentAccounts(" + elementValue.PAID + ")'><i class='fa fa-edit'></i></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")'><i class='fa fa-trash'></i></a></td>";
+                html += "<td><a href='javascript:void(0);' onclick='editPaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-edit'></i></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-trash'></i></a></td>";
                 html += "<td width='11%'>" + checked + "</td>";
                 html += "</tr>";
-                $("#tblPaymentAccounts>tbody").append(html);
+                $("#tblPaymentAccountsCreditCard>tbody").append(html);
             });
         }
     });
 };
-
-var getPaymentMethods = function () {
+var getPaymentAccountsBankAccount = function () {
     var tenantId = $("#hndTenantID").val();
     var model = {
         TenantId: tenantId,
     };
     $.ajax({
-        url: '/PaymentAccounts/GetPaymentsAccountsList',
+        url: '/PaymentAccounts/GetPaymentsBankAccountsList',
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
+            var cNum = '';
             var checked = '';
-            var checkedInput = '';
-            $('#tblPaymentMethods>tbody').empty();
+            var cla = '';
+            $('#tblPaymentAccountsBankAccount>tbody').empty();
             $.each(response.model, function (elementType, elementValue) {
+
                 if (elementValue.Default == '1') {
-                    checked = "<a href='javascript:void(0)' id='" + elementValue.PAID + "' onclick='selectPayMethodChange(" + elementValue.PAID + ");'><i class='fa fa-check fa-lg'></i></a>";
-                    checkedInput = "<input id='' type='password' class='form-control' maxlength='3' onchange='getCVVValue(this);' />";
-                    $('#hdnTablePaidId').val(elementValue.PAID);
+                    checked = "<a href='javascript:void(0)' onclick='makeDefaultPayment(" + elementValue.PAID + ");'><i class='fa fa-check fa-lg'></i></a>";
                 }
                 else {
-                    checked = "<a href='javascript:void(0)' id='" + elementValue.PAID + "' onclick='selectPayMethodChange(" + elementValue.PAID + ");'>Select</a>";
-                    checkedInput = "<input id='' type='password' class='form-control' maxlength='3' disabled='disabled' onchange='getCVVValue(this);' />";
+                    checked = "<a href='javascript:void(0)' onclick='makeDefaultPayment(" + elementValue.PAID + ");'>Make Default</a>";
+                }
+                if (elementValue.IsLessThanSevenDays == true) {
+                    cla = 'class="disabled" style="cursor:pointer;" tooltip="Cant edit or delete before 7 days of payment date"';
+                }
+                else {
+                    cla = 'class="" style="cursor:pointer;"';
                 }
                 var html = "<tr data-value=" + elementValue.PAID + ">";
-                html += "<td width='5%'>" + checked + "</td>";
-                html += "<td>" + elementValue.CardTypeString + "</td>";
-                html += "<td>" + elementValue.NickName + "</td>";
-                html += "<td>" + elementValue.NameOnCard + "</td>";
-                html += "<td>" + MaskCardNumber(elementValue.CardNumber) + "</td>";
-                html += "<td style='width: 160px;'>" + checkedInput + "</td>";
+                html += "<td>" + elementValue.BankName + "</td>";
+                html += "<td>" + elementValue.AccountName + "</td>";
+                html += "<td>" + MaskCardNumber(elementValue.AccountNumber) + "</td>";
+                html += "<td>" + MaskCardNumber(elementValue.RoutingNumber) + "</td>";
+                html += "<td><a href='javascript:void(0);' onclick='editPaymentBankAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-edit'></i></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-trash'></i></a></td>";
+                html += "<td width='11%'>" + checked + "</td>";
                 html += "</tr>";
-                $("#tblPaymentMethods>tbody").append(html);
+                $("#tblPaymentAccountsBankAccount>tbody").append(html);
             });
-
-            if ($("#tblPaymentMethods").find('tbody').find('tr').length == 0) {
-                $('#btnSaveMakeOneTimePayment').attr('disabled', 'disabled');
-            }
-            else {
-                $('#btnSaveMakeOneTimePayment').removeAttr('disabled');
-            }
         }
     });
-    
 };
 
 var editPaymentAccounts = function (id) {
@@ -1795,13 +1930,50 @@ var editPaymentAccounts = function (id) {
         dataType: "JSON",
         success: function (response) {
             $('#popAddNewAccount').modal('show');
+            $('#DivPayMethodBankAccount').addClass('hidden');
+            $('#DivPayMethodCreditCard').removeClass('hidden');
             $("#hndPaymentAccountsID").val(response.model.PAID);
-            $("#txtAccountTitle").val(response.model.NickName);
+            $('#ddlPayMethodPaymentAccounts').val(response.model.PayMethod)
+            $("#txtAccountNamePayMethod").val(response.model.AccountName);
             $("#ddlCardType").val(response.model.CardType);
             $("#txtNameOnCard").val(response.model.NameOnCard);
             $("#txtCardNumber").val(response.model.CardNumber);
             $("#ddlCardMonth").val(response.model.Month);
             $("#ddlCardYear").val(response.model.Year);
+
+            $("#txtBankNamePayMethod").val('');
+            $("#txtAccountNumberPayMethod").val('');
+            $("#txtRoutingNumberPayMethod").val('');
+        }
+    });
+};
+
+var editPaymentBankAccounts = function (id) {
+    var model = {
+        PAID: id,
+    };
+    $.ajax({
+        url: '/PaymentAccounts/EditPaymentsBankAccounts',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $('#popAddNewAccount').modal('show');
+            $('#DivPayMethodBankAccount').removeClass('hidden');
+            $('#DivPayMethodCreditCard').addClass('hidden');
+            $("#hndPaymentAccountsID").val(response.model.PAID);
+            $('#ddlPayMethodPaymentAccounts').val(response.model.PayMethod)
+            $("#txtAccountNamePayMethod").val(response.model.AccountName);
+            $("#txtBankNamePayMethod").val(response.model.BankName);
+            $("#txtAccountNumberPayMethod").val(response.model.AccountNumber);
+            $("#txtRoutingNumberPayMethod").val(response.model.RoutingNumber);
+
+            $("#ddlCardType").val('0');
+            $("#txtNameOnCard").val('');
+            $("#txtCardNumber").val('');
+            $("#ddlCardMonth").val();
+            $("#ddlCardYear").val();
         }
     });
 };
@@ -1822,35 +1994,7 @@ var deletePaymentAccounts = function (id) {
                 content: response.model,
                 type: 'blue'
             });
-            getPaymentAccounts();
-        }
-    });
-};
-
-var getAllDues = function () {
-    var UserId = $("#hndUserId").val();
-    var model = {
-        UserId: UserId,
-    };
-    $.ajax({
-        url: '/ApplyNow/GetAllTotalDues',
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            localStorage.setItem('currentAmountDue', response.model.TotalAmountString);
-            $('#spanCurrentAmountDue').text(response.model.TotalAmountString);
-            $('#spanConvergentAmount').text(response.model.ConvergentAmountString);
-            $('#spanParkingAmount').text(response.model.ParkingAmountString);
-            $('#spanFOBAmount').text(response.model.FOBAmountString);
-            $('#lblStorageUnit').text(response.model.StorageAmountString);
-            $('#spanPetAmount').text(response.model.PetPlaceAmountString);
-            $('#lblFMRent').text(response.model.Rent);
-            $('#txtTotalAmountTransaction').text(response.model.TotalAmountString);
-            $('#lblCurrentAmtDueMakePayment').text(response.model.TotalAmountString);
-            var amoun = /*parseFloat(localStorage.getItem('totalUpcomingCharges')) + */parseFloat(unformatText(response.model.TotalAmountString));
-            $('#lblCurrentPrePayAmount').text('$ ' + formatMoney(amoun.toFixed(2)));
+            getPaymentAccountsCreditCard();
         }
     });
 };
@@ -1882,17 +2026,20 @@ var saveUpdateServiceRequest = function () {
     var msg = '';
     var serviceRequest = $("#hdnServiceRequest").val();
     var tenantId = $("#hndTenantID").val();
-    var problemCategory = $("#ddlProblemCategory").find(":selected").data("id");
+    var problemCategory = $("#ddlProblemCategory").val();
     var moreDetails = $("#txtMoreDetails").val();
     var apartmentPermission = '';
-    var itemCaussing = $("#ddlProblemCategory1").find(":selected").data("id");
-    var itemIssue = $("#ddlProblemCategory2").find(":selected").data("id");
+    var itemCaussing = $("#ddlProblemCategory1").val();
+    var itemIssue = $("#ddlProblemCategory2").val();
     var OtherCausingIssue = $("#txtOtherCausingIssue").val();
     var OtherIssue = $("#txtOtherIssue").val();
     var location = $("#ddlLocation").val();
     var preferredDate = $("#txtPreferredDate").val();
+    var priority = $("#ddlPriority").val();
+    var serviceFileTemp = $("#hndfileUploadService").val();
+    var serviceFileOriginal = $("#hndOriginalfileUploadService").val();
+    var emergency = $("#txtEmergencyMobile").val();
 
-    rbtnApertmentPermission2
     if ($("#rbtnApertmentPermission1").is(":checked")) {
         apartmentPermission = 1;
     }
@@ -1939,6 +2086,17 @@ var saveUpdateServiceRequest = function () {
     if (location == 0) {
         msg += 'Select The Location</br>'
     }
+    if (priority != 0) {
+
+        if (priority == 4) {
+            if (emergency == '') {
+                msg += 'Enter The Mobile Number</br>'
+            }
+
+        }
+    } else {
+        msg += 'Select The Priority</br>'
+    }
 
 
     if (msg != '') {
@@ -1965,6 +2123,10 @@ var saveUpdateServiceRequest = function () {
         OtherItemCaussing: OtherCausingIssue,
         ItemIssue: itemIssue,
         OtherItemIssue: OtherIssue,
+        Priority: priority,
+        TempServiceFile: serviceFileTemp,
+        OriginalServiceFile: serviceFileOriginal,
+        EmergencyMobile: emergency,
     };
     $.ajax({
         url: '/ServiceRequest/SaveUpdateServiceRequest',
@@ -1976,12 +2138,13 @@ var saveUpdateServiceRequest = function () {
             $.alert({
                 title: '',
                 content: response.model,
-                type: 'blue'
+                type: 'red'
             });
             clearServiceRequestField();
             getServiceRequestList();
             fillDropdowns();
             getServiceRequestOnAlarm();
+            $("#rbtnApertmentPermission1").prop("checked", true);
         }
     });
 };
@@ -2021,6 +2184,10 @@ var clearServiceRequestField = function () {
     $("#OtherIssue").addClass('hidden');
     $("#txtOtherCausingIssue").addClass('hidden');
     $("#txtOtherIssue").val('');
+    $("#txtEmergencyMobile").val('');
+    $("#ddlPriority").val('0');
+    $("#fileUploadServiceShow").val('');
+
 }
 
 var getServiceRequestList = function () {
@@ -2043,8 +2210,12 @@ var getServiceRequestList = function () {
                 html += "<td>" + elementValue.DateString + "</td>";
                 html += "<td>" + elementValue.ProblemCategorystring + "</td>";
                 html += "<td>" + elementValue.StatusString + "</td>";
+                html += "<td>" + elementValue.PriorityString + "</td>";
+                //html += "<td align='center'><img src='/content/assets/img/pet/" + elementValue.TempServiceFile + "' class='picture-src' title='' style='height:70px;width:70px;'/></td>";
+                // html += "<td> <a  target='_blank' href='/Content/assets/img/Document/" + elementValue.TempServiceFile + "'><i class='fa fa-eye'></i></a></td>";
+                html += "<td class='text-center'>";
                 if (elementValue.StatusString == 'Open') {
-                    html += "<td><a style='padding: 5px 8px !important; margin-right:7px; cursor:pointer;' onclick='cancelServiceRequest(" + elementValue.ServiceID + ")'><i class='fa fa-times'></i> Cancel Request</a></td>"
+                    html += "<a style='padding: 5px 8px !important; margin-right:7px; cursor:pointer;' onclick='cancelServiceRequest(" + elementValue.ServiceID + ")'><i class='fa fa-times'></i> Cancel Request</a></td>"
                 }
                 html += "</tr>";
                 $("#tblServiceRequest>tbody").append(html);
@@ -2371,7 +2542,7 @@ var fromDashboardGoToMakePayment = function () {
             getUpTransationLists();
             getAllDues();
             getTransationLists();
-            getPaymentAccounts();
+            getPaymentAccountsCreditCard();
             $("#li1").removeClass("active");
             $("#li2").removeClass("active");
             $("#li3").addClass("active");
@@ -2389,7 +2560,6 @@ var fromDashboardGoToMakePayment = function () {
             $("#btnAccountHistoryPrint").addClass("hidden")
         }
         if ($('#hdnPayStepIdMakePayment').val() == "2") {
-            getPaymentMethods();
             $("#pay1").removeClass("active1");
             $("#pay2").addClass("active1");
             $("#pay3").removeClass("active1");
@@ -2417,7 +2587,7 @@ var fromDashboardGoToRecurringPayment = function () {
             getUpTransationLists();
             getAllDues();
             getTransationLists();
-            getPaymentAccounts();
+            getPaymentAccountsCreditCard();
             $("#li3").addClass("active");
             $("#li2").removeClass("active");
             $("#li1").removeClass("active");
@@ -2465,7 +2635,7 @@ var fromDashboardGoToRegisterGuest = function () {
             getUpTransationLists();
             getAllDues();
             getTransationLists();
-            getPaymentAccounts();
+            getPaymentAccountsCreditCard();
             $("#li3").removeClass("active");
             $("#li2").removeClass("active");
             $("#li1").removeClass("active");
@@ -2496,26 +2666,7 @@ var fromDashboardGoToReserveAmenities = function () {
     if ($('#hdnStepReserveAmenities').val() == "5" && $('#hdnPayIdReserveAmenities').val() == "2") {
 
         if ($('#hdnStepReserveAmenities').val() == "5") {
-            //getAllDues();
-            //getTransationLists();
-            //getUpTransationLists();
-            //getPaymentAccounts();
-            //$("#li1").removeClass("active");
-            //$("#li2").removeClass("active");
-            //$("#li3").removeClass("active");
-            //$("#li4").removeClass("active");
-            //$("#li5").addClass("active");
-            //$("#li6").removeClass("active");
-            //$("#li7").removeClass("active");
-            //$("#step1").addClass("hidden");
-            //$("#step2").removeClass("hidden");
-            //$("#step3").addClass("hidden");
-            //$("#step4").addClass("hidden");
-            //$("#step5").addClass("hidden");
-            //$("#step6").addClass("hidden");
-            //$("#step7").addClass("hidden");
             $("#step5").removeClass("hidden");
-            //getVehicleLists();
             $("#li5").addClass("active");
 
             $("#li4").removeClass("active");
@@ -2596,101 +2747,33 @@ var fromDashboardGoToSubmitServiceRequest = function () {
 
 }
 
-var accountHistory = function () {
-
-    if ($('#ddlAccountHistory').val() == '2') {
-        var totalAmount = '';
-        var model = {
-            TenantID: $("#hndTenantID").val(),
-        }
-        $.ajax({
-            url: "/MyTransaction/GetTenantUpTransactionList",
-            type: "post",
-            contentType: "application/json utf-8",
-            data: JSON.stringify(model),
-            dataType: "JSON",
-            success: function (response) {
-                totalAmount = 0;
-                $("#tblTransaction>tbody").empty();
-
-                $.each(response.model, function (elementType, elementValue) {
-                    var html = "<tr data-value=" + elementValue.TransID + ">";
-                    html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                    html += "<td>" + elementValue.Description + "</td>";
-                    html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                    html += "<td>" + elementValue.Charge_Type + "</td>";
-                    html += "</tr>";
-                    $("#tblTransaction>tbody").append(html);
-                    totalAmount += parseFloat(elementValue.Charge_Amount);
-                });
-            }
-        });
+var paymentHistory = function (ddlah) {
+    var model = {
+        TenantID: $("#hndTenantID").val(),
+        AccountHistoryDDL: ddlah
     }
-    else if ($('#ddlAccountHistory').val() == '1'){
-        {
-            var totalAmount = '';
-            var model = {
-                TenantID: $("#hndTenantID").val(),
-                AccountHistoryDDL: $('#ddlAccountHistory').val()
-            }
-            $.ajax({
-                url: "/MyTransaction/GetTenantTransactionList",
-                type: "post",
-                contentType: "application/json utf-8",
-                data: JSON.stringify(model),
-                dataType: "JSON",
-                success: function (response) {
-                    totalAmount = 0;
-                    $("#tblTransaction>tbody").empty();
+    $.ajax({
+        url: "/MyTransaction/GetTenantUpTransactionList",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            var bal = 0;
+            $("#tblPaymentHistory>tbody").empty();
 
-                    var balAmount = unformatText(localStorage.getItem('currentAmountDue'));
-                    var balanceAmount = '';
-                    $.each(response.model, function (elementType, elementValue) {
-                        balanceAmount = parseFloat(balAmount) - parseFloat(elementValue.Charge_Amount);
-                        balAmount = balanceAmount;
-
-                        var html = "<tr data-value=" + elementValue.TransID + ">";
-                        html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                        html += "<td>" + elementValue.Description + "</td>";
-                        html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                        html += "<td style='text-align: right;'>$" + formatMoney(balanceAmount) + "</td>";
-                        html += "</tr>";
-                        $("#tblTransaction>tbody").append(html);
-                        totalAmount += parseFloat(elementValue.Charge_Amount);
-                    });
-                }
+            $.each(response.model, function (elementType, elementValue) {
+                var html = "<tr data-value=" + elementValue.TransID + ">";
+                html += "<td>" + elementValue.Transaction_DateString + "</td>";
+                html += "<td>" + elementValue.Description + "</td>";
+                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
+                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Balance) + "</td>";
+                html += "</tr>";
+                $("#tblPaymentHistory>tbody").append(html);
             });
         }
-    }
-    else {
-        var totalAmount = '';
-        var model = {
-            TenantID: $("#hndTenantID").val(),
-            AccountHistoryDDL: $('#ddlAccountHistory').val()
-        }
-        $.ajax({
-            url: "/MyTransaction/GetTenantTransactionList",
-            type: "post",
-            contentType: "application/json utf-8",
-            data: JSON.stringify(model),
-            dataType: "JSON",
-            success: function (response) {
-                totalAmount = 0;
-                $("#tblTransaction>tbody").empty();
-
-                $.each(response.model, function (elementType, elementValue) {
-                    var html = "<tr data-value=" + elementValue.TransID + ">";
-                    html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                    html += "<td>" + elementValue.Description + "</td>";
-                    html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                    html += "<td>" + elementValue.Charge_Type + "</td>";
-                    html += "</tr>";
-                    $("#tblTransaction>tbody").append(html);
-                    totalAmount += parseFloat(elementValue.Charge_Amount);
-                });
-            }
-        });
-    }
+    });
+   
 };
 
 var dateRangeAccountHistorySearch = function () {
@@ -2717,7 +2800,7 @@ var dateRangeAccountHistorySearch = function () {
         success: function (response) {
             $('#popDateRangeAccountHistory').modal('hide');
             totalAmount = 0;
-            $("#tblTransaction>tbody").empty();
+            $("#tblPaymentHistory>tbody").empty();
 
             $.each(response.model, function (elementType, elementValue) {
                 var html = "<tr data-value=" + elementValue.TransID + ">";
@@ -2726,7 +2809,7 @@ var dateRangeAccountHistorySearch = function () {
                 html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
                 html += "<td>" + elementValue.Charge_Type + "</td>";
                 html += "</tr>";
-                $("#tblTransaction>tbody").append(html);
+                $("#tblPaymentHistory>tbody").append(html);
                 totalAmount += parseFloat(elementValue.Charge_Amount);
             });
         }
@@ -2746,7 +2829,8 @@ var makeDefaultPayment = function (id) {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            getPaymentAccounts();
+            getPaymentAccountsCreditCard();
+            getPaymentAccountsBankAccount();
             $.alert({
                 title: "",
                 content: response.model,
@@ -2773,12 +2857,43 @@ var amountToPayRadioButtonFunction = function () {
 var r = function () {
     $('#rbtnAmountToPay2').removeAttr('checked');
     $('#rbtnAmountToPay1').attr('checked', 'checked');
-}
 
+}
+var getAmenityReservationPay = function(){
+    var params = { Id: $("#hdnARId").val() };
+    $.ajax({
+        url: "/Amenities/GetRRInfo",
+        method: "post",
+        data: JSON.stringify(params),
+        contentType: "application/json; charset=utf-8", // content type sent to server
+        dataType: "json", //Expected data format from server
+        success: function (response) {
+            //clearRRdata();
+            if ($.trim(response.error) != "") {
+                //showMessage("Error!", response.error);
+            } else {
+
+                $("#txtDescriptionText").val("Payment for Amenity Reservation : " + response.AmenityName);
+                //$('#rbtnAmountToPay1').removeAttr('checked');
+                //$('#rbtnAmountToPay2').attr('checked', 'checked');
+                //$("#txtOtherAmount").val(parseInt(parseFloat(response.ReservationFee) + parseInt(response.DepositFee)).toFixed(2));
+                
+                $("#lblCurrentPrePayAmount").text('$' + formatMoney(parseInt(parseFloat(response.ReservationFee) + parseInt(response.DepositFee)).toFixed(2)));
+            }
+        }
+    });
+}
 function makeOneTimePaymentSaveUpdate() {
-    
+    var cardName = '';
+    var cardNumber = '';
+    var cardMonth = '';
+    var cardYear = '';
+    var accountName = '';
+    var bankName = '';
+    var accountNumber = '';
+    var routingNumber = '';
     var model = {
-        PAID: $('#hdnTablePaidId').val()
+        PAID: $('#ddlPaymentMethod').val()
     };
 
     $.ajax({
@@ -2788,12 +2903,14 @@ function makeOneTimePaymentSaveUpdate() {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            localStorage.setItem('nickNameValue', response.model.NickName);
-            $('#hdnCardName').val(response.model.NameOnCard);
-            $('#hdnCardNumber').val(response.model.CardNumber);
-            $('#hdnCardMonth').val(response.model.Month);
-            $('#hdnCardYear').val(response.model.Year);
-            localStorage.setItem('cardTypeValue', response.model.CardType);
+            cardName = response.model.NameOnCard,
+                cardNumber = response.model.CardNumber,
+                cardMonth = response.model.Month,
+                cardYear = response.model.Year,
+                accountName = response.model.AccountName,
+                bankName = response.model.BankName,
+                accountNumber = response.model.AccountNumber,
+                routingNumber = response.model.RoutingNumber
         }
     });
 
@@ -2809,7 +2926,7 @@ function makeOneTimePaymentSaveUpdate() {
     var chargeType = $("#ddlChargeType").val();
     var chargeAmount = unformatText($("#txtChargeAmount").val());
     var summaryCharge = $("#txtSummaryCharge").val();
-    var CVVFromPayMethod = $("#hdnCVVFromPayment").val();
+    var CVVFromPayMethod = $("#txtCVVNumberPayRentOnline").val();
 
     var desc = $("#txtDescriptionText").val();
     var amount = '';
@@ -2825,11 +2942,8 @@ function makeOneTimePaymentSaveUpdate() {
     if ($("#ddlPaymentMethod").val() == '0') {
         msg += "Select Payment Method</br>";
     }
-    if ($("#ddlPaymentMethod").val() == '1') {
-        if ($("#hdnCVVFromPayment").val() == '') {
-            msg += "Enter CVV Number</br>";
-        }
-        if ($("#hdnCVVFromPayment").val() == '0') {
+    if ($('#ddlPaymentMethod').find(':selected').data('value') == '1') {
+        if ($("#txtCVVNumberPayRentOnline").val() == '') {
             msg += "Enter CVV Number</br>";
         }
     }
@@ -2844,12 +2958,6 @@ function makeOneTimePaymentSaveUpdate() {
     }
     else {
         msg += 'Check Terms and Policy</br>';
-    }
-    if ($('#hdnTablePaidId').val() == '') {
-        msg += "Select Payment Details</br>";
-    }
-    if ($('#hdnTablePaidId').val() == '0') {
-        msg += "Select Payment Details</br>";
     }
 
     if (msg != "") {
@@ -2874,10 +2982,12 @@ function makeOneTimePaymentSaveUpdate() {
         Charge_Amount: amount,
         Summary_Charge_Type: summaryCharge,
         Description: desc,
-        NameOnCardString: $('#hdnCardName').val(),
-        NumberOnCardString: $('#hdnCardNumber').val(),
-        ExpirationMonthOnCardString: $('#hdnCardMonth').val(),
-        ExpirationYearOnCardString: $('#hdnCardYear').val()
+        NameOnCardString: cardName,
+        NumberOnCardString: cardNumber,
+        ExpirationMonthOnCardString: cardMonth,
+        ExpirationYearOnCardString: cardYear,
+        BankName: bankName,
+        RoutingNumber: routingNumber
     };
     $.ajax({
         url: "/MyTransaction/SaveUpdateTransaction/",
@@ -2972,10 +3082,8 @@ var goToSubmitServiceRequestFromMyHome = function () {
 };
 
 var goToPaymentFromMyHome = function () {
-    getUpTransationLists();
-    getAllDues();
-    getTransationLists();
-    getPaymentAccounts();
+    ddlPaymentMethod();
+    ddlPayMethodPageLoadFunction();
     $("#li3").addClass("active");
     $("#li2").removeClass("active");
     $("#li1").removeClass("active");
@@ -2990,22 +3098,18 @@ var goToPaymentFromMyHome = function () {
     $("#step6").addClass("hidden");
     $("#step7").addClass("hidden");
     $("#li7").removeClass("active");
-
-    getPaymentMethods();
     clearMakePaymentFields();
-    $("#pay1").removeClass("active1");
-    $("#pay2").addClass("active1");
+    $("#pay1").addClass("active1");
+    $("#pay2").removeClass("active1");
     $("#pay3").removeClass("active1");
     $("#pay4").removeClass("active1");
     $("#pay5").removeClass("active1");
 
-    $("#payStep1").addClass("hidden");
-    $("#payStep2").removeClass("hidden");
+    $("#payStep1").removeClass("hidden");
+    $("#payStep2").addClass("hidden");
     $("#payStep3").addClass("hidden");
     $("#payStep4").addClass("hidden");
     $("#payStep5").addClass("hidden");
-    $('#btnPaymentSnapshot').addClass('hidden');
-    $('#btnRecurringPayment').removeClass('hidden');
     $('#btnAccountHistoryPrint').addClass('hidden');
     $('#DivNote').addClass('hidden');
 };
@@ -3014,7 +3118,7 @@ var goToRecurringPaymentFromMyHome = function () {
     getUpTransationLists();
     getAllDues();
     getTransationLists();
-    getPaymentAccounts();
+    getPaymentAccountsCreditCard();
     $("#li3").addClass("active");
     $("#li2").removeClass("active");
     $("#li1").removeClass("active");
@@ -4254,7 +4358,6 @@ var fillDropdowns = function () {
 
 }
 
-
 var getServiceRequestOnAlarm = function () {
     var model = { TenantId: $("#hndTenantID").val() };
 
@@ -4333,30 +4436,30 @@ var getLeaseInfoDocuments = function () {
             var Html = '';
             if (response.model.PassportDoc != null) {
                 if (response.model.PassportDoc != '0') {
-                intCount++;
-                Html += "<div class='panel panel-default'>";
-                Html += "<div class='panel-heading'>";
-                Html += "<h3 class='panel-title'>";
-                Html += "<a data-toggle='collapse' data-parent='#accordionSubIdentity' href='#collapse2Sub1" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + response.model.OriginalPassportDoc + "<i class='fa fa-angle-right pull-right'></i></a>";
-                Html += "</h3>";
-                Html += "</div>";
-                Html += "<div id='collapse2Sub1" + intCount + "' class='panel-collapse collapse'>";
-                Html += "<div class='panel-body'>";
-                var resultPass = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.PassportDoc);
-                if (resultPass == true) {
-                    Html += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + response.model.OriginalPassportDoc + "' href='/Content/assets/img/PersonalInformation/" + response.model.PassportDoc + "'><i class='fa fa-download'></i></a>";
-                    Html += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.PassportDoc + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
-                }
-                else {
-                    Html += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
-                    Html += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
-                }
-                Html += "</div>";
-                Html += "</div>";
-                Html += "</div>";
+                    intCount++;
+                    Html += "<div class='panel panel-default'>";
+                    Html += "<div class='panel-heading'>";
+                    Html += "<h3 class='panel-title'>";
+                    Html += "<a data-toggle='collapse' data-parent='#accordionSubIdentity' href='#collapse2Sub1" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + response.model.OriginalPassportDoc + "<i class='fa fa-angle-right pull-right'></i></a>";
+                    Html += "</h3>";
+                    Html += "</div>";
+                    Html += "<div id='collapse2Sub1" + intCount + "' class='panel-collapse collapse'>";
+                    Html += "<div class='panel-body'>";
+                    var resultPass = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.PassportDoc);
+                    if (resultPass == true) {
+                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + response.model.OriginalPassportDoc + "' href='/Content/assets/img/PersonalInformation/" + response.model.PassportDoc + "'><i class='fa fa-download'></i></a>";
+                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.PassportDoc + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                    }
+                    else {
+                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
+                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
+                    }
+                    Html += "</div>";
+                    Html += "</div>";
+                    Html += "</div>";
                 }
             }
-            
+
             if (response.model.IdentityDoc != null) {
                 if (response.model.IdentityDoc != '0') {
                     intCount++;
@@ -4389,82 +4492,82 @@ var getLeaseInfoDocuments = function () {
             var Thtml = '';
             if (response.model.TaxReturnDoc1 != null) {
                 if (response.model.TaxReturnDoc1 != '0') {
-                intCount++;
-                Thtml += "<div class='panel panel-default'>";
-                Thtml += "<div class='panel-heading'>";
-                Thtml += "<h3 class='panel-title'>";
-                Thtml += "<a data-toggle='collapse' data-parent='#accordionSubTaxReturn' href='#collapse3Sub1" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + response.model.OriginalTaxReturnDoc1 + "<i class='fa fa-angle-right pull-right'></i></a>";
-                Thtml += "</h3>";
-                Thtml += "</div>";
-                Thtml += "<div id='collapse3Sub1" + intCount + "' class='panel-collapse collapse'>";
-                Thtml += "<div class='panel-body'>";
-                var resultTax1 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturnDoc1);
-                if (resultTax1 == true) {
-                    Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + response.model.OriginalTaxReturnDoc1 + "' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc1 + "'><i class='fa fa-download'></i></a>";
-                    Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc1 + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
-                }
-                else {
-                    Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
-                    Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
-                }
-                Thtml += "</div>";
-                Thtml += "</div>";
-                Thtml += "</div>";
+                    intCount++;
+                    Thtml += "<div class='panel panel-default'>";
+                    Thtml += "<div class='panel-heading'>";
+                    Thtml += "<h3 class='panel-title'>";
+                    Thtml += "<a data-toggle='collapse' data-parent='#accordionSubTaxReturn' href='#collapse3Sub1" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + response.model.OriginalTaxReturnDoc1 + "<i class='fa fa-angle-right pull-right'></i></a>";
+                    Thtml += "</h3>";
+                    Thtml += "</div>";
+                    Thtml += "<div id='collapse3Sub1" + intCount + "' class='panel-collapse collapse'>";
+                    Thtml += "<div class='panel-body'>";
+                    var resultTax1 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturnDoc1);
+                    if (resultTax1 == true) {
+                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + response.model.OriginalTaxReturnDoc1 + "' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc1 + "'><i class='fa fa-download'></i></a>";
+                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc1 + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                    }
+                    else {
+                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
+                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
+                    }
+                    Thtml += "</div>";
+                    Thtml += "</div>";
+                    Thtml += "</div>";
                 }
             }
 
             if (response.model.TaxReturnDoc2 != null) {
                 if (response.model.TaxReturnDoc2 != '0') {
-                intCount++;
-                Thtml += "<div class='panel panel-default'>";
-                Thtml += "<div class='panel-heading'>";
-                Thtml += "<h3 class='panel-title'>";
-                Thtml += "<a data-toggle='collapse' data-parent='#accordionSubTaxReturn' href='#collapse3Sub2" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + response.model.OriginalTaxReturnDoc2 + "<i class='fa fa-angle-right pull-right'></i></a>";
-                Thtml += "</h3>";
-                Thtml += "</div>";
-                Thtml += "<div id='collapse3Sub2" + intCount + "' class='panel-collapse collapse'>";
-                Thtml += "<div class='panel-body'>";
-                var resultTax2 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturnDoc2);
-                if (resultTax2 == true) {
-                    Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + response.model.OriginalTaxReturnDoc2 + "' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc2 + "'><i class='fa fa-download'></i></a>";
-                    Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc2 + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
-                }
-                else {
-                    Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
-                    Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
-                }
-                Thtml += "</div>";
-                Thtml += "</div>";
-                Thtml += "</div>";
+                    intCount++;
+                    Thtml += "<div class='panel panel-default'>";
+                    Thtml += "<div class='panel-heading'>";
+                    Thtml += "<h3 class='panel-title'>";
+                    Thtml += "<a data-toggle='collapse' data-parent='#accordionSubTaxReturn' href='#collapse3Sub2" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + response.model.OriginalTaxReturnDoc2 + "<i class='fa fa-angle-right pull-right'></i></a>";
+                    Thtml += "</h3>";
+                    Thtml += "</div>";
+                    Thtml += "<div id='collapse3Sub2" + intCount + "' class='panel-collapse collapse'>";
+                    Thtml += "<div class='panel-body'>";
+                    var resultTax2 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturnDoc2);
+                    if (resultTax2 == true) {
+                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + response.model.OriginalTaxReturnDoc2 + "' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc2 + "'><i class='fa fa-download'></i></a>";
+                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc2 + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                    }
+                    else {
+                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
+                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
+                    }
+                    Thtml += "</div>";
+                    Thtml += "</div>";
+                    Thtml += "</div>";
                 }
             }
 
             if (response.model.TaxReturnDoc3 != null) {
-                if (response.model.TaxReturnDoc3 != '0'){
-                intCount++;
-                Thtml += "<div class='panel panel-default'>";
-                Thtml += "<div class='panel-heading'>";
-                Thtml += "<h3 class='panel-title'>";
-                Thtml += "<a data-toggle='collapse' data-parent='#accordionSubTaxReturn' href='#collapse3Sub3" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + response.model.OriginalTaxReturnDoc3 + "<i class='fa fa-angle-right pull-right'></i></a>";
-                Thtml += "</h3>";
-                Thtml += "</div>";
-                Thtml += "<div id='collapse3Sub3" + intCount + "' class='panel-collapse collapse'>";
-                Thtml += "<div class='panel-body'>";
-                var resultTax3 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturnDoc3);
-                if (resultTax3 == true) {
-                    Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + response.model.OriginalTaxReturnDoc3 + "' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc3 + "'><i class='fa fa-download'></i></a>";
-                    Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc3 + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
-                }
-                else {
-                    Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
-                    Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
-                }
-                Thtml += "</div>";
-                Thtml += "</div>";
-                Thtml += "</div>";
+                if (response.model.TaxReturnDoc3 != '0') {
+                    intCount++;
+                    Thtml += "<div class='panel panel-default'>";
+                    Thtml += "<div class='panel-heading'>";
+                    Thtml += "<h3 class='panel-title'>";
+                    Thtml += "<a data-toggle='collapse' data-parent='#accordionSubTaxReturn' href='#collapse3Sub3" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + response.model.OriginalTaxReturnDoc3 + "<i class='fa fa-angle-right pull-right'></i></a>";
+                    Thtml += "</h3>";
+                    Thtml += "</div>";
+                    Thtml += "<div id='collapse3Sub3" + intCount + "' class='panel-collapse collapse'>";
+                    Thtml += "<div class='panel-body'>";
+                    var resultTax3 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturnDoc3);
+                    if (resultTax3 == true) {
+                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + response.model.OriginalTaxReturnDoc3 + "' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc3 + "'><i class='fa fa-download'></i></a>";
+                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc3 + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                    }
+                    else {
+                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
+                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
+                    }
+                    Thtml += "</div>";
+                    Thtml += "</div>";
+                    Thtml += "</div>";
                 }
             }
-            
+
             $('#accordionSubTaxReturn').append(Thtml);
         }
     });
@@ -4577,80 +4680,247 @@ var getCVVValue = function (id) {
     }
 };
 
+var ddlPayMethodSelect = function () {
+    $('#ddlPayMethodPaymentAccounts').on('change', function () {
+        if ($(this).val() == '1') {
+            $('#DivPayMethodCreditCard').removeClass('hidden');
+            $('#DivPayMethodBankAccount').addClass('hidden');
+            clearSavePaymentAccounts();
+        }
+        else {
+            $('#DivPayMethodCreditCard').addClass('hidden');
+            $('#DivPayMethodBankAccount').removeClass('hidden');
+            clearSavePaymentAccounts();
+        }
+    });
+
+    if ($('#ddlPayMethodPaymentAccounts').val() == '1') {
+        $('#DivPayMethodCreditCard').removeClass('hidden');
+        $('#DivPayMethodBankAccount').addClass('hidden');
+        clearSavePaymentAccounts();
+    }
+    else if ($('#ddlPayMethodPaymentAccounts').val() == '2') {
+        $('#DivPayMethodCreditCard').addClass('hidden');
+        $('#DivPayMethodBankAccount').removeClass('hidden');
+        clearSavePaymentAccounts();
+    }
+};
+
+var clearSavePaymentAccounts = function () {
+    $('#txtBankNamePayMethod').val('');
+    $('#txtAccountNamePayMethod').val('');
+    $('#txtAccountNumberPayMethod').val('');
+    $('#txtRoutingNumberPayMethod').val('');
+    $('#txtAccountTitle').val('');
+    $('#ddlCardType').val('0');
+    $('#txtNameOnCard').val('');
+    $('#txtCardNumber').val('');
+    $('#ddlCardMonth').val('01');
+};
+
+var ddlBankAccountListShow = function () {
+    $('#ddlBankAccountList').on('change', function () {
+        if ($('#ddlBankAccountList').val() == '1') {
+            getPaymentAccountsCreditCard();
+            $('#tblPaymentAccountsBankAccount').addClass('hidden');
+            $('#tblPaymentAccountsCreditCard').removeClass('hidden');
+        }
+        else if ($('#ddlBankAccountList').val() == '2') {
+            getPaymentAccountsBankAccount();
+            $('#tblPaymentAccountsCreditCard').addClass('hidden');
+            $('#tblPaymentAccountsBankAccount').removeClass('hidden');
+        }
+    });
+    if ($('#ddlBankAccountList').val() == '1') {
+        getPaymentAccountsCreditCard();
+        $('#tblPaymentAccountsBankAccount').addClass('hidden');
+        $('#tblPaymentAccountsCreditCard').removeClass('hidden');
+    }
+    else if ($('#ddlBankAccountList').val() == '2') {
+        getPaymentAccountsBankAccount();
+        $('#tblPaymentAccountsCreditCard').addClass('hidden');
+        $('#tblPaymentAccountsBankAccount').removeClass('hidden');
+    }
+};
+
+var ddlPaymentMethod = function () {
+    var model = { TenantId: $("#hndTenantID").val() };
+    $.ajax({
+        url: '/PaymentAccounts/GetPaymentMethods',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $('#ddlPaymentMethod').empty();
+            var html = '';
+            $.each(response.model, function (elementType, elementValue) {
+                if (elementValue.Default == '1') {
+                    html = "<option value='" + elementValue.PAID + "' selected='selected' data-value='" + elementValue.PayMethod + "'>" + elementValue.AccountName + "</option>";
+                }
+                else {
+                    html = "<option value='" + elementValue.PAID + "' data-value='" + elementValue.PayMethod + "'>" + elementValue.AccountName + "</option>";
+                }
+                $('#ddlPaymentMethod').append(html);
+            });
+        }
+    });
+};
+
+var ddlPaymentMethodSelectFunction = function () {
+    $('#ddlPaymentMethod').on('change', function () {
+
+        if ($(this).find(':selected').data('value') == '1') {
+            $('#DivCVVNumberPayRentOnline').removeClass('hidden');
+        }
+        else {
+            $('#DivCVVNumberPayRentOnline').addClass('hidden');
+        }
+        $('#txtCVVNumberPayRentOnline').val('');
+    });
+};
+
+var ddlPayMethodPageLoadFunction = function () {
+    setTimeout(function () {
+        if ($('#ddlPaymentMethod').find(':selected').data('value') == '1') {
+            $('#DivCVVNumberPayRentOnline').removeClass('hidden');
+        }
+        else {
+            $('#DivCVVNumberPayRentOnline').addClass('hidden');
+        }
+        $('#txtCVVNumberPayRentOnline').val('');
+    }, 4500);
+};
+
+var tenantAccountHistory = function () {
+    var model = {
+        TenantID: $("#hndTenantID").val(),
+    }
+    $.ajax({
+        url: "/MyTransaction/GetTenantAccountHistoryList",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            totalAmount = 0;
+            $("#tblAccountHistory>tbody").empty();
+
+            $.each(response.model, function (elementType, elementValue) {
+                var html = "<tr data-value=" + elementValue.TransID + ">";
+                html += "<td>" + elementValue.Transaction_DateString + "</td>";
+                html += "<td>" + elementValue.Description + "</td>";
+                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
+                html += "</tr>";
+                $("#tblAccountHistory>tbody").append(html);
+            });
+        }
+    });
+};
+
+var openPaymentBreakdown = function () {
+    $('#popPaymentBreakdown').modal('show');
+};
+
+var breakdownPaymentFunction = function () {
+    $("#divLoader").show();
+    var model = { UserId: $("#hndUserId").val() };
+
+    $.ajax({
+        url: '/MonthlyPayment/GetMonthlyPayment',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#lblMonthlyChargesBreakdown").text('$' + formatMoney(response.modal.MonthlyCharges));
+            $("#lblAdditionalParkingBreakdown").text('$' + formatMoney(response.modal.AdditionalParking));
+            $("#lblStorageChargesBreakdown").text('$' + formatMoney(response.modal.StorageCharges));
+            $("#lblPetRentBreakdown").text('$' + formatMoney(response.modal.PetRent));
+            $("#lblTrashRecycleBreakdown").text('$' + formatMoney(response.modal.TrashRecycle));
+            $("#lblPestControlBreakdown").text('$' + formatMoney(response.modal.PestControl));
+            $("#lblConvergentBillingBreakdown").text('$' + formatMoney(response.modal.ConvergentBilling));
+            $("#lblTotalMonthlyChargesBreakdown").text('$' + formatMoney(response.modal.TotalMonthlyCharges));
+            $("#lblTotalMonthlyChargesBreakdown").css('color', 'green');
+           
+            
+            localStorage.setItem('currentAmountDue', response.modal.TotalMonthlyCharges);
+        }
+    });
+    $("#divLoader").hide();
+};
 var getAmenityList = function () {
     $.ajax({
         url: "../GetAmenityList",
         type: "post",
         contentType: "application/json utf-8",
-        
+
         success: function (response) {
 
             $("#ddlAmenities").empty();
             var option = "<option value=0>Select Amenity</option>";
             $.each(response.model, function (elementType, elementValue) {
                 option += "<option value=" + elementValue.ID + ">" + elementValue.Amenity + "</option>";
-               
+
             });
             $("#ddlAmenities").append(option);
         }
     });
 };
+var getDurationSlot = function (selectedValue) {
+    $("#ddlDesiredDuration").empty();
+    var option = "<option value=0>Select Duration Slot</option>";
+    if (selectedValue == 1) {
+        option += "<option value=1 data-res='100' data-dep='100'> 2 hours </option>";
+        option += "<option value=2 data-res='200' data-dep='200'> 4 hours </option>";
+    }
+    else if (selectedValue == 3) {
+        option += "<option value='1' data-res='250' data-dep='500'> 3 hours </option>";
+        option += "<option value=2 data-res='500' data-dep='1000'> 5 hours </option>";
+    }
+    else if (selectedValue == 11) {
+        option += "<option value=1 data-res='20' data-dep='50'> 2 hours </option>";
+        option += "<option value=2 data-res='40' data-dep='100'> 4 hours </option>";
+    }
+    else if (selectedValue == 12) {
+        option += "<option value=1 data-res='75' data-dep='250'> 2 hours </option>";
+        option += "<option value=2 data-res='150' data-dep='450'> 4 hours </option>";
+    }
+    else if (selectedValue == 13) {
+        option += "<option value=1 data-res='0' data-dep='0'> 2 hours </option>";
+    }
+
+    $("#ddlDesiredDuration").append(option);
+};
 
 
 var saveUpdateReservationRequest = function () {
+
+
     var msg = '';
     var guestId = $("#hdnGuestId").val();
     var tenantId = $("#hndTenantID").val();
-    var guestFirstName = $("#txtGuestFirstName").val();
-    var guestLastName = $("#txtGuestLastName").val();
-    var guestAddress = $("#txtGuestAddress").val();
-    var guestPhone = $("#txtGuestPhone").val();
-    var guestEmail = $("#txtGuestEmail").val();
-    var guestVisitStartDate = $("#txtGuestVistStartDate").val();
-    var guestVisitEndDate = $("#txtGuestVistEndDate").val();
-    var guestVehicleMake = $("#txtGuestVehicleMake").val();
-    var guestVehicleModel = $("#txtGuestVehicleModel").val();
-    var guestVehicleTag = $("#txtGuestVehicleTag").val();
-    var uploadGuestDriverLicence = $("#hndUploadGuestDriverLicence").val();
-    var uploadOriginalGuestDriverLicence = $("#hndOriginalUploadGuestDriverLicence").val();
-    var uploadGuestVehicleRigistration = $("#hndUploadGuestRegistration").val();
-    var uploadGuestVehicleRegis = $("#hndOriginalUploadGuestRegistration").val();
-    var fileGueDrvLic = document.getElementById('fileUploadGuestDriverLicence').value;
-    var fileGueVehReg = document.getElementById('fileUploadGuestRegistration').value;
+    var arID = $("#hndARID").val();
+    var ddlAmenity = $("#ddlAmenities").val();
+    var desireDate = $("#txtDesiredDate").val();
+    var desireTime = $("#SelectedTime").html();
+    var ddlDesiredDurationID = $("#ddlDesiredDuration").find(":selected").val();
+    var ddlDesiredDuration = $("#ddlDesiredDuration").find(":selected").text();
+    var depositeFee = $("#ddlDesiredDuration").find(":selected").attr("data-dep");
+    var reservationFee = $("#ddlDesiredDuration").find(":selected").attr("data-res");
 
-    if (guestFirstName == '') {
-        msg += 'Plese Enter First Name</br>'
+
+    if (ddlAmenity == 0) {
+        msg += 'Please select Amenity</br>';
     }
-    if (guestLastName == '') {
-        msg += 'Plese Enter Last Name</br>'
+    if (desireDate == "") {
+        msg += 'Please enter Desire Date</br>';
     }
-    if (guestPhone == '') {
-        msg += 'Plese Enter The Phone Number</br>'
+    if (desireTime == "") {
+        msg += 'Please enter Desire Time</br>';
     }
-    else {
-        if (!validatePhone(unformatText($("#txtGuestPhone").val()))) {
-            msg += "Please Fill Valid Phone Number </br>";
-        }
-    }
-    if (guestEmail == '') {
-        msg += 'Plese Enter The Email Id</br>'
-    }
-    else {
-        if (!validateEmail($("#txtGuestEmail").val())) {
-            msg += "Please Fill Valid Email </br>";
-        }
-    }
-    if (guestVisitStartDate == '') {
-        msg += 'Plese Select The Visit Start Date</br>'
-    }
-    if (guestVisitEndDate == '') {
-        msg += 'Plese Select The Visit End Date</br>'
-    }
-    if (document.getElementById('fileUploadGuestDriverLicence').files.length == 0) {
-        msg += 'Plese Upload The Driver Licence</br>'
-    }
-    if (document.getElementById('fileUploadGuestRegistration').files.length == 0) {
-        msg += 'Plese Upload The Vehicle Registration</br>'
+    if (ddlDesiredDurationID == 0) {
+        msg += 'Please select Desired Duration</br>'
     }
 
     if (msg != '') {
@@ -4659,40 +4929,199 @@ var saveUpdateReservationRequest = function () {
             content: msg,
             type: 'red'
         });
-        return
+        return;
     }
 
+    $("#requestAminityReservation").modal("show");
+
     var model = {
-        GuestID: guestId,
+        ARID: arID,
         TenantID: tenantId,
-        FirstName: guestFirstName,
-        LastName: guestLastName,
-        Address: guestAddress,
-        Phone: unformatText(guestPhone),
-        Email: guestEmail,
-        VisitStartDate: guestVisitStartDate,
-        VisitEndDate: guestVisitEndDate,
-        VehicleMake: guestVehicleMake,
-        VehicleModel: guestVehicleModel,
-        Tag: guestVehicleTag,
-        DriverLicence: uploadGuestDriverLicence,
-        VehicleRegistration: uploadGuestVehicleRigistration,
-        OriginalDriverLicence: uploadOriginalGuestDriverLicence,
-        OriginalVehicleRegistration: uploadGuestVehicleRegis
+        AmenityID: ddlAmenity,
+        DesiredDate: desireDate,
+        DesiredTime: desireTime,
+        Duration: ddlDesiredDuration,
+        DurationID: ddlDesiredDurationID,
+        DepositFee: depositeFee,
+        ReservationFee: reservationFee
     };
     $.ajax({
-        url: '/GuestRegistration/SaveUpdateGuestRegistration',
+        url: '/Tenant/AmenitiesRR/SaveUpdateReservationRequest',
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            $.alert({
-                title: '',
-                content: response.model,
-                type: 'blue'
+            //$.alert({
+            //    title: '',
+            //    content: response.model,
+            //    type: 'blue'
+            //});
+            clearReservationRequest();
+            setTimeout(function () {
+                $("#requestAminityReservation").modal("hide");
+
+            }, 20000);
+        }
+    });
+};
+
+var clearReservationRequest = function () {
+
+    var ddlAmenity = $("#ddlAmenities").val(0);
+    var desireDate = $("#txtDesiredDate").val("");
+    var desireTime = $("#SelectedTime").html("");
+    var ddlDesiredDurationID = $("#ddlDesiredDuration").find(":selected").val(0);
+    var ddlDesiredDuration = $("#ddlDesiredDuration").find(":selected").text("");
+};
+
+var fillDdlLocation = function () {
+    $.ajax({
+        url: '/ServiceRequest/GetDdlLocation',
+        method: "post",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+
+            $("#ddlLocation").empty();
+            $("#ddlLocation").append("<option value='0'>Select Location</option>");
+            $.each(response.model, function (index, elementValue) {
+                $("#ddlLocation").append("<option value=" + elementValue.LocationId + ">" + elementValue.LocationString + "</option>");
             });
-            clearFieldGuestRegistration();
+
+        }
+    });
+}
+
+var fillDdlServiceCategory = function () {
+    $.ajax({
+        url: '/ServiceRequest/GetDdlServiceCategory',
+        method: "post",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+
+            $("#ddlProblemCategory").empty();
+            $("#ddlProblemCategory").append("<option value='0'>Select Problem Category</option>");
+            $.each(response.model, function (index, elementValue) {
+                $("#ddlProblemCategory").append("<option value=" + elementValue.ServiceIssueID + ">" + elementValue.ServiceIssueString + "</option>");
+            });
+
+        }
+    });
+}
+
+var fillCaussingIssue = function (ServiceIssueID) {
+    var params = { ServiceIssueID: ServiceIssueID };
+    $.ajax({
+        url: '/ServiceRequest/GetDdlCausingIssue',
+        method: "post",
+        data: JSON.stringify(params),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if ($.trim(response.error) != "") {
+                //this.cancelChanges();
+            } else {
+
+                $("#ddlProblemCategory1").empty();
+                $("#ddlProblemCategory1").append("<option value='0'>What Item Is causing The Issue?</option>");
+                $.each(response, function (index, elementValue) {
+                    $("#ddlProblemCategory1").append("<option value=" + elementValue.CausingIssueID + ">" + elementValue.CausingIssue + "</option>");
+                });
+            }
+        }
+    });
+}
+
+var fillDdlIssue = function (CausingIssueID, ServiceIssueID) {
+    var params = { CausingIssueID: CausingIssueID, ServiceIssueID: ServiceIssueID };
+    $.ajax({
+        url: '/ServiceRequest/GetDdlIssue',
+        method: "post",
+        data: JSON.stringify(params),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if ($.trim(response.error) != "") {
+
+            } else {
+                $("#ddlProblemCategory2").empty();
+                //$("#ddlProblemCategory2").append("<option value='0'>What Is The Issue?</option>");
+                $.each(response, function (index, elementValue) {
+                    $("#ddlProblemCategory2").append("<option value=" + elementValue.IssueID + ">" + elementValue.Issue + "</option>");
+                });
+
+            }
+        }
+    });
+}
+
+var uploadServiceFile = function () {
+    $("#divLoader").show();
+    $formData = new FormData();
+
+    var ServiceFile = document.getElementById('fileUploadService');
+
+    for (var i = 0; i < ServiceFile.files.length; i++) {
+        $formData.append('file-' + i, ServiceFile.files[i]);
+    }
+
+    $.ajax({
+        url: '/ServiceRequest/UploadServiceFile',
+        type: 'post',
+        data: $formData,
+        contentType: 'application/json; charset=utf-8',
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (response) {
+            $('#hndfileUploadService').val(response.model.TempServiceFile);
+            $('#hndOriginalfileUploadService').val(response.model.OriginalServiceFile);
+            $('#fileUploadServiceShow').text(response.model.OriginalServiceFile);
+            $.alert({
+                title: "",
+                content: "File uploaded Successfully.",
+                type: 'red'
+            });
+            $("#divLoader").hide();
+        }
+    });
+};
+
+
+var getReservationRequestList = function () {
+    var tenantID = $("#hndTenantID").val();
+    var ProspectID = $("#hndUserId").val();
+    //alert(tenantID + " " + ProspectID);
+    var model = {
+        TenantID: tenantID
+    };
+    $.ajax({
+        url: '/Tenant/MyAccount/FillRRList',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            if ($.trim(response.error) !== "") {
+                //this.cancelChanges();
+            } else {
+                $("#tblReservationRequest>tbody").empty();
+                $.each(response, function (elementType, elementValue) {
+                    console.log(JSON.stringify(response));
+                    var html = "<tr data-value=" + elementValue.ARID + " data-amenity=" + elementValue.AmenityID + ">";
+                    html += "<td>" + elementValue.TenantName + "</td>";
+                    html += "<td>" + elementValue.AmenityName + "</td>";
+                    html += "<td>" + elementValue.DesiredDate + "</td>";
+                    html += "<td>" + elementValue.DesiredTime + "</td>";
+                    html += "<td>" + elementValue.Duration + "</td>";
+                    html += "<td>" + elementValue.Status + "</td>";
+
+                    html += "</tr>";
+                    $("#tblReservationRequest>tbody").append(html);
+                });
+            }
         }
     });
 };

@@ -90,7 +90,15 @@ namespace ShomaRM.Controllers
                     }
                     else if (currentUser.TenantID != 0)
                     {
-                        return RedirectToAction("../Tenant/Dashboard");
+                        if(Session["ARID"]!=null)
+                        {
+                            return RedirectToAction("../Tenant/MyAccount/Index/"+user.TenantID);
+                        }
+                        else
+                        {
+                            return RedirectToAction("../Tenant/Dashboard");
+                        }
+                      
                     }
                     else
                     {

@@ -6,6 +6,7 @@ using System.Web;
 using ShomaRM.Areas.Tenant.Models;
 using System.Data;
 using System.Data.Common;
+using ShomaRM.Models;
 
 namespace ShomaRM.Areas.Tenant.Models
 {
@@ -33,6 +34,7 @@ namespace ShomaRM.Areas.Tenant.Models
         public Nullable<int> Payment_ID { get; set; }
         public string Reference { get; set; }
         public Nullable<decimal> Charge_Amount { get; set; }
+        public Nullable<decimal> Balance { get; set; }
         public Nullable<decimal> Credit_Amount { get; set; }
         public Nullable<decimal> Miscellaneous_Amount { get; set; }
         public Nullable<System.DateTime> Accounting_Date { get; set; }
@@ -68,6 +70,8 @@ namespace ShomaRM.Areas.Tenant.Models
         public string NumberOnCardString { get; set; }
         public string ExpirationMonthOnCardString { get; set; }
         public string ExpirationYearOnCardString { get; set; }
+        public string BankName { get; set; }
+        public string RoutingNumber { get; set; }
 
         public List<MyTransactionModel> GetTenantTransactionList(long TenantID, int AccountHistoryDDL)
         {
@@ -110,51 +114,17 @@ namespace ShomaRM.Areas.Tenant.Models
                     {
 
                     }
-                    DateTime? createdDateString = null;
-                    try
-                    {
-                        createdDateString = Convert.ToDateTime(dr["CreatedDate"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
-
-                    DateTime? charge_DateString = null;
-                    try
-                    {
-                        charge_DateString = Convert.ToDateTime(dr["Charge_Date"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
-                    DateTime? accounting_DateString = null;
-                    try
-                    {
-                        accounting_DateString = Convert.ToDateTime(dr["Accounting_Date"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    
+                    
                     pr.TransID = Convert.ToInt32(dr["TransID"].ToString());
-
-                    pr.TenantIDString = dr["TenantID"].ToString();
-                    pr.Revision_Num = Convert.ToInt32(dr["Revision_Num"].ToString());
-                    pr.Transaction_Type = dr["Transaction_Type"].ToString();
+                    
                     pr.Transaction_DateString = transactiondateString == null ? "" : transactiondateString.Value.ToString("MM/dd/yyyy");
-                    pr.Run = Convert.ToInt32(dr["Run"].ToString());
-                    pr.LeaseID = Convert.ToInt32(dr["LeaseID"].ToString());
-                    pr.Reference = dr["Reference"].ToString();
-                    pr.CreatedDateString = createdDateString == null ? "" : createdDateString.ToString();
-                    pr.Credit_Amount = Convert.ToDecimal(dr["Credit_Amount"].ToString());
                     pr.Description = dr["Description"].ToString();
-                    pr.Charge_DateString = charge_DateString == null ? "" : charge_DateString.ToString();
-                    pr.Charge_Type = dr["Charge_Type"].ToString();
+                    pr.Credit_Amount = Convert.ToDecimal(dr["Credit_Amount"].ToString());
+                    
+                    //pr.Balance = Convert.ToDecimal(dr["Balance"].ToString());
                     pr.Charge_Amount = Convert.ToDecimal(dr["Charge_Amount"].ToString());
-                    pr.CreatedByText = dr["CreatedByText"].ToString();
-
+                   
                     lstpr.Add(pr);
                 }
                 db.Dispose();
@@ -166,7 +136,45 @@ namespace ShomaRM.Areas.Tenant.Models
                 throw ex;
             }
         }
-        public List<MyTransactionModel> GetTenantUpTransactionList(long TenantID)
+        public string GetTotalDue(long TenantID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            MyTransactionModel lstpr = new MyTransactionModel();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetTotalDue";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter paramTID = cmd.CreateParameter();
+                    paramTID.ParameterName = "TenantID";
+                    paramTID.Value = TenantID;
+                    cmd.Parameters.Add(paramTID);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach(DataRow dr in dtTable.Rows)
+                {
+                    lstpr.Balance = Convert.ToDecimal(dr["Balance"]);
+                }
+               
+
+                db.Dispose();
+                return lstpr.Balance.ToString();
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
+        public List<MyTransactionModel> GetTenantUpTransactionList(long UserId)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<MyTransactionModel> lstpr = new List<MyTransactionModel>();
@@ -180,8 +188,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     DbParameter paramTID = cmd.CreateParameter();
-                    paramTID.ParameterName = "TenantID";
-                    paramTID.Value = TenantID;
+                    paramTID.ParameterName = "UserId";
+                    paramTID.Value = UserId;
                     cmd.Parameters.Add(paramTID);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
@@ -196,15 +204,13 @@ namespace ShomaRM.Areas.Tenant.Models
                     DateTime? transactiondateString = null;
                     try
                     {
-                        transactiondateString = Convert.ToDateTime(dr["Transaction_Date"].ToString());
+                        transactiondateString = Convert.ToDateTime(dr["Charge_Date"].ToString());
                     }
                     catch
                     {
 
                     }
                    
-                   
-                    pr.TenantIDString = dr["TenantID"].ToString();
                
                     pr.Transaction_DateString = transactiondateString == null ? "" : transactiondateString.Value.ToString("MM/dd/yyyy");
                   
@@ -212,7 +218,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     pr.Description = dr["Description"].ToString();
                  
                     pr.Charge_Amount = Convert.ToDecimal(dr["MonthlyPayment"].ToString());
-                    pr.CurrentUpcomingCharges = Convert.ToDecimal(dr["CurrentUpcomingRent"].ToString());
+                    pr.CurrentUpcomingCharges = Convert.ToDecimal(dr["MonthlyPayment"].ToString());
                     pr.CurrentUpcomingChargesString = pr.CurrentUpcomingCharges.Value.ToString("0.00");
                     lstpr.Add(pr);
                 }
@@ -393,8 +399,19 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
+            ApplyNowModel mm = new ApplyNowModel();
+             mm.Name_On_Card=model.NameOnCardString;
+            mm.CardNumber = model.TAccCardNumber;
+            mm.CardMonth =Convert.ToInt32(model.ExpirationMonthOnCardString);
+            mm.CardYear = Convert.ToInt32(model.ExpirationYearOnCardString);
+            mm.CCVNumber = 123;
+            mm.ProspectId = model.TenantID;
+            mm.PaymentMethod =1;
 
-            if (model.TransID == 0)
+            string transStatus = new UsaePayModel().ChargeCard(mm);
+            String[] spearator = { "|" };
+            String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
+            if (strlist[1] != "000000")
             {
                 var saveTransaction = new tbl_Transaction()
                 {
@@ -407,12 +424,12 @@ namespace ShomaRM.Areas.Tenant.Models
                     LeaseID = model.LeaseID,
                     Reference = model.Reference,
                     CreatedDate = DateTime.Now,
-                    Credit_Amount =0,
-                    Description = model.Description,
+                    Credit_Amount = model.Charge_Amount,
+                    Description = model.Description + "| TransID: " + Convert.ToInt32(strlist[1]),
                     Charge_Date = model.Charge_Date,
                     Charge_Type = Convert.ToInt32(model.Charge_Type),
-                    Payment_ID = 13322244,
-                    Charge_Amount = model.Charge_Amount,
+                    Payment_ID = Convert.ToInt32(strlist[1]),
+                    Charge_Amount = 0,
                     Miscellaneous_Amount = model.Miscellaneous_Amount,
                     Accounting_Date = DateTime.Now,
                     Journal = 0,
@@ -427,11 +444,14 @@ namespace ShomaRM.Areas.Tenant.Models
                     GL_Trans_Reference_1 = model.PropertyID.ToString(),
                     GL_Trans_Reference_2 = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.FullName.ToString(),
                     GL_Entries_Created =1,
-                    GL_Trans_Description = model.Description,
+                    GL_Trans_Description = transStatus.ToString(),
                     TAccCardName = model.NameOnCardString,
                     TAccCardNumber = model.NumberOnCardString,
                     TCardExpirationMonth = model.ExpirationMonthOnCardString,
-                    TCardExpirationYear = model.ExpirationYearOnCardString
+                    TCardExpirationYear = model.ExpirationYearOnCardString,
+                    TBankName = model.BankName,
+                    TRoutingNumber = model.RoutingNumber
+                    
                 };
                 db.tbl_Transaction.Add(saveTransaction);
                 db.SaveChanges();
@@ -482,6 +502,28 @@ namespace ShomaRM.Areas.Tenant.Models
 
             db.Dispose();
             return msg;
+        }
+
+        public List<MyTransactionModel> GetTenantAccountHistoryList(long TenantID)
+        {
+            List<MyTransactionModel> listTenantHistory = new List<MyTransactionModel>();
+            ShomaRMEntities db = new ShomaRMEntities();
+            var getTenantAccountHistory = db.tbl_Transaction.Where(co => co.TenantID == TenantID).ToList();
+            if (getTenantAccountHistory!=null)
+            {
+                foreach (var item in getTenantAccountHistory)
+                {
+                    listTenantHistory.Add(new MyTransactionModel()
+                    {
+                        TransID = item.TransID,
+                        Transaction_Date = item.Transaction_Date,
+                        Transaction_DateString = item.Transaction_Date.ToString("MM/dd/yyyy"),
+                        Description = item.Description,
+                        Charge_Amount = item.Charge_Amount,
+                    });
+                }
+            }
+            return listTenantHistory;
         }
     }
 }

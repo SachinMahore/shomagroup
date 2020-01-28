@@ -2,7 +2,6 @@
     $("#divLoader").show();
     getCommunityActivityList();
     getServiceRequestOnAlarm();
-    getAllDues();
     getEventsList();
     getRatings();
     $("#ratingButtons button").click(function () {
@@ -12,7 +11,7 @@
     //colorFunction();
     colorNewFunction();
     //setInterval(function () { getCommunityActivityList(); }, 10000);
-    
+    breakdownPaymentFunction();
 
     $("#ratingButtons button").on("mouseover", function () {
         var value = this.innerHTML;
@@ -800,3 +799,33 @@ var saveUpdatePostDisclaimer = function (status) {
     
 };
 
+var openPaymentBreakdown = function () {
+    $('#popPaymentBreakdown').modal('show');
+};
+
+var breakdownPaymentFunction = function () {
+    $("#divLoader").show();
+    var model = { UserId: $("#hdnUserId").val() };
+
+    $.ajax({
+        url: '/MonthlyPayment/GetMonthlyPayment',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#lblMonthlyChargesBreakdown").text('$' + formatMoney(response.modal.MonthlyCharges));
+            $("#lblAdditionalParkingBreakdown").text('$' + formatMoney(response.modal.AdditionalParking));
+            $("#lblStorageChargesBreakdown").text('$' + formatMoney(response.modal.StorageCharges));
+            $("#lblPetRentBreakdown").text('$' + formatMoney(response.modal.PetRent));
+            $("#lblTrashRecycleBreakdown").text('$' + formatMoney(response.modal.TrashRecycle));
+            $("#lblPestControlBreakdown").text('$' + formatMoney(response.modal.PestControl));
+            $("#lblConvergentBillingBreakdown").text('$' + formatMoney(response.modal.ConvergentBilling));
+            $("#lblTotalMonthlyChargesBreakdown").text('$' + formatMoney(response.modal.TotalMonthlyCharges));
+            $("#spanCurrentAmountDue").text('$' + formatMoney(response.modal.TotalMonthlyCharges));
+            $("#lblCurrentPrePayAmount").text('$' + formatMoney(response.modal.TotalMonthlyCharges));
+            localStorage.setItem('currentAmountDue', response.modal.TotalMonthlyCharges);
+        }
+    });
+    $("#divLoader").hide();
+};

@@ -19,7 +19,6 @@
                             <li id="li2"><a href="javascript:void(0);" onclick="goToStep(2)" style="font-size:12pt;">Community Info</a></li>
                             <li id="li3"><a href="javascript:void(0);" onclick="goToStep(3)" style="font-size:12pt;">Events</a></li>
                         </ul>
-
                         <div class="" id="step1">
                             <div class="">
                                 <div class="row">
@@ -207,7 +206,7 @@
                             <span style="color:#4D738A;font-size:20pt;">amount due:</span>
                         </div>
                         <div class="center">
-                            <span id="spanCurrentAmountDue" style="color:#c82828;font-size:20px;">0.00</span><br />
+                            <span id="spanCurrentAmountDue" style="color:#c82828;font-size:20px;cursor:pointer;" onclick="openPaymentBreakdown()">0.00</span><br />
                             <button id="btnMakeAPayment" class="" style="background-color:#8cb954;border-collapse:collapse;border-radius:2px;color:#ffffff;margin-top:4px;width:60%;font-size:10pt" type="button" onclick="goToMakeAPayment();">Pay</button><br />
                             <a href="javascript:void(0)" id="btnSetUpRecurringPayment" style="text-decoration:underline;font-size:10pt" onclick="goToSetUpRecurringPayment();">Set Up Recurring Payment</a>
                         </div>
@@ -286,7 +285,163 @@
             </div>
         </div>
     </div>
-
+    <div class="modal" id="popPaymentBreakdown">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 47%; height:560px;">
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+                <div class="modal-header center">
+                    <h3 class="modal-title">Payment Details</h3>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body table-bordered">
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Monthly Charges :</label>
+                                <label id="lblMonthlyChargesBreakdown" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Additional Parking :</label>
+                                <label id="lblAdditionalParkingBreakdown" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Storage Charges :</label>
+                                <label id="lblStorageChargesBreakdown" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Pet Rent :</label>
+                                <label id="lblPetRentBreakdown" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Trash/Recycle :</label>
+                                <label id="lblTrashRecycleBreakdown" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Pest Control :</label>
+                                <label id="lblPestControlBreakdown" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Convergent Billing :</label>
+                                <label id="lblConvergentBillingBreakdown" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label style="color:green;font-weight:bold">Total Monthly Charges :</label>
+                                <label id="lblTotalMonthlyChargesBreakdown" style="color:green;font-weight:bold;text-decoration:underline;"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12 text-center">
+                        <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="popEventTenantJoin">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 100%; height:560px;">
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+                <div class="modal-header">
+                    <h3 class="modal-title">Event Joining</h3>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <input id="hdnEventId" type="hidden" value="0" />
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Event Name :</label>
+                            <label id="lblEventName"></label>
+                        </div>
+                    </div>
+                    <div class="col-sm-5" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Date :</label>
+                            <input id="txtTenantEventDate" type="text" class="form-control form-control-small" />
+                        </div>
+                    </div>
+                    <div class="col-sm-5" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Time :</label>
+                            <input id="txtTenantEventTime" type="text" class="form-control form-control-small" />
+                        </div>
+                    </div>
+                    <div class="col-sm-5" style="margin-left:20px;">
+                        <div class="form-group">
+                            <input id="chkTenantEventFees" type="checkbox" class="form-control form-control-small" /> Fees
+                        </div>
+                    </div>
+                    <div class="col-sm-5" style="margin-left:20px;">
+                        <div class="form-group">
+                            <input id="txtTenantEventFees" type="text" class="form-control form-control-small" />
+                        </div>
+                    </div>
+                    <div class="col-sm-5 hidden" id="DivPaymentMethod" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Payment Method :</label>
+                            <select id="ddlPaymentMethod" class="form-control form-control-small"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 hidden" id="DivCvvNumber" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>CVV Number :</label>
+                            <input id="txtCVVNumber" type="password" class="form-control form-control-small" maxlength="3" value="" style="width:50% !important" onkeypress="return isOnlyNumber(event);" />
+                        </div>
+                    </div>
+                    <div class="col-sm-11" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Description :</label>
+                            <textarea id="txtTenantEventDescription" class="form-control form-control-small"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12 text-center">
+                        <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary pull-right" id="btnTenantEventJoinSave" onclick="saveTenantEventJoin();" style="margin-right: 5px;">Save</button>
+                        <button type="button" class="btn btn-primary pull-right hidden" id="btnTenantEventJoinPay" onclick="PayMethod();" style="margin-right: 1px;">Pay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input id="hdnCardName"value="0" />
+    <input id="hdnCardNumber" value="0" />
+    <input id="hdnCardMonth" value="0" />
+    <input id="hdnCardYar" value="0" />
+    <input id="hdnAccountName" value="0" />
+    <input id="hdnBankName" value="0" />
+    <input id="hdnAccountnumber" value="0" />
+    <input id="hdnRoutingNumber" value="0" />
     <style>
         .tab-content1 ul.t-ul {
             background-color: transparent !important;

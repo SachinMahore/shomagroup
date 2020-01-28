@@ -6,7 +6,7 @@
     getModelsList();
     
     TableClickModels();
-    fillRPP_PUList();
+    //fillRPP_PUList();
     fillStateDDL();
     fillStateDDL1();
     getPremiumTypeList();
@@ -16,8 +16,6 @@
             fillCityList(selected);
         }
     });
-
-
 
 
     $('#ulPagination_PUList').pagination({

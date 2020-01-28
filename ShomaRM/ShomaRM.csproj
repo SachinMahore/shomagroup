@@ -77,11 +77,9 @@
     <Reference Include="RestSharp, Version=100.0.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharpSigned.105.2.3\lib\net46\RestSharp.dll</HintPath>
     </Reference>
-    <Reference Include="SendGrid, Version=9.10.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sendgrid.9.10.0\lib\net452\SendGrid.dll</HintPath>
-    </Reference>
-    <Reference Include="SendGrid.SmtpApi, Version=1.3.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SendGrid.SmtpApi.1.3.3\lib\SendGrid.SmtpApi.dll</HintPath>
+    <Reference Include="SendGrid.SmtpApi, Version=1.2.1.0, Culture=neutral, PublicKeyToken=2ae73662c35d80e4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\SendGrid.SmtpApi.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -91,22 +89,7 @@
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.4.0\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
-    </Reference>
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net46\System.Security.Cryptography.Algorithms.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net46\System.Security.Cryptography.X509Certificates.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -122,6 +105,8 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
     </Reference>
@@ -177,6 +162,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminHomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AmenitiesSlotManagment\AmenitiesSlotController.cs" />
     <Compile Include="Areas\Admin\Controllers\Amenities\AmenitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\BankAccount\BankAccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\CashReceipt\CashReceiptController.cs" />
@@ -187,6 +173,7 @@
     <Compile Include="Areas\Admin\Controllers\Event\EventController.cs" />
     <Compile Include="Areas\Admin\Controllers\Facility\FacilityController.cs" />
     <Compile Include="Areas\Admin\Controllers\FOB\FOBController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GuestManagement\GuestManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\Invoice\InvoiceController.cs" />
     <Compile Include="Areas\Admin\Controllers\LeaseManagement\LeaseManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\LeaseTerms\LeaseTermsController.cs" />
@@ -201,14 +188,17 @@
     <Compile Include="Areas\Admin\Controllers\ProspectManagement\ProspectManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProspectVerification\ProspectVerificationController.cs" />
     <Compile Include="Areas\Admin\Controllers\PurchaseOrder\PurchaseOrderController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ServicesManagement\ServicesManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\State\StateController.cs" />
     <Compile Include="Areas\Admin\Controllers\Storage\StorageController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TenantEventJoinApprove\TenantEventJoinApproveController.cs" />
     <Compile Include="Areas\Admin\Controllers\Tenant\TenantController.cs" />
     <Compile Include="Areas\Admin\Controllers\Transaction\TransactionController.cs" />
     <Compile Include="Areas\Admin\Controllers\Users\UsersController.cs" />
     <Compile Include="Areas\Admin\Controllers\Utility\UtilityController.cs" />
     <Compile Include="Areas\Admin\Controllers\Vendor\VendorController.cs" />
     <Compile Include="Areas\Admin\Models\AdminCommonModel.cs" />
+    <Compile Include="Areas\Admin\Models\AmenitiesSlot\AmenitiesSlotModel.cs" />
     <Compile Include="Areas\Admin\Models\Amenities\AmenitiesModel.cs" />
     <Compile Include="Areas\Admin\Models\BankAccount\BankAccountModel.cs" />
     <Compile Include="Areas\Admin\Models\CashReceipt\CashReceiptModel.cs" />
@@ -238,13 +228,16 @@
     <Compile Include="Areas\Admin\Models\SendGrid\ITransport.cs" />
     <Compile Include="Areas\Admin\Models\SendGrid\SendGrid.cs" />
     <Compile Include="Areas\Admin\Models\SendGrid\Web.cs" />
+    <Compile Include="Areas\Admin\Models\ServicesManagement\ServicesManagementModel.cs" />
     <Compile Include="Areas\Admin\Models\State\StateModel.cs" />
     <Compile Include="Areas\Admin\Models\Storage\StorageModel.cs" />
+    <Compile Include="Areas\Admin\Models\TenantEventJoinApprove\TenantEventJoinApproveModel.cs" />
     <Compile Include="Areas\Admin\Models\Tenant\TenantModel.cs" />
     <Compile Include="Areas\Admin\Models\Transaction\TransactionModel.cs" />
     <Compile Include="Areas\Admin\Models\Users\UsersModel.cs" />
     <Compile Include="Areas\Admin\Models\Utility\UtilityModel.cs" />
     <Compile Include="Areas\Admin\Models\Vendor\VendorModel.cs" />
+    <Compile Include="Areas\Tenant\Controllers\AmenitiesRR\AmenitiesRRController.cs" />
     <Compile Include="Areas\Tenant\Controllers\Applicant\ApplicantController.cs" />
     <Compile Include="Areas\Tenant\Controllers\CommunityActivity\CommunityActivityController.cs" />
     <Compile Include="Areas\Tenant\Controllers\Dashboard\DashboardController.cs" />
@@ -253,6 +246,7 @@
     <Compile Include="Areas\Tenant\Controllers\FontTest\FontTestController.cs" />
     <Compile Include="Areas\Tenant\Controllers\GuestRegistration\GuestRegistrationController.cs" />
     <Compile Include="Areas\Tenant\Controllers\Lease\LeaseController.cs" />
+    <Compile Include="Areas\Tenant\Controllers\MonthlyPayment\MonthlyPaymentController.cs" />
     <Compile Include="Areas\Tenant\Controllers\MyAccount\MyAccountController.cs" />
     <Compile Include="Areas\Tenant\Controllers\MyCommunity\MyCommunityController.cs" />
     <Compile Include="Areas\Tenant\Controllers\Myprofile\MyProfileController.cs" />
@@ -264,6 +258,7 @@
     <Compile Include="Areas\Tenant\Controllers\UtilityBilling\UtilityBillingController.cs" />
     <Compile Include="Areas\Tenant\Controllers\Vehicle\VehicleController.cs" />
     <Compile Include="Areas\Tenant\Controllers\WorkOrder\WorkOrderController.cs" />
+    <Compile Include="Areas\Tenant\Models\AmenitiesRR\AmenitiesRRModel.cs" />
     <Compile Include="Areas\Tenant\Models\ApplicantHistory\ApplicantHistoryModel.cs" />
     <Compile Include="Areas\Tenant\Models\Applicant\ApplicantModel.cs" />
     <Compile Include="Areas\Tenant\Models\CommunityActivity\CommunityActivityModel.cs" />
@@ -271,6 +266,7 @@
     <Compile Include="Areas\Tenant\Models\FacilityBooking\FacilityBookingModel.cs" />
     <Compile Include="Areas\Tenant\Models\GuestRegistration\GuestRegistrationModel.cs" />
     <Compile Include="Areas\Tenant\Models\Lease\LeaseModel.cs" />
+    <Compile Include="Areas\Tenant\Models\MonthlyPayment\MonthlyPaymentModel.cs" />
     <Compile Include="Areas\Tenant\Models\MyAccount\MyAccountModel.cs" />
     <Compile Include="Areas\Tenant\Models\MyCommunity\MyCommunityModel.cs" />
     <Compile Include="Areas\Tenant\Models\MyTransaction\MyTransactionModel.cs" />
@@ -278,6 +274,7 @@
     <Compile Include="Areas\Tenant\Models\Pet\PetModel.cs" />
     <Compile Include="Areas\Tenant\Models\Ratings\RatingModel.cs" />
     <Compile Include="Areas\Tenant\Models\ServiceRequest\ServiceRequestModel.cs" />
+    <Compile Include="Areas\Tenant\Models\TenantEventJoin\TenantEventJoinModel.cs" />
     <Compile Include="Areas\Tenant\Models\UtilityBilling\UtilityBillingModel.cs" />
     <Compile Include="Areas\Tenant\Models\Vehicle\VehicleModel.cs" />
     <Compile Include="Areas\Tenant\Models\WorkOrder\WorkOrderModel.cs" />
@@ -317,6 +314,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Content\Pages\AmenitiesReservationRequest\AmenitiesReservationRequest.js" />
+    <Content Include="Areas\Admin\Content\Pages\AmenitiesReservationRequest\AmenitiesReservationRequestList.js" />
+    <Content Include="Areas\Admin\Content\Pages\AmenitiesSlot\AmenitiesSlot.js" />
+    <Content Include="Areas\Admin\Content\Pages\AmenitiesSlot\AmenitiesSlotList.js" />
     <Content Include="Areas\Admin\Content\Pages\BankAccount\BankAccount.js" />
     <Content Include="Areas\Admin\Content\Pages\BankAccount\BankAccountList.js" />
     <Content Include="Areas\Admin\Content\Pages\CashReceipt\CashReceipt.js" />
@@ -329,6 +330,7 @@
     <Content Include="Areas\Admin\Content\Pages\Facility\Facility.js" />
     <Content Include="Areas\Admin\Content\Pages\Facility\FacilityList.js" />
     <Content Include="Areas\Admin\Content\Pages\FOB\FOB.js" />
+    <Content Include="Areas\Admin\Content\Pages\GuestRegistrationManagement\GuestRegistrationManagement.js" />
     <Content Include="Areas\Admin\Content\Pages\Invoice\Invoice.js" />
     <Content Include="Areas\Admin\Content\Pages\Invoice\InvoiceList.js" />
     <Content Include="Areas\Admin\Content\Pages\LeaseTerms\LeaseTerms.js" />
@@ -346,6 +348,7 @@
     <Content Include="Areas\Admin\Content\Pages\ProspectVerification\ProspectVerificationList.js" />
     <Content Include="Areas\Admin\Content\Pages\PurchaseOrder\PurchaseOrder.js" />
     <Content Include="Areas\Admin\Content\Pages\PurchaseOrder\PurchaseOrderList.js" />
+    <Content Include="Areas\Admin\Content\Pages\ServiceManagement\ServiceRequestList.js" />
     <Content Include="Areas\Admin\Content\Pages\State\StateList.js" />
     <Content Include="Areas\Admin\Content\Pages\Storage\Storage.js" />
     <Content Include="Areas\Admin\Content\Pages\Transaction\Transaction.js" />
@@ -617,7 +620,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="lib\USAePayAPI.dll" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\assets\fonts\fontawesome-webfont.eot" />
@@ -736,6 +738,14 @@
     <Content Include="Areas\Tenant\Views\TenantHome\TenantIndex.cshtml" />
     <Content Include="Areas\Tenant\Views\FontTest\Index.cshtml" />
     <Content Include="Areas\Admin\Views\CommunityActivity\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ServicesManagement\AddEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\ServicesManagement\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AmenitiesSlot\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\AmenitiesSlot\index.cshtml" />
+    <Content Include="Areas\Admin\Views\TenantEventJoinApprove\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Amenities\AmenitiesReservationRequest.cshtml" />
+    <Content Include="Areas\Admin\Views\Amenities\ARREdit.cshtml" />
+    <Content Include="Areas\Admin\Views\GuestManagement\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -790,7 +800,6 @@
     <Folder Include="Areas\Tenant\Views\MyTransaction\" />
     <Folder Include="Areas\Tenant\Views\PaymentAccounts\" />
     <Folder Include="Areas\Tenant\Views\ServiceRequest\" />
-    <Folder Include="bin\" />
     <Folder Include="Content\assets\img\property-1\" />
     <Folder Include="Content\assets\img\slide1\" />
     <Folder Include="Views\ShomaGroupWebAuthorization\" />

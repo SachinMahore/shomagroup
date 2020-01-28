@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    getAllDues();
     getServiceRequestOnAlarm();
     GetTenantDetails($("#hndTenantID").val());
     getServiceInfo($("#hndTenantID").val());
@@ -8,7 +7,7 @@
    
     getApplicantLists($("#hndTenantID").val());
     fillStateDDL();
-   
+    breakdownPaymentFunction();
    
     $("#btnAddPet").on("click", function (event) {
         clearPet();
@@ -2004,4 +2003,35 @@ var checkPetsForAdd = function () {
             }
         }
     });
+};
+
+var openPaymentBreakdown = function () {
+    $('#popPaymentBreakdown').modal('show');
+};
+
+var breakdownPaymentFunction = function () {
+    $("#divLoader").show();
+    var model = { UserId: $("#hndUserId").val() };
+
+    $.ajax({
+        url: '/MonthlyPayment/GetMonthlyPayment',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#lblMonthlyChargesBreakdown").text('$' + formatMoney(response.modal.MonthlyCharges));
+            $("#lblAdditionalParkingBreakdown").text('$' + formatMoney(response.modal.AdditionalParking));
+            $("#lblStorageChargesBreakdown").text('$' + formatMoney(response.modal.StorageCharges));
+            $("#lblPetRentBreakdown").text('$' + formatMoney(response.modal.PetRent));
+            $("#lblTrashRecycleBreakdown").text('$' + formatMoney(response.modal.TrashRecycle));
+            $("#lblPestControlBreakdown").text('$' + formatMoney(response.modal.PestControl));
+            $("#lblConvergentBillingBreakdown").text('$' + formatMoney(response.modal.ConvergentBilling));
+            $("#lblTotalMonthlyChargesBreakdown").text('$' + formatMoney(response.modal.TotalMonthlyCharges));
+            $("#spanCurrentAmountDue").text('$' + formatMoney(response.modal.TotalMonthlyCharges));
+            $("#lblCurrentPrePayAmount").text('$' + formatMoney(response.modal.TotalMonthlyCharges));
+            localStorage.setItem('currentAmountDue', response.modal.TotalMonthlyCharges);
+        }
+    });
+    $("#divLoader").hide();
 };

@@ -1,9 +1,9 @@
 ﻿$(document).ready(function () {
-    getAllDues();
     getServiceRequestOnAlarm();
     colorNewFunction();
     getEventsList();
     getAmenitiesList();
+    breakdownPaymentFunction();
 });
 
 var goToStep = function (stepid, id) {
@@ -295,35 +295,20 @@ var getEventsList = function () {
             span += '<ul class="list-group">';
             $.each(response.model, function (elementType, elementValue) {
                 if (elementValue.Type == 1) {
-                    // span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #00bfff;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + '</li>';
-                    span += '<li  id= Event' + elementValue.EventID + '><button class="button-square" style="background-color: #00bfff;z-index:999;">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A">&nbsp;</button></li>';
-
+                    span += '<li  id= Event' + elementValue.EventID + ' onclick="alreadyJoinTenantEvent(' + elementValue.EventID + ')" style="cursor:pointer;"><button class="button-square" style="background-color: #00bfff;z-index:999;">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A">&nbsp;</button></li>';
                 }
                 else if (elementValue.Type == 2) {
-                    //span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #a2d900;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + '</li>';
-                    span += '<li  id= Event' + elementValue.EventID + '><button class="button-square" style="background-color: #a2d900;z-index:999;">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A">&nbsp;</button></li>';
-
-
+                    span += '<li  id= Event' + elementValue.EventID + ' onclick="alreadyJoinTenantEvent(' + elementValue.EventID + ')" style="cursor:pointer;"><button class="button-square" style="background-color: #a2d900;z-index:999;">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A">&nbsp;</button></li>';
                 }
                 else if (elementValue.Type == 3) {
-                    //span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #ff6;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + '</li>';
-                    span += '<li  id= Event' + elementValue.EventID + '><button class="button-square" style="background-color: #ff6;z-index:999;">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A">&nbsp;</button></li>';
-
-
+                    span += '<li  id= Event' + elementValue.EventID + ' onclick="alreadyJoinTenantEvent(' + elementValue.EventID + ')" style="cursor:pointer;"><button class="button-square" style="background-color: #ff6;z-index:999;">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A">&nbsp;</button></li>';
                 }
                 else if (elementValue.Type == 4) {
-                    // span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #ff6347;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + '</li>';
-                    span += '<li  id= Event' + elementValue.EventID + '><button class="button-square" style="background-color: #ff6347;z-index:999;">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A">&nbsp;</button></li>';
-
-
+                    span += '<li  id= Event' + elementValue.EventID + ' onclick="alreadyJoinTenantEvent(' + elementValue.EventID + ')" style="cursor:pointer;"><button class="button-square" style="background-color: #ff6347;z-index:999;">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A">&nbsp;</button></li>';
                 }
                 else if (elementValue.Type == 5) {
-                    //span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #daf6ff;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + '</li>';
-                    span += '<li  id= Event' + elementValue.EventID + '><button class="button-square" style="background-color: #00bfff;z-index:999;">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A">&nbsp;</button></li>';
-
-
+                    span += '<li  id= Event' + elementValue.EventID + ' onclick="alreadyJoinTenantEvent(' + elementValue.EventID + ')" style="cursor:pointer;"><button class="button-square" style="background-color: #00bfff;z-index:999;">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A">&nbsp;</button></li>';
                 }
-
             });
             span += '</ul>';
             $("#divEvents").append(span);
@@ -340,8 +325,8 @@ var getAmenitiesList = function () {
         success: function (response) {
             $('#DivCommunityAmenities').empty();
             $.each(response.model, function (elementType, elementValue) {
-                var html = "<span id='" + elementValue.AmenityID +"' style='font-size: 8pt;color: #898279;'>" + elementValue.Amenity +"</span></br>";
-               
+                var html = "<span id='" + elementValue.AmenityID + "' style='font-size: 8pt;color: #898279;'>" + elementValue.Amenity + "</span></br>";
+
                 $('#DivCommunityAmenities').append(html);
             });
         }
@@ -488,4 +473,277 @@ var getServiceRequestOnAlarm = function () {
             //}
         }
     });
+};
+var openPaymentBreakdown = function () {
+    $('#popPaymentBreakdown').modal('show');
+};
+
+var breakdownPaymentFunction = function () {
+    $("#divLoader").show();
+    var model = { UserId: $("#hdnUserId").val() };
+
+    $.ajax({
+        url: '/MonthlyPayment/GetMonthlyPayment',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#lblMonthlyChargesBreakdown").text('$' + formatMoney(response.modal.MonthlyCharges));
+            $("#lblAdditionalParkingBreakdown").text('$' + formatMoney(response.modal.AdditionalParking));
+            $("#lblStorageChargesBreakdown").text('$' + formatMoney(response.modal.StorageCharges));
+            $("#lblPetRentBreakdown").text('$' + formatMoney(response.modal.PetRent));
+            $("#lblTrashRecycleBreakdown").text('$' + formatMoney(response.modal.TrashRecycle));
+            $("#lblPestControlBreakdown").text('$' + formatMoney(response.modal.PestControl));
+            $("#lblConvergentBillingBreakdown").text('$' + formatMoney(response.modal.ConvergentBilling));
+            $("#lblTotalMonthlyChargesBreakdown").text('$' + formatMoney(response.modal.TotalMonthlyCharges));
+            $("#spanCurrentAmountDue").text('$' + formatMoney(response.modal.TotalMonthlyCharges));
+            $("#lblCurrentPrePayAmount").text('$' + formatMoney(response.modal.TotalMonthlyCharges));
+            localStorage.setItem('currentAmountDue', response.modal.TotalMonthlyCharges);
+        }
+    });
+    $("#divLoader").hide();
+};
+
+var tenantEventsJoin = function (id) {
+    clearTenantEventJoin();
+
+    var model = { EventID: id };
+    $('#hdnEventId').val(id);
+    $.ajax({
+        url: '/MyCommunity/GetEventDataForTenant',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#lblEventName").text(response.modal.EventName);
+            $("#txtTenantEventDate").val(response.modal.EventDateString);
+            $("#txtTenantEventDate").attr('disabled', 'disabled');
+            $("#txtTenantEventTime").val(response.modal.EventTimeString);
+            $("#txtTenantEventTime").attr('disabled', 'disabled');
+            if (response.modal.IsFree == true) {
+                $("#chkTenantEventFees").iCheck('check');
+            }
+            else {
+                $("#chkTenantEventFees").iCheck('uncheck');
+            }
+            $("#chkTenantEventFees").attr('disabled', 'disabled');
+            $("#txtTenantEventFees").attr('disabled', 'disabled');
+            $("#txtTenantEventFees").val(formatMoney(response.modal.Fees));
+            if (response.modal.IsFree == false) {
+                ddlPaymentMethod();
+                $('#DivPaymentMethod').removeClass('hidden');
+                $('#DivCvvNumber').removeClass('hidden');
+                $('#txtCVVNumber').val('');
+                $('#btnTenantEventJoinPay').removeClass('hidden');
+                $('#btnTenantEventJoinSave').attr('disabled', 'disabled');
+            }
+            else {
+                $('#DivPaymentMethod').addClass('hidden');
+                $('#DivCvvNumber').addClass('hidden');
+                $('#txtCVVNumber').val('');
+                $('#btnTenantEventJoinPay').addClass('hidden');
+                $('#btnTenantEventJoinSave').removeAttr('disabled', 'disabled');
+            }
+            $('#popEventTenantJoin').modal('show');
+        }
+    });
+};
+
+var saveTenantEventJoin = function () {
+    $("#divLoader").show();
+    var model = { TenantID: $('#hndTenantID').val(), EventID: $('#hdnEventId').val(), Fees: $('#txtTenantEventFees').val(), Description: $('#txtTenantEventDescription').val() };
+
+    $.ajax({
+        url: '/MyCommunity/SaveTenantEventJoin',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $('#popEventTenantJoin').modal('hide');
+            $.alert({
+                title: '',
+                content: response.modal,
+                type: 'blue'
+            });
+        }
+    });
+    clearTenantEventJoin();
+    $("#divLoader").hide();
+};
+
+var clearTenantEventJoin = function () {
+    $('#hdnEventId').val('0');
+    $('#txtTenantEventFees').val('');
+    $('#txtTenantEventDescription').val('');
+};
+
+var ddlPaymentMethod = function () {
+    var model = { TenantId: $("#hndTenantID").val() };
+    $.ajax({
+        url: '/PaymentAccounts/GetPaymentMethods',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $('#ddlPaymentMethod').empty();
+            var html = '';
+            $.each(response.model, function (elementType, elementValue) {
+                if (elementValue.Default == '1') {
+                    html = "<option value='" + elementValue.PAID + "' selected='selected' data-value='" + elementValue.PayMethod + "'>" + elementValue.AccountName + "</option>";
+                }
+                else {
+                    html = "<option value='" + elementValue.PAID + "' data-value='" + elementValue.PayMethod + "'>" + elementValue.AccountName + "</option>";
+                }
+                $('#ddlPaymentMethod').append(html);
+            });
+            ddlPaymentMethodSelectFunction();
+            ddlPayMethodPageLoadFunction();
+        }
+    });
+};
+
+var ddlPaymentMethodSelectFunction = function () {
+    $('#ddlPaymentMethod').on('change', function () {
+
+        if ($(this).find(':selected').data('value') == '1') {
+            $('#DivCvvNumber').removeClass('hidden');
+        }
+        else {
+            $('#DivCvvNumber').addClass('hidden');
+        }
+        $('#txtCVVNumber').val('');
+    });
+};
+
+var ddlPayMethodPageLoadFunction = function () {
+    if ($('#ddlPaymentMethod').find(':selected').data('value') == '1') {
+        $('#DivCvvNumber').removeClass('hidden');
+    }
+    else {
+        $('#DivCvvNumber').addClass('hidden');
+    }
+    $('#txtCVVNumber').val('');
+};
+
+function PayMethod() {
+    var m = '';
+    
+    if ($('#ddlPaymentMethod').find(':selected').data('value') == '1') {
+        if ($("#txtCVVNumber").val() == '') {
+            m = "Enter CVV Number</br>";
+        }
+        else if ($("#txtCVVNumber").val().length < '3') {
+            m = "Enter Valid CVV Number</br>";
+        }
+    }
+    if (m != "") {
+        $.alert({
+            title: 'Alert!',
+            content: m,
+            type: 'red'
+        });
+       
+        return
+    }
+    var model = {
+        PAID: $('#ddlPaymentMethod').val()
+    };
+
+    $.ajax({
+        url: '/PaymentAccounts/EditPaymentsAccounts',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $('#hdnCardName').val(response.model.NameOnCard),
+                $('#hdnCardNumber').val(response.model.CardNumber),
+                $('#hdnCardMonth').val(response.model.Month),
+                $('#hdnCardYar').val(response.model.Year),
+                $('#hdnAccountName').val(response.model.AccountName),
+                $('#hdnBankName').val(response.model.BankName),
+                $('#hdnAccountnumber').val(response.model.AccountNumber),
+                $('#hdnRoutingNumber').val(response.model.RoutingNumber)
+        }
+    });
+    
+    var msg = "";
+    var amount = $("#txtTenantEventFees").val();
+    var tenantid = $("#hndTenantID").val();
+    var cardName = $('#hdnCardName').val();
+    var cardNumber = $('#hdnCardNumber').val();
+    var cardMonth = $('#hdnCardMonth').val();
+    var cardYear = $('#hdnCardYar').val();
+    var accountName = $('#hdnAccountName').val();
+    var bankName = $('#hdnBankName').val();
+    var accountNumber = $('#hdnAccountName').val();
+    var routingNumber = $('#hdnRoutingNumber').val();
+    var mod = {
+        Charge_Amount: amount,
+        TenantID: tenantid,
+        NameOnCardString: cardName,
+        NumberOnCardString: cardNumber,
+        ExpirationMonthOnCardString: cardMonth,
+        ExpirationYearOnCardString: cardYear,
+        BankName: bankName,
+        RoutingNumber: routingNumber
+    };
+    $.ajax({
+        url: "/MyTransaction/SaveUpdateTransaction/",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(mod),
+        dataType: "JSON",
+        success: function (response) {
+            if (response.Msg == "Transaction Saved Successfully") {
+                $('#btnTenantEventJoinSave').removeAttr('disabled', 'disabled');
+                $('#btnTenantEventJoinPay').attr('disabled', 'disabled');
+            }
+            $.alert({
+                title: 'Message!',
+                content: response.Msg,
+                type: 'blue',
+            });
+        }
+    });
+    $('#hdnCardName').val('0');
+    $('#hdnCardNumber').val('0');
+    $('#hdnCardMonth').val('0');
+    $('#hdnCardYar').val('0');
+    $('#hdnAccountName').val('0');
+    $('#hdnBankName').val('0');
+    $('#hdnAccountnumber').val('0');
+    $('#hdnRoutingNumber').val('0');
+}
+
+var alreadyJoinTenantEvent = function (id) {
+    $("#divLoader").show();
+    var model = { TenantID: $('#hndTenantID').val(), EventID: id /*$('#hdnEventId').val()*/ };
+
+    $.ajax({
+        url: '/MyCommunity/AlreadyJoinTenantEvent',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            if (response.modal == 'You Already Registered For This Event') {
+                $('#popEventTenantJoin').modal('hide');
+                $.alert({
+                    title: '',
+                    content: response.modal,
+                    type: 'blue'
+                });
+                return
+            }
+            else {
+                tenantEventsJoin(id)
+            }
+        }
+    });
+    $("#divLoader").hide();
 };

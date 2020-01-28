@@ -36,5 +36,18 @@ namespace ShomaRM.Controllers
                 return Json(new { msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult PayAmenityCharges(int ARID)
+        {
+            try
+            {
+                Session["ARID"] = ARID;
+               
+                return RedirectToAction("../Account/Login");
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

@@ -76,7 +76,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_FOB> tbl_FOB { get; set; }
         public virtual DbSet<tbl_PropertyUnits> tbl_PropertyUnits { get; set; }
         public virtual DbSet<tbl_Models> tbl_Models { get; set; }
-        public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
         public virtual DbSet<tbl_TenantInfo> tbl_TenantInfo { get; set; }
         public virtual DbSet<tbl_OnlinePayment> tbl_OnlinePayment { get; set; }
         public virtual DbSet<tbl_Transaction> tbl_Transaction { get; set; }
@@ -86,5 +85,16 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_ServiceRequest> tbl_ServiceRequest { get; set; }
         public virtual DbSet<tbl_MoveInChecklist> tbl_MoveInChecklist { get; set; }
         public virtual DbSet<tbl_CommunityActivity> tbl_CommunityActivity { get; set; }
+        public virtual DbSet<tbl_MonthlyPayment> tbl_MonthlyPayment { get; set; }
+        public virtual DbSet<tbl_MoveInPayment> tbl_MoveInPayment { get; set; }
+        public virtual DbSet<tbl_AmenityPriceRange> tbl_AmenityPriceRange { get; set; }
+        public virtual DbSet<tbl_CausingIssue> tbl_CausingIssue { get; set; }
+        public virtual DbSet<tbl_Issue> tbl_Issue { get; set; }
+        public virtual DbSet<tbl_ServiceIssue> tbl_ServiceIssue { get; set; }
+        public virtual DbSet<tbl_ServiceLocation> tbl_ServiceLocation { get; set; }
+        public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
+        public virtual DbSet<tbl_TenantEventJoin> tbl_TenantEventJoin { get; set; }
+        public virtual DbSet<tbl_AmenityReservation> tbl_AmenityReservation { get; set; }
+        public virtual DbSet<tbl_TenantEventJoinApprove> tbl_TenantEventJoinApprove { get; set; }
     }
 }

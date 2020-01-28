@@ -347,7 +347,13 @@
                                             <label class="control-label">Row/Page</label>
                                         </div>
                                         <div class="col-sm-6">
-                                            <select id="ddlRPP_PUList" class="form-control form-control-small"></select>
+                                            <select id="ddlRPP_PUList" class="form-control form-control-small">
+                                                <option value="10" @(Session["UNOR"].ToString()=="10"?"selected":"")>10</option>
+                                                <option value="25" @(Session["UNOR"].ToString()=="25"?"selected":"")>25</option>
+                                                <option value="50" @(Session["UNOR"].ToString()=="50"?"selected":"")>50</option>
+                                                <option value="75" @(Session["UNOR"].ToString()=="75"?"selected":"")>75</option>
+                                                <option value="100" @(Session["UNOR"].ToString()=="100"?"selected":"")>75</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

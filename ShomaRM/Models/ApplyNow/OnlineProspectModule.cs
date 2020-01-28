@@ -65,6 +65,10 @@ namespace ShomaRM.Models
         public Nullable<decimal> AdminFees { get; set; }
         public Nullable<decimal> ApplicationFees { get; set; }
         public Nullable<decimal> GuarantorFees { get; set; }
+        public Nullable<decimal> VehicleRegistration { get; set; }
+        public Nullable<decimal> Prorated_Rent { get; set; }
+        public int LeaseTerm { get; set; }
+        
 
         public Nullable<decimal> TotalAmt { get; set; }
         public string PetPlaceID { get; set; }
@@ -135,6 +139,7 @@ namespace ShomaRM.Models
                     Marketsource = model.Marketsource,
                     UserId = Uid,
                     MoveInDate = model.MoveInDate,
+                    LeaseTerm=model.LeaseTerm,
                 };
 
                 db.tbl_ApplyNow.Add(saveOnlineProspect);
@@ -231,6 +236,12 @@ namespace ShomaRM.Models
                     onlineProspectData.TotalAmt = model.TotalAmt;
                     onlineProspectData.PetDeposit = model.PetDeposit;
                     onlineProspectData.FOBAmt = model.FOBAmt;
+                    onlineProspectData.Deposit = model.Deposit;
+                    onlineProspectData.Rent = model.Rent;
+                    onlineProspectData.VehicleRegistration = model.VehicleRegistration;
+                    onlineProspectData.Prorated_Rent = model.Prorated_Rent;
+                    onlineProspectData.AdministrationFee = model.AdminFees;
+                    onlineProspectData.LeaseTerm = model.LeaseTerm;
                     db.SaveChanges();
                 }
                 
@@ -338,6 +349,7 @@ namespace ShomaRM.Models
             model.StorageSpaceID = "0";
             model.FOBAmt = 0;
             model.EnvelopeID = "";
+            model.LeaseTerm = 12;
             if (Id != 0)
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.UserId == Id).FirstOrDefault();
@@ -374,7 +386,8 @@ namespace ShomaRM.Models
                     model.PetDeposit = GetProspectData.PetDeposit;
                     model.FOBAmt = 0;
                     model.EnvelopeID = GetProspectData.EnvelopeID;
-                    
+                    model.LeaseTerm = Convert.ToInt32(GetProspectData.LeaseTerm);
+
                     DateTime? dateExpire = null;
                     try
                     {

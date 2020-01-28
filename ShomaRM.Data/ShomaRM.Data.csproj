@@ -73,6 +73,12 @@
     <Compile Include="tbl_Amenities.cs">
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbl_AmenityPriceRange.cs">
+      <DependentUpon>ShomaRM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_AmenityReservation.cs">
+      <DependentUpon>ShomaRM.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_Applicant.cs">
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
@@ -86,6 +92,9 @@
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_CashReceipts.cs">
+      <DependentUpon>ShomaRM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_CausingIssue.cs">
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_ChargeType.cs">
@@ -130,6 +139,9 @@
     <Compile Include="tbl_Invoice.cs">
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbl_Issue.cs">
+      <DependentUpon>ShomaRM.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_Lease.cs">
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
@@ -151,7 +163,13 @@
     <Compile Include="tbl_Models.cs">
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbl_MonthlyPayment.cs">
+      <DependentUpon>ShomaRM.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_MoveInChecklist.cs">
+      <DependentUpon>ShomaRM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_MoveInPayment.cs">
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Notice.cs">
@@ -196,6 +214,12 @@
     <Compile Include="tbl_SalesAgent.cs">
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbl_ServiceIssue.cs">
+      <DependentUpon>ShomaRM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_ServiceLocation.cs">
+      <DependentUpon>ShomaRM.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_ServiceRequest.cs">
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
@@ -206,6 +230,12 @@
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Tenant.cs">
+      <DependentUpon>ShomaRM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_TenantEventJoin.cs">
+      <DependentUpon>ShomaRM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_TenantEventJoinApprove.cs">
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_TenantInfo.cs">

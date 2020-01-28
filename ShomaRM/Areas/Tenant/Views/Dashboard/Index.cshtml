@@ -6,6 +6,7 @@
 <script src="~/Content/jquery.shorten.1.0.js"></script>
 <input id="hdnUserId" type="hidden" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID" />
 <input id="hndTenantID" type="hidden" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID" />
+<input type="hidden" id="hndARID" value="@ViewBag.ARID" />@*"*@
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container" style="width:100%;">
@@ -59,7 +60,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12" id="EventCatogary" style="padding-left:0px !important; margin-top: 50px !important;">
+                                            <div class="col-sm-12" id="EventCatogary" style="padding-left:0px !important; margin-top: 130px !important;">
                                                 <button id="Event"><i class="fa fa-square fa-lg" style="color: #00bfff;"></i> Neighborhood </button>
                                                 <button id="Event"><i class="fa fa-square fa-lg" style="color: #a2d900;"></i> Community </button>
                                                 <button id="Event"><i class="fa fa-square fa-lg" style="color: #ff6;"></i> Other </button>
@@ -67,15 +68,7 @@
                                                 <button id="Event"><i class="fa fa-square fa-lg" style="color: #daf6ff;"></i> Current Date </button>
                                             </div>
                                         </div><br />
-
                                     </div>
-                                    @*<div class="row">
-                                            <div class="col-sm-12">
-                                                <img src="~/Content/assets/img/ProUntitled.png" />
-                                                <hr />
-                                            </div>
-                                        </div>*@
-
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -86,7 +79,7 @@
                                                 <span style="color:#4D738A;font-size:20pt;">amount due:</span>
                                             </div>
                                             <div class="center">
-                                                <span id="spanCurrentAmountDue" style="color:#c82828;font-size:20px;">0.00</span><br />
+                                                <span id="spanCurrentAmountDue" style="color:#c82828;font-size:20px;cursor:pointer;" onclick="openPaymentBreakdown()">0.00</span><br />
                                                 <button id="btnMakeAPayment" class="" style="background-color:#8cb954;border-collapse:collapse;border-radius:2px;color:#ffffff;margin-top:4px;width:60%;font-size:10pt" type="button" onclick="goToMakeAPayment();">Pay</button><br />
                                                 <a href="javascript:void(0)" id="btnSetUpRecurringPayment" style="text-decoration:underline;font-size:10pt" onclick="goToSetUpRecurringPayment();">Set Up Recurring Payment</a>
                                             </div>
@@ -217,7 +210,88 @@
             </div>
         </div>
     </div>
-
+    <div class="modal" id="popPaymentBreakdown">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 47%; height:560px;">
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+                <div class="modal-header center">
+                    <h3 class="modal-title">Payment Details</h3>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body table-bordered">
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Monthly Charges :</label>
+                                <label id="lblMonthlyChargesBreakdown" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Additional Parking :</label>
+                                <label id="lblAdditionalParkingBreakdown" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Storage Charges :</label>
+                                <label id="lblStorageChargesBreakdown" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Pet Rent :</label>
+                                <label id="lblPetRentBreakdown" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Trash/Recycle :</label>
+                                <label id="lblTrashRecycleBreakdown" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Pest Control :</label>
+                                <label id="lblPestControlBreakdown" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Convergent Billing :</label>
+                                <label id="lblConvergentBillingBreakdown" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label style="color:green;font-weight:bold">Total Monthly Charges :</label>
+                                <label id="lblTotalMonthlyChargesBreakdown" style="color:green;font-weight:bold;text-decoration:underline;"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12 text-center">
+                        <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <style>
@@ -578,6 +652,24 @@
             allowPageScroll: false,
             disableFadeOut: false
         });
+
+        if (@ViewBag.ARID >0)
+        {
+           
+            $("#pay1").removeClass("active1");
+            $("#pay2").addClass("active1");
+            $("#pay3").removeClass("active1");
+            $("#pay4").removeClass("active1");
+            $("#pay5").removeClass("active1");
+
+            $("#payStep1").addClass("hidden");
+            $("#payStep2").removeClass("hidden");
+            $("#payStep3").addClass("hidden");
+            $("#payStep4").addClass("hidden");
+            $("#payStep5").addClass("hidden");
+            $('#btnPaymentSnapshot').addClass('hidden');
+            $('#btnRecurringPayment').removeClass('hidden');
+        }
     });
 
     var modalTermcondition = document.getElementById("modalDisclaimer");

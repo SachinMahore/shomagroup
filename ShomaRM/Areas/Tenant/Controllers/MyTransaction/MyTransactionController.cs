@@ -49,11 +49,22 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult GetTenantUpTransactionList(long TenantID)
+        public ActionResult GetTotalDue(long TenantID)
         {
             try
             {
-                return Json(new { model = new MyTransactionModel().GetTenantUpTransactionList(TenantID) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = new MyTransactionModel().GetTotalDue(TenantID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetTenantUpTransactionList(long UserId)
+        {
+            try
+            {
+                return Json(new { model = new MyTransactionModel().GetTenantUpTransactionList(UserId) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -65,6 +76,18 @@ namespace ShomaRM.Areas.Tenant.Controllers
             try
             {
                 return Json(new { model = new MyTransactionModel().GetAccountHistoryListByDateRange(TenantID, FromDate, ToDate) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetTenantAccountHistoryList(long TenantID)
+        {
+            try
+            {
+                return Json(new { model = new MyTransactionModel().GetTenantAccountHistoryList(TenantID) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception Ex)
             {

@@ -4165,7 +4165,7 @@ var onlinePToTenant = function () {
     var originalFilePassport = $("#hndOriginalPassportUploadName").val();
     var fileIdentity = $("#hndIdentityUploadName").data('value');
     var originalFileIdentity = $("#hndOriginalIdentityUploadName").val();
-
+    
 
     if (!OtherGender) {
         OtherGender = $("#txtOtherGender").val(" ");
@@ -4267,6 +4267,14 @@ var onlinePToTenant = function () {
     $formData.append('IdentityDocument', fileIdentity);
     $formData.append('UploadOriginalIdentityName', originalFileIdentity);
 
+    $formData.append('MoveInCharges', $('#ftotal').text());
+    $formData.append('Prorated_Rent', $('#lblProratedRent').text());
+    $formData.append('AdministrationFee', $('#lblAdminFees').text());
+    $formData.append('VehicleRegistration', $('#lblVehicleFees').text());
+    $formData.append('LeaseTerm', $('#lblLease4').text());
+    $formData.append('MonthlyRent', $('#lbltotalAmountSumm').text());
+
+    
     if ($("#rbtnPaystub").is(":checked")) {
         $formData.append('IsPaystub', true);
     }
@@ -4301,7 +4309,7 @@ var onlinePToTenant = function () {
                 content: 'Tenant Created Successfully',
                 type: 'blue'
             })
-            // $("#hndTenantID").val(response.ID);
+           
             window.location.href = "/Admin/ProspectVerification/";
         }
     });
@@ -4390,3 +4398,4 @@ var SaveScreeningStatus = function () {
         }
     });
 };
+

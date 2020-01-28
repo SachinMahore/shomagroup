@@ -56,7 +56,9 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<System.DateTime> LastModifiedeDate { get; set; }
         public int ProspectID { get; set; }
         public string FullName { get; set; }
+
         
+
         public List<PropertyList> FillPropertyDropDownList()
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -753,6 +755,13 @@ namespace ShomaRM.Areas.Admin.Models
         public string HavePetString { get; set; }
         public Nullable<int> IsAgreePostDisclaimer { get; set; }
 
+        public Nullable<decimal> Prorated_Rent { get; set; }
+        public Nullable<decimal> MoveInCharges { get; set; }
+        public Nullable<decimal> AdministrationFee { get; set; }
+        public Nullable<decimal> VehicleRegistration { get; set; }
+        public Nullable<decimal> MonthlyRent { get; set; }
+        public string LeaseTerm { get; set; }
+
         public TenantOnlineModel getTenantOnlineData(int id)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -1186,8 +1195,10 @@ namespace ShomaRM.Areas.Admin.Models
                     Year= getPayMeth.CardYear != null ? getPayMeth.CardYear.ToString() : "0",
                     TenantId= getAppldata.TenantID,
                     NickName=getPayMeth.Name_On_Card,
-                    
-            };
+                    PayMethod=1,
+                    Default=1,
+                    BankName= getPayMeth.Name_On_Card
+                };
                 db.tbl_PaymentAccounts.Add(addPaymentMethod);
                 db.SaveChanges();
 
@@ -1220,6 +1231,25 @@ namespace ShomaRM.Areas.Admin.Models
                 db.SaveChanges();
 
 
+               
+                CreateTrans(loginDet.UserID, getAppldata.TenantID, prospectDet.ID,Convert.ToDecimal(prospectDet.Rent), "Monthly Rent");
+                CreateTrans(loginDet.UserID, getAppldata.TenantID, prospectDet.ID, Convert.ToDecimal(prospectDet.TrashAmt), "Trash/Recycle charges");
+                CreateTrans(loginDet.UserID, getAppldata.TenantID, prospectDet.ID, Convert.ToDecimal(prospectDet.ConvergentAmt), "Convergent Billing charges");
+                CreateTrans(loginDet.UserID, getAppldata.TenantID, prospectDet.ID, Convert.ToDecimal(prospectDet.PestAmt), "Pest Control charges");
+                if (prospectDet.ParkingAmt!=0)
+                {
+                    CreateTrans(loginDet.UserID, getAppldata.TenantID, prospectDet.ID, Convert.ToDecimal(prospectDet.ParkingAmt), "Additional Parking charges");
+                }
+                if (prospectDet.PetPlaceAmt != 0)
+                {
+                    CreateTrans(loginDet.UserID, getAppldata.TenantID, prospectDet.ID, Convert.ToDecimal(prospectDet.PetPlaceAmt), "Pet charges");
+                }
+                if (prospectDet.StorageAmt != 0)
+                {
+                    CreateTrans(loginDet.UserID, getAppldata.TenantID, prospectDet.ID, Convert.ToDecimal(prospectDet.StorageAmt), "Storage Charges");
+                }
+                
+             
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == model.UnitID).FirstOrDefault();
                 string reportHTML = "";
                 string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
@@ -1249,6 +1279,31 @@ namespace ShomaRM.Areas.Admin.Models
 
         }
 
+        public string CreateTrans(long UserID, long TenantID, long ProspectID,decimal Amount,string Description)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            var saveMonthlyTransaction = new tbl_Transaction()
+            {
+                TenantID = TenantID,
+                Revision_Num = 1,
+                Transaction_Date = DateTime.Now,
+                Run = 1,
+                LeaseID = 0,
+                Reference = "TID" + TenantID,
+                CreatedDate = DateTime.Now,
+                Credit_Amount = 0,
+                Description = Description,
+                Charge_Type = 3,
+                Payment_ID = null,
+                Charge_Amount = Amount,
+                Accounting_Date = DateTime.Now,
+                ProspectID = ProspectID,
+                
+            };
+            db.tbl_Transaction.Add(saveMonthlyTransaction);
+            db.SaveChanges();
+            return "";
+        }
 
         public string SaveUpdatePostDisclaimer(TenantOnlineModel model)
         {

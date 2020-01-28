@@ -56,7 +56,7 @@ namespace ShomaRM.Models
                     GetPayDetails.CCVNumber = model.CCVNumber;
                     GetPayDetails.ProspectId = model.ProspectId;
                     GetPayDetails.PaymentMethod = model.PaymentMethod;
-
+                    
                     db.SaveChanges();
 
                 }
@@ -88,14 +88,14 @@ namespace ShomaRM.Models
 
                         TenantID = Convert.ToInt64(GetProspectData.UserId),
                         Revision_Num = 1,
-                        Transaction_Type = "5",
+                        Transaction_Type = "1",
                         Transaction_Date = DateTime.Now,
                         Run = 1,
                         LeaseID = 0,
                         Reference = "PID" + model.ProspectId,
                         CreatedDate = DateTime.Now,
-                        Credit_Amount = 0,
-                        Description = "dd",
+                        Credit_Amount = model.Charge_Amount,
+                        Description = model.Description +"| TransID: "+ Convert.ToInt32(strlist[1]),
                         Charge_Date = DateTime.Now,
                         Charge_Type = 2,
                         Payment_ID = Convert.ToInt32(strlist[1]),
@@ -142,7 +142,7 @@ namespace ShomaRM.Models
 
                     }
                     string body = reportHTML;
-                    new EmailSendModel().SendEmail(GetProspectData.Email, "Application Submission", body);
+                    new EmailSendModel().SendEmail(GetProspectData.Email, "Application Completed and Payment Received", body);
                 }
                
                 msg = transStatus.ToString();
@@ -185,25 +185,6 @@ namespace ShomaRM.Models
             return model;
         }
 
-        public ApplyNowModel GetAllTotalDues(long UserId)
-        {
-            ApplyNowModel model = new ApplyNowModel();
-            ShomaRMEntities db = new ShomaRMEntities();
-            var getAllTotalDues = db.tbl_ApplyNow.Where(co => co.UserId == UserId).FirstOrDefault();
-            var urent = db.tbl_PropertyUnits.Where(co => co.UID == getAllTotalDues.PropertyId).FirstOrDefault();
-
-            if (getAllTotalDues!=null)
-            {
-                model.TotalAmountString = String.Format("{0:C}", getAllTotalDues.TotalAmt);
-                model.ConvergentAmountString = String.Format("{0:C}", getAllTotalDues.ConvergentAmt);
-                model.ParkingAmountString = String.Format("{0:C}", getAllTotalDues.ParkingAmt);
-                model.FOBAmountString = String.Format("{0:C}", getAllTotalDues.FOBAmt);
-                model.StorageAmountString = String.Format("{0:C}", getAllTotalDues.StorageAmt);
-                model.PetPlaceAmountString = String.Format("{0:C}", getAllTotalDues.PetPlaceAmt);
-                model.Rent  = String.Format("{0:C}",urent.Current_Rent);
-            }
-            db.Dispose();
-            return model;
-        }
+       
     }
 }

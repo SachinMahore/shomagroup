@@ -656,44 +656,44 @@
         }
 
 
-        //var model = {
-        //    PID: propertyId,
-        //    Name_On_Card: nameonCard,
-        //    CardNumber: cardNumber,
-        //    CardMonth: cardMonth,
-        //    CardYear: cardYear,
-        //    CCVNumber: ccvNumber,
-        //    Charge_Amount: amounttoPay,
-        //    ProspectID: prospectID,
-        //    Description: description,
-        //    GL_Trans_Description: glTrans_Description,
-        //    RoutingNumber: routingNumber,
-        //    BankName: bankName,
-        //    PaymentMethod: paymentMethod,
-        //};
+        var model = {
+            PID: propertyId,
+            Name_On_Card: nameonCard,
+            CardNumber: cardNumber,
+            CardMonth: cardMonth,
+            CardYear: cardYear,
+            CCVNumber: ccvNumber,
+            Charge_Amount: amounttoPay,
+            ProspectID: prospectID,
+            Description: description,
+           
+            RoutingNumber: routingNumber,
+            BankName: bankName,
+            PaymentMethod: paymentMethod,
+        };
 
-        $("#divLoader").hide();
-        $.alert({
-            title: "",
-            content: "Payment Saved",
-            type: 'red'
+      
+        $.ajax({
+            url: "/ApplyNow/SavePaymentDetails/",
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                $("#divLoader").hide();
+                if (response.Msg != "") {
+
+                    $("#ResponseMsg").html(response.Msg);
+                    $("#divLoader").hide();
+                    $.alert({
+                        title: "",
+                        content: "Payment Saved",
+                        type: 'red'
+                    });
+                    $("#popPayNow").modal("hide");
+                }
+            }
         });
-        $("#popPayNow").modal("hide");
-        //$.ajax({
-        //    url: "/ApplyNow/SavePaymentDetails/",
-        //    type: "post",
-        //    contentType: "application/json utf-8",
-        //    data: JSON.stringify(model),
-        //    dataType: "JSON",
-        //    success: function (response) {
-        //        $("#divLoader").hide();
-        //        if (response.Msg != "") {
-
-        //            $("#ResponseMsg").html(response.Msg);
-        //            //getTransationLists($("#hdnUserId").val());
-        //        }
-        //    }
-        //});
     }
     function setMoveInDate() {
         $("#divLoader").show();

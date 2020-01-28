@@ -588,8 +588,7 @@ namespace ShomaRM.Areas.Tenant.Models
             public long ID { get; set; }
             public string Amenity { get; set; }
             public string AmenityDetails { get; set; }
-
-           
+         
 
         }
 

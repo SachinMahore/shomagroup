@@ -1,0 +1,120 @@
+﻿@using ShomaRM.Areas.Tenant.Models
+@model AmenitiesReservationModel
+@{
+    ViewBag.Title = "ARREdit";
+}
+
+<script src="~/Areas/Admin/Content/Pages/AmenitiesReservationRequest/AmenitiesReservationRequest.js"></script>
+<input type="hidden" id="hdnARId" value="@Model.ARID" />
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <form action="" method="">
+                    <div class="wizard-header">
+                        <h3>
+                            <b>Amenity Reservation Request </b>Details<br>
+                        </h3>
+                    </div>
+                    <ul>
+                        <li><a href="#step1" data-toggle="tab"></a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="" id="step1">
+                            <div class="row p-b-15  ">
+                                <div class="col-sm-12">
+                                    <h4 class="info-text pull-left"> Let's start with the basic information</h4>
+                                    <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="goReservationRequestList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">Amenity Reservation Request List</span></button>
+                                    @*<div class="pull-right" style="padding-right:2px;">
+                                        <input type='button' class='btn btn-default' value='Save' onclick="SaveUpdateSlot()" />
+                                    </div>*@
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Tenant</label>
+                                                <input id="txtTenantName " type="text" class="form-control form-control-small" value="@Model.AmenityName" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Amenity</label>
+                                                <input id="txtAmenityName" type="text" class="form-control form-control-small" value="" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Desired Date</label>
+                                                <input id="txtDesiredDate" type="text" class="form-control form-control-small" value="" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Desired Time</label>
+                                                <input id="txtDesiredTime" type="text" class="form-control form-control-small" value="" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Desired Duration</label>
+                                                <input id="txtDesiredDuration" type="text" class="form-control form-control-small" value="" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Deposit Fee</label>
+                                                <input id="txtDepositFee" type="text" class="form-control form-control-small" value="" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Reservation Fee</label>
+                                                <input id="txtReservationFee" type="text" class="form-control form-control-small" value="" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Status</label>
+                                                <select id="ddlStatus" class="form-control form-control-small">
+                                                    <option value="0">Select Status</option>
+                                                    <option value="1"> Requested </option>
+                                                    <option value="2"> Approved </option>
+                                                    <option value="3"> Confirmed </option>
+                                                    <option value="4"> Cancelled </option>
+                                                    <option value="5"> Completed </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 text-center">
+                                        <button type="button" class="btn btn-success" id="btnSaveUpdateStatus" onclick="saveupdateStatus()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-check"></i> <span id="spanSaveUpdate">Save</span></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--  End step 4 -->
+                    </div>
+
+                </form>
+            </div>
+            <!-- End submit form -->
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#txtEventDate").datepicker();
+        var photo = document.getElementById('wizard-picture');
+    });
+    @*$(document).ready(function () {
+        setTimeout(function () {
+            $("#ddlAmenities").find("option[value='" + @Model.AmenityID + "']").attr('selected', 'selected');
+            getDurationSlot( @Model.AmenityID );
+        }, 1500);
+        setTimeout(function () { $("#ddlDuration").find("option[value='" + @Model.DurationID + "']").attr('selected', 'selected'); }, 1600);
+    });*@
+</script>

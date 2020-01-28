@@ -14,6 +14,7 @@ namespace ShomaRM.Areas.Tenant.Controllers
         public ActionResult Index()
         {
             ViewBag.ActiveMenu = "dashboard";
+
             return View();
         }
 
