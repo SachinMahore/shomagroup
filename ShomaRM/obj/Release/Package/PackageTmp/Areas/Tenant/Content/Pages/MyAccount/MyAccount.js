@@ -7,6 +7,7 @@
     getPaymentAccountsCreditCard();
     getTransationLists();
     getUpTransationLists();
+    getRecurringPayLists();
     fromDashboardGoToRecurringPayment();
     fromDashboardGoToMakePayment();
     fromDashboardGoToRegisterGuest();
@@ -191,6 +192,9 @@ var getTenantData = function (userID) {
                 $("#txtFirstName").val(response.FirstName);
                 $("#txtMiddleInitial").val(response.MiddleInitial);
                 $("#txtLastName").val(response.LastName);
+
+                $("#invTenant").text(response.FirstName + " " + response.LastName);
+                $("#invUnit").text(response.UnitName);
 
                 $("#txtAddress").val(response.Address);
                 $("#txtCity").val(response.City);
@@ -379,48 +383,6 @@ var saveUpdateTenant = function () {
         });
     }
 }
-
-var getPropertyList = function () {
-    $("#divLoader").show();
-    $.ajax({
-        url: "/Lease/GetPropertyList/",
-        type: "post",
-        contentType: "application/json utf-8",
-        dataType: "JSON",
-        success: function (response) {
-            $("#ddlProperty").empty();
-            $.each(response.model, function (elementType, elementValue) {
-                var option = "<option value=" + elementValue.PID + ">" + elementValue.Title + "</option>";
-                $("#ddlProperty").append(option);
-
-            });
-            $("#divLoader").hide();
-        }
-    });
-
-};
-
-var getPropertyUnitList = function (pid) {
-    $("#divLoader").show();
-    var model = { PID: pid }
-    $.ajax({
-        url: "/Lease/GetPropertyUnitList/",
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            $("#ddlUnit").empty();
-            $.each(response.model, function (elementType, elementValue) {
-                var option = "<option value=" + elementValue.UID + ">" + elementValue.UnitNo + "</option>";
-                $("#ddlUnit").append(option);
-
-            });
-            $("#divLoader").hide();
-        }
-    });
-
-};
 
 var fillStateDDL = function () {
 
@@ -693,37 +655,6 @@ var goToStep = function (stepid, id) {
     }
 };
 
-var getNoticeLists = function () {
-    var model = {
-        FromDate: $("#txtFromDate").val(),
-        ToDate: $("#txtToDate").val(),
-        TenantID: $("#hndTenantID").val(),
-    }
-    $.ajax({
-        url: "/Notice/GetTenantNoticeList/",
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-
-            $("#tblNotice>tbody").empty();
-            $.each(response.result, function (elementType, elementValue) {
-                var html = "<tr data-value=" + elementValue.NoticeID + ">";
-                html += "<td>" + elementValue.NoticeID + "</td>";
-                html += "<td>" + elementValue.Revision_Num + "</td>";
-                html += "<td>" + elementValue.NoticeDateString + "</td>";
-                html += "<td>" + elementValue.TerminationReason + "</td>";
-                html += "</tr>";
-                $("#tblNotice>tbody").append(html);
-            });
-
-        }
-    });
-}
-var addNewNotice = function () {
-    window.location.replace("/Admin/Notice/Edit/" + 0)
-}
 
 function saveupdateLease() {
     var msg = "";
@@ -852,7 +783,7 @@ var getTransationLists = function () {
             $.each(response.model, function (elementType, elementValue) {
                 var html = "<tr data-value=" + elementValue.TransID + ">";
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                html += "<td>" + elementValue.Description + "</td>";
+                html += "<td><a href='javascript:void(0);'  data-toggle='modal' data-target='#popInvoice' onclick='getInvoice("+ elementValue.TransID +")'>" + elementValue.Description + "</a></td>";
                 html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
                 if (elementValue.Credit_Amount != "0.00")
                 {
@@ -872,7 +803,43 @@ var getTransationLists = function () {
         }
     });
 }
+var getInvoice = function (invid)
+{
+   
+    var model = {
+        TransID: invid     
+    }
+    $.ajax({
+        url: "/MyTransaction/GetTenantBillList",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            var bal = 0;
 
+            $("#invid").text(invid);
+            $("#invdate").text(response.model.Transaction_DateString);
+            $("#invamount").text(response.model.Credit_Amount);
+            
+
+            $("#tblInvoiceBill>tbody").empty();
+            var srno = 1;
+            $.each(response.model.lstpr, function (elementType, elementValue) {
+                var html = "<tr data-value=" + elementValue.BillID + ">";
+                html += "<td>" + srno + "</td>";
+                html += "<td>"+ elementValue.Description + "</td>";
+                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Amount) + "</td>";
+               
+                html += "</tr>";
+                $("#tblInvoiceBill>tbody").append(html);
+                srno++;
+            });
+            $("#tblInvoiceBill>tbody").append("<tr><td colspan='3'><hr /></td></tr>  <tr><td></td><td style='text-align: right;'>Total Amount :</td><td style='text-align: right;'> <b> <span id='invamount'> $" + formatMoney(response.model.Credit_Amount)+"</span></b> </td></tr>");
+           
+        }
+    });
+}
 var getUpTransationLists = function () {
    
     var model = {
@@ -1147,69 +1114,6 @@ var clearVehicle = function () {
     $("#ddlVState").val(0);
 }
 
-var saveupdateApplicant = function () {
-
-    var msg = "";
-    var aid = $("#hndApplicantID").val();
-    var fname = $("#txtApplicantFirstName").val();
-    var lname = $("#txtApplicantLastName").val();
-    var aphone = $("#txtApplicantPhone").val();
-    var aemail = $("#txtApplicantEmail").val();
-    var agender = $("#ddlApplicantGender").val();
-    var dob = $("#txtADateOfBirth").val();
-
-    if (fname == "") {
-        msg += "Enter Applicant First Name</br>";
-    }
-    if (lname == "") {
-        msg += "Enter Applicant Last Name</br>";
-    }
-    if (aphone == "") {
-        msg += "Enter Applicant Phone";
-    }
-    if (dob == "") {
-        msg += "Enter Date of Birth";
-    }
-    if (msg != "") {
-        $.alert({
-            title: 'Alert!',
-            content: msg,
-            type: 'red'
-        });
-        return;
-    }
-
-    var model = {
-        ApplicantID: aid,
-        FirstName: fname,
-        LastName: lname,
-        Phone: aphone,
-        Email: aemail,
-        Gender: agender,
-        DateOfBirth: dob,
-    };
-
-    $.ajax({
-        url: "/Tenant/Applicant/SaveUpdateApplicant/",
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            $.alert({
-                title: 'Message!',
-                content: response.Msg,
-                type: 'blue',
-            });
-
-            getApplicantLists();
-            $("#popApplicant").PopupWindow("close");
-        }
-
-
-    });
-
-}
 var getApplicantLists = function () {
     var model = {
 
@@ -1348,250 +1252,6 @@ var clearPet = function () {
 };
 
 //Amit's Work
-
-var saveupdateTenantOnline = function () {
-    var msg = "";
-    var tenantID = $("#hndTenantID").val();
-    var ProspectID = $("#hdnOPId").val();
-    var IsInternational = $("#ddlIsInter").val();
-    var FirstName = $("#txtFirstNamePersonal").val();
-    var MiddleInitial = $("#txtMiddleInitial").val();
-    var LastName = $("#txtLastNamePersonal").val();
-    var DateOfBirth = $("#txtDateOfBirth").val();
-    var Gender = $("#ddlGender").val();
-    var Email = $("#txtEmailNew").val();
-    var Mobile = $("#txtMobileNumber").val();
-    var PassportNumber = $("#txtPassportNum").val();
-    var CountryIssuance = $("#txtCOI").val();
-    var DateIssuance = $("#txtDateOfIssuance").val();
-    var DateExpire = $("#txtDateOfExpiration").val();
-    var IDType = $("#ddlDocumentTypePersonal").val();
-    var State = $("#ddlStatePersonal").val();
-    var IDNumber = $("#txtIDNumber").val();
-    var Country = $("#txtCountry").val();
-    var HomeAddress1 = $("#txtAddress1").val();
-    var HomeAddress2 = $("#txtAddress2").val();
-    var StateHome = $("#ddlStateHome").val();
-    var CityHome = $("#ddlCityHome").val();
-    var ZipHome = $("#txtZip").val();
-    var RentOwn = $("#ddlRentOwn").val();
-    var MoveInDate = $("#txtMoveInDate").val();
-    var MonthlyPayment = $("#txtMonthlyPayment").val();
-    var Reason = $("#txtReasonforleaving").val();
-    var EmployerName = $("#txtEmployerName").val();
-    var JobTitle = $("#txtJobTitle").val();
-    var JobType = $("#ddlJobType").val();
-    var StartDate = $("#txtStartDate").val();
-    var Income = $("#txtAnnualIncome").val();
-    var AdditionalIncome = $("#txtAddAnnualIncome").val();
-    var SupervisorName = $("#txtSupervisiorName").val();
-    var SupervisorPhone = $("#txtSupervisiorPhone").val();
-    var SupervisorEmail = $("#txtSupervisiorEmail").val();
-    var OfficeCountry = $("#txtCountryOffice").val();
-    var OfficeAddress1 = $("#txtofficeAddress1").val();
-    var OfficeAddress2 = $("#txtofficeAddress2").val();
-    var OfficeState = $("#ddlStateEmployee").val();
-    var OfficeCity = $("#ddlCityEmployee").val();
-    var OfficeZip = $("#txtZipOffice").val();
-    var Relationship = $("#txtRelationship").val();
-    var EmergencyFirstName = $("#txtEmergencyFirstName").val();
-    var EmergencyLastName = $("#txtEmergencyLastName").val();
-    var EmergencyMobile = $("#txtEmergencyMobile").val();
-    var EmergencyHomePhone = $("#txtEmergencyHomePhone").val();
-    var EmergencyWorkPhone = $("#txtEmergencyWorkPhone").val();
-    var EmergencyEmail = $("#txtEmergencyEmail").val();
-    var EmergencyCountry = $("#txtEmergencyCountry").val();
-    var EmergencyAddress1 = $("#txtEmergencyAddress1").val();
-    var EmergencyAddress2 = $("#txtEmergencyAddress2").val();
-    var EmergencyStateHome = $("#ddlStateContact").val();
-    var EmergencyCityHome = $("#ddlCityContact").val();
-    var EmergencyZipHome = $("#txtEmergencyZip").val();
-
-
-    if (FirstName == "") {
-        msg += "Please fill the First Name </br>";
-    }
-    if (LastName == "") {
-        msg += "Please fill the  Last Name </br>";
-    }
-
-
-    if (msg != "") {
-        $.alert({
-            title: "Alert!",
-            content: msg,
-            type: 'red'
-        })
-        $("#divLoader").hide();
-        return;
-    }
-
-    var model = {
-        TenantID: tenantID,
-        ProspectID: ProspectID,
-        IsInternational: IsInternational,
-        FirstName: FirstName,
-        MiddleInitial: MiddleInitial,
-        LastName: LastName,
-        DateOfBirth: DateOfBirth,
-        Gender: Gender,
-        Email: Email,
-        Mobile: Mobile,
-        PassportNumber: PassportNumber,
-        CountryIssuance: CountryIssuance,
-        DateIssuance: DateIssuance,
-        DateExpire: DateExpire,
-        IDType: IDType,
-        State: State,
-        IDNumber: IDNumber,
-        Country: Country,
-        HomeAddress1: HomeAddress1,
-        HomeAddress2: HomeAddress2,
-        StateHome: StateHome,
-        CityHome: CityHome,
-        ZipHome: ZipHome,
-        RentOwn: RentOwn,
-        MoveInDate: MoveInDate,
-        MonthlyPayment: MonthlyPayment,
-        Reason: Reason,
-        EmployerName: EmployerName,
-        JobTitle: JobTitle,
-        JobType: JobType,
-        StartDate: StartDate,
-        Income: Income,
-        AdditionalIncome: AdditionalIncome,
-        SupervisorName: SupervisorName,
-        SupervisorPhone: SupervisorPhone,
-        SupervisorEmail: SupervisorEmail,
-        OfficeCountry: OfficeCountry,
-        OfficeAddress1: OfficeAddress1,
-        OfficeAddress2: OfficeAddress2,
-        OfficeState: OfficeState,
-        OfficeCity: OfficeCity,
-        OfficeZip: OfficeZip,
-        Relationship: Relationship,
-        EmergencyFirstName: EmergencyFirstName,
-        EmergencyLastName: EmergencyLastName,
-        EmergencyMobile: EmergencyMobile,
-        EmergencyHomePhone: EmergencyHomePhone,
-        EmergencyWorkPhone: EmergencyWorkPhone,
-        EmergencyEmail: EmergencyEmail,
-        EmergencyCountry: EmergencyCountry,
-        EmergencyAddress1: EmergencyAddress1,
-        EmergencyAddress2: EmergencyAddress2,
-        EmergencyStateHome: EmergencyStateHome,
-        EmergencyCityHome: EmergencyCityHome,
-        EmergencyZipHome: EmergencyZipHome,
-
-    };
-
-    $.ajax({
-        url: '/Admin/Tenant/SaveTenantOnline',
-        type: 'post',
-        data: JSON.stringify(model),
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        success: function (response) {
-            //getApplyNowList(idmsg[0]);
-            $.alert({
-                title: 'Alert!',
-                content: response.msg,
-                type: 'blue'
-            });
-        }
-    });
-};
-var getTenantOnlineData = function (id) {
-    var model = {
-        id: id
-    };
-    $.ajax({
-        url: '/Admin/Tenant/getTenantOnlineData',
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            setTimeout(function () {
-                $("#ddlIsInter").find("option[value='" + response.model.IsInternational + "']").attr('selected', 'selected');
-            }, 1500);
-            $("#txtFirstNamePersonal").val(response.model.FirstName);
-            $("#txtMiddleInitial").val(response.model.MiddleInitial);
-            $("#txtLastNamePersonal").val(response.model.LastName);
-            $("#txtDateOfBirth").val(response.model.DateOfBirthTxt);
-            setTimeout(function () {
-                $("#ddlGender").find("option[value='" + response.model.Gender + "']").attr('selected', 'selected');
-            }, 1500);
-            $("#txtEmailNew").val(response.model.Email);
-            $("#txtMobileNumber").val(response.model.Mobile);
-            $("#txtPassportNum").val(response.model.PassportNumber);
-            $("#txtCOI").val(response.model.CountryIssuance);
-            $("#txtDateOfIssuance").val(response.model.DateIssuanceTxt);
-            $("#txtDateOfExpiration").val(response.model.DateExpireTxt);
-            $("#ddlDocumentTypePersonal").val(response.model.IDType).change();
-            setTimeout(function () {
-                $("#ddlStatePersonal").find("option[value='" + response.model.State + "']").attr('selected', 'selected');
-            }, 2000);
-            $("#txtIDNumber").val(response.model.IDNumber);
-            $("#txtCountry").val(response.model.Country);
-            $("#txtAddress1").val(response.model.HomeAddress1);
-            $("#txtAddress2").val(response.model.HomeAddress2);
-            fillCityListHome(response.model.StateHome);
-            setTimeout(function () {
-                $("#ddlStateHome").find("option[value='" + response.model.StateHome + "']").attr('selected', 'selected');
-            }, 2000);
-            setTimeout(function () {
-                $("#ddlCityHome").find("option[value='" + response.model.CityHome + "']").attr('selected', 'selected');
-
-            }, 2500);
-            $("#txtZip").val(response.model.ZipHome);
-            $("#ddlRentOwn").val(response.model.RentOwn);
-            $("#txtMoveInDate").val(response.model.MoveInDateTxt);
-            $("#txtMonthlyPayment").val(response.model.MonthlyPayment);
-            $("#txtReasonforleaving").val(response.model.Reason);
-            $("#txtEmployerName").val(response.model.EmployerName);
-            $("#txtJobTitle").val(response.model.JobTitle);
-            $("#ddlJobType").val(response.model.JobType);
-            $("#txtStartDate").val(response.model.StartDateTxt);
-            $("#txtAnnualIncome").val(response.model.Income);
-            $("#txtAddAnnualIncome").val(response.model.AdditionalIncome);
-            $("#txtSupervisiorName").val(response.model.SupervisorName);
-            $("#txtSupervisiorPhone").val(response.model.SupervisorPhone);
-            $("#txtSupervisiorEmail").val(response.model.SupervisorEmail);
-            $("#txtCountryOffice").val(response.model.OfficeCountry);
-            $("#txtofficeAddress1").val(response.model.OfficeAddress1);
-            $("#txtofficeAddress2").val(response.model.OfficeAddress2);
-            fillCityListEmployee(response.model.OfficeState);
-            setTimeout(function () {
-                $("#ddlStateEmployee").find("option[value='" + response.model.OfficeState + "']").attr('selected', 'selected');
-            }, 2000);
-            setTimeout(function () {
-                $("#ddlCityEmployee").find("option[value='" + response.model.OfficeCity + "']").attr('selected', 'selected');
-
-            }, 2500);
-            $("#txtZipOffice").val(response.model.OfficeZip);
-            $("#txtRelationship").val(response.model.Relationship);
-            $("#txtEmergencyFirstName").val(response.model.EmergencyFirstName);
-            $("#txtEmergencyLastName").val(response.model.EmergencyLastName);
-            $("#txtEmergencyMobile").val(response.model.EmergencyMobile);
-            $("#txtEmergencyHomePhone").val(response.model.EmergencyHomePhone);
-            $("#txtEmergencyWorkPhone").val(response.model.EmergencyWorkPhone);
-            $("#txtEmergencyEmail").val(response.model.EmergencyEmail);
-            $("#txtEmergencyCountry").val(response.model.EmergencyCountry);
-            $("#txtEmergencyAddress1").val(response.model.EmergencyAddress1);
-            $("#txtEmergencyAddress2").val(response.model.EmergencyAddress2);
-            fillCityListContact(response.model.EmergencyStateHome);
-            setTimeout(function () {
-                $("#ddlStateContact").find("option[value='" + response.model.EmergencyStateHome + "']").attr('selected', 'selected');
-            }, 2000);
-            setTimeout(function () {
-                $("#ddlCityContact").find("option[value='" + response.model.EmergencyCityHome + "']").attr('selected', 'selected');
-
-            }, 2500);
-            $("#txtEmergencyZip").val(response.model.EmergencyZipHome);
-        }
-    });
-}
 
 var goToPayStep = function (stepid, id) {
 
@@ -2836,6 +2496,14 @@ var amountToPayRadioButtonFunction = function () {
             $('#divOtherAmount').removeClass('hidden');
             $('#divOtherAmount').addClass('show');
         }
+        if ($("#rbtnAmountToPayR1").is(":checked")) {
+            $('#divOtherAmountR').removeClass('show');
+            $('#divOtherAmountR').addClass('hidden');
+        }
+        else if ($("#rbtnAmountToPayR2").is(":checked")) {
+            $('#divOtherAmountR').removeClass('hidden');
+            $('#divOtherAmountR').addClass('show');
+        }
     });
 };
 
@@ -3005,7 +2673,6 @@ var clearMakePaymentFields = function () {
 var radioButtonPaymentMethodMakePayment = function (id) {
 
     $('#hdnTablePaidId').val(id);
-
 
 };
 
@@ -4738,6 +4405,7 @@ var ddlPaymentMethod = function () {
         dataType: "JSON",
         success: function (response) {
             $('#ddlPaymentMethod').empty();
+            $('#ddlPaymentMethodR').empty();
             var html = '';
             $.each(response.model, function (elementType, elementValue) {
                 if (elementValue.Default == '1') {
@@ -4747,6 +4415,7 @@ var ddlPaymentMethod = function () {
                     html = "<option value='" + elementValue.PAID + "' data-value='" + elementValue.PayMethod + "'>" + elementValue.AccountName + "</option>";
                 }
                 $('#ddlPaymentMethod').append(html);
+                $('#ddlPaymentMethodR').append(html);
             });
         }
     });
@@ -4877,7 +4546,6 @@ var getDurationSlot = function (selectedValue) {
 
     $("#ddlDesiredDuration").append(option);
 };
-
 
 var saveUpdateReservationRequest = function () {
 
@@ -5075,7 +4743,6 @@ var uploadServiceFile = function () {
     });
 };
 
-
 var getReservationRequestList = function () {
     var tenantID = $("#hndTenantID").val();
     var ProspectID = $("#hndUserId").val();
@@ -5111,3 +4778,121 @@ var getReservationRequestList = function () {
         }
     });
 };
+
+
+var getRecurringPayLists = function () {
+    var model = {
+        TenantID: $("#hndTenantID").val()
+    }
+    $.ajax({
+        url: "/MyTransaction/GetRecurringPayLists",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            var revno = 1;
+            var duedate = "";
+            $("#tblRecurringPayments>tbody").empty();
+            $.each(response.model, function (elementType, elementValue) {
+                var html = "<tr data-value=" + elementValue.TransID + ">";
+                html += "<td>" + elementValue.TAccCardName + "</td>";
+                html += "<td>" + elementValue.Transaction_DateString + "</td>";
+          
+                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
+                html += "<td><a href='javascript:void(0);' onclick='editRecPayment(" + elementValue.TransID + ")'><i class='fa fa-edit'></i></a>   <a href='javascript:void(0);' onclick='deleteRecPayment(" + elementValue.TransID + ")'><i class='fa fa-trash'></i></a></td>";
+                html += "</tr>";
+                revno++;
+
+                duedate = new Date(elementValue.Transaction_DateString);
+                $("#tblRecurringPayments>tbody").append(html);
+                $("#lblCurrentPrePayAmountR").text(formatMoney(elementValue.Charge_Amount));
+               
+            });
+            duedate.setMonth(duedate.getMonth() + 2);
+            var newMonth = duedate.getMonth() + 1;
+            if (newMonth < 10) { newMonth = '0' + newMonth }
+           
+            duedate = (newMonth) + "/01/" + duedate.getFullYear();
+            $("#hndRevisionNo").val(revno);
+            $("#txtPayDateR").val(duedate);
+           
+        }
+    });
+}
+function recurringPaymentSaveUpdate() {
+   
+    var msg = "";
+    var transid = $("#hndTransID").val();
+
+    var tenantid = $("#hndTenantID").val();
+   
+    var transtype = $("#ddlPaymentMethodR").val();
+    var chargeDate = $("#txtPayDateR").val();
+  
+    var chargeAmount = unformatText($("#txtChargeAmount").val());
+    var revision_Num = $("#hndRevisionNo").val();
+
+    var amount = '';
+    if ($("#rbtnAmountToPayR1").is(":checked")) {
+        amount = unformatText($('#lblCurrentPrePayAmountR').text());
+    }
+    else if ($("#rbtnAmountToPayR2").is(":checked")) {
+        amount = unformatText($('#txtOtherAmountR').val());
+    }
+    else {
+        amount = '';
+    }
+    if ($("#ddlPaymentMethodR").val() == '0') {
+        msg += "Select Payment Method</br>";
+    }
+  
+    if (amount == '') {
+        msg += "Check Amount To Pay And Enter Charge Amount</br>";
+    }
+    if ($("#txtPayDateR").val() == "") {
+        msg += "Enter Payment Date</br>";
+    }
+    if ($("#chkTermsAndConditionR").is(":checked")) {
+        msg += '';
+    }
+    else {
+        msg += 'Check Terms and Policy</br>';
+    }
+
+    if (msg != "") {
+        $.alert({
+            title: 'Alert!',
+            content: msg,
+            type: 'red'
+        });
+        return;
+    }
+
+    var models = {
+        PAID: $('#ddlPaymentMethod').val(),
+        TransID: transid,      
+        TenantID: tenantid,
+        Revision_Num: revision_Num,
+        Charge_Date: chargeDate,
+        Charge_Amount: amount,
+      
+    };
+    $.ajax({
+        url: "/MyTransaction/SaveUpdateRecurringTransaction/",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(models),
+        dataType: "JSON",
+        success: function (response) {
+            $.alert({
+                title: 'Message!',
+                content: response.Msg,
+                type: 'blue',
+            });
+           
+            getRecurringPayLists();
+        }
+    });
+
+}

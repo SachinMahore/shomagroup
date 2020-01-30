@@ -2586,7 +2586,7 @@ function selectAddStorage(cont) {
 }
 var addPetPlaceArray = [];
 function selectAddPetPlace(cont) {
-    var ischeck = $(cont).is(':checked')
+    var ischeck = $(cont).is(':checked');
     $('.addpet').removeAttr("checked");
     $(cont).prop("checked", ischeck);
     addPetPlaceArray = [];
@@ -4325,12 +4325,12 @@ function showFloorPlan(flid) {
                 var offset = $(this).offset();
                 var X = (e.pageX - offset.left);
                 var Y = (e.pageY - offset.top);
-                X = X - 30;
+                X = X - 25;//X = X - 30
                 if (Y < 0) {
-                    Y = Y + 525;
+                    Y = Y + 615;//Y = Y + 525
                 }
                 else {
-                    Y = Y + 300;
+                    Y = Y + 390;//Y = Y + 300
                 }
                 var thisId = $(this).attr('id');
                 var divID = thisId.split("_");
