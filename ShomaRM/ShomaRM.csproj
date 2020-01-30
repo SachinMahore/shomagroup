@@ -352,6 +352,7 @@
     <Content Include="Areas\Admin\Content\Pages\State\StateList.js" />
     <Content Include="Areas\Admin\Content\Pages\Storage\Storage.js" />
     <Content Include="Areas\Admin\Content\Pages\TenantEventJoinApprove\TenantEventJoinApprove.js" />
+    <Content Include="Areas\Admin\Content\Pages\Tenant\NewTenant.js" />
     <Content Include="Areas\Admin\Content\Pages\Transaction\Transaction.js" />
     <Content Include="Areas\Admin\Content\Pages\Transaction\TransactionList.js" />
     <Content Include="Areas\Admin\Content\Pages\Utility\Utility.js" />

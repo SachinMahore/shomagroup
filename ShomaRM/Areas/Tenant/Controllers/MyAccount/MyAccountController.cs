@@ -200,6 +200,18 @@ namespace ShomaRM.Areas.Tenant.Controllers
             }
         }
 
+        public JsonResult GetTenantLeaseDocuments(MyAccountModel model)
+        {
+            try
+            {
+                return Json(new { model = new MyAccountModel().GetTenantLeaseDocuments(model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 
 }
