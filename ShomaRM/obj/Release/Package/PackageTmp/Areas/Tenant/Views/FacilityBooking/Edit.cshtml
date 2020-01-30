@@ -1,0 +1,100 @@
+﻿@using ShomaRM.Areas.Tenant.Models
+@model FacilityBookingModel
+@{
+    ViewBag.Title = "Facility Booking";
+}
+<script src="~/Areas/Tenant/Content/Pages/FacilityBooking/FacilityBooking.js"></script>
+<input type="hidden" id="hdnFacilityBookingId" value="@Model.FacilityBookingID" />
+<input type="hidden" id="hdnTenantId" value="" />
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <form action="" method="">
+                    <div class="wizard-header">
+                        <h3>
+                            <b>Facility Booking</b> Details<br>
+                        </h3>
+                    </div>
+                    <ul>
+                        <li><a href="#step1" data-toggle="tab"> </a></li>
+                    </ul>
+                    <div class="tab-content">
+
+                        <!--  End step 1 -->
+                        <div class="tab-pane" id="step1">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="goFacilityBookingList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">Facility Booking List</span></button>
+                                    <div class="pull-right">
+                                        <input type='button' class='btn btn-default' value='Save' onclick="SaveUpdateFacilityBooking()" />
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="ddlFacility" class="star">Facility</label>
+                                            <select id="ddlFacility" class="form-control form-control-small"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="txtBookingDate" class="star">Booking Date</label>
+                                            <input id="txtBookingDate" class="form-control form-control-small" maxlength="50" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="txtRequiredFromDate" class="star">Required From Date</label>
+                                            <input id="txtRequiredFromDate" class="form-control form-control-small" type="text" value="@Model.RequiredFromDate" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="txtRequiredToDate" class="star">Required To Date</label>
+                                            <input id="txtRequiredToDate" class="form-control form-control-small" type="text" value="@Model.RequiredToDate" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="txtBookingDetails">Booking Details</label>
+                                            <textarea id="txtBookingDetails" class="form-control form-control-small">@Model.BookingDetails</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                            </div>
+                        </div>
+
+
+                        <!--  End step 4 -->
+                    </div>
+
+                </form>
+            </div>
+            <!-- End submit form -->
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#txtBookingDate").datepicker();
+        $("#txtRequiredFromDate").datepicker();
+        $("#txtRequiredToDate").datepicker();
+    });
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#ddlFacility").val(@Model.FacilityID);
+            $("#ddlFacility").trigger('change');
+        }, 200);
+    });
+</script>

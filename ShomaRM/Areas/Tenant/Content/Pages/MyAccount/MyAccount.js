@@ -3,7 +3,7 @@
     getServiceRequestOnAlarm();
     onFocus();
     breakdownPaymentFunction();
-    getAllDues();
+  
     getPaymentAccountsCreditCard();
     getTransationLists();
     getUpTransationLists();
@@ -21,6 +21,7 @@
     getVehicleLeaseInfoDocuments();
     getAmenityList();
     getReservationRequestList();
+    getTenantData($("#hndTenantID").val());
     $("#ddlAmenities").on("change", function () {
         console.log();
         $("#SelectedAminity").html($(this).find(":selected").text());
@@ -30,8 +31,6 @@
     $("#txtDesiredTime").on("keyup", function () {
         $("#SelectedTime").html($(this).val());
     });
-
-
 
     $("#ddlAmenities").on("change", function () {
         var selectedOption = $(this).val();
@@ -148,6 +147,14 @@
 
         }
     });
+
+    if ($("#hdnARId").val() != "0") {
+      
+        getAmenityReservationPay();
+    } else {
+       
+        $("#lblCurrentPrePayAmount").text('$' + formatMoney($('#spanCurrentAmountDue').text()));
+    }
 });
 
 var checkRequestButton = function () {
@@ -178,6 +185,8 @@ var getTenantData = function (userID) {
             if ($.trim(response.error) != "") {
                 //showMessage("Error!", response.error);
             } else {
+                $("#AmenityUnit").html(response.UnitName);
+                $("#AmenityTenant").html(response.FirstName + " " + response.LastName);
                 $("#hndTenantID").val(response.ID);
                 $("#txtFirstName").val(response.FirstName);
                 $("#txtMiddleInitial").val(response.MiddleInitial);
@@ -843,7 +852,7 @@ var getTransationLists = function () {
             $.each(response.model, function (elementType, elementValue) {
                 var html = "<tr data-value=" + elementValue.TransID + ">";
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                html += "<td>" + elementValue.Description + "</td>";
+                html += "<td><a href='javascript:void(0);'  data-toggle='modal' data-target='#popInvoice' onclick='getInvoice("+ elementValue.TransID +")'>" + elementValue.Description + "</a></td>";
                 html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
                 if (elementValue.Credit_Amount != "0.00")
                 {
@@ -863,31 +872,35 @@ var getTransationLists = function () {
         }
     });
 }
-var getAllDues = function () { 
+var getInvoice = function (invid)
+{
+    $("#invid").text(invid);
     var model = {
-        TenantID: $("#hndTenantID").val()      
-    };
+        TransD: invid     
+    }
     $.ajax({
-        url: '/MyTransaction/GetTotalDue',
+        url: "/MyTransaction/GetTenantBillList",
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-        
-            $('#spanCurrentAmountDue').text(formatMoney(response.model));
-            if ($("#hdnARId").val() != "0")
-            {
-                getAmenityReservationPay();
-            } else
-            {
-                $("#lblCurrentPrePayAmount").text('$' + formatMoney(response.model));
-            }
-           
-            
+            var bal = 0;
+            $("#tblInvoiceBill>tbody").empty();
+            $.each(response.model, function (elementType, elementValue) {
+                var html = "<tr data-value=" + elementValue.TransID + ">";
+                html += "<td>" + elementValue.Transaction_DateString + "</td>";
+                html += "<td>"+ elementValue.Description + "</td>";
+                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
+               
+                html += "</tr>";
+                $("#tblInvoiceBill>tbody").append(html);
+
+            });
+
         }
     });
-};
+}
 var getUpTransationLists = function () {
    
     var model = {
@@ -2873,12 +2886,10 @@ var getAmenityReservationPay = function(){
                 //showMessage("Error!", response.error);
             } else {
 
-                $("#txtDescriptionText").val("Payment for Amenity Reservation : " + response.AmenityName);
-                //$('#rbtnAmountToPay1').removeAttr('checked');
-                //$('#rbtnAmountToPay2').attr('checked', 'checked');
-                //$("#txtOtherAmount").val(parseInt(parseFloat(response.ReservationFee) + parseInt(response.DepositFee)).toFixed(2));
+                $("#txtDescriptionText").val(response.AmenityName +" Reservation Fees: ");
                 
-                $("#lblCurrentPrePayAmount").text('$' + formatMoney(parseInt(parseFloat(response.ReservationFee) + parseInt(response.DepositFee)).toFixed(2)));
+                $("#lblCurrentPrePayAmount").text('$' + formatMoney(parseFloat(parseFloat(response.ReservationFee) + parseFloat(response.DepositFee)).toFixed(2)));
+                $("#hndChargeType").val(4);
             }
         }
     });
@@ -2903,14 +2914,14 @@ function makeOneTimePaymentSaveUpdate() {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            cardName = response.model.NameOnCard,
+                cardName = response.model.NameOnCard,
                 cardNumber = response.model.CardNumber,
                 cardMonth = response.model.Month,
                 cardYear = response.model.Year,
                 accountName = response.model.AccountName,
                 bankName = response.model.BankName,
                 accountNumber = response.model.AccountNumber,
-                routingNumber = response.model.RoutingNumber
+                routingNumber = response.model.RoutingNumber             
         }
     });
 
@@ -2923,7 +2934,7 @@ function makeOneTimePaymentSaveUpdate() {
     var revision_num = 1;
     var transtype = $("#ddlPaymentMethod").val();
     var chargeDate = $("#txtPrefarredDate").val();
-    var chargeType = $("#ddlChargeType").val();
+    var chargeType = $("#hndChargeType").val();
     var chargeAmount = unformatText($("#txtChargeAmount").val());
     var summaryCharge = $("#txtSummaryCharge").val();
     var CVVFromPayMethod = $("#txtCVVNumberPayRentOnline").val();
@@ -2970,6 +2981,7 @@ function makeOneTimePaymentSaveUpdate() {
     }
 
     var models = {
+        PAID: $('#ddlPaymentMethod').val(),
         TransID: transid,
         PropertyID: propertyid,
         UnitID: unitid,
@@ -2987,7 +2999,8 @@ function makeOneTimePaymentSaveUpdate() {
         ExpirationMonthOnCardString: cardMonth,
         ExpirationYearOnCardString: cardYear,
         BankName: bankName,
-        RoutingNumber: routingNumber
+        RoutingNumber: routingNumber,
+        CCVNumber: CVVFromPayMethod
     };
     $.ajax({
         url: "/MyTransaction/SaveUpdateTransaction/",
@@ -4789,7 +4802,7 @@ var ddlPayMethodPageLoadFunction = function () {
             $('#DivCVVNumberPayRentOnline').addClass('hidden');
         }
         $('#txtCVVNumberPayRentOnline').val('');
-    }, 4500);
+    }, 1500);
 };
 
 var tenantAccountHistory = function () {
@@ -4958,6 +4971,7 @@ var saveUpdateReservationRequest = function () {
             //    type: 'blue'
             //});
             clearReservationRequest();
+            getReservationRequestList();
             setTimeout(function () {
                 $("#requestAminityReservation").modal("hide");
 

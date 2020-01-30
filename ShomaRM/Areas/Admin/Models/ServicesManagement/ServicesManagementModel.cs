@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -53,6 +54,12 @@ namespace ShomaRM.Areas.Admin.Models
         public string CausingIssue { get; set; }
         public long IssueID { get; set; }
         public string Issue { get; set; }
+        public string CompletedPicture { get; set; }
+        public Nullable<int> ApprovedBy { get; set; }
+        public string TempCompletedPicture { get; set; }
+        public Nullable<int> ServicePerson { get; set; }
+       
+
 
         public int BuildPaganationUserList(ServicesSearchModel model)
         {
@@ -86,6 +93,12 @@ namespace ShomaRM.Areas.Admin.Models
                     param4.ParameterName = "Statue";
                     param4.Value = model.Status;
                     cmd.Parameters.Add(param4);
+
+
+                    DbParameter param5 = cmd.CreateParameter();
+                    param5.ParameterName = "UserID";
+                    param5.Value = Convert.ToInt32(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID);
+                    cmd.Parameters.Add(param5);
 
                     DbParameter paramPN = cmd.CreateParameter();
                     paramPN.ParameterName = "PageNumber";
@@ -147,6 +160,11 @@ namespace ShomaRM.Areas.Admin.Models
                     param4.ParameterName = "Statue";
                     param4.Value = model.Status;
                     cmd.Parameters.Add(param4);
+
+                    DbParameter param5 = cmd.CreateParameter();
+                    param5.ParameterName = "UserID";
+                    param5.Value = Convert.ToInt32(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID);
+                    cmd.Parameters.Add(param5);
 
                     DbParameter paramPN = cmd.CreateParameter();
                     paramPN.ParameterName = "PageNumber";
@@ -258,6 +276,10 @@ namespace ShomaRM.Areas.Admin.Models
             if (UpdateStatusService != null)
             {
                 UpdateStatusService.Status = model.Status;
+                UpdateStatusService.ApprovedBy = Convert.ToInt32(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID);
+                UpdateStatusService.CompletedPicture = model.CompletedPicture;
+                UpdateStatusService.TempCompletedPicture = model.TempCompletedPicture;
+                UpdateStatusService.ServicePerson=model.ServicePerson;
                 db.SaveChanges();
                 msg = "Service Request Status Update Successfully";
             }
@@ -266,6 +288,41 @@ namespace ShomaRM.Areas.Admin.Models
             return msg;
         }
 
+        public ServicesManagementModel UploadServiceFile(HttpPostedFileBase fileBaseUpload, ServicesManagementModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            ServicesManagementModel CompletedFile = new ServicesManagementModel();
+
+            string filePath = "";
+            string fileName = "";
+            string sysFileName = "";
+            string Extension = "";
+
+            if (fileBaseUpload != null && fileBaseUpload.ContentLength > 0)
+            {
+                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                DirectoryInfo di = new DirectoryInfo(filePath);
+                FileInfo _FileInfo = new FileInfo(filePath);
+                if (!di.Exists)
+                {
+                    di.Create();
+                }
+                fileName = fileBaseUpload.FileName;
+                Extension = Path.GetExtension(fileBaseUpload.FileName);
+                sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseUpload.FileName);
+                fileBaseUpload.SaveAs(filePath + "//" + sysFileName);
+                if (!string.IsNullOrWhiteSpace(fileBaseUpload.FileName))
+                {
+                    string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/") + "/" + sysFileName;
+
+                }
+                CompletedFile.TempCompletedPicture = sysFileName.ToString();
+                CompletedFile.CompletedPicture = fileName;
+            }
+
+            return CompletedFile;
+        }
+       
         public class ServicesSearchModel
         {
             public long ServiceID { get; set; }

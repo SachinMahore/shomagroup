@@ -1,0 +1,79 @@
+﻿@using ShomaRM.Areas.Admin.Models
+@model PromotionModel
+@{
+    ViewBag.Title = "Promotion";
+}
+
+<script src="~/Areas/Admin/Content/Pages/Promotion/Promotion.js"></script>
+<input type="hidden" id="hndPromotionID" value="@Model.PromotionID" />
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <div>
+                    <div class="wizard-header">
+                        <h3>
+                            <b>Promotion </b>Deatils<br>
+                        </h3>
+                    </div>
+                    <ul>
+                        <li><a href="#step1" data-toggle="tab"></a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <!--  End step 1 -->
+                        <div class="tab-pane" id="step1">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" style="text-transform:uppercase!important" onclick="goPromotionList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">Promotion List</span></button>
+                                    <div class="pull-right" style="padding-right:2px;">
+                                        <button type="button" class="btn btn-success" id="btnSavePromotion" style="text-transform:uppercase!important" onclick="saveupdatePromotion()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">Save</span></button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Property  :</label>
+                                            <select id="ddlProperty" class="  form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <label class="star">Promotion Title:</label>
+                                            <input id="txtPromotionTitle" type="text" class="form-control" placeholder="Promotion Title" value="@Model.PromotionTitle">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Start Date:</label>
+                                            <input id="txtStartDate" type="text" class="form-control" placeholder="Start Date" value="@(Model.StartDate!=null? Model.StartDate.Value.ToString("MM/dd/yyyy"):"")">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">End Date:</label>
+                                            <input id="txtEndDate" type="text" class="form-control" placeholder="End Date" value="@(Model.EndDate!=null?Model.EndDate.Value.ToString("MM/dd/yyyy"):"")">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End submit form -->
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#txtStartDate").datepicker();
+        $("#txtEndDate").datepicker();
+
+    });
+
+    $(document).ready(function () {
+        setTimeout(function () { $("#ddlProperty").find("option[value='" + @(Model.PropertyID.HasValue?Model.PropertyID.Value:0) + "']").attr('selected', 'selected'); }, 1500);
+    });
+</script>

@@ -9,6 +9,7 @@ using System.Net;
 using System.Data;
 using System.Data.Common;
 using System.IO;
+using ShomaRM.Areas.Tenant.Models;
 
 namespace ShomaRM.Areas.Admin.Models
 {
@@ -387,99 +388,7 @@ namespace ShomaRM.Areas.Admin.Models
             db.Dispose();
             return model.ID;
         }
-        public long ConvertToTenant(TenantModel model)
-        {
-            ShomaRMEntities db = new ShomaRMEntities();
-            tbl_Tenant objTable = new tbl_Tenant();
-            objTable.ID = model.ID;
-            objTable.LastName = model.LastName;
-            objTable.FirstName = model.FirstName;
-            objTable.PropertyID = model.PropertyID;
-            objTable.UnitID = model.UnitID;
-            objTable.Address = model.Address;
-            objTable.City = model.City;
-            objTable.State = model.State;
-            objTable.OfficeEmail = model.OfficeEmail;
-            objTable.CreatedBy = 1;
-            objTable.CreatedDate = DateTime.Now;
-            objTable.LastModifiedBy = 1;
-            objTable.LastModifiedeDate = DateTime.Now;
-
-            db.tbl_Tenant.Add(objTable);
-            db.SaveChanges();
-            model.ID = objTable.ID;
-
-            var addLease = new tbl_Lease()
-            {
-                TenantID = objTable.ID,
-                PID = Convert.ToInt32(model.PropertyID),
-                UID = Convert.ToInt32(model.UnitID),
-                Revision_Num = 1,
-                Status = 1,
-                CreatedBy = 1,
-                CreatedDate = DateTime.Now,
-
-            };
-            db.tbl_Lease.Add(addLease);
-            db.SaveChanges();
-
-            var addUser = new tbl_Login()
-            {
-                TenantID = objTable.ID,
-                Username = model.OfficeEmail,
-                Password = model.FirstName,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Email = model.OfficeEmail,
-                IsActive = 1,
-
-            };
-            db.tbl_Login.Add(addUser);
-            db.SaveChanges();
-
-            var prospectDet = db.tbl_Prospect.Where(p => p.PID == model.ProspectID).FirstOrDefault();
-            if (prospectDet != null)
-            {
-                prospectDet.Status = 1;
-                prospectDet.LastModifiedeDate = DateTime.Now;
-            }
-            db.SaveChanges();
-
-            var transList = db.tbl_Transaction.Where(p => p.ProspectID == model.ProspectID).ToList();
-            if (transList != null)
-            {
-                foreach (var tl in transList)
-                {
-                    tl.TenantID = model.ID;
-                    db.SaveChanges();
-                }
-            }
-           
-
-            var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == model.UnitID).FirstOrDefault();
-            string reportHTML = "";
-            string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
-            reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplate.html");
-            if (model != null)
-            {
-                reportHTML = reportHTML.Replace("[%EmailHeader%]", "Tenant Registration");
-                reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + model.FirstName + " " + model.LastName + "</b>,<br/>Your Tenant Account created successfully. Please login to see status. <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + model.OfficeEmail + " </br>Password :" + model.FirstName);
-
-                reportHTML = reportHTML.Replace("[%TenantName%]", model.FirstName + " " + model.LastName);
-                reportHTML = reportHTML.Replace("[%TenantAddress%]", model.Address);
-                reportHTML = reportHTML.Replace("[%LeaseDate%]", DateTime.Now.ToString());
-                reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
-                reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
-                reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString());
-                reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString());
-                reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
-            }
-            string body = reportHTML;
-            new EmailSendModel().SendEmail(model.OfficeEmail, "Tenant Registration Successfull", body);
-
-            db.Dispose();
-            return model.ID;
-        }
+   
         public long OnlinePToTenant(TenantModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -1195,7 +1104,8 @@ namespace ShomaRM.Areas.Admin.Models
                     Year= getPayMeth.CardYear != null ? getPayMeth.CardYear.ToString() : "0",
                     TenantId= getAppldata.TenantID,
                     NickName=getPayMeth.Name_On_Card,
-                    PayMethod=1,
+                    AccountName = getPayMeth.Name_On_Card,
+                    PayMethod =1,
                     Default=1,
                     BankName= getPayMeth.Name_On_Card
                 };
@@ -1226,27 +1136,54 @@ namespace ShomaRM.Areas.Admin.Models
                     foreach (var tl in transList)
                     {
                         tl.TenantID = model.TenantID;
-                    }
+                    }   
                 }
                 db.SaveChanges();
 
+                DateTime EMiDate=  new DateTime(DateTime.Now.Year, (DateTime.Now.Month + 1), 1);
 
-               
-                CreateTrans(loginDet.UserID, getAppldata.TenantID, prospectDet.ID,Convert.ToDecimal(prospectDet.Rent), "Monthly Rent");
-                CreateTrans(loginDet.UserID, getAppldata.TenantID, prospectDet.ID, Convert.ToDecimal(prospectDet.TrashAmt), "Trash/Recycle charges");
-                CreateTrans(loginDet.UserID, getAppldata.TenantID, prospectDet.ID, Convert.ToDecimal(prospectDet.ConvergentAmt), "Convergent Billing charges");
-                CreateTrans(loginDet.UserID, getAppldata.TenantID, prospectDet.ID, Convert.ToDecimal(prospectDet.PestAmt), "Pest Control charges");
+                var saveInvoiceTransaction = new tbl_Transaction()
+                {
+                    TenantID = model.TenantID,
+                    Revision_Num = 1,
+                    Transaction_Date = EMiDate,
+                    Run = 1,
+                    LeaseID = 0,
+                    Reference = "TID" + model.TenantID,
+                    CreatedDate = DateTime.Now,
+                    Credit_Amount = 0,
+                    Description = "Monthly Charges-" +EMiDate,
+                    Charge_Type = 3,
+                    Payment_ID = null,
+                    Charge_Amount = prospectDet.MonthlyCharges ,
+                    Accounting_Date =EMiDate,
+                    ProspectID = ProspectID,
+
+                };
+                db.tbl_Transaction.Add(saveInvoiceTransaction);
+                db.SaveChanges();
+                var TransId = saveInvoiceTransaction.TransID;
+
+                MyTransactionModel mm = new MyTransactionModel();
+                mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.Rent), "Monthly Rent");
+                mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.TrashAmt), "Trash/Recycle charges");
+                mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.ConvergentAmt), "Convergent Billing charges");
+                mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.PestAmt), "Pest Control charges");
+
                 if (prospectDet.ParkingAmt!=0)
                 {
-                    CreateTrans(loginDet.UserID, getAppldata.TenantID, prospectDet.ID, Convert.ToDecimal(prospectDet.ParkingAmt), "Additional Parking charges");
+                    mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.ParkingAmt), "Additional Parking charges");
+                   
                 }
                 if (prospectDet.PetPlaceAmt != 0)
                 {
-                    CreateTrans(loginDet.UserID, getAppldata.TenantID, prospectDet.ID, Convert.ToDecimal(prospectDet.PetPlaceAmt), "Pet charges");
+                    mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.PetPlaceAmt), "Pet charges");
+                    
                 }
                 if (prospectDet.StorageAmt != 0)
                 {
-                    CreateTrans(loginDet.UserID, getAppldata.TenantID, prospectDet.ID, Convert.ToDecimal(prospectDet.StorageAmt), "Storage Charges");
+                    mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.StorageAmt), "Storage Charges");
+                   
                 }
                 
              
@@ -1279,31 +1216,7 @@ namespace ShomaRM.Areas.Admin.Models
 
         }
 
-        public string CreateTrans(long UserID, long TenantID, long ProspectID,decimal Amount,string Description)
-        {
-            ShomaRMEntities db = new ShomaRMEntities();
-            var saveMonthlyTransaction = new tbl_Transaction()
-            {
-                TenantID = TenantID,
-                Revision_Num = 1,
-                Transaction_Date = DateTime.Now,
-                Run = 1,
-                LeaseID = 0,
-                Reference = "TID" + TenantID,
-                CreatedDate = DateTime.Now,
-                Credit_Amount = 0,
-                Description = Description,
-                Charge_Type = 3,
-                Payment_ID = null,
-                Charge_Amount = Amount,
-                Accounting_Date = DateTime.Now,
-                ProspectID = ProspectID,
-                
-            };
-            db.tbl_Transaction.Add(saveMonthlyTransaction);
-            db.SaveChanges();
-            return "";
-        }
+       
 
         public string SaveUpdatePostDisclaimer(TenantOnlineModel model)
         {

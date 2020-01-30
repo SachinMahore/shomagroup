@@ -1,0 +1,559 @@
+﻿@using ShomaRM.Areas.Admin.Models
+@model PropertyManagementModel
+@{
+    ViewBag.Title = "Submit new property ";
+}
+<script src="~/Areas/Admin/Content/Pages/PropertyManagement/Property.js?v=@AdminCommonModel.ScriptVersion()"></script>
+<input type="hidden" id="hndPID" value="@Model.PID" />
+<input type="hidden" id="hdnCurrentPage_PU" value="1" />
+
+<!-- property area -->
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container" style="width:100%!important">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <div>
+                    <div class="wizard-header">
+                        <h3>
+                            <b>Add </b>PROPERTY <br>
+                        </h3>
+                    </div>
+                    <ul class="nav nav-tabs wizard nav-pills">
+                        <li class="active" id="li1"><a href="javascript:void(0);"  onclick="goToStep(1)">Property Details </a></li>
+                        <li id="li2"><a href="javascript:void(0);"   onclick="goToStep(2)">Floor Details</a></li>
+                        <li id="li3"><a href="javascript:void(0);"  onclick="goToStep(3)">Models </a></li>
+                        @*<li id="li4"><a href="javascript:void(0);"  onclick="goToStep(4,0)">ADD Model </a></li>*@
+                        <li id="li5"><a href="javascript:void(0);" onclick="goToStep(5)">Units </a></li>
+                        @*<li id="li6"><a href="javascript:void(0);" onclick="goToStep(6,0)">ADD Unit </a></li>*@
+                    </ul>
+                    <div class="tab-content">
+                        <div class="" id="step1">
+                            <div class="row p-b-15  ">
+                                <div class="col-sm-12">
+                                    <h4 class="info-text pull-left"> Let's start with the basic information</h4>
+                                    <button type="button" class="btn btn-success  pull-right" id="btnSaveUpdate" onclick="gotoPropList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-align-center"></i> <span id="spanSaveUpdate">Property List</span></button>
+                                    <div class="pull-right" style="padding-right:2px;">
+                                        <button type='button' class='btn btn-success ' value='Save' onclick="SaveUpdateProperty()"><i class="fa fa-save"></i> SAVE</button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="picture-container">
+                                        <div class="picture" style="height:auto!important">
+                                            <img src="/content/assets/img/demo/@Model.Picture" class="picture-src" id="wizardPicturePreview" title="@Model.Title" />
+                                            <input type="file" id="wizard-picture" value="@Model.Picture">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label class="star">Property Name</label>
+                                                <input name="propertyname" id="txtPropTitle" type="text" class="form-control" placeholder="Super villa ..." value="@Model.Title">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Property Units</label>
+                                                <input id="txtUnits" type="text" class="form-control" placeholder="3330000" value="@Model.NoOfUnits">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="star">No. of Floors :</label>
+                                                <input id="txtNoOfFloor" type="text" class="form-control" placeholder="8" onkeypress="return isOnlyNumber(event)" value="@Model.NoOfFloors">
+                                               
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="star">Built In:</label>
+                                                <select id="ddlBuiltIn" class="form-control">
+                                                    <option value="0">Year</option>
+                                                    @for (int i = 2000; i <= DateTime.Now.Year; i++)
+                                                    {
+                                                        <option value="@i">@i</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="star">Status :</label>
+                                                <select id="ddlStatus" class="form-control">
+                                                    <option value="1">Yes</option>
+                                                    <option value="0">No</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-3">
+                                           
+                                            <div class="form-group">
+                                                <label class="star">Application Fees</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                    </span>
+                                                    <input id="txtApplicationFees" class="form-control form-control-small" value="@Model.ApplicationFees" type="text" onkeypress="return isNumber(event)" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="star">Admin Fees</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                    </span>
+                                                    <input id="txtAdminFees" class="form-control form-control-small" value="@Model.AdminFees" type="text" onkeypress="return isNumber(event)" />
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="star">Guarantor Fees</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                    </span>
+                                                    <input id="txtGuarantorFees" class="form-control form-control-small" value="@Model.GuarantorFees" type="text" onkeypress="return isNumber(event)" />
+                                                </div>
+                                            </div>
+                                       
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="star">Pest Control Fees</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                    </span>
+                                                    <input id="txtPestControlFees" class="form-control form-control-small" value="@Model.PestControlFees" type="text" onkeypress="return isNumber(event)" />
+                                                </div>
+                                            </div>
+                                         
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="star">Trash Fees</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                    </span>
+                                                    <input id="txtTrashFees" class="form-control form-control-small" value="@Model.TrashFees" type="text" onkeypress="return isNumber(event)" />
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="star">Convergent Bill Fees</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                    </span>
+                                                    <input id="txtConversionBill" class="form-control form-control-small" value="@Model.ConversionBillFees" type="text" onkeypress="return isNumber(event)" />
+                                                </div>
+                                            </div>
+                                          
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="star">Property Address :</label>
+                                                <textarea name="address" id="txtAddress" class="form-control">@Model.Location</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3 hidden">
+                                            <div class="form-group">
+                                                <label>Parking</label>
+                                                <input id="txtParking" type="text" class="form-control" value="@Model.Parking">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3 hidden">
+                                            <div class="form-group">
+                                                <label>Waterfront</label>
+                                                <input id="txtWaterfront" type="text" class="form-control" value="@Model.Waterfront">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-sm-12 hidden">
+                                    <h4 class="info-text pull-left"> How much your Property is Beautiful ? </h4>
+                                </div>
+
+                                <div class="row hidden">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label class="star">Property Description :</label>
+                                                <textarea name="discrition" id="txtDesc" class="form-control">@Model.Description</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="star">Property State :</label>
+                                                <select id="ddlState" class="  form-control"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="star">Property City :</label>
+                                                <select id="ddlCity" class="  form-control"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="property-video">Property video :</label>
+                                                <input class="form-control" id="txtYouTube" value="@Model.YouTube" placeholder="http://www.youtube.com, http://vimeo.com" name="property_video" type="text">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                      
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Google Location :</label>
+                                                <textarea name="address" id="txtLocationGoogle" class="form-control">@Model.LocationGoogle</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <br>
+                                </div>
+                                <div class="col-sm-12 hidden">
+                                    <h4 class="info-text pull-left">Select Amenities </h4>
+                                </div>
+                                <div class="row hidden">
+                                    <div class="col-sm-12 padding-top-15" id="tblAminities">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div class=" hidden" id="step2">
+                            <div class="row p-b-15  ">
+                                <div class="col-sm-12">
+                                    <h4 class="info-text pull-left"> Floor Coordinates</h4>
+                                   
+                                </div>
+                                <div class="col-md-12 clear">
+                                    <div class="col-sm-8">
+                                        <div>
+                                            <img src="/content/assets/img/demo/@Model.Picture" usemap="#apartment_2" id="cordi_img" onclick="getCord(event,this)">
+                                            <map name="apartment_2" id="floorImgdiv">
+                                                @foreach (var lstcord in Model.lstPropertyFloor)
+                                                {
+                                                    <area id="fa_@lstcord.FloorNo" shape="poly" class="tooltip" title="Floor-@lstcord.FloorNo" href="javascript:void(0);" coords="@lstcord.Coordinates">
+                                                    <span class="tooltip-text" style="display: none">@lstcord.FloorNo</span>
+                                                }
+                                            </map>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Floors No. :</label>
+                                            <select id="ddlFloorList" class="form-control"></select>
+                                        </div>
+                                        <div id="divCord">
+                                            <textarea class="form-control" id="txtcord"></textarea>
+                                        </div>
+                                        @*<div>
+                                            <label>Upload Floor Plan :</label>
+                                            <div class="picture-container">
+                                                <input type="file" width="100" id="UnitPlan-picture">
+                                            </div>
+                                        </div>*@
+                                        <div class="form-group">
+                                            <label class="star">Upload Floor Plan :</label><br />
+                                            <input type="file" name="UnitPlan-picture" id="UnitPlan-picture" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                            <label for="UnitPlan-picture"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadFloorDetailsShow1">Choose a file&hellip;</span></label>
+                                           
+                                        </div>
+                                        <div class="pull-left">
+                                            <button class='btn btn-danger' onclick="resetcords()">Reset</button>
+                                        </div>
+                                        <div class="pull-right">
+                                           
+                                            <button type='button' class='btn btn-success ' style="width:120px;" onclick="saveUpdateFloor()"><i class="glyphicon glyphicon-plus-sign"></i> Add Floor</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="hidden" id="step3">
+                            <div class="row p-b-15">
+                                <div class="col-sm-12">
+                                    <h4 class="info-text pull-left">Models</h4>
+                                    <button type="button" class="btn btn-success pull-right" onclick="goToStep(4,0)"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">NEW</span></button>
+                                
+                                </div>
+                                <div class="col-md-12 clear">
+                                    <table id="tblModels" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%; text-align:center !important;">
+                                        <thead>
+                                            <tr>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;text-align:center !important;">Floor Plan</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;text-align:center !important;">Name</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;text-align:center !important;">Interior SF</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;text-align:center !important;">Balcony SF</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;text-align:center !important;">Area SF</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;text-align:center !important;">Rent Range</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;text-align:center !important;">Bedroom</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;text-align:center !important;">Bathroom</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939; padding:10px;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                           
+                        </div>
+                        <div class="hidden" id="step4">                           
+                           
+                        </div>
+                        <div class="hidden" id="step5">
+                            <div class="row p-b-15  ">
+                                <div class="col-sm-12">
+                                    <h4 class="info-text pull-left">Units Available</h4>
+
+                                    <button type="button" class="btn btn-primary pull-right" id="printUnitList" style="margin-bottom:10px !important;margin-left:10px !important;" onclick="printUnitList('UnitListPrint')">Print</button>
+
+                                    <button type="button" class="btn btn-success pull-right" onclick="goToStep(6,0)"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> <span>NEW</span></button>
+
+                                </div>
+                                <div class="col-sm-12 form-group">
+                                    <div id="divPgn" class="col-sm-8 pagination">
+                                        <ul id="ulPagination_PUList"></ul>
+                                    </div>
+                                    <div class="col-sm-3 padding-0 pull-right">
+                                        <div class="col-sm-6">
+                                            <label class="control-label">Row/Page</label>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <select id="ddlRPP_PUList" class="form-control form-control-small">
+                                                <option value="10" @(Session["UNOR"].ToString()=="10"?"selected":"")>10</option>
+                                                <option value="25" @(Session["UNOR"].ToString()=="25"?"selected":"")>25</option>
+                                                <option value="50" @(Session["UNOR"].ToString()=="50"?"selected":"")>50</option>
+                                                <option value="75" @(Session["UNOR"].ToString()=="75"?"selected":"")>75</option>
+                                                <option value="100" @(Session["UNOR"].ToString()=="100"?"selected":"")>75</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 clear" id="UnitListPrint">
+
+                                    <table id="tblPUList" class="table-bordered" width="100%" style="text-align:center">
+                                        <thead>
+                                            <tr>
+                                                <th style="background-color: #c7cdd5;color:#3d3939; width:5%;" class='text-center' onclick="sortTable('UnitNo')">Unit No <i class="fa fa-sort-numeric-desc"></i></th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939; width:4%;" onclick="sortTable('Building')" class='text-center'>Model <i class="fa fa-sort-alpha-desc"></i></th>
+
+                                                <th style="background-color: #c7cdd5;color:#3d3939; width:6%;" class='text-center' onclick="sortTable('Rent')">Rent <i class="fa fa-sort-amount-desc"></i></th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939; width:2%;" class='text-center'>Bath</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;  width:2%;" class='text-center'>Bed</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;  width:6%;" class='text-center' onclick="sortTable('InteriorArea')">Interior SF <i class="fa fa-sort-numeric-desc"></i></th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;  width:6%;" class='text-center' onclick="sortTable('BalconyArea')">Balcony SF <i class="fa fa-sort-numeric-desc"></i></th>
+                                            
+                                                <th style="background-color: #c7cdd5;color:#3d3939;  width:5%;" class='text-center' onclick="sortTable('Area')">Total SF <i class="fa fa-sort-numeric-desc"></i></th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;  width:8%;" class='text-center' onclick="sortTable('AvailableDate')">Available Date <i class="fa fa-sort"></i></th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;  width:8%;" class='text-center'>Move In Date</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;  width:8%;" class='text-center'>Move Out Date</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;  width:20%;" class='text-center'>Premium Type</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;  width:20%;" class='text-center'>Notes</th>
+                                             
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                         
+                        </div>
+                        <div class="hidden" id="step6">
+
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+            <!-- End submit form -->
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="ModelNotes" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content-compare">
+
+            <div class="modal-body-compare">
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -15px;">&times;</button>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Enter Notes..</label>
+                        <textarea id="txtNotes" type="text" class="form-control"  placeholder="Enter Notes"></textarea>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-default">Print</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        //getPropertyUnitList(@Model.PID);
+
+        $("#ddlBuiltIn").val(@Model.BuiltIn);
+        $("#ddlBuiltIn").trigger('change');
+        $("#ddlStatus").val(@Model.Status);
+        $("#ddlStatus").trigger('change');
+       setTimeout(function ()
+       {
+        $("#ddlState").val(@Model.State);
+        $("#ddlState").trigger('change');
+
+        }, 1200);
+         setTimeout(function ()
+       {
+
+        $("#ddlCity").val(@Model.City);
+        $("#ddlCity").trigger('change');
+        setAddAmenity("@Model.Amenities");
+        }, 1600);
+
+      
+
+    });
+    var setAddAmenity = function (aid) {
+        var array = [];
+        var amtArray = [];
+        if (aid.toString().indexOf(',') > -1) {
+            array = aid.split(',')
+        } else {
+            array.push(aid);
+        }
+        $.each(array, function (i) {
+            $("#chkAmenity" + array[i]).prop("checked", true);
+           // $.uniform.update("#chkAmenity" + array[i]);
+            amtArray.push(parseFloat(array[i]));
+
+        });
+    }
+</script>
+<script src="~/Content/assets/js/jquery.maphilight.js"></script>
+
+<script type="text/javascript">
+    function printUnitList(divName) {
+        let printContents, popupWin;
+        printContents = document.getElementById(divName).innerHTML;
+        popupWin = window.open('', '', 'width=950,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes');
+        popupWin.document.open();
+        popupWin.document.write(printContents);
+        popupWin.window.print();
+        popupWin.document.close();
+    }
+    $(document).ready(function () {
+        $('.map').maphilight();
+        $("#cordi_img").maphilight();
+        $("#apartimg_2").maphilight();
+
+        $('#cordi_img').click(function (e) {
+
+            var offset = $(this).offset();
+            var X = (e.pageX - offset.left);
+            var Y = (e.pageY - offset.top);
+        
+            $('#txtcord').append(X + ',' + Y + ',');
+        });
+    });
+
+    $("area").mouseover(function () {
+        $(this).addClass('active_mouse').data('maphilight', { alwaysOn: true, fillColor: 'FF6347', strokeColor: 'FF6347', }).trigger('alwaysOn.maphilight');
+        if ($("#hndSelectedFloor").val()) {
+            var cont = $("#hndSelectedFloor").val();
+            $("#" + cont).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: '0af11c', strokeColor: '0af11c', }).trigger('alwaysOn.maphilight');
+        }
+    });
+    var resetcords = function () {
+        if ($("#ddlFloorList").val()==0) {
+            $.alert({
+                title: 'Alert!',
+                content: "Select Floor No.",
+                type: 'red'
+            });
+            return;
+        }
+
+        $("#txtcord").remove();
+        var cordd = "  <textarea class='form-control'id='txtcord'></textarea>";
+        $("#divCord").append(cordd);
+
+       // $('#txtcord').html('');
+        $("#fa_" + $("#ddlFloorList").val()).attr("coords", "");
+
+    }
+
+    var getCord = function (e, cont) {
+        
+        var offset = $(cont).offset();
+        var X = (e.pageX - offset.left);
+        var Y = (e.pageY - offset.top);
+        $('#txtcord').append(X + ',' + Y + ',');
+
+    }
+</script>
+<style>
+     input {
+        width: 2%;
+    }
+ 
+    .btn-default {
+        width: 100%;
+    }
+    #UnitPlan-picture  {
+        width: 100%;
+    }
+    .nav-pills > li > a {
+        border-color: black;
+        background-color: #B4ADA5;
+    }
+    .select-unit {
+        background-color: #4d738a !important;
+        color: #fff !important;
+    }
+
+        .select-unit a {
+            color: #fff !important;
+        }
+
+    .modal-content-compare {
+        background-color: #fefefe;
+        margin: auto;
+        margin-top:250px;
+        padding: 0px;
+        border: 1px solid #888;
+        width: 50%;
+        text-align: justify;
+    }
+
+</style>

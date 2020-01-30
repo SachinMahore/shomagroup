@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "WorkOrder List";
+}
+
+<script src="~/Areas/Tenant/Content/Pages/WorkOrder/WorkOrder.js"></script>
+
+<!-- property area -->
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumb">
+                <h4 class="">WorkOrder List</h4>
+            </div>
+
+            <div class="col-md-12  pr0  properties-page">
+                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                    <div class="panel-heading">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <h3 class="panel-title">From Date</h3>
+                                <input id="txtFromDate" type="text" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <h3 class="panel-title">To Date</h3>
+                                <input id="txtToDate" type="text" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group  padding-top-25">
+
+                                <input type='button' class='btn btn-next btn-primary' name='Search' value='Search' onclick="getWorkOrderList()" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group  padding-top-25">
+
+                                <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="addNewWorkOrder()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">NEW</span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body search-widget">
+                        <div class="col-md-12 clear">
+
+                            <table id="tblWorkOrder" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="background-color: #c7cdd566;color:#3d3939">Property</th>
+                                        <th style="background-color: #c7cdd566;color:#3d3939">Property Unit</th>
+                                        @*<th style="background-color: #c7cdd566;color:#3d3939">Status</th>*@
+                                        <th style="background-color: #c7cdd566;color:#3d3939">Problem</th>
+                                        <th style="background-color: #c7cdd566;color:#3d3939">Date Opened</th>
+                                        <th style="background-color: #c7cdd566;color:#3d3939">Date Closed</th>
+                                        <th style="background-color: #c7cdd566;color:#3d3939">Reported By</th>
+                                        <th style="background-color: #c7cdd566;color:#3d3939">Assign To</th>
+                                        <th style="background-color: #c7cdd566;color:#3d3939">Vendor</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <div class="pagination">
+                                    <ul>
+                                        <li><a href="#">Prev</a></li>
+                                        <li><a href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                        <li><a href="#">Next</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#txtFromDate").datepicker();
+        $("#txtToDate").datepicker();
+
+    });
+</script>

@@ -77,6 +77,7 @@ namespace ShomaRM.Areas.Tenant
                     OriginalServiceFile = model.OriginalServiceFile,
                     TempServiceFile = model.TempServiceFile,
                     EmergencyMobile = model.EmergencyMobile,
+                    ServicePerson=1,
                 };
                 db.tbl_ServiceRequest.Add(saveServiceRequest);
                 db.SaveChanges();

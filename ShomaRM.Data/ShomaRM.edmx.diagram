@@ -140,7 +140,12 @@
         <EntityTypeShape EntityType="ShomaRMModel.tbl_Issue" Width="1.5" PointX="13.375" PointY="10.75" />
         <EntityTypeShape EntityType="ShomaRMModel.tbl_ServiceIssue" Width="1.5" PointX="13.375" PointY="13.75" />
         <EntityTypeShape EntityType="ShomaRMModel.tbl_ServiceLocation" Width="1.5" PointX="15.375" PointY="0.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_ApplyNow" Width="1.5" PointX="7.5" PointY="90.5" />
+        <EntityTypeShape EntityType="ShomaRMModel.tbl_TenantEventJoin" Width="1.5" PointX="15.375" PointY="3.75" />
+        <AssociationConnector Association="ShomaRMModel.FK_tbl_TenantEventJoin_tbl_TenantEventJoin" />
+        <EntityTypeShape EntityType="ShomaRMModel.tbl_AmenityReservation" Width="1.5" PointX="15.375" PointY="7.75" />
+        <EntityTypeShape EntityType="ShomaRMModel.tbl_TenantEventJoinApprove" Width="1.5" PointX="7.375" PointY="15.75" />
+        <EntityTypeShape EntityType="ShomaRMModel.tbl_Bill" Width="1.5" PointX="9.375" PointY="15.75" />
+        <EntityTypeShape EntityType="ShomaRMModel.tbl_ApplyNow" Width="1.5" PointX="7.5" PointY="90.375" />
         <AssociationConnector Association="ShomaRMModel.FK_tbl_Applicant_tbl_ApplyNow" />
         <AssociationConnector Association="ShomaRMModel.FK_tbl_TenantInfo_tbl_ApplyNow" />
         <AssociationConnector Association="ShomaRMModel.FK_tbl_TenantOnline_tbl_ApplyNow" />
@@ -149,10 +154,6 @@
         <AssociationConnector Association="ShomaRMModel.FK_tbl_TenantPetPlace_tbl_ApplyNow" />
         <AssociationConnector Association="ShomaRMModel.FK_tbl_TenantStorage_tbl_ApplyNow" />
         <AssociationConnector Association="ShomaRMModel.FK_tbl_Vehicle_tbl_ApplyNow" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_TenantEventJoin" Width="1.5" PointX="15.375" PointY="3.75" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_TenantEventJoin_tbl_TenantEventJoin" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_AmenityReservation" Width="1.5" PointX="15.375" PointY="7.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_TenantEventJoinApprove" Width="1.5" PointX="7.375" PointY="15.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

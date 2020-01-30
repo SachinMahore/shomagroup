@@ -91,6 +91,9 @@
     <Compile Include="tbl_BankAccount.cs">
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbl_Bill.cs">
+      <DependentUpon>ShomaRM.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_CashReceipts.cs">
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>

@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Property List";
+}
+<script src="~/Areas/Admin/Content/Pages/PropertyManagement/PropertyList.js"></script>
+<!-- property area -->
+<input type="hidden" id="hdnSearchType" value="1" />
+<input type="hidden" id="hdnCurrentPage" value="1" />
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container"  style="width:100%!important">
+        <div class="row">
+            <div class="breadcrumb">
+                <h4 class="">Property List</h4>
+            </div>
+            <div class="col-md-12 pr0  properties-page">
+                <div class="col-md-12 clear">
+                    <div class="col-xs-10 ">
+                        <div class="panel-body">
+                            <div class="form-inline">
+                                <fieldset>
+                                    <div class="row">
+                                        <div class=" col-xs-2">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Search</h3>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <input id="txtSearch" type="text" class="form-control" placeholder="Property Name">
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <select id="ddlStatePropertySearch" class="form-control"></select>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <select id="ddlCityPropertySearch" class="form-control"></select>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <button class="btn btn-primary" value="Search" type="submit" onclick="buildPaganationPropertyList(1)"><i class="fa fa-search"></i> SEARCH</button>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <button class="btn btn-primary pull-right" id="btnSaveUpdate" onclick="addNewProperty()"><i class="glyphicon glyphicon-plus"></i><span id="spanSaveUpdate"> NEW</span></button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-heading" id="divPagination_PropertyList">
+                        <div class="col-sm-8 padding-0 pagination">
+                            <ul id="ulPagination_PropertyList"></ul>
+                        </div>
+                        <div class="col-sm-3 padding-0 pull-right">
+                            <div class="col-sm-6">
+                                <label class="control-label">Row/Page</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <select id="ddlRPP_PropertyList" class="form-control form-control-small"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body search-widget">
+                        <div class="col-md-12 clear">
+                            <table id="tblProperty" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                <thead>
+                                    <tr>
+                                       
+                                        <th class="pds-2" style="background-color: #c7cdd5;color:#3d3939">Property Name</th>
+                                        <th class="pds-3" style="background-color: #c7cdd5;color:#3d3939">Numbers of Unit</th>
+                                        <th class="pds-4" style="background-color: #c7cdd5;color:#3d3939">Number of Floors</th>
+                                        <th class="pds-5" style="background-color: #c7cdd5;color:#3d3939">Address</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

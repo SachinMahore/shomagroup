@@ -94,5 +94,16 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult GetTenantBillList(long TransID)
+        {
+            try
+            {
+                return Json(new { model = new MyTransactionModel().GetTenantBillList(TransID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
