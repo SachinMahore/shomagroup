@@ -2511,6 +2511,7 @@
                     </div>
                 </div>
 
+
             </div>
         </div>
 
@@ -3831,6 +3832,13 @@
         text-align: left !important;
         margin-bottom: 10px;
     }
+    .wizard-card .disabled {
+        display: inherit !important;
+    }
+
+    .icheckbox_square-yellow.checked.disabled {
+        background-position: -48px 0 !important;
+    }
 </style>
 <script type="text/javascript">
 
@@ -3917,7 +3925,6 @@
         else {
             $("#dwnldPOI").attr('href', 'javascript:void(0)');
             $("#dwnldPOI").attr('onclick', 'fileNotFound()');
-            $("#dwnldPOI").text('@Model.InsuranceDoc');
         }
 
         var fileExistElectricityDoc = doesFileExist('/Content/assets/img/ChecklistDocument/' + '@Model.ElectricityDoc');

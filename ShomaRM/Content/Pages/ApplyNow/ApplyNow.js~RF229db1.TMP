@@ -645,7 +645,6 @@ var goToStep = function (stepid, id) {
     if (stepid == "6") {
 
         if (id == "6") {
-            SaveQuote();
             $('#lblRFPAdditionalParking').text($('#lblMonthly_AditionalParking').text());
             $('#lblRFPStorageUnit').text($('#lblMonthly_Storage').text());
             $('#lblRFPPetRent').text($('#lblMonthly_PetRent').text());
@@ -1387,9 +1386,7 @@ var SaveQuote = function () {
     var ConvergentAmt = $("#lblConvergentAmt").text();
     var TrashAmt = $("#lblTrashAmt").text();
     var moveInDate = $("#txtDate").val();
-    var moveInCharges = $("#ftotal").text();
-    var monthlyCharges = $("#lblMonthly_TotalRent").text();
-    
+    var totalAmt = $("#lbltotalAmount").text();
     var petDeposit = $("#lblPetDeposit").text();
     var fobAmt = $("#lblFobFee").text();
     var deposit = $("#lbdepo6").text();
@@ -1407,8 +1404,7 @@ var SaveQuote = function () {
         PestAmt: PestAmt,
         ConvergentAmt: ConvergentAmt,
         TrashAmt: TrashAmt,
-        MoveInCharges: moveInCharges,
-        MonthlyCharges: monthlyCharges,
+        TotalAmt: totalAmt,
         MoveInDate: moveInDate,
         PetDeposit: petDeposit,
         FOBAmt: fobAmt,
@@ -1495,9 +1491,9 @@ function savePayment() {
         var cardYear = $("#ddlcardyear").val();
         var ccvNumber = $("#txtCCVNumber").val();
         var prospectID = $("#hdnOPId").val();
-        var amounttoPay = $("#totalFinalFees").text(); ; 
+        var amounttoPay = "275";
         var description = "Online Application Non Refundable fees";
-        var glTrans_Description = $("#payDes").text(); 
+        var glTrans_Description = $("#payDes").text(); 0
         var routingNumber = $("#txtRoutingNumber").val();
         var bankName = $("#txtBankName").val();
 
@@ -3212,7 +3208,7 @@ var getApplicantLists = function () {
                 localStorage.setItem("percentageMo", sumMo);
             });
 
-            $("#totalFinalFees").text( parseFloat(totalFinalFees).toFixed(2));
+            $("#totalFinalFees").text("$" + parseFloat(totalFinalFees).toFixed(2));
             $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
             $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
             $("#tblApplicantGuarantor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(3)'><i class='fa fa-plus-circle'></i> Add Guarantor</a></label></div></div></div></div>");
@@ -4325,12 +4321,12 @@ function showFloorPlan(flid) {
                 var offset = $(this).offset();
                 var X = (e.pageX - offset.left);
                 var Y = (e.pageY - offset.top);
-                X = X - 25;//X = X - 30
+                X = X - 30;
                 if (Y < 0) {
-                    Y = Y + 615;//Y = Y + 525
+                    Y = Y + 425;
                 }
                 else {
-                    Y = Y + 390;//Y = Y + 300
+                    Y = Y + 200;
                 }
                 var thisId = $(this).attr('id');
                 var divID = thisId.split("_");
