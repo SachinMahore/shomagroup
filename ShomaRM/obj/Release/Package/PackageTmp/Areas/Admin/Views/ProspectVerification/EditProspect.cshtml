@@ -2362,7 +2362,7 @@
 
                             <div class="col-sm-12 ">
                                 <div class="col-sm-12" style="margin-bottom:10px !important"><h4 style="color:#4d738a;">Move-In Charges</h4></div>
-                                
+
                                 <div class="col-sm-12">
                                     <table id="tblTransaction" class="table-bordered" width="100%">
                                         <thead>
@@ -2389,68 +2389,61 @@
 
                                     </div>
                                     <div class="col-sm-12">
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-2">
-                                                <div class="checkbox">
-                                                    <label class="containerLabel">
-                                                        Pay your Move-in charges
-                                                        <input type="checkbox" id="chkPay" disabled="disabled" checked="@(Model.MoveInCharges != null ? "checked" : "")" />
-                                                        <span class="checkmark"></span>
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <div class="col-sm-3" style="margin-left: -20px;">
+                                                    <label>
+                                                        <input type="checkbox" id="chkPay" checked="@(Model.MoveInCharges != null ? "checked" : "")" disabled="@(Model.MoveInCharges != null ? "disabled" : "")"><span style="margin-left: 10px;">
+                                                            Pay your Move-in charges
+                                                        </span>
                                                     </label>
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <div class="input-group" style="margin-left: 70px;">
-                                                    <span class="input-group-btn">
-                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
-                                                    </span>
-                                                    <input id="txtPayment" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@(Model.MoveInCharges.Value.ToString("0.00"))" disabled />
+                                                <div class="col-sm-3" style="margin-left: -80px;">
+                                                    <div class="input-group" style="margin-left: 57px;">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                        </span>
+                                                        <input id="txtPayment" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@(Model.MoveInCharges.Value.ToString("0.00"))" disabled />
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-8">&nbsp;</div>
                                         </div>
-                                        <div class="col-sm-12" style="margin-bottom: -15px !important;">
-                                            <div class="col-sm-2" style="padding-right:0px !important;width:18.667% !important;">
-                                                <div class="checkbox">
-                                                    <label class="containerLabel">
-                                                        Schedule a move-in date and time
-                                                        <input type="checkbox" id="chkMovein" disabled="disabled" checked="@(Model.MoveInDateTxt != null ? "checked" : "")" />
-                                                        <span class="checkmark"></span>
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <div class="col-sm-3" style="margin-left: -20px;">
+                                                    <label>
+                                                        <input type="checkbox" id="chkMovein" checked="@(Model.MoveInDateTxt != null ? "checked" : "")" disabled="@(Model.MoveInDateTxt != null ? "disabled" : "")"><span style="margin-left: 10px;">
+                                                            Schedule a move-in date and time
+                                                        </span>
                                                     </label>
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-3" style="padding-left:0px !important">
-                                                <div class="input-group" style="margin-left: 57px;">
-                                                    <input id="txtMoveInDate" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@Model.MoveInDateTxt" disabled />
-                                                    <span class="input-group-btn" style="width:0% !important">
-                                                        <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
-                                                    </span>
+                                                <div class="col-sm-3" style="margin-left: -80px;">
+                                                    <div class="input-group" style="margin-left: 57px;">
+                                                        <input id="txtMoveInDate" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@Model.MoveInDateTxt" disabled />
+                                                        <span class="input-group-btn" style="width:0% !important">
+                                                            <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="input-group" style="margin-left: -70px;">
+                                                        <input id="txtMoveInTime" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@Model.MoveInTime" disabled />
+                                                        <span class="input-group-btn" style="width:0% !important">
+                                                            <button class="btn btn-primary search" type="button"><i class="fa-clock-o  fa"></i></button>
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3" style="padding-left:0px !important">
-                                                <div class="input-group" style="margin-left: -70px;">
-                                                    <input id="txtMoveInTime" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@Model.MoveInTime" disabled />
-                                                    <span class="input-group-btn" style="width:0% !important">
-                                                        <button class="btn btn-primary search" type="button"><i class="fa-clock-o  fa"></i></button>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4">&nbsp;</div>
                                         </div>
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-9">
-                                                <div class="checkbox">
-                                                    <label class="containerLabel">
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <label style="margin-left: -5px;">
+                                                    <input type="checkbox" id="chkIns" checked="@(Model.InsuranceDoc != null ? "checked" : "")" disabled="@(Model.InsuranceDoc != null ? "disabled" : "")"><span style="margin-left: 10px;">
                                                         Make sure you have Renter’s insurance.  If you have not purchased it and would like to use our partner, login or call Serrod Insurance 	Agency at (305) 445-6441
-                                                        <input type="checkbox" id="chkIns" disabled="disabled" checked="@(Model.InsuranceDoc != null ? "checked" : "")" />
-                                                        <span class="checkmark"></span>
-                                                    </label>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <label class="containerLabel" style="margin-top:6px !important;padding-left:0px !important">
-                                                    Download Proof of Insurance
+                                                    </span>
+                                                </label>
+                                                <label class="containerLabel" style="display: unset !important;">
+                                                    <b>Download Proof of Insurance&nbsp;&nbsp;&nbsp;</b>
                                                     <a id="dwnldPOI" href="javascript:void(0)" class="btn btn-primary" target="_parent"><i class="fa fa-download"></i></a>
                                                     <input type="hidden" id="hndHasPOI" value="0" />
                                                     <input type="hidden" id="hndPOI" value="0" />
@@ -2458,56 +2451,47 @@
                                                 </label>
                                             </div>
                                         </div>
-
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-6">
-                                                <label class="containerLabel">
-                                                    Complete the Post Office change of address by logging into <a href="https://movingonlineservice.com" target="_blank">https://movingonlineservice.com</a>
-                                                    <input type="checkbox" id="chkPo" checked="@(Model.IsCheckPO == 1 ? "checked" : "")" disabled="disabled" />
-                                                    <span class="checkmark"></span>
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <label style="margin-left: -5px;">
+                                                    <input type="checkbox" id="chkPo" checked="@(Model.IsCheckPO == 1 ? "checked" : "")" disabled="@(Model.IsCheckPO == 1 ? "disabled" : "")"><span style="margin-left: 10px;">
+                                                        Complete the Post Office change of address by logging into <a href="https://movingonlineservice.com" target="_blank">https://movingonlineservice.com</a>
+                                                    </span>
                                                 </label>
                                             </div>
-                                            <div class="col-sm-6">&nbsp;</div>
                                         </div>
                                         <div class="col-sm-12" style="margin-bottom:10px !important"><h4 style="color:#4d738a;">Utilities</h4></div>
-
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-5">
-                                                <label class="containerLabel">
-                                                    Electricity- log in to <a href="https://fpl.com" target="_blank">https://fpl.com</a> to start service or call 1-800-226-3545 .
-                                                    <input type="checkbox" id="chkEle" checked="checked" disabled="disabled" />
-                                                    <span class="checkmark"></span>
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <label style="margin-left: -5px;">
+                                                    <input type="checkbox" id="chkEle" checked="@(Model.ElectricityDoc != null ? "checked" : "")" disabled="@(Model.ElectricityDoc != null ? "disabled" : "")"><span style="margin-left: 10px;">
+                                                        Electricity- log in to <a href="https://fpl.com" target="_blank">https://fpl.com</a> to start service or call 1-800-226-3545 .
+                                                    </span>
                                                 </label>
-                                            </div>
-                                            <div class="col-sm-3" style="padding-left:0px !important" ">
-                                                <label class="containerLabel" style="margin-top:-5px !important;padding-left:0px !important">
-                                                    Download Proof of Electricity
+                                                <label class="containerLabel" style="display: unset !important;">
+                                                    <b>Download Proof of Electricity&nbsp;&nbsp;&nbsp;</b>
                                                     <a id="dwnldPOE" href="javascript:void(0)" class="btn btn-primary" target="_parent"><i class="fa fa-download"></i></a>
                                                     <input type="hidden" id="hndPOE" value="0" />
                                                     <input type="hidden" id="hndOriginalPOE" value="0" />
                                                 </label>
                                             </div>
-                                            <div class="col-sm-4">&nbsp;</div>
                                         </div>
-
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-5">
-                                                <label class="containerLabel">
-                                                    AT&T- Call to establish your internet service and/or enhance your cable plan.
-                                                    <input type="checkbox" id="chkAt" checked="@(Model.IsCheckATT == 1 ? "checked" : "")" disabled="disabled" />
-                                                    <span class="checkmark"></span>
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <label style="margin-left: -5px;">
+                                                    <input type="checkbox" id="chkAt" checked="@(Model.IsCheckATT == 1 ? "checked" : "")" disabled="@(Model.IsCheckATT == 1 ? "disabled" : "")" /><span style="margin-left: 10px;">
+                                                        AT&T- Call to establish your internet service and/or enhance your cable plan.
+                                                    </span>
                                                 </label>
                                             </div>
-                                            <div class="col-sm-7">&nbsp;</div>
                                         </div>
-
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-12">
-                                                <label class="containerLabel">
-                                                    If needed, contact Miami Dade Water and Sewer Department to stop service at your previous address. Login to <a href="http://www.miamidade.gov/global/water/home.page" target="_blank">www.miamidade.gov/global/water/home.page</a>
-                                                    or call (305) 665-7488.  Your water will be set up automatically upon move-in and will be billed directly the following month.
-                                                    <input type="checkbox" id="chkWater" checked="@(Model.IsCheckWater == 1 ? "checked" : "")" disabled="disabled" />
-                                                    <span class="checkmark"></span>
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <label style="margin-left: -5px;">
+                                                    <input type="checkbox" id="chkWater" checked="@(Model.IsCheckWater == 1 ? "checked" : "")" disabled="@(Model.IsCheckWater == 1 ? "disabled" : "")" /><span style="margin-left: 10px;">
+                                                        If needed, contact Miami Dade Water and Sewer Department to stop service at your previous address. Login to <a href="http://www.miamidade.gov/global/water/home.page" target="_blank">www.miamidade.gov/global/water/home.page</a>
+                                                        or call (305) 665-7488.  Your water will be set up automatically upon move-in and will be billed directly the following month.
+                                                    </span>
                                                 </label>
                                             </div>
                                         </div>
@@ -2526,6 +2510,7 @@
                         </div>
                     </div>
                 </div>
+
 
             </div>
         </div>
@@ -3848,6 +3833,13 @@
         text-align: left !important;
         margin-bottom: 10px;
     }
+    .wizard-card .disabled {
+        display: inherit !important;
+    }
+
+    .icheckbox_square-yellow.checked.disabled {
+        background-position: -48px 0 !important;
+    }
 </style>
 <script type="text/javascript">
 
@@ -3934,6 +3926,7 @@
         else {
             $("#dwnldPOI").attr('href', 'javascript:void(0)');
             $("#dwnldPOI").attr('onclick', 'fileNotFound()');
+             $("#dwnldPOI").text('@Model.InsuranceDoc');
         }
 
         var fileExistElectricityDoc = doesFileExist('/Content/assets/img/ChecklistDocument/' + '@Model.ElectricityDoc');
@@ -3946,6 +3939,7 @@
         else {
             $("#dwnldPOE").attr('href', 'javascript:void(0)');
             $("#dwnldPOE").attr('onclick', 'fileNotFound()');
+            $("#dwnldPOE").text('@Model.ElectricityDoc');
         }
 
     });

@@ -316,7 +316,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/04/2019 16:41:46</publishTime>
     </File>
     <File Include="Areas/Admin/Views/ProspectVerification/EditProspect.cshtml">
-      <publishTime>01/29/2020 19:06:16</publishTime>
+      <publishTime>01/30/2020 19:22:44</publishTime>
     </File>
     <File Include="Areas/Admin/Views/ProspectVerification/Index.cshtml">
       <publishTime>12/04/2019 16:28:08</publishTime>
@@ -397,7 +397,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/13/2019 14:33:57</publishTime>
     </File>
     <File Include="Areas/Tenant/Content/Pages/MyAccount/MyAccount.js">
-      <publishTime>01/29/2020 15:53:27</publishTime>
+      <publishTime>01/30/2020 19:02:21</publishTime>
     </File>
     <File Include="Areas/Tenant/Content/Pages/MyCommunity/MyCommunity.js">
       <publishTime>01/28/2020 12:01:14</publishTime>
@@ -442,7 +442,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/24/2019 18:30:32</publishTime>
     </File>
     <File Include="Areas/Tenant/Views/MyAccount/Index.cshtml">
-      <publishTime>01/29/2020 15:52:40</publishTime>
+      <publishTime>01/30/2020 19:20:35</publishTime>
     </File>
     <File Include="Areas/Tenant/Views/MyCommunity/Index.cshtml">
       <publishTime>01/24/2020 18:31:24</publishTime>
@@ -663,8 +663,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/SendGrid.SmtpApi.dll">
       <publishTime>01/06/2018 13:01:32</publishTime>
     </File>
+    <File Include="bin/SendGrid.SmtpApi.dll.config">
+      <publishTime>01/30/2020 11:53:22</publishTime>
+    </File>
     <File Include="bin/ShomaRM.Data.dll">
-      <publishTime>01/29/2020 18:17:44</publishTime>
+      <publishTime>01/30/2020 19:42:07</publishTime>
     </File>
     <File Include="bin/ShomaRM.Data.dll.config">
       <publishTime>11/20/2019 14:16:38</publishTime>
@@ -673,7 +676,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/24/2019 19:11:40</publishTime>
     </File>
     <File Include="bin/ShomaRM.dll">
-      <publishTime>01/29/2020 19:22:45</publishTime>
+      <publishTime>01/30/2020 19:42:08</publishTime>
     </File>
     <File Include="bin/ShomaRM.pdb">
       <publishTime>07/25/2019 19:21:08</publishTime>
@@ -1573,7 +1576,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/23/2019 17:16:58</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/ApplyNow.js">
-      <publishTime>01/29/2020 17:21:49</publishTime>
+      <publishTime>01/30/2020 19:28:52</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/DocumentVerification.js">
       <publishTime>07/23/2019 17:08:42</publishTime>
@@ -1675,7 +1678,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/14/2019 13:11:08</publishTime>
     </File>
     <File Include="Views/ApplyNow/Index.cshtml">
-      <publishTime>01/28/2020 17:03:05</publishTime>
+      <publishTime>01/30/2020 19:28:52</publishTime>
     </File>
     <File Include="Views/ApplyNow/PrintSummary.cshtml">
       <publishTime>10/21/2019 15:40:54</publishTime>
@@ -1699,7 +1702,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/23/2020 13:22:46</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>01/28/2020 15:24:53</publishTime>
+      <publishTime>01/30/2020 13:42:22</publishTime>
     </File>
     <File Include="Views/Home/Terms.cshtml">
       <publishTime>05/14/2019 16:39:00</publishTime>
@@ -1738,7 +1741,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/13/2019 17:57:34</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/27/2020 19:23:08</publishTime>
+      <publishTime>01/30/2020 19:42:09</publishTime>
     </File>
   </ItemGroup>
 </Project>
