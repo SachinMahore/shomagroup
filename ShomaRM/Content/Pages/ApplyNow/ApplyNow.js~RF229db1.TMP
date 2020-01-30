@@ -4321,12 +4321,12 @@ function showFloorPlan(flid) {
                 var offset = $(this).offset();
                 var X = (e.pageX - offset.left);
                 var Y = (e.pageY - offset.top);
-                X = X - 25;//X = X - 30
+                X = X - 30;
                 if (Y < 0) {
-                    Y = Y + 615;//Y = Y + 525
+                    Y = Y + 425;
                 }
                 else {
-                    Y = Y + 390;//Y = Y + 300
+                    Y = Y + 200;
                 }
                 var thisId = $(this).attr('id');
                 var divID = thisId.split("_");
