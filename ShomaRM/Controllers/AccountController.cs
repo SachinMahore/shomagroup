@@ -69,7 +69,8 @@ namespace ShomaRM.Controllers
                     currentUser.UserType = Convert.ToInt32(user.UserType == null ? 0 : user.UserType);
                     currentUser.LoggedInUser = user.FirstName;
                     currentUser.TenantID = user.TenantID==0?0: Convert.ToInt64(user.TenantID);
-                    
+                    currentUser.UserType = Convert.ToInt32((user.UserType).ToString());
+
                     (new ShomaGroupWebSession()).SetWebSession(currentUser);
                     // Store the Log.
                     var loginHistory = new tbl_LoginHistory

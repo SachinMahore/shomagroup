@@ -1,0 +1,112 @@
+﻿
+@{
+
+}
+
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+
+    <div class="container">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <div>
+                    <div class="wizard-header">
+                        <h3>
+                            <b>Payment Link :  </b>Application Fees <br>
+                        </h3>
+                    </div>
+                    <div class="tab-content">
+                        <div class="" id="step1">
+                            <div class="row p-b-15  ">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-12">
+                                        <div class="dot-hr"></div>
+                                        <br />
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="button" class='btn  btn-primary' id="chkBank" onclick="clearBank()" value="Bank Account">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="button" class='btn btn-primary active' id="chkACH" onclick="clearCard()" value="Credit Card">
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <br />
+                                        <div class="dot-hr"></div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label id="lblPaymentDet">Enter Credit Card Details.</label>
+
+                                    </div>
+                                    <div class="col-sm-12 hidden" id="divBank">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="star">Bank Name</label>
+                                                <input id="txtBankName" type="text" class="form-control" placeholder="Bank Name" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label id="lblAccCardname" class="star">Account Name</label>
+                                                <input id="txtAccountName" type="text" class="form-control" placeholder="Account Name" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label id="lblAccCardnum" class="star">Account Number</label>
+                                                <input id="txtAccountNumber" type="text" class="form-control" placeholder="Account Number" onkeypress="return isOnlyNumber(event)" maxlength="29" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Routing Number</label>
+                                                <input id="txtRoutingNumber" type="text" class="form-control" placeholder="Routing Number" onkeypress="return isNumber(event)" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12" id="divCard">
+                                        <div class="form-group col-sm-3">
+                                            <label for="name">Name on Card</label>
+                                            <input type="text" class="form-control" id="txtNameonCard" placeholder="Name on Card" value="">
+                                        </div>
+                                        <div class="form-group col-sm-3">
+                                            <label for="cardnumber" class="star">Card Number</label>
+                                            <input type="text" class="form-control" id="txtCardNumber" placeholder="Card Number" onkeypress="return isOnlyNumber(event)" maxlength="16" value="">
+                                        </div>
+                                        <div class="form-group col-sm-2">
+                                            <label for="cardmonth">Card Month</label>
+                                            <select id="ddlcardmonth" class="form-control form-control-small">
+                                                @for (int i = 1; i <= 12; i++)
+                                                {
+                                                    <option value="@(i.ToString("00"))">@i</option>
+
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-sm-2">
+                                            <label for="cardyear">Card Year</label>
+                                            <select id="ddlcardyear" class="form-control form-control-small">
+                                                @for (int i = DateTime.Now.Year; i <= DateTime.Now.AddYears(5).Year; i++)
+                                                {
+                                                    <option value="@(i.ToString().Substring(2,2))">@i</option>
+
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-sm-2">
+                                            <label for="txtCcvNumber" class="star">CVV Number</label>
+                                            <input type="password" class="form-control" id="txtCCVNumber" placeholder="CVV Number" onkeypress="return isOnlyNumber(event)" maxlength="3" value="">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button type="submit" class="btn btn-primary" onclick="savePayment()">Pay Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -69,6 +69,25 @@ namespace ShomaRM.Areas.Admin.Controllers
             }
         }
        
+        public ActionResult UploadServiceFile(ServicesManagementModel model)
+        {
+            try
+            {
+                HttpPostedFileBase fileBaseUpload = null;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBaseUpload = Request.Files[i];
+
+                }
+
+                return Json(new { model = new ServicesManagementModel().UploadServiceFile(fileBaseUpload, model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
 
     }
 }

@@ -55,7 +55,7 @@ namespace ShomaRM.Data
         public Nullable<decimal> TrashAmt { get; set; }
         public Nullable<decimal> PestAmt { get; set; }
         public Nullable<decimal> ConvergentAmt { get; set; }
-        public Nullable<decimal> TotalAmt { get; set; }
+        public Nullable<decimal> MoveInCharges { get; set; }
         public Nullable<decimal> FOBAmt { get; set; }
         public Nullable<int> IsRentalPolicy { get; set; }
         public Nullable<int> IsRentalQualification { get; set; }
@@ -64,6 +64,7 @@ namespace ShomaRM.Data
         public Nullable<decimal> VehicleRegistration { get; set; }
         public Nullable<decimal> AdministrationFee { get; set; }
         public Nullable<int> LeaseTerm { get; set; }
+        public Nullable<decimal> MonthlyCharges { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Applicant> tbl_Applicant { get; set; }

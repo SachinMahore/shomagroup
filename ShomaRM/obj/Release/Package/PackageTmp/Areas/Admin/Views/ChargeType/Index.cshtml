@@ -1,0 +1,99 @@
+﻿@{
+
+
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Areas/Admin/Content/Pages/ChargeType/ChargeType.js"></script>
+<input type="hidden" id="hndCTID" value="" />
+
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container">
+        <div class="breadcrumb">
+            <h4 class="">Add / Edit ChargeType  </h4>
+        </div>
+        <div class="form-group clearfix panel">
+            <div class="col-md-7">
+                <div class="form-inline clearfix panel">
+                    <div class="form-group col-md-3 padding-5">
+                        <label class="control-label" style="padding:0px 5px;">Enter Crieria</label>
+                    </div>
+                    <div class="form-group col-md-7 padding-5">
+                        <input type="text" id="txtCriteriaChargeType" name="Criteria" class="form-control form-control-small" />
+                    </div>
+                    <div class="form-group col-md-2 padding-5">
+                        <button id="btnSearch" class="btn btn-primary fa fa-search" style="margin-left:5px;" onclick="fillChargeTypeList()">&nbsp;</button>
+                        <button id="btnGoChargeType" class="btn btn-success pull-right hidden" style="margin-right:15px;" onclick="goToChargeType()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-arrow-circle-o-right"></i> Go to</button>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <table id="tblChargeType" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939">ChargeType </th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="col-md-12 padding-5">
+                    <div class="form-group pull-right clearfix" style="padding-top:5px;">
+                        <button type="button" class="btn btn-primary" id="btnNew" onclick="clearAmenities()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-plus"></i> New</button>
+                        <button type="button" class="btn btn-success" id="btnSaveUpdate" onclick="saveUpdateChargeType()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">Save</span></button>
+                    </div>
+                </div>
+                <div class="form-group clearfix padding-5">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="firstname" class="star">Charge Type</label>
+                                <input class="form-control form-control-small" id="txtChargeType" maxlength="100" />
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname">Charge Type Details</label>
+                                <textarea class="form-control form-control-small" id="txtCharge_Description" maxlength="1000" rows="1"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname">Charge Type Summary</label>
+                                <textarea class="form-control form-control-small" id="txtChargeSummary" maxlength="1000" rows="1"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname">Payment Description</label>
+                                <textarea class="form-control form-control-small" id="txtPayment_Description" maxlength="1000" rows="1"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="firstname">Revenue Account</label>
+                                <input class="form-control form-control-small" id="txtRevenueAcct" maxlength="100" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .required {
+        color: red;
+    }
+
+    .k-button {
+        line-height: 1.5em !important;
+    }
+
+    .gridbtn {
+        background-color: #e0e0e0;
+        font-size: 12px;
+        padding: 3px 4px !important;
+    }
+
+    .btn {
+        border-radius: 3px;
+        padding: 3px 12px;
+        font-size: 12px;
+    }
+</style>
+

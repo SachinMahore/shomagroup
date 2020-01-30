@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using ShomaRM.Data;
+using ShomaRM.Areas.Tenant.Models;
 
 namespace ShomaRM.Areas.Admin.Models
 {
@@ -66,7 +67,8 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<decimal> ApplicationFees { get; set; }
         public Nullable<decimal> GuarantorFees { get; set; }
 
-        public Nullable<decimal> TotalAmt { get; set; }
+        public Nullable<decimal> MonthlyCharges { get; set; }
+        public Nullable<decimal> MoveInCharges { get; set; }
         public string PetPlaceID { get; set; }
         public string ParkingSpaceID { get; set; }
         public string StorageSpaceID { get; set; }
@@ -86,7 +88,7 @@ namespace ShomaRM.Areas.Admin.Models
         public long MIID { get; set; }
         public Nullable<long> ProspectID { get; set; }
         public string MoveInTime { get; set; }
-        public Nullable<decimal> MoveInCharges { get; set; }
+     
         public string InsuranceDoc { get; set; }
         public string ElectricityDoc { get; set; }
         public Nullable<int> IsCheckPO { get; set; }
@@ -307,13 +309,8 @@ namespace ShomaRM.Areas.Admin.Models
                     reportHTML = reportHTML.Replace("[%StatusDet%]", "Good news! You have been approved.  We welcome you to our community. Kindly click on “LEASE NOW” to continue your leasing process. ");
                     reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"http://52.4.251.162:8086/Checklist\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"http://52.4.251.162:8086/Checklist\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">LEASE NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
 
-                    TenantOnlineModel mm = new TenantOnlineModel();
-                    mm.CreateTrans(Convert.ToInt64(GetTenantDet.UserId), Convert.ToInt64(GetTenantDet.UserId), GetTenantDet.ID, Convert.ToDecimal(GetTenantDet.Deposit), "Security Deposit");
-                    mm.CreateTrans(Convert.ToInt64(GetTenantDet.UserId), Convert.ToInt64(GetTenantDet.UserId), GetTenantDet.ID, Convert.ToDecimal(GetTenantDet.PetDeposit), "Pet Deposit");
-                    mm.CreateTrans(Convert.ToInt64(GetTenantDet.UserId), Convert.ToInt64(GetTenantDet.UserId), GetTenantDet.ID, Convert.ToDecimal(GetTenantDet.Prorated_Rent), "Prorated Rent");
-                    mm.CreateTrans(Convert.ToInt64(GetTenantDet.UserId), Convert.ToInt64(GetTenantDet.UserId), GetTenantDet.ID, Convert.ToDecimal(GetTenantDet.VehicleRegistration), "VehicleRegistration charges");
-                    mm.CreateTrans(Convert.ToInt64(GetTenantDet.UserId), Convert.ToInt64(GetTenantDet.UserId), GetTenantDet.ID, Convert.ToDecimal(GetTenantDet.AdministrationFee), "Administration Fee");
-
+                   
+                   
                 }
                 else if (Status == "Denied")
                 {
@@ -436,7 +433,8 @@ namespace ShomaRM.Areas.Admin.Models
                     model.ParkingAmt = GetProspectData.ParkingAmt;
                     model.PetPlaceAmt = GetProspectData.PetPlaceAmt;
                     model.StorageAmt = GetProspectData.StorageAmt;
-                    model.TotalAmt = GetProspectData.TotalAmt;
+                    model.MoveInCharges = GetProspectData.MoveInCharges;
+                    model.MonthlyCharges = GetProspectData.MonthlyCharges;
                     model.PetDeposit = GetProspectData.PetDeposit;
                     model.FOBAmt = 0;
                     model.EnvelopeID = GetProspectData.EnvelopeID;
@@ -502,15 +500,23 @@ namespace ShomaRM.Areas.Admin.Models
 
                     model.MoveInTime = timeMoveIn.Value.ToString("hh:mm tt");
 
+                    model.MoveInDateTxt = "";
+                    model.MoveInTime = "";
+                    model.MoveInCharges = 0;
+                    model.IsCheckATT =  0;
+                    model.IsCheckPO =  0;
+                    model.IsCheckWater =  0;
+                    model.InsuranceDoc = "";
+                    model.ElectricityDoc ="";
                     var MoveInData = db.tbl_MoveInChecklist.Where(co => co.ProspectID == model.ProspectId).FirstOrDefault();
                     if (MoveInData != null)
                     {
-                        model.MoveInDateTxt = MoveInData.MoveInDate.ToString();
+                        model.MoveInDateTxt = MoveInData.MoveInDate.HasValue? MoveInData.MoveInDate.Value.ToString("MM/dd/yyyy"):"";
                         model.MoveInTime = MoveInData.MoveInTime;
-                        model.MoveInCharges = MoveInData.MoveInCharges;
-                        model.IsCheckATT = MoveInData.IsCheckATT;
-                        model.IsCheckPO = MoveInData.IsCheckPO;
-                        model.IsCheckWater = MoveInData.IsCheckWater;
+                        model.MoveInCharges = MoveInData.MoveInCharges??0;
+                        model.IsCheckATT = MoveInData.IsCheckATT ?? 0;
+                        model.IsCheckPO = MoveInData.IsCheckPO ?? 0;
+                        model.IsCheckWater = MoveInData.IsCheckWater ?? 0;
                         model.InsuranceDoc = MoveInData.InsuranceDoc;
                         model.ElectricityDoc = MoveInData.ElectricityDoc;
                     }

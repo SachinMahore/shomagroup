@@ -139,6 +139,7 @@ namespace ShomaRM.Areas.Admin.Models
                     searchmodel.LastName = dr["LastName"].ToString();
                     searchmodel.Username = dr["Username"].ToString();
                     searchmodel.Status = dr["Status"].ToString();
+                    searchmodel.UserType = dr["UserType"].ToString();
                     lstUser.Add(searchmodel);
                 }
                 db.Dispose();
@@ -159,6 +160,7 @@ namespace ShomaRM.Areas.Admin.Models
             public string Status { get; set; }
             public string Filter { get; set; }
             public string Criteria { get; set; }
+            public string UserType { get; set; }
             public int PageNumber { get; set; }
             public int NumberOfPages { get; set; }
             public int NumberOfRows { get; set; }
@@ -213,7 +215,27 @@ namespace ShomaRM.Areas.Admin.Models
             }
             else if (UserType == 2)
             {
-                return "User";
+                return "Applicant";
+            }
+            else if (UserType == 3)
+            {
+                return "Tenant";
+            }
+            else if (UserType == 4)
+            {
+                return "Property Manager";
+            }
+            else if (UserType == 5)
+            {
+                return "Service Manager";
+            }
+            else if (UserType == 6)
+            {
+                return "Sales Agent";
+            }
+            else if (UserType == 7)
+            {
+                return "Service Person";
             }
             return "";
         }
@@ -252,6 +274,7 @@ namespace ShomaRM.Areas.Admin.Models
                     model.Username = userInfo.Username;
                     model.Password = userInfo.Password;
                     model.IsActive = (userInfo.IsActive.HasValue ? userInfo.IsActive.Value : 0);
+                    model.UserType = userInfo.UserType;
                 }
             }
             return model;
@@ -276,6 +299,7 @@ namespace ShomaRM.Areas.Admin.Models
                         Password = model.Password,
                         IsActive = model.IsActive,
                         IsSuperUser = 0,
+                        UserType = model.UserType
                     };
                     db.tbl_Login.Add(userData);
                     db.SaveChanges();
@@ -295,6 +319,7 @@ namespace ShomaRM.Areas.Admin.Models
                         userInfo.Username = model.Username;
                         userInfo.Password = model.Password;
                         userInfo.IsActive = model.IsActive;
+                        userInfo.UserType = model.UserType;
                         db.SaveChanges();
                     }
                     else

@@ -5,7 +5,7 @@ using System.Data.Common;
 using System.Linq;
 using System.Web;
 using ShomaRM.Data;
-
+using ShomaRM.Areas.Tenant.Models;
 
 namespace ShomaRM.Models
 {
@@ -20,6 +20,8 @@ namespace ShomaRM.Models
         public Nullable<int> CCVNumber { get; set; }
         public Nullable<long> ProspectId { get; set; }
         public Nullable<decimal> Charge_Amount { get; set; }
+        public Nullable<decimal> Credit_Amount { get; set; }
+        
         public string Transaction_Type { get; set; }
         public string Description { get; set; }
         public string GL_Trans_Description { get; set; }
@@ -127,6 +129,10 @@ namespace ShomaRM.Models
                     };
                     db.tbl_Transaction.Add(saveTransaction);
                     db.SaveChanges();
+
+                    var TransId = saveTransaction.TransID;
+                    MyTransactionModel mm = new MyTransactionModel();
+                    mm.CreateTransBill(TransId, Convert.ToDecimal(model.Charge_Amount), model.Description);
 
                     string reportHTML = "";
                     string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");

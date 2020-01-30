@@ -92,9 +92,10 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Issue> tbl_Issue { get; set; }
         public virtual DbSet<tbl_ServiceIssue> tbl_ServiceIssue { get; set; }
         public virtual DbSet<tbl_ServiceLocation> tbl_ServiceLocation { get; set; }
-        public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
         public virtual DbSet<tbl_TenantEventJoin> tbl_TenantEventJoin { get; set; }
         public virtual DbSet<tbl_AmenityReservation> tbl_AmenityReservation { get; set; }
         public virtual DbSet<tbl_TenantEventJoinApprove> tbl_TenantEventJoinApprove { get; set; }
+        public virtual DbSet<tbl_Bill> tbl_Bill { get; set; }
+        public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
     }
 }

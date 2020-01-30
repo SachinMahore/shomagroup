@@ -68,9 +68,9 @@ namespace ShomaRM.Models
         public Nullable<decimal> VehicleRegistration { get; set; }
         public Nullable<decimal> Prorated_Rent { get; set; }
         public int LeaseTerm { get; set; }
-        
 
-        public Nullable<decimal> TotalAmt { get; set; }
+        public Nullable<decimal> MonthlyCharges { get; set; }
+        public Nullable<decimal> MoveInCharges { get; set; }
         public string PetPlaceID { get; set; }
         public string ParkingSpaceID { get; set; }
         public string StorageSpaceID { get; set; }
@@ -233,7 +233,8 @@ namespace ShomaRM.Models
                     onlineProspectData.ConvergentAmt = model.ConvergentAmt;
                     onlineProspectData.TrashAmt = model.TrashAmt;
                     //onlineProspectData.MoveInDate = moveindate;
-                    onlineProspectData.TotalAmt = model.TotalAmt;
+                    onlineProspectData.MonthlyCharges = model.MonthlyCharges;
+                    onlineProspectData.MoveInCharges = model.MoveInCharges;
                     onlineProspectData.PetDeposit = model.PetDeposit;
                     onlineProspectData.FOBAmt = model.FOBAmt;
                     onlineProspectData.Deposit = model.Deposit;
@@ -382,7 +383,8 @@ namespace ShomaRM.Models
                     model.ParkingAmt = GetProspectData.ParkingAmt;
                     model.PetPlaceAmt = GetProspectData.PetPlaceAmt;
                     model.StorageAmt = GetProspectData.StorageAmt;
-                    model.TotalAmt = GetProspectData.TotalAmt;
+                    model.MoveInCharges = GetProspectData.MoveInCharges;
+                    model.MonthlyCharges = GetProspectData.MonthlyCharges;
                     model.PetDeposit = GetProspectData.PetDeposit;
                     model.FOBAmt = 0;
                     model.EnvelopeID = GetProspectData.EnvelopeID;

@@ -72,6 +72,8 @@ namespace ShomaRM.Areas.Tenant.Models
         public string ExpirationYearOnCardString { get; set; }
         public string BankName { get; set; }
         public string RoutingNumber { get; set; }
+        public Nullable<int> CCVNumber { get; set; }
+        public Nullable<int> PAID { get; set; }
 
         public List<MyTransactionModel> GetTenantTransactionList(long TenantID, int AccountHistoryDDL)
         {
@@ -399,14 +401,26 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
+
+            var editPaymentAccounts = db.tbl_PaymentAccounts.Where(co => co.PAID == model.PAID).FirstOrDefault();
             ApplyNowModel mm = new ApplyNowModel();
-             mm.Name_On_Card=model.NameOnCardString;
-            mm.CardNumber = model.TAccCardNumber;
-            mm.CardMonth =Convert.ToInt32(model.ExpirationMonthOnCardString);
-            mm.CardYear = Convert.ToInt32(model.ExpirationYearOnCardString);
-            mm.CCVNumber = 123;
-            mm.ProspectId = model.TenantID;
-            mm.PaymentMethod =1;
+            if (editPaymentAccounts != null)
+            {
+                mm.Name_On_Card = editPaymentAccounts.NameOnCard;
+                mm.CardNumber = editPaymentAccounts.CardNumber;
+                mm.CardMonth = Convert.ToInt32(editPaymentAccounts.Month);
+                mm.CardYear = Convert.ToInt32(editPaymentAccounts.Year);
+                mm.CCVNumber = model.CCVNumber;
+                mm.ProspectId = model.TenantID;
+                mm.PaymentMethod = 1;
+                mm.Charge_Amount = model.Charge_Amount;
+            }
+
+            decimal ChargeAmt = 0;
+            if (Convert.ToInt32(model.Charge_Type) == 4)
+            {
+                ChargeAmt =Convert.ToDecimal(model.Charge_Amount);
+            }
 
             string transStatus = new UsaePayModel().ChargeCard(mm);
             String[] spearator = { "|" };
@@ -425,11 +439,11 @@ namespace ShomaRM.Areas.Tenant.Models
                     Reference = model.Reference,
                     CreatedDate = DateTime.Now,
                     Credit_Amount = model.Charge_Amount,
-                    Description = model.Description + "| TransID: " + Convert.ToInt32(strlist[1]),
+                    Description = model.Description + " | TransID: " + Convert.ToInt32(strlist[1]),
                     Charge_Date = model.Charge_Date,
                     Charge_Type = Convert.ToInt32(model.Charge_Type),
                     Payment_ID = Convert.ToInt32(strlist[1]),
-                    Charge_Amount = 0,
+                    Charge_Amount = ChargeAmt,
                     Miscellaneous_Amount = model.Miscellaneous_Amount,
                     Accounting_Date = DateTime.Now,
                     Journal = 0,
@@ -456,47 +470,15 @@ namespace ShomaRM.Areas.Tenant.Models
                 db.tbl_Transaction.Add(saveTransaction);
                 db.SaveChanges();
 
-
+                if(Convert.ToInt32(model.Charge_Type)==4)
+                {
+                    var TransId = saveTransaction.TransID;
+                    CreateTransBill(TransId, Convert.ToDecimal(model.Charge_Amount), model.Description);                   
+                }
                 msg = "Transaction Saved Successfully";
             }
             else
-            {
-                var getNOdata = db.tbl_Transaction.Where(p => p.TransID == model.TransID).FirstOrDefault();
-                if (getNOdata != null)
-                {
-
-                    getNOdata.TenantID = model.TenantID;
-                    getNOdata.Revision_Num = model.Revision_Num;
-                    getNOdata.Transaction_Type = model.Transaction_Type;
-                    getNOdata.Transaction_Date = model.Transaction_Date;
-                    getNOdata.Run = model.Run;
-                    getNOdata.LeaseID = model.LeaseID;
-                    getNOdata.Reference = model.Reference;
-                    getNOdata.CreatedDate = model.CreatedDate;
-                    getNOdata.Credit_Amount = model.Credit_Amount;
-                    getNOdata.Description = model.Description;
-                    getNOdata.Charge_Date = model.Charge_Date;
-                    getNOdata.Charge_Type = Convert.ToInt32(model.Charge_Type);
-                    getNOdata.Payment_ID = model.Payment_ID;
-                    getNOdata.Charge_Amount = model.Charge_Amount;
-                    getNOdata.Miscellaneous_Amount = model.Miscellaneous_Amount;
-                    getNOdata.Accounting_Date = model.Accounting_Date;
-                    getNOdata.Journal = model.Journal;
-                    getNOdata.Accrual_Debit_Acct = model.Accrual_Debit_Acct;
-                    getNOdata.Accrual_Credit_Acct = model.Accrual_Credit_Acct;
-                    getNOdata.Cash_Debit_Account = model.Cash_Debit_Account;
-                    getNOdata.Cash_Credit_Account = model.Cash_Credit_Account;
-                    getNOdata.Appl_of_Origin = model.Appl_of_Origin;
-                    getNOdata.Batch = model.Batch;
-                    getNOdata.Batch_Source = model.Batch_Source;
-                    // getNOdata.CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID;
-                    getNOdata.GL_Trans_Reference_1 = model.GL_Trans_Reference_1;
-                    getNOdata.GL_Trans_Reference_2 = model.GL_Trans_Reference_2;
-                    getNOdata.GL_Entries_Created = model.GL_Entries_Created;
-                    getNOdata.GL_Trans_Description = model.GL_Trans_Description;
-
-                }
-                db.SaveChanges();
+            {               
                 msg = "Transaction Updated Successfully";
             }
 
@@ -525,5 +507,73 @@ namespace ShomaRM.Areas.Tenant.Models
             }
             return listTenantHistory;
         }
+     
+        public string CreateTransBill(long TransID, decimal Amount, string Description)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            var saveTransBill = new tbl_Bill()
+            {
+                TransID = TransID,
+                Amount=Amount,
+                Description=Description,
+
+            };
+            db.tbl_Bill.Add(saveTransBill);
+            db.SaveChanges();
+            return "";
+        }
+
+        public List<BillModel> GetTenantBillList(long TransID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<BillModel> lstpr = new List<BillModel>();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetTenantBillList";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter paramTID = cmd.CreateParameter();
+                    paramTID.ParameterName = "TransID";
+                    paramTID.Value = TransID;
+                    cmd.Parameters.Add(paramTID);
+
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    BillModel pr = new BillModel();
+
+                    pr.BillID = Convert.ToInt32(dr["BillID"].ToString());
+
+                    pr.Description = dr["Description"].ToString();
+                    pr.Amount = Convert.ToDecimal(dr["Amount"].ToString());
+
+                    lstpr.Add(pr);
+                }
+                db.Dispose();
+                return lstpr.ToList();
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
     }
+}
+
+public partial class BillModel
+{
+    public long BillID { get; set; }
+    public long TransID { get; set; }
+    public string Description { get; set; }
+    public Nullable<decimal> Amount { get; set; }
 }

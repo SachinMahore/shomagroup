@@ -1,0 +1,257 @@
+﻿@using ShomaRM.Areas.Admin.Models
+@model ModelsModel
+@{
+    Layout = null;
+}
+<script src="~/Areas/Admin/Content/Pages/Models/Models.js?v=@AdminCommonModel.ScriptVersion()"></script>
+<input type="hidden" id="hndModelsId" value="@Model.ModelID" />
+
+<div class="tab-pane" id="step4">
+    <div class="row p-b-15">
+        <div class="col-sm-12">
+            <h4 class="info-text pull-left">Add Model</h4>
+            <div class="pull-left" style="margin-left:200px">
+  
+                <button type='button' class='btn btn-success' style="width:120px;"  onclick="goToStep(3)"><i class="glyphicon glyphicon-list"></i> Model List</button>
+            </div>
+            <div class="pull-right" >
+                <button type='button' class='btn btn-success' style="width:120px;" id="prevm" onclick="goToStep(4,@Model.PreviousID)"><i class="glyphicon glyphicon-arrow-left"></i> Previous</button>
+                <button type='button' class='btn btn-success'  style="width:90px;" value='Save' onclick="saveUpdateModels();"><i class="glyphicon glyphicon-floppy-save"></i> Save</button>
+                <button type="button" class="btn btn-success " id="" onclick="goToStep(4,0)"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">NEW</span></button>
+                <button type='button' class='btn btn-success' style="width:100px;" id="nextm" onclick="goToStep(4,@Model.NextID)">Next <i class="glyphicon glyphicon-arrow-right"></i></button>
+            </div>
+           
+          
+        </div>
+        <!--  End step 1 -->
+
+        <div class="col-sm-3">
+            <div class="picture-container">
+                <label>Upload Floor Plan</label>
+                <div class="picture" style="width: 220px;height: 151px;margin-bottom: 35px;margin-top: 0px;">
+                    <div id="divModalPicture">
+                        <img src="/content/assets/img/plan/@Model.FloorPlan" class="picture-src" id="wizardPicturePreview" title="" />
+                    </div>
+                    <input type="file" id="modalPicture" value="@Model.FloorPlan" />
+                    <input type="hidden" id="hndModelsPicture" value="@Model.FloorPlan" />
+                </div>
+            </div>
+            <div class="picture-container">
+                <label>Upload Floor Details</label>
+                <div class="picture" style="width: 220px;height: 151px;margin-bottom: 35px;margin-top: 0px;">
+                    <div id="divModalPictureFloorDetails">
+                        <img src="/content/assets/img/plan/@Model.FloorPlanDetails" class="picture-src" id="wizardPicturePreviewFloorDetails" title="" />
+                    </div>
+                    <input type="file" id="fileUploadFloorDetailss" value="@Model.FloorPlan" />
+                    <input type="hidden" id="hndFloorDetailsFile" value="@Model.FloorPlanDetails" />
+                </div>
+            </div>
+        </div>
+
+     
+
+        <div class="col-sm-9">
+            <div class="col-sm-12">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="star">Model Name</label>
+                        <input id="txtModelName" type="text" placeholder="Model Name" class="form-control" value="@Model.ModelName">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">Deposit</label>
+                         <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                            </span>
+                            <input id="txtModelDeposit" class="form-control form-control-small"  type="text" onkeypress="return isNumber(event)" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">Min Rent</label>
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                            </span>
+                            <input id="txtMinRent" class="form-control form-control-small"  type="text" onkeypress="return isMoney(event)" />
+                        </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">Max Rent</label>
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                            </span>
+                            <input id="txtMaxRent" class="form-control form-control-small"  type="text" onkeypress="return isNumber(event)" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">Interior SF</label>
+                        <div class="input-group">
+                            <input id="txtInteriorArea" type="text" onkeypress="return isNumber(event)" placeholder="Interior Area" class="form-control" value="@Model.InteriorArea" style="text-align:right" onkeyup="areaAddition()">
+                            <span class="input-group-btn" style=" padding-top: 10px !important;">
+                                <button class="btn btn-primary search SqFtCustome" type="button" style="text-transform:unset">SF</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">Balcony SF</label>
+                        <div class="input-group">
+                            <input id="txtBalconyArea" type="text" onkeypress="return isNumber(event)" placeholder="Balcony Area" class="form-control" value="@Model.BalconyArea" style="text-align:right" onkeyup="areaAddition()">
+                            <span class="input-group-btn" style=" padding-top: 10px !important;">
+                                <button class="btn btn-primary search SqFtCustome" type="button" style="text-transform:unset">SF</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+          
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">Total SF</label>
+                        <div class="input-group">
+                            <input name="area" id="txtArea" type="text" onkeypress="return isNumber(event)" placeholder="0" class="form-control" value="@Model.Area" style="text-align:right" readonly="readonly">
+                            <span class="input-group-btn" style=" padding-top: 10px !important;">
+                                <button class="btn btn-primary search SqFtCustome" type="button" style="text-transform:unset">SF</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">Bedroom</label>
+                        <select id="ddlmBedroom" class="form-control">
+                            <option value="0">Select Bedroom</option>
+                            <option value="1">Bedroom 1</option>
+                            <option value="2">Bedroom 2</option>
+                            <option value="3">Bedroom 3</option>
+                            <option value="4">Bedroom 4</option>
+                            <option value="5">Bedroom 5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">Bathroom</label>
+                        <select id="ddlmBathroom" class="form-control">
+                            <option value="0">Select Bathroom</option>
+                            <option value="1">Bathroom 1</option>
+                            <option value="2">Bathroom 2</option>
+                            <option value="3">Bathroom 3</option>
+                            <option value="4">Bathroom 4</option>
+                            <option value="5">Bathroom 5</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (@Model.PreviousID==0)
+        {
+            $('#prevm').prop("disabled", true);
+            $("#prevm").css("background-color", "#b4ada5");
+        }
+         if (@Model.NextID==0)
+        {
+             $('#nextm').prop("disabled", true);
+             $("#nextm").css("background-color", "#b4ada5");
+        }
+        $('#ddlmBedroom').find('option[value = "@Model.Bedroom"]').attr('selected', 'selected');
+        $('#ddlmBathroom').find('option[value = "@Model.Bathroom"]').attr('selected', 'selected');
+
+        document.getElementById('modalPicture').onchange = function () {
+            if ($('#txtModelName').val().trim().length > 0) {
+                var ext = $('#modalPicture').val().split('.').pop().toLowerCase();
+                if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+                    $('#hndModelsPicture').val('');
+                    $.alert({
+                        title: "",
+                        content: 'Invalid File!</br>Allow Only File Type "gif, png, jpg, jpeg"',
+                        type: 'red'
+                    })
+                    return;
+                }
+                uploadFloorPlan();
+            }
+            else {
+                $('#txtModelName').val('');
+                $.alert({
+                    title: "",
+                    content: 'First Fill The Model Name',
+                    type: 'red'
+                })
+            }
+        };
+
+        document.getElementById('fileUploadFloorDetailss').onchange = function () {
+            if ($('#txtModelName').val().trim().length > 0) {
+                var ext = $('#fileUploadFloorDetailss').val().split('.').pop().toLowerCase();
+                if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+                    $('#hndFloorDetailsFile').val('');
+                    $.alert({
+                        title: "",
+                        content: 'Invalid File!</br>Allow Only File Type "gif, png, jpg, jpeg"',
+                        type: 'red'
+                    })
+                    //$('#fileUploadFloorDetailsShow').html('Choose a file&hellip;');
+                    return;
+                }
+
+                uploadFloorDetails();
+            }
+            else {
+                $('#txtModelName').val('');
+                $.alert({
+                    title: "",
+                    content: 'First Fill The Model Name',
+                    type: 'red'
+                })
+            }
+            onFocus();
+        };
+    });
+
+
+</script>
+<script>
+
+
+
+        $("#txtModelDeposit").focusout(function () { $("#txtModelDeposit").val(formatMoney($("#txtModelDeposit").val())); })
+            .focus(function () {
+                $("#txtModelDeposit").val(unformatText($("#txtModelDeposit").val()));
+            });
+
+        $("#txtMinRent").focusout(function () { $("#txtMinRent").val(formatMoney($("#txtMinRent").val())); })
+            .focus(function () {
+                $("#txtMinRent").val(unformatText($("#txtMinRent").val()));
+            });
+
+        $("#txtMaxRent").focusout(function () { $("#txtMaxRent").val(formatMoney($("#txtMaxRent").val())); })
+            .focus(function () {
+                $("#txtMaxRent").val(unformatText($("#txtMaxRent").val()));
+            });
+
+
+    $("#txtModelDeposit").val(formatMoney(@Model.Deposit));
+    $("#txtMinRent").val(formatMoney(@Model.MinRent));
+    $("#txtMaxRent").val(formatMoney(@Model.MaxRent));
+</script>
