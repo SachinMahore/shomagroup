@@ -888,10 +888,10 @@ var getInvoice = function (invid)
             var bal = 0;
             $("#tblInvoiceBill>tbody").empty();
             $.each(response.model, function (elementType, elementValue) {
-                var html = "<tr data-value=" + elementValue.TransID + ">";
-                html += "<td>" + elementValue.Transaction_DateString + "</td>";
+                var html = "<tr data-value=" + elementValue.BillID + ">";
+              
                 html += "<td>"+ elementValue.Description + "</td>";
-                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
+                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Amount) + "</td>";
                
                 html += "</tr>";
                 $("#tblInvoiceBill>tbody").append(html);

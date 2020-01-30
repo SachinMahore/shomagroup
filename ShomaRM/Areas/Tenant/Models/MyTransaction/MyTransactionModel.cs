@@ -533,7 +533,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 using (var cmd = db.Database.Connection.CreateCommand())
                 {
                     db.Database.Connection.Open();
-                    cmd.CommandText = "usp_GetTenantTransactionList";
+                    cmd.CommandText = "usp_GetTenantBillList";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     DbParameter paramTID = cmd.CreateParameter();
@@ -551,13 +551,10 @@ namespace ShomaRM.Areas.Tenant.Models
                 {
                     BillModel pr = new BillModel();
 
-                    pr.TransID = Convert.ToInt32(dr["TransID"].ToString());
+                    pr.BillID = Convert.ToInt32(dr["BillID"].ToString());
 
                     pr.Description = dr["Description"].ToString();
-                    pr.Credit_Amount = Convert.ToDecimal(dr["Credit_Amount"].ToString());
-
-                    //pr.Balance = Convert.ToDecimal(dr["Balance"].ToString());
-                    pr.Charge_Amount = Convert.ToDecimal(dr["Charge_Amount"].ToString());
+                    pr.Amount = Convert.ToDecimal(dr["Amount"].ToString());
 
                     lstpr.Add(pr);
                 }
