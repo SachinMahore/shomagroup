@@ -421,6 +421,7 @@
     <Content Include="Content\assets\img\ads1.png" />
     <Content Include="Content\assets\img\arrow-left.svg" />
     <Content Include="Content\assets\img\arrow-right.svg" />
+    <Content Include="Content\assets\img\arrow.png" />
     <Content Include="Content\assets\img\arrows-small.png" />
     <Content Include="Content\assets\img\arrows.png" />
     <Content Include="Content\assets\img\bg-footer.jpg" />
@@ -527,6 +528,7 @@
     <Content Include="Content\assets\img\social_big\vimeo_white.png" />
     <Content Include="Content\assets\img\social_big\youtube_grey.png" />
     <Content Include="Content\assets\img\social_big\youtube_white.png" />
+    <Content Include="Content\assets\img\top_arr.png" />
     <Content Include="Content\assets\img\welcome-bg.png" />
     <Content Include="Content\assets\js\bootstrap-datepicker.js" />
     <Content Include="Content\assets\js\bootstrap-datetimepicker.js" />
@@ -617,6 +619,8 @@
     <Content Include="Content\Pages\Prospect\Prospect.js" />
     <Content Include="Content\Pages\Tenant\Tenant.js" />
     <Content Include="Content\Pages\Verification\Verification.js" />
+    <Content Include="Content\timepicki.css" />
+    <Content Include="Content\timepicki.js" />
     <Content Include="Content\zabuto_calendar.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
