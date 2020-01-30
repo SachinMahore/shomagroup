@@ -901,7 +901,7 @@
                                                 <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
                                             </div>
                                             <div class="col-sm-3">
-                                                $<span style="text-decoration:underline;font-weight:bold;"  id="lblMonthly_PestControl">@((Model.PestAmt ?? 0).ToString("0.00"))</span>
+                                                $<span style="text-decoration:underline;font-weight:bold;" id="lblMonthly_PestControl">@((Model.PestAmt ?? 0).ToString("0.00"))</span>
                                             </div>
                                             <div class="col-sm-3">
                                                 $ <span id="lblProrated_PestAmt" style="text-decoration:underline;font-weight:bold;"></span>
@@ -2362,7 +2362,7 @@
 
                             <div class="col-sm-12 ">
                                 <div class="col-sm-12" style="margin-bottom:10px !important"><h4 style="color:#4d738a;">Move-In Charges</h4></div>
-                                
+
                                 <div class="col-sm-12">
                                     <table id="tblTransaction" class="table-bordered" width="100%">
                                         <thead>
@@ -2393,8 +2393,8 @@
                                             <div class="checkbox">
                                                 <div class="col-sm-3" style="margin-left: -20px;">
                                                     <label>
-                                                        <input type="checkbox" id="chkPay" checked="@(Model.MoveInCharges != null ? "checked" : "")"><span style="margin-left: 10px;">
-                                                         Pay your Move-in charges
+                                                        <input type="checkbox" id="chkPay" checked="@(Model.MoveInCharges != null ? "checked" : "")" disabled="@(Model.MoveInCharges != null ? "disabled" : "")"><span style="margin-left: 10px;">
+                                                            Pay your Move-in charges
                                                         </span>
                                                     </label>
                                                 </div>
@@ -2412,7 +2412,7 @@
                                             <div class="checkbox">
                                                 <div class="col-sm-3" style="margin-left: -20px;">
                                                     <label>
-                                                        <input type="checkbox" id="chkMovein" checked="@(Model.MoveInDateTxt != null ? "checked" : "")"><span style="margin-left: 10px;">
+                                                        <input type="checkbox" id="chkMovein" checked="@(Model.MoveInDateTxt != null ? "checked" : "")" disabled="@(Model.MoveInDateTxt != null ? "disabled" : "")"><span style="margin-left: 10px;">
                                                             Schedule a move-in date and time
                                                         </span>
                                                     </label>
@@ -2438,12 +2438,12 @@
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label style="margin-left: -5px;">
-                                                    <input type="checkbox" id="chkIns" checked="@(Model.InsuranceDoc != null ? "checked" : "")"><span style="margin-left: 10px;">
-                                                     Make sure you have Renter’s insurance.  If you have not purchased it and would like to use our partner, login or call Serrod Insurance 	Agency at (305) 445-6441
+                                                    <input type="checkbox" id="chkIns" checked="@(Model.InsuranceDoc != null ? "checked" : "")" disabled="@(Model.InsuranceDoc != null ? "disabled" : "")"><span style="margin-left: 10px;">
+                                                        Make sure you have Renter’s insurance.  If you have not purchased it and would like to use our partner, login or call Serrod Insurance 	Agency at (305) 445-6441
                                                     </span>
                                                 </label>
                                                 <label class="containerLabel" style="display: unset !important;">
-                                                    Download Proof of Insurance&nbsp;&nbsp;&nbsp;
+                                                    <b>Download Proof of Insurance&nbsp;&nbsp;&nbsp;</b>
                                                     <a id="dwnldPOI" href="javascript:void(0)" class="btn btn-primary" target="_parent"><i class="fa fa-download"></i></a>
                                                     <input type="hidden" id="hndHasPOI" value="0" />
                                                     <input type="hidden" id="hndPOI" value="0" />
@@ -2454,8 +2454,8 @@
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label style="margin-left: -5px;">
-                                                    <input type="checkbox" id="chkPo" checked="@(Model.IsCheckPO == 1 ? "checked" : "")"><span style="margin-left: 10px;">
-                                                     Complete the Post Office change of address by logging into <a href="https://movingonlineservice.com" target="_blank">https://movingonlineservice.com</a>
+                                                    <input type="checkbox" id="chkPo" checked="@(Model.IsCheckPO == 1 ? "checked" : "")" disabled="@(Model.IsCheckPO == 1 ? "disabled" : "")"><span style="margin-left: 10px;">
+                                                        Complete the Post Office change of address by logging into <a href="https://movingonlineservice.com" target="_blank">https://movingonlineservice.com</a>
                                                     </span>
                                                 </label>
                                             </div>
@@ -2464,12 +2464,12 @@
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label style="margin-left: -5px;">
-                                                    <input type="checkbox" id="chkEle" checked="@(Model.ElectricityDoc != null ? "checked" : "")"><span style="margin-left: 10px;">
+                                                    <input type="checkbox" id="chkEle" checked="@(Model.ElectricityDoc != null ? "checked" : "")" disabled="@(Model.ElectricityDoc != null ? "disabled" : "")"><span style="margin-left: 10px;">
                                                         Electricity- log in to <a href="https://fpl.com" target="_blank">https://fpl.com</a> to start service or call 1-800-226-3545 .
                                                     </span>
                                                 </label>
                                                 <label class="containerLabel" style="display: unset !important;">
-                                                    Download Proof of Electricity&nbsp;&nbsp;&nbsp;
+                                                    <b>Download Proof of Electricity&nbsp;&nbsp;&nbsp;</b>
                                                     <a id="dwnldPOE" href="javascript:void(0)" class="btn btn-primary" target="_parent"><i class="fa fa-download"></i></a>
                                                     <input type="hidden" id="hndPOE" value="0" />
                                                     <input type="hidden" id="hndOriginalPOE" value="0" />
@@ -2479,8 +2479,8 @@
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label style="margin-left: -5px;">
-                                                    <input type="checkbox" id="chkAt" checked="@(Model.IsCheckATT == 1 ? "checked" : "")" /><span style="margin-left: 10px;">
-                                                    AT&T- Call to establish your internet service and/or enhance your cable plan.
+                                                    <input type="checkbox" id="chkAt" checked="@(Model.IsCheckATT == 1 ? "checked" : "")" disabled="@(Model.IsCheckATT == 1 ? "disabled" : "")" /><span style="margin-left: 10px;">
+                                                        AT&T- Call to establish your internet service and/or enhance your cable plan.
                                                     </span>
                                                 </label>
                                             </div>
@@ -2488,8 +2488,10 @@
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label style="margin-left: -5px;">
-                                                    <input type="checkbox" id="chkWater" checked="@(Model.IsCheckWater == 1 ? "checked" : "")" /><span style="margin-left: 10px;">If needed, contact Miami Dade Water and Sewer Department to stop service at your previous address. Login to <a href="http://www.miamidade.gov/global/water/home.page" target="_blank">www.miamidade.gov/global/water/home.page</a>
-                                                    or call (305) 665-7488.  Your water will be set up automatically upon move-in and will be billed directly the following month.</span>
+                                                    <input type="checkbox" id="chkWater" checked="@(Model.IsCheckWater == 1 ? "checked" : "")" disabled="@(Model.IsCheckWater == 1 ? "disabled" : "")" /><span style="margin-left: 10px;">
+                                                        If needed, contact Miami Dade Water and Sewer Department to stop service at your previous address. Login to <a href="http://www.miamidade.gov/global/water/home.page" target="_blank">www.miamidade.gov/global/water/home.page</a>
+                                                        or call (305) 665-7488.  Your water will be set up automatically upon move-in and will be billed directly the following month.
+                                                    </span>
                                                 </label>
                                             </div>
                                         </div>
@@ -3519,9 +3521,6 @@
 
 
 <script>
-    $(document).ready(function () {
-        $('input[checkbox]').attr('disabled', true);
-    });
     function printFloorPlanDetails(divName) {
         let printContents, popupWin;
         printContents = document.getElementById(divName).innerHTML;
@@ -3651,20 +3650,14 @@
         text-align: right;
     }
 </style>
-<script>
-      @*$(document).ready(function () {
-            if ('@Model.MoveInDateTxt' != "" || '@Model.MoveInTime' != "") {
-                $("#chkMovein").attr("checked", "checked");
-                $("#chkMovein").attr("disabled", "disabled");
-    }
-    else {
-                $("#chkMovein").attr("checked", "");
-                $("#chkMovein").attr("disabled", "disabled");
-    }
-    });*@
-</script>
 <style>
-    .nav-tabs.wizard {
+    .wizard-card .disabled {
+        display: inherit!important;
+    }
+    .icheckbox_square-yellow.checked.disabled {
+        background-position: -48px 0 !important;
+    }
+        .nav-tabs.wizard {
         background-color: transparent;
         padding: 0;
         width: 100.2%;
