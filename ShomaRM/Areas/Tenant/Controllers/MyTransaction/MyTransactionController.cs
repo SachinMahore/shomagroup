@@ -105,5 +105,28 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult GetRecurringPayLists(long TenantID)
+        {
+            try
+            {
+                return Json(new { model = new MyTransactionModel().GetRecurringPayLists(TenantID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult SaveUpdateRecurringTransaction(MyTransactionModel model, string NameOnCardString, string NumberOnCardString, string ExpirationMonthOnCardString, string ExpirationYearOnCardString)
+        {
+            try
+            {
+                return Json(new { Msg = (new MyTransactionModel().SaveUpdateRecurringTransaction(model)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 }
