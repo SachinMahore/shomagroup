@@ -38,5 +38,17 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult GetGuestList(GuestRegistrationModel model)
+        {
+            try
+            {
+                return Json(new { model = new GuestRegistrationModel().GetGuestList(model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
