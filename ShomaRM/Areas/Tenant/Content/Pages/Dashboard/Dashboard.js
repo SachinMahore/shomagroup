@@ -182,7 +182,7 @@ var saveUpdateCommunityPost = function () {
     
     var msg = '';
     var model = {
-        TenantId: $('#hdnUserId').val(),
+        TenantId: $('#hndTenantID').val(),
         Details: $('#txtCommunityActivity').val(),
         AttatchFile: $('#hndfileCommunityActivity').val(),
         AttachFileOriginalName: $('#hndfileCommunityActivityOriginalName').val(),
@@ -735,6 +735,7 @@ var getIsAgreeDisclaimer = function () {
 
 
 var saveUpdatePostDisclaimer = function (status) {
+   // alert($("#hndTenantID").val());
     var model = {
         TenantID: $("#hndTenantID").val(),
         IsAgreePostDisclaimer: status
