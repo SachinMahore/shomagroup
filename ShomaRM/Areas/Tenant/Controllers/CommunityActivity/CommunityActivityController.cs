@@ -57,5 +57,29 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public JsonResult GetCommunityActivityAdminList(CommunityActivityModel model)
+        {
+            try
+            {
+                return Json(new { model = new CommunityActivityModel().GetCommunityActivityAdminList(model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult DeleteCommunityActivityPost(CommunityActivityModel model)
+        {
+            try
+            {
+                (new CommunityActivityModel()).DeleteCommunityActivityPost(model);
+                return Json(new { result = 1 }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

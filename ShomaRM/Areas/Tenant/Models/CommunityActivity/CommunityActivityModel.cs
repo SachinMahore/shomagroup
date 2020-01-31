@@ -103,10 +103,42 @@ namespace ShomaRM.Areas.Tenant.Models
                
                     foreach (var item in getCommunityActivity)
                     {
-                        var tenantName = db.tbl_ApplyNow.Where(co => co.UserId == item.TenantId).FirstOrDefault();
-                    if (tenantName != null)
+                    //    var tenantName = db.tbl_ApplyNow.Where(co => co.UserId == item.TenantId).FirstOrDefault();
+                    //if (tenantName != null)
+                    //{
+                    var tenantProfile = db.tbl_TenantInfo.Where(co => co.TenantID == item.TenantId).FirstOrDefault();
+                    if (tenantProfile != null)
                     {
-                        var tenantProfile = db.tbl_TenantInfo.Where(co => co.ProspectID == tenantName.ID).FirstOrDefault();
+                        list.Add(new CommunityActivityModel()
+                            {
+                                CID = item.CID,
+                                TenantId = item.TenantId,
+                                Details = item.Details,
+                                AttatchFile = item.AttatchFile,
+                                AttachFileOriginalName = item.AttachFileOriginalName,
+                                DateString = item.Date.Value.ToString("MMMM dd"),
+                                TenantName = tenantProfile.FirstName + " " + tenantProfile.LastName,
+                                ProfilePicture = tenantProfile.ProfilePicture,
+                                OrginalProfilePicture = tenantProfile.OrginalProfilePicture
+                            });
+                      }
+                    //}
+                }
+            }
+            db.Dispose();
+            return list;
+        }
+
+        public List<CommunityActivityModel> GetCommunityActivityAdminList(CommunityActivityModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<CommunityActivityModel> list = new List<CommunityActivityModel>();
+            var getCommunityActivity = db.tbl_CommunityActivity.Where(co => co.TenantId == model.TenantId).ToList();
+            if (getCommunityActivity != null)
+            {
+                foreach (var item in getCommunityActivity)
+                {
+                        var tenantProfile = db.tbl_TenantInfo.Where(co => co.TenantID == item.TenantId).FirstOrDefault();
                         if (tenantProfile != null)
                         {
                             list.Add(new CommunityActivityModel()
@@ -116,17 +148,28 @@ namespace ShomaRM.Areas.Tenant.Models
                                 Details = item.Details,
                                 AttatchFile = item.AttatchFile,
                                 AttachFileOriginalName = item.AttachFileOriginalName,
-                                DateString = item.Date.Value.ToString("MMMM dd"),
-                                TenantName = tenantName.FirstName + " " + tenantName.LastName,
+                                DateString = item.Date.Value.ToString("MM/dd/yyyy"),
+                                TenantName = tenantProfile.FirstName + " " + tenantProfile.LastName,
                                 ProfilePicture = tenantProfile.ProfilePicture,
                                 OrginalProfilePicture = tenantProfile.OrginalProfilePicture
                             });
                         }
-                    }
                 }
             }
             db.Dispose();
             return list;
+        }
+
+        public void DeleteCommunityActivityPost(CommunityActivityModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            var CommunityActivityPost = db.tbl_CommunityActivity.Where(p => p.CID == model.CID).FirstOrDefault();
+            if (CommunityActivityPost != null)
+            {
+                db.tbl_CommunityActivity.Remove(CommunityActivityPost);
+                db.SaveChanges();
+            }
+
         }
 
 

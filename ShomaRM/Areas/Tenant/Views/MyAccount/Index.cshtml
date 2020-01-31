@@ -918,7 +918,7 @@
                                                 <div class="col-sm-3">
                                                     <div class="form-group">
                                                         <label>Desired Time</label>
-                                                        <input id="txtDesiredTime" type="time" class="form-control" style="width:80%" maxlength="20" placeholder="HH:mm:ss" value="">
+                                                        <input id="txtDesiredTime" class="time_element form-control form-control-small" type="text" name="timepicker"  style="width:80%" maxlength="20" placeholder="HH:mm:ss" value="">
                                                         <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:130px;">
                                                             <button id="btnDesiredTime" class="btn btn-primary search" type="button"><i class="fa-clock-o fa"></i></button>
                                                         </span>
@@ -1831,6 +1831,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
 
     <script>
+        $(document).ready(function () {
+            $("#txtDesiredTime").timepicki();
+        });
+
         $(function () {
 
 
@@ -1886,6 +1890,10 @@
     </script>
 
     <style>
+        .timepicker_wrap{
+            width:135% !important;
+        }
+
         .tab-content ul {
             /*background-color: #c7d5c733;*/
         }
