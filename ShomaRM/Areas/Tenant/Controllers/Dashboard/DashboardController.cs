@@ -160,5 +160,16 @@ namespace ShomaRM.Areas.Tenant.Controllers
             }
         }
 
+        public JsonResult GetEventDetail(long EventID)
+        {
+            try
+            {
+                return Json(new { model = new EventModel().GetEventDetail(EventID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

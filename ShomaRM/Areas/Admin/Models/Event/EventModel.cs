@@ -118,7 +118,12 @@ namespace ShomaRM.Areas.Admin.Models
                 model.EventTime = GetEventData.EventTime;
                 model.Fees = GetEventData.Fees;
                 model.EventDateString = GetEventData.EventDate != null ? GetEventData.EventDate.Value.ToString("MM/dd/yyyy") : "";
-                model.EventTimeString = GetEventData.EventTime != null ? GetEventData.EventTime.ToString() : "";
+                //model.EventTimeString = GetEventData.EventTime != null ? GetEventData.EventTime.ToString() : "";
+                TimeSpan tt = new TimeSpan();
+                tt = GetEventData.EventTime.Value;
+                DateTime dt = DateTime.Today.Add(tt);
+                string displayTime = dt.ToString("hh:mm tt");
+                model.EventTimeString = displayTime;
                 model.IsFree = GetEventData.Fees != null || GetEventData.Fees <= 0 ? true : false;
             }
             model.EventID = Id;
@@ -440,6 +445,29 @@ namespace ShomaRM.Areas.Admin.Models
                 db.Database.Connection.Close();
                 throw ex;
             }
+        }
+
+        public EventModel GetEventDetail(long EventID)
+        {
+            EventModel _eventModel = new EventModel();
+            ShomaRMEntities db = new ShomaRMEntities();
+            var getEventDetail = db.tbl_Event.Where(co => co.EventID == EventID).FirstOrDefault();
+            if (getEventDetail!=null)
+            {
+                _eventModel.EventID = getEventDetail.EventID;
+                _eventModel.EventName = getEventDetail.EventName;
+                _eventModel.Description = getEventDetail.Description;
+                _eventModel.EventDate = getEventDetail.EventDate;
+                _eventModel.EventTime = getEventDetail.EventTime;
+                _eventModel.EventDateString = getEventDetail.EventDate.Value.ToString("MM/dd/yyyy");
+                TimeSpan tt = new TimeSpan();
+                tt = getEventDetail.EventTime.Value;
+                DateTime dt = DateTime.Today.Add(tt);
+                string displayTime = dt.ToString("hh:mm tt");
+                _eventModel.EventTimeString = displayTime;
+            }
+
+            return _eventModel;
         }
     }
 }
