@@ -49,11 +49,22 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult GetTenantUpTransactionList(long TenantID)
+        public ActionResult GetTotalDue(long TenantID)
         {
             try
             {
-                return Json(new { model = new MyTransactionModel().GetTenantUpTransactionList(TenantID) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = new MyTransactionModel().GetTotalDue(TenantID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetTenantUpTransactionList(long UserId)
+        {
+            try
+            {
+                return Json(new { model = new MyTransactionModel().GetTenantUpTransactionList(UserId) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -71,5 +82,51 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult GetTenantAccountHistoryList(long TenantID)
+        {
+            try
+            {
+                return Json(new { model = new MyTransactionModel().GetTenantAccountHistoryList(TenantID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetTenantBillList(long TransID)
+        {
+            try
+            {
+                return Json(new { model = new MyTransactionModel().GetTenantBillList(TransID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetRecurringPayLists(long TenantID)
+        {
+            try
+            {
+                return Json(new { model = new MyTransactionModel().GetRecurringPayLists(TenantID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult SaveUpdateRecurringTransaction(MyTransactionModel model, string NameOnCardString, string NumberOnCardString, string ExpirationMonthOnCardString, string ExpirationYearOnCardString)
+        {
+            try
+            {
+                return Json(new { Msg = (new MyTransactionModel().SaveUpdateRecurringTransaction(model)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 }

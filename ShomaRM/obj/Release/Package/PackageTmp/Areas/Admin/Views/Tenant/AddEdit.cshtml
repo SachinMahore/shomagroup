@@ -1,0 +1,1004 @@
+﻿@{
+    ViewBag.Title = (ViewBag.TenantID == 0 ? "Add" : "Edit") + " Tenant";
+    var TenantID = ViewBag.TenantID;
+    var pageTitle = (ViewBag.TenantID == 0 ? "Add Tenant" : "Edit Tenant");
+
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="~/Areas/Admin/Content/Pages/Tenant/NewTenant.js"></script>
+
+
+<input type="hidden" id="hndTenantID" value="@ViewBag.TenantID" />
+<input type="hidden" id="hndNewTenant" value="" />
+<input type="hidden" id="hndUserId" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID" /> @*value=""*@
+
+
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container" style="width:100%;">
+        <div class="wizard-container">
+            <div class="col-md-12">
+                <div class="panel-body table-bordered">
+                    <div class="tab-content">
+
+                        <ul class="nav nav-tabs main-tab">
+                            <li id="li8" class="active"><a href="javascript:void(0);" onclick="goToStep(8)" style="font-size:16pt;padding-left:50px!important;padding-right:50px!important;">Payment</a></li>
+                            <li id="li9"><a href="javascript:void(0);" onclick="goToStep(9)" style="font-size:16pt;padding-right:50px!important;">Service Request</a></li>
+                            <li id="li10"><a href="javascript:void(0);" onclick="goToStep(10)" style="font-size:16pt;padding-right:50px!important;">Reservation</a></li>
+                            <li id="li11"><a href="javascript:void(0);" onclick="goToStep(11)" style="font-size:16pt;padding-right:50px!important;">My Lease Info</a></li>
+                            <li id="li12"><a href="javascript:void(0);" onclick="goToStep(12)" style="font-size:16pt;">Register Guest</a></li>
+                            <li id="li13"><a href="javascript:void(0);" onclick="goToStep(13)" style="font-size:16pt;">Tenant Profile</a></li>
+
+                        </ul>
+                        <div class="tab-content1">
+                            <div class="" id="step8">
+                                <div class="row">
+                                    <div class="col-md-12" style="margin-top:10px!important;">
+                                        <div><ul class="nav nav-tabs nact"><li><a href="javascript:void(0);"></a></li></ul></div>
+                                        <div class="" id="payStep1">
+                                            <div class="col-md-12 clear">
+                                                <div class="panel-heading">
+                                                    <div class="col-sm-4">
+                                                        <h4 style="margin-top: 2%;margin-bottom: 5%;font-size: 12pt;color:#4D738A !important; ">Account History</h4>
+                                                    </div>
+                                                </div>
+                                                <table id="tblAccountHistory" class="table " cellspacing="0" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="background-color: transparent;color:#4D738A;width:17%;font-size:13pt">Date</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:35%;font-size:13pt">Description</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Activity</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hidden" id="step9">
+                                <div style="margin-top:10px!important;"><ul class="nav nav-tabs nact"><li><a href="javascript:void(0);"></a></li></ul></div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="" id="serviceStep1">
+                                            <div class="panel-heading">
+                                                <div class="col-sm-4">
+                                                    <h4 style="margin-top: 2%;margin-bottom: 5%;font-size: 12pt;color:#4D738A !important; ">Current Service Request</h4>
+                                                </div>
+                                                <div class="col-sm-3 pull-right">
+                                                    <select id="ddlOpenServiceRequest" class=" form-control">
+                                                        <option value='1'>Open</option>
+                                                        <option value='2'>Completed</option>
+                                                        <option value='3'>Cancelled</option>
+                                                        <option value='4'>Show All</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 clear">
+                                                <table id="tblServiceRequest" class="table-bordered" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="background-color: transparent;color:#4D738A;width:17%;font-size:11pt">Preferred Date</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:17%;font-size:11pt">Problem Category</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:17%;font-size:11pt">Status</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:17%;font-size:11pt">Priority</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hidden" id="step10">
+                                <div style="margin-top:10px!important;"><ul class="nav nav-tabs nact"><li><a href="javascript:void(0);"></a></li></ul></div>
+                                <div class="row" id="reservationStep1">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="panel-heading">
+                                                <div class="col-sm-4">
+                                                    <h4 style="margin-top: 2%;margin-bottom: 5%;font-size: 12pt;color:#4D738A !important; ">Recent Reservations</h4>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 clear ">
+                                                <table id="tblReservationRequest" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="20%" style="background-color: #c7cdd5;color:#3d3939">Tenant</th>
+                                                            <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Amenity</th>
+                                                            <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Desire Date</th>
+                                                            <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Desire Time</th>
+                                                            <th width="20%" style="background-color: #c7cdd5;color:#3d3939">Desire Duration</th>
+                                                            <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Status</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hidden" id="step11">
+                                <div style="margin-top:10px!important;"><ul class="nav nav-tabs nact"><li><a href="javascript:void(0);"></a></li></ul></div>
+                                <div class="" id="leaseDocStep1">
+                                    <div class="col-md-12">
+                                        <div class="panel-heading">
+                                            <h4 style="margin-top: 2%;margin-bottom: 2%;font-size: 12pt;color:#4D738A !important; ">My Documents</h4>
+                                        </div>
+                                        <div class="panel-group" id="accordion">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Lease Document<i class="fa fa-angle-right pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse1" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div class="panel-group" id="accordionSubLeaseDocument">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Personal Identity<i class="fa fa-angle-right pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse2" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div class="panel-group" id="accordionSubIdentity">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Pay Stub/Tax Return<i class="fa fa-angle-right pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse3" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div class="panel-group" id="accordionSubTaxReturn">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Pets<i class="fa fa-angle-right pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse4" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div class="panel-group" id="accordionSubPetCertificate">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Vehicle<i class="fa fa-angle-right pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse5" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div class="panel-group" id="accordionSubVehicleCertificate">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hidden" id="step12">
+                                <div style="margin-top:10px!important;"><ul class="nav nav-tabs nact"><li><a href="javascript:void(0);"></a></li></ul></div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel-heading">
+                                            <div class="col-sm-4">
+                                                <h4 style="margin-top: 2%;margin-bottom: 5%;font-size: 12pt;color:#4D738A !important; ">Recent Reservations</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 clear ">
+                                            <table id="tblReservationRequest" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="20%" style="background-color: #c7cdd5;color:#3d3939">Tenant</th>
+                                                        <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Amenity</th>
+                                                        <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Desire Date</th>
+                                                        <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Desire Time</th>
+                                                        <th width="20%" style="background-color: #c7cdd5;color:#3d3939">Desire Duration</th>
+                                                        <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Status</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="hidden" id="step13">
+                                <div style="margin-top:10px!important;"><ul class="nav nav-tabs nact"><li><a href="javascript:void(0);"></a></li></ul></div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel-heading">
+                                            <div class="col-sm-4">
+                                                <h4 style="margin-top: 2%;margin-bottom: 5%;font-size: 12pt;color:#4D738A !important; ">Tenant Profile</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 clear ">
+                                            <div class="content-area submit-property" style="background-color: #FCFCFC;">
+                                                &nbsp;
+                                                <div class="container" style="width:100%;">
+                                                    <div class="wizard-container">
+                                                        <div class="col-md-12">
+                                                            <div class="panel-body table-bordered">
+                                                                <div class="tab-content">
+                                                                    <div class="col-lg-12 ">
+                                                                        <div style="text-align: right;">
+                                                                            <a href="javascript:void(0)" data-toggle="modal" data-target="#popChangePsw" id="btnpopChangePsw" style="text-decoration:underline">Change Password</a><br />
+                                                                        </div>
+                                                                        <div class="col-lg-1">
+                                                                            &nbsp;
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                            <div class="circle" style=" margin: auto ;float: right;">
+                                                                                <!-- User Profile Image -->
+                                                                                <img class="profile-pic img-responsive" id="imgTenantProfilePicture" data-value="" src="~/Content/assets/Assets/Circle.jpg">
+                                                                                <!-- Default Image -->
+                                                                                <!-- <i class="fa fa-user fa-5x"></i> -->
+                                                                            </div>
+                                                                            <div class="p-image fa-2x " style="color: #4d738a; cursor:pointer;">
+                                                                                <i class="fa fa-plus-circle  upload-button"></i>
+                                                                                <input class="file-upload hidden" name="ProfilePic" id="ProfilePic" type="file" accept="image/*" />
+                                                                                <input type="hidden" id="hndProfilePic" value="0" />
+                                                                                <input type="hidden" id="hndOriginalProfilePic" value="0" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-5">
+                                                                            <div class="col-lg-8" style="margin-top: 38px; margin-left: -36px;">
+                                                                                <span id="FirstName" style="font-size: 22px; color: #4d738a"></span>
+                                                                                <br />
+                                                                                <label style="font-size: 22px; color: #4d738a"></label>&nbsp;<span id="lblUnitUnitAccess" style="font-size: 22px; color: #4d738a"></span>
+                                                                            </div>
+                                                                            <div class="col-lg-4">
+                                                                                &nbsp;
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="col-lg-12">
+                                                                        &nbsp;
+                                                                        <br />
+                                                                        <br />
+                                                                    </div>
+
+                                                                    <div class="col-lg-12">
+                                                                        <div class="col-lg-6">
+                                                                            <div class="row">
+                                                                                <div class="panel-heading">
+                                                                                    <div class="col-sm-12">
+                                                                                        <h3 class="modal-title">Contact Information</h3>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="col-sm-4">
+                                                                                    <span id="">Name: </span>
+                                                                                </div>
+                                                                                <div class="col-sm-8">
+                                                                                    <span id="FirstName1"></span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="col-sm-4">
+                                                                                    <span id="">Mobile Number:</span>
+                                                                                </div>
+                                                                                <div class="col-sm-8">
+                                                                                    <span id="Mobile1"></span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="col-sm-4">
+                                                                                    <span id="">Email:</span>
+                                                                                </div>
+                                                                                <div class="col-sm-8">
+                                                                                    <span id="Email1"></span>
+                                                                                </div>
+                                                                                <br />
+                                                                                <br />
+                                                                            </div>
+                                                                            @*<div class="col-sm-12  padding-5">
+                                                                                    <div class="col-sm-6">
+                                                                                        <button class="btn-blue" data-toggle="modal" data-target="#popContactInfo" id="btnContactInfo"><i class="fa fa-edit"></i><b> Edit</b> </button>
+                                                                                    </div>
+
+                                                                                </div>*@
+                                                                            <div class="row">
+                                                                                <div class="panel-heading">
+                                                                                    <div class="col-sm-12">
+                                                                                        <h3 class="modal-title">Career</h3>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="col-sm-4">
+                                                                                    <span id="">Job Title:</span>
+                                                                                </div>
+                                                                                <div class="col-sm-8">
+                                                                                    <span id="JobTitle"></span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="col-sm-4">
+                                                                                    <span id="">Employer Name: </span>
+                                                                                </div>
+                                                                                <div class="col-sm-8">
+                                                                                    <span id="EmployerName"></span>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-sm-12">
+                                                                                <div class="col-sm-4">
+                                                                                    <span id="">Job Type:</span>
+                                                                                </div>
+                                                                                <div class="col-sm-8">
+                                                                                    <span id="JobType"></span>
+                                                                                </div>
+                                                                                <br />
+                                                                                <br />
+                                                                            </div>
+                                                                            @*<div class="col-sm-12  padding-5">
+                                                                                    <div class="col-sm-6">
+                                                                                        <button class="btn-blue" data-toggle="modal" data-target="#popWorkInfo" id="btnWorkInfo"><i class="fa fa-edit"></i><b> Edit</b> </button>
+                                                                                    </div>
+
+                                                                                </div>*@
+                                                                            <div class="row">
+                                                                                <div class="panel-heading">
+                                                                                    <div class="col-sm-12">
+                                                                                        <h3 class="modal-title">Emergency Contact </h3>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="col-sm-4">
+                                                                                    <span id="">Name: </span>
+                                                                                </div>
+                                                                                <div class="col-sm-8">
+                                                                                    <span id="EmFirstName">&nbsp;</span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="col-sm-4">
+                                                                                    <span id="">Relationship: </span>
+                                                                                </div>
+                                                                                <div class="col-sm-8">
+                                                                                    <span id="EmRelationship">&nbsp;</span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="col-sm-4">
+                                                                                    <span id="">Address: </span>
+                                                                                </div>
+                                                                                <div class="col-sm-8">
+                                                                                    <span id="EmAddress"></span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="col-sm-4">
+                                                                                    <span id="">Mobile Number: </span>
+                                                                                </div>
+                                                                                <div class="col-sm-8">
+                                                                                    <span id="EmMobile"></span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="col-sm-4">
+                                                                                    <span id="">Work Phone: </span>
+                                                                                </div>
+                                                                                <div class="col-sm-8">
+                                                                                    <span id="EmWorkPhone"></span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="col-sm-4">
+                                                                                    <span id="">Email: </span>
+                                                                                </div>
+                                                                                <div class="col-sm-8">
+                                                                                    <span id="EmEmail"></span>
+                                                                                </div>
+                                                                                <br />
+                                                                                <br />
+                                                                            </div>
+                                                                            @*<div class="col-sm-12  padding-5">
+                                                                                    <div class="col-sm-6">
+                                                                                        <button class="btn-blue" data-toggle="modal" data-target="#popEmergencyContact" id="btnEmergencyContact"><i class="fa fa-edit"></i><b> Edit</b> </button>
+                                                                                    </div>
+                                                                                </div>*@
+                                                                        </div>
+                                                                        <div class="col-lg-6">
+                                                                            <div class="col-lg-12">
+                                                                                <div class="row">
+                                                                                    <div class="panel-heading">
+                                                                                        <div class="col-sm-12">
+                                                                                            <h3 class="modal-title">Vehicle</h3>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-12 clear">
+                                                                                    <table id="tblVehicle" width="100%">
+                                                                                        <tbody></tbody>
+                                                                                    </table>
+                                                                                    <br />
+                                                                                </div>
+                                                                                <div class="col-lg-12">
+                                                                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle fa-lg"></i> Add a Vehicle</a>
+                                                                                    @*<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle"></i> Add</button>*@
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-lg-12">
+
+                                                                                <div class="row">
+                                                                                    <div class="panel-heading">
+                                                                                        <div class="col-sm-12">
+                                                                                            <h3 class="modal-title">Pets</h3>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-12 clear">
+                                                                                    <table id="tblPet" width="100%">
+                                                                                        <tbody></tbody>
+                                                                                    </table>
+                                                                                    <br />
+                                                                                </div>
+                                                                                <div class="col-lg-12">
+                                                                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#popPet" id="btnAddPet"><i class="fa fa-plus-circle fa-lg"></i> Add a Pet</a>
+                                                                                    @*<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle"></i> Add</button>*@
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- End submit form -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- End submit form -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<input id="hdnStepId1" type="hidden" value="@ViewBag.StepIdMakePayment1" />
+<input id="hdnStepId2" type="hidden" value="@ViewBag.StepIdMakePayment2" />
+<input id="hdnPayStepIdMakePayment" type="hidden" value="@ViewBag.PayStepIdMakePayment" />
+<input id="hdnPayStepIdRecurring" type="hidden" value="@ViewBag.PayStepIdRecurringPayment" />
+<input id="hdnStepIdServiceRequest" type="hidden" value="@ViewBag.StepServiceRequest2" />
+
+<input id="hdnStepRegister" type="hidden" value="@ViewBag.StepRegisterGuest" />
+<input id="hdnStepReserveAmenities" type="hidden" value="@ViewBag.StepReserveAmenities" />
+<input id="hdnPayIdReserveAmenities" type="hidden" value="@ViewBag.PayStepIdReserveAmenities" />
+<input id="hdnServiceStepIdServiceRequest2" type="hidden" value="@ViewBag.ServiceRequestStepIdSubmitServiceRequest" />
+
+<input id="hdnCardName" type="hidden" value="0" />
+<input id="hdnCardNumber" type="hidden" value="0" />
+<input id="hdnCardMonth" type="hidden" value="0" />
+<input id="hdnCardYear" type="hidden" value="0" />
+<input id="hdnCVVFromPayment" type="hidden" value="0" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+
+<script>
+    function dateRangeAccountHistory() {
+        $('#txtFromDate').val('');
+        $('#txtToDate').val('');
+        $('#popDateRangeAccountHistory').modal('show');
+    };
+</script>
+
+<style>
+    .tab-content ul {
+        /*background-color: #c7d5c733;*/
+    }
+
+        .tab-content ul li {
+            margin-right: 23px;
+        }
+
+    .nav {
+        padding-left: 0;
+        list-style: none;
+    }
+
+    .tab-content1 ul {
+        background-color: #4d738a;
+        color: #dfe4e8;
+    }
+
+        .tab-content1 ul li a {
+            color: #B7B0A7;
+        }
+
+
+
+
+    .tab-content.wizard li {
+        width: 100%;
+        float: none;
+        margin-bottom: 0px;
+    }
+
+        .tab-content.wizard li > * {
+            position: relative;
+            padding: 1em .8em .8em 1.5em;
+            color: #ffffff;
+            background-color: #B4ADA5;
+            border-color: #B4ADA5;
+        }
+
+        .tab-content.wizard li.completed > * {
+            color: #fff !important;
+            background-color: #96c03d !important;
+            border-color: #96c03d !important;
+            border-bottom: none !important;
+        }
+
+    .tab-content li.active > * {
+        color: #4d738a !important;
+        background-color: transparent !important;
+        /*border-color: #4d738a !important;*/
+        /*border-bottom: none !important;*/
+        margin-bottom: 0px;
+        border: none !important;
+    }
+
+    .tab-content li.active1 > * {
+        color: #4d738a !important;
+    }
+    /*.active1 > a {
+            color: #4d738a !important;
+            background-color: #ffffff !important;
+        }*/
+
+
+    .tab-content.wizard li::after:last-child {
+        border: none;
+        border-bottom-left-radius: 0px;
+    }
+
+    .tab-content.wizard > li > a {
+        opacity: 1;
+        font-size: 14px;
+    }
+
+    .tab-content.wizard a:hover {
+        color: #fff;
+        background-color: #4d738a;
+        /*border-color: #4d738a*/
+    }
+
+    span.nmbr {
+        display: inline-block;
+        padding: 10px 0 0 0;
+        background: #ffffff;
+        width: 35px;
+        line-height: 100%;
+        height: 35px;
+        margin: auto;
+        border-radius: 50%;
+        font-weight: bold;
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    @@media(min-width:992px) {
+        .tab-content.wizard li {
+            position: relative;
+            padding: 0;
+            /*margin: 4px 4px 4px 0;*/
+            width: 19.6%;
+            float: left;
+            text-align: center;
+        }
+
+        .nav-tabs {
+            border-bottom: none;
+        }
+
+            .nav-tabs.wizard li.active a {
+                padding-top: 15px;
+            }
+
+            .nav-tabs.wizard li.active1 a {
+                padding-top: 15px;
+            }
+
+
+            .tab-content.wizard li::after, .nav-tabs.wizard li > ::after {
+                content: '';
+                position: absolute;
+                top: -1px;
+                left: 100%;
+                height: 0;
+                width: 0;
+                border: 24px solid transparent;
+                border-right-width: 24px;
+                border-left-color: transparent;
+                border-right-width: 0;
+                border-left-width: 20px;
+            }
+
+        .tab-content.wizard li::after {
+            z-index: 1;
+            -webkit-transform: translateX(4px);
+            -moz-transform: translateX(4px);
+            -ms-transform: translateX(4px);
+            -o-transform: translateX(4px);
+            transform: translateX(4px);
+            border-left-color: #fff;
+            margin: 0
+        }
+
+        .tab-content.wizard li > *::after {
+            z-index: 2;
+            border-left-color: inherit
+        }
+
+        .tab-content.wizard > li:nth-of-type(1) > a {
+            border-top-left-radius: 0px;
+            border-bottom-left-radius: 0px;
+        }
+
+        .tab-content.wizard li:last-child a {
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+
+        .tab-content.wizard li:last-child {
+            margin-right: 0;
+        }
+
+        .nav-tabs.wizard li:last-child a:after,
+        .nav-tabs.wizard li:last-child:after {
+            content: "";
+            border: none;
+        }
+
+        span.nmbr {
+            display: block;
+        }
+    }
+
+    .wizard-card {
+        border: groove;
+        border-color: black;
+    }
+
+    .btn-blue {
+        background-color: #4d738a;
+        color: #fff;
+    }
+
+        .btn-blue:hover {
+            background-color: #B7B0A7;
+            color: #fff;
+        }
+
+    hr {
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+        border: 0;
+        border-top: 1px solid #bebdbd;
+    }
+
+    .select-unit {
+        background-color: #4d738a !important;
+        color: #fff !important;
+    }
+
+        .select-unit a {
+            color: #fff !important;
+        }
+
+    .nav-tabs > li {
+        float: left;
+        margin-bottom: -1px !important;
+        margin-top: -1px !important;
+    }
+
+    nav > li > a {
+        padding: 10px 36px !important;
+        outline: none !important;
+    }
+
+    .nav-tabs > li > a:hover {
+        border-color: none !important;
+        outline: none !important;
+    }
+
+    .nav > li > a:hover, .nav > li > a:focus {
+        background-color: #fff !important;
+        outline: none !important;
+    }
+
+    .main-tab > li > a:hover {
+        text-decoration: none !important;
+        color: #4D738A !important;
+        /*color: #B7B0A7;*/
+        /*-webkit-transition: all .8s ease !important;*/
+        transition: all .8s ease !important;
+    }
+
+    .main-tab > li > a {
+        color: #B7B0A7 !important;
+        /*outline: 0;
+            font-weight: bold;
+            -webkit-transition: all .8s ease;
+            transition: all .8s ease;*/
+    }
+
+    .hov {
+        color: #ffffff !important;
+    }
+
+        .hov > a {
+            color: #ffffff !important;
+        }
+
+        .hov:hover {
+            background-color: #ffffff;
+        }
+
+    .nav-tabs {
+        border-bottom: none !important;
+    }
+
+    .nact > li.active1 {
+        background-color: #fff !important;
+        outline: none !important;
+    }
+
+    .nact > li > a {
+        color: #ffffff !important;
+        outline: none !important;
+    }
+
+        .nact > li > a:hover {
+            color: #B7B0A7 !important;
+            outline: none !important;
+        }
+
+    .nact > li:hover {
+        background-color: #fff !important;
+        color: #B7B0A7 !important;
+        outline: none !important;
+    }
+
+    .nact > li.active1 > a:hover {
+        color: #B7B0A7 !important;
+        outline: none !important;
+        background-color: #fff !important;
+    }
+
+    .nact > li.active1:hover {
+        background-color: #fff !important;
+        outline: none !important;
+        color: #B7B0A7 !important;
+    }
+
+    p {
+        font-size: 11pt;
+    }
+
+
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        padding: 8px;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 1px solid #fff;
+        border-right: 2px solid #ddd;
+        border-bottom: 0px;
+    }
+
+    .affix {
+        position: fixed !important;
+        background-color: white !important;
+        z-index: 777 !important;
+        padding-right: 30px !important;
+    }
+</style>
+<style>
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        /*z-index: 1;*/ /* Sit on top */
+        padding-top: 5px !important; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    .modal-header-H {
+        margin: auto;
+        padding: 20px;
+        width: 35%;
+    }
+
+    /* Modal Content */
+    .modal-content-term {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 30%;
+        text-align: justify;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #fff;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        opacity: 1;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+            opacity: 1;
+        }
+
+    .grid-box {
+        border: 2px solid black;
+        margin-bottom: 5px !important;
+    }
+
+
+    a.disabled {
+        pointer-events: none;
+        cursor: default;
+        color: #B4ADA5;
+    }
+
+    .modal-footer-custom {
+        padding: 35px;
+        text-align: right;
+    }
+</style>
+
+
+<style>
+    .btn-blue {
+        background-color: #4d738a;
+        color: #fff;
+    }
+
+        .btn-blue:hover {
+            background-color: #B7B0A7;
+            color: #fff;
+        }
+
+    .close {
+        color: #fff;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        opacity: 1;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+            opacity: 1;
+        }
+</style>
+<style>
+    body {
+        background-color: #efefef;
+    }
+
+    .profile-pic {
+        max-width: 200px;
+        max-height: 200px;
+        display: block;
+    }
+
+    .file-upload {
+        display: none;
+    }
+
+    .circle {
+        border-radius: 1000px !important;
+        overflow: hidden;
+        width: 150px;
+        height: 150px;
+        border: 8px solid rgba(255, 255, 255, 0.7);
+        /*position: absolute;*/
+        top: 72px;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .p-image {
+        position: absolute;
+        top: 133px;
+        right: 77px;
+        color: #666666;
+        transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+    }
+
+        .p-image:hover {
+            transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+        }
+
+    .upload-button {
+        font-size: 1.2em;
+    }
+
+        .upload-button:hover {
+            transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+            color: #999;
+        }
+
+    a.disabled {
+        pointer-events: none;
+        cursor: default;
+        color: #B4ADA5;
+    }
+
+    .affix {
+        position: fixed !important;
+        background-color: white !important;
+        z-index: 777 !important;
+        padding-right: 30px !important;
+    }
+</style>
+

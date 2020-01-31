@@ -33,11 +33,12 @@ namespace ShomaRM.Controllers
                 model.Bedroom = Convert.ToInt32(Session["Bedroom"].ToString());
                 model.MoveInDate = Convert.ToDateTime(Session["MoveInDate"].ToString());
                 model.MaxRent = Convert.ToDecimal(Session["MaxRent"].ToString());
+                model.LeaseTerm= Convert.ToInt32(Session["LeaseTerm"].ToString());
                 model.FromHome = 1;
                 Session.Remove("Bedroom");
                 Session.Remove("MoveInDate");
                 Session.Remove("MaxRent");
-
+                Session.Remove("LeaseTerm");
             }
             else
             {
@@ -516,16 +517,6 @@ namespace ShomaRM.Controllers
             }
         }
 
-        public JsonResult GetAllTotalDues(long UserId)
-        {
-            try
-            {
-                return Json(new { model = new ApplyNowModel().GetAllTotalDues(UserId) }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception Ex)
-            {
-                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
-            }
-        }
+      
     }
 }

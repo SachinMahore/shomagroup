@@ -1,0 +1,85 @@
+﻿@using ShomaRM.Areas.Admin.Models
+@model InvoiceModel
+@{
+    ViewBag.Title = "Invoice";
+}
+<script src="~/Areas/Admin/Content/Pages/Invoice/InvoiceList.js"></script>
+<input type="hidden" id="hdnSearchType_IL" value="1" />
+<input type="hidden" id="hdnCurrentPage_IL" value="1" />
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumb">
+                <h4 class="">Invoice List</h4>
+            </div>
+
+            <div class="col-md-12  pr0  properties-page">
+                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                    <div class="panel-heading">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <h3 class="panel-title">From Date</h3>
+                                <input id="txtFromDate" type="text" class="form-control" value="@DateTime.Now.AddDays(-10).ToString("MM/dd/yyyy")">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <h3 class="panel-title">To Date</h3>
+                                <input id="txtToDate" type="text" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group  padding-top-25">
+                                <button class='btn btn-next btn-primary' name='Search' value='Search' onclick="buildPaganationInvoiceList(1)"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group  padding-top-25">
+                                <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="addNewInvoice()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">NEW</span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 form-group" id="divPagination_InvoiceList">
+                        <div id="divPgn" class="col-sm-8 pagination">
+                            <ul id="ulPagination_InvoiceList"></ul>
+                        </div>
+                        <div class="col-sm-3 padding-0 pull-right">
+                            <div class="col-sm-6">
+                                <label class="control-label">Row/Page</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <select id="ddlRPP_InvoiceList" class="form-control form-control-small"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body search-widget">
+                        <div class="col-md-12 clear">
+                            <table id="tblInvoice" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="background-color: #c7cdd566;color:#3d3939">Invoice No.</th>
+                                        <th style="background-color: #c7cdd566;color:#3d3939">Vendor</th>
+                                        <th style="background-color: #c7cdd566;color:#3d3939">Invoice Date</th>
+                                        <th style="background-color: #c7cdd566;color:#3d3939">Recieved Date</th>
+                                        <th style="background-color: #c7cdd566;color:#3d3939">Payment Date</th>
+                                        <th style="background-color: #c7cdd566;color:#3d3939">Total Amount</th>
+                                        <th style="background-color: #c7cdd566;color:#3d3939">Approved</th>
+                                        <th style="background-color: #c7cdd566;color:#3d3939">Approved By</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#txtFromDate").datepicker();
+        $("#txtToDate").datepicker();
+    });
+</script>

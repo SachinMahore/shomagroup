@@ -91,6 +91,9 @@ namespace ShomaRM.Areas.Tenant.Models
         public string OriginalPetVaccinationDoc { get; set; }
         public long UserId { get; set; }
         public string UnitName { get; set; }
+        public long ProspectID { get; set; }
+
+
         public List<MyAccountModel> GetTenantList()
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -284,6 +287,7 @@ namespace ShomaRM.Areas.Tenant.Models
 
                 }
                 model.ID = tenantData.TenantID;
+                model.ProspectID = Convert.ToInt64((tenantData.ProspectID).ToString());
                 model.FirstName = tenantData.FirstName;
                 model.MiddleInitial = tenantData.MiddleInitial;
                 model.LastName = tenantData.LastName;
@@ -559,6 +563,32 @@ namespace ShomaRM.Areas.Tenant.Models
             return listVehicleCertificate;
         }
 
+        public MyAccountModel GetTenantLeaseDocuments(MyAccountModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            var appNow = db.tbl_ApplyNow.Where(co => co.ID == model.UserId).FirstOrDefault();
+            if (appNow != null)
+            {
+                var getCertificates = db.tbl_TenantOnline.Where(co => co.ProspectID == appNow.ID).FirstOrDefault();
+                if (getCertificates != null)
+                {
+                    model.EnvelopeID = appNow.EnvelopeID;
+                    model.PassportDoc = getCertificates.PassportDocument;
+                    model.OriginalPassportDoc = getCertificates.PassportDocumentOriginalFile;
+                    model.IdentityDoc = getCertificates.IdentityDocument;
+                    model.OriginalIdentityDoc = getCertificates.IdentityDocumentOriginalFile;
+                    model.TaxReturnDoc1 = getCertificates.TaxReturn;
+                    model.OriginalTaxReturnDoc1 = getCertificates.TaxReturnOrginalFile;
+                    model.TaxReturnDoc2 = getCertificates.TaxReturn2;
+                    model.OriginalTaxReturnDoc2 = getCertificates.TaxReturnOrginalFile2;
+                    model.TaxReturnDoc3 = getCertificates.TaxReturn3;
+                    model.OriginalTaxReturnDoc3 = getCertificates.TaxReturnOrginalFile3;
+                }
+            }
+
+            return model;
+        }
+
         public List<AmenitiesModel> GetAmenityList()
         {
 
@@ -588,10 +618,10 @@ namespace ShomaRM.Areas.Tenant.Models
             public long ID { get; set; }
             public string Amenity { get; set; }
             public string AmenityDetails { get; set; }
-
-           
+         
 
         }
+
 
     }
 }

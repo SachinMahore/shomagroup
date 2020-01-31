@@ -20,6 +20,32 @@
           <Property Name="Amenity" Type="nvarchar" MaxLength="100" />
           <Property Name="AmenityDetails" Type="nvarchar" MaxLength="1000" />
         </EntityType>
+        <EntityType Name="tbl_AmenityPriceRange">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AmenityID" Type="bigint" Nullable="false" />
+          <Property Name="Duration" Type="varchar" MaxLength="50" />
+          <Property Name="Deposit" Type="money" />
+          <Property Name="Fees" Type="money" />
+          <Property Name="DurationID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="tbl_AmenityReservation">
+          <Key>
+            <PropertyRef Name="ARID" />
+          </Key>
+          <Property Name="ARID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenantID" Type="bigint" />
+          <Property Name="AmenityID" Type="bigint" />
+          <Property Name="DesiredDate" Type="datetime" />
+          <Property Name="DesiredTime" Type="varchar" MaxLength="50" />
+          <Property Name="DurationID" Type="bigint" />
+          <Property Name="DepositFee" Type="varchar" MaxLength="50" />
+          <Property Name="ReservationFee" Type="varchar" MaxLength="50" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Duration" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="tbl_Applicant">
           <Key>
             <PropertyRef Name="ApplicantID" />
@@ -90,11 +116,16 @@
           <Property Name="TrashAmt" Type="money" />
           <Property Name="PestAmt" Type="money" />
           <Property Name="ConvergentAmt" Type="money" />
-          <Property Name="TotalAmt" Type="money" />
+          <Property Name="MoveInCharges" Type="money" />
           <Property Name="FOBAmt" Type="decimal" Precision="18" Scale="2" />
           <Property Name="IsRentalPolicy" Type="int" />
           <Property Name="IsRentalQualification" Type="int" />
           <Property Name="EnvelopeID" Type="nvarchar" MaxLength="50" />
+          <Property Name="Prorated_Rent" Type="money" />
+          <Property Name="VehicleRegistration" Type="money" />
+          <Property Name="AdministrationFee" Type="money" />
+          <Property Name="LeaseTerm" Type="int" />
+          <Property Name="MonthlyCharges" Type="money" />
         </EntityType>
         <EntityType Name="tbl_BankAccount">
           <Key>
@@ -104,6 +135,15 @@
           <Property Name="Bank_Name" Type="varchar" MaxLength="100" />
           <Property Name="Account_Number" Type="varchar" MaxLength="29" />
           <Property Name="Account_Type" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_Bill">
+          <Key>
+            <PropertyRef Name="BillID" />
+          </Key>
+          <Property Name="BillID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransID" Type="bigint" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Amount" Type="money" />
         </EntityType>
         <EntityType Name="tbl_CashReceipts">
           <Key>
@@ -129,6 +169,14 @@
           <Property Name="BankAccount" Type="varchar" MaxLength="10" />
           <Property Name="DateStamp" Type="datetime" />
           <Property Name="DepositAcctDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_CausingIssue">
+          <Key>
+            <PropertyRef Name="CausingIssueID" />
+          </Key>
+          <Property Name="CausingIssueID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CausingIssue" Type="varchar" MaxLength="100" />
+          <Property Name="ServiceIssueID" Type="bigint" />
         </EntityType>
         <EntityType Name="tbl_ChargeType">
           <Key>
@@ -219,6 +267,8 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="CreatedByID" Type="int" />
           <Property Name="CreatedByDate" Type="datetime" />
           <Property Name="Type" Type="int" />
+          <Property Name="EventTime" Type="time" Precision="7" />
+          <Property Name="Fees" Type="money" />
         </EntityType>
         <EntityType Name="tbl_EventBooking">
           <Key>
@@ -323,6 +373,15 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="BatchID" Type="varchar" MaxLength="15" />
           <Property Name="CreatedBy" Type="int" />
           <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_Issue">
+          <Key>
+            <PropertyRef Name="IssueID" />
+          </Key>
+          <Property Name="IssueID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceIssueID" Type="bigint" />
+          <Property Name="CausingIssueID" Type="bigint" />
+          <Property Name="Issue" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="tbl_Lease">
           <Key>
@@ -440,6 +499,25 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="BalconyArea" Type="varchar" MaxLength="100" />
           <Property Name="InteriorArea" Type="varchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="tbl_MonthlyPayment">
+          <Key>
+            <PropertyRef Name="MPayID" />
+          </Key>
+          <Property Name="MPayID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenantID" Type="bigint" />
+          <Property Name="UserID" Type="bigint" />
+          <Property Name="MonthlyCharges" Type="money" />
+          <Property Name="AdditionalParking" Type="money" />
+          <Property Name="StorageCharges" Type="money" />
+          <Property Name="PetRent" Type="money" />
+          <Property Name="TrashRecycle" Type="money" />
+          <Property Name="PestControl" Type="money" />
+          <Property Name="ConvergentBilling" Type="money" />
+          <Property Name="TotalMonthlyCharges" Type="money" />
+          <Property Name="Unit" Type="varchar" MaxLength="50" />
+          <Property Name="Model" Type="varchar" MaxLength="50" />
+          <Property Name="LeaseTerm" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="tbl_MoveInChecklist">
           <Key>
             <PropertyRef Name="MIID" />
@@ -455,6 +533,20 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="IsCheckATT" Type="int" />
           <Property Name="IsCheckWater" Type="int" />
           <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_MoveInPayment">
+          <Key>
+            <PropertyRef Name="MIPayID" />
+          </Key>
+          <Property Name="MIPayID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenantID" Type="bigint" />
+          <Property Name="UserID" Type="bigint" />
+          <Property Name="MoveInCharges" Type="money" />
+          <Property Name="AdministrationFee" Type="money" />
+          <Property Name="VehicleRegistration" Type="money" />
+          <Property Name="SecurityDeposit" Type="money" />
+          <Property Name="PetFee" Type="money" />
+          <Property Name="Prorated Rent" Type="money" />
         </EntityType>
         <EntityType Name="tbl_Notice">
           <Key>
@@ -728,6 +820,20 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="Designation" Type="nvarchar" MaxLength="100" />
           <Property Name="Photo" Type="varchar" MaxLength="500" />
         </EntityType>
+        <EntityType Name="tbl_ServiceIssue">
+          <Key>
+            <PropertyRef Name="ServiceIssueID" />
+          </Key>
+          <Property Name="ServiceIssueID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceIssue" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tbl_ServiceLocation">
+          <Key>
+            <PropertyRef Name="LocationID" />
+          </Key>
+          <Property Name="LocationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Location" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="tbl_ServiceRequest">
           <Key>
             <PropertyRef Name="ServiceID" />
@@ -751,6 +857,12 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="Priority" Type="int" />
           <Property Name="OriginalServiceFile" Type="nvarchar" MaxLength="100" />
           <Property Name="TempServiceFile" Type="nvarchar" MaxLength="100" />
+          <Property Name="EmergencyMobile" Type="varchar" MaxLength="15" />
+          <Property Name="CompletedPicture" Type="nvarchar" MaxLength="100" />
+          <Property Name="TempCompletedPicture" Type="nvarchar" MaxLength="100" />
+          <Property Name="ApprovedBy" Type="int" />
+          <Property Name="ServicePerson" Type="int" />
+          <Property Name="PermissionComeTime" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tbl_State">
           <Key>
@@ -816,6 +928,29 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="LastModifiedBy" Type="int" />
           <Property Name="LastModifiedeDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_TenantEventJoin">
+          <Key>
+            <PropertyRef Name="TEID" />
+          </Key>
+          <Property Name="TEID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenantID" Type="bigint" />
+          <Property Name="EventID" Type="bigint" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Time" Type="time" Precision="7" />
+          <Property Name="Fees" Type="money" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="tbl_TenantEventJoinApprove">
+          <Key>
+            <PropertyRef Name="TEJAID" />
+          </Key>
+          <Property Name="TEJAID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventID" Type="bigint" />
+          <Property Name="EventJoinID" Type="bigint" />
+          <Property Name="TenantID" Type="bigint" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Date" Type="date" />
         </EntityType>
         <EntityType Name="tbl_TenantInfo">
           <Key>
@@ -1900,6 +2035,18 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_TenantEventJoin_tbl_TenantEventJoin">
+          <End Role="tbl_TenantEventJoin" Type="Self.tbl_TenantEventJoin" Multiplicity="1" />
+          <End Role="tbl_TenantEventJoin1" Type="Self.tbl_TenantEventJoin" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_TenantEventJoin">
+              <PropertyRef Name="TEID" />
+            </Principal>
+            <Dependent Role="tbl_TenantEventJoin1">
+              <PropertyRef Name="TEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbl_TenantInfo_tbl_ApplyNow">
           <End Role="tbl_ApplyNow" Type="Self.tbl_ApplyNow" Multiplicity="0..1" />
           <End Role="tbl_TenantInfo" Type="Self.tbl_TenantInfo" Multiplicity="*" />
@@ -2107,11 +2254,15 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
         <EntityContainer Name="ShomaRMModelStoreContainer">
           <EntitySet Name="tbl_Advertiser" EntityType="Self.tbl_Advertiser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Amenities" EntityType="Self.tbl_Amenities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_AmenityPriceRange" EntityType="Self.tbl_AmenityPriceRange" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_AmenityReservation" EntityType="Self.tbl_AmenityReservation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Applicant" EntityType="Self.tbl_Applicant" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ApplicantHistory" EntityType="Self.tbl_ApplicantHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ApplyNow" EntityType="Self.tbl_ApplyNow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_BankAccount" EntityType="Self.tbl_BankAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Bill" EntityType="Self.tbl_Bill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_CashReceipts" EntityType="Self.tbl_CashReceipts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_CausingIssue" EntityType="Self.tbl_CausingIssue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ChargeType" EntityType="Self.tbl_ChargeType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_City" EntityType="Self.tbl_City" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_CommunityActivity" EntityType="Self.tbl_CommunityActivity" Schema="dbo" store:Type="Tables" />
@@ -2125,6 +2276,7 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <EntitySet Name="tbl_Gallery" EntityType="Self.tbl_Gallery" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_GuestRegistration" EntityType="Self.tbl_GuestRegistration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Invoice" EntityType="Self.tbl_Invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Issue" EntityType="Self.tbl_Issue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Lease" EntityType="Self.tbl_Lease" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_LeaseRenewal" EntityType="Self.tbl_LeaseRenewal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_LeaseTerms" EntityType="Self.tbl_LeaseTerms" Schema="dbo" store:Type="Tables" />
@@ -2132,7 +2284,9 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <EntitySet Name="tbl_Login" EntityType="Self.tbl_Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_LoginHistory" EntityType="Self.tbl_LoginHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Models" EntityType="Self.tbl_Models" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_MonthlyPayment" EntityType="Self.tbl_MonthlyPayment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_MoveInChecklist" EntityType="Self.tbl_MoveInChecklist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_MoveInPayment" EntityType="Self.tbl_MoveInPayment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Notice" EntityType="Self.tbl_Notice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_OnlinePayment" EntityType="Self.tbl_OnlinePayment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Parking" EntityType="Self.tbl_Parking" Schema="dbo" store:Type="Tables" />
@@ -2147,10 +2301,14 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <EntitySet Name="tbl_PurchaseOrder" EntityType="Self.tbl_PurchaseOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Rating" EntityType="Self.tbl_Rating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_SalesAgent" EntityType="Self.tbl_SalesAgent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ServiceIssue" EntityType="Self.tbl_ServiceIssue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ServiceLocation" EntityType="Self.tbl_ServiceLocation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ServiceRequest" EntityType="Self.tbl_ServiceRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_State" EntityType="Self.tbl_State" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Storage" EntityType="Self.tbl_Storage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Tenant" EntityType="Self.tbl_Tenant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_TenantEventJoin" EntityType="Self.tbl_TenantEventJoin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_TenantEventJoinApprove" EntityType="Self.tbl_TenantEventJoinApprove" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantInfo" EntityType="Self.tbl_TenantInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantOnline" EntityType="Self.tbl_TenantOnline" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantParking" EntityType="Self.tbl_TenantParking" Schema="dbo" store:Type="Tables" />
@@ -2406,6 +2564,10 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <AssociationSet Name="FK_tbl_Tenant_tbl_Properties1" Association="Self.FK_tbl_Tenant_tbl_Properties1">
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
             <End Role="tbl_Tenant" EntitySet="tbl_Tenant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_TenantEventJoin_tbl_TenantEventJoin" Association="Self.FK_tbl_TenantEventJoin_tbl_TenantEventJoin">
+            <End Role="tbl_TenantEventJoin" EntitySet="tbl_TenantEventJoin" />
+            <End Role="tbl_TenantEventJoin1" EntitySet="tbl_TenantEventJoin" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_TenantInfo_tbl_ApplyNow" Association="Self.FK_tbl_TenantInfo_tbl_ApplyNow">
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
@@ -2804,14 +2966,38 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
             <End Role="tbl_PropertyUnits" EntitySet="tbl_PropertyUnits" />
           </AssociationSet>
           <EntitySet Name="tbl_Models" EntityType="ShomaRMModel.tbl_Models" />
+          <EntitySet Name="tbl_TenantInfo" EntityType="ShomaRMModel.tbl_TenantInfo" />
+          <EntitySet Name="tbl_OnlinePayment" EntityType="ShomaRMModel.tbl_OnlinePayment" />
+          <EntitySet Name="tbl_Transaction" EntityType="ShomaRMModel.tbl_Transaction" />
+          <EntitySet Name="tbl_PaymentAccounts" EntityType="ShomaRMModel.tbl_PaymentAccounts" />
+          <EntitySet Name="tbl_GuestRegistration" EntityType="ShomaRMModel.tbl_GuestRegistration" />
+          <EntitySet Name="tbl_Rating" EntityType="ShomaRMModel.tbl_Rating" />
+          <EntitySet Name="tbl_ServiceRequest" EntityType="ShomaRMModel.tbl_ServiceRequest" />
+          <EntitySet Name="tbl_MoveInChecklist" EntityType="ShomaRMModel.tbl_MoveInChecklist" />
+          <EntitySet Name="tbl_CommunityActivity" EntityType="ShomaRMModel.tbl_CommunityActivity" />
+          <EntitySet Name="tbl_MonthlyPayment" EntityType="ShomaRMModel.tbl_MonthlyPayment" />
+          <EntitySet Name="tbl_MoveInPayment" EntityType="ShomaRMModel.tbl_MoveInPayment" />
+          <EntitySet Name="tbl_AmenityPriceRange" EntityType="ShomaRMModel.tbl_AmenityPriceRange" />
+          <EntitySet Name="tbl_CausingIssue" EntityType="ShomaRMModel.tbl_CausingIssue" />
+          <EntitySet Name="tbl_Issue" EntityType="ShomaRMModel.tbl_Issue" />
+          <EntitySet Name="tbl_ServiceIssue" EntityType="ShomaRMModel.tbl_ServiceIssue" />
+          <EntitySet Name="tbl_ServiceLocation" EntityType="ShomaRMModel.tbl_ServiceLocation" />
+          <EntitySet Name="tbl_TenantEventJoin" EntityType="ShomaRMModel.tbl_TenantEventJoin" />
+          <AssociationSet Name="FK_tbl_TenantEventJoin_tbl_TenantEventJoin" Association="ShomaRMModel.FK_tbl_TenantEventJoin_tbl_TenantEventJoin">
+            <End Role="tbl_TenantEventJoin" EntitySet="tbl_TenantEventJoin" />
+            <End Role="tbl_TenantEventJoin1" EntitySet="tbl_TenantEventJoin" />
+          </AssociationSet>
+          <EntitySet Name="tbl_AmenityReservation" EntityType="ShomaRMModel.tbl_AmenityReservation" />
+          <EntitySet Name="tbl_TenantEventJoinApprove" EntityType="ShomaRMModel.tbl_TenantEventJoinApprove" />
+          <EntitySet Name="tbl_Bill" EntityType="ShomaRMModel.tbl_Bill" />
           <EntitySet Name="tbl_ApplyNow" EntityType="ShomaRMModel.tbl_ApplyNow" />
           <AssociationSet Name="FK_tbl_Applicant_tbl_ApplyNow" Association="ShomaRMModel.FK_tbl_Applicant_tbl_ApplyNow">
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_Applicant" EntitySet="tbl_Applicant" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_ApplyNow_tbl_PropertyUnits" Association="ShomaRMModel.FK_tbl_ApplyNow_tbl_PropertyUnits">
-            <End Role="tbl_PropertyUnits" EntitySet="tbl_PropertyUnits" />
+          <AssociationSet Name="FK_tbl_TenantInfo_tbl_ApplyNow" Association="ShomaRMModel.FK_tbl_TenantInfo_tbl_ApplyNow">
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
+            <End Role="tbl_TenantInfo" EntitySet="tbl_TenantInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_TenantOnline_tbl_ApplyNow" Association="ShomaRMModel.FK_tbl_TenantOnline_tbl_ApplyNow">
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
@@ -2837,19 +3023,6 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_Vehicle" EntitySet="tbl_Vehicle" />
           </AssociationSet>
-          <EntitySet Name="tbl_TenantInfo" EntityType="ShomaRMModel.tbl_TenantInfo" />
-          <AssociationSet Name="FK_tbl_TenantInfo_tbl_ApplyNow" Association="ShomaRMModel.FK_tbl_TenantInfo_tbl_ApplyNow">
-            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
-            <End Role="tbl_TenantInfo" EntitySet="tbl_TenantInfo" />
-          </AssociationSet>
-          <EntitySet Name="tbl_OnlinePayment" EntityType="ShomaRMModel.tbl_OnlinePayment" />
-          <EntitySet Name="tbl_Transaction" EntityType="ShomaRMModel.tbl_Transaction" />
-          <EntitySet Name="tbl_PaymentAccounts" EntityType="ShomaRMModel.tbl_PaymentAccounts" />
-          <EntitySet Name="tbl_GuestRegistration" EntityType="ShomaRMModel.tbl_GuestRegistration" />
-          <EntitySet Name="tbl_Rating" EntityType="ShomaRMModel.tbl_Rating" />
-          <EntitySet Name="tbl_ServiceRequest" EntityType="ShomaRMModel.tbl_ServiceRequest" />
-          <EntitySet Name="tbl_MoveInChecklist" EntityType="ShomaRMModel.tbl_MoveInChecklist" />
-          <EntitySet Name="tbl_CommunityActivity" EntityType="ShomaRMModel.tbl_CommunityActivity" />
           </EntityContainer>
         <EntityType Name="tbl_Advertiser">
           <Key>
@@ -2958,6 +3131,8 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <NavigationProperty Name="tbl_EventBooking" Relationship="ShomaRMModel.FK_tbl_EventBooking_tbl_Event" FromRole="tbl_Event" ToRole="tbl_EventBooking" />
           <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMModel.FK_tbl_Event_tbl_Properties" FromRole="tbl_Event" ToRole="tbl_Properties" />
           <Property Name="Type" Type="Int32" />
+          <Property Name="EventTime" Type="Time" Precision="7" />
+          <Property Name="Fees" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="tbl_EventBooking">
           <Key>
@@ -4670,7 +4845,6 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="Coordinates" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="Premium" Type="Int32" />
           <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMModel.FK_tbl_PropertyUnits_tbl_Properties" FromRole="tbl_PropertyUnits" ToRole="tbl_Properties" />
-          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMModel.FK_tbl_ApplyNow_tbl_PropertyUnits" FromRole="tbl_PropertyUnits" ToRole="tbl_ApplyNow" />
           <Property Name="BalconyArea" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="InteriorArea" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Notes" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
@@ -4705,149 +4879,6 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="BalconyArea" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="InteriorArea" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="tbl_ApplyNow">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PropertyId" Type="Int64" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Date" Type="DateTime" Precision="3" />
-          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
-          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IsApplyNow" Type="Int32" />
-          <Property Name="CreatedBy" Type="Int64" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="DateofBirth" Type="DateTime" Precision="3" />
-          <Property Name="AnnualIncome" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="AddiAnnualIncome" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="UserId" Type="Int64" />
-          <Property Name="Marketsource" Type="Int32" />
-          <Property Name="MoveInDate" Type="DateTime" Precision="3" />
-          <Property Name="ParkingAmt" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="StorageAmt" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="PetPlaceAmt" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Deposit" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Rent" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="PetDeposit" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="TrashAmt" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="PestAmt" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="ConvergentAmt" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="TotalAmt" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="FOBAmt" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="IsRentalPolicy" Type="Int32" />
-          <Property Name="IsRentalQualification" Type="Int32" />
-          <NavigationProperty Name="tbl_Applicant" Relationship="ShomaRMModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Applicant" />
-          <NavigationProperty Name="tbl_PropertyUnits" Relationship="ShomaRMModel.FK_tbl_ApplyNow_tbl_PropertyUnits" FromRole="tbl_ApplyNow" ToRole="tbl_PropertyUnits" />
-          <NavigationProperty Name="tbl_TenantOnline" Relationship="ShomaRMModel.FK_tbl_TenantOnline_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantOnline" />
-          <NavigationProperty Name="tbl_TenantParking" Relationship="ShomaRMModel.FK_tbl_TenantParking_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantParking" />
-          <NavigationProperty Name="tbl_TenantPet" Relationship="ShomaRMModel.FK_tbl_TenantPet_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantPet" />
-          <NavigationProperty Name="tbl_TenantPetPlace" Relationship="ShomaRMModel.FK_tbl_TenantPetPlace_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantPetPlace" />
-          <NavigationProperty Name="tbl_TenantStorage" Relationship="ShomaRMModel.FK_tbl_TenantStorage_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantStorage" />
-          <NavigationProperty Name="tbl_Vehicle" Relationship="ShomaRMModel.FK_tbl_Vehicle_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Vehicle" />
-          <Property Name="EnvelopeID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tbl_TenantInfo" Relationship="ShomaRMModel.FK_tbl_TenantInfo_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantInfo" />
-        </EntityType>
-        <Association Name="FK_tbl_Applicant_tbl_ApplyNow">
-          <End Type="ShomaRMModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
-          <End Type="ShomaRMModel.tbl_Applicant" Role="tbl_Applicant" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_ApplyNow">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_Applicant">
-              <PropertyRef Name="TenantID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_ApplyNow_tbl_PropertyUnits">
-          <End Type="ShomaRMModel.tbl_PropertyUnits" Role="tbl_PropertyUnits" Multiplicity="0..1" />
-          <End Type="ShomaRMModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_PropertyUnits">
-              <PropertyRef Name="UID" />
-            </Principal>
-            <Dependent Role="tbl_ApplyNow">
-              <PropertyRef Name="PropertyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_TenantOnline_tbl_ApplyNow">
-          <End Type="ShomaRMModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
-          <End Type="ShomaRMModel.tbl_TenantOnline" Role="tbl_TenantOnline" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_ApplyNow">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_TenantOnline">
-              <PropertyRef Name="ProspectID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_TenantParking_tbl_ApplyNow">
-          <End Type="ShomaRMModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
-          <End Type="ShomaRMModel.tbl_TenantParking" Role="tbl_TenantParking" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_ApplyNow">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_TenantParking">
-              <PropertyRef Name="TenantID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_TenantPet_tbl_ApplyNow">
-          <End Type="ShomaRMModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
-          <End Type="ShomaRMModel.tbl_TenantPet" Role="tbl_TenantPet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_ApplyNow">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_TenantPet">
-              <PropertyRef Name="TenantID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_TenantPetPlace_tbl_ApplyNow">
-          <End Type="ShomaRMModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
-          <End Type="ShomaRMModel.tbl_TenantPetPlace" Role="tbl_TenantPetPlace" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_ApplyNow">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_TenantPetPlace">
-              <PropertyRef Name="TenantID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_TenantStorage_tbl_ApplyNow">
-          <End Type="ShomaRMModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
-          <End Type="ShomaRMModel.tbl_TenantStorage" Role="tbl_TenantStorage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_ApplyNow">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_TenantStorage">
-              <PropertyRef Name="TenantID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Vehicle_tbl_ApplyNow">
-          <End Type="ShomaRMModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
-          <End Type="ShomaRMModel.tbl_Vehicle" Role="tbl_Vehicle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_ApplyNow">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_Vehicle">
-              <PropertyRef Name="ProspectID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="tbl_TenantInfo">
           <Key>
             <PropertyRef Name="TenantID" />
@@ -4937,25 +4968,13 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="PassportDocumentOriginalFile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="IdentityDocumentOriginalFile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="IsPaystub" Type="Boolean" />
-          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMModel.FK_tbl_TenantInfo_tbl_ApplyNow" FromRole="tbl_TenantInfo" ToRole="tbl_ApplyNow" />
           <Property Name="PropertyID" Type="Int64" />
           <Property Name="UnitID" Type="Int64" />
           <Property Name="ProfilePicture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="OrginalProfilePicture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="IsAgreePostDisclaimer" Type="Int32" />
+          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMModel.FK_tbl_TenantInfo_tbl_ApplyNow" FromRole="tbl_TenantInfo" ToRole="tbl_ApplyNow" />
         </EntityType>
-        <Association Name="FK_tbl_TenantInfo_tbl_ApplyNow">
-          <End Type="ShomaRMModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
-          <End Type="ShomaRMModel.tbl_TenantInfo" Role="tbl_TenantInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_ApplyNow">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_TenantInfo">
-              <PropertyRef Name="ProspectID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="tbl_OnlinePayment">
           <Key>
             <PropertyRef Name="ID" />
@@ -5086,6 +5105,12 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="Priority" Type="Int32" />
           <Property Name="OriginalServiceFile" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="TempServiceFile" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EmergencyMobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CompletedPicture" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TempCompletedPicture" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedBy" Type="Int32" />
+          <Property Name="ServicePerson" Type="Int32" />
+          <Property Name="PermissionComeTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_MoveInChecklist">
           <Key>
@@ -5114,6 +5139,289 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="AttachFileOriginalName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="tbl_MonthlyPayment">
+          <Key>
+            <PropertyRef Name="MPayID" />
+          </Key>
+          <Property Name="MPayID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantID" Type="Int64" />
+          <Property Name="UserID" Type="Int64" />
+          <Property Name="MonthlyCharges" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AdditionalParking" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="StorageCharges" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PetRent" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TrashRecycle" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PestControl" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ConvergentBilling" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TotalMonthlyCharges" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LeaseTerm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_MoveInPayment">
+          <Key>
+            <PropertyRef Name="MIPayID" />
+          </Key>
+          <Property Name="MIPayID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantID" Type="Int64" />
+          <Property Name="UserID" Type="Int64" />
+          <Property Name="MoveInCharges" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AdministrationFee" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="VehicleRegistration" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SecurityDeposit" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PetFee" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Prorated_Rent" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="tbl_AmenityPriceRange">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AmenityID" Type="Int64" Nullable="false" />
+          <Property Name="Duration" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Deposit" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Fees" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DurationID" Type="Int64" />
+        </EntityType>
+        <EntityType Name="tbl_CausingIssue">
+          <Key>
+            <PropertyRef Name="CausingIssueID" />
+          </Key>
+          <Property Name="CausingIssueID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CausingIssue" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ServiceIssueID" Type="Int64" />
+        </EntityType>
+        <EntityType Name="tbl_Issue">
+          <Key>
+            <PropertyRef Name="IssueID" />
+          </Key>
+          <Property Name="IssueID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceIssueID" Type="Int64" />
+          <Property Name="CausingIssueID" Type="Int64" />
+          <Property Name="Issue" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_ServiceIssue">
+          <Key>
+            <PropertyRef Name="ServiceIssueID" />
+          </Key>
+          <Property Name="ServiceIssueID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceIssue" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_ServiceLocation">
+          <Key>
+            <PropertyRef Name="LocationID" />
+          </Key>
+          <Property Name="LocationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_TenantEventJoin">
+          <Key>
+            <PropertyRef Name="TEID" />
+          </Key>
+          <Property Name="TEID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantID" Type="Int64" />
+          <Property Name="EventID" Type="Int64" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Time" Type="Time" Precision="7" />
+          <Property Name="Fees" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbl_TenantEventJoin1" Relationship="ShomaRMModel.FK_tbl_TenantEventJoin_tbl_TenantEventJoin" FromRole="tbl_TenantEventJoin" ToRole="tbl_TenantEventJoin1" />
+          <NavigationProperty Name="tbl_TenantEventJoin2" Relationship="ShomaRMModel.FK_tbl_TenantEventJoin_tbl_TenantEventJoin" FromRole="tbl_TenantEventJoin1" ToRole="tbl_TenantEventJoin" />
+        </EntityType>
+        <Association Name="FK_tbl_TenantEventJoin_tbl_TenantEventJoin">
+          <End Type="ShomaRMModel.tbl_TenantEventJoin" Role="tbl_TenantEventJoin" Multiplicity="1" />
+          <End Type="ShomaRMModel.tbl_TenantEventJoin" Role="tbl_TenantEventJoin1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_TenantEventJoin">
+              <PropertyRef Name="TEID" />
+            </Principal>
+            <Dependent Role="tbl_TenantEventJoin1">
+              <PropertyRef Name="TEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tbl_AmenityReservation">
+          <Key>
+            <PropertyRef Name="ARID" />
+          </Key>
+          <Property Name="ARID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantID" Type="Int64" />
+          <Property Name="AmenityID" Type="Int64" />
+          <Property Name="DesiredDate" Type="DateTime" Precision="3" />
+          <Property Name="DesiredTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DurationID" Type="Int64" />
+          <Property Name="DepositFee" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReservationFee" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Duration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_TenantEventJoinApprove">
+          <Key>
+            <PropertyRef Name="TEJAID" />
+          </Key>
+          <Property Name="TEJAID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventID" Type="Int64" />
+          <Property Name="EventJoinID" Type="Int64" />
+          <Property Name="TenantID" Type="Int64" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="tbl_Bill">
+          <Key>
+            <PropertyRef Name="BillID" />
+          </Key>
+          <Property Name="BillID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransID" Type="Int64" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="tbl_ApplyNow">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PropertyId" Type="Int64" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsApplyNow" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="DateofBirth" Type="DateTime" Precision="3" />
+          <Property Name="AnnualIncome" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="AddiAnnualIncome" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="Marketsource" Type="Int32" />
+          <Property Name="MoveInDate" Type="DateTime" Precision="3" />
+          <Property Name="ParkingAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="StorageAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PetPlaceAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Deposit" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Rent" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PetDeposit" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TrashAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PestAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ConvergentAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MoveInCharges" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="FOBAmt" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsRentalPolicy" Type="Int32" />
+          <Property Name="IsRentalQualification" Type="Int32" />
+          <Property Name="EnvelopeID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Prorated_Rent" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="VehicleRegistration" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AdministrationFee" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="LeaseTerm" Type="Int32" />
+          <Property Name="MonthlyCharges" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="tbl_Applicant" Relationship="ShomaRMModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Applicant" />
+          <NavigationProperty Name="tbl_TenantInfo" Relationship="ShomaRMModel.FK_tbl_TenantInfo_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantInfo" />
+          <NavigationProperty Name="tbl_TenantOnline" Relationship="ShomaRMModel.FK_tbl_TenantOnline_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantOnline" />
+          <NavigationProperty Name="tbl_TenantParking" Relationship="ShomaRMModel.FK_tbl_TenantParking_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantParking" />
+          <NavigationProperty Name="tbl_TenantPet" Relationship="ShomaRMModel.FK_tbl_TenantPet_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantPet" />
+          <NavigationProperty Name="tbl_TenantPetPlace" Relationship="ShomaRMModel.FK_tbl_TenantPetPlace_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantPetPlace" />
+          <NavigationProperty Name="tbl_TenantStorage" Relationship="ShomaRMModel.FK_tbl_TenantStorage_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantStorage" />
+          <NavigationProperty Name="tbl_Vehicle" Relationship="ShomaRMModel.FK_tbl_Vehicle_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Vehicle" />
+        </EntityType>
+        <Association Name="FK_tbl_Applicant_tbl_ApplyNow">
+          <End Type="ShomaRMModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMModel.tbl_Applicant" Role="tbl_Applicant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_Applicant">
+              <PropertyRef Name="TenantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_TenantInfo_tbl_ApplyNow">
+          <End Type="ShomaRMModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMModel.tbl_TenantInfo" Role="tbl_TenantInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_TenantInfo">
+              <PropertyRef Name="ProspectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_TenantOnline_tbl_ApplyNow">
+          <End Type="ShomaRMModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMModel.tbl_TenantOnline" Role="tbl_TenantOnline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_TenantOnline">
+              <PropertyRef Name="ProspectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_TenantParking_tbl_ApplyNow">
+          <End Type="ShomaRMModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMModel.tbl_TenantParking" Role="tbl_TenantParking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_TenantParking">
+              <PropertyRef Name="TenantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_TenantPet_tbl_ApplyNow">
+          <End Type="ShomaRMModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMModel.tbl_TenantPet" Role="tbl_TenantPet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_TenantPet">
+              <PropertyRef Name="TenantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_TenantPetPlace_tbl_ApplyNow">
+          <End Type="ShomaRMModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMModel.tbl_TenantPetPlace" Role="tbl_TenantPetPlace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_TenantPetPlace">
+              <PropertyRef Name="TenantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_TenantStorage_tbl_ApplyNow">
+          <End Type="ShomaRMModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMModel.tbl_TenantStorage" Role="tbl_TenantStorage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_TenantStorage">
+              <PropertyRef Name="TenantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Vehicle_tbl_ApplyNow">
+          <End Type="ShomaRMModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMModel.tbl_Vehicle" Role="tbl_Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_Vehicle">
+              <PropertyRef Name="ProspectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5213,6 +5521,8 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <EntitySetMapping Name="tbl_Event">
             <EntityTypeMapping TypeName="ShomaRMModel.tbl_Event">
               <MappingFragment StoreEntitySet="tbl_Event">
+                <ScalarProperty Name="Fees" ColumnName="Fees" />
+                <ScalarProperty Name="EventTime" ColumnName="EventTime" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="CreatedByDate" ColumnName="CreatedByDate" />
                 <ScalarProperty Name="CreatedByID" ColumnName="CreatedByID" />
@@ -6064,45 +6374,6 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_ApplyNow">
-            <EntityTypeMapping TypeName="ShomaRMModel.tbl_ApplyNow">
-              <MappingFragment StoreEntitySet="tbl_ApplyNow">
-                <ScalarProperty Name="EnvelopeID" ColumnName="EnvelopeID" />
-                <ScalarProperty Name="IsRentalQualification" ColumnName="IsRentalQualification" />
-                <ScalarProperty Name="IsRentalPolicy" ColumnName="IsRentalPolicy" />
-                <ScalarProperty Name="FOBAmt" ColumnName="FOBAmt" />
-                <ScalarProperty Name="TotalAmt" ColumnName="TotalAmt" />
-                <ScalarProperty Name="ConvergentAmt" ColumnName="ConvergentAmt" />
-                <ScalarProperty Name="PestAmt" ColumnName="PestAmt" />
-                <ScalarProperty Name="TrashAmt" ColumnName="TrashAmt" />
-                <ScalarProperty Name="PetDeposit" ColumnName="PetDeposit" />
-                <ScalarProperty Name="Rent" ColumnName="Rent" />
-                <ScalarProperty Name="Deposit" ColumnName="Deposit" />
-                <ScalarProperty Name="PetPlaceAmt" ColumnName="PetPlaceAmt" />
-                <ScalarProperty Name="StorageAmt" ColumnName="StorageAmt" />
-                <ScalarProperty Name="ParkingAmt" ColumnName="ParkingAmt" />
-                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
-                <ScalarProperty Name="Marketsource" ColumnName="Marketsource" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="AddiAnnualIncome" ColumnName="AddiAnnualIncome" />
-                <ScalarProperty Name="AnnualIncome" ColumnName="AnnualIncome" />
-                <ScalarProperty Name="DateofBirth" ColumnName="DateofBirth" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsApplyNow" ColumnName="IsApplyNow" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_TenantInfo">
             <EntityTypeMapping TypeName="ShomaRMModel.tbl_TenantInfo">
               <MappingFragment StoreEntitySet="tbl_TenantInfo">
@@ -6314,6 +6585,12 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <EntitySetMapping Name="tbl_ServiceRequest">
             <EntityTypeMapping TypeName="ShomaRMModel.tbl_ServiceRequest">
               <MappingFragment StoreEntitySet="tbl_ServiceRequest">
+                <ScalarProperty Name="PermissionComeTime" ColumnName="PermissionComeTime" />
+                <ScalarProperty Name="ServicePerson" ColumnName="ServicePerson" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="TempCompletedPicture" ColumnName="TempCompletedPicture" />
+                <ScalarProperty Name="CompletedPicture" ColumnName="CompletedPicture" />
+                <ScalarProperty Name="EmergencyMobile" ColumnName="EmergencyMobile" />
                 <ScalarProperty Name="TempServiceFile" ColumnName="TempServiceFile" />
                 <ScalarProperty Name="OriginalServiceFile" ColumnName="OriginalServiceFile" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
@@ -6362,6 +6639,183 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
                 <ScalarProperty Name="Details" ColumnName="Details" />
                 <ScalarProperty Name="TenantId" ColumnName="TenantId" />
                 <ScalarProperty Name="CID" ColumnName="CID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_MonthlyPayment">
+            <EntityTypeMapping TypeName="ShomaRMModel.tbl_MonthlyPayment">
+              <MappingFragment StoreEntitySet="tbl_MonthlyPayment">
+                <ScalarProperty Name="LeaseTerm" ColumnName="LeaseTerm" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="TotalMonthlyCharges" ColumnName="TotalMonthlyCharges" />
+                <ScalarProperty Name="ConvergentBilling" ColumnName="ConvergentBilling" />
+                <ScalarProperty Name="PestControl" ColumnName="PestControl" />
+                <ScalarProperty Name="TrashRecycle" ColumnName="TrashRecycle" />
+                <ScalarProperty Name="PetRent" ColumnName="PetRent" />
+                <ScalarProperty Name="StorageCharges" ColumnName="StorageCharges" />
+                <ScalarProperty Name="AdditionalParking" ColumnName="AdditionalParking" />
+                <ScalarProperty Name="MonthlyCharges" ColumnName="MonthlyCharges" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="MPayID" ColumnName="MPayID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_MoveInPayment">
+            <EntityTypeMapping TypeName="ShomaRMModel.tbl_MoveInPayment">
+              <MappingFragment StoreEntitySet="tbl_MoveInPayment">
+                <ScalarProperty Name="Prorated_Rent" ColumnName="Prorated Rent" />
+                <ScalarProperty Name="PetFee" ColumnName="PetFee" />
+                <ScalarProperty Name="SecurityDeposit" ColumnName="SecurityDeposit" />
+                <ScalarProperty Name="VehicleRegistration" ColumnName="VehicleRegistration" />
+                <ScalarProperty Name="AdministrationFee" ColumnName="AdministrationFee" />
+                <ScalarProperty Name="MoveInCharges" ColumnName="MoveInCharges" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="MIPayID" ColumnName="MIPayID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_AmenityPriceRange">
+            <EntityTypeMapping TypeName="ShomaRMModel.tbl_AmenityPriceRange">
+              <MappingFragment StoreEntitySet="tbl_AmenityPriceRange">
+                <ScalarProperty Name="DurationID" ColumnName="DurationID" />
+                <ScalarProperty Name="Fees" ColumnName="Fees" />
+                <ScalarProperty Name="Deposit" ColumnName="Deposit" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="AmenityID" ColumnName="AmenityID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_CausingIssue">
+            <EntityTypeMapping TypeName="ShomaRMModel.tbl_CausingIssue">
+              <MappingFragment StoreEntitySet="tbl_CausingIssue">
+                <ScalarProperty Name="ServiceIssueID" ColumnName="ServiceIssueID" />
+                <ScalarProperty Name="CausingIssue" ColumnName="CausingIssue" />
+                <ScalarProperty Name="CausingIssueID" ColumnName="CausingIssueID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Issue">
+            <EntityTypeMapping TypeName="ShomaRMModel.tbl_Issue">
+              <MappingFragment StoreEntitySet="tbl_Issue">
+                <ScalarProperty Name="Issue" ColumnName="Issue" />
+                <ScalarProperty Name="CausingIssueID" ColumnName="CausingIssueID" />
+                <ScalarProperty Name="ServiceIssueID" ColumnName="ServiceIssueID" />
+                <ScalarProperty Name="IssueID" ColumnName="IssueID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ServiceIssue">
+            <EntityTypeMapping TypeName="ShomaRMModel.tbl_ServiceIssue">
+              <MappingFragment StoreEntitySet="tbl_ServiceIssue">
+                <ScalarProperty Name="ServiceIssue" ColumnName="ServiceIssue" />
+                <ScalarProperty Name="ServiceIssueID" ColumnName="ServiceIssueID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ServiceLocation">
+            <EntityTypeMapping TypeName="ShomaRMModel.tbl_ServiceLocation">
+              <MappingFragment StoreEntitySet="tbl_ServiceLocation">
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_TenantEventJoin">
+            <EntityTypeMapping TypeName="ShomaRMModel.tbl_TenantEventJoin">
+              <MappingFragment StoreEntitySet="tbl_TenantEventJoin">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Fees" ColumnName="Fees" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="TEID" ColumnName="TEID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_AmenityReservation">
+            <EntityTypeMapping TypeName="ShomaRMModel.tbl_AmenityReservation">
+              <MappingFragment StoreEntitySet="tbl_AmenityReservation">
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ReservationFee" ColumnName="ReservationFee" />
+                <ScalarProperty Name="DepositFee" ColumnName="DepositFee" />
+                <ScalarProperty Name="DurationID" ColumnName="DurationID" />
+                <ScalarProperty Name="DesiredTime" ColumnName="DesiredTime" />
+                <ScalarProperty Name="DesiredDate" ColumnName="DesiredDate" />
+                <ScalarProperty Name="AmenityID" ColumnName="AmenityID" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="ARID" ColumnName="ARID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_TenantEventJoinApprove">
+            <EntityTypeMapping TypeName="ShomaRMModel.tbl_TenantEventJoinApprove">
+              <MappingFragment StoreEntitySet="tbl_TenantEventJoinApprove">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="EventJoinID" ColumnName="EventJoinID" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+                <ScalarProperty Name="TEJAID" ColumnName="TEJAID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Bill">
+            <EntityTypeMapping TypeName="ShomaRMModel.tbl_Bill">
+              <MappingFragment StoreEntitySet="tbl_Bill">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TransID" ColumnName="TransID" />
+                <ScalarProperty Name="BillID" ColumnName="BillID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ApplyNow">
+            <EntityTypeMapping TypeName="ShomaRMModel.tbl_ApplyNow">
+              <MappingFragment StoreEntitySet="tbl_ApplyNow">
+                <ScalarProperty Name="MonthlyCharges" ColumnName="MonthlyCharges" />
+                <ScalarProperty Name="LeaseTerm" ColumnName="LeaseTerm" />
+                <ScalarProperty Name="AdministrationFee" ColumnName="AdministrationFee" />
+                <ScalarProperty Name="VehicleRegistration" ColumnName="VehicleRegistration" />
+                <ScalarProperty Name="Prorated_Rent" ColumnName="Prorated_Rent" />
+                <ScalarProperty Name="EnvelopeID" ColumnName="EnvelopeID" />
+                <ScalarProperty Name="IsRentalQualification" ColumnName="IsRentalQualification" />
+                <ScalarProperty Name="IsRentalPolicy" ColumnName="IsRentalPolicy" />
+                <ScalarProperty Name="FOBAmt" ColumnName="FOBAmt" />
+                <ScalarProperty Name="MoveInCharges" ColumnName="MoveInCharges" />
+                <ScalarProperty Name="ConvergentAmt" ColumnName="ConvergentAmt" />
+                <ScalarProperty Name="PestAmt" ColumnName="PestAmt" />
+                <ScalarProperty Name="TrashAmt" ColumnName="TrashAmt" />
+                <ScalarProperty Name="PetDeposit" ColumnName="PetDeposit" />
+                <ScalarProperty Name="Rent" ColumnName="Rent" />
+                <ScalarProperty Name="Deposit" ColumnName="Deposit" />
+                <ScalarProperty Name="PetPlaceAmt" ColumnName="PetPlaceAmt" />
+                <ScalarProperty Name="StorageAmt" ColumnName="StorageAmt" />
+                <ScalarProperty Name="ParkingAmt" ColumnName="ParkingAmt" />
+                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
+                <ScalarProperty Name="Marketsource" ColumnName="Marketsource" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="AddiAnnualIncome" ColumnName="AddiAnnualIncome" />
+                <ScalarProperty Name="AnnualIncome" ColumnName="AnnualIncome" />
+                <ScalarProperty Name="DateofBirth" ColumnName="DateofBirth" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsApplyNow" ColumnName="IsApplyNow" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

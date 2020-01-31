@@ -39,11 +39,35 @@ namespace ShomaRM.Areas.Tenant.Controllers
             }
         }
 
+        public JsonResult GetPaymentsBankAccountsList(long TenantId)
+        {
+            try
+            {
+                return Json(new { model = new PaymentAccountsModel().GetPaymentsBankAccountsList(TenantId) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public JsonResult EditPaymentsAccounts(long PAID)
         {
             try
             {
                 return Json(new { model = new PaymentAccountsModel().EditPaymentsAccounts(PAID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult EditPaymentsBankAccounts(long PAID)
+        {
+            try
+            {
+                return Json(new { model = new PaymentAccountsModel().EditPaymentsBankAccounts(PAID) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception Ex)
             {
@@ -68,6 +92,18 @@ namespace ShomaRM.Areas.Tenant.Controllers
             try
             {
                 return Json(new { model = new PaymentAccountsModel().MakeDefaultPaymentSystem(TenantId, PAID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetPaymentMethods(long TenantId)
+        {
+            try
+            {
+                return Json(new { model = new PaymentAccountsModel().GetPaymentMethods(TenantId) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception Ex)
             {

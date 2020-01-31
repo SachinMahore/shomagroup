@@ -24,6 +24,10 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<System.DateTime> CreatedByDate { get; set; }
         public Nullable<int> Type { get; set; }
         public string TypeText { get; set; }
+        public Nullable<System.TimeSpan> EventTime { get; set; }
+        public Nullable<decimal> Fees { get; set; }
+        public string EventTimeString { get; set; }
+        public bool IsFree { get; set; }
 
         public string SaveUpdateEvent(HttpPostedFileBase fb, EventModel model)
         {
@@ -60,7 +64,9 @@ namespace ShomaRM.Areas.Admin.Models
                     Description = model.Description,
                     CreatedByID = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
                     CreatedByDate = DateTime.Now.Date,
-                    Type = model.Type
+                    Type = model.Type,
+                    EventTime = model.EventTime,
+                    Fees = model.Fees
                 };
                 db.tbl_Event.Add(saveEvent);
                 db.SaveChanges();
@@ -83,6 +89,8 @@ namespace ShomaRM.Areas.Admin.Models
                     GetEventData.Photo = PhotoName;
                     GetEventData.Description = model.Description;
                     GetEventData.Type = model.Type;
+                    GetEventData.EventTime = model.EventTime;
+                    GetEventData.Fees = model.Fees;
                     //GetEventData.CreatedByID = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID;
                     //GetEventData.CreatedByDate = DateTime.Now.Date;
                     db.SaveChanges();
@@ -107,6 +115,11 @@ namespace ShomaRM.Areas.Admin.Models
                 model.Photo = GetEventData.Photo;
                 model.Description = GetEventData.Description;
                 model.Type = GetEventData.Type;
+                model.EventTime = GetEventData.EventTime;
+                model.Fees = GetEventData.Fees;
+                model.EventDateString = GetEventData.EventDate != null ? GetEventData.EventDate.Value.ToString("MM/dd/yyyy") : "";
+                model.EventTimeString = GetEventData.EventTime != null ? GetEventData.EventTime.ToString() : "";
+                model.IsFree = GetEventData.Fees != null || GetEventData.Fees <= 0 ? true : false;
             }
             model.EventID = Id;
             return model;

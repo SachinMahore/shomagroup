@@ -1,0 +1,132 @@
+﻿@using ShomaRM.Areas.Tenant.Models
+@model UtilityBillingModel
+@{
+    ViewBag.Title = "Utility Billing";
+}
+<script src="~/Areas/Tenant/Content/Pages/UtilityBilling/UtilityBilling.js"></script>
+<input type="hidden" id="hdnUBID" value="@Model.UBID" />
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <form action="" method="">
+                    <div class="wizard-header">
+                        <h3>
+                            <b>Utility </b>Billing <br>
+                        </h3>
+                    </div>
+                    <ul>
+                        <li><a href="#step1" data-toggle="tab">Utility Billing </a></li>
+                    </ul>
+                    <div class="tab-content">
+
+                        <!--  End step 1 -->
+                        <div class="tab-pane" id="step1">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="utilityid" class="star">Select Utility</label>
+                                            <select id="ddlUtilityId" class="form-control " >
+                                               
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="leaseid" class="star">Lease ID</label>
+                                            <input id="txtLeaseID" class="form-control form-control-small" maxlength="50" value="@Model.LeaseID" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="revisionnumber" class="star">Revision Number</label>
+                                            <input id="txtRevisionNum" class="form-control form-control-small" onkeypress="return isOnlyNumber(event)" type="text" value="@Model.Revision_Num" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="unit" class="star">Unit</label>
+                                            <input id="txtUnit" class="selectpicker show-tick form-control form-control-small" type="text" value="@Model.Unit" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="chargetype" class="star">Charge Type</label>
+                                            <input id="txtChargeType" type="text" class="form-control form-control-small" maxlength="100" value="@Model.ChargeType" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="efectivedate" class="star">Effective Date</label>
+                                            <input id="txtEffectiveDate" type="text" class="form-control form-control-small" maxlength="50" value="@Model.EffectiveDate" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="meterreading" class="star">MeterReading</label>
+                                            <input id="txtMeterReading" class="selectpicker show-tick form-control form-control-small" type="text" onkeypress="return isNumber(event)" value="@Model.MeterReading" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="priceperunit" class="star">Price Per Unit</label>
+                                            <input class="form-control form-control-small" id="txtPricePerUnit" maxlength="5" onkeypress="return isNumber(event)" value="@Model.PricePerUnit" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="posted" class="star">Posted</label>
+                                            <input id="txtPosted" class="selectpicker show-tick form-control form-control-small" type="text" value="@Model.Posted" />
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+
+
+
+                                <div class="col-sm-12 padding-top-15" id="tblAminities">
+
+                                </div>
+
+                                <br>
+                            </div>
+                        </div>
+
+
+                        <!--  End step 4 -->
+                    </div>
+                    <div class="wizard-footer">
+                        <div class="pull-right">
+                            <input type='button' class='btn btn-next btn-primary' name='next' value='Next' />
+                            <input type='button' class='btn btn-finish btn-primary ' name='finish' value='Finish' onclick="SaveUpdateUtilityBilling()" />
+                        </div>
+                        <div class="pull-left">
+                            <input type='button' class='btn btn-previous btn-default' name='previous' value='Previous' />
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
+            </div>
+            <!-- End submit form -->
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#txtEffectiveDate").datepicker();
+        $("#txtPosted").datepicker();
+    });
+
+    $(document).ready(function () {
+         setTimeout(function () { 
+        $("#ddlUtilityId").val(@Model.UtilityID);
+        $("#ddlUtilityId").trigger('change');
+        }, 1000);
+      
+
+    });
+</script>

@@ -115,17 +115,7 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult ConvertToTenant(TenantModel model)
-        {
-            try
-            {
-                return Json(new { result = 1, ID = model.ConvertToTenant(model) }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
-            }
-        }
+       
         public ActionResult OnlinePToTenant(TenantOnlineModel model)
         {
             try

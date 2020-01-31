@@ -14,7 +14,16 @@ namespace ShomaRM.Areas.Tenant.Controllers
         {
             ViewBag.ActiveMenu = "myhome";
             ViewBag.TenantID = ID;
-
+            if(Session["ARID"] !=null)
+            {
+                ViewBag.ARID = Session["ARID"].ToString();
+                Session["ARID"] = null;
+            }
+            else
+            {
+                ViewBag.ARID = "0";
+            }
+            
             if (Session["StepIdMakePayment1"] != null && Session["PayStepIdMakePayment"] != null)
             {
                 ViewBag.StepIdMakePayment1 = Session["StepIdMakePayment1"].ToString();
@@ -58,6 +67,7 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 Session["StepIdServiceRequest2"] = null;
                 Session["ServiceStepIdSubmitServiceRequest"] = null;
             }
+          
             return View();
         }
         public ActionResult GetTenantInfo(long TenantID)
@@ -177,6 +187,31 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult FillRRList(AmenitiesReservationModel model)
+        {
+            try
+            {
+                return Json((new AmenitiesReservationModel()).FillRRList(model), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetTenantLeaseDocuments(MyAccountModel model)
+        {
+            try
+            {
+                return Json(new { model = new MyAccountModel().GetTenantLeaseDocuments(model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 
 }

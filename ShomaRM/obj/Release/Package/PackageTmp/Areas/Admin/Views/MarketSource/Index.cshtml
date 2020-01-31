@@ -1,0 +1,97 @@
+﻿@using ShomaRM.Areas.Admin.Models
+@model MarketSourceModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<script src="~/Areas/Admin/Content/Pages/MarketSource/MarketSource.js"></script>
+<input type="hidden" id="hndMarketSourceID" value="@Model.AdID" />
+<input type="hidden" id="hdnCurrentPage" value="1" />
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container" style="width:100% !important">
+        <div class="breadcrumb">
+            <h4 class="">Add / Edit Market Source  </h4>
+        </div>
+        <div class="form-group clearfix panel">
+            <div class="col-md-7">
+                <div class="form-inline clearfix panel">
+                    <div class="form-group col-md-2 padding-5">
+                        <label class="control-label" style="padding:0px 5px;">Enter Crieria</label>
+                    </div>
+                    <div class="form-group col-md-4 padding-5">
+                        <input type="text" id="txtCriteriaMarketSource" name="Criteria" class="form-control form-control-small" />
+                    </div>
+                    <div class="form-group col-md-2 padding-5">
+                        @*<button id="btnSearchMarketSource" class="btn btn-primary fa fa-search" style="margin-left:5px;" onclick="fillMarketSourceSearchList()">&nbsp;</button>*@
+                        <button id="btnSearchMarketSource" class='btn btn-next btn-primary' style="text-transform:uppercase!important ;margin-left:-10px; height:34px" name='btnSearchMarketSource'  onclick="buildPaganationMSList(1)"><i class="glyphicon glyphicon-search"></i> Search</button>
+                        <button id="btnGoToMarketSource" class="btn btn-success pull-right hidden" style="margin-right:15px;text-transform:uppercase!important" onclick="goToMarketSource()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-arrow-circle-o-right"></i> Go to</button>
+                    </div>
+                   
+                </div>
+                <div id="divPagination_MS" class="col-sm-12 form-group">
+                    <div id="divPgn" class="col-sm-7 pagination">
+                        <ul id="ulPagination_MS"></ul>
+                    </div>
+                    <div class="col-sm-4 padding-0 pull-right" style="margin-top: 22px;">
+                        <div class="col-sm-5">
+                            <label id="lblRPP_MS" class="control-label" style="margin-left:6px">Row/Page</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <select id="ddlRPP_MS" class="form-control form-control-small"></select>
+                        </div>
+                    </div>
+                </div>
+                
+
+
+                <div class="form-group clearfix">
+                    <table id="tblMarketSource" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="pds-cityname" style="background-color: #c7cdd566;color:#3d3939">Market Source</th>
+                                <th class="pds-cityname" style="background-color: #c7cdd566;color:#3d3939">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="col-md-12 padding-5">
+                    <div class="form-group pull-right clearfix">
+                        <button class="btn btn-primary"  style="text-transform:uppercase!important" id="btnNewMarketSource" onclick="newMarketSource()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-plus"></i> New</button>
+                        <button class="btn btn-primary"  style="text-transform:uppercase!important" id="btnSaveUpdateMS" onclick="saveUpdateMarketSource()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i><span id="spanSaveUpdate" > Save</span></button>
+                    </div>
+                </div>
+                <div class="form-group clearfix padding-5">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="firstname" class="star">Market Source</label>
+                                <input class="form-control form-control-small" id="txtMarketSource" maxlength="100" type="text" value="@Model.Advertiser" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<style>
+    .k-button {
+        line-height: 1.5em !important;
+    }
+
+    .gridbtn {
+        background-color: #e0e0e0;
+        font-size: 12px;
+        padding: 3px 4px !important;
+    }
+
+    .btn {
+        border-radius: 3px;
+        padding: 3px 12px;
+        font-size: 12px;
+    }
+</style>*@

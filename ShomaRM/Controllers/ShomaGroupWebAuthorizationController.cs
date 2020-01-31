@@ -48,6 +48,7 @@ namespace ShomaRM.Controllers
                 currentUser.EmailAddress = user.Email;
                 currentUser.IsAdmin = (user.IsSuperUser.HasValue ? user.IsSuperUser.Value : 0);
                 currentUser.EmailAddress = user.Email;
+                currentUser.UserType = Convert.ToInt32((user.UserType).ToString());
 
                 currentUser.LoggedInUser = user.FirstName;
 

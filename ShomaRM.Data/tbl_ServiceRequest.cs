@@ -33,5 +33,11 @@ namespace ShomaRM.Data
         public Nullable<int> Priority { get; set; }
         public string OriginalServiceFile { get; set; }
         public string TempServiceFile { get; set; }
+        public string EmergencyMobile { get; set; }
+        public string CompletedPicture { get; set; }
+        public string TempCompletedPicture { get; set; }
+        public Nullable<int> ApprovedBy { get; set; }
+        public Nullable<int> ServicePerson { get; set; }
+        public string PermissionComeTime { get; set; }
     }
 }

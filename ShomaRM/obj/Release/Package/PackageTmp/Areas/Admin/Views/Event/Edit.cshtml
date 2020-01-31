@@ -1,0 +1,126 @@
+﻿@using ShomaRM.Areas.Admin.Models
+@model EventModel
+@{
+    ViewBag.Title = "Event";
+}
+<script src="~/Areas/Admin/Content/Pages/Event/Event.js"></script>
+<input type="hidden" id="hdnEventId" value="@Model.EventID" />
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <form action="" method="">
+                    <div class="wizard-header">
+                        <h3>
+                            <b>Event </b>Details<br>
+                        </h3>
+                    </div>
+                    <ul>
+                        <li><a href="#step1" data-toggle="tab"></a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="" id="step1">
+                            <div class="row p-b-15  ">
+                                <div class="col-sm-12">
+                                    <h4 class="info-text pull-left"> Let's start with the basic information</h4>
+                                    <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="goEventList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">Event List</span></button>
+                                    <div class="pull-right" style="padding-right:2px;">
+                                        <input type='button' class='btn btn-default' value='Save' onclick="SaveUpdateEvent()" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="picture-container">
+                                        <div class="picture">
+                                            <img src="/content/assets/img/Event/@Model.Photo" class="picture-src" id="wizardPicturePreview" title="" />
+                                            <input type="file" id="wizard-picture" value="@Model.Photo"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="ddlProperty" class="star">Property</label>
+                                                <select id="ddlProperty" class="form-control form-control-small"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="txtEventName" class="star">Event Name</label>
+                                                <input id="txtEventName" class="form-control form-control-small" maxlength="60" value="@Model.EventName" />
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="txtEventDate" class="star">Date</label>
+                                                <input id="txtEventDate" class="form-control form-control-small" value="@(Model.EventDate!=null?Model.EventDate.Value.ToString("MM/dd/yyyy"):"")" />
+                                                <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:167px;">
+                                                    <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="txtEventTime" class="star">Time</label>
+                                                <input id="txtEventTime" class="form-control form-control-small" type="time" value="@(Model.EventTime)" />
+                                                <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:167px;">
+                                                    <button class="btn btn-primary search" type="button"><i class="fa-clock-o fa"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtEventFees" class="star">Fees</label>
+                                            <input id="txtEventFees" class="form-control form-control-small" style="text-align:right;" value="@(Model.Fees)" />
+                                            <span class="input-group-btn pull-left" style="margin-top: -34px;">
+                                                <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="ddlEventType" class="star">Type</label>
+                                                <select id="ddlEventType" class="form-control form-control-small">
+                                                    <option >--Select--</option>
+                                                    <option value="1">Neighborhood</option>
+                                                    <option value="2">Community</option>
+                                                    <option value="3">Other</option>
+                                                    <option value="4">Multiple</option>
+                                                    <option value="5">Current Date</option>
+                                                </select>
+                                                @*<input id="txtEventType" class="form-control form-control-small" value="@(Model.EventDate!=null?Model.EventDate.Value.ToString("MM/dd/yyyy"):"")" />*@
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="txtDescription">Description</label>
+                                                <textarea id="txtDescription" class="form-control form-control-small">@Model.Description</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--  End step 4 -->
+                    </div>
+
+                </form>
+            </div>
+            <!-- End submit form -->
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#txtEventDate").datepicker();
+        var photo = document.getElementById('wizard-picture');
+    });
+    $(document).ready(function () {
+        setTimeout(function () { $("#ddlProperty").find("option[value='" + @Model.PropertyID + "']").attr('selected', 'selected'); }, 1500);
+        setTimeout(function () { $("#ddlEventType").find("option[value='" + @Model.Type + "']").attr('selected', 'selected'); }, 1600);
+    });
+</script>

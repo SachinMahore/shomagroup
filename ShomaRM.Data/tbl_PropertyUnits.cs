@@ -14,12 +14,6 @@ namespace ShomaRM.Data
     
     public partial class tbl_PropertyUnits
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbl_PropertyUnits()
-        {
-            this.tbl_ApplyNow = new HashSet<tbl_ApplyNow>();
-        }
-    
         public long UID { get; set; }
         public Nullable<long> PID { get; set; }
         public string UnitNo { get; set; }
@@ -74,7 +68,5 @@ namespace ShomaRM.Data
         public string Notes { get; set; }
     
         public virtual tbl_Properties tbl_Properties { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_ApplyNow> tbl_ApplyNow { get; set; }
     }
 }

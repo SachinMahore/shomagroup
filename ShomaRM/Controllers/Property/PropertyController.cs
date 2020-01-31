@@ -174,13 +174,15 @@ namespace ShomaRM.Controllers
 
         }
 
-        public ActionResult SetSearchFromHome(int Bedroom,DateTime MoveInDate, decimal MaxRent)
+        public ActionResult SetSearchFromHome(int Bedroom,DateTime MoveInDate, decimal MaxRent,int LeaseTerm)
         {
             try
             {
                 Session["Bedroom"] = Bedroom;
                 Session["MoveInDate"] = MoveInDate;
                 Session["MaxRent"] = MaxRent;
+                Session["LeaseTerm"] = LeaseTerm;
+                
                 return Json(new { msg = 1 }, JsonRequestBehavior.AllowGet);
 
             }

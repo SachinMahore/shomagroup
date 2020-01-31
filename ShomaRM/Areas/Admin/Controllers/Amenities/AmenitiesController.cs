@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ShomaRM.Areas.Admin.Models;
+using ShomaRM.Areas.Tenant.Models;
 using ShomaRM.Data;
 
 namespace ShomaRM.Areas.Admin.Controllers
@@ -90,5 +91,52 @@ namespace ShomaRM.Areas.Admin.Controllers
 
 
         }
+
+        public ActionResult AmenitiesReservationRequest()
+        {
+            return View("..\\Amenities\\AmenitiesReservationRequest");
+        }
+
+        public ActionResult ARREdit(int Id)
+        {
+            ViewBag.ActiveMenu = "admin";
+            var model = new AmenitiesReservationModel().GetRRData(Id);
+            return View("..\\Amenities\\ARREdit", model);
+        }
+
+        public ActionResult GetRRInfo(long Id)
+        {
+            try
+            {
+                return Json((new AmenitiesReservationModel()).GetRRInfo(Id), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult SaveUpdateSlot(AmenitiesSlotModel model)
+        {
+            try
+            {
+                return Json(new { model = new AmenitiesSlotModel().SaveUpdateSlot(model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult SaveUpdateAmenityRequestStatus(string AmenityName,int ARID, int Status)
+        {
+            try
+            {
+                return Json(new { model = new AmenitiesReservationModel().SaveUpdateAmenityRequestStatus(AmenityName,ARID, Status) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        
     }
 }

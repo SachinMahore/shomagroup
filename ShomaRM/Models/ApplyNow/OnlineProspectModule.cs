@@ -65,8 +65,12 @@ namespace ShomaRM.Models
         public Nullable<decimal> AdminFees { get; set; }
         public Nullable<decimal> ApplicationFees { get; set; }
         public Nullable<decimal> GuarantorFees { get; set; }
+        public Nullable<decimal> VehicleRegistration { get; set; }
+        public Nullable<decimal> Prorated_Rent { get; set; }
+        public int LeaseTerm { get; set; }
 
-        public Nullable<decimal> TotalAmt { get; set; }
+        public Nullable<decimal> MonthlyCharges { get; set; }
+        public Nullable<decimal> MoveInCharges { get; set; }
         public string PetPlaceID { get; set; }
         public string ParkingSpaceID { get; set; }
         public string StorageSpaceID { get; set; }
@@ -135,6 +139,7 @@ namespace ShomaRM.Models
                     Marketsource = model.Marketsource,
                     UserId = Uid,
                     MoveInDate = model.MoveInDate,
+                    LeaseTerm=model.LeaseTerm,
                 };
 
                 db.tbl_ApplyNow.Add(saveOnlineProspect);
@@ -228,9 +233,16 @@ namespace ShomaRM.Models
                     onlineProspectData.ConvergentAmt = model.ConvergentAmt;
                     onlineProspectData.TrashAmt = model.TrashAmt;
                     //onlineProspectData.MoveInDate = moveindate;
-                    onlineProspectData.TotalAmt = model.TotalAmt;
+                    onlineProspectData.MonthlyCharges = model.MonthlyCharges;
+                    onlineProspectData.MoveInCharges = model.MoveInCharges;
                     onlineProspectData.PetDeposit = model.PetDeposit;
                     onlineProspectData.FOBAmt = model.FOBAmt;
+                    onlineProspectData.Deposit = model.Deposit;
+                    onlineProspectData.Rent = model.Rent;
+                    onlineProspectData.VehicleRegistration = model.VehicleRegistration;
+                    onlineProspectData.Prorated_Rent = model.Prorated_Rent;
+                    onlineProspectData.AdministrationFee = model.AdminFees;
+                    onlineProspectData.LeaseTerm = model.LeaseTerm;
                     db.SaveChanges();
                 }
                 
@@ -338,6 +350,7 @@ namespace ShomaRM.Models
             model.StorageSpaceID = "0";
             model.FOBAmt = 0;
             model.EnvelopeID = "";
+            model.LeaseTerm = 12;
             if (Id != 0)
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.UserId == Id).FirstOrDefault();
@@ -370,11 +383,13 @@ namespace ShomaRM.Models
                     model.ParkingAmt = GetProspectData.ParkingAmt;
                     model.PetPlaceAmt = GetProspectData.PetPlaceAmt;
                     model.StorageAmt = GetProspectData.StorageAmt;
-                    model.TotalAmt = GetProspectData.TotalAmt;
+                    model.MoveInCharges = GetProspectData.MoveInCharges;
+                    model.MonthlyCharges = GetProspectData.MonthlyCharges;
                     model.PetDeposit = GetProspectData.PetDeposit;
                     model.FOBAmt = 0;
                     model.EnvelopeID = GetProspectData.EnvelopeID;
-                    
+                    model.LeaseTerm = Convert.ToInt32(GetProspectData.LeaseTerm);
+
                     DateTime? dateExpire = null;
                     try
                     {

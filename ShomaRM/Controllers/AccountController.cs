@@ -69,7 +69,8 @@ namespace ShomaRM.Controllers
                     currentUser.UserType = Convert.ToInt32(user.UserType == null ? 0 : user.UserType);
                     currentUser.LoggedInUser = user.FirstName;
                     currentUser.TenantID = user.TenantID==0?0: Convert.ToInt64(user.TenantID);
-                    
+                    currentUser.UserType = Convert.ToInt32((user.UserType).ToString());
+
                     (new ShomaGroupWebSession()).SetWebSession(currentUser);
                     // Store the Log.
                     var loginHistory = new tbl_LoginHistory
@@ -90,7 +91,15 @@ namespace ShomaRM.Controllers
                     }
                     else if (currentUser.TenantID != 0)
                     {
-                        return RedirectToAction("../Tenant/Dashboard");
+                        if(Session["ARID"]!=null)
+                        {
+                            return RedirectToAction("../Tenant/MyAccount/Index/"+user.TenantID);
+                        }
+                        else
+                        {
+                            return RedirectToAction("../Tenant/Dashboard");
+                        }
+                      
                     }
                     else
                     {

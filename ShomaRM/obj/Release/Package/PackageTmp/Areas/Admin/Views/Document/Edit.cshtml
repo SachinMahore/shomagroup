@@ -1,0 +1,90 @@
+﻿@using ShomaRM.Areas.Admin.Models
+@model DocumentModel
+@{
+    ViewBag.Title = "Document";
+}
+<script src="~/Areas/Admin/Content/Pages/Document/Document.js"></script>
+<input type="hidden" id="hdnDocumentId" value="@Model.DocID" />
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <form action="" method="">
+                    <div class="wizard-header">
+                        <h3>
+                            <b>Document </b>Details<br>
+                        </h3>
+                    </div>
+                    <ul>
+                        <li><a href="#step1" data-toggle="tab"></a></li>
+                    </ul>
+                    <div class="tab-content">
+
+
+                        <div class="" id="step1">
+                            <div class="row p-b-15  ">
+                                <div class="col-sm-12">
+                                    <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="goDocumentList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">Document List</span></button>
+                                    <div class="pull-right">
+                                        <input type='button' class='btn btn-default' value='Save' onclick="SaveUpdateDocument()" />
+                                    </div>
+                                </div>
+                                
+                                
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="ddlTenant" class="star">Tenant</label>
+                                                <select id="ddlTenant" class="form-control form-control-small"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="ddlDocumentType" class="star">Document Type</label>
+                                                <select id="ddlDocumentType" class="form-control form-control-small">
+                                                    <option value="1">Electric Bill</option>
+                                                    <option value="2">Green Card</option>
+                                                </select>
+                                            </div>
+
+                                        </div><div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="txtDocumentNumber">Document Number</label>
+                                                <input id="txtDocumentNumber" class="form-control form-control-small" value="@Model.DocumentNumber" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="picture-container">
+                                                <div class="star">
+                                                    <input type="file" id="wizard-picture" value="@Model.DocumentName">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+
+                            </div>
+                        </div>
+                        <!--  End step 4 -->
+                    </div>
+
+                </form>
+            </div>
+            <!-- End submit form -->
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $("#ddlDocumentType").val(@Model.DocumentType);
+        $("#ddlDocumentType").trigger('change');
+        setTimeout(function () {
+            $("#ddlTenant").val(@Model.TenantID);
+            $("#ddlTenant").trigger('change');
+}, 1200)
+    });
+</script>

@@ -29,6 +29,8 @@ namespace ShomaRM.Data
         public Nullable<int> CreatedByID { get; set; }
         public Nullable<System.DateTime> CreatedByDate { get; set; }
         public Nullable<int> Type { get; set; }
+        public Nullable<System.TimeSpan> EventTime { get; set; }
+        public Nullable<decimal> Fees { get; set; }
     
         public virtual tbl_Login tbl_Login { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

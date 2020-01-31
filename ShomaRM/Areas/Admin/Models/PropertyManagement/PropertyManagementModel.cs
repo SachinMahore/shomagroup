@@ -687,8 +687,13 @@ namespace ShomaRM.Areas.Admin.Models
             ShomaRMEntities db = new ShomaRMEntities();
             PropertyUnits model = new PropertyUnits();
             var unitDet = db.tbl_PropertyUnits.Where(p => p.UID == UID).FirstOrDefault();
-            var NextData = db.tbl_PropertyUnits.Where(p => p.UID > UID).OrderBy(p => p.UID).FirstOrDefault();
-            var PreviousData = db.tbl_PropertyUnits.Where(p => p.UID < UID).OrderByDescending(p => p.UID).FirstOrDefault();
+            //var NextData = db.tbl_PropertyUnits.Where(p => p.UID > UID).OrderBy(p => p.UID).FirstOrDefault();
+            //var PreviousData = db.tbl_PropertyUnits.Where(p => p.UID < UID).OrderByDescending(p => p.UID).FirstOrDefault();
+
+            long nextUID = 0;
+            long previousUID = 0;
+
+            GetNextPreviousUnitIDs(UID, ref nextUID, ref previousUID);
 
             if (unitDet != null)
             {
@@ -755,8 +760,10 @@ namespace ShomaRM.Areas.Admin.Models
                 model.ActualMoveOutDate = unitDet.ActualMoveOutDate;
                 model.Coordinates = unitDet.Coordinates;
                 model.Premium =Convert.ToInt32(unitDet.Premium);
-                model.PreviousID = PreviousData != null ? PreviousData.UID : 0;
-                model.NextID = NextData != null ? NextData.UID : 0;
+                //model.PreviousID = PreviousData != null ? PreviousData.UID : 0;
+                //model.NextID = NextData != null ? NextData.UID : 0;
+                model.PreviousID = previousUID;
+                model.NextID = nextUID;
                 model.InteriorArea = unitDet.InteriorArea == null?"0":unitDet.InteriorArea;
                 model.BalconyArea = unitDet.BalconyArea == null ? "0" : unitDet.BalconyArea;
                 model.Notes = unitDet.Notes;
@@ -764,6 +771,45 @@ namespace ShomaRM.Areas.Admin.Models
             }
 
             return model;
+        }
+        public void GetNextPreviousUnitIDs(long currentUID, ref long nextUID, ref long previousUID)
+        {
+            nextUID = 0;
+            previousUID = 0;
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<ModelsModel> lstpr = new List<ModelsModel>();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetNextPreviousUnitID";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter paramCUID = cmd.CreateParameter();
+                    paramCUID.ParameterName = "CurrentUnitID";
+                    paramCUID.Value = currentUID;
+                    cmd.Parameters.Add(paramCUID);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                if(dtTable.Rows.Count>0)
+                {
+                    nextUID = Convert.ToInt64(dtTable.Rows[0]["NextUnitID"].ToString());
+                    previousUID = Convert.ToInt64(dtTable.Rows[0]["PreviousUnitID"].ToString());
+                }
+
+
+                db.Dispose();
+            }
+            catch (Exception ex)
+            {
+                
+            }
         }
         public long SaveUpdatePropertyUnit(HttpPostedFileBase fb, PropertyUnits model)
         {
@@ -1006,16 +1052,9 @@ namespace ShomaRM.Areas.Admin.Models
                 {
                     msg = "Unit Unable to remove";
                 }
-              
-
-
-
             }
-
             db.Dispose();
             return msg;
-
-
         }
     }
     public partial class PropertyFloor
@@ -1256,21 +1295,7 @@ namespace ShomaRM.Areas.Admin.Models
             //var PreviousData = db.tbl_Models.Where(p => p.ModelID < Id).OrderByDescending(p => p.ModelName).FirstOrDefault();
             var i = db.tbl_Models.ToList();
             var NextData = i.SkipWhile(co => co.ModelID != Id).Skip(1).FirstOrDefault();
-            int PrevId = 0;
-            foreach (var item in i)
-            {
-                if (Id == item.ModelID)
-                {
-                    break;
-                }
-                else
-                {
-                    PrevId = item.ModelID;
-                }
-            }
-            var PreviousData = i.Where(co => co.ModelID == PrevId).FirstOrDefault();
-            
-            //var PreviousData = i.TakeWhile(co => co.ModelID != Id).Take(1).LastOrDefault();
+            var PreviousData = i.TakeWhile(co => co.ModelID != Id).Take(1).FirstOrDefault();
 
             if (GetModelsData != null)
             {
@@ -1287,7 +1312,7 @@ namespace ShomaRM.Areas.Admin.Models
                 model.FloorPlanDetails = GetModelsData.FloorPlanDetails;
                 model.BalconyArea = GetModelsData.BalconyArea;
                 model.InteriorArea = GetModelsData.InteriorArea;
-                model.PreviousID = PreviousData != null ? PreviousData.ModelID : 0;
+                model.PreviousID = PreviousData!=null? PreviousData.ModelID:0;
                 model.NextID = NextData != null ? NextData.ModelID:0;
             }
             model.ModelID = Id;

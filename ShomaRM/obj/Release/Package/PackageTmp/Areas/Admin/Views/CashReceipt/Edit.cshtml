@@ -1,0 +1,185 @@
+﻿@using ShomaRM.Areas.Admin.Models
+@model CashReceiptModel
+@{
+    ViewBag.Title = "Cash Receipt";
+}
+
+<script src="~/Areas/Admin/Content/Pages/CashReceipt/CashReceipt.js"></script>
+<input type="hidden" id="hndCRID" value="@Model.CRID" />
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <div>
+                    <div class="wizard-header">
+                        <h3>
+                            <b>Cash </b>Receipt<br>
+                        </h3>
+                    </div>
+                    <ul>
+                        <li><a href="#step1" data-toggle="tab"></a></li>
+                      
+                    </ul>
+                    <div class="tab-content">
+
+                        <!--  End step 1 -->
+                        <div class="tab-pane" id="step1">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="goCashList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">Cash Receipt List</span></button>
+                                    <div class="pull-right" style="padding-right:2px;">
+                                        <input type='button' class='btn btn-default' value='Save' onclick="saveupdateCashReceipt()" />
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Property  :</label>
+                                            <select id="ddlProperty" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Property Unit :</label>
+                                            <select id="ddlUnit" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Tenant :</label>
+                                            <select id="ddlTenant" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Revision Number :</label>
+                                            <input id="txtRevisionNumber" type="text" class="form-control" placeholder="Revision Number" onkeypress="return isNumber(event)" value="@Model.Revision_Num">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Status:</label>
+                                            <select id="ddlStatus" class="form-control">
+                                                <option value="0">-Select Status-</option>
+                                                <option value="1">New</option>
+                                                <option value="2">Pending</option>
+                                                <option value="3">Completed</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Batch:</label>
+                                            <input id="txtBatch" type="text" class="form-control" placeholder="Batch" value="@Model.Batch">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Description :</label>
+                                            <textarea name="description" id="txtDesc" class="form-control">@Model.Description</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Balance :</label>
+                                            <input id="txtBalance" type="number" min="0.00" step="0.01" class="form-control" placeholder="Balance" onkeypress="return isNumber(event)" value="@Model.Balance">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>PrePayment :</label>
+                                            <input id="txtPrePayment" type="number" min="0.00" step="0.01" class="form-control" placeholder="PrePayment" onkeypress="return isNumber(event)" value="@Model.PrePayment">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Payment Amount :</label>
+                                            <input id="txtPaymentAmount" type="number" min="0.00" step="0.01" class="form-control" placeholder="Payment Amount" onkeypress="return isNumber(event)" value="@Model.PaymentAmount">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Check Number :</label>
+                                            <input id="txtCheckNumber" type="text" class="form-control" placeholder="Check Number" value="@Model.CheckNumber">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Payment Date:</label>
+                                            <input id="txtPaymentDate" type="text" class="form-control" placeholder="Payment Date" value="@(Model.PaymentDate!=null?Model.PaymentDate.Value.ToString("MM/dd/yyyy"):"")">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Payment Type :</label>
+                                            <input id="txtPaymentType" type="text" class="form-control" placeholder="PaymentType" value="@Model.PaymentType">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Bank Account :</label>
+                                            <input id="txtBankAccount" type="text" class="form-control" placeholder="Bank Account" onkeypress="return isNumber(event)" value="@Model.BankAccount">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Created Date:</label>
+                                            <input id="txtCreatedDate" type="text" class="form-control" placeholder="Created Date" value="@(Model.DateStamp!=null?Model.DateStamp.Value.ToString("MM/dd/yyyy"):"")">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Is Applicant?</label>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="chkIsApplicant" @(Model.IsApplicant == 1 ? "checked" : "")> Yes
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Deposite Date:</label>
+                                            <input id="txtDepositeDate" type="text" class="form-control" placeholder="Deposite Date" value="@(Model.DepositAcctDate!=null?Model.DepositAcctDate.Value.ToString("MM/dd/yyyy"):"")" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                            </div>
+                        </div>
+
+                   
+                </div>
+            </div>
+            <!-- End submit form -->
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#txtPaymentDate").datepicker();
+        $("#txtCreatedDate").datepicker();
+        $("#txtDepositeDate").datepicker();
+
+    });
+
+    $(document).ready(function () {
+        setTimeout(function () { $("#ddlProperty").find("option[value='" + @Model.PropertyID + "']").attr('selected', 'selected'); }, 1500);
+        getPropertyUnitList(@Model.PropertyID);
+        setTimeout(function () { $("#ddlUnit").find("option[value='" + @Model.UnitID + "']").attr('selected', 'selected'); }, 1500);
+        getTenantList(@Model.UnitID);
+        setTimeout(function () { $("#ddlTenant").find("option[value='" + @Model.TenantID + "']").attr('selected', 'selected'); }, 1500);
+        setTimeout(function () { $("#ddlStatus").find("option[value='" + @Model.Status + "']").attr('selected', 'selected'); }, 1500);
+    });
+</script>

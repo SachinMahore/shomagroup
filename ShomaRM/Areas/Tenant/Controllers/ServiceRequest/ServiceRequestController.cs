@@ -74,5 +74,74 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult GetDdlLocation()
+        {
+            try
+            {
+                return Json(new { model = new ServiceRequestModel().GetDdlLocation() }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
+        public ActionResult GetDdlServiceCategory()
+        {
+            try
+            {
+                return Json(new { model = new ServiceRequestModel().GetDdlServiceCategory() }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
+
+        public ActionResult GetDdlCausingIssue(long ServiceIssueID)
+        {
+            try
+            {
+                return Json((new ServiceRequestModel()).GetDdlCausingIssue(ServiceIssueID), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult GetDdlIssue(long CausingIssueID, long ServiceIssueID)
+        {
+            try
+            {
+                return Json((new ServiceRequestModel()).GetDdlIssue(CausingIssueID, ServiceIssueID), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult UploadServiceFile(ServiceRequestModel model)
+        {
+            try
+            {
+                HttpPostedFileBase fileBaseUpload = null;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBaseUpload = Request.Files[i];
+
+                }
+
+                return Json(new { model = new ServiceRequestModel().UploadServiceFile(fileBaseUpload, model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

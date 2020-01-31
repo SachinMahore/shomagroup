@@ -1,0 +1,169 @@
+﻿@using ShomaRM.Areas.Admin.Models
+@model InvoiceModel
+@{
+    ViewBag.Title = "Invoice";
+}
+<script src="~/Areas/Admin/Content/Pages/Invoice/Invoice.js"></script>
+<input type="hidden" id="hdnInvoiceId" value="@Model.InvoiceID" />
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <form action="" method="">
+                    <div class="wizard-header">
+                        <h3>
+                            <b>Invoice</b> Details<br>
+                        </h3>
+                    </div>
+                    <ul>
+                        <li><a href="#step1" data-toggle="tab"> </a></li>
+                    </ul>
+                    <div class="tab-content">
+
+                        <!--  End step 1 -->
+                        <div class="tab-pane" id="step1">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="goInvoiceList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">Invoice List</span></button>
+                                    <div class="pull-right" style="padding-right:2px;">
+                                        <input type='button' class='btn btn-default' value='Save' onclick="SaveUpdateInvoice()" />
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtInvoiceNumber" class="star">Invoice No.</label>
+                                            <input id="txtInvoiceNumber" class="form-control form-control-small" maxlength="50" value="@Model.InvoiceNumber" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="ddlVendor" class="star">Vendor</label>
+                                            <select id="ddlVendor" class="form-control form-control-small"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtInvoiceDesc">Invoice Desc</label>
+                                            <input id="txtInvoiceDesc" class="form-control form-control-small" type="text" value="@Model.InvoiceDesc" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtInvoiceDate" class="star">Invoice Date</label>
+                                            <input id="txtInvoiceDate" class="form-control form-control-small" type="text" value="@(Model.InvoiceDate!=null?Model.InvoiceDate.Value.ToString("MM/dd/yyyy"):"")" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtRecievedDate">Recieved Date</label>
+                                            <input id="txtRecievedDate" type="text" class="form-control form-control-small" maxlength="100" value="@(Model.ReceivedDate!=null?Model.ReceivedDate.Value.ToString("MM/dd/yyyy"):"")" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtPaymentDate">Payment Date</label>
+                                            <input id="txtPaymentDate" type="text" class="form-control form-control-small" maxlength="50" value="@(Model.PaymentDate!=null?Model.PaymentDate.Value.ToString("MM/dd/yyyy"):"")" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtTotalAmount" class="star">Total Amount</label>
+                                            <input id="txtTotalAmount" class="form-control form-control-small" onkeypress="return isNumber(event)" type="text" value="@Model.TotalAmount" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtRoute">Route</label>
+                                            <input id="txtRoute" class="form-control form-control-small" value="@Model.Route" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="ddlExportNow">Export Now</label>
+                                            <select id="ddlExportNow" class="form-control">
+                                                <option value="0">-Select Status-</option>
+                                                <option value="1">Yes</option>
+                                                <option value="2">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtExportedDate">Exported Date</label>
+                                            <input id="txtExportedDate" class="form-control form-control-small" maxlength="20" type="text" value="@(Model.ExportedDate!=null?Model.ExportedDate.Value.ToString("MM/dd/yyyy"):"")" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtExportedBy">Exported By</label>
+                                            <input id="txtExportedBy" class="form-control form-control-small" maxlength="20" type="text" value="@Model.ExportedBy" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtApprovedDate" class="star">Approved Date</label>
+                                            <input id="txtApprovedDate" class="form-control form-control-small" maxlength="20" type="text" value="@(Model.Approved!=null?Model.Approved.Value.ToString("MM/dd/yyyy"):"")" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="txtApprovedBy">Approved By</label>
+                                            <input id="txtApprovedBy" class="form-control form-control-small" maxlength="20" type="text" value="@Model.ApprovedBy" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="ddlBatch">Batch</label>
+                                            <select id="ddlBatch" class="form-control">
+                                                <option value="0">-Select Batch-</option>
+                                                <option value="1">Morning</option>
+                                                <option value="2">Afternoon</option>
+                                                <option value="3">Evening</option>
+                                                <option value="4">Night</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                            </div>
+                        </div>
+
+
+                        <!--  End step 4 -->
+                    </div>
+                   
+                </form>
+            </div>
+            <!-- End submit form -->
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#txtInvoiceDate").datepicker();
+        $("#txtRecievedDate").datepicker();
+        $("#txtPaymentDate").datepicker();
+        $("#txtExportedDate").datepicker();
+        $("#txtApprovedDate").datepicker();
+    });
+    $(document).ready(function () {
+        setTimeout(function () { $("#ddlExportNow").find("option[value='" + @Model.ExportNow + "']").attr('selected', 'selected'); }, 1500);
+        setTimeout(function () { $("#ddlBatch").find("option[value='" + @Model.BatchID + "']").attr('selected', 'selected'); }, 1500);
+        setTimeout(function () { $("#ddlVendor").find("option[value='" + @Model.Vendor + "']").attr('selected', 'selected'); }, 1500);
+
+        @*$("#ddlExportNow").val(@Model.ExportNow);
+        $("#ddlExportNow").trigger('change');
+        $("#ddlBatch").val(@Model.BatchID);
+        $("#ddlBatch").trigger('change');
+        setTimeout(function () {
+            $("#ddlVendor").val(@Model.BatchID);
+            $("#ddlVendor").trigger('change');
+        }, 200);*@
+    });
+</script>

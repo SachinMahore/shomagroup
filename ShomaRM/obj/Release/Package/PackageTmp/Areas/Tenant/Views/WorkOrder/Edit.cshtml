@@ -1,0 +1,180 @@
+﻿@using ShomaRM.Areas.Tenant.Models
+@model WorkOrderModel
+@{
+    ViewBag.Title = "Work Order";
+}
+
+<script src="~/Areas/Tenant/Content/Pages/WorkOrder/WorkOrder.js"></script>
+<input type="hidden" id="hndWOID" value="@Model.WOID" />
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <form action="" method="">
+                    <div class="wizard-header">
+                        <h3>
+                            <b>WORK </b> ORDER<br>
+                        </h3>
+                    </div>
+                    <ul>
+                        <li><a href="#step1" data-toggle="tab">Step 1 </a></li>
+
+                        <li><a href="#step2" data-toggle="tab">Finished </a></li>
+                    </ul>
+                    <div class="tab-content">
+
+                        <!--  End step 1 -->
+                        <div class="tab-pane" id="step1">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Property  :</label>
+                                            <select id="ddlProperty" class="  form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Property Unit :</label>
+                                            <select id="ddlUnit" class="  form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Status:</label>
+                                            <select id="ddlStatus" class="selectpicker show-tick form-control">
+                                                <option value="0"> -Select Status- </option>
+                                                <option value="1">New</option>
+                                                <option value="2">Pending</option>
+                                                <option value="3">Completed</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Problem:</label>
+                                            <select id="ddlProblem" class="selectpicker show-tick form-control">
+                                                <option value="0"> -Select Problem- </option>
+                                                <option value="1">Lost keys</option>
+                                                <option value="2">Water Leaks</option>
+                                                <option value="3">Electricity Failed</option>
+                                                <option value="4">Other Problem</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="star">Date Opened :</label>
+                                            <input id="txtOpendate" type="text" class="form-control" placeholder="Date Opened" value="@Model.DateOpened">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Date Closed :</label>
+                                            <input id="txtClosedate" type="text" class="form-control" placeholder="Date Closed" value="@Model.DateClosed">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Description :</label>
+                                            <textarea name="Discrition" id="txtDesc" class="form-control">@Model.Description</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label class="star">Reported by :</label>
+                                            <input id="txtReport" type="text" class="form-control" placeholder="Reported By" value="@Model.ReportedBy">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label class="star">Contact :</label>
+                                            <input id="txtContact" type="text" class="form-control" maxlength="15" placeholder="Contact" onkeypress="return isOnlyNumber(event)" value="@Model.ContactPhone">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label class="star">Assign To :</label>
+                                            <input id="txtAssign" type="text" class="form-control" placeholder="Assign To" value="@Model.AssignedTo">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Vendor :</label>
+                                            <input id="txtVendor" type="text" class="form-control" placeholder="Vendor" value="@Model.VendorID">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Resolution :</label>
+                                            <textarea name="resolution" id="txtResolution" class="form-control">@Model.Resolution</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-sm-12 padding-top-15" id="tblAminities">
+
+                                </div>
+
+                                <br>
+                            </div>
+                        </div>
+
+
+                        <div class="tab-pane" id="step2">
+                            <h4 class="info-text"> Finished and submit </h4>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="">
+                                        <p>
+
+                                        </p>
+                                        <div class="checkbox">
+                                            <label>
+
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  End step 4 -->
+                    </div>
+                    <div class="wizard-footer">
+                        <div class="pull-right">
+                            <input type='button' class='btn btn-next btn-primary' name='next' value='Next' />
+                            <input type='button' class='btn btn-finish btn-primary ' name='finish' value='Finish' onclick="saveupdateWorkOrder()" />
+                        </div>
+                        <div class="pull-left">
+                            <input type='button' class='btn btn-previous btn-default' name='previous' value='Previous' />
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
+            </div>
+            <!-- End submit form -->
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#txtOpendate").datepicker();
+        $("#txtClosedate").datepicker();
+    });
+    $(document).ready(function () {
+        setTimeout(function () { 
+        $("#ddlProperty").val(@Model.PropertyID);
+        $("#ddlProperty").trigger('change');
+        $("#ddlUnit").val(@Model.UnitID);
+        $("#ddlUnit").trigger('change');
+        $("#ddlProblem").val(@Model.ProblemID);
+        $("#ddlProblem").trigger('change');
+        }, 1200);
+    });
+</script>

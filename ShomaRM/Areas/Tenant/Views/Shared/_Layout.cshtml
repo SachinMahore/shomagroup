@@ -46,6 +46,8 @@
     <script src="@Url.Content("/content/assets/js/modernizr-2.6.2.min.js")"></script>
     <script src="@Url.Content("/content/assets/js/popupwindow.js")"></script>
     <script src="@Url.Content("/content/assets/js/jquery.simplePagination.js")"></script>
+    <link href="~/Content/timepicki.css" rel="stylesheet" />
+    <script src="~/Content/timepicki.js"></script>
     @RenderSection("scripts", required: false)
 </head>
 <body>
@@ -160,4 +162,26 @@
     function gotoLogin() {
         window.location = "/Account/Login";
     }
+    $(document).ready(function () {
+      
+        getAllDues();
+    });
+    var getAllDues = function () {
+        var model = {
+            TenantID: $("#hndTenantID").val()
+        };
+        $.ajax({
+            url: '/MyTransaction/GetTotalDue',
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+
+                $('#spanCurrentAmountDue').text('$' + formatMoney(response.model));
+                $("#lblCurrentPrePayAmount").text('$' + formatMoney(response.model));
+               
+            }
+        });
+    };
 </script>

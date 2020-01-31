@@ -1,0 +1,284 @@
+﻿@using ShomaRM.Models
+@model VerificationModel
+@{
+    ViewBag.Title = "Index";
+}
+<script src="~/Content/Pages/Verification/Verification.js"></script>
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <div>
+                    <div class="wizard-header">
+                        <h3>
+                            <b>Online  </b>Application<br>
+                        </h3>
+                    </div>
+                    <ul>
+                        <li class="active" id="li1"><a href="javascript:void(0);" onclick="goToStep(1)"> Application </a></li>
+                        <li id="li2"><a href="javascript:void(0);" onclick="goToStep(2)">Verification</a></li>
+                        <li id="li3"><a href="javascript:void(0);" onclick="goToStep(3)">Payment </a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="" id="step1">
+                            <div class="row p-b-15  ">
+                                <div class="col-sm-12">
+                                    <h4 class="info-text pull-left"> Your Basic Details</h4>
+                                </div>
+                                <input type="hidden" id="hdnPID" value="" />
+                                <input id="hdnOPId" type="hidden" value="" />
+                                <input id="hdnUserId" type="hidden" value="@Model.TenantID" />
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="txtFirstName">First Name</label>
+                                        <input type="text" class="form-control" id="txtFirstName" value="@Model.FirstName" placeholder="First Name" readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="txtLastName">Last Name</label>
+                                        <input type="text" class="form-control" id="txtLastName" value="@Model.LastName" placeholder="Last Name" readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="txtPhone">Date Of Birth</label>
+                                        <input type="text" class="form-control" id="txtDOB" value="@Model.DateofBirth" placeholder="Date Of Birth" readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="txtPhone">Phone Number</label>
+                                        <input type="text" class="form-control" id="txtPhoneNumber" maxlength="15" value="@Model.Phone" placeholder="Phone Number" readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="txtEmail">Email</label>
+                                        <input type="text" class="form-control" id="txtEmail" value="@Model.Email" placeholder="Email" readonly="readonly">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="txtAddress">Address</label>
+                                        <textarea class="form-control" id="txtAddress" readonly="readonly">@Model.Address</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="txtPassword">Annual Income</label>
+                                        <input type="text" class="form-control" id="txtAnnualIncome" value="@Model.AnnualIncome" placeholder="Annual Income" readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="txtPassword">Additional Annual Income</label>
+                                        <input type="text" class="form-control" id="txtAddiAnnualIncome" value="@Model.AddiAnnualIncome" placeholder="Additional Annual Income" readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="pull-right text-center">
+                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(2)"> Next</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  End step 1 -->
+
+                        <div class="hidden" id="step2">
+                            <input type="hidden" id="hndANID" value="@Model.ProspectId" />
+                            <div class="row p-b-15">
+
+                                <div class="col-sm-12">
+                                    <h4 class="info-text pull-left"> Background Verification </h4>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="">
+                                            <h4 class="info-text pull-left" style="color:orange">Status: @Model.IsApplyNowStatus</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="backVer" class="hidden">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="">
+                                                <a href="javascript:void(0)" id="btnDownloadLeaseDocument" class="fa fa-download btn btn-default" onclick="saveLeaseDoc()">&nbsp;&nbsp;Download Lease Agreement</a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="">
+                                                <h4 class="info-text pull-left" style="color:green">Upload Signed Lease Agreement</h4>
+                                                <a href="javascript:void(0)" id="btnUploadLeaseDocument" class="fa fa-upload"> <input type="file" id="wizard-picture" value="" class="btn btn-primary"></a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12 form-inline">
+                                        <div style="margin-top:30px"></div>
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-primary" id="btnSave" onclick="SaveLeaseDocumentVerification()"><i class="fa fa-save"></i><span id="spanSaveUpdate">Save</span></button>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="pull-left text-center">
+                                            <button type="submit" class="btn btn-primary" onclick="goToStep(1)"> Back</button>
+                                        </div>
+                                        <div class="pull-right text-center">
+                                            <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(3)"> Next</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End step 2 -->
+
+                        <div class="hidden" id="step3">
+                            <div class="row" id="Paymentdet">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Property Interested</label>
+                                            <select id="ddlProperty" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Unit Interested</label>
+                                            <select id="ddlUnit" class="form-control"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="">First Month Rent</label>
+                                            <label id="lblRent" class="form-control"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="">Deposit</label>
+                                            <label id="lblDeposit" class="form-control"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Total Payable Payment :  $ <label id="lblTotalPayement"></label></label>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h4 class="info-text pull-left"> Card Details</h4>
+                                </div>
+                                <div class="col-sm-12">
+
+                                    <div id="carddetails" class="">
+                                        <div class="form-group col-sm-3">
+                                            <label for="name">Name on Card</label>
+                                            <input type="text" class="form-control" id="txtNameonCard" placeholder="Name on Card" value="@Model.Name_On_Card">
+                                        </div>
+                                        <div class="form-group col-sm-3">
+                                            <label for="cardnumber">Card Number</label>
+                                            <input type="text" class="form-control" id="txtCardNumber" placeholder="Card Number" value="@Model.CardNumber">
+                                        </div>
+                                        <div class="form-group col-sm-2">
+                                            <label for="cardmonth">Card Month</label>
+                                            <select id="ddlcardmonth" class="form-control form-control-small">
+                                                @for (int i = 1; i <= 12; i++)
+                                                {
+                                                    <option value="@i">@i</option>
+
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-sm-2">
+                                            <label for="cardyear">Card Year</label>
+                                            <select id="ddlcardyear" class="form-control form-control-small">
+                                                @for (int i = DateTime.Now.Year; i <= DateTime.Now.AddYears(5).Year; i++)
+                                                {
+                                                    <option value="@i">@i</option>
+
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-sm-2">
+                                            <label for="txtCcvNumber">CVV Number</label>
+                                            <input type="password" class="form-control" id="txtCcvNumber" placeholder="CVV Number" value="@Model.CCVNumber">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="col-sm-12 form-inline">
+                                        <div style="margin-top:30px"></div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary" onclick="savePayment()">Pay Now</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsg"></b></p></div>
+                            <div class="col-sm-12">
+                                <h4 class="info-text pull-left">Previous Transaction Details</h4>
+                            </div>
+                            <div class="col-sm-12">
+                                <table id="tblTransaction" class="table-bordered" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="background-color: #c7cdd566;color:#3d3939">Sr. No.</th>
+                                            @*<th style="background-color: #c7cdd566;color:#3d3939">Tenant Name</th>*@
+                                            <th style="background-color: #c7cdd566;color:#3d3939">Trans Date</th>
+                                            <th style="background-color: #c7cdd566;color:#3d3939">Amount</th>
+                                            <th style="background-color: #c7cdd566;color:#3d3939">Trans Type</th>
+                                            <th style="background-color: #c7cdd566;color:#3d3939">Charge Type</th>
+                                            <th style="background-color: #c7cdd566;color:#3d3939">Description</th>
+                                            <th style="background-color: #c7cdd566;color:#3d3939">Created Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                 
+                    </div>
+                        <!-- End step 3 -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- End submit form -->
+    </div>
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+        if (@Model.IsApplyNow== 2) {
+            $("#backVer").removeClass("hidden");
+            $("#Paymentdet").removeClass("hidden");
+        } else {
+            $("#backVer").addClass("hidden");
+            $("#Paymentdet").addClass("hidden");
+        }
+        getPropertyUnitDetails(@Model.PID);
+        $("#ddlcardmonth").val(@Model.CardMonth);
+        $("#ddlcardmonth").trigger('change');
+        $("#ddlcardyear").val(@Model.CardYear);
+        $("#ddlcardyear").trigger('change');
+    });
+</script>
