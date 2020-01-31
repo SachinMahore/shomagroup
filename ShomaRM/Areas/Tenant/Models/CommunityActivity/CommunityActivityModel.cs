@@ -37,7 +37,7 @@ namespace ShomaRM.Areas.Tenant.Models
 
                 db.tbl_CommunityActivity.Add(saveCommunityActivity);
                 db.SaveChanges();
-                msg = "Post Successfully";
+                msg = "Posted Successfully";
             }
             else
             {
