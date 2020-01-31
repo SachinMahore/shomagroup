@@ -96,7 +96,7 @@ $(document).ready(function () {
     };
 
     if ($("#chkAgreeTermsPolicy").is(":checked")) {
-        $("#policyStart").attr("disabled", false);
+        $("#policyStart").attr("disabled", true);
         InnerPolicyCheck();
     }
     else if ($("#chkAgreeTermsPolicy").is(":not(:checked)")) {
@@ -106,9 +106,9 @@ $(document).ready(function () {
     }
 
     $("#chkAgreeTermsPolicy").on('ifChanged', function (event) {
-        if ($("#chkAgreeTermsPolicy").is(":checked")) {
-            $("#popRentalQualification").modal("show");
+        if ($("#chkAgreeTermsPolicy").is(":checked")) {            
             InnerPolicyCheck();
+            $("#popRentalQualification").modal("show");
         }
         else if ($("#chkAgreeTermsPolicy").is(":not(:checked)")) {
             $("#policyStart").attr("disabled", true);
@@ -125,6 +125,7 @@ $(document).ready(function () {
 
         if ($("#chkRentalQual").is(":checked") && $("#chkRentalPolicy").is(":checked")) {
             $("#policyStart").attr("disabled", false);
+            $("#popRentalQualification").modal("hide");
         }
         else if ($("#chkRentalQual").is(":not(:checked)") || $("#chkRentalPolicy").is(":not(:checked)")) {
             $("#policyStart").attr("disabled", true);
@@ -683,9 +684,8 @@ var goToStep = function (stepid, id) {
     if (stepid == "7") {
         if (id == "7") {
             SaveCheckPolicy();
-            $("#as6").removeAttr("onclick")
+            $("#as6").removeAttr("onclick");
             $("#as6").attr("onclick", "goToStep(7,7)");
-
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
             $("#step4").addClass("hidden");
@@ -1459,8 +1459,8 @@ var SaveCheckPolicy = function () {
         IsRentalQualification: isRentalQualification,
         FirstName: firstName,
         LastName: lastName,
-        Email: emailId,
-    }
+        Email: emailId
+    };
 
     $.ajax({
         url: '/ApplyNow/SaveCheckPolicy',
@@ -2250,6 +2250,8 @@ var getPropertyUnitDetails = function (uid) {
 function displayImg() {
     $("#popFloorPlan").modal("show");
 }
+
+
 function displayCompImg(modname) {
     $("#imgFloorPlan2").attr("src", "/content/assets/img/plan/" + modname + "Det.jpg");
     $("#popFloorPlan").modal("show");
