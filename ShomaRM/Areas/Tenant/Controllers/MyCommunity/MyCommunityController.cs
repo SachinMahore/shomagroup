@@ -1,5 +1,7 @@
 ﻿using ShomaRM.Areas.Admin.Models;
 using ShomaRM.Areas.Tenant.Models;
+using ShomaRM.Areas.Tenant.Models.Club;
+using ShomaRM.Areas.Tenant.Models.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +16,20 @@ namespace ShomaRM.Areas.Tenant.Controllers
         public ActionResult Index()
         {
             ViewBag.ActiveMenu = "mycommunity";
-            return View();
+            ClubModel Model = new ClubModel();
+            return View(Model);
+        }
+
+        public JsonResult CreateClub(ClubModel _model)
+        {
+            try
+            {
+                return Json(new { modal = new ClubModel().SaveclubEvent(_model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { modal = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public JsonResult GetAmenitiesList()

@@ -4,7 +4,42 @@
     getEventsList();
     getAmenitiesList();
     breakdownPaymentFunction();
+    $('#ClubSubmit').attr('disabled', 'disabled');
 });
+function SubmitClub() {
+    var Json = {
+        Id: $("#txtClubTitle").val(),
+        ClubTitle: $("#txtClubTitle").val(),
+        ActivityId: $("#ActivityId").val(),
+        StartDate: $("#txtStartDate").val(),
+        Venue: $("#txtVenue").val(),
+        DayId: $("#DayId").val(),
+        Time: $("#txtMeetingTime").val(),
+        Contact: $("#txtContact").val(),
+        Email: $("#txtEmail").val(),
+        PhoneNumber: $("#txtPhoneNumber").val(),
+        PhoneCheck: $("#rbtnPhoneCheck").is(":checked"),
+        EmailCheck: $("#rbtnEmailCheck").is(":checked"),
+        LevelId: $("#LevelId").val(),
+        SpecialInstruction: $("#txtSpecialInstruction").val(),
+        Description: $("#txtDescription").val(),
+        BriefDescription: $("#txtBriefDescription").val(),
+        TermsAndCondition: $("#chkTermsConditions").val(),
+        TenantID: $("#hndTenantID").val(),
+        UserId: $("#hdnUserId").val(),
+        IsDeleted: false
+
+    };
+    $.post("/MyCommunity/CreateClub", Json, function (Data) {
+        debugger
+        $.alert({
+            title: '',
+            content: response.modal,
+            type: 'blue'
+        });
+    });
+}
+
 
 var goToStep = function (stepid, id) {
 
@@ -12,28 +47,45 @@ var goToStep = function (stepid, id) {
         $("#li1").addClass("active");
         $("#li2").removeClass("active");
         $("#li3").removeClass("active");
+        $("#li4").removeClass("active");
 
         $("#step1").removeClass("hidden");
         $("#step2").addClass("hidden");
         $("#step3").addClass("hidden");
+        $("#step4").addClass("hidden");
     }
     if (stepid == "2") {
         $("#li1").removeClass("active");
         $("#li2").addClass("active");
         $("#li3").removeClass("active");
+        $("#li4").removeClass("active");
 
         $("#step1").addClass("hidden");
         $("#step2").removeClass("hidden");
         $("#step3").addClass("hidden");
+        $("#step4").addClass("hidden");
     }
     if (stepid == "3") {
         $("#li1").removeClass("active");
         $("#li2").removeClass("active");
         $("#li3").addClass("active");
+        $("#li4").removeClass("active");
 
         $("#step1").addClass("hidden");
         $("#step2").addClass("hidden");
         $("#step3").removeClass("hidden");
+        $("#step4").addClass("hidden");
+    }
+    if (stepid == "4") {
+        $("#li1").removeClass("active");
+        $("#li2").removeClass("active");
+        $("#li3").removeClass("active");
+        $("#li4").addClass("active");
+
+        $("#step1").addClass("hidden");
+        $("#step2").addClass("hidden");
+        $("#step3").addClass("hidden");
+        $("#step4").removeClass("hidden");
     }
 };
 

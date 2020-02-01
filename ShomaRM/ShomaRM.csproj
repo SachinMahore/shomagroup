@@ -261,7 +261,9 @@
     <Compile Include="Areas\Tenant\Models\AmenitiesRR\AmenitiesRRModel.cs" />
     <Compile Include="Areas\Tenant\Models\ApplicantHistory\ApplicantHistoryModel.cs" />
     <Compile Include="Areas\Tenant\Models\Applicant\ApplicantModel.cs" />
+    <Compile Include="Areas\Tenant\Models\Club\ClubModel.cs" />
     <Compile Include="Areas\Tenant\Models\CommunityActivity\CommunityActivityModel.cs" />
+    <Compile Include="Areas\Tenant\Models\Enum\ClubEnum.cs" />
     <Compile Include="Areas\Tenant\Models\EventBooking\EventBookingModel.cs" />
     <Compile Include="Areas\Tenant\Models\FacilityBooking\FacilityBookingModel.cs" />
     <Compile Include="Areas\Tenant\Models\GuestRegistration\GuestRegistrationModel.cs" />
@@ -626,6 +628,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="lib\USAePayAPI.dll" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\assets\fonts\fontawesome-webfont.eot" />

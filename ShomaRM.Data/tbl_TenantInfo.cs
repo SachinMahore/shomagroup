@@ -29,6 +29,8 @@ namespace ShomaRM.Data
         public Nullable<System.DateTime> DateExpire { get; set; }
         public Nullable<int> IDType { get; set; }
         public Nullable<long> State { get; set; }
+        public Nullable<long> PropertyID { get; set; }
+        public Nullable<long> UnitID { get; set; }
         public string IDNumber { get; set; }
         public string Country { get; set; }
         public string HomeAddress1 { get; set; }
@@ -99,8 +101,6 @@ namespace ShomaRM.Data
         public string PassportDocumentOriginalFile { get; set; }
         public string IdentityDocumentOriginalFile { get; set; }
         public Nullable<bool> IsPaystub { get; set; }
-        public Nullable<long> PropertyID { get; set; }
-        public Nullable<long> UnitID { get; set; }
         public string ProfilePicture { get; set; }
         public string OrginalProfilePicture { get; set; }
         public Nullable<int> IsAgreePostDisclaimer { get; set; }
