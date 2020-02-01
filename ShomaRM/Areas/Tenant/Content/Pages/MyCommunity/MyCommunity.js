@@ -7,6 +7,7 @@
     $('#ClubSubmit').attr('disabled', 'disabled');
 });
 function SubmitClub() {
+    
     var Json = {
         Id: $("#txtClubTitle").val(),
         ClubTitle: $("#txtClubTitle").val(),
@@ -18,8 +19,8 @@ function SubmitClub() {
         Contact: $("#txtContact").val(),
         Email: $("#txtEmail").val(),
         PhoneNumber: $("#txtPhoneNumber").val(),
-        PhoneCheck: $("#rbtnPhoneCheck").is(":checked"),
-        EmailCheck: $("#rbtnEmailCheck").is(":checked"),
+        PhoneCheck: $("#PhoneCheck").is(":checked"),
+        EmailCheck: $("#EmailCheck").is(":checked"),
         LevelId: $("#LevelId").val(),
         SpecialInstruction: $("#txtSpecialInstruction").val(),
         Description: $("#txtDescription").val(),
