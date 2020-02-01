@@ -240,6 +240,8 @@
     <Compile Include="Areas\Tenant\Controllers\AmenitiesRR\AmenitiesRRController.cs" />
     <Compile Include="Areas\Tenant\Controllers\Applicant\ApplicantController.cs" />
     <Compile Include="Areas\Tenant\Controllers\CommunityActivity\CommunityActivityController.cs" />
+    <Compile Include="Areas\Tenant\Controllers\CommunityClubJoin\CommunityClubJoinController.cs" />
+    <Compile Include="Areas\Tenant\Controllers\CommunityClub\CommunityClubController.cs" />
     <Compile Include="Areas\Tenant\Controllers\Dashboard\DashboardController.cs" />
     <Compile Include="Areas\Tenant\Controllers\EventBooking\EventBookingController.cs" />
     <Compile Include="Areas\Tenant\Controllers\FacilityBooking\FacilityBookingController.cs" />
@@ -262,6 +264,8 @@
     <Compile Include="Areas\Tenant\Models\ApplicantHistory\ApplicantHistoryModel.cs" />
     <Compile Include="Areas\Tenant\Models\Applicant\ApplicantModel.cs" />
     <Compile Include="Areas\Tenant\Models\CommunityActivity\CommunityActivityModel.cs" />
+    <Compile Include="Areas\Tenant\Models\CommunityClubJoin\CommunityClubJoinModel.cs" />
+    <Compile Include="Areas\Tenant\Models\CommunityClub\CommunityClubModel.cs" />
     <Compile Include="Areas\Tenant\Models\EventBooking\EventBookingModel.cs" />
     <Compile Include="Areas\Tenant\Models\FacilityBooking\FacilityBookingModel.cs" />
     <Compile Include="Areas\Tenant\Models\GuestRegistration\GuestRegistrationModel.cs" />
@@ -752,6 +756,8 @@
     <Content Include="Areas\Admin\Views\Amenities\AmenitiesReservationRequest.cshtml" />
     <Content Include="Areas\Admin\Views\Amenities\ARREdit.cshtml" />
     <Content Include="Areas\Admin\Views\GuestManagement\Index.cshtml" />
+    <Content Include="Areas\Tenant\Views\CommunityClub\index.cshtml" />
+    <Content Include="Areas\Tenant\Views\CommunityClubJoin\index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

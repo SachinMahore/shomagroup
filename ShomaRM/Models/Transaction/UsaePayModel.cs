@@ -17,7 +17,7 @@ namespace ShomaRM.Models
             usaepay.Amount =Convert.ToDecimal(model.Charge_Amount);
             usaepay.Description = model.Description;
             usaepay.CardHolder = model.Name_On_Card;
-            usaepay.CardNumber =model.CardNumber;
+            usaepay.CardNumber = model.CardNumber;
             usaepay.CardExp = model.CardMonth.ToString()+model.CardYear.ToString();
           
             usaepay.UseSandbox = true;
