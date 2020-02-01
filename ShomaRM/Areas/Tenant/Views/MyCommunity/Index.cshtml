@@ -5,7 +5,7 @@
 }
 <script src="~/Areas/Tenant/Content/Pages/MyCommunity/MyCommunity.js"></script>
 <script src="~/Content/zabuto_calendar.js"></script>
-
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 <input id="hdnUserId" name="UserId" type="hidden" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID" />
 <input id="hndTenantID" name="TenantID" type="hidden" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
@@ -228,7 +228,7 @@
                                                 </div>
                                                 <div class="col-sm-4">
                                                     @Html.DropDownListFor(o => o.ActivityId, Enum.GetValues(typeof(ActivityEnum)).Cast<ActivityEnum>
-                                                        ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id="ActivityId",@class = "form-control" })
+                                                        ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "ActivityId", @class = "form-control" })
 
                                                 </div>
                                             </div>
@@ -242,7 +242,7 @@
                                                     <label style="color:#4D738A !important;font-size:11pt;">Start Date:</label>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <input id="txtStartDate" type="text" class="form-control" name="StartDate" maxlength="20" placeholder="MM/dd/yyyy">
+                                                    <input id="txtStartDate" type="text" class="form-control" data-provide="datepicker" name="StartDate" maxlength="20" placeholder="MM/dd/yyyy">
                                                     <span class="input-group-btn pull-right" style="margin-top: -34px; margin-right: 37px;">
                                                         <button id="btnStartDate" class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
                                                     </span>
@@ -272,7 +272,7 @@
                                                 </div>
                                                 <div class="col-sm-4">
                                                     @Html.DropDownListFor(o => o.DayId, Enum.GetValues(typeof(DayEnum)).Cast<DayEnum>
-                                                      ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id="DayId", @class = "form-control" })
+                                                      ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "DayId", @class = "form-control" })
 
                                                 </div>
                                             </div>
@@ -286,9 +286,12 @@
                                                     <label style="color:#4D738A !important;font-size:11pt;">Meeting Time:</label>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <select id="txtMeetingTime" name="Time" class="form-control">
-                                                        <option value='0'>Select a Time</option>
-                                                    </select>
+                                                    <div class="time_pick"><input id="txtMeetingTime" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:60%" maxlength="20" placeholder="HH:mm:ss" value="" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
+                                                    <span class="input-group-btn pull-right" style="margin-top: -34px; margin-right: 105px;">
+                                                        <button id="btnStartDate" class="btn btn-primary search" type="button"><i class="fa-clock-o fa"></i></button>
+                                                    </span>
+                                                    @*<input id="txtMeetingTime" data-provide="t" type="text" name="Time" class="form-control" />*@
+
                                                 </div>
                                             </div>
                                         </div>
@@ -341,10 +344,10 @@
                                                 </div>
                                                 <div class="col-sm-9">
                                                     <div class="col-sm-2">
-                                                        <input id="rbtnPhoneCheck" class="form-control" type="radio" name="PhoneCheck" value="1" checked="checked" /> Phone
+                                                        <input id="PhoneCheck" class="form-control" type="radio" name="check" checked="checked" /> Phone
                                                     </div>
                                                     <div class="col-sm-2">
-                                                        <input id="rbtnEmailCheck" class="form-control" type="radio" name="EmailCheck" value="2" /> Email
+                                                        <input id="EmailCheck" class="form-control" type="radio" name="check" /> Email
                                                     </div>
                                                 </div>
                                             </div>
@@ -359,7 +362,7 @@
                                                 </div>
                                                 <div class="col-sm-4">
                                                     @Html.DropDownListFor(o => o.LevelId, Enum.GetValues(typeof(LevelEnum)).Cast<LevelEnum>
-                                                      ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id="LevelId" ,@class = "form-control" })
+                                                      ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "LevelId", @class = "form-control" })
 
                                                     <textarea id="txtSpecialInstruction" rows="3" name="SpecialInstruction" placeholder="Special Instructions/Comments" class="form-control" style="margin-top:4px"></textarea>
                                                 </div>
@@ -713,9 +716,9 @@
             border-radius: 0px;
         }
         /*.active1 > a {
-            color: #4d738a !important;
-            background-color: #ffffff !important;
-        }*/
+                color: #4d738a !important;
+                background-color: #ffffff !important;
+            }*/
 
 
         .tab-content1.wizard > ul > li::after:last-child {
@@ -874,9 +877,9 @@
         .main-tab.t-ul > ul > li > a {
             color: #B7B0A7 !important;
             /*outline: 0;
-            font-weight: bold;
-            -webkit-transition: all .8s ease;
-            transition: all .8s ease;*/
+                font-weight: bold;
+                -webkit-transition: all .8s ease;
+                transition: all .8s ease;*/
         }
 
         .hov {
@@ -1221,12 +1224,12 @@
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+    <script src="~/Content/assets/js/bootstrap-datepicker.js"></script>
+    <script src="~/Content/assets/js/bootstrap-datetimepicker.js"></script>
     <script>
         $(document).ready(function () {
-            $("#txtMeetingDate").datepicker();
-            $("#txtStartDate").datepicker();
+            $("#txtMeetingTime").timepicki();
         });
-
         $("#chkTermsConditions").on('ifChanged', function (event) {
             if (this.checked == true) {
                 $('#ClubSubmit').removeAttr('disabled');
@@ -1236,6 +1239,7 @@
         });
 
         var closeDateModel = function () {
+
             var modalOpDate = document.getElementById("date-popover");
             var modalClDate = document.getElementById("closeModelDate");
             modalClDate.onclick = function () { modalOpDate.style.display = "none"; }
