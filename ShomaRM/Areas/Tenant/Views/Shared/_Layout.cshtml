@@ -66,25 +66,14 @@
                     <li class="wow fadeInDown @(ViewBag.ActiveMenu == "dashboard"?"active":"")" data-wow-delay="0.1s"><a class="center" href="~/Tenant/Dashboard/Index/" style="font-size:21px;margin-top: -24px !important;"><img src="~/Content/assets/Assets/@(ViewBag.ActiveMenu == "dashboard"?"dashboard-sanctuary.png":"dashboard-default.png")" width="40" /><br />Dashboard</a></li>
                     <li class="wow fadeInDown @(ViewBag.ActiveMenu == "myhome"?"active":"")" data-wow-delay="0.1s"><a class="center" href="~/Tenant/MyAccount/Index/@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID" style="font-size:21px;margin-top: -24px !important;"><img src="~/Content/assets/Assets/@(ViewBag.ActiveMenu == "myhome"?"home-sanctuary.png":"home-default.png")" width="40" /><br />My Home</a></li>
                     <li class="wow fadeInDown @(ViewBag.ActiveMenu == "mycommunity"?"active":"")" data-wow-delay="0.1s"><a class="center" href="~/Tenant/MyCommunity/Index/" style="font-size:21px;margin-top: -24px !important;"><img src="~/Content/assets/Assets/@(ViewBag.ActiveMenu == "mycommunity"?"multiple-users-silhouette-sanctuary.png":"multiple-users-silhouette-default.png")" width="40" /><br />My Community </a></li>
-                    <li class="wow fadeInDown @(ViewBag.ActiveMenu == "communityclub"?"active":"") nav-item dropdown" data-wow-delay="0.1s">
-                        <a class="center nav-link dropdown-toggle" id="navbarDropdownCommunityClubs" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="~/Tenant/CommunityClub/Index" style="font-size:21px;margin-top: -24px !important;">
-                            <img src="~/Content/assets/Assets/@(ViewBag.ActiveMenu == "communityclub"?"dashboard-sanctuary.png":"dashboard-default.png")" width="40" />
-                            <br />Community Clubs
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownCommunityClubs">
-                            <a class="wow fadeInDown @(ViewBag.ActiveMenu == "communityclub"?"active":"") dropdown-item" href="~/Tenant/CommunityClub">Start a Club</a><br/>
-                            <a class="wow fadeInDown @(ViewBag.ActiveMenu == "communityclub"?"active":"") dropdown-item" href="~/Tenant/CommunityClubJoin">Join a Club</a>                            
-                        </div>
-                    </li>
                 </ul>
-                <div class="navbar-header" style="margin-left:10%">
+                <div class="navbar-header" style="margin-left:18%">
                     <a class="navbar-brand" href="~/Home/Index"><img src="~/content/assets/img/logoTenant.png" alt="" style="width: 240px;margin-top: -13px;"></a>
                 </div>
                 <div class="button navbar-right">
                     <button class="navbar-btn nav-button wow bounceInRight login" onclick="gotoLogin()" data-wow-delay="0.4s" style="width: 128px;margin-right: 32px;font-size: 30px;height: 50px;padding-bottom: 6px;margin-top: -2px;">Logout</button>
                 </div>
                 <ul class="main-nav nav navbar-nav navbar-right">
-
                     <li class="wow fadeInDown @(ViewBag.ActiveMenu == "myprofile"?"active":"")" data-wow-delay="0.1s"><a class="center" href="~/Tenant/MyProfile/Index/@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID" style="font-size:21px;margin-top: -24px !important;"><img src="~/Content/assets/Assets/@(ViewBag.ActiveMenu == "myprofile"?"id-card-sanctuary.png":"id-card-default.png")" width="40" /><br />My Profile </a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
