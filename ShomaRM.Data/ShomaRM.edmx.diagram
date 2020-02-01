@@ -4,157 +4,162 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ea565b50dc7847bdbea08253805066be" Name="Diagram1" ZoomLevel="54">
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Advertiser" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Amenities" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_BankAccount" Width="1.5" PointX="0.75" PointY="3.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_CashReceipts" Width="1.5" PointX="8.25" PointY="55.125" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_ChargeType" Width="1.5" PointX="3" PointY="107.125" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_DocumentVerification" Width="1.5" PointX="3" PointY="103" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Event" Width="1.5" PointX="5.25" PointY="56.625" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_EventBooking" Width="1.5" PointX="7.5" PointY="62.625" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Facility" Width="1.5" PointX="5.25" PointY="52.625" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_FacilityBooking" Width="1.5" PointX="7.5" PointY="50.5" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Gallery" Width="1.5" PointX="5.25" PointY="73.125" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Invoice" Width="1.5" PointX="3" PointY="84.5" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_LeaseRenewal" Width="1.5" PointX="13.5" PointY="59.625" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_LeaseTransfer" Width="1.5" PointX="13.5" PointY="71.625" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Login" Width="1.5" PointX="0.75" PointY="54.625" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_LoginHistory" Width="1.5" PointX="2.75" PointY="3.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Notice" Width="1.5" PointX="16.5" PointY="65.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_PropertyFloor" Width="1.5" PointX="5.25" PointY="70.25" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Prospect" Width="1.5" PointX="14.25" PointY="45.125" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_PurchaseOrder" Width="1.5" PointX="10.25" PointY="48" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_SalesAgent" Width="1.5" PointX="5.25" PointY="61.25" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Tenant" Width="1.5" PointX="7.5" PointY="66.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Utility" Width="1.5" PointX="11.25" PointY="64.25" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_UtilityBilling" Width="1.5" PointX="13.5" PointY="54.25" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Vendor" Width="1.5" PointX="3" PointY="111.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Visit" Width="1.5" PointX="16.5" PointY="47.625" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_WorkOrder" Width="1.5" PointX="9.75" PointY="81.875" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_ZipCodes" Width="1.5" PointX="7.75" PointY="47" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_CashReceipts_tbl_Login" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_CashReceipts_tbl_Tenant" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_ChargeType_tbl_Login" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_DocumentVerification_tbl_Login" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Event_tbl_Login" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_EventBooking_tbl_Event" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_EventBooking_tbl_Login" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_EventBooking_tbl_Tenant" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Facility_tbl_Login" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_FacilityBooking_tbl_Facility" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_FacilityBooking_tbl_FacilityBooking" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_FacilityBooking_tbl_Login" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Invoice_tbl_Login" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Prospect_tbl_Login" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Prospect_tbl_Login1" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_PurchaseOrder_tbl_Login" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_PurchaseOrder_tbl_Login1" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Tenant_tbl_Login" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Tenant_tbl_Login1" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Tenant_tbl_Login2" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Tenant_tbl_Login3" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Vendor_tbl_Login" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Notice_tbl_Tenant" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Visit_tbl_Prospect" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_UtilityBilling_tbl_Tenant" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_WorkOrder_tbl_Tenant" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_UtilityBilling_tbl_Utility" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_WorkOrder_tbl_Vendor" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Document" Width="1.5" PointX="16.5" PointY="52" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Document_tbl_Prospect" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Parking" Width="1.5" PointX="5.25" PointY="42" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_PetPlace" Width="1.5" PointX="5.25" PointY="45.375" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Promotion" Width="1.5" PointX="5.25" PointY="66.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Storage" Width="1.5" PointX="5.25" PointY="49.125" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_TenantParking" Width="1.5" PointX="9.75" PointY="90.5" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_TenantPetPlace" Width="1.5" PointX="9.75" PointY="93.5" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_TenantStorage" Width="1.5" PointX="9.75" PointY="87.625" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Lease" Width="1.5" PointX="12" PointY="84.5" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_CashReceipts_tbl_Lease" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Lease_tbl_Login" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_LeaseRenewal_tbl_Lease" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_LeaseTransfer_tbl_Lease" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Notice_tbl_Lease" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_UtilityBilling_tbl_Lease" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Country" Width="1.5" PointX="5.375" PointY="4.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_TenantPet" Width="1.5" PointX="10.125" PointY="96.875" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Vehicle" Width="1.5" PointX="10.125" PointY="100.375" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_TenantOnline" Width="1.5" PointX="9.75" PointY="117.5" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Applicant" Width="1.5" PointX="9.75" PointY="104.375" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_ApplicantHistory" Width="1.5" PointX="3.375" PointY="7.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_PremiumType" Width="1.5" PointX="9.375" PointY="3.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_LeaseTerms" Width="1.5" PointX="9.375" PointY="0.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_City" Width="1.5" PointX="3" PointY="53.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Properties" Width="1.5" PointX="19.25" PointY="50.125" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_State" Width="1.5" PointX="0.75" PointY="50.625" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_CashReceipts_tbl_Properties" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_CashReceipts_tbl_PropertyUnits" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_City_tbl_State" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Properties_tbl_City" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Prospect_tbl_City" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_SalesAgent_tbl_City" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_ZipCodes_tbl_City" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Event_tbl_Properties" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Facility_tbl_Properties" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Gallery_tbl_Properties" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Lease_tbl_Properties" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Properties_tbl_Login" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Properties_tbl_Login1" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Notice_tbl_Properties" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Parking_tbl_Parking" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_PetPlace_tbl_Properties" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Promotion_tbl_Promotion" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Properties_tbl_Properties" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Properties_tbl_Properties1" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Properties_tbl_State" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_PropertyFloor_tbl_Properties" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Prospect_tbl_Properties" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_PurchaseOrder_tbl_Properties" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_SalesAgent_tbl_Properties" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Storage_tbl_Properties" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Tenant_tbl_Properties" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Tenant_tbl_Properties1" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_WorkOrder_tbl_Properties" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Prospect_tbl_State" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_SalesAgent_tbl_State" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_ZipCodes_tbl_State" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_FOB" Width="1.5" PointX="21.5" PointY="54.875" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_FOB_tbl_Properties" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_PropertyUnits" Width="1.5" PointX="21.5" PointY="58.75" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_PropertyUnits_tbl_Properties" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Models" Width="1.5" PointX="0.75" PointY="7.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_TenantInfo" Width="1.5" PointX="26" PointY="55.5" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_OnlinePayment" Width="1.5" PointX="5.375" PointY="0.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Transaction" Width="1.5" PointX="5.375" PointY="7.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_PaymentAccounts" Width="1.5" PointX="7.375" PointY="7.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_GuestRegistration" Width="1.5" PointX="9.375" PointY="10.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Rating" Width="1.5" PointX="11.375" PointY="0.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_ServiceRequest" Width="1.5" PointX="11.375" PointY="6.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_MoveInChecklist" Width="1.5" PointX="11.375" PointY="11.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_CommunityActivity" Width="1.5" PointX="11.375" PointY="3.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_MonthlyPayment" Width="1.5" PointX="0.75" PointY="12.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_MoveInPayment" Width="1.5" PointX="2.75" PointY="12.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_AmenityPriceRange" Width="1.5" PointX="13.375" PointY="4.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_CausingIssue" Width="1.5" PointX="13.375" PointY="7.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Issue" Width="1.5" PointX="13.375" PointY="10.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_ServiceIssue" Width="1.5" PointX="13.375" PointY="13.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_ServiceLocation" Width="1.5" PointX="15.375" PointY="0.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_TenantEventJoin" Width="1.5" PointX="15.375" PointY="3.75" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_TenantEventJoin_tbl_TenantEventJoin" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_AmenityReservation" Width="1.5" PointX="15.375" PointY="7.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_TenantEventJoinApprove" Width="1.5" PointX="7.375" PointY="15.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_Bill" Width="1.5" PointX="9.375" PointY="15.75" />
-        <EntityTypeShape EntityType="ShomaRMModel.tbl_ApplyNow" Width="1.5" PointX="7.5" PointY="90.375" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Applicant_tbl_ApplyNow" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_TenantInfo_tbl_ApplyNow" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_TenantOnline_tbl_ApplyNow" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_TenantParking_tbl_ApplyNow" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_TenantPet_tbl_ApplyNow" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_TenantPetPlace_tbl_ApplyNow" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_TenantStorage_tbl_ApplyNow" />
-        <AssociationConnector Association="ShomaRMModel.FK_tbl_Vehicle_tbl_ApplyNow" />
-        </Diagram>
+      <Diagram DiagramId="cf0a81b0c0554feda9f4992a3a9fe09e" Name="Diagram1" ZoomLevel="63">
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Advertiser" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Amenities" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_AmenityPriceRange" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_AmenityReservation" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Applicant" Width="1.5" PointX="28" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_ApplicantHistory" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_ApplyNow" Width="1.5" PointX="25.75" PointY="28.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_BankAccount" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Bill" Width="1.5" PointX="6.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_CashReceipts" Width="1.5" PointX="6" PointY="59.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_CausingIssue" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_ChargeType" Width="1.5" PointX="3" PointY="60.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_City" Width="1.5" PointX="9.75" PointY="67.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_ClubMapping" Width="1.5" PointX="4.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_CommunityActivity" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Document" Width="1.5" PointX="22.5" PointY="53.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_DocumentVerification" Width="1.5" PointX="3" PointY="65.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Event" Width="1.5" PointX="3" PointY="55.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_EventBooking" Width="1.5" PointX="5.25" PointY="55.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Facility" Width="1.5" PointX="9" PointY="61.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_FacilityBooking" Width="1.5" PointX="14.25" PointY="64.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_FOB" Width="1.5" PointX="14.25" PointY="45.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Gallery" Width="1.5" PointX="14.25" PointY="49.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_GuestRegistration" Width="1.5" PointX="6.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Invoice" Width="1.5" PointX="3" PointY="77.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Issue" Width="1.5" PointX="8.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Lease" Width="1.5" PointX="9" PointY="51.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_LeaseRenewal" Width="1.5" PointX="11.25" PointY="52.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_LeaseTerms" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_LeaseTransfer" Width="1.5" PointX="11.25" PointY="48.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Login" Width="1.5" PointX="0.75" PointY="59.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_LoginHistory" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Models" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_MonthlyPayment" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_MoveInChecklist" Width="1.5" PointX="2.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_MoveInPayment" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Notes" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Notice" Width="1.5" PointX="17.25" PointY="58.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_OnlinePayment" Width="1.5" PointX="12.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Parking" Width="1.5" PointX="14.25" PointY="52" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_PaymentAccounts" Width="1.5" PointX="12.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_PetPlace" Width="1.5" PointX="14.25" PointY="55.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_PremiumType" Width="1.5" PointX="8.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Promotion" Width="1.5" PointX="14.25" PointY="58.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Properties" Width="1.5" PointX="12" PointY="56.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_PropertyFloor" Width="1.5" PointX="14.25" PointY="61.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_PropertyUnits" Width="1.5" PointX="14.25" PointY="69.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Prospect" Width="1.5" PointX="20.25" PointY="58.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_PurchaseOrder" Width="1.5" PointX="17.25" PointY="63.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Rating" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_RequestOffer" Width="1.5" PointX="14.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_SalesAgent" Width="1.5" PointX="20.25" PointY="53.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_ServiceIssue" Width="1.5" PointX="4.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_ServiceLocation" Width="1.5" PointX="14.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_ServiceRequest" Width="1.5" PointX="14.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_State" Width="1.5" PointX="7.5" PointY="67.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Storage" Width="1.5" PointX="14.25" PointY="95.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Tenant" Width="1.5" PointX="23.25" PointY="57.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_TenantEventJoin" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_TenantEventJoinApprove" Width="1.5" PointX="0.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_TenantInfo" Width="1.5" PointX="28" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_TenantMonthlyPayments" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_TenantOnline" Width="1.5" PointX="28" PointY="40.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_TenantParking" Width="1.5" PointX="28" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_TenantPet" Width="1.5" PointX="28" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_TenantPetPlace" Width="1.5" PointX="28" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_TenantStorage" Width="1.5" PointX="28" PointY="38" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Transaction" Width="1.5" PointX="16.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Utility" Width="1.5" PointX="15" PointY="42.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_UtilityBilling" Width="1.5" PointX="17.25" PointY="53.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Vehicle" Width="1.5" PointX="28" PointY="59.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Vendor" Width="1.5" PointX="3" PointY="126.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Visit" Width="1.5" PointX="22.5" PointY="68.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_WorkOrder" Width="1.5" PointX="25.5" PointY="90.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_ZipCodes" Width="1.5" PointX="12" PointY="69.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Country" Width="1.5" PointX="6.75" PointY="16.75" IsExpanded="true" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Applicant_tbl_ApplyNow" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_TenantInfo_tbl_ApplyNow" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_TenantOnline_tbl_ApplyNow" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_TenantParking_tbl_ApplyNow" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_TenantPet_tbl_ApplyNow" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_TenantPetPlace_tbl_ApplyNow" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_TenantStorage_tbl_ApplyNow" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Vehicle_tbl_ApplyNow" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_CashReceipts_tbl_Lease" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_CashReceipts_tbl_Login" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_CashReceipts_tbl_Properties" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_CashReceipts_tbl_PropertyUnits" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_CashReceipts_tbl_Tenant" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_ChargeType_tbl_Login" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_City_tbl_State" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Properties_tbl_City" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Prospect_tbl_City" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_SalesAgent_tbl_City" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_ZipCodes_tbl_City" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Document_tbl_Prospect" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_DocumentVerification_tbl_Login" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Event_tbl_Login" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Event_tbl_Properties" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_EventBooking_tbl_Event" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_EventBooking_tbl_Login" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_EventBooking_tbl_Tenant" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Facility_tbl_Login" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Facility_tbl_Properties" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_FacilityBooking_tbl_Facility" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_FacilityBooking_tbl_FacilityBooking" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_FacilityBooking_tbl_Login" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_FOB_tbl_Properties" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Gallery_tbl_Properties" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Invoice_tbl_Login" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Lease_tbl_Login" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Lease_tbl_Properties" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_LeaseRenewal_tbl_Lease" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_LeaseTransfer_tbl_Lease" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Notice_tbl_Lease" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_UtilityBilling_tbl_Lease" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Properties_tbl_Login" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Properties_tbl_Login1" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Prospect_tbl_Login" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Prospect_tbl_Login1" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_PurchaseOrder_tbl_Login" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_PurchaseOrder_tbl_Login1" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Tenant_tbl_Login" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Tenant_tbl_Login1" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Tenant_tbl_Login2" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Tenant_tbl_Login3" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Vendor_tbl_Login" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Notice_tbl_Properties" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Notice_tbl_Tenant" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Parking_tbl_Parking" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_PetPlace_tbl_Properties" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Promotion_tbl_Promotion" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Properties_tbl_Properties" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Properties_tbl_Properties1" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Properties_tbl_State" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_PropertyFloor_tbl_Properties" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_PropertyUnits_tbl_Properties" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Prospect_tbl_Properties" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_PurchaseOrder_tbl_Properties" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_SalesAgent_tbl_Properties" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Storage_tbl_Properties" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Tenant_tbl_Properties" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Tenant_tbl_Properties1" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_WorkOrder_tbl_Properties" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Prospect_tbl_State" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_Visit_tbl_Prospect" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_SalesAgent_tbl_State" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_ZipCodes_tbl_State" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_UtilityBilling_tbl_Tenant" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_WorkOrder_tbl_Tenant" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_TenantEventJoin_tbl_TenantEventJoin" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_UtilityBilling_tbl_Utility" ManuallyRouted="false" />
+        <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_WorkOrder_tbl_Vendor" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Club" Width="1.5" PointX="9.375" PointY="16.75" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

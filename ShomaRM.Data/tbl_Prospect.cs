@@ -17,8 +17,8 @@ namespace ShomaRM.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbl_Prospect()
         {
-            this.tbl_Visit = new HashSet<tbl_Visit>();
             this.tbl_Document = new HashSet<tbl_Document>();
+            this.tbl_Visit = new HashSet<tbl_Visit>();
         }
     
         public long PID { get; set; }
@@ -53,14 +53,14 @@ namespace ShomaRM.Data
         public Nullable<int> Status { get; set; }
         public Nullable<long> PropertyID { get; set; }
     
-        public virtual tbl_Login tbl_Login { get; set; }
-        public virtual tbl_Login tbl_Login1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_Visit> tbl_Visit { get; set; }
+        public virtual tbl_City tbl_City { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Document> tbl_Document { get; set; }
-        public virtual tbl_City tbl_City { get; set; }
+        public virtual tbl_Login tbl_Login { get; set; }
+        public virtual tbl_Login tbl_Login1 { get; set; }
         public virtual tbl_Properties tbl_Properties { get; set; }
         public virtual tbl_State tbl_State { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_Visit> tbl_Visit { get; set; }
     }
 }

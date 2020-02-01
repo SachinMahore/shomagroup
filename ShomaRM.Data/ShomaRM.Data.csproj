@@ -106,6 +106,12 @@
     <Compile Include="tbl_City.cs">
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbl_Club.cs">
+      <DependentUpon>ShomaRM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_ClubMapping.cs">
+      <DependentUpon>ShomaRM.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_CommunityActivity.cs">
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
@@ -175,6 +181,9 @@
     <Compile Include="tbl_MoveInPayment.cs">
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbl_Notes.cs">
+      <DependentUpon>ShomaRM.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_Notice.cs">
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
@@ -214,6 +223,9 @@
     <Compile Include="tbl_Rating.cs">
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbl_RequestOffer.cs">
+      <DependentUpon>ShomaRM.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_SalesAgent.cs">
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
@@ -242,6 +254,9 @@
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_TenantInfo.cs">
+      <DependentUpon>ShomaRM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_TenantMonthlyPayments.cs">
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_TenantOnline.cs">
@@ -285,32 +300,30 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
     <EntityDeploy Include="ShomaRM.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ShomaRM.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
-    <None Include="packages.config" />
     <None Include="ShomaRM.edmx.diagram">
       <DependentUpon>ShomaRM.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="ShomaRM.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ShomaRM.Context.cs</LastGenOutput>
       <DependentUpon>ShomaRM.edmx</DependentUpon>
+      <LastGenOutput>ShomaRM.Context.cs</LastGenOutput>
     </Content>
     <Content Include="ShomaRM.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ShomaRM.edmx</DependentUpon>
       <LastGenOutput>ShomaRM.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
