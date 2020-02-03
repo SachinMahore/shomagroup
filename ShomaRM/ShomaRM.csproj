@@ -265,6 +265,7 @@
     <Compile Include="Areas\Tenant\Models\ApplicantHistory\ApplicantHistoryModel.cs" />
     <Compile Include="Areas\Tenant\Models\Applicant\ApplicantModel.cs" />
     <Compile Include="Areas\Tenant\Models\Club\ClubModel.cs" />
+    <Compile Include="Areas\Tenant\Models\Club\CommonClubModel.cs" />
     <Compile Include="Areas\Tenant\Models\CommunityActivity\CommunityActivityModel.cs" />
     <Compile Include="Areas\Tenant\Models\Enum\ClubEnum.cs" />
     <Compile Include="Areas\Tenant\Models\EventBooking\EventBookingModel.cs" />
@@ -758,6 +759,7 @@
     <Content Include="Areas\Admin\Views\Amenities\AmenitiesReservationRequest.cshtml" />
     <Content Include="Areas\Admin\Views\Amenities\ARREdit.cshtml" />
     <Content Include="Areas\Admin\Views\GuestManagement\Index.cshtml" />
+    <Content Include="Areas\Tenant\Views\MyCommunity\_JoinClub.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

@@ -935,7 +935,9 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="PermissionComeTime" Type="nvarchar" MaxLength="50" />
           <Property Name="ClosingNotes" Type="varchar(max)" />
           <Property Name="UrgentStatus" Type="int" />
+
           <Property Name="ClosingDate" Type="datetime" />
+
         </EntityType>
         <EntityType Name="tbl_State">
           <Key>
@@ -2732,7 +2734,9 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
+
       <Schema Namespace="ShomaRMAdvModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+
         <EntityType Name="tbl_Advertiser">
           <Key>
             <PropertyRef Name="AdID" />
@@ -4151,6 +4155,7 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Key>
             <PropertyRef Name="UBID" />
           </Key>
+
           <Property Name="UBID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UtilityID" Type="Int32" />
           <Property Name="LeaseID" Type="Int64" />
@@ -4165,6 +4170,7 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <NavigationProperty Name="tbl_Lease" Relationship="Self.FK_tbl_UtilityBilling_tbl_Lease" FromRole="tbl_UtilityBilling" ToRole="tbl_Lease" />
           <NavigationProperty Name="tbl_Tenant" Relationship="Self.FK_tbl_UtilityBilling_tbl_Tenant" FromRole="tbl_UtilityBilling" ToRole="tbl_Tenant" />
           <NavigationProperty Name="tbl_Utility" Relationship="Self.FK_tbl_UtilityBilling_tbl_Utility" FromRole="tbl_UtilityBilling" ToRole="tbl_Utility" />
+
         </EntityType>
         <EntityType Name="tbl_Vehicle">
           <Key>
@@ -5596,6 +5602,7 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="LastUpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
       </Schema>
+
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -6751,6 +6758,7 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+
                 <ScalarProperty Name="MiddleInitial" ColumnName="MiddleInitial" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
@@ -6792,6 +6800,7 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
                 <ScalarProperty Name="Relationship" ColumnName="Relationship" />
                 <ScalarProperty Name="EmergencyFirstName" ColumnName="EmergencyFirstName" />
                 <ScalarProperty Name="EmergencyLastName" ColumnName="EmergencyLastName" />
+
                 <ScalarProperty Name="EmergencyMobile" ColumnName="EmergencyMobile" />
                 <ScalarProperty Name="EmergencyHomePhone" ColumnName="EmergencyHomePhone" />
                 <ScalarProperty Name="EmergencyWorkPhone" ColumnName="EmergencyWorkPhone" />
@@ -7071,6 +7080,20 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
                 <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
                 <ScalarProperty Name="ClubTitle" ColumnName="ClubTitle" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_TenantMonthlyPayments">
+            <EntityTypeMapping TypeName="ShomaRMModel.tbl_TenantMonthlyPayments">
+              <MappingFragment StoreEntitySet="tbl_TenantMonthlyPayments">
+                <ScalarProperty Name="IsRecurring" ColumnName="IsRecurring" />
+                <ScalarProperty Name="PAID" ColumnName="PAID" />
+                <ScalarProperty Name="Charge_Amount" ColumnName="Charge_Amount" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Transaction_Date" ColumnName="Transaction_Date" />
+                <ScalarProperty Name="Revision_Num" ColumnName="Revision_Num" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="TMPID" ColumnName="TMPID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

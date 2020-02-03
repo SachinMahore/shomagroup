@@ -4,6 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
+
       <Diagram DiagramId="cf0a81b0c0554feda9f4992a3a9fe09e" Name="Diagram1" ZoomLevel="63">
         <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Advertiser" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Amenities" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
@@ -160,6 +161,7 @@
         <AssociationConnector Association="ShomaRMAdvModel.FK_tbl_WorkOrder_tbl_Vendor" ManuallyRouted="false" />
         <EntityTypeShape EntityType="ShomaRMAdvModel.tbl_Club" Width="1.5" PointX="9.375" PointY="16.75" />
       </Diagram>
+
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

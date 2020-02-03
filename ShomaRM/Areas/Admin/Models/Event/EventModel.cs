@@ -6,6 +6,7 @@ using System.Data;
 using ShomaRM.Data;
 using System.Data.Common;
 using System.IO;
+using System.Globalization;
 
 namespace ShomaRM.Areas.Admin.Models
 {
@@ -53,6 +54,9 @@ namespace ShomaRM.Areas.Admin.Models
 
                 }
             }
+            DateTime dt = DateTime.Parse(model.EventTimeString != null ? model.EventTimeString : "00:00");
+            
+            TimeSpan time = dt.TimeOfDay;
             if (model.EventID == 0)
             {
                 var saveEvent = new tbl_Event()
@@ -65,7 +69,8 @@ namespace ShomaRM.Areas.Admin.Models
                     CreatedByID = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
                     CreatedByDate = DateTime.Now.Date,
                     Type = model.Type,
-                    EventTime = model.EventTime,
+
+                    EventTime = time,
                     Fees = model.Fees
                 };
                 db.tbl_Event.Add(saveEvent);
@@ -89,7 +94,7 @@ namespace ShomaRM.Areas.Admin.Models
                     GetEventData.Photo = PhotoName;
                     GetEventData.Description = model.Description;
                     GetEventData.Type = model.Type;
-                    GetEventData.EventTime = model.EventTime;
+                    GetEventData.EventTime = time;
                     GetEventData.Fees = model.Fees;
                     //GetEventData.CreatedByID = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID;
                     //GetEventData.CreatedByDate = DateTime.Now.Date;
@@ -119,11 +124,18 @@ namespace ShomaRM.Areas.Admin.Models
                 model.Fees = GetEventData.Fees;
                 model.EventDateString = GetEventData.EventDate != null ? GetEventData.EventDate.Value.ToString("MM/dd/yyyy") : "";
                 //model.EventTimeString = GetEventData.EventTime != null ? GetEventData.EventTime.ToString() : "";
-                TimeSpan tt = new TimeSpan();
-                tt = GetEventData.EventTime.Value;
-                DateTime dt = DateTime.Today.Add(tt);
-                string displayTime = dt.ToString("hh:mm tt");
-                model.EventTimeString = displayTime;
+                if (GetEventData.EventTime != null)
+                {
+                    TimeSpan tt = new TimeSpan();
+                    tt = GetEventData.EventTime.Value;
+                    DateTime dt = DateTime.Today.Add(tt);
+                    string displayTime = dt.ToString("hh:mm tt");
+                    model.EventTimeString = displayTime;
+                }
+                else
+                {
+                    model.EventTimeString = "00:00";
+                }
                 model.IsFree = GetEventData.Fees != null || GetEventData.Fees <= 0 ? true : false;
             }
             model.EventID = Id;

@@ -20,6 +20,8 @@
                             <li id="li2"><a href="javascript:void(0);" onclick="goToStep(2)" style="font-size:12pt;">Community Info</a></li>
                             <li id="li3"><a href="javascript:void(0);" onclick="goToStep(3)" style="font-size:12pt;">Events</a></li>
                             <li id="li4"><a href="javascript:void(0);" onclick="goToStep(4)" style="font-size:12pt;">Create Club</a></li>
+                            <li id="li5"><a href="javascript:void(0);" onclick="goToStep(5)" style="font-size:12pt;">Join Club</a></li>
+                            <li id="li6"><a href="javascript:void(0);" onclick="goToStep(7,@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID)" style="font-size:12pt;">My Club</a></li>
                         </ul>
                         <div class="" id="step1">
                             <div class="">
@@ -210,7 +212,7 @@
                                     <div class="row mb-15">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <div class="col-sm-2">
+                                                <div class="col-sm-2 star">
                                                     <label style="color:#4D738A !important;font-size:11pt;">Club Title:</label>
                                                 </div>
                                                 <div class="col-sm-4">
@@ -223,7 +225,7 @@
                                     <div class="row mb-15">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <div class="col-sm-2">
+                                                <div class="col-sm-2 star">
                                                     <label style="color:#4D738A !important;font-size:11pt;">Activity:</label>
                                                 </div>
                                                 <div class="col-sm-4">
@@ -238,7 +240,7 @@
                                     <div class="row mb-15">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <div class="col-sm-2">
+                                                <div class="col-sm-2 star">
                                                     <label style="color:#4D738A !important;font-size:11pt;">Start Date:</label>
                                                 </div>
                                                 <div class="col-sm-3">
@@ -254,7 +256,7 @@
                                     <div class="row mb-15">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <div class="col-sm-2">
+                                                <div class="col-sm-2 star">
                                                     <label style="color:#4D738A !important;font-size:11pt;">Venue:</label>
                                                 </div>
                                                 <div class="col-sm-4">
@@ -267,7 +269,7 @@
                                     <div class="row mb-15">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <div class="col-sm-2">
+                                                <div class="col-sm-2 star">
                                                     <label style="color:#4D738A !important;font-size:11pt;">Meeting Day:</label>
                                                 </div>
                                                 <div class="col-sm-4">
@@ -282,7 +284,7 @@
                                     <div class="row mb-15">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <div class="col-sm-2">
+                                                <div class="col-sm-2 star">
                                                     <label style="color:#4D738A !important;font-size:11pt;">Meeting Time:</label>
                                                 </div>
                                                 <div class="col-sm-4">
@@ -326,7 +328,7 @@
                                     <div class="row mb-15">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <div class="col-sm-2">
+                                                <div class="col-sm-2 star">
                                                     <label style="color:#4D738A !important;font-size:11pt;">Phone:</label>
                                                 </div>
                                                 <div class="col-sm-4">
@@ -399,7 +401,49 @@
                                 </div>
                             }
                         </div>
-
+                        <div class="hidden" id="step5">
+                           @{Html.RenderPartial("_JoinClub",Model.GetClubList());}
+                        </div>
+                        <div class="hidden" id="step6">
+                            <div class="">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-4">
+                                                        <div class="card" style="border:2px solid #4D738A;">
+                                                            <div class="card-body center">
+                                                                <img class="img-avatar" src="../../../content/assets/img/slide2/5.jpg" alt="club img">
+                                                                <h3 class="card-title mb-5">Organizer</h3>
+                                                                <h5 class="card-text mb-15"><label id="ClubOrganization"></label></h5>
+                                                                <h3 class="card-title mb-5">Email</h3>
+                                                                <h5 class="card-text mb-15"><label id="ClubEmail"></label></h5>
+                                                                <button id="btnJoinClub" type="button" class=" btn btn-primary" style="background-color:#4D738A;border-color:#4D738A;color:#fff;margin-top:5px;font-size:11pt;">Join Club</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <h3><b>Cyclers - Tuesday at 7P</b></h3>
+                                                        <p style="font-size:11pt;">
+                                                            It is a long established fact that a reader will be distracted by the readable content of a page when looking
+                                                            at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as
+                                                            opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages
+                                                            and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many
+                                                            web sites still in their infancy.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden" id="step7">
+                            @{Html.RenderPartial("_JoinClub", Model.GetClubList(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID));}
+                            JoinClubPartialByUser
+                        </div>
                         <!-- End submit form -->
                     </div>
                 </div>
