@@ -195,6 +195,8 @@ var getTenantData = function (userID) {
 
                 $("#invTenant").text(response.FirstName + " " + response.LastName);
                 $("#invUnit").text(response.UnitName);
+               // $("#hndLeaseTerm").val(response.LeaseTerm);
+
 
                 $("#txtAddress").val(response.Address);
                 $("#txtCity").val(response.City);
@@ -843,11 +845,10 @@ var getInvoice = function (invid)
 var getUpTransationLists = function () {
    
     var model = {
-        TenantID: $("#hndTenantID").val(),
-        AccountHistoryDDL: "2"
+        TenantID: $("#hndTenantID").val()
     }
     $.ajax({
-        url: "/MyTransaction/GetTenantTransactionList",
+        url: "/MyTransaction/GetUpTransationLists",
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
@@ -867,7 +868,8 @@ var getUpTransationLists = function () {
 
                 html += "</tr>";
                 $("#tblUpcomingCharges>tbody").append(html);
-               
+                $("#lblCurrentPrePayAmountR").text(formatMoney(elementValue.Charge_Amount));
+                $("#recPopAmt").text(formatMoney(elementValue.Charge_Amount));
             });
            
         }
@@ -2640,7 +2642,10 @@ function makeOneTimePaymentSaveUpdate() {
         ExpirationYearOnCardString: cardYear,
         BankName: bankName,
         RoutingNumber: routingNumber,
-        CCVNumber: CVVFromPayMethod
+        CCVNumber: CVVFromPayMethod,
+        Batch: $("#hdnARId").val(),
+        TMPID: $("#hndRecId").val(),
+        UserId: $("#hndUserId").val()
     };
     $.ajax({
         url: "/MyTransaction/SaveUpdateTransaction/",
@@ -4791,39 +4796,56 @@ var getRecurringPayLists = function () {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            var revno = 1;
-            var duedate = "";
+            if (response.model.length>0)
+            {
+
             $("#tblRecurringPayments>tbody").empty();
             $.each(response.model, function (elementType, elementValue) {
                 var html = "<tr data-value=" + elementValue.TransID + ">";
+                html += "<td>" + elementValue.Revision_Num + "</td>";
                 html += "<td>" + elementValue.TAccCardName + "</td>";
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
           
                 html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                html += "<td><a href='javascript:void(0);' onclick='editRecPayment(" + elementValue.TransID + ")'><i class='fa fa-edit'></i></a>   <a href='javascript:void(0);' onclick='deleteRecPayment(" + elementValue.TransID + ")'><i class='fa fa-trash'></i></a></td>";
+                html += "<td><a href='javascript:void(0);' onclick='editRecPayment(" + elementValue.TransID + ",\"" + formatMoney(elementValue.Charge_Amount)+ "\",\"" + elementValue.Transaction_DateString + "\"," + elementValue.PAID+ ")'><i class='fa fa-edit'></i></a>   <a href='javascript:void(0);' onclick='deleteRecPayment(" + elementValue.TransID + ")'><i class='fa fa-trash'></i></a></td>";
                 html += "</tr>";
-                revno++;
-
-                duedate = new Date(elementValue.Transaction_DateString);
+              
                 $("#tblRecurringPayments>tbody").append(html);
-                $("#lblCurrentPrePayAmountR").text(formatMoney(elementValue.Charge_Amount));
                
+                $("#hndRevisionNo").val(parseInt(elementValue.Revision_Num++));
+
             });
-            duedate.setMonth(duedate.getMonth() + 2);
-            var newMonth = duedate.getMonth() + 1;
-            if (newMonth < 10) { newMonth = '0' + newMonth }
-           
-            duedate = (newMonth) + "/01/" + duedate.getFullYear();
-            $("#hndRevisionNo").val(revno);
-            $("#txtPayDateR").val(duedate);
-           
+            $("#divRecPayList").removeClass("hidden");
+            $("#divSetRecPay").addClass("hidden");
+
+            } else {
+                $("#divRecPayList").addClass("hidden");
+                $("#divSetRecPay").removeClass("hidden");
+
+            }
+
         }
     });
 }
-function recurringPaymentSaveUpdate() {
-   
+
+function editRecPayment(transid,amt,cdate,paid)
+{
+    $("#rcpid").text(transid);
+    $('#rbtnAmountToPayR2').attr('checked', 'checked');
+    $("#btnSetUpRecurringPayment").addClass("hidden");
+    
+    $("#divOtherAmountR").removeClass("hidden");
+    $("#divSetRecPay").removeClass("hidden");
+    $("#btnSaveRecurringPayment").removeClass("hidden");
+
+    $("#ddlPaymentMethodR").val(paid);
+    $("#txtOtherAmountR").val(amt);
+    $("#txtPayDateR").val(cdate);
+
+}
+function recurringPaymentSaveUpdate() {   
     var msg = "";
-    var transid = $("#hndTransID").val();
+    var transid = $("#rcpid").text();
 
     var tenantid = $("#hndTenantID").val();
    
@@ -4831,8 +4853,7 @@ function recurringPaymentSaveUpdate() {
     var chargeDate = $("#txtPayDateR").val();
   
     var chargeAmount = unformatText($("#txtChargeAmount").val());
-    var revision_Num = $("#hndRevisionNo").val();
-
+    
     var amount = '';
     if ($("#rbtnAmountToPayR1").is(":checked")) {
         amount = unformatText($('#lblCurrentPrePayAmountR').text());
@@ -4873,10 +4894,9 @@ function recurringPaymentSaveUpdate() {
         PAID: $('#ddlPaymentMethod').val(),
         TransID: transid,      
         TenantID: tenantid,
-        Revision_Num: revision_Num,
+       
         Charge_Date: chargeDate,
-        Charge_Amount: amount,
-      
+        Charge_Amount: amount
     };
     $.ajax({
         url: "/MyTransaction/SaveUpdateRecurringTransaction/",
@@ -4891,6 +4911,81 @@ function recurringPaymentSaveUpdate() {
                 type: 'blue',
             });
            
+            getRecurringPayLists();
+        }
+    });
+
+}
+function recurringPaymentSetUp() {
+
+    var msg = "";
+    var transid = $("#hndTransID").val();
+
+    var tenantid = $("#hndTenantID").val();
+
+    var transtype = $("#ddlPaymentMethodR").val();
+    var chargeDate = $("#txtPayDateR").val();
+
+    var chargeAmount = unformatText($("#txtChargeAmount").val());
+   
+    var amount = '';
+    if ($("#rbtnAmountToPayR1").is(":checked")) {
+        amount = unformatText($('#lblCurrentPrePayAmountR').text());
+    }
+    else if ($("#rbtnAmountToPayR2").is(":checked")) {
+        amount = unformatText($('#txtOtherAmountR').val());
+    }
+    else {
+        amount = '';
+    }
+    if ($("#ddlPaymentMethodR").val() == '0') {
+        msg += "Select Payment Method</br>";
+    }
+
+    if (amount == '') {
+        msg += "Check Amount To Pay And Enter Charge Amount</br>";
+    }
+    if ($("#txtPayDateR").val() == "") {
+        msg += "Enter Payment Date</br>";
+    }
+    if ($("#chkTermsAndConditionR").is(":checked")) {
+        msg += '';
+    }
+    else {
+        msg += 'Check Terms and Policy</br>';
+    }
+
+    if (msg != "") {
+        $.alert({
+            title: 'Alert!',
+            content: msg,
+            type: 'red'
+        });
+        return;
+    }
+
+    var models = {
+        PAID: $('#ddlPaymentMethod').val(),
+        TransID: transid,
+        TenantID: tenantid,
+     
+        Charge_Date: chargeDate,
+        Charge_Amount: amount,
+        UserId: $("#hndUserId").val(),
+    };
+    $.ajax({
+        url: "/MyTransaction/SetUpRecurringTransaction/",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(models),
+        dataType: "JSON",
+        success: function (response) {
+            $.alert({
+                title: 'Message!',
+                content: response.Msg,
+                type: 'blue',
+            });
+
             getRecurringPayLists();
         }
     });
