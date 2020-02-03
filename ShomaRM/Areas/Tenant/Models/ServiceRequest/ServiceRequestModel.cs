@@ -49,6 +49,7 @@ namespace ShomaRM.Areas.Tenant
         public int ServiceIssueID { get; set; }
         public string ServiceIssueString { get; set; }
         public string EmergencyMobile { get; set; }
+        public Nullable<int> UrgentStatus { get; set; }
 
         public string SaveUpdateServiceRequest(ServiceRequestModel model)
         {
@@ -78,6 +79,8 @@ namespace ShomaRM.Areas.Tenant
                     TempServiceFile = model.TempServiceFile,
                     EmergencyMobile = model.EmergencyMobile,
                     ServicePerson=1,
+                    PermissionComeTime = model.PermissionComeTime,
+                    UrgentStatus=model.UrgentStatus,
                 };
                 db.tbl_ServiceRequest.Add(saveServiceRequest);
                 db.SaveChanges();
@@ -108,6 +111,7 @@ namespace ShomaRM.Areas.Tenant
                     updateServiceRequest.OriginalServiceFile = model.OriginalServiceFile;
                     updateServiceRequest.TempServiceFile = model.TempServiceFile;
                     updateServiceRequest.EmergencyMobile = model.EmergencyMobile;
+                    updateServiceRequest.PermissionComeTime = model.PermissionComeTime;
                     db.SaveChanges();
                     msg = "Service Request Updated Successfully";
                 }

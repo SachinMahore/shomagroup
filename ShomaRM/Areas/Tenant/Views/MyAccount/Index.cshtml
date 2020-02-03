@@ -746,19 +746,32 @@
                                                                 </div>
                                                                 <div class="col-sm-5"> &nbsp;</div>
                                                             </div>
-                                                            <div class="col-sm-12">
-                                                                <div class="col-sm-3"> &nbsp;</div>
+                                                            <div class="col-sm-12" style="margin-left: 246px;">
                                                                 <div class="col-sm-2">
                                                                     <input id="rbtnApertmentPermission2" class="form-control form-control-small" value="2" type="radio" name="rbtnPermissionToEnter" /> By appointment
                                                                 </div>
+                                                                <div class="col-sm-8 hidden" id="PreferredDate">
+                                                                    <input id="txtPreferredDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" style="width:138px" type="text" />
+                                                                    <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 98px;">
+                                                                        <button class="btn btn-primary search" id="txtPreferredDate" type="button"><i class="fa-calendar fa"></i></button>
+                                                                    </span>
+                                                                    @*<input id="txtPreferredTime" type="time" class="form-control" style="width:120px;margin-left: 162px;margin-top: -34px;" maxlength="20" placeholder="HH:mm:ss" value="">*@
+                                                                    <select id="txtPreferredTime" class="form-control" style="width:120px;margin-left: 162px;margin-top: -34px;">
+                                                                        <option value="">Select Time</option>
+                                                                        <option value="9:00-10:00">9:00 AM-10:00 AM</option>
+                                                                        <option value="10:00-11:00">10:00 AM-11:00 AM</option>
+                                                                        <option value="11:00-12:00">11:00 AM-12:00 AM</option>
+                                                                        <option value="12:00-13:00">12:00 PM-13:00 PM</option>
+                                                                        <option value="13:00-14:00">13:00 PM-14:00 PM</option>
+                                                                        <option value="14:00-15:00">14:00 PM-15:00 PM</option>
+                                                                        <option value="15:00-16:00">15:00 PM-16:00 PM</option>
+                                                                        <option value="16:00-17:00">16:00 PM-17:00 PM</option>
 
-                                                                <div class="col-sm-7 hidden" id="PreferredDate" style="margin-left: 70px;">
-                                                                    <input id="txtPreferredDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" style="width: 148px; margin-left: 362px; margin-top: -34px;" type="text" />
-                                                                    <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:470px;">
-                                                                        <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                                                                    </select>
+                                                                    <span class="input-group-btn pull-left" style="margin-left:178px;margin-top: -34px;">
+                                                                        <button id="btnPreferredTime" class="btn btn-primary search" type="button"><i class="fa-clock-o fa"></i></button>
                                                                     </span>
                                                                 </div>
-
                                                             </div>
                                                         </div>
                                                     </div>

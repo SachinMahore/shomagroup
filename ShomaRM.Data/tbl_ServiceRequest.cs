@@ -39,5 +39,10 @@ namespace ShomaRM.Data
         public Nullable<int> ApprovedBy { get; set; }
         public Nullable<int> ServicePerson { get; set; }
         public string PermissionComeTime { get; set; }
+        public string ClosingNotes { get; set; }
+        public Nullable<int> UrgentStatus { get; set; }
+        public Nullable<System.DateTime> ClosingDate { get; set; }
+        public string OwnerSignature { get; set; }
+        public string TempOwnerSignature { get; set; }
     }
 }

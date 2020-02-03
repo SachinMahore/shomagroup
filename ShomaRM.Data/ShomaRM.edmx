@@ -862,7 +862,12 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="TempCompletedPicture" Type="nvarchar" MaxLength="100" />
           <Property Name="ApprovedBy" Type="int" />
           <Property Name="ServicePerson" Type="int" />
-          <Property Name="PermissionComeTime" Type="varchar" MaxLength="50" />
+          <Property Name="PermissionComeTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClosingNotes" Type="varchar(max)" />
+          <Property Name="UrgentStatus" Type="int" />
+          <Property Name="ClosingDate" Type="datetime" />
+          <Property Name="OwnerSignature" Type="nvarchar" MaxLength="100" />
+          <Property Name="TempOwnerSignature" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="tbl_State">
           <Key>
@@ -5110,7 +5115,12 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="TempCompletedPicture" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ApprovedBy" Type="Int32" />
           <Property Name="ServicePerson" Type="Int32" />
-          <Property Name="PermissionComeTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PermissionComeTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClosingNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UrgentStatus" Type="Int32" />
+          <Property Name="ClosingDate" Type="DateTime" Precision="3" />
+          <Property Name="OwnerSignature" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TempOwnerSignature" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tbl_MoveInChecklist">
           <Key>
@@ -6585,6 +6595,11 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <EntitySetMapping Name="tbl_ServiceRequest">
             <EntityTypeMapping TypeName="ShomaRMModel.tbl_ServiceRequest">
               <MappingFragment StoreEntitySet="tbl_ServiceRequest">
+                <ScalarProperty Name="TempOwnerSignature" ColumnName="TempOwnerSignature" />
+                <ScalarProperty Name="OwnerSignature" ColumnName="OwnerSignature" />
+                <ScalarProperty Name="ClosingDate" ColumnName="ClosingDate" />
+                <ScalarProperty Name="UrgentStatus" ColumnName="UrgentStatus" />
+                <ScalarProperty Name="ClosingNotes" ColumnName="ClosingNotes" />
                 <ScalarProperty Name="PermissionComeTime" ColumnName="PermissionComeTime" />
                 <ScalarProperty Name="ServicePerson" ColumnName="ServicePerson" />
                 <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
