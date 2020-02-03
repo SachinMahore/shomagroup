@@ -11,7 +11,6 @@ var SaveUpdateEvent = function () {
     var eventType = $("#ddlEventType").val();
     var eventTime = $("#txtEventTime").val();
     var eventFees = $("#txtEventFees").val();
-
     if (eventName == "") {
         msg += "Please Fill The Event Name </br>";
     }
@@ -41,7 +40,7 @@ var SaveUpdateEvent = function () {
     $formData.append('EventDate', eventDate);
     $formData.append('Description', description);
     $formData.append('Type', eventType);
-    $formData.append('EventTime', eventTime);
+    $formData.append('EventTimeString', eventTime);
     $formData.append('Fees', eventFees);
     var photo = document.getElementById('wizard-picture');
     if (photo.files.length > 0) {
