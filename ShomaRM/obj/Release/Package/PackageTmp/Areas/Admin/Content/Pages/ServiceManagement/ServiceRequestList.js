@@ -84,7 +84,7 @@ var fillUserList = function (pagenumber) {
                     html += '<td class="pds-usertype"style="color:#3d3939;">' + elementValue.Location + '</td>';
                     html += '<td class="pds-usertype"style="color:#3d3939;">' + elementValue.PriorityString + '</td>';
                     html += '<td class="pds-usertype"style="color:#3d3939;">' + elementValue.StatusString + '</td>';
-                    html += '<td class="pds-usertype"style="color:#3d3939;"><button class="btn btn-primary " style="padding: 5px 8px !important;margin-right:7px" onclick="goToServiceDetails(' + elementValue.ServiceID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button></button></td>';
+                   // html += '<td class="pds-usertype"style="color:#3d3939;"><button class="btn btn-primary " style="padding: 5px 8px !important;margin-right:7px" onclick="goToServiceDetails(' + elementValue.ServiceID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button></button></td>';
                     html += '</tr>';
                     $("#tblServiceRequest>tbody").append(html);
                 });
@@ -120,11 +120,9 @@ $(document).ready(function () {
         $(this).addClass("pds-selected-row");
     });
     $('#tblServiceRequest tbody').on('dblclick', 'tr', function () {
-        //goToEdit();
+       goToEdit();
     });
-    document.getElementById('fileCompleted').onchange = function () {
-        uploadServiceFile();
-    };
+  
     fillDdlUser();
 });
 $(document).keypress(function (e) {
@@ -133,137 +131,107 @@ $(document).keypress(function (e) {
     }
 });
 
-var goToServiceDetails = function (ServiceID) {
-    $("#divLoader").show();
-    var model = {
-        ServiceID: ServiceID,
-    };
-     $.ajax({
-         url: '/ServicesManagement/goToServiceDetails',
-        type: "post",
-        data: JSON.stringify(model),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (response) {
+//var goToServiceDetails = function (ServiceID) {
+//    $("#divLoader").show();
+//    var model = {
+//        ServiceID: ServiceID,
+//    };
+//     $.ajax({
+//         url: '/ServicesManagement/goToServiceDetails',
+//        type: "post",
+//        data: JSON.stringify(model),
+//        contentType: "application/json; charset=utf-8",
+//        dataType: "json",
+//        success: function (response) {
            
-            $("#hndServiceID").val(response.model.ServiceID);
-            $('#lbltenantName').text(response.model.TenantName);
-            $('#ProblemCatrgory').text(response.model.ProblemCategorystring);
-            $('#lblProbleOther').text(response.model.Details);
-            $('#lblcaussingIssue').text(response.model.CausingIssue);
-            $('#lblIssue').text(response.model.Issue);
-            $('#lblLocation').text(response.model.LocationString); 
-            $('#lblUnitNo').text(response.model.Unit);
-            $('#lblContactNo').text(response.model.Phone); 
-            $('#lblCurrentStatus').text(response.model.StatusString);
-            $('#lblEnteryNote').text(response.model.Notes);
-            $('#lblEmergencyNo').text(response.model.EmergencyMobile); 
+//            $("#hndServiceID").val(response.model.ServiceID);
+//            $('#lbltenantName').text(response.model.TenantName);
+//            $('#ProblemCatrgory').text(response.model.ProblemCategorystring);
+//            $('#lblProbleOther').text(response.model.Details);
+//            $('#lblcaussingIssue').text(response.model.CausingIssue);
+//            $('#lblIssue').text(response.model.Issue);
+//            $('#lblLocation').text(response.model.LocationString); 
+//            $('#lblUnitNo').text(response.model.Unit);
+//            $('#lblContactNo').text(response.model.Phone); 
+//            $('#lblCurrentStatus').text(response.model.StatusString);
+//            $('#lblEnteryNote').text(response.model.Notes);
+//            $('#lblEmergencyNo').text(response.model.EmergencyMobile); 
            
-            if (response.model.TempServiceFile != null) {
-                var fileExist = doesFileExist('/Content/assets/img/Document/' + response.model.TempServiceFile);
-                if (fileExist) {
-                    $('#wizardPicturePreview').attr('src', '/Content/assets/img/Document/' + response.model.TempServiceFile);
-                }
-                else {
-                    $('#wizardPicturePreview').attr('src', '/Content/assets/img/aaa.png');
+//            if (response.model.TempServiceFile != null) {
+//                var fileExist = doesFileExist('/Content/assets/img/Document/' + response.model.TempServiceFile);
+//                if (fileExist) {
+//                    $('#wizardPicturePreview').attr('src', '/Content/assets/img/Document/' + response.model.TempServiceFile);
+//                }
+//                else {
+//                    $('#wizardPicturePreview').attr('src', '/Content/assets/img/aaa.png');
                     
-                }
-            }
-            else {
-                $('#wizardPicturePreview').attr('src', '/Content/assets/img/aaa.png');
-            }
-            $("#ddlStatus1").val('0');
-            $('#popSDetails').modal('show');
+//                }
+//            }
+//            else {
+//                $('#wizardPicturePreview').attr('src', '/Content/assets/img/aaa.png');
+//            }
+//            $("#ddlStatus1").val('0');
+//            $('#popSDetails').modal('show');
           
-        }
-    });
-    $("#divLoader").hide();
-};
+//        }
+//    });
+//    $("#divLoader").hide();
+//};
 
-var StatusUpdateServiceRequest = function (id) {
-    $("#divLoader").show();
-    var msg = '';
-    var id = $("#hndServiceID").val();
-    var status = $('#ddlStatus1').val(); 
-    var employee = $("#ddlUser").val();
-    var CompletedFileTemp = $("#hndfileCompleted").val();
-    var CompletedFileOriginal = $("#hndOriginalfileCompleted").val();
+//var StatusUpdateServiceRequest = function (id) {
+//    $("#divLoader").show();
+//    var msg = '';
+//    var id = $("#hndServiceID").val();
+//    var status = $('#ddlStatus1').val(); 
+//    var employee = $("#ddlUser").val();
+//    var CompletedFileTemp = $("#hndfileCompleted").val();
+//    var CompletedFileOriginal = $("#hndOriginalfileCompleted").val();
 
-    if (status == '0') {
-        msg += 'Select The Status</br>'
-    }
-    if (employee == '0') {
-        msg += 'Select The Employee</br>'
-    }
-    if (msg!="") {
-        $.alert({
-            title: '',
-            content: msg,
-            type: 'red'
-        });
-        $("#divLoader").hide();
-        return
-    }
+//    if (status == '0') {
+//        msg += 'Select The Status</br>'
+//    }
+//    if (employee == '0') {
+//        msg += 'Select The Employee</br>'
+//    }
+//    if (msg!="") {
+//        $.alert({
+//            title: '',
+//            content: msg,
+//            type: 'red'
+//        });
+//        $("#divLoader").hide();
+//        return
+//    }
    
-    var model = {
-        ServiceID: id,
-        Status: status,
-        CompletedPicture: CompletedFileOriginal,
-        TempCompletedPicture: CompletedFileTemp,
-        ServicePerson: employee,
-    };
-    $.ajax({
-        url: '/ServicesManagement/StatusUpdateServiceRequest',
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            $.alert({
-                title: '',
-                content: response.model,
-                type: 'red'
-            });
-            $("#ddlStatus1").val('0');
-            $("#ddlUser").val('0');
-            $("#fileCompletedShow").val('');
-            $('#popSDetails').modal('hide');
-        }
-    });
-    $("#divLoader").hide();
-}
+//    var model = {
+//        ServiceID: id,
+//        Status: status,
+//        CompletedPicture: CompletedFileOriginal,
+//        TempCompletedPicture: CompletedFileTemp,
+//        ServicePerson: employee,
+//    };
+//    $.ajax({
+//        url: '/ServicesManagement/StatusUpdateServiceRequest',
+//        type: "post",
+//        contentType: "application/json utf-8",
+//        data: JSON.stringify(model),
+//        dataType: "JSON",
+//        success: function (response) {
+//            $.alert({
+//                title: '',
+//                content: response.model,
+//                type: 'red'
+//            });
+//            $("#ddlStatus1").val('0');
+//            $("#ddlUser").val('0');
+//            $("#fileCompletedShow").val('');
+//            $('#popSDetails').modal('hide');
+//        }
+//    });
+//    $("#divLoader").hide();
+//}
 
-var uploadServiceFile = function () {
-    $("#divLoader").show();
-    $formData = new FormData();
 
-    var ServiceFile = document.getElementById('fileCompleted');
-
-    for (var i = 0; i < ServiceFile.files.length; i++) {
-        $formData.append('file-' + i, ServiceFile.files[i]);
-    }
-
-    $.ajax({
-        url: '/ServicesManagement/UploadServiceFile',
-        type: 'post',
-        data: $formData,
-        contentType: 'application/json; charset=utf-8',
-        contentType: false,
-        processData: false,
-        dataType: 'json',
-        success: function (response) {
-            $('#hndfileCompleted').val(response.model.TempCompletedPicture);
-            $('#hndOriginalfileCompleted').val(response.model.CompletedPicture);
-            $('#fileCompletedShow').text(response.model.CompletedPicture);
-            $.alert({
-                title: "",
-                content: "File uploaded Successfully.",
-                type: 'red'
-            });
-            $("#divLoader").hide();
-        }
-    });
-};
 
 
 var fillDdlUser = function () {

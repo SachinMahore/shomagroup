@@ -12,6 +12,10 @@
 
 <input type="hidden" id="hndTenantID" value="@ViewBag.TenantID" />
 <input type="hidden" id="hndNewTenant" value="" />
+<input type="hidden" id="hndProspectID" value="" />
+<input type="hidden" id="hndNewProspectID" value="" />
+
+
 <input type="hidden" id="hndUserId" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID" /> @*value=""*@
 
 
@@ -24,16 +28,16 @@
                     <div class="tab-content">
 
                         <ul class="nav nav-tabs main-tab">
-                            <li id="li8" class="active"><a href="javascript:void(0);" onclick="goToStep(8)" style="font-size:16pt;padding-left:50px!important;padding-right:50px!important;">Payment</a></li>
-                            <li id="li9"><a href="javascript:void(0);" onclick="goToStep(9)" style="font-size:16pt;padding-right:50px!important;">Service Request</a></li>
-                            <li id="li10"><a href="javascript:void(0);" onclick="goToStep(10)" style="font-size:16pt;padding-right:50px!important;">Reservation</a></li>
-                            <li id="li11"><a href="javascript:void(0);" onclick="goToStep(11)" style="font-size:16pt;padding-right:50px!important;">My Lease Info</a></li>
-                            <li id="li12"><a href="javascript:void(0);" onclick="goToStep(12)" style="font-size:16pt;">Register Guest</a></li>
-                            <li id="li13"><a href="javascript:void(0);" onclick="goToStep(13)" style="font-size:16pt;">Tenant Profile</a></li>
-
+                            <li id="li13" class="active"><a href="javascript:void(0);" onclick="goToStep(13)" style="font-size:16pt;padding-right:30px!important;">Tenant Profile</a></li>
+                            <li id="li8"><a href="javascript:void(0);" onclick="goToStep(8)" style="font-size:16pt;padding-left:30px!important;padding-right:50px!important;">Payment</a></li>
+                            <li id="li9"><a href="javascript:void(0);" onclick="goToStep(9)" style="font-size:16pt;padding-right:30px!important;">Service Request</a></li>
+                            <li id="li10"><a href="javascript:void(0);" onclick="goToStep(10)" style="font-size:16pt;padding-right:30px!important;">Reservation</a></li>
+                            <li id="li11"><a href="javascript:void(0);" onclick="goToStep(11)" style="font-size:16pt;padding-right:30px!important;">My Lease Info</a></li>
+                            <li id="li12"><a href="javascript:void(0);" onclick="goToStep(12)" style="font-size:16pt;padding-right:30px!important;">Register Guest</a></li>
+                            <li id="li14"><a href="javascript:void(0);" onclick="goToStep(14)" style="font-size:16pt;padding-right:30px!important;">Community Activity</a></li>
                         </ul>
                         <div class="tab-content1">
-                            <div class="" id="step8">
+                            <div class="hidden" id="step8">
                                 <div class="row">
                                     <div class="col-md-12" style="margin-top:10px!important;">
                                         <div><ul class="nav nav-tabs nact"><li><a href="javascript:void(0);"></a></li></ul></div>
@@ -212,20 +216,22 @@
                                     <div class="col-md-12">
                                         <div class="panel-heading">
                                             <div class="col-sm-4">
-                                                <h4 style="margin-top: 2%;margin-bottom: 5%;font-size: 12pt;color:#4D738A !important; ">Recent Reservations</h4>
+                                                <h4 style="margin-top: 2%;margin-bottom: 5%;font-size: 12pt;color:#4D738A !important; ">Guest Registration List</h4>
                                             </div>
                                         </div>
                                         <div class="col-md-12 clear ">
-                                            <table id="tblReservationRequest" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                            <table id="tblGuestRegistration" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th width="20%" style="background-color: #c7cdd5;color:#3d3939">Tenant</th>
-                                                        <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Amenity</th>
-                                                        <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Desire Date</th>
-                                                        <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Desire Time</th>
-                                                        <th width="20%" style="background-color: #c7cdd5;color:#3d3939">Desire Duration</th>
-                                                        <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Status</th>
-
+                                                        <th style="background-color: #c7cdd566;color:#3d3939">Guest Name</th>
+                                                        <th style="background-color: #c7cdd566;color:#3d3939">Tenant Name</th>
+                                                        <th style="background-color: #c7cdd566;color:#3d3939">Phone</th>
+                                                        <th style="background-color: #c7cdd566;color:#3d3939">Email</th>
+                                                        <th style="background-color: #c7cdd566;color:#3d3939">From Date</th>
+                                                        <th style="background-color: #c7cdd566;color:#3d3939">To Date</th>
+                                                        <th style="background-color: #c7cdd566;color:#3d3939">View Identity</th>
+                                                        <th style="background-color: #c7cdd566;color:#3d3939">View Vehicle Reg</th>
+                                                        <th style="background-color: #c7cdd566;color:#3d3939">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody></tbody>
@@ -236,7 +242,7 @@
                                 </div>
                             </div>
 
-                            <div class="hidden" id="step13">
+                            <div class="" id="step13">
                                 <div style="margin-top:10px!important;"><ul class="nav nav-tabs nact"><li><a href="javascript:void(0);"></a></li></ul></div>
                                 <div class="row">
                                     <div class="col-md-12">
@@ -254,7 +260,7 @@
                                                             <div class="panel-body table-bordered">
                                                                 <div class="tab-content">
                                                                     <div class="col-lg-12 ">
-                                                                        <div style="text-align: right;">
+                                                                        <div style="text-align: right;" hidden>
                                                                             <a href="javascript:void(0)" data-toggle="modal" data-target="#popChangePsw" id="btnpopChangePsw" style="text-decoration:underline">Change Password</a><br />
                                                                         </div>
                                                                         <div class="col-lg-1">
@@ -267,7 +273,7 @@
                                                                                 <!-- Default Image -->
                                                                                 <!-- <i class="fa fa-user fa-5x"></i> -->
                                                                             </div>
-                                                                            <div class="p-image fa-2x " style="color: #4d738a; cursor:pointer;">
+                                                                            <div class="p-image fa-2x " style="color: #4d738a; cursor:pointer;" hidden>
                                                                                 <i class="fa fa-plus-circle  upload-button"></i>
                                                                                 <input class="file-upload hidden" name="ProfilePic" id="ProfilePic" type="file" accept="image/*" />
                                                                                 <input type="hidden" id="hndProfilePic" value="0" />
@@ -327,12 +333,6 @@
                                                                                 <br />
                                                                                 <br />
                                                                             </div>
-                                                                            @*<div class="col-sm-12  padding-5">
-                                                                                    <div class="col-sm-6">
-                                                                                        <button class="btn-blue" data-toggle="modal" data-target="#popContactInfo" id="btnContactInfo"><i class="fa fa-edit"></i><b> Edit</b> </button>
-                                                                                    </div>
-
-                                                                                </div>*@
                                                                             <div class="row">
                                                                                 <div class="panel-heading">
                                                                                     <div class="col-sm-12">
@@ -356,7 +356,6 @@
                                                                                     <span id="EmployerName"></span>
                                                                                 </div>
                                                                             </div>
-
                                                                             <div class="col-sm-12">
                                                                                 <div class="col-sm-4">
                                                                                     <span id="">Job Type:</span>
@@ -367,12 +366,6 @@
                                                                                 <br />
                                                                                 <br />
                                                                             </div>
-                                                                            @*<div class="col-sm-12  padding-5">
-                                                                                    <div class="col-sm-6">
-                                                                                        <button class="btn-blue" data-toggle="modal" data-target="#popWorkInfo" id="btnWorkInfo"><i class="fa fa-edit"></i><b> Edit</b> </button>
-                                                                                    </div>
-
-                                                                                </div>*@
                                                                             <div class="row">
                                                                                 <div class="panel-heading">
                                                                                     <div class="col-sm-12">
@@ -430,11 +423,6 @@
                                                                                 <br />
                                                                                 <br />
                                                                             </div>
-                                                                            @*<div class="col-sm-12  padding-5">
-                                                                                    <div class="col-sm-6">
-                                                                                        <button class="btn-blue" data-toggle="modal" data-target="#popEmergencyContact" id="btnEmergencyContact"><i class="fa fa-edit"></i><b> Edit</b> </button>
-                                                                                    </div>
-                                                                                </div>*@
                                                                         </div>
                                                                         <div class="col-lg-6">
                                                                             <div class="col-lg-12">
@@ -451,10 +439,7 @@
                                                                                     </table>
                                                                                     <br />
                                                                                 </div>
-                                                                                <div class="col-lg-12">
-                                                                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle fa-lg"></i> Add a Vehicle</a>
-                                                                                    @*<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle"></i> Add</button>*@
-                                                                                </div>
+                                                                                <div class="col-lg-12"></div>
                                                                             </div>
                                                                             <div class="col-lg-12">
 
@@ -471,10 +456,7 @@
                                                                                     </table>
                                                                                     <br />
                                                                                 </div>
-                                                                                <div class="col-lg-12">
-                                                                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#popPet" id="btnAddPet"><i class="fa fa-plus-circle fa-lg"></i> Add a Pet</a>
-                                                                                    @*<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle"></i> Add</button>*@
-                                                                                </div>
+                                                                                <div class="col-lg-12"></div>
                                                                             </div>
 
                                                                         </div>
@@ -486,6 +468,33 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="hidden" id="step14">
+                                <div style="margin-top:10px!important;"><ul class="nav nav-tabs nact"><li><a href="javascript:void(0);"></a></li></ul></div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel-heading">
+                                            <div class="col-sm-4">
+                                                <h4 style="margin-top: 2%;margin-bottom: 5%;font-size: 12pt;color:#4D738A !important; ">Community Activity Chat</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <table id="tblCommunityActivity" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="background-color: #c7cdd5;color:#3d3939" width="60%">Activity</th>
+                                                        <th style="background-color: #c7cdd5;color:#3d3939" width="15%">Attachements</th>
+                                                        <th style="background-color: #c7cdd5;color:#3d3939" width="15%">Date Posted</th>
+                                                        <th style="background-color: #c7cdd5;color:#3d3939" width="10%">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
                                         </div>
                                     </div>
 
@@ -535,7 +544,7 @@
     }
 
         .tab-content ul li {
-            margin-right: 23px;
+            margin-right: 22px;
         }
 
     .nav {

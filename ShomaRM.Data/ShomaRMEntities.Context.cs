@@ -38,6 +38,7 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_CausingIssue> tbl_CausingIssue { get; set; }
         public virtual DbSet<tbl_ChargeType> tbl_ChargeType { get; set; }
         public virtual DbSet<tbl_City> tbl_City { get; set; }
+        public virtual DbSet<tbl_Club> tbl_Club { get; set; }
         public virtual DbSet<tbl_ClubMapping> tbl_ClubMapping { get; set; }
         public virtual DbSet<tbl_CommunityActivity> tbl_CommunityActivity { get; set; }
         public virtual DbSet<tbl_Document> tbl_Document { get; set; }
@@ -101,6 +102,5 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_WorkOrder> tbl_WorkOrder { get; set; }
         public virtual DbSet<tbl_ZipCodes> tbl_ZipCodes { get; set; }
         public virtual DbSet<tbl_Country> tbl_Country { get; set; }
-
     }
 }

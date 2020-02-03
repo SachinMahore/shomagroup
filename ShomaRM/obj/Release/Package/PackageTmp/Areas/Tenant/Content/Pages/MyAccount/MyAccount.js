@@ -16,7 +16,7 @@
     radioButtonPaymentMethodMakePayment();
     fromDashboardGoToSubmitServiceRequest();
     ddlPaymentMethod();
-    fillDropdowns();
+    //fillDropdowns();
     getLeaseInfoDocuments();
     getPetLeaseInfoDocuments();
     getVehicleLeaseInfoDocuments();
@@ -29,8 +29,10 @@
         $("#SelectedAminity").attr("data-value", $(this).find(":selected").val());
     });
 
-    $("#txtDesiredTime").on("keyup", function () {
-        $("#SelectedTime").html($(this).val());
+    $("#txtDesiredTime").timepicki({
+        on_change: function () {
+            $("#SelectedTime").html($("#txtDesiredTime").val());
+        }
     });
 
     $("#ddlAmenities").on("change", function () {
@@ -49,16 +51,19 @@
 
     $("#rbtnApertmentPermission1").prop("checked", true);
 
-    $('input[type=radio]').on('ifChanged', function (event) {
-
+    $('input[name=rbtnPermissionToEnter]').on('ifChanged', function (event) {
         if ($("#rbtnApertmentPermission2").is(":checked")) {
             $("#PreferredDate").removeClass('hidden');
-
+            $("#txtPreferredDate").val('');
+            $("#txtPreferredTime").val('');
+           
         }
-        else if ($("#rbtnApertmentPermission1").is(":checked")) {
+        else {
             $("#PreferredDate").addClass('hidden');
         }
     });
+
+    clearServiceRequestField();
     $("#ddlPaymentHistory").on("click", function (event) {
 
         if ($(this).val() == 4) {
@@ -195,6 +200,8 @@ var getTenantData = function (userID) {
 
                 $("#invTenant").text(response.FirstName + " " + response.LastName);
                 $("#invUnit").text(response.UnitName);
+               // $("#hndLeaseTerm").val(response.LeaseTerm);
+
 
                 $("#txtAddress").val(response.Address);
                 $("#txtCity").val(response.City);
@@ -843,11 +850,10 @@ var getInvoice = function (invid)
 var getUpTransationLists = function () {
    
     var model = {
-        TenantID: $("#hndTenantID").val(),
-        AccountHistoryDDL: "2"
+        TenantID: $("#hndTenantID").val()
     }
     $.ajax({
-        url: "/MyTransaction/GetTenantTransactionList",
+        url: "/MyTransaction/GetUpTransationLists",
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
@@ -867,7 +873,8 @@ var getUpTransationLists = function () {
 
                 html += "</tr>";
                 $("#tblUpcomingCharges>tbody").append(html);
-               
+                $("#lblCurrentPrePayAmountR").text(formatMoney(elementValue.Charge_Amount));
+                $("#recPopAmt").text(formatMoney(elementValue.Charge_Amount));
             });
            
         }
@@ -1684,14 +1691,16 @@ var saveUpdateServiceRequest = function () {
     var serviceFileTemp = $("#hndfileUploadService").val();
     var serviceFileOriginal = $("#hndOriginalfileUploadService").val();
     var emergency = $("#txtEmergencyMobile").val();
+    var preferredTime = $("#txtPreferredTime").val();
+    var urgentStatus = 0;
 
     if ($("#rbtnApertmentPermission1").is(":checked")) {
         apartmentPermission = 1;
     }
     else if ($("#rbtnApertmentPermission2").is(":checked")) {
         apartmentPermission = 0;
-        if (preferredDate == '') {
-            msg += 'Enter The Preferred Date</br>'
+        if (preferredDate == '' || preferredTime == '') {
+            msg += 'Enter The Preferred Date and Time In AM/PM</br>'
         }
     }
 
@@ -1714,15 +1723,15 @@ var saveUpdateServiceRequest = function () {
     var entryNote = $("#txtEntryNote").val();
 
 
-
     if (problemCategory != 0) {
         if (itemCaussing == 0) {
             msg += 'Select The Item Caussing</br>'
         }
         else if (problemCategory == 10) {
-            msg += 'Please Fill Other</br>'
+            if (moreDetails == 0) {
+                msg += 'Please Fill Other</br>'
+            }
         }
-
     }
     else {
         msg += 'Select The Problem Category</br>'
@@ -1736,6 +1745,8 @@ var saveUpdateServiceRequest = function () {
         if (priority == 4) {
             if (emergency == '') {
                 msg += 'Enter The Mobile Number</br>'
+            } else {
+                urgentStatus = 1;
             }
 
         }
@@ -1772,6 +1783,8 @@ var saveUpdateServiceRequest = function () {
         TempServiceFile: serviceFileTemp,
         OriginalServiceFile: serviceFileOriginal,
         EmergencyMobile: emergency,
+        PermissionComeTime: preferredTime,
+        UrgentStatus: urgentStatus,
     };
     $.ajax({
         url: '/ServiceRequest/SaveUpdateServiceRequest',
@@ -1789,7 +1802,8 @@ var saveUpdateServiceRequest = function () {
             getServiceRequestList();
             fillDropdowns();
             getServiceRequestOnAlarm();
-            $("#rbtnApertmentPermission1").prop("checked", true);
+            $('#rbtnApertmentPermission1').iCheck('check');
+           
         }
     });
 };
@@ -1824,14 +1838,15 @@ var clearServiceRequestField = function () {
     $("#txtOtherCausingIssue").val('');
     $("#ddlLocation").val('0');
     $("#txtPreferredDate").val('');
-    $("#rbtnApertmentPermission1").prop("checked", true);
+    $("#txtPreferredTime").val('');
     $("#Issue").addClass('hidden');
     $("#OtherIssue").addClass('hidden');
     $("#txtOtherCausingIssue").addClass('hidden');
     $("#txtOtherIssue").val('');
     $("#txtEmergencyMobile").val('');
     $("#ddlPriority").val('0');
-    $("#fileUploadServiceShow").val('');
+    document.getElementById('fileUploadServiceShow').value = '';
+    $("#fileUploadServiceShow").html('Choose a file&hellip;');
 
 }
 
@@ -2640,7 +2655,10 @@ function makeOneTimePaymentSaveUpdate() {
         ExpirationYearOnCardString: cardYear,
         BankName: bankName,
         RoutingNumber: routingNumber,
-        CCVNumber: CVVFromPayMethod
+        CCVNumber: CVVFromPayMethod,
+        Batch: $("#hdnARId").val(),
+        TMPID: $("#hndRecId").val(),
+        UserId: $("#hndUserId").val()
     };
     $.ajax({
         url: "/MyTransaction/SaveUpdateTransaction/",
@@ -4596,7 +4614,8 @@ var saveUpdateReservationRequest = function () {
         Duration: ddlDesiredDuration,
         DurationID: ddlDesiredDurationID,
         DepositFee: depositeFee,
-        ReservationFee: reservationFee
+        ReservationFee: reservationFee,
+        Status: 0
     };
     $.ajax({
         url: '/Tenant/AmenitiesRR/SaveUpdateReservationRequest',
@@ -4770,6 +4789,13 @@ var getReservationRequestList = function () {
                     html += "<td>" + elementValue.DesiredTime + "</td>";
                     html += "<td>" + elementValue.Duration + "</td>";
                     html += "<td>" + elementValue.Status + "</td>";
+                    if (elementValue.Status == "Cancelled") {
+                        html += "<td ><span><i class='fa fa-check'></i></span></td>";
+                    }
+                    else {
+                        html += "<td onclick='cancleRequest(" + elementValue.ARID + ")' style='cursor:pointer;'><span><i class='fa fa-times'></i></span></td>";
+                    }
+                    
 
                     html += "</tr>";
                     $("#tblReservationRequest>tbody").append(html);
@@ -4791,39 +4817,56 @@ var getRecurringPayLists = function () {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            var revno = 1;
-            var duedate = "";
+            if (response.model.length>0)
+            {
+
             $("#tblRecurringPayments>tbody").empty();
             $.each(response.model, function (elementType, elementValue) {
                 var html = "<tr data-value=" + elementValue.TransID + ">";
+                html += "<td>" + elementValue.Revision_Num + "</td>";
                 html += "<td>" + elementValue.TAccCardName + "</td>";
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
           
                 html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                html += "<td><a href='javascript:void(0);' onclick='editRecPayment(" + elementValue.TransID + ")'><i class='fa fa-edit'></i></a>   <a href='javascript:void(0);' onclick='deleteRecPayment(" + elementValue.TransID + ")'><i class='fa fa-trash'></i></a></td>";
+                html += "<td><a href='javascript:void(0);' onclick='editRecPayment(" + elementValue.TransID + ",\"" + formatMoney(elementValue.Charge_Amount) + "\",\"" + elementValue.Transaction_DateString + "\"," + elementValue.PAID + ")'><i class='fa fa-edit'></i></a>   <a href='javascript:void(0);' onclick='deleteRecPayment(" + elementValue.TransID + ")'><i class='fa fa-trash'></i></a></td>";
                 html += "</tr>";
-                revno++;
-
-                duedate = new Date(elementValue.Transaction_DateString);
+              
                 $("#tblRecurringPayments>tbody").append(html);
-                $("#lblCurrentPrePayAmountR").text(formatMoney(elementValue.Charge_Amount));
                
+                $("#hndRevisionNo").val(parseInt(elementValue.Revision_Num++));
+
             });
-            duedate.setMonth(duedate.getMonth() + 2);
-            var newMonth = duedate.getMonth() + 1;
-            if (newMonth < 10) { newMonth = '0' + newMonth }
-           
-            duedate = (newMonth) + "/01/" + duedate.getFullYear();
-            $("#hndRevisionNo").val(revno);
-            $("#txtPayDateR").val(duedate);
-           
+            $("#divRecPayList").removeClass("hidden");
+            $("#divSetRecPay").addClass("hidden");
+
+            } else {
+                $("#divRecPayList").addClass("hidden");
+                $("#divSetRecPay").removeClass("hidden");
+
+            }
+
         }
     });
 }
-function recurringPaymentSaveUpdate() {
-   
+
+function editRecPayment(transid,amt,cdate,paid)
+{
+    $("#rcpid").text(transid);
+    $('#rbtnAmountToPayR2').attr('checked', 'checked');
+    $("#btnSetUpRecurringPayment").addClass("hidden");
+    
+    $("#divOtherAmountR").removeClass("hidden");
+    $("#divSetRecPay").removeClass("hidden");
+    $("#btnSaveRecurringPayment").removeClass("hidden");
+
+    $("#ddlPaymentMethodR").val(paid);
+    $("#txtOtherAmountR").val(amt);
+    $("#txtPayDateR").val(cdate);
+
+}
+function recurringPaymentSaveUpdate() {   
     var msg = "";
-    var transid = $("#hndTransID").val();
+    var transid = $("#rcpid").text();
 
     var tenantid = $("#hndTenantID").val();
    
@@ -4831,8 +4874,7 @@ function recurringPaymentSaveUpdate() {
     var chargeDate = $("#txtPayDateR").val();
   
     var chargeAmount = unformatText($("#txtChargeAmount").val());
-    var revision_Num = $("#hndRevisionNo").val();
-
+    
     var amount = '';
     if ($("#rbtnAmountToPayR1").is(":checked")) {
         amount = unformatText($('#lblCurrentPrePayAmountR').text());
@@ -4873,10 +4915,9 @@ function recurringPaymentSaveUpdate() {
         PAID: $('#ddlPaymentMethod').val(),
         TransID: transid,      
         TenantID: tenantid,
-        Revision_Num: revision_Num,
+       
         Charge_Date: chargeDate,
-        Charge_Amount: amount,
-      
+        Charge_Amount: amount
     };
     $.ajax({
         url: "/MyTransaction/SaveUpdateRecurringTransaction/",
@@ -4896,3 +4937,162 @@ function recurringPaymentSaveUpdate() {
     });
 
 }
+
+
+var cancleRequest = function (arid) { 
+    var tenantId = $("#hndTenantID").val();
+    var model = {
+        ARID: arid
+    };
+    $.alert({
+        title: 'Alert!',
+        content: "Are you sure to cancel the Request",
+        type: 'red',
+        buttons: {
+            yes:{
+                text: 'Yes',
+                btnClass: 'btn btn-primary',
+                action: function () {
+                    $.ajax({
+                        url: '/Tenant/AmenitiesRR/CancleReservationRequest',
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            getReservationRequestList();
+                        }
+                    });
+                }
+            },
+            no:{
+                text: 'No',
+                btnClass: 'btn btn-primary',
+                keys: ['enter', 'shift'],
+                action: function () {
+                    return;
+                }
+            }
+        }
+    });
+};
+
+function recurringPaymentSetUp() {
+
+    var msg = "";
+    var transid = $("#hndTransID").val();
+
+    var tenantid = $("#hndTenantID").val();
+
+    var transtype = $("#ddlPaymentMethodR").val();
+    var chargeDate = $("#txtPayDateR").val();
+
+    var chargeAmount = unformatText($("#txtChargeAmount").val());
+   
+    var amount = '';
+    if ($("#rbtnAmountToPayR1").is(":checked")) {
+        amount = unformatText($('#lblCurrentPrePayAmountR').text());
+    }
+    else if ($("#rbtnAmountToPayR2").is(":checked")) {
+        amount = unformatText($('#txtOtherAmountR').val());
+    }
+    else {
+        amount = '';
+    }
+    if ($("#ddlPaymentMethodR").val() == '0') {
+        msg += "Select Payment Method</br>";
+    }
+
+    if (amount == '') {
+        msg += "Check Amount To Pay And Enter Charge Amount</br>";
+    }
+    if ($("#txtPayDateR").val() == "") {
+        msg += "Enter Payment Date</br>";
+    }
+    if ($("#chkTermsAndConditionR").is(":checked")) {
+        msg += '';
+    }
+    else {
+        msg += 'Check Terms and Policy</br>';
+    }
+
+    if (msg != "") {
+        $.alert({
+            title: 'Alert!',
+            content: msg,
+            type: 'red'
+        });
+        return;
+    }
+
+    var models = {
+        PAID: $('#ddlPaymentMethod').val(),
+        TransID: transid,
+        TenantID: tenantid,
+     
+        Charge_Date: chargeDate,
+        Charge_Amount: amount,
+        UserId: $("#hndUserId").val(),
+    };
+    $.ajax({
+        url: "/MyTransaction/SetUpRecurringTransaction/",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(models),
+        dataType: "JSON",
+        success: function (response) {
+            $.alert({
+                title: 'Message!',
+                content: response.Msg,
+                type: 'blue',
+            });
+
+            getRecurringPayLists();
+        }
+    });
+
+}
+
+function deleteRecPayment(transid) {
+    
+    var tenantid = $("#hndTenantID").val();
+    
+    var models = {
+        TenantID: tenantid,
+        
+    };
+    $.alert({
+        title: "",
+        content: "Are you sure to Cancel Recurring Payments?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: "/MyTransaction/DeleteRecurringTransaction/",
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(models),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $.alert({
+                                title: 'Message!',
+                                content: response.Msg,
+                                type: 'blue',
+                            });
+
+                            getRecurringPayLists();
+                        }
+                    });
+                },
+                no: {
+                    text: 'No',
+                    action: function (no) {
+                    }
+                }
+            }
+        }
+        });
+}
+

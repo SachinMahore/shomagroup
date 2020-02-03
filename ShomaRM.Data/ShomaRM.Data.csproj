@@ -52,277 +52,277 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShomaRM.Context.cs">
+    <Compile Include="ShomaRMEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ShomaRM.Context.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="ShomaRM.cs">
+    <Compile Include="ShomaRMEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="ShomaRM.Designer.cs">
+    <Compile Include="ShomaRMEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ShomaRM.edmx</DependentUpon>
+      <DependentUpon>ShomaRMEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="tbl_Advertiser.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Amenities.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_AmenityPriceRange.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_AmenityReservation.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Applicant.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_ApplicantHistory.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_ApplyNow.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_BankAccount.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Bill.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_CashReceipts.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_CausingIssue.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_ChargeType.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_City.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Club.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_ClubMapping.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_CommunityActivity.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Country.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Document.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_DocumentVerification.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Event.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_EventBooking.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Facility.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_FacilityBooking.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_FOB.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Gallery.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_GuestRegistration.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Invoice.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Issue.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Lease.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_LeaseRenewal.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_LeaseTerms.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_LeaseTransfer.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Login.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_LoginHistory.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Models.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_MonthlyPayment.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_MoveInChecklist.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_MoveInPayment.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Notes.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Notice.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_OnlinePayment.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Parking.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_PaymentAccounts.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_PetPlace.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_PremiumType.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Promotion.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Properties.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_PropertyFloor.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_PropertyUnits.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Prospect.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_PurchaseOrder.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Rating.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_RequestOffer.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_SalesAgent.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_ServiceIssue.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_ServiceLocation.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_ServiceRequest.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_State.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Storage.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Tenant.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_TenantEventJoin.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_TenantEventJoinApprove.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_TenantInfo.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_TenantMonthlyPayments.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_TenantOnline.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_TenantParking.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_TenantPet.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_TenantPetPlace.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_TenantStorage.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Transaction.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Utility.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_UtilityBilling.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Vehicle.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Vendor.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Visit.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_WorkOrder.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_ZipCodes.cs">
-      <DependentUpon>ShomaRM.tt</DependentUpon>
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
     <None Include="packages.config" />
-    <EntityDeploy Include="ShomaRM.edmx">
+    <EntityDeploy Include="ShomaRMEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ShomaRM.Designer.cs</LastGenOutput>
+      <LastGenOutput>ShomaRMEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="ShomaRM.edmx.diagram">
-      <DependentUpon>ShomaRM.edmx</DependentUpon>
+    <None Include="ShomaRMEntities.edmx.diagram">
+      <DependentUpon>ShomaRMEntities.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ShomaRM.Context.tt">
+    <Content Include="ShomaRMEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ShomaRM.edmx</DependentUpon>
-      <LastGenOutput>ShomaRM.Context.cs</LastGenOutput>
+      <DependentUpon>ShomaRMEntities.edmx</DependentUpon>
+      <LastGenOutput>ShomaRMEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="ShomaRM.tt">
+    <Content Include="ShomaRMEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ShomaRM.edmx</DependentUpon>
-      <LastGenOutput>ShomaRM.cs</LastGenOutput>
+      <DependentUpon>ShomaRMEntities.edmx</DependentUpon>
+      <LastGenOutput>ShomaRMEntities.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
