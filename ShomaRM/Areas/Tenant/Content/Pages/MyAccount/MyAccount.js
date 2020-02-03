@@ -29,8 +29,10 @@
         $("#SelectedAminity").attr("data-value", $(this).find(":selected").val());
     });
 
-    $("#txtDesiredTime").on("keyup", function () {
-        $("#SelectedTime").html($(this).val());
+    $("#txtDesiredTime").timepicki({
+        on_change: function () {
+            $("#SelectedTime").html($("#txtDesiredTime").val());
+        }
     });
 
     $("#ddlAmenities").on("change", function () {
@@ -4601,7 +4603,8 @@ var saveUpdateReservationRequest = function () {
         Duration: ddlDesiredDuration,
         DurationID: ddlDesiredDurationID,
         DepositFee: depositeFee,
-        ReservationFee: reservationFee
+        ReservationFee: reservationFee,
+        Status: 0
     };
     $.ajax({
         url: '/Tenant/AmenitiesRR/SaveUpdateReservationRequest',
@@ -4775,6 +4778,13 @@ var getReservationRequestList = function () {
                     html += "<td>" + elementValue.DesiredTime + "</td>";
                     html += "<td>" + elementValue.Duration + "</td>";
                     html += "<td>" + elementValue.Status + "</td>";
+                    if (elementValue.Status == "Cancelled") {
+                        html += "<td ><span><i class='fa fa-check'></i></span></td>";
+                    }
+                    else {
+                        html += "<td onclick='cancleRequest(" + elementValue.ARID + ")' style='cursor:pointer;'><span><i class='fa fa-times'></i></span></td>";
+                    }
+                    
 
                     html += "</tr>";
                     $("#tblReservationRequest>tbody").append(html);
@@ -4916,6 +4926,46 @@ function recurringPaymentSaveUpdate() {
     });
 
 }
+
+
+var cancleRequest = function (arid) { 
+    var tenantId = $("#hndTenantID").val();
+    var model = {
+        ARID: arid
+    };
+    $.alert({
+        title: 'Alert!',
+        content: "Are you sure to cancel the Request",
+        type: 'red',
+        buttons: {
+            yes:{
+                text: 'Yes',
+                btnClass: 'btn btn-primary',
+                action: function () {
+                    $.ajax({
+                        url: '/Tenant/AmenitiesRR/CancleReservationRequest',
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            getReservationRequestList();
+                        }
+                    });
+                }
+            },
+            no:{
+                text: 'No',
+                btnClass: 'btn btn-primary',
+                keys: ['enter', 'shift'],
+                action: function () {
+                    return;
+                }
+            }
+        }
+    });
+};
+
 function recurringPaymentSetUp() {
 
     var msg = "";
@@ -4991,3 +5041,4 @@ function recurringPaymentSetUp() {
     });
 
 }
+
