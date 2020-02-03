@@ -6,41 +6,141 @@
     breakdownPaymentFunction();
     $('#ClubSubmit').attr('disabled', 'disabled');
 });
+function Validation() {
+    if ($("#txtClubTitle").val() == "" || $("#txtClubTitle").val() == null) {
+        return false;
+    }
+    else if ($("#ActivityId").val() == 0 || $("#ActivityId").val() == null) {
+        return false;
+    }
+    else if ($("#txtStartDate").val() == 0 || $("#txtStartDate").val() == null) {
+        return false;
+    }
+    else if ($("#txtVenue").val() == 0 || $("#txtVenue").val() == null) {
+        return false;
+    }
+    else if ($("#DayId").val() == 0 || $("#DayId").val() == null) {
+        return false;
+    }
+    else if ($("#txtMeetingTime").val() == 0 || $("#txtMeetingTime").val() == null) {
+        return false;
+    }
+    else if ($("#txtEmail").val() == 0 || $("#txtEmail").val() == null) {
+        return false;
+    }
+    else if ($("#txtPhoneNumber").val() == 0 || $("#txtPhoneNumber").val() == null) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+function ClearClubCreate() {
+    $("#txtClubTitle").val("");
+    $("#ActivityId").val("1");
+    $("#txtStartDate").val("");
+    $("#txtVenue").val("");
+    $("#DayId").val("1");
+    $("#txtMeetingTime").val("");
+    $("#txtContact").val("");
+    $("#txtEmail").val("");
+    $("#txtPhoneNumber").val("");
+    $("#LevelId").val("1");
+    $("#txtSpecialInstruction").val("");
+    $("#txtDescription").val("");
+    $("#txtBriefDescription").val("");
+    document.getElementById("chkTermsConditions").checked = false;
+}
 function SubmitClub() {
-    
-    var Json = {
-        Id: $("#txtClubTitle").val(),
-        ClubTitle: $("#txtClubTitle").val(),
-        ActivityId: $("#ActivityId").val(),
-        StartDate: $("#txtStartDate").val(),
-        Venue: $("#txtVenue").val(),
-        DayId: $("#DayId").val(),
-        Time: $("#txtMeetingTime").val(),
-        Contact: $("#txtContact").val(),
-        Email: $("#txtEmail").val(),
-        PhoneNumber: $("#txtPhoneNumber").val(),
-        PhoneCheck: $("#PhoneCheck").is(":checked"),
-        EmailCheck: $("#EmailCheck").is(":checked"),
-        LevelId: $("#LevelId").val(),
-        SpecialInstruction: $("#txtSpecialInstruction").val(),
-        Description: $("#txtDescription").val(),
-        BriefDescription: $("#txtBriefDescription").val(),
-        TermsAndCondition: $("#chkTermsConditions").val(),
-        TenantID: $("#hndTenantID").val(),
-        UserId: $("#hdnUserId").val(),
-        IsDeleted: false
+    var Check = Validation();
+    if (Check == true) {
+        var Json = {
+            Id: $("#txtClubTitle").val(),
+            ClubTitle: $("#txtClubTitle").val(),
+            ActivityId: $("#ActivityId").val(),
+            StartDate: $("#txtStartDate").val(),
+            Venue: $("#txtVenue").val(),
+            DayId: $("#DayId").val(),
+            Time: $("#txtMeetingTime").val(),
+            Contact: $("#txtContact").val(),
+            Email: $("#txtEmail").val(),
+            PhoneNumber: $("#txtPhoneNumber").val(),
+            PhoneCheck: $("#PhoneCheck").is(":checked"),
+            EmailCheck: $("#EmailCheck").is(":checked"),
+            LevelId: $("#LevelId").val(),
+            SpecialInstruction: $("#txtSpecialInstruction").val(),
+            Description: $("#txtDescription").val(),
+            BriefDescription: $("#txtBriefDescription").val(),
+            TermsAndCondition: $("#chkTermsConditions").is(":checked"),
+            TenantID: $("#hndTenantID").val(),
+            UserId: $("#hdnUserId").val(),
+            IsDeleted: false
 
-    };
-    $.post("/MyCommunity/CreateClub", Json, function (Data) {
-        debugger
+        };
+        $.post("/MyCommunity/CreateClub", Json, function (Data) {
+           
+            $.alert({
+                title: '',
+                content: Data.modal,
+                type: 'blue'
+            });
+            ClearClubCreate();
+        });
+    }
+    else {
         $.alert({
-            title: '',
-            content: response.modal,
+            title: 'Error',
+            content: "Fill Required Details..",
             type: 'blue'
         });
+    }
+}
+
+function GetJoinClub(ClubId) {
+    $.get("/MyCommunity/GetClubById", { Id: ClubId }, function (data) {
+        if (data.model != null) {
+            document.getElementById("ClubOrganization").innerHTML = data.model.ClubTitle;
+            document.getElementById("ClubEmail").innerHTML = data.model.Email;
+        }
+        else {
+            $.alert({
+                title: 'Error',
+                content: data.model,
+                type: 'blue'
+            });
+        }
     });
 }
 
+function RefreshJoinClubList() {
+    $("#step5").load("/MyCommunity/JoinClubPartial", { Search: "" }, function (response, status, xhr) {
+
+    });
+
+    $("#Tbl_JoinClub").load(url, jsonData, function (response, status, xhr) {
+        var modal = document.getElementById('TruckInspectionPopup');
+        modal.style.display = "block";
+
+        $("#collapseOneTruck").style = ("height:'0px'");
+        //close Loader on loaad partial view
+        $("#loader").hide();
+    });
+}
+
+function RefreshJoinClubListCurrentUser() {
+    $("#step7").load("/MyCommunity/JoinClubPartialByUser", { Search: "", UserId: $("#hdnUserId").val() }, function (response, status, xhr) {
+
+    });
+
+    $("#Tbl_JoinClub").load(url, jsonData, function (response, status, xhr) {
+        var modal = document.getElementById('TruckInspectionPopup');
+        modal.style.display = "block";
+
+        $("#collapseOneTruck").style = ("height:'0px'");
+        //close Loader on loaad partial view
+        $("#loader").hide();
+    });
+}
 
 var goToStep = function (stepid, id) {
 
@@ -49,44 +149,122 @@ var goToStep = function (stepid, id) {
         $("#li2").removeClass("active");
         $("#li3").removeClass("active");
         $("#li4").removeClass("active");
+        $("#li5").removeClass("active");
+        $("#li6").removeClass("active");
+        $("#li7").removeClass("active");
 
         $("#step1").removeClass("hidden");
         $("#step2").addClass("hidden");
         $("#step3").addClass("hidden");
         $("#step4").addClass("hidden");
+        $("#step5").addClass("hidden");
+        $("#step6").addClass("hidden");
+        $("#step7").addClass("hidden");
     }
     if (stepid == "2") {
         $("#li1").removeClass("active");
         $("#li2").addClass("active");
         $("#li3").removeClass("active");
         $("#li4").removeClass("active");
+        $("#li5").removeClass("active");
+        $("#li6").removeClass("active");
+        $("#li7").removeClass("active");
 
         $("#step1").addClass("hidden");
         $("#step2").removeClass("hidden");
         $("#step3").addClass("hidden");
         $("#step4").addClass("hidden");
+        $("#step5").addClass("hidden");
+        $("#step6").addClass("hidden");
+        $("#step7").addClass("hidden");
     }
     if (stepid == "3") {
         $("#li1").removeClass("active");
         $("#li2").removeClass("active");
         $("#li3").addClass("active");
         $("#li4").removeClass("active");
+        $("#li5").removeClass("active");
+        $("#li6").removeClass("active");
+        $("#li7").removeClass("active");
 
         $("#step1").addClass("hidden");
         $("#step2").addClass("hidden");
         $("#step3").removeClass("hidden");
         $("#step4").addClass("hidden");
+        $("#step5").addClass("hidden");
+        $("#step6").addClass("hidden");
+        $("#step7").addClass("hidden");
     }
     if (stepid == "4") {
         $("#li1").removeClass("active");
         $("#li2").removeClass("active");
         $("#li3").removeClass("active");
         $("#li4").addClass("active");
+        $("#li5").removeClass("active");
+        $("#li6").removeClass("active");
+        $("#li7").removeClass("active");
 
         $("#step1").addClass("hidden");
         $("#step2").addClass("hidden");
         $("#step3").addClass("hidden");
         $("#step4").removeClass("hidden");
+        $("#step5").addClass("hidden");
+        $("#step6").addClass("hidden");
+        $("#step7").addClass("hidden");
+    }
+    if (stepid == "5") {
+        $("#li1").removeClass("active");
+        $("#li2").removeClass("active");
+        $("#li3").removeClass("active");
+        $("#li4").removeClass("active");
+        $("#li5").addClass("active");
+        $("#li6").removeClass("active");
+        $("#li7").removeClass("active");
+
+        $("#step1").addClass("hidden");
+        $("#step2").addClass("hidden");
+        $("#step3").addClass("hidden");
+        $("#step4").addClass("hidden");
+        $("#step5").removeClass("hidden");
+        $("#step6").addClass("hidden");
+        $("#step7").addClass("hidden");
+        RefreshJoinClubList();
+    }
+    if (stepid == "6") {
+        $("#li1").removeClass("active");
+        $("#li2").removeClass("active");
+        $("#li3").removeClass("active");
+        $("#li4").removeClass("active");
+        $("#li5").removeClass("active");
+        $("#li6").addClass("active");
+        $("#li7").removeClass("active");
+
+        $("#step1").addClass("hidden");
+        $("#step2").addClass("hidden");
+        $("#step3").addClass("hidden");
+        $("#step4").addClass("hidden");
+        $("#step5").addClass("hidden");
+        $("#step6").removeClass("hidden");
+        $("#step7").addClass("hidden");
+        GetJoinClub(id);
+    }
+    if (stepid == "7") {
+        $("#li1").removeClass("active");
+        $("#li2").removeClass("active");
+        $("#li3").removeClass("active");
+        $("#li4").removeClass("active");
+        $("#li5").removeClass("active");
+        $("#li6").removeClass("active");
+        $("#li7").addClass("active");
+
+        $("#step1").addClass("hidden");
+        $("#step2").addClass("hidden");
+        $("#step3").addClass("hidden");
+        $("#step4").addClass("hidden");
+        $("#step5").addClass("hidden");
+        $("#step6").addClass("hidden");
+        $("#step7").removeClass("hidden");
+        RefreshJoinClubListCurrentUser(id);
     }
 };
 
@@ -669,7 +847,7 @@ var ddlPayMethodPageLoadFunction = function () {
 
 function PayMethod() {
     var m = '';
-    
+
     if ($('#ddlPaymentMethod').find(':selected').data('value') == '1') {
         if ($("#txtCVVNumber").val() == '') {
             m = "Enter CVV Number</br>";
@@ -684,7 +862,7 @@ function PayMethod() {
             content: m,
             type: 'red'
         });
-       
+
         return
     }
     var model = {
@@ -708,7 +886,7 @@ function PayMethod() {
                 $('#hdnRoutingNumber').val(response.model.RoutingNumber)
         }
     });
-    
+
     var msg = "";
     var amount = $("#txtTenantEventFees").val();
     var tenantid = $("#hndTenantID").val();

@@ -84,5 +84,74 @@ namespace ShomaRM.Areas.Tenant.Models.Club
             return msg;
         }
 
+        public List<ClubModel> GetClubList(long UserId=0)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            var Clublist = db.tbl_Club.ToList();
+            if (UserId != 0)
+            {
+                Clublist = Clublist.Where(a => a.UserId == UserId).ToList();
+            }
+           return Clublist.Select(a=>new ClubModel()
+           {
+               Id = a.Id,
+               ClubTitle = a.ClubTitle,
+               ActivityId = a.ActivityId,
+               StartDate = a.StartDate,
+               Venue = a.Venue,
+               DayId = a.DayId,
+               Time = a.Time,
+               Contact = a.Contact,
+               Email = a.Email,
+               PhoneNumber = a.PhoneNumber,
+               PhoneCheck = a.PhoneCheck,
+               EmailCheck = a.EmailCheck,
+               LevelId = a.LevelId,
+               SpecialInstruction = a.SpecialInstruction,
+               Description = a.Description,
+               BriefDescription = a.BriefDescription,
+               TermsAndCondition = a.TermsAndCondition,
+               TenantID = a.TenantID,
+               UserId = a.UserId,
+               IsDeleted = false,
+               CreatedDate = DateTime.UtcNow,
+               LastUpdatedDate = DateTime.UtcNow
+
+           }).ToList();
+
+        }
+
+        public ClubModel GetClubbyId(long ClubId)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+           return db.tbl_Club.ToList().Where(a => a.Id == ClubId).Select(a => new ClubModel()
+            {
+                Id = a.Id,
+                ClubTitle = a.ClubTitle,
+                ActivityId = a.ActivityId,
+                StartDate = a.StartDate,
+                Venue = a.Venue,
+                DayId = a.DayId,
+                Time = a.Time,
+                Contact = a.Contact,
+                Email = a.Email,
+                PhoneNumber = a.PhoneNumber,
+                PhoneCheck = a.PhoneCheck,
+                EmailCheck = a.EmailCheck,
+                LevelId = a.LevelId,
+                SpecialInstruction = a.SpecialInstruction,
+                Description = a.Description,
+                BriefDescription = a.BriefDescription,
+                TermsAndCondition = a.TermsAndCondition,
+                TenantID = a.TenantID,
+                UserId = a.UserId,
+                IsDeleted = false,
+                CreatedDate = DateTime.UtcNow,
+                LastUpdatedDate = DateTime.UtcNow
+            }).FirstOrDefault();
+          
+
+        }
+
     }
 }
