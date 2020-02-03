@@ -30,7 +30,7 @@ namespace ShomaRM.Areas.Admin.Controllers
         public ActionResult Edit(Int32 ID)
         {
             ViewBag.ActiveMenu = "admin";
-            ViewBag.UserID = ID;
+            ViewBag.ServiceID = ID;
             //var model = new UsersModel().GetUserInfo(ID);
             return View("AddEdit");
         }
@@ -81,6 +81,24 @@ namespace ShomaRM.Areas.Admin.Controllers
                 }
 
                 return Json(new { model = new ServicesManagementModel().UploadServiceFile(fileBaseUpload, model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult OwnerSignatureFile(ServicesManagementModel model)
+        {
+            try
+            {
+                HttpPostedFileBase fileBaseUpload = null;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBaseUpload = Request.Files[i];
+
+                }
+
+                return Json(new { model = new ServicesManagementModel().OwnerSignatureFile(fileBaseUpload, model) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception Ex)
             {

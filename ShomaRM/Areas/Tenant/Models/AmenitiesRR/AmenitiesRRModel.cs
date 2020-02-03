@@ -34,6 +34,8 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
+            DateTime dt = DateTime.Parse(model.DesiredTime != null ? model.DesiredTime : "00:00");
+
             if (model.ARID == 0)
             {
                 var saveReservationRequest = new tbl_AmenityReservation()
@@ -41,7 +43,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     TenantID = model.TenantID,
                     AmenityID = model.AmenityID,
                     DesiredDate = model.DesiredDate,
-                    DesiredTime = model.DesiredTime,
+                    DesiredTime = dt.ToString("HH:mm"),
                     Duration = model.Duration,
                     DurationID = model.DurationID,
                     DepositFee = model.DepositFee,
@@ -59,7 +61,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 {
                     GetReservationRequestData.AmenityID = model.AmenityID;
                     GetReservationRequestData.DesiredDate = model.DesiredDate;
-                    GetReservationRequestData.DesiredTime= model.DesiredTime;
+                    GetReservationRequestData.DesiredTime= dt.ToString("HH:mm");
                     GetReservationRequestData.Duration = model.Duration;
                     GetReservationRequestData.DurationID = model.DurationID;
                     GetReservationRequestData.DepositFee = model.DepositFee;
@@ -108,7 +110,8 @@ namespace ShomaRM.Areas.Tenant.Models
                 model.AmenityID = GetRRData.AmenityID;
                 model.DesiredDate = GetRRData.DesiredDate;
                 model.DesiredDateString = GetRRData.DesiredDate != null ? GetRRData.DesiredDate.Value.ToString("MM/dd/yyyy"): "";
-                model.DesiredTime = GetRRData.DesiredTime;
+                DateTime dt = DateTime.Parse(GetRRData.DesiredTime != string.Empty ? GetRRData.DesiredTime : "00:00");
+                model.DesiredTime = dt.ToString("hh:mm tt");
                 model.Duration = GetRRData.Duration;
                 model.DurationID = GetRRData.DurationID;
                 model.DepositFee = GetRRData.DepositFee;
@@ -195,7 +198,9 @@ namespace ShomaRM.Areas.Tenant.Models
                     searchmodel.TenantID = Convert.ToInt64(dr["AmenityID"].ToString());
                     searchmodel.AmenityID = Convert.ToInt64(dr["AmenityID"].ToString());
                     searchmodel.DesiredDate = dr["DesiredDate"].ToString();
-                    searchmodel.DesiredTime = dr["DesiredTime"].ToString();
+                    string time = dr["DesiredTime"].ToString();
+                    DateTime dt = DateTime.Parse(time != string.Empty ? time : "00:00 AM");
+                    searchmodel.DesiredTime = dt.ToString("hh:mm tt");
                     searchmodel.DurationID = dr["DurationID"].ToString();
                     searchmodel.DepositFee = dr["DepositFee"].ToString();
                     searchmodel.ReservationFee = dr["ReservationFee"].ToString();
@@ -334,7 +339,9 @@ namespace ShomaRM.Areas.Tenant.Models
                     searchmodel.TenantID = Convert.ToInt64(dr["AmenityID"].ToString());
                     searchmodel.AmenityID = Convert.ToInt64(dr["AmenityID"].ToString());
                     searchmodel.DesiredDate = dr["DesiredDate"].ToString();
-                    searchmodel.DesiredTime = dr["DesiredDate"].ToString();
+                    string time = dr["DesiredTime"].ToString();
+                    DateTime dt = DateTime.Parse(time != string.Empty ? time : "00:00 AM");
+                    searchmodel.DesiredTime = dt.ToString("hh:mm tt");
                     searchmodel.DurationID = dr["DurationID"].ToString();
                     searchmodel.DepositFee = dr["DepositFee"].ToString();
                     searchmodel.ReservationFee = dr["ReservationFee"].ToString();
@@ -399,6 +406,23 @@ namespace ShomaRM.Areas.Tenant.Models
                     new EmailSendModel().SendEmail(GetTenantData.Email, "Amenity Reservation Request Status", body);
 
                 }
+            }
+            db.Dispose();
+            return msg;
+        }
+
+        public string CancleReservationRequest(int ARID)
+        {
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            var GetReservationRequestData = db.tbl_AmenityReservation.Where(p => p.ARID == ARID).FirstOrDefault();
+            if (GetReservationRequestData != null)
+            {
+                GetReservationRequestData.Status = 4;
+
+                db.SaveChanges();
+                msg = "Reservation Request Cancelled Successfully";
             }
             db.Dispose();
             return msg;

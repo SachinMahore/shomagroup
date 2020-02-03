@@ -929,6 +929,9 @@ var goToStep = function (stepid, id) {
             if (!$("#txtZip").val()) {
                 msg += "Please Fill Zip </br>";
             }
+            if (!$("#txtMoveInDateFrom").val()) {
+                msg += "Please Fill Move In Date </br>";
+            }
 
 
             if (msg != "") {
@@ -1032,7 +1035,7 @@ var goToStep = function (stepid, id) {
                     }
                 }
             }
-            else if ($("#rbtnFedralTax").is(":checked")) {
+            if ($("#rbtnFedralTax").is(":checked")) {
                 if ($("#hndHasTaxReturnFile1").val() == "0") {
                     if (document.getElementById('fileUploadTaxReturn1').files.length == '0') {
                         var upLabel4 = $('#lblUpload1').text();
@@ -1124,6 +1127,7 @@ var goToStep = function (stepid, id) {
                     msg += "Please Fill Valid Email </br>";
                 }
             }
+
             if (msg != "") {
                 $.alert({
                     title: "",
@@ -1283,6 +1287,7 @@ var SaveOnlineProspect = function () {
     var phoneNumber = unformatText($("#txtPhoneNumber").val());
     var emailId = $("#txtEmail").val();
     var password = $("#txtPassword").val();
+    var confirmPassword = $("#txtConfPassword").val();
     var address = $("#txtAddress").val();
     var dob = $("#txtDOB").val();
     var annualIncome = $("#txtAnnualIncome").val();
@@ -1315,12 +1320,15 @@ var SaveOnlineProspect = function () {
             msg += "Please fill Valid Email </br>"
         }
     }
-
+    
     if (!password) {
         msg += "Please fill the Password </br>";
     } else {
         if (password.length < 8) {
             msg += "Password should have atleast 8 digits long</br>";
+        }
+        if (password != confirmPassword) {
+            msg += "Password and Confirm Password must be the same</br>";
         }
     }
 
@@ -3259,6 +3267,7 @@ var goToEditApplicant = function (aid) {
                     var opt = "<option value='0'>Select Relationship</option>";
                     opt += "<option value='1'>Self</option>";
                     $("#ddlARelationship").append(opt);
+
                     $("#ddlARelationship").val(response.model.Relationship).change();
 
                     //$("#ddlGRelationship").addClass("hidden");
@@ -3412,12 +3421,12 @@ var saveupdatePet = function () {
     if (!breed) {
         msg += "Enter Pet Breed</br>";
     }
-    if (hiddenPetPicture.length == '0') {
+    if (hiddenPetPicture == '0') {
         if (document.getElementById('pet-picture').files.length == '0') {
             msg += "Please Upload Pet Picture</br>";
         }
     }
-    if (hiddenPetVaccinationCertificate.length == '0') {
+    if (hiddenPetVaccinationCertificate == '0') {
         if (document.getElementById('filePetVaccinationCertificate').files.length == '0') {
             msg += "Please Upload Pet Vaccination Certificate</br>";
         }

@@ -935,8 +935,9 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="PermissionComeTime" Type="nvarchar" MaxLength="50" />
           <Property Name="ClosingNotes" Type="varchar(max)" />
           <Property Name="UrgentStatus" Type="int" />
-
-          <Property Name="ClosingDate" Type="datetime" />
+       <Property Name="ClosingDate" Type="datetime" />
+          <Property Name="OwnerSignature" Type="nvarchar" MaxLength="100" />
+          <Property Name="TempOwnerSignature" Type="nvarchar" MaxLength="100" />
 
         </EntityType>
         <EntityType Name="tbl_State">
@@ -4156,20 +4157,36 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
             <PropertyRef Name="UBID" />
           </Key>
 
-          <Property Name="UBID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UtilityID" Type="Int32" />
-          <Property Name="LeaseID" Type="Int64" />
-          <Property Name="Revision_Num" Type="Int32" />
-          <Property Name="Unit" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="ChargeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="EffectiveDate" Type="DateTime" Precision="3" />
-          <Property Name="MeterReading" Type="Decimal" Precision="9" Scale="1" />
-          <Property Name="PricePerUnit" Type="Decimal" Precision="9" Scale="5" />
-          <Property Name="Posted" Type="DateTime" Precision="3" />
-          <Property Name="TenantID" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="tbl_Lease" Relationship="Self.FK_tbl_UtilityBilling_tbl_Lease" FromRole="tbl_UtilityBilling" ToRole="tbl_Lease" />
-          <NavigationProperty Name="tbl_Tenant" Relationship="Self.FK_tbl_UtilityBilling_tbl_Tenant" FromRole="tbl_UtilityBilling" ToRole="tbl_Tenant" />
-          <NavigationProperty Name="tbl_Utility" Relationship="Self.FK_tbl_UtilityBilling_tbl_Utility" FromRole="tbl_UtilityBilling" ToRole="tbl_Utility" />
+          <Property Name="ServiceID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantID" Type="Int64" />
+          <Property Name="ProblemCategory" Type="Int32" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PermissionEnterApartment" Type="Int32" />
+          <Property Name="PermissionComeDate" Type="DateTime" Precision="3" />
+          <Property Name="PetInforChange" Type="Int32" />
+          <Property Name="AlarmCodeChange" Type="Int32" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Location" Type="Int32" />
+          <Property Name="ItemCaussing" Type="Int32" />
+          <Property Name="ItemIssue" Type="Int32" />
+          <Property Name="OtherItemCaussing" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OtherItemIssue" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ServiceDate" Type="DateTime" Precision="3" />
+          <Property Name="Priority" Type="Int32" />
+          <Property Name="OriginalServiceFile" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TempServiceFile" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EmergencyMobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CompletedPicture" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TempCompletedPicture" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedBy" Type="Int32" />
+          <Property Name="ServicePerson" Type="Int32" />
+          <Property Name="PermissionComeTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClosingNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UrgentStatus" Type="Int32" />
+          <Property Name="ClosingDate" Type="DateTime" Precision="3" />
+          <Property Name="OwnerSignature" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TempOwnerSignature" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
 
         </EntityType>
         <EntityType Name="tbl_Vehicle">
@@ -6759,47 +6776,32 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
                 <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
 
-                <ScalarProperty Name="MiddleInitial" ColumnName="MiddleInitial" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
-                <ScalarProperty Name="CountryIssuance" ColumnName="CountryIssuance" />
-                <ScalarProperty Name="DateIssuance" ColumnName="DateIssuance" />
-                <ScalarProperty Name="DateExpire" ColumnName="DateExpire" />
-                <ScalarProperty Name="IDType" ColumnName="IDType" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="HomeAddress1" ColumnName="HomeAddress1" />
-                <ScalarProperty Name="HomeAddress2" ColumnName="HomeAddress2" />
-                <ScalarProperty Name="StateHome" ColumnName="StateHome" />
-                <ScalarProperty Name="CityHome" ColumnName="CityHome" />
-                <ScalarProperty Name="ZipHome" ColumnName="ZipHome" />
-                <ScalarProperty Name="RentOwn" ColumnName="RentOwn" />
-                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
-                <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
-                <ScalarProperty Name="Reason" ColumnName="Reason" />
-                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
-                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
-                <ScalarProperty Name="JobType" ColumnName="JobType" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="Income" ColumnName="Income" />
-                <ScalarProperty Name="AdditionalIncome" ColumnName="AdditionalIncome" />
-                <ScalarProperty Name="SupervisorName" ColumnName="SupervisorName" />
-                <ScalarProperty Name="SupervisorPhone" ColumnName="SupervisorPhone" />
-                <ScalarProperty Name="SupervisorEmail" ColumnName="SupervisorEmail" />
-                <ScalarProperty Name="OfficeCountry" ColumnName="OfficeCountry" />
-                <ScalarProperty Name="OfficeAddress1" ColumnName="OfficeAddress1" />
-                <ScalarProperty Name="OfficeAddress2" ColumnName="OfficeAddress2" />
-                <ScalarProperty Name="OfficeState" ColumnName="OfficeState" />
-                <ScalarProperty Name="OfficeCity" ColumnName="OfficeCity" />
-                <ScalarProperty Name="OfficeZip" ColumnName="OfficeZip" />
-                <ScalarProperty Name="Relationship" ColumnName="Relationship" />
-                <ScalarProperty Name="EmergencyFirstName" ColumnName="EmergencyFirstName" />
-                <ScalarProperty Name="EmergencyLastName" ColumnName="EmergencyLastName" />
+                <ScalarProperty Name="GuestID" ColumnName="GuestID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Rating">
+            <EntityTypeMapping TypeName="ShomaRMModel.tbl_Rating">
+              <MappingFragment StoreEntitySet="tbl_Rating">
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="RID" ColumnName="RID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ServiceRequest">
+            <EntityTypeMapping TypeName="ShomaRMModel.tbl_ServiceRequest">
+              <MappingFragment StoreEntitySet="tbl_ServiceRequest">
+                <ScalarProperty Name="TempOwnerSignature" ColumnName="TempOwnerSignature" />
+                <ScalarProperty Name="OwnerSignature" ColumnName="OwnerSignature" />
+                <ScalarProperty Name="ClosingDate" ColumnName="ClosingDate" />
+                <ScalarProperty Name="UrgentStatus" ColumnName="UrgentStatus" />
+                <ScalarProperty Name="ClosingNotes" ColumnName="ClosingNotes" />
+                <ScalarProperty Name="PermissionComeTime" ColumnName="PermissionComeTime" />
+                <ScalarProperty Name="ServicePerson" ColumnName="ServicePerson" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="TempCompletedPicture" ColumnName="TempCompletedPicture" />
+                <ScalarProperty Name="CompletedPicture" ColumnName="CompletedPicture" />
 
                 <ScalarProperty Name="EmergencyMobile" ColumnName="EmergencyMobile" />
                 <ScalarProperty Name="EmergencyHomePhone" ColumnName="EmergencyHomePhone" />

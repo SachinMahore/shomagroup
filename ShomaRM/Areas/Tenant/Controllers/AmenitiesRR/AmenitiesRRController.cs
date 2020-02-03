@@ -61,5 +61,17 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult CancleReservationRequest(int ARID)
+        {
+            try
+            {
+                return Json(new { model = new AmenitiesReservationModel().CancleReservationRequest(ARID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

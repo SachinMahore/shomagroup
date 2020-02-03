@@ -58,8 +58,14 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<int> ApprovedBy { get; set; }
         public string TempCompletedPicture { get; set; }
         public Nullable<int> ServicePerson { get; set; }
-       
-
+        public Nullable<int> UrgentStatus { get; set; }
+        public string ClosingNotes { get; set; }
+        public Nullable<System.DateTime> ClosingDate { get; set; }
+        public string ClosingDatestring { get; set; }
+        public string Project { get; set; }
+        public string MoveIndate { get; set; }
+        public string OwnerSignature { get; set; }
+        public string TempOwnerSignature { get; set; }
 
         public int BuildPaganationUserList(ServicesSearchModel model)
         {
@@ -253,7 +259,16 @@ namespace ShomaRM.Areas.Admin.Models
                     pr.EmergencyMobile = dr["EmergencyMobile"].ToString();
                     pr.TempServiceFile = dr["TempServiceFile"].ToString();
                     pr.OriginalServiceFile = dr["OriginalServiceFile"].ToString();
-                    //lstpr.Add(pr);
+                    pr.Email = dr["email"].ToString();
+                    pr.Status = Convert.ToInt32(dr["StatusInt"].ToString());
+                    pr.UrgentStatus = Convert.ToInt32(dr["UrgentStatus"].ToString());
+                    pr.ServicePerson = Convert.ToInt32(dr["ServicePerson"].ToString());
+                    pr.ServicePerson = Convert.ToInt32(dr["ServicePerson"].ToString());
+                    pr.ClosingDatestring = dr["ClosingDate"].ToString();
+                    pr.ClosingNotes = dr["ClosingNotes"].ToString();
+                    pr.Project = dr["Title"].ToString();
+                    pr.TenantID = Convert.ToInt64(dr["TenantID"].ToString());
+                    pr.MoveIndate = dr["MoveIndate"].ToString();
                 }
                 db.Dispose();
                 return pr;
@@ -280,6 +295,13 @@ namespace ShomaRM.Areas.Admin.Models
                 UpdateStatusService.CompletedPicture = model.CompletedPicture;
                 UpdateStatusService.TempCompletedPicture = model.TempCompletedPicture;
                 UpdateStatusService.ServicePerson=model.ServicePerson;
+                UpdateStatusService.UrgentStatus = model.UrgentStatus;
+                UpdateStatusService.ClosingNotes = model.ClosingNotes;
+                UpdateStatusService.ClosingDate = model.ClosingDate;
+                UpdateStatusService.PermissionComeDate = model.PermissionComeDate;
+                UpdateStatusService.PermissionComeTime = model.PermissionComeTime;
+                UpdateStatusService.OwnerSignature= model.OwnerSignature;
+                UpdateStatusService.TempOwnerSignature = model.TempOwnerSignature;
                 db.SaveChanges();
                 msg = "Service Request Status Update Successfully";
             }
@@ -322,7 +344,41 @@ namespace ShomaRM.Areas.Admin.Models
 
             return CompletedFile;
         }
-       
+        public ServicesManagementModel OwnerSignatureFile(HttpPostedFileBase fileBaseUpload, ServicesManagementModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            ServicesManagementModel OwnerSignatureFile = new ServicesManagementModel();
+
+            string filePath = "";
+            string fileName = "";
+            string sysFileName = "";
+            string Extension = "";
+
+            if (fileBaseUpload != null && fileBaseUpload.ContentLength > 0)
+            {
+                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                DirectoryInfo di = new DirectoryInfo(filePath);
+                FileInfo _FileInfo = new FileInfo(filePath);
+                if (!di.Exists)
+                {
+                    di.Create();
+                }
+                fileName = fileBaseUpload.FileName;
+                Extension = Path.GetExtension(fileBaseUpload.FileName);
+                sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseUpload.FileName);
+                fileBaseUpload.SaveAs(filePath + "//" + sysFileName);
+                if (!string.IsNullOrWhiteSpace(fileBaseUpload.FileName))
+                {
+                    string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/") + "/" + sysFileName;
+
+                }
+                OwnerSignatureFile.TempOwnerSignature = sysFileName.ToString();
+                OwnerSignatureFile.OwnerSignature = fileName;
+            }
+
+            return OwnerSignatureFile;
+        }
+
         public class ServicesSearchModel
         {
             public long ServiceID { get; set; }

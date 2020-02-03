@@ -16,7 +16,7 @@
     radioButtonPaymentMethodMakePayment();
     fromDashboardGoToSubmitServiceRequest();
     ddlPaymentMethod();
-    fillDropdowns();
+    //fillDropdowns();
     getLeaseInfoDocuments();
     getPetLeaseInfoDocuments();
     getVehicleLeaseInfoDocuments();
@@ -29,8 +29,10 @@
         $("#SelectedAminity").attr("data-value", $(this).find(":selected").val());
     });
 
-    $("#txtDesiredTime").on("keyup", function () {
-        $("#SelectedTime").html($(this).val());
+    $("#txtDesiredTime").timepicki({
+        on_change: function () {
+            $("#SelectedTime").html($("#txtDesiredTime").val());
+        }
     });
 
     $("#ddlAmenities").on("change", function () {
@@ -49,16 +51,19 @@
 
     $("#rbtnApertmentPermission1").prop("checked", true);
 
-    $('input[type=radio]').on('ifChanged', function (event) {
-
+    $('input[name=rbtnPermissionToEnter]').on('ifChanged', function (event) {
         if ($("#rbtnApertmentPermission2").is(":checked")) {
             $("#PreferredDate").removeClass('hidden');
-
+            $("#txtPreferredDate").val('');
+            $("#txtPreferredTime").val('');
+           
         }
-        else if ($("#rbtnApertmentPermission1").is(":checked")) {
+        else {
             $("#PreferredDate").addClass('hidden');
         }
     });
+
+    clearServiceRequestField();
     $("#ddlPaymentHistory").on("click", function (event) {
 
         if ($(this).val() == 4) {
@@ -1686,14 +1691,16 @@ var saveUpdateServiceRequest = function () {
     var serviceFileTemp = $("#hndfileUploadService").val();
     var serviceFileOriginal = $("#hndOriginalfileUploadService").val();
     var emergency = $("#txtEmergencyMobile").val();
+    var preferredTime = $("#txtPreferredTime").val();
+    var urgentStatus = 0;
 
     if ($("#rbtnApertmentPermission1").is(":checked")) {
         apartmentPermission = 1;
     }
     else if ($("#rbtnApertmentPermission2").is(":checked")) {
         apartmentPermission = 0;
-        if (preferredDate == '') {
-            msg += 'Enter The Preferred Date</br>'
+        if (preferredDate == '' || preferredTime == '') {
+            msg += 'Enter The Preferred Date and Time In AM/PM</br>'
         }
     }
 
@@ -1716,15 +1723,15 @@ var saveUpdateServiceRequest = function () {
     var entryNote = $("#txtEntryNote").val();
 
 
-
     if (problemCategory != 0) {
         if (itemCaussing == 0) {
             msg += 'Select The Item Caussing</br>'
         }
         else if (problemCategory == 10) {
-            msg += 'Please Fill Other</br>'
+            if (moreDetails == 0) {
+                msg += 'Please Fill Other</br>'
+            }
         }
-
     }
     else {
         msg += 'Select The Problem Category</br>'
@@ -1738,6 +1745,8 @@ var saveUpdateServiceRequest = function () {
         if (priority == 4) {
             if (emergency == '') {
                 msg += 'Enter The Mobile Number</br>'
+            } else {
+                urgentStatus = 1;
             }
 
         }
@@ -1774,6 +1783,8 @@ var saveUpdateServiceRequest = function () {
         TempServiceFile: serviceFileTemp,
         OriginalServiceFile: serviceFileOriginal,
         EmergencyMobile: emergency,
+        PermissionComeTime: preferredTime,
+        UrgentStatus: urgentStatus,
     };
     $.ajax({
         url: '/ServiceRequest/SaveUpdateServiceRequest',
@@ -1791,7 +1802,8 @@ var saveUpdateServiceRequest = function () {
             getServiceRequestList();
             fillDropdowns();
             getServiceRequestOnAlarm();
-            $("#rbtnApertmentPermission1").prop("checked", true);
+            $('#rbtnApertmentPermission1').iCheck('check');
+           
         }
     });
 };
@@ -1826,14 +1838,15 @@ var clearServiceRequestField = function () {
     $("#txtOtherCausingIssue").val('');
     $("#ddlLocation").val('0');
     $("#txtPreferredDate").val('');
-    $("#rbtnApertmentPermission1").prop("checked", true);
+    $("#txtPreferredTime").val('');
     $("#Issue").addClass('hidden');
     $("#OtherIssue").addClass('hidden');
     $("#txtOtherCausingIssue").addClass('hidden');
     $("#txtOtherIssue").val('');
     $("#txtEmergencyMobile").val('');
     $("#ddlPriority").val('0');
-    $("#fileUploadServiceShow").val('');
+    document.getElementById('fileUploadServiceShow').value = '';
+    $("#fileUploadServiceShow").html('Choose a file&hellip;');
 
 }
 
@@ -4601,7 +4614,8 @@ var saveUpdateReservationRequest = function () {
         Duration: ddlDesiredDuration,
         DurationID: ddlDesiredDurationID,
         DepositFee: depositeFee,
-        ReservationFee: reservationFee
+        ReservationFee: reservationFee,
+        Status: 0
     };
     $.ajax({
         url: '/Tenant/AmenitiesRR/SaveUpdateReservationRequest',
@@ -4775,6 +4789,13 @@ var getReservationRequestList = function () {
                     html += "<td>" + elementValue.DesiredTime + "</td>";
                     html += "<td>" + elementValue.Duration + "</td>";
                     html += "<td>" + elementValue.Status + "</td>";
+                    if (elementValue.Status == "Cancelled") {
+                        html += "<td ><span><i class='fa fa-check'></i></span></td>";
+                    }
+                    else {
+                        html += "<td onclick='cancleRequest(" + elementValue.ARID + ")' style='cursor:pointer;'><span><i class='fa fa-times'></i></span></td>";
+                    }
+                    
 
                     html += "</tr>";
                     $("#tblReservationRequest>tbody").append(html);
@@ -4916,6 +4937,46 @@ function recurringPaymentSaveUpdate() {
     });
 
 }
+
+
+var cancleRequest = function (arid) { 
+    var tenantId = $("#hndTenantID").val();
+    var model = {
+        ARID: arid
+    };
+    $.alert({
+        title: 'Alert!',
+        content: "Are you sure to cancel the Request",
+        type: 'red',
+        buttons: {
+            yes:{
+                text: 'Yes',
+                btnClass: 'btn btn-primary',
+                action: function () {
+                    $.ajax({
+                        url: '/Tenant/AmenitiesRR/CancleReservationRequest',
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            getReservationRequestList();
+                        }
+                    });
+                }
+            },
+            no:{
+                text: 'No',
+                btnClass: 'btn btn-primary',
+                keys: ['enter', 'shift'],
+                action: function () {
+                    return;
+                }
+            }
+        }
+    });
+};
+
 function recurringPaymentSetUp() {
 
     var msg = "";
@@ -4991,6 +5052,7 @@ function recurringPaymentSetUp() {
     });
 
 }
+
 function deleteRecPayment(transid) {
     
     var tenantid = $("#hndTenantID").val();
@@ -5033,3 +5095,4 @@ function deleteRecPayment(transid) {
         }
         });
 }
+
