@@ -16,7 +16,7 @@
     radioButtonPaymentMethodMakePayment();
     fromDashboardGoToSubmitServiceRequest();
     ddlPaymentMethod();
-    fillDropdowns();
+    //fillDropdowns();
     getLeaseInfoDocuments();
     getPetLeaseInfoDocuments();
     getVehicleLeaseInfoDocuments();
@@ -51,16 +51,19 @@
 
     $("#rbtnApertmentPermission1").prop("checked", true);
 
-    $('input[type=radio]').on('ifChanged', function (event) {
-
+    $('input[name=rbtnPermissionToEnter]').on('ifChanged', function (event) {
         if ($("#rbtnApertmentPermission2").is(":checked")) {
             $("#PreferredDate").removeClass('hidden');
-
+            $("#txtPreferredDate").val('');
+            $("#txtPreferredTime").val('');
+           
         }
-        else if ($("#rbtnApertmentPermission1").is(":checked")) {
+        else {
             $("#PreferredDate").addClass('hidden');
         }
     });
+
+    clearServiceRequestField();
     $("#ddlPaymentHistory").on("click", function (event) {
 
         if ($(this).val() == 4) {
@@ -1688,14 +1691,16 @@ var saveUpdateServiceRequest = function () {
     var serviceFileTemp = $("#hndfileUploadService").val();
     var serviceFileOriginal = $("#hndOriginalfileUploadService").val();
     var emergency = $("#txtEmergencyMobile").val();
+    var preferredTime = $("#txtPreferredTime").val();
+    var urgentStatus = 0;
 
     if ($("#rbtnApertmentPermission1").is(":checked")) {
         apartmentPermission = 1;
     }
     else if ($("#rbtnApertmentPermission2").is(":checked")) {
         apartmentPermission = 0;
-        if (preferredDate == '') {
-            msg += 'Enter The Preferred Date</br>'
+        if (preferredDate == '' || preferredTime == '') {
+            msg += 'Enter The Preferred Date and Time In AM/PM</br>'
         }
     }
 
@@ -1718,15 +1723,15 @@ var saveUpdateServiceRequest = function () {
     var entryNote = $("#txtEntryNote").val();
 
 
-
     if (problemCategory != 0) {
         if (itemCaussing == 0) {
             msg += 'Select The Item Caussing</br>'
         }
         else if (problemCategory == 10) {
-            msg += 'Please Fill Other</br>'
+            if (moreDetails == 0) {
+                msg += 'Please Fill Other</br>'
+            }
         }
-
     }
     else {
         msg += 'Select The Problem Category</br>'
@@ -1740,6 +1745,8 @@ var saveUpdateServiceRequest = function () {
         if (priority == 4) {
             if (emergency == '') {
                 msg += 'Enter The Mobile Number</br>'
+            } else {
+                urgentStatus = 1;
             }
 
         }
@@ -1776,6 +1783,8 @@ var saveUpdateServiceRequest = function () {
         TempServiceFile: serviceFileTemp,
         OriginalServiceFile: serviceFileOriginal,
         EmergencyMobile: emergency,
+        PermissionComeTime: preferredTime,
+        UrgentStatus: urgentStatus,
     };
     $.ajax({
         url: '/ServiceRequest/SaveUpdateServiceRequest',
@@ -1793,7 +1802,8 @@ var saveUpdateServiceRequest = function () {
             getServiceRequestList();
             fillDropdowns();
             getServiceRequestOnAlarm();
-            $("#rbtnApertmentPermission1").prop("checked", true);
+            $('#rbtnApertmentPermission1').iCheck('check');
+           
         }
     });
 };
@@ -1828,14 +1838,15 @@ var clearServiceRequestField = function () {
     $("#txtOtherCausingIssue").val('');
     $("#ddlLocation").val('0');
     $("#txtPreferredDate").val('');
-    $("#rbtnApertmentPermission1").prop("checked", true);
+    $("#txtPreferredTime").val('');
     $("#Issue").addClass('hidden');
     $("#OtherIssue").addClass('hidden');
     $("#txtOtherCausingIssue").addClass('hidden');
     $("#txtOtherIssue").val('');
     $("#txtEmergencyMobile").val('');
     $("#ddlPriority").val('0');
-    $("#fileUploadServiceShow").val('');
+    document.getElementById('fileUploadServiceShow').value = '';
+    $("#fileUploadServiceShow").html('Choose a file&hellip;');
 
 }
 
