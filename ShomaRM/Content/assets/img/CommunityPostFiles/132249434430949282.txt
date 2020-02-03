@@ -1,0 +1,28 @@
+id="popFloorPlan"*****index    
+<div class="modal-dialog modal-dialog-centered" role="document" style="width:900px !important;">
+
+
+index****
+
+<div class="modal fade" id="popRentalQualification" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content-summary">
+            <div class="modal-body" style="padding: -15px;">
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -60px; margin-right: -52px;">&times;</button>
+
+                <div><iframe src="~/Content/assets/img/Document/Rental_Qualification.pdf" width="860" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<a href="javascript:void(0);" id="rentalQualification" data-toggle="modal" data-target="#popRentalQualification">here</a>
+
+check and save
+
+Head of Household to Primary Applicant
+
+SaveOnlineProspect**
+Type="Primary Applicant",

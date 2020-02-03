@@ -8,8 +8,10 @@
 <input type="hidden" id="hndTenantID" value="@ViewBag.TenantID" />@*"*@
 <input type="hidden" id="hndUserId" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID" /> @*value=""*@
 <input type="hidden" id="hndUnitID" value="0" />
-<input type="hidden" id="hndChargeType" value="0" />
+<input type="hidden" id="hndChargeType" value="3" />
 <input type="hidden" id="hndRevisionNo" value="0" />
+<input type="hidden" id="hndLeaseTerm" value="0" />
+<input type="hidden" id="hndRecId" value="0" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container" style="width:100%;">
@@ -35,7 +37,7 @@
                                     <li id="pay2"><a href="javascript:void(0);" onclick="goToPayStep(2)" style="font-size:12pt;">Payment History</a></li>
                                     <li id="pay6"><a href="javascript:void(0);" onclick="goToPayStep(6)" style="font-size:12pt;">Account History</a></li>
                                     <li id="pay4"><a href="javascript:void(0);" onclick="goToPayStep(4)" style="font-size:12pt;">Recuring Payments</a></li>
-                                    <li id="pay5"><a href="javascript:void(0);" onclick="goToPayStep(5)" style="font-size:12pt;">Saved Payment Accounts</a></li>
+                                    <li id="pay5"><a href="javascript:void(0);" onclick="goToPayStep(5)" style="font-size:12pt;">Payment Accounts</a></li>
                                 </ul>
                                 <div class="row">
                                     <div class="col-md-12" style="margin-top:10px!important;">
@@ -305,15 +307,18 @@
                                         </div>
                                         <div class="hidden" id="payStep4">
                                            
-                                                <div class="col-md-12 clear">
+                                            <div class="col-md-12 clear hidden" id="divRecPayList">                                                   
                                                     <div class="panel-heading">
                                                         <div class="col-sm-12">
                                                             <h4 style="margin-top: 2%;font-size: 18pt;color:#4D738A !important;">Manage Recurring Payments</h4><br />
                                                         </div>
                                                     </div>
+                                                    <p>Both active and cancelled scheduled payments are listed below. To cancel a scheduled payment. Click the cancel button in the scheduled payment details</p>
+
                                                     <table id="tblRecurringPayments" class="table " cellspacing="0" width="100%" style="margin-left: 20px;">
                                                         <thead>
                                                             <tr>
+                                                                <th style="background-color: transparent;color:#4D738A;width:7%;font-size:13pt">Sr. No.</th>
                                                                 <th style="background-color: transparent;color:#4D738A;width:17%;font-size:13pt">Account</th>
                                                                 <th style="background-color: transparent;color:#4D738A;width:15%;font-size:13pt">Due Date</th>
                                                                 <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Amount</th>
@@ -322,17 +327,18 @@
                                                         </thead>
                                                         <tbody></tbody>
                                                     </table>
-                                                </div>
-                                            <div class="col-md-12 clear">
+                                             </div>
+                                            <div class="col-md-12 clear" id="divSetRecPay">
                                                 <div class="panel-heading">
                                                     <div class="col-sm-12">
                                                         <h4 style="margin-top: 2%;font-size: 18pt;color:#4D738A !important;">Set Up Recurring Payments</h4><br />
+                                                        
                                                     </div>
                                                     <div class="col-lg-12">
                                                         <div class="row">
                                                             <div class="form-group">
                                                                 <div class="col-sm-3">
-                                                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt">Pay From:</label>
+                                                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt">Pay From:<span id="rcpid" class="hidden"></span></label>
                                                                 </div>
                                                                 <div class="col-sm-4">
                                                                     <select id="ddlPaymentMethodR" class="form-control"></select>
@@ -413,7 +419,7 @@
                                                                             <label></label>
                                                                         </div>
                                                                         <div class="col-sm-4">
-                                                                            <input id="chkTermsAndConditionR" type="checkbox" class="form-control" style="font-size:11pt;" /> I agree to the <a style="cursor:pointer" id="ShowTermsAndCondition" href="javascript:void(0);">Terms & Condition</a>
+                                                                            <input id="chkTermsAndConditionR" type="checkbox" class="form-control" style="font-size:11pt;" /> I agree to the <a style="cursor:pointer" id="ShowTermsAndConditionR" href="javascript:void(0);">Terms & Condition</a>
                                                                         </div>
                                                                         <div class="col-sm-4">
                                                                             <label></label>
@@ -432,7 +438,12 @@
                                                     <div class="col-lg-12">
                                                         <div class="col-sm-7">
                                                             <div class="form-group">
-                                                                <button id="btnSaveRecurringPayment" type="button" class="btn btn-primary pull-right" onclick="recurringPaymentSaveUpdate();" style="font-size: 11pt;"> Save</button>
+                                                                <button id="btnSaveRecurringPayment" type="button" class="btn btn-primary pull-right hidden" onclick="recurringPaymentSaveUpdate();" style="font-size: 11pt;"> Save</button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-7">
+                                                            <div class="form-group">
+                                                                <button id="btnSetUpRecurringPayment" type="button" class="btn btn-primary pull-right"  onclick="recurringPaymentSetUp();" style="font-size: 11pt;">Schedule a Recurring Payment</button>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-5">
@@ -931,7 +942,7 @@
                                                 <div class="col-sm-3">
                                                     <div class="form-group">
                                                         <label>Desired Time</label>
-                                                        <input id="txtDesiredTime" type="time" class="form-control" style="width:80%" maxlength="20" placeholder="HH:mm:ss" value="">
+                                                        <input id="txtDesiredTime" class="time_element form-control form-control-small" type="text" name="timepicker"  style="width:80%" maxlength="20" placeholder="HH:mm:ss" value="">
                                                         <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:130px;">
                                                             <button id="btnDesiredTime" class="btn btn-primary search" type="button"><i class="fa-clock-o fa"></i></button>
                                                         </span>
@@ -1212,55 +1223,7 @@
                                                 </div>
                                             </div>
                                             <br />
-                                            @*<div class="col-sm-12">
-                            <table>
-                                <tr style="width:100%">
-                                    <td width="25%"><span class="star">GUEST NAME : </span></td>
-                                    <td width="25%"><input type="text" id="txtGuestFirstName" onchange="copyGuestName();" /><hr /> </td>
-                                    <td width="25%">&nbsp;&nbsp;LAST NAME:</td>
-                                    <td width="25%"><input type="text" id="txtGuestLastName" onchange="copyGuestName();" /><hr /></td>
-                                </tr>
-                                <tr style="width:100%">
-                                    <td width="35%"><span class="star">GUEST ADDRESS:</span>  </td>
-                                    <td width="15%" colspan="2" height="80"><textarea id="txtGuestAddress" style="height:60px;width:450px;border: none;"></textarea><hr /> </td>
-                                    <td width="25%" height="30">&nbsp;&nbsp;PHONE#: <br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EMAIL:</td>
-                                    <td width="25%" colspan="4" height="30"><input type="text" id="txtGuestPhone" maxlength="10" onkeypress="return isOnlyNumber(event);" /><hr><input type="text" id="txtGuestEmail" /><hr /></td>
-                                </tr>
-                                <tr style="width:100%">
-                                    <td width="25%"><span class="star">Visit Start Date: </span>  </td>
-                                    <td width="7%"><input type="text" id="txtGuestVistStartDate" style="width:150px !important;" /><hr /> </td>
-                                    <td width="15%">Visit End Date (Limited to 10 days)</td>
-                                    <td width="7%"><input type="text" id="txtGuestVistEndDate" style="width:150px !important;" /><hr /></td>
-                                    <td width="16%">(Limited to 10 days)</td>
-                                    <td width="15%" colspan="2"><label>Upload Driver Licence or Picture Id</label></td>
-                                    <td width="150">
-                                        <input type="file" name="fileUploadGuestDriverLicence" id="fileUploadGuestDriverLicence" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileUploadGuestDriverLicence"><i class="fa fa-upload fa-2x"></i> <span id="fileSpanShowGuestDriverLicence">Choose a file&hellip;</span></label>
-                                        <input type="hidden" id="hndUploadGuestDriverLicence" value="0" />
-                                        <input type="hidden" id="hndOriginalUploadGuestDriverLicence" value="0" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td width="170"><span class="star">Vehicle Make: </span>  </td>
-                                    <td width="170"><input type="text" id="txtGuestVehicleMake" /><hr /> </td>
-                                    <td width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vehicle Model</td>
-                                    <td width="170"><input type="text" id="txtGuestVehicleModel" /><hr /></td>
-                                    <td width="90">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Tag#: </span>  </td>
-                                    <td width="100"><input type="text" id="txtGuestVehicleTag" /><hr /> </td>
-                                    <td width="250">
-                                        <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Upload Registration</label>
-
-                                    </td>
-                                    <td width="150">
-                                        <input type="file" name="fileUploadGuestRegistration" id="fileUploadGuestRegistration" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileUploadGuestRegistration"><i class="fa fa-upload fa-2x"></i> <span id="fileSpanShowGuestRegistration">Choose a file&hellip;</span></label>
-                                        <input type="hidden" id="hndUploadGuestRegistration" value="0" />
-                                        <input type="hidden" id="hndOriginalUploadGuestRegistration" value="0" />
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>*@
-
+                                           
                                             <div class="col-sm-12">
                                                 <h5 style="text-decoration:underline;">Guest Certification</h5>
 
@@ -1634,6 +1597,42 @@
         </div>
 
     </div>
+    <div id="modalTermConditionR" class="modal" style="width:100% !important">
+        <div class="modal-header">
+            <span class="close" id="TermConditionR" style="margin-top: -9px !important;margin-right: 223px !important;">&times;</span>
+        </div>
+        <!-- Modal content -->
+        <div class="modal-content-term" style="width:66% !important">
+
+            <div class="text-center">
+                <div class="modal-body" style="padding:15px;" id="divRecTerm">
+                    <table width="960" border="0"  cellpadding="0" cellspacing="0" style="margin:auto;padding:0; vertical-align:top;min-height:1180px;width:900px;">
+
+                        <tr>
+                            <td colspan="2">
+                                <p style="font-size:large;text-align:center;"><b>Recurring Payment Terms & Conditions:</b></p>
+                                <p style="font-size:medium">Please read this document carefully. Automatic Payment Agreement (Credit Card and/or Bank Account) </p>
+                                <p style="font-size:medium"><b>AUTOPAY PROGRAM AUTHORIZATION FORM</b></p>
+                                <p style="font-size:medium;text-align:justify;">To ensure proper withdrawal of your payment, please confirm you have provided the correct routing and transit number or credit card information on the Enroll Payment Account screen.  We will notify you by email when your Autopay is established.  Until then, please continue to make payments on your account as your normally do.  If you have any questions, please do not hesitate to call our office at <b>786.437.8658.</b>  </p>
+                                <p style="font-size:medium;text-align:justify;">You have chosen to pay <b>$<span id="recPopAmt"></span></b>  (lump sum or payment amount).  This amount will automatically be debited to your bank or credit card each month on the due date shown above (if the due date falls on a Saturday, it will automatically be withdrawn on the Friday before.  If it falls on a Sunday, it will be withdrawn on the following Monday.) </p>
+                                <p style="font-size:medium;text-align:justify;"><b>Warning:  If you have chosen a FIXED AMOUNT which is less than your monthly rent due including all pertinent charges as shown in the AMOUNT DUE box or your statement, and there is no other Autopay set up by another tenant in your unit, you or the other unit residents must make a payment outside of the AutoPay to satisfy the remaining balance prior to the due date to avoid Late Fees and becoming delinquent.  </b></p>
+                                <p style="font-size:medium;text-align:justify;"><b>By clicking the Terms and Conditions herein, you confirm that you are authorizing to initiate transfer in the amount shown above from the designated bank account or credit card each month via automatic electronic withdrawal on the designated due date.  </b></p>
+
+
+                                <p style="font-size:medium;text-align:justify;">If you wish to EDIT OR CANCEL Autopay, please <a href="javascript:void(0);" onclick=" goToRecurringPaymentFromMyHome();"> click here</a>.  Please note that once Autopay has been cancelled, you will remain fully responsible for any amounts due and will be subject to any late fees if the amounts due are not paid by the due date.</p>
+                                <p style="font-size:medium">If you would like to print this agreement for your records, please <a href="javascript:void(0);"  onclick="print('divRecTerm')"> click here</a>.</p>
+
+                            </td>
+                        </tr>
+
+
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
     <div class="modal" id="popPaymentBreakdown">
         <div class="modal-dialog">
             <div class="modal-content" style="width: 47%; height:560px;">
@@ -1844,6 +1843,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
 
     <script>
+        $(document).ready(function () {
+            $("#txtDesiredTime").timepicki();
+        });
+
         $(function () {
 
 
@@ -1899,6 +1902,10 @@
     </script>
 
     <style>
+        .timepicker_wrap{
+            width:135% !important;
+        }
+
         .tab-content ul {
             /*background-color: #c7d5c733;*/
         }
@@ -2345,24 +2352,33 @@
 
 
         var modalTermcondition = document.getElementById("modalTermCondition");
+        var modalTermconditionR = document.getElementById("modalTermConditionR");
 
         var ShowTermcondition = document.getElementById("ShowTermsAndCondition");
-
+        var ShowTermconditionR = document.getElementById("ShowTermsAndConditionR");
         var spanTermcondition = document.getElementById("TermCondition");
+        var spanTermconditionR = document.getElementById("TermConditionR");
 
         ShowTermcondition.onclick = function () {
             modalTermcondition.style.display = "block";
         }
-
+        ShowTermconditionR.onclick = function () {
+            modalTermconditionR.style.display = "block";
+        }
 
         spanTermcondition.onclick = function () {
             modalTermcondition.style.display = "none";
         }
-
+        spanTermconditionR.onclick = function () {
+            modalTermconditionR.style.display = "none";
+        }
 
         window.onclick = function (event) {
             if (event.target == modalTermcondition) {
                 modalTermcondition.style.display = "none";
+            }
+            if (event.target == modalTermconditionR) {
+                modalTermconditionR.style.display = "none";
             }
         }
 

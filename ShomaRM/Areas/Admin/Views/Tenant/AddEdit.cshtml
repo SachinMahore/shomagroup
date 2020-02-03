@@ -28,12 +28,13 @@
                     <div class="tab-content">
 
                         <ul class="nav nav-tabs main-tab">
-                            <li id="li13" class="active"><a href="javascript:void(0);" onclick="goToStep(13)" style="font-size:16pt;">Tenant Profile</a></li>
-                            <li id="li8"><a href="javascript:void(0);" onclick="goToStep(8)" style="font-size:16pt;padding-left:50px!important;padding-right:50px!important;">Payment</a></li>
-                            <li id="li9"><a href="javascript:void(0);" onclick="goToStep(9)" style="font-size:16pt;padding-right:50px!important;">Service Request</a></li>
-                            <li id="li10"><a href="javascript:void(0);" onclick="goToStep(10)" style="font-size:16pt;padding-right:50px!important;">Reservation</a></li>
-                            <li id="li11"><a href="javascript:void(0);" onclick="goToStep(11)" style="font-size:16pt;padding-right:50px!important;">My Lease Info</a></li>
-                            <li id="li12"><a href="javascript:void(0);" onclick="goToStep(12)" style="font-size:16pt;">Register Guest</a></li>
+                            <li id="li13" class="active"><a href="javascript:void(0);" onclick="goToStep(13)" style="font-size:16pt;padding-right:30px!important;">Tenant Profile</a></li>
+                            <li id="li8"><a href="javascript:void(0);" onclick="goToStep(8)" style="font-size:16pt;padding-left:30px!important;padding-right:50px!important;">Payment</a></li>
+                            <li id="li9"><a href="javascript:void(0);" onclick="goToStep(9)" style="font-size:16pt;padding-right:30px!important;">Service Request</a></li>
+                            <li id="li10"><a href="javascript:void(0);" onclick="goToStep(10)" style="font-size:16pt;padding-right:30px!important;">Reservation</a></li>
+                            <li id="li11"><a href="javascript:void(0);" onclick="goToStep(11)" style="font-size:16pt;padding-right:30px!important;">My Lease Info</a></li>
+                            <li id="li12"><a href="javascript:void(0);" onclick="goToStep(12)" style="font-size:16pt;padding-right:30px!important;">Register Guest</a></li>
+                            <li id="li14"><a href="javascript:void(0);" onclick="goToStep(14)" style="font-size:16pt;padding-right:30px!important;">Community Activity</a></li>
                         </ul>
                         <div class="tab-content1">
                             <div class="hidden" id="step8">
@@ -473,6 +474,33 @@
                                 </div>
                             </div>
 
+                            <div class="hidden" id="step14">
+                                <div style="margin-top:10px!important;"><ul class="nav nav-tabs nact"><li><a href="javascript:void(0);"></a></li></ul></div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel-heading">
+                                            <div class="col-sm-4">
+                                                <h4 style="margin-top: 2%;margin-bottom: 5%;font-size: 12pt;color:#4D738A !important; ">Community Activity Chat</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <table id="tblCommunityActivity" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="background-color: #c7cdd5;color:#3d3939" width="60%">Activity</th>
+                                                        <th style="background-color: #c7cdd5;color:#3d3939" width="15%">Attachements</th>
+                                                        <th style="background-color: #c7cdd5;color:#3d3939" width="15%">Date Posted</th>
+                                                        <th style="background-color: #c7cdd5;color:#3d3939" width="10%">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
 
                         </div>
                         <!-- End submit form -->
@@ -516,7 +544,7 @@
     }
 
         .tab-content ul li {
-            margin-right: 23px;
+            margin-right: 22px;
         }
 
     .nav {

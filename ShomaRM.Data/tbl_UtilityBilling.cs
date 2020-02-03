@@ -26,8 +26,8 @@ namespace ShomaRM.Data
         public Nullable<System.DateTime> Posted { get; set; }
         public long TenantID { get; set; }
     
+        public virtual tbl_Lease tbl_Lease { get; set; }
         public virtual tbl_Tenant tbl_Tenant { get; set; }
         public virtual tbl_Utility tbl_Utility { get; set; }
-        public virtual tbl_Lease tbl_Lease { get; set; }
     }
 }

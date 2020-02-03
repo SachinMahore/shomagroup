@@ -96,7 +96,7 @@ $(document).ready(function () {
     };
 
     if ($("#chkAgreeTermsPolicy").is(":checked")) {
-        $("#policyStart").attr("disabled", false);
+        $("#policyStart").attr("disabled", true);
         InnerPolicyCheck();
     }
     else if ($("#chkAgreeTermsPolicy").is(":not(:checked)")) {
@@ -106,9 +106,9 @@ $(document).ready(function () {
     }
 
     $("#chkAgreeTermsPolicy").on('ifChanged', function (event) {
-        if ($("#chkAgreeTermsPolicy").is(":checked")) {
-            $("#popRentalQualification").modal("show");
+        if ($("#chkAgreeTermsPolicy").is(":checked")) {            
             InnerPolicyCheck();
+            $("#popRentalQualification").modal("show");
         }
         else if ($("#chkAgreeTermsPolicy").is(":not(:checked)")) {
             $("#policyStart").attr("disabled", true);
@@ -125,6 +125,7 @@ $(document).ready(function () {
 
         if ($("#chkRentalQual").is(":checked") && $("#chkRentalPolicy").is(":checked")) {
             $("#policyStart").attr("disabled", false);
+            $("#popRentalQualification").modal("hide");
         }
         else if ($("#chkRentalQual").is(":not(:checked)") || $("#chkRentalPolicy").is(":not(:checked)")) {
             $("#policyStart").attr("disabled", true);
@@ -683,9 +684,8 @@ var goToStep = function (stepid, id) {
     if (stepid == "7") {
         if (id == "7") {
             SaveCheckPolicy();
-            $("#as6").removeAttr("onclick")
+            $("#as6").removeAttr("onclick");
             $("#as6").attr("onclick", "goToStep(7,7)");
-
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
             $("#step4").addClass("hidden");
@@ -929,6 +929,9 @@ var goToStep = function (stepid, id) {
             if (!$("#txtZip").val()) {
                 msg += "Please Fill Zip </br>";
             }
+            if (!$("#txtMoveInDateFrom").val()) {
+                msg += "Please Fill Move In Date </br>";
+            }
 
 
             if (msg != "") {
@@ -1032,7 +1035,7 @@ var goToStep = function (stepid, id) {
                     }
                 }
             }
-            else if ($("#rbtnFedralTax").is(":checked")) {
+            if ($("#rbtnFedralTax").is(":checked")) {
                 if ($("#hndHasTaxReturnFile1").val() == "0") {
                     if (document.getElementById('fileUploadTaxReturn1').files.length == '0') {
                         var upLabel4 = $('#lblUpload1').text();
@@ -1124,6 +1127,7 @@ var goToStep = function (stepid, id) {
                     msg += "Please Fill Valid Email </br>";
                 }
             }
+
             if (msg != "") {
                 $.alert({
                     title: "",
@@ -1283,6 +1287,7 @@ var SaveOnlineProspect = function () {
     var phoneNumber = unformatText($("#txtPhoneNumber").val());
     var emailId = $("#txtEmail").val();
     var password = $("#txtPassword").val();
+    var confirmPassword = $("#txtConfPassword").val();
     var address = $("#txtAddress").val();
     var dob = $("#txtDOB").val();
     var annualIncome = $("#txtAnnualIncome").val();
@@ -1315,12 +1320,15 @@ var SaveOnlineProspect = function () {
             msg += "Please fill Valid Email </br>"
         }
     }
-
+    
     if (!password) {
         msg += "Please fill the Password </br>";
     } else {
         if (password.length < 8) {
             msg += "Password should have atleast 8 digits long</br>";
+        }
+        if (password != confirmPassword) {
+            msg += "Password and Confirm Password must be the same</br>";
         }
     }
 
@@ -1459,8 +1467,8 @@ var SaveCheckPolicy = function () {
         IsRentalQualification: isRentalQualification,
         FirstName: firstName,
         LastName: lastName,
-        Email: emailId,
-    }
+        Email: emailId
+    };
 
     $.ajax({
         url: '/ApplyNow/SaveCheckPolicy',
@@ -2250,6 +2258,8 @@ var getPropertyUnitDetails = function (uid) {
 function displayImg() {
     $("#popFloorPlan").modal("show");
 }
+
+
 function displayCompImg(modname) {
     $("#imgFloorPlan2").attr("src", "/content/assets/img/plan/" + modname + "Det.jpg");
     $("#popFloorPlan").modal("show");
@@ -3257,6 +3267,7 @@ var goToEditApplicant = function (aid) {
                     var opt = "<option value='0'>Select Relationship</option>";
                     opt += "<option value='1'>Self</option>";
                     $("#ddlARelationship").append(opt);
+
                     $("#ddlARelationship").val(response.model.Relationship).change();
 
                     //$("#ddlGRelationship").addClass("hidden");
@@ -3410,12 +3421,12 @@ var saveupdatePet = function () {
     if (!breed) {
         msg += "Enter Pet Breed</br>";
     }
-    if (hiddenPetPicture.length == '0') {
+    if (hiddenPetPicture == '0') {
         if (document.getElementById('pet-picture').files.length == '0') {
             msg += "Please Upload Pet Picture</br>";
         }
     }
-    if (hiddenPetVaccinationCertificate.length == '0') {
+    if (hiddenPetVaccinationCertificate == '0') {
         if (document.getElementById('filePetVaccinationCertificate').files.length == '0') {
             msg += "Please Upload Pet Vaccination Certificate</br>";
         }

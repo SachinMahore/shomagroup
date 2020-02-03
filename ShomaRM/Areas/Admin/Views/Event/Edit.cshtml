@@ -65,7 +65,7 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="txtEventTime" class="star">Time</label>
-                                                <input id="txtEventTime" class="time_element form-control form-control-small" type="text" name="timepicker" value="@(Model.EventTime)" />
+                                                <input id="txtEventTime" class="time_element form-control form-control-small" type="text" name="timepicker" value="@(Model.EventTimeString)" />
                                                 <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:167px;">
                                                     <button class="btn btn-primary search" type="button"><i class="fa-clock-o fa"></i></button>
                                                 </span>
@@ -74,7 +74,7 @@
                                         <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="txtEventFees" class="star">Fees</label>
-                                            <input id="txtEventFees" class="form-control form-control-small" style="text-align:right;" value="@(Model.Fees)" />
+                                            <input id="txtEventFees" class="form-control form-control-small" style="text-align:right;" value="@(Model.Fees.Value.ToString("0.00"))" />
                                             <span class="input-group-btn pull-left" style="margin-top: -34px;">
                                                 <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
                                             </span>
@@ -118,16 +118,10 @@
 <script>
     $(function () {
         $("#txtEventDate").datepicker();
+        $("#txtEventTime").timepicki();
         var photo = document.getElementById('wizard-picture');
-
-        $("#txtEventTime").timepicki({
-            show_meridian: false,
-            min_hour_value: 0,
-            max_hour_value: 23,
-            overflow_minutes: true,
-            increase_direction: 'up',
-            disable_keyboard_mobile: true});
     });
+        
     $(document).ready(function () {
         setTimeout(function () { $("#ddlProperty").find("option[value='" + @Model.PropertyID + "']").attr('selected', 'selected'); }, 1500);
         setTimeout(function () { $("#ddlEventType").find("option[value='" + @Model.Type + "']").attr('selected', 'selected'); }, 1600);

@@ -41,8 +41,10 @@ namespace ShomaRM.Data
         public string PermissionComeTime { get; set; }
         public string ClosingNotes { get; set; }
         public Nullable<int> UrgentStatus { get; set; }
+
         public Nullable<System.DateTime> ClosingDate { get; set; }
         public string OwnerSignature { get; set; }
         public string TempOwnerSignature { get; set; }
+
     }
 }
