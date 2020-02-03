@@ -7,6 +7,7 @@
     GetTenantDetails(newTenantID);
     getVehicleLists();
     getPetLists();
+    
 
 });
 
@@ -319,6 +320,8 @@ var goToStep = function (stepid, id) {
         $("#step12").addClass("hidden");
         $("#li13").removeClass("active");
         $("#step13").addClass("hidden");
+        $("#li14").removeClass("active");
+        $("#step14").addClass("hidden");
 
     }
 
@@ -353,6 +356,8 @@ var goToStep = function (stepid, id) {
         $("#step12").addClass("hidden");
         $("#li13").removeClass("active");
         $("#step13").addClass("hidden");
+        $("#li14").removeClass("active");
+        $("#step14").addClass("hidden");
     }
     if (stepid == "10") {
         getReservationRequestList();
@@ -387,6 +392,8 @@ var goToStep = function (stepid, id) {
         $("#step12").addClass("hidden");
         $("#li13").removeClass("active");
         $("#step13").addClass("hidden");
+        $("#li14").removeClass("active");
+        $("#step14").addClass("hidden");
     }
     if (stepid == "11") {
        
@@ -420,6 +427,8 @@ var goToStep = function (stepid, id) {
         $("#step12").addClass("hidden");
         $("#li13").removeClass("active");
         $("#step13").addClass("hidden");
+        $("#li14").removeClass("active");
+        $("#step14").addClass("hidden");
     }
     if (stepid == "12") {
         getGuestRegistrationList();
@@ -451,6 +460,8 @@ var goToStep = function (stepid, id) {
 
         $("#li13").removeClass("active");
         $("#step13").addClass("hidden");
+        $("#li14").removeClass("active");
+        $("#step14").addClass("hidden");
     }
     if (stepid == "13") {
         $("#li13").addClass("active");
@@ -480,7 +491,41 @@ var goToStep = function (stepid, id) {
         $("#step11").addClass("hidden");
         $("#li12").removeClass("active");
         $("#step12").addClass("hidden");
+        $("#li14").removeClass("active");
+        $("#step14").addClass("hidden");
+    }
 
+    if (stepid == "14") {
+        getCommunityActivityList();
+        $("#li14").addClass("active");
+        $("#step14").removeClass("hidden");
+
+        $("#step1").addClass("hidden");
+        $("#li1").removeClass("active");
+        $("#step2").addClass("hidden");
+        $("#li2").removeClass("active");
+        $("#step3").addClass("hidden");
+        $("#li3").removeClass("active");
+        $("#step4").addClass("hidden");
+        $("#li4").removeClass("active");
+        $("#step5").addClass("hidden");
+        $("#li5").removeClass("active");
+        $("#step6").addClass("hidden");
+        $("#li6").removeClass("active");
+        $("#li7").removeClass("active");
+        $("#step7").addClass("hidden");
+        $("#li8").removeClass("active");
+        $("#step8").addClass("hidden");
+        $("#li9").removeClass("active");
+        $("#step9").addClass("hidden");
+        $("#li10").removeClass("active");
+        $("#step10").addClass("hidden");
+        $("#li11").removeClass("active");
+        $("#step11").addClass("hidden");
+        $("#li12").removeClass("active");
+        $("#step12").addClass("hidden");
+        $("#li13").removeClass("active");
+        $("#step13").addClass("hidden");
     }
 
 };
@@ -822,5 +867,61 @@ var getPetLists = function () {
 };
 
 
+//Community Activity
+
+var getCommunityActivityList = function () {
+    
+   // alert($('#hndNewTenant').val());
+    $("#divLoader").show();
+    var model = { TenantId: $('#hndNewTenant').val() };
+
+    $.ajax({
+        url: '/Tenant/CommunityActivity/GetCommunityActivityAdminList',
+        type: 'post',
+        contentType: 'application/json utf-8',
+        data: JSON.stringify(model),
+        dataType: 'json',
+        success: function (response) {
+            var attachFile = '';
+            $('#tblCommunityActivity>tbody').empty();
+            $.each(response.model, function (elementType, elementValue) {
+                console.log(JSON.stringify(response));
+                var fileExist = doesFileExist('/Content/assets/img/CommunityPostFiles/' + elementValue.AttatchFile);
+                if (fileExist == true) {
+                    attachFile = "<a href='/Content/assets/img/CommunityPostFiles/" + elementValue.AttatchFile + "' target='_blank'><i class='fa fa-paperclip'></i> Attachment</a>";
+                }
+                else {
+                    attachFile = "<span>No Attachment</span>";
+                }
+
+                var html = "<tr data-value=" + elementValue.CID + ">";
+                html += "<td>" + elementValue.Details + "</td>";
+                html += "<td>" + attachFile + "</td>";
+                html += "<td>" + elementValue.DateString + "</td>";
+                html += "<td><button class='btn btn-addon' onclick='deleteCommunityPost(" + elementValue.CID + ")'><i class='fa fa-trash'></i></button></td>";
+                html += "</tr>";
+                $("#tblCommunityActivity>tbody").append(html);
+            });
+           
+            $("#divLoader").hide();
+        }
+    });
+};
+
+var deleteCommunityPost = function (cid) {
+    $("#divLoader").show();
+    var model = { CID: cid};
+
+    $.ajax({
+        url: '/Tenant/CommunityActivity/DeleteCommunityActivityPost',
+        type: 'post',
+        contentType: 'application/json utf-8',
+        data: JSON.stringify(model),
+        dataType: 'json',
+        success: function (response) { }
+    });
+    getCommunityActivityList();
+    $("#divLoader").hide();
+};
 
 

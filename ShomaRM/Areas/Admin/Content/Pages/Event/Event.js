@@ -21,6 +21,9 @@ var SaveUpdateEvent = function () {
     if (eventDate == "") {
         msg += "Please Fill The Event Date </br>";
     }
+    if (eventTime == "") {
+        msg += "Please Fill The Event Time </br>";
+    }
     if (msg != "") {
         $.alert({
             title: "Alert!",
@@ -41,22 +44,24 @@ var SaveUpdateEvent = function () {
     $formData.append('EventTime', eventTime);
     $formData.append('Fees', eventFees);
     var photo = document.getElementById('wizard-picture');
-
-    for (var i = 0; i < photo.files.length; i++) {
-        $formData.append('file-' + i, photo.files[i]);
-        console.log(photo.files[i]);
+    if (photo.files.length > 0) {
+        for (var i = 0; i < photo.files.length; i++) {
+            $formData.append('file-' + i, photo.files[i]);
+            console.log(photo.files[i]);
+        }
     }
+    
     $.ajax({
         url: '/Admin/Event/SaveUpdateEvent',
         type: 'post',
         data: $formData,
+        dataType: 'json',
         contentType: false,
         processData: false,
-        dataType: 'json',
         success: function (response) {
             $.alert({
                 title: 'Alert!',
-                content: response.msg,
+                content: response.models,
                 type: 'blue'
             });
             setInterval(function () {

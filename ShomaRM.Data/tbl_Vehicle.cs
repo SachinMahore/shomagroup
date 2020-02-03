@@ -17,16 +17,16 @@ namespace ShomaRM.Data
         public long Vehicle_ID { get; set; }
         public long TenantID { get; set; }
         public string License { get; set; }
-        public string State { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
         public string Color { get; set; }
         public Nullable<long> ProspectID { get; set; }
-        public string Year { get; set; }
         public string VehicleRegistration { get; set; }
         public string OwnerName { get; set; }
         public string Notes { get; set; }
         public string OriginalVehicleReg { get; set; }
+        public string Year { get; set; }
+        public string State { get; set; }
     
         public virtual tbl_ApplyNow tbl_ApplyNow { get; set; }
     }

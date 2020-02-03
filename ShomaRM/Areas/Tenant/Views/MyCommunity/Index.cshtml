@@ -1,12 +1,13 @@
-﻿
+﻿@model ShomaRM.Areas.Tenant.Models.Club.ClubModel
+@using ShomaRM.Areas.Tenant.Models.Enum;
 @{
     ViewBag.Title = "Index";
 }
 <script src="~/Areas/Tenant/Content/Pages/MyCommunity/MyCommunity.js"></script>
 <script src="~/Content/zabuto_calendar.js"></script>
-
-<input id="hdnUserId" type="hidden" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID" />
-<input id="hndTenantID" type="hidden" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID" />
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<input id="hdnUserId" name="UserId" type="hidden" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID" />
+<input id="hndTenantID" name="TenantID" type="hidden" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container" style="width:100%;">
@@ -18,6 +19,9 @@
                             <li id="li1" class="active"><a href="javascript:void(0);" onclick="goToStep(1)" style="font-size:12pt;">Overview</a></li>
                             <li id="li2"><a href="javascript:void(0);" onclick="goToStep(2)" style="font-size:12pt;">Community Info</a></li>
                             <li id="li3"><a href="javascript:void(0);" onclick="goToStep(3)" style="font-size:12pt;">Events</a></li>
+                            <li id="li4"><a href="javascript:void(0);" onclick="goToStep(4)" style="font-size:12pt;">Create Club</a></li>
+                            <li id="li5"><a href="javascript:void(0);" onclick="goToStep(5)" style="font-size:12pt;">Join Club</a></li>
+                            <li id="li6"><a href="javascript:void(0);" onclick="goToStep(7,@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID)" style="font-size:12pt;">My Club</a></li>
                         </ul>
                         <div class="" id="step1">
                             <div class="">
@@ -151,7 +155,7 @@
                                                                         <span><b>Community Amenities</b></span>
                                                                     </div>
                                                                     <div class="col-sm-12" id="DivCommunityAmenities">
-                                                                        
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -194,7 +198,252 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="hidden" id="step4">
+                            @{
+                                ViewBag.Title = "CreateCommunityClubJoin";
+                            }
 
+                            <h3 class="center">Club Registration</h3>
+                            <br />
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="col-md-12">
+                                    <div class="row mb-15">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <div class="col-sm-2 star">
+                                                    <label style="color:#4D738A !important;font-size:11pt;">Club Title:</label>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <input id="txtClubTitle" type="text" name="ClubTitle" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-15">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <div class="col-sm-2 star">
+                                                    <label style="color:#4D738A !important;font-size:11pt;">Activity:</label>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    @Html.DropDownListFor(o => o.ActivityId, Enum.GetValues(typeof(ActivityEnum)).Cast<ActivityEnum>
+                                                        ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "ActivityId", @class = "form-control" })
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-15">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <div class="col-sm-2 star">
+                                                    <label style="color:#4D738A !important;font-size:11pt;">Start Date:</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <input id="txtStartDate" type="text" class="form-control" data-provide="datepicker" name="StartDate" maxlength="20" placeholder="MM/dd/yyyy">
+                                                    <span class="input-group-btn pull-right" style="margin-top: -34px; margin-right: 37px;">
+                                                        <button id="btnStartDate" class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-15">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <div class="col-sm-2 star">
+                                                    <label style="color:#4D738A !important;font-size:11pt;">Venue:</label>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <input id="txtVenue" type="text" name="Venue" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-15">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <div class="col-sm-2 star">
+                                                    <label style="color:#4D738A !important;font-size:11pt;">Meeting Day:</label>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    @Html.DropDownListFor(o => o.DayId, Enum.GetValues(typeof(DayEnum)).Cast<DayEnum>
+                                                      ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "DayId", @class = "form-control" })
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-15">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <div class="col-sm-2 star">
+                                                    <label style="color:#4D738A !important;font-size:11pt;">Meeting Time:</label>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="time_pick"><input id="txtMeetingTime" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:60%" maxlength="20" placeholder="HH:mm:ss" value="" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
+                                                    <span class="input-group-btn pull-right" style="margin-top: -34px; margin-right: 105px;">
+                                                        <button id="btnStartDate" class="btn btn-primary search" type="button"><i class="fa-clock-o fa"></i></button>
+                                                    </span>
+                                                    @*<input id="txtMeetingTime" data-provide="t" type="text" name="Time" class="form-control" />*@
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-15">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <div class="col-sm-2">
+                                                    <label style="color:#4D738A !important;font-size:11pt;">Contact/ Organizer:</label>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <input id="txtContact" type="text" name="Contact" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-15">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <div class="col-sm-2 star">
+                                                    <label style="color:#4D738A !important;font-size:11pt;">Email:</label>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <input id="txtEmail" type="text" name="Email" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-15">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <div class="col-sm-2 star">
+                                                    <label style="color:#4D738A !important;font-size:11pt;">Phone:</label>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <input id="txtPhoneNumber" type="text" name="PhoneNumber" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-15">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <div class="col-sm-2">
+                                                    <label style="color:#4D738A !important;font-size:11pt;">Best way to contact:</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="col-sm-2">
+                                                        <input id="PhoneCheck" class="form-control" type="radio" name="check" checked="checked" /> Phone
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <input id="EmailCheck" class="form-control" type="radio" name="check" /> Email
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-15">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <div class="col-sm-2">
+                                                    <label style="color:#4D738A !important;font-size:11pt;">Performance Level (If applicable):</label>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    @Html.DropDownListFor(o => o.LevelId, Enum.GetValues(typeof(LevelEnum)).Cast<LevelEnum>
+                                                      ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "LevelId", @class = "form-control" })
+
+                                                    <textarea id="txtSpecialInstruction" rows="3" name="SpecialInstruction" placeholder="Special Instructions/Comments" class="form-control" style="margin-top:4px"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-15">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <div class="col-sm-2">
+                                                    <label style="color:#4D738A !important;font-size:11pt;">Description:</label>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <textarea id="txtDescription" name="Description" rows="5" placeholder="What is your club about?" class="form-control mb-5"></textarea>
+
+                                                    <textarea id="txtBriefDescription" name="BriefDescription" rows="2" maxlength="40" placeholder="Brief description (limited to 40 characters)" class="form-control mb-5"></textarea>
+
+                                                    <div class="mb-5">
+                                                        <input id="chkTermsConditions" class="form-control" type="checkbox" onchange="ClubSubmitEnableDisable(this)" name="TermsAndCondition" />
+                                                        &nbsp;I agree to the <a href="#" style="color:#4D738A !important;font-size:11pt;">Terms &amp; Conditions</a>
+                                                    </div>
+
+                                                    <div class="center">
+                                                        <input type="hidden" id="hndfileCommunityActivity" />
+                                                        <input type="hidden" id="hndfileCommunityActivityOriginalName" />
+                                                        <button id="ClubSubmit" type="button" class=" btn btn-primary" onclick="SubmitClub()" style="background-color:#4D738A;border-color:#4D738A;color:#fff;margin-top:5px;font-size:11pt;">Create Club</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            }
+                        </div>
+                        <div class="hidden" id="step5">
+                           @{Html.RenderPartial("_JoinClub",Model.GetClubList());}
+                        </div>
+                        <div class="hidden" id="step6">
+                            <div class="">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-4">
+                                                        <div class="card" style="border:2px solid #4D738A;">
+                                                            <div class="card-body center">
+                                                                <img class="img-avatar" src="../../../content/assets/img/slide2/5.jpg" alt="club img">
+                                                                <h3 class="card-title mb-5">Organizer</h3>
+                                                                <h5 class="card-text mb-15"><label id="ClubOrganization"></label></h5>
+                                                                <h3 class="card-title mb-5">Email</h3>
+                                                                <h5 class="card-text mb-15"><label id="ClubEmail"></label></h5>
+                                                                <button id="btnJoinClub" type="button" class=" btn btn-primary" style="background-color:#4D738A;border-color:#4D738A;color:#fff;margin-top:5px;font-size:11pt;">Join Club</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <h3><b>Cyclers - Tuesday at 7P</b></h3>
+                                                        <p style="font-size:11pt;">
+                                                            It is a long established fact that a reader will be distracted by the readable content of a page when looking
+                                                            at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as
+                                                            opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages
+                                                            and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many
+                                                            web sites still in their infancy.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden" id="step7">
+                            @{Html.RenderPartial("_JoinClub", Model.GetClubList(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID));}
+                            JoinClubPartialByUser
+                        </div>
                         <!-- End submit form -->
                     </div>
                 </div>
@@ -434,15 +683,24 @@
             </div>
         </div>
     </div>
-    <input id="hdnCardName"value="0" />
-    <input id="hdnCardNumber" value="0" />
-    <input id="hdnCardMonth" value="0" />
-    <input id="hdnCardYar" value="0" />
-    <input id="hdnAccountName" value="0" />
-    <input id="hdnBankName" value="0" />
-    <input id="hdnAccountnumber" value="0" />
-    <input id="hdnRoutingNumber" value="0" />
+    @*<input id="hdnCardName" value="0" />
+        <input id="hdnCardNumber" value="0" />
+        <input id="hdnCardMonth" value="0" />
+        <input id="hdnCardYar" value="0" />
+        <input id="hdnAccountName" value="0" />
+        <input id="hdnBankName" value="0" />
+        <input id="hdnAccountnumber" value="0" />
+        <input id="hdnRoutingNumber" value="0" />*@
     <style>
+
+        .mb-15 {
+            margin-bottom: 15px;
+        }
+
+        .mb-5 {
+            margin-bottom: 5px;
+        }
+
         .tab-content1 ul.t-ul {
             background-color: transparent !important;
         }
@@ -502,9 +760,9 @@
             border-radius: 0px;
         }
         /*.active1 > a {
-            color: #4d738a !important;
-            background-color: #ffffff !important;
-        }*/
+                color: #4d738a !important;
+                background-color: #ffffff !important;
+            }*/
 
 
         .tab-content1.wizard > ul > li::after:last-child {
@@ -663,9 +921,9 @@
         .main-tab.t-ul > ul > li > a {
             color: #B7B0A7 !important;
             /*outline: 0;
-            font-weight: bold;
-            -webkit-transition: all .8s ease;
-            transition: all .8s ease;*/
+                font-weight: bold;
+                -webkit-transition: all .8s ease;
+                transition: all .8s ease;*/
         }
 
         .hov {
@@ -1009,9 +1267,23 @@
             height: 100% !important;
         }
     </style>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+    <script src="~/Content/assets/js/bootstrap-datepicker.js"></script>
+    <script src="~/Content/assets/js/bootstrap-datetimepicker.js"></script>
     <script>
+        $(document).ready(function () {
+            $("#txtMeetingTime").timepicki();
+        });
+        $("#chkTermsConditions").on('ifChanged', function (event) {
+            if (this.checked == true) {
+                $('#ClubSubmit').removeAttr('disabled');
+            } else {
+                $('#ClubSubmit').attr('disabled', 'disabled');
+            }
+        });
+
         var closeDateModel = function () {
+
             var modalOpDate = document.getElementById("date-popover");
             var modalClDate = document.getElementById("closeModelDate");
             modalClDate.onclick = function () { modalOpDate.style.display = "none"; }

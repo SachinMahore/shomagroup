@@ -31,12 +31,12 @@ namespace ShomaRM.Areas.Admin.Controllers
                     fb = Request.Files[i];
 
                 }
-                string msg = new EventModel().SaveUpdateEvent(fb, model);
-                return Json(new { Msg = msg }, JsonRequestBehavior.AllowGet);
+
+                return Json(new { models = new EventModel().SaveUpdateEvent(fb, model) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new { models = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
         public ActionResult GetEventData(DateTime FromDate, DateTime ToDate)

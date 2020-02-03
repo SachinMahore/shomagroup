@@ -77,6 +77,9 @@
     <Reference Include="RestSharp, Version=100.0.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharpSigned.105.2.3\lib\net46\RestSharp.dll</HintPath>
     </Reference>
+    <Reference Include="SendGrid, Version=9.12.6.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\SendGrid.9.12.6\lib\net452\SendGrid.dll</HintPath>
+    </Reference>
     <Reference Include="SendGrid.SmtpApi, Version=1.2.1.0, Culture=neutral, PublicKeyToken=2ae73662c35d80e4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\SendGrid.SmtpApi.dll</HintPath>
@@ -261,7 +264,10 @@
     <Compile Include="Areas\Tenant\Models\AmenitiesRR\AmenitiesRRModel.cs" />
     <Compile Include="Areas\Tenant\Models\ApplicantHistory\ApplicantHistoryModel.cs" />
     <Compile Include="Areas\Tenant\Models\Applicant\ApplicantModel.cs" />
+    <Compile Include="Areas\Tenant\Models\Club\ClubModel.cs" />
+    <Compile Include="Areas\Tenant\Models\Club\CommonClubModel.cs" />
     <Compile Include="Areas\Tenant\Models\CommunityActivity\CommunityActivityModel.cs" />
+    <Compile Include="Areas\Tenant\Models\Enum\ClubEnum.cs" />
     <Compile Include="Areas\Tenant\Models\EventBooking\EventBookingModel.cs" />
     <Compile Include="Areas\Tenant\Models\FacilityBooking\FacilityBookingModel.cs" />
     <Compile Include="Areas\Tenant\Models\GuestRegistration\GuestRegistrationModel.cs" />
@@ -626,6 +632,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="lib\USAePayAPI.dll" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\assets\fonts\fontawesome-webfont.eot" />
@@ -752,6 +759,7 @@
     <Content Include="Areas\Admin\Views\Amenities\AmenitiesReservationRequest.cshtml" />
     <Content Include="Areas\Admin\Views\Amenities\ARREdit.cshtml" />
     <Content Include="Areas\Admin\Views\GuestManagement\Index.cshtml" />
+    <Content Include="Areas\Tenant\Views\MyCommunity\_JoinClub.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
