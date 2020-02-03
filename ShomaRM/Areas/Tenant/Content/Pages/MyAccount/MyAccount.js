@@ -4807,7 +4807,7 @@ var getRecurringPayLists = function () {
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
           
                 html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                html += "<td><a href='javascript:void(0);' onclick='editRecPayment(" + elementValue.TransID + ",\"" + formatMoney(elementValue.Charge_Amount)+ "\",\"" + elementValue.Transaction_DateString + "\"," + elementValue.PAID+ ")'><i class='fa fa-edit'></i></a>   <a href='javascript:void(0);' onclick='deleteRecPayment(" + elementValue.TransID + ")'><i class='fa fa-trash'></i></a></td>";
+                html += "<td><a href='javascript:void(0);' onclick='editRecPayment(" + elementValue.TransID + ",\"" + formatMoney(elementValue.Charge_Amount) + "\",\"" + elementValue.Transaction_DateString + "\"," + elementValue.PAID + ")'><i class='fa fa-edit'></i></a>   <a href='javascript:void(0);' onclick='deleteRecPayment(" + elementValue.TransID + ")'><i class='fa fa-trash'></i></a></td>";
                 html += "</tr>";
               
                 $("#tblRecurringPayments>tbody").append(html);
@@ -4990,4 +4990,46 @@ function recurringPaymentSetUp() {
         }
     });
 
+}
+function deleteRecPayment(transid) {
+    
+    var tenantid = $("#hndTenantID").val();
+    
+    var models = {
+        TenantID: tenantid,
+        
+    };
+    $.alert({
+        title: "",
+        content: "Are you sure to Cancel Recurring Payments?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: "/MyTransaction/DeleteRecurringTransaction/",
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(models),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $.alert({
+                                title: 'Message!',
+                                content: response.Msg,
+                                type: 'blue',
+                            });
+
+                            getRecurringPayLists();
+                        }
+                    });
+                },
+                no: {
+                    text: 'No',
+                    action: function (no) {
+                    }
+                }
+            }
+        }
+        });
 }

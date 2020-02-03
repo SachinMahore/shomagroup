@@ -138,6 +138,17 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult DeleteRecurringTransaction(long TenantID)
+        {
+            try
+            {
+                return Json(new { Msg = (new MyTransactionModel().DeleteRecurringTransaction(TenantID)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         public ActionResult GetUpTransationLists(long TenantID)
         {
             try
