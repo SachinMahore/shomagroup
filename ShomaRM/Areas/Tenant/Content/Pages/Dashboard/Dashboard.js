@@ -182,7 +182,7 @@ var saveUpdateCommunityPost = function () {
     
     var msg = '';
     var model = {
-        TenantId: $('#hdnUserId').val(),
+        TenantId: $('#hndTenantID').val(),
         Details: $('#txtCommunityActivity').val(),
         AttatchFile: $('#hndfileCommunityActivity').val(),
         AttachFileOriginalName: $('#hndfileCommunityActivityOriginalName').val(),
@@ -305,30 +305,30 @@ var getEventsList = function () {
             $.each(response.model, function (elementType, elementValue) {
                 if (elementValue.Type == 1) {
                     // span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #00bfff;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + '</li>';
-                    span += '<li  id= Event' + elementValue.EventID + '><button class="button-square" style="background-color: #00bfff;z-index:999;">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A">&nbsp;</button></li>';
+                    span += '<li  id= Event' + elementValue.EventID + '><button class="button-square" style="background-color: #00bfff;z-index:999;" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A" onclick="eventDetailShow(' + elementValue.EventID +')">&nbsp;</button></li>';
 
                 }
                 else if (elementValue.Type == 2) {
                     //span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #a2d900;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + '</li>';
-                    span += '<li  id= Event' + elementValue.EventID + '><button class="button-square" style="background-color: #a2d900;z-index:999;">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A">&nbsp;</button></li>';
+                    span += '<li  id= Event' + elementValue.EventID + '><button class="button-square" style="background-color: #a2d900;z-index:999;" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A" onclick="eventDetailShow(' + elementValue.EventID +')">&nbsp;</button></li>';
 
 
                 }
                 else if (elementValue.Type == 3) {
                     //span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #ff6;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + '</li>';
-                    span += '<li  id= Event' + elementValue.EventID + '><button class="button-square" style="background-color: #ff6;z-index:999;">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A">&nbsp;</button></li>';
+                    span += '<li  id= Event' + elementValue.EventID + '><button class="button-square" style="background-color: #ff6;z-index:999;" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A" onclick="eventDetailShow(' + elementValue.EventID +')">&nbsp;</button></li>';
 
 
                 }
                 else if (elementValue.Type == 4) {
                     // span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #ff6347;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + '</li>';
-                    span += '<li  id= Event' + elementValue.EventID + '><button class="button-square" style="background-color: #ff6347;z-index:999;">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A">&nbsp;</button></li>';
+                    span += '<li  id= Event' + elementValue.EventID + '><button class="button-square" style="background-color: #ff6347;z-index:999;" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A" onclick="eventDetailShow(' + elementValue.EventID +')">&nbsp;</button></li>';
 
 
                 }
                 else if (elementValue.Type == 5) {
                     //span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #daf6ff;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + '</li>';
-                    span += '<li  id= Event' + elementValue.EventID + '><button class="button-square" style="background-color: #00bfff;z-index:999;">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A">&nbsp;</button></li>';
+                    span += '<li  id= Event' + elementValue.EventID + '><button class="button-square" style="background-color: #00bfff;z-index:999;" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A" onclick="eventDetailShow(' + elementValue.EventID +')">&nbsp;</button></li>';
 
 
                 }
@@ -735,6 +735,7 @@ var getIsAgreeDisclaimer = function () {
 
 
 var saveUpdatePostDisclaimer = function (status) {
+   // alert($("#hndTenantID").val());
     var model = {
         TenantID: $("#hndTenantID").val(),
         IsAgreePostDisclaimer: status
@@ -783,4 +784,24 @@ var breakdownPaymentFunction = function () {
         }
     });
     $("#divLoader").hide();
+};
+
+var eventDetailShow = function (id) {
+
+    var model = { EventID: id };
+
+    $.ajax({
+        url: '/Tenant/Dashboard/GetEventDetail',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#lblEventName").text(response.model.EventName);
+            $("#lblEventDate").text(response.model.EventDateString);
+            $("#lblEventTime").text(response.model.EventTimeString);
+            $("#lblEventDetail").text(response.model.Description);
+        }
+    });
+    $("#popEventDetails").modal('show');
 };

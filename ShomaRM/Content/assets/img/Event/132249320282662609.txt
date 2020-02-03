@@ -1,0 +1,6 @@
+1) in dashboard / MyCommunity / My Profile pages in Pay Rent Online / on the right Navigation - On clicking on the amount value
+   create function to show a popup with the breakdown of the payment.
+2) create display function to show values in pop up.
+3) design modal pop up for the all pages.
+4) craete function to restrict user to edit or delete payment before 7 days of the actual payment.
+5) In the bottom of the webpage put “FAQ” in capitals.

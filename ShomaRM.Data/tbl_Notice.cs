@@ -25,8 +25,8 @@ namespace ShomaRM.Data
         public string TerminationReason { get; set; }
         public Nullable<System.DateTime> CancelNoticeDate { get; set; }
     
-        public virtual tbl_Tenant tbl_Tenant { get; set; }
         public virtual tbl_Lease tbl_Lease { get; set; }
         public virtual tbl_Properties tbl_Properties { get; set; }
+        public virtual tbl_Tenant tbl_Tenant { get; set; }
     }
 }
