@@ -730,6 +730,27 @@ namespace ShomaRM.Areas.Tenant.Models
             db.Dispose();
             return msg;
         }
+        public string DeleteRecurringTransaction(long TenantID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string msg = "";
+
+            var monthPayList = db.tbl_TenantMonthlyPayments.Where(p => p.TenantID == TenantID).ToList();
+            if (monthPayList != null)
+            {
+                foreach (var tl in monthPayList)
+                {
+                    tl.IsRecurring = 0;
+                   
+                }
+                db.SaveChanges();
+            }
+            msg = "Recurring Payment Cancelled Successfully";
+           
+
+            db.Dispose();
+            return msg;
+        }
         public List<MyTransactionModel> GetTenantAccountHistoryList(long TenantID)
         {
             List<MyTransactionModel> listTenantHistory = new List<MyTransactionModel>();
