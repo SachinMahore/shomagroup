@@ -1140,53 +1140,71 @@ namespace ShomaRM.Areas.Admin.Models
                 }
                 db.SaveChanges();
 
-                DateTime EMiDate=  new DateTime(DateTime.Now.Year, (DateTime.Now.Month + 1), 1);
+                DateTime EMiDate=  new DateTime(DateTime.Now.Year, (DateTime.Now.Month), 1);
 
-                var saveInvoiceTransaction = new tbl_Transaction()
+                for (int i = 1; i < prospectDet.LeaseTerm; i++)
                 {
-                    TenantID = model.TenantID,
-                    Revision_Num = 1,
-                    Transaction_Date = EMiDate,
-                    Run = 1,
-                    LeaseID = 0,
-                    Reference = "TID" + model.TenantID,
-                    CreatedDate = DateTime.Now,
-                    Credit_Amount = 0,
-                    Description = "Monthly Charges-" +EMiDate,
-                    Charge_Type = 3,
-                    Payment_ID = null,
-                    Charge_Amount = prospectDet.MonthlyCharges ,
-                    Accounting_Date =EMiDate,
-                    ProspectID = ProspectID,
+                    var saveTransaction = new tbl_TenantMonthlyPayments()
+                    {
 
-                };
-                db.tbl_Transaction.Add(saveInvoiceTransaction);
-                db.SaveChanges();
-                var TransId = saveInvoiceTransaction.TransID;
-
-                MyTransactionModel mm = new MyTransactionModel();
-                mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.Rent), "Monthly Rent");
-                mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.TrashAmt), "Trash/Recycle charges");
-                mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.ConvergentAmt), "Convergent Billing charges");
-                mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.PestAmt), "Pest Control charges");
-
-                if (prospectDet.ParkingAmt!=0)
-                {
-                    mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.ParkingAmt), "Additional Parking charges");
-                   
+                        TenantID = model.TenantID,
+                        Revision_Num = i ,                       
+                        Transaction_Date = Convert.ToDateTime(EMiDate).AddMonths(i),
+                        
+                        Description = "Monthly Charges - " + Convert.ToDateTime(EMiDate).AddMonths(i).ToString("MM/dd/yyyy"),                       
+                        Charge_Amount = prospectDet.MonthlyCharges,
+                       
+                    };
+                    db.tbl_TenantMonthlyPayments.Add(saveTransaction);
+                    db.SaveChanges();
                 }
-                if (prospectDet.PetPlaceAmt != 0)
-                {
-                    mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.PetPlaceAmt), "Pet charges");
-                    
-                }
-                if (prospectDet.StorageAmt != 0)
-                {
-                    mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.StorageAmt), "Storage Charges");
-                   
-                }
-                
-             
+
+
+                //var saveInvoiceTransaction = new tbl_Transaction()
+                //{
+                //    TenantID = model.TenantID,
+                //    Revision_Num = 1,
+                //    Transaction_Date = EMiDate,
+                //    Run = 1,
+                //    LeaseID = 0,
+                //    Reference = "TID" + model.TenantID,
+                //    CreatedDate = DateTime.Now,
+                //    Credit_Amount = 0,
+                //    Description = "Monthly Charges-" + EMiDate,
+                //    Charge_Type = 3,
+                //    Payment_ID = null,
+                //    Charge_Amount = prospectDet.MonthlyCharges,
+                //    Accounting_Date = EMiDate,
+                //    ProspectID = ProspectID,
+
+                //};
+                //db.tbl_Transaction.Add(saveInvoiceTransaction);
+                //db.SaveChanges();
+                //var TransId = saveInvoiceTransaction.TransID;
+
+                //MyTransactionModel mm = new MyTransactionModel();
+                //mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.Rent), "Monthly Rent");
+                //mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.TrashAmt), "Trash/Recycle charges");
+                //mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.ConvergentAmt), "Convergent Billing charges");
+                //mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.PestAmt), "Pest Control charges");
+
+                //if (prospectDet.ParkingAmt!=0)
+                //{
+                //    mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.ParkingAmt), "Additional Parking charges");
+
+                //}
+                //if (prospectDet.PetPlaceAmt != 0)
+                //{
+                //    mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.PetPlaceAmt), "Pet charges");
+
+                //}
+                //if (prospectDet.StorageAmt != 0)
+                //{
+                //    mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.StorageAmt), "Storage Charges");
+
+                //}
+
+
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == model.UnitID).FirstOrDefault();
                 string reportHTML = "";
                 string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");

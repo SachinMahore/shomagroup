@@ -97,5 +97,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_TenantEventJoinApprove> tbl_TenantEventJoinApprove { get; set; }
         public virtual DbSet<tbl_Bill> tbl_Bill { get; set; }
         public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
+        public virtual DbSet<tbl_TenantMonthlyPayments> tbl_TenantMonthlyPayments { get; set; }
     }
 }

@@ -862,7 +862,9 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="TempCompletedPicture" Type="nvarchar" MaxLength="100" />
           <Property Name="ApprovedBy" Type="int" />
           <Property Name="ServicePerson" Type="int" />
-          <Property Name="PermissionComeTime" Type="varchar" MaxLength="50" />
+          <Property Name="PermissionComeTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClosingNotes" Type="varchar(max)" />
+          <Property Name="UrgentStatus" Type="int" />
         </EntityType>
         <EntityType Name="tbl_State">
           <Key>
@@ -1046,6 +1048,19 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="ProfilePicture" Type="varchar" MaxLength="500" />
           <Property Name="OrginalProfilePicture" Type="varchar" MaxLength="500" />
           <Property Name="IsAgreePostDisclaimer" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_TenantMonthlyPayments">
+          <Key>
+            <PropertyRef Name="TMPID" />
+          </Key>
+          <Property Name="TMPID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenantID" Type="bigint" Nullable="false" />
+          <Property Name="Revision_Num" Type="int" Nullable="false" />
+          <Property Name="Transaction_Date" Type="datetime" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Charge_Amount" Type="money" />
+          <Property Name="PAID" Type="int" Nullable="false" />
+          <Property Name="IsRecurring" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_TenantOnline">
           <Key>
@@ -2310,6 +2325,7 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <EntitySet Name="tbl_TenantEventJoin" EntityType="Self.tbl_TenantEventJoin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantEventJoinApprove" EntityType="Self.tbl_TenantEventJoinApprove" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantInfo" EntityType="Self.tbl_TenantInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_TenantMonthlyPayments" EntityType="Self.tbl_TenantMonthlyPayments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantOnline" EntityType="Self.tbl_TenantOnline" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantParking" EntityType="Self.tbl_TenantParking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantPet" EntityType="Self.tbl_TenantPet" Schema="dbo" store:Type="Tables" />
@@ -3023,6 +3039,7 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_Vehicle" EntitySet="tbl_Vehicle" />
           </AssociationSet>
+          <EntitySet Name="tbl_TenantMonthlyPayments" EntityType="ShomaRMModel.tbl_TenantMonthlyPayments" />
           </EntityContainer>
         <EntityType Name="tbl_Advertiser">
           <Key>
@@ -5110,7 +5127,9 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="TempCompletedPicture" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ApprovedBy" Type="Int32" />
           <Property Name="ServicePerson" Type="Int32" />
-          <Property Name="PermissionComeTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PermissionComeTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClosingNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UrgentStatus" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_MoveInChecklist">
           <Key>
@@ -5422,6 +5441,19 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_TenantMonthlyPayments">
+          <Key>
+            <PropertyRef Name="TMPID" />
+          </Key>
+          <Property Name="TMPID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantID" Type="Int64" Nullable="false" />
+          <Property Name="Revision_Num" Type="Int32" Nullable="false" />
+          <Property Name="Transaction_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Charge_Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PAID" Type="Int32" Nullable="false" />
+          <Property Name="IsRecurring" Type="Int32" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6585,6 +6617,8 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <EntitySetMapping Name="tbl_ServiceRequest">
             <EntityTypeMapping TypeName="ShomaRMModel.tbl_ServiceRequest">
               <MappingFragment StoreEntitySet="tbl_ServiceRequest">
+                <ScalarProperty Name="UrgentStatus" ColumnName="UrgentStatus" />
+                <ScalarProperty Name="ClosingNotes" ColumnName="ClosingNotes" />
                 <ScalarProperty Name="PermissionComeTime" ColumnName="PermissionComeTime" />
                 <ScalarProperty Name="ServicePerson" ColumnName="ServicePerson" />
                 <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
@@ -6816,6 +6850,20 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_TenantMonthlyPayments">
+            <EntityTypeMapping TypeName="ShomaRMModel.tbl_TenantMonthlyPayments">
+              <MappingFragment StoreEntitySet="tbl_TenantMonthlyPayments">
+                <ScalarProperty Name="IsRecurring" ColumnName="IsRecurring" />
+                <ScalarProperty Name="PAID" ColumnName="PAID" />
+                <ScalarProperty Name="Charge_Amount" ColumnName="Charge_Amount" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Transaction_Date" ColumnName="Transaction_Date" />
+                <ScalarProperty Name="Revision_Num" ColumnName="Revision_Num" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="TMPID" ColumnName="TMPID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -50,7 +50,7 @@ namespace ShomaRM.Areas.Tenant.Models
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> LastModifiedBy { get; set; }
         public Nullable<System.DateTime> LastModifiedeDate { get; set; }
-
+        public Nullable<int> LeaseTerm { get; set; }
         public string Mobile { get; set; }
         public string Email { get; set; }
         public string EmFirstNane { get; set; }
@@ -130,6 +130,8 @@ namespace ShomaRM.Areas.Tenant.Models
                 {
                     model.UnitName = unitname.UnitNo;
                 }
+                //var getTenantDet = db.tbl_ApplyNow.Where(p => p.UserId == model.UserId).FirstOrDefault();
+                //model.LeaseTerm = getTenantDet.LeaseTerm;
             }
             db.Dispose();
             return model;

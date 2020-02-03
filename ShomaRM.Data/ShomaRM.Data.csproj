@@ -244,6 +244,9 @@
     <Compile Include="tbl_TenantInfo.cs">
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbl_TenantMonthlyPayments.cs">
+      <DependentUpon>ShomaRM.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_TenantOnline.cs">
       <DependentUpon>ShomaRM.tt</DependentUpon>
     </Compile>

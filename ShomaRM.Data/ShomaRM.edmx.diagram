@@ -154,6 +154,7 @@
         <AssociationConnector Association="ShomaRMModel.FK_tbl_TenantPetPlace_tbl_ApplyNow" />
         <AssociationConnector Association="ShomaRMModel.FK_tbl_TenantStorage_tbl_ApplyNow" />
         <AssociationConnector Association="ShomaRMModel.FK_tbl_Vehicle_tbl_ApplyNow" />
+        <EntityTypeShape EntityType="ShomaRMModel.tbl_TenantMonthlyPayments" Width="1.5" PointX="15.375" PointY="11.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
