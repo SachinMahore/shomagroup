@@ -52,7 +52,7 @@
                                                 <div class="row">
                                                     <div class="form-group">
                                                         <div class="col-sm-3">
-                                                            <label style="background-color: transparent;color:#4D738A;font-size:13pt">Payment Method:</label>
+                                                            <label style="background-color: transparent;color:#4D738A;font-size:13pt" class="star">Payment Method:</label>
                                                         </div>
                                                         <div class="col-sm-4">
                                                             <select id="ddlPaymentMethod" class="form-control"></select>
@@ -70,7 +70,7 @@
                                                         <div class="row">
                                                             <div class="form-group">
                                                                 <div class="col-sm-3">
-                                                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt">Amount To Pay:</label><br />
+                                                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt" class="star">Amount To Pay:</label><br />
                                                                 </div>
                                                                 <i class="fa fa-file-txt-o"></i>
                                                                 <div class="col-sm-4">
@@ -145,8 +145,8 @@
                                                                 </div>
                                                                 <div class="col-sm-4">
                                                                     <input id="txtPrefarredDate" type="text" class="form-control form-control-small" value="@DateTime.Now.ToString("MM/dd/yyyy")" style="width:50% !important" />
-                                                                    <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:162px;">
-                                                                        <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                                                                    <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:162px;">
+                                                                        <button class="btn btn-primary search" id="Date" type="button"><i class="fa-calendar fa"></i></button>
                                                                     </span>
                                                                 </div>
 
@@ -214,7 +214,7 @@
                                                         <div class="row">
                                                             <div class="form-group">
                                                                 <div class="col-sm-3">
-                                                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt">CVV Number:</label>
+                                                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt" class="star">CVV Number:</label>
                                                                 </div>
                                                                 <div class="col-sm-4">
                                                                     <input id="txtCVVNumberPayRentOnline" type="password" class="form-control form-control-small" maxlength="3" value="" style="width:50% !important" onkeypress="return isOnlyNumber(event);" />
@@ -451,6 +451,70 @@
                                                                             <div class="col-sm-11">
 
                                                                                <label id=""> Fixed Amount: <b>$<span id="lblFixedamt"></span></b></label>
+                                                    <div class="col-lg-12">
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <div class="col-sm-3">
+                                                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt" class="star">Pay From:<span id="rcpid" class="hidden"></span></label>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <select id="ddlPaymentMethodR" class="form-control"></select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <br />
+                                                        <div class="row">
+                                                            <div class=""></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="row">
+                                                                    <div class="form-group">
+                                                                        <div class="col-sm-3">
+                                                                            <label style="background-color: transparent;color:#4D738A;font-size:13pt" class="star">Payment Amount:</label><br />
+                                                                        </div>
+                                                                        <i class="fa fa-file-txt-o"></i>
+                                                                        <div class="col-sm-4">
+                                                                            <input id="rbtnAmountToPayR1" class="form-control form-control-small" type="radio" name="AmountToPay" checked="checked" style="font-size:11pt;" /> Total Rent
+                                                                            <br />
+                                                                            <input id="rbtnAmountToPayR2" class="form-control form-control-small" type="radio" name="AmountToPay" style="font-size:11pt;" /> Other Amount
+                                                                        </div>
+                                                                        <div class="col-sm-4">
+                                                                            $<label id="lblCurrentPrePayAmountR" style="font-size:11pt;"></label>
+                                                                            <div id="divOtherAmountR" class="hidden">
+                                                                                <input id="txtOtherAmountR" type="text" class="form-control" style="width:50%;text-align:right" onkeypress="return isNumber(event);" value="0.00" onblur="if (this.value == '') { this.value = this.defaultValue };" onfocus="if (this.value == this.defaultValue) { this.value = '' };" />
+                                                                                <span class="input-group-btn" style="margin-top: -34px;display: flex;">
+                                                                                    <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="row">
+                                                            <br />
+                                                            <div class=""></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="row">
+                                                                    <div class="form-group">
+                                                                        <div class="col-sm-3">
+                                                                            <label style="background-color: transparent;color:#4D738A;font-size:13pt">Payment Date:</label>
+                                                                        </div>
+                                                                        <div class="col-sm-4">
+                                                                            <input id="txtPayDateR" type="text" class="form-control form-control-small" value="" style="width:50% !important" />
+                                                                            <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:115px;">
+                                                                                <button class="btn btn-primary search" id="PayDateR" type="button"><i class="fa-calendar fa"></i></button>
+                                                                            </span>
+                                                                        </div>
 
                                                                             </div>
 
@@ -545,7 +609,6 @@
                                                 <table id="tblPaymentAccountsCreditCard" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                                                     <thead>
                                                         <tr>
-                                                            <th style="background-color: transparent;color:#4D738A;font-size:11pt">Card Type</th>
                                                             <th style="background-color: transparent;color:#4D738A;font-size:11pt">Bank Name</th>
                                                             <th style="background-color: transparent;color:#4D738A;font-size:11pt">Card Name</th>
                                                             <th style="background-color: transparent;color:#4D738A;font-size:11pt">Card Number</th>
@@ -636,7 +699,7 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <div class="col-sm-3">
-                                                                <label style="color:#4D738A !important;font-size:13pt;">Service Issue:</label>
+                                                                <label style="color:#4D738A !important;font-size:13pt;" class="star">Service Issue:</label>
                                                             </div>
                                                             <div class="col-sm-4" style="margin-left: -36px;">
                                                                 <select id="ddlProblemCategory" class="form-control"></select>
@@ -835,7 +898,7 @@
                                                                 <div class="col-sm-8 hidden" id="PreferredDate">
                                                                     <input id="txtPreferredDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" style="width:138px" type="text" />
                                                                     <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 98px;">
-                                                                        <button class="btn btn-primary search" id="txtPreferredDate" type="button"><i class="fa-calendar fa"></i></button>
+                                                                        <button class="btn btn-primary search" id="Sdate" type="button"><i class="fa-calendar fa"></i></button>
                                                                     </span>
                                                                     @*<input id="txtPreferredTime" type="time" class="form-control" style="width:120px;margin-left: 162px;margin-top: -34px;" maxlength="20" placeholder="HH:mm:ss" value="">*@
                                                                     <select id="txtPreferredTime" class="form-control" style="width:120px;margin-left: 162px;margin-top: -34px;">
@@ -938,913 +1001,909 @@
                                                 <div class="panel-heading headingBack">
                                                     <h3 class="panel-title">Reserve a Facility</h3>
                                                 </div>
-                                                <div class="panel-body table-bordered">
-                                                    <span>--None--</span><br />
+                                                <div class="panel-body table table-bordered table-hover table-striped">
+                                                    <div class="list-group list-group-flush" id="reserve_facility_list">
+                                                        <a href="#" class="list-group-item">Cras justo odio </a>
+                                                        <a href="#" class="list-group-item">Dapibus ac facilisis</a>
+                                                        <a href="#" class="list-group-item">Morbi leo risus</a>
+                                                        <a href="#" class="list-group-item">Another item</a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="" id="">
+                                                    <div class="col-md-12 clear">
+                                                        <h4 style="margin-top: 2%;margin-bottom: 5%;font-size: 12pt;color:#4D738A !important; ">Recent Reservations</h4>
+                                                    </div>
+                                                    <div class="panel-body search-widget">
+                                                        <div class="col-md-12 clear">
+                                                            <table id="tblReservationRequest" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th width="20%" style="background-color: #c7cdd5;color:#3d3939">Tenant</th>
+                                                                        <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Amenity</th>
+                                                                        <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Desire Date</th>
+                                                                        <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Desire Time</th>
+                                                                        <th width="20%" style="background-color: #c7cdd5;color:#3d3939">Desire Duration</th>
+                                                                        <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Status</th>
+                                                                        <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Action</th>
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="hidden row" id="reservationStep2" style="margin-top:10px !important">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="" id="">
+                                                    <div class="col-md-12 clear">
+                                                        <h4 style="margin-top: 2%;margin-bottom: 2%;font-size: 12pt;color:#4D738A !important; ">Reserve an Amenity</h4>
+
+                                                    </div>
+                                                    <br />
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <label class="star">Amenity :</label>
+                                                            <select id="ddlAmenities" class="form-control">
+                                                                <option value='0'>Select Amenity</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <label>Desired Date</label>
+                                                            <input id="txtDesiredDate" type="text" class="form-control" style="width:80%" maxlength="20" placeholder="MM/dd/yyyy" value="">
+                                                            <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:150px;">
+                                                                <button id="btnDesiredDate" class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <label>Desired Time</label>
+                                                            <input id="txtDesiredTime" class="time_element form-control form-control-small" type="text" name="timepicker"  style="width:80%" maxlength="20" placeholder="HH:mm:ss" value="">
+                                                            <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:150px;">
+                                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button"><i class="fa-clock-o fa"></i></button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <label>Desired Duration :</label>
+                                                            <select id="ddlDesiredDuration" class="form-control">
+                                                                <option value='0'>Select Duration</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <h4 style="margin-top: 2%;margin-bottom: 2%;font-size: 12pt;color:#4D738A !important; ">Amenity Reservation Request</h4>
+                                                </div>
+                                                <div class="col-sm-12 text-center">
+                                                    <div class="col-sm-6">
+                                                        <label>Unit# <b><span id="AmenityUnit"></span></b></label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label>Tenant: <b><span id="AmenityTenant"></span></b></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 text-center">
+                                                    <p style="padding:0px !important;">Reservation for <b><span id="SelectedAminity"></span></b></p>
+                                                    <p style="padding:0px !important;"><b><span id="SelectedDate"></span></b></p>
+                                                    <p style="padding:0px !important;"><b><span id="SelectedTime"></span></b></p>
+                                                </div>
+                                                <div class="col-sm-12 text-center">
+                                                    <div class="col-sm-6">
+                                                        <label>Security Deposit Required: <span id="AmenitySDR"> &nbsp;$00.00</span><span><sup>*</sup></span></label>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label>Reservation fee:  <span id="AmenityRF"> &nbsp;$00.00</span> <span><sup>*</sup></span></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 text-justify">
+                                                    <p>
+                                                        Tenant hereby certifies that he/she has read and understood the Rules & Regulations attached in connection with the rental of the BBQ facility.
+                                                        Tenant is aware that they will be using a Common Area of the Community, and as such must be considerate and courteous to other residents and ensure
+                                                        that the area is well maintained and clean during and after use. By continuing herein, tenant agrees to abide by the Rules & Regulations of Sanctuary at Doral,
+                                                        LLC and is aware that in not doing so, he/she is subject to fines and fees.
+                                                    </p>
+                                                </div>
+                                                <div class="col-sm-12 text-center">
+                                                    <button id="RequestReservation" type="button" class="btn btn-primary" onclick="saveUpdateReservationRequest()">Request Reservation</button>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-9">
-                                            <div class="" id="">
-                                                <div class="col-md-12 clear">
-                                                    <h4 style="margin-top: 2%;margin-bottom: 5%;font-size: 12pt;color:#4D738A !important; ">Recent Reservations</h4>
-                                                </div>
-                                                <div class="panel-body search-widget">
-                                                    <div class="col-md-12 clear">
-                                                        <table id="tblReservationRequest" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th width="20%" style="background-color: #c7cdd5;color:#3d3939">Tenant</th>
-                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Amenity</th>
-                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Desire Date</th>
-                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Desire Time</th>
-                                                                    <th width="20%" style="background-color: #c7cdd5;color:#3d3939">Desire Duration</th>
-                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Status</th>
-                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Action</th>
+                                    </div>
 
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody></tbody>
-                                                        </table>
+                                </div>
+                                <div class="hidden" id="step6">
+                                    <ul class="nav nav-tabs nact">
+                                        <li id="myLeaseDocuments1" class="active1"><a href="javascript:void(0);" onclick="goToMyLeaseDocuments(1)" style="font-size:12pt;">My Lease Documents</a></li>
+                                    </ul>
+                                    <div class="" id="leaseDocStep1">
+                                        <div class="col-md-12">
+                                            <div class="panel-heading">
+                                                <h4 style="margin-top: 2%;margin-bottom: 2%;font-size: 12pt;color:#4D738A !important; ">My Documents</h4>
+                                            </div>
+                                            <div class="panel-group" id="accordion">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Lease Document<i class="fa fa-angle-right pull-right"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapse1" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <div class="panel-group" id="accordionSubLeaseDocument">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Personal Identity<i class="fa fa-angle-right pull-right"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapse2" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <div class="panel-group" id="accordionSubIdentity">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Pay Stub/Tax Return<i class="fa fa-angle-right pull-right"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapse3" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <div class="panel-group" id="accordionSubTaxReturn">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Pets<i class="fa fa-angle-right pull-right"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapse4" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <div class="panel-group" id="accordionSubPetCertificate">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Vehicle<i class="fa fa-angle-right pull-right"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapse5" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <div class="panel-group" id="accordionSubVehicleCertificate">
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
-
                                     </div>
                                 </div>
-                                <div class="hidden row" id="reservationStep2" style="margin-top:10px !important">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="col-sm-12">
-                                                <div class="panel-heading headingBack">
-                                                    <h3 class="panel-title">Build a Facility</h3>
-                                                </div>
-                                                <div class="panel-body table-bordered">
-                                                    <span>--None--</span><br />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <div class="" id="">
-                                                <div class="col-md-12 clear">
-                                                    <h4 style="margin-top: 2%;margin-bottom: 2%;font-size: 12pt;color:#4D738A !important; ">Reserve an Amenity</h4>
-
+                                <div class="hidden" id="step7">
+                                    <div class="col-sm-12">
+                                        <input id="hdnGuestId" type="hidden" value="0" />
+                                        <button type="submit" class="btn-blue pull-right text-center" onclick="printGuest('PrintGuest')"><i class="fa fa-print"></i> Print</button>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div id="PrintGuest" style="overflow: hidden !important;">
+                                            <h4 class="text-center" style="color:#4d738a;">GUEST REGISTRATION FORM</h4>
+                                            <h5 class="text-center" style="text-decoration:underline;font-size: 12pt;">(Registration is only necessary for guests staying overnight)</h5>
+                                            <br />
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <div class="col-sm-2">
+                                                                <label style="color:#4D738A !important;font-size:11pt;" class="star">GUEST NAME:</label>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <input type="text" id="txtGuestFirstName" onchange="copyGuestName();" /><hr />
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <label style="color:#4D738A !important;font-size:11pt;">LAST NAME:</label>
+                                                            </div>
+                                                            <div class="col-sm-4" style="margin-left: -29px;">
+                                                                <input type="text" id="txtGuestLastName" onchange="copyGuestName();" /><hr />
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <br />
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <div class="col-sm-3">
-                                                    <div class="form-group">
-                                                        <label class="star">Amenity :</label>
-                                                        <select id="ddlAmenities" class="form-control">
-                                                            <option value='0'>Select Amenity</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="form-group">
-                                                        <label>Desired Date</label>
-                                                        <input id="txtDesiredDate" type="text" class="form-control" style="width:80%" maxlength="20" placeholder="MM/dd/yyyy" value="">
-                                                        <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:130px;">
-                                                            <button id="btnDesiredDate" class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="form-group">
-                                                        <label>Desired Time</label>
-                                                        <input id="txtDesiredTime" class="time_element form-control form-control-small" type="text" name="timepicker"  style="width:80%" maxlength="20" placeholder="HH:mm:ss" value="">
-                                                        <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:130px;">
-                                                            <button id="btnDesiredTime" class="btn btn-primary search" type="button"><i class="fa-clock-o fa"></i></button>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="form-group">
-                                                        <label>Desired Duration :</label>
-                                                        <select id="ddlDesiredDuration" class="form-control">
-                                                            <option value='0'>Select Duration</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <h4 style="margin-top: 2%;margin-bottom: 2%;font-size: 12pt;color:#4D738A !important; ">Amenity Reservation Request</h4>
-                                            </div>
-                                            <div class="col-sm-12 text-center">
-                                                <div class="col-sm-6">
-                                                    <label>Unit# <b><span id="AmenityUnit"></span></b></label>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <label>Tenant: <b><span id="AmenityTenant"></span></b></label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 text-center">
-                                                <p style="padding:0px !important;">Reservation for <b><span id="SelectedAminity"></span></b></p>
-                                                <p style="padding:0px !important;"><b><span id="SelectedDate"></span></b></p>
-                                                <p style="padding:0px !important;"><b><span id="SelectedTime"></span></b></p>
-                                            </div>
-                                            <div class="col-sm-12 text-center">
-                                                <div class="col-sm-6">
-                                                    <label>Security Deposit Required: <span id="AmenitySDR"> &nbsp;$250.00</span><span><sup>*</sup></span></label>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <label>Reservation fee:  <span id="AmenityRF"> &nbsp;$100.00</span> <span><sup>*</sup></span></label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 text-justify">
-                                                <p>
-                                                    Tenant hereby certifies that he/she has read and understood the Rules & Regulations attached in connection with the rental of the BBQ facility.
-                                                    Tenant is aware that they will be using a Common Area of the Community, and as such must be considerate and courteous to other residents and ensure
-                                                    that the area is well maintained and clean during and after use. By continuing herein, tenant agrees to abide by the Rules & Regulations of Sanctuary at Doral,
-                                                    LLC and is aware that in not doing so, he/she is subject to fines and fees.
-                                                </p>
-                                            </div>
-                                            <div class="col-sm-12 text-center">
-                                                <button id="RequestReservation" type="button" class="btn btn-primary" onclick="saveUpdateReservationRequest()">Request Reservation</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="hidden" id="step6">
-                                <ul class="nav nav-tabs nact">
-                                    <li id="myLeaseDocuments1" class="active1"><a href="javascript:void(0);" onclick="goToMyLeaseDocuments(1)" style="font-size:12pt;">My Lease Documents</a></li>
-                                </ul>
-                                <div class="" id="leaseDocStep1">
-                                    <div class="col-md-12">
-                                        <div class="panel-heading">
-                                            <h4 style="margin-top: 2%;margin-bottom: 2%;font-size: 12pt;color:#4D738A !important; ">My Documents</h4>
-                                        </div>
-                                        <div class="panel-group" id="accordion">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Lease Document<i class="fa fa-angle-right pull-right"></i></a>
-                                                    </h3>
-                                                </div>
-                                                <div id="collapse1" class="panel-collapse collapse">
-                                                    <div class="panel-body">
-                                                        <div class="panel-group" id="accordionSubLeaseDocument">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Personal Identity<i class="fa fa-angle-right pull-right"></i></a>
-                                                    </h3>
-                                                </div>
-                                                <div id="collapse2" class="panel-collapse collapse">
-                                                    <div class="panel-body">
-                                                        <div class="panel-group" id="accordionSubIdentity">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Pay Stub/Tax Return<i class="fa fa-angle-right pull-right"></i></a>
-                                                    </h3>
-                                                </div>
-                                                <div id="collapse3" class="panel-collapse collapse">
-                                                    <div class="panel-body">
-                                                        <div class="panel-group" id="accordionSubTaxReturn">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Pets<i class="fa fa-angle-right pull-right"></i></a>
-                                                    </h3>
-                                                </div>
-                                                <div id="collapse4" class="panel-collapse collapse">
-                                                    <div class="panel-body">
-                                                        <div class="panel-group" id="accordionSubPetCertificate">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Vehicle<i class="fa fa-angle-right pull-right"></i></a>
-                                                    </h3>
-                                                </div>
-                                                <div id="collapse5" class="panel-collapse collapse">
-                                                    <div class="panel-body">
-                                                        <div class="panel-group" id="accordionSubVehicleCertificate">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="hidden" id="step7">
-                                <div class="col-sm-12">
-                                    <input id="hdnGuestId" type="hidden" value="0" />
-                                    <button type="submit" class="btn-blue pull-right text-center" onclick="printGuest('PrintGuest')"><i class="fa fa-print"></i> Print</button>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div id="PrintGuest" style="overflow: hidden !important;">
-                                        <h4 class="text-center" style="color:#4d738a;">GUEST REGISTRATION FORM</h4>
-                                        <h5 class="text-center" style="text-decoration:underline;font-size: 12pt;">(Registration is only necessary for guests staying overnight)</h5>
-                                        <br />
-                                        <div class="panel-body">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <div class="form-group">
-                                                        <div class="col-sm-2">
-                                                            <label style="color:#4D738A !important;font-size:11pt;" class="star">GUEST NAME:</label>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <input type="text" id="txtGuestFirstName" onchange="copyGuestName();" /><hr />
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <label style="color:#4D738A !important;font-size:11pt;">LAST NAME:</label>
-                                                        </div>
-                                                        <div class="col-sm-4" style="margin-left: -29px;">
-                                                            <input type="text" id="txtGuestLastName" onchange="copyGuestName();" /><hr />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <br />
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <div class="form-group">
-                                                        <div class="col-sm-2">
-                                                            <label style="color:#4D738A !important;font-size:11pt;" class="star">GUEST ADDRESS:</label>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            &nbsp;<textarea id="txtGuestAddress" style="width:98%; min-height:90px; border: none;"></textarea><hr />
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <div class="row">
-                                                                <div class="col-sm-4">
-                                                                    <label style="color:#4D738A !important;font-size:11pt;">PHONE#:</label>
-                                                                </div>
-                                                                <div class="col-sm-8" style="margin-left: -29px;">
-                                                                    <input type="text" id="txtGuestPhone" maxlength="10" onkeypress="return isOnlyNumber(event);" /><hr>
-                                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <div class="col-sm-2">
+                                                                <label style="color:#4D738A !important;font-size:11pt;" class="star">GUEST ADDRESS:</label>
                                                             </div>
-                                                            <br />
-                                                            <div class="row">
-                                                                <div class="col-sm-4">
-                                                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">EMAIL:</label>
+                                                            <div class="col-sm-4">
+                                                                &nbsp;<textarea id="txtGuestAddress" style="width:98%; min-height:90px; border: none;"></textarea><hr />
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="row">
+                                                                    <div class="col-sm-4">
+                                                                        <label style="color:#4D738A !important;font-size:11pt;">PHONE#:</label>
+                                                                    </div>
+                                                                    <div class="col-sm-8" style="margin-left: -29px;">
+                                                                        <input type="text" id="txtGuestPhone" maxlength="10" onkeypress="return isOnlyNumber(event);" /><hr>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="col-sm-8" style="margin-left: -29px;">
-                                                                    <input type="text" id="txtGuestEmail" /><hr />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <br />
-
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <div class="col-sm-8">
-                                                        <div class="col-sm-6" style="margin-left:-15px !important;">
-                                                            <div style="float:left;">
-                                                                <label style="color:#4D738A !important;font-size:11pt;" class="star">Visit Start Date: </label>
-                                                            </div>
-                                                            <div style="margin-left:50px;">
-                                                                <input id="txtGuestVistStartDate" type="text" value="" style="width:150px;"><hr style="width:150px;" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <div style="float:left;">
-                                                                <label style="color:#4D738A !important;font-size:11pt;position:relative;" class="star">Visit End Date: </label>
                                                                 <br />
-                                                                <span style="color:#4D738A !important; font-size:8pt; position:absolute; top:15px;">(Limited to 10 days)</span>
+                                                                <div class="row">
+                                                                    <div class="col-sm-4">
+                                                                        <label style="color:#4D738A !important;font-size:11pt;" class="star">EMAIL:</label>
+                                                                    </div>
+                                                                    <div class="col-sm-8" style="margin-left: -29px;">
+                                                                        <input type="text" id="txtGuestEmail" /><hr />
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                            <div>
-                                                                <input id="txtGuestVistEndDate" type="text" value="" style="width:150px;"><hr style="width:150px;" />
-                                                            </div>
+
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-2">
-                                                        <span style="color:#4D738A !important;font-size:11pt;" class="star">Upload Driver Licence or Picture Id:</span>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <input type="file" name="fileUploadGuestDriverLicence" id="fileUploadGuestDriverLicence" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                                        <label for="fileUploadGuestDriverLicence">
-                                                            <i class="fa fa-upload fa-2x"></i>
-                                                            <span id="fileSpanShowGuestDriverLicence">Choose a file&hellip;</span>
-                                                        </label>
-                                                        <input type="hidden" id="hndUploadGuestDriverLicence" value="0" />
-                                                        <input type="hidden" id="hndOriginalUploadGuestDriverLicence" value="0" />
-                                                    </div>
                                                 </div>
-                                            </div>
-                                            <br />
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <div class="col-sm-8">
-                                                        <div class="col-sm-9">
-                                                            <div class="col-sm-6" style="margin-left:-30px !important;">
+                                                <br />
+
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="col-sm-8">
+                                                            <div class="col-sm-6" style="margin-left:-15px !important;">
                                                                 <div style="float:left;">
-                                                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Make: </label>
+                                                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">Visit Start Date: </label>
                                                                 </div>
-                                                                <div>
-                                                                    <input id="txtGuestVehicleMake" type="text" value="" style="width:88px;"><hr style="width:88px;" />
+                                                                <div style="margin-left:50px;">
+                                                                    <input id="txtGuestVistStartDate" type="text" value="" style="width:150px;"><hr style="width:150px;" />
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-6">
                                                                 <div style="float:left;">
-                                                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Model: </label>
+                                                                    <label style="color:#4D738A !important;font-size:11pt;position:relative;" class="star">Visit End Date: </label>
+                                                                    <br />
+                                                                    <span style="color:#4D738A !important; font-size:8pt; position:absolute; top:15px;">(Limited to 10 days)</span>
                                                                 </div>
                                                                 <div>
-                                                                    <input id="txtGuestVehicleModel" type="text" value="" style="width:88px;"><hr style="width:88px;" />
+                                                                    <input id="txtGuestVistEndDate" type="text" value="" style="width:150px;"><hr style="width:150px;" />
                                                                 </div>
                                                             </div>
                                                         </div>
-
-                                                        <div class="col-sm-3">
-                                                            <div style="float:left; margin-left:-15px;">
-                                                                <span style="color:#4D738A !important;font-size:11pt;" class="star">Tag#: </span>
-                                                            </div>
-                                                            <div>
-                                                                <input type="text" id="txtGuestVehicleTag" style="width:80px;" /><hr style="width:80px;margin-left:30px;" />
-                                                            </div>
+                                                        <div class="col-sm-2">
+                                                            <span style="color:#4D738A !important;font-size:11pt;" class="star">Upload Driver Licence or Picture Id:</span>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <input type="file" name="fileUploadGuestDriverLicence" id="fileUploadGuestDriverLicence" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                                            <label for="fileUploadGuestDriverLicence">
+                                                                <i class="fa fa-upload fa-2x"></i>
+                                                                <span id="fileSpanShowGuestDriverLicence">Choose a file&hellip;</span>
+                                                            </label>
+                                                            <input type="hidden" id="hndUploadGuestDriverLicence" value="0" />
+                                                            <input type="hidden" id="hndOriginalUploadGuestDriverLicence" value="0" />
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-2">
-                                                        <span style="color:#4D738A !important;font-size:11pt;" class="star">Upload Registration: </span>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <input type="file" name="fileUploadGuestRegistration" id="fileUploadGuestRegistration" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                                        <label for="fileUploadGuestRegistration">
-                                                            <i class="fa fa-upload fa-2x"></i>
-                                                            <span id="fileSpanShowGuestRegistration">Choose a file&hellip;</span>
-                                                        </label>
-                                                        <input type="hidden" id="hndUploadGuestRegistration" value="0" />
-                                                        <input type="hidden" id="hndOriginalUploadGuestRegistration" value="0" />
-                                                    </div>
                                                 </div>
-                                            </div>
-                                            <br />
-                                           
-                                            <div class="col-sm-12">
-                                                <h5 style="text-decoration:underline;">Guest Certification</h5>
-
-                                                <p>I, <span id="spanGuestCertGName" style="text-decoration:underline"></span> , hereby certify that I have been informed of the rules and regulations of the community, and I will abide by them.  I also certify that I will not use any of the amenities/common areas without the presence of the Tenant.</p>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <h5 style="text-decoration:underline;">Tenant's Certification</h5>
-
-                                                <p>
-                                                    Tenants are fully responsible for any damage to the unit and/or common areas caused by their guests.  Tenants will be held financially liable for damages to the property.  Tenants are responsible to advise their guests of the community’s rules and regulations and ensure that the guests fully abide by them.  Tenants must accompany their guests for the use of all amenities/common areas.
-                                                    <br /><br />I have read and understood my financial responsibility for my guests and agree to advise my guests to abide by the community’s rules and regulations.
-                                                </p>
-                                            </div>
-                                            <div class="col-sm-12">
+                                                <br />
                                                 <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <span id="spanTenantSignName" style="text-decoration:underline"></span><br />
-                                                            <label>Tenant</label>
+                                                    <div class="col-sm-12">
+                                                        <div class="col-sm-8">
+                                                            <div class="col-sm-9">
+                                                                <div class="col-sm-6" style="margin-left:-30px !important;">
+                                                                    <div style="float:left;">
+                                                                        <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Make: </label>
+                                                                    </div>
+                                                                    <div>
+                                                                        <input id="txtGuestVehicleMake" type="text" value="" style="width:88px;"><hr style="width:88px;" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div style="float:left;">
+                                                                        <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Model: </label>
+                                                                    </div>
+                                                                    <div>
+                                                                        <input id="txtGuestVehicleModel" type="text" value="" style="width:88px;"><hr style="width:88px;" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-3">
+                                                                <div style="float:left; margin-left:-15px;">
+                                                                    <span style="color:#4D738A !important;font-size:11pt;" class="star">Tag#: </span>
+                                                                </div>
+                                                                <div>
+                                                                    <input type="text" id="txtGuestVehicleTag" style="width:80px;" /><hr style="width:80px;margin-left:30px;" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <span style="color:#4D738A !important;font-size:11pt;" class="star">Upload Registration: </span>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <input type="file" name="fileUploadGuestRegistration" id="fileUploadGuestRegistration" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                                            <label for="fileUploadGuestRegistration">
+                                                                <i class="fa fa-upload fa-2x"></i>
+                                                                <span id="fileSpanShowGuestRegistration">Choose a file&hellip;</span>
+                                                            </label>
+                                                            <input type="hidden" id="hndUploadGuestRegistration" value="0" />
+                                                            <input type="hidden" id="hndOriginalUploadGuestRegistration" value="0" />
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <span id="spanGuestSignName" style="text-decoration:underline"></span><br />
-                                                            <label>Guest</label>
+                                                </div>
+                                                <br />
+
+                                                <div class="col-sm-12">
+                                                    <h5 style="text-decoration:underline;">Guest Certification</h5>
+
+                                                    <p>I, <span id="spanGuestCertGName" style="text-decoration:underline"></span> , hereby certify that I have been informed of the rules and regulations of the community, and I will abide by them.  I also certify that I will not use any of the amenities/common areas without the presence of the Tenant.</p>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <h5 style="text-decoration:underline;">Tenant's Certification</h5>
+
+                                                    <p>
+                                                        Tenants are fully responsible for any damage to the unit and/or common areas caused by their guests.  Tenants will be held financially liable for damages to the property.  Tenants are responsible to advise their guests of the community’s rules and regulations and ensure that the guests fully abide by them.  Tenants must accompany their guests for the use of all amenities/common areas.
+                                                        <br /><br />I have read and understood my financial responsibility for my guests and agree to advise my guests to abide by the community’s rules and regulations.
+                                                    </p>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <span id="spanTenantSignName" style="text-decoration:underline"></span><br />
+                                                                <label>Tenant</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <span id="spanGuestSignName" style="text-decoration:underline"></span><br />
+                                                                <label>Guest</label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <button id="btnGuestRegSave" type="button" class="btn btn-primary pull-right" onclick="saveUpdateGuestRegistration();">Save</button>
-                                            </div>
                                         </div>
                                     </div>
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <button id="btnGuestRegSave" type="button" class="btn btn-primary pull-right" onclick="saveUpdateGuestRegistration();">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
                                 </div>
-
-
-
                             </div>
+                            <!-- End submit form -->
                         </div>
-                        <!-- End submit form -->
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div data-spy="affix" data-offset-top="0">
-                    <div class="col-sm-12" style="margin-bottom:-20px;">
-                        <div class="panel-body table-bordered" style="padding:5px !important;">
-                            <div class="center">
-                                <span style="color:#4D738A;font-size:20pt;">amount due:</span>
-                            </div>
-                            <div class="center">
-                                <span id="spanCurrentAmountDue" style="color:#c82828;font-size:20px;cursor:pointer;" onclick="openPaymentBreakdown();">0.00</span><br />
-                                <button id="btnMakeAPayment" class="" style="background-color:#8cb954;border-collapse:collapse;border-radius:2px;color:#ffffff;margin-top:4px;width:60%;font-size:10pt" type="button" onclick="goToPaymentFromMyHome();">Pay</button><br />
-                                <a href="javascript:void(0)" id="btnSetUpRecurringPayment" style="text-decoration:underline;font-size:10pt" onclick="goToRecurringPaymentFromMyHome();">Set Up Recurring Payment</a>
-                            </div>
-                        </div><br />
-                    </div>
-                    <div class="col-sm-12" style="margin-bottom:-20px;">
-                        <div class="panel-body table-bordered" style="padding:10px !important">
-                            <div class="center" id="bellDiv">
-                                <span style="color:#c82828;font-size:30px;"><i class="fa fa-bell"></i></span>
+                <div class="col-md-3">
+                    <div data-spy="affix" data-offset-top="0">
+                        <div class="col-sm-12" style="margin-bottom:-20px;">
+                            <div class="panel-body table-bordered" style="padding:5px !important;">
+                                <div class="center">
+                                    <span style="color:#4D738A;font-size:20pt;">amount due:</span>
+                                </div>
+                                <div class="center">
+                                    <span id="spanCurrentAmountDue" style="color:#c82828;font-size:20px;cursor:pointer;" onclick="openPaymentBreakdown();">0.00</span><br />
+                                    <button id="btnMakeAPayment" class="" style="background-color:#8cb954;border-collapse:collapse;border-radius:2px;color:#ffffff;margin-top:4px;width:60%;font-size:10pt" type="button" onclick="goToPaymentFromMyHome();">Pay</button><br />
+                                    <a href="javascript:void(0)" id="btnSetUpRecurringPayment" style="text-decoration:underline;font-size:10pt" onclick="goToRecurringPaymentFromMyHome();">Set Up Recurring Payment</a>
+                                </div>
                             </div><br />
-                            <div id="divServiceRequestAlarm" style="margin-top:-30px;">
+                        </div>
+                        <div class="col-sm-12" style="margin-bottom:-20px;">
+                            <div class="panel-body table-bordered" style="padding:10px !important">
+                                <div class="center" id="bellDiv">
+                                    <span style="color:#c82828;font-size:30px;"><i class="fa fa-bell"></i></span>
+                                </div><br />
+                                <div id="divServiceRequestAlarm" style="margin-top:-30px;">
+                                    <div class="center">
+                                        <span id="spanServiceRequestlabelAlarm" style="font-size:12px;"></span>
+                                    </div>
+                                    <div class="center">
+                                        <span id="spanServiceRequestDateTimeAlarm"></span>
+                                    </div>
+                                </div>
+                            </div><br />
+                        </div>
+                        <div class="col-sm-12" style="margin-bottom:-20px;">
+                            <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
+                                <h3 class="panel-title" style="color:#ffffff"><img src="~/Content/assets/Assets/cheers-whight.png" height="20" width="20" /> Celebrate</h3>
+                            </div>
+                            <div class="panel-body table-bordered" style="padding:5px !important">
                                 <div class="center">
-                                    <span id="spanServiceRequestlabelAlarm" style="font-size:12px;"></span>
+                                    <a href="javascript:void(0)" id="btnReserveAmenities" onclick="goToStep(5);"><i class="fa fa-plus-circle"></i> Reserve Amenities</a>
+                                </div>
+                            </div><br />
+                        </div>
+                        <div class="col-sm-12" style="margin-bottom:-20px;">
+                            <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
+                                <h3 class="panel-title" style="color:#ffffff"><i class="fa fa-user-plus"></i> Enjoy Company</h3>
+                            </div>
+                            <div class="panel-body table-bordered" style="padding:5px !important">
+                                <div class="center">
+                                    <a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToStep(7);"><i class="fa fa-plus-circle"></i> Register a Guest</a>
+                                </div>
+                            </div><br />
+                        </div>
+                        <div class="col-sm-12" style="margin-bottom:-20px;">
+                            <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
+                                <h3 class="panel-title" style="color:#ffffff"><i class="glyphicon glyphicon-wrench"></i> Service Request</h3>
+                            </div>
+                            <div class="panel-body table-bordered" style="padding:5px !important">
+                                <div class="center">
+                                    <a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToSubmitServiceRequestFromMyHome();"><i class="fa fa-plus-circle"></i> Submit a Service Request</a>
                                 </div>
                                 <div class="center">
-                                    <span id="spanServiceRequestDateTimeAlarm"></span>
+                                    <span><b>After-Hours</b></span>
+                                </div>
+                                <div class="center" style="margin-top:-3%">
+                                    <span>(786)437-8658</span>
+                                </div>
+                                <div class="center" style="margin-top:2%">
+                                    <span><b>Emergencies</b></span>
+                                </div>
+                                <div class="center" style="margin-top:-3%">
+                                    <span>(786)437-8658 or (911)</span>
+                                </div>
+                            </div><br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="popVehicle" class="modal">
+            <input type="hidden" id="hndVehicleID" value="0" />
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="star">Vehicle Type :</label>
+                    <select id="ddlVehicleType" class="  form-control">
+                        <option value='0'>Select Type</option>
+                        <option value='1'>Car</option>
+                        <option value='2'>Motorcycle</option>
+                        <option value='3'>Boat</option>
+                        <option value='4'>Truck</option>
+                        <option value='5'>SUV</option>
+                        <option value='6'>Recreational</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="star">Vehicle Make</label>
+                    <input id="txtVehicleMake" type="text" class="form-control" maxlength="20" placeholder="Vehicle Make" value="">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Vehicle Model</label>
+                    <input id="txtVehicleModel" type="text" class="form-control" maxlength="20" placeholder="Vehicle Model" value="">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Vehicle Year</label>
+                    <select id="ddlVehicleyear" class="form-control form-control-small">
+                        @for (int i = DateTime.Now.AddYears(-10).Year; i <= DateTime.Now.Year; i++)
+                        {
+                            <option value="@i">@i</option>
+
+                        }
+                    </select>
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Vehicle Color</label>
+                    <input id="txtVehicleColor" type="text" class="form-control" maxlength="20" placeholder="Vehicle Color" value="">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="star">Vehicle Licence</label>
+                    <input id="txtVehicleLicence" type="text" class="form-control" maxlength="20" placeholder="Vehicle Licence" value="">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="ddlVState" class="star">Vehicle State</label>
+                    <select id="ddlVState" class="form-control form-control-small"></select>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="dot-hr"></div>
+            </div>
+            <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-primary" onclick="saveupdateVehicle()"><i class="fa fa-envelope-o"></i> Save</button>
+            </div>
+
+        </div>
+        <div id="popPet" class="modal">
+            <input type="hidden" id="hndPetID" value="0" />
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="star">Pet Type :</label>
+                    <select id="ddlpetType" class="  form-control">
+                        <option value='0'>Select Type</option>
+                        <option value='1'>Cat</option>
+                        <option value='2'>Dog</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="star">Breed</label>
+                    <input id="txtpetBreed" type="text" class="form-control" maxlength="20" placeholder="Breed" value="">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Weight</label>
+                    <input id="txtpetWeight" type="text" class="form-control" maxlength="20" placeholder="Weight" value="">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Age</label>
+                    <input id="txtpetAge" type="text" class="form-control" maxlength="20" placeholder="Age" value="">
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="dot-hr"></div>
+            </div>
+            <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-primary" onclick="saveupdatePet()"><i class="fa fa-envelope-o"></i> Save</button>
+            </div>
+        </div>
+        <div class="modal" id="popAddNewAccount">
+            <input type="hidden" id="hndPaymentAccountsID" value="0" />
+            <div class="modal-dialog">
+                <div class="modal-content" style="width:732px;height:450px">
+                    <button type="button" class="close" data-dismiss="modal" style="margin-top: -20px; margin-right: -12px;">&times;</button>
+                    <div class="modal-header" style="width: 100%;">
+                        <h5 class="modal-title">Add New Payment Accounts</h5>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Payment Method</label>
+                                    <select id="ddlPayMethodPaymentAccounts" class="form-control">
+                                        <option value='1' selected="selected">Credit Card</option>
+                                        <option value='2'>Bank Account</option>
+                                    </select>
                                 </div>
                             </div>
-                        </div><br />
-                    </div>
-                    <div class="col-sm-12" style="margin-bottom:-20px;">
-                        <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
-                            <h3 class="panel-title" style="color:#ffffff"><img src="~/Content/assets/Assets/cheers-whight.png" height="20" width="20" /> Celebrate</h3>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="star">Account Name</label>
+                                    <input id="txtAccountNamePayMethod" type="text" class="form-control" placeholder="Account Name" value="">
+                                </div>
+                            </div>
                         </div>
-                        <div class="panel-body table-bordered" style="padding:5px !important">
-                            <div class="center">
-                                <a href="javascript:void(0)" id="btnReserveAmenities" onclick="goToStep(5);"><i class="fa fa-plus-circle"></i> Reserve Amenities</a>
+                        <div class="row" id="DivPayMethodCreditCard">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="star">Card Type</label>
+                                    <select id="ddlCardType" class="form-control">
+                                        <option value='0'>Select Card Type</option>
+                                        <option value='1'>Visa</option>
+                                        <option value='2'>Master Card</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div><br />
-                    </div>
-                    <div class="col-sm-12" style="margin-bottom:-20px;">
-                        <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
-                            <h3 class="panel-title" style="color:#ffffff"><i class="fa fa-user-plus"></i> Enjoy Company</h3>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="star">Name On Card</label>
+                                    <input id="txtNameOnCard" type="text" class="form-control" maxlength="50" placeholder="Name On Card" value="" style="text-transform:capitalize;">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="star">Card Number</label>
+                                    <input id="txtCardNumber" type="text" class="form-control" maxlength="16" placeholder="CardNumber" value="" onkeypress="return isOnlyNumber(event);">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="star">Card Month</label>
+                                    <select id="ddlCardMonth" class="form-control">
+                                        <option value='01'>01</option>
+                                        <option value='02'>02</option>
+                                        <option value='03'>03</option>
+                                        <option value='04'>04</option>
+                                        <option value='05'>05</option>
+                                        <option value='06'>06</option>
+                                        <option value='07'>07</option>
+                                        <option value='08'>08</option>
+                                        <option value='09'>09</option>
+                                        <option value='10'>10</option>
+                                        <option value='11'>11</option>
+                                        <option value='12'>12</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="star">Card Year</label>
+                                    <select id="ddlCardYear" class="form-control">
+                                        @for (int i = DateTime.Now.Year; i <= DateTime.Now.AddYears(5).Year; i++)
+                                        {
+                                            <option value="@(i.ToString().Substring(2,2))">@i</option>
+
+                                        }
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <div class="panel-body table-bordered" style="padding:5px !important">
-                            <div class="center">
-                                <a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToStep(7);"><i class="fa fa-plus-circle"></i> Register a Guest</a>
+                        <div class="row hidden" id="DivPayMethodBankAccount">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="star">Bank Name</label>
+                                    <input id="txtBankNamePayMethod" type="text" class="form-control" placeholder="Bank Name" value="">
+                                </div>
                             </div>
-                        </div><br />
-                    </div>
-                    <div class="col-sm-12" style="margin-bottom:-20px;">
-                        <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
-                            <h3 class="panel-title" style="color:#ffffff"><i class="glyphicon glyphicon-wrench"></i> Service Request</h3>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="star">Account Number</label>
+                                    <input id="txtAccountNumberPayMethod" type="text" class="form-control" placeholder="Account Number" maxlength="29" value="" onkeypress="return isOnlyNumber(event)">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="star">Routing Number</label>
+                                    <input id="txtRoutingNumberPayMethod" type="text" class="form-control" placeholder="Routing Number" value="" onkeypress="return isOnlyNumber(event)">
+                                </div>
+                            </div>
                         </div>
-                        <div class="panel-body table-bordered" style="padding:5px !important">
-                            <div class="center">
-                                <a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToSubmitServiceRequestFromMyHome();"><i class="fa fa-plus-circle"></i> Submit a Service Request</a>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+
+                                    <button id="btnCloseAddNewPaymentAccount" type="button" class="btn btn-primary pull-right" data-dismiss="modal" style="margin-left: 10px;">Close</button>
+                                    <button id="btnSaveAddNewPaymentAccount" type="button" class="btn btn-primary pull-right" onclick="savePaymentAccounts();">Save</button>
+                                </div>
                             </div>
-                            <div class="center">
-                                <span><b>After-Hours</b></span>
-                            </div>
-                            <div class="center" style="margin-top:-3%">
-                                <span>(786)437-8658</span>
-                            </div>
-                            <div class="center" style="margin-top:2%">
-                                <span><b>Emergencies</b></span>
-                            </div>
-                            <div class="center" style="margin-top:-3%">
-                                <span>(786)437-8658 or (911)</span>
-                            </div>
-                        </div><br />
+                        </div>
                     </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer-custom">
+
+                    </div>
+
                 </div>
             </div>
         </div>
-    </div>
-    <div id="popVehicle" class="modal">
-        <input type="hidden" id="hndVehicleID" value="0" />
-        <div class="col-sm-4">
-            <div class="form-group">
-                <label class="star">Vehicle Type :</label>
-                <select id="ddlVehicleType" class="  form-control">
-                    <option value='0'>Select Type</option>
-                    <option value='1'>Car</option>
-                    <option value='2'>Motorcycle</option>
-                    <option value='3'>Boat</option>
-                    <option value='4'>Truck</option>
-                    <option value='5'>SUV</option>
-                    <option value='6'>Recreational</option>
-                </select>
+        <div id="modalTermCondition" class="modal" style="width:100% !important">
+            <div class="modal-header">
+                <span class="close" id="TermCondition" style="margin-top: -9px !important;margin-right: 223px !important;">&times;</span>
             </div>
-        </div>
+            <!-- Modal content -->
+            <div class="modal-content-term" style="width:66% !important">
 
-
-        <div class="col-sm-4">
-            <div class="form-group">
-                <label class="star">Vehicle Make</label>
-                <input id="txtVehicleMake" type="text" class="form-control" maxlength="20" placeholder="Vehicle Make" value="">
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="form-group">
-                <label>Vehicle Model</label>
-                <input id="txtVehicleModel" type="text" class="form-control" maxlength="20" placeholder="Vehicle Model" value="">
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="form-group">
-                <label>Vehicle Year</label>
-                <select id="ddlVehicleyear" class="form-control form-control-small">
-                    @for (int i = DateTime.Now.AddYears(-10).Year; i <= DateTime.Now.Year; i++)
-                    {
-                        <option value="@i">@i</option>
-
-                    }
-                </select>
-
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="form-group">
-                <label>Vehicle Color</label>
-                <input id="txtVehicleColor" type="text" class="form-control" maxlength="20" placeholder="Vehicle Color" value="">
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="form-group">
-                <label class="star">Vehicle Licence</label>
-                <input id="txtVehicleLicence" type="text" class="form-control" maxlength="20" placeholder="Vehicle Licence" value="">
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="form-group">
-                <label for="ddlVState" class="star">Vehicle State</label>
-                <select id="ddlVState" class="form-control form-control-small"></select>
-            </div>
-        </div>
-        <div class="col-sm-12">
-            <div class="dot-hr"></div>
-        </div>
-        <div class="col-sm-12 text-center">
-            <button type="submit" class="btn btn-primary" onclick="saveupdateVehicle()"><i class="fa fa-envelope-o"></i> Save</button>
-        </div>
-
-    </div>
-    <div id="popPet" class="modal">
-        <input type="hidden" id="hndPetID" value="0" />
-        <div class="col-sm-4">
-            <div class="form-group">
-                <label class="star">Pet Type :</label>
-                <select id="ddlpetType" class="  form-control">
-                    <option value='0'>Select Type</option>
-                    <option value='1'>Cat</option>
-                    <option value='2'>Dog</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="form-group">
-                <label class="star">Breed</label>
-                <input id="txtpetBreed" type="text" class="form-control" maxlength="20" placeholder="Breed" value="">
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="form-group">
-                <label>Weight</label>
-                <input id="txtpetWeight" type="text" class="form-control" maxlength="20" placeholder="Weight" value="">
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="form-group">
-                <label>Age</label>
-                <input id="txtpetAge" type="text" class="form-control" maxlength="20" placeholder="Age" value="">
-            </div>
-        </div>
-        <div class="col-sm-12">
-            <div class="dot-hr"></div>
-        </div>
-        <div class="col-sm-12 text-center">
-            <button type="submit" class="btn btn-primary" onclick="saveupdatePet()"><i class="fa fa-envelope-o"></i> Save</button>
-        </div>
-    </div>
-    <div class="modal" id="popAddNewAccount">
-        <input type="hidden" id="hndPaymentAccountsID" value="0" />
-        <div class="modal-dialog">
-            <div class="modal-content" style="width:732px;height:450px">
-                <button type="button" class="close" data-dismiss="modal" style="margin-top: -20px; margin-right: -12px;">&times;</button>
-                <div class="modal-header" style="width: 100%;">
-                    <h5 class="modal-title">Add New Payment Accounts</h5>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Payment Method</label>
-                                <select id="ddlPayMethodPaymentAccounts" class="form-control">
-                                    <option value='1' selected="selected">Credit Card</option>
-                                    <option value='2'>Bank Account</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="star">Account Name</label>
-                                <input id="txtAccountNamePayMethod" type="text" class="form-control" placeholder="Account Name" value="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" id="DivPayMethodCreditCard">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="star">Card Type</label>
-                                <select id="ddlCardType" class="form-control">
-                                    <option value='0'>Select Card Type</option>
-                                    <option value='1'>Visa</option>
-                                    <option value='2'>Master Card</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="star">Name On Card</label>
-                                <input id="txtNameOnCard" type="text" class="form-control" maxlength="50" placeholder="Name On Card" value="" style="text-transform:capitalize;">
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="star">Card Number</label>
-                                <input id="txtCardNumber" type="text" class="form-control" maxlength="16" placeholder="CardNumber" value="" onkeypress="return isOnlyNumber(event);">
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label class="star">Card Month</label>
-                                <select id="ddlCardMonth" class="form-control">
-                                    <option value='01'>01</option>
-                                    <option value='02'>02</option>
-                                    <option value='03'>03</option>
-                                    <option value='04'>04</option>
-                                    <option value='05'>05</option>
-                                    <option value='06'>06</option>
-                                    <option value='07'>07</option>
-                                    <option value='08'>08</option>
-                                    <option value='09'>09</option>
-                                    <option value='10'>10</option>
-                                    <option value='11'>11</option>
-                                    <option value='12'>12</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label class="star">Card Year</label>
-                                <select id="ddlCardYear" class="form-control">
-                                    @for (int i = DateTime.Now.Year; i <= DateTime.Now.AddYears(5).Year; i++)
-                                    {
-                                        <option value="@(i.ToString().Substring(2,2))">@i</option>
-
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row hidden" id="DivPayMethodBankAccount">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="star">Bank Name</label>
-                                <input id="txtBankNamePayMethod" type="text" class="form-control" placeholder="Bank Name" value="">
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="star">Account Number</label>
-                                <input id="txtAccountNumberPayMethod" type="text" class="form-control" placeholder="Account Number" maxlength="29" value="" onkeypress="return isOnlyNumber(event)">
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="star">Routing Number</label>
-                                <input id="txtRoutingNumberPayMethod" type="text" class="form-control" placeholder="Routing Number" value="" onkeypress="return isOnlyNumber(event)">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-
-                                <button id="btnCloseAddNewPaymentAccount" type="button" class="btn btn-primary pull-right" data-dismiss="modal" style="margin-left: 10px;">Close</button>
-                                <button id="btnSaveAddNewPaymentAccount" type="button" class="btn btn-primary pull-right" onclick="savePaymentAccounts();">Save</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer-custom">
+                <div class="text-center">
+                    <div><iframe src="~/Content/assets/img/Document/TermAndCondition.pdf" width="950" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
 
                 </div>
 
             </div>
-        </div>
-    </div>
-    <div id="modalTermCondition" class="modal" style="width:100% !important">
-        <div class="modal-header">
-            <span class="close" id="TermCondition" style="margin-top: -9px !important;margin-right: 223px !important;">&times;</span>
-        </div>
-        <!-- Modal content -->
-        <div class="modal-content-term" style="width:66% !important">
 
-            <div class="text-center">
-                <div><iframe src="~/Content/assets/img/Document/TermAndCondition.pdf" width="950" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+        </div>
+        <div id="modalTermConditionR" class="modal" style="width:100% !important">
+            <div class="modal-header">
+                <span class="close" id="TermConditionR" style="margin-top: -9px !important;margin-right: 223px !important;">&times;</span>
+            </div>
+            <!-- Modal content -->
+            <div class="modal-content-term" style="width:66% !important">
+
+                <div class="text-center">
+                    <div class="modal-body" style="padding:15px;" id="divRecTerm">
+                        <table width="960" border="0"  cellpadding="0" cellspacing="0" style="margin:auto;padding:0; vertical-align:top;min-height:1180px;width:900px;">
+
+                            <tr>
+                                <td colspan="2">
+                                    <p style="font-size:large;text-align:center;"><b>Recurring Payment Terms & Conditions:</b></p>
+                                    <p style="font-size:medium">Please read this document carefully. Automatic Payment Agreement (Credit Card and/or Bank Account) </p>
+                                    <p style="font-size:medium"><b>AUTOPAY PROGRAM AUTHORIZATION FORM</b></p>
+                                    <p style="font-size:medium;text-align:justify;">To ensure proper withdrawal of your payment, please confirm you have provided the correct routing and transit number or credit card information on the Enroll Payment Account screen.  We will notify you by email when your Autopay is established.  Until then, please continue to make payments on your account as your normally do.  If you have any questions, please do not hesitate to call our office at <b>786.437.8658.</b>  </p>
+                                    <p style="font-size:medium;text-align:justify;">You have chosen to pay <b>$<span id="recPopAmt"></span></b>  (lump sum or payment amount).  This amount will automatically be debited to your bank or credit card each month on the due date shown above (if the due date falls on a Saturday, it will automatically be withdrawn on the Friday before.  If it falls on a Sunday, it will be withdrawn on the following Monday.) </p>
+                                    <p style="font-size:medium;text-align:justify;"><b>Warning:  If you have chosen a FIXED AMOUNT which is less than your monthly rent due including all pertinent charges as shown in the AMOUNT DUE box or your statement, and there is no other Autopay set up by another tenant in your unit, you or the other unit residents must make a payment outside of the AutoPay to satisfy the remaining balance prior to the due date to avoid Late Fees and becoming delinquent.  </b></p>
+                                    <p style="font-size:medium;text-align:justify;"><b>By clicking the Terms and Conditions herein, you confirm that you are authorizing to initiate transfer in the amount shown above from the designated bank account or credit card each month via automatic electronic withdrawal on the designated due date.  </b></p>
+
+
+                                    <p style="font-size:medium;text-align:justify;">If you wish to EDIT OR CANCEL Autopay, please <a href="javascript:void(0);" onclick=" goToRecurringPaymentFromMyHome();"> click here</a>.  Please note that once Autopay has been cancelled, you will remain fully responsible for any amounts due and will be subject to any late fees if the amounts due are not paid by the due date.</p>
+                                    <p style="font-size:medium">If you would like to print this agreement for your records, please <a href="javascript:void(0);"  onclick="print('divRecTerm')"> click here</a>.</p>
+
+                                </td>
+                            </tr>
+
+
+                        </table>
+                    </div>
+                </div>
 
             </div>
 
         </div>
-
-    </div>
-    <div id="modalTermConditionR" class="modal" style="width:100% !important">
-        <div class="modal-header">
-            <span class="close" id="TermConditionR" style="margin-top: -9px !important;margin-right: 223px !important;">&times;</span>
-        </div>
-        <!-- Modal content -->
-        <div class="modal-content-term" style="width:66% !important">
-
-            <div class="text-center">
-                <div class="modal-body" style="padding:15px;" id="divRecTerm">
-                    <table width="960" border="0"  cellpadding="0" cellspacing="0" style="margin:auto;padding:0; vertical-align:top;min-height:1180px;width:900px;">
-
-                        <tr>
-                            <td colspan="2">
-                                <p style="font-size:large;text-align:center;"><b>Recurring Payment Terms & Conditions:</b></p>
-                                <p style="font-size:medium">Please read this document carefully. Automatic Payment Agreement (Credit Card and/or Bank Account) </p>
-                                <p style="font-size:medium"><b>AUTOPAY PROGRAM AUTHORIZATION FORM</b></p>
-                                <p style="font-size:medium;text-align:justify;">To ensure proper withdrawal of your payment, please confirm you have provided the correct routing and transit number or credit card information on the Enroll Payment Account screen.  We will notify you by email when your Autopay is established.  Until then, please continue to make payments on your account as your normally do.  If you have any questions, please do not hesitate to call our office at <b>786.437.8658.</b>  </p>
-                                <p style="font-size:medium;text-align:justify;">You have chosen to pay <b>$<span id="recPopAmt"></span></b>  (lump sum or payment amount).  This amount will automatically be debited to your bank or credit card each month on the due date shown above (if the due date falls on a Saturday, it will automatically be withdrawn on the Friday before.  If it falls on a Sunday, it will be withdrawn on the following Monday.) </p>
-                                <p style="font-size:medium;text-align:justify;"><b>Warning:  If you have chosen a FIXED AMOUNT which is less than your monthly rent due including all pertinent charges as shown in the AMOUNT DUE box or your statement, and there is no other Autopay set up by another tenant in your unit, you or the other unit residents must make a payment outside of the AutoPay to satisfy the remaining balance prior to the due date to avoid Late Fees and becoming delinquent.  </b></p>
-                                <p style="font-size:medium;text-align:justify;"><b>By clicking the Terms and Conditions herein, you confirm that you are authorizing to initiate transfer in the amount shown above from the designated bank account or credit card each month via automatic electronic withdrawal on the designated due date.  </b></p>
-
-
-                                <p style="font-size:medium;text-align:justify;">If you wish to EDIT OR CANCEL Autopay, please <a href="javascript:void(0);" onclick=" goToRecurringPaymentFromMyHome();"> click here</a>.  Please note that once Autopay has been cancelled, you will remain fully responsible for any amounts due and will be subject to any late fees if the amounts due are not paid by the due date.</p>
-                                <p style="font-size:medium">If you would like to print this agreement for your records, please <a href="javascript:void(0);"  onclick="print('divRecTerm')"> click here</a>.</p>
-
-                            </td>
-                        </tr>
-
-
-                    </table>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-    <div class="modal" id="popPaymentBreakdown">
-        <div class="modal-dialog">
-            <div class="modal-content" style="width: 47%; height:560px;">
-                <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
-                <div class="modal-header center">
-                    <h3 class="modal-title">Payment Details</h3>
-                </div>
-                <!-- Modal body -->
-                <div class="modal-body table-bordered">
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label>Monthly Charges :</label>
-                                <label id="lblMonthlyChargesBreakdown" style="font-weight:bold;"></label>
+        <div class="modal" id="popPaymentBreakdown">
+            <div class="modal-dialog">
+                <div class="modal-content" style="width: 47%; height:560px;">
+                    <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+                    <div class="modal-header center">
+                        <h3 class="modal-title">Payment Details</h3>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body table-bordered">
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-left:20px;">
+                                <div class="form-group">
+                                    <label>Monthly Charges :</label>
+                                    <label id="lblMonthlyChargesBreakdown" style="font-weight:bold;"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-left:20px;">
+                                <div class="form-group">
+                                    <label>Additional Parking :</label>
+                                    <label id="lblAdditionalParkingBreakdown" style="font-weight:bold;"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-left:20px;">
+                                <div class="form-group">
+                                    <label>Storage Charges :</label>
+                                    <label id="lblStorageChargesBreakdown" style="font-weight:bold;"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-left:20px;">
+                                <div class="form-group">
+                                    <label>Pet Rent :</label>
+                                    <label id="lblPetRentBreakdown" style="font-weight:bold;"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-left:20px;">
+                                <div class="form-group">
+                                    <label>Trash/Recycle :</label>
+                                    <label id="lblTrashRecycleBreakdown" style="font-weight:bold;"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-left:20px;">
+                                <div class="form-group">
+                                    <label>Pest Control :</label>
+                                    <label id="lblPestControlBreakdown" style="font-weight:bold;"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-left:20px;">
+                                <div class="form-group">
+                                    <label>Convergent Billing :</label>
+                                    <label id="lblConvergentBillingBreakdown" style="font-weight:bold;"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-left:20px;">
+                                <div class="form-group">
+                                    <label style="color:green;font-weight:bold">Total Monthly Charges :</label>
+                                    <label id="lblTotalMonthlyChargesBreakdown" style="color:green;font-weight:bold;text-decoration:underline;"></label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label>Additional Parking :</label>
-                                <label id="lblAdditionalParkingBreakdown" style="font-weight:bold;"></label>
-                            </div>
+                    <div class="modal-footer">
+                        <div class="col-sm-12 text-center">
+                            <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label>Storage Charges :</label>
-                                <label id="lblStorageChargesBreakdown" style="font-weight:bold;"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label>Pet Rent :</label>
-                                <label id="lblPetRentBreakdown" style="font-weight:bold;"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label>Trash/Recycle :</label>
-                                <label id="lblTrashRecycleBreakdown" style="font-weight:bold;"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label>Pest Control :</label>
-                                <label id="lblPestControlBreakdown" style="font-weight:bold;"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label>Convergent Billing :</label>
-                                <label id="lblConvergentBillingBreakdown" style="font-weight:bold;"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label style="color:green;font-weight:bold">Total Monthly Charges :</label>
-                                <label id="lblTotalMonthlyChargesBreakdown" style="color:green;font-weight:bold;text-decoration:underline;"></label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="col-sm-12 text-center">
-                        <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div id="popRecurringPayment" class="modal">
-        <input type="hidden" id="hndRecurringID" value="0" />
-        <div class="col-sm-4">
-            <div class="form-group">
-                <label class="star">Date :</label>
-                <input id="txtDateRecurring" type="text" class="form-control" placeholder="MM/dd/yyyy" value="">
+        <div id="popRecurringPayment" class="modal">
+            <input type="hidden" id="hndRecurringID" value="0" />
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="star">Date :</label>
+                    <input id="txtDateRecurring" type="text" class="form-control" placeholder="MM/dd/yyyy" value="">
+                </div>
             </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="form-group">
-                <label>Vehicle Model</label>
-                <input id="txtVehicleModel" type="text" class="form-control" maxlength="20" placeholder="Vehicle Model" value="">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Vehicle Model</label>
+                    <input id="txtVehicleModel" type="text" class="form-control" maxlength="20" placeholder="Vehicle Model" value="">
+                </div>
             </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="form-group">
-                <label>Vehicle Color</label>
-                <input id="txtVehicleColor" type="text" class="form-control" maxlength="20" placeholder="Vehicle Color" value="">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Vehicle Color</label>
+                    <input id="txtVehicleColor" type="text" class="form-control" maxlength="20" placeholder="Vehicle Color" value="">
+                </div>
             </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="form-group">
-                <label class="star">Vehicle Licence</label>
-                <input id="txtVehicleLicence" type="text" class="form-control" maxlength="20" placeholder="Vehicle Licence" value="">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="star">Vehicle Licence</label>
+                    <input id="txtVehicleLicence" type="text" class="form-control" maxlength="20" placeholder="Vehicle Licence" value="">
+                </div>
             </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="form-group">
-                <label for="ddlVState" class="star">Vehicle State</label>
-                <select id="ddlVState" class="form-control form-control-small"></select>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="ddlVState" class="star">Vehicle State</label>
+                    <select id="ddlVState" class="form-control form-control-small"></select>
+                </div>
             </div>
-        </div>
-        <div class="col-sm-12">
-            <div class="dot-hr"></div>
-        </div>
-        <div class="col-sm-12 text-center">
-            <button type="submit" class="btn btn-primary" onclick=""><i class="fa fa-envelope-o"></i> Save</button>
-        </div>
+            <div class="col-sm-12">
+                <div class="dot-hr"></div>
+            </div>
+            <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-primary" onclick=""><i class="fa fa-envelope-o"></i> Save</button>
+            </div>
 
-    </div>
-    <div class="modal" id="requestAminityReservation">
-        <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; height:210px;">
-                <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;font-size: 30px !important">&times;</button>
-                <div class="modal-header"></div>
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div class="col-sm-12 text-justify">
-                        <p>
-                            “Your Reservation Request has been sent. Management will confirm shortly if your desired date is available.
-                            Once your request is approved, you will receive an email/text informing you and a link to process your payment.
-                            Please note that the Security Deposit and Reservation Fee need to be paid prior to confirming your reservation.
-                            Upon receipt of payment, management will confirm your reservation accordingly.”
-                        </p>
-                        @*<p class="text-center">
-                                <button id="requestConfirmation" type="button" class="btn btn-primary" >Confirm</button>
-                            </p>*@
-                    </div>
+        </div>
+        <div class="modal" id="requestAminityReservation">
+            <div class="modal-dialog">
+                <div class="modal-content" style="width: 100%; height:210px;">
+                    <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;font-size: 30px !important">&times;</button>
+                    <div class="modal-header"></div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="col-sm-12 text-justify">
+                            <p>
+                                “Your Reservation Request has been sent. Management will confirm shortly if your desired date is available.
+                                Once your request is approved, you will receive an email/text informing you and a link to process your payment.
+                                Please note that the Security Deposit and Reservation Fee need to be paid prior to confirming your reservation.
+                                Upon receipt of payment, management will confirm your reservation accordingly.”
+                            </p>
+                            @*<p class="text-center">
+                                    <button id="requestConfirmation" type="button" class="btn btn-primary" >Confirm</button>
+                                </p>*@
+                                            </div>
                 </div>
             </div>
         </div>

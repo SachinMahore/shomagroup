@@ -440,7 +440,6 @@ $(document).ready(function () {
     document.getElementById('filePetVaccinationCertificate').onchange = function () {
         uploadPetVaccination();
     };
-
 });
 var abcd = function () {
     alert("Hi");
@@ -1493,7 +1492,7 @@ function savePayment() {
         var cardYear = $("#ddlcardyear").val();
         var ccvNumber = $("#txtCCVNumber").val();
         var prospectID = $("#hdnOPId").val();
-        var amounttoPay = $("#totalFinalFees").text(); ; 
+        var amounttoPay = unformatText($("#totalFinalFees").text()); 
         var description = "Online Application Non Refundable fees";
         var glTrans_Description = $("#payDes").text(); 
         var routingNumber = $("#txtRoutingNumber").val();
@@ -1511,6 +1510,9 @@ function savePayment() {
         if (cardYear == "0") {
             msg += "Please enter Card Year</br>";
         }
+        if (ccvNumber < 3) {
+            msg += "Please enter CVV Number and It must be 3 digit long</br>";
+        }
 
         var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
         var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
@@ -1518,7 +1520,7 @@ function savePayment() {
         GivenDate = new Date(GivenDate);
         CurrentDate = new Date(CurrentDate);
 
-        if (GivenDate <= CurrentDate) {
+        if (GivenDate < CurrentDate) {
             msg += "Your Credit Card Expired..</br>";
         }
 
@@ -3212,7 +3214,7 @@ var getApplicantLists = function () {
                 localStorage.setItem("percentageMo", sumMo);
             });
 
-            $("#totalFinalFees").text( parseFloat(totalFinalFees).toFixed(2));
+            $("#totalFinalFees").text("$" + parseFloat(totalFinalFees).toFixed(2));
             $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
             $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
             $("#tblApplicantGuarantor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(3)'><i class='fa fa-plus-circle'></i> Add Guarantor</a></label></div></div></div></div>");
@@ -5281,3 +5283,44 @@ function checkExpiry() {
 
 }
 
+var checkEmailAreadyExist = function () {
+    
+    var model = { EmailId: $('#txtEmail').val() };
+    $("#divLoader").show();
+    $.ajax({
+        url: "/ApplyNow/CheckEmailAreadyExist",
+        method: "post",
+        data: JSON.stringify(model),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (response.model == true) {
+                $.alert({
+                    title: "",
+                    content: "This email Id is already exist please press Yes to Login.",
+                    type: 'blue',
+                    buttons: {
+                        yes: {
+                            text: 'Yes',
+                            action: function (yes) {
+                                var modals = document.getElementById("popSignIn");
+                                modals.style.display = "block";
+                                $('#UserName').val($('#txtEmail').val());
+                                $('#txtEmail').val('');
+                                $('#password').focus();
+                            }
+                        },
+                        no: {
+                            text: 'No',
+                            action: function (no) {
+                                $('#txtEmail').val('');
+                                $('#txtEmail').focus();
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    });
+    $("#divLoader").hide();
+};

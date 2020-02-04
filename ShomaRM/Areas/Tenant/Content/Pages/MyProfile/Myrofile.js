@@ -714,6 +714,7 @@ var UpdatePasswordUser = function () {
         dataType: "JSON",
         success: function (response) {
             $("#popChangePsw").modal("hide");
+            clearForgetPasswordField();
             $.alert({
                 title: "",
                 content: response.model,
@@ -1867,7 +1868,7 @@ var petCheck = function () {
 var goToMakeAPayment = function () {
     model = {
         StepId: 3,
-        PayStepId: 2
+        PayStepId: 1
     };
 
     $.ajax({
@@ -2034,4 +2035,10 @@ var breakdownPaymentFunction = function () {
         }
     });
     $("#divLoader").hide();
+};
+
+var clearForgetPasswordField = function () {
+    $('#txtOldPassword').val('');
+    $('#txtNewPassword').val('');
+    $('#txtConfirmNewPassword').val('');
 };

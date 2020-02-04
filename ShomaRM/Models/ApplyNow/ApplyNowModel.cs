@@ -40,6 +40,7 @@ namespace ShomaRM.Models
         public string PetPlaceAmountString { get; set; }
         public string StorageAmountString { get; set; }
         public string Rent { set; get; }
+
         public string SavePaymentDetails(ApplyNowModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -191,6 +192,21 @@ namespace ShomaRM.Models
             return model;
         }
 
-       
+       public bool CheckEmailAreadyExist(string EmailId)
+        {
+            bool IsEmailExist = false;
+            ShomaRMEntities db = new ShomaRMEntities();
+            var isEmailExist = db.tbl_ApplyNow.Where(co => co.Email == EmailId).FirstOrDefault();
+            if (isEmailExist != null)
+            {
+                IsEmailExist = true;
+            }
+            else
+            {
+                IsEmailExist = false;
+            }
+            db.Dispose();
+            return IsEmailExist;
+        }
     }
 }

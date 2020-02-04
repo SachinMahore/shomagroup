@@ -24,7 +24,7 @@
     getReservationRequestList();
     getTenantData($("#hndTenantID").val());
     $("#ddlAmenities").on("change", function () {
-        console.log();
+       // console.log();
         $("#SelectedAminity").html($(this).find(":selected").text());
         $("#SelectedAminity").attr("data-value", $(this).find(":selected").val());
     });
@@ -161,6 +161,23 @@
        
         $("#lblCurrentPrePayAmount").text('$' + formatMoney($('#spanCurrentAmountDue').text()));
     }
+
+    $('#Date').click(function () {
+        $("#txtPrefarredDate").focus();
+    });
+    
+    $('#PayDateR').click(function () {
+        $("#txtPayDateR").focus();
+    }); 
+    $('#Sdate').click(function () {
+        $("#txtPreferredDate").focus();
+    }); 
+    $('#btnPreferredTime').click(function () {
+        $("#txtPreferredTime").focus();
+    });
+    $('#btnDesiredDate').click(function () {
+        $("#txtDesiredDate").focus();
+    });
 });
 
 var checkRequestButton = function () {
@@ -1408,35 +1425,35 @@ var savePaymentAccounts = function () {
     //for bank account
     if ($("#ddlPayMethodPaymentAccounts").val() == '1') {
         if (cardType == 0) {
-            msg = 'Select The Card Type</br>'
+            msg += 'Select The Card Type</br>'
         }
         if (nameOnCard == '') {
-            msg = 'Enter The Name On Card</br>'
+            msg += 'Enter The Name On Card</br>'
         }
         if (cardNumber == '') {
-            msg = 'Enter The Card Number</br>'
+            msg += 'Enter The Card Number</br>'
         }
-        if (cardMonth == 0) {
-            msg = 'Select The Card Month</br>'
+        if (cardMonth == '0') {
+            msg += 'Select The Card Month</br>'
         }
-        if (cardYear == 0) {
-            msg = 'Select The Card Year</br>'
+        if (cardYear == '0') {
+            msg += 'Select The Card Year</br>'
         }
     }
     else if ($("#ddlPayMethodPaymentAccounts").val() == '2') {
         if ($("#txtBankNamePayMethod").val() == '') {
-            msg = 'Enter the bank name</br>'
+            msg += 'Enter the bank name</br>'
         }
         if ($("#txtAccountNumberPayMethod").val() == '') {
-            msg = 'Enter the account number</br>'
+            msg += 'Enter the account number</br>'
         }
         if ($("#txtRoutingNumberPayMethod").val() == '') {
-            msg = 'Enter the routing number</br>'
+            msg += 'Enter the routing number</br>'
         }
     }
 
     if ($("#txtAccountNamePayMethod").val() == '') {
-        msg = 'Enter the account name</br>'
+        msg += 'Enter the account name</br>'
     }
 
 
@@ -1634,19 +1651,36 @@ var deletePaymentAccounts = function (id) {
     var model = {
         PAID: id,
     };
-    $.ajax({
-        url: '/PaymentAccounts/DeletePaymentsAccounts',
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            $.alert({
-                title: '',
-                content: response.model,
-                type: 'blue'
-            });
-            getPaymentAccountsCreditCard();
+    $.alert({
+        title: "",
+        content: "Are you sure to remove Payment Account?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: '/PaymentAccounts/DeletePaymentsAccounts',
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $.alert({
+                                title: '',
+                                content: response.model,
+                                type: 'blue'
+                            });
+                            getPaymentAccountsCreditCard();
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                }
+            }
         }
     });
 };
@@ -1803,7 +1837,7 @@ var saveUpdateServiceRequest = function () {
             fillDropdowns();
             getServiceRequestOnAlarm();
             $('#rbtnApertmentPermission1').iCheck('check');
-           
+            goToServiceStep(1);
         }
     });
 };
@@ -1822,8 +1856,8 @@ var getServiceInfo = function () {
         success: function (response) {
             $("#lblNameUnitAccess").text(response.msg.Name);
             $("#lblUnitUnitAccess").text(response.msg.Unit);
-            $("#lblPhoneUnitAccess").text(response.msg.Phone);
-            $("#lblEmergencyPhoneUnitAccess").text(response.msg.EmergencyPhone);
+            $("#lblPhoneUnitAccess").text(formatPhoneFax(response.msg.Phone));
+            $("#lblEmergencyPhoneUnitAccess").text(formatPhoneFax(response.msg.EmergencyPhone));
             $("#lblEmailUnitAccess").text(response.msg.Email);
             $("#lblEmailUnitAccess").text(response.msg.Email);
             $("#spanTenantSignName").text(response.msg.Name);
@@ -2123,6 +2157,12 @@ var goToReservationStep = function (stepid, id) {
 
         $("#reservationStep1").addClass("hidden");
         $("#reservationStep2").removeClass("hidden");
+
+        $("#ddlAmenities").val(id).attr("selected", "selected");
+        $("#SelectedAminity").html($("#ddlAmenities").find(":selected").text());
+        $("#SelectedAminity").attr("data-value", $("#ddlAmenities").find(":selected").val());
+        getDurationSlot(id);
+
     }
 };
 
@@ -2131,19 +2171,36 @@ var cancelServiceRequest = function (id) {
     var model = {
         ServiceID: id
     };
-    $.ajax({
-        url: '/ServiceRequest/CancelServiceRequest',
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            $.alert({
-                title: '',
-                content: response.model,
-                type: 'blue'
-            });
-            getServiceRequestList();
+    $.alert({
+        title: "",
+        content: "Are you sure to cancle Request?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: '/ServiceRequest/CancelServiceRequest',
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $.alert({
+                                title: '',
+                                content: response.model,
+                                type: 'blue'
+                            });
+                            getServiceRequestList();
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                }
+            }
         }
     });
 }
@@ -2527,8 +2584,15 @@ var r = function () {
     $('#rbtnAmountToPay1').attr('checked', 'checked');
 
 }
-var getAmenityReservationPay = function(){
-    var params = { Id: $("#hdnARId").val() };
+var getAmenityReservationPay = function (ARID) {
+    var id = 0;
+    if ($("#hdnARId").val() == 0) {
+        id = ARID;
+    }
+    else {
+        id = $("#hdnARId").val();
+    }
+    var params = { Id: id };
     $.ajax({
         url: "/Amenities/GetRRInfo",
         method: "post",
@@ -2698,6 +2762,11 @@ var focuss = function () {
     $("#txtOtherAmount").focusout(function () { $("#txtOtherAmount").val(formatMoney($("#txtOtherAmount").val())); })
         .focus(function () {
             $("#txtOtherAmount").val(unformatText($("#txtOtherAmount").val()));
+        });
+
+    $("#txtOtherAmountR").focusout(function () { $("#txtOtherAmountR").val(formatMoney($("#txtOtherAmountR").val())); })
+        .focus(function () {
+            $("#txtOtherAmountR").val(unformatText($("#txtOtherAmountR").val()));
         });
 }
 
@@ -4530,15 +4599,26 @@ var getAmenityList = function () {
         success: function (response) {
 
             $("#ddlAmenities").empty();
+            $("#reserve_facility_list").empty();
             var option = "<option value=0>Select Amenity</option>";
             $.each(response.model, function (elementType, elementValue) {
                 option += "<option value=" + elementValue.ID + ">" + elementValue.Amenity + "</option>";
 
             });
             $("#ddlAmenities").append(option);
+            var reserve_a = "";
+            $.each(response.model, function (elementType, elementValue) {
+
+                reserve_a += "<a class='list-group-item' href='javascript:void(0);' onclick='goToReservationStep(2," + elementValue.ID + ")'>" + elementValue.Amenity + "</a>";
+
+            });
+            $("#reserve_facility_list").append(reserve_a);
+           
         }
     });
 };
+
+
 var getDurationSlot = function (selectedValue) {
     $("#ddlDesiredDuration").empty();
     var option = "<option value=0>Select Duration Slot</option>";
@@ -4788,7 +4868,13 @@ var getReservationRequestList = function () {
                     html += "<td>" + elementValue.DesiredDate + "</td>";
                     html += "<td>" + elementValue.DesiredTime + "</td>";
                     html += "<td>" + elementValue.Duration + "</td>";
-                    html += "<td>" + elementValue.Status + "</td>";
+                    
+                    if (elementValue.Status == "Approved and pending for payment") {
+                        html += "<td><button class='btn btn-primary' onclick='goToStep(3),getAmenityReservationPay(" + elementValue.ARID + ")'>" + elementValue.Status + "</button></td>";
+                    }
+                    else {
+                        html += "<td>" + elementValue.Status + "</td>";
+                    }
                     if (elementValue.Status == "Cancelled") {
                         html += "<td ><span><i class='fa fa-check'></i></span></td>";
                     }
@@ -5129,3 +5215,6 @@ function recurringPaymentBack() {
     $("#RecStep2").addClass("hidden");
     $("#RecStep1").removeClass("hidden");
 }
+var reserveForm = function (AID) {
+    alert(AID);
+};
