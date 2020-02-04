@@ -5,6 +5,7 @@
     getAmenitiesList();
     breakdownPaymentFunction();
     $('#ClubSubmit').attr('disabled', 'disabled');
+    
 });
 function Validation() {
     if ($("#txtClubTitle").val() == "" || $("#txtClubTitle").val() == null) {
@@ -97,12 +98,27 @@ function SubmitClub() {
 }
 
 function GetJoinClub(ClubId) {
-    $.get("/MyCommunity/GetClubById", { Id: ClubId }, function (data) {
+    $("#divLoader").show();
+    $.get("/MyCommunity/GetClubById", { Id: ClubId, UserId: $("#hdnUserId").val() }, function (data) {
         if (data.model != null) {
-            document.getElementById("ClubOrganization").innerHTML = data.model.ClubTitle;
+            document.getElementById("ClubOrganization").innerHTML = data.model.Contact;
             document.getElementById("ClubEmail").innerHTML = data.model.Email;
+            var title = "";
+            var cars = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            title = data.model.ClubTitle + " - " + cars[data.model.DayId - 1] + " At " + data.model.Time;
+            document.getElementById("ClubTitle").innerHTML = title;
+            document.getElementById("Description").innerHTML = data.model.Description;
+            $("#JoinClubPopupClubId").val(data.model.Id);
+            if (data.model.ClubJoinStatus === true) {
+                document.getElementById("btnJoinClub").innerHTML = "Unjoin Club";
+            }
+            else {
+                document.getElementById("btnJoinClub").innerHTML = "Join Club";
+            }
+
         }
         else {
+            $("#divLoader").hide();
             $.alert({
                 title: 'Error',
                 content: data.model,
@@ -110,91 +126,48 @@ function GetJoinClub(ClubId) {
             });
         }
     });
+    $("#divLoader").hide();
 }
 
-function RefreshJoinClubList() {
-    $("#step5").load("/MyCommunity/JoinClubPartial", { Search: "" }, function (response, status, xhr) {
+function JoinUnjoinClub() {
+    $.get("/MyCommunity/JoinunJoinClub", { ClubId: $("#JoinClubPopupClubId").val(), UserId: $("#hdnUserId").val()}, function (data) {
+        var Name = document.getElementById("btnJoinClub").innerHTML;
+        if (data.model == true) {
+            if (Name == "Join Club") {
+                document.getElementById("btnJoinClub").innerHTML = "Unjoin Club";
+            }
+            else {
+                document.getElementById("btnJoinClub").innerHTML = "Join Club";
+            }
+        }
+        else {
+            $.alert({
+                title: 'Error',
+                content: 'Something Wrong..',
+                type: 'blue'
+            });
+        }
+    })
+}
+function RefreshJoinClubList(EnumId) {
+    $("#step5").load("/MyCommunity/JoinClubPartial", { SearchId: EnumId }, function (response, status, xhr) {
 
     });
 
-    $("#Tbl_JoinClub").load(url, jsonData, function (response, status, xhr) {
-        var modal = document.getElementById('TruckInspectionPopup');
-        modal.style.display = "block";
-
-        $("#collapseOneTruck").style = ("height:'0px'");
-        //close Loader on loaad partial view
-        $("#loader").hide();
-    });
+  
 }
 
-function RefreshJoinClubListCurrentUser() {
-    $("#step7").load("/MyCommunity/JoinClubPartialByUser", { Search: "", UserId: $("#hdnUserId").val() }, function (response, status, xhr) {
+function RefreshJoinClubListCurrentUser(EnumId) {
+    $("#step7").load("/MyCommunity/JoinClubPartialByUser", { SearchId: EnumId, UserId: $("#hdnUserId").val() }, function (response, status, xhr) {
 
     });
 
-    $("#Tbl_JoinClub").load(url, jsonData, function (response, status, xhr) {
-        var modal = document.getElementById('TruckInspectionPopup');
-        modal.style.display = "block";
-
-        $("#collapseOneTruck").style = ("height:'0px'");
-        //close Loader on loaad partial view
-        $("#loader").hide();
-    });
+   
 }
 
 var goToStep = function (stepid, id) {
 
-    if (stepid == "1") {
-        $("#li1").addClass("active");
-        $("#li2").removeClass("active");
-        $("#li3").removeClass("active");
-        $("#li4").removeClass("active");
-        $("#li5").removeClass("active");
-        $("#li6").removeClass("active");
-        $("#li7").removeClass("active");
-
-        $("#step1").removeClass("hidden");
-        $("#step2").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
-    }
-    if (stepid == "2") {
-        $("#li1").removeClass("active");
-        $("#li2").addClass("active");
-        $("#li3").removeClass("active");
-        $("#li4").removeClass("active");
-        $("#li5").removeClass("active");
-        $("#li6").removeClass("active");
-        $("#li7").removeClass("active");
-
-        $("#step1").addClass("hidden");
-        $("#step2").removeClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
-    }
-    if (stepid == "3") {
-        $("#li1").removeClass("active");
-        $("#li2").removeClass("active");
-        $("#li3").addClass("active");
-        $("#li4").removeClass("active");
-        $("#li5").removeClass("active");
-        $("#li6").removeClass("active");
-        $("#li7").removeClass("active");
-
-        $("#step1").addClass("hidden");
-        $("#step2").addClass("hidden");
-        $("#step3").removeClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
-    }
+    
     if (stepid == "4") {
         $("#li1").removeClass("active");
         $("#li2").removeClass("active");
@@ -228,7 +201,7 @@ var goToStep = function (stepid, id) {
         $("#step5").removeClass("hidden");
         $("#step6").addClass("hidden");
         $("#step7").addClass("hidden");
-        RefreshJoinClubList();
+        RefreshJoinClubList(0);
     }
     if (stepid == "6") {
         $("#li1").removeClass("active");
@@ -264,9 +237,19 @@ var goToStep = function (stepid, id) {
         $("#step5").addClass("hidden");
         $("#step6").addClass("hidden");
         $("#step7").removeClass("hidden");
-        RefreshJoinClubListCurrentUser(id);
+        RefreshJoinClubListCurrentUser(0);
     }
 };
+
+function SearchClubList(EnumId, Text) {
+   
+    if (Text != "hidden") {
+        RefreshJoinClubList(EnumId);
+    }
+    else {
+        RefreshJoinClubListCurrentUser(EnumId);
+    }
+}
 
 function myDateFunction(id) {
     var date = $("#" + id).data("date");

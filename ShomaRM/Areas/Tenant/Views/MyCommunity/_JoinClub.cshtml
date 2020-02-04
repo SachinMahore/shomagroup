@@ -1,11 +1,11 @@
 ﻿
- @model  List<ShomaRM.Areas.Tenant.Models.Club.ClubModel>
-
+@model  List<ShomaRM.Areas.Tenant.Models.Club.ClubModel>
+@using ShomaRM.Areas.Tenant.Models.Enum;
 <div class="">
     <div class="row">
         <div class="col-md-12">
             <div class="panel-body">
-                <div class="row @ViewBag.CallenderHidden" >
+                <div class="row @ViewBag.CallenderHidden">
                     <div class="col-sm-12 center">
                         <div class="col-sm-offset-4 col-sm-4">
 
@@ -29,12 +29,8 @@
                             <span style="color:#4D738A;font-size:28px;"><b>Community Clubs</b></span>
                         </div>
                         <div class="col-sm-3">
-                            <select id="ddlSortBy" name="sortBy" class="form-control">
-                                <option value="0">Sort By</option>
-                                <option value="1">A-Z</option>
-                                <option value="2">Day of the Week</option>
-                            </select>
-                        </div>
+                            @Html.DropDownListFor(a => a[0].SearchId, EnumHelper.GetSelectList(typeof(SearchClubListEnum)), "Select", new { @id = "ActivityId", @class = "form-control" })
+                         </div>
                     </div>
                 </div>
                 <div class="row">
@@ -46,28 +42,28 @@
                     </div>
                     <!--table data-->
                     @*<div class="col-sm-12">
-            <a href="javascript:void(0);" onclick="goToStep(7,1)">
-                <div class="col-sm-3"><b>Name</b></div>
-                <div class="col-sm-4 border-left"><b>Date &amp; Time</b></div>
-                <div class="col-sm-5 border-left"><b>Description</b></div>
-            </a>
-        </div>*@
-                <table>
-                    <tbody id="Tbl_JoinClub">
-                        @{
-                            foreach (var item in Model)
-                            {
-                                <div class="col-sm-12">
-                                    <a href="javascript:void(0);" onclick="goToStep(6,@item.Id)">
-                                        <div class="col-sm-3"><b>@item.ClubTitle</b></div>
-                                        <div class="col-sm-4 border-left"><b>@item.StartDate.Date.ToString("dd/MM/yyyy") &amp; @item.Time</b></div>
-                                        <div class="col-sm-5 border-left"><b>@item.Description</b></div>
-                                    </a>
-                                </div>
+                            <a href="javascript:void(0);" onclick="goToStep(7,1)">
+                                <div class="col-sm-3"><b>Name</b></div>
+                                <div class="col-sm-4 border-left"><b>Date &amp; Time</b></div>
+                                <div class="col-sm-5 border-left"><b>Description</b></div>
+                            </a>
+                        </div>*@
+                    <table>
+                        <tbody id="Tbl_JoinClub">
+                            @{
+                                foreach (var item in Model)
+                                {
+                                    <div class="col-sm-12">
+                                        <a href="javascript:void(0);" onclick="goToStep(6,@item.Id)">
+                                            <div class="col-sm-3"><b>@item.ClubTitle</b></div>
+                                            <div class="col-sm-4 border-left"><b>@item.StartDate.Date.ToString("dd/MM/yyyy") &amp; @item.Time</b></div>
+                                            <div class="col-sm-5 border-left"><b>@item.Description</b></div>
+                                        </a>
+                                    </div>
+                                }
                             }
-                        } 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

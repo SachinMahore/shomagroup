@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -30,5 +31,13 @@ namespace ShomaRM.Areas.Tenant.Models.Enum
         Advance = 3,
         AllLevel = 4
 
+    }
+
+    public enum SearchClubListEnum
+    {
+        [Display(Name = "A-Z")]
+        A_Z = 1,
+        [Display(Name = "Day of the Week")]
+        Day_Of_Week = 2
     }
 }

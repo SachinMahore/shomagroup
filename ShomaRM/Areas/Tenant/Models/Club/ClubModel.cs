@@ -31,13 +31,16 @@ namespace ShomaRM.Areas.Tenant.Models.Club
         public bool IsDeleted { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime LastUpdatedDate { get; set; }
+        //for Mapping Status do Not Add In Table
+        public bool ClubJoinStatus { get; set; }
+        public long SearchId { get; set; }
 
         public string SaveclubEvent(ClubModel model)
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
 
-            if (model != null)
+            if (db.tbl_Club.Where(a=>a.ClubTitle== model.ClubTitle)==null)
             {
                 var ClubCreate = new tbl_Club()
                 {
@@ -121,10 +124,10 @@ namespace ShomaRM.Areas.Tenant.Models.Club
 
         }
 
-        public ClubModel GetClubbyId(long ClubId)
+        public ClubModel GetClubbyId(long ClubId,long UserId)
         {
             ShomaRMEntities db = new ShomaRMEntities();
-           return db.tbl_Club.ToList().Where(a => a.Id == ClubId).Select(a => new ClubModel()
+            return db.tbl_Club.ToList().Where(a => a.Id == ClubId).Select(a => new ClubModel()
             {
                 Id = a.Id,
                 ClubTitle = a.ClubTitle,
@@ -147,7 +150,8 @@ namespace ShomaRM.Areas.Tenant.Models.Club
                 UserId = a.UserId,
                 IsDeleted = false,
                 CreatedDate = DateTime.UtcNow,
-                LastUpdatedDate = DateTime.UtcNow
+                LastUpdatedDate = DateTime.UtcNow,
+                ClubJoinStatus = (db.tbl_ClubMapping.Where(b => b.UserId == a.UserId) == null ? false : true)
             }).FirstOrDefault();
           
 

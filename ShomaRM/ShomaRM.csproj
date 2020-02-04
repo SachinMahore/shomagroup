@@ -80,8 +80,10 @@
     <Reference Include="SendGrid">
       <HintPath>..\packages\SendGrid.9.12.6\lib\net452\SendGrid.dll</HintPath>
     </Reference>
-    <Reference Include="SendGrid.SmtpApi, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SendGrid.SmtpApi.1.3.4\lib\portable40-net40+sl5+win8+wp8+wpa81\SendGrid.SmtpApi.dll</HintPath>
+
+    <Reference Include="SendGrid.SmtpApi">
+      <HintPath>..\packages\SendGrid.SmtpApi.1.3.3\lib\SendGrid.SmtpApi.dll</HintPath>
+
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -263,10 +265,12 @@
     <Compile Include="Areas\Tenant\Models\AmenitiesRR\AmenitiesRRModel.cs" />
     <Compile Include="Areas\Tenant\Models\ApplicantHistory\ApplicantHistoryModel.cs" />
     <Compile Include="Areas\Tenant\Models\Applicant\ApplicantModel.cs" />
+    <Compile Include="Areas\Tenant\Models\Club\ClubMappingModel.cs" />
     <Compile Include="Areas\Tenant\Models\Club\ClubModel.cs" />
     <Compile Include="Areas\Tenant\Models\Club\CommonClubModel.cs" />
     <Compile Include="Areas\Tenant\Models\CommunityActivity\CommunityActivityModel.cs" />
     <Compile Include="Areas\Tenant\Models\Enum\ClubEnum.cs" />
+    <Compile Include="Areas\Tenant\Models\Enum\EnumNameFinder.cs" />
     <Compile Include="Areas\Tenant\Models\EventBooking\EventBookingModel.cs" />
     <Compile Include="Areas\Tenant\Models\FacilityBooking\FacilityBookingModel.cs" />
     <Compile Include="Areas\Tenant\Models\GuestRegistration\GuestRegistrationModel.cs" />
