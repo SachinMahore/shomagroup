@@ -1,0 +1,16 @@
+﻿An item with the same key has already been added.
+Could not parse the configuration file. The error message is: 'An item with the same key has already been added.'. Try editing the file manually and then saving it.
+The 'connectionStrings' start tag on line 7 position 4 does not match the end tag of 'configuration'. Line 22, position 3.
+The model was generated with warnings or errors.ShomaRM.edmxPlease see the Error List for more details. These issues must be fixed before running your application.
+Loading metadata from the database took 00:00:01.7377868.
+Generating the model took 00:00:11.4383602.
+Added the connection string to the App.Config file.
+The model was generated with warnings or errors.ShomaRM.edmxPlease see the Error List for more details. These issues must be fixed before running your application.
+Loading metadata from the database took 00:00:01.7270335.
+Generating the model took 00:00:11.3867271.
+Added the connection string to the App.Config file.
+The model was generated with warnings or errors.ShomaRM.edmxPlease see the Error List for more details. These issues must be fixed before running your application.
+Loading metadata from the database took 00:00:01.7389638.
+Generating the model took 00:00:11.1923739.
+Added the connection string to the App.Config file.
+An item with the same key has already been added.

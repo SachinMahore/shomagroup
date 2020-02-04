@@ -46,6 +46,8 @@
     <script src="@Url.Content("/content/assets/js/modernizr-2.6.2.min.js")"></script>
     <script src="@Url.Content("/content/assets/js/popupwindow.js")"></script>
     <script src="@Url.Content("/content/assets/js/jquery.simplePagination.js")"></script>
+    <link href="~/Content/timepicki.css" rel="stylesheet" />
+    <script src="~/Content/timepicki.js"></script>
     @RenderSection("scripts", required: false)
 </head>
 <body>
@@ -164,9 +166,12 @@
             data: JSON.stringify(model),
             dataType: "JSON",
             success: function (response) {
+                var gg = response.model.split("|");
 
-                $('#spanCurrentAmountDue').text('$' + formatMoney(response.model));
-                $("#lblCurrentPrePayAmount").text('$' + formatMoney(response.model));
+                $('#spanCurrentAmountDue').text('$' + formatMoney(gg[0]));
+                $("#lblCurrentPrePayAmount").text('$' + formatMoney(gg[0]));
+                $("#hndRecId").val(gg[1]);
+                
                
             }
         });

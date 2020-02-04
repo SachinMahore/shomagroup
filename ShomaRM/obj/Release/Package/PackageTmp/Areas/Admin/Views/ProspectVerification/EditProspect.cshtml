@@ -901,7 +901,7 @@
                                                 <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
                                             </div>
                                             <div class="col-sm-3">
-                                                $<span style="text-decoration:underline;font-weight:bold;"  id="lblMonthly_PestControl">@((Model.PestAmt ?? 0).ToString("0.00"))</span>
+                                                $<span style="text-decoration:underline;font-weight:bold;" id="lblMonthly_PestControl">@((Model.PestAmt ?? 0).ToString("0.00"))</span>
                                             </div>
                                             <div class="col-sm-3">
                                                 $ <span id="lblProrated_PestAmt" style="text-decoration:underline;font-weight:bold;"></span>
@@ -3447,6 +3447,11 @@
 
 <style>
     /* The container */
+    input.disabled {
+        pointer-events: none;
+        cursor: default;
+        color: #B4ADA5;
+    }
     .containerLabel {
         display: block;
         position: relative;
@@ -3646,20 +3651,14 @@
         text-align: right;
     }
 </style>
-<script>
-      $(document).ready(function () {
-            if ('@Model.MoveInDateTxt' != "" || '@Model.MoveInTime' != "") {
-                $("#chkMovein").attr("checked", "checked");
-                $("#chkMovein").attr("disabled", "disabled");
-    }
-    else {
-                $("#chkMovein").attr("checked", "");
-                $("#chkMovein").attr("disabled", "disabled");
-    }
-    });
-</script>
 <style>
-    .nav-tabs.wizard {
+    .wizard-card .disabled {
+        display: inherit!important;
+    }
+    .icheckbox_square-yellow.checked.disabled {
+        background-position: -48px 0 !important;
+    }
+        .nav-tabs.wizard {
         background-color: transparent;
         padding: 0;
         width: 100.2%;
@@ -3926,7 +3925,6 @@
         else {
             $("#dwnldPOI").attr('href', 'javascript:void(0)');
             $("#dwnldPOI").attr('onclick', 'fileNotFound()');
-             $("#dwnldPOI").text('@Model.InsuranceDoc');
         }
 
         var fileExistElectricityDoc = doesFileExist('/Content/assets/img/ChecklistDocument/' + '@Model.ElectricityDoc');

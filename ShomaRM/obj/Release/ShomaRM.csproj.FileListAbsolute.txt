@@ -956,9 +956,6 @@ E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\Microsoft.IdentityModel.Tokens.pdb
 E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\Microsoft.IdentityModel.Tokens.xml
 E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\Newtonsoft.Json.xml
 E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\RestSharp.xml
-E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\SendGrid.SmtpApi.pdb
-E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\SendGrid.SmtpApi.xml
-E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\SendGrid.SmtpApi.dll.config
 E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\System.IdentityModel.Tokens.Jwt.pdb
 E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\System.IdentityModel.Tokens.Jwt.xml
 E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\System.Web.Helpers.xml
@@ -973,3 +970,7 @@ E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\Microsoft.CodeDom.Providers.DotNetCompilerPla
 E:\ShomaRM_GH\Shoma-RM\ShomaRM\obj\Release\ShomaRM.csprojResolveAssemblyReference.cache
 E:\ShomaRM_GH\Shoma-RM\ShomaRM\obj\Release\ShomaRM.dll
 E:\ShomaRM_GH\Shoma-RM\ShomaRM\obj\Release\ShomaRM.pdb
+E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\SendGrid.dll
+E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\USAePayAPI.dll
+E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\SendGrid.pdb
+E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\SendGrid.xml
