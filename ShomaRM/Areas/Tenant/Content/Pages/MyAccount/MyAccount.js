@@ -24,7 +24,7 @@
     getReservationRequestList();
     getTenantData($("#hndTenantID").val());
     $("#ddlAmenities").on("change", function () {
-        console.log();
+       // console.log();
         $("#SelectedAminity").html($(this).find(":selected").text());
         $("#SelectedAminity").attr("data-value", $(this).find(":selected").val());
     });
@@ -2123,6 +2123,12 @@ var goToReservationStep = function (stepid, id) {
 
         $("#reservationStep1").addClass("hidden");
         $("#reservationStep2").removeClass("hidden");
+
+        $("#ddlAmenities").val(id).attr("selected", "selected");
+        $("#SelectedAminity").html($("#ddlAmenities").find(":selected").text());
+        $("#SelectedAminity").attr("data-value", $("#ddlAmenities").find(":selected").val());
+        getDurationSlot(id);
+
     }
 };
 
@@ -2527,8 +2533,15 @@ var r = function () {
     $('#rbtnAmountToPay1').attr('checked', 'checked');
 
 }
-var getAmenityReservationPay = function(){
-    var params = { Id: $("#hdnARId").val() };
+var getAmenityReservationPay = function (ARID) {
+    var id = 0;
+    if ($("#hdnARId").val() == 0) {
+        id = ARID;
+    }
+    else {
+        id = $("#hdnARId").val();
+    }
+    var params = { Id: id };
     $.ajax({
         url: "/Amenities/GetRRInfo",
         method: "post",
@@ -4530,15 +4543,26 @@ var getAmenityList = function () {
         success: function (response) {
 
             $("#ddlAmenities").empty();
+            $("#reserve_facility_list").empty();
             var option = "<option value=0>Select Amenity</option>";
             $.each(response.model, function (elementType, elementValue) {
                 option += "<option value=" + elementValue.ID + ">" + elementValue.Amenity + "</option>";
 
             });
             $("#ddlAmenities").append(option);
+            var reserve_a = "";
+            $.each(response.model, function (elementType, elementValue) {
+
+                reserve_a += "<a class='list-group-item' href='javascript:void(0);' onclick='goToReservationStep(2," + elementValue.ID + ")'>" + elementValue.Amenity + "</a>";
+
+            });
+            $("#reserve_facility_list").append(reserve_a);
+           
         }
     });
 };
+
+
 var getDurationSlot = function (selectedValue) {
     $("#ddlDesiredDuration").empty();
     var option = "<option value=0>Select Duration Slot</option>";
@@ -4788,7 +4812,13 @@ var getReservationRequestList = function () {
                     html += "<td>" + elementValue.DesiredDate + "</td>";
                     html += "<td>" + elementValue.DesiredTime + "</td>";
                     html += "<td>" + elementValue.Duration + "</td>";
-                    html += "<td>" + elementValue.Status + "</td>";
+                    
+                    if (elementValue.Status == "Approved and pending for payment") {
+                        html += "<td><button class='btn btn-primary' onclick='goToStep(3),getAmenityReservationPay(" + elementValue.ARID + ")'>" + elementValue.Status + "</button></td>";
+                    }
+                    else {
+                        html += "<td>" + elementValue.Status + "</td>";
+                    }
                     if (elementValue.Status == "Cancelled") {
                         html += "<td ><span><i class='fa fa-check'></i></span></td>";
                     }
@@ -5096,3 +5126,6 @@ function deleteRecPayment(transid) {
         });
 }
 
+var reserveForm = function (AID) {
+    alert(AID);
+};

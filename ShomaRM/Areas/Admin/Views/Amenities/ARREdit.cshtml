@@ -24,11 +24,11 @@
                         <div class="" id="step1">
                             <div class="row p-b-15  ">
                                 <div class="col-sm-12">
-                                    <h4 class="info-text pull-left"> Let's start with the basic information</h4>
-                                    <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="goReservationRequestList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">Amenity Reservation Request List</span></button>
+                                    <h4 class="info-text pull-left"> Amenity Reservation Request</h4>
+                                    <button type="button" class="btn btn-success pull-right"  onclick="goReservationRequestList()"><span >Amenity Reservation Request List</span></button>
                                     @*<div class="pull-right" style="padding-right:2px;">
-                                        <input type='button' class='btn btn-default' value='Save' onclick="SaveUpdateSlot()" />
-                                    </div>*@
+                <input type='button' class='btn btn-default' value='Save' onclick="SaveUpdateSlot()" />
+            </div>*@
                                 </div>
                                 <div class="col-sm-8">
                                     <div class="col-sm-12">
@@ -91,9 +91,22 @@
                                         <button type="button" class="btn btn-success" id="btnSaveUpdateStatus" onclick="saveupdateStatus()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-check"></i> <span id="spanSaveUpdate">Save</span></button>
                                     </div>
                                 </div>
-
+                                <div class="col-sm-12">&nbsp;</div>
+                                <div class="col-sm-12">
+                                    <table id="tblReservationRefundRequest" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th width="10%" style="background-color: #c7cdd5;color:#3d3939">Date</th>
+                                                <th width="60%" style="background-color: #c7cdd5;color:#3d3939">Description</th>
+                                                <th width="10%" style="background-color: #c7cdd5;color:#3d3939">Charges</th>
+                                                <th width="10%" style="background-color: #c7cdd5;color:#3d3939">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                </div>
                             </div>
-                        </div>
                         <!--  End step 4 -->
                     </div>
 
