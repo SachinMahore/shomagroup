@@ -139,7 +139,7 @@ var saveUpdateStorage = function () {
         msg = msg + "Property is required.</br>"
     }
     if ($.trim($("#txtStorageName").val()).length <= 0) {
-        msg = msg + "Storage Name is required.</br>"
+        msg = msg + "FOBs Name is required.</br>"
     }
     if ($.trim($("#txtCharges").val()).length <= 0) {
         msg = msg + "Charges is required.</br>"

@@ -161,6 +161,23 @@
        
         $("#lblCurrentPrePayAmount").text('$' + formatMoney($('#spanCurrentAmountDue').text()));
     }
+
+    $('#Date').click(function () {
+        $("#txtPrefarredDate").focus();
+    });
+    
+    $('#PayDateR').click(function () {
+        $("#txtPayDateR").focus();
+    }); 
+    $('#Sdate').click(function () {
+        $("#txtPreferredDate").focus();
+    }); 
+    $('#btnPreferredTime').click(function () {
+        $("#txtPreferredTime").focus();
+    });
+    $('#btnDesiredDate').click(function () {
+        $("#txtDesiredDate").focus();
+    });
 });
 
 var checkRequestButton = function () {
@@ -1408,35 +1425,35 @@ var savePaymentAccounts = function () {
     //for bank account
     if ($("#ddlPayMethodPaymentAccounts").val() == '1') {
         if (cardType == 0) {
-            msg = 'Select The Card Type</br>'
+            msg += 'Select The Card Type</br>'
         }
         if (nameOnCard == '') {
-            msg = 'Enter The Name On Card</br>'
+            msg += 'Enter The Name On Card</br>'
         }
         if (cardNumber == '') {
-            msg = 'Enter The Card Number</br>'
+            msg += 'Enter The Card Number</br>'
         }
-        if (cardMonth == 0) {
-            msg = 'Select The Card Month</br>'
+        if (cardMonth == '0') {
+            msg += 'Select The Card Month</br>'
         }
-        if (cardYear == 0) {
-            msg = 'Select The Card Year</br>'
+        if (cardYear == '0') {
+            msg += 'Select The Card Year</br>'
         }
     }
     else if ($("#ddlPayMethodPaymentAccounts").val() == '2') {
         if ($("#txtBankNamePayMethod").val() == '') {
-            msg = 'Enter the bank name</br>'
+            msg += 'Enter the bank name</br>'
         }
         if ($("#txtAccountNumberPayMethod").val() == '') {
-            msg = 'Enter the account number</br>'
+            msg += 'Enter the account number</br>'
         }
         if ($("#txtRoutingNumberPayMethod").val() == '') {
-            msg = 'Enter the routing number</br>'
+            msg += 'Enter the routing number</br>'
         }
     }
 
     if ($("#txtAccountNamePayMethod").val() == '') {
-        msg = 'Enter the account name</br>'
+        msg += 'Enter the account name</br>'
     }
 
 
@@ -1634,19 +1651,36 @@ var deletePaymentAccounts = function (id) {
     var model = {
         PAID: id,
     };
-    $.ajax({
-        url: '/PaymentAccounts/DeletePaymentsAccounts',
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            $.alert({
-                title: '',
-                content: response.model,
-                type: 'blue'
-            });
-            getPaymentAccountsCreditCard();
+    $.alert({
+        title: "",
+        content: "Are you sure to remove Payment Account?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: '/PaymentAccounts/DeletePaymentsAccounts',
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $.alert({
+                                title: '',
+                                content: response.model,
+                                type: 'blue'
+                            });
+                            getPaymentAccountsCreditCard();
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                }
+            }
         }
     });
 };
@@ -1803,7 +1837,7 @@ var saveUpdateServiceRequest = function () {
             fillDropdowns();
             getServiceRequestOnAlarm();
             $('#rbtnApertmentPermission1').iCheck('check');
-           
+            goToServiceStep(1);
         }
     });
 };
@@ -1822,8 +1856,8 @@ var getServiceInfo = function () {
         success: function (response) {
             $("#lblNameUnitAccess").text(response.msg.Name);
             $("#lblUnitUnitAccess").text(response.msg.Unit);
-            $("#lblPhoneUnitAccess").text(response.msg.Phone);
-            $("#lblEmergencyPhoneUnitAccess").text(response.msg.EmergencyPhone);
+            $("#lblPhoneUnitAccess").text(formatPhoneFax(response.msg.Phone));
+            $("#lblEmergencyPhoneUnitAccess").text(formatPhoneFax(response.msg.EmergencyPhone));
             $("#lblEmailUnitAccess").text(response.msg.Email);
             $("#lblEmailUnitAccess").text(response.msg.Email);
             $("#spanTenantSignName").text(response.msg.Name);
@@ -2137,19 +2171,36 @@ var cancelServiceRequest = function (id) {
     var model = {
         ServiceID: id
     };
-    $.ajax({
-        url: '/ServiceRequest/CancelServiceRequest',
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            $.alert({
-                title: '',
-                content: response.model,
-                type: 'blue'
-            });
-            getServiceRequestList();
+    $.alert({
+        title: "",
+        content: "Are you sure to cancle Request?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: '/ServiceRequest/CancelServiceRequest',
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $.alert({
+                                title: '',
+                                content: response.model,
+                                type: 'blue'
+                            });
+                            getServiceRequestList();
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                }
+            }
         }
     });
 }
@@ -2711,6 +2762,11 @@ var focuss = function () {
     $("#txtOtherAmount").focusout(function () { $("#txtOtherAmount").val(formatMoney($("#txtOtherAmount").val())); })
         .focus(function () {
             $("#txtOtherAmount").val(unformatText($("#txtOtherAmount").val()));
+        });
+
+    $("#txtOtherAmountR").focusout(function () { $("#txtOtherAmountR").val(formatMoney($("#txtOtherAmountR").val())); })
+        .focus(function () {
+            $("#txtOtherAmountR").val(unformatText($("#txtOtherAmountR").val()));
         });
 }
 

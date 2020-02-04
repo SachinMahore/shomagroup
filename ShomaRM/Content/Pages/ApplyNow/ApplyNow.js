@@ -450,7 +450,6 @@ $(document).ready(function () {
     document.getElementById('filePetVaccinationCertificate').onchange = function () {
         uploadPetVaccination();
     };
-
 });
 var abcd = function () {
     alert("Hi");
@@ -5291,3 +5290,44 @@ function checkExpiry() {
 
 }
 
+var checkEmailAreadyExist = function () {
+    
+    var model = { EmailId: $('#txtEmail').val() };
+    $("#divLoader").show();
+    $.ajax({
+        url: "/ApplyNow/CheckEmailAreadyExist",
+        method: "post",
+        data: JSON.stringify(model),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (response.model == true) {
+                $.alert({
+                    title: "",
+                    content: "This email Id is already exist please press Yes to Login.",
+                    type: 'blue',
+                    buttons: {
+                        yes: {
+                            text: 'Yes',
+                            action: function (yes) {
+                                var modals = document.getElementById("popSignIn");
+                                modals.style.display = "block";
+                                $('#UserName').val($('#txtEmail').val());
+                                $('#txtEmail').val('');
+                                $('#password').focus();
+                            }
+                        },
+                        no: {
+                            text: 'No',
+                            action: function (no) {
+                                $('#txtEmail').val('');
+                                $('#txtEmail').focus();
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    });
+    $("#divLoader").hide();
+};
