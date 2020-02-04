@@ -17,11 +17,12 @@
                     <div class="tab-content1">
                         <ul class="nav nav-tabs main-tab t-ul">
                             @*<li id="li1" class="active"><a href="javascript:void(0);" onclick="goToStep(1)" style="font-size:12pt;">Overview</a></li>
-                            <li id="li2"><a href="javascript:void(0);" onclick="goToStep(2)" style="font-size:12pt;">Community Info</a></li>
-                            <li id="li3"><a href="javascript:void(0);" onclick="goToStep(3)" style="font-size:12pt;">Events</a></li>*@
-                            <li id="li4" class="active"><a href="javascript:void(0);" onclick="goToStep(4)" style="font-size:12pt;">Create Club</a></li>
-                            <li id="li5"><a id="JoinClubEvent" href="javascript:void(0);" onclick="goToStep(5)" style="font-size:12pt;">Join Club</a></li>
-                            <li id="li6"><a href="javascript:void(0);" onclick="goToStep(7,@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID)" style="font-size:12pt;">My Club</a></li>
+        <li id="li2"><a href="javascript:void(0);" onclick="goToStep(2)" style="font-size:12pt;">Community Info</a></li>
+        <li id="li3"><a href="javascript:void(0);" onclick="goToStep(3)" style="font-size:12pt;">Events</a></li>*@
+                            <li id="li5" class="active"><a id="JoinClubEvent" href="javascript:void(0);" onclick="goToStep(5)" style="font-size:12pt;">Join a Club</a></li>
+                            <li id="li4" ><a href="javascript:void(0);" onclick="goToStep(4)" style="font-size:12pt;">Start a Club</a></li>
+
+                            <li id="li6"><a href="javascript:void(0);" onclick="goToStep(7,@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID)" style="font-size:12pt;">My Clubs</a></li>
                         </ul>
                         
                         <div class="hidden" id="step4">
@@ -186,7 +187,7 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <div class="col-sm-2">
-                                                    <label style="color:#4D738A !important;font-size:11pt;">Performance Level (If applicable):</label>
+                                                    <label style="color:#4D738A !important;font-size:11pt;">Level:</label>
                                                 </div>
                                                 <div class="col-sm-4">
                                                     @Html.DropDownListFor(o => o.LevelId, Enum.GetValues(typeof(LevelEnum)).Cast<LevelEnum>
@@ -1099,7 +1100,7 @@
     <script>
         $(document).ready(function () {
             $("#txtMeetingTime").timepicki();
-            goToStep(4);
+            goToStep(5);
         });
         $("#chkTermsConditions").on('ifChanged', function (event) {
             if (this.checked == true) {
