@@ -593,7 +593,7 @@
             var cardYear = $("#ddlcardyear").val();
             var ccvNumber = $("#txtCCVNumber").val();
             var prospectID = $("#hndProspectID").val();
-            var moveinamt = $("#txtPayment").text();
+            var moveinamt = $("#txtPayment").val();
             var amounttoPay = $("#lblmoveincharge").text();
             var description = "Move In Charges";
 
@@ -641,7 +641,7 @@
             var ccvNumber = 0;
             var routingNumber = $("#txtRoutingNumber").val();
             var bankName = $("#txtBankName").val();
-            var moveinamt = $("#txtPayment").text();
+            var moveinamt = $("#txtPayment").val();
             var amounttoPay = $("#lblmoveincharge").text();
             var description = "Move In Charges";
             var prospectID = $("#hndProspectID").val();
@@ -697,7 +697,7 @@
                     $("#divLoader").hide();
                     $.alert({
                         title: "",
-                        content: "Payment Saved",
+                        content: response.Msg,
                         type: 'red'
                     });
                     $("#popPayNow").modal("hide");

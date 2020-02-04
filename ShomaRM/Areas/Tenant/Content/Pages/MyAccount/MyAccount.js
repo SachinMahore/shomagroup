@@ -5096,3 +5096,36 @@ function deleteRecPayment(transid) {
         });
 }
 
+function recurringPaymentCancel()
+{
+    $("#RecStep1").removeClass("hidden");
+    $("#RecStep2").addClass("hidden");
+    $("#txtOtherAmountR").val("");
+}
+function recurringPaymentNext() {
+    var transtype = $("#ddlPaymentMethodR").text();
+    var chargeDate = $("#txtPayDateR").val();
+
+    var chargeAmount = $("#txtChargeAmount").val();
+
+    var amount = '';
+    if ($("#rbtnAmountToPayR1").is(":checked")) {
+        amount =$('#lblCurrentPrePayAmountR').text();
+    }
+    else if ($("#rbtnAmountToPayR2").is(":checked")) {
+        amount = $('#txtOtherAmountR').val();
+    }
+    else {
+        amount = '';
+    }
+
+    $("#lblReccPayFrom").text(transtype);
+    $("#lblPayDateR").text(chargeDate);
+    $("#lblFixedamt").text(amount);
+    $("#RecStep2").removeClass("hidden");
+    $("#RecStep1").addClass("hidden");
+}
+function recurringPaymentBack() {
+    $("#RecStep2").addClass("hidden");
+    $("#RecStep1").removeClass("hidden");
+}

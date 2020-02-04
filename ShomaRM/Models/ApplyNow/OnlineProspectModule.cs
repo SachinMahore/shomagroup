@@ -716,12 +716,6 @@ namespace ShomaRM.Models
                     db.SaveChanges();
                 }
 
-                //var appliTenantOnlineData = db.tbl_TenantOnline.Where(p => p.ProspectID == TenantID).ToList();
-                //if (appliTenantVehicleData != null)
-                //{
-                //    db.tbl_TenantOnline.RemoveRange(appliTenantOnlineData);
-                //    db.SaveChanges();
-                //}
                 var appliTenantOnlineData = db.tbl_TenantOnline.Where(p => p.ProspectID == TenantID).FirstOrDefault();
                 if (appliTenantOnlineData != null)
                 {

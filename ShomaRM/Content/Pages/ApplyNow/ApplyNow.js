@@ -406,17 +406,7 @@ $(document).ready(function () {
         clearApplicantHistory();
         $("#popApplicantHistory").PopupWindow("open");
     });
-    //$("#popApplicantHistory").PopupWindow({
-    //    title: "Add Applicant History",
-    //    modal: false,
-    //    autoOpen: false,
-    //    top: 120,
-    //    left: 300,
-    //    height: 600,
-    //    width: 800
-
-    //});
-
+    
     QuoteExpires = $("#lblFNLQuoteExpires").text();
     $("#getting-startedTimeRemainingClock").countdown(QuoteExpires, function (event) {
         $(this).text(
