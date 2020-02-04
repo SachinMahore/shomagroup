@@ -29,6 +29,7 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<decimal> Fees { get; set; }
         public string EventTimeString { get; set; }
         public bool IsFree { get; set; }
+        public string FessString { get; set; }
 
         public string SaveUpdateEvent(HttpPostedFileBase fb, EventModel model)
         {
@@ -122,6 +123,7 @@ namespace ShomaRM.Areas.Admin.Models
                 model.Type = GetEventData.Type;
                 model.EventTime = GetEventData.EventTime;
                 model.Fees = GetEventData.Fees;
+                model.FessString = GetEventData.Fees.ToString();
                 model.EventDateString = GetEventData.EventDate != null ? GetEventData.EventDate.Value.ToString("MM/dd/yyyy") : "";
                 //model.EventTimeString = GetEventData.EventTime != null ? GetEventData.EventTime.ToString() : "";
                 if (GetEventData.EventTime != null)

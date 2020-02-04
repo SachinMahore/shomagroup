@@ -52,7 +52,7 @@
                                                 <div class="row">
                                                     <div class="form-group">
                                                         <div class="col-sm-3">
-                                                            <label style="background-color: transparent;color:#4D738A;font-size:13pt">Payment Method:</label>
+                                                            <label style="background-color: transparent;color:#4D738A;font-size:13pt" class="star">Payment Method:</label>
                                                         </div>
                                                         <div class="col-sm-4">
                                                             <select id="ddlPaymentMethod" class="form-control"></select>
@@ -70,7 +70,7 @@
                                                         <div class="row">
                                                             <div class="form-group">
                                                                 <div class="col-sm-3">
-                                                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt">Amount To Pay:</label><br />
+                                                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt" class="star">Amount To Pay:</label><br />
                                                                 </div>
                                                                 <i class="fa fa-file-txt-o"></i>
                                                                 <div class="col-sm-4">
@@ -145,8 +145,8 @@
                                                                 </div>
                                                                 <div class="col-sm-4">
                                                                     <input id="txtPrefarredDate" type="text" class="form-control form-control-small" value="@DateTime.Now.ToString("MM/dd/yyyy")" style="width:50% !important" />
-                                                                    <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:162px;">
-                                                                        <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                                                                    <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:162px;">
+                                                                        <button class="btn btn-primary search" id="Date" type="button"><i class="fa-calendar fa"></i></button>
                                                                     </span>
                                                                 </div>
 
@@ -214,7 +214,7 @@
                                                         <div class="row">
                                                             <div class="form-group">
                                                                 <div class="col-sm-3">
-                                                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt">CVV Number:</label>
+                                                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt" class="star">CVV Number:</label>
                                                                 </div>
                                                                 <div class="col-sm-4">
                                                                     <input id="txtCVVNumberPayRentOnline" type="password" class="form-control form-control-small" maxlength="3" value="" style="width:50% !important" onkeypress="return isOnlyNumber(event);" />
@@ -338,7 +338,7 @@
                                                         <div class="row">
                                                             <div class="form-group">
                                                                 <div class="col-sm-3">
-                                                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt">Pay From:<span id="rcpid" class="hidden"></span></label>
+                                                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt" class="star">Pay From:<span id="rcpid" class="hidden"></span></label>
                                                                 </div>
                                                                 <div class="col-sm-4">
                                                                     <select id="ddlPaymentMethodR" class="form-control"></select>
@@ -356,7 +356,7 @@
                                                                 <div class="row">
                                                                     <div class="form-group">
                                                                         <div class="col-sm-3">
-                                                                            <label style="background-color: transparent;color:#4D738A;font-size:13pt">Payment Amount:</label><br />
+                                                                            <label style="background-color: transparent;color:#4D738A;font-size:13pt" class="star">Payment Amount:</label><br />
                                                                         </div>
                                                                         <i class="fa fa-file-txt-o"></i>
                                                                         <div class="col-sm-4">
@@ -394,8 +394,8 @@
                                                                         </div>
                                                                         <div class="col-sm-4">
                                                                             <input id="txtPayDateR" type="text" class="form-control form-control-small" value="" style="width:50% !important" />
-                                                                            <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:162px;">
-                                                                                <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                                                                            <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:115px;">
+                                                                                <button class="btn btn-primary search" id="PayDateR" type="button"><i class="fa-calendar fa"></i></button>
                                                                             </span>
                                                                         </div>
 
@@ -474,7 +474,6 @@
                                                 <table id="tblPaymentAccountsCreditCard" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                                                     <thead>
                                                         <tr>
-                                                            <th style="background-color: transparent;color:#4D738A;font-size:11pt">Card Type</th>
                                                             <th style="background-color: transparent;color:#4D738A;font-size:11pt">Bank Name</th>
                                                             <th style="background-color: transparent;color:#4D738A;font-size:11pt">Card Name</th>
                                                             <th style="background-color: transparent;color:#4D738A;font-size:11pt">Card Number</th>
@@ -565,7 +564,7 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <div class="col-sm-3">
-                                                                <label style="color:#4D738A !important;font-size:13pt;">Service Issue:</label>
+                                                                <label style="color:#4D738A !important;font-size:13pt;" class="star">Service Issue:</label>
                                                             </div>
                                                             <div class="col-sm-4" style="margin-left: -36px;">
                                                                 <select id="ddlProblemCategory" class="form-control"></select>
@@ -764,7 +763,7 @@
                                                                 <div class="col-sm-8 hidden" id="PreferredDate">
                                                                     <input id="txtPreferredDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" style="width:138px" type="text" />
                                                                     <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 98px;">
-                                                                        <button class="btn btn-primary search" id="txtPreferredDate" type="button"><i class="fa-calendar fa"></i></button>
+                                                                        <button class="btn btn-primary search" id="Sdate" type="button"><i class="fa-calendar fa"></i></button>
                                                                     </span>
                                                                     @*<input id="txtPreferredTime" type="time" class="form-control" style="width:120px;margin-left: 162px;margin-top: -34px;" maxlength="20" placeholder="HH:mm:ss" value="">*@
                                                                     <select id="txtPreferredTime" class="form-control" style="width:120px;margin-left: 162px;margin-top: -34px;">

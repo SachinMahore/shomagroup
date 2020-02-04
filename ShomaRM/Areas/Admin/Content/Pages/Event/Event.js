@@ -11,17 +11,24 @@ var SaveUpdateEvent = function () {
     var eventType = $("#ddlEventType").val();
     var eventTime = $("#txtEventTime").val();
     var eventFees = $("#txtEventFees").val();
-    if (eventName == "") {
-        msg += "Please Fill The Event Name </br>";
-    }
+
     if (propertyId == "0") {
         msg += "Please Select The Property </br>";
+    }
+    if (eventName == "") {
+        msg += "Please Fill The Event Name </br>";
     }
     if (eventDate == "") {
         msg += "Please Fill The Event Date </br>";
     }
     if (eventTime == "") {
         msg += "Please Fill The Event Time </br>";
+    }
+    if (eventFees == "") {
+        msg += "Please Fill The Event Fees </br>";
+    }
+    if (eventType == "0") {
+        msg += "Please Fill The Event Type </br>";
     }
     if (msg != "") {
         $.alert({
@@ -104,4 +111,6 @@ var EventList = function () {
         }
     });
 };
+
+
 

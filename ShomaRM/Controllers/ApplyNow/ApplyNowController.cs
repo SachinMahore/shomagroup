@@ -517,6 +517,16 @@ namespace ShomaRM.Controllers
             }
         }
 
-      
+        public JsonResult CheckEmailAreadyExist(string EmailId)
+        {
+            try
+            {
+                return Json(new { model = new ApplyNowModel().CheckEmailAreadyExist(EmailId) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
