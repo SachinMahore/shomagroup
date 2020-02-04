@@ -1841,7 +1841,7 @@ var clearServiceRequestField = function () {
     $("#txtPreferredTime").val('');
     $("#Issue").addClass('hidden');
     $("#OtherIssue").addClass('hidden');
-    $("#txtOtherCausingIssue").addClass('hidden');
+    $("#OtherCausingIssue").addClass('hidden');
     $("#txtOtherIssue").val('');
     $("#txtEmergencyMobile").val('');
     $("#ddlPriority").val('0');
