@@ -36,7 +36,7 @@ var saveupdateStatus = function () {
         success: function (response) {
             $.alert({
                 title: 'Alert!',
-                content: response.msg,
+                content: response.model,
                 type: 'blue'
             });
             setInterval(function () {

@@ -15,11 +15,11 @@ namespace ShomaRM.Areas.Admin.Controllers
             return View();
         }
 
-        public JsonResult GetGuestRegistrationList()
+        public JsonResult GetGuestRegistrationList(DateTime FromDate, DateTime ToDate)
         {
             try
             {
-                return Json(new { model = new GuestRegistrationModel().GetGuestRegistrationList() }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = new GuestRegistrationModel().GetGuestRegistrationList(FromDate, ToDate) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception Ex)
             {

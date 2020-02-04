@@ -36,63 +36,63 @@ namespace ShomaRM.Areas.Tenant.Models
         public GuestRegistrationModel UploadGuestDriverLicence(HttpPostedFileBase fileBaseGuestDriverLicence, GuestRegistrationModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
-                string filePath = "";
-                string fileName = "";
-                string sysFileName = "";
-                string Extension = "";
+            string filePath = "";
+            string fileName = "";
+            string sysFileName = "";
+            string Extension = "";
 
-                if (fileBaseGuestDriverLicence != null && fileBaseGuestDriverLicence.ContentLength > 0)
+            if (fileBaseGuestDriverLicence != null && fileBaseGuestDriverLicence.ContentLength > 0)
+            {
+                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/TenantGuestInformation/");
+                DirectoryInfo di = new DirectoryInfo(filePath);
+                FileInfo _FileInfo = new FileInfo(filePath);
+                if (!di.Exists)
                 {
-                    filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/TenantGuestInformation/");
-                    DirectoryInfo di = new DirectoryInfo(filePath);
-                    FileInfo _FileInfo = new FileInfo(filePath);
-                    if (!di.Exists)
-                    {
-                        di.Create();
-                    }
-                    fileName = fileBaseGuestDriverLicence.FileName;
-                    Extension = Path.GetExtension(fileBaseGuestDriverLicence.FileName);
-                    sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseGuestDriverLicence.FileName);
-                    fileBaseGuestDriverLicence.SaveAs(filePath + "//" + sysFileName);
-                    if (!string.IsNullOrWhiteSpace(fileBaseGuestDriverLicence.FileName))
-                    {
-                        string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/TenantGuestInformation/") + "/" + sysFileName;
-                    }
-                    model.DriverLicence = sysFileName;
-                    model.OriginalDriverLicence = fileName;
+                    di.Create();
                 }
+                fileName = fileBaseGuestDriverLicence.FileName;
+                Extension = Path.GetExtension(fileBaseGuestDriverLicence.FileName);
+                sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseGuestDriverLicence.FileName);
+                fileBaseGuestDriverLicence.SaveAs(filePath + "//" + sysFileName);
+                if (!string.IsNullOrWhiteSpace(fileBaseGuestDriverLicence.FileName))
+                {
+                    string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/TenantGuestInformation/") + "/" + sysFileName;
+                }
+                model.DriverLicence = sysFileName;
+                model.OriginalDriverLicence = fileName;
+            }
             return model;
         }
 
         public GuestRegistrationModel UploadGuestVehicleRegistration(HttpPostedFileBase fileBaseGuestVehicleRegistration, GuestRegistrationModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
-            
-                string filePath = "";
-                string fileName = "";
-                string sysFileName = "";
-                string Extension = "";
 
-                if (fileBaseGuestVehicleRegistration != null && fileBaseGuestVehicleRegistration.ContentLength > 0)
+            string filePath = "";
+            string fileName = "";
+            string sysFileName = "";
+            string Extension = "";
+
+            if (fileBaseGuestVehicleRegistration != null && fileBaseGuestVehicleRegistration.ContentLength > 0)
+            {
+                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/TenantGuestInformation/");
+                DirectoryInfo di = new DirectoryInfo(filePath);
+                FileInfo _FileInfo = new FileInfo(filePath);
+                if (!di.Exists)
                 {
-                    filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/TenantGuestInformation/");
-                    DirectoryInfo di = new DirectoryInfo(filePath);
-                    FileInfo _FileInfo = new FileInfo(filePath);
-                    if (!di.Exists)
-                    {
-                        di.Create();
-                    }
-                    fileName = fileBaseGuestVehicleRegistration.FileName;
-                    Extension = Path.GetExtension(fileBaseGuestVehicleRegistration.FileName);
-                    sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseGuestVehicleRegistration.FileName);
-                    fileBaseGuestVehicleRegistration.SaveAs(filePath + "//" + sysFileName);
-                    if (!string.IsNullOrWhiteSpace(fileBaseGuestVehicleRegistration.FileName))
-                    {
-                        string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/TenantGuestInformation/") + "/" + sysFileName;
-                    }
-                    model.VehicleRegistration = sysFileName;
-                    model.OriginalVehicleRegistration = fileName;
+                    di.Create();
                 }
+                fileName = fileBaseGuestVehicleRegistration.FileName;
+                Extension = Path.GetExtension(fileBaseGuestVehicleRegistration.FileName);
+                sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseGuestVehicleRegistration.FileName);
+                fileBaseGuestVehicleRegistration.SaveAs(filePath + "//" + sysFileName);
+                if (!string.IsNullOrWhiteSpace(fileBaseGuestVehicleRegistration.FileName))
+                {
+                    string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/TenantGuestInformation/") + "/" + sysFileName;
+                }
+                model.VehicleRegistration = sysFileName;
+                model.OriginalVehicleRegistration = fileName;
+            }
             return model;
         }
 
@@ -129,7 +129,7 @@ namespace ShomaRM.Areas.Tenant.Models
             {
                 var updateGuestRegistration = db.tbl_GuestRegistration.Where(co => co.GuestID == model.GuestID).FirstOrDefault();
 
-                if (updateGuestRegistration!=null)
+                if (updateGuestRegistration != null)
                 {
                     updateGuestRegistration.FirstName = model.FirstName;
                     updateGuestRegistration.LastName = model.LastName;
@@ -155,7 +155,7 @@ namespace ShomaRM.Areas.Tenant.Models
             return Msg;
         }
 
-        public List<GuestRegistrationModel> GetGuestRegistrationList()
+        public List<GuestRegistrationModel> GetGuestRegistrationList(DateTime FromDate, DateTime ToDate)
         {
             List<GuestRegistrationModel> listGuestRegistration = new List<GuestRegistrationModel>();
             ShomaRMEntities db = new ShomaRMEntities();
@@ -164,20 +164,19 @@ namespace ShomaRM.Areas.Tenant.Models
                 DataTable dtTable = new DataTable();
                 using (var cmd = db.Database.Connection.CreateCommand())
                 {
-                    
                     db.Database.Connection.Open();
                     cmd.CommandText = "sp_GetGuestRegistrationList";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    //DbParameter paramF = cmd.CreateParameter();
-                    //paramF.ParameterName = "FromDate";
-                    //paramF.Value = DateTime.Now;
-                    //cmd.Parameters.Add(paramF);
+                    DbParameter paramF = cmd.CreateParameter();
+                    paramF.ParameterName = "FromDate";
+                    paramF.Value = FromDate;
+                    cmd.Parameters.Add(paramF);
 
-                    //DbParameter paramC = cmd.CreateParameter();
-                    //paramC.ParameterName = "ToDate";
-                    //paramC.Value = DateTime.Now.AddHours(48);
-                    //cmd.Parameters.Add(paramC);
+                    DbParameter paramC = cmd.CreateParameter();
+                    paramC.ParameterName = "ToDate";
+                    paramC.Value = ToDate;
+                    cmd.Parameters.Add(paramC);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -187,7 +186,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 foreach (DataRow dr in dtTable.Rows)
                 {
                     GuestRegistrationModel pr = new GuestRegistrationModel();
-                    
+
                     pr.GuestID = Convert.ToInt64(dr["GuestId"].ToString());
                     pr.FirstName = dr["FirstName"].ToString();
                     pr.LastName = dr["LastName"].ToString();
@@ -224,7 +223,7 @@ namespace ShomaRM.Areas.Tenant.Models
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
             var deleteGuestRegistration = db.tbl_GuestRegistration.Where(co => co.GuestID == GuestID).FirstOrDefault();
-            if (deleteGuestRegistration!=null)
+            if (deleteGuestRegistration != null)
             {
                 db.tbl_GuestRegistration.Remove(deleteGuestRegistration);
                 db.SaveChanges();
