@@ -29,7 +29,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 var saveCommunityActivity = new tbl_CommunityActivity();
                 {
                     saveCommunityActivity.TenantId = model.TenantId;
-                    saveCommunityActivity.Details = model.Details;
+                    saveCommunityActivity.Details = model.Details == null ? "" : model.Details.Trim();
                     saveCommunityActivity.AttatchFile = model.AttatchFile;
                     saveCommunityActivity.Date = DateTime.Now;
                     saveCommunityActivity.AttachFileOriginalName = model.AttachFileOriginalName;
@@ -46,7 +46,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 if (updateCommunityActivity!=null)
                 {
                     updateCommunityActivity.TenantId = model.TenantId;
-                    updateCommunityActivity.Details = model.Details;
+                    updateCommunityActivity.Details = model.Details.Trim() == string.Empty ? " " : model.Details.Trim();
                     updateCommunityActivity.AttatchFile = model.AttatchFile;
                     updateCommunityActivity.Date = model.Date;
                     updateCommunityActivity.AttachFileOriginalName = model.AttachFileOriginalName;
