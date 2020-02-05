@@ -29,7 +29,7 @@
                             <span style="color:#4D738A;font-size:28px;"><b>Community Clubs</b></span>
                         </div>
                         <div class="col-sm-3">
-                            @Html.DropDownListFor(a => a[0].SearchId, EnumHelper.GetSelectList(typeof(SearchClubListEnum)), "Select", new { @id = "ActivityId", @class = "form-control" })
+                            @Html.DropDownListFor(a => a[0].SearchId, EnumHelper.GetSelectList(typeof(SearchClubListEnum)), "Select", new { @id = "ActivityId", @class = "form-control",@onChange="SearchClubList(this.value,'"+@ViewBag.CallenderHidden+"')" })
                          </div>
                     </div>
                 </div>

@@ -79,13 +79,17 @@ function SubmitClub() {
 
         };
         $.post("/MyCommunity/CreateClub", Json, function (Data) {
-           
+            
+            if (Data._response.Status == true) {
+                $("#chkTermsConditions").iCheck('uncheck');
+                ClearClubCreate();
+            }
             $.alert({
                 title: '',
-                content: Data.modal,
+                content: Data._response.msg,
                 type: 'blue'
             });
-            ClearClubCreate();
+            
         });
     }
     else {
@@ -150,7 +154,8 @@ function JoinUnjoinClub() {
     })
 }
 function RefreshJoinClubList(EnumId) {
-    $("#step5").load("/MyCommunity/JoinClubPartial", { SearchId: EnumId }, function (response, status, xhr) {
+    $("#divLoader").show();
+    $("#step5").load("/MyCommunity/JoinClubPartial", { SearchId: EnumId, UserId: $("#hdnUserId").val() }, function (response, status, xhr) {
 
     });
 
@@ -158,6 +163,7 @@ function RefreshJoinClubList(EnumId) {
 }
 
 function RefreshJoinClubListCurrentUser(EnumId) {
+    $("#divLoader").show();
     $("#step7").load("/MyCommunity/JoinClubPartialByUser", { SearchId: EnumId, UserId: $("#hdnUserId").val() }, function (response, status, xhr) {
 
     });
@@ -222,6 +228,7 @@ var goToStep = function (stepid, id) {
         GetJoinClub(id);
     }
     if (stepid == "7") {
+
         $("#li1").removeClass("active");
         $("#li2").removeClass("active");
         $("#li3").removeClass("active");
@@ -242,7 +249,6 @@ var goToStep = function (stepid, id) {
 };
 
 function SearchClubList(EnumId, Text) {
-   
     if (Text != "hidden") {
         RefreshJoinClubList(EnumId);
     }

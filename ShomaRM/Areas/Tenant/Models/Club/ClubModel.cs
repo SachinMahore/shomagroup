@@ -1,4 +1,5 @@
 ﻿using ShomaRM.Data;
+using ShomaRM.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,12 +36,13 @@ namespace ShomaRM.Areas.Tenant.Models.Club
         public bool ClubJoinStatus { get; set; }
         public long SearchId { get; set; }
 
-        public string SaveclubEvent(ClubModel model)
+        public ResponseModel SaveclubEvent(ClubModel model)
         {
+            ResponseModel _respnse = new ResponseModel();
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
 
-            if (db.tbl_Club.Where(a=>a.ClubTitle== model.ClubTitle)==null)
+            if (db.tbl_Club.Where(a=>a.ClubTitle.ToLower()== model.ClubTitle.ToLower()).ToList().Count()==0)
             {
                 var ClubCreate = new tbl_Club()
                 {
@@ -77,23 +79,25 @@ namespace ShomaRM.Areas.Tenant.Models.Club
                 };
                 db.tbl_ClubMapping.Add(CreateClubMap);
                 db.SaveChanges();
-                msg = "Progress Saved";
+                _respnse.Status = true;
+                _respnse.msg = "Saved Successfully..";
             }
             else
             {
-                msg = "You Already Registered For This Event";
+                _respnse.Status = false;
+                _respnse.msg = "You Already Registered For This Event";
             }
             db.Dispose();
-            return msg;
+            return _respnse;
         }
 
-        public List<ClubModel> GetClubList(long UserId=0)
+        public List<ClubModel> GetClubList()
         {
             ShomaRMEntities db = new ShomaRMEntities();
             var Clublist = db.tbl_Club.ToList();
             if (UserId != 0)
             {
-                Clublist = Clublist.Where(a => a.UserId == UserId).ToList();
+                Clublist = Clublist.ToList();
             }
            return Clublist.Select(a=>new ClubModel()
            {
