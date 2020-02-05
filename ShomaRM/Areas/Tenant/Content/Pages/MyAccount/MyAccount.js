@@ -78,8 +78,7 @@
     ddlBankAccountListShow();
     ddlPaymentMethodSelectFunction();
     ddlPayMethodPageLoadFunction();
-    tenantAccountHistory();
-
+   
 
     document.getElementById('fileUploadService').onchange = function () {
         uploadServiceFile();
@@ -883,9 +882,10 @@ var getUpTransationLists = function () {
 
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
                 html += "<td>" + elementValue.Description + "</td>";
-                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount)  + "</td>";
-                bal = parseFloat((parseFloat(bal) + parseFloat(elementValue.Charge_Amount)) - parseFloat(elementValue.Credit_Amount));
-                html += "<td style='text-align: right;'>$" + formatMoney(bal) + "</td>";
+                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
+                html += "<td style='text-align: right;'>$" + formatMoney(0) + "</td>";
+            
+                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
 
                 html += "</tr>";
                 $("#tblUpcomingCharges>tbody").append(html);
@@ -1386,31 +1386,6 @@ var goToPayStep = function (stepid, id) {
     }
 };
 
-var getAccountHistory = function () {
-
-    var model = {
-        TenantId: $("#hndTenantID").val()
-    };
-    $.ajax({
-        url: '/Transaction/getAccountHistory',
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            $("#tblAccountHistory>tbody").empty();
-            $.each(response.model, function (elementType, elementValue) {
-                var html = "<tr data-value=" + elementValue.TransID + ">";
-                html += "<td>" + elementValue.TransactionDateString + "</td>";
-                html += "<td>" + elementValue.Description + "</td>";
-                html += "<td>" + elementValue.Charge_Amount + "</td>";
-                html += "</tr>";
-                $("#tblAccountHistory>tbody").append(html);
-            });
-        }
-    });
-}
-
 var savePaymentAccounts = function () {
     var msg = '';
     var PaymentAccountId = $("#hndPaymentAccountsID").val();
@@ -1576,7 +1551,7 @@ var getPaymentAccountsBankAccount = function () {
                 html += "<td>" + elementValue.BankName + "</td>";
                 html += "<td>" + elementValue.AccountName + "</td>";
                 html += "<td>" + MaskCardNumber(elementValue.AccountNumber) + "</td>";
-                html += "<td>" + MaskCardNumber(elementValue.RoutingNumber) + "</td>";
+                html += "<td>" + elementValue.RoutingNumber + "</td>";
                 html += "<td><a href='javascript:void(0);' onclick='editPaymentBankAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-edit'></i></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-trash'></i></a></td>";
                 html += "<td width='11%'>" + checked + "</td>";
                 html += "</tr>";
@@ -2515,18 +2490,25 @@ var dateRangeAccountHistorySearch = function () {
         dataType: "JSON",
         success: function (response) {
             $('#popDateRangeAccountHistory').modal('hide');
-            totalAmount = 0;
+            bal = 0;
             $("#tblPaymentHistory>tbody").empty();
 
             $.each(response.model, function (elementType, elementValue) {
+               
                 var html = "<tr data-value=" + elementValue.TransID + ">";
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                html += "<td>" + elementValue.Description + "</td>";
+                html += "<td><a href='javascript:void(0);'  data-toggle='modal' data-target='#popInvoice' onclick='getInvoice(" + elementValue.TransID + ")'>" + elementValue.Description + "</a></td>";
                 html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                html += "<td>" + elementValue.Charge_Type + "</td>";
+                if (elementValue.Credit_Amount != "0.00") {
+                    html += "<td style='text-align: right;'><b>$" + formatMoney(elementValue.Credit_Amount) + "</b></td>";
+                } else {
+                    html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Credit_Amount) + "</td>";
+                }
+
+                bal = parseFloat((parseFloat(bal) + parseFloat(elementValue.Charge_Amount)) - parseFloat(elementValue.Credit_Amount));
+                html += "<td style='text-align: right;'>$" + formatMoney(bal) + "</td>";
                 html += "</tr>";
                 $("#tblPaymentHistory>tbody").append(html);
-                totalAmount += parseFloat(elementValue.Charge_Amount);
             });
         }
     });
@@ -4532,31 +4514,7 @@ var ddlPayMethodPageLoadFunction = function () {
     }, 1500);
 };
 
-var tenantAccountHistory = function () {
-    var model = {
-        TenantID: $("#hndTenantID").val(),
-    }
-    $.ajax({
-        url: "/MyTransaction/GetTenantAccountHistoryList",
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            totalAmount = 0;
-            $("#tblAccountHistory>tbody").empty();
 
-            $.each(response.model, function (elementType, elementValue) {
-                var html = "<tr data-value=" + elementValue.TransID + ">";
-                html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                html += "<td>" + elementValue.Description + "</td>";
-                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                html += "</tr>";
-                $("#tblAccountHistory>tbody").append(html);
-            });
-        }
-    });
-};
 
 var openPaymentBreakdown = function () {
     $('#popPaymentBreakdown').modal('show');
@@ -4762,7 +4720,6 @@ var fillDdlServiceCategory = function () {
         }
     });
 }
-
 var fillCaussingIssue = function (ServiceIssueID) {
     var params = { ServiceIssueID: ServiceIssueID };
     $.ajax({
@@ -4775,17 +4732,21 @@ var fillCaussingIssue = function (ServiceIssueID) {
             if ($.trim(response.error) != "") {
                 //this.cancelChanges();
             } else {
+                if (response.length != '0') {
+                    $("#ddlProblemCategory1").empty();
+                    $("#ddlProblemCategory1").append("<option value='0'>What Item Is causing The Issue?</option>");
+                    $.each(response, function (index, elementValue) {
+                        $("#ddlProblemCategory1").append("<option value=" + elementValue.CausingIssueID + ">" + elementValue.CausingIssue + "</option>");
+                    });
+                } else {
+                    $("#CausingIssue").addClass("hidden");
+                    $("#ddlProblemCategory1").empty();
 
-                $("#ddlProblemCategory1").empty();
-                $("#ddlProblemCategory1").append("<option value='0'>What Item Is causing The Issue?</option>");
-                $.each(response, function (index, elementValue) {
-                    $("#ddlProblemCategory1").append("<option value=" + elementValue.CausingIssueID + ">" + elementValue.CausingIssue + "</option>");
-                });
+                }
             }
         }
     });
 }
-
 var fillDdlIssue = function (CausingIssueID, ServiceIssueID) {
     var params = { CausingIssueID: CausingIssueID, ServiceIssueID: ServiceIssueID };
     $.ajax({
@@ -4798,12 +4759,18 @@ var fillDdlIssue = function (CausingIssueID, ServiceIssueID) {
             if ($.trim(response.error) != "") {
 
             } else {
-                $("#ddlProblemCategory2").empty();
-                //$("#ddlProblemCategory2").append("<option value='0'>What Is The Issue?</option>");
-                $.each(response, function (index, elementValue) {
-                    $("#ddlProblemCategory2").append("<option value=" + elementValue.IssueID + ">" + elementValue.Issue + "</option>");
-                });
+                if (response.length != '0') {
+                    $("#ddlProblemCategory2").empty();
+                    //$("#ddlProblemCategory2").append("<option value='0'>What Is The Issue?</option>");
+                    $.each(response, function (index, elementValue) {
+                        $("#ddlProblemCategory2").append("<option value=" + elementValue.IssueID + ">" + elementValue.Issue + "</option>");
+                    });
+                }
+                else {
+                    $("#Issue").addClass("hidden");
+                    $("#ddlProblemCategory2").empty();
 
+                }
             }
         }
     });
