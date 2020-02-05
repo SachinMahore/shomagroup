@@ -262,7 +262,7 @@
                                                     </thead>
                                                     <tbody></tbody>
                                                 </table>
-                                               
+
                                             </div>
                                             <br /><br />
                                             <div class="panel-heading">
@@ -283,7 +283,18 @@
                                                     </thead>
                                                     <tbody></tbody>
                                                 </table>
-                                              
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="text-center">
+                                                    <button id="btnAccountHistoryPrint" class="btn btn-primary hidden" onclick="print('payStep2')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print Statement</b> </button>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 hidden" id="DivNote">
+                                                <div class="text-center">
+                                                    <p style="font-size:84%;margin-top:4%;color:#B7B0A7;">NOTE: Any payments generated will not be reflected in your account until the next business day!</p>
+                                                    <p style="font-size:84%;margin-top:-1%;color:#B7B0A7">UPCOMING CHARGES: Estimated future charges for next month billing.</p>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="hidden" id="payStep6">
@@ -306,33 +317,33 @@
                                             </div>
                                         </div>
                                         <div class="hidden" id="payStep4">
-                                           
-                                            <div class="col-md-12 clear hidden" id="divRecPayList">                                                   
-                                                    <div class="panel-heading">
-                                                        <div class="col-sm-12">
-                                                            <h4 style="margin-top: 2%;font-size: 18pt;color:#4D738A !important;">Manage Recurring Payments</h4><br />
-                                                        </div>
-                                                    </div>
-                                                    <p>Both active and cancelled scheduled payments are listed below. To cancel a scheduled payment. Click the cancel button in the scheduled payment details</p>
 
-                                                    <table id="tblRecurringPayments" class="table " cellspacing="0" width="100%" style="margin-left: 20px;">
-                                                        <thead>
-                                                            <tr>
-                                                                <th style="background-color: transparent;color:#4D738A;width:7%;font-size:13pt">Sr. No.</th>
-                                                                <th style="background-color: transparent;color:#4D738A;width:17%;font-size:13pt">Account</th>
-                                                                <th style="background-color: transparent;color:#4D738A;width:15%;font-size:13pt">Due Date</th>
-                                                                <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Amount</th>
-                                                                <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody></tbody>
-                                                    </table>
-                                             </div>
+                                            <div class="col-md-12 clear hidden" id="divRecPayList">
+                                                <div class="panel-heading">
+                                                    <div class="col-sm-12">
+                                                        <h4 style="margin-top: 2%;font-size: 18pt;color:#4D738A !important;">Manage Recurring Payments</h4><br />
+                                                    </div>
+                                                </div>
+                                                <p>Both active and cancelled scheduled payments are listed below. To cancel a scheduled payment. Click the cancel button in the scheduled payment details</p>
+
+                                                <table id="tblRecurringPayments" class="table " cellspacing="0" width="100%" style="margin-left: 20px;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="background-color: transparent;color:#4D738A;width:7%;font-size:13pt">Sr. No.</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:17%;font-size:13pt">Account</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:15%;font-size:13pt">Due Date</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Amount</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
                                             <div class="col-md-12 clear" id="divSetRecPay">
                                                 <div class="panel-heading">
                                                     <div class="col-sm-12">
                                                         <h4 style="margin-top: 2%;font-size: 18pt;color:#4D738A !important;">Set Up Recurring Payments</h4><br />
-                                                        
+
                                                     </div>
                                                     <div class="col-sm-12" id="RecStep1">
                                                         <div class="col-lg-6">
@@ -410,7 +421,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                
+
                                                     <div class="col-sm-12 hidden" id="RecStep2">
                                                         <div class="col-sm-12">
                                                             <h4 style="margin-top: 2%;font-size: 15pt;color:#4D738A !important;">Does everithing look Ok?</h4><br />
@@ -423,11 +434,11 @@
                                                                         <label style="background-color: transparent;color:#4D738A;font-size:13pt">Pay From:</label>
                                                                     </div>
                                                                     <div class="col-sm-11">
-                                                                       <label id="lblReccPayFrom"></label>
+                                                                        <label id="lblReccPayFrom"></label>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            
+
                                                         </div>
                                                         <div class="col-lg-6">
                                                             <div class="row">
@@ -438,7 +449,7 @@
                                                                                 <label style="background-color: transparent;color:#4D738A;font-size:13pt">Payment Date:</label>
                                                                                 <p>We will make payments to this crdit card account each month on your due date (Or it falls on Saturday, the Friday before). <span id="lblPayDateR"></span></p>
                                                                             </div>
-                                                                           
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -450,145 +461,154 @@
                                                                             </div>
                                                                             <div class="col-sm-11">
 
-                                                                               <label id=""> Fixed Amount: <b>$<span id="lblFixedamt"></span></b></label>
-                                                    <div class="col-lg-12">
-                                                        <div class="row">
-                                                            <div class="form-group">
-                                                                <div class="col-sm-3">
-                                                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt" class="star">Pay From:<span id="rcpid" class="hidden"></span></label>
-                                                                </div>
-                                                                <div class="col-sm-4">
-                                                                    <select id="ddlPaymentMethodR" class="form-control"></select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <br />
-                                                        <div class="row">
-                                                            <div class=""></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="row">
-                                                            <div class="col-sm-12">
-                                                                <div class="row">
-                                                                    <div class="form-group">
-                                                                        <div class="col-sm-3">
-                                                                            <label style="background-color: transparent;color:#4D738A;font-size:13pt" class="star">Payment Amount:</label><br />
+                                                                                <label id=""> Fixed Amount: <b>$<span id="lblFixedamt"></span></b></label>
+                                                                                <div class="col-lg-12">
+                                                                                    <div class="row">
+                                                                                        <div class="form-group">
+                                                                                            <div class="col-sm-3">
+                                                                                                <label style="background-color: transparent;color:#4D738A;font-size:13pt" class="star">Pay From:<span id="rcpid" class="hidden"></span></label>
+                                                                                            </div>
+                                                                                            <div class="col-sm-4">
+                                                                                                <select id="ddlPaymentMethodR" class="form-control"></select>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <br />
+                                                                                    <div class="row">
+                                                                                        <div class=""></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-12">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-12">
+                                                                                            <div class="row">
+                                                                                                <div class="form-group">
+                                                                                                    <div class="col-sm-3">
+                                                                                                        <label style="background-color: transparent;color:#4D738A;font-size:13pt" class="star">Payment Amount:</label><br />
+                                                                                                    </div>
+                                                                                                    <i class="fa fa-file-txt-o"></i>
+                                                                                                    <div class="col-sm-4">
+                                                                                                        <input id="rbtnAmountToPayR1" class="form-control form-control-small" type="radio" name="AmountToPay" checked="checked" style="font-size:11pt;" /> Total Rent
+                                                                                                        <br />
+                                                                                                        <input id="rbtnAmountToPayR2" class="form-control form-control-small" type="radio" name="AmountToPay" style="font-size:11pt;" /> Other Amount
+                                                                                                    </div>
+                                                                                                    <div class="col-sm-4">
+                                                                                                        $<label id="lblCurrentPrePayAmountR" style="font-size:11pt;"></label>
+                                                                                                        <div id="divOtherAmountR" class="hidden">
+                                                                                                            <input id="txtOtherAmountR" type="text" class="form-control" style="width:50%;text-align:right" onkeypress="return isNumber(event);" value="0.00" onblur="if (this.value == '') { this.value = this.defaultValue };" onfocus="if (this.value == this.defaultValue) { this.value = '' };" />
+                                                                                                            <span class="input-group-btn" style="margin-top: -34px;display: flex;">
+                                                                                                                <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-12">
+                                                                                    <div class="row">
+                                                                                        <br />
+                                                                                        <div class=""></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-12">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-12">
+                                                                                            <div class="row">
+                                                                                                <div class="form-group">
+                                                                                                    <div class="col-sm-3">
+                                                                                                        <label style="background-color: transparent;color:#4D738A;font-size:13pt">Payment Date:</label>
+                                                                                                    </div>
+                                                                                                    <div class="col-sm-4">
+                                                                                                        <input id="txtPayDateR" type="text" class="form-control form-control-small" value="" style="width:50% !important" />
+                                                                                                        <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:115px;">
+                                                                                                            <button class="btn btn-primary search" id="PayDateR" type="button"><i class="fa-calendar fa"></i></button>
+                                                                                                        </span>
+                                                                                                    </div>
+
+                                                                                                </div>
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="col-sm-12 row">
+                                                                                        <div class=""><br /></div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-lg-12">
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-12">
+                                                                                        <div class="row">
+                                                                                            <div class="form-group">
+
+                                                                                                <div class="col-sm-12">
+                                                                                                    See the terms of the <a style="cursor:pointer" id="ShowTermsAndConditionR" href="javascript:void(0);">Chase Automatic Payments Service Agreement</a>
+                                                                                                </div>
+                                                                                                <div class="col-sm-12">
+                                                                                                    <input id="chkTermsAndConditionR" type="checkbox" class="form-control" style="font-size:11pt;" /> I have read and agree to the terms and conditions of the Chase Automatic Payments Service Agreement at the above link, which govern my use of Automatic Payments.
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-6">
+                                                                                <div class="form-group">
+                                                                                    <button id="btnBackRecurringPayment" type="button" class="btn btn-primary" onclick="recurringPaymentBack();" style="font-size: 11pt;width:50%;"> Back</button>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-6">
+                                                                                <div class="form-group">
+                                                                                    <button id="btnSetUpRecurringPayment" type="button" class="btn btn-primary pull-right" onclick="recurringPaymentSetUp();" style="font-size: 11pt;">Set up a Recurring Payment</button>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                        <i class="fa fa-file-txt-o"></i>
-                                                                        <div class="col-sm-4">
-                                                                            <input id="rbtnAmountToPayR1" class="form-control form-control-small" type="radio" name="AmountToPay" checked="checked" style="font-size:11pt;" /> Total Rent
-                                                                            <br />
-                                                                            <input id="rbtnAmountToPayR2" class="form-control form-control-small" type="radio" name="AmountToPay" style="font-size:11pt;" /> Other Amount
+                                                                        <div class="col-lg-12">
+                                                                            <div class="row">
+
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="col-sm-4">
-                                                                            $<label id="lblCurrentPrePayAmountR" style="font-size:11pt;"></label>
-                                                                            <div id="divOtherAmountR" class="hidden">
-                                                                                <input id="txtOtherAmountR" type="text" class="form-control" style="width:50%;text-align:right" onkeypress="return isNumber(event);" value="0.00" onblur="if (this.value == '') { this.value = this.defaultValue };" onfocus="if (this.value == this.defaultValue) { this.value = '' };" />
-                                                                                <span class="input-group-btn" style="margin-top: -34px;display: flex;">
-                                                                                    <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
-                                                                                </span>
+                                                                        <div class="col-lg-12">
+                                                                            <div class="row">
+                                                                                <br />
+                                                                                <div class=""></div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-lg-12">
+                                                                            <div class="row">
+                                                                                <br />
+                                                                                <div class=""></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-12">
+                                                                            <div class="col-sm-7">
+                                                                                <div class="form-group">
+                                                                                    <button id="btnSaveRecurringPayment" type="button" class="btn btn-primary pull-right hidden" onclick="recurringPaymentSaveUpdate();" style="font-size: 11pt;"> Save</button>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-sm-5">
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="row">
-                                                            <br />
-                                                            <div class=""></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="row">
-                                                            <div class="col-sm-12">
-                                                                <div class="row">
-                                                                    <div class="form-group">
-                                                                        <div class="col-sm-3">
-                                                                            <label style="background-color: transparent;color:#4D738A;font-size:13pt">Payment Date:</label>
-                                                                        </div>
-                                                                        <div class="col-sm-4">
-                                                                            <input id="txtPayDateR" type="text" class="form-control form-control-small" value="" style="width:50% !important" />
-                                                                            <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:115px;">
-                                                                                <button class="btn btn-primary search" id="PayDateR" type="button"><i class="fa-calendar fa"></i></button>
-                                                                            </span>
-                                                                        </div>
 
-                                                                            </div>
-
-                                                                        </div>
-                                                                    </div>
                                                                 </div>
 
-                                                                <div class="col-sm-12 row">
-                                                                    <div class=""><br /></div>
-                                                                </div>
-                                                         
                                                             </div>
-                                                        </div>
-                                                        <div class="col-lg-12">
-                                                            <div class="row">
-                                                                <div class="col-sm-12">
-                                                                    <div class="row">
-                                                                        <div class="form-group">
-
-                                                                            <div class="col-sm-12">
-                                                                                See the terms of the <a style="cursor:pointer" id="ShowTermsAndConditionR" href="javascript:void(0);">Chase Automatic Payments Service Agreement</a>
-                                                                            </div>
-                                                                            <div class="col-sm-12">
-                                                                                <input id="chkTermsAndConditionR" type="checkbox" class="form-control" style="font-size:11pt;" /> I have read and agree to the terms and conditions of the Chase Automatic Payments Service Agreement at the above link, which govern my use of Automatic Payments.
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group">
-                                                                <button id="btnBackRecurringPayment" type="button" class="btn btn-primary" onclick="recurringPaymentBack();" style="font-size: 11pt;width:50%;"> Back</button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group">
-                                                                <button id="btnSetUpRecurringPayment" type="button" class="btn btn-primary pull-right" onclick="recurringPaymentSetUp();" style="font-size: 11pt;">Set up a Recurring Payment</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="row">
-                                                            
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="row">
-                                                            <br />
-                                                            <div class=""></div>
-                                                        </div>
-                                                    </div>
-                                            
-                                                    <div class="col-lg-12">
-                                                        <div class="row">
-                                                            <br />
-                                                            <div class=""></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="col-sm-7">
-                                                            <div class="form-group">
-                                                                <button id="btnSaveRecurringPayment" type="button" class="btn btn-primary pull-right hidden" onclick="recurringPaymentSaveUpdate();" style="font-size: 11pt;"> Save</button>
-                                                            </div>
-                                                        </div>
                                                         
-                                                        <div class="col-sm-5">
-
+                                                      
                                                         </div>
                                                     </div>
                                                 </div>
                                                 
                                             </div>
-                                            
+                                            <!-- End submit form -->
                                         </div>
                                         <div class="hidden" id="payStep5">
                                             <div class="panel-heading">
@@ -635,19 +655,9 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12">
-                                            <div class="text-center">
-                                                <button id="btnAccountHistoryPrint" class="btn btn-primary hidden" onclick="print('payStep2')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print Statement</b> </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 hidden" id="DivNote">
-                                            <div class="text-center">
-                                                <p style="font-size:84%;margin-top:4%;color:#B7B0A7;">NOTE: Any payments generated will not be reflected in your account until the next business day!</p>
-                                                <p style="font-size:84%;margin-top:-1%;color:#B7B0A7">UPCOMING CHARGES: Estimated future charges for next month billing.</p>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
+                                
                             </div>
                             <div class="hidden" id="step4">
                                 <ul class="nav nav-tabs nact">
@@ -786,9 +796,7 @@
                                                                     <label class="star" style="color:#4D738A !important;font-size:13pt;">Select Location:</label>
                                                                 </div>
                                                                 <div class="col-sm-4" style="margin-left: -36px;">
-                                                                    <select id="ddlLocation" class="form-control">
-                                                                      
-                                                                    </select>
+                                                                    <select id="ddlLocation" class="form-control"></select>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1011,480 +1019,481 @@
 
                                                 </div>
                                             </div>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <div class="" id="">
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="" id="">
+                                                <div class="col-md-12 clear">
+                                                    <h4 style="margin-top: 2%;margin-bottom: 5%;font-size: 12pt;color:#4D738A !important; ">Recent Reservations</h4>
+                                                </div>
+                                                <div class="panel-body search-widget">
                                                     <div class="col-md-12 clear">
-                                                        <h4 style="margin-top: 2%;margin-bottom: 5%;font-size: 12pt;color:#4D738A !important; ">Recent Reservations</h4>
-                                                    </div>
-                                                    <div class="panel-body search-widget">
-                                                        <div class="col-md-12 clear">
-                                                            <table id="tblReservationRequest" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th width="20%" style="background-color: #c7cdd5;color:#3d3939">Tenant</th>
-                                                                        <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Amenity</th>
-                                                                        <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Desire Date</th>
-                                                                        <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Desire Time</th>
-                                                                        <th width="20%" style="background-color: #c7cdd5;color:#3d3939">Desire Duration</th>
-                                                                        <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Status</th>
-                                                                        <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Action</th>
+                                                        <table id="tblReservationRequest" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th width="20%" style="background-color: #c7cdd5;color:#3d3939">Tenant</th>
+                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Amenity</th>
+                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Desire Date</th>
+                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Desire Time</th>
+                                                                    <th width="20%" style="background-color: #c7cdd5;color:#3d3939">Desire Duration</th>
+                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Status</th>
+                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Action</th>
 
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody></tbody>
-                                                            </table>
-                                                        </div>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
                                                     </div>
                                                 </div>
-
                                             </div>
 
                                         </div>
-                                    </div>
-                                    <div class="hidden row" id="reservationStep2" style="margin-top:10px !important">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="" id="">
-                                                    <div class="col-md-12 clear">
-                                                        <h4 style="margin-top: 2%;margin-bottom: 2%;font-size: 12pt;color:#4D738A !important; ">Reserve an Amenity</h4>
 
-                                                    </div>
-                                                    <br />
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group">
-                                                            <label class="star">Amenity :</label>
-                                                            <select id="ddlAmenities" class="form-control">
-                                                                <option value='0'>Select Amenity</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group">
-                                                            <label>Desired Date</label>
-                                                            <input id="txtDesiredDate" type="text" class="form-control" style="width:80%" maxlength="20" placeholder="MM/dd/yyyy" value="">
-                                                            <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:150px;">
-                                                                <button id="btnDesiredDate" class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group">
-                                                            <label>Desired Time</label>
-                                                            <input id="txtDesiredTime" class="time_element form-control form-control-small" type="text" name="timepicker"  style="width:80%" maxlength="20" placeholder="HH:mm:ss" value="">
-                                                            <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:150px;">
-                                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button"><i class="fa-clock-o fa"></i></button>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group">
-                                                            <label>Desired Duration :</label>
-                                                            <select id="ddlDesiredDuration" class="form-control">
-                                                                <option value='0'>Select Duration</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <h4 style="margin-top: 2%;margin-bottom: 2%;font-size: 12pt;color:#4D738A !important; ">Amenity Reservation Request</h4>
-                                                </div>
-                                                <div class="col-sm-12 text-center">
-                                                    <div class="col-sm-6">
-                                                        <label>Unit# <b><span id="AmenityUnit"></span></b></label>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <label>Tenant: <b><span id="AmenityTenant"></span></b></label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-12 text-center">
-                                                    <p style="padding:0px !important;">Reservation for <b><span id="SelectedAminity"></span></b></p>
-                                                    <p style="padding:0px !important;"><b><span id="SelectedDate"></span></b></p>
-                                                    <p style="padding:0px !important;"><b><span id="SelectedTime"></span></b></p>
-                                                </div>
-                                                <div class="col-sm-12 text-center">
-                                                    <div class="col-sm-6">
-                                                        <label>Security Deposit Required: <span id="AmenitySDR"> &nbsp;$00.00</span><span><sup>*</sup></span></label>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <label>Reservation fee:  <span id="AmenityRF"> &nbsp;$00.00</span> <span><sup>*</sup></span></label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-12 text-justify">
-                                                    <p>
-                                                        Tenant hereby certifies that he/she has read and understood the Rules & Regulations attached in connection with the rental of the BBQ facility.
-                                                        Tenant is aware that they will be using a Common Area of the Community, and as such must be considerate and courteous to other residents and ensure
-                                                        that the area is well maintained and clean during and after use. By continuing herein, tenant agrees to abide by the Rules & Regulations of Sanctuary at Doral,
-                                                        LLC and is aware that in not doing so, he/she is subject to fines and fees.
-                                                    </p>
-                                                </div>
-                                                <div class="col-sm-12 text-center">
-                                                    <button id="RequestReservation" type="button" class="btn btn-primary" onclick="saveUpdateReservationRequest()">Request Reservation</button>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
-
                                 </div>
-                                <div class="hidden" id="step6">
-                                    <ul class="nav nav-tabs nact">
-                                        <li id="myLeaseDocuments1" class="active1"><a href="javascript:void(0);" onclick="goToMyLeaseDocuments(1)" style="font-size:12pt;">My Lease Documents</a></li>
-                                    </ul>
-                                    <div class="" id="leaseDocStep1">
+                                <div class="hidden row" id="reservationStep2" style="margin-top:10px !important">
+                                    <div class="row">
                                         <div class="col-md-12">
-                                            <div class="panel-heading">
-                                                <h4 style="margin-top: 2%;margin-bottom: 2%;font-size: 12pt;color:#4D738A !important; ">My Documents</h4>
+                                            <div class="" id="">
+                                                <div class="col-md-12 clear">
+                                                    <h4 style="margin-top: 2%;margin-bottom: 2%;font-size: 12pt;color:#4D738A !important; ">Reserve an Amenity</h4>
+
+                                                </div>
+                                                <br />
                                             </div>
-                                            <div class="panel-group" id="accordion">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title">
-                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Lease Document<i class="fa fa-angle-right pull-right"></i></a>
-                                                        </h3>
-                                                    </div>
-                                                    <div id="collapse1" class="panel-collapse collapse">
-                                                        <div class="panel-body">
-                                                            <div class="panel-group" id="accordionSubLeaseDocument">
-                                                            </div>
-                                                        </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="star">Amenity :</label>
+                                                        <select id="ddlAmenities" class="form-control">
+                                                            <option value='0'>Select Amenity</option>
+                                                        </select>
                                                     </div>
                                                 </div>
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title">
-                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Personal Identity<i class="fa fa-angle-right pull-right"></i></a>
-                                                        </h3>
-                                                    </div>
-                                                    <div id="collapse2" class="panel-collapse collapse">
-                                                        <div class="panel-body">
-                                                            <div class="panel-group" id="accordionSubIdentity">
-                                                            </div>
-                                                        </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label>Desired Date</label>
+                                                        <input id="txtDesiredDate" type="text" class="form-control" style="width:80%" maxlength="20" placeholder="MM/dd/yyyy" value="">
+                                                        <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:150px;">
+                                                            <button id="btnDesiredDate" class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                                                        </span>
                                                     </div>
                                                 </div>
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title">
-                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Pay Stub/Tax Return<i class="fa fa-angle-right pull-right"></i></a>
-                                                        </h3>
-                                                    </div>
-                                                    <div id="collapse3" class="panel-collapse collapse">
-                                                        <div class="panel-body">
-                                                            <div class="panel-group" id="accordionSubTaxReturn">
-                                                            </div>
-                                                        </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label>Desired Time</label>
+                                                        <input id="txtDesiredTime" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:80%" maxlength="20" placeholder="HH:mm:ss" value="">
+                                                        <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:150px;">
+                                                            <button id="btnDesiredTime" class="btn btn-primary search" type="button"><i class="fa-clock-o fa"></i></button>
+                                                        </span>
                                                     </div>
                                                 </div>
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title">
-                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Pets<i class="fa fa-angle-right pull-right"></i></a>
-                                                        </h3>
-                                                    </div>
-                                                    <div id="collapse4" class="panel-collapse collapse">
-                                                        <div class="panel-body">
-                                                            <div class="panel-group" id="accordionSubPetCertificate">
-                                                            </div>
-                                                        </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label>Desired Duration :</label>
+                                                        <select id="ddlDesiredDuration" class="form-control">
+                                                            <option value='0'>Select Duration</option>
+                                                        </select>
                                                     </div>
                                                 </div>
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title">
-                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Vehicle<i class="fa fa-angle-right pull-right"></i></a>
-                                                        </h3>
-                                                    </div>
-                                                    <div id="collapse5" class="panel-collapse collapse">
-                                                        <div class="panel-body">
-                                                            <div class="panel-group" id="accordionSubVehicleCertificate">
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <h4 style="margin-top: 2%;margin-bottom: 2%;font-size: 12pt;color:#4D738A !important; ">Amenity Reservation Request</h4>
+                                            </div>
+                                            <div class="col-sm-12 text-center">
+                                                <div class="col-sm-6">
+                                                    <label>Unit# <b><span id="AmenityUnit"></span></b></label>
                                                 </div>
+                                                <div class="col-sm-6">
+                                                    <label>Tenant: <b><span id="AmenityTenant"></span></b></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 text-center">
+                                                <p style="padding:0px !important;">Reservation for <b><span id="SelectedAminity"></span></b></p>
+                                                <p style="padding:0px !important;"><b><span id="SelectedDate"></span></b></p>
+                                                <p style="padding:0px !important;"><b><span id="SelectedTime"></span></b></p>
+                                            </div>
+                                            <div class="col-sm-12 text-center">
+                                                <div class="col-sm-6">
+                                                    <label>Security Deposit Required: <span id="AmenitySDR"> &nbsp;$00.00</span><span><sup>*</sup></span></label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label>Reservation fee:  <span id="AmenityRF"> &nbsp;$00.00</span> <span><sup>*</sup></span></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 text-justify">
+                                                <p>
+                                                    Tenant hereby certifies that he/she has read and understood the Rules & Regulations attached in connection with the rental of the BBQ facility.
+                                                    Tenant is aware that they will be using a Common Area of the Community, and as such must be considerate and courteous to other residents and ensure
+                                                    that the area is well maintained and clean during and after use. By continuing herein, tenant agrees to abide by the Rules & Regulations of Sanctuary at Doral,
+                                                    LLC and is aware that in not doing so, he/she is subject to fines and fees.
+                                                </p>
+                                            </div>
+                                            <div class="col-sm-12 text-center">
+                                                <button id="RequestReservation" type="button" class="btn btn-primary" onclick="saveUpdateReservationRequest()">Request Reservation</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="hidden" id="step7">
-                                    <div class="col-sm-12">
-                                        <input id="hdnGuestId" type="hidden" value="0" />
-                                        <button type="submit" class="btn-blue pull-right text-center" onclick="printGuest('PrintGuest')"><i class="fa fa-print"></i> Print</button>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <div id="PrintGuest" style="overflow: hidden !important;">
-                                            <h4 class="text-center" style="color:#4d738a;">GUEST REGISTRATION FORM</h4>
-                                            <h5 class="text-center" style="text-decoration:underline;font-size: 12pt;">(Registration is only necessary for guests staying overnight)</h5>
-                                            <br />
-                                            <div class="panel-body">
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <div class="col-sm-2">
-                                                                <label style="color:#4D738A !important;font-size:11pt;" class="star">GUEST NAME:</label>
-                                                            </div>
-                                                            <div class="col-sm-4">
-                                                                <input type="text" id="txtGuestFirstName" onchange="copyGuestName();" /><hr />
-                                                            </div>
-                                                            <div class="col-sm-2">
-                                                                <label style="color:#4D738A !important;font-size:11pt;">LAST NAME:</label>
-                                                            </div>
-                                                            <div class="col-sm-4" style="margin-left: -29px;">
-                                                                <input type="text" id="txtGuestLastName" onchange="copyGuestName();" /><hr />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <br />
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <div class="col-sm-2">
-                                                                <label style="color:#4D738A !important;font-size:11pt;" class="star">GUEST ADDRESS:</label>
-                                                            </div>
-                                                            <div class="col-sm-4">
-                                                                &nbsp;<textarea id="txtGuestAddress" style="width:98%; min-height:90px; border: none;"></textarea><hr />
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <div class="row">
-                                                                    <div class="col-sm-4">
-                                                                        <label style="color:#4D738A !important;font-size:11pt;">PHONE#:</label>
-                                                                    </div>
-                                                                    <div class="col-sm-8" style="margin-left: -29px;">
-                                                                        <input type="text" id="txtGuestPhone" maxlength="10" onkeypress="return isOnlyNumber(event);" /><hr>
-                                                                    </div>
-                                                                </div>
-                                                                <br />
-                                                                <div class="row">
-                                                                    <div class="col-sm-4">
-                                                                        <label style="color:#4D738A !important;font-size:11pt;" class="star">EMAIL:</label>
-                                                                    </div>
-                                                                    <div class="col-sm-8" style="margin-left: -29px;">
-                                                                        <input type="text" id="txtGuestEmail" /><hr />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <br />
-
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div class="col-sm-8">
-                                                            <div class="col-sm-6" style="margin-left:-15px !important;">
-                                                                <div style="float:left;">
-                                                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">Visit Start Date: </label>
-                                                                </div>
-                                                                <div style="margin-left:50px;">
-                                                                    <input id="txtGuestVistStartDate" type="text" value="" style="width:150px;"><hr style="width:150px;" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <div style="float:left;">
-                                                                    <label style="color:#4D738A !important;font-size:11pt;position:relative;" class="star">Visit End Date: </label>
-                                                                    <br />
-                                                                    <span style="color:#4D738A !important; font-size:8pt; position:absolute; top:15px;">(Limited to 10 days)</span>
-                                                                </div>
-                                                                <div>
-                                                                    <input id="txtGuestVistEndDate" type="text" value="" style="width:150px;"><hr style="width:150px;" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <span style="color:#4D738A !important;font-size:11pt;" class="star">Upload Driver Licence or Picture Id:</span>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <input type="file" name="fileUploadGuestDriverLicence" id="fileUploadGuestDriverLicence" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                                            <label for="fileUploadGuestDriverLicence">
-                                                                <i class="fa fa-upload fa-2x"></i>
-                                                                <span id="fileSpanShowGuestDriverLicence">Choose a file&hellip;</span>
-                                                            </label>
-                                                            <input type="hidden" id="hndUploadGuestDriverLicence" value="0" />
-                                                            <input type="hidden" id="hndOriginalUploadGuestDriverLicence" value="0" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <br />
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div class="col-sm-8">
-                                                            <div class="col-sm-9">
-                                                                <div class="col-sm-6" style="margin-left:-30px !important;">
-                                                                    <div style="float:left;">
-                                                                        <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Make: </label>
-                                                                    </div>
-                                                                    <div>
-                                                                        <input id="txtGuestVehicleMake" type="text" value="" style="width:88px;"><hr style="width:88px;" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm-6">
-                                                                    <div style="float:left;">
-                                                                        <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Model: </label>
-                                                                    </div>
-                                                                    <div>
-                                                                        <input id="txtGuestVehicleModel" type="text" value="" style="width:88px;"><hr style="width:88px;" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-sm-3">
-                                                                <div style="float:left; margin-left:-15px;">
-                                                                    <span style="color:#4D738A !important;font-size:11pt;" class="star">Tag#: </span>
-                                                                </div>
-                                                                <div>
-                                                                    <input type="text" id="txtGuestVehicleTag" style="width:80px;" /><hr style="width:80px;margin-left:30px;" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <span style="color:#4D738A !important;font-size:11pt;" class="star">Upload Registration: </span>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <input type="file" name="fileUploadGuestRegistration" id="fileUploadGuestRegistration" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                                            <label for="fileUploadGuestRegistration">
-                                                                <i class="fa fa-upload fa-2x"></i>
-                                                                <span id="fileSpanShowGuestRegistration">Choose a file&hellip;</span>
-                                                            </label>
-                                                            <input type="hidden" id="hndUploadGuestRegistration" value="0" />
-                                                            <input type="hidden" id="hndOriginalUploadGuestRegistration" value="0" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <br />
-
-                                                <div class="col-sm-12">
-                                                    <h5 style="text-decoration:underline;">Guest Certification</h5>
-
-                                                    <p>I, <span id="spanGuestCertGName" style="text-decoration:underline"></span> , hereby certify that I have been informed of the rules and regulations of the community, and I will abide by them.  I also certify that I will not use any of the amenities/common areas without the presence of the Tenant.</p>
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <h5 style="text-decoration:underline;">Tenant's Certification</h5>
-
-                                                    <p>
-                                                        Tenants are fully responsible for any damage to the unit and/or common areas caused by their guests.  Tenants will be held financially liable for damages to the property.  Tenants are responsible to advise their guests of the community’s rules and regulations and ensure that the guests fully abide by them.  Tenants must accompany their guests for the use of all amenities/common areas.
-                                                        <br /><br />I have read and understood my financial responsibility for my guests and agree to advise my guests to abide by the community’s rules and regulations.
-                                                    </p>
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group">
-                                                                <span id="spanTenantSignName" style="text-decoration:underline"></span><br />
-                                                                <label>Tenant</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group">
-                                                                <span id="spanGuestSignName" style="text-decoration:underline"></span><br />
-                                                                <label>Guest</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
+                            </div>
+                            <div class="hidden" id="step6">
+                                <ul class="nav nav-tabs nact">
+                                    <li id="myLeaseDocuments1" class="active1"><a href="javascript:void(0);" onclick="goToMyLeaseDocuments(1)" style="font-size:12pt;">My Lease Documents</a></li>
+                                </ul>
+                                <div class="" id="leaseDocStep1">
+                                    <div class="col-md-12">
+                                        <div class="panel-heading">
+                                            <h4 style="margin-top: 2%;margin-bottom: 2%;font-size: 12pt;color:#4D738A !important; ">My Documents</h4>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
+                                        <div class="panel-group" id="accordion">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Lease Document<i class="fa fa-angle-right pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse1" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div class="panel-group" id="accordionSubLeaseDocument">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <button id="btnGuestRegSave" type="button" class="btn btn-primary pull-right" onclick="saveUpdateGuestRegistration();">Save</button>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Personal Identity<i class="fa fa-angle-right pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse2" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div class="panel-group" id="accordionSubIdentity">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Pay Stub/Tax Return<i class="fa fa-angle-right pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse3" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div class="panel-group" id="accordionSubTaxReturn">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Pets<i class="fa fa-angle-right pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse4" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div class="panel-group" id="accordionSubPetCertificate">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Vehicle<i class="fa fa-angle-right pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse5" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div class="panel-group" id="accordionSubVehicleCertificate">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-
-
                                 </div>
                             </div>
-                            <!-- End submit form -->
+                            <div class="hidden" id="step7">
+                                <div class="col-sm-12">
+                                    <input id="hdnGuestId" type="hidden" value="0" />
+                                    <button type="submit" class="btn-blue pull-right text-center" onclick="printGuest('PrintGuest')"><i class="fa fa-print"></i> Print</button>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div id="PrintGuest" style="overflow: hidden !important;">
+                                        <h4 class="text-center" style="color:#4d738a;">GUEST REGISTRATION FORM</h4>
+                                        <h5 class="text-center" style="text-decoration:underline;font-size: 12pt;">(Registration is only necessary for guests staying overnight)</h5>
+                                        <br />
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-2">
+                                                            <label style="color:#4D738A !important;font-size:11pt;" class="star">GUEST NAME:</label>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" id="txtGuestFirstName" onchange="copyGuestName();" /><hr />
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <label style="color:#4D738A !important;font-size:11pt;">LAST NAME:</label>
+                                                        </div>
+                                                        <div class="col-sm-4" style="margin-left: -29px;">
+                                                            <input type="text" id="txtGuestLastName" onchange="copyGuestName();" /><hr />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-2">
+                                                            <label style="color:#4D738A !important;font-size:11pt;" class="star">GUEST ADDRESS:</label>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            &nbsp;<textarea id="txtGuestAddress" style="width:98%; min-height:90px; border: none;"></textarea><hr />
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="row">
+                                                                <div class="col-sm-4">
+                                                                    <label style="color:#4D738A !important;font-size:11pt;">PHONE#:</label>
+                                                                </div>
+                                                                <div class="col-sm-8" style="margin-left: -29px;">
+                                                                    <input type="text" id="txtGuestPhone" maxlength="10" onkeypress="return isOnlyNumber(event);" /><hr>
+                                                                </div>
+                                                            </div>
+                                                            <br />
+                                                            <div class="row">
+                                                                <div class="col-sm-4">
+                                                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">EMAIL:</label>
+                                                                </div>
+                                                                <div class="col-sm-8" style="margin-left: -29px;">
+                                                                    <input type="text" id="txtGuestEmail" /><hr />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-8">
+                                                        <div class="col-sm-6" style="margin-left:-15px !important;">
+                                                            <div style="float:left;">
+                                                                <label style="color:#4D738A !important;font-size:11pt;" class="star">Visit Start Date: </label>
+                                                            </div>
+                                                            <div style="margin-left:50px;">
+                                                                <input id="txtGuestVistStartDate" type="text" value="" style="width:150px;"><hr style="width:150px;" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div style="float:left;">
+                                                                <label style="color:#4D738A !important;font-size:11pt;position:relative;" class="star">Visit End Date: </label>
+                                                                <br />
+                                                                <span style="color:#4D738A !important; font-size:8pt; position:absolute; top:15px;">(Limited to 10 days)</span>
+                                                            </div>
+                                                            <div>
+                                                                <input id="txtGuestVistEndDate" type="text" value="" style="width:150px;"><hr style="width:150px;" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span style="color:#4D738A !important;font-size:11pt;" class="star">Upload Driver Licence or Picture Id:</span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <input type="file" name="fileUploadGuestDriverLicence" id="fileUploadGuestDriverLicence" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                                        <label for="fileUploadGuestDriverLicence">
+                                                            <i class="fa fa-upload fa-2x"></i>
+                                                            <span id="fileSpanShowGuestDriverLicence">Choose a file&hellip;</span>
+                                                        </label>
+                                                        <input type="hidden" id="hndUploadGuestDriverLicence" value="0" />
+                                                        <input type="hidden" id="hndOriginalUploadGuestDriverLicence" value="0" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-8">
+                                                        <div class="col-sm-9">
+                                                            <div class="col-sm-6" style="margin-left:-30px !important;">
+                                                                <div style="float:left;">
+                                                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Make: </label>
+                                                                </div>
+                                                                <div>
+                                                                    <input id="txtGuestVehicleMake" type="text" value="" style="width:88px;"><hr style="width:88px;" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div style="float:left;">
+                                                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Model: </label>
+                                                                </div>
+                                                                <div>
+                                                                    <input id="txtGuestVehicleModel" type="text" value="" style="width:88px;"><hr style="width:88px;" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-3">
+                                                            <div style="float:left; margin-left:-15px;">
+                                                                <span style="color:#4D738A !important;font-size:11pt;" class="star">Tag#: </span>
+                                                            </div>
+                                                            <div>
+                                                                <input type="text" id="txtGuestVehicleTag" style="width:80px;" /><hr style="width:80px;margin-left:30px;" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span style="color:#4D738A !important;font-size:11pt;" class="star">Upload Registration: </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <input type="file" name="fileUploadGuestRegistration" id="fileUploadGuestRegistration" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                                        <label for="fileUploadGuestRegistration">
+                                                            <i class="fa fa-upload fa-2x"></i>
+                                                            <span id="fileSpanShowGuestRegistration">Choose a file&hellip;</span>
+                                                        </label>
+                                                        <input type="hidden" id="hndUploadGuestRegistration" value="0" />
+                                                        <input type="hidden" id="hndOriginalUploadGuestRegistration" value="0" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+
+                                            <div class="col-sm-12">
+                                                <h5 style="text-decoration:underline;">Guest Certification</h5>
+
+                                                <p>I, <span id="spanGuestCertGName" style="text-decoration:underline"></span> , hereby certify that I have been informed of the rules and regulations of the community, and I will abide by them.  I also certify that I will not use any of the amenities/common areas without the presence of the Tenant.</p>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <h5 style="text-decoration:underline;">Tenant's Certification</h5>
+
+                                                <p>
+                                                    Tenants are fully responsible for any damage to the unit and/or common areas caused by their guests.  Tenants will be held financially liable for damages to the property.  Tenants are responsible to advise their guests of the community’s rules and regulations and ensure that the guests fully abide by them.  Tenants must accompany their guests for the use of all amenities/common areas.
+                                                    <br /><br />I have read and understood my financial responsibility for my guests and agree to advise my guests to abide by the community’s rules and regulations.
+                                                </p>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <span id="spanTenantSignName" style="text-decoration:underline"></span><br />
+                                                            <label>Tenant</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <span id="spanGuestSignName" style="text-decoration:underline"></span><br />
+                                                            <label>Guest</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <button id="btnGuestRegSave" type="button" class="btn btn-primary pull-right" onclick="saveUpdateGuestRegistration();">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
                         </div>
+
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div data-spy="affix" data-offset-top="0">
-                        <div class="col-sm-12" style="margin-bottom:-20px;">
-                            <div class="panel-body table-bordered" style="padding:5px !important;">
-                                <div class="center">
-                                    <span style="color:#4D738A;font-size:20pt;">amount due:</span>
-                                </div>
-                                <div class="center">
-                                    <span id="spanCurrentAmountDue" style="color:#c82828;font-size:20px;cursor:pointer;" onclick="openPaymentBreakdown();">0.00</span><br />
-                                    <button id="btnMakeAPayment" class="" style="background-color:#8cb954;border-collapse:collapse;border-radius:2px;color:#ffffff;margin-top:4px;width:60%;font-size:10pt" type="button" onclick="goToPaymentFromMyHome();">Pay</button><br />
-                                    <a href="javascript:void(0)" id="btnSetUpRecurringPayment" style="text-decoration:underline;font-size:10pt" onclick="goToRecurringPaymentFromMyHome();">Set Up Recurring Payment</a>
-                                </div>
-                            </div><br />
-                        </div>
-                        <div class="col-sm-12" style="margin-bottom:-20px;">
-                            <div class="panel-body table-bordered" style="padding:10px !important">
-                                <div class="center" id="bellDiv">
-                                    <span style="color:#c82828;font-size:30px;"><i class="fa fa-bell"></i></span>
-                                </div><br />
-                                <div id="divServiceRequestAlarm" style="margin-top:-30px;">
-                                    <div class="center">
-                                        <span id="spanServiceRequestlabelAlarm" style="font-size:12px;"></span>
-                                    </div>
-                                    <div class="center">
-                                        <span id="spanServiceRequestDateTimeAlarm"></span>
-                                    </div>
-                                </div>
-                            </div><br />
-                        </div>
-                        <div class="col-sm-12" style="margin-bottom:-20px;">
-                            <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
-                                <h3 class="panel-title" style="color:#ffffff"><img src="~/Content/assets/Assets/cheers-whight.png" height="20" width="20" /> Celebrate</h3>
+            </div>
+            <div class="col-md-3">
+                <div data-spy="affix" data-offset-top="0">
+                    <div class="col-sm-12" style="margin-bottom:-20px;">
+                        <div class="panel-body table-bordered" style="padding:5px !important;">
+                            <div class="center">
+                                <span style="color:#4D738A;font-size:20pt;">amount due:</span>
                             </div>
-                            <div class="panel-body table-bordered" style="padding:5px !important">
-                                <div class="center">
-                                    <a href="javascript:void(0)" id="btnReserveAmenities" onclick="goToStep(5);"><i class="fa fa-plus-circle"></i> Reserve Amenities</a>
-                                </div>
-                            </div><br />
-                        </div>
-                        <div class="col-sm-12" style="margin-bottom:-20px;">
-                            <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
-                                <h3 class="panel-title" style="color:#ffffff"><i class="fa fa-user-plus"></i> Enjoy Company</h3>
+                            <div class="center">
+                                <span id="spanCurrentAmountDue" style="color:#c82828;font-size:20px;cursor:pointer;" onclick="openPaymentBreakdown();">0.00</span><br />
+                                <button id="btnMakeAPayment" class="" style="background-color:#8cb954;border-collapse:collapse;border-radius:2px;color:#ffffff;margin-top:4px;width:60%;font-size:10pt" type="button" onclick="goToPaymentFromMyHome();">Pay</button><br />
+                                <a href="javascript:void(0)" id="btnSetUpRecurringPayment" style="text-decoration:underline;font-size:10pt" onclick="goToRecurringPaymentFromMyHome();">Set Up Recurring Payment</a>
                             </div>
-                            <div class="panel-body table-bordered" style="padding:5px !important">
-                                <div class="center">
-                                    <a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToStep(7);"><i class="fa fa-plus-circle"></i> Register a Guest</a>
-                                </div>
+                        </div><br />
+                    </div>
+                    <div class="col-sm-12" style="margin-bottom:-20px;">
+                        <div class="panel-body table-bordered" style="padding:10px !important">
+                            <div class="center" id="bellDiv">
+                                <span style="color:#c82828;font-size:30px;"><i class="fa fa-bell"></i></span>
                             </div><br />
-                        </div>
-                        <div class="col-sm-12" style="margin-bottom:-20px;">
-                            <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
-                                <h3 class="panel-title" style="color:#ffffff"><i class="glyphicon glyphicon-wrench"></i> Service Request</h3>
+                            <div id="divServiceRequestAlarm" style="margin-top:-30px;">
+                                <div class="center">
+                                    <span id="spanServiceRequestlabelAlarm" style="font-size:12px;"></span>
+                                </div>
+                                <div class="center">
+                                    <span id="spanServiceRequestDateTimeAlarm"></span>
+                                </div>
                             </div>
-                            <div class="panel-body table-bordered" style="padding:5px !important">
-                                <div class="center">
-                                    <a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToSubmitServiceRequestFromMyHome();"><i class="fa fa-plus-circle"></i> Submit a Service Request</a>
-                                </div>
-                                <div class="center">
-                                    <span><b>After-Hours</b></span>
-                                </div>
-                                <div class="center" style="margin-top:-3%">
-                                    <span>(786)437-8658</span>
-                                </div>
-                                <div class="center" style="margin-top:2%">
-                                    <span><b>Emergencies</b></span>
-                                </div>
-                                <div class="center" style="margin-top:-3%">
-                                    <span>(786)437-8658 or (911)</span>
-                                </div>
-                            </div><br />
+                        </div><br />
+                    </div>
+                    <div class="col-sm-12" style="margin-bottom:-20px;">
+                        <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
+                            <h3 class="panel-title" style="color:#ffffff"><img src="~/Content/assets/Assets/cheers-whight.png" height="20" width="20" /> Celebrate</h3>
                         </div>
+                        <div class="panel-body table-bordered" style="padding:5px !important">
+                            <div class="center">
+                                <a href="javascript:void(0)" id="btnReserveAmenities" onclick="goToStep(5);"><i class="fa fa-plus-circle"></i> Reserve Amenities</a>
+                            </div>
+                        </div><br />
+                    </div>
+                    <div class="col-sm-12" style="margin-bottom:-20px;">
+                        <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
+                            <h3 class="panel-title" style="color:#ffffff"><i class="fa fa-user-plus"></i> Enjoy Company</h3>
+                        </div>
+                        <div class="panel-body table-bordered" style="padding:5px !important">
+                            <div class="center">
+                                <a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToStep(7);"><i class="fa fa-plus-circle"></i> Register a Guest</a>
+                            </div>
+                        </div><br />
+                    </div>
+                    <div class="col-sm-12" style="margin-bottom:-20px;">
+                        <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
+                            <h3 class="panel-title" style="color:#ffffff"><i class="glyphicon glyphicon-wrench"></i> Service Request</h3>
+                        </div>
+                        <div class="panel-body table-bordered" style="padding:5px !important">
+                            <div class="center">
+                                <a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToSubmitServiceRequestFromMyHome();"><i class="fa fa-plus-circle"></i> Submit a Service Request</a>
+                            </div>
+                            <div class="center">
+                                <span><b>After-Hours</b></span>
+                            </div>
+                            <div class="center" style="margin-top:-3%">
+                                <span>(786)437-8658</span>
+                            </div>
+                            <div class="center" style="margin-top:2%">
+                                <span><b>Emergencies</b></span>
+                            </div>
+                            <div class="center" style="margin-top:-3%">
+                                <span>(786)437-8658 or (911)</span>
+                            </div>
+                        </div><br />
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
         <div id="popVehicle" class="modal">
             <input type="hidden" id="hndVehicleID" value="0" />
             <div class="col-sm-4">
@@ -1908,7 +1917,7 @@
             </div>
         </div>
     </div>
-    <div class="modal" id="popInvoice">
+        <div class="modal" id="popInvoice">
         <div class="modal-dialog">
             <div class="modal-content" style="width: 100%; height:750px;">
                 <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;font-size: 30px !important">&times;</button>
@@ -1954,7 +1963,7 @@
             </div>
         </div>
     </div>
-</div>
+
     <input id="hdnStepId1" type="hidden" value="@ViewBag.StepIdMakePayment1" />
     <input id="hdnStepId2" type="hidden" value="@ViewBag.StepIdMakePayment2" />
     <input id="hdnPayStepIdMakePayment" type="hidden" value="@ViewBag.PayStepIdMakePayment" />

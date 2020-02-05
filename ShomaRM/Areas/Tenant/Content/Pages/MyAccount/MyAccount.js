@@ -679,7 +679,6 @@ var goToStep = function (stepid, id) {
     }
 };
 
-
 function saveupdateLease() {
     var msg = "";
     var lid = $("#hndLID").val();
@@ -4891,7 +4890,6 @@ var getReservationRequestList = function () {
     });
 };
 
-
 var getRecurringPayLists = function () {
     var model = {
         TenantID: $("#hndTenantID").val()
@@ -5023,7 +5021,6 @@ function recurringPaymentSaveUpdate() {
     });
 
 }
-
 
 var cancleRequest = function (arid) { 
     var tenantId = $("#hndTenantID").val();
@@ -5194,3 +5191,4 @@ function recurringPaymentNext() {
 
     var chargeAmount = $("#txtChargeAmount").val();
 
+}
