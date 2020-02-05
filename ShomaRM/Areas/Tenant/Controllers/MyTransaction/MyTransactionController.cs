@@ -160,5 +160,29 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult GetReservationPaymentList(long ARID)
+        {
+            try
+            {
+                return Json(new { model = new MyTransactionModel().GetReservationPaymentList(ARID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult RefundRRCharges(long TransID)
+        {
+            try
+            {
+                return Json(new { model = new MyTransactionModel().RefundRRCharges(TransID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

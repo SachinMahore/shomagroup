@@ -36,7 +36,7 @@ var saveupdateStatus = function () {
         success: function (response) {
             $.alert({
                 title: 'Alert!',
-                content: response.msg,
+                content: response.model,
                 type: 'blue'
             });
             setInterval(function () {
@@ -132,15 +132,86 @@ var getARRdata = function () {
                 $("#txtDesiredDuration").val(response.Duration);
                 $("#txtDepositFee").val(response.DepositFee);
                 $("#txtReservationFee").val(response.ReservationFee);
-                setTimeout(function () { $("#ddlDuration").find("option[value='" + response.Status + "']").attr('selected', 'selected'); }, 1600);
+                $("#ddlStatus").find("option[value='" + response.Status + "']").attr('selected', 'selected');
                 if ($("#hndAmenityID").val() != "0") {
                     $("#spanSaveUpdate").text("UPDATE");
                 }
                 else {
                     $("#spanSaveUpdate").text("SAVE");
                 }
+                getReservationPaymentList(response.ARID);
             }
         }
     });
 };
 
+var getReservationPaymentList = function (arID) {
+    var model = {
+        ARID: arID
+    };
+    $.ajax({
+        url: '/Tenant/MyTransaction/GetReservationPaymentList',
+        method: "post",
+        data: JSON.stringify(model),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if ($.trim(response.error) !== "") {
+                //this.cancelChanges();
+            } else {
+                $("#tblReservationRefundRequest>tbody").empty();
+                $.each(response.model, function (elementType, elementValue) {
+                    console.log(JSON.stringify(response.model));
+                    var html = "<tr data-value=" + elementValue.TransID + ">";
+                    html += "<td>" + elementValue.Transaction_DateString + "</td>";
+                    html += "<td>" + elementValue.Description + "</td>";
+                    html += "<td> $" + elementValue.Charge_Amount.toFixed(2) + "</td>";
+                    html += "<td><a href='javascript:void(0)' class='btn btn-primary' onclick='refundRRcharges(" + elementValue.TransID + ")'>Refund</a></td>";
+                    html += "</tr>";
+                    $("#tblReservationRefundRequest>tbody").append(html);
+                });
+            }
+        }
+    });
+};
+
+var refundRRcharges = function (transID) {
+    var model = {
+        TransID: transID
+    };
+    $.alert({
+        title: 'Alert!',
+        content: "Are you sure to refund the amount?",
+        type: 'red',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                btnClass: 'btn btn-primary',
+                action: function () {
+                    $.ajax({
+                        url: '/Tenant/MyTransaction/RefundRRCharges',
+                        method: "post",
+                        data: JSON.stringify(model),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            $.alert({
+                                title: 'Alert!',
+                                content: "Refund initiated successfully",
+                                type: 'red'
+                            });
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                btnClass: 'btn btn-primary',
+                action: function () {
+                    return;
+                }
+            }
+        }
+    });
+   
+};
