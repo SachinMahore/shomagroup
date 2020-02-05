@@ -124,7 +124,6 @@ namespace ShomaRM.Areas.Tenant.Models
 
 
                     pr.TransID = Convert.ToInt32(dr["TransID"].ToString());
-
                     pr.Transaction_DateString = transactiondateString == null ? "" : transactiondateString.Value.ToString("MM/dd/yyyy");
                     pr.Description = dr["Description"].ToString();
                     pr.Credit_Amount = Convert.ToDecimal(dr["Credit_Amount"].ToString());
@@ -459,50 +458,14 @@ namespace ShomaRM.Areas.Tenant.Models
                     {
 
                     }
-                    DateTime? createdDateString = null;
-                    try
-                    {
-                        createdDateString = Convert.ToDateTime(dr["CreatedDate"].ToString());
-                    }
-                    catch
-                    {
 
-                    }
-
-                    DateTime? charge_DateString = null;
-                    try
-                    {
-                        charge_DateString = Convert.ToDateTime(dr["Charge_Date"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
-                    DateTime? accounting_DateString = null;
-                    try
-                    {
-                        accounting_DateString = Convert.ToDateTime(dr["Accounting_Date"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
                     pr.TransID = Convert.ToInt32(dr["TransID"].ToString());
-
-                    pr.TenantIDString = dr["TenantID"].ToString();
-                    pr.Revision_Num = Convert.ToInt32(dr["Revision_Num"].ToString());
-                    pr.Transaction_Type = dr["Transaction_Type"].ToString();
                     pr.Transaction_DateString = transactiondateString == null ? "" : transactiondateString.Value.ToString("MM/dd/yyyy");
-                    pr.Run = Convert.ToInt32(dr["Run"].ToString());
-                    pr.LeaseID = Convert.ToInt32(dr["LeaseID"].ToString());
-                    pr.Reference = dr["Reference"].ToString();
-                    pr.CreatedDateString = createdDateString == null ? "" : createdDateString.ToString();
-                    pr.Credit_Amount = Convert.ToDecimal(dr["Credit_Amount"].ToString());
                     pr.Description = dr["Description"].ToString();
-                    pr.Charge_DateString = charge_DateString == null ? "" : charge_DateString.ToString();
-                    pr.Charge_Type = dr["Charge_Type"].ToString();
+                    pr.Credit_Amount = Convert.ToDecimal(dr["Credit_Amount"].ToString());
+
+                    //pr.Balance = Convert.ToDecimal(dr["Balance"].ToString());
                     pr.Charge_Amount = Convert.ToDecimal(dr["Charge_Amount"].ToString());
-                    pr.CreatedByText = dr["CreatedByText"].ToString();
 
                     lstpr.Add(pr);
                 }

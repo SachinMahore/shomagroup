@@ -267,7 +267,9 @@ namespace ShomaRM.Areas.Tenant.Models
                 {
                     foreach (var pl in vehList)
                     {
-                        //var vehState = db.tbl_State.Where(p => p.ID == (Int64)(pl.State)).FirstOrDefault();
+                        long StateId = Convert.ToInt64(pl.State);
+                        var vehState = db.tbl_State.Where(p => p.ID == StateId).FirstOrDefault();
+
                         lstProp.Add(new VehicleModel
                         {
                             Vehicle_ID = pl.Vehicle_ID,
@@ -276,7 +278,7 @@ namespace ShomaRM.Areas.Tenant.Models
                             VModel = pl.Model,
                             Year = pl.Year,
                             Color = pl.Color,
-                            State = State,
+                            State = vehState.StateName,
                             VehicleRegistration = pl.VehicleRegistration,
                             OwnerName = pl.OwnerName,
                             Notes = pl.Notes
@@ -287,6 +289,7 @@ namespace ShomaRM.Areas.Tenant.Models
             }
             return lstProp;
         }
+
 
         public string SaveUpdateVehicleTenanat(VehicleModel model, long UserId)
         {

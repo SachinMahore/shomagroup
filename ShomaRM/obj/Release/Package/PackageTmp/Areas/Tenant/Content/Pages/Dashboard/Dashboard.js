@@ -53,7 +53,7 @@
 var goToMakeAPayment = function () {
     model = {
         StepId: 3,
-        PayStepId: 2
+        PayStepId: 1
     };
 
     $.ajax({

@@ -16,188 +16,15 @@
                 <div class="panel-body table-bordered">
                     <div class="tab-content1">
                         <ul class="nav nav-tabs main-tab t-ul">
-                            <li id="li1" class="active"><a href="javascript:void(0);" onclick="goToStep(1)" style="font-size:12pt;">Overview</a></li>
-                            <li id="li2"><a href="javascript:void(0);" onclick="goToStep(2)" style="font-size:12pt;">Community Info</a></li>
-                            <li id="li3"><a href="javascript:void(0);" onclick="goToStep(3)" style="font-size:12pt;">Events</a></li>
-                            <li id="li4"><a href="javascript:void(0);" onclick="goToStep(4)" style="font-size:12pt;">Create Club</a></li>
-                            <li id="li5"><a href="javascript:void(0);" onclick="goToStep(5)" style="font-size:12pt;">Join Club</a></li>
-                            <li id="li6"><a href="javascript:void(0);" onclick="goToStep(7,@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID)" style="font-size:12pt;">My Club</a></li>
-                        </ul>
-                        <div class="" id="step1">
-                            <div class="">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="panel-body">
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <h3 style="font-size: 12pt;">Management Team</h3><br />
-                                                    <div class="row table-bordered">
-                                                        <div class="col-md-12">
-                                                            <span>Management Team Member 1</span>
-                                                        </div>
-                                                        <div class="col-md-12" style="margin-top: -12px;font-size: 11pt;color: #B7B0A7;">
-                                                            <span>Property Manager</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row table-bordered">
-                                                        <div class="col-md-12">
-                                                            <span>Management Team Member 2</span>
-                                                        </div>
-                                                        <div class="col-md-12" style="margin-top: -12px;font-size: 11pt;color: #B7B0A7;">
-                                                            <span>Assistant Property Manager</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row table-bordered">
-                                                        <div class="col-md-12">
-                                                            <span>Management Team Member 3</span>
-                                                        </div>
-                                                        <div class="col-md-12" style="margin-top: -12px;font-size: 11pt;color: #B7B0A7;">
-                                                            <span>Lease Consultant</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="panel-body">
-                                                        <span style="font-size: 12pt;color:#4D738A">Community Calender</span><br /><br />
-                                                        <span id="spanEventCalender2" style="cursor:pointer"></span><br />
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <h3 style="font-size: 12pt;">Community Resources</h3><br />
-                                                    <div id="" class="center">--None--</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12" id="EventCatogary" style="padding-left:0px !important; margin-top: -25px !important;margin-left: 256pt;">
-                                                <button id="Event"><i class="fa fa-square fa-lg" style="color: #00bfff;"></i> Neighborhood </button>
-                                                <button id="Event"><i class="fa fa-square fa-lg" style="color: #a2d900;"></i> Community </button>
-                                                <button id="Event"><i class="fa fa-square fa-lg" style="color: #ff6;"></i> Other </button>
-                                                <button id="Event"><i class="fa fa-square fa-lg" style="color: #ff6347;"></i> Multiple </button>
-                                                <button id="Event"><i class="fa fa-square fa-lg" style="color: #daf6ff;"></i> Current Date </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="hidden" id="step2">
-                            <div class="">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="panel-body">
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <div class="panel-body">
-                                                        <span style="font-size: 12pt;color:#4D738A">Management Team</span><br /><br />
-                                                        <div class="row table-bordered">
-                                                            <div class="col-md-12">
-                                                                <span>Management Team Member 1</span>
-                                                            </div>
-                                                            <div class="col-md-12" style="margin-top: -12px;font-size: 11pt;color: #B7B0A7;">
-                                                                <span>Property Manager</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row table-bordered">
-                                                            <div class="col-md-12">
-                                                                <span>Management Team Member 2</span>
-                                                            </div>
-                                                            <div class="col-md-12" style="margin-top: -12px;font-size: 11pt;color: #B7B0A7;">
-                                                                <span>Assistant Property Manager</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row table-bordered">
-                                                            <div class="col-md-12">
-                                                                <span>Management Team Member 3</span>
-                                                            </div>
-                                                            <div class="col-md-12" style="margin-top: -12px;font-size: 11pt;color: #B7B0A7;">
-                                                                <span>Lease Consultant</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-8">
-                                                    <div class="panel-body">
-                                                        <span style="font-size: 12pt;color:#4D738A">Community Information</span><br /><br />
-                                                        <div class="row">
-                                                            <div class="col-md-4" style="margin-top: 18px;">
-                                                                <img src="/content/assets/img/logo.png" alt="Logo" />
-                                                            </div>
-                                                            <div class="col-md-8">
-                                                                <div class="row">
-                                                                    <div class="col-sm-12">
-                                                                        <span><b>Community Management Office</b></span>
-                                                                    </div>
-                                                                    <div class="col-sm-12">
-                                                                        <span style="font-size: 8pt;">9400 NW 41 Street, Doral, F| 33178</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row" style="margin-top: 50px;">
-                                                            <div class="col-md-4">
-                                                            </div>
-                                                            <div class="col-md-8">
-                                                                <div class="row">
-                                                                    <div class="col-sm-12">
-                                                                        <span><b></b></span>
-                                                                    </div>
-                                                                    <div class="col-sm-12">
-                                                                        <span style="font-size: 8pt;"></span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-4">
-                                                            </div>
-                                                            <div class="col-md-8">
-                                                                <div class="row">
-                                                                    <div class="col-sm-12">
-                                                                        <span><b>Community Amenities</b></span>
-                                                                    </div>
-                                                                    <div class="col-sm-12" id="DivCommunityAmenities">
+                            @*<li id="li1" class="active"><a href="javascript:void(0);" onclick="goToStep(1)" style="font-size:12pt;">Overview</a></li>
+        <li id="li2"><a href="javascript:void(0);" onclick="goToStep(2)" style="font-size:12pt;">Community Info</a></li>
+        <li id="li3"><a href="javascript:void(0);" onclick="goToStep(3)" style="font-size:12pt;">Events</a></li>*@
+                            <li id="li5" class="active"><a id="JoinClubEvent" href="javascript:void(0);" onclick="goToStep(5)" style="font-size:12pt;">Join a Club</a></li>
+                            <li id="li4" ><a href="javascript:void(0);" onclick="goToStep(4)" style="font-size:12pt;">Start a Club</a></li>
 
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="hidden" id="step3">
-                            <div class="">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="panel-body">
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <h3 style="font-size: 12pt;">Community Calendar</h3><br />
-                                                    <span id="spanEventCalender" style="cursor:pointer"></span><br />
-                                                </div>
-                                                <div class="col-sm-8">
-                                                    <div class="panel-body">
-                                                        <span style="font-size: 12pt;color:#4D738A">Community Events:</span><br /><br />
-                                                        <div id="divEvents" class="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12" id="EventCatogary" style="padding-left:0px !important; margin-top: -25px !important;margin-left: -7pt;">
-                                                <button id="Event"><i class="fa fa-square fa-lg" style="color: #00bfff;"></i> Neighborhood </button>
-                                                <button id="Event"><i class="fa fa-square fa-lg" style="color: #a2d900;"></i> Community </button>
-                                                <button id="Event"><i class="fa fa-square fa-lg" style="color: #ff6;"></i> Other </button>
-                                                <button id="Event"><i class="fa fa-square fa-lg" style="color: #ff6347;"></i> Multiple </button>
-                                                <button id="Event"><i class="fa fa-square fa-lg" style="color: #daf6ff;"></i> Current Date </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            <li id="li6"><a href="javascript:void(0);" onclick="goToStep(7,@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID)" style="font-size:12pt;">My Clubs</a></li>
+                        </ul>
+                        
                         <div class="hidden" id="step4">
                             @{
                                 ViewBag.Title = "CreateCommunityClubJoin";
@@ -360,7 +187,7 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <div class="col-sm-2">
-                                                    <label style="color:#4D738A !important;font-size:11pt;">Performance Level (If applicable):</label>
+                                                    <label style="color:#4D738A !important;font-size:11pt;">Level:</label>
                                                 </div>
                                                 <div class="col-sm-4">
                                                     @Html.DropDownListFor(o => o.LevelId, Enum.GetValues(typeof(LevelEnum)).Cast<LevelEnum>
@@ -404,12 +231,16 @@
                         <div class="hidden" id="step5">
                            @{Html.RenderPartial("_JoinClub",Model.GetClubList());}
                         </div>
+                        @*<div >
+                            @{Html.RenderPartial("_JoinClub", Model.GetClubList());}
+                        </div>*@
                         <div class="hidden" id="step6">
                             <div class="">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="panel-body">
                                             <div class="row">
+                                                <input type="text" id="JoinClubPopupClubId"  hidden="hidden"/>
                                                 <div class="col-sm-12">
                                                     <div class="col-sm-4">
                                                         <div class="card" style="border:2px solid #4D738A;">
@@ -419,18 +250,14 @@
                                                                 <h5 class="card-text mb-15"><label id="ClubOrganization"></label></h5>
                                                                 <h3 class="card-title mb-5">Email</h3>
                                                                 <h5 class="card-text mb-15"><label id="ClubEmail"></label></h5>
-                                                                <button id="btnJoinClub" type="button" class=" btn btn-primary" style="background-color:#4D738A;border-color:#4D738A;color:#fff;margin-top:5px;font-size:11pt;">Join Club</button>
+                                                                <button id="btnJoinClub" onclick="JoinUnjoinClub()" type="button" class=" btn btn-primary" style="background-color:#4D738A;border-color:#4D738A;color:#fff;margin-top:5px;font-size:11pt;">Join Club</button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-8">
-                                                        <h3><b>Cyclers - Tuesday at 7P</b></h3>
+                                                        <h3><b ><label id="ClubTitle"></label></b></h3>
                                                         <p style="font-size:11pt;">
-                                                            It is a long established fact that a reader will be distracted by the readable content of a page when looking
-                                                            at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as
-                                                            opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages
-                                                            and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many
-                                                            web sites still in their infancy.
+                                                           <label id="Description"></label>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -442,7 +269,7 @@
                         </div>
                         <div class="hidden" id="step7">
                             @{Html.RenderPartial("_JoinClub", Model.GetClubList(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID));}
-                            JoinClubPartialByUser
+                           
                         </div>
                         <!-- End submit form -->
                     </div>
@@ -1273,6 +1100,7 @@
     <script>
         $(document).ready(function () {
             $("#txtMeetingTime").timepicki();
+            goToStep(5);
         });
         $("#chkTermsConditions").on('ifChanged', function (event) {
             if (this.checked == true) {

@@ -17,7 +17,7 @@ var saveUpdateLeaseTerms = function () {
         chkAgent = false;
     }
     if (!leaseTerms) {
-        msg += 'Select Lease Terms.';
+        msg += 'Enter the Lease Terms.';
     }
     
     if (msg != '') {
