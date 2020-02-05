@@ -679,7 +679,6 @@ var goToStep = function (stepid, id) {
     }
 };
 
-
 function saveupdateLease() {
     var msg = "";
     var lid = $("#hndLID").val();
@@ -4891,7 +4890,6 @@ var getReservationRequestList = function () {
     });
 };
 
-
 var getRecurringPayLists = function () {
     var model = {
         TenantID: $("#hndTenantID").val()
@@ -5023,7 +5021,6 @@ function recurringPaymentSaveUpdate() {
     });
 
 }
-
 
 var cancleRequest = function (arid) { 
     var tenantId = $("#hndTenantID").val();
@@ -5188,11 +5185,17 @@ function recurringPaymentCancel()
     $("#RecStep2").addClass("hidden");
     $("#txtOtherAmountR").val("");
 }
+function recurringPaymentBack() {
+    $("#RecStep1").removeClass("hidden");
+    $("#RecStep2").addClass("hidden");
+   
+}
 function recurringPaymentNext() {
+    $("#RecStep2").removeClass("hidden");
+    $("#RecStep1").addClass("hidden");
+
     var transtype = $("#ddlPaymentMethodR").text();
     var chargeDate = $("#txtPayDateR").val();
-
-    var chargeAmount = $("#txtChargeAmount").val();
 
     var amount = '';
     if ($("#rbtnAmountToPayR1").is(":checked")) {
@@ -5204,17 +5207,7 @@ function recurringPaymentNext() {
     else {
         amount = '';
     }
-
     $("#lblReccPayFrom").text(transtype);
     $("#lblPayDateR").text(chargeDate);
     $("#lblFixedamt").text(amount);
-    $("#RecStep2").removeClass("hidden");
-    $("#RecStep1").addClass("hidden");
 }
-function recurringPaymentBack() {
-    $("#RecStep2").addClass("hidden");
-    $("#RecStep1").removeClass("hidden");
-}
-var reserveForm = function (AID) {
-    alert(AID);
-};
