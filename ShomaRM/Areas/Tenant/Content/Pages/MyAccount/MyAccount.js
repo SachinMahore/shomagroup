@@ -5185,10 +5185,29 @@ function recurringPaymentCancel()
     $("#RecStep2").addClass("hidden");
     $("#txtOtherAmountR").val("");
 }
+function recurringPaymentBack() {
+    $("#RecStep1").removeClass("hidden");
+    $("#RecStep2").addClass("hidden");
+   
+}
 function recurringPaymentNext() {
+    $("#RecStep2").removeClass("hidden");
+    $("#RecStep1").addClass("hidden");
+
     var transtype = $("#ddlPaymentMethodR").text();
     var chargeDate = $("#txtPayDateR").val();
 
-    var chargeAmount = $("#txtChargeAmount").val();
-
+    var amount = '';
+    if ($("#rbtnAmountToPayR1").is(":checked")) {
+        amount =$('#lblCurrentPrePayAmountR').text();
+    }
+    else if ($("#rbtnAmountToPayR2").is(":checked")) {
+        amount = $('#txtOtherAmountR').val();
+    }
+    else {
+        amount = '';
+    }
+    $("#lblReccPayFrom").text(transtype);
+    $("#lblPayDateR").text(chargeDate);
+    $("#lblFixedamt").text(amount);
 }
