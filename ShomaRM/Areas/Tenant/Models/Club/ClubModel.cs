@@ -42,7 +42,7 @@ namespace ShomaRM.Areas.Tenant.Models.Club
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
 
-            if (db.tbl_Club.Where(a=>a.ClubTitle.ToLower()== model.ClubTitle.ToLower()).ToList().Count()==0)
+            if (db.tbl_Club.Where(a => a.ClubTitle.ToLower() == model.ClubTitle.ToLower()).ToList().Count() == 0)
             {
                 var ClubCreate = new tbl_Club()
                 {
@@ -99,36 +99,36 @@ namespace ShomaRM.Areas.Tenant.Models.Club
             {
                 Clublist = Clublist.ToList();
             }
-           return Clublist.Select(a=>new ClubModel()
-           {
-               Id = a.Id,
-               ClubTitle = a.ClubTitle,
-               ActivityId = a.ActivityId,
-               StartDate = a.StartDate,
-               Venue = a.Venue,
-               DayId = a.DayId,
-               Time = a.Time,
-               Contact = a.Contact,
-               Email = a.Email,
-               PhoneNumber = a.PhoneNumber,
-               PhoneCheck = a.PhoneCheck,
-               EmailCheck = a.EmailCheck,
-               LevelId = a.LevelId,
-               SpecialInstruction = a.SpecialInstruction,
-               Description = a.Description,
-               BriefDescription = a.BriefDescription,
-               TermsAndCondition = a.TermsAndCondition,
-               TenantID = a.TenantID,
-               UserId = a.UserId,
-               IsDeleted = false,
-               CreatedDate = DateTime.UtcNow,
-               LastUpdatedDate = DateTime.UtcNow
+            return Clublist.Select(a => new ClubModel()
+            {
+                Id = a.Id,
+                ClubTitle = a.ClubTitle,
+                ActivityId = a.ActivityId,
+                StartDate = a.StartDate,
+                Venue = a.Venue,
+                DayId = a.DayId,
+                Time = a.Time,
+                Contact = a.Contact,
+                Email = a.Email,
+                PhoneNumber = a.PhoneNumber,
+                PhoneCheck = a.PhoneCheck,
+                EmailCheck = a.EmailCheck,
+                LevelId = a.LevelId,
+                SpecialInstruction = a.SpecialInstruction,
+                Description = a.Description,
+                BriefDescription = a.BriefDescription,
+                TermsAndCondition = a.TermsAndCondition,
+                TenantID = a.TenantID,
+                UserId = a.UserId,
+                IsDeleted = false,
+                CreatedDate = DateTime.UtcNow,
+                LastUpdatedDate = DateTime.UtcNow
 
-           }).ToList();
+            }).ToList();
 
         }
 
-        public ClubModel GetClubbyId(long ClubId,long UserId)
+        public ClubModel GetClubbyId(long ClubId, long UserId)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             return db.tbl_Club.ToList().Where(a => a.Id == ClubId).Select(a => new ClubModel()
@@ -157,8 +157,22 @@ namespace ShomaRM.Areas.Tenant.Models.Club
                 LastUpdatedDate = DateTime.UtcNow,
                 ClubJoinStatus = (db.tbl_ClubMapping.Where(b => b.UserId == a.UserId) == null ? false : true)
             }).FirstOrDefault();
-          
 
+
+        }
+
+        public ClubMappingModel GetClubJoinStatusId(long ClubId, long UserId)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+             var Data=db.tbl_ClubMapping.ToList().Where(a => a.ClubId == ClubId && a.UserId == UserId).Select(a => new ClubMappingModel()
+            {
+                Id = a.Id,
+                ClubId = a.ClubId,
+                UserId = a.UserId
+
+            }).FirstOrDefault();
+
+            return Data;
         }
 
     }

@@ -24,7 +24,6 @@ namespace ShomaRM.Areas.Tenant.Models.Club
             }).FirstOrDefault();
         }
 
-        
 
         public bool RemoveMappingByClubIdandUserId(long ClubId, long UserId)
         {

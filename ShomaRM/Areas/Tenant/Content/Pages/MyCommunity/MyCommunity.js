@@ -113,12 +113,21 @@ function GetJoinClub(ClubId) {
             document.getElementById("ClubTitle").innerHTML = title;
             document.getElementById("Description").innerHTML = data.model.Description;
             $("#JoinClubPopupClubId").val(data.model.Id);
-            if (data.model.ClubJoinStatus === true) {
-                document.getElementById("btnJoinClub").innerHTML = "Unjoin Club";
-            }
-            else {
-                document.getElementById("btnJoinClub").innerHTML = "Join Club";
-            }
+            $.get("/MyCommunity/GetClubJoinStatus", { Id: ClubId, UserId: $("#hdnUserId").val() }, function (output) {
+              
+                if (output.model == null) {
+                    document.getElementById("btnJoinClub").innerHTML = "Join Club";
+                }
+                else {
+                    document.getElementById("btnJoinClub").innerHTML = "Unjoin Club";
+                }
+            });
+            //if (data.model.ClubJoinStatus === true) {
+            //    document.getElementById("btnJoinClub").innerHTML = "Unjoin Club";
+            //}
+            //else {
+            //    document.getElementById("btnJoinClub").innerHTML = "Join Club";
+            //}
 
         }
         else {

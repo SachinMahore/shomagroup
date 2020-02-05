@@ -81,6 +81,18 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult GetClubJoinStatus(long Id, long UserId)
+        {
+            try
+            {
+                return Json(new { model = new ClubModel().GetClubJoinStatusId(ClubId: Id, UserId: UserId) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         public JsonResult JoinunJoinClub(long ClubId, long UserId)
         {
             try
