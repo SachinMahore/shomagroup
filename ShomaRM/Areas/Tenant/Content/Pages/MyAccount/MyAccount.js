@@ -5194,27 +5194,3 @@ function recurringPaymentNext() {
 
     var chargeAmount = $("#txtChargeAmount").val();
 
-    var amount = '';
-    if ($("#rbtnAmountToPayR1").is(":checked")) {
-        amount =$('#lblCurrentPrePayAmountR').text();
-    }
-    else if ($("#rbtnAmountToPayR2").is(":checked")) {
-        amount = $('#txtOtherAmountR').val();
-    }
-    else {
-        amount = '';
-    }
-
-    $("#lblReccPayFrom").text(transtype);
-    $("#lblPayDateR").text(chargeDate);
-    $("#lblFixedamt").text(amount);
-    $("#RecStep2").removeClass("hidden");
-    $("#RecStep1").addClass("hidden");
-}
-function recurringPaymentBack() {
-    $("#RecStep2").addClass("hidden");
-    $("#RecStep1").removeClass("hidden");
-}
-var reserveForm = function (AID) {
-    alert(AID);
-};
