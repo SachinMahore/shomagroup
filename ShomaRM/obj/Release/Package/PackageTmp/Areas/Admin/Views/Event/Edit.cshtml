@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Event";
 }
-
 <script src="~/Areas/Admin/Content/Pages/Event/Event.js"></script>
 <input type="hidden" id="hdnEventId" value="@Model.EventID" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
@@ -74,7 +73,7 @@
                                         <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="txtEventFees" class="star">Fees</label>
-                                            <input id="txtEventFees" class="form-control form-control-small" style="text-align:right;" value="@(Model.Fees.Value.ToString("0.00"))" />
+                                            <input id="txtEventFees" class="form-control form-control-small" style="text-align:right;" value="@Model.FessString" />
                                             <span class="input-group-btn pull-left" style="margin-top: -34px;">
                                                 <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
                                             </span>
@@ -84,7 +83,7 @@
                                             <div class="form-group">
                                                 <label for="ddlEventType" class="star">Type</label>
                                                 <select id="ddlEventType" class="form-control form-control-small">
-                                                    <option >--Select--</option>
+                                                    <option value="0" >--Select--</option>
                                                     <option value="1">Neighborhood</option>
                                                     <option value="2">Community</option>
                                                     <option value="3">Other</option>

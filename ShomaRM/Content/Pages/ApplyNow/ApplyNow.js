@@ -491,7 +491,7 @@ var goToStep = function (stepid, id) {
         if (id == "2") {
             $("#as2").removeAttr("onclick")
             $("#as2").attr("onclick", "goToStep(2,2)");
-            // getPropertyUnitDetails($("#hndUID").val());
+             getPropertyUnitDetails($("#hndUID").val());
             $("#li1").addClass("active");
             $("#li2").addClass("active");
 
@@ -2619,7 +2619,8 @@ var saveupdateParking = function () {
             //$("#popParking").PopupWindow("close");
             $('#popParking').modal('hide');
             $("#divLoader").hide();
-            totalAmt = parseFloat(totalAmt) - $("#lblAdditionalParking").text() - $("#lblVehicleFees").text();
+            totalAmt = parseFloat(totalAmt) - $("#lblAdditionalParking").text();
+            $("#lblVehicleFees").text("0.00")
             $("#lblAdditionalParking").text(parseFloat(response.totalParkingAmt).toFixed(2));
             $("#lblMonthly_AditionalParking").text(parseFloat(response.totalParkingAmt).toFixed(2));
             $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(response.totalParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
@@ -5284,7 +5285,7 @@ function checkExpiry() {
 }
 
 var checkEmailAreadyExist = function () {
-    
+
     var model = { EmailId: $('#txtEmail').val() };
     $("#divLoader").show();
     $.ajax({
@@ -5294,7 +5295,33 @@ var checkEmailAreadyExist = function () {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            if (response.model == true) {
+            if (response.model == "Yes Tenant") {
+                $.alert({
+                    title: "",
+                    content: "This email Id is already exist please press Yes to Sign In.",
+                    type: 'blue',
+                    buttons: {
+                        yes: {
+                            text: 'Yes',
+                            action: function (yes) {
+                                localStorage.setItem("userName", $('#txtEmail').val());
+                                $('#txtEmail').val('');
+                                window.location.replace("/Account/Login");
+                                $('#UserName').val(localStorage.getItem("userName"));
+                                $('#password').focus();
+                            }
+                        },
+                        no: {
+                            text: 'No',
+                            action: function (no) {
+                                $('#txtEmail').val('');
+                                $('#txtEmail').focus();
+                            }
+                        }
+                    }
+                });
+            }
+            else if (response.model == "Yes But Not Tenant") {
                 $.alert({
                     title: "",
                     content: "This email Id is already exist please press Yes to Login.",

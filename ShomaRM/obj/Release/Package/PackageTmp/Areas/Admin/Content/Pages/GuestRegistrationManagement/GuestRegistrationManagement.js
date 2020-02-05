@@ -4,11 +4,17 @@
 
 var getGuestRegistrationList = function () {
     $("#divLoader").show();
+    var model = {
+        FromDate: $('#txtFromDate').val(),
+        ToDate: $('#txtToDate').val()
+
+    }
     $.ajax({
         url: '/GuestManagement/GetGuestRegistrationList',
         method: "post",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
+        data: JSON.stringify(model),
         success: function (response) {
             $("#tblGuestRegistration>tbody").empty();
 
