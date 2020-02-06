@@ -70,11 +70,11 @@ namespace ShomaRM.Areas.Tenant.Controllers
           
             return View();
         }
-        public ActionResult GetTenantInfo(long TenantID)
+        public ActionResult GetTenantInfo(long TenantID,long UserId)
         {
             try
             {
-                return Json((new MyAccountModel()).GetTenantInfo(TenantID), JsonRequestBehavior.AllowGet);
+                return Json((new MyAccountModel()).GetTenantInfo(TenantID, UserId), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

@@ -92,7 +92,8 @@ namespace ShomaRM.Areas.Tenant.Models
         public long UserId { get; set; }
         public string UnitName { get; set; }
         public long ProspectID { get; set; }
-
+        public decimal MonthlyCharges { get; set; }
+        
 
         public List<MyAccountModel> GetTenantList()
         {
@@ -101,7 +102,7 @@ namespace ShomaRM.Areas.Tenant.Models
             db.Dispose();
             return model.ToList();
         }
-        public MyAccountModel GetTenantInfo(long TenantID)
+        public MyAccountModel GetTenantInfo(long TenantID, long UserId)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             MyAccountModel model = new MyAccountModel();
@@ -130,8 +131,9 @@ namespace ShomaRM.Areas.Tenant.Models
                 {
                     model.UnitName = unitname.UnitNo;
                 }
-                //var getTenantDet = db.tbl_ApplyNow.Where(p => p.UserId == model.UserId).FirstOrDefault();
-                //model.LeaseTerm = getTenantDet.LeaseTerm;
+                var getTenantDet = db.tbl_ApplyNow.Where(p => p.UserId == UserId).FirstOrDefault();
+                model.LeaseTerm = getTenantDet.LeaseTerm;
+                model.MonthlyCharges =Convert.ToDecimal(getTenantDet.MonthlyCharges);
             }
             db.Dispose();
             return model;
