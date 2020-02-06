@@ -442,7 +442,7 @@ namespace ShomaRM.Areas.Admin.Models
                     try
                     {
 
-                        dateExpire = Convert.ToDateTime(GetProspectData.CreatedDate.ToString());
+                        dateExpire = Convert.ToDateTime(GetProspectData.MoveInDate.ToString());
                     }
                     catch
                     {
@@ -500,7 +500,7 @@ namespace ShomaRM.Areas.Admin.Models
 
                     model.MoveInTime = timeMoveIn.Value.ToString("hh:mm tt");
 
-                    model.MoveInDateTxt = "";
+                    //model.MoveInDateTxt = "";
                     model.MoveInTime = "";
                     model.MoveInCharges = 0;
                     model.IsCheckATT =  0;
