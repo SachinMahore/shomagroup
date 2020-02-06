@@ -128,6 +128,74 @@ namespace ShomaRM.Areas.Tenant.Models.Club
 
         }
 
+        public List<ClubModel> GetJoiningClubList(long UserId)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            var DataList = (from data in db.tbl_Club where !db.tbl_ClubMapping.Any(a => a.ClubId == data.Id && a.UserId == data.UserId) select new ClubModel()
+            {
+                Id = data.Id,
+                ClubTitle = data.ClubTitle,
+                ActivityId = data.ActivityId,
+                StartDate = data.StartDate,
+                Venue = data.Venue,
+                DayId = data.DayId,
+                Time = data.Time,
+                Contact = data.Contact,
+                Email = data.Email,
+                PhoneNumber = data.PhoneNumber,
+                PhoneCheck = data.PhoneCheck,
+                EmailCheck = data.EmailCheck,
+                LevelId = data.LevelId,
+                SpecialInstruction = data.SpecialInstruction,
+                Description = data.Description,
+                BriefDescription = data.BriefDescription,
+                TermsAndCondition = data.TermsAndCondition,
+                TenantID = data.TenantID,
+                UserId = data.UserId,
+                IsDeleted = false,
+                CreatedDate = DateTime.UtcNow,
+                LastUpdatedDate = DateTime.UtcNow
+
+            }).ToList();
+
+            return DataList;
+        }
+
+        public List<ClubModel> GetJoinClubAndMyClubList(long UserId)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            var DataList = (from data in db.tbl_Club
+                            where db.tbl_ClubMapping.Any(a => a.ClubId == data.Id && a.UserId == data.UserId) || data.UserId== UserId
+                            select new ClubModel()
+                            {
+                                Id = data.Id,
+                                ClubTitle = data.ClubTitle,
+                                ActivityId = data.ActivityId,
+                                StartDate = data.StartDate,
+                                Venue = data.Venue,
+                                DayId = data.DayId,
+                                Time = data.Time,
+                                Contact = data.Contact,
+                                Email = data.Email,
+                                PhoneNumber = data.PhoneNumber,
+                                PhoneCheck = data.PhoneCheck,
+                                EmailCheck = data.EmailCheck,
+                                LevelId = data.LevelId,
+                                SpecialInstruction = data.SpecialInstruction,
+                                Description = data.Description,
+                                BriefDescription = data.BriefDescription,
+                                TermsAndCondition = data.TermsAndCondition,
+                                TenantID = data.TenantID,
+                                UserId = data.UserId,
+                                IsDeleted = false,
+                                CreatedDate = DateTime.UtcNow,
+                                LastUpdatedDate = DateTime.UtcNow
+
+                            }).ToList();
+
+            return DataList;
+        }
+
         public ClubModel GetClubbyId(long ClubId, long UserId)
         {
             ShomaRMEntities db = new ShomaRMEntities();

@@ -146,6 +146,7 @@ function JoinUnjoinClub() {
     $.get("/MyCommunity/JoinunJoinClub", { ClubId: $("#JoinClubPopupClubId").val(), UserId: $("#hdnUserId").val()}, function (data) {
         var Name = document.getElementById("btnJoinClub").innerHTML;
         if (data.model == true) {
+            goToStep(7);
             if (Name == "Join Club") {
                 document.getElementById("btnJoinClub").innerHTML = "Unjoin Club";
             }
@@ -168,7 +169,7 @@ function RefreshJoinClubList(EnumId) {
 
     });
 
-  
+    $("#divLoader").hide();
 }
 
 function RefreshJoinClubListCurrentUser(EnumId) {
@@ -176,6 +177,7 @@ function RefreshJoinClubListCurrentUser(EnumId) {
     $("#step7").load("/MyCommunity/JoinClubPartialByUser", { SearchId: EnumId, UserId: $("#hdnUserId").val() }, function (response, status, xhr) {
 
     });
+    $("#divLoader").hide();
 
    
 }

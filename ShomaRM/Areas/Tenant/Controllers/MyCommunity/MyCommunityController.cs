@@ -42,13 +42,13 @@ namespace ShomaRM.Areas.Tenant.Controllers
         {
             if (SearchId <= 1)
             {
-                var Model = new ClubModel().GetClubList().Where(a=>a.UserId!= UserId).OrderByDescending(a => a.ClubTitle).ToList();
+                var Model = new ClubModel().GetJoiningClubList(UserId: UserId).OrderByDescending(a => a.ClubTitle).ToList();
                 ViewBag.CallenderHidden = "";
                 return PartialView("~/Areas/Tenant/Views/MyCommunity/_JoinClub.cshtml", Model);
             }
             else
             {
-                var Model = new ClubModel().GetClubList().Where(a => a.UserId != UserId).OrderByDescending(a => a.StartDate).ToList();
+                var Model = new ClubModel().GetJoiningClubList(UserId: UserId).OrderByDescending(a => a.StartDate).ToList();
                 ViewBag.CallenderHidden = "";
                 return PartialView("~/Areas/Tenant/Views/MyCommunity/_JoinClub.cshtml", Model);
             }
@@ -58,13 +58,13 @@ namespace ShomaRM.Areas.Tenant.Controllers
         {
             if (SearchId <= 1)
             {
-                var Model = new ClubModel().GetClubList().Where(a=>a.UserId== UserId).OrderByDescending(a => a.ClubTitle).ToList();
+                var Model = new ClubModel().GetJoinClubAndMyClubList( UserId).OrderByDescending(a => a.ClubTitle).ToList();
                 ViewBag.CallenderHidden = "hidden";
                 return PartialView("~/Areas/Tenant/Views/MyCommunity/_JoinClub.cshtml", Model);
             }
             else
             {
-                var Model = new ClubModel().GetClubList().Where(a => a.UserId == UserId).OrderByDescending(a=>a.StartDate).ToList();
+                var Model = new ClubModel().GetJoinClubAndMyClubList( UserId).OrderByDescending(a=>a.StartDate).ToList();
                 ViewBag.CallenderHidden = "hidden";
                 return PartialView("~/Areas/Tenant/Views/MyCommunity/_JoinClub.cshtml", Model);
             }
