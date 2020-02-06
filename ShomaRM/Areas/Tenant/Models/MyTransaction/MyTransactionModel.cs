@@ -67,7 +67,6 @@ namespace ShomaRM.Areas.Tenant.Models
         public Nullable<long> ProspectID { get; set; }
         public decimal? CurrentUpcomingCharges { get; set; }
         public string CurrentUpcomingChargesString { get; set; }
-
         public string NameOnCardString { get; set; }
         public string NumberOnCardString { get; set; }
         public string ExpirationMonthOnCardString { get; set; }
@@ -505,100 +504,116 @@ namespace ShomaRM.Areas.Tenant.Models
                 //  transType =Convert.ToInt32(model.Charge_Amount);
                 Batch = model.Batch;
             }
-
-            string transStatus = new UsaePayModel().ChargeCard(mm);
-            String[] spearator = { "|" };
-            String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
-            if (strlist[1] != "000000")
+            if (model.Charge_Date.Value.ToString("MM/dd/yyyy") == DateTime.Now.ToString("MM/dd/yyyy"))
             {
-                var saveTransaction = new tbl_Transaction()
+                string transStatus = new UsaePayModel().ChargeCard(mm);
+                String[] spearator = { "|" };
+                String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
+                if (strlist[1] != "000000")
+                {
+                    var saveTransaction = new tbl_Transaction()
+                    {
+
+                        TenantID = model.TenantID,
+                        Revision_Num = model.Revision_Num,
+                        Transaction_Type = model.Transaction_Type,
+                        Transaction_Date = Convert.ToDateTime(model.Charge_Date),
+                        Run = 1,
+                        LeaseID = model.LeaseID,
+                        Reference = model.Reference,
+                        CreatedDate = DateTime.Now,
+                        Credit_Amount = model.Charge_Amount,
+                        Description = model.Description + " | TransID: " + Convert.ToInt32(strlist[1]),
+                        Charge_Date = model.Charge_Date,
+                        Charge_Type = Convert.ToInt32(model.Charge_Type),
+                        Payment_ID = Convert.ToInt32(strlist[1]),
+                        Charge_Amount = Convert.ToDecimal(model.Charge_Amount),
+                        Miscellaneous_Amount = model.Miscellaneous_Amount,
+                        Accounting_Date = DateTime.Now,
+                        Journal = 0,
+                        Accrual_Debit_Acct = "400-5000-10500",
+                        Accrual_Credit_Acct = "400-5000-40030",
+                        Cash_Debit_Account = "400-5100-10011",
+                        Cash_Credit_Account = "400-5100-40085",
+                        Appl_of_Origin = "SRM",
+                        Batch = Batch,
+                        Batch_Source = "",
+                        CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
+                        GL_Trans_Reference_1 = model.PropertyID.ToString(),
+                        GL_Trans_Reference_2 = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.FullName.ToString(),
+                        GL_Entries_Created = 1,
+                        GL_Trans_Description = transStatus.ToString(),
+                        TAccCardName = model.NameOnCardString,
+                        TAccCardNumber = model.NumberOnCardString,
+                        TCardExpirationMonth = model.ExpirationMonthOnCardString,
+                        TCardExpirationYear = model.ExpirationYearOnCardString,
+                        TBankName = model.BankName,
+                        TRoutingNumber = model.RoutingNumber
+
+                    };
+                    db.tbl_Transaction.Add(saveTransaction);
+                    db.SaveChanges();
+                    var TransId = saveTransaction.TransID;
+                    if (Convert.ToInt32(model.Charge_Type) == 3)
+                    {
+                        var RecuuRingData = db.tbl_TenantMonthlyPayments.Where(p => p.TMPID == model.TMPID).FirstOrDefault();
+                        if (RecuuRingData != null)
+                        {
+                            RecuuRingData.IsRecurring = 0;
+                            db.SaveChanges();
+                        }
+                        var prospectDet = db.tbl_ApplyNow.Where(p => p.UserId == model.UserId).FirstOrDefault();
+
+                        CreateTransBill(TransId, Convert.ToDecimal(prospectDet.Rent), "Monthly Rent");
+                        CreateTransBill(TransId, Convert.ToDecimal(prospectDet.TrashAmt), "Trash/Recycle charges");
+                        CreateTransBill(TransId, Convert.ToDecimal(prospectDet.ConvergentAmt), "Convergent Billing charges");
+                        CreateTransBill(TransId, Convert.ToDecimal(prospectDet.PestAmt), "Pest Control charges");
+
+                        if (prospectDet.ParkingAmt != 0)
+                        {
+                            CreateTransBill(TransId, Convert.ToDecimal(prospectDet.ParkingAmt), "Additional Parking charges");
+
+                        }
+                        if (prospectDet.PetPlaceAmt != 0)
+                        {
+                            CreateTransBill(TransId, Convert.ToDecimal(prospectDet.PetPlaceAmt), "Pet charges");
+
+                        }
+                        if (prospectDet.StorageAmt != 0)
+                        {
+                            CreateTransBill(TransId, Convert.ToDecimal(prospectDet.StorageAmt), "Storage Charges");
+
+                        }
+
+                    }
+
+                    if (Convert.ToInt32(model.Charge_Type) == 4)
+                    {
+
+                        CreateTransBill(TransId, Convert.ToDecimal(model.Charge_Amount), model.Description);
+                    }
+                    msg = transStatus.ToString();
+                }
+            }
+            else
+            {
+                var saveFutureTransaction = new tbl_TenantMonthlyPayments()
                 {
 
                     TenantID = model.TenantID,
                     Revision_Num = model.Revision_Num,
-                    Transaction_Type = model.Transaction_Type,
-                    Transaction_Date = DateTime.Now,
-                    Run = 1,
-                    LeaseID = model.LeaseID,
-                    Reference = model.Reference,
-                    CreatedDate = DateTime.Now,
-                    Credit_Amount = model.Charge_Amount,
-                    Description = model.Description + " | TransID: " + Convert.ToInt32(strlist[1]),
-                    Charge_Date = model.Charge_Date,
-                    Charge_Type = Convert.ToInt32(model.Charge_Type),
-                    Payment_ID = Convert.ToInt32(strlist[1]),
-                    Charge_Amount = Convert.ToDecimal(model.Charge_Amount),
-                    Miscellaneous_Amount = model.Miscellaneous_Amount,
-                    Accounting_Date = DateTime.Now,
-                    Journal = 0,
-                    Accrual_Debit_Acct = "400-5000-10500",
-                    Accrual_Credit_Acct = "400-5000-40030",
-                    Cash_Debit_Account = "400-5100-10011",
-                    Cash_Credit_Account = "400-5100-40085",
-                    Appl_of_Origin = "SRM",
-                    Batch = Batch,
-                    Batch_Source = "",
-                    CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
-                    GL_Trans_Reference_1 = model.PropertyID.ToString(),
-                    GL_Trans_Reference_2 = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.FullName.ToString(),
-                    GL_Entries_Created = 1,
-                    GL_Trans_Description = transStatus.ToString(),
-                    TAccCardName = model.NameOnCardString,
-                    TAccCardNumber = model.NumberOnCardString,
-                    TCardExpirationMonth = model.ExpirationMonthOnCardString,
-                    TCardExpirationYear = model.ExpirationYearOnCardString,
-                    TBankName = model.BankName,
-                    TRoutingNumber = model.RoutingNumber
 
+                    Transaction_Date = Convert.ToDateTime(model.Charge_Date),
+
+                    Charge_Amount = model.Charge_Amount,
+                    PAID = Convert.ToInt32(model.PAID),
+                    Description = model.Description,
+                    IsRecurring=1
                 };
-                db.tbl_Transaction.Add(saveTransaction);
+                db.tbl_TenantMonthlyPayments.Add(saveFutureTransaction);
                 db.SaveChanges();
-                var TransId = saveTransaction.TransID;
-                if (Convert.ToInt32(model.Charge_Type) == 3)
-                {
-                    var RecuuRingData = db.tbl_TenantMonthlyPayments.Where(p => p.TMPID == model.TMPID).FirstOrDefault();
-                    if (RecuuRingData != null)
-                    {
-                        RecuuRingData.IsRecurring = 0;
-                        db.SaveChanges();
-                    }
-                    var prospectDet = db.tbl_ApplyNow.Where(p => p.UserId == model.UserId).FirstOrDefault();
-
-                    CreateTransBill(TransId, Convert.ToDecimal(prospectDet.Rent), "Monthly Rent");
-                    CreateTransBill(TransId, Convert.ToDecimal(prospectDet.TrashAmt), "Trash/Recycle charges");
-                    CreateTransBill(TransId, Convert.ToDecimal(prospectDet.ConvergentAmt), "Convergent Billing charges");
-                    CreateTransBill(TransId, Convert.ToDecimal(prospectDet.PestAmt), "Pest Control charges");
-
-                    if (prospectDet.ParkingAmt != 0)
-                    {
-                        CreateTransBill(TransId, Convert.ToDecimal(prospectDet.ParkingAmt), "Additional Parking charges");
-
-                    }
-                    if (prospectDet.PetPlaceAmt != 0)
-                    {
-                        CreateTransBill(TransId, Convert.ToDecimal(prospectDet.PetPlaceAmt), "Pet charges");
-
-                    }
-                    if (prospectDet.StorageAmt != 0)
-                    {
-                        CreateTransBill(TransId, Convert.ToDecimal(prospectDet.StorageAmt), "Storage Charges");
-
-                    }
-
-                }
-
-                if (Convert.ToInt32(model.Charge_Type) == 4)
-                {
-
-                    CreateTransBill(TransId, Convert.ToDecimal(model.Charge_Amount), model.Description);
-                }
-                msg = "Transaction Saved Successfully";
+                msg = "Transaction Saved to Recurring Successfully";
             }
-            else
-            {
-                msg = "Transaction Updated Successfully";
-            }
-
             db.Dispose();
             return msg;
         }
@@ -757,7 +772,6 @@ namespace ShomaRM.Areas.Tenant.Models
             }
             return listReservationPayment;
         }
-
         public string CreateTransBill(long TransID, decimal Amount, string Description)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -772,7 +786,6 @@ namespace ShomaRM.Areas.Tenant.Models
             db.SaveChanges();
             return "";
         }
-
         public MyTransactionModel GetTenantBillList(long TransID)
         {
             MyTransactionModel model = new MyTransactionModel();
@@ -825,7 +838,6 @@ namespace ShomaRM.Areas.Tenant.Models
                 throw ex;
             }
         }
-
         public string RefundRRCharges(long TransID)
         {
             string msg = "";

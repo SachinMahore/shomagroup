@@ -187,9 +187,10 @@ var saveUpdateCommunityPost = function () {
         AttatchFile: $('#hndfileCommunityActivity').val(),
         AttachFileOriginalName: $('#hndfileCommunityActivityOriginalName').val(),
     };
-
     if ($('#txtCommunityActivity').val() == "") {
-        msg += "Enter the Datails</br>";
+        if ($('#hndfileCommunityActivity').val() == "") {
+            msg += "Enter the Datails</br>";
+        }
     }
     if ($('#chkDisclaimer').is(":checked")) {
         chkDisclaimer = true;
@@ -274,14 +275,13 @@ var getCommunityActivityList = function () {
                 Html += '<span style="color:#B7B0A7 !important;font-size: 96%!important;">' + elementValue.DateString + '</span>';
                 Html += '</div>';
                 Html += '</div>';
+                Html += '<div class="col-lg-12 comment" style="margin-left: 20px;">' + elementValue.Details;
+                Html += '</div>';
                 if (elementValue.AttatchFile != null) {
-                    Html += '<div class="col-lg-12 comment" style="margin-left: 20px;">' + elementValue.Details + " " + attachFile;
-                }
-                else {
-                    Html += '<div class="col-lg-12 comment" style="margin-left: 20px;">' + elementValue.Details;
+                    Html += '<span style="margin-left: 11%;">' + "  " + attachFile + '</span>';
                 }
                 Html += '</div>';
-                Html += '</div>';
+
                 $('#DivCommunityActivityList').append(Html);
             });
             shorten();

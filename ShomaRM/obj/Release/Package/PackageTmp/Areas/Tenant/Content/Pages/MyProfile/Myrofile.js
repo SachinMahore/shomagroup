@@ -193,14 +193,14 @@ var GetTenantDetails = function (TenantID) {
                 $("#Email").text(response.Email);
 
                 $("#FirstName1").text(response.FirstName + " " + response.LastName);
-                $("#Mobile1").text(response.Mobile);
+                $("#Mobile1").text(formatPhoneFax(response.Mobile));
                 $("#Email1").text(response.Email);  
                 
                 $("#EmFirstName").text(response.EmFirstNane + " " + response.EmLastName);
                 $("#EmRelationship").text(response.EmRelation);
                 $("#EmAddress").text(response.EmergencyAddress1);
-                $("#EmMobile").text(response.EmMobile); 
-                $("#EmWorkPhone").text(response.EmWorkPhone);
+                $("#EmMobile").text(formatPhoneFax(response.EmMobile)); 
+                $("#EmWorkPhone").text(formatPhoneFax(response.EmWorkPhone));
                 $("#EmEmail").text(response.EmEmail);
                 $("#EmAddress").text(response.EmAddress1 + "" + response.EmAddress1);
 
@@ -506,9 +506,11 @@ var getTenantVehicleList = function () {
             $("#tblVehicle>tbody").empty();
             $.each(response.model, function (elementType, elementValue) {
                 var html = "<tr data-value=" + elementValue.Vehicle_ID + ">";
+                html += "<td sstyle='width:70px'>" + elementValue.State + "</td>";
                 html += "<td style='width:80px'>" + elementValue.Year + "</td>";
                 html += "<td style='width:120px'>" + elementValue.VModel + "</td>";
                 html += "<td sstyle='width:70px'>" + elementValue.Color + "</td>";
+               
                 $("#tblVehicle>tbody").append(html);
             });
         }
@@ -1088,7 +1090,7 @@ var getPetLists = function () {
             $.each(response.model, function (elementType, elementValue) {
                 var html = "<tr id='tr_" + elementValue.PetID + "' data-value='" + elementValue.PetID + "'>";
                 // html += "<td align='center'><img src='/content/assets/img/pet/" + elementValue.Photo + "' class='picture-src' title='' style='height:70px;width:70px;'/></td>";
-                html += "<td style='width:100px'>" + elementValue.PetName + "</td>";
+                html += "<td style='width:30px'>" + elementValue.PetName + "</td>";
                 html += "<td style='width:70px'>" + elementValue.Breed + "</td>";
                 //html += "<td>" + elementValue.Weight + "</td>";
                 //html += "<td>" + elementValue.VetsName + "</td>";
@@ -2042,3 +2044,12 @@ var clearForgetPasswordField = function () {
     $('#txtNewPassword').val('');
     $('#txtConfirmNewPassword').val('');
 };
+function formatPhoneFax(phonefax) {
+    if (phonefax == null)
+        phonefax = "";
+    phonefax = phonefax.replace(/[^0-9]/g, '');
+    if (phonefax.length == 0)
+        return phonefax;
+
+    return '(' + phonefax.substring(0, 3) + ') ' + phonefax.substring(3, 6) + (phonefax.length > 6 ? '-' : '') + phonefax.substring(6);
+}

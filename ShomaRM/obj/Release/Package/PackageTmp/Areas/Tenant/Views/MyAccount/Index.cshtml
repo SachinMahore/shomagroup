@@ -1879,20 +1879,28 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>From Date</label>
-                        <input id="txtFromDate" type="text" class="form-control" maxlength="20" placeholder="MM/dd/yyyy" value="">
+                      
+                        <input id="txtFromDate" type="text" class="form-control form-control-small" placeholder="MM/dd/yyyy" value="@DateTime.Now.AddDays(-30).ToString("MM/dd/yyyy")" style="width:70% !important" />
+                        <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:162px;">
+                            <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                        </span>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>To Date</label>
-                        <input id="txtToDate" type="text" class="form-control" maxlength="20" placeholder="MM/dd/yyyy" value="">
+                        <input id="txtToDate" type="text" class="form-control form-control-small" placeholder="MM/dd/yyyy" value="@DateTime.Now.ToString("MM/dd/yyyy")" style="width:70% !important" />
+                        <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:162px;">
+                            <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                        </span>
+                      
                     </div>
                 </div>
                 <div class="col-sm-12">
                     <div class="dot-hr"></div>
                 </div>
                 <div class="col-sm-12 text-center">
-                    <button type="submit" class="btn btn-primary pull-right" onclick="dateRangeAccountHistorySearch();"><i class="fa fa-list"></i> Search</button>
+                    <button type="submit" class="btn btn-primary pull-right" onclick="dateRangeAccountHistorySearch();"><i class="fa fa-search"></i> Search</button>
                 </div>
             </div>
         </div>

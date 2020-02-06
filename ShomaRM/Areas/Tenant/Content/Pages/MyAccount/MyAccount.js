@@ -2438,34 +2438,7 @@ var fromDashboardGoToSubmitServiceRequest = function () {
 
 }
 
-var paymentHistory = function (ddlah) {
-    var model = {
-        TenantID: $("#hndTenantID").val(),
-        AccountHistoryDDL: ddlah
-    }
-    $.ajax({
-        url: "/MyTransaction/GetTenantUpTransactionList",
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            var bal = 0;
-            $("#tblPaymentHistory>tbody").empty();
 
-            $.each(response.model, function (elementType, elementValue) {
-                var html = "<tr data-value=" + elementValue.TransID + ">";
-                html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                html += "<td>" + elementValue.Description + "</td>";
-                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Balance) + "</td>";
-                html += "</tr>";
-                $("#tblPaymentHistory>tbody").append(html);
-            });
-        }
-    });
-   
-};
 
 var dateRangeAccountHistorySearch = function () {
     var model = {
@@ -2719,6 +2692,7 @@ function makeOneTimePaymentSaveUpdate() {
             });
             clearMakePaymentFields();
             getTransationLists();
+            getUpTransationLists();
         }
     });
 
