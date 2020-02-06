@@ -15,6 +15,7 @@ namespace ShomaRM.Areas.Admin.Controllers
      
         public ActionResult Index()
         {
+            Session["UNOR"] = 10;
             ViewBag.ActiveMenu = "property";
             return View();
         }
@@ -73,8 +74,10 @@ namespace ShomaRM.Areas.Admin.Controllers
         }
         public ActionResult BuildPaganationPUList(long PID, int PN, int NOR, string SortBy, string OrderBy)
         {
+            Session["UNOR"] = NOR;
             try
             {
+                
                 return Json(new { NOP = (new PropertyManagementModel()).BuildPaganationPUList(PID, PN, NOR, SortBy, OrderBy) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
