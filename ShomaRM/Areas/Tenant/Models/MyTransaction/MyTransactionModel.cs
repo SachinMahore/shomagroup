@@ -223,12 +223,12 @@ namespace ShomaRM.Areas.Tenant.Models
                 foreach (DataRow dr in dtTable.Rows)
                 {
                     lstpr.Balance = Convert.ToDecimal(dr["Balance"]);
-                    lstpr.TransID = Convert.ToInt32(dr["TMPID"]);
+                    //lstpr.TransID = Convert.ToInt32(dr["TMPID"]);
                 }
 
 
                 db.Dispose();
-                return lstpr.Balance.ToString() + "|" + lstpr.TransID;
+                return lstpr.Balance.ToString() + "|" + 0;
             }
             catch (Exception ex)
             {
@@ -477,7 +477,6 @@ namespace ShomaRM.Areas.Tenant.Models
                 throw ex;
             }
         }
-
         public string SaveUpdateTransaction(MyTransactionModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -527,21 +526,14 @@ namespace ShomaRM.Areas.Tenant.Models
                         Charge_Date = model.Charge_Date,
                         Charge_Type = Convert.ToInt32(model.Charge_Type),
                         Payment_ID = Convert.ToInt32(strlist[1]),
-                        Charge_Amount = Convert.ToDecimal(model.Charge_Amount),
+                        Charge_Amount =0,
                         Miscellaneous_Amount = model.Miscellaneous_Amount,
                         Accounting_Date = DateTime.Now,
-                        Journal = 0,
-                        Accrual_Debit_Acct = "400-5000-10500",
-                        Accrual_Credit_Acct = "400-5000-40030",
-                        Cash_Debit_Account = "400-5100-10011",
-                        Cash_Credit_Account = "400-5100-40085",
-                        Appl_of_Origin = "SRM",
+                     
                         Batch = Batch,
                         Batch_Source = "",
                         CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
-                        GL_Trans_Reference_1 = model.PropertyID.ToString(),
-                        GL_Trans_Reference_2 = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.FullName.ToString(),
-                        GL_Entries_Created = 1,
+                       
                         GL_Trans_Description = transStatus.ToString(),
                         TAccCardName = model.NameOnCardString,
                         TAccCardNumber = model.NumberOnCardString,
@@ -554,39 +546,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     db.tbl_Transaction.Add(saveTransaction);
                     db.SaveChanges();
                     var TransId = saveTransaction.TransID;
-                    if (Convert.ToInt32(model.Charge_Type) == 3)
-                    {
-                        var RecuuRingData = db.tbl_TenantMonthlyPayments.Where(p => p.TMPID == model.TMPID).FirstOrDefault();
-                        if (RecuuRingData != null)
-                        {
-                            RecuuRingData.IsRecurring = 0;
-                            db.SaveChanges();
-                        }
-                        var prospectDet = db.tbl_ApplyNow.Where(p => p.UserId == model.UserId).FirstOrDefault();
-
-                        CreateTransBill(TransId, Convert.ToDecimal(prospectDet.Rent), "Monthly Rent");
-                        CreateTransBill(TransId, Convert.ToDecimal(prospectDet.TrashAmt), "Trash/Recycle charges");
-                        CreateTransBill(TransId, Convert.ToDecimal(prospectDet.ConvergentAmt), "Convergent Billing charges");
-                        CreateTransBill(TransId, Convert.ToDecimal(prospectDet.PestAmt), "Pest Control charges");
-
-                        if (prospectDet.ParkingAmt != 0)
-                        {
-                            CreateTransBill(TransId, Convert.ToDecimal(prospectDet.ParkingAmt), "Additional Parking charges");
-
-                        }
-                        if (prospectDet.PetPlaceAmt != 0)
-                        {
-                            CreateTransBill(TransId, Convert.ToDecimal(prospectDet.PetPlaceAmt), "Pet charges");
-
-                        }
-                        if (prospectDet.StorageAmt != 0)
-                        {
-                            CreateTransBill(TransId, Convert.ToDecimal(prospectDet.StorageAmt), "Storage Charges");
-
-                        }
-
-                    }
-
+              
                     if (Convert.ToInt32(model.Charge_Type) == 4)
                     {
 
@@ -647,7 +607,7 @@ namespace ShomaRM.Areas.Tenant.Models
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
 
-            var monthPayList = db.tbl_TenantMonthlyPayments.Where(p => p.TenantID == model.TenantID).ToList();
+            var monthPayList = db.tbl_TenantMonthlyPayments.Where(p => p.TenantID == model.TenantID && p.IsRecurring!=3).ToList();
             if (monthPayList != null)
             {
                 foreach (var tl in monthPayList)
@@ -713,7 +673,7 @@ namespace ShomaRM.Areas.Tenant.Models
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
 
-            var monthPayList = db.tbl_TenantMonthlyPayments.Where(p => p.TenantID == TenantID).ToList();
+            var monthPayList = db.tbl_TenantMonthlyPayments.Where(p => p.TenantID == TenantID && p.IsRecurring!=3).ToList();
             if (monthPayList != null)
             {
                 foreach (var tl in monthPayList)
@@ -750,7 +710,6 @@ namespace ShomaRM.Areas.Tenant.Models
             }
             return listTenantHistory;
         }
-
         public List<MyTransactionModel> GetReservationPaymentList(long ARID)
         {
             List<MyTransactionModel> listReservationPayment = new List<MyTransactionModel>();
@@ -827,6 +786,8 @@ namespace ShomaRM.Areas.Tenant.Models
 
                 var invDet = db.tbl_Transaction.Where(p => p.TransID == TransID).FirstOrDefault();
                 model.Credit_Amount = invDet.Credit_Amount;
+                model.Charge_Amount = invDet.Charge_Amount;
+                model.Description = invDet.Description;
                 model.Transaction_DateString = invDet.Transaction_Date.ToString("MM/dd/yyyy");
 
                 db.Dispose();
@@ -883,6 +844,176 @@ namespace ShomaRM.Areas.Tenant.Models
             db.Dispose();
             return msg;
         }
+        public string GenerateMonthlyRent()
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string msg = "";
+
+            List<TenantMonthlyPayments> lsttmp = new List<TenantMonthlyPayments>();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetMonthlyPayLists";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    TenantMonthlyPayments pr = new TenantMonthlyPayments();
+                    pr.TenantID = Convert.ToInt64(dr["TenantID"].ToString());
+                    pr.PAID = Convert.ToInt32(dr["PAID"].ToString());
+                    pr.TMPID = Convert.ToInt32(dr["TMPID"].ToString());
+                    pr.Transaction_Date = Convert.ToDateTime(dr["Transaction_Date"]);
+                    pr.Revision_Num = Convert.ToInt32(dr["Revision_Num"].ToString());
+                    pr.Charge_Amount = Convert.ToDecimal(dr["Charge_Amount"].ToString());
+                    pr.Description = dr["Description"].ToString();
+                    lsttmp.Add(pr);
+
+                    var saveTransaction = new tbl_Transaction()
+                    {
+
+                        TenantID = Convert.ToInt64(dr["TenantID"].ToString()),
+                        Revision_Num = Convert.ToInt32(dr["Revision_Num"].ToString()),
+                        Transaction_Type = dr["PAID"].ToString(),
+                        Transaction_Date = Convert.ToDateTime(dr["Transaction_Date"]),
+                        Run = Convert.ToInt32(dr["TMPID"].ToString()),
+                        CreatedDate = DateTime.Now,
+                        Credit_Amount = 0,
+                        Description = dr["Description"].ToString(),
+                        Charge_Date = Convert.ToDateTime(dr["Transaction_Date"]),
+                        Charge_Type = 3,
+                        Payment_ID = null,
+                        Charge_Amount = Convert.ToDecimal(dr["Charge_Amount"].ToString()),
+                        Accounting_Date = DateTime.Now,
+                        Batch = Batch,
+                        Batch_Source = "",
+                        CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
+
+                    };
+                    db.tbl_Transaction.Add(saveTransaction);
+                    db.SaveChanges();
+                    var TransId = saveTransaction.TransID;
+
+                    long tmpid = Convert.ToInt64(dr["TMPID"].ToString());
+                    var RecuuRingData = db.tbl_TenantMonthlyPayments.Where(p => p.TMPID == tmpid).FirstOrDefault();
+                    if (RecuuRingData != null)
+                    {
+                        RecuuRingData.IsRecurring = 3;
+                        db.SaveChanges();
+                    }
+                    long uid = Convert.ToInt64(dr["UserID"].ToString());
+                    var prospectDet = db.tbl_ApplyNow.Where(p => p.UserId ==uid).FirstOrDefault();
+
+                    CreateTransBill(TransId, Convert.ToDecimal(prospectDet.Rent), "Monthly Rent");
+                    CreateTransBill(TransId, Convert.ToDecimal(prospectDet.TrashAmt), "Trash/Recycle charges");
+                    CreateTransBill(TransId, Convert.ToDecimal(prospectDet.ConvergentAmt), "Convergent Billing charges");
+                    CreateTransBill(TransId, Convert.ToDecimal(prospectDet.PestAmt), "Pest Control charges");
+
+                    if (prospectDet.ParkingAmt != 0)
+                    {
+                        CreateTransBill(TransId, Convert.ToDecimal(prospectDet.ParkingAmt), "Additional Parking charges");
+                    }
+                    if (prospectDet.PetPlaceAmt != 0)
+                    {
+                        CreateTransBill(TransId, Convert.ToDecimal(prospectDet.PetPlaceAmt), "Pet charges");
+                    }
+                    if (prospectDet.StorageAmt != 0)
+                    {
+                        CreateTransBill(TransId, Convert.ToDecimal(prospectDet.StorageAmt), "Storage Charges");
+                    }
+
+
+                }
+                db.Dispose();
+             
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+
+    
+            msg = "Monthly Payment Generated Successfully";
+            
+
+            db.Dispose();
+            return msg;
+        }
+        public string GenerateLateFee()
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string msg = "";
+            decimal dueAmt = 0;
+            List<TenantMonthlyPayments> lsttmp = new List<TenantMonthlyPayments>();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetMonthlyPayLists";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                  
+                    var saveTransaction = new tbl_Transaction()
+                    {
+
+                        TenantID = Convert.ToInt64(dr["TenantID"].ToString()),
+                        Revision_Num = Convert.ToInt32(dr["Revision_Num"].ToString()),
+                        Transaction_Type = dr["PAID"].ToString(),
+                        Transaction_Date = Convert.ToDateTime(dr["Transaction_Date"]),
+                        Run = Convert.ToInt32(dr["TMPID"].ToString()),
+                        CreatedDate = DateTime.Now,
+                        Credit_Amount = 0,
+                        Description = "Late fees",
+                        Charge_Date = Convert.ToDateTime(dr["Transaction_Date"]),
+                        Charge_Type = 3,
+                        Payment_ID = null,
+                        Charge_Amount = Convert.ToDecimal(dr["Charge_Amount"].ToString()),
+                        Accounting_Date = DateTime.Now,
+                        Batch = Batch,
+                        Batch_Source = "",
+                        CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
+
+                    };
+                    db.tbl_Transaction.Add(saveTransaction);
+                    db.SaveChanges();
+                    var TransId = saveTransaction.TransID;
+
+                    CreateTransBill(TransId, Convert.ToDecimal(dueAmt), "Late fees");
+                   
+                }
+                db.Dispose();
+
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+
+
+            msg = "Monthly Payment Generated Successfully";
+
+
+            db.Dispose();
+            return msg;
+        }
     }
 }
 
@@ -892,4 +1023,15 @@ public partial class BillModel
     public long TransID { get; set; }
     public string Description { get; set; }
     public Nullable<decimal> Amount { get; set; }
+}
+public partial class TenantMonthlyPayments
+{
+    public long TMPID { get; set; }
+    public long TenantID { get; set; }
+    public int Revision_Num { get; set; }
+    public System.DateTime Transaction_Date { get; set; }
+    public string Description { get; set; }
+    public Nullable<decimal> Charge_Amount { get; set; }
+    public int PAID { get; set; }
+    public int IsRecurring { get; set; }
 }
