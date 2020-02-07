@@ -6,10 +6,12 @@ $(document).ready(function () {
     
     getTenantData(newTenantID); 
     GetTenantDetails(newTenantID);
+
     serviceRequestChangeDDL()
     getLeaseInfoDocuments();
     getPetLeaseInfoDocuments();
     getVehicleLeaseInfoDocuments();
+
 });
 
 
@@ -32,7 +34,9 @@ var getAccountHistory = function () {
                 var html = "<tr data-value=" + elementValue.TransID + ">";
                 html += "<td>" + elementValue.TransactionDateString + "</td>";
                 html += "<td>" + elementValue.Description + "</td>";
+
                 html += "<td> $" + formatMoney(elementValue.Charge_Amount) + "</td>";
+
                 html += "</tr>";
                 $("#tblAccountHistory>tbody").append(html);
             });
@@ -292,6 +296,7 @@ var getLeaseInfoDocuments = function () {
 
             $('#accordionSubTaxReturn').append(Thtml);
             $("#divLoader").hide();
+
         }
     });
 };
@@ -380,6 +385,7 @@ var getVehicleLeaseInfoDocuments = function () {
                 $('#accordionSubVehicleCertificate').append(Vhtml);
             });
             $("#divLoader").hide();
+
         }
     });
 };
