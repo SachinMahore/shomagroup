@@ -24,7 +24,7 @@
     getReservationRequestList();
     getTenantData($("#hndTenantID").val());
     $("#ddlAmenities").on("change", function () {
-        console.log();
+       // console.log();
         $("#SelectedAminity").html($(this).find(":selected").text());
         $("#SelectedAminity").attr("data-value", $(this).find(":selected").val());
     });
@@ -78,8 +78,7 @@
     ddlBankAccountListShow();
     ddlPaymentMethodSelectFunction();
     ddlPayMethodPageLoadFunction();
-    tenantAccountHistory();
-
+   
 
     document.getElementById('fileUploadService').onchange = function () {
         uploadServiceFile();
@@ -161,6 +160,23 @@
        
         $("#lblCurrentPrePayAmount").text('$' + formatMoney($('#spanCurrentAmountDue').text()));
     }
+
+    $('#Date').click(function () {
+        $("#txtPrefarredDate").focus();
+    });
+    
+    $('#PayDateR').click(function () {
+        $("#txtPayDateR").focus();
+    }); 
+    $('#Sdate').click(function () {
+        $("#txtPreferredDate").focus();
+    }); 
+    $('#btnPreferredTime').click(function () {
+        $("#txtPreferredTime").focus();
+    });
+    $('#btnDesiredDate').click(function () {
+        $("#txtDesiredDate").focus();
+    });
 });
 
 var checkRequestButton = function () {
@@ -662,7 +678,6 @@ var goToStep = function (stepid, id) {
     }
 };
 
-
 function saveupdateLease() {
     var msg = "";
     var lid = $("#hndLID").val();
@@ -867,9 +882,10 @@ var getUpTransationLists = function () {
 
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
                 html += "<td>" + elementValue.Description + "</td>";
-                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount)  + "</td>";
-                bal = parseFloat((parseFloat(bal) + parseFloat(elementValue.Charge_Amount)) - parseFloat(elementValue.Credit_Amount));
-                html += "<td style='text-align: right;'>$" + formatMoney(bal) + "</td>";
+                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
+                html += "<td style='text-align: right;'>$" + formatMoney(0) + "</td>";
+            
+                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
 
                 html += "</tr>";
                 $("#tblUpcomingCharges>tbody").append(html);
@@ -1370,31 +1386,6 @@ var goToPayStep = function (stepid, id) {
     }
 };
 
-var getAccountHistory = function () {
-
-    var model = {
-        TenantId: $("#hndTenantID").val()
-    };
-    $.ajax({
-        url: '/Transaction/getAccountHistory',
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            $("#tblAccountHistory>tbody").empty();
-            $.each(response.model, function (elementType, elementValue) {
-                var html = "<tr data-value=" + elementValue.TransID + ">";
-                html += "<td>" + elementValue.TransactionDateString + "</td>";
-                html += "<td>" + elementValue.Description + "</td>";
-                html += "<td>" + elementValue.Charge_Amount + "</td>";
-                html += "</tr>";
-                $("#tblAccountHistory>tbody").append(html);
-            });
-        }
-    });
-}
-
 var savePaymentAccounts = function () {
     var msg = '';
     var PaymentAccountId = $("#hndPaymentAccountsID").val();
@@ -1408,35 +1399,35 @@ var savePaymentAccounts = function () {
     //for bank account
     if ($("#ddlPayMethodPaymentAccounts").val() == '1') {
         if (cardType == 0) {
-            msg = 'Select The Card Type</br>'
+            msg += 'Select The Card Type</br>'
         }
         if (nameOnCard == '') {
-            msg = 'Enter The Name On Card</br>'
+            msg += 'Enter The Name On Card</br>'
         }
         if (cardNumber == '') {
-            msg = 'Enter The Card Number</br>'
+            msg += 'Enter The Card Number</br>'
         }
-        if (cardMonth == 0) {
-            msg = 'Select The Card Month</br>'
+        if (cardMonth == '0') {
+            msg += 'Select The Card Month</br>'
         }
-        if (cardYear == 0) {
-            msg = 'Select The Card Year</br>'
+        if (cardYear == '0') {
+            msg += 'Select The Card Year</br>'
         }
     }
     else if ($("#ddlPayMethodPaymentAccounts").val() == '2') {
         if ($("#txtBankNamePayMethod").val() == '') {
-            msg = 'Enter the bank name</br>'
+            msg += 'Enter the bank name</br>'
         }
         if ($("#txtAccountNumberPayMethod").val() == '') {
-            msg = 'Enter the account number</br>'
+            msg += 'Enter the account number</br>'
         }
         if ($("#txtRoutingNumberPayMethod").val() == '') {
-            msg = 'Enter the routing number</br>'
+            msg += 'Enter the routing number</br>'
         }
     }
 
     if ($("#txtAccountNamePayMethod").val() == '') {
-        msg = 'Enter the account name</br>'
+        msg += 'Enter the account name</br>'
     }
 
 
@@ -1560,7 +1551,7 @@ var getPaymentAccountsBankAccount = function () {
                 html += "<td>" + elementValue.BankName + "</td>";
                 html += "<td>" + elementValue.AccountName + "</td>";
                 html += "<td>" + MaskCardNumber(elementValue.AccountNumber) + "</td>";
-                html += "<td>" + MaskCardNumber(elementValue.RoutingNumber) + "</td>";
+                html += "<td>" + elementValue.RoutingNumber + "</td>";
                 html += "<td><a href='javascript:void(0);' onclick='editPaymentBankAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-edit'></i></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-trash'></i></a></td>";
                 html += "<td width='11%'>" + checked + "</td>";
                 html += "</tr>";
@@ -1634,19 +1625,36 @@ var deletePaymentAccounts = function (id) {
     var model = {
         PAID: id,
     };
-    $.ajax({
-        url: '/PaymentAccounts/DeletePaymentsAccounts',
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            $.alert({
-                title: '',
-                content: response.model,
-                type: 'blue'
-            });
-            getPaymentAccountsCreditCard();
+    $.alert({
+        title: "",
+        content: "Are you sure to remove Payment Account?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: '/PaymentAccounts/DeletePaymentsAccounts',
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $.alert({
+                                title: '',
+                                content: response.model,
+                                type: 'blue'
+                            });
+                            getPaymentAccountsCreditCard();
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                }
+            }
         }
     });
 };
@@ -1803,7 +1811,7 @@ var saveUpdateServiceRequest = function () {
             fillDropdowns();
             getServiceRequestOnAlarm();
             $('#rbtnApertmentPermission1').iCheck('check');
-           
+            goToServiceStep(1);
         }
     });
 };
@@ -1822,8 +1830,8 @@ var getServiceInfo = function () {
         success: function (response) {
             $("#lblNameUnitAccess").text(response.msg.Name);
             $("#lblUnitUnitAccess").text(response.msg.Unit);
-            $("#lblPhoneUnitAccess").text(response.msg.Phone);
-            $("#lblEmergencyPhoneUnitAccess").text(response.msg.EmergencyPhone);
+            $("#lblPhoneUnitAccess").text(formatPhoneFax(response.msg.Phone));
+            $("#lblEmergencyPhoneUnitAccess").text(formatPhoneFax(response.msg.EmergencyPhone));
             $("#lblEmailUnitAccess").text(response.msg.Email);
             $("#lblEmailUnitAccess").text(response.msg.Email);
             $("#spanTenantSignName").text(response.msg.Name);
@@ -1841,7 +1849,7 @@ var clearServiceRequestField = function () {
     $("#txtPreferredTime").val('');
     $("#Issue").addClass('hidden');
     $("#OtherIssue").addClass('hidden');
-    $("#txtOtherCausingIssue").addClass('hidden');
+    $("#OtherCausingIssue").addClass('hidden');
     $("#txtOtherIssue").val('');
     $("#txtEmergencyMobile").val('');
     $("#ddlPriority").val('0');
@@ -2123,6 +2131,12 @@ var goToReservationStep = function (stepid, id) {
 
         $("#reservationStep1").addClass("hidden");
         $("#reservationStep2").removeClass("hidden");
+
+        $("#ddlAmenities").val(id).attr("selected", "selected");
+        $("#SelectedAminity").html($("#ddlAmenities").find(":selected").text());
+        $("#SelectedAminity").attr("data-value", $("#ddlAmenities").find(":selected").val());
+        getDurationSlot(id);
+
     }
 };
 
@@ -2131,19 +2145,36 @@ var cancelServiceRequest = function (id) {
     var model = {
         ServiceID: id
     };
-    $.ajax({
-        url: '/ServiceRequest/CancelServiceRequest',
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            $.alert({
-                title: '',
-                content: response.model,
-                type: 'blue'
-            });
-            getServiceRequestList();
+    $.alert({
+        title: "",
+        content: "Are you sure to cancle Request?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: '/ServiceRequest/CancelServiceRequest',
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $.alert({
+                                title: '',
+                                content: response.model,
+                                type: 'blue'
+                            });
+                            getServiceRequestList();
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                }
+            }
         }
     });
 }
@@ -2407,34 +2438,7 @@ var fromDashboardGoToSubmitServiceRequest = function () {
 
 }
 
-var paymentHistory = function (ddlah) {
-    var model = {
-        TenantID: $("#hndTenantID").val(),
-        AccountHistoryDDL: ddlah
-    }
-    $.ajax({
-        url: "/MyTransaction/GetTenantUpTransactionList",
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            var bal = 0;
-            $("#tblPaymentHistory>tbody").empty();
 
-            $.each(response.model, function (elementType, elementValue) {
-                var html = "<tr data-value=" + elementValue.TransID + ">";
-                html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                html += "<td>" + elementValue.Description + "</td>";
-                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Balance) + "</td>";
-                html += "</tr>";
-                $("#tblPaymentHistory>tbody").append(html);
-            });
-        }
-    });
-   
-};
 
 var dateRangeAccountHistorySearch = function () {
     var model = {
@@ -2459,18 +2463,25 @@ var dateRangeAccountHistorySearch = function () {
         dataType: "JSON",
         success: function (response) {
             $('#popDateRangeAccountHistory').modal('hide');
-            totalAmount = 0;
+            bal = 0;
             $("#tblPaymentHistory>tbody").empty();
 
             $.each(response.model, function (elementType, elementValue) {
+               
                 var html = "<tr data-value=" + elementValue.TransID + ">";
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                html += "<td>" + elementValue.Description + "</td>";
+                html += "<td><a href='javascript:void(0);'  data-toggle='modal' data-target='#popInvoice' onclick='getInvoice(" + elementValue.TransID + ")'>" + elementValue.Description + "</a></td>";
                 html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                html += "<td>" + elementValue.Charge_Type + "</td>";
+                if (elementValue.Credit_Amount != "0.00") {
+                    html += "<td style='text-align: right;'><b>$" + formatMoney(elementValue.Credit_Amount) + "</b></td>";
+                } else {
+                    html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Credit_Amount) + "</td>";
+                }
+
+                bal = parseFloat((parseFloat(bal) + parseFloat(elementValue.Charge_Amount)) - parseFloat(elementValue.Credit_Amount));
+                html += "<td style='text-align: right;'>$" + formatMoney(bal) + "</td>";
                 html += "</tr>";
                 $("#tblPaymentHistory>tbody").append(html);
-                totalAmount += parseFloat(elementValue.Charge_Amount);
             });
         }
     });
@@ -2527,8 +2538,15 @@ var r = function () {
     $('#rbtnAmountToPay1').attr('checked', 'checked');
 
 }
-var getAmenityReservationPay = function(){
-    var params = { Id: $("#hdnARId").val() };
+var getAmenityReservationPay = function (ARID) {
+    var id = 0;
+    if ($("#hdnARId").val() == 0) {
+        id = ARID;
+    }
+    else {
+        id = $("#hdnARId").val();
+    }
+    var params = { Id: id };
     $.ajax({
         url: "/Amenities/GetRRInfo",
         method: "post",
@@ -2698,6 +2716,11 @@ var focuss = function () {
     $("#txtOtherAmount").focusout(function () { $("#txtOtherAmount").val(formatMoney($("#txtOtherAmount").val())); })
         .focus(function () {
             $("#txtOtherAmount").val(unformatText($("#txtOtherAmount").val()));
+        });
+
+    $("#txtOtherAmountR").focusout(function () { $("#txtOtherAmountR").val(formatMoney($("#txtOtherAmountR").val())); })
+        .focus(function () {
+            $("#txtOtherAmountR").val(unformatText($("#txtOtherAmountR").val()));
         });
 }
 
@@ -4464,31 +4487,7 @@ var ddlPayMethodPageLoadFunction = function () {
     }, 1500);
 };
 
-var tenantAccountHistory = function () {
-    var model = {
-        TenantID: $("#hndTenantID").val(),
-    }
-    $.ajax({
-        url: "/MyTransaction/GetTenantAccountHistoryList",
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            totalAmount = 0;
-            $("#tblAccountHistory>tbody").empty();
 
-            $.each(response.model, function (elementType, elementValue) {
-                var html = "<tr data-value=" + elementValue.TransID + ">";
-                html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                html += "<td>" + elementValue.Description + "</td>";
-                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                html += "</tr>";
-                $("#tblAccountHistory>tbody").append(html);
-            });
-        }
-    });
-};
 
 var openPaymentBreakdown = function () {
     $('#popPaymentBreakdown').modal('show');
@@ -4530,15 +4529,26 @@ var getAmenityList = function () {
         success: function (response) {
 
             $("#ddlAmenities").empty();
+            $("#reserve_facility_list").empty();
             var option = "<option value=0>Select Amenity</option>";
             $.each(response.model, function (elementType, elementValue) {
                 option += "<option value=" + elementValue.ID + ">" + elementValue.Amenity + "</option>";
 
             });
             $("#ddlAmenities").append(option);
+            var reserve_a = "";
+            $.each(response.model, function (elementType, elementValue) {
+
+                reserve_a += "<a class='list-group-item' href='javascript:void(0);' onclick='goToReservationStep(2," + elementValue.ID + ")'>" + elementValue.Amenity + "</a>";
+
+            });
+            $("#reserve_facility_list").append(reserve_a);
+           
         }
     });
 };
+
+
 var getDurationSlot = function (selectedValue) {
     $("#ddlDesiredDuration").empty();
     var option = "<option value=0>Select Duration Slot</option>";
@@ -4683,7 +4693,6 @@ var fillDdlServiceCategory = function () {
         }
     });
 }
-
 var fillCaussingIssue = function (ServiceIssueID) {
     var params = { ServiceIssueID: ServiceIssueID };
     $.ajax({
@@ -4696,17 +4705,21 @@ var fillCaussingIssue = function (ServiceIssueID) {
             if ($.trim(response.error) != "") {
                 //this.cancelChanges();
             } else {
+                if (response.length != '0') {
+                    $("#ddlProblemCategory1").empty();
+                    $("#ddlProblemCategory1").append("<option value='0'>What Item Is causing The Issue?</option>");
+                    $.each(response, function (index, elementValue) {
+                        $("#ddlProblemCategory1").append("<option value=" + elementValue.CausingIssueID + ">" + elementValue.CausingIssue + "</option>");
+                    });
+                } else {
+                    $("#CausingIssue").addClass("hidden");
+                    $("#ddlProblemCategory1").empty();
 
-                $("#ddlProblemCategory1").empty();
-                $("#ddlProblemCategory1").append("<option value='0'>What Item Is causing The Issue?</option>");
-                $.each(response, function (index, elementValue) {
-                    $("#ddlProblemCategory1").append("<option value=" + elementValue.CausingIssueID + ">" + elementValue.CausingIssue + "</option>");
-                });
+                }
             }
         }
     });
 }
-
 var fillDdlIssue = function (CausingIssueID, ServiceIssueID) {
     var params = { CausingIssueID: CausingIssueID, ServiceIssueID: ServiceIssueID };
     $.ajax({
@@ -4719,12 +4732,18 @@ var fillDdlIssue = function (CausingIssueID, ServiceIssueID) {
             if ($.trim(response.error) != "") {
 
             } else {
-                $("#ddlProblemCategory2").empty();
-                //$("#ddlProblemCategory2").append("<option value='0'>What Is The Issue?</option>");
-                $.each(response, function (index, elementValue) {
-                    $("#ddlProblemCategory2").append("<option value=" + elementValue.IssueID + ">" + elementValue.Issue + "</option>");
-                });
+                if (response.length != '0') {
+                    $("#ddlProblemCategory2").empty();
+                    //$("#ddlProblemCategory2").append("<option value='0'>What Is The Issue?</option>");
+                    $.each(response, function (index, elementValue) {
+                        $("#ddlProblemCategory2").append("<option value=" + elementValue.IssueID + ">" + elementValue.Issue + "</option>");
+                    });
+                }
+                else {
+                    $("#Issue").addClass("hidden");
+                    $("#ddlProblemCategory2").empty();
 
+                }
             }
         }
     });
@@ -4788,7 +4807,13 @@ var getReservationRequestList = function () {
                     html += "<td>" + elementValue.DesiredDate + "</td>";
                     html += "<td>" + elementValue.DesiredTime + "</td>";
                     html += "<td>" + elementValue.Duration + "</td>";
-                    html += "<td>" + elementValue.Status + "</td>";
+                    
+                    if (elementValue.Status == "Approved and pending for payment") {
+                        html += "<td><button class='btn btn-primary' onclick='goToStep(3),getAmenityReservationPay(" + elementValue.ARID + ")'>" + elementValue.Status + "</button></td>";
+                    }
+                    else {
+                        html += "<td>" + elementValue.Status + "</td>";
+                    }
                     if (elementValue.Status == "Cancelled") {
                         html += "<td ><span><i class='fa fa-check'></i></span></td>";
                     }
@@ -4804,7 +4829,6 @@ var getReservationRequestList = function () {
         }
     });
 };
-
 
 var getRecurringPayLists = function () {
     var model = {
@@ -4937,7 +4961,6 @@ function recurringPaymentSaveUpdate() {
     });
 
 }
-
 
 var cancleRequest = function (arid) { 
     var tenantId = $("#hndTenantID").val();
@@ -5096,3 +5119,35 @@ function deleteRecPayment(transid) {
         });
 }
 
+function recurringPaymentCancel()
+{
+    $("#RecStep1").removeClass("hidden");
+    $("#RecStep2").addClass("hidden");
+    $("#txtOtherAmountR").val("");
+}
+function recurringPaymentBack() {
+    $("#RecStep1").removeClass("hidden");
+    $("#RecStep2").addClass("hidden");
+   
+}
+function recurringPaymentNext() {
+    $("#RecStep2").removeClass("hidden");
+    $("#RecStep1").addClass("hidden");
+
+    var transtype = $("#ddlPaymentMethodR").text();
+    var chargeDate = $("#txtPayDateR").val();
+
+    var amount = '';
+    if ($("#rbtnAmountToPayR1").is(":checked")) {
+        amount =$('#lblCurrentPrePayAmountR').text();
+    }
+    else if ($("#rbtnAmountToPayR2").is(":checked")) {
+        amount = $('#txtOtherAmountR').val();
+    }
+    else {
+        amount = '';
+    }
+    $("#lblReccPayFrom").text(transtype);
+    $("#lblPayDateR").text(chargeDate);
+    $("#lblFixedamt").text(amount);
+}

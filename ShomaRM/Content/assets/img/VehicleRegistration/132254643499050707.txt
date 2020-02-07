@@ -1,0 +1,1526 @@
+fillDropdowns();
+
+     $("#rbtnApertmentPermission1").prop("checked", true);
+
+    $('input[type=radio]').on('ifChanged', function (event) {
+
+        if ($("#rbtnApertmentPermission2").is(":checked")) {
+            $("#PreferredDate").removeClass('hidden');
+            
+        }
+        else if ($("#rbtnApertmentPermission1").is(":checked")){
+            $("#PreferredDate").addClass('hidden');
+        }
+    });
+***************************************************************************
+var fillDropdowns = function () {
+
+    $("#ddlProblemCategory").empty();
+    $("#ddlProblemCategory").append("<option data-id='0' value='A0'>Select Problem Category</option>");
+    $("#ddlProblemCategory").append("<option data-id='1' value='A1'>Appliance</option>");
+    $("#ddlProblemCategory").append("<option data-id='2' value='A2'>Doors & Locks</option>");
+    $("#ddlProblemCategory").append("<option data-id='3' value='A3'>Electrical and Lighting</option>");
+    $("#ddlProblemCategory").append("<option data-id='4' value='A4'>Flooring</option>");
+    $("#ddlProblemCategory").append("<option data-id='5' value='A5'>General</option>");
+    $("#ddlProblemCategory").append("<option data-id='6' value='A6'>Heating & cooling</option>");
+    $("#ddlProblemCategory").append("<option data-id='7' value='A7'>Plumbing & bath</option>");
+    $("#ddlProblemCategory").append("<option data-id='8' value='A8'>Safety equipment</option>");
+    $("#ddlProblemCategory").append("<option data-id='9' value='A9'>Preventative maintenance</option>");
+    $("#ddlProblemCategory").append("<option data-id='10' value='A10'>Other</option>");
+    $("#ddlProblemCategory").on('change', function (evt, params) {
+        var selected = $(this).val();
+        if ($(this).val() == 'A1') {
+            $("#ddlProblemCategory1").empty();
+            $("#Issue").addClass("hidden");
+            $("#CausingIssue").removeClass("hidden"); 
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#MoreDetails").addClass("hidden");
+            $("#ddlProblemCategory1").append("<option  data-id='0' value='C0'>What Item Is causing The Issue?</option>");
+            $("#ddlProblemCategory1").append("<option data-id='1' value='C1'>Clothes Dryer</option>");
+            $("#ddlProblemCategory1").append("<option data-id='2' value='C2'>Clothes Washer</option>");
+            $("#ddlProblemCategory1").append("<option data-id='3' value='C3'>Dishwasher</option>");
+            $("#ddlProblemCategory1").append("<option data-id='4' value='C4'>Disposal</option>");
+            $("#ddlProblemCategory1").append("<option data-id='5' value='C5'>Microwave</option>");
+            $("#ddlProblemCategory1").append("<option data-id='6' value='C6'>Range/Oven</option>");
+            $("#ddlProblemCategory1").append("<option data-id='7' value='C7'>Refrigerator/Freezer</option>");
+            $("#ddlProblemCategory1").append("<option data-id='8' value='C8'>Other</option>");
+          
+        }
+        else if ($(this).val() == 'A0') {
+            $("#ddlProblemCategory1").empty();
+            $("#Issue").addClass("hidden");
+            $("#CausingIssue").removeClass("hidden"); 
+            $("#MoreDetails").addClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'A2') {
+            $("#ddlProblemCategory1").empty();
+            $("#Issue").addClass("hidden");
+            $("#MoreDetails").addClass("hidden");
+            $("#CausingIssue").removeClass("hidden"); 
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory1").append("<option data-id='0' value='Doors0'>What Item Is causing The Issue?</option>");
+            $("#ddlProblemCategory1").append("<option data-id='1' value='Doors1'>Lost FOB</option>");
+            $("#ddlProblemCategory1").append("<option data-id='2' value='Doors2'>Lost mailbox key");
+            $("#ddlProblemCategory1").append("<option data-id='3' value='Doors3'>Doors & Locks- Other");
+        }
+        else if ($(this).val() == 'A3') {
+            $("#ddlProblemCategory1").empty();
+            $("#Issue").addClass("hidden");
+            $("#CausingIssue").removeClass("hidden"); 
+            $("#MoreDetails").addClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory1").append("<option data-id='0' value='PTE0'>What Item Is causing The Issue?</option>");
+            $("#ddlProblemCategory1").append("<option data-id='1' value='PTE1'>Ceiling Fan</option>");
+            $("#ddlProblemCategory1").append("<option data-id='2' value='PTE2'>Electrical Box</option>");
+            $("#ddlProblemCategory1").append("<option data-id='3' value='PTE3'>Electrical Outlet</option>");
+            $("#ddlProblemCategory1").append("<option data-id='4' value='PTE4'>Exterior Lighting</option>");
+            $("#ddlProblemCategory1").append("<option data-id='5' value='PTE5'>Interior Lighting</option>");
+            $("#ddlProblemCategory1").append("<option data-id='6' value='PTE6'>Ventilation fan/Oven</option>");
+            $("#ddlProblemCategory1").append("<option data-id='7' value='PTE7'>Other Miscellaneous Electrical</option>");
+           
+          
+        }
+        else if ($(this).val() == 'A4') {
+            $("#ddlProblemCategory1").empty();
+            $("#Issue").addClass("hidden");
+            $("#CausingIssue").removeClass("hidden"); 
+            $("#MoreDetails").addClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory1").append("<option data-id='0' value='PTF0'>What Item Is causing The Issue?</option>");
+            $("#ddlProblemCategory1").append("<option data-id='1' value='PTF1'>Tile</option>");
+            $("#ddlProblemCategory1").append("<option data-id='2' value='PTF2'>LVT/Vinyl Flooring</option>");
+           
+
+        }
+        else if ($(this).val() == 'A5') {
+            $("#ddlProblemCategory1").empty();
+            $("#Issue").addClass("hidden");
+            $("#CausingIssue").removeClass("hidden"); 
+            $("#MoreDetails").addClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory1").append("<option data-id='0' value='PTG0'>What Item Is causing The Issue?</option>");
+            $("#ddlProblemCategory1").append("<option data-id='1' value='PTG1'>Cabinet</option>");
+            $("#ddlProblemCategory1").append("<option data-id='2' value='PTG2'>Counter Top</option>");
+            $("#ddlProblemCategory1").append("<option data-id='3' value='PTG3'>Drawer</option>");
+            $("#ddlProblemCategory1").append("<option data-id='4' value='PTG4'>Drywall</option>");
+            $("#ddlProblemCategory1").append("<option data-id='5' value='PTG5'>Paint</option>");
+            $("#ddlProblemCategory1").append("<option data-id='6' value='PTG6'>Pest Controll</option>");
+            $("#ddlProblemCategory1").append("<option data-id='7' value='PTG7'>Shelving</option>");
+            $("#ddlProblemCategory1").append("<option data-id='8' value='PTG8'>Trim Board</option>");
+            $("#ddlProblemCategory1").append("<option data-id='9' value='PTG9'>Wallpaper</option>");
+            $("#ddlProblemCategory1").append("<option data-id='10' value='PTG10'>Window</option>");
+            $("#ddlProblemCategory1").append("<option data-id='11' value='PTG11'>Window Lock</option>");
+            $("#ddlProblemCategory1").append("<option data-id='12' value='PTG12'>Window Tretament</option>");
+
+        }
+        else if ($(this).val() == 'A6') {
+            $("#ddlProblemCategory1").empty();
+            $("#Issue").addClass("hidden");
+            $("#CausingIssue").removeClass("hidden"); 
+            $("#MoreDetails").addClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory1").append("<option data-id='0' value='PTAIR0'>What Item Is causing The Issue?</option>");
+            $("#ddlProblemCategory1").append("<option data-id='1' value='PTAIR1'>A/C does not cool properly</option>");
+            $("#ddlProblemCategory1").append("<option data-id='2' value='PTAIR2'>A/C filter needs changing</option>");
+            $("#ddlProblemCategory1").append("<option data-id='3' value='PTAIR3'>A/C leaks</option>");
+            $("#ddlProblemCategory1").append("<option data-id='4' value='PTAIR4'>A/C musty/other odor</option>");
+            $("#ddlProblemCategory1").append("<option data-id='5' value='PTAIR5'>A/C makes noise</option>");
+            $("#ddlProblemCategory1").append("<option data-id='6' value='PTAIR6'>Heater does not heat properly</option>");
+            $("#ddlProblemCategory1").append("<option data-id='7' value='PTAIR7'>Thermostat does not work</option>");
+            $("#ddlProblemCategory1").append("<option data-id='8' value='PTAIR8'>A/C- Other problems. See comments below</option>");
+            $("#ddlProblemCategory1").append("<option data-id='9' value='PTAIR9'>Heater-Other problems. See comments below</option>");
+            $("#ddlProblemCategory1").append("<option data-id='10' value='PTAIR10'>Thermostat-Other problem.  See comments below</option>");
+
+        }
+        else if ($(this).val() == 'A7') {
+            $("#ddlProblemCategory1").empty();
+            $("#Issue").addClass("hidden");
+            $("#MoreDetails").addClass("hidden");
+            $("#CausingIssue").removeClass("hidden"); 
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory1").append("<option data-id='0' value='PTPLUM0'>What Item Is causing The Issue?</option>");
+            $("#ddlProblemCategory1").append("<option data-id='1' value='PTPLUM1'>Faucet</option>");
+            $("#ddlProblemCategory1").append("<option data-id='2' value='PTPLUM2'>Water Heater</option>");
+            $("#ddlProblemCategory1").append("<option data-id='3' value='PTPLUM3'>Mirror</option>");
+            $("#ddlProblemCategory1").append("<option data-id='4' value='PTPLUM4'>Paper Holder</option>");
+            $("#ddlProblemCategory1").append("<option data-id='5' value='PTPLUM5'>General</option>");
+            $("#ddlProblemCategory1").append("<option data-id='6' value='PTPLUM6'>Shower</option>");
+            $("#ddlProblemCategory1").append("<option data-id='7' value='PTPLUM7'>Sink</option>");
+            $("#ddlProblemCategory1").append("<option data-id='8' value='PTPLUM8'>Toilet</option>");
+            $("#ddlProblemCategory1").append("<option data-id='9' value='PTPLUM9'>Tub</option>");
+            $("#ddlProblemCategory1").append("<option data-id='10' value='PTPLUM10'>Plumbing- Other problem</option>");
+
+        }
+        else if ($(this).val() == 'A8') {
+            $("#ddlProblemCategory1").empty();
+            $("#Issue").addClass("hidden");
+            $("#MoreDetails").addClass("hidden");
+            $("#CausingIssue").removeClass("hidden"); 
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory1").append("<option data-id='0' value='PTSafety0'>What Item Is causing The Issue?</option>");
+            $("#ddlProblemCategory1").append("<option data-id='1' value='PTSafety1'>Fire Equipment</option>");
+            $("#ddlProblemCategory1").append("<option data-id='2' value='PTSafety2'>Fire Sprinkler</option>");
+            $("#ddlProblemCategory1").append("<option data-id='3' value='PTSafety3'>Smoke/CO detector</option>");
+        }
+        else if ($(this).val() == 'A10') {
+            $("#ddlProblemCategory1").empty();
+            $("#Issue").addClass("hidden");
+            $("#MoreDetails").removeClass("hidden");
+            $("#CausingIssue").addClass("hidden"); 
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+    });
+
+    $("#ddlProblemCategory1").on('change', function (evt, params) {
+        var selected = $("#ddlProblemCategory").val();
+
+        if ($("#ddlProblemCategory1").val() == 'C1') {
+            $("#Issue").removeClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Dry1'>Dryer controls do not work</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Dry2'>Dryer does not work properly</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='Dry3'>Dryer lint trap damaged/broken</option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='Dry4'>Dryer takes too long to dry</option>");
+            $("#ddlProblemCategory2").append("<option data-id='5' value='Dry5'>Dryer- other problem</option>");
+            
+        }
+       
+        else if ($("#ddlProblemCategory1").val() =='C0') {
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#Issue").addClass("hidden");
+            
+        }
+        else if ($("#ddlProblemCategory1").val() == 'C2') {
+            $("#Issue").removeClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Washer1'>Washer controls/knobs broken</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Washer2'>Washer damages clothes</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='Washer3'>Washer- no cycle/rinse/spin</option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='Washer4'>Washer will not fill/drain</option>");
+            $("#ddlProblemCategory2").append("<option data-id='5' value='Washer5'>Washer does not work</option>");
+            $("#ddlProblemCategory2").append("<option data-id='6' value='Washer6'>Washer is making noise</option>");
+            $("#ddlProblemCategory2").append("<option data-id='7' value='Washer7'>Washer leaks water</option>");
+            $("#ddlProblemCategory2").append("<option data-id='8' value='Washer8'>Washer’s water is not cold/hot</option>");
+            $("#ddlProblemCategory2").append("<option data-id='9' value='Washer9'>Washer- Other problem</option>");
+        }
+        else if ($(this).val() == 'C3') {
+            $("#Issue").removeClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' value='DW1'>DW does not drain/backing up</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='DW2'>DW does not dry properly</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='DW3'>DW does not work</option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='DW4'>DW door does not lock</option>");
+            $("#ddlProblemCategory2").append("<option data-id='5' value='DW5'>DW noisy</option>");
+            $("#ddlProblemCategory2").append("<option data-id='6' value='DW6'>DW leaks</option>");
+            $("#ddlProblemCategory2").append("<option data-id='7' value='DW7'>DW panel loose/falling off</option>");
+            $("#ddlProblemCategory2").append("<option data-id='8' value='DW8'>DW soap dispenser stuck/broken</option>");
+            $("#ddlProblemCategory2").append("<option data-id='9' value='DW9'>DW- Other problemt</option>");
+        }
+        else if ($(this).val() == 'C4') {
+            $("#Issue").removeClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Disposal1'>Disposal clogged</option>");
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Disposal2'>Disposal does not work</option>");
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Disposal3'>Disposal leaks</option>");
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Disposal4'>Disposal- Other problem</option>");
+            
+        }
+        else if ($(this).val() == 'C5') {
+            $("#Issue").removeClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' value='MW1'>MW does not work/ heat properly</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='MW2'>MW door handle broken/damaged</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='MW3'>MW fan does not work</option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='MW4'>MW light does not work</option>");
+            $("#ddlProblemCategory2").append("<option data-id='5' value='MW5'>MW shorts/smokes/sparks</option>");
+            $("#ddlProblemCategory2").append("<option data-id='6' value='MW6'>MW tray missing/broken</option>");
+            $("#ddlProblemCategory2").append("<option data-id='7' value='MW7'>MW- Other</option>");
+           
+        }
+        else if ($(this).val() == 'C6') {
+            $("#Issue").removeClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Oven1'>Burner does not work</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Oven2'>Cooktop cracked</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='Oven3'>Cooktop- Other problem</option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='Oven4'>Oven broiler pan missing</option>");
+            $("#ddlProblemCategory2").append("<option data-id='5' value='Oven5'>Oven does not clean</option>");
+            $("#ddlProblemCategory2").append("<option data-id='6' value='Oven6'>Oven does not heat</option>");
+            $("#ddlProblemCategory2").append("<option data-id='7' value='Oven7'>Oven door will not open/close</option>");
+            $("#ddlProblemCategory2").append("<option data-id='8' value='Oven8'>Oven light out</option>");
+            $("#ddlProblemCategory2").append("<option data-id='9' value='Oven9'>Oven-Other problem</option>");
+        }
+        else if ($(this).val() == 'C7') {
+            $("#Issue").removeClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Freezer1'>Refrigerator door does not close</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Freezer2'>Freezer door does not close</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='Freezer3'>Refrigerator is making noise</option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='Freezer4'>Freezer is making noise</option>");
+            $("#ddlProblemCategory2").append("<option data-id='5' value='Freezer5'>Refrigerator light does not work</option>");
+            $("#ddlProblemCategory2").append("<option data-id='6' value='Freezer6'>Freezer light does not work</option>");
+            $("#ddlProblemCategory2").append("<option data-id='7' value='Freezer7'>Refrigerator leaks</option>");
+            $("#ddlProblemCategory2").append("<option data-id='8' value='Freezer8'>Freezer leaks</option>");
+            $("#ddlProblemCategory2").append("<option data-id='9' value='Freezer9'>Refrigerator part missing/broken</option>");
+            $("#ddlProblemCategory2").append("<option data-id='10' value='Freezer10'>Freezer part missing/broken</option>");
+            $("#ddlProblemCategory2").append("<option data-id='11' value='Freezer11'>Refrigerator temp too warm/cold</option>");
+            $("#ddlProblemCategory2").append("<option data-id='12' value='Freezer12'>Freezer temp too warm/cold</option>");
+            $("#ddlProblemCategory2").append("<option data-id='13' value='Freezer13'>Icemaker broken/no ice</option>");
+            $("#ddlProblemCategory2").append("<option data-id='14' value='Freezer14'>Icemaker leaks</option>");
+            $("#ddlProblemCategory2").append("<option data-id='15' value='Freezer15'>Icemaker makes dirty ice</option>");
+            $("#ddlProblemCategory2").append("<option data-id='16' value='Freezer16'>Icemaker makes too much ice</option>");
+            $("#ddlProblemCategory2").append("<option data-id='17' value='Freezer17'>Refrigerator- Other problem</option>");
+            $("#ddlProblemCategory2").append("<option data-id='18' value='Freezer18'>Freezer- Other problem</option>");
+            $("#ddlProblemCategory2").append("<option data-id='19' value='Freezer19'>Icemaker - Other problem</option>");
+           
+        }
+        else if ($(this).val() == 'C8') {
+            $("#Issue").addClass("hidden");
+            $("#OtherCausingIssue").removeClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            
+
+        }
+        else if ($(this).val() == 'PTE1') {
+            $("#Issue").removeClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory2").append("<option data-id='1' value='CeilingFan1'>Ceiling Fan does not work</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='CeilingFan2'>Ceiling Fan is making noise</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='CeilingFan3'>Ceiling Fan wobbles</option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='CeilingFan4'>Ceiling Fan- Other</option>");
+        }
+        else if ($(this).val() == 'PTE2') {
+            $("#Issue").removeClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Electrical1'>Electrical box is hot</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Electrical2'>Fuses need replaced</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='Electrical3'>Breaker trips frequently</option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='Electrical4'>Electrical box- Other</option>");
+
+        }
+        else if ($(this).val() == 'PTE3') {
+            $("#Issue").removeClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' value='GFI1'>GFI does not pass fault test</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='GFI2'>GFI does not reset</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='GFI3'>Outlet cover broken/missing</option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='GFI4'>Outlet does not work</option>");
+            $("#ddlProblemCategory2").append("<option data-id='5' value='GFI5'>Outlet- Other</option>");
+
+        }
+        else if ($(this).val() == 'PTE4') {
+            $("#Issue").removeClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Exterior1'>Exterior light bulb is out</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Exterior2'>Exterior light-Other</option>");
+        }
+        else if ($(this).val() == 'PTE5') {
+            $("#Issue").removeClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Light1'>Light bulb is out</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Light2'>Light cover problems</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='Light3'>Light does not work properly</option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='Light4'>Light flickers</option>");
+            $("#ddlProblemCategory2").append("<option data-id='5' value='Light5'>Interior Light-Other</option>");
+
+        }
+        else if ($(this).val() == 'PTE6') {
+            $("#Issue").removeClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Ventilation1'>Ventilation fan broken</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Ventilation2'>Ventilation makes noise</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='Ventilation3'>Ventilation fan-Other problems</option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='Ventilation4'>Light flickers</option>");
+            $("#ddlProblemCategory2").append("<option data-id='5' value='Ventilation5'>Interior Light-Other</option>");
+        }
+        else if ($(this).val() == 'PTE7') {
+            $("#Issue").addClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'PTF1') {
+            $("#Issue").removeClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Ceramic1'>Ceramic floor tile needs repair/replacement</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Ceramic2'>Ceramic floor tile- Other</option>");
+          
+        }
+        else if ($(this).val() == 'PTF2') {
+            $("#Issue").removeClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Vinyl1'>Vinyl floor loose</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Vinyl2'>Vinyl floor needs refinishing</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='Vinyl3'>Vinyl floor damaged</option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='Vinyl4'>Vinyl floor- Other</option>");
+
+        }
+        else if ($(this).val() == 'PTG1') {
+            $("#Issue").removeClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Cabinet1'>Cabinet broken/falling</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Cabinet2'>Cabinet Door glass broken</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='Cabinet3'>Cabinet Door handle broken/Missing </option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='Cabinet4'>Cabinet Door is off/loose</option>");
+            $("#ddlProblemCategory2").append("<option data-id='5' value='Cabinet5'>Cabinet hardware broken/Missing</option>");
+            $("#ddlProblemCategory2").append("<option data-id='6' value='Cabinet6'>Cabinet Other problem</option>");
+
+        }
+        else if ($(this).val() == 'PTG2') {
+            $("#Issue").removeClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Counter1'>Counter backsplash damaged</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Counter2'>Counter top damaged/coming up</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='Counter3'>Counter top other</option>");
+
+        }
+        else if ($(this).val() == 'PTG3') {
+            $("#Issue").removeClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Drawer1'>Drawer broken/sticks</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Drawer2'>Drawer hardware broken/missing</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='Drawer3'>Drawer other problem</option>");
+
+        }
+        else if ($(this).val() == 'PTG4') {
+            $("#Issue").removeClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' data-value='' value='Entire1'>Entire unit needs repainting</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Entire2'>Entire unit needs touch-up</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='Entire3'>Room needs repainting</option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='Entire4'>Room needs touch-up paint</option>");
+            $("#ddlProblemCategory2").append("<option data-id='5' value='Entire5'>Wall needs touch-up paint</option>");
+            $("#ddlProblemCategory2").append("<option data-id='6' value='Entire6'>Wall/ceiling damaged</option>");
+            $("#ddlProblemCategory2").append("<option data-id='7' value='Entire7'>Wall/ceiling needs repainting</option>");
+            $("#ddlProblemCategory2").append("<option data-id='8' value='Entire8'>Drywall-Other problem</option>");
+            $("#ddlProblemCategory2").append("<option data-id='9' value='Entire9'>Paint-Other problem</option>");
+         
+
+        }
+        else if ($(this).val() == 'PTG5') {
+            $("#Issue").removeClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Requires1'>Requires indoor pest control treatment</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Requires2'>Requires outdoor pest control treatment</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='Requires3'>Pet Control- Other problems</option>");
+
+        }
+        else if ($(this).val() == 'PTG6') {
+            $("#Issue").removeClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Closet1'>Closet rod missing/damaged</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Closet2'>Shelving loose/detached</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='Closet3'>Shelving sagging/broken</option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='Closet4'>Closet- Other problems</option>");
+            $("#ddlProblemCategory2").append("<option data-id='5' value='Closet5'>Shelving- Other problems</option>");
+
+        }
+        else if ($(this).val() == 'PTG7') {
+            $("#Issue").removeClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Trim1'>Trim board damaged</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Trim2'>Trim board needs paint</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='Trim3'>Trim-Other problems</option>");
+
+        }
+        else if ($(this).val() == 'PTG8') {
+            $("#Issue").removeClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' data-value='' value='Window1'>Window does not open/close</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Window2'>Window glass is broken/cracked</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='Window3'>Window leaks air/water</option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='Window4'>Window lock/latch does not work</option>");
+            $("#ddlProblemCategory2").append("<option data-id='5' value='Window5'>Window screen damaged</option>");
+            $("#ddlProblemCategory2").append("<option data-id='6' value='Window6'>Window screen is missing</option>");
+            $("#ddlProblemCategory2").append("<option data-id='7' value='Window7'>Window screen is off rail</option>");
+            $("#ddlProblemCategory2").append("<option data-id='8' value='Window8'>Window- Other problems</option>");
+        }
+        else if ($(this).val() == 'PTG9') {
+            $("#Issue").removeClass("hidden");
+            $("#ddlProblemCategory2").empty();
+            $("#ddlProblemCategory2").append("<option data-id='1' data-value='1' value='Blinds1'>Blinds are falling</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Blinds2'>Blinds chain/chord/wand broken</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='Blinds3'>Blinds do not open/close</option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='Blinds4'>Blinds do not work properly</option>");
+            $("#ddlProblemCategory2").append("<option data-id='5' value='Blinds5'>Blinds- Other problem</option>");
+        }
+
+
+        else if ($(this).val() == 'PTPLUM0') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").addClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            
+        }
+
+        else if ($(this).val() == 'PTPLUM1') {
+            $("#ddlProblemCategory2").empty();
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#Issue").removeClass("hidden");
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Faucet1'>Faucet broken</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Faucet2'>Faucet drips/leaks/sprays</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='Faucet3'>Faucet hard to turn on/off</option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='Faucet4'>Faucet water pressure problem</option>");
+            $("#ddlProblemCategory2").append("<option data-id='5' value='Faucet5'>Faucet- Other problem</option>");
+            
+
+        }
+        else if ($(this).val() == 'PTPLUM2') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").removeClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Water1'>No hot water</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Water2'>Water heater leaks</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='Water3'>Water heater-Other problem</option>");
+        }
+        else if ($(this).val() == 'PTPLUM3') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").removeClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory2").append("<option data-id='1' value='Mirror1'>Mirror broken</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='Mirror2'>Mirror- Other problem</option>");
+           
+        }
+        else if ($(this).val() == 'PTPLUM4') {
+            $("#ddlProblemCategory2").empty();
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#Issue").removeClass("hidden");
+            $("#ddlProblemCategory2").append("<option data-id='1' value='1'>Paper Holder missing/broken</option>");
+
+        }
+        else if ($(this).val() == 'PTPLUM5') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").removeClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory2").append("<option data-id='1' value='1'>Water leaking from ceiling</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='2'>Water leak on floor</option>");
+        }
+        else if ($(this).val() == 'PTPLUM6') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").removeClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory2").append("<option data-id='1' value='1'>Shower clogged</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='2'>Shower control know broken</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='3'>Shower door stuck</option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='4'>Shower pressure low/high</option>");
+            $("#ddlProblemCategory2").append("<option data-id='5' value='5'>Shower head loose/broken</option>");
+            $("#ddlProblemCategory2").append("<option data-id='6' value='6'>Water too hot</option>");
+        }
+        else if ($(this).val() == 'PTPLUM7') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").removeClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory2").append("<option data-id='1' value='1'>Sink clogged/does not drain correctly</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='2'>Sink leaks</option>");
+        }
+        else if ($(this).val() == 'PTPLUM8') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").removeClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory2").append("<option data-id='1' value='1'>Toilet clogged</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='2'>Toilet does not flush</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='3'>Toilet handle/chain/flapper broken</option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='4'>Toilet leaks</option>");
+            $("#ddlProblemCategory2").append("<option data-id='5' value='5'>Toilet running continuously</option>");
+            $("#ddlProblemCategory2").append("<option data-id='6' value='6'>Toilet seat broken</option>");
+            $("#ddlProblemCategory2").append("<option data-id='7' value='7'>Towel holder loose/ broken</option>");
+        } 
+        else if ($(this).val() == 'PTPLUM9') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").removeClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            $("#ddlProblemCategory2").append("<option data-id='1' value='1'>Tub clogged</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='2'>Tub faucet/spout broken</option>");
+            
+        }
+        else if ($(this).val() == 'PTPLUM10') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").addClass("hidden");
+            $("#OtherCausingIssue").removeClass("hidden");
+
+        }
+        else if ($(this).val() == 'PTSafety1') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").removeClass("hidden");
+            $("#ddlProblemCategory2").append("<option data-id='1' value='extinguisher1'>Fire extinguisher discharged</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='extinguisher2'>Fire extinguisher missing</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='extinguisher3'>Fire extinguisher needs inspection</option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='extinguisher4'>Fire extinguisher-Other problem</option>");
+
+        }
+        else if ($(this).val() == 'PTSafety2') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").removeClass("hidden");
+            $("#ddlProblemCategory2").append("<option data-id='1' value='sprinkler1'>Fire sprinkler needs inspection</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='sprinkler2'>Fire sprinkler-Other problem</option>");
+        }
+        else if ($(this).val() == 'PTSafety3') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").removeClass("hidden");
+            $("#ddlProblemCategory2").append("<option data-id='1' value='detectors1'>Smoke detectors need battery replacement</option>");
+            $("#ddlProblemCategory2").append("<option data-id='2' value='detectors2'>Smoke detector not working</option>");
+            $("#ddlProblemCategory2").append("<option data-id='3' value='detectors3'>Smoke detector missing</option>");
+            $("#ddlProblemCategory2").append("<option data-id='4' value='detectors4'>Smoke detector-Other problem</option>");
+
+        }
+        else if ($(this).val() == 'Doors0') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").addClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+
+
+        }
+        else if ($(this).val() == 'Doors1') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").addClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+            
+
+        }
+        else if ($(this).val() == 'Doors2') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").addClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+
+
+        }
+        else if ($(this).val() == 'Doors3') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").addClass("hidden");
+            $("#OtherCausingIssue").removeClass("hidden");
+
+        }
+        else if ($(this).val() == 'PTAIR0') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").addClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'PTAIR1') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").addClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'PTAIR2') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").addClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'PTAIR3') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").addClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'PTAIR4') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").addClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'PTAIR5') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").addClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'PTAIR6') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").addClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'PTAIR7') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").addClass("hidden");
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'PTAIR8') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").addClass("hidden");
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'PTAIR9') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").addClass("hidden");
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'PTAIR10') {
+            $("#ddlProblemCategory2").empty();
+            $("#Issue").addClass("hidden");
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+         
+    });
+    $("#ddlProblemCategory2").on('change', function (evt, params) {
+        var selected = $("#ddlProblemCategory").val();
+        if ($(this).val() == 'Dry1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Dry2') {
+            $("#OtherCausingIssue").addClass("hidden");
+
+        }
+        else if ($(this).val() == 'Dry3') {
+            $("#OtherCausingIssue").addClass("hidden");
+
+        }
+        else if ($(this).val() == 'Dry4') {
+            $("#OtherCausingIssue").addClass("hidden");
+            
+        }
+        else if ($(this).val() == 'Dry5') {
+            $("#OtherCausingIssue").removeClass("hidden");
+
+        }
+        else if ($(this).val() == 'Washer1') {
+            $("#OtherCausingIssue").addClass("hidden");
+
+        }
+        else if ($(this).val() == 'Washer2') {
+            $("#OtherCausingIssue").addClass("hidden");
+
+        }
+        else if ($(this).val() == 'Washer3') {
+            $("#OtherCausingIssue").addClass("hidden");
+                    }
+        else if ($(this).val() == 'Washer4') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Washer5') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Washer6') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Washer7') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Washer8') {
+            $("#OtherCausingIssue").addClass("hidden");
+        } 
+        else if ($(this).val() == 'Washer9') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'DW1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'DW2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'DW3') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'DW4') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'DW5') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'DW6') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'DW7') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'DW8') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'DW9') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Disposal1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Disposal2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Disposal3') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Disposal4') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'MW1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'MW2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'MW3') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'MW4') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'MW5') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'MW6') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'MW7') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Oven1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Oven2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Oven3') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Oven4') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Oven5') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Oven6') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Oven7') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Oven8') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Oven9') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Freezer1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Freezer2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Freezer3') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Freezer4') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Freezer5') {
+           $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Freezer6') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Freezer7') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Freezer8') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Freezer9') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Freezer10') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Freezer11') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Freezer12') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Freezer13') {
+            $("#OtherCausingIssue").addClass("hidden"); 
+        }
+        else if ($(this).val() == 'Freezer14') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Freezer15') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Freezer16') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Freezer17') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Freezer18') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Freezer19') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'CeilingFan1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'CeilingFan2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'CeilingFan3') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'CeilingFan4') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Electrical1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Electrical2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Electrical3') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Electrical4') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'GFI1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'GFI2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'GFI3') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'GFI4') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'GFI5') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Exterior1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Exterior2') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Light1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Light2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Light3') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Light4') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Light5') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Ventilation1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Ventilation2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Ventilation3') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Ventilation4') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Ventilation5') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Ceramic1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Ceramic2') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Vinyl1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Vinyl2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Vinyl3') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Vinyl4') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Cabinet1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Cabinet2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Cabinet3') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Cabinet4') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Cabinet5') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Cabinet6') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Counter1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Counter2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Counter3') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Drawer1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Drawer2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Drawer3') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Entire1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Entire2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Entire3') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Entire4') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Entire5') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Entire6') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Entire7') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Entire8') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Entire9') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Requires1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Requires2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Requires3') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Closet1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Closet2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Closet3') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Closet4') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Closet5') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Trim1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Trim2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Trim3') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Window1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Window2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Window3') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Window4') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Window5') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Window6') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Window7') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Window8') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Blinds1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Blinds2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Blinds3') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Blinds4') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Blinds5') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Faucet1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Faucet2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Faucet3') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Faucet4') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Faucet5') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Water1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Water2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Water3') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'Mirror1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'Mirror2') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'extinguisher1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'extinguisher2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'extinguisher3') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'extinguisher4') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'sprinkler1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'sprinkler2') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+        else if ($(this).val() == 'detectors1') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'detectors2') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'detectors3') {
+            $("#OtherCausingIssue").addClass("hidden");
+        }
+        else if ($(this).val() == 'detectors4') {
+            $("#OtherCausingIssue").removeClass("hidden");
+        }
+    });
+  
+}
+****************************************************
+var clearServiceRequestField = function () {
+    $("#ddlProblemCategory1").empty();
+    $("#txtMoreDetails").val('');
+    $("#txtEntryNote").val('');
+    $("#txtOtherCausingIssue").val('');
+    $("#ddlLocation").val('0');
+    $("#txtPreferredDate").val('');
+    $("#rbtnApertmentPermission1").prop("checked", true);
+    $("#Issue").addClass('hidden');
+}
+****************************************
+var saveUpdateServiceRequest = function () {
+    var msg = '';
+    var serviceRequest = $("#hdnServiceRequest").val();
+    var tenantId = $("#hndTenantID").val();
+    var problemCategory = $("#ddlProblemCategory").find(":selected").data("id");
+    var moreDetails = $("#txtMoreDetails").val();
+    var apartmentPermission = '';
+    var itemCaussing = $("#ddlProblemCategory1").find(":selected").data("id");
+    var itemIssue = $("#ddlProblemCategory2").find(":selected").data("id");
+    var OtherCausingIssue = $("#txtOtherCausingIssue").val();
+    var location = $("#ddlLocation").val();
+    var preferredDate = $("#txtPreferredDate").val();
+
+    rbtnApertmentPermission2
+    if ($("#rbtnApertmentPermission1").is(":checked")) {
+        apartmentPermission = 1;
+    }
+    else if ($("#rbtnApertmentPermission2").is(":checked")) {
+        apartmentPermission = 0;
+        if (preferredDate == '') {
+            msg += 'Enter The Preferred Date</br>'
+        }
+    }
+   
+    var petInfoChange = '';
+    if ($("#rbtnPetInformation1").is(":checked")) {
+        petInfoChange = 1;
+    }
+    else if ($("#rbtnPetInformation2").is(":checked")) {
+        petInfoChange = 0;
+    }
+    var alarmCodeChange = '';
+    
+    if ($("#rbtnAlarmCodeInformation1").is(":checked")) {
+        alarmCodeChange = 1;
+       
+    }
+    else if ($("#rbtnAlarmCodeInformation2").is(":checked")) {
+        alarmCodeChange = 0;
+    }
+    var entryNote = $("#txtEntryNote").val();
+
+
+
+    if (problemCategory != 0) {
+        if (itemCaussing == 0) {
+            msg += 'Select The Item Caussing</br>'
+        }
+        else if (problemCategory==10){
+            msg += 'Please Fill Other</br>'
+        }
+       
+    }
+    else {
+        msg += 'Select The Problem Category</br>'
+    }
+
+    if (location == 0) {
+        msg += 'Select The Location</br>'
+    }
+   
+
+    if (msg != '') {
+        $.alert({
+            title: "",
+            content: msg,
+            type: 'red'
+        });
+        return
+    }
+    
+    var model = {
+        ServiceID: serviceRequest,
+        TenantID: tenantId,
+        ProblemCategory: problemCategory,
+        Details: moreDetails,
+        PermissionEnterApartment: apartmentPermission,
+        PermissionComeDate: preferredDate,
+        PetInforChange: petInfoChange,
+        AlarmCodeChange: alarmCodeChange,
+        Notes: entryNote,
+        Location: location,
+        ItemCaussing: itemCaussing,
+        OtherItemCaussing: OtherCausingIssue,
+        ItemIssue: itemIssue,
+        OtherItemIssue: "",
+    };
+    $.ajax({
+        url: '/ServiceRequest/SaveUpdateServiceRequest',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $.alert({
+                title: '',
+                content: response.model,
+                type: 'blue'
+            });
+            clearServiceRequestField();
+            getServiceRequestList();
+            fillDropdowns();
+        }
+    });
+};
+*****************************************
+
+Model
+
+
+public Nullable<int> Location { get; set; }
+        public Nullable<int> ItemCaussing { get; set; }
+        public Nullable<int> ItemIssue { get; set; }
+        public string OtherItemCaussing { get; set; }
+        public string OtherItemIssue { get; set; }
+        public Nullable<System.DateTime> ServiceDate { get; set; }
+
+
+***********************************************************************
+ public string SaveUpdateServiceRequest(ServiceRequestModel model)
+        {
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+            if (model.ServiceID == 0)
+            {
+                var saveServiceRequest = new tbl_ServiceRequest()
+                {
+                    TenantID = model.TenantID,
+                    ProblemCategory = model.ProblemCategory,
+                    Details = model.Details,
+                    PermissionEnterApartment = model.PermissionEnterApartment,
+                    PermissionComeDate = model.PermissionComeDate,
+                    PetInforChange = model.PetInforChange,
+                    AlarmCodeChange = model.AlarmCodeChange,
+                    Notes = model.Notes,
+                    Status = 1,
+                    Location=model.Location,
+                    ItemCaussing =model.ItemCaussing,
+                    ItemIssue=model.ItemIssue,
+                    OtherItemCaussing=model.OtherItemCaussing,
+                    OtherItemIssue="",
+                    ServiceDate=DateTime.Now
+                };
+                db.tbl_ServiceRequest.Add(saveServiceRequest);
+                db.SaveChanges();
+                msg = "Progress Saved";
+            }
+            else
+            {
+                var updateServiceRequest = db.tbl_ServiceRequest.Where(co => co.ServiceID == model.ServiceID).FirstOrDefault();
+
+                if (updateServiceRequest!=null)
+                {
+                    updateServiceRequest.TenantID = model.TenantID;
+                    updateServiceRequest.ProblemCategory = model.ProblemCategory;
+                    updateServiceRequest.Details = model.Details;
+                    updateServiceRequest.PermissionEnterApartment = model.PermissionEnterApartment;
+                    updateServiceRequest.PermissionComeDate = model.PermissionComeDate;
+                    updateServiceRequest.PetInforChange = model.PetInforChange;
+                    updateServiceRequest.AlarmCodeChange = model.AlarmCodeChange;
+                    updateServiceRequest.Notes = model.Notes;
+                    updateServiceRequest.Status = 1;
+                    updateServiceRequest.Location = model.Location;
+                    updateServiceRequest.ItemCaussing = model.ItemCaussing;
+                    updateServiceRequest.ItemIssue = model.ItemIssue;
+                    updateServiceRequest.OtherItemCaussing = model.OtherItemCaussing;
+                    updateServiceRequest.OtherItemIssue = model.OtherItemIssue;
+                    updateServiceRequest.ServiceDate=DateTime.Now;
+                    db.SaveChanges();
+                    msg = "Progress Updated";
+                }
+            }
+            db.Dispose();
+            return msg;
+        }
+*********************************************************************************
+ public List<ServiceRequestModel> GetServiceRequestList(ServiceRequestModel model)
+        {
+            List<ServiceRequestModel> listServiceRequestList = new List<ServiceRequestModel>();
+            ShomaRMEntities db = new ShomaRMEntities();
+            var getServiceRequestList = db.tbl_ServiceRequest.Where(co => co.TenantID == model.TenantID && co.Status == model.ServiceRequest).ToList();
+            if (getServiceRequestList != null)
+            {
+                foreach (var item in getServiceRequestList)
+                {
+                    listServiceRequestList.Add(new ServiceRequestModel()
+                    {
+                        ServiceID = item.ServiceID,
+                        TenantID = item.TenantID,
+                        ProblemCategorystring = item.ProblemCategory == 1 ? "Appliance" : item.ProblemCategory == 2 ? "Doors & Locks" : item.ProblemCategory == 3 ? "Electrical and Lighting" : item.ProblemCategory == 4 ? "Flooring" : item.ProblemCategory == 5 ? "General" : item.ProblemCategory == 6 ? "Heating & cooling" : item.ProblemCategory == 7 ? "Plumbing & bath" : item.ProblemCategory == 8 ? "Safety equipment" :item.ProblemCategory==9? "Preventative maintenance":item.ProblemCategory==10?"": "Other",
+                        Details = item.Details,
+                        PermissionEnterApartment = item.PermissionEnterApartment,
+                        PermissionComeDate = item.PermissionComeDate,
+                        PetInforChange = item.PetInforChange,
+                        AlarmCodeChange = item.AlarmCodeChange,
+                        Notes = item.Notes,
+                        Status = item.Status,
+                        DateString = item.PermissionComeDate !=null ? item.PermissionComeDate.Value.ToString("MM/dd/yyyy"): "Any Time",
+                        StatusString = item.Status == 1 ? "Open" : item.Status == 2 ? "Completed" : item.Status == 3 ? "Cancelled" : ""
+                    });
+                }
+            }
+            db.Dispose();
+            return listServiceRequestList;
+        }
+****************************************************************
+Index
+
+<div class="hidden" id="serviceStep2">
+                                    <input id="hdnServiceRequest" type="hidden" value="0" />
+                                    <div class="panel-heading">
+                                        <h3>SUBMIT SERVICE REQUEST</h3>
+                                        <hr />
+                                    </div>
+                                    <div class="panel-body table-bordered">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Service Issue</h3>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="star">Select The Problem Category</label>
+                                                    <select  id="ddlProblemCategory" class="  form-control">
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-4" id="CausingIssue">
+                                                <div class="form-group">
+                                                    <label class="star">What Item Is causing The Issue?</label>
+                                                    <select id="ddlProblemCategory1" class="  form-control">
+                                                       
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 hidden" id="Issue">
+                                                <div class="form-group">
+                                                    <label class="star">What Is The Issue?</label>
+                                                    <select id="ddlProblemCategory2" class="  form-control"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4 hidden" id="MoreDetails">
+                                                <div class="form-group">
+                                                    <label class="star">Provide More Detail If Needed</label>
+                                                    <textarea id="txtMoreDetails" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 hidden" id="OtherCausingIssue">
+                                                <div class="form-group">
+                                                    <label class="star">Provide More Detail If Needed</label>
+                                                    <textarea id="txtOtherCausingIssue" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="star">Select Location </label>
+                                                <select id="ddlLocation" class="  form-control">
+                                                    <option value='0'>Select Location</option>
+                                                    <option value='1'>Bathroom</option>
+                                                    <option value='2'>Bedroom</option>
+                                                    <option value='3'>Exterior</option>
+                                                    <option value='4'>Garage</option>
+                                                    <option value='5'>Kitchen</option>
+                                                    <option value='6'>Living area</option>
+                                                    <option value='7'>Patio/Balcony</option>
+                                                    <option value='8'>Resident Support</option>
+                                                    <option value='9'>Storage Room</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                      
+                                        </div>
+                                    </div>
+                                    <div class="panel-body table-bordered">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Unit Access</h3>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Name :</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <span id="lblNameUnitAccess"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Unit# :</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <span id="lblUnitUnitAccess"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Phone :</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <span id="lblPhoneUnitAccess"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Emergency Phone :</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <span id="lblEmergencyPhoneUnitAccess"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Email :</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <span id="lblEmailUnitAccess"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body table-bordered">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Permission</h3>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Do we have your permission to enter the apartment</label>
+                                                <input id="rbtnApertmentPermission1" class="form-control" type="radio" name="rbtnPermissionToEnter" value="1" checked="checked" /> At any time
+                                                <input id="rbtnApertmentPermission2" class="form-control" type="radio" name="rbtnPermissionToEnter" value="2" /> By appointment only
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 hidden" id="PreferredDate">
+                                            <div class="form-group">
+                                                <label class="star">Preferred Date</label>
+                                                <input id="txtPreferredDate" type="text" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body table-bordered">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Information</h3>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Has your pet information changed?</label><br />
+                                                <input id="rbtnPetInformation1" class="form-control" type="radio" name="rbtnPetInformation" value="1" /> Yes
+                                                <input id="rbtnPetInformation2" class="form-control" type="radio" name="rbtnPetInformation" value="2" checked="checked" /> No
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Has your alarm code change?</label><br />
+                                                <input id="rbtnAlarmCodeInformation1" class="form-control" type="radio" name="rbtnAlarmCodeInformation" value="1" /> Yes
+                                                <input id="rbtnAlarmCodeInformation2" class="form-control" type="radio" name="rbtnAlarmCodeInformation" value="2" checked="checked" /> No
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Entry Note</label>
+                                                <textarea id="txtEntryNote" type="text" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label></label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <label id="lblNameUnitAccess"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <button id="btnServiceRequestSave" class="btn btn-primary" onclick="saveUpdateServiceRequest()">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>

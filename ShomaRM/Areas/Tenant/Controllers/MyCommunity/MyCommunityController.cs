@@ -2,6 +2,7 @@
 using ShomaRM.Areas.Tenant.Models;
 using ShomaRM.Areas.Tenant.Models.Club;
 using ShomaRM.Areas.Tenant.Models.Enum;
+using ShomaRM.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,28 +24,31 @@ namespace ShomaRM.Areas.Tenant.Controllers
         #region CommunityModule
         public JsonResult CreateClub(ClubModel _model)
         {
+            ResponseModel _response = new ResponseModel();
             try
             {
-                return Json(new { modal = new ClubModel().SaveclubEvent(_model) }, JsonRequestBehavior.AllowGet);
+                return Json(new { _response = new ClubModel().SaveclubEvent(_model) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception Ex)
             {
-                return Json(new { modal = Ex.Message }, JsonRequestBehavior.AllowGet);
+                _response.Status = false;
+                _response.msg = Ex.Message;
+                return Json(_response, JsonRequestBehavior.AllowGet);
             }
         }
 
 
-        public ActionResult JoinClubPartial(long SearchId)
+        public ActionResult JoinClubPartial(long SearchId,long UserId)
         {
             if (SearchId <= 1)
             {
-                var Model = new ClubModel().GetClubList(UserId: 0).OrderByDescending(a => a.ClubTitle).ToList();
+                var Model = new ClubModel().GetJoiningClubList(UserId: UserId).OrderByDescending(a => a.ClubTitle).ToList();
                 ViewBag.CallenderHidden = "";
                 return PartialView("~/Areas/Tenant/Views/MyCommunity/_JoinClub.cshtml", Model);
             }
             else
             {
-                var Model = new ClubModel().GetClubList(UserId: 0).OrderByDescending(a => a.StartDate).ToList();
+                var Model = new ClubModel().GetJoiningClubList(UserId: UserId).OrderByDescending(a => a.StartDate).ToList();
                 ViewBag.CallenderHidden = "";
                 return PartialView("~/Areas/Tenant/Views/MyCommunity/_JoinClub.cshtml", Model);
             }
@@ -54,13 +58,13 @@ namespace ShomaRM.Areas.Tenant.Controllers
         {
             if (SearchId <= 1)
             {
-                var Model = new ClubModel().GetClubList(UserId: UserId).OrderByDescending(a => a.ClubTitle).ToList();
+                var Model = new ClubModel().GetJoinClubAndMyClubList( UserId).OrderByDescending(a => a.ClubTitle).ToList();
                 ViewBag.CallenderHidden = "hidden";
                 return PartialView("~/Areas/Tenant/Views/MyCommunity/_JoinClub.cshtml", Model);
             }
             else
             {
-                var Model = new ClubModel().GetClubList(UserId: UserId).OrderByDescending(a=>a.StartDate).ToList();
+                var Model = new ClubModel().GetJoinClubAndMyClubList( UserId).OrderByDescending(a=>a.StartDate).ToList();
                 ViewBag.CallenderHidden = "hidden";
                 return PartialView("~/Areas/Tenant/Views/MyCommunity/_JoinClub.cshtml", Model);
             }
@@ -71,6 +75,18 @@ namespace ShomaRM.Areas.Tenant.Controllers
             try
             {
                 return Json(new { model = new ClubModel().GetClubbyId(ClubId: Id, UserId: UserId) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetClubJoinStatus(long Id, long UserId)
+        {
+            try
+            {
+                return Json(new { model = new ClubModel().GetClubJoinStatusId(ClubId: Id, UserId: UserId) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception Ex)
             {

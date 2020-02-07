@@ -1,4 +1,5 @@
 ﻿using ShomaRM.Data;
+using ShomaRM.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,12 +36,13 @@ namespace ShomaRM.Areas.Tenant.Models.Club
         public bool ClubJoinStatus { get; set; }
         public long SearchId { get; set; }
 
-        public string SaveclubEvent(ClubModel model)
+        public ResponseModel SaveclubEvent(ClubModel model)
         {
+            ResponseModel _respnse = new ResponseModel();
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
 
-            if (db.tbl_Club.Where(a=>a.ClubTitle== model.ClubTitle)==null)
+            if (db.tbl_Club.Where(a => a.ClubTitle.ToLower() == model.ClubTitle.ToLower()).ToList().Count() == 0)
             {
                 var ClubCreate = new tbl_Club()
                 {
@@ -77,54 +79,123 @@ namespace ShomaRM.Areas.Tenant.Models.Club
                 };
                 db.tbl_ClubMapping.Add(CreateClubMap);
                 db.SaveChanges();
-                msg = "Progress Saved";
+                _respnse.Status = true;
+                _respnse.msg = "Saved Successfully..";
             }
             else
             {
-                msg = "You Already Registered For This Event";
+                _respnse.Status = false;
+                _respnse.msg = "You Already Registered For This Event";
             }
             db.Dispose();
-            return msg;
+            return _respnse;
         }
 
-        public List<ClubModel> GetClubList(long UserId=0)
+        public List<ClubModel> GetClubList()
         {
             ShomaRMEntities db = new ShomaRMEntities();
             var Clublist = db.tbl_Club.ToList();
             if (UserId != 0)
             {
-                Clublist = Clublist.Where(a => a.UserId == UserId).ToList();
+                Clublist = Clublist.ToList();
             }
-           return Clublist.Select(a=>new ClubModel()
-           {
-               Id = a.Id,
-               ClubTitle = a.ClubTitle,
-               ActivityId = a.ActivityId,
-               StartDate = a.StartDate,
-               Venue = a.Venue,
-               DayId = a.DayId,
-               Time = a.Time,
-               Contact = a.Contact,
-               Email = a.Email,
-               PhoneNumber = a.PhoneNumber,
-               PhoneCheck = a.PhoneCheck,
-               EmailCheck = a.EmailCheck,
-               LevelId = a.LevelId,
-               SpecialInstruction = a.SpecialInstruction,
-               Description = a.Description,
-               BriefDescription = a.BriefDescription,
-               TermsAndCondition = a.TermsAndCondition,
-               TenantID = a.TenantID,
-               UserId = a.UserId,
-               IsDeleted = false,
-               CreatedDate = DateTime.UtcNow,
-               LastUpdatedDate = DateTime.UtcNow
+            return Clublist.Select(a => new ClubModel()
+            {
+                Id = a.Id,
+                ClubTitle = a.ClubTitle,
+                ActivityId = a.ActivityId,
+                StartDate = a.StartDate,
+                Venue = a.Venue,
+                DayId = a.DayId,
+                Time = a.Time,
+                Contact = a.Contact,
+                Email = a.Email,
+                PhoneNumber = a.PhoneNumber,
+                PhoneCheck = a.PhoneCheck,
+                EmailCheck = a.EmailCheck,
+                LevelId = a.LevelId,
+                SpecialInstruction = a.SpecialInstruction,
+                Description = a.Description,
+                BriefDescription = a.BriefDescription,
+                TermsAndCondition = a.TermsAndCondition,
+                TenantID = a.TenantID,
+                UserId = a.UserId,
+                IsDeleted = false,
+                CreatedDate = DateTime.UtcNow,
+                LastUpdatedDate = DateTime.UtcNow
 
-           }).ToList();
+            }).ToList();
 
         }
 
-        public ClubModel GetClubbyId(long ClubId,long UserId)
+        public List<ClubModel> GetJoiningClubList(long UserId)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            var listitem= db.tbl_Club.SqlQuery("Select * FROM tbl_club where (SELECT count(*) FROM tbl_ClubMapping where tbl_ClubMapping.ClubId = tbl_club.Id and tbl_ClubMapping.UserId = "+ UserId + ")< 1").ToList<tbl_Club>().Select(a=>new ClubModel
+            {
+                Id = a.Id,
+                ClubTitle = a.ClubTitle,
+                ActivityId = a.ActivityId,
+                StartDate = a.StartDate,
+                Venue = a.Venue,
+                DayId = a.DayId,
+                Time = a.Time,
+                Contact = a.Contact,
+                Email = a.Email,
+                PhoneNumber = a.PhoneNumber,
+                PhoneCheck = a.PhoneCheck,
+                EmailCheck = a.EmailCheck,
+                LevelId = a.LevelId,
+                SpecialInstruction = a.SpecialInstruction,
+                Description = a.Description,
+                BriefDescription = a.BriefDescription,
+                TermsAndCondition = a.TermsAndCondition,
+                TenantID = a.TenantID,
+                UserId = a.UserId,
+                IsDeleted = false,
+                CreatedDate = DateTime.UtcNow,
+                LastUpdatedDate = DateTime.UtcNow
+
+            }).ToList();
+
+
+            return listitem;
+        }
+
+        public List<ClubModel> GetJoinClubAndMyClubList(long UserId)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            var DataList = db.tbl_Club.SqlQuery("Select * FROM tbl_club where (SELECT count(*) FROM tbl_ClubMapping where tbl_ClubMapping.ClubId = tbl_club.Id and tbl_ClubMapping.UserId = " + UserId + ")= 1").ToList<tbl_Club>().Select(data=> new ClubModel()
+                            {
+                                Id = data.Id,
+                                ClubTitle = data.ClubTitle,
+                                ActivityId = data.ActivityId,
+                                StartDate = data.StartDate,
+                                Venue = data.Venue,
+                                DayId = data.DayId,
+                                Time = data.Time,
+                                Contact = data.Contact,
+                                Email = data.Email,
+                                PhoneNumber = data.PhoneNumber,
+                                PhoneCheck = data.PhoneCheck,
+                                EmailCheck = data.EmailCheck,
+                                LevelId = data.LevelId,
+                                SpecialInstruction = data.SpecialInstruction,
+                                Description = data.Description,
+                                BriefDescription = data.BriefDescription,
+                                TermsAndCondition = data.TermsAndCondition,
+                                TenantID = data.TenantID,
+                                UserId = data.UserId,
+                                IsDeleted = false,
+                                CreatedDate = DateTime.UtcNow,
+                                LastUpdatedDate = DateTime.UtcNow
+
+                            }).ToList();
+
+            return DataList;
+        }
+
+        public ClubModel GetClubbyId(long ClubId, long UserId)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             return db.tbl_Club.ToList().Where(a => a.Id == ClubId).Select(a => new ClubModel()
@@ -153,8 +224,22 @@ namespace ShomaRM.Areas.Tenant.Models.Club
                 LastUpdatedDate = DateTime.UtcNow,
                 ClubJoinStatus = (db.tbl_ClubMapping.Where(b => b.UserId == a.UserId) == null ? false : true)
             }).FirstOrDefault();
-          
 
+
+        }
+
+        public ClubMappingModel GetClubJoinStatusId(long ClubId, long UserId)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+             var Data=db.tbl_ClubMapping.ToList().Where(a => a.ClubId == ClubId && a.UserId == UserId).Select(a => new ClubMappingModel()
+            {
+                Id = a.Id,
+                ClubId = a.ClubId,
+                UserId = a.UserId
+
+            }).FirstOrDefault();
+
+            return Data;
         }
 
     }

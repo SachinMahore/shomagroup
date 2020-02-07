@@ -5,8 +5,7 @@
     
     getTenantData(newTenantID); 
     GetTenantDetails(newTenantID);
-    getVehicleLists();
-    getPetLists();
+    
     
 
 });
@@ -14,6 +13,7 @@
 
 
 var getAccountHistory = function () {
+    $("#divLoader").show();
 
     var model = {
         TenantId: $("#hndNewTenant").val()
@@ -30,15 +30,17 @@ var getAccountHistory = function () {
                 var html = "<tr data-value=" + elementValue.TransID + ">";
                 html += "<td>" + elementValue.TransactionDateString + "</td>";
                 html += "<td>" + elementValue.Description + "</td>";
-                html += "<td>" + elementValue.Charge_Amount + "</td>";
+                html += "<td> $" + elementValue.Charge_Amount + "</td>";
                 html += "</tr>";
                 $("#tblAccountHistory>tbody").append(html);
             });
+            $("#divLoader").hide();
         }
     });
 }
 
 var getServiceRequestList = function () {
+    $("#divLoader").show();
     var tenantId = $("#hndNewTenant").val();
     var serviceReq = $("#ddlOpenServiceRequest").val();
     var model = {
@@ -64,11 +66,15 @@ var getServiceRequestList = function () {
                 html += "</tr>";
                 $("#tblServiceRequest>tbody").append(html);
             });
+
+            $("#divLoader").hide();
         }
     });
 };
 
 var getReservationRequestList = function () {
+    $("#divLoader").show();
+    
     var tenantID = $("#hndNewTenant").val();
     var ProspectID = $("#hndUserId").val();
     //alert(tenantID + " " + ProspectID);
@@ -99,12 +105,15 @@ var getReservationRequestList = function () {
                     html += "</tr>";
                     $("#tblReservationRequest>tbody").append(html);
                 });
+
+                $("#divLoader").hide();
             }
         }
     });
 };
 
 var getLeaseInfoDocuments = function () {
+    $("#divLoader").show();
     var model = { UserId: $("#hndNewProspectID").val() };
    
     $.ajax({
@@ -282,6 +291,7 @@ var getLeaseInfoDocuments = function () {
             }
 
             $('#accordionSubTaxReturn').append(Thtml);
+            $("#divLoader").hide();
         }
     });
 };
@@ -583,7 +593,7 @@ var getGuestRegistrationList = function () {
 
 //My profile
 var getTenantData = function (userID) {
-    
+    $("#divLoader").show();
     var params = { TenantID: userID };
     $.ajax({
         url: "../GetTenantInfo",
@@ -676,13 +686,14 @@ var getTenantData = function (userID) {
                 }
 
             }
+            $("#divLoader").hide();
         }
     });
-}
+};
 
 var GetTenantDetails = function (userID) {
-   // alert(userID);
-    
+    $("#divLoader").show();
+
     var params = { TenantID: userID };
     $.ajax({
         url: "/MyAccount/GetTenantDetails",
@@ -797,15 +808,18 @@ var GetTenantDetails = function (userID) {
                 else {
                     $("#spanSaveUpdate").text("Save");
                 }
-
             }
+            getVehicleLists();
+            getPetLists();
+            $("#divLoader").hide();
         }
     });
-}
+};
 
 //Vehicle
 
 var getVehicleLists = function () {
+    $("#divLoader").show();
     var model = {
         TenantID: $("#hndProspectID").val(),
     };
@@ -832,13 +846,16 @@ var getVehicleLists = function () {
                 $("#tblVehicle>tbody").append(html);
             });
 
+            $("#divLoader").hide();
+
         }
     });
-}
+};
 
 //Pet
 
 var getPetLists = function () {
+    $("#divLoader").show();
     var model = {
         TenantID: $("#hndProspectID").val()
     };
@@ -862,6 +879,8 @@ var getPetLists = function () {
                 html += "</tr>";
                 $("#tblPet>tbody").append(html);
             });
+
+            $("#divLoader").hide();
         }
     });
 };

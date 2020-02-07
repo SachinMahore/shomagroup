@@ -70,11 +70,11 @@ namespace ShomaRM.Areas.Tenant.Controllers
           
             return View();
         }
-        public ActionResult GetTenantInfo(long TenantID)
+        public ActionResult GetTenantInfo(long TenantID,long UserId)
         {
             try
             {
-                return Json((new MyAccountModel()).GetTenantInfo(TenantID), JsonRequestBehavior.AllowGet);
+                return Json((new MyAccountModel()).GetTenantInfo(TenantID, UserId), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -107,33 +107,33 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult UpdateContactInfo(MyAccountModel model)
+        public ActionResult UpdateContactInfo(MyAccountModel model,long UserId)
         {
             try
             {
-                return Json(new { result = 1, ID = model.UpdateContactInfo(model) }, JsonRequestBehavior.AllowGet);
+                return Json(new { result = 1, ID = model.UpdateContactInfo(model, UserId) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult UpdateEmContactInfo(MyAccountModel model)
+        public ActionResult UpdateEmContactInfo(MyAccountModel model,long UserId)
         {
             try
             {
-                return Json(new { result = 1, ID = model.UpdateEmContactInfo(model) }, JsonRequestBehavior.AllowGet);
+                return Json(new { result = 1, ID = model.UpdateEmContactInfo(model,UserId) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult UpdateWorkInfo(MyAccountModel model)
+        public ActionResult UpdateWorkInfo(MyAccountModel model,long UserId)
         {
             try
             {
-                return Json(new { msg = new MyAccountModel().UpdateWorkInfo(model) }, JsonRequestBehavior.AllowGet);
+                return Json(new { msg = new MyAccountModel().UpdateWorkInfo(model,UserId) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -205,6 +205,30 @@ namespace ShomaRM.Areas.Tenant.Controllers
             try
             {
                 return Json(new { model = new MyAccountModel().GetTenantLeaseDocuments(model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetTenantPetLeaseDocuments(MyAccountModel model)
+        {
+            try
+            {
+                return Json(new { model = new MyAccountModel().GetTenantPetLeaseDocuments(model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetTenantVehicleLeaseDocuments(MyAccountModel model)
+        {
+            try
+            {
+                return Json(new { model = new MyAccountModel().GetTenantVehicleLeaseDocuments(model) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception Ex)
             {

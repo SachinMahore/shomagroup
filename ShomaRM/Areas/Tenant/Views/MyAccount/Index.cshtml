@@ -16,48 +16,48 @@
     &nbsp;
     <div class="container" style="width:100%;">
         <div class="wizard-container">
-            <div class="col-md-12">
-                <div class="col-md-9">
-                    <div class="panel-body table-bordered">
-                        <div class="tab-content">
 
-                            <ul class="nav nav-tabs main-tab">
-                                @*<li class="active" id="li1"><a href="javascript:void(0);" onclick="goToStep(1)">Tenant </a></li>
-                                    <li id="li2"><a href="javascript:void(0);" onclick="goToStep(2,@ViewBag.TenantID)">Lease</a></li>*@
-                                <li id="li3" class="active"><a href="javascript:void(0);" onclick="goToStep(3)" style="font-size:16pt;padding-left:30px!important;padding-right:30px!important;">Payment</a></li>
-                                <li id="li4"><a href="javascript:void(0);" onclick="goToStep(4)" style="font-size:16pt;padding-right:30px!important;">Service Request</a></li>
-                                <li id="li5"><a href="javascript:void(0);" onclick="goToStep(5)" style="font-size:16pt;padding-right:30px!important;">Amenity Reservation</a></li>
-                                <li id="li6"><a href="javascript:void(0);" onclick="goToStep(6)" style="font-size:16pt;padding-right:30px!important;">My Lease Info</a></li>
-                                <li id="li7"><a href="javascript:void(0);" onclick="goToStep(7)" style="font-size:16pt;">Register Guest</a></li>
-                            </ul>
-                            <div class="tab-content1">
-                                <div class="" id="step3">
-                                    <ul class="nav nav-tabs nact">
-                                        <li id=""><a href="javascript:void(0);"></a></li>
-                                        <li id="pay1" class="active1"><a href="javascript:void(0);" onclick="goToPayStep(1)" style="font-size:12pt;">Pay Rent Online</a></li>
-                                        <li id="pay2"><a href="javascript:void(0);" onclick="goToPayStep(2)" style="font-size:12pt;">Payment History</a></li>
-                                        <li id="pay6"><a href="javascript:void(0);" onclick="goToPayStep(6)" style="font-size:12pt;">Account History</a></li>
-                                        <li id="pay4"><a href="javascript:void(0);" onclick="goToPayStep(4)" style="font-size:12pt;">Recuring Payments</a></li>
-                                        <li id="pay5"><a href="javascript:void(0);" onclick="goToPayStep(5)" style="font-size:12pt;">Payment Accounts</a></li>
-                                    </ul>
-                                    <div class="row">
-                                        <div class="col-md-12" style="margin-top:10px!important;">
-                                            <div class="" id="payStep1">
-                                                <input id="hdnTablePaidId" type="hidden" value="" />
-                                                <div class="panel-heading">
-                                                    <div class="col-sm-12">
-                                                        <h4 style="margin-top: 2%;margin-bottom: 4%;font-size: 12pt;color:#4D738A !important; ">Make a One-Time Payment</h4>
-                                                    </div>
+            <div class="col-md-9">
+                <div class="panel-body table-bordered">
+                    <div class="tab-content">
+
+                        <ul class="nav nav-tabs main-tab">
+                            @*<li class="active" id="li1"><a href="javascript:void(0);" onclick="goToStep(1)">Tenant </a></li>
+                                <li id="li2"><a href="javascript:void(0);" onclick="goToStep(2,@ViewBag.TenantID)">Lease</a></li>*@
+                            <li id="li3" class="active"><a href="javascript:void(0);" onclick="goToStep(3)" style="font-size:16pt;padding-left:50px!important;padding-right:50px!important;">Payment</a></li>
+                            <li id="li4"><a href="javascript:void(0);" onclick="goToStep(4)" style="font-size:16pt;padding-right:50px!important;">Service Request</a></li>
+                            <li id="li5"><a href="javascript:void(0);" onclick="goToStep(5)" style="font-size:16pt;padding-right:50px!important;">Reservation</a></li>
+                            <li id="li6"><a href="javascript:void(0);" onclick="goToStep(6)" style="font-size:16pt;padding-right:50px!important;">My Lease Info</a></li>
+                            <li id="li7"><a href="javascript:void(0);" onclick="goToStep(7)" style="font-size:16pt;">Register Guest</a></li>
+                        </ul>
+                        <div class="tab-content1">
+                            <div class="" id="step3">
+                                <ul class="nav nav-tabs nact">
+                                    <li id=""><a href="javascript:void(0);"></a></li>
+                                    <li id="pay1" class="active1"><a href="javascript:void(0);" onclick="goToPayStep(1)" style="font-size:12pt;">Pay Rent Online</a></li>
+                                    <li id="pay2"><a href="javascript:void(0);" onclick="goToPayStep(2)" style="font-size:12pt;">Payment History</a></li>
+                                  
+                                    <li id="pay4"><a href="javascript:void(0);" onclick="goToPayStep(4)" style="font-size:12pt;">Recurring Payments</a></li>
+                                    <li id="pay5"><a href="javascript:void(0);" onclick="goToPayStep(5)" style="font-size:12pt;">Payment Accounts</a></li>
+                                </ul>
+                                <div class="row">
+                                    <div class="col-md-12" style="margin-top:10px!important;">
+                                        <div class="" id="payStep1">
+                                            <input id="hdnTablePaidId" type="hidden" value="" />
+                                            <div class="panel-heading">
+                                                <div class="col-sm-12">
+                                                    <h4 style="margin-top: 2%;margin-bottom: 4%;font-size: 12pt;color:#4D738A !important; ">Make a One-Time Payment</h4>
                                                 </div>
-                                                <div class="col-lg-12">
-                                                    <div class="row">
-                                                        <div class="form-group">
-                                                            <div class="col-sm-3">
-                                                                <label style="background-color: transparent;color:#4D738A;font-size:13pt" class="star">Payment Method:</label>
-                                                            </div>
-                                                            <div class="col-sm-4">
-                                                                <select id="ddlPaymentMethod" class="form-control"></select>
-                                                            </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-3">
+                                                            <label style="background-color: transparent;color:#4D738A;font-size:13pt" class="star">Payment type:</label>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <select id="ddlPaymentMethod" class="form-control"></select>
+
                                                         </div>
                                                     </div>
                                                     <br />
@@ -136,20 +136,22 @@
                                                         <div class=""></div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-12">
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <div class="row">
-                                                                <div class="form-group">
-                                                                    <div class="col-sm-3">
-                                                                        <label style="background-color: transparent;color:#4D738A;font-size:13pt">Prefarred Date:</label>
-                                                                    </div>
-                                                                    <div class="col-sm-4">
-                                                                        <input id="txtPrefarredDate" type="text" class="form-control form-control-small" value="@DateTime.Now.ToString("MM/dd/yyyy")" style="width:50% !important" />
-                                                                        <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:162px;">
-                                                                            <button class="btn btn-primary search" id="Date" type="button"><i class="fa-calendar fa"></i></button>
-                                                                        </span>
-                                                                    </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <div class="col-sm-3">
+                                                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt">Preferred Date:</label>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <input id="txtPrefarredDate" type="text" class="form-control form-control-small" value="@DateTime.Now.ToString("MM/dd/yyyy")" style="width:50% !important" />
+                                                                    <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:162px;">
+                                                                        <button class="btn btn-primary search" id="Date" type="button"><i class="fa-calendar fa"></i></button>
+                                                                    </span>
+                                                                </div>
+
 
                                                                 </div>
                                                             </div>
@@ -268,22 +270,44 @@
                                                 <br /><br />
                                                 <div class="panel-heading">
                                                     <div class="col-sm-4">
-                                                        <h4 style="margin-top: 2%;margin-bottom: 8%;font-size: 12pt;color:#4D738A !important; ">Upcoming Charges</h4>
+
+                                                        <h4 style="margin-top: 2%;font-size: 12pt;color:#4D738A !important;">Payment History</h4>
+                                                    </div>
+
+                                                    <div class="col-sm-3 pull-right" style="margin-bottom:20px !important;">
+                                                        <select id="ddlPaymentHistory" class="form-control" onchange="paymentHistory();">
+                                                            <option value='1'>Current month</option>
+                                                            <option value='2'>Next month</option>
+                                                            <option value='3'>Previous month</option>
+                                                            <option value='4'>Date Range</option>
+                                                        </select>
+
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 clear">
 
-                                                    <table id="tblUpcomingCharges" class="table" cellspacing="0" style="width:100%">
-                                                        <thead>
-                                                            <tr>
-                                                                <th style="background-color: transparent;color:#4D738A;width:17%;font-size:13pt">Date</th>
-                                                                <th style="background-color: transparent;color:#4D738A;width:35%;font-size:13pt">Description</th>
-                                                                <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Charge</th>
-                                                                <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Total Charge</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody></tbody>
-                                                    </table>
+
+                                            </div>
+                                            <br /><br />
+                                            <div class="panel-heading">
+                                                <div class="col-sm-4">
+                                                    <h4 style="margin-top: 2%;margin-bottom: 8%;font-size: 12pt;color:#4D738A !important; ">Upcoming Charges</h4>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 clear">
+
+                                                <table id="tblUpcomingCharges" class="table" cellspacing="0" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="background-color: transparent;color:#4D738A;width:17%;font-size:13pt">Date</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:35%;font-size:13pt">Description</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Charge</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Credit</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Balance</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
 
                                                 </div>
                                                 <div class="col-sm-12">
@@ -291,19 +315,17 @@
                                                         <button id="btnAccountHistoryPrint" class="btn btn-primary hidden" onclick="print('payStep2')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print Statement</b> </button>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-12 hidden" id="DivNote">
-                                                    <div class="text-center">
-                                                        <p style="font-size:84%;margin-top:4%;color:#B7B0A7;">NOTE: Any payments generated will not be reflected in your account until the next business day!</p>
-                                                        <p style="font-size:84%;margin-top:-1%;color:#B7B0A7">UPCOMING CHARGES: Estimated future charges for next month billing.</p>
-                                                    </div>
-                                                </div>
+
                                             </div>
-                                            <div class="hidden" id="payStep6">
-                                                <div class="col-md-12 clear">
-                                                    <div class="panel-heading">
-                                                        <div class="col-sm-4">
-                                                            <h4 style="margin-top: 2%;font-size: 12pt;color:#4D738A !important;">Account History</h4>
-                                                        </div>
+                                        </div>
+                                   
+                                        <div class="hidden" id="payStep4">
+
+                                            <div class="col-md-12 clear hidden" id="divRecPayList">
+                                                <div class="panel-heading">
+                                                    <div class="col-sm-12">
+                                                        <h4 style="margin-top: 2%;font-size: 18pt;color:#4D738A !important;">Manage Recurring Payments</h4><br />
+
                                                     </div>
                                                     <table id="tblAccountHistory" class="table " cellspacing="0" width="100%">
                                                         <thead>
@@ -363,21 +385,28 @@
                                                                     <div class=""></div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="row">
-                                                                    <div class="col-sm-12">
-                                                                        <div class="row">
-                                                                            <div class="form-group">
-                                                                                <div class="col-sm-12">
-                                                                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt">Payment Date:</label>
-                                                                                    <p>We will make payments to this crdit card account each month on your due date (Or it falls on Saturday, the Friday before).</p>
-                                                                                </div>
-                                                                                <div class="col-sm-8">
-                                                                                    <input id="txtPayDateR" type="text" class="form-control form-control-small" value="" style="width:60% !important" />
-                                                                                    <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:162px;">
-                                                                                        <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
-                                                                                    </span>
-                                                                                </div>
+
+                                                            <br />
+                                                            <div class="row">
+                                                                <div class=""></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="row">
+                                                                        <div class="form-group">
+                                                                            <div class="col-sm-12">
+                                                                                <label style="background-color: transparent;color:#4D738A;font-size:13pt">Payment Date:</label>
+                                                                                <p>We will make payments to this credit card account each month on your due date (Or it falls on Saturday, the Friday before).</p>
+                                                                            </div>
+                                                                            <div class="col-sm-8">
+                                                                                <input id="txtPayDateR" type="text" class="form-control form-control-small" value="" style="width:60% !important" />
+                                                                                <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:162px;">
+                                                                                    <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                                                                                </span>
+                                                                            </div>
+
 
                                                                             </div>
                                                                         </div>
@@ -450,6 +479,17 @@
                                                                                     <label style="background-color: transparent;color:#4D738A;font-size:13pt">Payment Date:</label>
                                                                                     <p>We will make payments to this crdit card account each month on your due date (Or it falls on Saturday, the Friday before). <span id="lblPayDateR"></span></p>
                                                                                 </div>
+
+
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="row">
+                                                                        <div class="form-group">
+                                                                            <div class="col-sm-12">
+                                                                                <label style="background-color: transparent;color:#4D738A;font-size:13pt">Payment Date:</label>
+                                                                                <p>We will make payments to this credit card account each month on your due date (Or it falls on Saturday, the Friday before). <span id="lblPayDateR"></span></p>
 
                                                                             </div>
                                                                         </div>
@@ -632,7 +672,9 @@
                                                                     <label style="color:#4D738A !important;font-size:13pt;" class="star">Service Issue:</label>
                                                                 </div>
                                                                 <div class="col-sm-4" style="margin-left: -36px;">
-                                                                    <select id="ddlProblemCategory" class="form-control"></select>
+
+                                                                    <textarea id="txtMoreDetails" placeholder=" Please provide more detail if needed..." maxlength="150" class="form-control"></textarea>
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -676,19 +718,10 @@
                                                                         <textarea id="txtOtherCausingIssue" placeholder=" Please provide more detail if needed..." class="form-control"></textarea>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <div class="hidden" id="Issue">
-                                                                <div class="form-group">
-                                                                    <div class="col-sm-3">
-                                                                        <label class="star" style="color:#4D738A !important;font-size:13pt;">What Is The Issue?</label>
-                                                                    </div>
-                                                                    <div class="col-sm-4" style="margin-left: -36px;">
-                                                                        <select id="ddlProblemCategory2" class="  form-control"></select>
-                                                                    </div>
+
+                                                                <div class="col-sm-4" style="margin-left: -36px;">
+                                                                    <textarea id="txtOtherCausingIssue" placeholder=" Please provide more detail if needed..." maxlength="150" class="form-control"></textarea>
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -745,20 +778,10 @@
                                                                         <input type="hidden" id="hndOriginalfileUploadService" value="0" />
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <div class="hidden" id="Mobile">
-                                                                <div class="form-group">
-                                                                    <div class="col-sm-3">
-                                                                        <label class="star" style="color:#4D738A !important;font-size:13pt;">Emergency Mobile</label>
-                                                                    </div>
-                                                                    <div class="col-sm-4" style="margin-left: -36px;">
-                                                                        @*<input id="txtEmergencyMobile" type="text" maxlength="10" onkeypress="return isOnlyNumber(event)" placeholder="Mobile Number" class="form-control"><input>*@
-                                                                        <input type="text" class="form-control" id="txtEmergencyMobile" maxlength="10" onkeypress="return isOnlyNumber(event)" placeholder="Mobile Number">
-                                                                    </div>
+
+                                                                <div class="col-sm-4" style="margin-left: -36px;">
+                                                                    <textarea id="txtOtherIssue" placeholder=" Please provide more detail if needed..." maxlength="150" class="form-control"></textarea>
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1280,10 +1303,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3" >
-                    <div class="sticky">
-                        <div class="col-sm-12" style="margin-bottom:-20px;">
-                            <div class="panel-body table-bordered" style="padding:5px !important;">
+
+            </div>
+            <div class="col-md-3">
+                <div >
+                    <div class="col-sm-12" style="margin-bottom:-20px;">
+                        <div class="panel-body table-bordered" style="padding:5px !important;">
+                            <div class="center">
+                                <span style="color:#4D738A;font-size:20pt;">amount due:</span>
+                            </div>
+                            <div class="center">
+                                <span id="spanCurrentAmountDue" style="color:#c82828;font-size:20px;cursor:pointer;" onclick="openPaymentBreakdown();">0.00</span><br />
+                                <button id="btnMakeAPayment" class="" style="background-color:#8cb954;border-collapse:collapse;border-radius:2px;color:#ffffff;margin-top:4px;width:60%;font-size:10pt" type="button" onclick="goToPaymentFromMyHome();">Pay</button><br />
+                                <a href="javascript:void(0)" id="btnSetUpRecurringPayment" style="text-decoration:underline;font-size:10pt" onclick="goToRecurringPaymentFromMyHome();">Set Up Recurring Payment</a>
+                            </div>
+                        </div><br />
+                    </div>
+                    <div class="col-sm-12" style="margin-bottom:-20px;">
+                        <div class="panel-body table-bordered" style="padding:10px !important">
+                            <div class="center" id="bellDiv">
+                                <span style="color:#c82828;font-size:30px;"><i class="fa fa-bell"></i></span>
+                            </div><br />
+                            <div id="divServiceRequestAlarm" style="margin-top:-30px;">
+
                                 <div class="center">
                                     <span style="color:#4D738A;font-size:20pt;">amount due:</span>
                                 </div>
@@ -1828,6 +1870,7 @@
     </div>
 </div>
 
+
 <div class="modal" id="reserveAmenity">
     <div class="modal-dialog" style="min-width:1020px !important">
         <div class="modal-content" style="width: 100%;">
@@ -1853,6 +1896,7 @@
                             <div class="col-sm-6">
                                 Number of Grill:
                                 <label><input type="text" class="form-control small" id="hrs_2h50depo" disabled onkeypress="return isOnlyNumber(event)" onkeyup="countGuest(this)" maxlength="3" /></label>
+
                             </div>
                         </div>
                         <div class="col-sm-12 text-center">
@@ -2235,18 +2279,151 @@
             </div>
         </div>
     </div>
+
+<div class="modal" id="popPaymentReceipt">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 100%; height:400px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;font-size: 30px !important">&times;</button>
+            <div class="modal-header"></div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="col-sm-12 text-justify" id="divRec">
+                    <table class=" " cellspacing="0" width="100%">
+                        <tr><td><img src="~/Content/assets/img/logo.png" width="200"></td><td>9400 NW 41st Street, Doral, FL 33178</td></tr>
+                        <tr><td colspan="2"><h3 style="text-align:center;">PAYMENT RECEIPT</h3></td></tr>
+                        <tr><td colspan="2"><hr /></td></tr>
+                        <tr><td>Receipt ID: # <b><span id="recid"></span></b></td><td>Receipt Date : <span id="recdate"></span></td></tr>
+                     
+                        <tr><td colspan="2"><hr /><br /></td></tr>
+                        <tr>
+                            <td colspan="2">
+                               <p>Received from <b><span id="recTenant"></span> (<span id="recUnit"></span>). </b> Amount of $<b><span id="recAmt"></span></b>  </p>
+                                <p>for <span id="recDesc"></span></p>
+                            </td>
+                        </tr>
+
+                        <tr><td colspan="2"><hr /></td></tr>
+                        <tr><td colspan="2"><p style="text-align:center;"> This is computer generated receipt. No signature required.</p></td></tr>
+                    </table>
+
+                </div>
+                <div class="col-sm-12">
+                    <div class="text-center">
+                        <button id="btnRecPrint" class="btn btn-primary" onclick="print('divRec')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print Receipt</b> </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<div class="modal" id="popDateRangeAccountHistory">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 100%; height:290px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <div class="modal-header">
+                <h3 class="modal-title">Search Account History</h3>
+                <div class="dot-hr"></div>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>From Date</label>
+                      
+                        <input id="txtFromDate" type="text" class="form-control form-control-small" placeholder="MM/dd/yyyy" value="@DateTime.Now.AddDays(-30).ToString("MM/dd/yyyy")" style="width:70% !important" />
+                        <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:162px;">
+                            <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>To Date</label>
+                        <input id="txtToDate" type="text" class="form-control form-control-small" placeholder="MM/dd/yyyy" value="@DateTime.Now.ToString("MM/dd/yyyy")" style="width:70% !important" />
+                        <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:162px;">
+                            <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                        </span>
+                      
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="dot-hr"></div>
+                </div>
+                <div class="col-sm-12 text-center">
+                    <button type="submit" class="btn btn-primary pull-right" onclick="dateRangeAccountHistorySearch();"><i class="fa fa-search"></i> Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <input id="hdnStepId1" type="hidden" value="@ViewBag.StepIdMakePayment1" />
+    <input id="hdnStepId2" type="hidden" value="@ViewBag.StepIdMakePayment2" />
+    <input id="hdnPayStepIdMakePayment" type="hidden" value="@ViewBag.PayStepIdMakePayment" />
+    <input id="hdnPayStepIdRecurring" type="hidden" value="@ViewBag.PayStepIdRecurringPayment" />
+    <input id="hdnStepIdServiceRequest" type="hidden" value="@ViewBag.StepServiceRequest2" />
 
-<input id="hdnStepId1" type="hidden" value="@ViewBag.StepIdMakePayment1" />
-<input id="hdnStepId2" type="hidden" value="@ViewBag.StepIdMakePayment2" />
-<input id="hdnPayStepIdMakePayment" type="hidden" value="@ViewBag.PayStepIdMakePayment" />
-<input id="hdnPayStepIdRecurring" type="hidden" value="@ViewBag.PayStepIdRecurringPayment" />
-<input id="hdnStepIdServiceRequest" type="hidden" value="@ViewBag.StepServiceRequest2" />
+    <input id="hdnStepRegister" type="hidden" value="@ViewBag.StepRegisterGuest" />
+    <input id="hdnStepReserveAmenities" type="hidden" value="@ViewBag.StepReserveAmenities" />
+    <input id="hdnPayIdReserveAmenities" type="hidden" value="@ViewBag.PayStepIdReserveAmenities" />
+    <input id="hdnServiceStepIdServiceRequest2" type="hidden" value="@ViewBag.ServiceRequestStepIdSubmitServiceRequest" />
 
-<input id="hdnStepRegister" type="hidden" value="@ViewBag.StepRegisterGuest" />
-<input id="hdnStepReserveAmenities" type="hidden" value="@ViewBag.StepReserveAmenities" />
-<input id="hdnPayIdReserveAmenities" type="hidden" value="@ViewBag.PayStepIdReserveAmenities" />
-<input id="hdnServiceStepIdServiceRequest2" type="hidden" value="@ViewBag.ServiceRequestStepIdSubmitServiceRequest" />
+    <input id="hdnCardName" type="hidden" value="0" />
+    <input id="hdnCardNumber" type="hidden" value="0" />
+    <input id="hdnCardMonth" type="hidden" value="0" />
+    <input id="hdnCardYear" type="hidden" value="0" />
+    <input id="hdnCVVFromPayment" type="hidden" value="0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#txtDesiredTime").timepicki();
+        });
+
+        $(function () {
+
+
+            $("#txtDesiredDate").datepicker({
+                format: {
+                    toDisplay: function (date, format, language) {
+                        var d = new Date(date);
+                        d.setDate(d.getDate());
+                        return d.toDateString();
+                    },
+                    toValue: function (date, format, language) {
+                        var d = new Date(date);
+                        d.setDate(d.getDate());
+                        return new Date(d);
+                    }
+                }
+            });
+            $("#txtDesiredDate").on("change", function () {
+                var formatedDate = $("#txtDesiredDate").val();
+                $("#SelectedDate").html(formatedDate);
+            });
+
+            
+            $("#txtDateOfBirth").datepicker();
+            $("#txtADateOfBirth").datepicker();
+            $("#txtFromDate").datepicker();
+            $("#txtToDate").datepicker();
+            $("#txtTransFromDate").datepicker();
+            $("#txtTransToDate").datepicker();
+            $("#txtPrefarredDate").datepicker('setStartDate',new Date());
+
+          
+            $('#txtPayDateR').datepicker();
+            
+            $("#txtChargeDate").datepicker();
+            $("#txtGuestVistStartDate").datepicker();
+            $("#txtGuestVistEndDate").datepicker();
+            $("#ddlTransactionType").val(0);
+            $("#ddlTransactionType").trigger('change');
+
+            setTimeout(function () {
+                $("#ddlChargeType").val(2);
+                $("#ddlChargeType").trigger('change');
+            }, 3000);
+
 
 <input id="hdnCardName" type="hidden" value="0" />
 <input id="hdnCardNumber" type="hidden" value="0" />
