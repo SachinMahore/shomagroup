@@ -4691,7 +4691,7 @@ var fillDdlLocation = function () {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-
+            
             $("#ddlLocation").empty();
             $("#ddlLocation").append("<option value='0'>Select Location</option>");
             $.each(response.model, function (index, elementValue) {
@@ -4731,17 +4731,19 @@ var fillCaussingIssue = function (ServiceIssueID) {
             if ($.trim(response.error) != "") {
                 //this.cancelChanges();
             } else {
-                if (response.length != '0') {
-                    $("#ddlProblemCategory1").empty();
-                    $("#ddlProblemCategory1").append("<option value='0'>What Item Is causing The Issue?</option>");
-                    $.each(response, function (index, elementValue) {
-                        $("#ddlProblemCategory1").append("<option value=" + elementValue.CausingIssueID + ">" + elementValue.CausingIssue + "</option>");
-                    });
-                } else {
-                    $("#CausingIssue").addClass("hidden");
-                    $("#ddlProblemCategory1").empty();
 
-                }
+               if(response.length!='0'){
+                   $("#ddlProblemCategory1").empty();
+                   $("#ddlProblemCategory1").append("<option value='0'>What Item Is causing The Issue?</option>");
+                   $.each(response, function (index, elementValue) {
+                       $("#ddlProblemCategory1").append("<option value=" + elementValue.CausingIssueID + ">" + elementValue.CausingIssue + "</option>");
+                   });
+               } else {
+                   $("#CausingIssue").addClass("hidden");
+                   $("#ddlProblemCategory1").empty();
+                  
+               }
+
             }
         }
     });
