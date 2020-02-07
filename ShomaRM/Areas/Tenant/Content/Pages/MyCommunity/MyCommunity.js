@@ -166,18 +166,18 @@ function JoinUnjoinClub() {
 function RefreshJoinClubList(EnumId) {
     $("#divLoader").show();
     $("#step5").load("/MyCommunity/JoinClubPartial", { SearchId: EnumId, UserId: $("#hdnUserId").val() }, function (response, status, xhr) {
-
+       
     });
 
-    $("#divLoader").hide();
+    
 }
 
 function RefreshJoinClubListCurrentUser(EnumId) {
     $("#divLoader").show();
     $("#step7").load("/MyCommunity/JoinClubPartialByUser", { SearchId: EnumId, UserId: $("#hdnUserId").val() }, function (response, status, xhr) {
-
+        
     });
-    $("#divLoader").hide();
+   
 
    
 }

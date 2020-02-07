@@ -131,42 +131,41 @@ namespace ShomaRM.Areas.Tenant.Models.Club
         public List<ClubModel> GetJoiningClubList(long UserId)
         {
             ShomaRMEntities db = new ShomaRMEntities();
-            var DataList = (from data in db.tbl_Club where !db.tbl_ClubMapping.Any(a => a.ClubId == data.Id && a.UserId == data.UserId) select new ClubModel()
+            var listitem= db.tbl_Club.SqlQuery("Select * FROM tbl_club where (SELECT count(*) FROM tbl_ClubMapping where tbl_ClubMapping.ClubId = tbl_club.Id and tbl_ClubMapping.UserId = "+ UserId + ")< 1").ToList<tbl_Club>().Select(a=>new ClubModel
             {
-                Id = data.Id,
-                ClubTitle = data.ClubTitle,
-                ActivityId = data.ActivityId,
-                StartDate = data.StartDate,
-                Venue = data.Venue,
-                DayId = data.DayId,
-                Time = data.Time,
-                Contact = data.Contact,
-                Email = data.Email,
-                PhoneNumber = data.PhoneNumber,
-                PhoneCheck = data.PhoneCheck,
-                EmailCheck = data.EmailCheck,
-                LevelId = data.LevelId,
-                SpecialInstruction = data.SpecialInstruction,
-                Description = data.Description,
-                BriefDescription = data.BriefDescription,
-                TermsAndCondition = data.TermsAndCondition,
-                TenantID = data.TenantID,
-                UserId = data.UserId,
+                Id = a.Id,
+                ClubTitle = a.ClubTitle,
+                ActivityId = a.ActivityId,
+                StartDate = a.StartDate,
+                Venue = a.Venue,
+                DayId = a.DayId,
+                Time = a.Time,
+                Contact = a.Contact,
+                Email = a.Email,
+                PhoneNumber = a.PhoneNumber,
+                PhoneCheck = a.PhoneCheck,
+                EmailCheck = a.EmailCheck,
+                LevelId = a.LevelId,
+                SpecialInstruction = a.SpecialInstruction,
+                Description = a.Description,
+                BriefDescription = a.BriefDescription,
+                TermsAndCondition = a.TermsAndCondition,
+                TenantID = a.TenantID,
+                UserId = a.UserId,
                 IsDeleted = false,
                 CreatedDate = DateTime.UtcNow,
                 LastUpdatedDate = DateTime.UtcNow
 
             }).ToList();
 
-            return DataList;
+
+            return listitem;
         }
 
         public List<ClubModel> GetJoinClubAndMyClubList(long UserId)
         {
             ShomaRMEntities db = new ShomaRMEntities();
-            var DataList = (from data in db.tbl_Club
-                            where db.tbl_ClubMapping.Any(a => a.ClubId == data.Id && a.UserId == data.UserId) || data.UserId== UserId
-                            select new ClubModel()
+            var DataList = db.tbl_Club.SqlQuery("Select * FROM tbl_club where (SELECT count(*) FROM tbl_ClubMapping where tbl_ClubMapping.ClubId = tbl_club.Id and tbl_ClubMapping.UserId = " + UserId + ")= 1").ToList<tbl_Club>().Select(data=> new ClubModel()
                             {
                                 Id = data.Id,
                                 ClubTitle = data.ClubTitle,
