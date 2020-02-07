@@ -25,7 +25,17 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-
+        public ActionResult SaveAmenityTransaction(MyTransactionModel model)
+        {
+            try
+            {
+                return Json(new { Msg = (new MyTransactionModel().SaveAmenityTransaction(model)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         public ActionResult GetTransactionDetails(int id)
         {
            

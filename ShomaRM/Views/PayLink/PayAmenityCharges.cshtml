@@ -1,12 +1,13 @@
-﻿
+﻿@using ShomaRM.Areas.Tenant.Models
+@model AmenitiesReservationModel
 @{
     ViewBag.Title = "Pay Amenity Charges";
 }
 
 <input type="hidden" id="hndUID" value="@ViewBag.UID" />
 <input type="hidden" id="hndProspectID" value="0" />
-<input type="hidden" id="hndPID" value="0" />
-<input type="hidden" id="hndTransMethod" value="2" />
+<input type="hidden" id="hndTenantID" value="@Model.TenantID" />
+<input type="hidden" id="hndARID" value="@ViewBag.ARID" />
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -19,7 +20,7 @@
         <div class="collapse navbar-collapse yamm" id="navigation">
             <div class="button navbar-right">
                 @*@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.Username*@
-                <button class="navbar-btn nav-button wow bounceInRight login hidden" onclick="gotoLogin()" data-wow-delay="0.4s">Logout</button>
+                <button class="navbar-btn nav-button wow bounceInRight login " onclick="goToStep(1)" data-wow-delay="0.4s">Logout</button>
 
             </div>
 
@@ -77,20 +78,159 @@
                                         <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                             <div class="panel-heading">
                                                 <h3 class="panel-title">Pay Amenity Reservation Charges</h3>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <table class="table-responsive" style="width:60%;">
+                                            <tr>
+                                                <td>UNIT #	<b><span id="resUnit"></span></b></td>
+                                                <td>TENANT’S NAME: <b><span id="resTenant"></span></b></td>
+                                            </tr>
+                                            <tr>
+                                                <td>RESERVATION OF </td>
+                                                <td><b><span id="resAmenity">@Model.AmenityName</span> </b></td>
+                                            </tr>
+                                            <tr>
+                                                <td>DATE:</td>
+                                                <td><b><span id="resDate">@Model.DesiredDateString</span></b> </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <table style="width:72%;">
+                                                        <tr>
+                                                            <td>DUE NOW:</td>
+                                                            <td></td>
+                                                            <td>SELECTED TO PAY:</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>$<span id="resFees"></span></td>
+                                                            <td>RESERVATION FEE</td>
+                                                            <td width="130" style="text-align: center;"><input type="checkbox" class="form-control" id="chkResfees"/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>$<span id="resDepo"></span></td>
+                                                            <td>SECURITY DEPOSIT</td>
+                                                            <td style="text-align: center;"><input type="checkbox" class="form-control" id="chkResDepo" /></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>$<span id="totalAmt"></span></td>
+                                                            <td>TOTAL</td>
+                                                            <td style="text-align: center;"></td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                               
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                  
+                                                </td>
+                                               
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    PAYMENT AMOUNT:
+                                                </td>
+                                                <td><b>$<span id="totalPayAmt"></span></b></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    SELECT PAYMENT METHOD:
+                                                </td>
+                                                <td><select id="ddlPaymentMethod" class="form-control" style="width:200px;"></select></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <br />
+                                                    <div>
+                                                        <button type="submit" class="btn btn-primary pull-right" onclick=" goToStep(3, 3)"> Next</button>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                        </table>
+                                        
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden" id="step3">
+                            <div class="row p-b-15  ">
+
+                                <div class="col-sm-12">
+                                    <div class="col-md-12 clear">
+                                        <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">CONFIRM PAYMENT:</h3>
 
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
+                                        <table class="table-responsive" style="width:70%;">
+                                       
+                                            <tr>
+                                                <td>
+                                                    PAYMENT AMOUNT:
+                                                </td>
+                                                <td><b>$<span id="totalConfAmt"></span></b></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                  PAYMENT METHOD:
+                                                </td>
+                                                <td><span id="paymeth"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    CVV Number:
+                                                </td>
+                                                <td>
+                                                    <input id="txtCVVNumberPayRentOnline" type="password" class="form-control form-control-small" maxlength="3" value="" style="width:50% !important" onkeypress="return isOnlyNumber(event);" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <p>
+                                                        <br />
+                                                        “This is a Secure Payment.  By clicking confirm you agree to the terms
+                                                    </p>
+                                                      <p style="text-align:justify;">  By authorizing this transaction, customer agrees that merchant may convert this transaction to 	an Electronic Funds Transfer transaction or paper draft, and to debit this account for the 	amount of the transaction.  Additionally, in the event the draft or EFT is returned unpaid, a 	service fee, as allowed by law, will be charged to this account via EFT or draft.”
 
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <br />
+                                                    <div>
+                                                        <button type="submit" class="btn btn-primary pull-left" onclick=" goToStep(2, 2)"> BACK</button>
+                                                        <button type="submit" class="btn btn-primary pull-right" onclick="makePayment()"> CONFIRM</button>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                        </table>
 
 
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="hidden" id="step4">
+                            <div class="row p-b-15  ">
 
-
+                                <div class="col-sm-12">
+                                
+                                    <div class="col-sm-12">
+                                       <p style="text-align:center;"><br />Thanks <b><span id="resTenant1"></span></b>. Your payment has been processed.  A receipt has been emailed to <b><span id="TenantEmail"></span></b>.  </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -98,141 +238,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="popPayNow" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -15px;">&times;</button>
-            <div class="modal-header" style="width: 100%; padding:0px;">
-                <h5 class="modal-title">Pay your Move In Charges : $<span id="lblmoveincharge"></span></h5>
-
-            </div>
-            <div class="modal-body">
-                <div class="col-sm-12">
-                    <br />
-                    <div class="col-sm-3">
-                        <input type="button" class='btn  btn-primary' id="chkBank" onclick="clearBank()" value="Bank Account" />
-                    </div>
-                    <div class="col-sm-3">
-                        <input type="button" class='btn btn-primary active' id="chkACH" onclick="clearCard()" value="Credit Card" />
-                    </div>
-
-                    <div class="col-sm-12">
-                        <br />
-                        <div class="dot-hr"></div>
-                    </div>
-                    <div class="col-sm-12">
-                        <label id="lblPaymentDet">Enter Credit Card Details.</label>
-
-                    </div>
-                    <div class="col-sm-12 hidden" id="divBank">
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label class="star">Bank Name</label>
-                                <input id="txtBankName" type="text" class="form-control" placeholder="Bank Name" value="">
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label id="lblAccCardname" class="star">Account Name</label>
-                                <input id="txtAccountName" type="text" class="form-control" placeholder="Account Name" value="">
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label id="lblAccCardnum" class="star">Account Number</label>
-                                <input id="txtAccountNumber" type="text" class="form-control" placeholder="Account Number" onkeypress="return isOnlyNumber(event)" maxlength="29" value="">
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label>Routing Number</label>
-                                <input id="txtRoutingNumber" type="text" class="form-control" placeholder="Routing Number" onkeypress="return isNumber(event)" value="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12" id="divCard">
-                        <div class="form-group col-sm-3">
-                            <label for="name">Name on Card</label>
-                            <input type="text" class="form-control" id="txtNameonCard" placeholder="Name on Card" value="">
-                        </div>
-                        <div class="form-group col-sm-3">
-                            <label for="cardnumber" class="star">Card Number</label>
-                            <input type="text" class="form-control" id="txtCardNumber" placeholder="Card Number" onkeypress="return isOnlyNumber(event)" maxlength="16" value="">
-                        </div>
-                        <div class="form-group col-sm-2">
-                            <label for="cardmonth">Card Month</label>
-                            <select id="ddlcardmonth" class="form-control form-control-small">
-                                @for (int i = 1; i <= 12; i++)
-                                {
-                                    <option value="@(i.ToString("00"))">@i</option>
-
-                                }
-                            </select>
-                        </div>
-                        <div class="form-group col-sm-2">
-                            <label for="cardyear">Card Year</label>
-                            <select id="ddlcardyear" class="form-control form-control-small">
-                                @for (int i = DateTime.Now.Year; i <= DateTime.Now.AddYears(5).Year; i++)
-                                {
-                                    <option value="@(i.ToString().Substring(2,2))">@i</option>
-
-                                }
-                            </select>
-                        </div>
-                        <div class="form-group col-sm-2">
-                            <label for="txtCcvNumber" class="star">CVV Number</label>
-                            <input type="password" class="form-control" id="txtCCVNumber" placeholder="CVV Number" onkeypress="return isOnlyNumber(event)" maxlength="3" value="">
-                        </div>
-
-                    </div>
-                    <div class="col-sm-2">
-                        <button type="submit" class="btn btn-primary" onclick="savePayment()">Pay Now</button>
-                    </div>
-                    <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsg"></b></p></div>
-
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                @*<button type="button" class="btn btn-default">Print</button>*@
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="popSetDate" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -15px;">&times;</button>
-            <div class="modal-header" style="width: 100%; padding:0px;">
-                <h5 class="modal-title">Set Schedule Move In Date </h5>
-
-            </div>
-            <div class="modal-body">
-
-
-                <div class="col-sm-12">
-
-                    <div class="col-sm-12">
-                        <br />
-                        <div class="form-group">
-
-                            <input type="text" class="form-control" style="width: 26%;" id="txtScheduleMoveIn" />
-                        </div>
-                    </div>
-
-                    <div class="col-sm-2">
-                        <button type="submit" class="btn btn-primary" onclick="setMoveInDate()">Save</button>
-                    </div>
-
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                @*<button type="button" class="btn btn-default">Print</button>*@
-            </div>
-        </div>
-    </div>
-</div>
 <style>
     .tab-content ul li {
         margin-right: 14px;
@@ -295,7 +300,25 @@
 <script type="text/javascript">
     $(document).ready(function () {
         getTenantInfo(@ViewBag.UID);
-        $("#txtScheduleMoveIn").datepicker();
+        $("#resFees").text(formatMoney(parseFloat(@Model.ReservationFee)));
+        $("#resDepo").text(formatMoney(parseFloat(@Model.DepositFee)));
+        $("#totalAmt").text(formatMoney(parseFloat(parseFloat(@Model.ReservationFee) + parseFloat(@Model.DepositFee))));
+        $("#chkResfees").prop("checked", true);
+        $("#totalPayAmt").text(formatMoney(parseFloat(@Model.ReservationFee)));
+        $("#totalConfAmt").text(formatMoney(parseFloat(@Model.ReservationFee) ));
+         $("#chkResDepo").on('ifChanged', function (event) {
+            if ($(this).is(":checked")) {
+                $("#totalPayAmt").text(formatMoney(parseFloat(parseFloat(@Model.ReservationFee) + parseFloat(@Model.DepositFee))));
+                $("#totalConfAmt").text(formatMoney(parseFloat(parseFloat(@Model.ReservationFee) + parseFloat(@Model.DepositFee))));
+
+            }
+            else {
+                $("#totalPayAmt").text(formatMoney(parseFloat(@Model.ReservationFee)));
+                $("#totalConfAmt").text(formatMoney(parseFloat(@Model.ReservationFee)));
+            }
+        });
+         ddlPaymentMethod();
+
         if ($("#hndUID").val() != "0") {
             goToStep(2, 2);
         }
@@ -315,8 +338,12 @@
             success: function (response) {
                 $("#hndProspectID").val(response.model.ProspectId);
                 $("#txtname").text(response.model.FirstName + " " + response.model.LastName);
+                $("#resTenant").text(response.model.FirstName + " " + response.model.LastName);
+                $("#resTenant1").text(response.model.FirstName + " " + response.model.LastName);
+                $("#TenantEmail").text(response.model.Email);
+                $("#resUnit").text(response.model.PropertyId);
                 $("#lblmoveincharge").text(response.model.TotalAmt);
-                $("#lblmoveincharge1").text(response.model.TotalAmt);
+
                 $("#hndPID").val(response.model.PropertyId);
             }
         });
@@ -382,200 +409,116 @@
         if (stepid == "2") {
 
             if (id == "2") {
-
-
                 $("#step1").addClass("hidden");
                 $("#step3").addClass("hidden");
-
                 $("#step2").removeClass("hidden");
-
             }
 
         }
         if (stepid == "3") {
+
             if (id == "3") {
+                var transtype = $("#ddlPaymentMethod").text();
+                $("#paymeth").text(transtype);
 
-                $("#step2").addClass("hidden");
                 $("#step1").addClass("hidden");
-
                 $("#step3").removeClass("hidden");
 
-            }
-        }
+                $("#step2").addClass("hidden");
 
+            }
+
+        }
+        if (stepid == "4") {
+
+            if (id == "4") {
+                $("#step1").addClass("hidden");
+                $("#step3").addClass("hidden");
+                $("#step2").addClass("hidden");
+                $("#step4").removeClass("hidden");
+            }
+
+        }
     }
 
-    function savePayment() {
-        $("#divLoader").show();
-        var msg = "";
-        if ($("#hndTransMethod").val() == "0") {
-            $("#divLoader").hide();
-            $.alert({
-                title: "",
-                content: "Please Select Payment Method</br>",
-                type: 'red'
-            });
-            return;
-
-        }
-        if ($("#hndTransMethod").val() == "2") {
-            var paymentMethod = 2;
-            var propertyId = $("#hndPID").val();
-            var nameonCard = $("#txtNameonCard").val();
-            var cardNumber = $("#txtCardNumber").val();
-            var cardMonth = $("#ddlcardmonth").val();
-            var cardYear = $("#ddlcardyear").val();
-            var ccvNumber = $("#txtCCVNumber").val();
-            var prospectID = $("#hndProspectID").val();
-            var amounttoPay = $("#lblmoveincharge").text();
-            var description = "Move In Charges";
-
-            var routingNumber = $("#txtRoutingNumber").val();
-            var bankName = $("#txtBankName").val();
-
-            if (!nameonCard) {
-                msg += "Please Enter Name on Card</br>";
-            }
-            if (cardNumber == "" || cardNumber.length != 16) {
-                msg += "Please enter your 16 digit Card Number</br>";
-            }
-            if (cardMonth == "0") {
-                msg += "Please enter Card Month</br>";
-            }
-            if (cardYear == "0") {
-                msg += "Please enter Card Year</br>";
-            }
-
-            var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
-            var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
-
-            GivenDate = new Date(GivenDate);
-            CurrentDate = new Date(CurrentDate);
-
-            if (GivenDate <= CurrentDate) {
-                msg += "Your Credit Card Expired..</br>";
-            }
-
-            if (msg != "") {
-                $("#divLoader").hide();
-                $.alert({
-                    title: "",
-                    content: msg,
-                    type: 'red'
+    var ddlPaymentMethod = function () {
+        var model = { TenantId: $("#hndTenantID").val() };
+        $.ajax({
+            url: '/PaymentAccounts/GetPaymentMethods',
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                $('#ddlPaymentMethod').empty();
+                var html = '';
+                $.each(response.model, function (elementType, elementValue) {
+                    if (elementValue.Default == '1') {
+                        html = "<option value='" + elementValue.PAID + "' selected='selected' data-value='" + elementValue.PayMethod + "'>" + elementValue.AccountName + "</option>";
+                    }
+                    else {
+                        html = "<option value='" + elementValue.PAID + "' data-value='" + elementValue.PayMethod + "'>" + elementValue.AccountName + "</option>";
+                    }
+                    $('#ddlPaymentMethod').append(html);
                 });
-                return;
             }
-        } else {
-            var paymentMethod = 1;
-            var nameonCard = $("#txtAccountName").val();
-            var cardNumber = $("#txtAccountNumber").val();
-            var cardMonth = 0;
-            var cardYear = 0;
-            var ccvNumber = 0;
-            var routingNumber = $("#txtRoutingNumber").val();
-            var bankName = $("#txtBankName").val();
-            var amounttoPay = $("#lblmoveincharge").text();
-            var description = "Move In Charges";
-            var prospectID = $("#hndProspectID").val();
-            var propertyId = $("#hndPID").val();
-            if (nameonCard == "") {
-                msg += "Please Enter Account Name</br>";
-            }
-            if (cardNumber == "") {
-                msg += "Please Enter Account Number</br>";
-            }
-
-            if (msg != "") {
-                $("#divLoader").hide();
-                $.alert({
-                    title: "",
-                    content: msg,
-                    type: 'red'
-                });
-                return;
-            }
-        }
-
-
-        //var model = {
-        //    PID: propertyId,
-        //    Name_On_Card: nameonCard,
-        //    CardNumber: cardNumber,
-        //    CardMonth: cardMonth,
-        //    CardYear: cardYear,
-        //    CCVNumber: ccvNumber,
-        //    Charge_Amount: amounttoPay,
-        //    ProspectID: prospectID,
-        //    Description: description,
-        //    GL_Trans_Description: glTrans_Description,
-        //    RoutingNumber: routingNumber,
-        //    BankName: bankName,
-        //    PaymentMethod: paymentMethod,
-        //};
-
-        $("#divLoader").hide();
-        $.alert({
-            title: "",
-            content: "Payment Saved",
-            type: 'red'
         });
-        $("#popPayNow").modal("hide");
-        //$.ajax({
-        //    url: "/ApplyNow/SavePaymentDetails/",
-        //    type: "post",
-        //    contentType: "application/json utf-8",
-        //    data: JSON.stringify(model),
-        //    dataType: "JSON",
-        //    success: function (response) {
-        //        $("#divLoader").hide();
-        //        if (response.Msg != "") {
+    };
 
-        //            $("#ResponseMsg").html(response.Msg);
-        //            //getTransationLists($("#hdnUserId").val());
-        //        }
-        //    }
-        //});
-    }
-    function setMoveInDate() {
-        $("#divLoader").show();
-        var msg = "";
-        if (!$("#txtScheduleMoveIn").val())
-        {
-            $("#divLoader").hide();
+    function makePayment() {      
+        var msg = "";      
+        var tenantid = $("#hndTenantID").val();      
+        var transtype = $("#ddlPaymentMethod").val();      
+        var chargeAmount = unformatText($("#totalConfAmt").text());      
+        var desc = $("#resAmenity").text()+" Charges";
+       
+        if ($("#ddlPaymentMethod").val() == '0') {
+            msg += "Select Payment Method</br>";
+        }
+        if ($('#ddlPaymentMethod').find(':selected').data('value') == '1') {
+            if ($("#txtCVVNumberPayRentOnline").val() == '') {
+                msg += "Enter CVV Number</br>";
+            }
+        }      
+        if (msg != "") {
             $.alert({
-                title: "",
-                content: "Please Select Move In Date ",
+                title: 'Alert!',
+                content: msg,
                 type: 'red'
             });
             return;
         }
-
-
-        $("#divLoader").hide();
-        $.alert({
-            title: "",
-            content: "Move in Date Saved",
-            type: 'red'
+        var models = {
+            PAID: $('#ddlPaymentMethod').val(),           
+            TenantID: tenantid,         
+            Transaction_Type: transtype,          
+            Charge_Amount: chargeAmount,          
+            Description: desc,          
+            CCVNumber: $("#txtCVVNumberPayRentOnline").val(),         
+            UserId: $("#hndUID").val(),
+            Batch: $("#hndARID").val(),
+        };
+        $.ajax({
+            url: "/MyTransaction/SaveAmenityTransaction/",
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(models),
+            dataType: "JSON",
+            success: function (response) {
+                $.alert({
+                    title: 'Message!',
+                    content: response.Msg,
+                    type: 'blue',
+                });
+                goToStep(4, 4)
+            }
         });
-        $("#popSetDate").modal("hide")
 
     }
-    var clearBank = function () {
-        $("#hndTransMethod").val("1");
-        $("#chkBank").addClass("active");
-        $("#chkACH").removeClass("active");
-        $("#divCard").addClass("hidden");
-        $("#divBank").removeClass("hidden");
+    function unformatText(text) {
+        if (text == null)
+            text = "";
 
-        $("#lblPaymentDet").text("Enter Bank Account Details.");
-    }
-    var clearCard = function () {
-        $("#hndTransMethod").val("2");
-        $("#chkACH").addClass("active");
-        $("#chkBank").removeClass("active");
-        $("#divCard").removeClass("hidden");
-        $("#divBank").addClass("hidden");
-
-        $("#lblPaymentDet").text("Enter Credit Card Details.");
+        return text.replace(/[^\d\.]/g, '');
     }
 </script>

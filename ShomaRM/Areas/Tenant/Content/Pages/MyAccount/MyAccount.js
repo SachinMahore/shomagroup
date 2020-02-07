@@ -2562,35 +2562,7 @@ var r = function () {
     $('#rbtnAmountToPay1').attr('checked', 'checked');
 
 }
-var getAmenityReservationPay = function (ARID) {
-    var id = 0;
-    if ($("#hdnARId").val() == 0) {
-        id = ARID;
-    }
-    else {
-        id = $("#hdnARId").val();
-    }
-    var params = { Id: id };
-    $.ajax({
-        url: "/Amenities/GetRRInfo",
-        method: "post",
-        data: JSON.stringify(params),
-        contentType: "application/json; charset=utf-8", // content type sent to server
-        dataType: "json", //Expected data format from server
-        success: function (response) {
-            //clearRRdata();
-            if ($.trim(response.error) != "") {
-                //showMessage("Error!", response.error);
-            } else {
 
-                $("#txtDescriptionText").val(response.AmenityName +" Reservation Fees: ");
-                
-                $("#lblCurrentPrePayAmount").text('$' + formatMoney(parseFloat(parseFloat(response.ReservationFee) + parseFloat(response.DepositFee)).toFixed(2)));
-                $("#hndChargeType").val(4);
-            }
-        }
-    });
-}
 function makeOneTimePaymentSaveUpdate() {
     var cardName = '';
     var cardNumber = '';
