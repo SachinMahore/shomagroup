@@ -24,7 +24,6 @@ namespace ShomaRM.Areas.Tenant.Models.Club
             }).FirstOrDefault();
         }
 
-        
 
         public bool RemoveMappingByClubIdandUserId(long ClubId, long UserId)
         {
@@ -34,8 +33,16 @@ namespace ShomaRM.Areas.Tenant.Models.Club
                 var Data = db.tbl_ClubMapping.Where(a => a.ClubId == ClubId && a.UserId == UserId).FirstOrDefault();
                 if (Data != null)
                 {
-                    db.tbl_ClubMapping.Remove(Data);
-                    db.SaveChanges();
+                    if(db.tbl_Club.Where(a=>a.UserId== UserId && a.Id== ClubId).Count()>0)
+                    {
+                        int Value = db.Database.ExecuteSqlCommand("delete from tbl_ClubMapping where ClubId = " + ClubId + " and UserId=" + UserId + "");
+                        int CLubValue = db.Database.ExecuteSqlCommand("delete from tbl_Club where Id = " + ClubId + " and UserId=" + UserId + "");
+                    }
+                    else
+                    {
+                        db.tbl_ClubMapping.Remove(Data);
+                        db.SaveChanges();
+                    }
                 }
                 else
                 {

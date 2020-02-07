@@ -2055,6 +2055,7 @@ function formatPhoneFax(phonefax) {
         return phonefax;
 
     return '(' + phonefax.substring(0, 3) + ') ' + phonefax.substring(3, 6) + (phonefax.length > 6 ? '-' : '') + phonefax.substring(6);
+
 }
 function unformatText(text) {
     if (text == null)
@@ -2080,4 +2081,5 @@ var onFocus = function () {
         .focus(function () {
             $("#txtMobile").val(unformatText($("#txtMobile").val()));
         });
+
 }

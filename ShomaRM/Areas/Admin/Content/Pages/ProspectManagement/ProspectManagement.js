@@ -121,11 +121,11 @@ var saveupdateProspect = function () {
     });
 }
 var fillStateDDL = function () {
-
+    var param= { CID: 1 };
     $.ajax({
-        url: '/City/FillStateDropDownList',
+        url: '/City/FillStateDropDownListByCountryID',
         method: "post",
-        //data: JSON.stringify(param),
+        data: JSON.stringify(param),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {

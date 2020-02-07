@@ -312,6 +312,7 @@
     <Compile Include="Models\CommonModel.cs" />
     <Compile Include="Models\Property\PropertyModel.cs" />
     <Compile Include="Models\Prospect\ProspectModel.cs" />
+    <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\SendGrid\EmailSendModel.cs" />
     <Compile Include="Models\SendGrid\InvalidApiRequestException.cs" />
     <Compile Include="Models\SendGrid\ISendGrid.cs" />
@@ -372,6 +373,7 @@
     <Content Include="Areas\Admin\Content\Pages\Utility\Utility.js" />
     <Content Include="Areas\Admin\Content\Pages\Vendor\Vendor.js" />
     <Content Include="Areas\Admin\Content\Pages\Vendor\VendorList.js" />
+    <Content Include="Areas\Tenant\Content\img\Loader.gif" />
     <Content Include="Areas\Tenant\Content\Pages\Dashboard\Dashboard.js" />
     <Content Include="Areas\Tenant\Content\Pages\EventBooking\EventBooking.js" />
     <Content Include="Areas\Tenant\Content\Pages\FacilityBooking\FacilityBooking.js" />
@@ -815,6 +817,7 @@
     <Content Include="Views\PayLink\Index.cshtml" />
     <Content Include="Views\PayLink\LeaseNow.cshtml" />
     <Content Include="Views\CheckList\Index.cshtml" />
+    <Content Include="Views\PayLink\PayAmenityCharges.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

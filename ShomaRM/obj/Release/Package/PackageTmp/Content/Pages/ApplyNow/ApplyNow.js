@@ -406,17 +406,7 @@ $(document).ready(function () {
         clearApplicantHistory();
         $("#popApplicantHistory").PopupWindow("open");
     });
-    //$("#popApplicantHistory").PopupWindow({
-    //    title: "Add Applicant History",
-    //    modal: false,
-    //    autoOpen: false,
-    //    top: 120,
-    //    left: 300,
-    //    height: 600,
-    //    width: 800
-
-    //});
-
+    
     QuoteExpires = $("#lblFNLQuoteExpires").text();
     $("#getting-startedTimeRemainingClock").countdown(QuoteExpires, function (event) {
         $(this).text(
@@ -450,7 +440,6 @@ $(document).ready(function () {
     document.getElementById('filePetVaccinationCertificate').onchange = function () {
         uploadPetVaccination();
     };
-
 });
 var abcd = function () {
     alert("Hi");
@@ -502,7 +491,7 @@ var goToStep = function (stepid, id) {
         if (id == "2") {
             $("#as2").removeAttr("onclick")
             $("#as2").attr("onclick", "goToStep(2,2)");
-            // getPropertyUnitDetails($("#hndUID").val());
+             getPropertyUnitDetails($("#hndUID").val());
             $("#li1").addClass("active");
             $("#li2").addClass("active");
 
@@ -1503,7 +1492,7 @@ function savePayment() {
         var cardYear = $("#ddlcardyear").val();
         var ccvNumber = $("#txtCCVNumber").val();
         var prospectID = $("#hdnOPId").val();
-        var amounttoPay = $("#totalFinalFees").text(); ; 
+        var amounttoPay = unformatText($("#totalFinalFees").text()); 
         var description = "Online Application Non Refundable fees";
         var glTrans_Description = $("#payDes").text(); 
         var routingNumber = $("#txtRoutingNumber").val();
@@ -1521,6 +1510,9 @@ function savePayment() {
         if (cardYear == "0") {
             msg += "Please enter Card Year</br>";
         }
+        if (ccvNumber < 3) {
+            msg += "Please enter CVV Number and It must be 3 digit long</br>";
+        }
 
         var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
         var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
@@ -1528,7 +1520,7 @@ function savePayment() {
         GivenDate = new Date(GivenDate);
         CurrentDate = new Date(CurrentDate);
 
-        if (GivenDate <= CurrentDate) {
+        if (GivenDate < CurrentDate) {
             msg += "Your Credit Card Expired..</br>";
         }
 
@@ -2627,7 +2619,8 @@ var saveupdateParking = function () {
             //$("#popParking").PopupWindow("close");
             $('#popParking').modal('hide');
             $("#divLoader").hide();
-            totalAmt = parseFloat(totalAmt) - $("#lblAdditionalParking").text() - $("#lblVehicleFees").text();
+            totalAmt = parseFloat(totalAmt) - $("#lblAdditionalParking").text();
+            $("#lblVehicleFees").text("0.00")
             $("#lblAdditionalParking").text(parseFloat(response.totalParkingAmt).toFixed(2));
             $("#lblMonthly_AditionalParking").text(parseFloat(response.totalParkingAmt).toFixed(2));
             $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(response.totalParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
@@ -3222,7 +3215,7 @@ var getApplicantLists = function () {
                 localStorage.setItem("percentageMo", sumMo);
             });
 
-            $("#totalFinalFees").text( parseFloat(totalFinalFees).toFixed(2));
+            $("#totalFinalFees").text("$" + parseFloat(totalFinalFees).toFixed(2));
             $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
             $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
             $("#tblApplicantGuarantor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(3)'><i class='fa fa-plus-circle'></i> Add Guarantor</a></label></div></div></div></div>");
@@ -5291,3 +5284,70 @@ function checkExpiry() {
 
 }
 
+var checkEmailAreadyExist = function () {
+
+    var model = { EmailId: $('#txtEmail').val() };
+    $("#divLoader").show();
+    $.ajax({
+        url: "/ApplyNow/CheckEmailAreadyExist",
+        method: "post",
+        data: JSON.stringify(model),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (response.model == "Yes Tenant") {
+                $.alert({
+                    title: "",
+                    content: "This email Id is already exist please press Yes to Sign In.",
+                    type: 'blue',
+                    buttons: {
+                        yes: {
+                            text: 'Yes',
+                            action: function (yes) {
+                                localStorage.setItem("userName", $('#txtEmail').val());
+                                $('#txtEmail').val('');
+                                window.location.replace("/Account/Login");
+                                $('#UserName').val(localStorage.getItem("userName"));
+                                $('#password').focus();
+                            }
+                        },
+                        no: {
+                            text: 'No',
+                            action: function (no) {
+                                $('#txtEmail').val('');
+                                $('#txtEmail').focus();
+                            }
+                        }
+                    }
+                });
+            }
+            else if (response.model == "Yes But Not Tenant") {
+                $.alert({
+                    title: "",
+                    content: "This email Id is already exist please press Yes to Login.",
+                    type: 'blue',
+                    buttons: {
+                        yes: {
+                            text: 'Yes',
+                            action: function (yes) {
+                                var modals = document.getElementById("popSignIn");
+                                modals.style.display = "block";
+                                $('#UserName').val($('#txtEmail').val());
+                                $('#txtEmail').val('');
+                                $('#password').focus();
+                            }
+                        },
+                        no: {
+                            text: 'No',
+                            action: function (no) {
+                                $('#txtEmail').val('');
+                                $('#txtEmail').focus();
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    });
+    $("#divLoader").hide();
+};

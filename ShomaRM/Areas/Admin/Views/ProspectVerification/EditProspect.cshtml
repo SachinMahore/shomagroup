@@ -310,7 +310,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="txtPhone">Mobile</label> :
-                                    <label id="txtPhoneNumber" style="text-decoration:underline">@Model.Phone</label>
+                                    <label id="txtPhoneNumber" style="text-decoration:underline"></label>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -404,7 +404,7 @@
 
                                                 <span class="property-info-entry">
                                                     <span class="property-info-label">Rent</span>
-                                                    <span class="property-info-value"><span id="lblRent"></span></span>
+                                                    $<span class="property-info-value"><span id="lblRent"></span></span>
                                                 </span>
                                             </div>
 
@@ -624,7 +624,7 @@
                                     <div class="col-sm-4">
                                         <b>Total Estimated monthly payment *</b>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4" style="color:green;">
                                         <b>$<span id="lbltotalAmount"></span></b>
                                     </div>
                                 </div>
@@ -729,7 +729,7 @@
                                                 <span>PHONE: </span>
                                             </div>
                                             <div class="col-sm-9">
-                                                <span id="lblFNLPhone" style="text-decoration:underline;font-weight:bold;">@Model.Phone</span>
+                                                <span id="lblFNLPhone" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
@@ -936,10 +936,10 @@
                                             <div class="col-sm-1">
                                                 <span style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-3" style="color:green;">
                                                 $<span id="lblMonthly_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-3" style="color:green;">
                                                 $ <span id="lblProrated_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                         </div>
@@ -1033,7 +1033,7 @@
                                             <div class="col-sm-3">
                                                 <span style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
-                                            <div class="col-sm-2">
+                                            <div class="col-sm-2" style="color:green;">
                                                 $<span style="text-decoration:underline;font-weight:bold;" id="ftotal"></span>
                                             </div>
                                         </div>
@@ -1269,7 +1269,7 @@
                                             <span>Total Due at Move In</span>
                                         </div>
                                         <div class="col-sm-1"></div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-3" style="color:green;">
                                             $<span style="text-decoration:underline;font-weight:bold;" id="lbtotdueatmov6"></span>
                                         </div>
                                     </div>
@@ -1315,6 +1315,33 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
+                                        <div class="col-sm-8">
+                                            <span>Trash/Recycle </span>
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-3">
+                                            $<span id="lblRFPTrashRecycling" style="text-decoration:underline;font-weight:bold;">@((Model.TrashAmt ?? 0).ToString("0.00"))</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-8">
+                                            <span>Pest Control </span>
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-3">
+                                            $<span id="lblRFPPestControl" style="text-decoration:underline;font-weight:bold;">@((Model.PestAmt ?? 0).ToString("0.00"))</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-8">
+                                            <span>Convergent billing fee </span>
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-3">
+                                            $<span id="lblRFPConvergentbillingfee" style="text-decoration:underline;font-weight:bold;">@((Model.ConvergentAmt ?? 0).ToString("0.00"))</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
                                         <div class="col-sm-8"></div>
 
                                         <div class="col-sm-4"><hr></div>
@@ -1324,7 +1351,7 @@
                                             <span>Total Monthly Payment</span>
                                         </div>
                                         <div class="col-sm-1"></div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-3" style="color:green;">
                                             $<span id="lblRFPTotalMonthlyPayment" style="text-decoration:underline;font-weight:bold;"></span>
                                         </div>
                                     </div>
@@ -1684,7 +1711,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>Job Type</label>
+                                    <label>Job Type</label> :
                                     <label id="ddlJobType"></label>
                                 </div>
                             </div>
@@ -3939,7 +3966,8 @@
             $("#dwnldPOE").attr('onclick', 'fileNotFound()');
             $("#dwnldPOE").text('@Model.ElectricityDoc');
         }
-
+        $("#txtPhoneNumber").text(formatPhoneFax('@Model.Phone'));
+        $("#lblFNLPhone").text(formatPhoneFax('@Model.Phone'));
     });
 
     var fileNotFound = function () {

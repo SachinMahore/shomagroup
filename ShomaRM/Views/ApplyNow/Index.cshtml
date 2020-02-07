@@ -429,14 +429,14 @@
 
                                                 <span class="property-info-entry">
                                                     <span class="property-info-label">Deposit</span>
-                                                    <span class="property-info-value"><span id="lblDeposit"></span></span>
+                                                    <span class="property-info-value">$<span id="lblDeposit"></span></span>
                                                 </span>
                                             </div>
                                             <div class="col-xs-6 col-sm-6 col-md-6 p-b-15">
 
                                                 <span class="property-info-entry">
                                                     <span class="property-info-label">Rent</span>
-                                                    <span class="property-info-value"><span id="lblRent"></span></span>
+                                                    <span class="property-info-value">$<span id="lblRent"></span></span>
                                                 </span>
                                             </div>
 
@@ -762,7 +762,7 @@
                                             <span>PHONE: </span>
                                         </div>
                                         <div class="col-sm-9">
-                                            <span id="lblFNLPhone" style="text-decoration:underline;font-weight:bold;">@Model.Phone</span>
+                                            <span id="lblFNLPhone" style="text-decoration:underline;font-weight:bold;"></span>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
@@ -1303,7 +1303,7 @@
                                                 <span>Total Due at Move In</span>
                                             </div>
                                             <div class="col-sm-1"></div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-3" style="color:green;">
                                                 $<span style="text-decoration:underline;font-weight:bold;" id="lbtotdueatmov6"></span>
                                             </div>
                                         </div>
@@ -1349,6 +1349,33 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
+                                            <div class="col-sm-8">
+                                                <span>Trash/Recycle </span>
+                                            </div>
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-3">
+                                                $<span id="lblRFPTrashRecycling" style="text-decoration:underline;font-weight:bold;">@((Model.TrashAmt ?? 0).ToString("0.00"))</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-8">
+                                                <span>Pest Control </span>
+                                            </div>
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-3">
+                                                $<span id="lblRFPPestControl" style="text-decoration:underline;font-weight:bold;">@((Model.PestAmt ?? 0).ToString("0.00"))</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-8">
+                                                <span>Convergent billing fee </span>
+                                            </div>
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-3">
+                                                $<span id="lblRFPConvergentbillingfee" style="text-decoration:underline;font-weight:bold;">@((Model.ConvergentAmt ?? 0).ToString("0.00"))</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
                                             <div class="col-sm-8"></div>
 
                                             <div class="col-sm-4"><hr></div>
@@ -1358,7 +1385,7 @@
                                                 <span>Total Monthly Payment</span>
                                             </div>
                                             <div class="col-sm-1"></div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-3" style="color:green;">
                                                 $<span id="lblRFPTotalMonthlyPayment" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                         </div>
@@ -1437,7 +1464,11 @@
                                     <div class="form-group">
                                         <label for="txtDateOfBirth" class="star">Date of Birth</label>
                                         <input id="txtDateOfBirth" class="form-control" type="text" />
-                                       
+
+                                        <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 303px;">
+                                            <button class="btn btn-primary search" id="IconDateOfBirth" type="button"><i class="fa-calendar fa"></i></button>
+                                        </span>
+
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -1651,14 +1682,22 @@
                                     <div class="form-group">
                                         <label for="txtMoveInDate" class="star"> Move In Date</label>
                                         <input id="txtMoveInDateFrom" type="text" class="form-control form-control-small" value="" />
-                                       
+
+                                        <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 211px;">
+                                            <button class="btn btn-primary search" id="SPMoveInDateF" type="button"><i class="fa-calendar fa"></i></button>
+                                        </span>
+
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="txtMoveInDate"> Move Out Date</label>
                                         <input id="txtMoveInDateTo" type="text" class="form-control form-control-small" value="" />
-                                       
+
+                                        <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 209px;">
+                                            <button class="btn btn-primary search" id="SPMoveInDateT" type="button"><i class="fa-calendar fa"></i></button>
+                                        </span>
+
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -1667,7 +1706,7 @@
                                         <span class="input-group-btn">
                                             <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
                                         </span>
-                                        <input id="txtMonthlyPayment" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" />
+                                        <input id="txtMonthlyPayment" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" style="text-align:right;" />
                                     </div>
                                 </div>
 
@@ -1767,7 +1806,11 @@
                                     <div class="form-group">
                                         <label class="star">Start Date</label>
                                         <input id="txtStartDate" class="form-control form-control-small" type="text" />
-                                       
+
+                                        <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 302px;">
+                                            <button class="btn btn-primary search" id="SPStartDate" type="button"><i class="fa-calendar fa"></i></button>
+                                        </span>
+
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -1776,7 +1819,7 @@
                                         <span class="input-group-btn">
                                             <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
                                         </span>
-                                        <input id="txtAnnualIncome" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" />
+                                        <input id="txtAnnualIncome" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" style="text-align:right" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -1786,7 +1829,7 @@
                                             <span class="input-group-btn">
                                                 <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
                                             </span>
-                                            <input id="txtAddAnnualIncome" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" />
+                                            <input id="txtAddAnnualIncome" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" style="text-align:right" />
                                         </div>
                                     </div>
                                 </div>
@@ -1818,7 +1861,7 @@
                                     <div class="form-group">
                                         <input id="rbtnPaystub" class="form-control form-control-small" type="radio" name="tax" />
                                         <label for="rbtnPaystub">Paystub</label>
-                                        <input id="rbtnFedralTax" class="form-control form-control-small" type="radio" name="tax" />
+                                        <input id="rbtnFedralTax" class="form-control form-control-small" type="radio" name="tax" checked="checked" />
                                         <label for="rbtnFedralTax">Fedral Tax Return</label>
                                     </div>
                                 </div>
@@ -2332,7 +2375,7 @@
                                     </div>
                                     <div class="col-sm-12" id="divCard">
                                         <div class="form-group col-sm-3">
-                                            <label for="name">Name on Card</label>
+                                            <label for="name" class="star">Name on Card</label>
                                             <input type="text" class="form-control" id="txtNameonCard" placeholder="Name on Card" value="@Model.Name_On_Card">
                                         </div>
                                         <div class="form-group col-sm-3">
@@ -2718,7 +2761,11 @@
                         <input id="txtADateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" />
                         <input id="txtMDateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" />
                         <input id="txtGDateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" />
-                        
+
+                        <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 196px;">
+                            <button class="btn btn-primary search" id="" type="button"><i class="fa-calendar fa"></i></button>
+                        </span>
+
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -2900,7 +2947,7 @@
                     </div>*@
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="">What is your Pet's Name?</label>
+                        <label class="star">What is your Pet's Name?</label>
                         <input id="txtpetName" type="text" class="form-control" maxlength="20" placeholder="Pet Name" value="">
                     </div>
                 </div>
@@ -2930,7 +2977,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="">Upload Photo</label><br />
+                        <label class="star">Upload Photo</label><br />
                         <input type="file" name="pet-picture" id="pet-picture" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
                         <label for="pet-picture"><i class="fa fa-upload fa-2x"></i> <span id="filePetPictireShow">Choose a file&hellip;</span></label>
                         <input type="hidden" id="hndPetPicture" value="0" />
@@ -3027,7 +3074,7 @@
                 <div class="col-sm-12">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="txtCountry">Country</label>
+                            <label for="txtCountry" class="star">Country</label>
                             @*<input id="txtCountry" type="text" class="form-control form-control-small" maxlength="300" />*@
                             <select id="txtCountry2" class="form-control"></select>
                         </div>
@@ -3036,7 +3083,7 @@
                 <div class="col-sm-12">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="txtAddress1">Address Line 1</label>
+                            <label for="txtAddress1" class="star">Address Line 1</label>
                             <input id="txtAddress12" type="text" class="form-control form-control-small" maxlength="300" />
                         </div>
                     </div>
@@ -3051,20 +3098,20 @@
 
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label> State :</label>
+                            <label class="star">State</label>
                             <select id="ddlStateHome2" class="form-control"></select>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label> City :</label>
+                            <label class="star">City</label>
                             @*<select id="ddlCityHome" class="form-control"></select>*@
                             <input id="ddlCityHome2" type="text" class="form-control form-control-small" maxlength="100" />
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="txtZip">Zip</label>
+                            <label for="txtZip" class="star">Zip</label>
                             <input class="form-control form-control-small" id="txtZip2" maxlength="7" />
                         </div>
                     </div>
@@ -3080,27 +3127,38 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label for="txtMoveInDate"> Move In Date</label>
+                            <label for="txtMoveInDate" class="star">Move In Date</label>
                             <input id="txtMoveInDateFrom2" type="text" class="form-control form-control-small" @*value="@Model.MoveInDateFrom2Txt"*@ />
-                            
+
+                            <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 90px;">
+                                <button class="btn btn-primary search" id="SPtxtMoveInDateFrom2" type="button"><i class="fa-calendar fa"></i></button>
+                            </span>
+
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label for="txtMoveInDate"> Move Out Date</label>
                             <input id="txtMoveInDateTo2" type="text" class="form-control form-control-small" @*value="@Model.MoveInDateTo2Txt"*@ />
-                           
+
+                            <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 90px;">
+                                <button class="btn btn-primary search" id="SPtxtMoveInDateTo2" type="button"><i class="fa-calendar fa"></i></button>
+                            </span>
+
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label for="txtMonthlyPayment"> Monthly Payment </label>
-                            <input id="txtMonthlyPayment2" type="text" class="form-control form-control-small" onkeypress="return isNumber(event)" />
+                            <label for="txtMonthlyPayment">Monthly Payment </label>
+                            <input id="txtMonthlyPayment2" type="text" class="form-control form-control-small" onkeypress="return isNumber(event)" style="text-align:right" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary search" type="button" style="margin-top:-60px;"><i class="fa-dollar fa"></i></button>
+                            </span>
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label for="txtReasonforleaving"> Reason for leaving </label>
+                            <label for="txtReasonforleaving">Reason for leaving </label>
                             <input id="txtReasonforleaving2" type="text" class="form-control" />
                         </div>
                     </div>
@@ -3784,6 +3842,7 @@
         $('#txtHDateOfBirth').datepicker({ viewMode: "years", endDate: dt, autoclose: true });
 
         $("#txtPhoneNumber").val(formatPhoneFax('@Model.Phone'));
+        $("#lblFNLPhone").text(formatPhoneFax('@Model.Phone'));
     });
 </script>
 <script type="text/javascript">

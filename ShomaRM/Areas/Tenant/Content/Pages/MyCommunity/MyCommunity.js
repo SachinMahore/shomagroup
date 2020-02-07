@@ -79,13 +79,17 @@ function SubmitClub() {
 
         };
         $.post("/MyCommunity/CreateClub", Json, function (Data) {
-           
+            
+            if (Data._response.Status == true) {
+                $("#chkTermsConditions").iCheck('uncheck');
+                ClearClubCreate();
+            }
             $.alert({
                 title: '',
-                content: Data.modal,
+                content: Data._response.msg,
                 type: 'blue'
             });
-            ClearClubCreate();
+            
         });
     }
     else {
@@ -109,12 +113,21 @@ function GetJoinClub(ClubId) {
             document.getElementById("ClubTitle").innerHTML = title;
             document.getElementById("Description").innerHTML = data.model.Description;
             $("#JoinClubPopupClubId").val(data.model.Id);
-            if (data.model.ClubJoinStatus === true) {
-                document.getElementById("btnJoinClub").innerHTML = "Unjoin Club";
-            }
-            else {
-                document.getElementById("btnJoinClub").innerHTML = "Join Club";
-            }
+            $.get("/MyCommunity/GetClubJoinStatus", { Id: ClubId, UserId: $("#hdnUserId").val() }, function (output) {
+              
+                if (output.model == null) {
+                    document.getElementById("btnJoinClub").innerHTML = "Join Club";
+                }
+                else {
+                    document.getElementById("btnJoinClub").innerHTML = "Unjoin Club";
+                }
+            });
+            //if (data.model.ClubJoinStatus === true) {
+            //    document.getElementById("btnJoinClub").innerHTML = "Unjoin Club";
+            //}
+            //else {
+            //    document.getElementById("btnJoinClub").innerHTML = "Join Club";
+            //}
 
         }
         else {
@@ -133,6 +146,7 @@ function JoinUnjoinClub() {
     $.get("/MyCommunity/JoinunJoinClub", { ClubId: $("#JoinClubPopupClubId").val(), UserId: $("#hdnUserId").val()}, function (data) {
         var Name = document.getElementById("btnJoinClub").innerHTML;
         if (data.model == true) {
+            goToStep(7);
             if (Name == "Join Club") {
                 document.getElementById("btnJoinClub").innerHTML = "Unjoin Club";
             }
@@ -150,17 +164,20 @@ function JoinUnjoinClub() {
     })
 }
 function RefreshJoinClubList(EnumId) {
-    $("#step5").load("/MyCommunity/JoinClubPartial", { SearchId: EnumId }, function (response, status, xhr) {
-
+    $("#divLoader").show();
+    $("#step5").load("/MyCommunity/JoinClubPartial", { SearchId: EnumId, UserId: $("#hdnUserId").val() }, function (response, status, xhr) {
+       
     });
 
-  
+    
 }
 
 function RefreshJoinClubListCurrentUser(EnumId) {
+    $("#divLoader").show();
     $("#step7").load("/MyCommunity/JoinClubPartialByUser", { SearchId: EnumId, UserId: $("#hdnUserId").val() }, function (response, status, xhr) {
-
+        
     });
+   
 
    
 }
@@ -222,6 +239,7 @@ var goToStep = function (stepid, id) {
         GetJoinClub(id);
     }
     if (stepid == "7") {
+
         $("#li1").removeClass("active");
         $("#li2").removeClass("active");
         $("#li3").removeClass("active");
@@ -242,7 +260,6 @@ var goToStep = function (stepid, id) {
 };
 
 function SearchClubList(EnumId, Text) {
-   
     if (Text != "hidden") {
         RefreshJoinClubList(EnumId);
     }

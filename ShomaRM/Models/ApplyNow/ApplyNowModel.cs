@@ -100,7 +100,7 @@ namespace ShomaRM.Models
                         Credit_Amount = model.Charge_Amount,
                         Description = model.Description +"| TransID: "+ Convert.ToInt32(strlist[1]),
                         Charge_Date = DateTime.Now,
-                        Charge_Type = 2,
+                        Charge_Type = 1,
                         Payment_ID = Convert.ToInt32(strlist[1]),
                         Charge_Amount = model.Charge_Amount,
                         Miscellaneous_Amount = 0,
@@ -192,21 +192,31 @@ namespace ShomaRM.Models
             return model;
         }
 
-       public bool CheckEmailAreadyExist(string EmailId)
+        public string CheckEmailAreadyExist(string EmailId)
         {
-            bool IsEmailExist = false;
+            string IsEmailExist = string.Empty;
             ShomaRMEntities db = new ShomaRMEntities();
-            var isEmailExist = db.tbl_ApplyNow.Where(co => co.Email == EmailId).FirstOrDefault();
-            if (isEmailExist != null)
+            var isEmailExistApplyNow = db.tbl_ApplyNow.Where(co => co.Email == EmailId).FirstOrDefault();
+            if (isEmailExistApplyNow != null)
             {
-                IsEmailExist = true;
+                var isEmailExistTenantInfo = db.tbl_TenantInfo.Where(co => co.Email == EmailId).FirstOrDefault();
+
+                if (isEmailExistTenantInfo != null)
+                {
+                    IsEmailExist = "Yes Tenant";
+                }
+                else
+                {
+                    IsEmailExist = "Yes But Not Tenant";
+                }
             }
             else
             {
-                IsEmailExist = false;
+                IsEmailExist = "No";
             }
             db.Dispose();
             return IsEmailExist;
         }
+
     }
 }

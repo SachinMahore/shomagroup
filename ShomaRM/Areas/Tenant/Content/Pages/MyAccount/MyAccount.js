@@ -78,8 +78,7 @@
     ddlBankAccountListShow();
     ddlPaymentMethodSelectFunction();
     ddlPayMethodPageLoadFunction();
-    tenantAccountHistory();
-
+   
 
     document.getElementById('fileUploadService').onchange = function () {
         uploadServiceFile();
@@ -196,7 +195,7 @@ var checkRequestButton = function () {
 
 var getTenantData = function (userID) {
     $("#divLoader").show();
-    var params = { TenantID: userID };
+    var params = { TenantID: userID, UserId: $("#hndUserId").val() };
     $.ajax({
         url: "../GetTenantInfo",
         method: "post",
@@ -217,8 +216,12 @@ var getTenantData = function (userID) {
 
                 $("#invTenant").text(response.FirstName + " " + response.LastName);
                 $("#invUnit").text(response.UnitName);
-               // $("#hndLeaseTerm").val(response.LeaseTerm);
 
+                $("#recTenant").text(response.FirstName + " " + response.LastName);
+                $("#recUnit").text(response.UnitName);
+               // $("#hndLeaseTerm").val(response.LeaseTerm);
+                $("#lblCurrentPrePayAmountR").text(response.MonthlyCharges);
+                $("#recPopAmt").text(response.MonthlyCharges);
 
                 $("#txtAddress").val(response.Address);
                 $("#txtCity").val(response.City);
@@ -806,16 +809,20 @@ var getTransationLists = function () {
             $.each(response.model, function (elementType, elementValue) {
                 var html = "<tr data-value=" + elementValue.TransID + ">";
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                html += "<td><a href='javascript:void(0);'  data-toggle='modal' data-target='#popInvoice' onclick='getInvoice("+ elementValue.TransID +")'>" + elementValue.Description + "</a></td>";
-                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                if (elementValue.Credit_Amount != "0.00")
+               
+                if (elementValue.Credit_Amount != "0.00" && elementValue.Charge_Amount == "0.00")
                 {
+                    html += "<td>" + elementValue.Description + "<a href='javascript:void(0);' class='pull-right'  data-toggle='modal' data-target='#popPaymentReceipt' onclick='getInvoice(" + elementValue.TransID + ")'><img src='/Content/assets/Assets/rec.jpg' style='height: 20px;'/></td>";
+                    html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
                     html += "<td style='text-align: right;'><b>$" + formatMoney(elementValue.Credit_Amount) + "</b></td>";
                 } else
                 {
+
+                    html += "<td>" + elementValue.Description + "<a href='javascript:void(0);' class='pull-right'  data-toggle='modal' data-target='#popInvoice' onclick='getInvoice(" + elementValue.TransID + ")'><img src='/Content/assets/Assets/inv.png' style='height: 20px;'/></a></td>";
+                    html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
                     html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Credit_Amount) + "</td>";
                 }
-               
+              
                 bal = parseFloat((parseFloat(bal) + parseFloat(elementValue.Charge_Amount)) - parseFloat(elementValue.Credit_Amount));
                 html += "<td style='text-align: right;'>$" + formatMoney(bal) + "</td>";
                 html += "</tr>";
@@ -842,9 +849,14 @@ var getInvoice = function (invid)
             var bal = 0;
 
             $("#invid").text(invid);
+           
             $("#invdate").text(response.model.Transaction_DateString);
-            $("#invamount").text(response.model.Credit_Amount);
+            $("#invamount").text(formatMoney(response.model.Charge_Amount));
             
+            $("#recid").text(invid);
+            $("#recdate").text(response.model.Transaction_DateString);
+            $("#recAmt").text(formatMoney(response.model.Credit_Amount));
+            $("#recDesc").text(response.model.Description);
 
             $("#tblInvoiceBill>tbody").empty();
             var srno = 1;
@@ -863,13 +875,15 @@ var getInvoice = function (invid)
         }
     });
 }
+
 var getUpTransationLists = function () {
    
     var model = {
-        TenantID: $("#hndTenantID").val()
+        TenantID: $("#hndTenantID").val(),
+        AccountHistoryDDL: 2
     }
     $.ajax({
-        url: "/MyTransaction/GetUpTransationLists",
+        url: "/MyTransaction/GetTenantTransactionList",
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
@@ -880,17 +894,19 @@ var getUpTransationLists = function () {
 
             $.each(response.model, function (elementType, elementValue) {
                 var html = "<tr data-value=" + elementValue.TransID + ">";
-
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                html += "<td>" + elementValue.Description + "</td>";
-                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount)  + "</td>";
+                html += "<td>" + elementValue.Description + "<a href='javascript:void(0);' class='pull-right'  data-toggle='modal' data-target='#popInvoice' onclick='getInvoice(" + elementValue.TransID + ")'><img src='/Content/assets/Assets/inv.png' style='height: 20px;'/></a></td>";
+                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
+                if (elementValue.Credit_Amount != "0.00") {
+                    html += "<td style='text-align: right;'><b>$" + formatMoney(elementValue.Credit_Amount) + "</b></td>";
+                } else {
+                    html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Credit_Amount) + "</td>";
+                }
+
                 bal = parseFloat((parseFloat(bal) + parseFloat(elementValue.Charge_Amount)) - parseFloat(elementValue.Credit_Amount));
                 html += "<td style='text-align: right;'>$" + formatMoney(bal) + "</td>";
-
                 html += "</tr>";
                 $("#tblUpcomingCharges>tbody").append(html);
-                $("#lblCurrentPrePayAmountR").text(formatMoney(elementValue.Charge_Amount));
-                $("#recPopAmt").text(formatMoney(elementValue.Charge_Amount));
             });
            
         }
@@ -1386,31 +1402,6 @@ var goToPayStep = function (stepid, id) {
     }
 };
 
-var getAccountHistory = function () {
-
-    var model = {
-        TenantId: $("#hndTenantID").val()
-    };
-    $.ajax({
-        url: '/Transaction/getAccountHistory',
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            $("#tblAccountHistory>tbody").empty();
-            $.each(response.model, function (elementType, elementValue) {
-                var html = "<tr data-value=" + elementValue.TransID + ">";
-                html += "<td>" + elementValue.TransactionDateString + "</td>";
-                html += "<td>" + elementValue.Description + "</td>";
-                html += "<td>" + elementValue.Charge_Amount + "</td>";
-                html += "</tr>";
-                $("#tblAccountHistory>tbody").append(html);
-            });
-        }
-    });
-}
-
 var savePaymentAccounts = function () {
     var msg = '';
     var PaymentAccountId = $("#hndPaymentAccountsID").val();
@@ -1454,7 +1445,15 @@ var savePaymentAccounts = function () {
     if ($("#txtAccountNamePayMethod").val() == '') {
         msg += 'Enter the account name</br>'
     }
+    var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
+    var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
 
+    GivenDate = new Date(GivenDate);
+    CurrentDate = new Date(CurrentDate);
+
+    if (GivenDate < CurrentDate) {
+        msg += "Your Credit Card Expired..</br>";
+    }
 
     if (msg != '') {
         $.alert({
@@ -1576,7 +1575,7 @@ var getPaymentAccountsBankAccount = function () {
                 html += "<td>" + elementValue.BankName + "</td>";
                 html += "<td>" + elementValue.AccountName + "</td>";
                 html += "<td>" + MaskCardNumber(elementValue.AccountNumber) + "</td>";
-                html += "<td>" + MaskCardNumber(elementValue.RoutingNumber) + "</td>";
+                html += "<td>" + elementValue.RoutingNumber + "</td>";
                 html += "<td><a href='javascript:void(0);' onclick='editPaymentBankAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-edit'></i></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-trash'></i></a></td>";
                 html += "<td width='11%'>" + checked + "</td>";
                 html += "</tr>";
@@ -2463,34 +2462,7 @@ var fromDashboardGoToSubmitServiceRequest = function () {
 
 }
 
-var paymentHistory = function (ddlah) {
-    var model = {
-        TenantID: $("#hndTenantID").val(),
-        AccountHistoryDDL: ddlah
-    }
-    $.ajax({
-        url: "/MyTransaction/GetTenantUpTransactionList",
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            var bal = 0;
-            $("#tblPaymentHistory>tbody").empty();
 
-            $.each(response.model, function (elementType, elementValue) {
-                var html = "<tr data-value=" + elementValue.TransID + ">";
-                html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                html += "<td>" + elementValue.Description + "</td>";
-                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Balance) + "</td>";
-                html += "</tr>";
-                $("#tblPaymentHistory>tbody").append(html);
-            });
-        }
-    });
-   
-};
 
 var dateRangeAccountHistorySearch = function () {
     var model = {
@@ -2515,18 +2487,25 @@ var dateRangeAccountHistorySearch = function () {
         dataType: "JSON",
         success: function (response) {
             $('#popDateRangeAccountHistory').modal('hide');
-            totalAmount = 0;
+            bal = 0;
             $("#tblPaymentHistory>tbody").empty();
 
             $.each(response.model, function (elementType, elementValue) {
+               
                 var html = "<tr data-value=" + elementValue.TransID + ">";
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                html += "<td>" + elementValue.Description + "</td>";
+                html += "<td><a href='javascript:void(0);'  data-toggle='modal' data-target='#popInvoice' onclick='getInvoice(" + elementValue.TransID + ")'>" + elementValue.Description + "</a></td>";
                 html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                html += "<td>" + elementValue.Charge_Type + "</td>";
+                if (elementValue.Credit_Amount != "0.00") {
+                    html += "<td style='text-align: right;'><b>$" + formatMoney(elementValue.Credit_Amount) + "</b></td>";
+                } else {
+                    html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Credit_Amount) + "</td>";
+                }
+
+                bal = parseFloat((parseFloat(bal) + parseFloat(elementValue.Charge_Amount)) - parseFloat(elementValue.Credit_Amount));
+                html += "<td style='text-align: right;'>$" + formatMoney(bal) + "</td>";
                 html += "</tr>";
                 $("#tblPaymentHistory>tbody").append(html);
-                totalAmount += parseFloat(elementValue.Charge_Amount);
             });
         }
     });
@@ -2737,6 +2716,8 @@ function makeOneTimePaymentSaveUpdate() {
             });
             clearMakePaymentFields();
             getTransationLists();
+            getUpTransationLists();
+            getAllDues();
         }
     });
 
@@ -4532,31 +4513,7 @@ var ddlPayMethodPageLoadFunction = function () {
     }, 1500);
 };
 
-var tenantAccountHistory = function () {
-    var model = {
-        TenantID: $("#hndTenantID").val(),
-    }
-    $.ajax({
-        url: "/MyTransaction/GetTenantAccountHistoryList",
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            totalAmount = 0;
-            $("#tblAccountHistory>tbody").empty();
 
-            $.each(response.model, function (elementType, elementValue) {
-                var html = "<tr data-value=" + elementValue.TransID + ">";
-                html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                html += "<td>" + elementValue.Description + "</td>";
-                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                html += "</tr>";
-                $("#tblAccountHistory>tbody").append(html);
-            });
-        }
-    });
-};
 
 var openPaymentBreakdown = function () {
     $('#popPaymentBreakdown').modal('show');
@@ -4762,7 +4719,6 @@ var fillDdlServiceCategory = function () {
         }
     });
 }
-
 var fillCaussingIssue = function (ServiceIssueID) {
     var params = { ServiceIssueID: ServiceIssueID };
     $.ajax({
@@ -4775,6 +4731,7 @@ var fillCaussingIssue = function (ServiceIssueID) {
             if ($.trim(response.error) != "") {
                 //this.cancelChanges();
             } else {
+
                if(response.length!='0'){
                    $("#ddlProblemCategory1").empty();
                    $("#ddlProblemCategory1").append("<option value='0'>What Item Is causing The Issue?</option>");
@@ -4786,11 +4743,11 @@ var fillCaussingIssue = function (ServiceIssueID) {
                    $("#ddlProblemCategory1").empty();
                   
                }
+
             }
         }
     });
 }
-
 var fillDdlIssue = function (CausingIssueID, ServiceIssueID) {
     var params = { CausingIssueID: CausingIssueID, ServiceIssueID: ServiceIssueID };
     $.ajax({
@@ -4813,7 +4770,7 @@ var fillDdlIssue = function (CausingIssueID, ServiceIssueID) {
                 else {
                     $("#Issue").addClass("hidden");
                     $("#ddlProblemCategory2").empty();
-                   
+
                 }
             }
         }
@@ -4946,6 +4903,8 @@ var getRecurringPayLists = function () {
 
 function editRecPayment(transid,amt,cdate,paid)
 {
+    $("#RecStep1").removeClass("hidden");
+    $("#RecStep2").addClass("hidden");
     $("#rcpid").text(transid);
     $('#rbtnAmountToPayR2').attr('checked', 'checked');
     $("#btnSetUpRecurringPayment").addClass("hidden");

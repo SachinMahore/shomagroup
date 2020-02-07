@@ -35,8 +35,8 @@
                                     <li id=""><a href="javascript:void(0);"></a></li>
                                     <li id="pay1" class="active1"><a href="javascript:void(0);" onclick="goToPayStep(1)" style="font-size:12pt;">Pay Rent Online</a></li>
                                     <li id="pay2"><a href="javascript:void(0);" onclick="goToPayStep(2)" style="font-size:12pt;">Payment History</a></li>
-                                    <li id="pay6"><a href="javascript:void(0);" onclick="goToPayStep(6)" style="font-size:12pt;">Account History</a></li>
-                                    <li id="pay4"><a href="javascript:void(0);" onclick="goToPayStep(4)" style="font-size:12pt;">Recuring Payments</a></li>
+                                  
+                                    <li id="pay4"><a href="javascript:void(0);" onclick="goToPayStep(4)" style="font-size:12pt;">Recurring Payments</a></li>
                                     <li id="pay5"><a href="javascript:void(0);" onclick="goToPayStep(5)" style="font-size:12pt;">Payment Accounts</a></li>
                                 </ul>
                                 <div class="row">
@@ -52,7 +52,7 @@
                                                 <div class="row">
                                                     <div class="form-group">
                                                         <div class="col-sm-3">
-                                                            <label style="background-color: transparent;color:#4D738A;font-size:13pt" class="star">Payment Method:</label>
+                                                            <label style="background-color: transparent;color:#4D738A;font-size:13pt" class="star">Payment type:</label>
                                                         </div>
                                                         <div class="col-sm-4">
                                                             <select id="ddlPaymentMethod" class="form-control"></select>
@@ -141,7 +141,7 @@
                                                         <div class="row">
                                                             <div class="form-group">
                                                                 <div class="col-sm-3">
-                                                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt">Prefarred Date:</label>
+                                                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt">Preferred Date:</label>
                                                                 </div>
                                                                 <div class="col-sm-4">
                                                                     <input id="txtPrefarredDate" type="text" class="form-control form-control-small" value="@DateTime.Now.ToString("MM/dd/yyyy")" style="width:50% !important" />
@@ -247,6 +247,7 @@
                                                             <option value='1'>Current month</option>
                                                             <option value='2'>Next month</option>
                                                             <option value='3'>Previous month</option>
+                                                            <option value='4'>Date Range</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -278,7 +279,8 @@
                                                             <th style="background-color: transparent;color:#4D738A;width:17%;font-size:13pt">Date</th>
                                                             <th style="background-color: transparent;color:#4D738A;width:35%;font-size:13pt">Description</th>
                                                             <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Charge</th>
-                                                            <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Total Charge</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Credit</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Balance</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody></tbody>
@@ -297,25 +299,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="hidden" id="payStep6">
-                                            <div class="col-md-12 clear">
-                                                <div class="panel-heading">
-                                                    <div class="col-sm-4">
-                                                        <h4 style="margin-top: 2%;font-size: 12pt;color:#4D738A !important;">Account History</h4>
-                                                    </div>
-                                                </div>
-                                                <table id="tblAccountHistory" class="table " cellspacing="0" width="100%">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="background-color: transparent;color:#4D738A;width:17%;font-size:13pt">Date</th>
-                                                            <th style="background-color: transparent;color:#4D738A;width:35%;font-size:13pt">Description</th>
-                                                            <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Activity</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody></tbody>
-                                                </table>
-                                            </div>
-                                        </div>
+                                   
                                         <div class="hidden" id="payStep4">
 
                                             <div class="col-md-12 clear hidden" id="divRecPayList">
@@ -369,7 +353,7 @@
                                                                         <div class="form-group">
                                                                             <div class="col-sm-12">
                                                                                 <label style="background-color: transparent;color:#4D738A;font-size:13pt">Payment Date:</label>
-                                                                                <p>We will make payments to this crdit card account each month on your due date (Or it falls on Saturday, the Friday before).</p>
+                                                                                <p>We will make payments to this credit card account each month on your due date (Or it falls on Saturday, the Friday before).</p>
                                                                             </div>
                                                                             <div class="col-sm-8">
                                                                                 <input id="txtPayDateR" type="text" class="form-control form-control-small" value="" style="width:60% !important" />
@@ -447,7 +431,7 @@
                                                                         <div class="form-group">
                                                                             <div class="col-sm-12">
                                                                                 <label style="background-color: transparent;color:#4D738A;font-size:13pt">Payment Date:</label>
-                                                                                <p>We will make payments to this crdit card account each month on your due date (Or it falls on Saturday, the Friday before). <span id="lblPayDateR"></span></p>
+                                                                                <p>We will make payments to this credit card account each month on your due date (Or it falls on Saturday, the Friday before). <span id="lblPayDateR"></span></p>
                                                                             </div>
 
                                                                         </div>
@@ -1533,7 +1517,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Payment Method</label>
+                                    <label>Payment type</label>
                                     <select id="ddlPayMethodPaymentAccounts" class="form-control">
                                         <option value='1' selected="selected">Credit Card</option>
                                         <option value='2'>Bank Account</option>
@@ -1542,8 +1526,8 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="star">Account Name</label>
-                                    <input id="txtAccountNamePayMethod" type="text" class="form-control" placeholder="Account Name" value="">
+                                    <label class="star">Account Nick Name</label>
+                                    <input id="txtAccountNamePayMethod" type="text" class="form-control" placeholder="Account Nick Name" value="">
                                 </div>
                             </div>
                         </div>
@@ -1882,7 +1866,82 @@
             </div>
         </div>
     </div>
+<div class="modal" id="popPaymentReceipt">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 100%; height:400px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;font-size: 30px !important">&times;</button>
+            <div class="modal-header"></div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="col-sm-12 text-justify" id="divRec">
+                    <table class=" " cellspacing="0" width="100%">
+                        <tr><td><img src="~/Content/assets/img/logo.png" width="200"></td><td>9400 NW 41st Street, Doral, FL 33178</td></tr>
+                        <tr><td colspan="2"><h3 style="text-align:center;">PAYMENT RECEIPT</h3></td></tr>
+                        <tr><td colspan="2"><hr /></td></tr>
+                        <tr><td>Receipt ID: # <b><span id="recid"></span></b></td><td>Receipt Date : <span id="recdate"></span></td></tr>
+                     
+                        <tr><td colspan="2"><hr /><br /></td></tr>
+                        <tr>
+                            <td colspan="2">
+                               <p>Received from <b><span id="recTenant"></span> (<span id="recUnit"></span>). </b> Amount of $<b><span id="recAmt"></span></b>  </p>
+                                <p>for <span id="recDesc"></span></p>
+                            </td>
+                        </tr>
 
+                        <tr><td colspan="2"><hr /></td></tr>
+                        <tr><td colspan="2"><p style="text-align:center;"> This is computer generated receipt. No signature required.</p></td></tr>
+                    </table>
+
+                </div>
+                <div class="col-sm-12">
+                    <div class="text-center">
+                        <button id="btnRecPrint" class="btn btn-primary" onclick="print('divRec')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print Receipt</b> </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="popDateRangeAccountHistory">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 100%; height:290px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <div class="modal-header">
+                <h3 class="modal-title">Search Account History</h3>
+                <div class="dot-hr"></div>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>From Date</label>
+                      
+                        <input id="txtFromDate" type="text" class="form-control form-control-small" placeholder="MM/dd/yyyy" value="@DateTime.Now.AddDays(-30).ToString("MM/dd/yyyy")" style="width:70% !important" />
+                        <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:162px;">
+                            <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>To Date</label>
+                        <input id="txtToDate" type="text" class="form-control form-control-small" placeholder="MM/dd/yyyy" value="@DateTime.Now.ToString("MM/dd/yyyy")" style="width:70% !important" />
+                        <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:162px;">
+                            <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                        </span>
+                      
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="dot-hr"></div>
+                </div>
+                <div class="col-sm-12 text-center">
+                    <button type="submit" class="btn btn-primary pull-right" onclick="dateRangeAccountHistorySearch();"><i class="fa fa-search"></i> Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <input id="hdnStepId1" type="hidden" value="@ViewBag.StepIdMakePayment1" />
     <input id="hdnStepId2" type="hidden" value="@ViewBag.StepIdMakePayment2" />
     <input id="hdnPayStepIdMakePayment" type="hidden" value="@ViewBag.PayStepIdMakePayment" />
@@ -1935,7 +1994,7 @@
             $("#txtToDate").datepicker();
             $("#txtTransFromDate").datepicker();
             $("#txtTransToDate").datepicker();
-            $("#txtPrefarredDate").datepicker();
+            $("#txtPrefarredDate").datepicker('setStartDate',new Date());
 
           
             $('#txtPayDateR').datepicker();

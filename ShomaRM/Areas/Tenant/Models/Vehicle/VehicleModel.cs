@@ -290,6 +290,7 @@ namespace ShomaRM.Areas.Tenant.Models
             return lstProp;
         }
 
+
         public string SaveUpdateVehicleTenanat(VehicleModel model, long UserId)
         {
             ShomaRMEntities db = new ShomaRMEntities();
