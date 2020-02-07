@@ -443,6 +443,7 @@
     <Content Include="Content\assets\img\bg-footer.jpg" />
     <Content Include="Content\assets\img\blog1.jpg" />
     <Content Include="Content\assets\img\blog2.jpg" />
+    <Content Include="Content\assets\img\ChecklistDocument\amazon299.txt" />
     <Content Include="Content\assets\img\chevron-down.png" />
     <Content Include="Content\assets\img\client-face1.png" />
     <Content Include="Content\assets\img\client-face2.png" />
@@ -770,8 +771,10 @@
     <Content Include="Areas\Admin\Views\Amenities\ARREdit.cshtml" />
     <Content Include="Areas\Admin\Views\GuestManagement\Index.cshtml" />
     <Content Include="Areas\Tenant\Views\MyCommunity\_JoinClub.cshtml" />
+
     <Content Include="Areas\Admin\Views\ServiceCategory\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ServiceLocation\Index.cshtml" />
+
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

@@ -2455,7 +2455,8 @@ var getApplicantLists = function () {
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
                     //Amit's work 17-10
-                    adminfess = $("#lblAdminFees").text();
+                    //adminfess = $("#lblAdminFees").text();
+                    adminfess = $("#lblFNLAmount").text();
                     totalFinalFees += parseFloat(adminfess);
                     pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:30%; padding:6px;'>$" + adminfess + "</tr>";
                 }
@@ -3401,7 +3402,8 @@ var getTenantOnlineList = function (id) {
                 $('#hndPassportUploadName').attr('onclick', 'fileNotExist()');
             }
             
-            $("#hndIdentityUploadName").text(response.model.UploadOriginalIdentityName);
+            //$("#hndIdentityUploadName").text(response.model.UploadOriginalIdentityName);
+            $("#hndIdentityUploadName").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalIdentityName);
             $("#hndOriginalIdentityUploadName").val(response.model.UploadOriginalIdentityName);
             $("#hndIdentityUploadName").data('value', response.model.IdentityDocument);
             var resultIdentityExist = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.IdentityDocument);
@@ -3414,7 +3416,8 @@ var getTenantOnlineList = function (id) {
                 $('#hndIdentityUploadName').attr('onclick', 'fileNotExist()');
             }
             //$("#hndFileUploadName1").val(response.model.TaxReturn);
-            $("#hndFileUploadName1").text(response.model.UploadOriginalFileName1);
+            //$("#hndFileUploadName1").text(response.model.UploadOriginalFileName1);
+            $("#hndFileUploadName1").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName1);
             $("#hndOriginalFileUploadName1").val(response.model.UploadOriginalFileName1);
             $("#hndFileUploadName1").data('value', response.model.TaxReturn);
             var resultTaxReturnExist = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn);
@@ -3428,7 +3431,8 @@ var getTenantOnlineList = function (id) {
             }
             
            // $("#hndFileUploadName2").val(response.model.TaxReturn2);
-            $("#hndFileUploadName2").text(response.model.UploadOriginalFileName2);
+            //$("#hndFileUploadName2").text(response.model.UploadOriginalFileName2);
+            $("#hndFileUploadName2").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName2);
             $("#hndOriginalFileUploadName2").val(response.model.UploadOriginalFileName2);
             $("#hndFileUploadName2").data('value', response.model.TaxReturn2);
             var resultTaxReturn2Exist = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn2);
@@ -3471,14 +3475,8 @@ var getTenantOnlineList = function (id) {
             if (response.model.UploadOriginalFileName3 != '') {
                 $("#fileUploadTaxReturn3Show").text(response.model.UploadOriginalFileName3);
             }
-            if (response.model.IsPaystub == true) {
-                $("#rbtnPaystub").attr("checked", true);
-            }
-            else {
-                $("#rbtnFedralTax").attr("checked", false);
-            }
-            document.getElementById("rbtnPaystub").disabled = true;
-            document.getElementById("rbtnFedralTax").disabled = true;
+            
+            
             //alert(response.model.IsPaystub);
 
             if (response.model.IsPaystub == true) {
@@ -3488,7 +3486,8 @@ var getTenantOnlineList = function (id) {
             else {
                 $("#rbtnFedralTax").iCheck('check');
             }
-
+            $("#rbtnPaystub").attr('disabled', 'disabled');
+            $("#rbtnFedralTax").attr('disabled', 'disabled');
         }
     });
 };
