@@ -4734,7 +4734,7 @@ var fillDdlLocation = function () {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-
+            
             $("#ddlLocation").empty();
             $("#ddlLocation").append("<option value='0'>Select Location</option>");
             $.each(response.model, function (index, elementValue) {
@@ -4775,12 +4775,17 @@ var fillCaussingIssue = function (ServiceIssueID) {
             if ($.trim(response.error) != "") {
                 //this.cancelChanges();
             } else {
-
-                $("#ddlProblemCategory1").empty();
-                $("#ddlProblemCategory1").append("<option value='0'>What Item Is causing The Issue?</option>");
-                $.each(response, function (index, elementValue) {
-                    $("#ddlProblemCategory1").append("<option value=" + elementValue.CausingIssueID + ">" + elementValue.CausingIssue + "</option>");
-                });
+               if(response.length!='0'){
+                   $("#ddlProblemCategory1").empty();
+                   $("#ddlProblemCategory1").append("<option value='0'>What Item Is causing The Issue?</option>");
+                   $.each(response, function (index, elementValue) {
+                       $("#ddlProblemCategory1").append("<option value=" + elementValue.CausingIssueID + ">" + elementValue.CausingIssue + "</option>");
+                   });
+               } else {
+                   $("#CausingIssue").addClass("hidden");
+                   $("#ddlProblemCategory1").empty();
+                  
+               }
             }
         }
     });
@@ -4798,12 +4803,18 @@ var fillDdlIssue = function (CausingIssueID, ServiceIssueID) {
             if ($.trim(response.error) != "") {
 
             } else {
-                $("#ddlProblemCategory2").empty();
-                //$("#ddlProblemCategory2").append("<option value='0'>What Is The Issue?</option>");
-                $.each(response, function (index, elementValue) {
-                    $("#ddlProblemCategory2").append("<option value=" + elementValue.IssueID + ">" + elementValue.Issue + "</option>");
-                });
-
+                if (response.length != '0') {
+                    $("#ddlProblemCategory2").empty();
+                    //$("#ddlProblemCategory2").append("<option value='0'>What Is The Issue?</option>");
+                    $.each(response, function (index, elementValue) {
+                        $("#ddlProblemCategory2").append("<option value=" + elementValue.IssueID + ">" + elementValue.Issue + "</option>");
+                    });
+                }
+                else {
+                    $("#Issue").addClass("hidden");
+                    $("#ddlProblemCategory2").empty();
+                   
+                }
             }
         }
     });

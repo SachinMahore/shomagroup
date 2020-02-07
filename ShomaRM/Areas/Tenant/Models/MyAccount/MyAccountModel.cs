@@ -317,7 +317,7 @@ namespace ShomaRM.Areas.Tenant.Models
             return model;
         }
 
-        public string UpdateContactInfo(MyAccountModel model)
+        public string UpdateContactInfo(MyAccountModel model , long UserId)
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
@@ -333,41 +333,43 @@ namespace ShomaRM.Areas.Tenant.Models
                 tblTenant.Email = model.Email;
                 db.SaveChanges();
 
+                var applyNow = db.tbl_ApplyNow.Where(p => p.UserId == UserId).FirstOrDefault();
+                if (applyNow != null)
+                {
+                    applyNow.FirstName = model.FirstName;
+                    applyNow.LastName = model.LastName;
+                    applyNow.Phone = model.Mobile;
+                    applyNow.Email = model.Email;
+                }
+                db.SaveChanges();
 
-                //var applyNow = db.tbl_ApplyNow.Where(p => p.ID == model.).FirstOrDefault();
-                //if (applyNow != null)
-                //{
-                //    applyNow.FirstName = model.FirstName;
-                //    applyNow.LastName = model.LastName;
-                //    applyNow.Email = model.Email;
-                //}
-                //db.SaveChanges();
+                var loginDet = db.tbl_Login.Where(p => p.UserID == UserId).FirstOrDefault();
+                if (loginDet != null)
+                {
+                    loginDet.FirstName = model.FirstName;
+                    loginDet.LastName = model.LastName;
+                    loginDet.Email = model.Email;
 
-                //var loginDet = db.tbl_Login.Where(p => p.TenantID == model.ID).FirstOrDefault();
-                //if (loginDet != null)
-                //{
-                //    loginDet.FirstName = model.FirstName;
-                //    loginDet.LastName = model.LastName;
-                //    loginDet.Email = model.Email;
+                }
+                db.SaveChanges();
 
-                //}
-                //db.SaveChanges();
+                var tenantOnline = db.tbl_TenantOnline.Where(p => p.ProspectID == tblTenant.ProspectID).FirstOrDefault();
+                if (tenantOnline != null)
+                {
+                    tenantOnline.FirstName = model.FirstName;
+                    tenantOnline.LastName = model.LastName;
+                    tenantOnline.MiddleInitial = model.MiddleInitial;
+                    tenantOnline.Mobile = model.Mobile;
+                    tenantOnline.Email = model.Email;
 
-                //var tenantOnline = db.tbl_TenantOnline.Where(p => p.t == model.ID).FirstOrDefault();
-                //if (tenantOnline != null)
-                //{
-                //    tenantOnline.FirstName = model.FirstName;
-                //    tenantOnline.LastName = model.LastName;
-                //    tenantOnline.Email = model.Email;
-
-                //}
-                //db.SaveChanges();
+                }
+                db.SaveChanges();
             }
 
             db.Dispose();
             return msg;
         }
-        public string UpdateEmContactInfo(MyAccountModel model)
+        public string UpdateEmContactInfo(MyAccountModel model, long UserId)
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
@@ -386,14 +388,33 @@ namespace ShomaRM.Areas.Tenant.Models
                 tblTenant.EmergencyEmail = model.EmEmail;
                 tblTenant.Relationship = model.EmRelation;
                 db.SaveChanges();
+            }
+            var getTenatId = db.tbl_ApplyNow.Where(co => co.UserId == UserId).FirstOrDefault();
 
+            var tblTInfo = db.tbl_TenantInfo.Where(p => p.ProspectID == getTenatId.ID).FirstOrDefault();
+
+            var tblTenantOnline = db.tbl_TenantOnline.Where(p => p.ProspectID == tblTInfo.ProspectID).FirstOrDefault();
+            if (tblTenantOnline != null)
+            {
+                tbl_TenantOnline objTable = new tbl_TenantOnline();
+
+                tblTenantOnline.EmergencyFirstName = model.EmFirstNane;
+                tblTenantOnline.EmergencyLastName = model.EmLastName;
+                tblTenantOnline.EmergencyMobile = model.EmMobile;
+                tblTenantOnline.EmergencyWorkPhone = model.EmWorkPhone;
+                tblTenantOnline.EmergencyHomePhone = model.EmHomePhone;
+                tblTenantOnline.EmergencyAddress1 = model.EmAddress1;
+                tblTenantOnline.EmergencyAddress2 = model.EmAddress2;
+                tblTenantOnline.EmergencyEmail = model.EmEmail;
+                tblTenantOnline.Relationship = model.EmRelation;
+                db.SaveChanges();
             }
 
             db.Dispose();
             return msg;
         }
 
-        public string UpdateWorkInfo(MyAccountModel model)
+        public string UpdateWorkInfo(MyAccountModel model,long UserID)
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
@@ -408,6 +429,21 @@ namespace ShomaRM.Areas.Tenant.Models
                 db.SaveChanges();
 
             }
+            var getTenatId = db.tbl_ApplyNow.Where(co => co.UserId == UserID).FirstOrDefault();
+
+            var tblTInfo = db.tbl_TenantInfo.Where(p => p.ProspectID == getTenatId.ID).FirstOrDefault();
+
+            var tblTenantOnline = db.tbl_TenantOnline.Where(p => p.ProspectID == tblTInfo.ProspectID).FirstOrDefault();
+            if (tblTenantOnline != null)
+            {
+                tbl_TenantOnline objTable = new tbl_TenantOnline();
+
+                tblTenantOnline.JobTitle = model.JobTitle;
+                tblTenantOnline.JobType = Convert.ToInt32(model.JobType);
+                tblTenantOnline.EmployerName = model.EmployerName;
+                db.SaveChanges();
+            }
+
 
             db.Dispose();
             return msg;

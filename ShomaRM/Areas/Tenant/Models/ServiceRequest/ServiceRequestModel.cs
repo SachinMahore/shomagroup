@@ -155,7 +155,7 @@ namespace ShomaRM.Areas.Tenant
                         {
                             ServiceID = item.ServiceID,
                             TenantID = item.TenantID,
-                            ProblemCategorystring = item.ProblemCategory == 1 ? "Appliance" : item.ProblemCategory == 2 ? "Doors & Locks" : item.ProblemCategory == 3 ? "Electrical and Lighting" : item.ProblemCategory == 4 ? "Flooring" : item.ProblemCategory == 5 ? "General" : item.ProblemCategory == 6 ? "Heating & cooling" : item.ProblemCategory == 7 ? "Plumbing & bath" : item.ProblemCategory == 8 ? "Safety equipment" : item.ProblemCategory == 9 ? "Preventative maintenance" : item.ProblemCategory == 10 ? "" : "Other",
+                            ProblemCategorystring = item.ProblemCategory == 1 ? "Appliance" : item.ProblemCategory == 2 ? "Doors & Locks" : item.ProblemCategory == 3 ? "Electrical and Lighting" : item.ProblemCategory == 4 ? "Flooring" : item.ProblemCategory == 5 ? "General" : item.ProblemCategory == 6 ? "Heating & cooling" : item.ProblemCategory == 7 ? "Plumbing & bath" : item.ProblemCategory == 8 ? "Safety equipment" : item.ProblemCategory == 9 ? "Preventative maintenance" : item.ProblemCategory == 10 ? "Other" : "",
                             Details = item.Details,
                             PermissionEnterApartment = item.PermissionEnterApartment,
                             PermissionComeDate = item.PermissionComeDate,
@@ -183,7 +183,7 @@ namespace ShomaRM.Areas.Tenant
                         {
                             ServiceID = item.ServiceID,
                             TenantID = item.TenantID,
-                            ProblemCategorystring = item.ProblemCategory == 1 ? "Appliance" : item.ProblemCategory == 2 ? "Doors & Locks" : item.ProblemCategory == 3 ? "Electrical and Lighting" : item.ProblemCategory == 4 ? "Flooring" : item.ProblemCategory == 5 ? "General" : item.ProblemCategory == 6 ? "Heating & cooling" : item.ProblemCategory == 7 ? "Plumbing & bath" : item.ProblemCategory == 8 ? "Safety equipment" : item.ProblemCategory == 9 ? "Preventative maintenance" : item.ProblemCategory == 10 ? "" : "Other",
+                            ProblemCategorystring = item.ProblemCategory == 1 ? "Appliance" : item.ProblemCategory == 2 ? "Doors & Locks" : item.ProblemCategory == 3 ? "Electrical and Lighting" : item.ProblemCategory == 4 ? "Flooring" : item.ProblemCategory == 5 ? "General" : item.ProblemCategory == 6 ? "Heating & cooling" : item.ProblemCategory == 7 ? "Plumbing & bath" : item.ProblemCategory == 8 ? "Safety equipment" : item.ProblemCategory == 9 ? "Preventative maintenance" : item.ProblemCategory == 10 ? "Other" : "",
                             Details = item.Details,
                             PermissionEnterApartment = item.PermissionEnterApartment,
                             PermissionComeDate = item.PermissionComeDate,

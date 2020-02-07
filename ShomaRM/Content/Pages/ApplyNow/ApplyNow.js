@@ -440,6 +440,7 @@ $(document).ready(function () {
     document.getElementById('filePetVaccinationCertificate').onchange = function () {
         uploadPetVaccination();
     };
+    
 });
 var abcd = function () {
     alert("Hi");

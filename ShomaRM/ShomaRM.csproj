@@ -80,10 +80,8 @@
     <Reference Include="SendGrid">
       <HintPath>..\packages\SendGrid.9.12.6\lib\net452\SendGrid.dll</HintPath>
     </Reference>
-
     <Reference Include="SendGrid.SmtpApi">
       <HintPath>..\packages\SendGrid.SmtpApi.1.3.3\lib\SendGrid.SmtpApi.dll</HintPath>
-
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -192,6 +190,8 @@
     <Compile Include="Areas\Admin\Controllers\ProspectManagement\ProspectManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProspectVerification\ProspectVerificationController.cs" />
     <Compile Include="Areas\Admin\Controllers\PurchaseOrder\PurchaseOrderController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ServiceCategory\ServiceCategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ServiceLocation\ServiceLocationController.cs" />
     <Compile Include="Areas\Admin\Controllers\ServicesManagement\ServicesManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\State\StateController.cs" />
     <Compile Include="Areas\Admin\Controllers\Storage\StorageController.cs" />
@@ -232,6 +232,8 @@
     <Compile Include="Areas\Admin\Models\SendGrid\ITransport.cs" />
     <Compile Include="Areas\Admin\Models\SendGrid\SendGrid.cs" />
     <Compile Include="Areas\Admin\Models\SendGrid\Web.cs" />
+    <Compile Include="Areas\Admin\Models\ServiceCategory\ServiceCategoryModel.cs" />
+    <Compile Include="Areas\Admin\Models\ServiceLocation\ServiceLocationModel.cs" />
     <Compile Include="Areas\Admin\Models\ServicesManagement\ServicesManagementModel.cs" />
     <Compile Include="Areas\Admin\Models\State\StateModel.cs" />
     <Compile Include="Areas\Admin\Models\Storage\StorageModel.cs" />
@@ -357,6 +359,8 @@
     <Content Include="Areas\Admin\Content\Pages\ProspectVerification\ProspectVerificationList.js" />
     <Content Include="Areas\Admin\Content\Pages\PurchaseOrder\PurchaseOrder.js" />
     <Content Include="Areas\Admin\Content\Pages\PurchaseOrder\PurchaseOrderList.js" />
+    <Content Include="Areas\Admin\Content\Pages\ServiceCategory\ServiceCategory.js" />
+    <Content Include="Areas\Admin\Content\Pages\ServiceLocation\ServiceLocation.js" />
     <Content Include="Areas\Admin\Content\Pages\ServiceManagement\ServiceAdmin.js" />
     <Content Include="Areas\Admin\Content\Pages\ServiceManagement\ServiceRequestList.js" />
     <Content Include="Areas\Admin\Content\Pages\State\StateList.js" />
@@ -764,6 +768,8 @@
     <Content Include="Areas\Admin\Views\Amenities\ARREdit.cshtml" />
     <Content Include="Areas\Admin\Views\GuestManagement\Index.cshtml" />
     <Content Include="Areas\Tenant\Views\MyCommunity\_JoinClub.cshtml" />
+    <Content Include="Areas\Admin\Views\ServiceCategory\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ServiceLocation\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -812,6 +818,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Controllers\NewFolder1\" />
     <Folder Include="Areas\Admin\Views\CommunityManagment\" />
     <Folder Include="Areas\Tenant\Views\Applicant\" />
     <Folder Include="Areas\Tenant\Views\CommunityActivity\" />
@@ -855,7 +862,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53673</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

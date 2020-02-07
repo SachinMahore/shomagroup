@@ -83,7 +83,6 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-
         public ActionResult DeleteMarketSource(long ADID)
         {
             try
