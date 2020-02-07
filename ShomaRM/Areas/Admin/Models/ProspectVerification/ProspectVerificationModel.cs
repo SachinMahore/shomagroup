@@ -7,6 +7,8 @@ using System.Linq;
 using System.Web;
 using ShomaRM.Data;
 using ShomaRM.Areas.Tenant.Models;
+using ShomaRM.Models;
+using System.Xml.Serialization;
 
 namespace ShomaRM.Areas.Admin.Models
 {
@@ -365,6 +367,8 @@ namespace ShomaRM.Areas.Admin.Models
             public string SortBy { get; set; }
             public string OrderBy { get; set; }
         }
+
+        
         public string GetDocumentType(string DocType)
         {
             string docType = "";
@@ -385,6 +389,11 @@ namespace ShomaRM.Areas.Admin.Models
                 docType = "Passport";
             }
             return docType;
+        }
+
+        public void SetAqutraq(long TenantID)
+        {
+
         }
         public ProspectVerificationModel GetProspectData(long Id)
         {
@@ -849,5 +858,91 @@ namespace ShomaRM.Areas.Admin.Models
     public class EmailData
     {
         public string AppEmail { get; set; }
+    }
+
+    public class EmpAqutraqModel
+    {
+        
+    }
+
+    public class OrderXML
+    {
+        public string Method { get; set; }
+        public  Authentication Authentication { get; set; }
+        public string   ReturnResultURL { get; set; }
+        public string OrderingUser { get; set; }
+    }
+    public class Authentication
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string TestMode { get; set; }
+    }
+    public class Order
+    {
+        public string BillingReferenceCode { get; set; }
+    }
+    public class Subject
+    {
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
+        public string Generation { get; set; }
+        public string DOB { get; set; }
+        public string SSN { get; set; }
+        public string Gender { get; set; }
+        public string Ethnicity { get; set; }
+        public string DLNumber { get; set; }
+        public string ApplicantPosition { get; set; }
+
+        public CurrentAddress CurrentAddress { get;set; }
+        public Aliases Aliases { get; set; }
+    }
+
+    public class Aliases
+    {
+        public Alias Alias { get; set; }
+    }
+    public class Alias
+    {
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
+
+    }
+    public class PackageServiceCode
+    {
+   public OrderDetail OrderDetail { get; set; }
+    }
+
+    public class OrderDetail
+    {
+        public string  CompanyName { get; set; }
+        public string Position { get; set; }
+        public string Salary { get; set; }
+
+        public string Manager { get; set; }
+        public string Telephone { get; set; }
+        public string EmployerCity { get; set; }
+        public string EmployerState { get; set; }
+        public EmploymentDates EmploymentDates { get; set; }
+      
+        public string ReasonForLeaving { get; set; }
+
+    }
+
+    public class EmploymentDates
+    {
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
+    }
+
+    public class CurrentAddress
+    {
+        public string StreetAddress { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Zipcode { get; set; }
+        public string Country { get; set; }
     }
 }
