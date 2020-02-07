@@ -100,7 +100,7 @@ namespace ShomaRM.Models
                         Credit_Amount = model.Charge_Amount,
                         Description = model.Description +"| TransID: "+ Convert.ToInt32(strlist[1]),
                         Charge_Date = DateTime.Now,
-                        Charge_Type = 2,
+                        Charge_Type = 1,
                         Payment_ID = Convert.ToInt32(strlist[1]),
                         Charge_Amount = model.Charge_Amount,
                         Miscellaneous_Amount = 0,

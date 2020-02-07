@@ -809,6 +809,7 @@
     <Content Include="Views\PayLink\Index.cshtml" />
     <Content Include="Views\PayLink\LeaseNow.cshtml" />
     <Content Include="Views\CheckList\Index.cshtml" />
+    <Content Include="Views\PayLink\PayAmenityCharges.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -855,7 +856,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53673</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
