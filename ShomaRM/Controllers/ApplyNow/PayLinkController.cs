@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ShomaRM.Models;
+using ShomaRM.Areas.Tenant.Models;
 
 namespace ShomaRM.Controllers
 {
@@ -38,16 +39,15 @@ namespace ShomaRM.Controllers
         }
         public ActionResult PayAmenityCharges(int ARID)
         {
-            try
+            ViewBag.UID = "0";
+            ViewBag.ARID = ARID;
+            var model = new AmenitiesReservationModel().GetRRInfo(ARID);
+            if (ShomaGroupWebSession.CurrentUser != null)
             {
-                Session["ARID"] = ARID;
-               
-                return RedirectToAction("../Account/Login");
+                ViewBag.UID = ShomaGroupWebSession.CurrentUser.UserID.ToString();
             }
-            catch (Exception ex)
-            {
-                return null;
-            }
+
+            return View("..//Paylink//PayAmenityCharges",model);
         }
     }
 }
