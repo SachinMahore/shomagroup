@@ -1538,7 +1538,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Download <span id="lblUploadIdentity"></span></label><br />
-                                    <span class=" btn-primary"><i class="fa fa-download fa-2x"></i><a href="#" class=" btn-primary" target='_parent' id="hndIdentityUploadName"></a></span>
+                                    <a href="javascript:void(0);" class="btn btn-primary" target='_parent' id="hndIdentityUploadName"><i class="fa fa-download fa-2x"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -1780,7 +1780,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label id="lblUpload1">Download 1</label><br />
-                                    <span class=" btn-primary"><i class="fa fa-download fa-2x"></i><a href="#" class=" btn-primary" target='_blank' download="" id="hndFileUploadName1"></a></span>
+                                    <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="hndFileUploadName1"><i class="fa fa-download fa-lg"></i></a>
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -1794,7 +1794,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label id="lblUpload2">Download 2</label><br />
-                                    <span class=" btn-primary"><i class="fa fa-download fa-2x"></i><a href="#" class=" btn-primary" target='_blank' download="" id="hndFileUploadName2"></a></span>
+                                    <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="hndFileUploadName2"><i class="fa fa-download fa-lg"></i></a>
                                 </div>
                             </div>
                             <div class="col-sm-4" id="divUpload3">
@@ -2249,7 +2249,7 @@
                                     <div class="dot-hr"></div>
                                 </div>
                                 <div class="col-sm-12">
-                                    <label id="lblPaymentDet" style="text-decoration:underline"><b>Enter Credit Card Details.</b></label>
+                                    <label id="lblPaymentDet" style="text-decoration:underline"><b>Credit Card Details.</b></label>
 
                                 </div>
                                 <div class="col-sm-12 hidden" id="divBank">
@@ -3947,7 +3947,7 @@
             $("#dwnldPOI").attr('href', '/Content/assets/img/ChecklistDocument/' + '@Model.InsuranceDoc');
             $("#dwnldPOI").attr('download','@Model.InsuranceDoc');
             $("#dwnldPOI").attr('target', '_parent');
-            $("#dwnldPOI").text('@Model.InsuranceDoc');
+            $("#dwnldPOI").html('<i class="fa fa-download"></i>' + ' ' + '@Model.InsuranceDoc');
         }
         else {
             $("#dwnldPOI").attr('href', 'javascript:void(0)');
@@ -3964,7 +3964,7 @@
         else {
             $("#dwnldPOE").attr('href', 'javascript:void(0)');
             $("#dwnldPOE").attr('onclick', 'fileNotFound()');
-            $("#dwnldPOE").text('@Model.ElectricityDoc');
+            $("#dwnldPOE").html('<i class="fa fa-download"></i>' + ' ' + '@Model.ElectricityDoc');
         }
         $("#txtPhoneNumber").text(formatPhoneFax('@Model.Phone'));
         $("#lblFNLPhone").text(formatPhoneFax('@Model.Phone'));

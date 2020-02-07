@@ -593,6 +593,56 @@ namespace ShomaRM.Areas.Tenant.Models
             return model;
         }
 
+        public List<MyAccountModel> GetTenantPetLeaseDocuments(MyAccountModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<MyAccountModel> listPetCertificate = new List<MyAccountModel>();
+            var appNow = db.tbl_ApplyNow.Where(co => co.ID == model.UserId).FirstOrDefault();
+            if (appNow != null)
+            {
+                var getPetCertificates = db.tbl_TenantPet.Where(co => co.TenantID == appNow.ID).ToList();
+                if (getPetCertificates != null)
+                {
+                    foreach (var item in getPetCertificates)
+                    {
+                        listPetCertificate.Add(new MyAccountModel()
+                        {
+                            PetPhotoDoc = item.Photo,
+                            OriginalPetPhotoDoc = item.OriginalPhoto,
+                            PetVaccinationDoc = item.PetVaccinationCert,
+                            OriginalPetVaccinationDoc = item.OriginalVaccinationCert
+                        });
+                    }
+                }
+            }
+
+            return listPetCertificate;
+        }
+
+        public List<MyAccountModel> GetTenantVehicleLeaseDocuments(MyAccountModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<MyAccountModel> listVehicleCertificate = new List<MyAccountModel>();
+            var appNow = db.tbl_ApplyNow.Where(co => co.ID == model.UserId).FirstOrDefault();
+            if (appNow != null)
+            {
+                var getVehicleCertificates = db.tbl_Vehicle.Where(co => co.TenantID == appNow.ID).ToList();
+                if (getVehicleCertificates != null)
+                {
+                    foreach (var item in getVehicleCertificates)
+                    {
+                        listVehicleCertificate.Add(new MyAccountModel()
+                        {
+                            VehicleRegistrationDoc = item.VehicleRegistration,
+                            OriginalVehicleRegistrationDoc = item.OriginalVehicleReg
+                        });
+                    }
+                }
+            }
+
+            return listVehicleCertificate;
+        }
+
         public List<AmenitiesModel> GetAmenityList()
         {
 
