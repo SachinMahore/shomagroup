@@ -1014,6 +1014,70 @@ namespace ShomaRM.Areas.Tenant.Models
             db.Dispose();
             return msg;
         }
+
+        public string SaveAmenityTransaction(MyTransactionModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string msg = "";
+
+            var editPaymentAccounts = db.tbl_PaymentAccounts.Where(co => co.PAID == model.PAID).FirstOrDefault();
+            ApplyNowModel mm = new ApplyNowModel();
+            if (editPaymentAccounts != null)
+            {
+                mm.Name_On_Card = editPaymentAccounts.NameOnCard;
+                mm.CardNumber = editPaymentAccounts.CardNumber;
+                mm.CardMonth = Convert.ToInt32(editPaymentAccounts.Month);
+                mm.CardYear = Convert.ToInt32(editPaymentAccounts.Year);
+                mm.CCVNumber = model.CCVNumber;
+                mm.ProspectId = model.TenantID;
+                mm.PaymentMethod = 1;
+                mm.Charge_Amount = model.Charge_Amount;
+            }
+
+          
+                string transStatus = new UsaePayModel().ChargeCard(mm);
+                String[] spearator = { "|" };
+                String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
+                if (strlist[1] != "000000")
+                {
+                    var saveTransaction = new tbl_Transaction()
+                    {
+
+                        TenantID = model.TenantID,
+                        Revision_Num =1,
+                        Transaction_Type = model.Transaction_Type,
+                        Transaction_Date = DateTime.Now,
+                        Run = 1,
+                        LeaseID = model.LeaseID,
+                        Reference = "AR"+ model.Batch,
+                        CreatedDate = DateTime.Now,
+                        Credit_Amount = model.Charge_Amount,
+                        Description = model.Description + " | TransID: " + Convert.ToInt32(strlist[1]),
+                        Charge_Date = DateTime.Now,
+                        Charge_Type = 4,
+                        Payment_ID = Convert.ToInt32(strlist[1]),
+                        Charge_Amount = model.Charge_Amount,
+
+                        Accounting_Date = DateTime.Now,
+
+                        Batch = model.Batch,
+                        Batch_Source = "",
+                        CreatedBy =Convert.ToInt32(model.UserId),
+
+                        GL_Trans_Description = transStatus.ToString(),
+                       
+                    };
+                    db.tbl_Transaction.Add(saveTransaction);
+                    db.SaveChanges();
+                    var TransId = saveTransaction.TransID;
+
+                CreateTransBill(TransId, Convert.ToDecimal(model.Charge_Amount), model.Description);
+                msg = transStatus.ToString();
+                }
+           
+            db.Dispose();
+            return msg;
+        }
     }
 }
 

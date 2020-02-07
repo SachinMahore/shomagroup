@@ -107,33 +107,33 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult UpdateContactInfo(MyAccountModel model)
+        public ActionResult UpdateContactInfo(MyAccountModel model,long UserId)
         {
             try
             {
-                return Json(new { result = 1, ID = model.UpdateContactInfo(model) }, JsonRequestBehavior.AllowGet);
+                return Json(new { result = 1, ID = model.UpdateContactInfo(model, UserId) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult UpdateEmContactInfo(MyAccountModel model)
+        public ActionResult UpdateEmContactInfo(MyAccountModel model,long UserId)
         {
             try
             {
-                return Json(new { result = 1, ID = model.UpdateEmContactInfo(model) }, JsonRequestBehavior.AllowGet);
+                return Json(new { result = 1, ID = model.UpdateEmContactInfo(model,UserId) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult UpdateWorkInfo(MyAccountModel model)
+        public ActionResult UpdateWorkInfo(MyAccountModel model,long UserId)
         {
             try
             {
-                return Json(new { msg = new MyAccountModel().UpdateWorkInfo(model) }, JsonRequestBehavior.AllowGet);
+                return Json(new { msg = new MyAccountModel().UpdateWorkInfo(model,UserId) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
