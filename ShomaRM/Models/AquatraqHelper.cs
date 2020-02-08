@@ -8,9 +8,9 @@ using System.Xml.Serialization;
 
 namespace ShomaRM.Models
 {
-    public class AquatraqHelper
+    public static class AquatraqHelper
     {
-        public  string Serialize<T>(this T value)
+        public static string Serialize<T>(this T value)
         {
             if (value == null)
             {

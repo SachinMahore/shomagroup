@@ -822,7 +822,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Controllers\NewFolder1\" />
     <Folder Include="Areas\Admin\Views\CommunityManagment\" />
     <Folder Include="Areas\Tenant\Views\Applicant\" />
     <Folder Include="Areas\Tenant\Views\CommunityActivity\" />
