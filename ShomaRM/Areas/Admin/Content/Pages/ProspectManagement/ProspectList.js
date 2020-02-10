@@ -75,7 +75,7 @@ var fillProspectList = function (pagenumber) {
                     var html = "<tr data-value=" + elementValue.PID + ">";
                     html += "<td>" + elementValue.FirstName + "</td>";
                     html += "<td>" + elementValue.LastName + "</td>";
-                    html += "<td>" + elementValue.PhoneNo + "</td>";
+                    html += "<td>" + formatPhoneFax(elementValue.PhoneNo) + "</td>";
                     html += "<td>" + elementValue.EmailId + "</td>";
                     html += "<td>" + elementValue.StateName + "</td>";
                     html += "<td>" + elementValue.CityName + "</td>";
@@ -120,4 +120,6 @@ $(document).keypress(function (e) {
         buildPaganationProspectList(1);
     }
 });
+
+
 

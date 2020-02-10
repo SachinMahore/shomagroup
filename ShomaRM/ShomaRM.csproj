@@ -171,6 +171,7 @@
     <Compile Include="Areas\Admin\Controllers\ChargeType\ChargeTypeController.cs" />
     <Compile Include="Areas\Admin\Controllers\City\CityController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommunityManagment\CommunityManagmentController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Country\CountryController.cs" />
     <Compile Include="Areas\Admin\Controllers\Document\DocumentController.cs" />
     <Compile Include="Areas\Admin\Controllers\Event\EventController.cs" />
     <Compile Include="Areas\Admin\Controllers\Facility\FacilityController.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="Areas\Admin\Models\ChargeType\ChargeTypeModel.cs" />
     <Compile Include="Areas\Admin\Models\City\CityModel.cs" />
     <Compile Include="Areas\Admin\Models\CommunityActivity\CommunityActivityModel.cs" />
+    <Compile Include="Areas\Admin\Models\Country\CountryModel.cs" />
     <Compile Include="Areas\Admin\Models\Document\DocumentModel.cs" />
     <Compile Include="Areas\Admin\Models\Event\EventModel.cs" />
     <Compile Include="Areas\Admin\Models\Facility\FacilityModel.cs" />
@@ -336,6 +338,7 @@
     <Content Include="Areas\Admin\Content\Pages\CashReceipt\CashReceiptList.js" />
     <Content Include="Areas\Admin\Content\Pages\ChargeType\ChargeType.js" />
     <Content Include="Areas\Admin\Content\Pages\CommunityManagment\CommunityActivityList.js" />
+    <Content Include="Areas\Admin\Content\Pages\Country\Country.js" />
     <Content Include="Areas\Admin\Content\Pages\Document\Document.js" />
     <Content Include="Areas\Admin\Content\Pages\Event\Event.js" />
     <Content Include="Areas\Admin\Content\Pages\Event\EventList.js" />
@@ -771,10 +774,9 @@
     <Content Include="Areas\Admin\Views\Amenities\ARREdit.cshtml" />
     <Content Include="Areas\Admin\Views\GuestManagement\Index.cshtml" />
     <Content Include="Areas\Tenant\Views\MyCommunity\_JoinClub.cshtml" />
-
     <Content Include="Areas\Admin\Views\ServiceCategory\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ServiceLocation\Index.cshtml" />
-
+    <Content Include="Areas\Admin\Views\Country\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -824,7 +826,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Controllers\NewFolder1\" />
     <Folder Include="Areas\Admin\Views\CommunityManagment\" />
     <Folder Include="Areas\Tenant\Views\Applicant\" />
     <Folder Include="Areas\Tenant\Views\CommunityActivity\" />

@@ -81,7 +81,6 @@
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Visit" Width="1.5" PointX="22.5" PointY="68.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_WorkOrder" Width="1.5" PointX="25.5" PointY="90.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_ZipCodes" Width="1.5" PointX="12" PointY="69.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Country" Width="1.5" PointX="6.75" PointY="16.75" IsExpanded="true" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" ManuallyRouted="false" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow" ManuallyRouted="false" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" ManuallyRouted="false" />
@@ -159,6 +158,7 @@
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantEventJoin_tbl_TenantEventJoin" ManuallyRouted="false" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_UtilityBilling_tbl_Utility" ManuallyRouted="false" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_WorkOrder_tbl_Vendor" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Country" Width="1.5" PointX="7.375" PointY="16.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

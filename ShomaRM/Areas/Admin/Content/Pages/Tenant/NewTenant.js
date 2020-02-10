@@ -1024,7 +1024,7 @@ var getCommunityActivityList = function () {
                 html += "<td>" + elementValue.Details + "</td>";
                 html += "<td>" + attachFile + "</td>";
                 html += "<td>" + elementValue.DateString + "</td>";
-                html += "<td><button class='btn btn-addon' onclick='deleteCommunityPost(" + elementValue.CID + ")'><i class='fa fa-trash'></i></button></td>";
+                html += "<td><button class='btn btn-danger' style='padding:5px 8px !important;' onclick='deleteCommunityPost(" + elementValue.CID + ")'><i class='fa fa-trash' aria-hidden='true'></i></button></td>";
                 html += "</tr>";
                 $("#tblCommunityActivity>tbody").append(html);
             });

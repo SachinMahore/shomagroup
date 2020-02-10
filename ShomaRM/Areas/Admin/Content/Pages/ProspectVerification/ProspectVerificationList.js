@@ -86,7 +86,7 @@ var fillProspectVerifyList = function (pagenumber, sortby, orderby) {
                     html = "<tr data-value=" + elementValue.UserID + ">";
                     html += "<td style='padding: 10px;'>" + elementValue.FirstName + "</td>";
                     html += "<td style='padding: 10px;'>" + elementValue.LastName + "</td>";
-                    html += "<td style='padding: 10px;'>" + elementValue.Phone + "</td>";
+                    html += "<td style='padding: 10px;'>" + formatPhoneFax(elementValue.Phone) + "</td>";
                     html += "<td style='padding: 10px;'>" + elementValue.Email + "</td>";
                     html += "<td style='padding: 10px;'>" + elementValue.CreatedDate + "</td>";
                     html += "<td style='padding: 10px;'>" + elementValue.PropertyId + "</td>";
