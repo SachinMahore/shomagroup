@@ -195,7 +195,7 @@ var checkRequestButton = function () {
 
 var getTenantData = function (userID) {
     $("#divLoader").show();
-    var params = { TenantID: userID };
+    var params = { TenantID: userID, UserId: $("#hndUserId").val() };
     $.ajax({
         url: "../GetTenantInfo",
         method: "post",
@@ -216,8 +216,12 @@ var getTenantData = function (userID) {
 
                 $("#invTenant").text(response.FirstName + " " + response.LastName);
                 $("#invUnit").text(response.UnitName);
-               // $("#hndLeaseTerm").val(response.LeaseTerm);
 
+                $("#recTenant").text(response.FirstName + " " + response.LastName);
+                $("#recUnit").text(response.UnitName);
+               // $("#hndLeaseTerm").val(response.LeaseTerm);
+                $("#lblCurrentPrePayAmountR").text(response.MonthlyCharges);
+                $("#recPopAmt").text(response.MonthlyCharges);
 
                 $("#txtAddress").val(response.Address);
                 $("#txtCity").val(response.City);
@@ -805,16 +809,20 @@ var getTransationLists = function () {
             $.each(response.model, function (elementType, elementValue) {
                 var html = "<tr data-value=" + elementValue.TransID + ">";
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                html += "<td><a href='javascript:void(0);'  data-toggle='modal' data-target='#popInvoice' onclick='getInvoice("+ elementValue.TransID +")'>" + elementValue.Description + "</a></td>";
-                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                if (elementValue.Credit_Amount != "0.00")
+               
+                if (elementValue.Credit_Amount != "0.00" && elementValue.Charge_Amount == "0.00")
                 {
+                    html += "<td>" + elementValue.Description + "<a href='javascript:void(0);' class='pull-right'  data-toggle='modal' data-target='#popPaymentReceipt' onclick='getInvoice(" + elementValue.TransID + ")'><img src='/Content/assets/Assets/rec.jpg' style='height: 20px;'/></td>";
+                    html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
                     html += "<td style='text-align: right;'><b>$" + formatMoney(elementValue.Credit_Amount) + "</b></td>";
                 } else
                 {
+
+                    html += "<td>" + elementValue.Description + "<a href='javascript:void(0);' class='pull-right'  data-toggle='modal' data-target='#popInvoice' onclick='getInvoice(" + elementValue.TransID + ")'><img src='/Content/assets/Assets/inv.png' style='height: 20px;'/></a></td>";
+                    html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
                     html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Credit_Amount) + "</td>";
                 }
-               
+              
                 bal = parseFloat((parseFloat(bal) + parseFloat(elementValue.Charge_Amount)) - parseFloat(elementValue.Credit_Amount));
                 html += "<td style='text-align: right;'>$" + formatMoney(bal) + "</td>";
                 html += "</tr>";
@@ -841,9 +849,14 @@ var getInvoice = function (invid)
             var bal = 0;
 
             $("#invid").text(invid);
+           
             $("#invdate").text(response.model.Transaction_DateString);
-            $("#invamount").text(response.model.Credit_Amount);
+            $("#invamount").text(formatMoney(response.model.Charge_Amount));
             
+            $("#recid").text(invid);
+            $("#recdate").text(response.model.Transaction_DateString);
+            $("#recAmt").text(formatMoney(response.model.Credit_Amount));
+            $("#recDesc").text(response.model.Description);
 
             $("#tblInvoiceBill>tbody").empty();
             var srno = 1;
@@ -862,13 +875,15 @@ var getInvoice = function (invid)
         }
     });
 }
+
 var getUpTransationLists = function () {
    
     var model = {
-        TenantID: $("#hndTenantID").val()
+        TenantID: $("#hndTenantID").val(),
+        AccountHistoryDDL: 2
     }
     $.ajax({
-        url: "/MyTransaction/GetUpTransationLists",
+        url: "/MyTransaction/GetTenantTransactionList",
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
@@ -879,18 +894,19 @@ var getUpTransationLists = function () {
 
             $.each(response.model, function (elementType, elementValue) {
                 var html = "<tr data-value=" + elementValue.TransID + ">";
-
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                html += "<td>" + elementValue.Description + "</td>";
+                html += "<td>" + elementValue.Description + "<a href='javascript:void(0);' class='pull-right'  data-toggle='modal' data-target='#popInvoice' onclick='getInvoice(" + elementValue.TransID + ")'><img src='/Content/assets/Assets/inv.png' style='height: 20px;'/></a></td>";
                 html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                html += "<td style='text-align: right;'>$" + formatMoney(0) + "</td>";
-            
-                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
+                if (elementValue.Credit_Amount != "0.00") {
+                    html += "<td style='text-align: right;'><b>$" + formatMoney(elementValue.Credit_Amount) + "</b></td>";
+                } else {
+                    html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Credit_Amount) + "</td>";
+                }
 
+                bal = parseFloat((parseFloat(bal) + parseFloat(elementValue.Charge_Amount)) - parseFloat(elementValue.Credit_Amount));
+                html += "<td style='text-align: right;'>$" + formatMoney(bal) + "</td>";
                 html += "</tr>";
                 $("#tblUpcomingCharges>tbody").append(html);
-                $("#lblCurrentPrePayAmountR").text(formatMoney(elementValue.Charge_Amount));
-                $("#recPopAmt").text(formatMoney(elementValue.Charge_Amount));
             });
            
         }
@@ -1429,7 +1445,15 @@ var savePaymentAccounts = function () {
     if ($("#txtAccountNamePayMethod").val() == '') {
         msg += 'Enter the account name</br>'
     }
+    var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
+    var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
 
+    GivenDate = new Date(GivenDate);
+    CurrentDate = new Date(CurrentDate);
+
+    if (GivenDate < CurrentDate) {
+        msg += "Your Credit Card Expired..</br>";
+    }
 
     if (msg != '') {
         $.alert({
@@ -2538,35 +2562,7 @@ var r = function () {
     $('#rbtnAmountToPay1').attr('checked', 'checked');
 
 }
-var getAmenityReservationPay = function (ARID) {
-    var id = 0;
-    if ($("#hdnARId").val() == 0) {
-        id = ARID;
-    }
-    else {
-        id = $("#hdnARId").val();
-    }
-    var params = { Id: id };
-    $.ajax({
-        url: "/Amenities/GetRRInfo",
-        method: "post",
-        data: JSON.stringify(params),
-        contentType: "application/json; charset=utf-8", // content type sent to server
-        dataType: "json", //Expected data format from server
-        success: function (response) {
-            //clearRRdata();
-            if ($.trim(response.error) != "") {
-                //showMessage("Error!", response.error);
-            } else {
 
-                $("#txtDescriptionText").val(response.AmenityName +" Reservation Fees: ");
-                
-                $("#lblCurrentPrePayAmount").text('$' + formatMoney(parseFloat(parseFloat(response.ReservationFee) + parseFloat(response.DepositFee)).toFixed(2)));
-                $("#hndChargeType").val(4);
-            }
-        }
-    });
-}
 function makeOneTimePaymentSaveUpdate() {
     var cardName = '';
     var cardNumber = '';
@@ -2692,6 +2688,8 @@ function makeOneTimePaymentSaveUpdate() {
             });
             clearMakePaymentFields();
             getTransationLists();
+            getUpTransationLists();
+            getAllDues();
         }
     });
 
@@ -4875,6 +4873,8 @@ var getRecurringPayLists = function () {
 
 function editRecPayment(transid,amt,cdate,paid)
 {
+    $("#RecStep1").removeClass("hidden");
+    $("#RecStep2").addClass("hidden");
     $("#rcpid").text(transid);
     $('#rbtnAmountToPayR2').attr('checked', 'checked');
     $("#btnSetUpRecurringPayment").addClass("hidden");

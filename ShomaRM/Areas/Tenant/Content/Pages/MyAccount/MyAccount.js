@@ -37,8 +37,8 @@
 
     $("#ddlAmenities").on("change", function () {
         var selectedOption = $(this).val();
-        
-       
+
+
 
         if (selectedOption > 0) {
             $('#reserveAmenity').modal('show');
@@ -186,7 +186,6 @@
         }
     });
 
-
     $("#ddlDesiredDuration").on("change", function () {
         var optionDep = $(this).find(":selected").attr("data-dep");
         var optionRes = $(this).find(":selected").attr("data-res");
@@ -325,20 +324,6 @@
     });
 });
 
-var countGuest = function (arg) {
-    var argValue = arg.value;
-    var argID = arg.getAttribute('id');
-    //alert(argValue + " " + argID);
-    if (argID == "hrs_2h50depo") {
-        argValue = argValue * 10;
-        $("#lmt_2h10gues").val(argValue);
-    }
-    else if (argID == "hrs_4h100depo") {
-        argValue = argValue * 10;
-        $("#lmt_4h10guesm").val(argValue);
-    }
-
-};
 var checkRequestButton = function () {
     var ddlAmenityVal = $("#ddlAmenities").val();
     var ddlDesDurationVal = $("#ddlDesiredDuration").val();
@@ -1030,7 +1015,7 @@ var getInvoice = function (invid)
                 $("#tblInvoiceBill>tbody").append(html);
                 srno++;
             });
-            $("#tblInvoiceBill>tbody").append("<tr><td colspan='3'><hr /></td></tr>  <tr><td></td><td style='text-align: right;'>Total Amount :</td><td style='text-align: right;'> <b> <span id='invamount'> $" + formatMoney(response.model.Credit_Amount)+"</span></b> </td></tr>");
+            $("#tblInvoiceBill>tbody").append("<tr><td colspan='3'><hr /></td></tr>  <tr><td></td><td style='text-align: right;'>Total Amount :</td><td style='text-align: right;'> <b> <span id='invamount'> $" + formatMoney(response.model.Charge_Amount)+"</span></b> </td></tr>");
            
         }
     });
@@ -4823,7 +4808,7 @@ var fillDdlLocation = function () {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            
+
             $("#ddlLocation").empty();
             $("#ddlLocation").append("<option value='0'>Select Location</option>");
             $.each(response.model, function (index, elementValue) {
@@ -4863,19 +4848,17 @@ var fillCaussingIssue = function (ServiceIssueID) {
             if ($.trim(response.error) != "") {
                 //this.cancelChanges();
             } else {
+                if (response.length != '0') {
+                    $("#ddlProblemCategory1").empty();
+                    $("#ddlProblemCategory1").append("<option value='0'>What Item Is causing The Issue?</option>");
+                    $.each(response, function (index, elementValue) {
+                        $("#ddlProblemCategory1").append("<option value=" + elementValue.CausingIssueID + ">" + elementValue.CausingIssue + "</option>");
+                    });
+                } else {
+                    $("#CausingIssue").addClass("hidden");
+                    $("#ddlProblemCategory1").empty();
 
-               if(response.length!='0'){
-                   $("#ddlProblemCategory1").empty();
-                   $("#ddlProblemCategory1").append("<option value='0'>What Item Is causing The Issue?</option>");
-                   $.each(response, function (index, elementValue) {
-                       $("#ddlProblemCategory1").append("<option value=" + elementValue.CausingIssueID + ">" + elementValue.CausingIssue + "</option>");
-                   });
-               } else {
-                   $("#CausingIssue").addClass("hidden");
-                   $("#ddlProblemCategory1").empty();
-                  
-               }
-
+                }
             }
         }
     });
@@ -5313,3 +5296,17 @@ function recurringPaymentNext() {
     $("#lblPayDateR").text(chargeDate);
     $("#lblFixedamt").text(amount);
 }
+var countGuest = function (arg) {
+    var argValue = arg.value;
+    var argID = arg.getAttribute('id');
+    //alert(argValue + " " + argID);
+    if (argID == "hrs_2h50depo") {
+        argValue = argValue * 10;
+        $("#lmt_2h10gues").val(argValue);
+    }
+    else if (argID == "hrs_4h100depo") {
+        argValue = argValue * 10;
+        $("#lmt_4h10guesm").val(argValue);
+    }
+
+};

@@ -96,7 +96,7 @@
                                 <div class="col-md-6">
                                     <div class="input-group">
                                         <span class="input-group-btn">
-                                            <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                                            <button class="btn btn-primary search" type="button" id="iconMoveInDate"><i class="fa-calendar fa"></i></button>
                                         </span>
                                         <input type="text" id="txtMoveInDate" class="form-control" value="@DateTime.Now.AddDays(30).ToString("MM/dd/yyyy")" style="color:#6c6e72;background-color:white;">
                                     </div>
@@ -632,7 +632,8 @@
             else {
                 $('#popQuoteExpire').modal('hide');
             }
-        
-
+        $('#iconMoveInDate').click(function () {
+            $("#txtMoveInDate").focus();
+        });
     });
 </script>
