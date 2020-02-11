@@ -584,7 +584,7 @@ namespace ShomaRM.Areas.Admin.Models
                         model.ElectricityDoc = MoveInData.ElectricityDoc;
                     }
 
-                    ScrenningProcess(GetProspectData);
+                   // ScrenningProcess(GetProspectData);
                 }
               
             }
@@ -663,7 +663,7 @@ namespace ShomaRM.Areas.Admin.Models
             model.ID = Id;
             return model;
         }
-
+        
         private async void ScrenningProcess(tbl_ApplyNow GetProspectData)
         {
             var dataXML = SetAqutraq(GetProspectData);

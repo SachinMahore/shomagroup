@@ -26,6 +26,7 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+     
         public ActionResult EditProspect(int id)
         {
             ViewBag.ActiveMenu = "prospectverification";

@@ -1208,6 +1208,7 @@ namespace ShomaRM.Areas.Admin.Models
                     reportHTML = reportHTML.Replace("[%TotalMoveIn%]", prospectDet.MoveInCharges.ToString());
                     reportHTML = reportHTML.Replace("[%Rent%]", prospectDet.Rent.ToString());
                     reportHTML = reportHTML.Replace("[%Trash%]", prospectDet.TrashAmt.ToString());
+                    reportHTML = reportHTML.Replace("[%ConvergentAmt%]", prospectDet.ConvergentAmt.ToString());
                     reportHTML = reportHTML.Replace("[%PetRent%]", prospectDet.PetPlaceAmt.ToString());
                     reportHTML = reportHTML.Replace("[%Vehicle%]", prospectDet.VehicleRegistration.ToString());
                     reportHTML = reportHTML.Replace("[%Storage%]", prospectDet.StorageAmt.ToString());
