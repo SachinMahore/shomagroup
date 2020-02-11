@@ -392,61 +392,12 @@ namespace ShomaRM.Areas.Admin.Models
             return docType;
         }
 
-        public OrderXML SetAqutraq(long TenantID)
-        {
-            var _objAcqutraqOrder = new OrderXML();
-            _objAcqutraqOrder.Method = "SEND ORDER";
-            var Authentication = new Authentication();
-
-            Authentication.Username = "IntegrationUser";
-            Authentication.Password = "Shom@Group2019!!";
-            _objAcqutraqOrder.Authentication = Authentication;
-            _objAcqutraqOrder.TestMode = "Yes";
-            _objAcqutraqOrder.ReturnResultURL = "http://thinkersteps.com/contact.html";
-            var _objorder = new Order();
-            _objorder.BillingReferenceCode = "000-0000";
-            var _objsubject = new Subject();
-            _objsubject.FirstName = "Joe";
-            _objsubject.MiddleName = "Rupram";
-            _objsubject.LastName = "Clean";
-            _objsubject.DOB = "01/01/1990";
-            _objsubject.SSN = "111-22-3333";
-            _objsubject.Gender = "Male";
-            _objsubject.DLNumber = "454454dsfdgs4545";
-            _objsubject.ApplicantPosition = "Director";
-            _objorder.Subject = _objsubject;
-            _objAcqutraqOrder.Order = _objorder;
-            var CurrentAddress = new CurrentAddress();
-            CurrentAddress.StreetAddress = "Omkar Nagar";
-            CurrentAddress.City = "Nagpur";
-            CurrentAddress.State = "Maharashtra";
-            CurrentAddress.Zipcode = "440002";
-            CurrentAddress.Country = "India";
-            _objsubject.CurrentAddress = CurrentAddress;
-            _objorder.Subject = _objsubject;
-            _objorder.PackageServiceCode = "CCEE";
-            var _objorderdetails = new OrderDetail();
-            _objorderdetails.CompanyName = "Thinkersteps";
-            _objorderdetails.Position = "Developer";
-            _objorderdetails.Salary = "1000";
-            _objorderdetails.Manager = "Test";
-            _objorderdetails.Telephone = "(123)456-7890";
-            _objorderdetails.EmployerCity = "Nagpur";
-            _objorderdetails.EmployerState = "Nagpur";
-            var _objEmploymentDates = new EmploymentDates();
-            _objEmploymentDates.StartDate = "10/01/2017";
-            _objEmploymentDates.EndDate = "10/10/2019";
-            _objorderdetails.EmploymentDates = _objEmploymentDates;
-            _objorderdetails.ReasonForLeaving = "Test";
-            _objorder.OrderDetail = _objorderdetails ;
-
-            return _objAcqutraqOrder;
-        }
+      
         public ProspectVerificationModel GetProspectData(long Id)
         {
-           var data= SetAqutraq(1);
-         var test=      AquatraqHelper.Serialize(data);
-            ShomaRMEntities db = new ShomaRMEntities();
+            var test = new AcutraqRequest();
+       var data=     test.PostAqutraqRequest(null);
+               ShomaRMEntities db = new ShomaRMEntities();
             ProspectVerificationModel model = new ProspectVerificationModel();
             model.ProspectId = 0;
             model.IsApplyNow = 1;

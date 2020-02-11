@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Xml.Serialization;
 
@@ -8,7 +9,7 @@ namespace ShomaRM.Models
 {
     public class AcutraqRequest
     {
-        public OrderXML PostAqutraqRequest(object data)
+        public async Task<OrderXML>   PostAqutraqRequest(object data)
         {
             var _objAcqutraqOrder = new OrderXML();
             _objAcqutraqOrder.Method = "SEND ORDER";
@@ -26,7 +27,7 @@ namespace ShomaRM.Models
             _objsubject.MiddleName = "Rupram";
             _objsubject.LastName = "Bokde";
             _objsubject.DOB = "29/03/1990";
-            _objsubject.SSN = "122-112-11";
+            _objsubject.SSN = "111-22-3333";
             _objsubject.Gender = "Male";
             _objsubject.DLNumber = "222";
             _objsubject.ApplicantPosition = "Director";
@@ -62,12 +63,27 @@ namespace ShomaRM.Models
 
             var _objCriminal = new OrderDetailCriminal();
             _objCriminal.state = "Maharahtra";
-            _objCriminal.ServiceCode = "MULISTATEEVICT";
+            _objCriminal.ServiceCode = "MULTISTATEEVICT";
             _objCriminal.OrderId = "123456";
             _objorder.OrderDetailCriminal = _objCriminal;
 
-            return _objAcqutraqOrder;
+
+            var _objCredit = new OrderDetailCredit();
+            _objCredit.ServiceCode = "CREDITTUVANT";
+            _objCredit.OrderId = "123456";
+            _objorder.OrderDetailCredit = _objCredit;
+
+            string Serialisexml = AquatraqHelper.Serialize(_objAcqutraqOrder);
+            Serialisexml = AquatraqHelper.SetAttributeValue(Serialisexml, "123456");
+            var keyValues = new List<KeyValuePair<string, string>>();
+            keyValues.Add(new KeyValuePair<string, string>("request", Serialisexml));
+
+            var result = await AquatraqHelper.PostFormUrlEncoded<OrderXML>("https://screen.acutraq.com/webservice/default.cfm", keyValues);
+            if (result != null)
+            { }
+            return result;
         }
+       
         public class OrderXML
         {
             public string Method { get; set; }
@@ -91,7 +107,7 @@ namespace ShomaRM.Models
             public string PackageServiceCode { get; set; }
             public OrderDetailEMP OrderDetailEMP { get; set; }
             public OrderDetailCriminal OrderDetailCriminal { get; set; }
-
+            public OrderDetailCredit OrderDetailCredit { get; set; }
         }
 
         public class Subject
@@ -131,6 +147,8 @@ namespace ShomaRM.Models
 
             [XmlAttribute("OrderId")]
             public string OrderId { get; set; }
+            [XmlAttribute("CRAorderID")]
+            public string CRAorderID { get; set; }
 
             public string CompanyName { get; set; }
             public string Position { get; set; }
@@ -161,6 +179,20 @@ namespace ShomaRM.Models
             public string Country { get; set; }
         }
     }
+
+    public class OrderDetailCredit
+    {
+
+        [XmlAttribute("ServiceCode")]
+        public string ServiceCode { get; set; }
+
+        [XmlAttribute("OrderId")]
+        public string OrderId { get; set; }
+        [XmlAttribute("CRAorderID")]
+        public string CRAorderID { get; set; }
+        
+    }
+
     //criminal
     public class OrderDetailCriminal
     {
@@ -168,7 +200,16 @@ namespace ShomaRM.Models
         public string ServiceCode { get; set; }
 
         [XmlAttribute("OrderId")]
+
         public string OrderId { get; set; }
+
+        [XmlAttribute("CRAorderID")]
+        public string CRAorderID { get; set; }
+
         public string state { get; set; }
     }
+
+   
+
+    
 }

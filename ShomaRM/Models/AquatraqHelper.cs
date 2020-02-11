@@ -42,7 +42,16 @@ namespace ShomaRM.Models
 
                 defaultXML = defaultXML.Replace("<PackageServiceCode", "<PackageServiceCode OrderId=\"" + ordernumber + "\"");
                 defaultXML = defaultXML.Replace("<Salary", "<Salary period=\"Yearly\"");
+               
+                defaultXML = defaultXML.Replace("<OrderDetailEMP", "<OrderDetail");
+                defaultXML = defaultXML.Replace("</OrderDetailEMP", "</OrderDetail");
 
+                defaultXML = defaultXML.Replace("<OrderDetailCredit", "<OrderDetail");
+                defaultXML = defaultXML.Replace("</OrderDetailCredit ", "</OrderDetail");
+
+
+                defaultXML = defaultXML.Replace("<OrderDetailCriminal", "<OrderDetail");
+                defaultXML = defaultXML.Replace("</OrderDetailCriminal", "</OrderDetail");
 
 
                 return defaultXML;
