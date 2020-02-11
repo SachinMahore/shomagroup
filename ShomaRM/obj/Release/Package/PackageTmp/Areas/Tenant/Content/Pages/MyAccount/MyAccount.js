@@ -1881,6 +1881,7 @@ var saveUpdateServiceRequest = function () {
         }
     }
 
+
     var petInfoChange = '';
     if ($("#rbtnPetInformation1").is(":checked")) {
         petInfoChange = 1;
@@ -2702,10 +2703,13 @@ var amountToPayRadioButtonFunction = function () {
     });
 };
 
+
+
 var r = function () {
     $('#rbtnAmountToPay2').removeAttr('checked');
     $('#rbtnAmountToPay1').attr('checked', 'checked');
-
+    $('#rbtnModiAll').removeAttr('checked');
+    $('#rbtnModi1').attr('checked', 'checked');
 }
 
 function makeOneTimePaymentSaveUpdate() {
@@ -5018,6 +5022,8 @@ var getRecurringPayLists = function () {
 
 function editRecPayment(transid,amt,cdate,paid)
 {
+    $("#recHeader").text("Edit Recurring Payments");
+    $("#modiDiv").removeClass("hidden");
     $("#RecStep1").removeClass("hidden");
     $("#RecStep2").addClass("hidden");
     $("#rcpid").text(transid);
@@ -5054,6 +5060,15 @@ function recurringPaymentSaveUpdate() {
     else {
         amount = '';
     }
+
+    var isAllUpdate = 0;
+    if ($("#rbtnModi1").is(":checked")) {
+        isAllUpdate = 0;
+    }
+    else if ($("#rbtnModiAll").is(":checked")) {
+        isAllUpdate = 1;
+    }
+
     if ($("#ddlPaymentMethodR").val() == '0') {
         msg += "Select Payment Method</br>";
     }
@@ -5083,10 +5098,10 @@ function recurringPaymentSaveUpdate() {
     var models = {
         PAID: $('#ddlPaymentMethod').val(),
         TransID: transid,      
-        TenantID: tenantid,
-       
+        TenantID: tenantid,      
         Charge_Date: chargeDate,
-        Charge_Amount: amount
+        Charge_Amount: amount,
+        IsAllUpdate: isAllUpdate
     };
     $.ajax({
         url: "/MyTransaction/SaveUpdateRecurringTransaction/",
@@ -5222,7 +5237,8 @@ function recurringPaymentSetUp() {
 }
 
 function deleteRecPayment(transid) {
-    
+    $("#recHeader").text("Set Up Recurring Payments");
+    $("#modiDiv").addClass("hidden");
     var tenantid = $("#hndTenantID").val();
     
     var models = {

@@ -445,7 +445,7 @@ $(document).ready(function () {
 
 });
 var abcd = function () {
-    alert("Hi");
+  
 }
 
 var cancel = function () {
