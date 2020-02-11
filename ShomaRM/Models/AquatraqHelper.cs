@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -31,5 +32,50 @@ namespace ShomaRM.Models
                 throw new Exception("An error occurred", ex);
             }
         }
+
+        public static string SetAttributeValue(string defaultXML, string ordernumber)
+        {
+
+            try
+            {
+                defaultXML = defaultXML.Replace("<CompanyName", "<CompanyName CurrentEmployer = \"Yes\"");
+
+                defaultXML = defaultXML.Replace("<PackageServiceCode", "<PackageServiceCode OrderId=\"" + ordernumber + "\"");
+                defaultXML = defaultXML.Replace("<Salary", "<Salary period=\"Yearly\"");
+
+
+
+                return defaultXML;
+
+
+
+            }
+            catch (Exception e)
+            {
+                return defaultXML;
+                Console.WriteLine(e);
+            }
+
+
+
+        }
+        public static async Task<TResult> PostFormUrlEncoded<TResult>(string url, List<KeyValuePair<string, string>> postData)
+        {
+            using (var httpClient = new  HttpClient())
+            {
+                using (var content = new FormUrlEncodedContent(postData))
+                {
+                    content.Headers.Clear();
+                    content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+
+                    HttpResponseMessage response = await httpClient.PostAsync(url, content);
+
+                    return await response.Content.ReadAsAsync<TResult>();
+                }
+            }
+        }
     }
-}
+   
+}	    
+
+    

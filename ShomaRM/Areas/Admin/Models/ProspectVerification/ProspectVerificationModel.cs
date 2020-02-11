@@ -846,6 +846,7 @@ namespace ShomaRM.Areas.Admin.Models
 
             return System.IO.Path.GetFileName(System.IO.Path.ChangeExtension(FileName, "pdf"));
         }
+
         public void SaveReportToFolder(string ReportSource, string ReportType, string TenantID)
         {
             try
@@ -943,7 +944,7 @@ namespace ShomaRM.Areas.Admin.Models
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public string Generation { get; set; }
-        public string DOB { get; set; }
+        public string DOB {  get; set; }
         public string SSN { get; set; }
         public string Gender { get; set; }
         public string Ethnicity { get; set; }
