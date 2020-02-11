@@ -9,6 +9,9 @@ using ShomaRM.Data;
 using ShomaRM.Areas.Tenant.Models;
 using ShomaRM.Models;
 using System.Xml.Serialization;
+using System.Net;
+using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace ShomaRM.Areas.Admin.Models
 {
@@ -392,7 +395,7 @@ namespace ShomaRM.Areas.Admin.Models
             return docType;
         }
 
-        public OrderXML SetAqutraq(long TenantID)
+        public OrderXML SetAqutraq(tbl_ApplyNow data)
         {
             var _objAcqutraqOrder = new OrderXML();
             _objAcqutraqOrder.Method = "SEND ORDER";
@@ -406,13 +409,13 @@ namespace ShomaRM.Areas.Admin.Models
             var _objorder = new Order();
             _objorder.BillingReferenceCode = "000-0000";
             var _objsubject = new Subject();
-            _objsubject.FirstName = "Joe";
-            _objsubject.MiddleName = "Rupram";
-            _objsubject.LastName = "Clean";
-            _objsubject.DOB = "01/01/1990";
-            _objsubject.SSN = "111-22-3333";
-            _objsubject.Gender = "Male";
-            _objsubject.DLNumber = "454454dsfdgs4545";
+            _objsubject.FirstName = data.FirstName;
+            _objsubject.MiddleName = data.tbl_TenantInfo.FirstOrDefault().MiddleInitial;
+            _objsubject.LastName = data.LastName;
+            _objsubject.DOB = data.tbl_TenantInfo.FirstOrDefault().ToString();
+            _objsubject.SSN = data.tbl_TenantInfo.FirstOrDefault().SSN;
+            _objsubject.Gender =data.tbl_TenantInfo.FirstOrDefault().Gender.ToString() ;
+            _objsubject.DLNumber = "222";
             _objsubject.ApplicantPosition = "Director";
             _objorder.Subject = _objsubject;
             _objAcqutraqOrder.Order = _objorder;
@@ -425,7 +428,9 @@ namespace ShomaRM.Areas.Admin.Models
             _objsubject.CurrentAddress = CurrentAddress;
             _objorder.Subject = _objsubject;
             _objorder.PackageServiceCode = "CCEE";
-            var _objorderdetails = new OrderDetail();
+            var _objorderdetails = new OrderDetail() ;
+            _objorderdetails.ServiceCode = "EMPVR";
+            _objorderdetails.OrderId = "123456";
             _objorderdetails.CompanyName = "Thinkersteps";
             _objorderdetails.Position = "Developer";
             _objorderdetails.Salary = "1000";
@@ -442,11 +447,10 @@ namespace ShomaRM.Areas.Admin.Models
 
             return _objAcqutraqOrder;
         }
-        public ProspectVerificationModel GetProspectData(long Id)
+        public ProspectVerificationModel GetProspectDataGetProspectData(long Id)
         {
-           var data= SetAqutraq(1);
-         var test=      AquatraqHelper.Serialize(data);
-            ShomaRMEntities db = new ShomaRMEntities();
+          
+             ShomaRMEntities db = new ShomaRMEntities();
             ProspectVerificationModel model = new ProspectVerificationModel();
             model.ProspectId = 0;
             model.IsApplyNow = 1;
@@ -462,7 +466,8 @@ namespace ShomaRM.Areas.Admin.Models
             if (Id != 0)
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.UserId == Id).FirstOrDefault();
-
+          
+                
                 if (GetProspectData != null)
                 {
                     var GetPaymentProspectData = db.tbl_OnlinePayment.Where(p => p.ProspectId == GetProspectData.ID).FirstOrDefault();
@@ -578,7 +583,10 @@ namespace ShomaRM.Areas.Admin.Models
                         model.InsuranceDoc = MoveInData.InsuranceDoc;
                         model.ElectricityDoc = MoveInData.ElectricityDoc;
                     }
+
+                    ScrenningProcess(GetProspectData);
                 }
+              
             }
 
             List<PropertyFloor> listfloor = new List<PropertyFloor>();
@@ -643,6 +651,7 @@ namespace ShomaRM.Areas.Admin.Models
 
                     model.lstPropertyFloor.Add(pr);
                 }
+              
                 db.Dispose();
                 //return lstUnitProp.ToList();
             }
@@ -654,6 +663,21 @@ namespace ShomaRM.Areas.Admin.Models
             model.ID = Id;
             return model;
         }
+
+        private async void ScrenningProcess(tbl_ApplyNow GetProspectData)
+        {
+            var dataXML = SetAqutraq(GetProspectData);
+            string Serialisexml = AquatraqHelper.Serialize(dataXML);
+            Serialisexml = AquatraqHelper.SetAttributeValue(Serialisexml, "123456");         
+            var keyValues = new List<KeyValuePair<string, string>>();
+            keyValues.Add(new KeyValuePair<string, string>("request", Serialisexml));
+
+
+          var result=   await   AquatraqHelper.PostFormUrlEncoded<OrderXML>("https://screen.acutraq.com/webservice/default.cfm", keyValues);
+            if (result != null)
+            { }
+        }
+     
         public void SaveProspectVerification(long DocId, int VerificationStatus,long PID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -968,6 +992,13 @@ namespace ShomaRM.Areas.Admin.Models
  
     public class OrderDetail
     {
+       
+            [XmlAttribute("ServiceCode")]
+            public string ServiceCode { get; set; }
+
+        [XmlAttribute("OrderId")]
+        public string OrderId { get; set; }
+
         public string  CompanyName { get; set; }
         public string Position { get; set; }
         public string Salary { get; set; }
