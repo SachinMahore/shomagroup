@@ -365,8 +365,8 @@ var getTenantData = function (userID) {
                 $("#recTenant").text(response.FirstName + " " + response.LastName);
                 $("#recUnit").text(response.UnitName);
                // $("#hndLeaseTerm").val(response.LeaseTerm);
-                $("#lblCurrentPrePayAmountR").text(response.MonthlyCharges);
-                $("#recPopAmt").text(response.MonthlyCharges);
+                $("#lblCurrentPrePayAmountR").text(formatMoney(response.MonthlyCharges));
+                $("#recPopAmt").text(formatMoney(response.MonthlyCharges));
 
                 $("#txtAddress").val(response.Address);
                 $("#txtCity").val(response.City);

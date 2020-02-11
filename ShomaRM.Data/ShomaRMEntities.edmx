@@ -4,16 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ShomaRMEntitiesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'ShomaRMAdv.dbo.CountryState' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="CountryState">
-          <Property Name="ID" Type="varchar" MaxLength="500" />
-          <Property Name="CountryName" Type="varchar" MaxLength="500" />
-          <Property Name="StateID" Type="varchar" MaxLength="500" />
-          <Property Name="CountryID" Type="varchar" MaxLength="500" />
-          <Property Name="StateName" Type="varchar" MaxLength="500" />
-        </EntityType>-->
+    <Schema Namespace="ShomaRMEntitiesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tbl_Advertiser">
           <Key>
             <PropertyRef Name="AdID" />
@@ -238,6 +229,7 @@ warning 6013: The table/view 'ShomaRMAdv.dbo.CountryState' does not have a prima
           <Property Name="TenantID" Type="bigint" />
           <Property Name="UserId" Type="bigint" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
         </EntityType>
@@ -260,15 +252,12 @@ warning 6013: The table/view 'ShomaRMAdv.dbo.CountryState' does not have a prima
           <Property Name="AttachFileOriginalName" Type="varchar" MaxLength="100" />
           <Property Name="Date" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tbl_Country">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="CountryName" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CountryName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryName" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="tbl_Document">
           <Key>
@@ -395,6 +384,7 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="TenantID" Type="bigint" />
           <Property Name="OriginalDriverLicence" Type="varchar" MaxLength="500" />
           <Property Name="OriginalVehicleRegistration" Type="varchar" MaxLength="500" />
+          <Property Name="HaveVehicle" Type="bit" />
         </EntityType>
         <EntityType Name="tbl_Invoice">
           <Key>
@@ -2356,6 +2346,7 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <EntitySet Name="tbl_Club" EntityType="Self.tbl_Club" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ClubMapping" EntityType="Self.tbl_ClubMapping" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_CommunityActivity" EntityType="Self.tbl_CommunityActivity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Country" EntityType="Self.tbl_Country" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Document" EntityType="Self.tbl_Document" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_DocumentVerification" EntityType="Self.tbl_DocumentVerification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Event" EntityType="Self.tbl_Event" Schema="dbo" store:Type="Tables" />
@@ -2416,12 +2407,6 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <EntitySet Name="tbl_Visit" EntityType="Self.tbl_Visit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_WorkOrder" EntityType="Self.tbl_WorkOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ZipCodes" EntityType="Self.tbl_ZipCodes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tbl_Country" EntityType="Self.tbl_Country" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [tbl_Country].[ID] AS [ID], 
-    [tbl_Country].[CountryName] AS [CountryName]
-    FROM [dbo].[tbl_Country] AS [tbl_Country]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_tbl_Applicant_tbl_ApplyNow" Association="Self.FK_tbl_Applicant_tbl_ApplyNow">
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_Applicant" EntitySet="tbl_Applicant" />
@@ -2731,8 +2716,7 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
             <End Role="tbl_ZipCodes" EntitySet="tbl_ZipCodes" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ShomaRMEntitiesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -2982,6 +2966,7 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_ClubMapping">
           <Key>
@@ -3143,6 +3128,7 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <Property Name="TenantID" Type="Int64" />
           <Property Name="OriginalDriverLicence" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="OriginalVehicleRegistration" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="HaveVehicle" Type="Boolean" />
         </EntityType>
         <EntityType Name="tbl_Invoice">
           <Key>
@@ -4281,14 +4267,6 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <NavigationProperty Name="tbl_City" Relationship="Self.FK_tbl_ZipCodes_tbl_City" FromRole="tbl_ZipCodes" ToRole="tbl_City" />
           <NavigationProperty Name="tbl_State" Relationship="Self.FK_tbl_ZipCodes_tbl_State" FromRole="tbl_ZipCodes" ToRole="tbl_State" />
         </EntityType>
-        <EntityType Name="tbl_Country">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="CountryName" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CountryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <Association Name="FK_tbl_Applicant_tbl_ApplyNow">
           <End Role="tbl_ApplyNow" Type="Self.tbl_ApplyNow" Multiplicity="0..1" />
           <End Role="tbl_Applicant" Type="Self.tbl_Applicant" Multiplicity="*" />
@@ -5290,7 +5268,6 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <EntitySet Name="tbl_Visit" EntityType="Self.tbl_Visit" />
           <EntitySet Name="tbl_WorkOrder" EntityType="Self.tbl_WorkOrder" />
           <EntitySet Name="tbl_ZipCodes" EntityType="Self.tbl_ZipCodes" />
-          <EntitySet Name="tbl_Country" EntityType="Self.tbl_Country" />
           <AssociationSet Name="FK_tbl_Applicant_tbl_ApplyNow" Association="Self.FK_tbl_Applicant_tbl_ApplyNow">
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_Applicant" EntitySet="tbl_Applicant" />
@@ -5599,7 +5576,15 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
             <End Role="tbl_Vendor" EntitySet="tbl_Vendor" />
             <End Role="tbl_WorkOrder" EntitySet="tbl_WorkOrder" />
           </AssociationSet>
+          <EntitySet Name="tbl_Country" EntityType="ShomaRMEntitiesModel.tbl_Country" />
         </EntityContainer>
+        <EntityType Name="tbl_Country">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5822,6 +5807,7 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <EntitySetMapping Name="tbl_Club">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Club">
               <MappingFragment StoreEntitySet="tbl_Club">
+                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ClubTitle" ColumnName="ClubTitle" />
                 <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
@@ -5984,6 +5970,7 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <EntitySetMapping Name="tbl_GuestRegistration">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_GuestRegistration">
               <MappingFragment StoreEntitySet="tbl_GuestRegistration">
+                <ScalarProperty Name="HaveVehicle" ColumnName="HaveVehicle" />
                 <ScalarProperty Name="GuestID" ColumnName="GuestID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -7076,8 +7063,8 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
           <EntitySetMapping Name="tbl_Country">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Country">
               <MappingFragment StoreEntitySet="tbl_Country">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -36,5 +36,6 @@ namespace ShomaRM.Data
         public bool IsDeleted { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public System.DateTime LastUpdatedDate { get; set; }
+        public bool Active { get; set; }
     }
 }

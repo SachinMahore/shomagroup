@@ -389,6 +389,29 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <div class="col-lg-12">
+                                                                    <div class="row">
+                                                                        <div class="form-group">
+                                                                            <div class="col-sm-12">
+                                                                                <label style="background-color: transparent;color:#4D738A;font-size:13pt">What would you like to modify ?</label>
+                                                                            </div>
+                                                                            <div class="col-sm-6">
+                                                                                <input id="rbtnModi1" class="form-control form-control-small" type="radio" name="rbtnModi1" checked="checked" style="font-size:11pt;" /> The Next Payment
+                                                                                <br />
+                                                                            </div>
+                                                                            <div class="col-sm-6">
+                                                                                <input id="rbtnModiAll" class="form-control form-control-small" type="radio" name="rbtnModiAll" checked="checked" style="font-size:11pt;" /> All Futu
+                                                                                <br />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <br />
+                                                                    <div class="row">
+                                                                        <div class=""></div>
+                                                                    </div>
+                                                                </div>
+                                                             
+
                                                                 <div class="col-sm-12 row">
                                                                     <div class=""><br /></div>
                                                                 </div>
@@ -907,23 +930,23 @@
                                 </ul>
                                 <div class="row" id="reservationStep1" style="margin-top:10px !important">
                                     <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="col-sm-12">
-                                                <div class="panel-heading headingBack">
-                                                    <h3 class="panel-title">Reserve a Facility</h3>
-                                                </div>
-                                                <div class="panel-body table table-bordered table-hover table-striped">
-                                                    <div class="list-group list-group-flush" id="reserve_facility_list">
-                                                        <a href="#" class="list-group-item">Cras justo odio </a>
-                                                        <a href="#" class="list-group-item">Dapibus ac facilisis</a>
-                                                        <a href="#" class="list-group-item">Morbi leo risus</a>
-                                                        <a href="#" class="list-group-item">Another item</a>
-                                                    </div>
+                                        @*<div class="col-md-3">
+                        <div class="col-sm-12">
+                            <div class="panel-heading headingBack">
+                                <h3 class="panel-title">Reserve a Facility</h3>
+                            </div>
+                            <div class="panel-body table table-bordered table-hover table-striped">
+                                <div class="list-group list-group-flush" id="reserve_facility_list">
+                                    <a href="#" class="list-group-item">Cras justo odio </a>
+                                    <a href="#" class="list-group-item">Dapibus ac facilisis</a>
+                                    <a href="#" class="list-group-item">Morbi leo risus</a>
+                                    <a href="#" class="list-group-item">Another item</a>
+                                </div>
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-9">
+                            </div>
+                        </div>
+                    </div>*@
+                                        <div class="col-md-12">
                                             <div class="" id="">
                                                 <div class="col-md-12 clear">
                                                     <h4 style="margin-top: 2%;margin-bottom: 5%;font-size: 12pt;color:#4D738A !important; ">Recent Reservations</h4>
@@ -964,76 +987,18 @@
                                                 <br />
                                             </div>
                                             <div class="col-sm-12">
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-2"></div>
+                                                <div class="col-sm-2"><h4 style="color:#4D738A !important; "><label class="star">Amenity :</label></h4></div>
+                                                <div class="col-sm-4">
                                                     <div class="form-group">
-                                                        <label class="star">Amenity :</label>
                                                         <select id="ddlAmenities" class="form-control">
                                                             <option value='0'>Select Amenity</option>
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3">
-                                                    <div class="form-group">
-                                                        <label>Desired Date</label>
-                                                        <input id="txtDesiredDate" type="text" class="form-control" style="width:80%" maxlength="20" placeholder="MM/dd/yyyy" value="">
-                                                        <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:150px;">
-                                                            <button id="btnDesiredDate" class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="form-group">
-                                                        <label>Desired Time</label>
-                                                        <input id="txtDesiredTime" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:80%" maxlength="20" placeholder="HH:mm:ss" value="">
-                                                        <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:150px;">
-                                                            <button id="btnDesiredTime" class="btn btn-primary search" type="button"><i class="fa-clock-o fa"></i></button>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="form-group">
-                                                        <label>Desired Duration :</label>
-                                                        <select id="ddlDesiredDuration" class="form-control">
-                                                            <option value='0'>Select Duration</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
+                                                <div class="col-sm-4"></div>
                                             </div>
-                                            <div class="col-sm-12">
-                                                <h4 style="margin-top: 2%;margin-bottom: 2%;font-size: 12pt;color:#4D738A !important; ">Amenity Reservation Request</h4>
-                                            </div>
-                                            <div class="col-sm-12 text-center">
-                                                <div class="col-sm-6">
-                                                    <label>Unit# <b><span id="AmenityUnit"></span></b></label>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <label>Tenant: <b><span id="AmenityTenant"></span></b></label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 text-center">
-                                                <p style="padding:0px !important;">Reservation for <b><span id="SelectedAminity"></span></b></p>
-                                                <p style="padding:0px !important;"><b><span id="SelectedDate"></span></b></p>
-                                                <p style="padding:0px !important;"><b><span id="SelectedTime"></span></b></p>
-                                            </div>
-                                            <div class="col-sm-12 text-center">
-                                                <div class="col-sm-6">
-                                                    <label>Security Deposit Required: <span id="AmenitySDR"> &nbsp;$00.00</span><span><sup>*</sup></span></label>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <label>Reservation fee:  <span id="AmenityRF"> &nbsp;$00.00</span> <span><sup>*</sup></span></label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 text-justify">
-                                                <p>
-                                                    Tenant hereby certifies that he/she has read and understood the Rules & Regulations attached in connection with the rental of the BBQ facility.
-                                                    Tenant is aware that they will be using a Common Area of the Community, and as such must be considerate and courteous to other residents and ensure
-                                                    that the area is well maintained and clean during and after use. By continuing herein, tenant agrees to abide by the Rules & Regulations of Sanctuary at Doral,
-                                                    LLC and is aware that in not doing so, he/she is subject to fines and fees.
-                                                </p>
-                                            </div>
-                                            <div class="col-sm-12 text-center">
-                                                <button id="RequestReservation" type="button" class="btn btn-primary" onclick="saveUpdateReservationRequest()">Request Reservation</button>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -1322,7 +1287,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div data-spy="affix" data-offset-top="0">
+                <div class="sticky">
                     <div class="col-sm-12" style="margin-bottom:-20px;">
                         <div class="panel-body table-bordered" style="padding:5px !important;">
                             <div class="center">
@@ -1822,7 +1787,7 @@
     </div>
         <div class="modal" id="popInvoice">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; height:750px;">
+            <div class="modal-content" style="width: 100%; height:650px;">
                 <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;font-size: 30px !important">&times;</button>
                 <div class="modal-header"></div>
                 <!-- Modal body -->
@@ -1942,6 +1907,414 @@
         </div>
     </div>
 </div>
+<div class="modal" id="reserveAmenity">
+    <div class="modal-dialog" style="min-width:1020px !important">
+        <div class="modal-content" style="width: 100%;">
+            <div class="modal-header center">
+                <h2 class="modal-title" style="color:#4D738A !important; ">Amenity Reservation</h2>
+                <button type="button" class="close pull-right" data-dismiss="modal" style="margin-top: -50px; color:#000 !important">×</button>
+            </div>
+            <!-- Modal body start -->
+            <div class="modal-body table-bordered">
+                <div class="row">
+                    <div class="col-sm-12 hidden" id="divBBQ" style="margin-top:10px !important">
+                        <div class="col-sm-12 text-center"><h4 style="color:#4D738A !important; "><label>DESCRIPTION:</label></h4></div>
+                        <div class="col-sm-12 text-center"><p>The Barbecue area is located near the pool and consist of 3 grills as well as an outside seating area.</p> </div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>DESIGNATED USE:</label></h4></div>
+                        <div class="col-sm-12 text-center"><p>The grills should be used solely for their intended purpose.</p></div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>HOURS AVAILABLE FOR RENTAL:</label></h4></div>
+                        <div class="col-sm-12 text-center"><p>From 10 AM TO SUNSET with a 4-Hour Limit per reservation.</p></div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; ">RESERVATION AND DEPOSIT FEES: </h4></div>
+                        <div class="col-sm-12 text-center">
+                            <div class="col-sm-6 form-group">
+                                <label><input type="radio" class="form-control small" name="hours" id="2h50depo" />2 Hours $20/per grill with a $50 Deposit</label>
+                            </div>
+                            <div class="col-sm-6">
+                                Number of Grill:
+                                <label><input type="text" class="form-control small" id="hrs_2h50depo" disabled onkeypress="return isOnlyNumber(event)" onkeyup="countGuest(this)" maxlength="3" /></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <div class="col-sm-6 form-group">
+                                <label><input type="radio" class="form-control small" name="hours" id="4h100depo" />4 Hours $40/per grill with a $100 Deposit</label>
+                            </div>
+                            <div class="col-sm-6">
+                                Number of Grill:
+                                <label><input type="text" class="form-control small" id="hrs_4h100depo" disabled onkeypress="return isOnlyNumber(event)" onkeyup="countGuest(this)" maxlength="3" /></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <div class="col-sm-6 form-group" style="margin-left: 25px;">
+                                <label><input type="radio" class="form-control small" name="hours" id="2h300depo" />2 Hours $150/total BBQ area with a $300 Deposit</label>
+                            </div>
+                            <div class="col-sm-6" style="margin-right: -25px;">&nbsp;</div>
+                        </div>
+                        <div class="col-sm-12 text-center" style="margin-left: 25px;">
+                            <div class="col-sm-6 form-group">
+                                <label><input type="radio" class="form-control small" name="hours" id="4h600depo" />4 Hours $300/total BBQ area with a $600 Deposit</label>
+                            </div>
+                            <div class="col-sm-6">&nbsp;</div>
+                        </div>
+
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>MAXIMUM OCCUPANCY:</label></h4></div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-12 text-center">
+                                <div class="col-sm-6 form-group" style="margin-left: 35px;">
+                                    <label><input type="radio" class="form-control small" name="limit" id="2h10gues" /> 2 Hours grill reservation LIMIT OF 10 guests per grills</label>
+                                </div>
+                                <div class="col-sm-6" style="margin-right: -35px;margin-left: -28px;">
+                                    Number of Guest:
+                                    <label><input type="text" class="form-control small" id="lmt_2h10gues" disabled /></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 text-center">
+                                <div class="col-sm-6 form-group" style="margin-left: 30px;">
+                                    <label><input type="radio" class="form-control small" name="limit" id="4h10gues" />4 Hours grill reservation LIMIT OF 10 guests per grill</label>
+                                </div>
+                                <div class="col-sm-6" style="margin-right: -30px;margin-left: -23px;">
+                                    Number of Guest:
+                                    <label><input type="text" class="form-control small" id="lmt_4h10gues" disabled /></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 text-center">
+                                <div class="col-sm-6 form-group" style="margin-left: -3px;">
+                                    <label><input type="radio" class="form-control small" name="limit" id="2h30gues" />2 Hours Total BBQ area  LIMIT 30 guests</label>
+                                </div>
+                                <div class="col-sm-6">&nbsp;</div>
+                            </div>
+                            <div class="col-sm-12 text-center">
+                                <div class="col-sm-6 form-group" style="margin-left: -3px;">
+                                    <label><input type="radio" class="form-control small" name="limit" id="4h30gues" />4 Hours Total BBQ area  LIMIT 30 guests</label>
+                                </div>
+                                <div class="col-sm-6">&nbsp;</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>BOOKING DATE AND TIME</label></h4></div>
+                        <div class="col-sm-12 ">
+                            <div class="col-sm-6 text-center" style="margin-left:100px;">
+                                <div class="form-group">
+                                    <input id="txtDesiredDateBBQ" type="text" class="form-control" style="width:35%" maxlength="20" placeholder="MM/dd/yyyy" value="">
+                                    <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
+                                        <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 text-center" style="margin-right:-100px;">
+                                <div class="form-group">
+                                    <input id="txtDesiredTimeBBQ" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:35%" maxlength="20" placeholder="HH:mm:ss" value="">
+                                    <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
+                                        <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <p>
+                                <b>SPECIAL PROVISIONS: </b>
+                                Alcohol is allowed; however, no glass containers can be used around the BBQ or pool area at any time. There is a $500 Penalty if found using glass containers in the BBQ or pool area.  No minors are allowed without adult supervision in the BBQ area and minors are forbidden to grill.
+                                The BBQ area must be kept clean and all trash picked up and placed in the designated containers.  Your deposit will not be refunded if your trash is not picked up by the end of your reservation time.
+                            </p>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <p>
+                                <a href="javascript:void(0)" style="color:red">See also the Rules & Regulations in the Clubhouse/Licensed Space Agreement.</a>
+                            </p>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <div class="text-center">
+                                <button id="btnInvPrint" class="btn btn-primary" onclick="print('divInv')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                <button id="btnSaveBBQData" class="btn btn-primary" onclick="savupdateAmenityReservation()"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 hidden" id="divPoolCabana" style="margin-top:10px !important">
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>DESCRIPTION:</label></h4></div>
+                        <div class="col-sm-12 text-center"><p>The pool cabana is a designated covered area with privacy curtains and beautiful, chic lounge furniture.</p> </div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>DESCRIPTION:</label></h4></div>
+                        <div class="col-sm-12 text-center"><p>Pool Cabana is to be used solely for social and entertainment purposes. </p> </div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>DESCRIPTION:</label></h4></div>
+                        <div class="col-sm-12 text-center"><p>From 10 AM to SUNSET with a 4-Hour limit per reservation.</p> </div>
+
+
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>RESERVATION AND DEPOSIT FEES: </label></h4></div>
+                        <div class="col-sm-12 text-center">
+                            <label><input type="radio" class="form-control small" name="hoursPC" id="PC_2h250depo" />2 Hours $75/Small Cabana with a $250 Deposit</label>
+                        </div>
+                        <div class="col-sm-12 text-center" style="margin-left: 5px;">
+                            <label><input type="radio" class="form-control small" name="hoursPC" id="PC_4h100depo" />4 Hours $150/ Small Cabana with a $450 Deposit</label>
+                        </div>
+                        <div class="col-sm-12 text-center" style="margin-left: 3px;">
+                            <label><input type="radio" class="form-control small" name="hoursPC" id="PC_2h450depo" />2 Hours $150/Large Cabana with a  $450 Deposit</label>
+                        </div>
+                        <div class="col-sm-12 text-center" style="margin-left: 3px; margin-bottom: 15px;">
+                            <label><input type="radio" class="form-control small" name="hoursPC" id="PC_4h600depo" />4 Hours $300/Large Cabana with a  $600 Deposit</label>
+                        </div>
+
+
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>MAXIMUM OCCUPANCY: </label></h4></div>
+
+                        <div class="col-sm-12 text-center" style="margin-left: 12px;">
+                            <label><input type="radio" class="form-control small" name="limitPC" id="PC_2h5gues" /> 2 Hours Small Cabana LIMIT 5 Guests per Cabana</label>
+                        </div>
+                        <div class="col-sm-12 text-center" style="margin-left: 10px;">
+                            <label><input type="radio" class="form-control small" name="limitPC" id="PC_4h5gues" />4 Hours Small Cabana LIMIT 5 Guests per Cabana</label>
+                        </div>
+                        <div class="col-sm-12 text-center" style="margin-left: 12px;">
+                            <label><input type="radio" class="form-control small" name="limitPC" id="PC_2h12gues" />2 Hours Large Cabana LIMIT 12 Guests per Cabana</label>
+                        </div>
+                        <div class="col-sm-12 text-center" style="margin-left: 12px;margin-bottom: 15px;">
+                            <label><input type="radio" class="form-control small" name="limitPC" id="PC_4h12gues" />4 Hours Large Cabana LIMIT 12 Guests per Cabana</label>
+                        </div>
+
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>BOOKING DATE AND TIME</label></h4></div>
+                        <div class="col-sm-12 ">
+                            <div class="col-sm-6 text-center" style="margin-left:100px;">
+                                <div class="form-group">
+                                    <input id="txtDesiredDatePC" type="text" class="form-control" style="width:35%" maxlength="20" placeholder="MM/dd/yyyy" value="">
+                                    <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
+                                        <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 text-center" style="margin-right:-100px;">
+                                <div class="form-group">
+                                    <input id="txtDesiredTimePC" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:35%" maxlength="20" placeholder="HH:mm:ss" value="">
+                                    <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
+                                        <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>SPECIAL PROVISIONS:</label></h4></div>
+                        <div class="col-sm-12 text-center">
+                            <p>
+                                Alcohol is allowed; however, no glass containers can be used around the BBQ or pool area at any time. There is a $500 Penalty if found using glass containers in the BBQ or pool area.  No minors are allowed without adult supervision.
+                                <br />
+                                The Pool Cabana must be kept clean and all trash picked up and placed in the designated containers.Your deposit will not be refunded if your trash is not picked up at the end-time of your reservation.
+
+                            </p>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <p>
+                                <a href="javascript:void(0)" style="color:red">See also the Rules & Regulations in the Clubhouse/Licensed Space Agreement.</a>
+                            </p>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <div class="text-center">
+                                <button id="btnInvPrint" class="btn btn-primary" onclick="print('divInv')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation()"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 hidden" id="divClubroom" style="margin-top:10px !important">
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>DESCRIPTION:</label></h4></div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><p>The Clubroom is 1,500 square feet of beautifully designed space for social and entertaining events. The clubroom comes with a kitchen area equipped with a refrigerator, icemaker, dishwasher, and a garbage disposal.  You will also find 2 Televisions, surround sound, high-top tables and bar stools, cozy couch and chairs, and a pool table.</p></div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>DESIGNATED USE:</label></h4></div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><p>The clubroom is perfect for all your special gatherings, birthday parties, and even a wedding reception.</p></div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>HOURS AVAILABLE FOR RENTAL:</label></h4></div>
+                        <div class="col-sm-12 text-center"><p style="color:#4D738A !important;"> Sunday through Thursday</p><p>From 10 AM to 10 PM </p></div>
+                        <div class="col-sm-12 text-center"><p style="color:#4D738A !important;">Friday and Saturday</p><p>From 10 AM to Midnight </p></div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><p>5-Hour Reservation Limit</p></div>
+
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>RESERVATION AND DEPOSIT FEES:</label></h4></div>
+
+                        <div class="col-sm-12 text-center">
+                            <label><input type="radio" class="form-control small" name="hoursCR" id="CR_3h500depo" />Clubroom up to 3 Hours $250 Reservation Fee with a Deposit of $500</label>
+                        </div>
+                        <div class="col-sm-12 text-center" style="margin-left:5px !important">
+                            <label><input type="radio" class="form-control small" name="hoursCR" id="CR_5h1000depo" />Clubroom up to 5 Hours $500 Reservation Fee with a Deposit of $1,000</label>
+                        </div>
+                        <div class="col-sm-12 text-center" style="margin-left:19px !important">
+                            <label><input type="radio" class="form-control small" name="hoursCR" id="CR_cy1500" />Clubroom with Courtyard $1,500 Reservation Fee with a Deposit of $1,500*</label>
+                        </div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;">
+                            <div class="col-sm-12 text-center">
+                                <div class="col-sm-12" style="margin-bottom: 15px;"><h6 style="color:#4D738A !important; ">ADDITIONAL REQUIRED FEE: </h6></div>
+                                <div class="col-sm-12"><p>Clubroom Cleaning Fee $275</p></div>
+                                <div class="col-sm-12"><p>Clubroom with Courtyard Cleaning fee $500</p></div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>MAXIMUM OCCUPANCY:</label></h4></div>
+
+                        <div class="col-sm-12">
+                            <div class="col-sm-12 text-center">
+                                <label><input type="radio" class="form-control small" name="limitCR" id="CR_75person" /> Clubroom limited to 75 persons.</label>
+                            </div>
+                            <div class="col-sm-12 text-center" style="margin-left: 46px; margin-bottom: 15px;">
+                                <label><input type="radio" class="form-control small" name="limitCR" id="CR_150person" />Clubroom with Courtyard limited to 150 persons.</label>
+                            </div>
+
+                            <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>BOOKING DATE AND TIME</label></h4></div>
+                            <div class="col-sm-12 ">
+                                <div class="col-sm-6 text-center" style="margin-left:100px;">
+                                    <div class="form-group">
+                                        <input id="txtDesiredDateClubroom" type="text" class="form-control" style="width:35%" maxlength="20" placeholder="MM/dd/yyyy" value="">
+                                        <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
+                                            <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-calendar fa"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 text-center" style="margin-right:-100px;margin-bottom: 15px;">
+                                    <div class="form-group">
+                                        <input id="txtDesiredTimeClubroom" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:35%" maxlength="20" placeholder="HH:mm:ss" value="">
+                                        <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
+                                            <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>SPECIAL PROVISIONS:</label></h4></div>
+
+                            <div class="col-sm-12 text-center">
+                                <p>
+                                    Alcohol is allowed.  Pets are NOT allowed.
+                                    Rental of Clubhouse with Courtyard will require purchase of Event Insurance and Security (Police).  Proof of insurance and security will be required to confirm your reservation.
+                                    All Trash must be picked up and placed in the designated containers by the end of the event.  Refrigerator and dishwasher must be empty.
+                                </p>
+                            </div>
+                            <div class="col-sm-12 text-center">
+                                <p>
+                                    <a href="javascript:void(0)" style="color:red">See also the Rules & Regulations in the Clubhouse/Licensed Space Agreement.</a>
+                                </p>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="text-center">
+                                    <button id="btnInvPrint" class="btn btn-primary" onclick="print('divInv')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                    <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation()"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 hidden " id="divYog">
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>DESCRIPTION:</label></h4></div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><p>The yoga/meditation lawn area is a Zen zone of approximately 1,000 square feet.</p></div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>DESIGNATED USE:</label></h4></div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><p>The Yoga/Meditation lawn area is to be used for relaxation, retreat, and spiritual events.</p></div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>HOURS AVAILABLE FOR RENTAL:</label></h4></div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><p>From 10 AM to SUNSET  2-Hours Limit per Reservation</p></div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>RESERVATION AND DEPOSIT FEES:</label></h4></div>
+
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;">
+                            <label><input type="radio" class="form-control small" name="hoursYoga" id="YO_2hNodepo" checked />$100/up to 2 Hours  NO DEPOSIT FEE</label>
+                        </div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>MAXIMUM OCCUPANCY: </label></h4></div>
+
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;">
+                            <label><input type="radio" class="form-control small" name="limitYoga" id="YO_22person" checked /> 22 Persons</label>
+                        </div>
+
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>BOOKING DATE AND TIME</label></h4></div>
+                        <div class="col-sm-12 text-center">
+                            <div class="col-sm-6 text-center" style="margin-left:100px;">
+                                <div class="form-group">
+                                    <input id="txtDesiredDateYoga" type="text" class="form-control" style="width:35%" maxlength="20" placeholder="MM/dd/yyyy" value="">
+                                    <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
+                                        <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 text-center" style="margin-right:-100px;">
+                                <div class="form-group">
+                                    <input id="txtDesiredTimeYoga" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:35%" maxlength="20" placeholder="HH:mm:ss" value="">
+                                    <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
+                                        <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>SPECIAL PROVISIONS:</label></h4></div>
+
+                        <div class="col-sm-12 text-center">
+                            <p>
+                                Alcohol is not permitted.  No eating is allowed in the Zen area.  No one under 12 years of age are allowed.  All trash must be picked up and placed in the designated containers by the end of the event.
+                            </p>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <p><a href="javascript:void(0)" style="color:red">See also the Rules & Regulations in the Clubhouse/Licensed Space Agreement.</a></p>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <div class="text-center">
+                                <button id="btnInvPrint" class="btn btn-primary" onclick="print('divInv')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation()"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 hidden" id="divSoc">
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>DESCRIPTION:</label></h4></div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><p>The Soccer/Recreational Field is an area designated for sport events.</p></div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>DESIGNATED USE:</label></h4></div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><p>The Soccer/Recreational Field is particularly designated for soccer/futsal.</p></div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>HOURS AVAILABLE FOR RENTAL:</label></h4></div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><p>From SUNRISE to SUNSET  Limited to 4-Hours per Reservation</p></div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>RESERVATION AND DEPOSIT FEES:</label></h4></div>
+                        <div class="col-sm-12 text-center">
+                            <label><input type="radio" class="form-control small" name="hoursSoccer" id="SO_2h200depo" />Up to 2 Hours - $100/Reservation Fee 	$200/Deposit</label>
+                        </div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;">
+                            <label><input type="radio" class="form-control small" name="hoursSoccer" id="SO_4h400depo" />Up to 4 Hours-  $200/Reservation Fee 	$400/Deposit</label>
+                        </div>
+
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>MAXIMUM OCCUPANCY:</label></h4></div>
+
+                        <div class="col-sm-12 text-center" style="margin-left: 1px;">
+                            <label><input type="radio" class="form-control small" name="limit" id="SO_10players" checked /> 10 Players in the field at any time</label>
+                        </div>
+
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>BOOKING DATE AND TIME</label></h4></div>
+                        <div class="col-sm-12 ">
+                            <div class="col-sm-6 text-center" style="margin-left:100px;">
+                                <div class="form-group">
+                                    <input id="txtDesiredDateSoccer" type="text" class="form-control" style="width:35%" maxlength="20" placeholder="MM/dd/yyyy" value="">
+                                    <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
+                                        <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 text-center" style="margin-right:-100px;">
+                                <div class="form-group">
+                                    <input id="txtDesiredTimeSoccer" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:35%" maxlength="20" placeholder="HH:mm:ss" value="">
+                                    <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
+                                        <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>SPECIAL PROVISIONS:</label></h4></div>
+
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;">
+                            <p>
+                                No Alcohol or food is allowed in the Soccer/Recreational field area.  Minors require adult supervision at all times.  Proper sports attire and footwear is required.
+                            </p>
+                        </div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;">
+                            <p>
+                                <a href="javascript:void(0)" style="color:red">See also the Rules & Regulations in the Clubhouse/Licensed Space Agreement.</a>
+                            </p>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <div class="text-center">
+                                <button id="btnInvPrint" class="btn btn-primary" onclick="print('divInv')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation()"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal body end -->
+            <div class="modal-footer">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <input id="hdnStepId1" type="hidden" value="@ViewBag.StepIdMakePayment1" />
     <input id="hdnStepId2" type="hidden" value="@ViewBag.StepIdMakePayment2" />
     <input id="hdnPayStepIdMakePayment" type="hidden" value="@ViewBag.PayStepIdMakePayment" />
@@ -1962,30 +2335,26 @@
 
     <script>
         $(document).ready(function () {
-            $("#txtDesiredTime").timepicki();
+            $("#txtDesiredTimeBBQ").timepicki();
+            $("#txtDesiredTimePC").timepicki();
+            $("#txtDesiredTimeYoga").timepicki();
+            $("#txtDesiredTimeSoccer").timepicki();
+            $("#txtDesiredTimeClubroom").timepicki();
         });
 
         $(function () {
 
 
-            $("#txtDesiredDate").datepicker({
-                format: {
-                    toDisplay: function (date, format, language) {
-                        var d = new Date(date);
-                        d.setDate(d.getDate());
-                        return d.toDateString();
-                    },
-                    toValue: function (date, format, language) {
-                        var d = new Date(date);
-                        d.setDate(d.getDate());
-                        return new Date(d);
-                    }
-                }
-            });
+            $("#txtDesiredDateSoccer").datepicker({ autoclose: true });
+            $("#txtDesiredDateClubroom").datepicker({ autoclose: true });
+            $("#txtDesiredDateBBQ").datepicker({ autoclose: true });
+            $("#txtDesiredDatePC").datepicker({ autoclose: true });
+            $("#txtDesiredDateYoga").datepicker({ autoclose: true });
             $("#txtDesiredDate").on("change", function () {
                 var formatedDate = $("#txtDesiredDate").val();
                 $("#SelectedDate").html(formatedDate);
             });
+
 
             
             $("#txtDateOfBirth").datepicker();
@@ -2020,6 +2389,20 @@
     </script>
 
     <style>
+        .modal-dialog {
+            overflow-y: initial !important
+        }
+
+        .modal-body {
+            height: 550px;
+            overflow-y: auto;
+        }
+
+        div.sticky {
+            position: -webkit-sticky;
+            position: sticky !important;
+            top: 112px;
+        }
         .timepicker_wrap{
             width:135% !important;
         }

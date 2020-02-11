@@ -1160,50 +1160,6 @@ namespace ShomaRM.Areas.Admin.Models
                 }
 
 
-                //var saveInvoiceTransaction = new tbl_Transaction()
-                //{
-                //    TenantID = model.TenantID,
-                //    Revision_Num = 1,
-                //    Transaction_Date = EMiDate,
-                //    Run = 1,
-                //    LeaseID = 0,
-                //    Reference = "TID" + model.TenantID,
-                //    CreatedDate = DateTime.Now,
-                //    Credit_Amount = 0,
-                //    Description = "Monthly Charges-" + EMiDate,
-                //    Charge_Type = 3,
-                //    Payment_ID = null,
-                //    Charge_Amount = prospectDet.MonthlyCharges,
-                //    Accounting_Date = EMiDate,
-                //    ProspectID = ProspectID,
-
-                //};
-                //db.tbl_Transaction.Add(saveInvoiceTransaction);
-                //db.SaveChanges();
-                //var TransId = saveInvoiceTransaction.TransID;
-
-                //MyTransactionModel mm = new MyTransactionModel();
-                //mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.Rent), "Monthly Rent");
-                //mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.TrashAmt), "Trash/Recycle charges");
-                //mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.ConvergentAmt), "Convergent Billing charges");
-                //mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.PestAmt), "Pest Control charges");
-
-                //if (prospectDet.ParkingAmt!=0)
-                //{
-                //    mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.ParkingAmt), "Additional Parking charges");
-
-                //}
-                //if (prospectDet.PetPlaceAmt != 0)
-                //{
-                //    mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.PetPlaceAmt), "Pet charges");
-
-                //}
-                //if (prospectDet.StorageAmt != 0)
-                //{
-                //    mm.CreateTransBill(TransId, Convert.ToDecimal(prospectDet.StorageAmt), "Storage Charges");
-
-                //}
-
 
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == model.UnitID).FirstOrDefault();
                 string reportHTML = "";
@@ -1211,20 +1167,55 @@ namespace ShomaRM.Areas.Admin.Models
                 reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplate.html");
                 if (model != null)
                 {
+                    var appliList = db.tbl_Applicant.Where(pp => pp.TenantID == model.ProspectID).ToList();
+                    string applicant = "";
+                    if (applicant != null)
+                    {
+                        applicant += "<table>";
+
+                        foreach (var pl in appliList)
+                        {
+                            applicant += "<tr>";
+                            applicant += string.Format("<td style=\"text-align:left;\">{0}</td>","Resident Name" );
+                            applicant += string.Format("<td  style=\"text-align:left;\">{0}</td>", pl.FirstName + " " + pl.LastName);
+                         
+                            applicant += "</tr>";
+                        }
+                        applicant += "</table>";
+                        reportHTML = reportHTML.Replace("[%OtherResidents%]", applicant);
+                    }
+                    else
+                    {
+                        reportHTML = reportHTML.Replace("[%OtherResidents%]", "");
+                    }
                     reportHTML = reportHTML.Replace("[%EmailHeader%]", "Tenant Registration");
                     reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + model.FirstName + " " + model.LastName + "</b>,<br/>Your Tenant Account created successfully. Please login to see status. <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + model.Email + " </br>Password :" + loginDet.Password);
 
-                    reportHTML = reportHTML.Replace("[%TenantName%]", model.FirstName + " " + model.LastName);
-                    reportHTML = reportHTML.Replace("[%TenantAddress%]", model.HomeAddress1);
-                    reportHTML = reportHTML.Replace("[%LeaseDate%]", DateTime.Now.ToString());
-                    reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
                     reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
-                    reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString());
-                    reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString());
-                    reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+                    reportHTML = reportHTML.Replace("[%LeaseDate%]", prospectDet.CreatedDate.Value.ToString("MM/dd/yyyy"));
+                    reportHTML = reportHTML.Replace("[%LeaseStart%]", prospectDet.MoveInDate.Value.ToString("MM/dd/yyyy"));
+                    reportHTML = reportHTML.Replace("[%LeaseEnd%]", prospectDet.MoveInDate.Value.AddMonths(Convert.ToInt32(prospectDet.LeaseTerm)).ToString("MM/dd/yyyy"));
+                    reportHTML = reportHTML.Replace("[%LeaseTerm%]", prospectDet.LeaseTerm.ToString());
+                    reportHTML = reportHTML.Replace("[%ApplicationFee%]", prospectDet.AdministrationFee.ToString());
+                    reportHTML = reportHTML.Replace("[%AdministrationFee%]", prospectDet.AdministrationFee.ToString());
+                    reportHTML = reportHTML.Replace("[%SecurityDeposit%]", prospectDet.Deposit.ToString());
+                    reportHTML = reportHTML.Replace("[%PetFee%]", prospectDet.PetDeposit.ToString());
+                    reportHTML = reportHTML.Replace("[%ProratedRent%]", prospectDet.AdministrationFee.ToString());
+                    reportHTML = reportHTML.Replace("[%ProratedTrash%]", prospectDet.AdministrationFee.ToString());
+                    reportHTML = reportHTML.Replace("[%ProratedVehicleRent%]", prospectDet.AdministrationFee.ToString());
+                    reportHTML = reportHTML.Replace("[%ProratedPetRent%]", prospectDet.Prorated_Rent.ToString());
+                    reportHTML = reportHTML.Replace("[%ConcessionAmount%]", "0.00");
+                    reportHTML = reportHTML.Replace("[%TotalMoveIn%]", prospectDet.MoveInCharges.ToString());
+                    reportHTML = reportHTML.Replace("[%Rent%]", prospectDet.Rent.ToString());
+                    reportHTML = reportHTML.Replace("[%Trash%]", prospectDet.TrashAmt.ToString());
+                    reportHTML = reportHTML.Replace("[%PetRent%]", prospectDet.PetPlaceAmt.ToString());
+                    reportHTML = reportHTML.Replace("[%Vehicle%]", prospectDet.VehicleRegistration.ToString());
+                    reportHTML = reportHTML.Replace("[%Storage%]", prospectDet.StorageAmt.ToString());
+                    reportHTML = reportHTML.Replace("[%TotalMonthly%]", prospectDet.MonthlyCharges.ToString());
+                 
                 }
                 string body = reportHTML;
-                new EmailSendModel().SendEmail(model.Email, "Tenant Registration Successfull", body);
+                new EmailSendModel().SendEmail(model.Email, "Welcome To Sanctuary Doral", body);
 
                 msg = model.TenantID.ToString();
                 }
@@ -1233,8 +1224,6 @@ namespace ShomaRM.Areas.Admin.Models
             return msg;
 
         }
-
-       
 
         public string SaveUpdatePostDisclaimer(TenantOnlineModel model)
         {

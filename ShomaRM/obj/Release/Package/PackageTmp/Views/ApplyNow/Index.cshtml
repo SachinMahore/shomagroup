@@ -2243,7 +2243,7 @@
                                         <div class="">
                                             @*<a href="javascript:void(0)" id="btnDownloadLeaseDocument" class="btn btn-primary" onclick="saveLeaseDoc()">Review and Sign Your Online Leasing Application</a>*@
                                             <label class="info-text pull-left hidden" style="color:#4d738a" id="lblsignin">Your Lease Agreement Signing has been successfull. Please click on continue button.</label>
-
+                                            <br />
                                             <input type="submit" class="btn btn-primary" value="Review and Sign Your Online Leasing Application!" id="btnDownloadLeaseDocument"
                                                    style="width:437px;margin-right:16px;" onclick="location.href='@Url.Action("OnPostAsync","EmbeddedSigning",new { TenantID = Model.ProspectId })'" />
                                             <input type="submit" class="btn btn-primary" style="width: 300px;" id="btnleaseDownl" onclick="getDocuDoc('@Model.EnvelopeID')" value="Download Leasing Application" />

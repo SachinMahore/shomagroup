@@ -246,6 +246,7 @@
     <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
     <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="LastUpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="tbl_ClubMapping">
     <Key>
@@ -407,6 +408,7 @@
     <Property Name="TenantID" Type="Int64" />
     <Property Name="OriginalDriverLicence" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
     <Property Name="OriginalVehicleRegistration" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="HaveVehicle" Type="Boolean" />
   </EntityType>
   <EntityType Name="tbl_Invoice">
     <Key>
@@ -1545,14 +1547,6 @@
     <NavigationProperty Name="tbl_City" Relationship="Self.FK_tbl_ZipCodes_tbl_City" FromRole="tbl_ZipCodes" ToRole="tbl_City" />
     <NavigationProperty Name="tbl_State" Relationship="Self.FK_tbl_ZipCodes_tbl_State" FromRole="tbl_ZipCodes" ToRole="tbl_State" />
   </EntityType>
-  <EntityType Name="tbl_Country">
-    <Key>
-      <PropertyRef Name="ID" />
-      <PropertyRef Name="CountryName" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="CountryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-  </EntityType>
   <Association Name="FK_tbl_Applicant_tbl_ApplyNow">
     <End Role="tbl_ApplyNow" Type="Self.tbl_ApplyNow" Multiplicity="0..1" />
     <End Role="tbl_Applicant" Type="Self.tbl_Applicant" Multiplicity="*" />
@@ -2554,7 +2548,6 @@
     <EntitySet Name="tbl_Visit" EntityType="Self.tbl_Visit" />
     <EntitySet Name="tbl_WorkOrder" EntityType="Self.tbl_WorkOrder" />
     <EntitySet Name="tbl_ZipCodes" EntityType="Self.tbl_ZipCodes" />
-    <EntitySet Name="tbl_Country" EntityType="Self.tbl_Country" />
     <AssociationSet Name="FK_tbl_Applicant_tbl_ApplyNow" Association="Self.FK_tbl_Applicant_tbl_ApplyNow">
       <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
       <End Role="tbl_Applicant" EntitySet="tbl_Applicant" />
@@ -2863,5 +2856,13 @@
       <End Role="tbl_Vendor" EntitySet="tbl_Vendor" />
       <End Role="tbl_WorkOrder" EntitySet="tbl_WorkOrder" />
     </AssociationSet>
+    <EntitySet Name="tbl_Country" EntityType="ShomaRMEntitiesModel.tbl_Country" />
   </EntityContainer>
+  <EntityType Name="tbl_Country">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CountryName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

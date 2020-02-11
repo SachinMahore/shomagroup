@@ -30,5 +30,6 @@ namespace ShomaRM.Data
         public Nullable<long> TenantID { get; set; }
         public string OriginalDriverLicence { get; set; }
         public string OriginalVehicleRegistration { get; set; }
+        public Nullable<bool> HaveVehicle { get; set; }
     }
 }

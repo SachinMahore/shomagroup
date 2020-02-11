@@ -217,6 +217,7 @@
     <EntitySetMapping Name="tbl_Club">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Club">
         <MappingFragment StoreEntitySet="tbl_Club">
+          <ScalarProperty Name="Active" ColumnName="Active" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ClubTitle" ColumnName="ClubTitle" />
           <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
@@ -379,6 +380,7 @@
     <EntitySetMapping Name="tbl_GuestRegistration">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_GuestRegistration">
         <MappingFragment StoreEntitySet="tbl_GuestRegistration">
+          <ScalarProperty Name="HaveVehicle" ColumnName="HaveVehicle" />
           <ScalarProperty Name="GuestID" ColumnName="GuestID" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -1471,8 +1473,8 @@
     <EntitySetMapping Name="tbl_Country">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Country">
         <MappingFragment StoreEntitySet="tbl_Country">
-          <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
