@@ -8,7 +8,6 @@ using System.Web;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-
 namespace ShomaRM.Models
 {
     public static class AquatraqHelper

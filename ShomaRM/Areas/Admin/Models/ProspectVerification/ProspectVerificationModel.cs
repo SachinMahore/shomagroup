@@ -447,7 +447,7 @@ namespace ShomaRM.Areas.Admin.Models
 
             return _objAcqutraqOrder;
         }
-        public ProspectVerificationModel GetProspectDataGetProspectData(long Id)
+        public ProspectVerificationModel GetProspectData(long Id)
         {
           
              ShomaRMEntities db = new ShomaRMEntities();
