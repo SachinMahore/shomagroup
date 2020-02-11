@@ -170,6 +170,7 @@
     <Compile Include="Areas\Admin\Controllers\CashReceipt\CashReceiptController.cs" />
     <Compile Include="Areas\Admin\Controllers\ChargeType\ChargeTypeController.cs" />
     <Compile Include="Areas\Admin\Controllers\City\CityController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Club\ClubManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommunityManagment\CommunityManagmentController.cs" />
     <Compile Include="Areas\Admin\Controllers\Document\DocumentController.cs" />
     <Compile Include="Areas\Admin\Controllers\Event\EventController.cs" />
@@ -336,6 +337,7 @@
     <Content Include="Areas\Admin\Content\Pages\CashReceipt\CashReceipt.js" />
     <Content Include="Areas\Admin\Content\Pages\CashReceipt\CashReceiptList.js" />
     <Content Include="Areas\Admin\Content\Pages\ChargeType\ChargeType.js" />
+    <Content Include="Areas\Admin\Content\Pages\Club\ClubManagementList.js" />
     <Content Include="Areas\Admin\Content\Pages\CommunityManagment\CommunityActivityList.js" />
     <Content Include="Areas\Admin\Content\Pages\Document\Document.js" />
     <Content Include="Areas\Admin\Content\Pages\Event\Event.js" />
@@ -772,10 +774,10 @@
     <Content Include="Areas\Admin\Views\Amenities\ARREdit.cshtml" />
     <Content Include="Areas\Admin\Views\GuestManagement\Index.cshtml" />
     <Content Include="Areas\Tenant\Views\MyCommunity\_JoinClub.cshtml" />
-
     <Content Include="Areas\Admin\Views\ServiceCategory\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ServiceLocation\Index.cshtml" />
-
+    <Content Include="Areas\Admin\Views\ClubManagement\Index.cshtml" />
+    <Content Include="Areas\Tenant\Views\MyCommunity\_EditClub.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

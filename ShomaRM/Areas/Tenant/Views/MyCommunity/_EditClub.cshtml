@@ -1,0 +1,211 @@
+﻿
+@model ShomaRM.Areas.Tenant.Models.Club.ClubModel
+@using ShomaRM.Areas.Tenant.Models.Enum;
+
+
+<h3 class="center">Edit CLub</h3>
+<br />
+<div class="col-md-12">
+    <div class="row mb-15">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <input class="hidden" id="txtClubIdEdit" value="@Model.Id" type="text" />
+                <div class="col-sm-2 star">
+                    <label style="color:#4D738A !important;font-size:11pt;">Club Title:</label>
+                </div>
+                <div class="col-sm-4">
+                    <input id="txtClubTitleEdit" type="text" name="ClubTitle" value="@Model.ClubTitle" class="form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-15">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <div class="col-sm-2 star">
+                    <label style="color:#4D738A !important;font-size:11pt;">Activity:</label>
+                </div>
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(o => o.ActivityId, Enum.GetValues(typeof(ActivityEnum)).Cast<ActivityEnum>
+                        ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "ActivityIdEdit", @class = "form-control" })
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-15">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <div class="col-sm-2 star">
+                    <label style="color:#4D738A !important;font-size:11pt;">Start Date:</label>
+                </div>
+                <div class="col-sm-3">
+                    <input id="txtStartDateEdit" type="text" class="form-control" data-provide="datepicker" value="@Model.StartDate" name="StartDate" maxlength="20" placeholder="MM/dd/yyyy">
+                    <span class="input-group-btn pull-right" style="margin-top: -34px; margin-right: 37px;">
+                        <button id="btnStartDateEdit" class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-15">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <div class="col-sm-2 star">
+                    <label style="color:#4D738A !important;font-size:11pt;">Venue:</label>
+                </div>
+                <div class="col-sm-4">
+                    <input id="txtVenueEdit" type="text" name="Venue" value="@Model.Venue" class="form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-15">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <div class="col-sm-2 star">
+                    <label style="color:#4D738A !important;font-size:11pt;">Meeting Day:</label>
+                </div>
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(o => o.DayId, Enum.GetValues(typeof(DayEnum)).Cast<DayEnum>
+                      ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "DayIdEdit", @class = "form-control" })
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-15">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <div class="col-sm-2 star">
+                    <label style="color:#4D738A !important;font-size:11pt;">Meeting Time:</label>
+                </div>
+                <div class="col-sm-4">
+                    <div class="time_pick"><input id="txtMeetingTimeEdit" class="time_element form-control form-control-small" type="text" value="@Model.Time" name="timepicker" style="width:60%" maxlength="20" placeholder="HH:mm:ss" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
+                    <span class="input-group-btn pull-right" style="margin-top: -34px; margin-right: 105px;">
+                        <button id="btnStartDateEdit" class="btn btn-primary search" type="button"><i class="fa-clock-o fa"></i></button>
+                    </span>
+                    @*<input id="txtMeetingTime" data-provide="t" type="text" name="Time" class="form-control" />*@
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-15">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <label style="color:#4D738A !important;font-size:11pt;">Contact/ Organizer:</label>
+                </div>
+                <div class="col-sm-4">
+                    <input id="txtContactEdit" type="text" name="Contact" value="@Model.Contact" class="form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-15">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <div class="col-sm-2 star">
+                    <label style="color:#4D738A !important;font-size:11pt;">Email:</label>
+                </div>
+                <div class="col-sm-4">
+                    <input id="txtEmailEdit" type="text" name="Email" value="@Model.Email" class="form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-15">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <div class="col-sm-2 star">
+                    <label style="color:#4D738A !important;font-size:11pt;">Phone:</label>
+                </div>
+                <div class="col-sm-4">
+                    <input id="txtPhoneNumberEdit" type="text" name="PhoneNumber" value="@Model.PhoneNumber" class="form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-15">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <label style="color:#4D738A !important;font-size:11pt;">Best way to contact:</label>
+                </div>
+                <div class="col-sm-9">
+                    <div class="col-sm-2">
+                        <input id="PhoneCheckEdit" class="form-control" @(Model.PhoneCheck==true?"Checked='checked'":"") type="radio" name="check" checked="checked" /> Phone
+                    </div>
+                    <div class="col-sm-2">
+                        <input id="EmailCheckEdit" class="form-control" type="radio" @(Model.EmailCheck==true?"Checked='checked'":"") name="check" /> Email
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-15">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <label style="color:#4D738A !important;font-size:11pt;">Level:</label>
+                </div>
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(o => o.LevelId, Enum.GetValues(typeof(LevelEnum)).Cast<LevelEnum>
+                      ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "LevelIdEdit", @class = "form-control" })
+
+                    <textarea id="txtSpecialInstructionEdit" rows="3" name="SpecialInstruction" value="@Model.SpecialInstruction" placeholder="Special Instructions/Comments" class="form-control" style="margin-top:4px"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-15">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <label style="color:#4D738A !important;font-size:11pt;">Description:</label>
+                </div>
+                <div class="col-sm-4">
+                    <textarea id="txtDescriptionEdit" name="Description" rows="5"  placeholder="What is your club about?" class="form-control mb-5">@Model.Description</textarea>
+
+                    <textarea id="txtBriefDescriptionEdit" name="BriefDescription" rows="2" maxlength="40" placeholder="Brief description (limited to 40 characters)" class="form-control mb-5">@Model.BriefDescription</textarea>
+
+                    <div class="checkbox">
+                        <label>
+                            <input id="chkTermsConditionsEdit" class="form-control" type="checkbox" @(Model.TermsAndCondition==true?"Checked='checked'":"") name="TermsAndCondition" />
+                            &nbsp;I agree to the <a style="color:#4D738A !important;font-size:11pt;">Terms &amp; Conditions</a>
+                        </label>
+                    </div>
+
+                    <div class="center">
+                        <input type="hidden" id="hndfileCommunityActivityEdit" />
+                        <input type="hidden" id="hndfileCommunityActivityOriginalNameEdit" />
+                        <button id="ClubSubmitEdit" type="button" class=" btn btn-primary" onclick="SubmitClubEdit()" style="background-color:#4D738A;border-color:#4D738A;color:#fff;margin-top:5px;font-size:11pt;">Create Club</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="~/Areas/Tenant/Content/Pages/MyCommunity/MyCommunity.js"></script>
+<script>
+      $("#chkTermsConditionsEdit").on('ifChanged', function (event) {
+            if (this.checked == true) {
+                $('#ClubSubmitEdit').removeAttr('disabled');
+            } else {
+                $('#ClubSubmitEdit').attr('disabled', 'disabled');
+            }
+        });
+</script>

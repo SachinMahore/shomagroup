@@ -17,14 +17,14 @@
                     <div class="tab-content1">
                         <ul class="nav nav-tabs main-tab t-ul">
                             @*<li id="li1" class="active"><a href="javascript:void(0);" onclick="goToStep(1)" style="font-size:12pt;">Overview</a></li>
-        <li id="li2"><a href="javascript:void(0);" onclick="goToStep(2)" style="font-size:12pt;">Community Info</a></li>
-        <li id="li3"><a href="javascript:void(0);" onclick="goToStep(3)" style="font-size:12pt;">Events</a></li>*@
+                                <li id="li2"><a href="javascript:void(0);" onclick="goToStep(2)" style="font-size:12pt;">Community Info</a></li>
+                                <li id="li3"><a href="javascript:void(0);" onclick="goToStep(3)" style="font-size:12pt;">Events</a></li>*@
                             <li id="li5" class="active"><a id="JoinClubEvent" href="javascript:void(0);" onclick="goToStep(5)" style="font-size:12pt;">Join a Club</a></li>
-                            <li id="li4" ><a href="javascript:void(0);" onclick="goToStep(4)" style="font-size:12pt;">Start a Club</a></li>
+                            <li id="li4"><a href="javascript:void(0);" onclick="goToStep(4)" style="font-size:12pt;">Start a Club</a></li>
 
                             <li id="li6"><a href="javascript:void(0);" onclick="goToStep(7,@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID)" style="font-size:12pt;">My Clubs</a></li>
                         </ul>
-                        
+
                         <div class="hidden" id="step4">
                             @{
                                 ViewBag.Title = "CreateCommunityClubJoin";
@@ -116,8 +116,8 @@
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <div class="time_pick"><input id="txtMeetingTime" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:60%" maxlength="20" placeholder="HH:mm:ss" value="" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
-                                                    <span class="input-group-btn pull-right" style="margin-top: -34px; margin-right: 105px;">
-                                                        <button id="btnStartDate" class="btn btn-primary search" type="button"><i class="fa-clock-o fa"></i></button>
+                                                    <span class="input-group-btn pull-right" style="margin-top: -34px; margin-right: 137px;">
+                                                        <button id="btnStartDateid" class="btn btn-primary search" type="button"><i class="fa-clock-o fa"></i></button>
                                                     </span>
                                                     @*<input id="txtMeetingTime" data-provide="t" type="text" name="Time" class="form-control" />*@
 
@@ -213,8 +213,9 @@
                                                     <div class="checkbox">
                                                         <label>
                                                             <input id="chkTermsConditions" class="form-control" type="checkbox" onchange="ClubSubmitEnableDisable(this)" name="TermsAndCondition" />
-                                                            &nbsp;I agree to the <a style="color:#4D738A !important;font-size:11pt;">Terms &amp; Conditions</a></label>
-</div>
+                                                            &nbsp;I agree to the <a style="color:#4D738A !important;font-size:11pt;">Terms &amp; Conditions</a>
+                                                        </label>
+                                                    </div>
 
                                                     <div class="center">
                                                         <input type="hidden" id="hndfileCommunityActivity" />
@@ -230,18 +231,18 @@
                             }
                         </div>
                         <div class="hidden" id="step5">
-                           @{Html.RenderPartial("_JoinClub",Model.GetClubList().Where(a=>a.UserId!=ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID).ToList());}
+                            @{Html.RenderPartial("_JoinClub", Model.GetClubList().Where(a => a.UserId != ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID).ToList());}
                         </div>
                         @*<div >
-                            @{Html.RenderPartial("_JoinClub", Model.GetClubList());}
-                        </div>*@
+                                @{Html.RenderPartial("_JoinClub", Model.GetClubList());}
+                            </div>*@
                         <div class="hidden" id="step6">
                             <div class="">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="panel-body">
                                             <div class="row">
-                                                <input type="text" id="JoinClubPopupClubId"  hidden="hidden"/>
+                                                <input type="text" id="JoinClubPopupClubId" hidden="hidden" />
                                                 <div class="col-sm-12">
                                                     <div class="col-sm-4">
                                                         <div class="card" style="border:2px solid #4D738A;">
@@ -256,9 +257,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-8">
-                                                        <h3><b ><label id="ClubTitle"></label></b></h3>
+                                                        <h3><b><label id="ClubTitle"></label></b></h3>
                                                         <p style="font-size:11pt;">
-                                                           <label id="Description"></label>
+                                                            <label id="Description"></label>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -269,8 +270,11 @@
                             </div>
                         </div>
                         <div class="hidden" id="step7">
-                            @{Html.RenderPartial("_JoinClub", Model.GetClubList().Where(a=>a.UserId==ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID).ToList());}
-                           
+                            @{Html.RenderPartial("_JoinClub", Model.GetClubList().Where(a => a.UserId == ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID).ToList());}
+
+                        </div>
+                        <div class="hidden" id="step8">
+                            @{Html.RenderPartial("_EditClub", Model);}
                         </div>
                         <!-- End submit form -->
                     </div>
@@ -1098,6 +1102,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
     <script src="~/Content/assets/js/bootstrap-datepicker.js"></script>
     <script src="~/Content/assets/js/bootstrap-datetimepicker.js"></script>
+    <script src="~/Areas/Tenant/Content/Pages/MyCommunity/MyCommunity.js"></script>
     <script>
         $(document).ready(function () {
             $("#txtMeetingTime").timepicki();
@@ -1111,6 +1116,8 @@
             }
         });
 
+        
+
         var closeDateModel = function () {
 
             var modalOpDate = document.getElementById("date-popover");
@@ -1118,10 +1125,10 @@
             modalClDate.onclick = function () { modalOpDate.style.display = "none"; }
         };
 
-          document.getElementById('txtPhoneNumber').addEventListener('input', function (e) {
-        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-    });
+        document.getElementById('txtPhoneNumber').addEventListener('input', function (e) {
+            var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+            e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+        });
     </script>
 
 
