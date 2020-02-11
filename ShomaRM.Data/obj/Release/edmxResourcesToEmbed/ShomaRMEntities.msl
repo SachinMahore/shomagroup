@@ -30,22 +30,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_AmenityReservation">
-      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_AmenityReservation">
-        <MappingFragment StoreEntitySet="tbl_AmenityReservation">
-          <ScalarProperty Name="ARID" ColumnName="ARID" />
-          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-          <ScalarProperty Name="AmenityID" ColumnName="AmenityID" />
-          <ScalarProperty Name="DesiredDate" ColumnName="DesiredDate" />
-          <ScalarProperty Name="DesiredTime" ColumnName="DesiredTime" />
-          <ScalarProperty Name="DurationID" ColumnName="DurationID" />
-          <ScalarProperty Name="DepositFee" ColumnName="DepositFee" />
-          <ScalarProperty Name="ReservationFee" ColumnName="ReservationFee" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="Duration" ColumnName="Duration" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_Applicant">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Applicant">
         <MappingFragment StoreEntitySet="tbl_Applicant">
@@ -1475,6 +1459,25 @@
         <MappingFragment StoreEntitySet="tbl_Country">
           <ScalarProperty Name="CountryName" ColumnName="CountryName" />
           <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_AmenityReservation">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_AmenityReservation">
+        <MappingFragment StoreEntitySet="tbl_AmenityReservation">
+          <ScalarProperty Name="Guest" ColumnName="Guest" />
+          <ScalarProperty Name="DesiredTimeTo" ColumnName="DesiredTimeTo" />
+          <ScalarProperty Name="DesiredTimeFrom" ColumnName="DesiredTimeFrom" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ReservationFee" ColumnName="ReservationFee" />
+          <ScalarProperty Name="DepositFee" ColumnName="DepositFee" />
+          <ScalarProperty Name="DurationID" ColumnName="DurationID" />
+          <ScalarProperty Name="DesiredTime" ColumnName="DesiredTime" />
+          <ScalarProperty Name="DesiredDate" ColumnName="DesiredDate" />
+          <ScalarProperty Name="AmenityID" ColumnName="AmenityID" />
+          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+          <ScalarProperty Name="ARID" ColumnName="ARID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

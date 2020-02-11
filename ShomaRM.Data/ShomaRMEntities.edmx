@@ -45,6 +45,9 @@
           <Property Name="ReservationFee" Type="varchar" MaxLength="50" />
           <Property Name="Status" Type="int" />
           <Property Name="Duration" Type="varchar" MaxLength="100" />
+          <Property Name="DesiredTimeFrom" Type="varchar" MaxLength="50" />
+          <Property Name="DesiredTimeTo" Type="varchar" MaxLength="50" />
+          <Property Name="Guest" Type="bigint" />
         </EntityType>
         <EntityType Name="tbl_Applicant">
           <Key>
@@ -2746,21 +2749,6 @@
           <Property Name="Fees" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="DurationID" Type="Int64" />
         </EntityType>
-        <EntityType Name="tbl_AmenityReservation">
-          <Key>
-            <PropertyRef Name="ARID" />
-          </Key>
-          <Property Name="ARID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenantID" Type="Int64" />
-          <Property Name="AmenityID" Type="Int64" />
-          <Property Name="DesiredDate" Type="DateTime" Precision="3" />
-          <Property Name="DesiredTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DurationID" Type="Int64" />
-          <Property Name="DepositFee" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ReservationFee" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="Duration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="tbl_Applicant">
           <Key>
             <PropertyRef Name="ApplicantID" />
@@ -5195,7 +5183,6 @@
           <EntitySet Name="tbl_Advertiser" EntityType="Self.tbl_Advertiser" />
           <EntitySet Name="tbl_Amenities" EntityType="Self.tbl_Amenities" />
           <EntitySet Name="tbl_AmenityPriceRange" EntityType="Self.tbl_AmenityPriceRange" />
-          <EntitySet Name="tbl_AmenityReservation" EntityType="Self.tbl_AmenityReservation" />
           <EntitySet Name="tbl_Applicant" EntityType="Self.tbl_Applicant" />
           <EntitySet Name="tbl_ApplicantHistory" EntityType="Self.tbl_ApplicantHistory" />
           <EntitySet Name="tbl_ApplyNow" EntityType="Self.tbl_ApplyNow" />
@@ -5577,6 +5564,7 @@
             <End Role="tbl_WorkOrder" EntitySet="tbl_WorkOrder" />
           </AssociationSet>
           <EntitySet Name="tbl_Country" EntityType="ShomaRMEntitiesModel.tbl_Country" />
+          <EntitySet Name="tbl_AmenityReservation" EntityType="ShomaRMEntitiesModel.tbl_AmenityReservation" />
         </EntityContainer>
         <EntityType Name="tbl_Country">
           <Key>
@@ -5584,6 +5572,24 @@
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CountryName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_AmenityReservation">
+          <Key>
+            <PropertyRef Name="ARID" />
+          </Key>
+          <Property Name="ARID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantID" Type="Int64" />
+          <Property Name="AmenityID" Type="Int64" />
+          <Property Name="DesiredDate" Type="DateTime" Precision="3" />
+          <Property Name="DesiredTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DurationID" Type="Int64" />
+          <Property Name="DepositFee" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReservationFee" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Duration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DesiredTimeFrom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DesiredTimeTo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Guest" Type="Int64" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -5617,22 +5623,6 @@
                 <ScalarProperty Name="Deposit" ColumnName="Deposit" />
                 <ScalarProperty Name="Fees" ColumnName="Fees" />
                 <ScalarProperty Name="DurationID" ColumnName="DurationID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_AmenityReservation">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_AmenityReservation">
-              <MappingFragment StoreEntitySet="tbl_AmenityReservation">
-                <ScalarProperty Name="ARID" ColumnName="ARID" />
-                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-                <ScalarProperty Name="AmenityID" ColumnName="AmenityID" />
-                <ScalarProperty Name="DesiredDate" ColumnName="DesiredDate" />
-                <ScalarProperty Name="DesiredTime" ColumnName="DesiredTime" />
-                <ScalarProperty Name="DurationID" ColumnName="DurationID" />
-                <ScalarProperty Name="DepositFee" ColumnName="DepositFee" />
-                <ScalarProperty Name="ReservationFee" ColumnName="ReservationFee" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Duration" ColumnName="Duration" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7065,6 +7055,25 @@
               <MappingFragment StoreEntitySet="tbl_Country">
                 <ScalarProperty Name="CountryName" ColumnName="CountryName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_AmenityReservation">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_AmenityReservation">
+              <MappingFragment StoreEntitySet="tbl_AmenityReservation">
+                <ScalarProperty Name="Guest" ColumnName="Guest" />
+                <ScalarProperty Name="DesiredTimeTo" ColumnName="DesiredTimeTo" />
+                <ScalarProperty Name="DesiredTimeFrom" ColumnName="DesiredTimeFrom" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ReservationFee" ColumnName="ReservationFee" />
+                <ScalarProperty Name="DepositFee" ColumnName="DepositFee" />
+                <ScalarProperty Name="DurationID" ColumnName="DurationID" />
+                <ScalarProperty Name="DesiredTime" ColumnName="DesiredTime" />
+                <ScalarProperty Name="DesiredDate" ColumnName="DesiredDate" />
+                <ScalarProperty Name="AmenityID" ColumnName="AmenityID" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="ARID" ColumnName="ARID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

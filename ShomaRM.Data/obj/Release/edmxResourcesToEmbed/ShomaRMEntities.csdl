@@ -26,21 +26,6 @@
     <Property Name="Fees" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="DurationID" Type="Int64" />
   </EntityType>
-  <EntityType Name="tbl_AmenityReservation">
-    <Key>
-      <PropertyRef Name="ARID" />
-    </Key>
-    <Property Name="ARID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="TenantID" Type="Int64" />
-    <Property Name="AmenityID" Type="Int64" />
-    <Property Name="DesiredDate" Type="DateTime" Precision="3" />
-    <Property Name="DesiredTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="DurationID" Type="Int64" />
-    <Property Name="DepositFee" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="ReservationFee" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Status" Type="Int32" />
-    <Property Name="Duration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-  </EntityType>
   <EntityType Name="tbl_Applicant">
     <Key>
       <PropertyRef Name="ApplicantID" />
@@ -2475,7 +2460,6 @@
     <EntitySet Name="tbl_Advertiser" EntityType="Self.tbl_Advertiser" />
     <EntitySet Name="tbl_Amenities" EntityType="Self.tbl_Amenities" />
     <EntitySet Name="tbl_AmenityPriceRange" EntityType="Self.tbl_AmenityPriceRange" />
-    <EntitySet Name="tbl_AmenityReservation" EntityType="Self.tbl_AmenityReservation" />
     <EntitySet Name="tbl_Applicant" EntityType="Self.tbl_Applicant" />
     <EntitySet Name="tbl_ApplicantHistory" EntityType="Self.tbl_ApplicantHistory" />
     <EntitySet Name="tbl_ApplyNow" EntityType="Self.tbl_ApplyNow" />
@@ -2857,6 +2841,7 @@
       <End Role="tbl_WorkOrder" EntitySet="tbl_WorkOrder" />
     </AssociationSet>
     <EntitySet Name="tbl_Country" EntityType="ShomaRMEntitiesModel.tbl_Country" />
+    <EntitySet Name="tbl_AmenityReservation" EntityType="ShomaRMEntitiesModel.tbl_AmenityReservation" />
   </EntityContainer>
   <EntityType Name="tbl_Country">
     <Key>
@@ -2864,5 +2849,23 @@
     </Key>
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CountryName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_AmenityReservation">
+    <Key>
+      <PropertyRef Name="ARID" />
+    </Key>
+    <Property Name="ARID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenantID" Type="Int64" />
+    <Property Name="AmenityID" Type="Int64" />
+    <Property Name="DesiredDate" Type="DateTime" Precision="3" />
+    <Property Name="DesiredTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DurationID" Type="Int64" />
+    <Property Name="DepositFee" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ReservationFee" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="Duration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DesiredTimeFrom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DesiredTimeTo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Guest" Type="Int64" />
   </EntityType>
 </Schema>

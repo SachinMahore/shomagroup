@@ -40,6 +40,9 @@
     <Property Name="ReservationFee" Type="varchar" MaxLength="50" />
     <Property Name="Status" Type="int" />
     <Property Name="Duration" Type="varchar" MaxLength="100" />
+    <Property Name="DesiredTimeFrom" Type="varchar" MaxLength="50" />
+    <Property Name="DesiredTimeTo" Type="varchar" MaxLength="50" />
+    <Property Name="Guest" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_Applicant">
     <Key>

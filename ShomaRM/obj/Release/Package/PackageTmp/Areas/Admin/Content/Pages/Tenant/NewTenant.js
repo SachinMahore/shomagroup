@@ -102,8 +102,10 @@ var getReservationRequestList = function () {
                     html += "<td>" + elementValue.TenantName + "</td>";
                     html += "<td>" + elementValue.AmenityName + "</td>";
                     html += "<td>" + elementValue.DesiredDate + "</td>";
-                    html += "<td>" + elementValue.DesiredTime + "</td>";
-                    html += "<td>" + elementValue.Duration + "</td>";
+                    html += "<td>" + elementValue.DesiredTimeFrom + "</td>";
+                    html += "<td>" + elementValue.DesiredTimeTo + "</td>";
+                    html += "<td>" + elementValue.Duration + " hours</td>";
+                    html += "<td>" + elementValue.Guest + "</td>";
                     html += "<td>" + elementValue.Status + "</td>";
 
                     html += "</tr>";
