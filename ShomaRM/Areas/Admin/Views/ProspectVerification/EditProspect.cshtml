@@ -3893,8 +3893,9 @@
 
         $('#txtDOB').datepicker({ viewMode: "years", endDate: dt, autoclose: true });
         $('#txtHDateOfBirth').datepicker({ viewMode: "years", endDate: dt, autoclose: true });
-
-        $("#txtPhoneNumber").val(formatPhoneFax('@Model.Phone'));
+        $("#txtPhoneNumber").text(formatPhoneFax("@Model.Phone"));
+        $("#txtPhoneNumber").text(formatPhoneFax("@Model.Phone"));
+        $("#lblFNLPhone").text(formatPhoneFax("@Model.Phone"));
     });
 
     $(document).ready(function () {
@@ -3966,8 +3967,8 @@
             $("#dwnldPOE").attr('onclick', 'fileNotFound()');
             $("#dwnldPOE").html('<i class="fa fa-download"></i>' + ' ' + '@Model.ElectricityDoc');
         }
-        $("#txtPhoneNumber").text(formatPhoneFax('@Model.Phone'));
-        $("#lblFNLPhone").text(formatPhoneFax('@Model.Phone'));
+
+
     });
 
     var fileNotFound = function () {
