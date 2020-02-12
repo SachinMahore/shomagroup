@@ -6,6 +6,7 @@
 <script src="~/Content/jquery.shorten.1.0.js"></script>
 <input id="hdnUserId" type="hidden" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID" />
 <input id="hndTenantID" type="hidden" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID" />
+<input id="hndEventID" type="hidden" value="0" />
 
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
@@ -184,20 +185,7 @@
         </div>
     </div>
 
-    <div class="modal" id="date-popover" style="padding-right: 370px !important;margin-top: 371px;margin-left: 273px;">
-        <div class="modal-dialog">
-            <div class="modal-content" style="width: auto; height:auto;text-align: center;">
-                <button type="button" class="close" id="closeDate" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div id="divEventsCal" class="tab-content1">
-
-                    </div>
-                    <p style="text-align:center;margin-top: -2%;cursor:pointer"></p>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
     <div id="modalDisclaimer" class="modal" style="width:100% !important">
         <div class="modal-header">
@@ -336,6 +324,32 @@
                 <div class="modal-footer">
                     <div class="col-sm-12 text-center">
                         <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary pull-right" style="margin-right: 10px;" onclick="saveTenantEventsJoin()">Join Event</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="date-popover">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 80%;">
+                <div class="modal-header center">
+                    <h3 class="modal-title">Event's</h3>
+                    <button type="button" class="close pull-right" id="closeDate" data-dismiss="modal" style="margin-top: -30px;">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body table-bordered">
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <div id="divEventsCal" class="tab-content1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12 text-center">
+                        <button type="button" class="btn btn-primary pull-right" id="closeDate1" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

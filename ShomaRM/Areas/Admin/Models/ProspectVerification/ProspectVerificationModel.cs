@@ -580,7 +580,7 @@ namespace ShomaRM.Areas.Admin.Models
                     }
 
 
-                   // ScrenningProcess(GetProspectData);
+
 
                 }
             }
