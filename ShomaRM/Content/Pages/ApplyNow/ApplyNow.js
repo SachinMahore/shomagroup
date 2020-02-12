@@ -5262,7 +5262,7 @@ var getDocuDoc = function (envelopeID) {
     $("#divLoader").show();
     var param = { EnvelopeID: envelopeID };
     $.ajax({
-        url: "/EmbeddedSigning/GetDocuDoc",
+        url: "/EmbeddedSigning/GetDocuDocLease",
         method: "post",
         data: JSON.stringify(param),
         contentType: "application/json; charset=utf-8", // content type sent to server
@@ -5270,7 +5270,7 @@ var getDocuDoc = function (envelopeID) {
         success: function (response) {
             $("#divLoader").hide();
             window.open("/Content/assets/img/Document/" + response.result, "popupWindow", "width=900,height=600,scrollbars=yes");
-            //signLeaseDoc(response.result);
+           
         }
     });
 }
