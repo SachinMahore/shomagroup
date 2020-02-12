@@ -24,5 +24,8 @@ namespace ShomaRM.Data
         public string ReservationFee { get; set; }
         public Nullable<int> Status { get; set; }
         public string Duration { get; set; }
+        public string DesiredTimeFrom { get; set; }
+        public string DesiredTimeTo { get; set; }
+        public Nullable<long> Guest { get; set; }
     }
 }

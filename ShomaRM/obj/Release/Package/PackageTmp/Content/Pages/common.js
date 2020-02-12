@@ -80,3 +80,13 @@ function restrictFileUpload(uploaderId) {
         return true;
     }
 };
+
+function formatPhoneFax(phonefax) {
+    if (phonefax == null)
+        phonefax = "";
+    phonefax = phonefax.replace(/[^0-9]/g, '');
+    if (phonefax.length == 0)
+        return phonefax;
+
+    return '(' + phonefax.substring(0, 3) + ') ' + phonefax.substring(3, 6) + (phonefax.length > 6 ? '-' : '') + phonefax.substring(6);
+}

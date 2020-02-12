@@ -7,6 +7,8 @@ using System.Linq;
 using System.Web;
 using ShomaRM.Data;
 using ShomaRM.Areas.Tenant.Models;
+using ShomaRM.Models;
+using System.Xml.Serialization;
 
 namespace ShomaRM.Areas.Admin.Models
 {
@@ -101,6 +103,7 @@ namespace ShomaRM.Areas.Admin.Models
             List<ProspectVerificationModel> lstpr = new List<ProspectVerificationModel>();
             try
             {
+              
                 DataTable dtTable = new DataTable();
                 using (var cmd = db.Database.Connection.CreateCommand())
                 {
@@ -302,11 +305,11 @@ namespace ShomaRM.Areas.Admin.Models
                 var GetCoappDet = db.tbl_Applicant.Where(c => c.Email == Email).FirstOrDefault();
                 reportHTML = reportHTML.Replace("[%EmailHeader%]", "Online Application Status");
                 reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + GetTenantDet.FirstName + " " + GetTenantDet.LastName + "</b>,<br/>Your Online application submitted successfully. Please click below to Pay Application fees. <br/><br/><u><b>Payment Link :<a href=''></a> </br></b></u>  </br>");
-                reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
+                reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantDet.FirstName + " " + GetTenantDet.LastName);
                 if (Status == "Approved")
                 {
                     reportHTML = reportHTML.Replace("[%Status%]", "Congratulations ! Your Application is Approved");
-                    reportHTML = reportHTML.Replace("[%StatusDet%]", "Good news! You have been approved.  We welcome you to our community. Kindly click on “LEASE NOW” to continue your leasing process. ");
+                    reportHTML = reportHTML.Replace("[%StatusDet%]", "Good news! We are pleased to notify you that your document is ready and available to sign. For your convenience, this document is being delivered in format that allow for you ro review and sign the document electronically. If you have any question about your document please contact: ");
                     reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"http://52.4.251.162:8086/Checklist\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"http://52.4.251.162:8086/Checklist\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">LEASE NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
 
                    
@@ -365,6 +368,8 @@ namespace ShomaRM.Areas.Admin.Models
             public string SortBy { get; set; }
             public string OrderBy { get; set; }
         }
+
+        
         public string GetDocumentType(string DocType)
         {
             string docType = "";
@@ -386,8 +391,61 @@ namespace ShomaRM.Areas.Admin.Models
             }
             return docType;
         }
+
+        public OrderXML SetAqutraq(long TenantID)
+        {
+            var _objAcqutraqOrder = new OrderXML();
+            _objAcqutraqOrder.Method = "SEND ORDER";
+            var Authentication = new Authentication();
+
+            Authentication.Username = "IntegrationUser";
+            Authentication.Password = "Shom@Group2019!!";
+            _objAcqutraqOrder.Authentication = Authentication;
+            _objAcqutraqOrder.TestMode = "Yes";
+            _objAcqutraqOrder.ReturnResultURL = "http://thinkersteps.com/contact.html";
+            var _objorder = new Order();
+            _objorder.BillingReferenceCode = "000-0000";
+            var _objsubject = new Subject();
+            _objsubject.FirstName = "Joe";
+            _objsubject.MiddleName = "Rupram";
+            _objsubject.LastName = "Clean";
+            _objsubject.DOB = "01/01/1990";
+            _objsubject.SSN = "111-22-3333";
+            _objsubject.Gender = "Male";
+            _objsubject.DLNumber = "454454dsfdgs4545";
+            _objsubject.ApplicantPosition = "Director";
+            _objorder.Subject = _objsubject;
+            _objAcqutraqOrder.Order = _objorder;
+            var CurrentAddress = new CurrentAddress();
+            CurrentAddress.StreetAddress = "Omkar Nagar";
+            CurrentAddress.City = "Nagpur";
+            CurrentAddress.State = "Maharashtra";
+            CurrentAddress.Zipcode = "440002";
+            CurrentAddress.Country = "India";
+            _objsubject.CurrentAddress = CurrentAddress;
+            _objorder.Subject = _objsubject;
+            _objorder.PackageServiceCode = "CCEE";
+            var _objorderdetails = new OrderDetail();
+            _objorderdetails.CompanyName = "Thinkersteps";
+            _objorderdetails.Position = "Developer";
+            _objorderdetails.Salary = "1000";
+            _objorderdetails.Manager = "Test";
+            _objorderdetails.Telephone = "(123)456-7890";
+            _objorderdetails.EmployerCity = "Nagpur";
+            _objorderdetails.EmployerState = "Nagpur";
+            var _objEmploymentDates = new EmploymentDates();
+            _objEmploymentDates.StartDate = "10/01/2017";
+            _objEmploymentDates.EndDate = "10/10/2019";
+            _objorderdetails.EmploymentDates = _objEmploymentDates;
+            _objorderdetails.ReasonForLeaving = "Test";
+            _objorder.OrderDetail = _objorderdetails ;
+
+            return _objAcqutraqOrder;
+        }
         public ProspectVerificationModel GetProspectData(long Id)
         {
+           var data= SetAqutraq(1);
+         var test=      AquatraqHelper.Serialize(data);
             ShomaRMEntities db = new ShomaRMEntities();
             ProspectVerificationModel model = new ProspectVerificationModel();
             model.ProspectId = 0;
@@ -522,7 +580,7 @@ namespace ShomaRM.Areas.Admin.Models
                     }
 
 
-                    //ScrenningProcess(GetProspectData);
+
 
                 }
             }
@@ -600,6 +658,7 @@ namespace ShomaRM.Areas.Admin.Models
             model.ID = Id;
             return model;
         }
+
         public void SaveProspectVerification(long DocId, int VerificationStatus,long PID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -853,5 +912,93 @@ namespace ShomaRM.Areas.Admin.Models
     public class EmailData
     {
         public string AppEmail { get; set; }
+    }
+
+    public class EmpAqutraqModel
+    {
+        public OrderXML OrderXML { get; set; }
+    }
+
+    public class OrderXML
+    {
+        public string Method { get; set; }
+        public  Authentication Authentication { get; set; }
+        public  string TestMode { get; set; }
+        public string   ReturnResultURL { get; set; }
+        public string OrderingUser { get; set; }
+        public Order Order { get; set; }
+       
+    }
+    public class Authentication
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string TestMode { get; set; }
+    }
+    public class Order
+    {
+        public string BillingReferenceCode { get; set; }
+        public Subject Subject { get; set; }
+        public string PackageServiceCode { get; set; }
+        public OrderDetail OrderDetail { get; set; }
+    }
+    public class Subject
+    {
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
+        public string Generation { get; set; }
+        public string DOB { get; set; }
+        public string SSN { get; set; }
+        public string Gender { get; set; }
+        public string Ethnicity { get; set; }
+        public string DLNumber { get; set; }
+        public string ApplicantPosition { get; set; }
+
+        public CurrentAddress CurrentAddress { get;set; }
+        public Aliases Aliases { get; set; }
+    }
+
+    public class Aliases
+    {
+        public Alias Alias { get; set; }
+    }
+    public class Alias
+    {
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
+
+    }
+ 
+    public class OrderDetail
+    {
+        public string  CompanyName { get; set; }
+        public string Position { get; set; }
+        public string Salary { get; set; }
+
+        public string Manager { get; set; }
+        public string Telephone { get; set; }
+        public string EmployerCity { get; set; }
+        public string EmployerState { get; set; }
+        public EmploymentDates EmploymentDates { get; set; }
+      
+        public string ReasonForLeaving { get; set; }
+
+    }
+
+    public class EmploymentDates
+    {
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
+    }
+
+    public class CurrentAddress
+    {
+        public string StreetAddress { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Zipcode { get; set; }
+        public string Country { get; set; }
     }
 }

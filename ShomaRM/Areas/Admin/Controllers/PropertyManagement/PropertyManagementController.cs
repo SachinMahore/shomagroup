@@ -47,6 +47,7 @@ namespace ShomaRM.Areas.Admin.Controllers
         }
         public ActionResult AddProperty()
         {
+            Session["UNOR"] = 10;
             ViewBag.ActiveMenu = "property";
             int id = 0;
             var model = new PropertyManagementModel().GetPropertyDet(id);
@@ -103,6 +104,7 @@ namespace ShomaRM.Areas.Admin.Controllers
         }
         public ActionResult EditPropUnit(int id)
         {
+            Session["UNOR"] = 10;
             ViewBag.ActiveMenu = "property";
             var model = new PropertyUnits().GetPropertyUnitDetails(id);
             return View("..\\PropertyManagement\\_EditPropUnit", model);

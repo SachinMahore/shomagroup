@@ -78,7 +78,7 @@ namespace ShomaRM.Areas.Tenant.Models
         public List<BillModel> lstpr { get; set; }
         public long UserId { get; set; }
         public int TMPID { get; set; }
-
+        public int IsAllUpdate { get; set; }
         public List<MyTransactionModel> GetTenantTransactionList(long TenantID, int AccountHistoryDDL)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -582,23 +582,41 @@ namespace ShomaRM.Areas.Tenant.Models
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
 
-            var recPay = db.tbl_TenantMonthlyPayments.Where(co => co.TMPID == model.TransID).FirstOrDefault();
-
-            if (recPay != null)
+            if (model.IsAllUpdate == 0)
             {
-                recPay.Transaction_Date = Convert.ToDateTime(model.Charge_Date);
-                recPay.Charge_Amount = model.Charge_Amount;
-                recPay.PAID = Convert.ToInt32(model.PAID);
-                recPay.Description = "Monthly Charges - " + Convert.ToDateTime(model.Charge_Date);
-                db.SaveChanges();
+                var recPay = db.tbl_TenantMonthlyPayments.Where(co => co.TMPID == model.TransID).FirstOrDefault();
+                if (recPay != null)
+                {
+                    recPay.Transaction_Date = Convert.ToDateTime(model.Charge_Date).AddMonths(1);
+                    recPay.Charge_Amount = model.Charge_Amount;
+                    recPay.PAID = Convert.ToInt32(model.PAID);
+                    recPay.Description = "Monthly Charges - " + Convert.ToDateTime(model.Charge_Date).AddMonths(1);
+                    db.SaveChanges();
 
-                msg = "Recurring Payment Updated Successfully";
+                    msg = "Recurring Payment Updated Successfully";
+                }
+                else
+                {
+                    msg = "";
+                }
             }
             else
             {
-                msg = "";
+                var monthPayList = db.tbl_TenantMonthlyPayments.Where(p => p.TenantID ==model.TenantID && p.IsRecurring != 3).ToList();
+                if (monthPayList != null)
+                {
+                    foreach (var recPay in monthPayList)
+                    {
+                        recPay.Transaction_Date = Convert.ToDateTime(model.Charge_Date).AddMonths(recPay.Revision_Num-1);
+                        recPay.Charge_Amount = model.Charge_Amount;
+                        recPay.PAID = Convert.ToInt32(model.PAID);
+                        recPay.Description = "Monthly Charges - " + Convert.ToDateTime(model.Charge_Date).AddMonths(recPay.Revision_Num-1);
+                        db.SaveChanges();
+                    }
+                    
+                }
+                msg = "All Recurring Payment Updated Successfully";
             }
-
             db.Dispose();
             return msg;
         }

@@ -154,7 +154,7 @@
 
                                                 <input id="txtMoveInDate" class="form-control form-control-small" style="width: 140px;" type="text" />
                                                 <span class="input-group-btn pull-left">
-                                                    <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                                                    <button class="btn btn-primary search" type="button" id="iconMoveInDateChecklist"><i class="fa-calendar fa"></i></button>
                                                 </span>
                                                 @* <input id="txtMoveInTime" class="form-control form-control-small" style="width: 140px;" type="text" />*@
                                                 <select id="ddlMoveInTime" class="form-control" style="width: 140px;margin-left: 54px;">
@@ -179,7 +179,7 @@
                                                 </label>
                                             </div>
                                             <input type="file" name="fileUploadPOI" id="fileUploadPOI" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                            <label for="fileUploadPOI" style="margin-left: 75px;"><i class="fa fa-upload"></i> <span id="fileUploadPOIShow">Upload Proof of Insurance&hellip;</span></label>
+                                            <label for="fileUploadPOI" style="margin-left: 75px;"><i class="fa fa-upload fa-lg"></i> <span id="fileUploadPOIShow">Upload Proof of Insurance&hellip;</span></label>
                                             <input type="hidden" id="hndHasPOI" value="0" />
                                             <input type="hidden" id="hndPOI" value="0" />
                                             <input type="hidden" id="hndOriginalPOI" value="0" />
@@ -203,7 +203,7 @@
                                             </div>
 
                                             <input type="file" name="fileUploadPOE" id="fileUploadPOE" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                            <label for="fileUploadPOE" style="margin-left: 75px;"><i class="fa fa-upload"></i> <span id="fileUploadPOEShow">Upload Proof of Electricity&hellip;</span></label>
+                                            <label for="fileUploadPOE" style="margin-left: 75px;"><i class="fa fa-upload fa-lg"></i> <span id="fileUploadPOEShow">Upload Proof of Electricity&hellip;</span></label>
                                             <input type="hidden" id="hndHasPOE" value="0" />
                                             <input type="hidden" id="hndPOE" value="0" />
                                             <input type="hidden" id="hndOriginalPOE" value="0" />
@@ -444,7 +444,9 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#txtMoveInDate").datepicker();
-
+        $("#iconMoveInDateChecklist").click(function () {
+            $("#txtMoveInDate").focus();
+        });
 
         getTenantInfo(@ViewBag.UID);
         $("#txtScheduleMoveIn").datepicker();

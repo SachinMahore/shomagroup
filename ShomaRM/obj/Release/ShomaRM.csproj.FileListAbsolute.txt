@@ -974,3 +974,4 @@ E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\SendGrid.dll
 E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\USAePayAPI.dll
 E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\SendGrid.pdb
 E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\SendGrid.xml
+E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\System.Net.Http.Formatting.dll
