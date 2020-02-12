@@ -520,6 +520,10 @@ namespace ShomaRM.Areas.Admin.Models
                         model.InsuranceDoc = MoveInData.InsuranceDoc;
                         model.ElectricityDoc = MoveInData.ElectricityDoc;
                     }
+
+
+                    //ScrenningProcess(GetProspectData);
+
                 }
             }
 
