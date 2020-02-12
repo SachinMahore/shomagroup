@@ -4,6 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
+
       <Diagram DiagramId="f6dba52eba0b4cc7826a40d5770027ff" Name="Diagram1" ZoomLevel="88">
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Advertiser" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Amenities" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
@@ -158,7 +159,9 @@
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_UtilityBilling_tbl_Utility" ManuallyRouted="false" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_WorkOrder_tbl_Vendor" ManuallyRouted="false" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Country" Width="1.5" PointX="7.375" PointY="16.75" />
+
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_AmenityReservation" Width="1.5" PointX="9.375" PointY="16.75" />
+
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -37,6 +37,20 @@ namespace ShomaRM.Areas.Tenant.Controllers
             }
         }
 
+        public JsonResult EditClub(ClubModel _model)
+        {
+            ResponseModel _response = new ResponseModel();
+            try
+            {
+                return Json(new { _response = new ClubModel().EditclubEvent(_model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                _response.Status = false;
+                _response.msg = Ex.Message;
+                return Json(_response, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         public ActionResult JoinClubPartial(long SearchId,long UserId)
         {
@@ -52,6 +66,13 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 ViewBag.CallenderHidden = "";
                 return PartialView("~/Areas/Tenant/Views/MyCommunity/_JoinClub.cshtml", Model);
             }
+        }
+
+        public ActionResult EditClubPartial(long ClubId)
+        {
+                var Model = new ClubModel().GetClubbyId(ClubId: ClubId,UserId:0);
+                return PartialView("~/Areas/Tenant/Views/MyCommunity/_EditClub.cshtml", Model);
+           
         }
 
         public ActionResult JoinClubPartialByUser(long SearchId, long UserId)

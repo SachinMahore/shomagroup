@@ -170,14 +170,17 @@
                                         <div class="col-sm-3">
                                             <h5>Approval</h5>
                                             <ul>
-                                                <li @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "":"style=display:none")>
+                                                <li @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "" : "style=display:none")>
                                                     <a href="/Admin/Amenities/AmenitiesReservationRequest">Amenity Reservation Request Approval</a>
                                                 </li>
                                                 <li>
                                                     <a href="/Admin/ServicesManagement/Index/0">Services Approval</a>
                                                 </li>
-                                                <li @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "":"style=display:none")>
+                                                <li @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "" : "style=display:none")>
                                                     <a href="/Admin/GuestManagement">Guest Approval</a>
+                                                </li>
+                                                <li @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "" : "style=display:none")>
+                                                    <a href="/Admin/ClubManagement">Club Activation</a>
                                                 </li>
 
                                             </ul>
