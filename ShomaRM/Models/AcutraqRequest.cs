@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace ShomaRM.Models
@@ -78,9 +79,18 @@ namespace ShomaRM.Models
             var keyValues = new List<KeyValuePair<string, string>>();
             keyValues.Add(new KeyValuePair<string, string>("request", Serialisexml));
 
-            var result = await AquatraqHelper.PostFormUrlEncoded<ShomaRM.Models.Acutraq.OrderXML>("https://screen.acutraq.com/webservice/default.cfm", keyValues);
+            var result = await AquatraqHelper.PostFormUrlEncoded<List<XElement>>("https://screen.acutraq.com/webservice/default.cfm", keyValues);
             if (result != null)
-            { }
+            {
+                foreach (var item in result)
+                {
+                    string serviceCode = item.Attribute("EMPVR").Value;
+                    string orderID = item.Attribute("orderID").Value;
+                    string CRAorderID = item.Attribute("CRAorderID").Value;
+
+                    
+                }
+            }
             return null;
         }
        

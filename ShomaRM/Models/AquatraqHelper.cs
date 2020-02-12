@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml;
@@ -71,7 +72,7 @@ namespace ShomaRM.Models
 
         }
       
-        public static async Task<ShomaRM.Models.Acutraq.OrderXML> PostFormUrlEncoded<TResult>(string url, List<KeyValuePair<string, string>> postData)
+        public static async Task<List<XElement>> PostFormUrlEncoded<TResult>(string url, List<KeyValuePair<string, string>> postData)
         {
             using (var httpClient = new  HttpClient())
             {
@@ -83,35 +84,20 @@ namespace ShomaRM.Models
                     HttpResponseMessage response = await httpClient.PostAsync(url, content);
                     string serializedString = await response.Content.ReadAsStringAsync();
                     var xDoc = XDocument.Parse(serializedString);
-
-                    // for attribute
-                    var resulte = xDoc
-            .Descendants("OrderXML")
-            .Descendants("Order")
-            .Descendants("OrderDetail")
-
-           
-            .ToList();
-            
-                 
-                    XmlSerializer serializer = new XmlSerializer(typeof(ShomaRM.Models.Acutraq.OrderXML));
-                    using (TextReader reader = new StringReader(serializedString))
-                    {
-                        try
-                        {
-                            var result = (ShomaRM.Models.Acutraq.OrderXML)serializer.Deserialize(reader);
-                            return result;
-                        }
-                        catch(Exception ex)
-                        {
-                            return null;
-                        }
-                       
-                    }
-    
+                  
+                        // for attribute
+                        var resultOrderDetail = xDoc
+                         .Descendants("OrderXML")
+                         .Descendants("Order")
+                         .Descendants("OrderDetail")
+                         .ToList();
+                        return resultOrderDetail;
+                  
                 }
             }
         }
+
+       
     }
    
 }	    
