@@ -407,29 +407,29 @@ function myDateFunction(id) {
             span += '<ul class="list-group" style="list-style: none;">';
             $.each(response.model, function (elementType, elementValue) {
                 if (elementValue.Type == 1) {
-                    span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #00bfff;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + '</li>';
+                    span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #00bfff;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + "    " + '<a href="javascript:void(0)" class="pull-right" onclick="tenantEventsJoin(' + elementValue.EventID +')" style="margin-right:30px;color:#4d738a;">Join Event</a></li>';
                     // span += '<li  id= Event' + elementValue.EventID + '><button class="button-square">' + elementValue.EventDateString + '</button><button class="button-pill">'+ elementValue.EventName + '</button></li>';
 
                 }
                 else if (elementValue.Type == 2) {
-                    span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #a2d900;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + '</li>';
+                    span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #a2d900;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + "    " + '<a href="javascript:void(0)" class="pull-right" onclick="tenantEventsJoin(' + elementValue.EventID +')" style="margin-right:30px;color:#4d738a;">Join Event</a></li>';
                     // span += '<li  id= Event' + elementValue.EventID + '><button class="button-square">' + elementValue.EventDateString + '</button><button class="button-pill">' + elementValue.EventName + '</button></li>';
 
                 }
                 else if (elementValue.Type == 3) {
-                    span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #ff6;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + '</li>';
+                    span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #ff6;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + "    " + '<a href="javascript:void(0)" class="pull-right" onclick="tenantEventsJoin(' + elementValue.EventID +')" style="margin-right:30px;color:#4d738a;">Join Event</a></li>';
                     //span += '<li  id= Event' + elementValue.EventID + '><button class="button-square">' + elementValue.EventDateString + '</button><button class="button-pill">' + elementValue.EventName + '</button></li>';
 
 
                 }
                 else if (elementValue.Type == 4) {
-                    span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #ff6347;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + '</li>';
+                    span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #ff6347;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + "    " + '<a href="javascript:void(0)" class="pull-right" onclick="tenantEventsJoin(' + elementValue.EventID +')" style="margin-right:30px;color:#4d738a;">Join Event</a></li>';
                     // span += '<li  id= Event' + elementValue.EventID + '><button class="button-square">' + elementValue.EventDateString + '</button><button class="button-pill">' + elementValue.EventName + '</button></li>';
 
 
                 }
                 else if (elementValue.Type == 5) {
-                    span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #daf6ff;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + '</li>';
+                    span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #daf6ff;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + "    " + '<a href="javascript:void(0)" class="pull-right" onclick="tenantEventsJoin(' + elementValue.EventID +')" style="margin-right:30px;color:#4d738a;">Join Event</a></li>';
                     // span += '<li  id= Event' + elementValue.EventID + '><button class="button-square">' + elementValue.EventDateString + '</button><button class="button-pill">' + elementValue.EventName + '</button></li>';
 
 
@@ -548,7 +548,9 @@ function colorFunction() {
 
             var modalOpenDate = document.getElementById("date-popover");
             var modalCloseDate = document.getElementById("closeDate");
-            modalCloseDate.onclick = function () { modalOpenDate.style.display = "none"; }
+            var modalCloseDate1 = document.getElementById("closeDate1");
+            modalCloseDate.onclick = function () { modalOpenDate.style.display = "none"; };
+            modalCloseDate1.onclick = function () { modalOpenDate.style.display = "none"; };
         }
     });
 }
@@ -647,7 +649,9 @@ function colorNewFunction() {
 
             var modalOpenDate = document.getElementById("date-popover");
             var modalCloseDate = document.getElementById("closeDate");
-            modalCloseDate.onclick = function () { modalOpenDate.style.display = "none"; }
+            var modalCloseDate1 = document.getElementById("closeDate1");
+            modalCloseDate.onclick = function () { modalOpenDate.style.display = "none"; };
+            modalCloseDate1.onclick = function () { modalOpenDate.style.display = "none"; };
         }
     });
 }
@@ -787,7 +791,7 @@ var breakdownPaymentFunction = function () {
 };
 
 var eventDetailShow = function (id) {
-
+    $('#hndEventID').val(id);
     var model = { EventID: id };
 
     $.ajax({
@@ -804,4 +808,80 @@ var eventDetailShow = function (id) {
         }
     });
     $("#popEventDetails").modal('show');
+};
+
+var saveTenantEventsJoin = function () {
+    $("#divLoader").show();
+    var model = { EventID: $('#hndEventID').val(), TenantID: $('#hndTenantID').val() };
+
+    $.alert({
+        title: "",
+        content: "Are you sure to join this Event?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: '/Dashboard/SaveTenantEventJoin',
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $.alert({
+                                title: "",
+                                content: response.model,
+                                type: 'blue'
+                            });
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                }
+            }
+        }
+    });
+    $("#divLoader").hide();
+};
+
+var tenantEventsJoin = function (id) {
+    $("#divLoader").show();
+    var model = { EventID: id, TenantID: $('#hndTenantID').val() };
+
+    $.alert({
+        title: "",
+        content: "Are you sure to join this Event?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: '/Dashboard/SaveTenantEventJoin',
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $.alert({
+                                title: "",
+                                content: response.model,
+                                type: 'blue'
+                            });
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                }
+            }
+        }
+    });
+    $("#divLoader").hide();
 };

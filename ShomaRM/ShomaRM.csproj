@@ -91,6 +91,11 @@
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.4.0\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
+
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -172,6 +177,7 @@
     <Compile Include="Areas\Admin\Controllers\City\CityController.cs" />
     <Compile Include="Areas\Admin\Controllers\Club\ClubManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommunityManagment\CommunityManagmentController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Country\CountryController.cs" />
     <Compile Include="Areas\Admin\Controllers\Document\DocumentController.cs" />
     <Compile Include="Areas\Admin\Controllers\Event\EventController.cs" />
     <Compile Include="Areas\Admin\Controllers\Facility\FacilityController.cs" />
@@ -210,6 +216,7 @@
     <Compile Include="Areas\Admin\Models\ChargeType\ChargeTypeModel.cs" />
     <Compile Include="Areas\Admin\Models\City\CityModel.cs" />
     <Compile Include="Areas\Admin\Models\CommunityActivity\CommunityActivityModel.cs" />
+    <Compile Include="Areas\Admin\Models\Country\CountryModel.cs" />
     <Compile Include="Areas\Admin\Models\Document\DocumentModel.cs" />
     <Compile Include="Areas\Admin\Models\Event\EventModel.cs" />
     <Compile Include="Areas\Admin\Models\Facility\FacilityModel.cs" />
@@ -306,6 +313,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModel.cs" />
+    <Compile Include="Models\AcutraqRequest.cs" />
+    <Compile Include="Models\Acutraq\AcutraqResponse.cs" />
     <Compile Include="Models\Admin\Gallery\GalleryModel.cs" />
     <Compile Include="Models\ApplyNow\ApplyNowModel.cs" />
     <Compile Include="Models\ApplyNow\CheckListModel.cs" />
@@ -339,6 +348,7 @@
     <Content Include="Areas\Admin\Content\Pages\ChargeType\ChargeType.js" />
     <Content Include="Areas\Admin\Content\Pages\Club\ClubManagementList.js" />
     <Content Include="Areas\Admin\Content\Pages\CommunityManagment\CommunityActivityList.js" />
+    <Content Include="Areas\Admin\Content\Pages\Country\Country.js" />
     <Content Include="Areas\Admin\Content\Pages\Document\Document.js" />
     <Content Include="Areas\Admin\Content\Pages\Event\Event.js" />
     <Content Include="Areas\Admin\Content\Pages\Event\EventList.js" />
@@ -778,6 +788,7 @@
     <Content Include="Areas\Admin\Views\ServiceLocation\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ClubManagement\Index.cshtml" />
     <Content Include="Areas\Tenant\Views\MyCommunity\_EditClub.cshtml" />
+    <Content Include="Areas\Admin\Views\Country\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

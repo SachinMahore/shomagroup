@@ -2076,7 +2076,7 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <input type="checkbox" id="chkDontHaveVehicle" />  I don't have a vehicle.
+                                                <input type="checkbox" id="chkDontHaveVehicle" onchange="haveVehicle()" />  I don't have a vehicle.
                                             </div>
                                         </div>
                                     </div>
@@ -3940,6 +3940,7 @@
             getPropertyUnitDetails(@Model.SUID);
             goToStep(1, 1);
         }
+        
     });
     $(function () {
         $('area').click(function () {
@@ -4024,7 +4025,7 @@
         //$('.UAarea').addClass('active_unavil').data('maphilight', { alwaysOn: true, fillColor: '006400', strokeColor: '006400',}).trigger('alwaysOn.maphilight');
         //$('.UYarea').addClass('active_unavil').data('maphilight', { alwaysOn: true, fillColor: 'ffff00', strokeColor: 'ffff00', }).trigger('alwaysOn.maphilight');
         //$('hndsummaryDesireMoveIn').val('');
-
+        
     });
 
 
@@ -4064,5 +4065,12 @@
         modal.style.display = "block";
     }
 
+</script>
+<script>
+    $(document).ready(function () {
+        $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(@Model.ParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+        $("#lblProrated_Storage").text(parseFloat(parseFloat(@Model.StorageAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+        $("#lblProrated_PetRent").text(parseFloat(parseFloat(@Model.PetPlaceAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+    });
 </script>
 

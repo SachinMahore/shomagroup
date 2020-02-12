@@ -161,6 +161,12 @@ namespace ShomaRM.Models
 
             if (getAppldata != null)
             {
+                var delVehicleData = db.tbl_Vehicle.Where(co => co.TenantID == id).ToList();
+                if (delVehicleData!=null)
+                {
+                    db.tbl_Vehicle.RemoveRange(delVehicleData);
+                    db.SaveChanges();
+                }
                 if (vehicleValue)
                 {
                     getAppldata.HaveVehicle = true;

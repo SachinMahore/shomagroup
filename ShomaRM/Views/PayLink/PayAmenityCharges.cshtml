@@ -228,6 +228,10 @@
                                     <div class="col-sm-12">
                                        <p style="text-align:center;"><br />Thanks <b><span id="resTenant1"></span></b>. Your payment has been processed.  A receipt has been emailed to <b><span id="TenantEmail"></span></b>.  </p>
                                     </div>
+                                    <div>
+                                        <a href="~/Account/Login"  class="btn btn-primary pull-left" > Go to Login</a>
+                                        <a href="~/Home/Index" class="btn btn-primary pull-left"> Go to Home</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -386,6 +390,7 @@
                 if (response != "0") {
 
                     $("#hndUID").val(response);
+                    getTenantInfo(response);
                     goToStep(2, 2);
                 } else {
                     alert("Invalid Email ID / password.")
@@ -418,7 +423,8 @@
         if (stepid == "3") {
 
             if (id == "3") {
-                var transtype = $("#ddlPaymentMethod").text();
+                var value = $("#ddlPaymentMethod option:selected");
+                var transtype = value.text();
                 $("#paymeth").text(transtype);
 
                 $("#step1").addClass("hidden");
@@ -465,13 +471,13 @@
         });
     };
 
-    function makePayment() {      
-        var msg = "";      
-        var tenantid = $("#hndTenantID").val();      
-        var transtype = $("#ddlPaymentMethod").val();      
-        var chargeAmount = unformatText($("#totalConfAmt").text());      
+    function makePayment() {
+        var msg = "";
+        var tenantid = $("#hndTenantID").val();
+        var transtype = $("#ddlPaymentMethod").val();
+        var chargeAmount = unformatText($("#totalConfAmt").text());
         var desc = $("#resAmenity").text()+" Charges";
-       
+
         if ($("#ddlPaymentMethod").val() == '0') {
             msg += "Select Payment Method</br>";
         }
@@ -479,7 +485,7 @@
             if ($("#txtCVVNumberPayRentOnline").val() == '') {
                 msg += "Enter CVV Number</br>";
             }
-        }      
+        }
         if (msg != "") {
             $.alert({
                 title: 'Alert!',
@@ -489,12 +495,12 @@
             return;
         }
         var models = {
-            PAID: $('#ddlPaymentMethod').val(),           
-            TenantID: tenantid,         
-            Transaction_Type: transtype,          
-            Charge_Amount: chargeAmount,          
-            Description: desc,          
-            CCVNumber: $("#txtCVVNumberPayRentOnline").val(),         
+            PAID: $('#ddlPaymentMethod').val(),
+            TenantID: tenantid,
+            Transaction_Type: transtype,
+            Charge_Amount: chargeAmount,
+            Description: desc,
+            CCVNumber: $("#txtCVVNumberPayRentOnline").val(),
             UserId: $("#hndUID").val(),
             Batch: $("#hndARID").val(),
         };

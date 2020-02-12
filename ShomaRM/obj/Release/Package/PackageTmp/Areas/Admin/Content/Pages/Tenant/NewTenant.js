@@ -102,8 +102,10 @@ var getReservationRequestList = function () {
                     html += "<td>" + elementValue.TenantName + "</td>";
                     html += "<td>" + elementValue.AmenityName + "</td>";
                     html += "<td>" + elementValue.DesiredDate + "</td>";
-                    html += "<td>" + elementValue.DesiredTime + "</td>";
-                    html += "<td>" + elementValue.Duration + "</td>";
+                    html += "<td>" + elementValue.DesiredTimeFrom + "</td>";
+                    html += "<td>" + elementValue.DesiredTimeTo + "</td>";
+                    html += "<td>" + elementValue.Duration + " hours</td>";
+                    html += "<td>" + elementValue.Guest + "</td>";
                     html += "<td>" + elementValue.Status + "</td>";
 
                     html += "</tr>";
@@ -1024,7 +1026,7 @@ var getCommunityActivityList = function () {
                 html += "<td>" + elementValue.Details + "</td>";
                 html += "<td>" + attachFile + "</td>";
                 html += "<td>" + elementValue.DateString + "</td>";
-                html += "<td><button class='btn btn-addon' onclick='deleteCommunityPost(" + elementValue.CID + ")'><i class='fa fa-trash'></i></button></td>";
+                html += "<td><button class='btn btn-danger' style='padding:5px 8px !important;' onclick='deleteCommunityPost(" + elementValue.CID + ")'><i class='fa fa-trash' aria-hidden='true'></i></button></td>";
                 html += "</tr>";
                 $("#tblCommunityActivity>tbody").append(html);
             });

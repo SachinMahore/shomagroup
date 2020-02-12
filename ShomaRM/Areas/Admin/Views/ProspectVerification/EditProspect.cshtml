@@ -1761,9 +1761,9 @@
                         <div class="col-sm-12">
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <input id="rbtnPaystub" class="form-control form-control-small" type="radio" name="tax" readonly="readonly" />
+                                    <input id="rbtnPaystub" class="form-control form-control-small" type="radio" name="tax" disabled="disabled" />
                                     <label for="rbtnPaystub">Paystub</label>
-                                    <input id="rbtnFedralTax" class="form-control form-control-small" type="radio" name="tax" readonly="readonly" />
+                                    <input id="rbtnFedralTax" class="form-control form-control-small" type="radio" name="tax" disabled="disabled" />
                                     <label for="rbtnFedralTax">Fedral Tax Return</label>
                                 </div>
                             </div>
@@ -1987,13 +1987,6 @@
                                     <button type="button" class="btn btn-default pull-right hidden" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle"></i> Add</button>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <input type="checkbox" id="chkDontHaveVehicle" />  I don't have a vehicle.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
 
                                     <div class="col-md-12 clear">
                                         <table id="tblVehicle" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
@@ -2035,13 +2028,6 @@
                                     <h3 class="panel-title">Pet Information</h3>
                                     <button type="button" class="btn btn-default pull-right hidden" data-toggle="modal" data-target="#popPet" id="btnAddPet"><i class="fa fa-plus-circle"></i> Add</button>
                                     <input type="hidden" id="hndPetPlaceCount" value="0" />
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group" id="chkDontHavePetDiv">
-                                            <input type="checkbox" id="chkDontHavePet" />  I don't have a pet.
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="col-md-12 hidden">
                                     <p>
@@ -2531,7 +2517,7 @@
                                 <button type="submit" class="btn btn-primary" onclick="goToStep(17,17)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" id="btnC2Tenant" class="btn btn-primary" onclick="onlinePToTenant()">Convert To Tenant</button>
+                                <button type="submit" id="btnC2Tenant" class="btn btn-primary" onclick="onlinePToTenant()" disabled>Convert To Tenant</button>
                             </div>
 
                         </div>
@@ -3685,7 +3671,13 @@
     .icheckbox_square-yellow.checked.disabled {
         background-position: -48px 0 !important;
     }
-        .nav-tabs.wizard {
+    .iradio_square-yellow.checked.disabled {
+        background-position: -168px 0 !important;
+    }
+    .iradio_square-yellow.disabled {
+        background-position: -120px 0 !important;
+    }
+     .nav-tabs.wizard {
         background-color: transparent;
         padding: 0;
         width: 100.2%;
@@ -3893,8 +3885,9 @@
 
         $('#txtDOB').datepicker({ viewMode: "years", endDate: dt, autoclose: true });
         $('#txtHDateOfBirth').datepicker({ viewMode: "years", endDate: dt, autoclose: true });
-
-        $("#txtPhoneNumber").val(formatPhoneFax('@Model.Phone'));
+        $("#txtPhoneNumber").text(formatPhoneFax("@Model.Phone"));
+        $("#txtPhoneNumber").text(formatPhoneFax("@Model.Phone"));
+        $("#lblFNLPhone").text(formatPhoneFax("@Model.Phone"));
     });
 
     $(document).ready(function () {
@@ -3966,8 +3959,9 @@
             $("#dwnldPOE").attr('onclick', 'fileNotFound()');
             $("#dwnldPOE").html('<i class="fa fa-download"></i>' + ' ' + '@Model.ElectricityDoc');
         }
-        $("#txtPhoneNumber").text(formatPhoneFax('@Model.Phone'));
-        $("#lblFNLPhone").text(formatPhoneFax('@Model.Phone'));
+        $("#lblProrated_AditionalParking").text(parseFloat(parseFloat($("#lblMonthly_AditionalParking").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+        $("#lblProrated_Storage").text(parseFloat(parseFloat($("#lblMonthly_Storage").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+        $("#lblProrated_PetRent").text(parseFloat(parseFloat($("#lblMonthly_PetRent").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
     });
 
     var fileNotFound = function () {

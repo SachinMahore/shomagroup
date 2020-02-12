@@ -19,22 +19,26 @@ namespace ShomaRM.Areas.Tenant.Models
         public Nullable<long> TenantID { get; set; }
         public Nullable<long> AmenityID { get; set; }
         public Nullable<System.DateTime> DesiredDate { get; set; }
+        public string DesiredDateString { get; set; }
         public string DesiredTime { get; set; }
         public Nullable<long> DurationID { get; set; }
         public string DepositFee { get; set; }
         public string ReservationFee { get; set; }
         public Nullable<int> Status { get; set; }
         public string Duration { get; set; }
+        public string DesiredTimeFrom { get; set; }
+        public string DesiredTimeTo { get; set; }
+        public Nullable<long> Guest { get; set; }
         public string AmenityName { get; set; }
         public string TenantName { get; set; }
-        public string DesiredDateString { get; set; }
-
 
         public string SaveUpdateReservationRequest(AmenitiesReservationModel model)
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
             DateTime dt = DateTime.Parse(model.DesiredTime != null ? model.DesiredTime : "00:00");
+            DateTime dtF = DateTime.Parse(model.DesiredTimeFrom != null ? model.DesiredTimeFrom : "00:00");
+            DateTime dtT = DateTime.Parse(model.DesiredTimeTo != null ? model.DesiredTimeTo : "00:00");
 
             if (model.ARID == 0)
             {
@@ -48,7 +52,10 @@ namespace ShomaRM.Areas.Tenant.Models
                     DurationID = model.DurationID,
                     DepositFee = model.DepositFee,
                     ReservationFee = model.ReservationFee,
-                    Status = model.Status
+                    Status = model.Status,
+                    DesiredTimeFrom = dtF.ToString("HH:mm"),
+                    DesiredTimeTo = dtT.ToString("HH:mm"),
+                    Guest = model.Guest
                 };
                 db.tbl_AmenityReservation.Add(saveReservationRequest);
                 db.SaveChanges();
@@ -67,6 +74,10 @@ namespace ShomaRM.Areas.Tenant.Models
                     GetReservationRequestData.DepositFee = model.DepositFee;
                     GetReservationRequestData.ReservationFee = model.ReservationFee;
                     GetReservationRequestData.Status= model.Status;
+                    GetReservationRequestData.DesiredTimeFrom = model.DesiredTimeFrom;
+                    GetReservationRequestData.DesiredTimeTo = model.DesiredTimeTo;
+                    GetReservationRequestData.Guest = model.Guest;
+                   
 
                     
                     db.SaveChanges();
@@ -93,6 +104,9 @@ namespace ShomaRM.Areas.Tenant.Models
                 model.DepositFee = GetRRData.DepositFee;
                 model.ReservationFee = GetRRData.ReservationFee;
                 model.Status = GetRRData.Status;
+                model.DesiredTimeFrom = GetRRData.DesiredTimeFrom;
+                model.DesiredTimeTo = GetRRData.DesiredTimeTo;
+                model.Guest = GetRRData.Guest;
             }
             model.ARID = Id;
             return model;
@@ -117,8 +131,11 @@ namespace ShomaRM.Areas.Tenant.Models
                 model.DepositFee = GetRRData.DepositFee;
                 model.ReservationFee = GetRRData.ReservationFee;
                 model.Status = GetRRData.Status;
+                model.DesiredTimeFrom = GetRRData.DesiredTimeFrom;
+                model.DesiredTimeTo = GetRRData.DesiredTimeTo;
+                model.Guest = GetRRData.Guest;
 
-                
+
             }
 
             var GetAmenityData = db.tbl_Amenities.Where(p => p.ID == model.AmenityID).FirstOrDefault();
@@ -158,8 +175,12 @@ namespace ShomaRM.Areas.Tenant.Models
                         DurationID = item.DurationID,
                         DepositFee = item.DepositFee,
                         ReservationFee = item.ReservationFee,
-                        Status = item.Status
-                    });
+                        Status = item.Status,
+                        DesiredTimeFrom = item.DesiredTimeFrom,
+                        DesiredTimeTo = item.DesiredTimeTo,
+                        Guest = item.Guest
+
+                });
                 }
             }
 
@@ -209,6 +230,10 @@ namespace ShomaRM.Areas.Tenant.Models
                     searchmodel.TenantName = dr["TenantName"].ToString();
                     searchmodel.AmenityName = dr["AmenityName"].ToString();
 
+                    searchmodel.DesiredTimeFrom = dr["DesiredTimeFrom"].ToString();
+                    searchmodel.DesiredTimeTo = dr["DesiredTimeTo"].ToString();
+                    searchmodel.Guest = dr["Guest"].ToString();
+
                     lstReservationRequest.Add(searchmodel);
                 }
                 db.Dispose();
@@ -239,6 +264,9 @@ namespace ShomaRM.Areas.Tenant.Models
             public int NumberOfRows { get; set; }
             public string TenantName { get; set; }
             public string AmenityName { get; set; }
+            public string DesiredTimeFrom { get; set; }
+            public string DesiredTimeTo { get; set; }
+            public string Guest { get; set; }
 
         }
 
@@ -349,6 +377,9 @@ namespace ShomaRM.Areas.Tenant.Models
                     searchmodel.Duration = dr["Duration"].ToString();
                     searchmodel.TenantName = dr["TenantName"].ToString();
                     searchmodel.AmenityName = dr["AmenityName"].ToString();
+                    searchmodel.DesiredTimeFrom = dr["DesiredTimeFrom"].ToString();
+                    searchmodel.DesiredTimeTo = dr["DesiredTimeTo"].ToString();
+                    searchmodel.Guest = dr["Guest"].ToString();
 
                     lstReservationRequest.Add(searchmodel);
                 }

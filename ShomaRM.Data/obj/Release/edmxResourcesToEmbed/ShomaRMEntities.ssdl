@@ -1,14 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ShomaRMEntitiesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <!--Errors Found During Generation:
-warning 6013: The table/view 'ShomaRMAdv.dbo.CountryState' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="CountryState">
-          <Property Name="ID" Type="varchar" MaxLength="500" />
-          <Property Name="CountryName" Type="varchar" MaxLength="500" />
-          <Property Name="StateID" Type="varchar" MaxLength="500" />
-          <Property Name="CountryID" Type="varchar" MaxLength="500" />
-          <Property Name="StateName" Type="varchar" MaxLength="500" />
-        </EntityType>-->
   <EntityType Name="tbl_Advertiser">
     <Key>
       <PropertyRef Name="AdID" />
@@ -49,6 +40,9 @@ warning 6013: The table/view 'ShomaRMAdv.dbo.CountryState' does not have a prima
     <Property Name="ReservationFee" Type="varchar" MaxLength="50" />
     <Property Name="Status" Type="int" />
     <Property Name="Duration" Type="varchar" MaxLength="100" />
+    <Property Name="DesiredTimeFrom" Type="varchar" MaxLength="50" />
+    <Property Name="DesiredTimeTo" Type="varchar" MaxLength="50" />
+    <Property Name="Guest" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_Applicant">
     <Key>
@@ -233,6 +227,7 @@ warning 6013: The table/view 'ShomaRMAdv.dbo.CountryState' does not have a prima
     <Property Name="TenantID" Type="bigint" />
     <Property Name="UserId" Type="bigint" Nullable="false" />
     <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
     <Property Name="CreatedDate" Type="datetime" Nullable="false" />
     <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
   </EntityType>
@@ -255,15 +250,12 @@ warning 6013: The table/view 'ShomaRMAdv.dbo.CountryState' does not have a prima
     <Property Name="AttachFileOriginalName" Type="varchar" MaxLength="100" />
     <Property Name="Date" Type="datetime" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="tbl_Country">
     <Key>
       <PropertyRef Name="ID" />
-      <PropertyRef Name="CountryName" />
     </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CountryName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CountryName" Type="varchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="tbl_Document">
     <Key>
@@ -390,6 +382,7 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
     <Property Name="TenantID" Type="bigint" />
     <Property Name="OriginalDriverLicence" Type="varchar" MaxLength="500" />
     <Property Name="OriginalVehicleRegistration" Type="varchar" MaxLength="500" />
+    <Property Name="HaveVehicle" Type="bit" />
   </EntityType>
   <EntityType Name="tbl_Invoice">
     <Key>
@@ -2351,6 +2344,7 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
     <EntitySet Name="tbl_Club" EntityType="Self.tbl_Club" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_ClubMapping" EntityType="Self.tbl_ClubMapping" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_CommunityActivity" EntityType="Self.tbl_CommunityActivity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Country" EntityType="Self.tbl_Country" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Document" EntityType="Self.tbl_Document" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_DocumentVerification" EntityType="Self.tbl_DocumentVerification" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Event" EntityType="Self.tbl_Event" Schema="dbo" store:Type="Tables" />
@@ -2411,12 +2405,6 @@ warning 6002: The table/view 'ShomaRMAdv.dbo.tbl_Country' does not have a primar
     <EntitySet Name="tbl_Visit" EntityType="Self.tbl_Visit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_WorkOrder" EntityType="Self.tbl_WorkOrder" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_ZipCodes" EntityType="Self.tbl_ZipCodes" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="tbl_Country" EntityType="Self.tbl_Country" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [tbl_Country].[ID] AS [ID], 
-    [tbl_Country].[CountryName] AS [CountryName]
-    FROM [dbo].[tbl_Country] AS [tbl_Country]</DefiningQuery>
-    </EntitySet>
     <AssociationSet Name="FK_tbl_Applicant_tbl_ApplyNow" Association="Self.FK_tbl_Applicant_tbl_ApplyNow">
       <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
       <End Role="tbl_Applicant" EntitySet="tbl_Applicant" />

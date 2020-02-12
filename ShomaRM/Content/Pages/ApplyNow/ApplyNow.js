@@ -445,7 +445,7 @@ $(document).ready(function () {
 
 });
 var abcd = function () {
-    alert("Hi");
+  
 }
 
 var cancel = function () {
@@ -3054,7 +3054,7 @@ var getApplicantLists = function () {
                         "</div >" +
                         "<div class='input-group input-group-btn'>" +
                         "<button class='btn btn-primary search pull-left' type='button'><i class='fa fa-dollar'></i></button>" +
-                        "<input type='text' class='form-control form-control-small' id='txtpayamt" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px;' value='" + parseFloat(elementValue.MoveInCharge).toFixed(2) + "'/>" +
+                        "<input type='text' class='form-control form-control-small' id='txtpayamt" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px; text-align:right;' value='" + parseFloat(elementValue.MoveInCharge).toFixed(2) + "'/>" +
                         "</div ></td>" +
                         "<td style='width:30%;'>" +
                         "<div class='input-group input-group-btn'>" +
@@ -3063,7 +3063,7 @@ var getApplicantLists = function () {
                         "</div >" +
                         "<div class='input-group input-group-btn'>" +
                         "<button class='btn btn-primary search pull-left' type='button'><i class='fa fa-dollar'></i></button>" +
-                        "<input type='text' class='form-control form-control-small' id='txtpayamtMo" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px;' value='" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "'/>" +
+                        "<input type='text' class='form-control form-control-small' id='txtpayamtMo" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px; text-align:right;' value='" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "'/>" +
                         "</div >" +
                         "</td></tr>";
                 }
@@ -3672,6 +3672,7 @@ var getVehicleLists = function () {
 
                 html += "</tr>";
                 $("#tblVehicle>tbody").append(html);
+
             });
 
         }
@@ -4784,6 +4785,7 @@ var sendPayLinkEmail = function (emil) {
     });
 };
 var haveVehicle = function () {
+    $("#divLoader").show();
     var ProspectID = $("#hdnOPId").val();
     var vehicleValue = '';
 
@@ -4806,7 +4808,8 @@ var haveVehicle = function () {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-
+            getVehicleLists();
+            $("#divLoader").hide();
         }
     });
 };

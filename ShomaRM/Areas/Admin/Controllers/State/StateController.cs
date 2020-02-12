@@ -64,7 +64,6 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-
         public ActionResult DeleteState(long StateID)
         {
             try
