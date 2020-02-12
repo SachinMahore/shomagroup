@@ -670,6 +670,8 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<decimal> VehicleRegistration { get; set; }
         public Nullable<decimal> MonthlyRent { get; set; }
         public string LeaseTerm { get; set; }
+        public int ProRemainingday { get; set; }
+        public int ProNumberOfDays { get; set; }
 
         public TenantOnlineModel getTenantOnlineData(int id)
         {
@@ -1169,6 +1171,7 @@ namespace ShomaRM.Areas.Admin.Models
                 {
                     var appliList = db.tbl_Applicant.Where(pp => pp.TenantID == model.ProspectID).ToList();
                     string applicant = "";
+                    decimal appFess = 0;
                     if (applicant != null)
                     {
                         applicant += "<table>";
@@ -1176,10 +1179,11 @@ namespace ShomaRM.Areas.Admin.Models
                         foreach (var pl in appliList)
                         {
                             applicant += "<tr>";
-                            applicant += string.Format("<td style=\"text-align:left;\">{0}</td>","Resident Name" );
+                            applicant += string.Format("<td style=\"text-align:left;\">{0}</td>","Resident Name: " );
                             applicant += string.Format("<td  style=\"text-align:left;\">{0}</td>", pl.FirstName + " " + pl.LastName);
                          
                             applicant += "</tr>";
+                            appFess = appFess + 175;
                         }
                         applicant += "</table>";
                         reportHTML = reportHTML.Replace("[%OtherResidents%]", applicant);
@@ -1197,29 +1201,33 @@ namespace ShomaRM.Areas.Admin.Models
                     reportHTML = reportHTML.Replace("[%LeaseEnd%]", prospectDet.MoveInDate.Value.AddMonths(Convert.ToInt32(prospectDet.LeaseTerm)).ToString("MM/dd/yyyy"));
                     reportHTML = reportHTML.Replace("[%LeaseTerm%]", prospectDet.LeaseTerm.ToString());
 
-                    reportHTML = reportHTML.Replace("[%ApplicationFee%]", prospectDet.AdministrationFee.ToString());
-                    reportHTML = reportHTML.Replace("[%AdministrationFee%]", prospectDet.AdministrationFee.ToString());
-                    reportHTML = reportHTML.Replace("[%SecurityDeposit%]", prospectDet.Deposit.ToString());
-                    reportHTML = reportHTML.Replace("[%PetFee%]", prospectDet.PetDeposit.ToString());
-                    reportHTML = reportHTML.Replace("[%ProratedRent%]", prospectDet.AdministrationFee.ToString());
-                    reportHTML = reportHTML.Replace("[%ProratedTrash%]", prospectDet.AdministrationFee.ToString());
-                    reportHTML = reportHTML.Replace("[%ProratedPest%]", prospectDet.AdministrationFee.ToString());
-                    reportHTML = reportHTML.Replace("[%ProratedConvergent%]", prospectDet.AdministrationFee.ToString());                   
-                    reportHTML = reportHTML.Replace("[%ProratedVehicleRent%]", prospectDet.AdministrationFee.ToString());
-                    reportHTML = reportHTML.Replace("[%ProratedPetRent%]", prospectDet.Prorated_Rent.ToString());
-                    reportHTML = reportHTML.Replace("[%ConcessionAmount%]", "0.00");
-                    reportHTML = reportHTML.Replace("[%TotalMoveIn%]", prospectDet.MoveInCharges.ToString());
+                    reportHTML = reportHTML.Replace("[%ApplicationFee%]", appFess.ToString(("0.00")));
+                    reportHTML = reportHTML.Replace("[%AdministrationFee%]", prospectDet.AdministrationFee.Value.ToString(("0.00")));
+                    reportHTML = reportHTML.Replace("[%SecurityDeposit%]", prospectDet.Deposit.Value.ToString(("0.00")));
+                    reportHTML = reportHTML.Replace("[%PetFee%]", prospectDet.PetDeposit.Value.ToString(("0.00")));
+                    reportHTML = reportHTML.Replace("[%ProratedRent%]", prospectDet.Prorated_Rent.Value.ToString(("0.00")));
+                    reportHTML = reportHTML.Replace("[%VehicleReg%]", prospectDet.VehicleRegistration.Value.ToString(("0.00")));
 
-                    reportHTML = reportHTML.Replace("[%Rent%]", prospectDet.Rent.ToString());
-                    reportHTML = reportHTML.Replace("[%Trash%]", prospectDet.TrashAmt.ToString());
-                    reportHTML = reportHTML.Replace("[%ConvergentAmt%]", prospectDet.ConvergentAmt.ToString());
-                    reportHTML = reportHTML.Replace("[%PetRent%]", prospectDet.PetPlaceAmt.ToString());
-                    reportHTML = reportHTML.Replace("[%Vehicle%]", prospectDet.VehicleRegistration.ToString());
-                    reportHTML = reportHTML.Replace("[%Storage%]", prospectDet.StorageAmt.ToString());
-                    reportHTML = reportHTML.Replace("[%TotalMonthly%]", prospectDet.MonthlyCharges.ToString());
-                 
+                    reportHTML = reportHTML.Replace("[%ProratedTrash%]", (((prospectDet.TrashAmt)/model.ProNumberOfDays)*model.ProRemainingday).Value.ToString(("0.00")));
+                    reportHTML = reportHTML.Replace("[%ProratedPest%]", (((prospectDet.PestAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")));
+                    reportHTML = reportHTML.Replace("[%ProratedConvergent%]", (((prospectDet.ConvergentAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")));
+                    reportHTML = reportHTML.Replace("[%ProratedVehicleRent%]", (((prospectDet.ParkingAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")));
+                    reportHTML = reportHTML.Replace("[%ProratedPetRent%]", (((prospectDet.PetPlaceAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")));
+                    reportHTML = reportHTML.Replace("[%ConcessionAmount%]", "0.00");
+                    reportHTML = reportHTML.Replace("[%TotalMoveIn%]", prospectDet.MoveInCharges.Value.ToString(("0.00")));
+
+                    reportHTML = reportHTML.Replace("[%Rent%]", prospectDet.Rent.Value.ToString(("0.00")));
+                    reportHTML = reportHTML.Replace("[%Trash%]", prospectDet.TrashAmt.Value.ToString(("0.00")));
+                    reportHTML = reportHTML.Replace("[%PestControl%]", prospectDet.PestAmt.Value.ToString(("0.00")));
+                    reportHTML = reportHTML.Replace("[%ConvergentAmt%]", prospectDet.ConvergentAmt.Value.ToString(("0.00")));
+                    reportHTML = reportHTML.Replace("[%PetRent%]", prospectDet.PetPlaceAmt.Value.ToString(("0.00")));
+                    reportHTML = reportHTML.Replace("[%Vehicle%]", prospectDet.ParkingAmt.Value.ToString(("0.00")));
+                    reportHTML = reportHTML.Replace("[%Storage%]", prospectDet.StorageAmt.Value.ToString(("0.00")));
+                    reportHTML = reportHTML.Replace("[%TotalMonthly%]", prospectDet.MonthlyCharges.Value.ToString(("0.00")));
+
                 }
                 string body = reportHTML;
+                model.Email = "sachinmahore@gmail.com";
                 new EmailSendModel().SendEmail(model.Email, "Welcome To Sanctuary Doral", body);
 
                 msg = model.TenantID.ToString();

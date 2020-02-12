@@ -3,7 +3,7 @@
     getServiceRequestOnAlarm();
     onFocus();
     breakdownPaymentFunction();
-  
+
     getPaymentAccountsCreditCard();
     getTransationLists();
     getUpTransationLists();
@@ -24,6 +24,203 @@
     getReservationRequestList();
     getTenantData($("#hndTenantID").val());
 
+
+    $("#rulesBBQ,#rulesPC,#rulesCR, #rulesYoga,#rulesSocc").on("click", function () {
+        $("#reservationRules").modal('show');
+    });
+
+    $("#ddlAmenities").on("change", function () {
+        var selectedOption = $(this).val();
+        if (selectedOption > 0) {
+            $('#reserveAmenity').modal('show');
+            $("#divSoc, #divClubroom, #divBBQ, #divPoolCabana, #divYog").addClass("hidden");
+            $(".modal-title").html("");
+            if (selectedOption == 1) {
+                $("#divSoc").removeClass("hidden");
+                $(".modal-title").html("SOCCER/RECREATIONAL FIELD");
+            }
+            else if (selectedOption == 3) {
+                $("#divClubroom").removeClass("hidden");
+                $(".modal-title").html("CLUBROOM/CLUBROOM WITH COURTYARD");
+
+            }
+            else if (selectedOption == 11) {
+                $("#divBBQ").removeClass("hidden");
+                $(".modal-title").html("BBQ AREA");
+            }
+            else if (selectedOption == 12) {
+                $("#divPoolCabana").removeClass("hidden");
+                $(".modal-title").html("POOL CABANAS");
+            }
+            else if (selectedOption == 13) {
+                $("#divYog").removeClass("hidden");
+                $(".modal-title").html("YOGA/MEDITATION LAWN");
+            }
+        }
+        else {
+            return;
+        }
+
+    });
+
+
+    $('input[type=radio][name=hoursSoccer]').on('ifChanged', function (event) {
+        $("#txtDesiredTimeSoccerFrom").val("");
+        $("#txtDesiredTimeSoccerTo").val("");
+        if ($(this).is(":checked")) {
+            var selectedID = $(this).attr("id");
+
+            if (selectedID == "SO_2h200depo") {
+                $("#hdnSoccHours").val(2)
+            }
+            else if (selectedID == "SO_4h400depo") {
+                $("#hdnSoccHours").val(4)
+            }
+        }
+    });
+    $('input[type=radio][name=hours]').on('ifChanged', function (event) {
+        $("#txtDesiredTimeBBQFrom").val("");
+        $("#txtDesiredTimeBBQTo").val("");
+        if ($(this).is(":checked")) {
+            var selectedID = $(this).attr("id");
+            $("#hrs_2h50depo").attr("disabled", true).val("");
+            $("#hrs_4h100depo").attr("disabled", true).val("");
+            $("#lmt_2h10gues").attr("disabled", true).val("");
+            $("#lmt_4h10gues").attr("disabled", true).val("");
+            if (selectedID == "2h50depo") {
+                $("#hrs_2h50depo").attr("disabled", false);
+                $("#2h10gues").iCheck("check");
+                $("#hdnBBQHours").val(2);
+            }
+            else if (selectedID == "4h100depo") {
+                $("#hrs_4h100depo").attr("disabled", false);
+                $("#4h10gues").iCheck("check");
+                $("#hdnBBQHours").val(4);
+            }
+            else if (selectedID == "2h300depo") {
+                $("#2h30gues").iCheck("check");
+                $("#hdnBBQHours").val(2);
+            }
+            else if (selectedID == "4h600depo") {
+                $("#4h30gues").iCheck("check");
+                $("#hdnBBQHours").val(4);
+            }
+        }
+    });
+
+    $('input[type=radio][name=limit]').on('ifChanged', function (event) {
+        $("#txtDesiredTimeBBQFrom").val("");
+        $("#txtDesiredTimeBBQTo").val("");
+        if ($(this).is(":checked")) {
+            var selectedID = $(this).attr("id");
+            $("#hrs_2h50depo").attr("disabled", true).val("");
+            $("#hrs_4h100depo").attr("disabled", true).val("");
+            $("#lmt_2h10gues").attr("disabled", true).val("");
+            $("#lmt_4h10gues").attr("disabled", true).val("");
+            if (selectedID == "2h10gues") {
+                $("#hrs_2h50depo").attr("disabled", false);
+                $("#2h50depo").iCheck("check");
+            }
+            else if (selectedID == "4h10gues") {
+                $("#hrs_4h100depo").attr("disabled", false);
+                $("#4h100depo").iCheck("check");
+            }
+            else if (selectedID == "2h30gues") {
+                $("#2h300depo").iCheck("check");
+            }
+            else if (selectedID == "4h30gues") {
+                $("#4h600depo").iCheck("check");
+            }
+        }
+    });
+
+
+    $('input[type=radio][name=hoursPC]').on('ifChanged', function (event) {
+        $("#txtDesiredTimePCFrom").val("");
+        $("#txtDesiredTimePCTo").val("");
+        if ($(this).is(":checked")) {
+            var selectedID = $(this).attr("id");
+            if (selectedID == "PC_2h250depo") {
+                $("#PC_2h5gues").iCheck("check");
+                $("#hdnPCHours").val(2);
+
+            }
+            else if (selectedID == "PC_4h100depo") {
+                $("#PC_4h5gues").iCheck("check");
+                $("#hdnPCHours").val(4);
+            }
+            else if (selectedID == "PC_2h450depo") {
+                $("#PC_2h12gues").iCheck("check");
+                $("#hdnPCHours").val(2);
+            }
+            else if (selectedID == "PC_4h600depo") {
+                $("#PC_4h12gues").iCheck("check");
+                $("#hdnPCHours").val(4);
+            }
+        }
+    });
+
+    $('input[type=radio][name=limitPC]').on('ifChanged', function (event) {
+        $("#txtDesiredTimePCFrom").val("");
+        $("#txtDesiredTimePCTo").val("");
+        if ($(this).is(":checked")) {
+            var selectedID = $(this).attr("id");
+            if (selectedID == "PC_2h5gues") {
+                $("#PC_2h250depo").iCheck("check");
+                $("#hdnPCHours").val(2);
+            }
+            else if (selectedID == "PC_4h5gues") {
+                $("#PC_4h100depo").iCheck("check");
+                $("#hdnPCHours").val(4);
+            }
+            else if (selectedID == "PC_2h12gues") {
+                $("#PC_2h450depo").iCheck("check");
+                $("#hdnPCHours").val(2);
+            }
+            else if (selectedID == "PC_4h12gues") {
+                $("#PC_4h600depo").iCheck("check");
+                $("#hdnPCHours").val(4);
+            }
+        }
+    });
+
+    $('input[type=radio][name=hoursCR]').on('ifChanged', function (event) {
+        $("#txtDesiredTimeClubroomFrom").val("");
+        $("#txtDesiredTimeClubroomTo").val("");
+        if ($(this).is(":checked")) {
+            var selectedID = $(this).attr("id");
+            if (selectedID == "CR_3h500depo") {
+                $("#CR_75person").iCheck("check");
+                $("#hdnClubHours").val(3);
+
+            }
+            else if (selectedID == "CR_5h1000depo") {
+                $("#CR_75person").iCheck("check");
+                $("#hdnClubHours").val(5);
+            }
+            else if (selectedID == "CR_cy1500") {
+                $("#CR_150person").iCheck("check");
+                $("#hdnClubHours").val(5);
+            }
+        }
+    });
+
+    $('input[type=radio][name=limitCR]').on('ifChanged', function (event) {
+        $("#txtDesiredTimeClubroomFrom").val("");
+        $("#txtDesiredTimeClubroomTo").val("");
+        if ($(this).is(":checked")) {
+            var selectedID = $(this).attr("id");
+            if (selectedID == "CR_75person") {
+                $("#CR_5h1000depo").iCheck("check");
+                $("#hdnClubHours").val(5);
+            }
+            else if (selectedID == "CR_150person") {
+                $("#CR_cy1500").iCheck("check");
+                $("#hdnClubHours").val(5);
+            }
+        }
+    });
+
     $("#txtDesiredTime").timepicki({
         on_change: function () {
             $("#SelectedTime").html($("#txtDesiredTime").val());
@@ -32,10 +229,11 @@
 
     $("#txtDesiredTimeBBQFrom").timepicki({
         on_change: function () {
-            console.log($("#hdnBBQHours").val());
+            //  console.log($("#hdnBBQHours").val());
             var value = "2000-01-01 " + convertTo24Hour($("#txtDesiredTimeBBQFrom").val());
             var startdate = new Date(value);
-            startdate.setHours(startdate.getHours() + $("#hdnBBQHours").val());
+            var hrs = parseFloat($("#hdnBBQHours").val());
+            startdate.setHours(startdate.getHours() + hrs);
             var hours = startdate.getHours();
             var minutes = startdate.getMinutes('00');
             var sHours = hours.toString();
@@ -43,8 +241,6 @@
             if (hours < 10) sHours = "0" + sHours;
             if (minutes < 10) sMinutes = "0" + sMinutes;
             var endtime = convertTo12Hour(sHours + ":" + sMinutes);
-
-
             $("#txtDesiredTimeBBQTo").val(endtime);
         }
     });
@@ -53,7 +249,8 @@
         on_change: function () {
             var value = "2000-01-01 " + convertTo24Hour($("#txtDesiredTimePCFrom").val());
             var startdate = new Date(value);
-            startdate.setHours(startdate.getHours() + $("#hdnPCHours").val());
+            var hrs = parseFloat($("#hdnPCHours").val());
+            startdate.setHours(startdate.getHours() + hrs);
             var hours = startdate.getHours();
             var minutes = startdate.getMinutes();
             var sHours = hours.toString();
@@ -71,7 +268,8 @@
         on_change: function () {
             var value = "2000-01-01 " + convertTo24Hour($("#txtDesiredTimeClubroomFrom").val());
             var startdate = new Date(value);
-            startdate.setHours(startdate.getHours() + $("#hdnClubHours").val());
+            var hrs = parseFloat($("#hdnClubHours").val());
+            startdate.setHours(startdate.getHours() + hrs);
             var hours = startdate.getHours();
             var minutes = startdate.getMinutes();
             var sHours = hours.toString();
@@ -98,8 +296,6 @@
             if (minutes < 10) sMinutes = "0" + sMinutes;
             var endtime = convertTo12Hour(sHours + ":" + sMinutes);
 
-            console.log(endtime);
-
             $("#txtDesiredTimeYogaTo").val(endtime);
         }
     });
@@ -108,334 +304,22 @@
         on_change: function () {
             var value = "2000-01-01 " + convertTo24Hour($("#txtDesiredTimeSoccerFrom").val());
             var startdate = new Date(value);
-            startdate.setHours(startdate.getHours() + $("#hdnSoccHours").val());
+            var hrs = parseFloat($("#hdnSoccHours").val());
+            startdate.setHours(startdate.getHours() + hrs);
+
             var hours = startdate.getHours();
             var minutes = startdate.getMinutes();
+
             var sHours = hours.toString();
             var sMinutes = minutes.toString();
             if (hours < 10) sHours = "0" + sHours;
             if (minutes < 10) sMinutes = "0" + sMinutes;
             var endtime = convertTo12Hour(sHours + ":" + sMinutes);
 
-
             $("#txtDesiredTimeSoccerTo").val(endtime);
         }
     });
 
-    $("#ddlAmenities").on("change", function () {
-        var selectedOption = $(this).val();
-        if (selectedOption > 0) {
-            $('#reserveAmenity').modal('show');
-            $("#divSoc, #divClubroom, #divBBQ, #divPoolCabana, #divYog").addClass("hidden");
-            $(".modal-title").html("");
-            if (selectedOption == 1) {
-                $("#divSoc").removeClass("hidden");
-                $(".modal-title").html("SOCCER/RECREATIONAL FIELD");
-            }
-            else if (selectedOption == 3) {
-                $("#divClubroom").removeClass("hidden");
-                $(".modal-title").html("CLUBROOM/CLUBROOM WITH COURTYARD");
-
-            }
-            else if (selectedOption == 11) {
-                $("#divBBQ").removeClass("hidden");
-                $(".modal-title").html("BBQ AREA");
-            }
-            else if (selectedOption == 12) {
-                $("#divPoolCabana").removeClass("hidden");
-                $(".modal-title").html("POOL CABANAS");
-            }
-            else if (selectedOption == 13) {
-                $("#divYog").removeClass("hidden");
-                $(".modal-title").html("YOGA/MEDITATION LAWN");
-            }
-        }
-        else {
-            return;
-        }
-
-    });
-
-
-
-    $('input[type=radio][name=hours]').on('ifChanged', function (event) {
-        if ($(this).is(":checked")) {
-            var selectedID = $(this).attr("id");
-            $("#hrs_2h50depo").attr("disabled", true).val("");
-            $("#hrs_4h100depo").attr("disabled", true).val("");
-            $("#lmt_2h10gues").attr("disabled", true).val("");
-            $("#lmt_4h10gues").attr("disabled", true).val("");
-            if (selectedID == "2h50depo") {
-                $("#hrs_2h50depo").attr("disabled", false);
-                $("#2h10gues").iCheck("check");
-                $("#hdnBBQHours").val(2);
-            }
-            else if (selectedID == "4h100depo") {
-                $("#hrs_4h100depo").attr("disabled", false);
-                $("#4h10gues").iCheck("check");
-                $("#hdnBBQHours").val(4);
-            }
-            else if (selectedID == "2h300depo") {
-                $("#2h30gues").iCheck("check");
-                $("#hdnBBQHours").val(2);
-            }
-            else if (selectedID == "4h600depo") {
-                $("#4h30gues").iCheck("check");
-                $("#hdnBBQHours").val(4);
-            }
-        }
-    });
-
-    $('input[type=radio][name=limit]').on('ifChanged', function (event) {
-        if ($(this).is(":checked")) {
-            var selectedID = $(this).attr("id");
-            $("#hrs_2h50depo").attr("disabled", true).val("");
-            $("#hrs_4h100depo").attr("disabled", true).val("");
-            $("#lmt_2h10gues").attr("disabled", true).val("");
-            $("#lmt_4h10gues").attr("disabled", true).val("");
-            if (selectedID == "2h10gues") {
-                $("#hrs_2h50depo").attr("disabled", false);
-                $("#2h50depo").iCheck("check");
-            }
-            else if (selectedID == "4h10gues") {
-                $("#hrs_4h100depo").attr("disabled", false);
-                $("#4h100depo").iCheck("check");
-            }
-            else if (selectedID == "2h30gues") {
-                $("#2h300depo").iCheck("check");
-            }
-            else if (selectedID == "4h30gues") {
-                $("#4h600depo").iCheck("check");
-            }
-        }
-    });
-
-
-    $('input[type=radio][name=hoursPC]').on('ifChanged', function (event) {
-        if ($(this).is(":checked")) {
-            var selectedID = $(this).attr("id");
-            if (selectedID == "PC_2h250depo") {
-                $("#PC_2h5gues").iCheck("check");
-                $("#hdnPCHours").val(2);
-
-            }
-            else if (selectedID == "PC_4h100depo") {
-                $("#PC_4h5gues").iCheck("check");
-                $("#hdnPCHours").val(4);
-            }
-            else if (selectedID == "PC_2h450depo") {
-                $("#PC_2h12gues").iCheck("check");
-                $("#hdnPCHours").val(2);
-            }
-            else if (selectedID == "PC_4h600depo") {
-                $("#PC_4h12gues").iCheck("check");
-                $("#hdnPCHours").val(4);
-            }
-        }
-    });
-
-    $('input[type=radio][name=limitPC]').on('ifChanged', function (event) {
-        if ($(this).is(":checked")) {
-            var selectedID = $(this).attr("id");
-            if (selectedID == "PC_2h5gues") {
-                $("#PC_2h250depo").iCheck("check");
-            }
-            else if (selectedID == "PC_4h5gues") {
-                $("#PC_4h100depo").iCheck("check");
-            }
-            else if (selectedID == "PC_2h12gues") {
-                $("#PC_2h450depo").iCheck("check");
-            }
-            else if (selectedID == "PC_4h12gues") {
-                $("#PC_4h600depo").iCheck("check");
-            }
-        }
-    });
-
-    $('input[type=radio][name=hoursCR]').on('ifChanged', function (event) {
-        if ($(this).is(":checked")) {
-            var selectedID = $(this).attr("id");
-            if (selectedID == "CR_3h500depo") {
-                $("#CR_75person").iCheck("check");
-                $("#hdnClubHours").val(3);
-
-            }
-            else if (selectedID == "CR_5h1000depo") {
-                $("#CR_75person").iCheck("check");
-                $("#hdnClubHours").val(5);
-            }
-            else if (selectedID == "CR_cy1500") {
-                $("#CR_150person").iCheck("check");
-                $("#hdnClubHours").val(2);
-            }
-        }
-    });
-
-    $('input[type=radio][name=limitCR]').on('ifChanged', function (event) {
-        if ($(this).is(":checked")) {
-            var selectedID = $(this).attr("id");
-            if (selectedID == "CR_75person") {
-                $("#CR_5h1000depo").iCheck("check");
-            }
-            else if (selectedID == "CR_150person") {
-                $("#CR_cy1500").iCheck("check");
-            }
-        }
-    });
-
-    $("#txtDesiredTime").timepicki({
-        on_change: function () {
-            $("#SelectedTime").html($("#txtDesiredTime").val());
-        }
-    });
-
-    $("#ddlAmenities").on("change", function () {
-        var selectedOption = $(this).val();
-        if (selectedOption > 0) {
-            $('#reserveAmenity').modal('show');
-            $("#divSoc, #divClubroom, #divBBQ, #divPoolCabana, #divYog").addClass("hidden");
-            $(".modal-title").html("");
-            if (selectedOption == 1) {
-                $("#divSoc").removeClass("hidden");
-                $(".modal-title").html("SOCCER/RECREATIONAL FIELD");
-            }
-            else if (selectedOption == 3) {
-                $("#divClubroom").removeClass("hidden");
-                $(".modal-title").html("CLUBROOM/CLUBROOM WITH COURTYARD");
-
-            }
-            else if (selectedOption == 11) {
-                $("#divBBQ").removeClass("hidden");
-                $(".modal-title").html("BBQ AREA");
-            }
-            else if (selectedOption == 12) {
-                $("#divPoolCabana").removeClass("hidden");
-                $(".modal-title").html("POOL CABANAS");
-            }
-            else if (selectedOption == 13) {
-                $("#divYog").removeClass("hidden");
-                $(".modal-title").html("YOGA/MEDITATION LAWN");
-            }
-        }
-        else {
-            return;
-        }
-
-    });
-    $('input[type=radio][name=hours]').on('ifChanged', function (event) {
-        if ($(this).is(":checked")) {
-            var selectedID = $(this).attr("id");
-            $("#hrs_2h50depo").attr("disabled", true).val("");
-            $("#hrs_4h100depo").attr("disabled", true).val("");
-            $("#lmt_2h10gues").attr("disabled", true).val("");
-            $("#lmt_4h10gues").attr("disabled", true).val("");
-            if (selectedID == "2h50depo") {
-                $("#hrs_2h50depo").attr("disabled", false);
-                $("#2h10gues").iCheck("check");
-            }
-            else if (selectedID == "4h100depo") {
-                $("#hrs_4h100depo").attr("disabled", false);
-                $("#4h10gues").iCheck("check");
-            }
-            else if (selectedID == "2h300depo") {
-                $("#2h30gues").iCheck("check");
-            }
-            else if (selectedID == "4h600depo") {
-                $("#4h30gues").iCheck("check");
-            }
-        }
-    });
-
-    $('input[type=radio][name=limit]').on('ifChanged', function (event) {
-        if ($(this).is(":checked")) {
-            var selectedID = $(this).attr("id");
-            $("#hrs_2h50depo").attr("disabled", true).val("");
-            $("#hrs_4h100depo").attr("disabled", true).val("");
-            $("#lmt_2h10gues").attr("disabled", true).val("");
-            $("#lmt_4h10gues").attr("disabled", true).val("");
-            if (selectedID == "2h10gues") {
-                $("#hrs_2h50depo").attr("disabled", false);
-                $("#2h50depo").iCheck("check");
-            }
-            else if (selectedID == "4h10gues") {
-                $("#hrs_4h100depo").attr("disabled", false);
-                $("#4h100depo").iCheck("check");
-            }
-            else if (selectedID == "2h30gues") {
-                $("#2h300depo").iCheck("check");
-            }
-            else if (selectedID == "4h30gues") {
-                $("#4h600depo").iCheck("check");
-            }
-        }
-    });
-
-
-    $('input[type=radio][name=hoursPC]').on('ifChanged', function (event) {
-        if ($(this).is(":checked")) {
-            var selectedID = $(this).attr("id");
-            if (selectedID == "PC_2h250depo") {
-                $("#PC_2h5gues").iCheck("check");
-            }
-            else if (selectedID == "PC_4h100depo") {
-                $("#PC_4h5gues").iCheck("check");
-            }
-            else if (selectedID == "PC_2h450depo") {
-                $("#PC_2h12gues").iCheck("check");
-            }
-            else if (selectedID == "PC_4h600depo") {
-                $("#PC_4h12gues").iCheck("check");
-            }
-        }
-    });
-
-    $('input[type=radio][name=limitPC]').on('ifChanged', function (event) {
-        if ($(this).is(":checked")) {
-            var selectedID = $(this).attr("id");
-            if (selectedID == "PC_2h5gues") {
-                $("#PC_2h250depo").iCheck("check");
-            }
-            else if (selectedID == "PC_4h5gues") {
-                $("#PC_4h100depo").iCheck("check");
-            }
-            else if (selectedID == "PC_2h12gues") {
-                $("#PC_2h450depo").iCheck("check");
-            }
-            else if (selectedID == "PC_4h12gues") {
-                $("#PC_4h600depo").iCheck("check");
-            }
-        }
-    });
-
-    $('input[type=radio][name=hoursCR]').on('ifChanged', function (event) {
-        if ($(this).is(":checked")) {
-            var selectedID = $(this).attr("id");
-            if (selectedID == "CR_3h500depo") {
-                $("#CR_75person").iCheck("check");
-            }
-            else if (selectedID == "CR_5h1000depo") {
-                $("#CR_75person").iCheck("check");
-            }
-            else if (selectedID == "CR_cy1500") {
-                $("#CR_150person").iCheck("check");
-            }
-        }
-    });
-
-    $('input[type=radio][name=limitCR]').on('ifChanged', function (event) {
-        if ($(this).is(":checked")) {
-            var selectedID = $(this).attr("id");
-            if (selectedID == "CR_75person") {
-                $("#CR_3h500depo").iCheck("check");
-            }
-            else if (selectedID == "CR_75person") {
-                $("#CR_5h1000depo").iCheck("check");
-            }
-            else if (selectedID == "CR_150person") {
-                $("#CR_cy1500").iCheck("check");
-            }
-        }
-    });
 
     $("#rbtnApertmentPermission1").prop("checked", true);
 
@@ -444,7 +328,7 @@
             $("#PreferredDate").removeClass('hidden');
             $("#txtPreferredDate").val('');
             $("#txtPreferredTime").val('');
-           
+
         }
         else {
             $("#PreferredDate").addClass('hidden');
@@ -466,7 +350,7 @@
     ddlBankAccountListShow();
     ddlPaymentMethodSelectFunction();
     ddlPayMethodPageLoadFunction();
-   
+
 
     document.getElementById('fileUploadService').onchange = function () {
         uploadServiceFile();
@@ -542,23 +426,23 @@
     });
 
     if ($("#hdnARId").val() != "0") {
-      
+
         getAmenityReservationPay();
     } else {
-       
+
         $("#lblCurrentPrePayAmount").text('$' + formatMoney($('#spanCurrentAmountDue').text()));
     }
 
     $('#Date').click(function () {
         $("#txtPrefarredDate").focus();
     });
-    
+
     $('#PayDateR').click(function () {
         $("#txtPayDateR").focus();
-    }); 
+    });
     $('#Sdate').click(function () {
         $("#txtPreferredDate").focus();
-    }); 
+    });
     $('#btnPreferredTime').click(function () {
         $("#txtPreferredTime").focus();
     });
@@ -566,7 +450,6 @@
         $("#txtDesiredDate").focus();
     });
 });
-
 var checkRequestButton = function () {
     var ddlAmenityVal = $("#ddlAmenities").val();
     var ddlDesDurationVal = $("#ddlDesiredDuration").val();
@@ -4473,7 +4356,6 @@ var getServiceRequestOnAlarm = function () {
         }
     });
 };
-
 var getLeaseInfoDocuments = function () {
     var model = { UserId: $("#hndUserId").val() };
 
@@ -4491,26 +4373,13 @@ var getLeaseInfoDocuments = function () {
             var Ldhtml = '';
             if (response.model.EnvelopeID != null) {
                 intCount++;
-                Ldhtml += "<div class='panel panel-default'>";
-                Ldhtml += "<div class='panel-heading'>";
-                Ldhtml += "<h3 class='panel-title'>";
-                Ldhtml += "<a data-toggle='collapse' data-parent='#accordionSubLeaseDocuments' href='#collapse1Sub1" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + response.model.EnvelopeID + "<i class='fa fa-angle-right pull-right'></i></a>";
-                Ldhtml += "</h3>";
-                Ldhtml += "</div>";
-                Ldhtml += "<div id='collapse1Sub1" + intCount + "' class='panel-collapse collapse'>";
-                Ldhtml += "<div class='panel-body'>";
                 var resultLease = doesFileExist('/Content/assets/img/Document/' + response.model.EnvelopeID);
                 if (resultLease == true) {
-                    Ldhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + response.model.EnvelopeID + "' href='/Content/assets/img/Document/" + response.model.EnvelopeID + "'><i class='fa fa-download'></i></a>";
-                    Ldhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/Document/" + response.model.EnvelopeID + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                    Ldhtml += "<a href='/Content/assets/img/Document/" + response.model.EnvelopeID + "' download='" + response.model.EnvelopeID + "'>" + response.model.EnvelopeID + "</a></br>";
                 }
                 else {
-                    Ldhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
-                    Ldhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
+                    Ldhtml += "<a href='javascript:void(0)' onclick='FileNotFound();'>" + response.model.EnvelopeID + "</a></br>";
                 }
-                Ldhtml += "</div>";
-                Ldhtml += "</div>";
-                Ldhtml += "</div>";
             }
             $('#accordionSubLeaseDocument').append(Ldhtml);
 
@@ -4520,52 +4389,26 @@ var getLeaseInfoDocuments = function () {
             if (response.model.PassportDoc != null) {
                 if (response.model.PassportDoc != '0') {
                     intCount++;
-                    Html += "<div class='panel panel-default'>";
-                    Html += "<div class='panel-heading'>";
-                    Html += "<h3 class='panel-title'>";
-                    Html += "<a data-toggle='collapse' data-parent='#accordionSubIdentity' href='#collapse2Sub1" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + response.model.OriginalPassportDoc + "<i class='fa fa-angle-right pull-right'></i></a>";
-                    Html += "</h3>";
-                    Html += "</div>";
-                    Html += "<div id='collapse2Sub1" + intCount + "' class='panel-collapse collapse'>";
-                    Html += "<div class='panel-body'>";
                     var resultPass = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.PassportDoc);
                     if (resultPass == true) {
-                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + response.model.OriginalPassportDoc + "' href='/Content/assets/img/PersonalInformation/" + response.model.PassportDoc + "'><i class='fa fa-download'></i></a>";
-                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.PassportDoc + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                        Html += "<a href='/Content/assets/img/PersonalInformation/" + response.model.PassportDoc + "' download='" + response.model.OriginalPassportDoc + "'>" + response.model.OriginalPassportDoc + "</a></br>";
                     }
                     else {
-                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
-                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
+                        Html += "<a href='javascript:void(0)' onclick='FileNotFound();'>" + response.model.OriginalPassportDoc + "</a></br>";
                     }
-                    Html += "</div>";
-                    Html += "</div>";
-                    Html += "</div>";
                 }
             }
 
             if (response.model.IdentityDoc != null) {
                 if (response.model.IdentityDoc != '0') {
                     intCount++;
-                    Html += "<div class='panel panel-default'>";
-                    Html += "<div class='panel-heading'>";
-                    Html += "<h3 class='panel-title'>";
-                    Html += "<a data-toggle='collapse' data-parent='#accordionSubIdentity' href='#collapse2Sub2" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + response.model.OriginalIdentityDoc + "<i class='fa fa-angle-right pull-right'></i></a>";
-                    Html += "</h3>";
-                    Html += "</div>";
-                    Html += "<div id='collapse2Sub2" + intCount + "' class='panel-collapse collapse'>";
-                    Html += "<div class='panel-body'>";
                     var resultIdent = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.IdentityDoc);
                     if (resultIdent == true) {
-                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + response.model.OriginalIdentityDoc + "' href='/Content/assets/img/PersonalInformation/" + response.model.IdentityDoc + "'><i class='fa fa-download'></i></a>";
-                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.IdentityDoc + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                        Html += "<a href='/Content/assets/img/PersonalInformation/" + response.model.IdentityDoc + "' download='" + response.model.OriginalIdentityDoc + "'>" + response.model.OriginalIdentityDoc + "</a></br>";
                     }
                     else {
-                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
-                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
+                        Html += "<a href='javascript:void(0)' onclick='FileNotFound();'>" + response.model.OriginalIdentityDoc + "</a></br>";
                     }
-                    Html += "</div>";
-                    Html += "</div>";
-                    Html += "</div>";
                 }
             }
             $('#accordionSubIdentity').append(Html);
@@ -4576,78 +4419,39 @@ var getLeaseInfoDocuments = function () {
             if (response.model.TaxReturnDoc1 != null) {
                 if (response.model.TaxReturnDoc1 != '0') {
                     intCount++;
-                    Thtml += "<div class='panel panel-default'>";
-                    Thtml += "<div class='panel-heading'>";
-                    Thtml += "<h3 class='panel-title'>";
-                    Thtml += "<a data-toggle='collapse' data-parent='#accordionSubTaxReturn' href='#collapse3Sub1" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + response.model.OriginalTaxReturnDoc1 + "<i class='fa fa-angle-right pull-right'></i></a>";
-                    Thtml += "</h3>";
-                    Thtml += "</div>";
-                    Thtml += "<div id='collapse3Sub1" + intCount + "' class='panel-collapse collapse'>";
-                    Thtml += "<div class='panel-body'>";
                     var resultTax1 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturnDoc1);
                     if (resultTax1 == true) {
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + response.model.OriginalTaxReturnDoc1 + "' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc1 + "'><i class='fa fa-download'></i></a>";
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc1 + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                        Thtml += "<a href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc1 + "' download='" + response.model.OriginalTaxReturnDoc1 + "'>" + response.model.OriginalTaxReturnDoc1 + "</a></br>";
                     }
                     else {
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
+                        Thtml += "<a href='javascript:void(0)' onclick='FileNotFound();'>" + response.model.OriginalTaxReturnDoc1 + "</a></br>";
                     }
-                    Thtml += "</div>";
-                    Thtml += "</div>";
-                    Thtml += "</div>";
                 }
             }
 
             if (response.model.TaxReturnDoc2 != null) {
                 if (response.model.TaxReturnDoc2 != '0') {
                     intCount++;
-                    Thtml += "<div class='panel panel-default'>";
-                    Thtml += "<div class='panel-heading'>";
-                    Thtml += "<h3 class='panel-title'>";
-                    Thtml += "<a data-toggle='collapse' data-parent='#accordionSubTaxReturn' href='#collapse3Sub2" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + response.model.OriginalTaxReturnDoc2 + "<i class='fa fa-angle-right pull-right'></i></a>";
-                    Thtml += "</h3>";
-                    Thtml += "</div>";
-                    Thtml += "<div id='collapse3Sub2" + intCount + "' class='panel-collapse collapse'>";
-                    Thtml += "<div class='panel-body'>";
                     var resultTax2 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturnDoc2);
                     if (resultTax2 == true) {
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + response.model.OriginalTaxReturnDoc2 + "' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc2 + "'><i class='fa fa-download'></i></a>";
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc2 + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                        Thtml += "<a href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc2 + "' download='" + response.model.OriginalTaxReturnDoc2 + "'>" + response.model.OriginalTaxReturnDoc2 + "</a></br>";
                     }
                     else {
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
+                        Thtml += "<a href='javascript:void(0)' onclick='FileNotFound();'>" + response.model.OriginalTaxReturnDoc2 + "</a></br>";
                     }
-                    Thtml += "</div>";
-                    Thtml += "</div>";
-                    Thtml += "</div>";
                 }
             }
 
             if (response.model.TaxReturnDoc3 != null) {
                 if (response.model.TaxReturnDoc3 != '0') {
                     intCount++;
-                    Thtml += "<div class='panel panel-default'>";
-                    Thtml += "<div class='panel-heading'>";
-                    Thtml += "<h3 class='panel-title'>";
-                    Thtml += "<a data-toggle='collapse' data-parent='#accordionSubTaxReturn' href='#collapse3Sub3" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + response.model.OriginalTaxReturnDoc3 + "<i class='fa fa-angle-right pull-right'></i></a>";
-                    Thtml += "</h3>";
-                    Thtml += "</div>";
-                    Thtml += "<div id='collapse3Sub3" + intCount + "' class='panel-collapse collapse'>";
-                    Thtml += "<div class='panel-body'>";
                     var resultTax3 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturnDoc3);
                     if (resultTax3 == true) {
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + response.model.OriginalTaxReturnDoc3 + "' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc3 + "'><i class='fa fa-download'></i></a>";
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc3 + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                        Thtml += "<a href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc3 + "' download='" + response.model.OriginalTaxReturnDoc3 + "'>" + response.model.OriginalTaxReturnDoc3 + "</a></br>";
                     }
                     else {
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
+                        Thtml += "<a href='javascript:void(0)' onclick='FileNotFound();'>" + response.model.OriginalTaxReturnDoc3 + "</a></br>";
                     }
-                    Thtml += "</div>";
-                    Thtml += "</div>";
-                    Thtml += "</div>";
                 }
             }
 
@@ -4671,26 +4475,13 @@ var getPetLeaseInfoDocuments = function () {
             $.each(response.model, function (elementType, elementValue) {
                 var Phtml = '';
                 intCount++;
-                Phtml += "<div class='panel panel-default'>";
-                Phtml += "<div class='panel-heading'>";
-                Phtml += "<h3 class='panel-title'>";
-                Phtml += "<a data-toggle='collapse' data-parent='#accordionSubPetCertificate' href='#collapse4Sub1" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + elementValue.OriginalPetVaccinationDoc + "<i class='fa fa-angle-right pull-right'></i></a>";
-                Phtml += "</h3>";
-                Phtml += "</div>";
-                Phtml += "<div id='collapse4Sub1" + intCount + "' class='panel-collapse collapse'>";
-                Phtml += "<div class='panel-body'>";
                 var resultPet = doesFileExist('/Content/assets/img/pet/' + elementValue.PetVaccinationDoc);
                 if (resultPet == true) {
-                    Phtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + elementValue.OriginalPetVaccinationDoc + "' href='/Content/assets/img/pet/" + elementValue.PetVaccinationDoc + "'><i class='fa fa-download'></i></a>";
-                    Phtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/pet/" + elementValue.PetVaccinationDoc + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                    Phtml += "<a href='/Content/assets/img/pet/" + elementValue.PetVaccinationDoc + "' download='" + elementValue.OriginalPetVaccinationDoc + "'>" + elementValue.OriginalPetVaccinationDoc + "</a></br>";
                 }
                 else {
-                    Phtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
-                    Phtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
+                    Phtml += "<a href='javascript:void(0)' onclick='FileNotFound();'>" + elementValue.OriginalVehicleRegistrationDoc + "</a></br>";
                 }
-                Phtml += "</div>";
-                Phtml += "</div>";
-                Phtml += "</div>";
 
                 $('#accordionSubPetCertificate').append(Phtml);
             });
@@ -4713,33 +4504,19 @@ var getVehicleLeaseInfoDocuments = function () {
             $.each(response.model, function (elementType, elementValue) {
                 var Vhtml = '';
                 intCount++;
-                Vhtml += "<div class='panel panel-default'>";
-                Vhtml += "<div class='panel-heading'>";
-                Vhtml += "<h3 class='panel-title'>";
-                Vhtml += "<a data-toggle='collapse' data-parent='#accordionSubVehicleCertificate' href='#collapse5Sub1" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + elementValue.OriginalVehicleRegistrationDoc + "<i class='fa fa-angle-right pull-right'></i></a>";
-                Vhtml += "</h3>";
-                Vhtml += "</div>";
-                Vhtml += "<div id='collapse5Sub1" + intCount + "' class='panel-collapse collapse'>";
-                Vhtml += "<div class='panel-body'>";
                 var resultVehicle = doesFileExist('/Content/assets/img/VehicleRegistration/' + elementValue.VehicleRegistrationDoc);
                 if (resultVehicle == true) {
-                    Vhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + elementValue.OriginalVehicleRegistrationDoc + "' href='/Content/assets/img/VehicleRegistration/" + elementValue.VehicleRegistrationDoc + "'><i class='fa fa-download'></i></a>";
-                    Vhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/VehicleRegistration/" + elementValue.VehicleRegistrationDoc + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                    Vhtml += "<a href='/Content/assets/img/VehicleRegistration/" + elementValue.VehicleRegistrationDoc + "' download='" + elementValue.OriginalVehicleRegistrationDoc + "'>" + elementValue.OriginalVehicleRegistrationDoc + "</a></br>";
                 }
                 else {
-                    Vhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
-                    Vhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
+                    Vhtml += "<a href='javascript:void(0)' onclick='FileNotFound();'>" + elementValue.OriginalVehicleRegistrationDoc + "</a></br>";
                 }
-                Vhtml += "</div>";
-                Vhtml += "</div>";
-                Vhtml += "</div>";
 
                 $('#accordionSubVehicleCertificate').append(Vhtml);
             });
         }
     });
 };
-
 var FileNotFound = function () {
     $.alert({
         title: "",
@@ -5567,13 +5344,13 @@ var countGuest = function (arg) {
     }
     else if (argID == "hrs_4h100depo") {
         argValue = argValue * 10;
-        $("#lmt_4h10guesm").val(argValue);
+        $("#lmt_4h10gues").val(argValue);
     }
 
 };
 
 var convertTo24Hour = function (time) {
-    console.log(time);
+
     var hours = Number(time.match(/^(\d+)/)[1]);
     var minutes = Number(time.match(/:(\d+)/)[1]);
     var AMPM = time.match(/\s(.*)$/)[1];
@@ -5583,21 +5360,24 @@ var convertTo24Hour = function (time) {
     var sMinutes = minutes.toString();
     if (hours < 10) sHours = "0" + sHours;
     if (minutes < 10) sMinutes = "0" + sMinutes;
+    // console.log(sHours + ":" + sMinutes);
     return sHours + ":" + sMinutes;
 };
+
 var convertTo12Hour = function (time) {
-    console.log(time);
+    // console.log(time);
     var H = +time.substr(0, 2);
     var h = (H % 12) || 12;
     var ampm = H < 12 ? " AM" : " PM";
     var sHours = h.toString();
     if (h < 10) sHours = "0" + sHours;
     time = sHours + time.substr(2, 3) + ampm;
+    //  console.log(time);
     return time;
 };
 var savupdateAmenityReservation = function () {
-
     var selectedID;
+    var msg = "";
     var selectedIDLimit;
     var guestLimit;
     var grilLimit;
@@ -5608,36 +5388,86 @@ var savupdateAmenityReservation = function () {
     var depositeFee;
     var reservationFee;
     var desireDuration;
-
+    console.log(amenityID);
     if (amenityID == 1) {
         desireDate = $("#txtDesiredDateSoccer").val();
         desireTimeFrom = $("#txtDesiredTimeSoccerFrom").val();
         desireTimeTo = $("#txtDesiredTimeSoccerTo").val();
-        if ($('input[type=radio][name=hoursSoccer]').is(':checked')) {
-            selectedID = $('input[type=radio][name=hoursSoccer]:checked').attr("id");
-            console.log(selectedID);
-            if (selectedID == "SO_2h200depo") {
-                depositeFee = 200;
-                reservationFee = 100;
-                desireDuration = 2;
-                guestLimit = 10;
 
-            }
-            else if (selectedID == "SO_4h400depo") {
-                depositeFee = 400;
-                reservationFee = 200;
-                desireDuration = 4;
-                guestLimit = 10;
+        if ($('input[type=radio][name=hoursSoccer]').is(':checked') == false) {
+            msg += "Please select any one of the reservation.</br>";
+        }
+
+        if (desireDate == "") {
+            msg += "Booking Date is required.</br>";
+        }
+
+        if (desireTimeFrom == "") {
+            msg += "Booking time is required.</br>";
+        }
+
+        if (msg != "") {
+            $.alert({
+                title: 'Alert!',
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
+        else {
+            $("#divLoader").show();
+            if ($('input[type=radio][name=hoursSoccer]').is(':checked')) {
+                selectedID = $('input[type=radio][name=hoursSoccer]:checked').attr("id");
+
+                if (selectedID == "SO_2h200depo") {
+                    depositeFee = 200;
+                    reservationFee = 100;
+                    desireDuration = 2;
+                    guestLimit = 10;
+
+                }
+                else if (selectedID == "SO_4h400depo") {
+                    depositeFee = 400;
+                    reservationFee = 200;
+                    desireDuration = 4;
+                    guestLimit = 10;
+                }
             }
         }
+
     }
     else if (amenityID == 3) {
+
         desireDate = $("#txtDesiredDateClubroom").val();
         desireTimeFrom = $("#txtDesiredTimeClubroomFrom").val();
         desireTimeTo = $("#txtDesiredTimeClubroomTo").val();
-        if ($('input[type=radio][name=hoursCR]').is(':checked')) {
-            if ($(this).is(":checked")) {
-                var selectedID = $('input[type=radio][name=hoursCR]:checked').attr("id");
+
+        if ($('input[type=radio][name=hoursCR]').is(':checked') == false) {
+            msg += "Please select any one of the reservation.</br>";
+        }
+
+        if (desireDate == "") {
+            msg += "Booking Date is required.</br>";
+        }
+
+        if (desireTimeFrom == "") {
+            msg += "Booking time is required.</br>";
+        }
+
+        if (msg != "") {
+            $.alert({
+                title: 'Alert!',
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
+        else {
+
+            $("#divLoader").show();
+            if ($('input[type=radio][name=hoursCR]').is(':checked')) {
+                selectedID = $('input[type=radio][name=hoursCR]:checked').attr("id");
+                console.log(selectedID);
 
                 if (selectedID == "CR_3h500depo") {
                     depositeFee = 500;
@@ -5655,7 +5485,7 @@ var savupdateAmenityReservation = function () {
                 else if (selectedID == "CR_cy1500") {
                     depositeFee = 1500;
                     reservationFee = 1500;
-                    desireDuration = 2;
+                    desireDuration = 5;
                     guestLimit = 150;
                 }
             }
@@ -5664,80 +5494,127 @@ var savupdateAmenityReservation = function () {
 
     }
     else if (amenityID == 11) {
+
         desireDate = $("#txtDesiredDateBBQ").val();
         desireTimeFrom = $("#txtDesiredTimeBBQFrom").val();
         desireTimeTo = $("#txtDesiredTimeBBQTo").val();
-        if ($('input[type=radio][name=hours]').is(':checked')) {
-            selectedID = selectedID = $('input[type=radio][name=hours]:checked').attr("id");
-            if (selectedID == "2h50depo") {
-                depositeFee = 200;
-                reservationFee = 100;
-                desireDuration = 2;
-                grilLimit = $("#hrs_2h50depo").val();
-                guestLimit = grilLimit * 10;
-            }
-            else if (selectedID == "4h100depo") {
-                depositeFee = 200;
-                reservationFee = 100;
-                desireDuration = 2;
-                grilLimit = $("#hrs_4h100depo").val();
-                guestLimit = grilLimit * 10;
-            }
-            else if (selectedID == "2h300depo") {
-                depositeFee = 200;
-                reservationFee = 100;
-                desireDuration = 2;
-                guestLimit = 30;
-            }
-            else if (selectedID == "4h600depo") {
-                depositeFee = 200;
-                reservationFee = 100;
-                desireDuration = 2;
-                guestLimit = 30;
+
+        if ($('input[type=radio][name=hours]').is(':checked') == false) {
+            msg += "Please select any one of the reservation.</br>";
+        }
+
+        if (desireDate == "") {
+            msg += "Booking Date is required.</br>";
+        }
+
+        if (desireTimeFrom == "") {
+            msg += "Booking time is required.</br>";
+        }
+
+        if (msg != "") {
+            $.alert({
+                title: 'Alert!',
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
+        else {
+            $("#divLoader").show();
+            if ($('input[type=radio][name=hours]').is(':checked')) {
+                selectedID = selectedID = $('input[type=radio][name=hours]:checked').attr("id");
+                if (selectedID == "2h50depo") {
+                    depositeFee = 200;
+                    reservationFee = 100;
+                    desireDuration = 2;
+                    grilLimit = $("#hrs_2h50depo").val();
+                    guestLimit = grilLimit * 10;
+                }
+                else if (selectedID == "4h100depo") {
+                    depositeFee = 200;
+                    reservationFee = 100;
+                    desireDuration = 2;
+                    grilLimit = $("#hrs_4h100depo").val();
+                    guestLimit = grilLimit * 10;
+                }
+                else if (selectedID == "2h300depo") {
+                    depositeFee = 200;
+                    reservationFee = 100;
+                    desireDuration = 2;
+                    guestLimit = 30;
+                }
+                else if (selectedID == "4h600depo") {
+                    depositeFee = 200;
+                    reservationFee = 100;
+                    desireDuration = 2;
+                    guestLimit = 30;
+                }
             }
         }
+
     }
     else if (amenityID == 12) {
         desireDate = $("#txtDesiredDatePC").val();
         desireTimeFrom = $("#txtDesiredTimePCFrom").val();
         desireTimeTo = $("#txtDesiredTimePCTo").val();
-        if ($('input[type=radio][name=hoursPC]').is(':checked')) {
-            selectedID = $('input[type=radio][name=hoursPC]:checked').attr("id");
-            if (selectedID == "PC_2h250depo") {
-                depositeFee = 250;
-                reservationFee = 75;
-                desireDuration = 2;
-                grilLimit = $("#hrs_2h50depo").val();
-                guestLimit = grilLimit * 10;
-            }
-            else if (selectedID == "PC_4h100depo") {
-                depositeFee = 200;
-                reservationFee = 100;
-                desireDuration = 2;
-                grilLimit = $("#hrs_2h50depo").val();
-                guestLimit = grilLimit * 10;
-            }
-            else if (selectedID == "PC_2h450depo") {
-                depositeFee = 200;
-                reservationFee = 100;
-                desireDuration = 2;
-                grilLimit = $("#hrs_2h50depo").val();
-                guestLimit = grilLimit * 10;
-            }
-            else if (selectedID == "PC_4h600depo") {
-                depositeFee = 200;
-                reservationFee = 100;
-                desireDuration = 2;
-                grilLimit = $("#hrs_2h50depo").val();
-                guestLimit = grilLimit * 10;
+
+        if ($('input[type=radio][name=hours]').is(':checked') == false) {
+            msg += "Please select any one of the reservation.</br>";
+        }
+
+        if (desireDate == "") {
+            msg += "Booking Date is required.</br>";
+        }
+
+        if (desireTimeFrom == "") {
+            msg += "Booking time is required.</br>";
+        }
+
+        if (msg != "") {
+            $.alert({
+                title: 'Alert!',
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
+        else {
+            $("#divLoader").show();
+            if ($('input[type=radio][name=hoursPC]').is(':checked')) {
+                selectedID = $('input[type=radio][name=hoursPC]:checked').attr("id");
+                if (selectedID == "PC_2h250depo") {
+                    depositeFee = 250;
+                    reservationFee = 75;
+                    desireDuration = 2;
+                    guestLimit = 5;
+                }
+                else if (selectedID == "PC_4h100depo") {
+                    depositeFee = 450;
+                    reservationFee = 150;
+                    desireDuration = 4;
+                    guestLimit = 5;
+                }
+                else if (selectedID == "PC_2h450depo") {
+                    depositeFee = 450;
+                    reservationFee = 150;
+                    desireDuration = 2;
+                    guestLimit = 12;
+                }
+                else if (selectedID == "PC_4h600depo") {
+                    depositeFee = 600;
+                    reservationFee = 300;
+                    desireDuration = 4;
+                    guestLimit = 12;
+                }
             }
         }
     }
     else if (amenityID == 13) {
+        $("#divLoader").show();
         desireDate = $("#txtDesiredDateYoga").val();
         desireTimeFrom = $("#txtDesiredTimeYogaFrom").val();
         desireTimeTo = $("#txtDesiredTimeYogaTo").val();
-        depositeFee = 00;
+        depositeFee = 0.00;
         reservationFee = 100;
         desireDuration = 2;
         guestLimit = 22;
@@ -5755,7 +5632,7 @@ var savupdateAmenityReservation = function () {
         Guest: guestLimit,
         Status: 0
     };
-
+    // console.log(model);
     $.ajax({
         url: '/Tenant/AmenitiesRR/SaveUpdateReservationRequest',
         type: "post",
@@ -5763,6 +5640,8 @@ var savupdateAmenityReservation = function () {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
+            $("#divLoader").hide();
+            getReservationRequestList();
             $.alert({
                 title: '',
                 content: response.model,

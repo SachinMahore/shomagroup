@@ -4275,6 +4275,8 @@ var onlinePToTenant = function () {
     $formData.append('VehicleRegistration', $('#lblVehicleFees').text());
     $formData.append('LeaseTerm', $('#lblLease4').text());
     $formData.append('MonthlyRent', $('#lbltotalAmountSumm').text());
+    $formData.append('ProRemainingday', remainingday);
+    $formData.append('ProNumberOfDays', numberOfDays);
 
     
     if ($("#rbtnPaystub").is(":checked")) {
