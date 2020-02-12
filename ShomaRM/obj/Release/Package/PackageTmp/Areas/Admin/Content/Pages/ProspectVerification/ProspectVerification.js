@@ -250,15 +250,14 @@ $(document).ready(function () {
         $("#txtApplicantOtherGender").val("");
     });
 
-    var date = new Date();
-    var time = new Date(date.getTime());
-    time.setMonth(date.getMonth() + 1);
-    time.setDate(0);
-    var days = time.getDate() > date.getDate() ? time.getDate() - date.getDate() : 0;
+    var d = $('#txtAvailableDate').text();
+    var date = new Date(d);
+    var daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+    var dayOfMonth = date.getDate() - 1;
+
+    var days = daysInMonth - dayOfMonth;
     remainingday = days;
-
-    
-
+    numberOfDays = daysInMonth;
 });
 var abcd = function () {
     alert("Hi");
@@ -926,7 +925,7 @@ var SaveQuote = function () {
     var ConvergentAmt = $("#lblConvergentAmt").text();
     var TrashAmt = $("#lblTrashAmt").text();
     var moveInDate = $("#txtAvailableDate").val();
-    var totalAmt = $("#lbltotalAmount").text();
+    var totalAmt = unformatText($("#lbltotalAmount").text());
     var petDeposit = $("#lblPetDeposit").text();
     var fobAmt = $("#lblFobFee").text();
 
@@ -1430,7 +1429,7 @@ var getPropertyUnitDetails = function (uid) {
             $("#unitdiv" + $("#hndUID").val()).removeClass("select-unit");
             $("#unitdiv" + uid).addClass("select-unit");
 
-            $("#lblRent").text("$" + response.model.Current_Rent);
+            $("#lblRent").text(formatMoney(response.model.Current_Rent));
             $("#lblArea").text(response.model.Area);
             $("#lblBed").text(response.model.Bedroom);
             $("#lblBath").text(response.model.Bathroom);
@@ -1479,7 +1478,7 @@ var getPropertyUnitDetails = function (uid) {
             $("#lbldeposit1").text(parseFloat(response.model.Deposit).toFixed(2));
             $("#lbdepo6").text(parseFloat(response.model.Deposit).toFixed(2));
 
-            $("#lblFMRent").text(parseFloat(response.model.Current_Rent).toFixed(2));
+            $("#lblFMRent").text(formatMoney(parseFloat(response.model.Current_Rent).toFixed(2)));
 
             if (response.model.Furnished == 0) {
                 $("#chkFurnished").css("text-decoration", "line-through");
@@ -1535,42 +1534,45 @@ var getPropertyUnitDetails = function (uid) {
             }
 
             totalAmt = (parseFloat(response.model.Current_Rent) + parseFloat($("#lblAdditionalParking").text()) + parseFloat($("#lblStorageUnit").text()) + parseFloat($("#lblTrashAmt").text()) + parseFloat($("#lblPestAmt").text()) + parseFloat($("#lblConvergentAmt").text()) + parseFloat($("#lblPetFee").text())).toFixed(2);
-            $("#lbltotalAmount").text(totalAmt);
+            $("#lbltotalAmount").text(formatMoney(totalAmt));
 
 
             //Amit's Work for final Quotation form 15-10
             $("#lblFNLUnit").text("#" + response.model.UnitNo);
             $("#lblFNLModel").text(response.model.Building);
             $("#lblFNLTerm").text(response.model.Leased);
-            $("#lblMonthly_MonthlyCharge").text(response.model.Current_Rent.toFixed(2));
+            $("#lblMonthly_MonthlyCharge").text(formatMoney(parseFloat(response.model.Current_Rent).toFixed(2)));
 
-            $("#lblProrated_MonthlyCharge").text(parseFloat(parseFloat(response.model.Current_Rent) / parseFloat(30) * remainingday).toFixed(2));
+            $("#lblProrated_MonthlyCharge").text(formatMoney(parseFloat(parseFloat(response.model.Current_Rent) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
 
-            $("#lblRFPMonthlyCharges").text(response.model.Current_Rent.toFixed(2));
+            $("#lblRFPMonthlyCharges").text(formatMoney(response.model.Current_Rent.toFixed(2)));
 
             $("#fdepo").text(response.model.Deposit);
             $("#lbdepo6").text((response.model.Deposit).toFixed(2));
 
-            $("#lblMonthly_TotalRent").text(totalAmt);
-            $("#lblProrated_TotalRent").text(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday).toFixed(2));
-            $("#lblProratedRent").text(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday).toFixed(2));
-            $("#lblProratedRent6").text(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday).toFixed(2));
+            $("#lblMonthly_TotalRent").text(formatMoney(totalAmt));
+            $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
 
-            var rfpMonthlyCharge = $("#lblRFPMonthlyCharges").text();
+            var rfpMonthlyCharge = unformatText($("#lblRFPMonthlyCharges").text());
             var rfpParkingCharge = $("#lblRFPAdditionalParking").text();
             var rfpStorageCharge = $("#lblRFPStorageUnit").text();
             var rfpPetcharge = $("#lblRFPPetRent").text();
+            var rfpTrashCharge = $("#lblRFPTrashRecycling").text();
+            var rfpPestControl = $("#lblRFPPestControl").text();
+            var rfpConvergentBillFee = $("#lblRFPConvergentbillingfee").text();
 
-            var rfpTotalRentCharge = parseFloat(rfpMonthlyCharge, 10) + parseFloat(rfpParkingCharge, 10) + parseFloat(rfpStorageCharge, 10) + parseFloat(rfpPetcharge, 10);
+            var rfpTotalRentCharge = parseFloat(rfpMonthlyCharge, 10) + parseFloat(rfpParkingCharge, 10) + parseFloat(rfpStorageCharge, 10) + parseFloat(rfpPetcharge, 10) + parseFloat(rfpTrashCharge, 10) + parseFloat(rfpPestControl, 10) + parseFloat(rfpConvergentBillFee, 10);
             //alert(calTotalRentChargefpetd
-            $("#lblRFPTotalMonthlyPayment").text(rfpTotalRentCharge.toFixed(2));
-            $("#ftotal").text((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2));
-            $("#lbtotdueatmov6").text((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2));
+            $("#lblRFPTotalMonthlyPayment").text(formatMoney(rfpTotalRentCharge.toFixed(2)));
+            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
+            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
 
 
-            $("#lblProrated_TrashAmt").text(parseFloat(parseFloat($("#lblTrash").text()) / parseFloat(30) * remainingday).toFixed(2));
-            $("#lblProrated_PestAmt").text(parseFloat(parseFloat($("#lblPestControl").text()) / parseFloat(30) * remainingday).toFixed(2));
-            $("#lblProrated_ConvergentAmt").text(parseFloat(parseFloat($("#lblConvergentAmt").text()) / parseFloat(30) * remainingday).toFixed(2));
+            $("#lblProrated_TrashAmt").text(parseFloat(parseFloat($("#lblTrash").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+            $("#lblProrated_PestAmt").text(parseFloat(parseFloat($("#lblPestControl").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+            $("#lblProrated_ConvergentAmt").text(parseFloat(parseFloat($("#lblConvergentAmt").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
 
 
 
@@ -1967,7 +1969,7 @@ var saveupdateParking = function () {
             totalAmt = parseFloat(totalAmt) - $("#lblAdditionalParking").text() - $("#lblVehicleFees").text();
             $("#lblAdditionalParking").text(parseFloat(response.totalParkingAmt).toFixed(2));
             $("#lblMonthly_AditionalParking").text(parseFloat(response.totalParkingAmt).toFixed(2));
-            $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(response.totalParkingAmt) / parseFloat(30) * remainingday).toFixed(2));
+            $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(response.totalParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
             $("#lblparkingplace").text(addParkingArray.length > 0 ? addParkingArray[0].PArkingID : 0);
 
             if (parseFloat(response.totalParkingAmt).toFixed(2) == "75.00") {
@@ -1984,12 +1986,12 @@ var saveupdateParking = function () {
                 $("#hndStorageID").val(0);
 
             }
-            $("#lbltotalAmount").text((parseFloat(response.totalParkingAmt) + parseFloat(totalAmt)).toFixed(2))
+            $("#lbltotalAmount").text(formatMoney((parseFloat(response.totalParkingAmt) + parseFloat(totalAmt)).toFixed(2)))
             totalAmt = (parseFloat(response.totalParkingAmt) + parseFloat(totalAmt)).toFixed(2);
-            $("#lblMonthly_TotalRent").text(totalAmt);
-            $("#lblProrated_TotalRent").text(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday).toFixed(2));
-            $("#lblProratedRent").text(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday).toFixed(2));
-            $("#ftotal").text((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2));
+            $("#lblMonthly_TotalRent").text(formatMoney(totalAmt));
+            $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
 
 
 
@@ -2063,7 +2065,7 @@ var saveupdatePetPlace = function () {
 
             $("#lblPetFee").text(parseFloat(response.totalPetPlaceAmt).toFixed(2));
             $("#lblMonthly_PetRent").text(parseFloat(response.totalPetPlaceAmt).toFixed(2));
-            $("#lblProrated_PetRent").text(parseFloat(parseFloat(response.totalPetPlaceAmt) / parseFloat(30) * remainingday).toFixed(2));
+            $("#lblProrated_PetRent").text(parseFloat(parseFloat(response.totalPetPlaceAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
 
             $("#lblpetplace").text(addPetPlaceArray.length > 0 ? addPetPlaceArray[0].PetPlaceID : 0);
             if (parseFloat(response.totalPetPlaceAmt).toFixed(2) == "20.00") {
@@ -2088,12 +2090,12 @@ var saveupdatePetPlace = function () {
 
             // $("#lbltotalAmount").text((parseFloat(response.totalPetPlaceAmt) + parseFloat(totalAmt)).toFixed(2) + parseFloat($("#lblPetDeposit").text()).toFixed(2));
             totalAmt = (parseFloat(response.totalPetPlaceAmt) + parseFloat(totalAmt)).toFixed(2);
-            $("#lbltotalAmount").text(totalAmt);
-            $("#lblMonthly_TotalRent").text(totalAmt);
-            $("#lblProrated_TotalRent").text(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday).toFixed(2));
-            $("#lblProratedRent").text(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday).toFixed(2));
-            $("#lblProratedRent6").text(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday).toFixed(2));
-            $("#ftotal").text((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2));
+            $("#lbltotalAmount").text(formatMoney(totalAmt));
+            $("#lblMonthly_TotalRent").text(formatMoney(totalAmt));
+            $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
         }
     });
 }
@@ -2111,7 +2113,7 @@ var saveupdateStorage = function () {
     if ($("#chkAddStorage1").is(":checked")) {
         $("#lblStorageUnit").text(parseFloat(50.00).toFixed(2));
         $("#lblMonthly_Storage").text(parseFloat(50.00).toFixed(2));
-        $("#lblProrated_Storage").text(parseFloat(parseFloat(50.00) / parseFloat(30) * remainingday).toFixed(2));
+        $("#lblProrated_Storage").text(parseFloat(parseFloat(50.00) / parseFloat(numberOfDays) * remainingday).toFixed(2));
 
         totalAmt = (parseFloat(50.00) + parseFloat(totalAmt)).toFixed(2);
 
@@ -2122,13 +2124,13 @@ var saveupdateStorage = function () {
 
     }
 
-    $("#lblMonthly_TotalRent").text(parseFloat(totalAmt).toFixed(2));
-    $("#lbltotalAmount").text(parseFloat(totalAmt).toFixed(2));
+    $("#lblMonthly_TotalRent").text(formatMoney(parseFloat(totalAmt).toFixed(2)));
+    $("#lbltotalAmount").text(formatMoney(parseFloat(totalAmt).toFixed(2)));
 
-    $("#lblProrated_TotalRent").text(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday).toFixed(2));
-    $("#lblProratedRent").text(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday).toFixed(2));
+    $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+    $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
     // $("#ftotal").text((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat(365, 10)).toFixed(2));
-    $("#lblProratedRent6").text(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday).toFixed(2));
+    $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
     // $("#lblstorageplace").text(addStorageArray.length > 0 ? addStorageArray[0].StorageID : 0);
 }
 
@@ -2379,7 +2381,7 @@ var getApplicantLists = function () {
                             "</div > " +
                             "<div class='form-group col-sm-9' style='margin-top: 0px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b></div>" +
                             "<div class='form-group col-sm-9' style='margin-top: 0px !important;margin-bottom: 0px !important;'> Relationship : <b>" + elementValue.RelationshipString + "</b></div>" +
-                            "<div class='form-group col-sm-9' style='margin-top: 0px !important;margin-bottom: 0px !important;'> Phone : <b>" + elementValue.Phone + "</b></div>" +
+                            "<div class='form-group col-sm-9' style='margin-top: 0px !important;margin-bottom: 0px !important;'> Phone : <b>" + formatPhoneFax(elementValue.Phone) + "</b></div>" +
                             "<div class='form-group col-sm-9' style='margin-top: 0px !important;margin-bottom: 0px !important;'> Email : <b>" + elementValue.Email + "</b></div>" +
                             "<div class='form-group col-sm-9' style='margin-top: 0px !important;margin-bottom: 0px !important;'> Date Of Birth : <b>" + elementValue.DateOfBirthTxt + "</b></div>" +
                             "<div class='form-group col-sm-9' style='margin-top: 0px !important;margin-bottom: 0px !important;'> Gender : <b>" + elementValue.GenderString + "</b></div>" +
@@ -2418,7 +2420,7 @@ var getApplicantLists = function () {
                         "</div>"+
                         "<div class='form-group col-sm-9' style='margin-top: 0px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b></div>" +
                         "<div class='form-group col-sm-9' style='margin-top: 0px !important;margin-bottom: 0px !important;'> Relationship : <b>" + elementValue.RelationshipString + "</b></div>" +
-                        "<div class='form-group col-sm-9' style='margin-top: 0px !important;margin-bottom: 0px !important;'> Phone : <b>" + elementValue.Phone + "</b></div>" +
+                        "<div class='form-group col-sm-9' style='margin-top: 0px !important;margin-bottom: 0px !important;'> Phone : <b>" + formatPhoneFax(elementValue.Phone) + "</b></div>" +
                         "<div class='form-group col-sm-9' style='margin-top: 0px !important;margin-bottom: 0px !important;'> Email : <b>" + elementValue.Email + "</b></div>" +
                         "<div class='form-group col-sm-9' style='margin-top: 0px !important;margin-bottom: 0px !important;'> Date Of Birth : <b>" + elementValue.DateOfBirthTxt + "</b></div>" +
                         "<div class='form-group col-sm-9' style='margin-top: 0px !important;margin-bottom: 0px !important;'> Gender : <b>" + elementValue.GenderString + "</b></div>" +
@@ -2438,7 +2440,7 @@ var getApplicantLists = function () {
                         "</div >" +
                         "<div class='input-group input-group-btn'>" +
                         "<button class='btn btn-primary search pull-left' type='button'><i class='fa fa-dollar'></i></button>" +
-                        "<input type='text' class='form-control form-control-small' id='txtpayamt" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px;' value='" + elementValue.MoveInCharge + "' disabled='disabled'/>" +
+                        "<input type='text' class='form-control form-control-small' id='txtpayamt" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px;' value='" + parseFloat(elementValue.MoveInCharge).toFixed(2) + "' disabled='disabled'/>" +
                         "</div ></td>" +
                         "<td style='width:30%;'>" +
                         "<div class='input-group input-group-btn'>" +
@@ -2447,13 +2449,14 @@ var getApplicantLists = function () {
                         "</div >" +
                         "<div class='input-group input-group-btn'>" +
                         "<button class='btn btn-primary search pull-left' type='button'><i class='fa fa-dollar'></i></button>" +
-                        "<input type='text' class='form-control form-control-small' id='txtpayamtMo" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px;' value='" + elementValue.MonthlyPayment + "' disabled='disabled'/>" +
+                        "<input type='text' class='form-control form-control-small' id='txtpayamtMo" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px;' value='" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "' disabled='disabled'/>" +
                         "</div >" +
                         "</td></tr>";
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
                     //Amit's work 17-10
-                    adminfess = $("#lblAdminFees").text();
+                    //adminfess = $("#lblAdminFees").text();
+                    adminfess = $("#lblFNLAmount").text();
                     totalFinalFees += parseFloat(adminfess);
                     pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:30%; padding:6px;'>$" + adminfess + "</tr>";
                 }
@@ -2490,7 +2493,7 @@ var getApplicantLists = function () {
 
                 $("#txtpayper" + elementValue.ApplicantID).keyup(function () {
                     var chargesPecentage = $("#txtpayper" + elementValue.ApplicantID).val();
-                    var perCharges = ((chargesPecentage * parseFloat($("#lbtotdueatmov6").text())) / 100);
+                    var perCharges = ((chargesPecentage * parseFloat(unformatText($("#lbtotdueatmov6").text()))) / 100);
                     $("#txtpayamt" + elementValue.ApplicantID).val(perCharges.toFixed(2));
 
 
@@ -2503,13 +2506,13 @@ var getApplicantLists = function () {
                 });
                 $("#txtpayamt" + elementValue.ApplicantID).keyup(function () {
                     var chargesAmount = $("#txtpayamt" + elementValue.ApplicantID).val();
-                    var chargesPer = ((chargesAmount * 100) / parseFloat($("#lbtotdueatmov6").text()));
+                    var chargesPer = ((chargesAmount * 100) / parseFloat(unformatText($("#lbtotdueatmov6").text())));
                     $("#txtpayper" + elementValue.ApplicantID).val(chargesPer.toFixed(2));
                 });
 
                 $("#txtpayperMo" + elementValue.ApplicantID).keyup(function () {
                     var monthlyPercentage = $("#txtpayperMo" + elementValue.ApplicantID).val();
-                    var monthlyPayment = $("#lblRFPTotalMonthlyPayment").text();
+                    var monthlyPayment = unformatText($("#lblRFPTotalMonthlyPayment").text());
                     var perMonth = ((monthlyPercentage * parseFloat(monthlyPayment, 10)) / 100);
                     $("#txtpayamtMo" + elementValue.ApplicantID).val(perMonth.toFixed(2));
 
@@ -2523,7 +2526,7 @@ var getApplicantLists = function () {
 
                 $("#txtpayamtMo" + elementValue.ApplicantID).keyup(function () {
                     var perMonth = $("#txtpayamtMo" + elementValue.ApplicantID).val();
-                    var monthlyPayment = $("#lblRFPTotalMonthlyPayment").text();
+                    var monthlyPayment = unformatText($("#lblRFPTotalMonthlyPayment").text());
                     var monthlyPercentage = ((perMonth * 100) / parseFloat(monthlyPayment, 10));
                     $("#txtpayperMo" + elementValue.ApplicantID).val(monthlyPercentage.toFixed(2));
                 });
@@ -3399,7 +3402,8 @@ var getTenantOnlineList = function (id) {
                 $('#hndPassportUploadName').attr('onclick', 'fileNotExist()');
             }
             
-            $("#hndIdentityUploadName").text(response.model.UploadOriginalIdentityName);
+            //$("#hndIdentityUploadName").text(response.model.UploadOriginalIdentityName);
+            $("#hndIdentityUploadName").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalIdentityName);
             $("#hndOriginalIdentityUploadName").val(response.model.UploadOriginalIdentityName);
             $("#hndIdentityUploadName").data('value', response.model.IdentityDocument);
             var resultIdentityExist = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.IdentityDocument);
@@ -3412,7 +3416,8 @@ var getTenantOnlineList = function (id) {
                 $('#hndIdentityUploadName').attr('onclick', 'fileNotExist()');
             }
             //$("#hndFileUploadName1").val(response.model.TaxReturn);
-            $("#hndFileUploadName1").text(response.model.UploadOriginalFileName1);
+            //$("#hndFileUploadName1").text(response.model.UploadOriginalFileName1);
+            $("#hndFileUploadName1").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName1);
             $("#hndOriginalFileUploadName1").val(response.model.UploadOriginalFileName1);
             $("#hndFileUploadName1").data('value', response.model.TaxReturn);
             var resultTaxReturnExist = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn);
@@ -3426,7 +3431,8 @@ var getTenantOnlineList = function (id) {
             }
             
            // $("#hndFileUploadName2").val(response.model.TaxReturn2);
-            $("#hndFileUploadName2").text(response.model.UploadOriginalFileName2);
+            //$("#hndFileUploadName2").text(response.model.UploadOriginalFileName2);
+            $("#hndFileUploadName2").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName2);
             $("#hndOriginalFileUploadName2").val(response.model.UploadOriginalFileName2);
             $("#hndFileUploadName2").data('value', response.model.TaxReturn2);
             var resultTaxReturn2Exist = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn2);
@@ -3469,14 +3475,8 @@ var getTenantOnlineList = function (id) {
             if (response.model.UploadOriginalFileName3 != '') {
                 $("#fileUploadTaxReturn3Show").text(response.model.UploadOriginalFileName3);
             }
-            if (response.model.IsPaystub == true) {
-                $("#rbtnPaystub").attr("checked", true);
-            }
-            else {
-                $("#rbtnFedralTax").attr("checked", false);
-            }
-            document.getElementById("rbtnPaystub").disabled = true;
-            document.getElementById("rbtnFedralTax").disabled = true;
+            
+            
             //alert(response.model.IsPaystub);
 
             if (response.model.IsPaystub == true) {
@@ -3486,7 +3486,8 @@ var getTenantOnlineList = function (id) {
             else {
                 $("#rbtnFedralTax").iCheck('check');
             }
-
+            $("#rbtnPaystub").attr('disabled', 'disabled');
+            $("#rbtnFedralTax").attr('disabled', 'disabled');
         }
     });
 };
@@ -4014,6 +4015,18 @@ function formatSSN(ssn) {
     return ssn.substring(0, 3) + (ssn.length > 3 ? '-' : '') + ssn.substring(3, 5) + (ssn.length > 5 ? '-' : '') + ssn.substring(5);
 }
 
+function formatMoney(number) {
+    number = number || 0;
+    var places = 2;
+    var symbol = "";
+    var thousand = ",";
+    var decimal = ".";
+    var negative = number < 0 ? "-" : "",
+        i = parseInt(number = Math.abs(+number || 0).toFixed(places), 10) + "",
+        j = (j = i.length) > 3 ? j % 3 : 0;
+    return symbol + negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "");
+}
+
 $(function () {
     $("#txtIDNumber").blur(function () {
         cCardNum = $(this).val();
@@ -4027,18 +4040,6 @@ $(function () {
 
 });
 
-
-function formatMoney(number) {
-    number = number || 0;
-    var places = 2;
-    var symbol = "";
-    var thousand = ",";
-    var decimal = ".";
-    var negative = number < 0 ? "-" : "",
-        i = parseInt(number = Math.abs(+number || 0).toFixed(places), 10) + "",
-        j = (j = i.length) > 3 ? j % 3 : 0;
-    return symbol + negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "");
-}
 
 var getDocuDoc = function (envelopeID) {
 
@@ -4166,8 +4167,8 @@ var onlinePToTenant = function () {
     var originalFilePassport = $("#hndOriginalPassportUploadName").val();
     var fileIdentity = $("#hndIdentityUploadName").data('value');
     var originalFileIdentity = $("#hndOriginalIdentityUploadName").val();
-    
-
+    var proratedRent = unformatText($('#lblProratedRent').text());
+    var fTotal = unformatText($('#ftotal').text());
     if (!OtherGender) {
         OtherGender = $("#txtOtherGender").val(" ");
     }
@@ -4268,8 +4269,8 @@ var onlinePToTenant = function () {
     $formData.append('IdentityDocument', fileIdentity);
     $formData.append('UploadOriginalIdentityName', originalFileIdentity);
 
-    $formData.append('MoveInCharges', $('#ftotal').text());
-    $formData.append('Prorated_Rent', $('#lblProratedRent').text());
+    $formData.append('MoveInCharges', fTotal);
+    $formData.append('Prorated_Rent', proratedRent);
     $formData.append('AdministrationFee', $('#lblAdminFees').text());
     $formData.append('VehicleRegistration', $('#lblVehicleFees').text());
     $formData.append('LeaseTerm', $('#lblLease4').text());

@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+
+using System.Web;
+
 using System.Xml;
-using System.Xml.Linq;
 using System.Xml.Serialization;
+
 using static ShomaRM.Models.AcutraqRequest;
+
 
 namespace ShomaRM.Models
 {
@@ -35,6 +40,7 @@ namespace ShomaRM.Models
                 throw new Exception("An error occurred", ex);
             }
         }
+
 
         public static string SetAttributeValue(string defaultXML, string ordernumber)
         {
@@ -98,6 +104,7 @@ namespace ShomaRM.Models
         }
 
        
+
     }
    
 }	    

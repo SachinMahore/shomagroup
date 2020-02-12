@@ -425,11 +425,15 @@
         setTimeout(function () {
             $("#ddlPremium").val('@Model.Premium');
             $("#ddlPremium").trigger('change');
-            $("#ddlFloorNo").val(@Model.FloorNo);
-            $("#ddlFloorNo").trigger('change');
+         
             $("#ddlModel").val('@Model.Building');
             $("#ddlModel").trigger('change');
         }, 900);
+
+        setTimeout(function () {
+            $("#ddlFloorNo").find("option[value='" + @Model.FloorNo + "']").attr('selected', 'selected');
+            showFloorPlan(@Model.FloorNo);
+        }, 1100);
 
          if (@Model.PreviousID==0)
         {

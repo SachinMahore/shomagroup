@@ -212,6 +212,30 @@ namespace ShomaRM.Areas.Tenant.Controllers
             }
         }
 
+        public JsonResult GetTenantPetLeaseDocuments(MyAccountModel model)
+        {
+            try
+            {
+                return Json(new { model = new MyAccountModel().GetTenantPetLeaseDocuments(model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetTenantVehicleLeaseDocuments(MyAccountModel model)
+        {
+            try
+            {
+                return Json(new { model = new MyAccountModel().GetTenantVehicleLeaseDocuments(model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 
 }

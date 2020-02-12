@@ -23,10 +23,264 @@
     getAmenityList();
     getReservationRequestList();
     getTenantData($("#hndTenantID").val());
+
+    $("#txtDesiredTime").timepicki({
+        on_change: function () {
+            $("#SelectedTime").html($("#txtDesiredTime").val());
+        }
+    });
+
+    $("#txtDesiredTimeBBQFrom").timepicki({
+        on_change: function () {
+            console.log($("#hdnBBQHours").val());
+            var value = "2000-01-01 " + convertTo24Hour($("#txtDesiredTimeBBQFrom").val());
+            var startdate = new Date(value);
+            startdate.setHours(startdate.getHours() + $("#hdnBBQHours").val());
+            var hours = startdate.getHours();
+            var minutes = startdate.getMinutes('00');
+            var sHours = hours.toString();
+            var sMinutes = minutes.toString();
+            if (hours < 10) sHours = "0" + sHours;
+            if (minutes < 10) sMinutes = "0" + sMinutes;
+            var endtime = convertTo12Hour(sHours + ":" + sMinutes);
+
+
+            $("#txtDesiredTimeBBQTo").val(endtime);
+        }
+    });
+
+    $("#txtDesiredTimePCFrom").timepicki({
+        on_change: function () {
+            var value = "2000-01-01 " + convertTo24Hour($("#txtDesiredTimePCFrom").val());
+            var startdate = new Date(value);
+            startdate.setHours(startdate.getHours() + $("#hdnPCHours").val());
+            var hours = startdate.getHours();
+            var minutes = startdate.getMinutes();
+            var sHours = hours.toString();
+            var sMinutes = minutes.toString();
+            if (hours < 10) sHours = "0" + sHours;
+            if (minutes < 10) sMinutes = "0" + sMinutes;
+            var endtime = convertTo12Hour(sHours + ":" + sMinutes);
+
+
+            $("#txtDesiredTimePCTo").val(endtime);
+        }
+    });
+
+    $("#txtDesiredTimeClubroomFrom").timepicki({
+        on_change: function () {
+            var value = "2000-01-01 " + convertTo24Hour($("#txtDesiredTimeClubroomFrom").val());
+            var startdate = new Date(value);
+            startdate.setHours(startdate.getHours() + $("#hdnClubHours").val());
+            var hours = startdate.getHours();
+            var minutes = startdate.getMinutes();
+            var sHours = hours.toString();
+            var sMinutes = minutes.toString();
+            if (hours < 10) sHours = "0" + sHours;
+            if (minutes < 10) sMinutes = "0" + sMinutes;
+            var endtime = convertTo12Hour(sHours + ":" + sMinutes);
+
+
+            $("#txtDesiredTimeClubroomTo").val(endtime);
+        }
+    });
+
+    $("#txtDesiredTimeYogaFrom").timepicki({
+        on_change: function () {
+            var value = "2000-01-01 " + convertTo24Hour($("#txtDesiredTimeYogaFrom").val());
+            var startdate = new Date(value);
+            startdate.setHours(startdate.getHours() + 2);
+            var hours = startdate.getHours();
+            var minutes = startdate.getMinutes();
+            var sHours = hours.toString();
+            var sMinutes = minutes.toString();
+            if (hours < 10) sHours = "0" + sHours;
+            if (minutes < 10) sMinutes = "0" + sMinutes;
+            var endtime = convertTo12Hour(sHours + ":" + sMinutes);
+
+            console.log(endtime);
+
+            $("#txtDesiredTimeYogaTo").val(endtime);
+        }
+    });
+
+    $("#txtDesiredTimeSoccerFrom").timepicki({
+        on_change: function () {
+            var value = "2000-01-01 " + convertTo24Hour($("#txtDesiredTimeSoccerFrom").val());
+            var startdate = new Date(value);
+            startdate.setHours(startdate.getHours() + $("#hdnSoccHours").val());
+            var hours = startdate.getHours();
+            var minutes = startdate.getMinutes();
+            var sHours = hours.toString();
+            var sMinutes = minutes.toString();
+            if (hours < 10) sHours = "0" + sHours;
+            if (minutes < 10) sMinutes = "0" + sMinutes;
+            var endtime = convertTo12Hour(sHours + ":" + sMinutes);
+
+
+            $("#txtDesiredTimeSoccerTo").val(endtime);
+        }
+    });
+
     $("#ddlAmenities").on("change", function () {
-       // console.log();
-        $("#SelectedAminity").html($(this).find(":selected").text());
-        $("#SelectedAminity").attr("data-value", $(this).find(":selected").val());
+        var selectedOption = $(this).val();
+        if (selectedOption > 0) {
+            $('#reserveAmenity').modal('show');
+            $("#divSoc, #divClubroom, #divBBQ, #divPoolCabana, #divYog").addClass("hidden");
+            $(".modal-title").html("");
+            if (selectedOption == 1) {
+                $("#divSoc").removeClass("hidden");
+                $(".modal-title").html("SOCCER/RECREATIONAL FIELD");
+            }
+            else if (selectedOption == 3) {
+                $("#divClubroom").removeClass("hidden");
+                $(".modal-title").html("CLUBROOM/CLUBROOM WITH COURTYARD");
+
+            }
+            else if (selectedOption == 11) {
+                $("#divBBQ").removeClass("hidden");
+                $(".modal-title").html("BBQ AREA");
+            }
+            else if (selectedOption == 12) {
+                $("#divPoolCabana").removeClass("hidden");
+                $(".modal-title").html("POOL CABANAS");
+            }
+            else if (selectedOption == 13) {
+                $("#divYog").removeClass("hidden");
+                $(".modal-title").html("YOGA/MEDITATION LAWN");
+            }
+        }
+        else {
+            return;
+        }
+
+    });
+
+
+
+    $('input[type=radio][name=hours]').on('ifChanged', function (event) {
+        if ($(this).is(":checked")) {
+            var selectedID = $(this).attr("id");
+            $("#hrs_2h50depo").attr("disabled", true).val("");
+            $("#hrs_4h100depo").attr("disabled", true).val("");
+            $("#lmt_2h10gues").attr("disabled", true).val("");
+            $("#lmt_4h10gues").attr("disabled", true).val("");
+            if (selectedID == "2h50depo") {
+                $("#hrs_2h50depo").attr("disabled", false);
+                $("#2h10gues").iCheck("check");
+                $("#hdnBBQHours").val(2);
+            }
+            else if (selectedID == "4h100depo") {
+                $("#hrs_4h100depo").attr("disabled", false);
+                $("#4h10gues").iCheck("check");
+                $("#hdnBBQHours").val(4);
+            }
+            else if (selectedID == "2h300depo") {
+                $("#2h30gues").iCheck("check");
+                $("#hdnBBQHours").val(2);
+            }
+            else if (selectedID == "4h600depo") {
+                $("#4h30gues").iCheck("check");
+                $("#hdnBBQHours").val(4);
+            }
+        }
+    });
+
+    $('input[type=radio][name=limit]').on('ifChanged', function (event) {
+        if ($(this).is(":checked")) {
+            var selectedID = $(this).attr("id");
+            $("#hrs_2h50depo").attr("disabled", true).val("");
+            $("#hrs_4h100depo").attr("disabled", true).val("");
+            $("#lmt_2h10gues").attr("disabled", true).val("");
+            $("#lmt_4h10gues").attr("disabled", true).val("");
+            if (selectedID == "2h10gues") {
+                $("#hrs_2h50depo").attr("disabled", false);
+                $("#2h50depo").iCheck("check");
+            }
+            else if (selectedID == "4h10gues") {
+                $("#hrs_4h100depo").attr("disabled", false);
+                $("#4h100depo").iCheck("check");
+            }
+            else if (selectedID == "2h30gues") {
+                $("#2h300depo").iCheck("check");
+            }
+            else if (selectedID == "4h30gues") {
+                $("#4h600depo").iCheck("check");
+            }
+        }
+    });
+
+
+    $('input[type=radio][name=hoursPC]').on('ifChanged', function (event) {
+        if ($(this).is(":checked")) {
+            var selectedID = $(this).attr("id");
+            if (selectedID == "PC_2h250depo") {
+                $("#PC_2h5gues").iCheck("check");
+                $("#hdnPCHours").val(2);
+
+            }
+            else if (selectedID == "PC_4h100depo") {
+                $("#PC_4h5gues").iCheck("check");
+                $("#hdnPCHours").val(4);
+            }
+            else if (selectedID == "PC_2h450depo") {
+                $("#PC_2h12gues").iCheck("check");
+                $("#hdnPCHours").val(2);
+            }
+            else if (selectedID == "PC_4h600depo") {
+                $("#PC_4h12gues").iCheck("check");
+                $("#hdnPCHours").val(4);
+            }
+        }
+    });
+
+    $('input[type=radio][name=limitPC]').on('ifChanged', function (event) {
+        if ($(this).is(":checked")) {
+            var selectedID = $(this).attr("id");
+            if (selectedID == "PC_2h5gues") {
+                $("#PC_2h250depo").iCheck("check");
+            }
+            else if (selectedID == "PC_4h5gues") {
+                $("#PC_4h100depo").iCheck("check");
+            }
+            else if (selectedID == "PC_2h12gues") {
+                $("#PC_2h450depo").iCheck("check");
+            }
+            else if (selectedID == "PC_4h12gues") {
+                $("#PC_4h600depo").iCheck("check");
+            }
+        }
+    });
+
+    $('input[type=radio][name=hoursCR]').on('ifChanged', function (event) {
+        if ($(this).is(":checked")) {
+            var selectedID = $(this).attr("id");
+            if (selectedID == "CR_3h500depo") {
+                $("#CR_75person").iCheck("check");
+                $("#hdnClubHours").val(3);
+
+            }
+            else if (selectedID == "CR_5h1000depo") {
+                $("#CR_75person").iCheck("check");
+                $("#hdnClubHours").val(5);
+            }
+            else if (selectedID == "CR_cy1500") {
+                $("#CR_150person").iCheck("check");
+                $("#hdnClubHours").val(2);
+            }
+        }
+    });
+
+    $('input[type=radio][name=limitCR]').on('ifChanged', function (event) {
+        if ($(this).is(":checked")) {
+            var selectedID = $(this).attr("id");
+            if (selectedID == "CR_75person") {
+                $("#CR_5h1000depo").iCheck("check");
+            }
+            else if (selectedID == "CR_150person") {
+                $("#CR_cy1500").iCheck("check");
+            }
+        }
     });
 
     $("#txtDesiredTime").timepicki({
@@ -37,16 +291,150 @@
 
     $("#ddlAmenities").on("change", function () {
         var selectedOption = $(this).val();
+        if (selectedOption > 0) {
+            $('#reserveAmenity').modal('show');
+            $("#divSoc, #divClubroom, #divBBQ, #divPoolCabana, #divYog").addClass("hidden");
+            $(".modal-title").html("");
+            if (selectedOption == 1) {
+                $("#divSoc").removeClass("hidden");
+                $(".modal-title").html("SOCCER/RECREATIONAL FIELD");
+            }
+            else if (selectedOption == 3) {
+                $("#divClubroom").removeClass("hidden");
+                $(".modal-title").html("CLUBROOM/CLUBROOM WITH COURTYARD");
 
-        getDurationSlot(selectedOption);
+            }
+            else if (selectedOption == 11) {
+                $("#divBBQ").removeClass("hidden");
+                $(".modal-title").html("BBQ AREA");
+            }
+            else if (selectedOption == 12) {
+                $("#divPoolCabana").removeClass("hidden");
+                $(".modal-title").html("POOL CABANAS");
+            }
+            else if (selectedOption == 13) {
+                $("#divYog").removeClass("hidden");
+                $(".modal-title").html("YOGA/MEDITATION LAWN");
+            }
+        }
+        else {
+            return;
+        }
+
+    });
+    $('input[type=radio][name=hours]').on('ifChanged', function (event) {
+        if ($(this).is(":checked")) {
+            var selectedID = $(this).attr("id");
+            $("#hrs_2h50depo").attr("disabled", true).val("");
+            $("#hrs_4h100depo").attr("disabled", true).val("");
+            $("#lmt_2h10gues").attr("disabled", true).val("");
+            $("#lmt_4h10gues").attr("disabled", true).val("");
+            if (selectedID == "2h50depo") {
+                $("#hrs_2h50depo").attr("disabled", false);
+                $("#2h10gues").iCheck("check");
+            }
+            else if (selectedID == "4h100depo") {
+                $("#hrs_4h100depo").attr("disabled", false);
+                $("#4h10gues").iCheck("check");
+            }
+            else if (selectedID == "2h300depo") {
+                $("#2h30gues").iCheck("check");
+            }
+            else if (selectedID == "4h600depo") {
+                $("#4h30gues").iCheck("check");
+            }
+        }
     });
 
-    $("#ddlDesiredDuration").on("change", function () {
-        var optionDep = $(this).find(":selected").attr("data-dep");
-        var optionRes = $(this).find(":selected").attr("data-res");
-        $("#AmenitySDR").html(optionDep);
-        $("#AmenityRF").html(optionRes);
+    $('input[type=radio][name=limit]').on('ifChanged', function (event) {
+        if ($(this).is(":checked")) {
+            var selectedID = $(this).attr("id");
+            $("#hrs_2h50depo").attr("disabled", true).val("");
+            $("#hrs_4h100depo").attr("disabled", true).val("");
+            $("#lmt_2h10gues").attr("disabled", true).val("");
+            $("#lmt_4h10gues").attr("disabled", true).val("");
+            if (selectedID == "2h10gues") {
+                $("#hrs_2h50depo").attr("disabled", false);
+                $("#2h50depo").iCheck("check");
+            }
+            else if (selectedID == "4h10gues") {
+                $("#hrs_4h100depo").attr("disabled", false);
+                $("#4h100depo").iCheck("check");
+            }
+            else if (selectedID == "2h30gues") {
+                $("#2h300depo").iCheck("check");
+            }
+            else if (selectedID == "4h30gues") {
+                $("#4h600depo").iCheck("check");
+            }
+        }
+    });
 
+
+    $('input[type=radio][name=hoursPC]').on('ifChanged', function (event) {
+        if ($(this).is(":checked")) {
+            var selectedID = $(this).attr("id");
+            if (selectedID == "PC_2h250depo") {
+                $("#PC_2h5gues").iCheck("check");
+            }
+            else if (selectedID == "PC_4h100depo") {
+                $("#PC_4h5gues").iCheck("check");
+            }
+            else if (selectedID == "PC_2h450depo") {
+                $("#PC_2h12gues").iCheck("check");
+            }
+            else if (selectedID == "PC_4h600depo") {
+                $("#PC_4h12gues").iCheck("check");
+            }
+        }
+    });
+
+    $('input[type=radio][name=limitPC]').on('ifChanged', function (event) {
+        if ($(this).is(":checked")) {
+            var selectedID = $(this).attr("id");
+            if (selectedID == "PC_2h5gues") {
+                $("#PC_2h250depo").iCheck("check");
+            }
+            else if (selectedID == "PC_4h5gues") {
+                $("#PC_4h100depo").iCheck("check");
+            }
+            else if (selectedID == "PC_2h12gues") {
+                $("#PC_2h450depo").iCheck("check");
+            }
+            else if (selectedID == "PC_4h12gues") {
+                $("#PC_4h600depo").iCheck("check");
+            }
+        }
+    });
+
+    $('input[type=radio][name=hoursCR]').on('ifChanged', function (event) {
+        if ($(this).is(":checked")) {
+            var selectedID = $(this).attr("id");
+            if (selectedID == "CR_3h500depo") {
+                $("#CR_75person").iCheck("check");
+            }
+            else if (selectedID == "CR_5h1000depo") {
+                $("#CR_75person").iCheck("check");
+            }
+            else if (selectedID == "CR_cy1500") {
+                $("#CR_150person").iCheck("check");
+            }
+        }
+    });
+
+    $('input[type=radio][name=limitCR]').on('ifChanged', function (event) {
+        if ($(this).is(":checked")) {
+            var selectedID = $(this).attr("id");
+            if (selectedID == "CR_75person") {
+                $("#CR_3h500depo").iCheck("check");
+            }
+            else if (selectedID == "CR_75person") {
+                $("#CR_5h1000depo").iCheck("check");
+            }
+            else if (selectedID == "CR_150person") {
+                $("#CR_cy1500").iCheck("check");
+            }
+        }
     });
 
     $("#rbtnApertmentPermission1").prop("checked", true);
@@ -220,8 +608,8 @@ var getTenantData = function (userID) {
                 $("#recTenant").text(response.FirstName + " " + response.LastName);
                 $("#recUnit").text(response.UnitName);
                // $("#hndLeaseTerm").val(response.LeaseTerm);
-                $("#lblCurrentPrePayAmountR").text(response.MonthlyCharges);
-                $("#recPopAmt").text(response.MonthlyCharges);
+                $("#lblCurrentPrePayAmountR").text(formatMoney(response.MonthlyCharges));
+                $("#recPopAmt").text(formatMoney(response.MonthlyCharges));
 
                 $("#txtAddress").val(response.Address);
                 $("#txtCity").val(response.City);
@@ -870,7 +1258,7 @@ var getInvoice = function (invid)
                 $("#tblInvoiceBill>tbody").append(html);
                 srno++;
             });
-            $("#tblInvoiceBill>tbody").append("<tr><td colspan='3'><hr /></td></tr>  <tr><td></td><td style='text-align: right;'>Total Amount :</td><td style='text-align: right;'> <b> <span id='invamount'> $" + formatMoney(response.model.Credit_Amount)+"</span></b> </td></tr>");
+            $("#tblInvoiceBill>tbody").append("<tr><td colspan='3'><hr /></td></tr>  <tr><td></td><td style='text-align: right;'>Total Amount :</td><td style='text-align: right;'> <b> <span id='invamount'> $" + formatMoney(response.model.Charge_Amount)+"</span></b> </td></tr>");
            
         }
     });
@@ -1736,6 +2124,7 @@ var saveUpdateServiceRequest = function () {
         }
     }
 
+
     var petInfoChange = '';
     if ($("#rbtnPetInformation1").is(":checked")) {
         petInfoChange = 1;
@@ -2156,10 +2545,10 @@ var goToReservationStep = function (stepid, id) {
         $("#reservationStep1").addClass("hidden");
         $("#reservationStep2").removeClass("hidden");
 
-        $("#ddlAmenities").val(id).attr("selected", "selected");
-        $("#SelectedAminity").html($("#ddlAmenities").find(":selected").text());
-        $("#SelectedAminity").attr("data-value", $("#ddlAmenities").find(":selected").val());
-        getDurationSlot(id);
+        //$("#ddlAmenities").val(id).attr("selected", "selected");
+        //$("#SelectedAminity").html($("#ddlAmenities").find(":selected").text());
+        //$("#SelectedAminity").attr("data-value", $("#ddlAmenities").find(":selected").val());
+        //getDurationSlot(id);
 
     }
 };
@@ -2557,40 +2946,15 @@ var amountToPayRadioButtonFunction = function () {
     });
 };
 
+
+
 var r = function () {
     $('#rbtnAmountToPay2').removeAttr('checked');
     $('#rbtnAmountToPay1').attr('checked', 'checked');
-
+    $('#rbtnModiAll').removeAttr('checked');
+    $('#rbtnModi1').attr('checked', 'checked');
 }
-var getAmenityReservationPay = function (ARID) {
-    var id = 0;
-    if ($("#hdnARId").val() == 0) {
-        id = ARID;
-    }
-    else {
-        id = $("#hdnARId").val();
-    }
-    var params = { Id: id };
-    $.ajax({
-        url: "/Amenities/GetRRInfo",
-        method: "post",
-        data: JSON.stringify(params),
-        contentType: "application/json; charset=utf-8", // content type sent to server
-        dataType: "json", //Expected data format from server
-        success: function (response) {
-            //clearRRdata();
-            if ($.trim(response.error) != "") {
-                //showMessage("Error!", response.error);
-            } else {
 
-                $("#txtDescriptionText").val(response.AmenityName +" Reservation Fees: ");
-                
-                $("#lblCurrentPrePayAmount").text('$' + formatMoney(parseFloat(parseFloat(response.ReservationFee) + parseFloat(response.DepositFee)).toFixed(2)));
-                $("#hndChargeType").val(4);
-            }
-        }
-    });
-}
 function makeOneTimePaymentSaveUpdate() {
     var cardName = '';
     var cardNumber = '';
@@ -4691,7 +5055,7 @@ var fillDdlLocation = function () {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            
+
             $("#ddlLocation").empty();
             $("#ddlLocation").append("<option value='0'>Select Location</option>");
             $.each(response.model, function (index, elementValue) {
@@ -4731,19 +5095,17 @@ var fillCaussingIssue = function (ServiceIssueID) {
             if ($.trim(response.error) != "") {
                 //this.cancelChanges();
             } else {
+                if (response.length != '0') {
+                    $("#ddlProblemCategory1").empty();
+                    $("#ddlProblemCategory1").append("<option value='0'>What Item Is causing The Issue?</option>");
+                    $.each(response, function (index, elementValue) {
+                        $("#ddlProblemCategory1").append("<option value=" + elementValue.CausingIssueID + ">" + elementValue.CausingIssue + "</option>");
+                    });
+                } else {
+                    $("#CausingIssue").addClass("hidden");
+                    $("#ddlProblemCategory1").empty();
 
-               if(response.length!='0'){
-                   $("#ddlProblemCategory1").empty();
-                   $("#ddlProblemCategory1").append("<option value='0'>What Item Is causing The Issue?</option>");
-                   $.each(response, function (index, elementValue) {
-                       $("#ddlProblemCategory1").append("<option value=" + elementValue.CausingIssueID + ">" + elementValue.CausingIssue + "</option>");
-                   });
-               } else {
-                   $("#CausingIssue").addClass("hidden");
-                   $("#ddlProblemCategory1").empty();
-                  
-               }
-
+                }
             }
         }
     });
@@ -4833,9 +5195,11 @@ var getReservationRequestList = function () {
                     html += "<td>" + elementValue.TenantName + "</td>";
                     html += "<td>" + elementValue.AmenityName + "</td>";
                     html += "<td>" + elementValue.DesiredDate + "</td>";
-                    html += "<td>" + elementValue.DesiredTime + "</td>";
-                    html += "<td>" + elementValue.Duration + "</td>";
-                    
+                    html += "<td>" + elementValue.DesiredTimeFrom + "</td>";
+                    html += "<td>" + elementValue.DesiredTimeTo + "</td>";
+                    html += "<td>" + elementValue.Duration + " hours</td>";
+                    html += "<td>" + elementValue.Guest + "</td>";
+
                     if (elementValue.Status == "Approved and pending for payment") {
                         html += "<td><button class='btn btn-primary' onclick='goToStep(3),getAmenityReservationPay(" + elementValue.ARID + ")'>" + elementValue.Status + "</button></td>";
                     }
@@ -4848,7 +5212,7 @@ var getReservationRequestList = function () {
                     else {
                         html += "<td onclick='cancleRequest(" + elementValue.ARID + ")' style='cursor:pointer;'><span><i class='fa fa-times'></i></span></td>";
                     }
-                    
+
 
                     html += "</tr>";
                     $("#tblReservationRequest>tbody").append(html);
@@ -4903,6 +5267,8 @@ var getRecurringPayLists = function () {
 
 function editRecPayment(transid,amt,cdate,paid)
 {
+    $("#recHeader").text("Edit Recurring Payments");
+    $("#modiDiv").removeClass("hidden");
     $("#RecStep1").removeClass("hidden");
     $("#RecStep2").addClass("hidden");
     $("#rcpid").text(transid);
@@ -4939,6 +5305,15 @@ function recurringPaymentSaveUpdate() {
     else {
         amount = '';
     }
+
+    var isAllUpdate = 0;
+    if ($("#rbtnModi1").is(":checked")) {
+        isAllUpdate = 0;
+    }
+    else if ($("#rbtnModiAll").is(":checked")) {
+        isAllUpdate = 1;
+    }
+
     if ($("#ddlPaymentMethodR").val() == '0') {
         msg += "Select Payment Method</br>";
     }
@@ -4966,12 +5341,12 @@ function recurringPaymentSaveUpdate() {
     }
 
     var models = {
-        PAID: $('#ddlPaymentMethod').val(),
+        PAID: $('#ddlPaymentMethodR').val(),
         TransID: transid,      
-        TenantID: tenantid,
-       
+        TenantID: tenantid,      
         Charge_Date: chargeDate,
-        Charge_Amount: amount
+        Charge_Amount: amount,
+        IsAllUpdate: isAllUpdate
     };
     $.ajax({
         url: "/MyTransaction/SaveUpdateRecurringTransaction/",
@@ -5107,7 +5482,8 @@ function recurringPaymentSetUp() {
 }
 
 function deleteRecPayment(transid) {
-    
+    $("#recHeader").text("Set Up Recurring Payments");
+    $("#modiDiv").addClass("hidden");
     var tenantid = $("#hndTenantID").val();
     
     var models = {
@@ -5163,8 +5539,8 @@ function recurringPaymentBack() {
 function recurringPaymentNext() {
     $("#RecStep2").removeClass("hidden");
     $("#RecStep1").addClass("hidden");
-
-    var transtype = $("#ddlPaymentMethodR").text();
+    var value = $("#ddlPaymentMethodR option:selected"); 
+    var transtype = value.text();
     var chargeDate = $("#txtPayDateR").val();
 
     var amount = '';
@@ -5181,3 +5557,218 @@ function recurringPaymentNext() {
     $("#lblPayDateR").text(chargeDate);
     $("#lblFixedamt").text(amount);
 }
+var countGuest = function (arg) {
+    var argValue = arg.value;
+    var argID = arg.getAttribute('id');
+    //alert(argValue + " " + argID);
+    if (argID == "hrs_2h50depo") {
+        argValue = argValue * 10;
+        $("#lmt_2h10gues").val(argValue);
+    }
+    else if (argID == "hrs_4h100depo") {
+        argValue = argValue * 10;
+        $("#lmt_4h10guesm").val(argValue);
+    }
+
+};
+
+var convertTo24Hour = function (time) {
+    console.log(time);
+    var hours = Number(time.match(/^(\d+)/)[1]);
+    var minutes = Number(time.match(/:(\d+)/)[1]);
+    var AMPM = time.match(/\s(.*)$/)[1];
+    if (AMPM == "PM" && hours < 12) hours = hours + 12;
+    if (AMPM == "AM" && hours == 12) hours = hours - 12;
+    var sHours = hours.toString();
+    var sMinutes = minutes.toString();
+    if (hours < 10) sHours = "0" + sHours;
+    if (minutes < 10) sMinutes = "0" + sMinutes;
+    return sHours + ":" + sMinutes;
+};
+var convertTo12Hour = function (time) {
+    console.log(time);
+    var H = +time.substr(0, 2);
+    var h = (H % 12) || 12;
+    var ampm = H < 12 ? " AM" : " PM";
+    var sHours = h.toString();
+    if (h < 10) sHours = "0" + sHours;
+    time = sHours + time.substr(2, 3) + ampm;
+    return time;
+};
+var savupdateAmenityReservation = function () {
+
+    var selectedID;
+    var selectedIDLimit;
+    var guestLimit;
+    var grilLimit;
+    var tenantId = $("#hndTenantID").val();
+    var amenityID = $("#ddlAmenities").val();
+    var desireDate;
+    var desireTime;
+    var depositeFee;
+    var reservationFee;
+    var desireDuration;
+
+    if (amenityID == 1) {
+        desireDate = $("#txtDesiredDateSoccer").val();
+        desireTimeFrom = $("#txtDesiredTimeSoccerFrom").val();
+        desireTimeTo = $("#txtDesiredTimeSoccerTo").val();
+        if ($('input[type=radio][name=hoursSoccer]').is(':checked')) {
+            selectedID = $('input[type=radio][name=hoursSoccer]:checked').attr("id");
+            console.log(selectedID);
+            if (selectedID == "SO_2h200depo") {
+                depositeFee = 200;
+                reservationFee = 100;
+                desireDuration = 2;
+                guestLimit = 10;
+
+            }
+            else if (selectedID == "SO_4h400depo") {
+                depositeFee = 400;
+                reservationFee = 200;
+                desireDuration = 4;
+                guestLimit = 10;
+            }
+        }
+    }
+    else if (amenityID == 3) {
+        desireDate = $("#txtDesiredDateClubroom").val();
+        desireTimeFrom = $("#txtDesiredTimeClubroomFrom").val();
+        desireTimeTo = $("#txtDesiredTimeClubroomTo").val();
+        if ($('input[type=radio][name=hoursCR]').is(':checked')) {
+            if ($(this).is(":checked")) {
+                var selectedID = $('input[type=radio][name=hoursCR]:checked').attr("id");
+
+                if (selectedID == "CR_3h500depo") {
+                    depositeFee = 500;
+                    reservationFee = 250;
+                    desireDuration = 3;
+                    guestLimit = 75;
+
+                }
+                else if (selectedID == "CR_5h1000depo") {
+                    depositeFee = 1000;
+                    reservationFee = 500;
+                    desireDuration = 5;
+                    guestLimit = 75;
+                }
+                else if (selectedID == "CR_cy1500") {
+                    depositeFee = 1500;
+                    reservationFee = 1500;
+                    desireDuration = 2;
+                    guestLimit = 150;
+                }
+            }
+        }
+
+
+    }
+    else if (amenityID == 11) {
+        desireDate = $("#txtDesiredDateBBQ").val();
+        desireTimeFrom = $("#txtDesiredTimeBBQFrom").val();
+        desireTimeTo = $("#txtDesiredTimeBBQTo").val();
+        if ($('input[type=radio][name=hours]').is(':checked')) {
+            selectedID = selectedID = $('input[type=radio][name=hours]:checked').attr("id");
+            if (selectedID == "2h50depo") {
+                depositeFee = 200;
+                reservationFee = 100;
+                desireDuration = 2;
+                grilLimit = $("#hrs_2h50depo").val();
+                guestLimit = grilLimit * 10;
+            }
+            else if (selectedID == "4h100depo") {
+                depositeFee = 200;
+                reservationFee = 100;
+                desireDuration = 2;
+                grilLimit = $("#hrs_4h100depo").val();
+                guestLimit = grilLimit * 10;
+            }
+            else if (selectedID == "2h300depo") {
+                depositeFee = 200;
+                reservationFee = 100;
+                desireDuration = 2;
+                guestLimit = 30;
+            }
+            else if (selectedID == "4h600depo") {
+                depositeFee = 200;
+                reservationFee = 100;
+                desireDuration = 2;
+                guestLimit = 30;
+            }
+        }
+    }
+    else if (amenityID == 12) {
+        desireDate = $("#txtDesiredDatePC").val();
+        desireTimeFrom = $("#txtDesiredTimePCFrom").val();
+        desireTimeTo = $("#txtDesiredTimePCTo").val();
+        if ($('input[type=radio][name=hoursPC]').is(':checked')) {
+            selectedID = $('input[type=radio][name=hoursPC]:checked').attr("id");
+            if (selectedID == "PC_2h250depo") {
+                depositeFee = 250;
+                reservationFee = 75;
+                desireDuration = 2;
+                grilLimit = $("#hrs_2h50depo").val();
+                guestLimit = grilLimit * 10;
+            }
+            else if (selectedID == "PC_4h100depo") {
+                depositeFee = 200;
+                reservationFee = 100;
+                desireDuration = 2;
+                grilLimit = $("#hrs_2h50depo").val();
+                guestLimit = grilLimit * 10;
+            }
+            else if (selectedID == "PC_2h450depo") {
+                depositeFee = 200;
+                reservationFee = 100;
+                desireDuration = 2;
+                grilLimit = $("#hrs_2h50depo").val();
+                guestLimit = grilLimit * 10;
+            }
+            else if (selectedID == "PC_4h600depo") {
+                depositeFee = 200;
+                reservationFee = 100;
+                desireDuration = 2;
+                grilLimit = $("#hrs_2h50depo").val();
+                guestLimit = grilLimit * 10;
+            }
+        }
+    }
+    else if (amenityID == 13) {
+        desireDate = $("#txtDesiredDateYoga").val();
+        desireTimeFrom = $("#txtDesiredTimeYogaFrom").val();
+        desireTimeTo = $("#txtDesiredTimeYogaTo").val();
+        depositeFee = 00;
+        reservationFee = 100;
+        desireDuration = 2;
+        guestLimit = 22;
+    }
+
+    var model = {
+        TenantID: tenantId,
+        AmenityID: amenityID,
+        DesiredDate: desireDate,
+        DesiredTimeFrom: desireTimeFrom,
+        DesiredTimeTo: desireTimeTo,
+        DepositFee: depositeFee,
+        ReservationFee: reservationFee,
+        Duration: desireDuration,
+        Guest: guestLimit,
+        Status: 0
+    };
+
+    $.ajax({
+        url: '/Tenant/AmenitiesRR/SaveUpdateReservationRequest',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $.alert({
+                title: '',
+                content: response.model,
+                type: 'blue'
+            });
+        }
+    });
+
+};

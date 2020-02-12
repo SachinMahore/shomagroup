@@ -1,12 +1,16 @@
-﻿$(document).ready(function () {
+﻿
+$(document).ready(function () {
     
     var newTenantID = localStorage.getItem("NewTenantID");
     $("#hndNewTenant").val(newTenantID);
     
     getTenantData(newTenantID); 
     GetTenantDetails(newTenantID);
-    
-    
+
+    serviceRequestChangeDDL()
+    getLeaseInfoDocuments();
+    getPetLeaseInfoDocuments();
+    getVehicleLeaseInfoDocuments();
 
 });
 
@@ -30,7 +34,9 @@ var getAccountHistory = function () {
                 var html = "<tr data-value=" + elementValue.TransID + ">";
                 html += "<td>" + elementValue.TransactionDateString + "</td>";
                 html += "<td>" + elementValue.Description + "</td>";
-                html += "<td> $" + elementValue.Charge_Amount + "</td>";
+
+                html += "<td> $" + formatMoney(elementValue.Charge_Amount) + "</td>";
+
                 html += "</tr>";
                 $("#tblAccountHistory>tbody").append(html);
             });
@@ -61,8 +67,6 @@ var getServiceRequestList = function () {
                 html += "<td>" + elementValue.ProblemCategorystring + "</td>";
                 html += "<td>" + elementValue.StatusString + "</td>";
                 html += "<td>" + elementValue.PriorityString + "</td>";
-                //html += "<td align='center'><img src='/content/assets/img/pet/" + elementValue.TempServiceFile + "' class='picture-src' title='' style='height:70px;width:70px;'/></td>";
-                // html += "<td> <a  target='_blank' href='/Content/assets/img/Document/" + elementValue.TempServiceFile + "'><i class='fa fa-eye'></i></a></td>";
                 html += "</tr>";
                 $("#tblServiceRequest>tbody").append(html);
             });
@@ -98,8 +102,10 @@ var getReservationRequestList = function () {
                     html += "<td>" + elementValue.TenantName + "</td>";
                     html += "<td>" + elementValue.AmenityName + "</td>";
                     html += "<td>" + elementValue.DesiredDate + "</td>";
-                    html += "<td>" + elementValue.DesiredTime + "</td>";
-                    html += "<td>" + elementValue.Duration + "</td>";
+                    html += "<td>" + elementValue.DesiredTimeFrom + "</td>";
+                    html += "<td>" + elementValue.DesiredTimeTo + "</td>";
+                    html += "<td>" + elementValue.Duration + " hours</td>";
+                    html += "<td>" + elementValue.Guest + "</td>";
                     html += "<td>" + elementValue.Status + "</td>";
 
                     html += "</tr>";
@@ -144,8 +150,8 @@ var getLeaseInfoDocuments = function () {
                     Ldhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/Document/" + response.model.EnvelopeID + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
                 }
                 else {
-                    Ldhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
-                    Ldhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
+                    Ldhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='fileDoesNotExist();'><i class='fa fa-download'></i></a>";
+                    Ldhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='fileDoesNotExist();'><i class='fa fa-eye'></i></a>";
                 }
                 Ldhtml += "</div>";
                 Ldhtml += "</div>";
@@ -173,8 +179,8 @@ var getLeaseInfoDocuments = function () {
                         Html += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.PassportDoc + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
                     }
                     else {
-                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
-                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
+                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='fileDoesNotExist();'><i class='fa fa-download'></i></a>";
+                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='fileDoesNotExist();'><i class='fa fa-eye'></i></a>";
                     }
                     Html += "</div>";
                     Html += "</div>";
@@ -199,8 +205,8 @@ var getLeaseInfoDocuments = function () {
                         Html += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.IdentityDoc + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
                     }
                     else {
-                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
-                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
+                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='fileDoesNotExist();'><i class='fa fa-download'></i></a>";
+                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='fileDoesNotExist();'><i class='fa fa-eye'></i></a>";
                     }
                     Html += "</div>";
                     Html += "</div>";
@@ -229,8 +235,8 @@ var getLeaseInfoDocuments = function () {
                         Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc1 + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
                     }
                     else {
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
+                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='fileDoesNotExist();'><i class='fa fa-download'></i></a>";
+                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='fileDoesNotExist();'><i class='fa fa-eye'></i></a>";
                     }
                     Thtml += "</div>";
                     Thtml += "</div>";
@@ -255,8 +261,8 @@ var getLeaseInfoDocuments = function () {
                         Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc2 + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
                     }
                     else {
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
+                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='fileDoesNotExist();'><i class='fa fa-download'></i></a>";
+                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='fileDoesNotExist();'><i class='fa fa-eye'></i></a>";
                     }
                     Thtml += "</div>";
                     Thtml += "</div>";
@@ -281,8 +287,8 @@ var getLeaseInfoDocuments = function () {
                         Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc3 + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
                     }
                     else {
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='FileNotFound();'><i class='fa fa-download'></i></a>";
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='FileNotFound();'><i class='fa fa-eye'></i></a>";
+                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='fileDoesNotExist();'><i class='fa fa-download'></i></a>";
+                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='fileDoesNotExist();'><i class='fa fa-eye'></i></a>";
                     }
                     Thtml += "</div>";
                     Thtml += "</div>";
@@ -292,6 +298,96 @@ var getLeaseInfoDocuments = function () {
 
             $('#accordionSubTaxReturn').append(Thtml);
             $("#divLoader").hide();
+
+        }
+    });
+};
+
+var getPetLeaseInfoDocuments = function () {
+    $("#divLoader").show();
+    var model = { UserId: $("#hndNewProspectID").val() };
+
+    $.ajax({
+        url: '/MyAccount/GetTenantPetLeaseDocuments',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            var intCount = parseInt(1);
+            $('#accordionSubPetCertificate').empty();
+            $.each(response.model, function (elementType, elementValue) {
+                var Phtml = '';
+                intCount++;
+                Phtml += "<div class='panel panel-default'>";
+                Phtml += "<div class='panel-heading'>";
+                Phtml += "<h3 class='panel-title'>";
+                Phtml += "<a data-toggle='collapse' data-parent='#accordionSubPetCertificate' href='#collapse4Sub1" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + elementValue.OriginalPetVaccinationDoc + "<i class='fa fa-angle-right pull-right'></i></a>";
+                Phtml += "</h3>";
+                Phtml += "</div>";
+                Phtml += "<div id='collapse4Sub1" + intCount + "' class='panel-collapse collapse'>";
+                Phtml += "<div class='panel-body'>";
+                var resultPet = doesFileExist('/Content/assets/img/pet/' + elementValue.PetVaccinationDoc);
+                if (resultPet == true) {
+                    Phtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + elementValue.OriginalPetVaccinationDoc + "' href='/Content/assets/img/pet/" + elementValue.PetVaccinationDoc + "'><i class='fa fa-download'></i></a>";
+                    Phtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/pet/" + elementValue.PetVaccinationDoc + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                }
+                else {
+                    Phtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='fileDoesNotExist();'><i class='fa fa-download'></i></a>";
+                    Phtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='fileDoesNotExist();'><i class='fa fa-eye'></i></a>";
+                }
+                Phtml += "</div>";
+                Phtml += "</div>";
+                Phtml += "</div>";
+
+                $('#accordionSubPetCertificate').append(Phtml);
+            });
+            $("#divLoader").hide();
+        }
+    });
+};
+
+var getVehicleLeaseInfoDocuments = function () {
+    $("#divLoader").show();
+    var model = { UserId: $("#hndNewProspectID").val() };
+
+    $.ajax({
+        url: '/MyAccount/GetTenantVehicleLeaseDocuments',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            var intCount = parseInt(1);
+            $('#accordionSubVehicleCertificate').empty();
+            $.each(response.model, function (elementType, elementValue) {
+                var Vhtml = '';
+                intCount++;
+                Vhtml += "<div class='panel panel-default'>";
+                Vhtml += "<div class='panel-heading'>";
+                Vhtml += "<h3 class='panel-title'>";
+                Vhtml += "<a data-toggle='collapse' data-parent='#accordionSubVehicleCertificate' href='#collapse5Sub1" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + elementValue.OriginalVehicleRegistrationDoc + "<i class='fa fa-angle-right pull-right'></i></a>";
+                Vhtml += "</h3>";
+                Vhtml += "</div>";
+                Vhtml += "<div id='collapse5Sub1" + intCount + "' class='panel-collapse collapse'>";
+                Vhtml += "<div class='panel-body'>";
+                var resultVehicle = doesFileExist('/Content/assets/img/VehicleRegistration/' + elementValue.VehicleRegistrationDoc);
+                if (resultVehicle == true) {
+                    Vhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + elementValue.OriginalVehicleRegistrationDoc + "' href='/Content/assets/img/VehicleRegistration/" + elementValue.VehicleRegistrationDoc + "'><i class='fa fa-download'></i></a>";
+                    Vhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/VehicleRegistration/" + elementValue.VehicleRegistrationDoc + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                }
+                else {
+                    Vhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='fileDoesNotExist();'><i class='fa fa-download'></i></a>";
+                    Vhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='fileDoesNotExist();'><i class='fa fa-eye'></i></a>";
+                }
+                Vhtml += "</div>";
+                Vhtml += "</div>";
+                Vhtml += "</div>";
+
+                $('#accordionSubVehicleCertificate').append(Vhtml);
+            });
+            $("#divLoader").hide();
+
         }
     });
 };
@@ -408,7 +504,8 @@ var goToStep = function (stepid, id) {
     if (stepid == "11") {
        
         getLeaseInfoDocuments();
-
+        getPetLeaseInfoDocuments();
+        getVehicleLeaseInfoDocuments();
         $("#li11").addClass("active");
         $("#step11").removeClass("hidden");
 
@@ -575,7 +672,7 @@ var getGuestRegistrationList = function () {
                 html += '<tr data-value="' + elementValue.GuestID + '">';
                 html += '<td style="color:#3d3939;">' + elementValue.FirstName + ' ' + elementValue.LastName + '</td>';
                 html += '<td style="color:#3d3939;">' + elementValue.TenantName + '</td>';
-                html += '<td style="color:#3d3939;">' + elementValue.Phone + '</td>';
+                html += '<td style="color:#3d3939;">' + formatPhoneFax(elementValue.Phone) + '</td>';
                 html += '<td style="color:#3d3939;">' + elementValue.Email + '</td>';
                 html += '<td style="color:#3d3939;">' + elementValue.VisitStartDateString + '</td>';
                 html += '<td style="color:#3d3939;">' + elementValue.VisitEndDateString + '</td>';
@@ -714,20 +811,20 @@ var GetTenantDetails = function (userID) {
                 $("#Email").text(response.Email);
 
                 $("#FirstName1").text(response.FirstName + " " + response.LastName);
-                $("#Mobile1").text(response.Mobile);
+                $("#Mobile1").text(formatPhoneFax(response.Mobile));
                 $("#Email1").text(response.Email);
 
                 $("#EmFirstName").text(response.EmFirstNane + " " + response.EmLastName);
                 $("#EmRelationship").text(response.EmRelation);
                 $("#EmAddress").text(response.EmergencyAddress1);
-                $("#EmMobile").text(response.EmMobile);
-                $("#EmWorkPhone").text(response.EmWorkPhone);
+                $("#EmMobile").text(formatPhoneFax(response.EmMobile));
+                $("#EmWorkPhone").text(formatPhoneFax(response.EmWorkPhone));
                 $("#EmEmail").text(response.EmEmail);
                 $("#EmAddress").text(response.EmAddress1 + "" + response.EmAddress1);
 
                 $("#txtFirstName").val(response.FirstName);
                 $("#txtLastName").val(response.LastName);
-                $("#txtMobile").val(response.Mobile);
+                $("#txtMobile").val(formatPhoneFax(response.Mobile));
                 $("#txtEmail").val(response.Email);
                 $("#txtMiddleName").val(response.MiddleInitial);
 
@@ -833,6 +930,7 @@ var getVehicleLists = function () {
 
             $("#tblVehicle>tbody").empty();
             $.each(response.model, function (elementType, elementValue) {
+                var resultVehicle = doesFileExist('../../Content/assets/img/VehicleRegistration/' + elementValue.VehicleRegistration);
                 var html = "<tr id='tr_" + elementValue.Vehicle_ID + "' data-value='" + elementValue.Vehicle_ID + "'>";
                 html += "<td>" + elementValue.OwnerName + "</td>";
                 html += "<td>" + elementValue.Make + "</td>";
@@ -840,7 +938,12 @@ var getVehicleLists = function () {
                 html += "<td>" + elementValue.Year + "</td>";
                 html += "<td>" + elementValue.Color + "</td>";
                 html += "<td>" + elementValue.License + "</td>";
-                html += "<td><a style='background: transparent;' href='../../Content/assets/img/VehicleRegistration/" + elementValue.VehicleRegistration + "' download=" + elementValue.VehicleRegistration + " target='_blank'><span class='fa fa-download' style='background: transparent;'></span></a></td>";
+                if (resultVehicle == true) {
+                    html += "<td><a style='background: transparent;' href='../../../Content/assets/img/VehicleRegistration/" + elementValue.VehicleRegistration + "' download=" + elementValue.VehicleRegistration + " target='_blank'><span class='fa fa-download' style='background: transparent;'></span></a></td>";
+                }
+                else {
+                    html += "<td><a style='background: transparent;' href='javascript:void(0)' onclick='fileDoesNotExist()'><span class='fa fa-download' style='background: transparent;'></span></a></td>";
+                }
 
                 html += "</tr>";
                 $("#tblVehicle>tbody").append(html);
@@ -868,6 +971,7 @@ var getPetLists = function () {
         success: function (response) {
             $("#tblPet>tbody").empty();
             $.each(response.model, function (elementType, elementValue) {
+                var resultPet = doesFileExist('../../Content/assets/img/pet/' + elementValue.PetVaccinationCertificate);
                 var html = "<tr id='tr_" + elementValue.PetID + "' data-value='" + elementValue.PetID + "'>";
                 //html += "<td align='center'><img src='/content/assets/img/pet/" + elementValue.Photo + "' class='picture-src' title='' style='height:70px;width:70px;'/></td>";
 
@@ -875,7 +979,12 @@ var getPetLists = function () {
                 html += "<td>" + elementValue.Breed + "</td>";
                 html += "<td>" + elementValue.Weight + "</td>";
                 html += "<td>" + elementValue.VetsName + "</td>";
-                html += "<td><a href='../../Content/assets/img/pet/" + elementValue.PetVaccinationCertificate + "' download=" + elementValue.PetVaccinationCertificate + " target='_blank'><span class='fa fa-download'></span></a></td>";
+                if (resultPet == true) {
+                    html += "<td><a href='../../Content/assets/img/pet/" + elementValue.PetVaccinationCertificate + "' download=" + elementValue.PetVaccinationCertificate + " target='_blank'><span class='fa fa-download'></span></a></td>";
+                }
+                else {
+                    html += "<td><a href='javascript:void(0)' onclick='fileDoesNotExist()'><span class='fa fa-download'></span></a></td>";
+                }
                 html += "</tr>";
                 $("#tblPet>tbody").append(html);
             });
@@ -917,7 +1026,7 @@ var getCommunityActivityList = function () {
                 html += "<td>" + elementValue.Details + "</td>";
                 html += "<td>" + attachFile + "</td>";
                 html += "<td>" + elementValue.DateString + "</td>";
-                html += "<td><button class='btn btn-addon' onclick='deleteCommunityPost(" + elementValue.CID + ")'><i class='fa fa-trash'></i></button></td>";
+                html += "<td><button class='btn btn-danger' style='padding:5px 8px !important;' onclick='deleteCommunityPost(" + elementValue.CID + ")'><i class='fa fa-trash' aria-hidden='true'></i></button></td>";
                 html += "</tr>";
                 $("#tblCommunityActivity>tbody").append(html);
             });
@@ -929,18 +1038,107 @@ var getCommunityActivityList = function () {
 
 var deleteCommunityPost = function (cid) {
     $("#divLoader").show();
-    var model = { CID: cid};
-
-    $.ajax({
-        url: '/Tenant/CommunityActivity/DeleteCommunityActivityPost',
-        type: 'post',
-        contentType: 'application/json utf-8',
-        data: JSON.stringify(model),
-        dataType: 'json',
-        success: function (response) { }
+    
+    $.alert({
+        title: "",
+        content: "Are you sure to remove Post?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    var model = { CID: cid };
+                    $.ajax({
+                        url: '/Tenant/CommunityActivity/DeleteCommunityActivityPost',
+                        type: 'post',
+                        contentType: 'application/json utf-8',
+                        data: JSON.stringify(model),
+                        dataType: 'json',
+                        success: function (response) { }
+                    });
+                    getCommunityActivityList();
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                }
+            }
+        }
     });
-    getCommunityActivityList();
+
     $("#divLoader").hide();
 };
 
+function formatPhoneFax(phonefax) {
+    if (phonefax == null)
+        phonefax = "";
+    phonefax = phonefax.replace(/[^0-9]/g, '');
+    if (phonefax.length == 0)
+        return phonefax;
 
+    return '(' + phonefax.substring(0, 3) + ') ' + phonefax.substring(3, 6) + (phonefax.length > 6 ? '-' : '') + phonefax.substring(6);
+}
+
+function formatMoney(number) {
+    number = number || 0;
+    var places = 2;
+    var symbol = "";
+    var thousand = ",";
+    var decimal = ".";
+    var negative = number < 0 ? "-" : "",
+        i = parseInt(number = Math.abs(+number || 0).toFixed(places), 10) + "",
+        j = (j = i.length) > 3 ? j % 3 : 0;
+    return symbol + negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "");
+}
+
+var serviceRequestChangeDDL = function () {
+    $("#ddlOpenServiceRequest").on("change", function () {
+        getServiceRequestList();
+    });
+};
+
+var fileDoesNotExist = function () {
+    $.alert({
+        title: '',
+        content: "File does not exist!",
+        type: 'blue',
+    });
+};
+
+var delGuestRegistration = function (id) {
+    $("#divLoader").show();
+    $.alert({
+        title: "",
+        content: "Are you sure to remove Vehicle?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    var model = { GuestID: id };
+                    $.ajax({
+                        url: '/GuestManagement/DeleteGuestRegistrationList',
+                        method: "post",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            getGuestRegistrationList();
+                            $.alert({
+                                title: '',
+                                content: response.model,
+                                type: 'blue',
+                            });
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                }
+            }
+        }
+    });
+    $("#divLoader").hide();
+};

@@ -4,7 +4,7 @@
     getServiceInfo($("#hndTenantID").val());
     getTenantVehicleList();
     getPetLists();
-   
+    onFocus();
     getApplicantLists($("#hndTenantID").val());
     fillStateDDL();
     breakdownPaymentFunction();
@@ -189,7 +189,7 @@ var GetTenantDetails = function (TenantID) {
             } else {
                 $("#hndTenantID").val(response.ID);
                 $("#FirstName").text(response.FirstName + " " + response.LastName);
-                $("#Mobile").text(response.Mobile);
+                $("#Mobile").text(formatPhoneFax(response.Mobile));
                 $("#Email").text(response.Email);
 
                 $("#FirstName1").text(response.FirstName + " " + response.LastName);
@@ -202,11 +202,11 @@ var GetTenantDetails = function (TenantID) {
                 $("#EmMobile").text(formatPhoneFax(response.EmMobile)); 
                 $("#EmWorkPhone").text(formatPhoneFax(response.EmWorkPhone));
                 $("#EmEmail").text(response.EmEmail);
-                $("#EmAddress").text(response.EmAddress1 + "" + response.EmAddress1);
+                $("#EmAddress").text(response.EmAddress1 + " " + response.EmAddress2);
 
                 $("#txtFirstName").val(response.FirstName);
                 $("#txtLastName").val(response.LastName);
-                $("#txtMobile").val(response.Mobile);
+                $("#txtMobile").val(formatPhoneFax(response.Mobile));
                 $("#txtEmail").val(response.Email);
                 $("#txtMiddleName").val(response.MiddleInitial);
             
@@ -216,9 +216,9 @@ var GetTenantDetails = function (TenantID) {
                 $("#txtEmRelationship").val(response.EmRelation);
                 $("#txtEmergencyAddress1").val(response.EmAddress1);
                 $("#txtEmergencyAddress2").val(response.EmAddress2);
-                $("#txtEmMobile").val(response.EmMobile);
-                $("#txtEmHomePhone").val(response.EmHomePhone);
-                $("#txtEmWorkPhone").val(response.EmWorkPhone);
+                $("#txtEmMobile").val(formatPhoneFax(response.EmMobile));
+                $("#txtEmHomePhone").val(formatPhoneFax(response.EmHomePhone));
+                $("#txtEmWorkPhone").val(formatPhoneFax(response.EmWorkPhone));
                 $("#txtEmEmail").val(response.EmEmail); 
 
                 $("#EmployerName").text(response.EmployerName);
@@ -299,9 +299,9 @@ var UpdateContactInfo = function () {
     var firstName = $("#txtFirstName").val();
     var middleName = $("#txtMiddleName").val();
     var lastName = $("#txtLastName").val();
-    var mobile = $("#txtMobile").val();
+    var mobile = unformatText($("#txtMobile").val());
     var email = $("#txtEmail").val();
-
+    var UserId = $('#hndUserId').val();
 
     if (firstName == '') {
         msg += 'Plese Enter First Name</br>'
@@ -332,6 +332,7 @@ var UpdateContactInfo = function () {
         LastName: lastName,
         Mobile: mobile,
         Email: email,
+        UserId: UserId,
     };
 
     $.ajax({
@@ -345,7 +346,7 @@ var UpdateContactInfo = function () {
             $.alert({
                 title: "",
                 content: "Progress Saved.",
-                type: 'blue'
+                type: 'red'
             });
             GetTenantDetails($("#hndTenantID").val());
           
@@ -359,7 +360,7 @@ var UpdateWorkInfo = function () {
     var employername = $("#txtEmployerName").val();
     var jobtitle = $("#txtJobTitle").val();
     var jobtype = $("#ddlJobType").val();
-    
+    var UserId = $('#hndUserId').val();
 
 
     if (employername == '') {
@@ -389,7 +390,7 @@ var UpdateWorkInfo = function () {
         EmployerName: employername,
         JobTitle: jobtitle,
         JobType: jobtype,
-       
+        UserId: UserId,
     };
 
     $.ajax({
@@ -403,7 +404,7 @@ var UpdateWorkInfo = function () {
             $.alert({
                 title: "",
                 content: "Progress Saved.",
-                type: 'blue'
+                type: 'red'
             });
             GetTenantDetails($("#hndTenantID").val());
 
@@ -413,17 +414,17 @@ var UpdateWorkInfo = function () {
 
 var UpdateEmContactInfo = function () {
 
+    var UserId= $('#hndUserId').val();
     var msg = '';
-
     var tenantId = $("#hndTenantID").val();
     var emfirstName = $("#txtEmFirstName").val();
     var emlastName = $("#txtEmLastName").val(); 
     var emRelationship = $("#txtEmRelationship").val(); 
     var emEmergencyAddress1 = $("#txtEmergencyAddress1").val(); 
     var emEmergencyAddress2 = $("#txtEmergencyAddress2").val(); 
-    var emMobile = $("#txtEmMobile").val(); 
-    var emHomePhone = $("#txtEmHomePhone").val(); 
-    var emWorkPhone = $("#txtEmWorkPhone").val(); 
+    var emMobile = unformatText($("#txtEmMobile").val()); 
+    var emHomePhone = unformatText($("#txtEmHomePhone").val()); 
+    var emWorkPhone = unformatText($("#txtEmWorkPhone").val()); 
  
     var emEmail = $("#txtEmEmail").val();
 
@@ -467,7 +468,8 @@ var UpdateEmContactInfo = function () {
         EmHomePhone: emHomePhone,
         EmRelation: emRelationship ,
         EmAddress1: emEmergencyAddress1 ,
-        EmAddress2: emEmergencyAddress2 , 
+        EmAddress2: emEmergencyAddress2, 
+        UserId: UserId,
     };
 
     $.ajax({
@@ -481,7 +483,7 @@ var UpdateEmContactInfo = function () {
             $.alert({
                 title: "",
                 content: "Progress Saved.",
-                type: 'blue'
+                type: 'red'
             });
             GetTenantDetails($("#hndTenantID").val());
 
@@ -720,10 +722,11 @@ var UpdatePasswordUser = function () {
             $.alert({
                 title: "",
                 content: response.model,
-                type: 'blue'
+                type: 'red'
             });
-
-
+            $("#txtOldPassword").val('');
+            $("#txtNewPassword").val('');
+            $("#txtConfirmNewPassword").val('');
         }
     });
 };
@@ -2052,4 +2055,31 @@ function formatPhoneFax(phonefax) {
         return phonefax;
 
     return '(' + phonefax.substring(0, 3) + ') ' + phonefax.substring(3, 6) + (phonefax.length > 6 ? '-' : '') + phonefax.substring(6);
+
+}
+function unformatText(text) {
+    if (text == null)
+        text = "";
+
+    return text.replace(/[^\d\.]/g, '');
+}
+var onFocus = function () {
+
+    $("#txtEmMobile").focusout(function () { $("#txtEmMobile").val(formatPhoneFax($("#txtEmMobile").val())); })
+        .focus(function () {
+            $("#txtEmMobile").val(unformatText($("#txtEmMobile").val()));
+        });
+    $("#txtEmHomePhone").focusout(function () { $("#txtEmHomePhone").val(formatPhoneFax($("#txtEmHomePhone").val())); })
+        .focus(function () {
+            $("#txtEmHomePhone").val(unformatText($("#txtEmHomePhone").val()));
+        });
+    $("#txtEmWorkPhone").focusout(function () { $("#txtEmWorkPhone").val(formatPhoneFax($("#txtEmWorkPhone").val())); })
+        .focus(function () {
+            $("#txtEmWorkPhone").val(unformatText($("#txtEmWorkPhone").val()));
+        });
+    $("#txtMobile").focusout(function () { $("#txtMobile").val(formatPhoneFax($("#txtMobile").val())); })
+        .focus(function () {
+            $("#txtMobile").val(unformatText($("#txtMobile").val()));
+        });
+
 }

@@ -305,11 +305,11 @@ namespace ShomaRM.Areas.Admin.Models
                 var GetCoappDet = db.tbl_Applicant.Where(c => c.Email == Email).FirstOrDefault();
                 reportHTML = reportHTML.Replace("[%EmailHeader%]", "Online Application Status");
                 reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + GetTenantDet.FirstName + " " + GetTenantDet.LastName + "</b>,<br/>Your Online application submitted successfully. Please click below to Pay Application fees. <br/><br/><u><b>Payment Link :<a href=''></a> </br></b></u>  </br>");
-                reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
+                reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantDet.FirstName + " " + GetTenantDet.LastName);
                 if (Status == "Approved")
                 {
                     reportHTML = reportHTML.Replace("[%Status%]", "Congratulations ! Your Application is Approved");
-                    reportHTML = reportHTML.Replace("[%StatusDet%]", "Good news! You have been approved.  We welcome you to our community. Kindly click on “LEASE NOW” to continue your leasing process. ");
+                    reportHTML = reportHTML.Replace("[%StatusDet%]", "Good news! We are pleased to notify you that your document is ready and available to sign. For your convenience, this document is being delivered in format that allow for you ro review and sign the document electronically. If you have any question about your document please contact: ");
                     reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"http://52.4.251.162:8086/Checklist\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"http://52.4.251.162:8086/Checklist\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">LEASE NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
 
                    
@@ -392,12 +392,15 @@ namespace ShomaRM.Areas.Admin.Models
             return docType;
         }
 
-      
+
         public ProspectVerificationModel GetProspectData(long Id)
         {
             var test = new AcutraqRequest();
        var data=     test.PostAqutraqRequest(null);
                ShomaRMEntities db = new ShomaRMEntities();
+
+        
+
             ProspectVerificationModel model = new ProspectVerificationModel();
             model.ProspectId = 0;
             model.IsApplyNow = 1;
@@ -529,6 +532,7 @@ namespace ShomaRM.Areas.Admin.Models
                         model.InsuranceDoc = MoveInData.InsuranceDoc;
                         model.ElectricityDoc = MoveInData.ElectricityDoc;
                     }
+
                 }
             }
 
@@ -605,6 +609,7 @@ namespace ShomaRM.Areas.Admin.Models
             model.ID = Id;
             return model;
         }
+
         public void SaveProspectVerification(long DocId, int VerificationStatus,long PID)
         {
             ShomaRMEntities db = new ShomaRMEntities();

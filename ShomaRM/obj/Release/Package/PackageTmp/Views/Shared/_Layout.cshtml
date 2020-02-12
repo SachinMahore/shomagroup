@@ -213,6 +213,9 @@
                         <div class="form-group">
                             <label>Visit Date </label>
                             <input type="text" id="txtMoveDate" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")">
+                            <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 259px;">
+                                <button class="btn btn-primary search" id="MtDate" type="button"><i class="fa-calendar fa"></i></button>
+                            </span>
                         </div>
 
                     </div>
@@ -816,6 +819,10 @@
             $("#modalMaplayout").css("display", "block");
         });
         $('.owl-carousel').trigger('stop.owl.autoplay');
+
+        $('#MtDate').click(function () {
+            $("#txtMoveDate").focus();
+        }); 
     });
 
     function goToSignIn() {
