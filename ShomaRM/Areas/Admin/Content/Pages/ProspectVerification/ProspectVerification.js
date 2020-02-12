@@ -1753,7 +1753,11 @@ var getTransationLists = function (userid) {
                 html += "</tr>";
                 $("#tblTransaction>tbody").append(html);
             });
-
+           
+            if (response.model.length >= 2)
+            {
+                $("#btnC2Tenant").removeAttr("disabled");
+            }
         }
     });
 }

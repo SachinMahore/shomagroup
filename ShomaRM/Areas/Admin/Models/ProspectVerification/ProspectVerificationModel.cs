@@ -305,7 +305,7 @@ namespace ShomaRM.Areas.Admin.Models
                 var GetCoappDet = db.tbl_Applicant.Where(c => c.Email == Email).FirstOrDefault();
                 reportHTML = reportHTML.Replace("[%EmailHeader%]", "Online Application Status");
                 reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + GetTenantDet.FirstName + " " + GetTenantDet.LastName + "</b>,<br/>Your Online application submitted successfully. Please click below to Pay Application fees. <br/><br/><u><b>Payment Link :<a href=''></a> </br></b></u>  </br>");
-                reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
+                reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantDet.FirstName + " " + GetTenantDet.LastName);
                 if (Status == "Approved")
                 {
                     reportHTML = reportHTML.Replace("[%Status%]", "Congratulations ! Your Application is Approved");
