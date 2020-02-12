@@ -425,13 +425,6 @@
         }
     });
 
-    if ($("#hdnARId").val() != "0") {
-
-        getAmenityReservationPay();
-    } else {
-
-        $("#lblCurrentPrePayAmount").text('$' + formatMoney($('#spanCurrentAmountDue').text()));
-    }
 
     $('#Date').click(function () {
         $("#txtPrefarredDate").focus();
@@ -4978,7 +4971,7 @@ var getReservationRequestList = function () {
                     html += "<td>" + elementValue.Guest + "</td>";
 
                     if (elementValue.Status == "Approved and pending for payment") {
-                        html += "<td><button class='btn btn-primary' onclick='goToStep(3),getAmenityReservationPay(" + elementValue.ARID + ")'>" + elementValue.Status + "</button></td>";
+                        html += "<td><button class='btn btn-primary' onclick='getAmenityReservationPay(" + elementValue.ARID + ")'>" + elementValue.Status + "</button></td>";
                     }
                     else {
                         html += "<td>" + elementValue.Status + "</td>";
@@ -4998,7 +4991,10 @@ var getReservationRequestList = function () {
         }
     });
 };
-
+function getAmenityReservationPay(arid)
+{
+    window.location.href="/Paylink/PayAmenityCharges?ARID=" + arid;
+}
 var getRecurringPayLists = function () {
     var model = {
         TenantID: $("#hndTenantID").val()

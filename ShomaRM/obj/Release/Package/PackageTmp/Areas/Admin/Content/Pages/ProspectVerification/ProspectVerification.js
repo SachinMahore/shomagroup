@@ -1544,7 +1544,6 @@ var getPropertyUnitDetails = function (uid) {
             $("#lblMonthly_MonthlyCharge").text(formatMoney(parseFloat(response.model.Current_Rent).toFixed(2)));
 
             $("#lblProrated_MonthlyCharge").text(formatMoney(parseFloat(parseFloat(response.model.Current_Rent) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-
             $("#lblRFPMonthlyCharges").text(formatMoney(response.model.Current_Rent.toFixed(2)));
 
             $("#fdepo").text(response.model.Deposit);
@@ -1753,7 +1752,11 @@ var getTransationLists = function (userid) {
                 html += "</tr>";
                 $("#tblTransaction>tbody").append(html);
             });
-
+           
+            if (response.model.length >= 2)
+            {
+                $("#btnC2Tenant").removeAttr("disabled");
+            }
         }
     });
 }
@@ -1969,7 +1972,8 @@ var saveupdateParking = function () {
             totalAmt = parseFloat(totalAmt) - $("#lblAdditionalParking").text() - $("#lblVehicleFees").text();
             $("#lblAdditionalParking").text(parseFloat(response.totalParkingAmt).toFixed(2));
             $("#lblMonthly_AditionalParking").text(parseFloat(response.totalParkingAmt).toFixed(2));
-            $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(response.totalParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+            $("#lblProrated_AditionalParking").text(parseFloat(parseFloat($("#lblMonthly_AditionalParking").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+            
             $("#lblparkingplace").text(addParkingArray.length > 0 ? addParkingArray[0].PArkingID : 0);
 
             if (parseFloat(response.totalParkingAmt).toFixed(2) == "75.00") {
@@ -2113,8 +2117,8 @@ var saveupdateStorage = function () {
     if ($("#chkAddStorage1").is(":checked")) {
         $("#lblStorageUnit").text(parseFloat(50.00).toFixed(2));
         $("#lblMonthly_Storage").text(parseFloat(50.00).toFixed(2));
-        $("#lblProrated_Storage").text(parseFloat(parseFloat(50.00) / parseFloat(numberOfDays) * remainingday).toFixed(2));
-
+        $("#lblProrated_Storage").text(parseFloat(parseFloat($("#lblMonthly_Storage").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+        
         totalAmt = (parseFloat(50.00) + parseFloat(totalAmt)).toFixed(2);
 
     } else {
@@ -2132,6 +2136,7 @@ var saveupdateStorage = function () {
     // $("#ftotal").text((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat(365, 10)).toFixed(2));
     $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
     // $("#lblstorageplace").text(addStorageArray.length > 0 ? addStorageArray[0].StorageID : 0);
+    //alert($("#lblProrated_Storage").text());
 }
 
 //Sohan
@@ -2440,7 +2445,7 @@ var getApplicantLists = function () {
                         "</div >" +
                         "<div class='input-group input-group-btn'>" +
                         "<button class='btn btn-primary search pull-left' type='button'><i class='fa fa-dollar'></i></button>" +
-                        "<input type='text' class='form-control form-control-small' id='txtpayamt" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px;' value='" + parseFloat(elementValue.MoveInCharge).toFixed(2) + "' disabled='disabled'/>" +
+                        "<input type='text' class='form-control form-control-small' id='txtpayamt" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px; text-align:right;' value='" + parseFloat(elementValue.MoveInCharge).toFixed(2) + "' disabled='disabled'/>" +
                         "</div ></td>" +
                         "<td style='width:30%;'>" +
                         "<div class='input-group input-group-btn'>" +
@@ -2449,7 +2454,7 @@ var getApplicantLists = function () {
                         "</div >" +
                         "<div class='input-group input-group-btn'>" +
                         "<button class='btn btn-primary search pull-left' type='button'><i class='fa fa-dollar'></i></button>" +
-                        "<input type='text' class='form-control form-control-small' id='txtpayamtMo" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px;' value='" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "' disabled='disabled'/>" +
+                        "<input type='text' class='form-control form-control-small' id='txtpayamtMo" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px; text-align:right;' value='" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "' disabled='disabled'/>" +
                         "</div >" +
                         "</td></tr>";
                 }
@@ -2601,7 +2606,7 @@ var goToEditApplicant = function (aid) {
                     //$("#ddlARelationship").removeCs("hidden");
                     $("#ddlARelationship").empty();
                     var opt = "<option value='0'>Select Relationship</option>";
-                    opt += "<option value='1'>Self</option>";
+                    opt += "<option value='1' selected='selected'>Self</option>";
                     $("#ddlARelationship").append(opt);
                     $("#ddlARelationship").val(response.model.Relationship).change();
 
@@ -3374,20 +3379,20 @@ var getTenantOnlineList = function (id) {
                 $("#hndHasTaxReturnFile3").val("0");
             }
             //alert(response.model.HaveVehicle + "  " + response.model.HavePet);
-            if (response.model.HaveVehicle == true) {
-                $("#chkDontHaveVehicle").iCheck('check');
-            }
-            else {
-                $("#chkDontHaveVehicle").iCheck('uncheck');
-            }
-            if (response.model.HavePet == true) {
-                $("#chkDontHavePet").iCheck('check');
-            }
-            else {
-                $("#chkDontHavePet").iCheck('uncheck');
-            }
-            document.getElementById('chkDontHaveVehicle').disabled = true;
-            document.getElementById('chkDontHavePet').disabled = true;
+            //if (response.model.HaveVehicle == true) {
+            //    $("#chkDontHaveVehicle").iCheck('check');
+            //}
+            //else {
+            //    $("#chkDontHaveVehicle").iCheck('uncheck');
+            //}
+            //if (response.model.HavePet == true) {
+            //    $("#chkDontHavePet").iCheck('check');
+            //}
+            //else {
+            //    $("#chkDontHavePet").iCheck('uncheck');
+            //}
+            //document.getElementById('chkDontHaveVehicle').disabled = true;
+            //document.getElementById('chkDontHavePet').disabled = true;
            // $("#hndPassportUploadName").val(response.model.PassportDocument);
             $("#hndPassportUploadName").text(response.model.UploadOriginalPassportName);
             $("#hndOriginalPassportUploadName").val(response.model.UploadOriginalPassportName);
@@ -3475,9 +3480,6 @@ var getTenantOnlineList = function (id) {
             if (response.model.UploadOriginalFileName3 != '') {
                 $("#fileUploadTaxReturn3Show").text(response.model.UploadOriginalFileName3);
             }
-            
-            
-            //alert(response.model.IsPaystub);
 
             if (response.model.IsPaystub == true) {
 
@@ -3486,8 +3488,6 @@ var getTenantOnlineList = function (id) {
             else {
                 $("#rbtnFedralTax").iCheck('check');
             }
-            $("#rbtnPaystub").attr('disabled', 'disabled');
-            $("#rbtnFedralTax").attr('disabled', 'disabled');
         }
     });
 };
@@ -4275,6 +4275,8 @@ var onlinePToTenant = function () {
     $formData.append('VehicleRegistration', $('#lblVehicleFees').text());
     $formData.append('LeaseTerm', $('#lblLease4').text());
     $formData.append('MonthlyRent', $('#lbltotalAmountSumm').text());
+    $formData.append('ProRemainingday', remainingday);
+    $formData.append('ProNumberOfDays', numberOfDays);
 
     
     if ($("#rbtnPaystub").is(":checked")) {
