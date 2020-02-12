@@ -1196,16 +1196,20 @@ namespace ShomaRM.Areas.Admin.Models
                     reportHTML = reportHTML.Replace("[%LeaseStart%]", prospectDet.MoveInDate.Value.ToString("MM/dd/yyyy"));
                     reportHTML = reportHTML.Replace("[%LeaseEnd%]", prospectDet.MoveInDate.Value.AddMonths(Convert.ToInt32(prospectDet.LeaseTerm)).ToString("MM/dd/yyyy"));
                     reportHTML = reportHTML.Replace("[%LeaseTerm%]", prospectDet.LeaseTerm.ToString());
+
                     reportHTML = reportHTML.Replace("[%ApplicationFee%]", prospectDet.AdministrationFee.ToString());
                     reportHTML = reportHTML.Replace("[%AdministrationFee%]", prospectDet.AdministrationFee.ToString());
                     reportHTML = reportHTML.Replace("[%SecurityDeposit%]", prospectDet.Deposit.ToString());
                     reportHTML = reportHTML.Replace("[%PetFee%]", prospectDet.PetDeposit.ToString());
                     reportHTML = reportHTML.Replace("[%ProratedRent%]", prospectDet.AdministrationFee.ToString());
                     reportHTML = reportHTML.Replace("[%ProratedTrash%]", prospectDet.AdministrationFee.ToString());
+                    reportHTML = reportHTML.Replace("[%ProratedPest%]", prospectDet.AdministrationFee.ToString());
+                    reportHTML = reportHTML.Replace("[%ProratedConvergent%]", prospectDet.AdministrationFee.ToString());                   
                     reportHTML = reportHTML.Replace("[%ProratedVehicleRent%]", prospectDet.AdministrationFee.ToString());
                     reportHTML = reportHTML.Replace("[%ProratedPetRent%]", prospectDet.Prorated_Rent.ToString());
                     reportHTML = reportHTML.Replace("[%ConcessionAmount%]", "0.00");
                     reportHTML = reportHTML.Replace("[%TotalMoveIn%]", prospectDet.MoveInCharges.ToString());
+
                     reportHTML = reportHTML.Replace("[%Rent%]", prospectDet.Rent.ToString());
                     reportHTML = reportHTML.Replace("[%Trash%]", prospectDet.TrashAmt.ToString());
                     reportHTML = reportHTML.Replace("[%ConvergentAmt%]", prospectDet.ConvergentAmt.ToString());
