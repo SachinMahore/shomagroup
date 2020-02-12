@@ -5,7 +5,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Serialization;
+using static ShomaRM.Models.AcutraqRequest;
 
 namespace ShomaRM.Models
 {
@@ -68,7 +70,8 @@ namespace ShomaRM.Models
 
 
         }
-        public static async Task<TResult> PostFormUrlEncoded<TResult>(string url, List<KeyValuePair<string, string>> postData)
+      
+        public static async Task<ShomaRM.Models.Acutraq.OrderXML> PostFormUrlEncoded<TResult>(string url, List<KeyValuePair<string, string>> postData)
         {
             using (var httpClient = new  HttpClient())
             {
@@ -78,8 +81,34 @@ namespace ShomaRM.Models
                     content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
 
                     HttpResponseMessage response = await httpClient.PostAsync(url, content);
+                    string serializedString = await response.Content.ReadAsStringAsync();
+                    var xDoc = XDocument.Parse(serializedString);
 
-                    return await response.Content.ReadAsAsync<TResult>();
+                    // for attribute
+                    var resulte = xDoc
+            .Descendants("OrderXML")
+            .Descendants("Order")
+            .Descendants("OrderDetail")
+
+           
+            .ToList();
+            
+                 
+                    XmlSerializer serializer = new XmlSerializer(typeof(ShomaRM.Models.Acutraq.OrderXML));
+                    using (TextReader reader = new StringReader(serializedString))
+                    {
+                        try
+                        {
+                            var result = (ShomaRM.Models.Acutraq.OrderXML)serializer.Deserialize(reader);
+                            return result;
+                        }
+                        catch(Exception ex)
+                        {
+                            return null;
+                        }
+                       
+                    }
+    
                 }
             }
         }

@@ -78,10 +78,10 @@ namespace ShomaRM.Models
             var keyValues = new List<KeyValuePair<string, string>>();
             keyValues.Add(new KeyValuePair<string, string>("request", Serialisexml));
 
-            var result = await AquatraqHelper.PostFormUrlEncoded<OrderXML>("https://screen.acutraq.com/webservice/default.cfm", keyValues);
+            var result = await AquatraqHelper.PostFormUrlEncoded<ShomaRM.Models.Acutraq.OrderXML>("https://screen.acutraq.com/webservice/default.cfm", keyValues);
             if (result != null)
             { }
-            return result;
+            return null;
         }
        
         public class OrderXML
@@ -91,6 +91,7 @@ namespace ShomaRM.Models
             public string TestMode { get; set; }
             public string ReturnResultURL { get; set; }
             public string OrderingUser { get; set; }
+          
             public Order Order { get; set; }
 
         }
@@ -108,9 +109,22 @@ namespace ShomaRM.Models
             public OrderDetailEMP OrderDetailEMP { get; set; }
             public OrderDetailCriminal OrderDetailCriminal { get; set; }
             public OrderDetailCredit OrderDetailCredit { get; set; }
-        }
 
-        public class Subject
+          
+            public OrderDetailResponse OrderDetail { get; set; }
+        }
+        public class OrderDetailResponse
+        {
+
+            [XmlAttribute("ServiceCode")]
+            public string ServiceCode { get; set; }
+
+            [XmlAttribute("OrderId")]
+            public string OrderId { get; set; }
+            [XmlAttribute("CRAorderID")]
+            public string CRAorderID { get; set; }
+        }
+            public class Subject
         {
             public string FirstName { get; set; }
             public string MiddleName { get; set; }
@@ -178,36 +192,39 @@ namespace ShomaRM.Models
             public string Zipcode { get; set; }
             public string Country { get; set; }
         }
+
+
+        public class OrderDetailCredit
+        {
+
+            [XmlAttribute("ServiceCode")]
+            public string ServiceCode { get; set; }
+
+            [XmlAttribute("OrderId")]
+            public string OrderId { get; set; }
+            [XmlAttribute("CRAorderID")]
+            public string CRAorderID { get; set; }
+
+        }
+
+        //criminal
+        public class OrderDetailCriminal
+        {
+            [XmlAttribute("ServiceCode")]
+            public string ServiceCode { get; set; }
+
+            [XmlAttribute("OrderId")]
+
+            public string OrderId { get; set; }
+
+            [XmlAttribute("CRAorderID")]
+            public string CRAorderID { get; set; }
+
+            public string state { get; set; }
+        }
     }
 
-    public class OrderDetailCredit
-    {
-
-        [XmlAttribute("ServiceCode")]
-        public string ServiceCode { get; set; }
-
-        [XmlAttribute("OrderId")]
-        public string OrderId { get; set; }
-        [XmlAttribute("CRAorderID")]
-        public string CRAorderID { get; set; }
-        
-    }
-
-    //criminal
-    public class OrderDetailCriminal
-    {
-        [XmlAttribute("ServiceCode")]
-        public string ServiceCode { get; set; }
-
-        [XmlAttribute("OrderId")]
-
-        public string OrderId { get; set; }
-
-        [XmlAttribute("CRAorderID")]
-        public string CRAorderID { get; set; }
-
-        public string state { get; set; }
-    }
+  
 
    
 

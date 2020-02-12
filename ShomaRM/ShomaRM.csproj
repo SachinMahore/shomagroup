@@ -309,6 +309,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\AcutraqRequest.cs" />
+    <Compile Include="Models\Acutraq\AcutraqResponse.cs" />
     <Compile Include="Models\Admin\Gallery\GalleryModel.cs" />
     <Compile Include="Models\ApplyNow\ApplyNowModel.cs" />
     <Compile Include="Models\ApplyNow\CheckListModel.cs" />
