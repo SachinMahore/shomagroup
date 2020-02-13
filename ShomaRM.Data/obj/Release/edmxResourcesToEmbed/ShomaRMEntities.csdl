@@ -394,6 +394,8 @@
     <Property Name="OriginalDriverLicence" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
     <Property Name="OriginalVehicleRegistration" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
     <Property Name="HaveVehicle" Type="Boolean" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="ApprovedBy" Type="Int32" />
   </EntityType>
   <EntityType Name="tbl_Invoice">
     <Key>
@@ -904,6 +906,7 @@
     <NavigationProperty Name="tbl_Properties" Relationship="Self.FK_tbl_Prospect_tbl_Properties" FromRole="tbl_Prospect" ToRole="tbl_Properties" />
     <NavigationProperty Name="tbl_State" Relationship="Self.FK_tbl_Prospect_tbl_State" FromRole="tbl_Prospect" ToRole="tbl_State" />
     <NavigationProperty Name="tbl_Visit" Relationship="Self.FK_tbl_Visit_tbl_Prospect" FromRole="tbl_Prospect" ToRole="tbl_Visit" />
+    <Property Name="AssignAgentId" Type="Int64" />
   </EntityType>
   <EntityType Name="tbl_PurchaseOrder">
     <Key>

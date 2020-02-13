@@ -425,13 +425,6 @@
         }
     });
 
-    if ($("#hdnARId").val() != "0") {
-
-        getAmenityReservationPay();
-    } else {
-
-        $("#lblCurrentPrePayAmount").text('$' + formatMoney($('#spanCurrentAmountDue').text()));
-    }
 
     $('#Date').click(function () {
         $("#txtPrefarredDate").focus();
@@ -449,6 +442,24 @@
     $('#btnDesiredDate').click(function () {
         $("#txtDesiredDate").focus();
     });
+
+
+    $("#chkHaveVehicle").on('ifChanged', function (event) {
+        if ($(this).is(":checked")) {
+            $("#HaveVehicle").removeClass('hidden');
+            var randNo = makeid(6);
+            $("#txtGuestVehicleTag").val(randNo);
+            //$("#printTag").removeClass('hidden');
+
+        }
+        else {
+            $("#HaveVehicle").addClass('hidden');
+            $("#txtGuestVehicleTag").val('');
+        }
+    });
+    $("#txtGuestVehicleTag").attr("disabled", true);
+    $('#chkHaveVehicle').iCheck('Uncheck');
+
 });
 var checkRequestButton = function () {
     var ddlAmenityVal = $("#ddlAmenities").val();
@@ -2279,6 +2290,8 @@ var saveUpdateGuestRegistration = function () {
     var uploadGuestVehicleRegis = $("#hndOriginalUploadGuestRegistration").val();
     var fileGueDrvLic = document.getElementById('fileUploadGuestDriverLicence').value;
     var fileGueVehReg = document.getElementById('fileUploadGuestRegistration').value;
+    var haveVehicle = 0;
+
 
     if (guestFirstName == '') {
         msg += 'Plese Enter First Name</br>'
@@ -2308,13 +2321,22 @@ var saveUpdateGuestRegistration = function () {
     if (guestVisitEndDate == '') {
         msg += 'Plese Select The Visit End Date</br>'
     }
-    if (document.getElementById('fileUploadGuestDriverLicence').files.length == 0) {
-        msg += 'Plese Upload The Driver Licence</br>'
-    }
-    if (document.getElementById('fileUploadGuestRegistration').files.length == 0) {
-        msg += 'Plese Upload The Vehicle Registration</br>'
-    }
 
+    if ($("#chkHaveVehicle").is(":checked")) {
+        haveVehicle = 1
+        if (guestVehicleMake == '') {
+            msg += 'Plese Enter The Vehicle Make</br>'
+        }
+        if (guestVehicleModel == '') {
+            msg += 'Plese Enter The Vehicle Model</br>'
+        }
+        if (document.getElementById('fileUploadGuestDriverLicence').files.length == 0) {
+            msg += 'Plese Upload The Driver Licence</br>'
+        }
+        if (document.getElementById('fileUploadGuestRegistration').files.length == 0) {
+            msg += 'Plese Upload The Vehicle Registration</br>'
+        }
+    }
     if (msg != '') {
         $.alert({
             title: "",
@@ -2340,7 +2362,8 @@ var saveUpdateGuestRegistration = function () {
         DriverLicence: uploadGuestDriverLicence,
         VehicleRegistration: uploadGuestVehicleRigistration,
         OriginalDriverLicence: uploadOriginalGuestDriverLicence,
-        OriginalVehicleRegistration: uploadGuestVehicleRegis
+        OriginalVehicleRegistration: uploadGuestVehicleRegis,
+        HaveVehicle: haveVehicle
     };
     $.ajax({
         url: '/GuestRegistration/SaveUpdateGuestRegistration',
@@ -2349,15 +2372,22 @@ var saveUpdateGuestRegistration = function () {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
+            var msg = response.model.split("|");
+            var splitData = msg[1];
+            $("#hdnTagGuestId").val(splitData);
+            getTagInfo();
             $.alert({
                 title: '',
-                content: response.model,
+                content: msg[0],
                 type: 'blue'
             });
             clearFieldGuestRegistration();
+            //$("#printTag").removeClass('hidden');
+            $("#printForm").removeClass('hidden');
         }
     });
 };
+
 
 var onFocus = function () {
 
@@ -4949,6 +4979,14 @@ var uploadServiceFile = function () {
 };
 
 var getReservationRequestList = function () {
+    var date = new Date(),
+        day = date.getDate(),
+        month = date.getMonth() + 1,
+        year = date.getFullYear();
+    if (month < 10) {
+        month = "0" + month;
+    }
+    var dateC = month + "/" + day + "/" + year;
     var tenantID = $("#hndTenantID").val();
     var ProspectID = $("#hndUserId").val();
     //alert(tenantID + " " + ProspectID);
@@ -4967,9 +5005,9 @@ var getReservationRequestList = function () {
             } else {
                 $("#tblReservationRequest>tbody").empty();
                 $.each(response, function (elementType, elementValue) {
-                    console.log(JSON.stringify(response));
+                    //console.log(JSON.stringify(response));
                     var html = "<tr data-value=" + elementValue.ARID + " data-amenity=" + elementValue.AmenityID + ">";
-                    html += "<td>" + elementValue.TenantName + "</td>";
+                    //html += "<td>" + elementValue.TenantName + "</td>";
                     html += "<td>" + elementValue.AmenityName + "</td>";
                     html += "<td>" + elementValue.DesiredDate + "</td>";
                     html += "<td>" + elementValue.DesiredTimeFrom + "</td>";
@@ -4978,7 +5016,7 @@ var getReservationRequestList = function () {
                     html += "<td>" + elementValue.Guest + "</td>";
 
                     if (elementValue.Status == "Approved and pending for payment") {
-                        html += "<td><button class='btn btn-primary' onclick='goToStep(3),getAmenityReservationPay(" + elementValue.ARID + ")'>" + elementValue.Status + "</button></td>";
+                        html += "<td>" + elementValue.Status + " &nbsp; <button class='btn btn-primary' onclick='getAmenityReservationPay(" + elementValue.ARID + ")'>Pay</button></td>";
                     }
                     else {
                         html += "<td>" + elementValue.Status + "</td>";
@@ -4987,7 +5025,14 @@ var getReservationRequestList = function () {
                         html += "<td ><span><i class='fa fa-check'></i></span></td>";
                     }
                     else {
-                        html += "<td onclick='cancleRequest(" + elementValue.ARID + ")' style='cursor:pointer;'><span><i class='fa fa-times'></i></span></td>";
+                        console.log(elementValue.calculatedDate + " " + elementValue.DesiredDate + " " + dateC);
+                        if (elementValue.calculatedDate <= dateC) {
+                            html += "<td onclick='cancleRequest(" + elementValue.ARID + ")' style='cursor:pointer;'><button class='btn btn-danger' disabled>Cancel</button></td>";
+                        }
+                        else {
+                            html += "<td onclick='cancleRequest(" + elementValue.ARID + ")' style='cursor:pointer;'><button class='btn btn-danger'>Cancel</button></td>";
+                        }
+
                     }
 
 
@@ -4998,7 +5043,13 @@ var getReservationRequestList = function () {
         }
     });
 };
-
+var clearDdlAmenity = function () {
+    $("#ddlAmenities").val(0);
+};
+function getAmenityReservationPay(arid)
+{
+    window.location.href="/Paylink/PayAmenityCharges?ARID=" + arid;
+}
 var getRecurringPayLists = function () {
     var model = {
         TenantID: $("#hndTenantID").val()
@@ -5375,7 +5426,8 @@ var convertTo12Hour = function (time) {
     //  console.log(time);
     return time;
 };
-var savupdateAmenityReservation = function () {
+var savupdateAmenityReservation = function (printBtnID) {
+    $("#btnPrintBBQ,#btnPrintPC,#btnPrintClubroom,#btnPrintYog,#btnPrintSoccer").attr("disabled", true);
     var selectedID;
     var msg = "";
     var selectedIDLimit;
@@ -5388,7 +5440,7 @@ var savupdateAmenityReservation = function () {
     var depositeFee;
     var reservationFee;
     var desireDuration;
-    console.log(amenityID);
+    //console.log(amenityID);
     if (amenityID == 1) {
         desireDate = $("#txtDesiredDateSoccer").val();
         desireTimeFrom = $("#txtDesiredTimeSoccerFrom").val();
@@ -5467,7 +5519,7 @@ var savupdateAmenityReservation = function () {
             $("#divLoader").show();
             if ($('input[type=radio][name=hoursCR]').is(':checked')) {
                 selectedID = $('input[type=radio][name=hoursCR]:checked').attr("id");
-                console.log(selectedID);
+                //console.log(selectedID);
 
                 if (selectedID == "CR_3h500depo") {
                     depositeFee = 500;
@@ -5558,7 +5610,7 @@ var savupdateAmenityReservation = function () {
         desireTimeFrom = $("#txtDesiredTimePCFrom").val();
         desireTimeTo = $("#txtDesiredTimePCTo").val();
 
-        if ($('input[type=radio][name=hours]').is(':checked') == false) {
+        if ($('input[type=radio][name=hoursPC]').is(':checked') == false) {
             msg += "Please select any one of the reservation.</br>";
         }
 
@@ -5632,7 +5684,7 @@ var savupdateAmenityReservation = function () {
         Guest: guestLimit,
         Status: 0
     };
-    // console.log(model);
+    // //console.log(model);
     $.ajax({
         url: '/Tenant/AmenitiesRR/SaveUpdateReservationRequest',
         type: "post",
@@ -5641,6 +5693,7 @@ var savupdateAmenityReservation = function () {
         dataType: "JSON",
         success: function (response) {
             $("#divLoader").hide();
+            printButtonReservation(printBtnID);
             getReservationRequestList();
             $.alert({
                 title: '',
@@ -5651,3 +5704,114 @@ var savupdateAmenityReservation = function () {
     });
 
 };
+var printButtonReservation = function (printBtnID) {
+    $("#" + printBtnID).attr("disabled", false);
+};
+
+var printReservation = function (divName) {
+    let printContents, popupWin;
+    printContents = document.getElementById(divName).innerHTML;
+    popupWin = window.open('', '', 'width=950,height=800,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes');
+    popupWin.document.open();
+    popupWin.document.write(`
+                  <html >
+                    <head>
+                    <link rel="stylesheet" href="/content/assets/css/font-awesome.min.css">
+                    <link rel="stylesheet" href="/Content/bootstrap/css/bootstrap.css" />
+                    <link rel="stylesheet" href="/Content/bootstrap/css/bootstrap.min.css" />
+                    <link rel="stylesheet" href="/content/assets/css/datepicker.css" />
+                    <link href="/Content/timepicki.css" rel="stylesheet" />
+                    <link rel="stylesheet" href="/Content/assets/css/icheck.min_all.css" />
+                    <link rel="stylesheet" href="/Content/assets/css/wizard.css" />
+                    <link rel="stylesheet" href="/Content/assets/css/style.css" />
+                    
+                    </head>
+                    <style>
+            hr {
+                margin-top: 0px !important;
+                margin-bottom: 0px !important;
+                border: 0;
+                border-top: 1px solid #bebdbd;
+            }
+            body { font-size: 12px;line-height: 20px; margin: 0px 10px 0px 0px; }
+            h3, .h3 { font-size: 18px;margin: 10px 0 5px; }
+            p { font-size: 14px; line-height: 1.20em;}
+
+                    </style>
+                <body onload="window.print();window.close()">${printContents}</body>
+                  </html>`
+    );
+    popupWin.document.close();
+};
+
+var openTag = function () {
+
+    $('#popTag').modal('show');
+
+};
+
+var openForm = function () {
+    getTagInfo();
+    $('#popguest').modal('show');
+};
+var makeid = function (length) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+
+
+
+var getTagInfo = function () {
+    var tagId = $("#hdnTagGuestId").val();
+    var model = {
+        TagId: tagId,
+
+    };
+    $.ajax({
+        url: '/GuestRegistration/GetTagInfo',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#TagUnitNo").text(response.msg.UnitNo);
+            $("#TagTenantName").text(response.msg.TenantName);
+            $("#TagGuesttName").text(response.msg.GuestName);
+            $("#TagVehicleMake").text(response.msg.VehicleMake);
+            $("#TagVehicleModel").text(response.msg.VehicleModel);
+            $("#Tag").text(response.msg.Tag);
+
+
+            $("#PrintGuestFname").text(response.msg.FirstName);
+            $("#PrintGuestLname").text(response.msg.LastName);
+            $("#PrintGuestAddress").text(response.msg.Address);
+            $("#PrintGuestPhone").text(response.msg.Phone);
+            $("#PrintGuestEmail").text(response.msg.Email);
+            $("#PrintGuestVisitSdate").text(response.msg.VisitStartDateString);
+            $("#PrintGuestVisitEnddate").text(response.msg.VisitEndDateString);
+            $("#PrintGuesHaveVehicle").text(response.msg.HaveVehicleString);
+            if (response.msg.HaveVehicleString == 'Yes') {
+                $("#Pvehicle").removeClass('hidden');
+
+                $("#PrintGuestVMake").text(response.msg.VehicleMake);
+                $("#PrintGuestVModel").text(response.msg.VehicleModel);
+                $("#PrintGuestTag").text(response.msg.Tag);
+                $("#PrintGuestRegistration").text(response.msg.OriginalDriverLicence);
+                $("#PrintGuestriverLicence").text(response.msg.OriginalVehicleRegistration);
+            } else {
+                $("#Pvehicle").addClass('hidden');
+            }
+
+            $("#PspanGuestCertGName").text(response.msg.GuestName);
+            $("#PspanTenantSignName").text(response.msg.TenantName);
+            $("#PspanGuestSignName").text(response.msg.GuestName);
+
+        }
+    });
+}

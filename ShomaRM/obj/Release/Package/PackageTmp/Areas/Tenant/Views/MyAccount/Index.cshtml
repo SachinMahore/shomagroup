@@ -950,15 +950,15 @@
                                                         <table id="tblReservationRequest" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                                                             <thead>
                                                                 <tr>
-                                                                    <th width="20%" style="background-color: #c7cdd5;color:#3d3939">Tenant</th>
-                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Amenity</th>
-                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Desire Date</th>
-                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">From Time </th>
-                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">To Time</th>
-                                                                    <th width="20%" style="background-color: #c7cdd5;color:#3d3939">Desire Duration</th>
-                                                                    <th width="20%" style="background-color: #c7cdd5;color:#3d3939">Guest</th>
-                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Status</th>
-                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Action</th>
+
+                                                                    <th style="background-color: #c7cdd5;color:#3d3939" width="20%">Amenity</th>
+                                                                    <th style="background-color: #c7cdd5;color:#3d3939" width="10%">Desire Date</th>
+                                                                    <th style="background-color: #c7cdd5;color:#3d3939" width="5%">From Time </th>
+                                                                    <th style="background-color: #c7cdd5;color:#3d3939" width="5%">To Time</th>
+                                                                    <th style="background-color: #c7cdd5;color:#3d3939" width="10%">Desire Duration</th>
+                                                                    <th style="background-color: #c7cdd5;color:#3d3939" width="5%">Guest</th>
+                                                                    <th style="background-color: #c7cdd5;color:#3d3939" width="25%">Status</th>
+                                                                    <th style="background-color: #c7cdd5;color:#3d3939" width="5%">Action</th>
 
                                                                 </tr>
                                                             </thead>
@@ -1074,11 +1074,10 @@
                                     </div>
                                 </div>
                             </div>
-
-
                             <div class="hidden" id="step7">
                                 <div class="col-sm-12">
                                     <input id="hdnGuestId" type="hidden" value="0" />
+                                    <input id="hdnTagGuestId" type="hidden" value="0" />
                                     <button type="submit" class="btn-blue pull-right text-center" onclick="printGuest('PrintGuest')"><i class="fa fa-print"></i> Print</button>
                                 </div>
                                 <div class="col-sm-12">
@@ -1118,7 +1117,7 @@
                                                         <div class="col-sm-6">
                                                             <div class="row">
                                                                 <div class="col-sm-4">
-                                                                    <label style="color:#4D738A !important;font-size:11pt;">PHONE#:</label>
+                                                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">PHONE#:</label>
                                                                 </div>
                                                                 <div class="col-sm-8" style="margin-left: -29px;">
                                                                     <input type="text" id="txtGuestPhone" maxlength="10" onkeypress="return isOnlyNumber(event);" /><hr>
@@ -1163,63 +1162,83 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-2">
-                                                        <span style="color:#4D738A !important;font-size:11pt;" class="star">Upload Driver Licence or Picture Id:</span>
+                                                        <div style="margin-left: 35px;">
+                                                            <label style="color:#4D738A !important;font-size:11pt;">Have a Vehicle </label>
+
+                                                        </div>
+                                                        <div style="float:left;margin-top: -34px;">
+                                                            <input id="chkHaveVehicle" type="checkbox" class="form-control" style="font-size:11pt;margin-left: 11px;" />
+                                                        </div>
                                                     </div>
-                                                    <div class="col-sm-2">
-                                                        <input type="file" name="fileUploadGuestDriverLicence" id="fileUploadGuestDriverLicence" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                                        <label for="fileUploadGuestDriverLicence">
-                                                            <i class="fa fa-upload fa-2x"></i>
-                                                            <span id="fileSpanShowGuestDriverLicence">Choose a file&hellip;</span>
-                                                        </label>
-                                                        <input type="hidden" id="hndUploadGuestDriverLicence" value="0" />
-                                                        <input type="hidden" id="hndOriginalUploadGuestDriverLicence" value="0" />
-                                                    </div>
+
                                                 </div>
                                             </div>
                                             <br />
-                                            <div class="row">
+                                            <div class="row hidden" id="HaveVehicle">
                                                 <div class="col-sm-12">
                                                     <div class="col-sm-8">
-                                                        <div class="col-sm-9">
-                                                            <div class="col-sm-6" style="margin-left:-30px !important;">
-                                                                <div style="float:left;">
-                                                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Make: </label>
-                                                                </div>
-                                                                <div>
-                                                                    <input id="txtGuestVehicleMake" type="text" value="" style="width:88px;"><hr style="width:88px;" />
-                                                                </div>
+                                                        <div class="col-sm-6" style="margin-left:-14px !important;">
+                                                            <div style="float:left;">
+                                                                <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Make: </label>
                                                             </div>
-                                                            <div class="col-sm-6">
-                                                                <div style="float:left;">
-                                                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Model: </label>
-                                                                </div>
-                                                                <div>
-                                                                    <input id="txtGuestVehicleModel" type="text" value="" style="width:88px;"><hr style="width:88px;" />
-                                                                </div>
+                                                            <div>
+                                                                <input id="txtGuestVehicleMake" type="text" value="" style="width:168px;"><hr style="width:168px;" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div style="float:left;">
+                                                                <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Model: </label>
+                                                            </div>
+                                                            <div>
+                                                                <input id="txtGuestVehicleModel" type="text" value="" style="width:181px;"><hr style="width:181px;" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <div style="float:left; margin-left:-15px;">
+                                                            <span style="color:#4D738A !important;font-size:11pt;" class="star">Tag#: </span>
+                                                        </div>
+                                                        <div>
+                                                            <input type="text" id="txtGuestVehicleTag" style="width:100px;" /><hr style="width:100px;margin-left:30px;" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <br />
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="col-sm-6">
+                                                            <div class="col-sm-5">
+                                                                <span style="color:#4D738A !important;font-size:11pt;" class="star">Upload Registration: </span>
+                                                            </div>
+                                                            <div class="col-sm-5">
+                                                                <input type="file" name="fileUploadGuestRegistration" id="fileUploadGuestRegistration" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                                                <label for="fileUploadGuestRegistration">
+                                                                    <i class="fa fa-upload fa-2x"></i>
+                                                                    <span id="fileSpanShowGuestRegistration">Choose a file&hellip;</span>
+                                                                </label>
+                                                                <input type="hidden" id="hndUploadGuestRegistration" value="0" />
+                                                                <input type="hidden" id="hndOriginalUploadGuestRegistration" value="0" />
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-sm-3">
-                                                            <div style="float:left; margin-left:-15px;">
-                                                                <span style="color:#4D738A !important;font-size:11pt;" class="star">Tag#: </span>
+                                                        <div class="col-sm-6">
+                                                            <div class="col-sm-7">
+                                                                <span style="color:#4D738A !important;font-size:11pt;" class="star">Upload Driver Licence or Picture Id:</span>
                                                             </div>
-                                                            <div>
-                                                                <input type="text" id="txtGuestVehicleTag" style="width:80px;" /><hr style="width:80px;margin-left:30px;" />
+                                                            <div class="col-sm-5">
+                                                                <input type="file" name="fileUploadGuestDriverLicence" id="fileUploadGuestDriverLicence" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                                                <label for="fileUploadGuestDriverLicence">
+                                                                    <i class="fa fa-upload fa-2x"></i>
+                                                                    <span id="fileSpanShowGuestDriverLicence">Choose a file&hellip;</span>
+                                                                </label>
+                                                                <input type="hidden" id="hndUploadGuestDriverLicence" value="0" />
+                                                                <input type="hidden" id="hndOriginalUploadGuestDriverLicence" value="0" />
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-2">
-                                                        <span style="color:#4D738A !important;font-size:11pt;" class="star">Upload Registration: </span>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <input type="file" name="fileUploadGuestRegistration" id="fileUploadGuestRegistration" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                                        <label for="fileUploadGuestRegistration">
-                                                            <i class="fa fa-upload fa-2x"></i>
-                                                            <span id="fileSpanShowGuestRegistration">Choose a file&hellip;</span>
-                                                        </label>
-                                                        <input type="hidden" id="hndUploadGuestRegistration" value="0" />
-                                                        <input type="hidden" id="hndOriginalUploadGuestRegistration" value="0" />
-                                                    </div>
+
                                                 </div>
                                             </div>
                                             <br />
@@ -1259,20 +1278,20 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-6 ">
                                             <div class="form-group">
                                                 <button id="btnGuestRegSave" type="button" class="btn btn-primary pull-right" onclick="saveUpdateGuestRegistration();">Save</button>
                                             </div>
                                         </div>
+                                        <div class="col-sm-6 hidden" id="printForm">
+                                            <div class="form-group">
+                                                <button id="btnPrintForm" type="button" onclick="openForm();" class="btn btn-primary pull-right"><i class="fa fa-print"></i>Print Form</button>
+                                            </div>
+                                        </div>
+                                      
+
                                     </div>
                                 </div>
-
-
-
                             </div>
                         </div>
 
@@ -1905,7 +1924,7 @@
         <div class="modal-content" style="width: 100%;">
             <div class="modal-header center">
                 <h2 class="modal-title" style="color:#4D738A !important; ">Amenity Reservation</h2>
-                <button type="button" class="close pull-right" data-dismiss="modal" style="margin-top: -50px; color:#000 !important">×</button>
+                <button type="button" id="closeReserveAmenityPop" class="close pull-right" data-dismiss="modal" style="margin-top: -50px; color:#000 !important" onclick="clearDdlAmenity();">&times;</button>
             </div>
             <!-- Modal body start -->
             <div class="modal-body table-bordered">
@@ -2031,8 +2050,8 @@
                         </div>
                         <div class="col-sm-12 text-center">
                             <div class="text-center">
-                                <button id="btnInvPrint" class="btn btn-primary" onclick="print('divInv')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
-                                <button id="btnSaveBBQData" class="btn btn-primary" onclick="savupdateAmenityReservation()"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
+                                <button id="btnPrintBBQ" class="btn btn-primary" onclick="printReservation('divBBQ')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintBBQ')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
                             </div>
                         </div>
                     </div>
@@ -2128,8 +2147,8 @@
                         </div>
                         <div class="col-sm-12 text-center">
                             <div class="text-center">
-                                <button id="btnInvPrint" class="btn btn-primary" onclick="print('divInv')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
-                                <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation()"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
+                                <button id="btnPrintPC" class="btn btn-primary" onclick="printReservation('divPoolCabana')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintPC')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
                             </div>
                         </div>
                     </div>
@@ -2222,10 +2241,10 @@
                                     <a href="javascript:void(0)" id="rulesCR" style="color:red">See also the Rules & Regulations in the Clubhouse/Licensed Space Agreement.</a>
                                 </p>
                             </div>
-                            <div class="col-sm-12">
+                            <div class="col-sm-12 text-center">
                                 <div class="text-center">
-                                    <button id="btnInvPrint" class="btn btn-primary" onclick="print('divInv')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
-                                    <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation()"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
+                                    <button id="btnPrintClubroom" class="btn btn-primary" onclick="printReservation('divClubroom')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                    <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintClubroom')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
                                 </div>
                             </div>
                         </div>
@@ -2298,8 +2317,8 @@
                         </div>
                         <div class="col-sm-12 text-center">
                             <div class="text-center">
-                                <button id="btnInvPrint" class="btn btn-primary" onclick="print('divInv')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
-                                <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation()"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
+                                <button id="btnPrintYog" class="btn btn-primary" onclick="printReservation('divYog')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintYog')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
                             </div>
                         </div>
                     </div>
@@ -2328,22 +2347,25 @@
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>BOOKING DATE AND TIME</label></h4></div>
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;">
                             <div class="col-sm-4 text-center" style="margin-left:90px">
-                                <div class="form-group">
-                                    <input id="txtDesiredDateSoccer" type="text" class="form-control" style="width:55%" maxlength="20" placeholder="MM/dd/yyyy" value="">
-                                    <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
-                                        <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-calendar fa"></i></button>
+                                <div class="input-group" style="width:75%">
+
+                                    <input id="txtDesiredDateSoccer" type="text" class="form-control" maxlength="20" placeholder="MM/dd/yyyy" />
+                                    <span class="input-group-btn">
+                                        <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
                                     </span>
                                 </div>
+
                             </div>
                             <div class="col-sm-4 text-center" style="margin-left:-80px">
-
                                 <div class="form-group">
                                     <div class="col-sm-3 text-center">From :</div>
                                     <div class="col-sm-9 text-center">
-                                        <input id="txtDesiredTimeSoccerFrom" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:85%" maxlength="20" placeholder="HH:mm:ss" value="">
-                                        <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
-                                            <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
-                                        </span>
+                                        <div class="input-group">
+                                            <input id="txtDesiredTimeSoccerFrom" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
+                                            <span class="input-group-btn">
+                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-clock-o fa"></i></button>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -2352,10 +2374,12 @@
                                 <div class="form-group">
                                     <div class="col-sm-3 text-center">To :</div>
                                     <div class="col-sm-9 text-center">
-                                        <input id="txtDesiredTimeSoccerTo" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:85%" maxlength="20" placeholder="HH:mm:ss" value="" disabled>
-                                        <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
-                                            <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
-                                        </span>
+                                        <div class="input-group">
+                                            <input id="txtDesiredTimeSoccerTo" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" disabled />
+                                            <span class="input-group-btn">
+                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-clock-o fa"></i></button>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -2374,8 +2398,8 @@
                         </div>
                         <div class="col-sm-12 text-center">
                             <div class="text-center">
-                                <button id="btnInvPrint" class="btn btn-primary" onclick="print('divInv')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
-                                <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation()"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
+                                <button id="btnPrintSoccer" class="btn btn-primary" onclick="printReservation('divSoc')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintSoccer')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
                             </div>
                         </div>
                     </div>
@@ -2384,7 +2408,7 @@
             <!-- Modal body end -->
             <div class="modal-footer">
                 <div class="col-sm-12 text-center">
-                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal" onclick="clearDdlAmenity();">Close</button>
                 </div>
             </div>
         </div>
@@ -2398,14 +2422,283 @@
     <div class="modal-content-term" style="width:66% !important">
 
         <div class="text-center">
-            <div><iframe src="~/Content/assets/img/Document/Rules.pdf" width="950" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
-
+            <div><iframe src="~/Content/assets/img/Document/reservationRules.pdf" width="950" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
         </div>
-
     </div>
-
 </div>
+<div class="modal" id="popguest">
+    <div class="modal-dialog" style="width: 60%; height:454px;">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <div id="Form">
 
+                <!-- Modal body -->
+                <div class="modal-body" style="padding: 0px !important;">
+                    <div class="col-sm-12">
+                        <div id="PrintGuest" style="overflow: hidden !important;">
+                            <h4 class="text-center" style="color:#4d738a;margin-top:10px !important">GUEST REGISTRATION FORM</h4>
+                            <h5 class="text-center" style="text-decoration:underline;font-size: 12pt;">(Registration is only necessary for guests staying overnight)</h5>
+                            <br />
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-6" style="margin-left:1px;">
+                                            <div class="form-group">
+                                                <label style="color:#4D738A !important;font-size:11pt;" class="star">FIRST NAME:</label>
+                                                <label id="PrintGuestFname" style="font-weight:bold;margin-left: 10px;"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label style="color:#4D738A !important;font-size:11pt;">LAST NAME:</label>
+                                                <label id="PrintGuestLname" style="font-weight:bold;margin-left: 10px;"></label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-6" style="margin-left:1px;">
+                                            <div class="form-group">
+                                                <label style="color:#4D738A !important;font-size:11pt;" class="star">EMAIL:</label>
+                                                <label id="PrintGuestEmail" style="font-weight:bold;margin-left: 10px;"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label style="color:#4D738A !important;font-size:11pt;" class="star">PHONE#:</label>
+                                                <label id="PrintGuestPhone" style="font-weight:bold;margin-left: 10px;"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-10" style="margin-left:1px;">
+                                            <div class="form-group">
+                                                <label style="color:#4D738A !important;font-size:11pt;" class="star">GUEST ADDRESS:</label>
+                                                &nbsp;<label id="PrintGuestAddress" style="font-weight:bold;margin-left: 10px;"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-4" style="margin-left:1px;">
+                                            <div class="form-group">
+                                                <div style="float:left;">
+                                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">Visit Start Date: </label>
+                                                </div>
+                                                <div style="margin-left:50px;">
+                                                    <label id="PrintGuestVisitSdate" style="font-weight:bold;margin-left: 10px;"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4" style="margin-left:1px;">
+                                            <div class="form-group">
+                                                <div style="float:left;">
+                                                    <label style="color:#4D738A !important;font-size:11pt;position:relative;" class="star">Visit End Date: </label>
+                                                    <br />
+                                                    <span style="color:#4D738A !important; font-size:8pt; position:absolute; top:15px;">(Limited to 10 days)</span>
+                                                </div>
+                                                <div>
+                                                    <label id="PrintGuestVisitEnddate" style="font-weight:bold;margin-left: 10px;"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3" style="margin-left:1px;">
+                                            <div class="form-group">
+                                                <label style="color:#4D738A !important;font-size:11pt;" class="star">Have a Vehicle:</label>
+                                                &nbsp;<label id="PrintGuesHaveVehicle" style="font-weight:bold;margin-left: 10px;"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="hidden" id="Pvehicle">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-4" style="margin-left:1px;">
+                                                <div class="form-group">
+                                                    <div style="float:left;">
+                                                        <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Make: </label>
+                                                    </div>
+                                                    <div>
+                                                        <label id="PrintGuestVMake" style="font-weight:bold;margin-left: 10px;"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4" style="margin-left:1px;">
+                                                <div class="form-group">
+                                                    <div style="float:left;">
+                                                        <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Model: </label>
+                                                    </div>
+                                                    <div>
+                                                        <label id="PrintGuestVModel" style="font-weight:bold;margin-left: 10px;"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3" style="margin-left:1px;">
+                                                <div class="form-group">
+                                                    <div style="float:left;">
+                                                        <span style="color:#4D738A !important;font-size:11pt;" class="star">Tag#: </span>
+                                                    </div>
+                                                    <div>
+                                                        <label id="PrintGuestTag" style="font-weight:bold;margin-left: 10px;"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-4" style="margin-left:1px;">
+                                                <div class="form-group">
+                                                    <div style="float:left;">
+                                                        <label style="color:#4D738A !important;font-size:11pt;" class="star">Registration: </label>
+                                                    </div>
+                                                    <div>
+                                                        <label id="PrintGuestRegistration" style="font-weight:bold;margin-left: 10px;"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5" style="margin-left:1px;">
+                                                <div class="form-group">
+                                                    <div style="float:left;">
+                                                        <label style="color:#4D738A !important;font-size:11pt;" class="star">Driver Licence or Picture Id:</label>
+                                                    </div>
+                                                    <div>
+                                                        <label id="PrintGuestriverLicence" style="font-weight:bold;margin-left: 10px;"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h5 style="text-decoration:underline;">Guest Certification</h5>
+
+                                    <p>I, <span id="PspanGuestCertGName" style="text-decoration:underline"></span> , hereby certify that I have been informed of the rules and regulations of the community, and I will abide by them.  I also certify that I will not use any of the amenities/common areas without the presence of the Tenant.</p>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h5 style="text-decoration:underline;">Tenant's Certification</h5>
+
+                                    <p>
+                                        Tenants are fully responsible for any damage to the unit and/or common areas caused by their guests.  Tenants will be held financially liable for damages to the property.  Tenants are responsible to advise their guests of the community’s rules and regulations and ensure that the guests fully abide by them.  Tenants must accompany their guests for the use of all amenities/common areas.
+                                        <br /><br />I have read and understood my financial responsibility for my guests and agree to advise my guests to abide by the community’s rules and regulations.
+                                    </p>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label id="PspanTenantSignName" style="text-decoration:underline"></label><br />
+                                                <label>Tenant</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label id="PspanGuestSignName" style="text-decoration:underline"></label><br />
+                                                <label>Guest</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="col-sm-12 text-center">
+                    <div class="col-sm-6">
+                        <button id="btnTagPrint" class="btn btn-primary pull-right" onclick="print('Form')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="popTag">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 47%; height:454px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <div id="TagPrint">
+                <div class="modal-header center">
+                    <h3 class="modal-title">Tag Details</h3>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body table-bordered">
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Unit No:</label>
+                                <label id="TagUnitNo" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Tenanat Name:</label>
+                                <label id="TagTenantName" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Guest Name:</label>
+                                <label id="TagGuesttName" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Vehicle Make :</label>
+                                <label id="TagVehicleMake" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Vehicle Model :</label>
+                                <label id="TagVehicleModel" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Tag :</label>
+                                <label id="Tag" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="col-sm-12 text-center">
+                    <div class="col-sm-6">
+                        <button id="btnTagPrint" class="btn btn-primary" onclick="print('TagPrint')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print Tag</b> </button>
+                        @*<button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Print</button>*@
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <input id="hdnStepId1" type="hidden" value="@ViewBag.StepIdMakePayment1" />
     <input id="hdnStepId2" type="hidden" value="@ViewBag.StepIdMakePayment2" />
     <input id="hdnPayStepIdMakePayment" type="hidden" value="@ViewBag.PayStepIdMakePayment" />
@@ -2477,8 +2770,15 @@
           
 
             $("#txtChargeDate").datepicker();
-            $("#txtGuestVistStartDate").datepicker();
-            $("#txtGuestVistEndDate").datepicker();
+            $("#txtGuestVistStartDate").datepicker({ dateFormat: "MM/dd/yyyy" }).on('change', function (ev) {
+                $("#txtGuestVistEndDate").val('');
+                var startDate = $(this).val();
+                var endDate = $('#txtGuestVistStartDate').datepicker('getDate');
+                endDate.setDate(endDate.getDate() + 9);
+
+                $("#txtGuestVistEndDate").datepicker('setStartDate', startDate);
+                $("#txtGuestVistEndDate").datepicker('setEndDate', endDate);
+            });
             $("#ddlTransactionType").val(0);
             $("#ddlTransactionType").trigger('change');
 

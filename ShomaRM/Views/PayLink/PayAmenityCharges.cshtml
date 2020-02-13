@@ -326,9 +326,7 @@
             $("#chkResfeesSpan").removeClass("hidden");
             $("#chkResfeesPaid").addClass("hidden");
             $("#totalAmt").text(formatMoney(parseFloat(parseFloat(@Model.ReservationFee) + parseFloat(@Model.DepositFee))));
-            $("#totalPayAmt").text(formatMoney(parseFloat(parseFloat(@Model.ReservationFee) + parseFloat(@Model.DepositFee))));
-            $("#totalConfAmt").text(formatMoney(parseFloat(parseFloat(@Model.ReservationFee) + parseFloat(@Model.DepositFee))));
-
+          
             $("#chkResDepo").on('ifChanged', function (event) {
                 if ($(this).is(":checked")) {
                     $("#totalPayAmt").text(formatMoney(parseFloat(parseFloat(@Model.ReservationFee) + parseFloat(@Model.DepositFee))));

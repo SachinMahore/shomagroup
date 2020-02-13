@@ -2,11 +2,12 @@
 @{
     ViewBag.Title = "Index";
 }
-<script src="~/Areas/Admin/Content/Pages/GuestRegistrationManagement/GuestRegistrationManagement.js"></script>
+
+<script src="~/Areas/Admin/Content/Pages/Club/ClubManagementList.js"></script>
 <div class="register-area" style="background-color: rgb(249, 249, 249);">
     <div class="container" style="width:100% !important">
         <div class="breadcrumb">
-            <h4 class="">Guest Registration List</h4>
+            <h4 class="">Club Management List</h4>
         </div>
         <div class="form-group clearfix panel">
             <div class="col-md-12">
@@ -30,19 +31,16 @@
                     </div>
                 </div>
                 <div class="form-group clearfix">
-                    <table id="tblGuestRegistration" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                    <table id="tblClubManagement" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                         <thead>
                             <tr>
-                                <th style="background-color: #c7cdd566;color:#3d3939">Guest Name</th>
-                                <th style="background-color: #c7cdd566;color:#3d3939">Tenant Name</th>
+                                <th style="background-color: #c7cdd566;color:#3d3939">Club tittle</th>
+                                <th style="background-color: #c7cdd566;color:#3d3939">Venue</th>
                                 <th style="background-color: #c7cdd566;color:#3d3939">Phone</th>
                                 <th style="background-color: #c7cdd566;color:#3d3939">Email</th>
-                                <th style="background-color: #c7cdd566;color:#3d3939">From Date</th>
-                                <th style="background-color: #c7cdd566;color:#3d3939">To Date</th>
-                                <th style="background-color: #c7cdd566;color:#3d3939">View Identity</th>
-                                <th style="background-color: #c7cdd566;color:#3d3939">View Vehicle Reg</th>
-                                <th style="background-color: #c7cdd566;color:#3d3939">Guest Status</th>
-                             
+                                <th style="background-color: #c7cdd566;color:#3d3939">Date</th>
+                                <th style="background-color: #c7cdd566;color:#3d3939">Time</th>
+                                <th style="background-color: #c7cdd566;color:#3d3939">Active</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -52,7 +50,6 @@
         </div>
     </div>
 </div>
-
 <script type="text/javascript">
     $(document).ready(function () {
         $('#txtFromDate').datepicker();

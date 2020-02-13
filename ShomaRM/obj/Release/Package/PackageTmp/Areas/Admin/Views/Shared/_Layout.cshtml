@@ -170,14 +170,17 @@
                                         <div class="col-sm-3">
                                             <h5>Approval</h5>
                                             <ul>
-                                                <li @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "":"style=display:none")>
+                                                <li @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "" : "style=display:none")>
                                                     <a href="/Admin/Amenities/AmenitiesReservationRequest">Amenity Reservation Request Approval</a>
                                                 </li>
                                                 <li>
                                                     <a href="/Admin/ServicesManagement/Index/0">Services Approval</a>
                                                 </li>
-                                                <li @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "":"style=display:none")>
+                                                <li @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "" : "style=display:none")>
                                                     <a href="/Admin/GuestManagement">Guest Approval</a>
+                                                </li>
+                                                <li @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "" : "style=display:none")>
+                                                    <a href="/Admin/ClubManagement">Club Activation</a>
                                                 </li>
 
                                             </ul>
@@ -217,8 +220,8 @@
                         </ul>
                     </li>
                     <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "prospectverification" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 ? "":"style=display:none")><a class="" href="~/Admin/ProspectVerification" >Online Application</a></li>
-                    <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "prospect" ? "active" : "")" data-wow-delay="0.1s">
-                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="200" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "":"style=display:none")>Appointment <b class="caret"></b></a>
+                    <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "prospect" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "":"style=display:none")><a href="/Admin/ProspectManagement/">Appointment</a>
+   @*<a href="/Admin/ProspectManagement/" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="200" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "":"style=display:none")>Appointment <b class="caret"></b></a>
                         <ul class="dropdown-menu navbar-nav">
                             <li>
                                 <a href="/Admin/ProspectManagement/">Appointment List</a>
@@ -226,7 +229,7 @@
                             <li>
                                 <a href="/Admin/ProspectManagement/AddEdit/0">Add New Appointment</a>
                             </li>
-                        </ul>
+                        </ul>*@
                     </li>
 
                     <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "tenant" ? "active" : "")" data-wow-delay="0.1s"><a href="/Admin/Tenant/" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "":"style=display:none")>Tenant List</a>

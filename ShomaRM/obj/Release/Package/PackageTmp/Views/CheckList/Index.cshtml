@@ -807,6 +807,10 @@
                     content: response.msg,
                     type: 'red'
                 })
+                setTimeout(function () {
+                    window.location.href = "/Home/Index";
+                }, 1500);
+               
             }
         });
     };
@@ -911,4 +915,21 @@
             }
         });
     };
+
+    var getDocuDoc = function () {
+
+        $("#divLoader").show();
+        //var param = { EnvelopeID: envelopeID };
+        $.ajax({
+            url: "/EmbeddedSigning/GetDocuDoc",
+            method: "post",
+            //data: JSON.stringify(param),
+            contentType: "application/json; charset=utf-8", // content type sent to server
+            dataType: "json", //Expected data format from server
+            success: function (response) {
+                $("#divLoader").hide();
+                window.open("/Content/assets/img/Document/" + response.result, "popupWindow", "width=900,height=600,scrollbars=yes");               
+            }
+        });
+    }
 </script>

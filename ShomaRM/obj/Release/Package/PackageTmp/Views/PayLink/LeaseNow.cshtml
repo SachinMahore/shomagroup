@@ -432,6 +432,7 @@
                 if (response != "0") {
 
                     $("#hndUID").val(response);
+                    getTenantInfo(response);
                     goToStep(2, 2);
                 } else {
                     alert("Invalid Email ID / password.")

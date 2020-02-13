@@ -8,6 +8,7 @@
 <input type="hidden" id="hndProspectID" value="0" />
 <input type="hidden" id="hndTenantID" value="@Model.TenantID" />
 <input type="hidden" id="hndARID" value="@ViewBag.ARID" />
+<input type="hidden" id="hndDepoPay" value="0" />
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -107,7 +108,7 @@
                                                         <tr>
                                                             <td>$<span id="resFees"></span></td>
                                                             <td>RESERVATION FEE</td>
-                                                            <td width="130" style="text-align: center;"><input type="checkbox" class="form-control" id="chkResfees"/></td>
+                                                            <td width="130" style="text-align: center;"><span class="hidden" id="chkResfeesSpan"><input type="checkbox" class="form-control" id="chkResfees" /></span><span id="chkResfeesPaid" class="hidden">Paid</span></td>
                                                         </tr>
                                                         <tr>
                                                             <td>$<span id="resDepo"></span></td>
@@ -230,7 +231,7 @@
                                     </div>
                                     <div>
                                         <a href="~/Account/Login"  class="btn btn-primary pull-left" > Go to Login</a>
-                                        <a href="~/Home/Index" class="btn btn-primary pull-left"> Go to Home</a>
+                                        <a href="~/Home/Index" class="btn btn-primary pull-right"> Go to Home</a>
                                     </div>
                                 </div>
                             </div>
@@ -304,23 +305,42 @@
 <script type="text/javascript">
     $(document).ready(function () {
         getTenantInfo(@ViewBag.UID);
-        $("#resFees").text(formatMoney(parseFloat(@Model.ReservationFee)));
-        $("#resDepo").text(formatMoney(parseFloat(@Model.DepositFee)));
-        $("#totalAmt").text(formatMoney(parseFloat(parseFloat(@Model.ReservationFee) + parseFloat(@Model.DepositFee))));
-        $("#chkResfees").prop("checked", true);
-        $("#totalPayAmt").text(formatMoney(parseFloat(@Model.ReservationFee)));
-        $("#totalConfAmt").text(formatMoney(parseFloat(@Model.ReservationFee) ));
-         $("#chkResDepo").on('ifChanged', function (event) {
-            if ($(this).is(":checked")) {
-                $("#totalPayAmt").text(formatMoney(parseFloat(parseFloat(@Model.ReservationFee) + parseFloat(@Model.DepositFee))));
-                $("#totalConfAmt").text(formatMoney(parseFloat(parseFloat(@Model.ReservationFee) + parseFloat(@Model.DepositFee))));
 
-            }
-            else {
-                $("#totalPayAmt").text(formatMoney(parseFloat(@Model.ReservationFee)));
-                $("#totalConfAmt").text(formatMoney(parseFloat(@Model.ReservationFee)));
-            }
-        });
+         $("#resFees").text(formatMoney(parseFloat(@Model.ReservationFee)));
+        $("#resDepo").text(formatMoney(parseFloat(@Model.DepositFee)));
+         $("#totalPayAmt").text(formatMoney(parseFloat(@Model.ReservationFee)));
+        $("#totalConfAmt").text(formatMoney(parseFloat(@Model.ReservationFee) ));
+
+        if (@Model.Status==2) {
+            $("#chkResfees").prop("checked", false);
+            $("#chkResDepo").prop("checked", true);
+            $("#chkResfeesSpan").addClass("hidden");
+            $("#chkResfeesPaid").removeClass("hidden");
+            $("#totalAmt").text(formatMoney(parseFloat(@Model.DepositFee)));
+            $("#totalPayAmt").text(formatMoney(parseFloat(@Model.DepositFee)));
+            $("#totalConfAmt").text(formatMoney(parseFloat(@Model.DepositFee)));
+            $("#hndDepoPay").val(3);
+        }
+        else if (@Model.Status==1) {
+            $("#chkResfees").prop("checked", true);
+            $("#chkResfeesSpan").removeClass("hidden");
+            $("#chkResfeesPaid").addClass("hidden");
+            $("#totalAmt").text(formatMoney(parseFloat(parseFloat(@Model.ReservationFee) + parseFloat(@Model.DepositFee))));
+          
+            $("#chkResDepo").on('ifChanged', function (event) {
+                if ($(this).is(":checked")) {
+                    $("#totalPayAmt").text(formatMoney(parseFloat(parseFloat(@Model.ReservationFee) + parseFloat(@Model.DepositFee))));
+                    $("#totalConfAmt").text(formatMoney(parseFloat(parseFloat(@Model.ReservationFee) + parseFloat(@Model.DepositFee))));
+                    $("#hndDepoPay").val(1);
+                }
+                else {
+                    $("#totalPayAmt").text(formatMoney(parseFloat(@Model.ReservationFee)));
+                    $("#totalConfAmt").text(formatMoney(parseFloat(@Model.ReservationFee)));
+                    $("#hndDepoPay").val(0);
+                }
+            });
+        }
+
          ddlPaymentMethod();
 
         if ($("#hndUID").val() != "0") {
@@ -476,7 +496,7 @@
         var tenantid = $("#hndTenantID").val();
         var transtype = $("#ddlPaymentMethod").val();
         var chargeAmount = unformatText($("#totalConfAmt").text());
-        var desc = $("#resAmenity").text()+" Charges";
+        var desc = $("#resAmenity").text();
 
         if ($("#ddlPaymentMethod").val() == '0') {
             msg += "Select Payment Method</br>";
@@ -503,6 +523,8 @@
             CCVNumber: $("#txtCVVNumberPayRentOnline").val(),
             UserId: $("#hndUID").val(),
             Batch: $("#hndARID").val(),
+            IsAmeDepoPay: $("#hndDepoPay").val(),
+            ARID: $("#hndARID").val(),
         };
         $.ajax({
             url: "/MyTransaction/SaveAmenityTransaction/",

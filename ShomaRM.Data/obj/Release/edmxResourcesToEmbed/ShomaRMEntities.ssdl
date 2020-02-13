@@ -383,6 +383,8 @@
     <Property Name="OriginalDriverLicence" Type="varchar" MaxLength="500" />
     <Property Name="OriginalVehicleRegistration" Type="varchar" MaxLength="500" />
     <Property Name="HaveVehicle" Type="bit" />
+    <Property Name="Status" Type="int" />
+    <Property Name="ApprovedBy" Type="int" />
   </EntityType>
   <EntityType Name="tbl_Invoice">
     <Key>
@@ -820,6 +822,7 @@
     <Property Name="LastModifiedeDate" Type="datetime" />
     <Property Name="Status" Type="int" />
     <Property Name="PropertyID" Type="bigint" />
+    <Property Name="AssignAgentId" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_PurchaseOrder">
     <Key>

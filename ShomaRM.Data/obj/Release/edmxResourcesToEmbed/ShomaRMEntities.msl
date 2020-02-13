@@ -364,6 +364,8 @@
     <EntitySetMapping Name="tbl_GuestRegistration">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_GuestRegistration">
         <MappingFragment StoreEntitySet="tbl_GuestRegistration">
+          <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="HaveVehicle" ColumnName="HaveVehicle" />
           <ScalarProperty Name="GuestID" ColumnName="GuestID" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -811,6 +813,7 @@
     <EntitySetMapping Name="tbl_Prospect">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Prospect">
         <MappingFragment StoreEntitySet="tbl_Prospect">
+          <ScalarProperty Name="AssignAgentId" ColumnName="AssignAgentId" />
           <ScalarProperty Name="PID" ColumnName="PID" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />

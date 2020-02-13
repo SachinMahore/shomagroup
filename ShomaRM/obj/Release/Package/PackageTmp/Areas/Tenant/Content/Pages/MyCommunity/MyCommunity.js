@@ -36,6 +36,35 @@ function Validation() {
         return true;
     }
 }
+function ValidationEdit() {
+    if ($("#txtClubTitleEdit").val() == "" || $("#txtClubTitleEdit").val() == null) {
+        return false;
+    }
+    else if ($("#ActivityIdEdit").val() == 0 || $("#ActivityIdEdit").val() == null) {
+        return false;
+    }
+    else if ($("#txtStartDateEdit").val() == 0 || $("#txtStartDateEdit").val() == null) {
+        return false;
+    }
+    else if ($("#txtVenueEdit").val() == 0 || $("#txtVenueEdit").val() == null) {
+        return false;
+    }
+    else if ($("#DayIdEdit").val() == 0 || $("#DayIdEdit").val() == null) {
+        return false;
+    }
+    else if ($("#txtMeetingTimeEdit").val() == 0 || $("#txtMeetingTimeEdit").val() == null) {
+        return false;
+    }
+    else if ($("#txtEmailEdit").val() == 0 || $("#txtEmailEdit").val() == null) {
+        return false;
+    }
+    else if ($("#txtPhoneNumberEdit").val() == 0 || $("#txtPhoneNumberEdit").val() == null) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
 function ClearClubCreate() {
     $("#txtClubTitle").val("");
     $("#ActivityId").val("1");
@@ -50,7 +79,22 @@ function ClearClubCreate() {
     $("#txtSpecialInstruction").val("");
     $("#txtDescription").val("");
     $("#txtBriefDescription").val("");
-    document.getElementById("chkTermsConditions").checked = false;
+    $("#chkTermsConditions").iCheck('uncheck');
+
+    $("#txtClubTitleEdit").val("");
+    $("#ActivityIdEdit").val("1");
+    $("#txtStartDateEdit").val("");
+    $("#txtVenueEdit").val("");
+    $("#DayIdEdit").val("1");
+    $("#txtMeetingTimeEdit").val("");
+    $("#txtContactEdit").val("");
+    $("#txtEmailEdit").val("");
+    $("#txtPhoneNumberEdit").val("");
+    $("#LevelIdEdit").val("1");
+    $("#txtSpecialInstructionEdit").val("");
+    $("#txtDescriptionEdit").val("");
+    $("#txtBriefDescriptionEdit").val("");
+    $("#chkTermsConditionsEdit").iCheck('uncheck');
 }
 function SubmitClub() {
     var Check = Validation();
@@ -101,6 +145,58 @@ function SubmitClub() {
     }
 }
 
+function SubmitClubEdit() {
+    
+    var Check = ValidationEdit();
+    if (Check == true) {
+        $("#divLoader").show();
+        var Json = {
+            Id: $("#txtClubIdEdit").val(),
+            ClubTitle: $("#txtClubTitleEdit").val(),
+            ActivityId: $("#ActivityIdEdit").val(),
+            StartDate: $("#txtStartDateEdit").val(),
+            Venue: $("#txtVenueEdit").val(),
+            DayId: $("#DayIdEdit").val(),
+            Time: $("#txtMeetingTimeEdit").val(),
+            Contact: $("#txtContactEdit").val(),
+            Email: $("#txtEmailEdit").val(),
+            PhoneNumber: $("#txtPhoneNumberEdit").val(),
+            PhoneCheck: $("#PhoneCheckEdit").is(":checked"),
+            EmailCheck: $("#EmailCheckEdit").is(":checked"),
+            LevelId: $("#LevelIdEdit").val(),
+            SpecialInstruction: $("#txtSpecialInstructionEdit").val(),
+            Description: $("#txtDescriptionEdit").val(),
+            BriefDescription: $("#txtBriefDescriptionEdit").val(),
+            TermsAndCondition: $("#chkTermsConditionsEdit").is(":checked"),
+            TenantID: $("#hndTenantID").val(),
+            UserId: $("#hdnUserId").val(),
+            IsDeleted: false
+
+        };
+        $.post("/MyCommunity/EditClub", Json, function (Data) {
+
+            if (Data._response.Status == true) {
+                goToStep(7);
+                ClearClubCreate();
+               
+            }
+            $.alert({
+                title: '',
+                content: Data._response.msg,
+                type: 'blue'
+            });
+            $("#divLoader").hide();
+        });
+    }
+    else {
+        $.alert({
+            title: 'Error',
+            content: "Fill Required Details..",
+            type: 'blue'
+        });
+    }
+}
+
 function GetJoinClub(ClubId) {
     $("#divLoader").show();
     $.get("/MyCommunity/GetClubById", { Id: ClubId, UserId: $("#hdnUserId").val() }, function (data) {
@@ -122,12 +218,6 @@ function GetJoinClub(ClubId) {
                     document.getElementById("btnJoinClub").innerHTML = "Unjoin Club";
                 }
             });
-            //if (data.model.ClubJoinStatus === true) {
-            //    document.getElementById("btnJoinClub").innerHTML = "Unjoin Club";
-            //}
-            //else {
-            //    document.getElementById("btnJoinClub").innerHTML = "Join Club";
-            //}
 
         }
         else {
@@ -182,6 +272,16 @@ function RefreshJoinClubListCurrentUser(EnumId) {
    
 }
 
+function GetClubEditDetailByClubId(ClubId) {
+    $("#divLoader").show();
+    $("#step8").load("/MyCommunity/EditClubPartial", { ClubId: ClubId }, function (response, status, xhr) {
+
+    });
+
+
+
+}
+
 var goToStep = function (stepid, id) {
 
     
@@ -201,6 +301,7 @@ var goToStep = function (stepid, id) {
         $("#step5").addClass("hidden");
         $("#step6").addClass("hidden");
         $("#step7").addClass("hidden");
+        $("#step8").addClass("hidden");
     }
     if (stepid == "5") {
         $("#li1").removeClass("active");
@@ -218,6 +319,7 @@ var goToStep = function (stepid, id) {
         $("#step5").removeClass("hidden");
         $("#step6").addClass("hidden");
         $("#step7").addClass("hidden");
+        $("#step8").addClass("hidden");
         RefreshJoinClubList(0);
     }
     if (stepid == "6") {
@@ -236,6 +338,7 @@ var goToStep = function (stepid, id) {
         $("#step5").addClass("hidden");
         $("#step6").removeClass("hidden");
         $("#step7").addClass("hidden");
+        $("#step8").addClass("hidden");
         GetJoinClub(id);
     }
     if (stepid == "7") {
@@ -255,7 +358,29 @@ var goToStep = function (stepid, id) {
         $("#step5").addClass("hidden");
         $("#step6").addClass("hidden");
         $("#step7").removeClass("hidden");
+        $("#step8").addClass("hidden");
         RefreshJoinClubListCurrentUser(0);
+    }
+    if (stepid == "8") {
+
+        $("#li1").removeClass("active");
+        $("#li2").removeClass("active");
+        $("#li3").removeClass("active");
+        $("#li4").removeClass("active");
+        $("#li5").removeClass("active");
+        $("#li6").removeClass("active");
+        $("#li6").removeClass("active");
+        $("#li7").removeClass("active");
+
+        $("#step1").addClass("hidden");
+        $("#step2").addClass("hidden");
+        $("#step3").addClass("hidden");
+        $("#step4").addClass("hidden");
+        $("#step5").addClass("hidden");
+        $("#step6").addClass("hidden");
+        $("#step7").addClass("hidden");
+        $("#step8").removeClass("hidden");
+        GetClubEditDetailByClubId(id);
     }
 };
 
