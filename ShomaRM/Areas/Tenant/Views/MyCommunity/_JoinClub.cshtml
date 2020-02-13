@@ -29,16 +29,17 @@
                             <span style="color:#4D738A;font-size:28px;"><b>Community Clubs</b></span>
                         </div>
                         <div class="col-sm-3">
-                            @Html.DropDownListFor(a => a[0].SearchId, EnumHelper.GetSelectList(typeof(SearchClubListEnum)), "Select", new { @id = "ActivityId", @class = "form-control",@onChange="SearchClubList(this.value,'"+@ViewBag.CallenderHidden+"')" })
-                         </div>
+                            @Html.DropDownListFor(a => a[0].SearchId, EnumHelper.GetSelectList(typeof(SearchClubListEnum)), "Select", new { @id = "ActivityId", @class = "form-control", @onChange = "SearchClubList(this.value,'" + @ViewBag.CallenderHidden + "')" })
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <!--table heading-->
                     <div class="col-sm-12 lead">
                         <div class="col-sm-3"><b>Name</b></div>
-                        <div class="col-sm-4 border-left"><b>Date &amp; Time</b></div>
-                        <div class="col-sm-5 border-left"><b>Description</b></div>
+                        <div class="col-sm-3 border-left"><b>Date &amp; Time</b></div>
+                        <div class="col-sm-4 border-left"><b>Description</b></div>
+                        <div class="col-sm-2 border-left"><b>Edit</b></div>
                     </div>
                     <!--table data-->
                     @*<div class="col-sm-12">
@@ -53,12 +54,20 @@
                             @{
                                 foreach (var item in Model)
                                 {
-                                    <div class="col-sm-12">
-                                        <a href="javascript:void(0);" onclick="goToStep(6,@item.Id)">
-                                            <div class="col-sm-3"><b>@item.ClubTitle</b></div>
-                                            <div class="col-sm-4 border-left"><b>@item.StartDate.Date.ToString("dd/MM/yyyy") &amp; @item.Time</b></div>
-                                            <div class="col-sm-5 border-left"><b>@item.Description</b></div>
-                                        </a>
+                                    <div class="row">
+                                        <div class="col-sm-10">
+
+                                            <a href="javascript:void(0);" onclick="goToStep(6,@item.Id)">
+                                                <div class="col-sm-3 center"><b>@item.ClubTitle</b></div>
+                                                <div class="col-sm-3 center"><b>@item.StartDate.Date.ToString("dd/MM/yyyy") &amp; @item.Time</b></div>
+                                                <div class="col-sm-4 center"><b>@item.Description</b></div>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-2 left">
+                                            @if (@item.UserId == @ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID)
+                                            {<a style="cursor:pointer;" onclick="goToStep(8,@item.Id)"><i class="fa fa-edit"></i></a>}
+                                        </div>
+
                                     </div>
                                 }
                             }

@@ -91,8 +91,10 @@
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.4.0\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http.Formatting">
-      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\System.Net.Http.Formatting.dll</HintPath>
+
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
@@ -173,6 +175,7 @@
     <Compile Include="Areas\Admin\Controllers\CashReceipt\CashReceiptController.cs" />
     <Compile Include="Areas\Admin\Controllers\ChargeType\ChargeTypeController.cs" />
     <Compile Include="Areas\Admin\Controllers\City\CityController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Club\ClubManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommunityManagment\CommunityManagmentController.cs" />
     <Compile Include="Areas\Admin\Controllers\Country\CountryController.cs" />
     <Compile Include="Areas\Admin\Controllers\Document\DocumentController.cs" />
@@ -310,6 +313,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModel.cs" />
+    <Compile Include="Models\AcutraqRequest.cs" />
+    <Compile Include="Models\Acutraq\AcutraqResponse.cs" />
     <Compile Include="Models\Admin\Gallery\GalleryModel.cs" />
     <Compile Include="Models\ApplyNow\ApplyNowModel.cs" />
     <Compile Include="Models\ApplyNow\CheckListModel.cs" />
@@ -341,6 +346,7 @@
     <Content Include="Areas\Admin\Content\Pages\CashReceipt\CashReceipt.js" />
     <Content Include="Areas\Admin\Content\Pages\CashReceipt\CashReceiptList.js" />
     <Content Include="Areas\Admin\Content\Pages\ChargeType\ChargeType.js" />
+    <Content Include="Areas\Admin\Content\Pages\Club\ClubManagementList.js" />
     <Content Include="Areas\Admin\Content\Pages\CommunityManagment\CommunityActivityList.js" />
     <Content Include="Areas\Admin\Content\Pages\Country\Country.js" />
     <Content Include="Areas\Admin\Content\Pages\Document\Document.js" />
@@ -780,6 +786,8 @@
     <Content Include="Areas\Tenant\Views\MyCommunity\_JoinClub.cshtml" />
     <Content Include="Areas\Admin\Views\ServiceCategory\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ServiceLocation\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ClubManagement\Index.cshtml" />
+    <Content Include="Areas\Tenant\Views\MyCommunity\_EditClub.cshtml" />
     <Content Include="Areas\Admin\Views\Country\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />

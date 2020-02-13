@@ -2,6 +2,7 @@
 using ShomaRM.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -30,6 +31,7 @@ namespace ShomaRM.Areas.Tenant.Models.Club
         public long? TenantID { get; set; }
         public long UserId { get; set; }
         public bool IsDeleted { get; set; }
+        public bool Active { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime LastUpdatedDate { get; set; }
         //for Mapping Status do Not Add In Table
@@ -39,7 +41,6 @@ namespace ShomaRM.Areas.Tenant.Models.Club
         public ResponseModel SaveclubEvent(ClubModel model)
         {
             ResponseModel _respnse = new ResponseModel();
-            string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
 
             if (db.tbl_Club.Where(a => a.ClubTitle.ToLower() == model.ClubTitle.ToLower()).ToList().Count() == 0)
@@ -66,6 +67,7 @@ namespace ShomaRM.Areas.Tenant.Models.Club
                     TenantID = model.TenantID,
                     UserId = model.UserId,
                     IsDeleted = false,
+                    Active=true,
                     CreatedDate = DateTime.UtcNow,
                     LastUpdatedDate = DateTime.UtcNow
                 };
@@ -91,6 +93,59 @@ namespace ShomaRM.Areas.Tenant.Models.Club
             return _respnse;
         }
 
+        public ResponseModel EditclubEvent(ClubModel model)
+        {
+            ResponseModel _respnse = new ResponseModel();
+            ShomaRMEntities db = new ShomaRMEntities();
+            try
+            {
+                if (db.tbl_Club.Where(a => a.Id == model.Id).FirstOrDefault().ClubTitle.ToLower() == model.ClubTitle.ToLower())
+                {
+                    var club = db.tbl_Club.Where(a => a.Id == model.Id).FirstOrDefault();
+
+                    club.Id = model.Id;
+                    club.ClubTitle = model.ClubTitle;
+                    club.ActivityId = model.ActivityId;
+                    club.StartDate = model.StartDate;
+                    club.Venue = model.Venue;
+                    club.DayId = model.DayId;
+                    club.Time = model.Time;
+                    club.Contact = model.Contact;
+                    club.Email = model.Email;
+                    club.PhoneNumber = model.PhoneNumber;
+                    club.PhoneCheck = model.PhoneCheck;
+                    club.EmailCheck = model.EmailCheck;
+                    club.LevelId = model.LevelId;
+                    club.SpecialInstruction = model.SpecialInstruction;
+                    club.Description = model.Description;
+                    club.BriefDescription = model.BriefDescription;
+                    club.TermsAndCondition = model.TermsAndCondition;
+                    club.TenantID = model.TenantID;
+                    club.UserId = model.UserId;
+                    club.CreatedDate = DateTime.UtcNow;
+                    club.LastUpdatedDate = DateTime.UtcNow;
+                   
+                    db.Entry(club).State = EntityState.Modified; 
+                    db.SaveChanges();
+                   
+                    _respnse.Status = true;
+                    _respnse.msg = "Update Successfully..";
+                }
+                else
+                {
+                    _respnse.Status = false;
+                    _respnse.msg = "Club Not Found..";
+                }
+            }
+            catch(Exception ex)
+            {
+                _respnse.Status = false;
+                _respnse.msg = ex.ToString();
+            }
+            db.Dispose();
+            return _respnse;
+        }
+
         public List<ClubModel> GetClubList()
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -104,7 +159,7 @@ namespace ShomaRM.Areas.Tenant.Models.Club
                 Id = a.Id,
                 ClubTitle = a.ClubTitle,
                 ActivityId = a.ActivityId,
-                StartDate = a.StartDate,
+                StartDate =a.StartDate.ToLocalTime(),
                 Venue = a.Venue,
                 DayId = a.DayId,
                 Time = a.Time,
@@ -120,9 +175,10 @@ namespace ShomaRM.Areas.Tenant.Models.Club
                 TermsAndCondition = a.TermsAndCondition,
                 TenantID = a.TenantID,
                 UserId = a.UserId,
-                IsDeleted = false,
-                CreatedDate = DateTime.UtcNow,
-                LastUpdatedDate = DateTime.UtcNow
+                IsDeleted = a.IsDeleted,
+                Active=a.Active,
+                CreatedDate =a.CreatedDate,
+                LastUpdatedDate = a.LastUpdatedDate
 
             }).ToList();
 
@@ -152,7 +208,8 @@ namespace ShomaRM.Areas.Tenant.Models.Club
                 TermsAndCondition = a.TermsAndCondition,
                 TenantID = a.TenantID,
                 UserId = a.UserId,
-                IsDeleted = false,
+                IsDeleted = a.IsDeleted,
+                Active=a.Active,
                 CreatedDate = DateTime.UtcNow,
                 LastUpdatedDate = DateTime.UtcNow
 
@@ -186,7 +243,8 @@ namespace ShomaRM.Areas.Tenant.Models.Club
                                 TermsAndCondition = data.TermsAndCondition,
                                 TenantID = data.TenantID,
                                 UserId = data.UserId,
-                                IsDeleted = false,
+                                IsDeleted = data.IsDeleted,
+                                Active=data.Active,
                                 CreatedDate = DateTime.UtcNow,
                                 LastUpdatedDate = DateTime.UtcNow
 
@@ -219,7 +277,8 @@ namespace ShomaRM.Areas.Tenant.Models.Club
                 TermsAndCondition = a.TermsAndCondition,
                 TenantID = a.TenantID,
                 UserId = a.UserId,
-                IsDeleted = false,
+                IsDeleted = a.IsDeleted,
+                Active=a.Active,
                 CreatedDate = DateTime.UtcNow,
                 LastUpdatedDate = DateTime.UtcNow,
                 ClubJoinStatus = (db.tbl_ClubMapping.Where(b => b.UserId == a.UserId) == null ? false : true)
@@ -240,6 +299,23 @@ namespace ShomaRM.Areas.Tenant.Models.Club
             }).FirstOrDefault();
 
             return Data;
+        }
+
+        public bool UpdateClubActiveDeactive(long Id,bool Active)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            var data = db.tbl_Club.Where(a => a.Id == Id).FirstOrDefault();
+            try
+            {
+                data.Active = Active;
+                db.Entry(data).State = EntityState.Modified;
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
     }

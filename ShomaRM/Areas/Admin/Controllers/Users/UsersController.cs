@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ShomaRM.Areas.Admin.Models;
-using ShomaRM.Data;
 
 namespace ShomaRM.Areas.Admin.Controllers
 {
