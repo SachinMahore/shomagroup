@@ -134,28 +134,16 @@ var getLeaseInfoDocuments = function () {
             //For Lease Documents
             $('#accordionSubLeaseDocument').empty();
             var Ldhtml = '';
+            
             if (response.model.EnvelopeID != null) {
                 intCount++;
-                Ldhtml += "<div class='panel panel-default'>";
-                Ldhtml += "<div class='panel-heading'>";
-                Ldhtml += "<h3 class='panel-title'>";
-                Ldhtml += "<a data-toggle='collapse' data-parent='#accordionSubLeaseDocuments' href='#collapse1Sub1" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + response.model.EnvelopeID + "<i class='fa fa-angle-right pull-right'></i></a>";
-                Ldhtml += "</h3>";
-                Ldhtml += "</div>";
-                Ldhtml += "<div id='collapse1Sub1" + intCount + "' class='panel-collapse collapse'>";
-                Ldhtml += "<div class='panel-body'>";
                 var resultLease = doesFileExist('/Content/assets/img/Document/' + response.model.EnvelopeID);
                 if (resultLease == true) {
-                    Ldhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + response.model.EnvelopeID + "' href='/Content/assets/img/Document/" + response.model.EnvelopeID + "'><i class='fa fa-download'></i></a>";
-                    Ldhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/Document/" + response.model.EnvelopeID + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                    Ldhtml += "<a href='/Content/assets/img/Document/" + response.model.EnvelopeID + "' download='" + response.model.EnvelopeID + "'>" + response.model.EnvelopeID + "</a></br>";
                 }
                 else {
-                    Ldhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='fileDoesNotExist();'><i class='fa fa-download'></i></a>";
-                    Ldhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='fileDoesNotExist();'><i class='fa fa-eye'></i></a>";
+                    Ldhtml += "<a href='javascript:void(0)' onclick='FileNotFound();'>" + response.model.EnvelopeID + "</a></br>";
                 }
-                Ldhtml += "</div>";
-                Ldhtml += "</div>";
-                Ldhtml += "</div>";
             }
             $('#accordionSubLeaseDocument').append(Ldhtml);
 
@@ -165,52 +153,26 @@ var getLeaseInfoDocuments = function () {
             if (response.model.PassportDoc != null) {
                 if (response.model.PassportDoc != '0') {
                     intCount++;
-                    Html += "<div class='panel panel-default'>";
-                    Html += "<div class='panel-heading'>";
-                    Html += "<h3 class='panel-title'>";
-                    Html += "<a data-toggle='collapse' data-parent='#accordionSubIdentity' href='#collapse2Sub1" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + response.model.OriginalPassportDoc + "<i class='fa fa-angle-right pull-right'></i></a>";
-                    Html += "</h3>";
-                    Html += "</div>";
-                    Html += "<div id='collapse2Sub1" + intCount + "' class='panel-collapse collapse'>";
-                    Html += "<div class='panel-body'>";
                     var resultPass = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.PassportDoc);
                     if (resultPass == true) {
-                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + response.model.OriginalPassportDoc + "' href='/Content/assets/img/PersonalInformation/" + response.model.PassportDoc + "'><i class='fa fa-download'></i></a>";
-                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.PassportDoc + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                        Html += "<a href='/Content/assets/img/PersonalInformation/" + response.model.PassportDoc + "' download='" + response.model.OriginalPassportDoc + "'>" + response.model.OriginalPassportDoc + "</a></br>";
                     }
                     else {
-                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='fileDoesNotExist();'><i class='fa fa-download'></i></a>";
-                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='fileDoesNotExist();'><i class='fa fa-eye'></i></a>";
+                        Html += "<a href='javascript:void(0)' onclick='FileNotFound();'>" + response.model.OriginalPassportDoc + "</a></br>";
                     }
-                    Html += "</div>";
-                    Html += "</div>";
-                    Html += "</div>";
                 }
             }
 
             if (response.model.IdentityDoc != null) {
                 if (response.model.IdentityDoc != '0') {
                     intCount++;
-                    Html += "<div class='panel panel-default'>";
-                    Html += "<div class='panel-heading'>";
-                    Html += "<h3 class='panel-title'>";
-                    Html += "<a data-toggle='collapse' data-parent='#accordionSubIdentity' href='#collapse2Sub2" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + response.model.OriginalIdentityDoc + "<i class='fa fa-angle-right pull-right'></i></a>";
-                    Html += "</h3>";
-                    Html += "</div>";
-                    Html += "<div id='collapse2Sub2" + intCount + "' class='panel-collapse collapse'>";
-                    Html += "<div class='panel-body'>";
                     var resultIdent = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.IdentityDoc);
                     if (resultIdent == true) {
-                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + response.model.OriginalIdentityDoc + "' href='/Content/assets/img/PersonalInformation/" + response.model.IdentityDoc + "'><i class='fa fa-download'></i></a>";
-                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.IdentityDoc + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                        Html += "<a href='/Content/assets/img/PersonalInformation/" + response.model.IdentityDoc + "' download='" + response.model.OriginalIdentityDoc + "'>" + response.model.OriginalIdentityDoc + "</a></br>";
                     }
                     else {
-                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='fileDoesNotExist();'><i class='fa fa-download'></i></a>";
-                        Html += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='fileDoesNotExist();'><i class='fa fa-eye'></i></a>";
+                        Html += "<a href='javascript:void(0)' onclick='FileNotFound();'>" + response.model.OriginalIdentityDoc + "</a></br>";
                     }
-                    Html += "</div>";
-                    Html += "</div>";
-                    Html += "</div>";
                 }
             }
             $('#accordionSubIdentity').append(Html);
@@ -221,78 +183,39 @@ var getLeaseInfoDocuments = function () {
             if (response.model.TaxReturnDoc1 != null) {
                 if (response.model.TaxReturnDoc1 != '0') {
                     intCount++;
-                    Thtml += "<div class='panel panel-default'>";
-                    Thtml += "<div class='panel-heading'>";
-                    Thtml += "<h3 class='panel-title'>";
-                    Thtml += "<a data-toggle='collapse' data-parent='#accordionSubTaxReturn' href='#collapse3Sub1" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + response.model.OriginalTaxReturnDoc1 + "<i class='fa fa-angle-right pull-right'></i></a>";
-                    Thtml += "</h3>";
-                    Thtml += "</div>";
-                    Thtml += "<div id='collapse3Sub1" + intCount + "' class='panel-collapse collapse'>";
-                    Thtml += "<div class='panel-body'>";
                     var resultTax1 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturnDoc1);
                     if (resultTax1 == true) {
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + response.model.OriginalTaxReturnDoc1 + "' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc1 + "'><i class='fa fa-download'></i></a>";
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc1 + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                        Thtml += "<a href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc1 + "' download='" + response.model.OriginalTaxReturnDoc1 + "'>" + response.model.OriginalTaxReturnDoc1 + "</a></br>";
                     }
                     else {
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='fileDoesNotExist();'><i class='fa fa-download'></i></a>";
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='fileDoesNotExist();'><i class='fa fa-eye'></i></a>";
+                        Thtml += "<a href='javascript:void(0)' onclick='FileNotFound();'>" + response.model.OriginalTaxReturnDoc1 + "</a></br>";
                     }
-                    Thtml += "</div>";
-                    Thtml += "</div>";
-                    Thtml += "</div>";
                 }
             }
 
             if (response.model.TaxReturnDoc2 != null) {
                 if (response.model.TaxReturnDoc2 != '0') {
                     intCount++;
-                    Thtml += "<div class='panel panel-default'>";
-                    Thtml += "<div class='panel-heading'>";
-                    Thtml += "<h3 class='panel-title'>";
-                    Thtml += "<a data-toggle='collapse' data-parent='#accordionSubTaxReturn' href='#collapse3Sub2" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + response.model.OriginalTaxReturnDoc2 + "<i class='fa fa-angle-right pull-right'></i></a>";
-                    Thtml += "</h3>";
-                    Thtml += "</div>";
-                    Thtml += "<div id='collapse3Sub2" + intCount + "' class='panel-collapse collapse'>";
-                    Thtml += "<div class='panel-body'>";
                     var resultTax2 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturnDoc2);
                     if (resultTax2 == true) {
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + response.model.OriginalTaxReturnDoc2 + "' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc2 + "'><i class='fa fa-download'></i></a>";
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc2 + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                        Thtml += "<a href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc2 + "' download='" + response.model.OriginalTaxReturnDoc2 + "'>" + response.model.OriginalTaxReturnDoc2 + "</a></br>";
                     }
                     else {
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='fileDoesNotExist();'><i class='fa fa-download'></i></a>";
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='fileDoesNotExist();'><i class='fa fa-eye'></i></a>";
+                        Thtml += "<a href='javascript:void(0)' onclick='FileNotFound();'>" + response.model.OriginalTaxReturnDoc2 + "</a></br>";
                     }
-                    Thtml += "</div>";
-                    Thtml += "</div>";
-                    Thtml += "</div>";
                 }
             }
 
             if (response.model.TaxReturnDoc3 != null) {
                 if (response.model.TaxReturnDoc3 != '0') {
                     intCount++;
-                    Thtml += "<div class='panel panel-default'>";
-                    Thtml += "<div class='panel-heading'>";
-                    Thtml += "<h3 class='panel-title'>";
-                    Thtml += "<a data-toggle='collapse' data-parent='#accordionSubTaxReturn' href='#collapse3Sub3" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + response.model.OriginalTaxReturnDoc3 + "<i class='fa fa-angle-right pull-right'></i></a>";
-                    Thtml += "</h3>";
-                    Thtml += "</div>";
-                    Thtml += "<div id='collapse3Sub3" + intCount + "' class='panel-collapse collapse'>";
-                    Thtml += "<div class='panel-body'>";
                     var resultTax3 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturnDoc3);
                     if (resultTax3 == true) {
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + response.model.OriginalTaxReturnDoc3 + "' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc3 + "'><i class='fa fa-download'></i></a>";
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc3 + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                        Thtml += "<a href='/Content/assets/img/PersonalInformation/" + response.model.TaxReturnDoc3 + "' download='" + response.model.OriginalTaxReturnDoc3 + "'>" + response.model.OriginalTaxReturnDoc3 + "</a></br>";
                     }
                     else {
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='fileDoesNotExist();'><i class='fa fa-download'></i></a>";
-                        Thtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='fileDoesNotExist();'><i class='fa fa-eye'></i></a>";
+                        Thtml += "<a href='javascript:void(0)' onclick='FileNotFound();'>" + response.model.OriginalTaxReturnDoc3 + "</a></br>";
                     }
-                    Thtml += "</div>";
-                    Thtml += "</div>";
-                    Thtml += "</div>";
                 }
             }
 
@@ -319,26 +242,13 @@ var getPetLeaseInfoDocuments = function () {
             $.each(response.model, function (elementType, elementValue) {
                 var Phtml = '';
                 intCount++;
-                Phtml += "<div class='panel panel-default'>";
-                Phtml += "<div class='panel-heading'>";
-                Phtml += "<h3 class='panel-title'>";
-                Phtml += "<a data-toggle='collapse' data-parent='#accordionSubPetCertificate' href='#collapse4Sub1" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + elementValue.OriginalPetVaccinationDoc + "<i class='fa fa-angle-right pull-right'></i></a>";
-                Phtml += "</h3>";
-                Phtml += "</div>";
-                Phtml += "<div id='collapse4Sub1" + intCount + "' class='panel-collapse collapse'>";
-                Phtml += "<div class='panel-body'>";
                 var resultPet = doesFileExist('/Content/assets/img/pet/' + elementValue.PetVaccinationDoc);
                 if (resultPet == true) {
-                    Phtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + elementValue.OriginalPetVaccinationDoc + "' href='/Content/assets/img/pet/" + elementValue.PetVaccinationDoc + "'><i class='fa fa-download'></i></a>";
-                    Phtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/pet/" + elementValue.PetVaccinationDoc + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                    Phtml += "<a href='/Content/assets/img/pet/" + elementValue.PetVaccinationDoc + "' download='" + elementValue.OriginalPetVaccinationDoc + "'>" + elementValue.OriginalPetVaccinationDoc + "</a></br>";
                 }
                 else {
-                    Phtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='fileDoesNotExist();'><i class='fa fa-download'></i></a>";
-                    Phtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='fileDoesNotExist();'><i class='fa fa-eye'></i></a>";
+                    Phtml += "<a href='javascript:void(0)' onclick='FileNotFound();'>" + elementValue.OriginalPetVaccinationDoc + "</a></br>";
                 }
-                Phtml += "</div>";
-                Phtml += "</div>";
-                Phtml += "</div>";
 
                 $('#accordionSubPetCertificate').append(Phtml);
             });
@@ -363,26 +273,13 @@ var getVehicleLeaseInfoDocuments = function () {
             $.each(response.model, function (elementType, elementValue) {
                 var Vhtml = '';
                 intCount++;
-                Vhtml += "<div class='panel panel-default'>";
-                Vhtml += "<div class='panel-heading'>";
-                Vhtml += "<h3 class='panel-title'>";
-                Vhtml += "<a data-toggle='collapse' data-parent='#accordionSubVehicleCertificate' href='#collapse5Sub1" + intCount + "'><i class='fa fa-file-pdf-o' style='color:red'></i> " + elementValue.OriginalVehicleRegistrationDoc + "<i class='fa fa-angle-right pull-right'></i></a>";
-                Vhtml += "</h3>";
-                Vhtml += "</div>";
-                Vhtml += "<div id='collapse5Sub1" + intCount + "' class='panel-collapse collapse'>";
-                Vhtml += "<div class='panel-body'>";
                 var resultVehicle = doesFileExist('/Content/assets/img/VehicleRegistration/' + elementValue.VehicleRegistrationDoc);
                 if (resultVehicle == true) {
-                    Vhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' download='" + elementValue.OriginalVehicleRegistrationDoc + "' href='/Content/assets/img/VehicleRegistration/" + elementValue.VehicleRegistrationDoc + "'><i class='fa fa-download'></i></a>";
-                    Vhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' target='_blank' href='/Content/assets/img/VehicleRegistration/" + elementValue.VehicleRegistrationDoc + "' style='margin-left: 15px;'><i class='fa fa-eye'></i></a>";
+                    Vhtml += "<a href='/Content/assets/img/VehicleRegistration/" + elementValue.VehicleRegistrationDoc + "' download='" + elementValue.OriginalVehicleRegistrationDoc + "'>" + elementValue.OriginalVehicleRegistrationDoc + "</a></br>";
                 }
                 else {
-                    Vhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='Download' href='javascript:void(0);' onclick='fileDoesNotExist();'><i class='fa fa-download'></i></a>";
-                    Vhtml += "<a class='btn btn-primary' data-toggle='tooltip' title='View' style='margin-left: 15px;' onclick='fileDoesNotExist();'><i class='fa fa-eye'></i></a>";
+                    Vhtml += "<a href='javascript:void(0)' onclick='FileNotFound();'>" + elementValue.OriginalVehicleRegistrationDoc + "</a></br>";
                 }
-                Vhtml += "</div>";
-                Vhtml += "</div>";
-                Vhtml += "</div>";
 
                 $('#accordionSubVehicleCertificate').append(Vhtml);
             });

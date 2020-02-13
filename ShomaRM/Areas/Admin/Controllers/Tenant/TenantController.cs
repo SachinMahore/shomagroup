@@ -88,10 +88,15 @@ namespace ShomaRM.Areas.Admin.Controllers
         public ActionResult Edit(Int32 ID)
         {
             ViewBag.ActiveMenu = "tenant";
-            ViewBag.TenantID = ID;
-            //var model = new LeaseManagementModel().GetLeaseInformation(ID);
-            //return View("..\\Tenant\\AddEdit", model);
-            return View("AddEdit");
+            if (ID != 0)
+            {
+                ViewBag.TenantID = ID;
+                return View("AddEdit");
+            }
+            else
+            {
+                return RedirectToAction("../Tenant/Index");
+            }
         }
         public ActionResult GetTenantInfo(long TenantID = 0)
         {

@@ -52,6 +52,7 @@ namespace ShomaRM.Data
         public Nullable<System.DateTime> LastModifiedeDate { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<long> PropertyID { get; set; }
+        public Nullable<long> AssignAgentId { get; set; }
     
         public virtual tbl_City tbl_City { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

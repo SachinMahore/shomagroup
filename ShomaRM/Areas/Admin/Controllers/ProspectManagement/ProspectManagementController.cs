@@ -18,8 +18,16 @@ namespace ShomaRM.Areas.Admin.Controllers
         public ActionResult AddEdit(int id)
         {
             ViewBag.ActiveMenu = "prospect";
-            var model = new ProspectManagementModel().GetProspectDetails(id);
-            return View("..\\ProspectManagement\\AddEdit", model);
+            if (id !=0)
+            {
+                var model = new ProspectManagementModel().GetProspectDetails(id);
+                return View("..\\ProspectManagement\\AddEdit", model);
+            }
+            else
+            {
+                return RedirectToAction("../ProspectManagement/Index");
+                //return View("..\\ProspectManagement\\Index");
+            }
         }
         public ActionResult GetProspectList(DateTime FromDate, DateTime ToDate)
         {
@@ -32,11 +40,11 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult SaveProspectForm(ProspectManagementModel model)
+        public ActionResult SaveProspectForm(long SalesAgent,long ProspectId)
         {
             try
             {
-                return Json(new { model = new ProspectManagementModel().SaveProspectForm(model) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = new ProspectManagementModel().SaveProspectForm(SalesAgent, ProspectId) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

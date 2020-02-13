@@ -30,9 +30,15 @@ namespace ShomaRM.Areas.Admin.Controllers
         public ActionResult EditProspect(int id)
         {
             ViewBag.ActiveMenu = "prospectverification";
-            var model = new ProspectVerificationModel().GetProspectData(id);
-            return View("..\\ProspectVerification\\EditProspect", model);
-
+            if (id != 0)
+            {
+                var model = new ProspectVerificationModel().GetProspectData(id);
+                return View("..\\ProspectVerification\\EditProspect", model);
+            }
+            else
+            {
+                return RedirectToAction("../ProspectVerification/Index");
+            }
         }
         public ActionResult SaveProspectVerification(long PID, long DocId, int VerificationStatus)
         {

@@ -49,6 +49,8 @@ namespace ShomaRM.Areas.Admin.Models
 
         public int AdID { get; set; }
         public string Advertiser { get; set; }
+        public long AssignAgentID { get; set; }
+        public string AssignAgentName { get; set; }
 
         public List<ProspectManagementModel> GetProspectList(DateTime FromDate, DateTime ToDate)
         {
@@ -239,6 +241,16 @@ namespace ShomaRM.Areas.Admin.Models
                     //psmodel.UnitID = dr["UnitID"].ToString();
                     psmodel.CreatedDate = dr["CreatedDate"].ToString();
                     psmodel.VisitDateTime = dr["VisitDateTime"].ToString();
+                    psmodel.AssignAgentID = Convert.ToInt64(dr["AssignAgentId"].ToString());
+                    var salesAgentName = db.tbl_Login.Where(co => co.UserID == psmodel.AssignAgentID).FirstOrDefault();
+                    if (salesAgentName != null)
+                    {
+                        psmodel.AssignAgentName = salesAgentName.FirstName + " " + salesAgentName.LastName;
+                    }
+                    else
+                    {
+                        psmodel.AssignAgentName = "Agent not yet assigned";
+                    }
                     lstProspect.Add(psmodel);
                 }
                 db.Dispose();
@@ -250,60 +262,21 @@ namespace ShomaRM.Areas.Admin.Models
                 throw ex;
             }
         }
-        public string SaveProspectForm(ProspectManagementModel model)
+        public string SaveProspectForm(long SalesAgent, long ProspectId)
         {
-            string MSG = "";
+            string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
-            var prospData = db.tbl_Prospect.Where(p => p.PID == model.PID).FirstOrDefault();
-            if (model.PID == 0)
-            {
-                var propsData = new tbl_Prospect()
-                {
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    PhoneNo = model.PhoneNo,
-                    EmailId = model.EmailId,
-                    State = model.State,
-                    City = model.City,
-                    Address = model.Address,
-                    Message = model.Message,
-                    HavingPets = model.HavingPets,
-                    UnitID = model.UnitID,
-                    PropertyID = model.PropertyID,
-                    RequiredDate = model.RequiredDate,
-                    VisitDateTime = model.VisitDateTime,
-                    CreatedDate=DateTime.Now,
-                    CreatedBy= ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID
-                };
-                db.tbl_Prospect.Add(propsData);
-                db.SaveChanges();
-                model.PID = prospData.PID;
-            }
-            else
+            var prospData = db.tbl_Prospect.Where(p => p.PID == ProspectId).FirstOrDefault();
+            if (ProspectId != 0)
             {
                 if (prospData != null)
                 {
-                    prospData.FirstName = model.FirstName;
-                    prospData.LastName = model.LastName;
-                    prospData.PhoneNo = model.PhoneNo;
-                    prospData.EmailId = model.EmailId;
-                    prospData.State = model.State;
-                    prospData.City = model.City;
-                    prospData.Address = model.Address;
-                    prospData.Message = model.Message;
-                    prospData.HavingPets = model.HavingPets;
-                    prospData.UnitID = model.UnitID;
-                    prospData.PropertyID = model.PropertyID;
-                    prospData.RequiredDate = model.RequiredDate;
-                    prospData.VisitDateTime = model.VisitDateTime;
-
+                    prospData.AssignAgentId = SalesAgent;
+                    db.SaveChanges();
+                    msg = "Progress Saved";
                 };
-
-                db.SaveChanges();
             }
-        
-            MSG =model.PID.ToString() ;
-            return MSG;
+            return msg;
         }
         public ProspectManagementModel GetProspectDetails(int id)
         {
@@ -373,6 +346,8 @@ namespace ShomaRM.Areas.Admin.Models
         public string ToDate { get; set; }
         public int PageNumber { get; set; }
         public int NumberOfRows { get; set; }
+        public long AssignAgentID { get; set; }
+        public string AssignAgentName { get; set; }
     }
     public partial class VisitModel
     {

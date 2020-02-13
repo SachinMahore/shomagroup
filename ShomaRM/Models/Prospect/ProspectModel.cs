@@ -62,6 +62,7 @@ namespace ShomaRM.Models
                 VisitDateTime=model.VisitDateTime,
                 Status=0,
                 MarketSource=model.MarketSource,
+                AssignAgentId = 0
             };
             db.tbl_Prospect.Add(saveTenant);
             db.SaveChanges();

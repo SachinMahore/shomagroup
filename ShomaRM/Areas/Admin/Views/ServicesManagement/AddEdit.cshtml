@@ -83,7 +83,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <div class="col-sm-3">
-                                    <label for="firstname">Buyer Status :</label>
+                                    <label for="firstname">Status :</label>
                                 </div>
                                 <div class="col-sm-9">
                                     <span style="font-weight:bold;" id="lblBuyerStatus">Tenant</span>
@@ -102,7 +102,7 @@
                                 </div>
                             </div>
                         </div>
-                        @*<div class="col-sm-6">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <div class="col-sm-3">
                                     <label for="firstname">Lease Start Date :</label>
@@ -111,7 +111,7 @@
                                     <span style="font-weight:bold;" id="lblLeaseStartDate"></span>
                                 </div>
                             </div>
-                        </div>*@
+                        </div>
                         
                     </div>
                     <div class="col-sm-12" style="margin-bottom:8px !important;">
@@ -125,16 +125,16 @@
                                 </div>
                             </div>
                         </div>
-                        @*<div class="col-sm-6">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <div class="col-sm-3">
-                                    <label for="firstname">Lease Termination Date :</label>
+                                    <label for="firstname">Lease End Date :</label>
                                 </div>
                                 <div class="col-sm-9">
                                     <span style="font-weight:bold;" id="lblLeaseTerminationtDate"></span>
                                 </div>
                             </div>
-                        </div>*@
+                        </div>
 
                     </div>
                     
@@ -393,7 +393,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <div class="col-sm-5">
-                                        <label for="firstname">Service Person :</label>
+                                        <label for="firstname" class="star">Service Person :</label>
                                     </div>
                                     <div class="col-sm-7" style="margin-left: -34px;">
                                         <select id="ddlUser" class="form-control" style="width:222px!important"></select>
@@ -405,7 +405,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <div class="col-sm-6">
-                                        <label for="firstname">Requested Date :</label>
+                                        <label for="firstname" class="star">Requested Date :</label>
                                     </div>
                                     <div class="col-sm-6" style="margin-left: -63px;">
                                         <input id="txtRequestedDate" placeholder="MM/DD/YYYY" style="width:222px!important" class="form-control form-control-small" type="text"> 
@@ -418,11 +418,11 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <div class="col-sm-6">
-                                        <label for="firstname">Requested Time :</label>
+                                        <label for="firstname" class="star">Requested Time :</label>
                                     </div>
                                     <div class="col-sm-6" style="margin-left: -62px;">
                                         <select id="lblRequestedTime" class="form-control">
-                                            <option value="">Select Time</option>
+                                            <option value="0">Select Time</option>
                                             <option value="9:00-10:00">9:00-10:00</option>
                                             <option value="10:00-11:00">10:00-11:00</option>
                                             <option value="11:00-12:00">11:00-12:00</option>

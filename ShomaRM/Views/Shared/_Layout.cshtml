@@ -193,7 +193,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="subject" class="star">Phone Number</label>
-                            <input type="text" class="form-control" maxlength="15" id="txtPhone" onkeypress="return isOnlyNumber(event)">
+                            <input type="text" class="form-control" maxlength="10" id="txtPhone" onkeypress="return isOnlyNumber(event)">
                         </div>
                     </div>
 
@@ -235,7 +235,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="message">Message</label>
-                            <textarea id="txtMessage" class="form-control" maxlength="100"></textarea>
+                            <textarea id="txtMessage" class="form-control" maxlength="500"></textarea>
                         </div>
                     </div>
 
@@ -646,7 +646,7 @@
         var msg = "";
         var fname = $("#txtFirstName").val();
         var lname = $("#txtLastName").val();
-        var phone = $("#txtPhone").val();
+        var phone = unformatText($("#txtPhone").val());
         var email = $("#txtEmail").val();
         var address = $("#txtAddress").val();
         var message = $("#txtMessage").val();
@@ -823,6 +823,7 @@
         $('#MtDate').click(function () {
             $("#txtMoveDate").focus();
         }); 
+        onFocus();
     });
 
     function goToSignIn() {
@@ -843,4 +844,10 @@
         $("#UserName").val("");
         $("#password").val("");
     }
+    var onFocus = function () {
+        $("#txtPhone").focusout(function () { $("#txtPhone").val(formatPhoneFax($("#txtPhone").val())); })
+            .focus(function () {
+                $("#txtPhone").val(unformatText($("#txtPhone").val()));
+            });
+    };
 </script>

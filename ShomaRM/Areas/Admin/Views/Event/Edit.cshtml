@@ -57,7 +57,7 @@
                                                 <label for="txtEventDate" class="star">Date</label>
                                                 <input id="txtEventDate" class="form-control form-control-small" value="@(Model.EventDate!=null?Model.EventDate.Value.ToString("MM/dd/yyyy"):"")" />
                                                 <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:167px;">
-                                                    <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                                                    <button class="btn btn-primary search" type="button" id="iconEventDate"><i class="fa-calendar fa"></i></button>
                                                 </span>
                                             </div>
                                         </div>
@@ -117,12 +117,23 @@
 <script>
     $(function () {
         $("#txtEventDate").datepicker();
+        $("#iconEventDate").click(function () {
+            $("#txtEventDate").focus();
+        });
         $("#txtEventTime").timepicki();
         var photo = document.getElementById('wizard-picture');
+
+        $('#txtEventFees').val(formatMoney("@Model.FessString"));
     });
         
     $(document).ready(function () {
         setTimeout(function () { $("#ddlProperty").find("option[value='" + @Model.PropertyID + "']").attr('selected', 'selected'); }, 1500);
         setTimeout(function () { $("#ddlEventType").find("option[value='" + @Model.Type + "']").attr('selected', 'selected'); }, 1600);
+        var onfocusText = function () {
+            $("#txtEventFees").focusout(function () { $("#txtEventFees").val(formatPhoneFax($("#txtEventFees").val())); })
+                .focus(function () {
+                    $("#txtEventFees").val(unformatText($("#txtEventFees").val()));
+                });
+        };
     });
 </script>
