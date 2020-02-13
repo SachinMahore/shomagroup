@@ -50,5 +50,38 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+
+        public ActionResult Edit(Int32 ID)
+        {
+            ViewBag.ActiveMenu = "admin";
+            ViewBag.GuestID = ID;
+            return View("\\..\\GuestManagement\\Edit");
+                
+        }
+
+
+        public JsonResult goToGuestDetails(long GuestID)
+        {
+            try
+            {
+                return Json(new { msg = (new GuestRegistrationModel().goToGuestDetails(GuestID)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { msg = (Ex.Message) }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult StatusUpdate(GuestRegistrationModel model)
+        {
+            try
+            {
+                return Json(new { model = new GuestRegistrationModel().StatusUpdate(model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

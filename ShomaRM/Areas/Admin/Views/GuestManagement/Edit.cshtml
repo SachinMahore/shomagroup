@@ -1,0 +1,320 @@
+﻿@using ShomaRM.Areas.Tenant.Models
+@model GuestRegistrationModel
+@{
+    ViewBag.Title = (ViewBag.GuestID == 0 ? "Add" : "Edit") + "";
+    var GuestID = ViewBag.GuestID;
+    var pageTitle = (ViewBag.GuestID == 0 ? "Add" : "Edit");
+
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<script src="@Url.Content("~/Areas/Admin/Content/Pages/GuestRegistrationManagement/GuestRegistrationManagement.js")"></script>
+<input type="hidden" id="hndGuestID" value="@GuestID" />
+<input type="hidden" id="hndUserType" value="0" />
+
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container" style="width:70%!important">
+
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+
+                <div class="wizard-header">
+                    <h3>
+                        <b>Guest  </b>Approval <br>
+                    </h3>
+                </div>
+                <ul>
+                    <li><a href="#step1" data-toggle="tab"></a></li>
+                </ul>
+                <br />
+                <div class="col-sm-12">
+                    <h4 class="info-text pull-left">Guest Approval Request</h4>
+                    <button type="button" class="btn btn-success pull-right" onclick="goGuestRequestList()"><span>Guest Approval Request List</span></button>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6" style="margin-left:1px;">
+                            <div class="form-group">
+                                <label> Guest First Name:</label>
+                                <label id="PrintGuestFname" style="font-weight:bold;margin-left: 10px;"></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label>Guest Last Name:</label>
+                                <label id="PrintGuestLname" style="font-weight:bold;margin-left: 10px;"></label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6" style="margin-left:1px;">
+                            <div class="form-group">
+                                <label>Guest Email:</label>
+                                <label id="PrintGuestEmail" style="font-weight:bold;margin-left: 10px;"></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label>Guest Phone:</label>
+                                <label id="PrintGuestPhone" style="font-weight:bold;margin-left: 10px;"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-10" style="margin-left:1px;">
+                            <div class="form-group">
+                                <label>Guest Address:</label>
+                                &nbsp;<label id="PrintGuestAddress" style="font-weight:bold;margin-left: 10px;"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-4" style="margin-left:1px;">
+                            <div class="form-group">
+                                <div style="float:left;">
+                                    <label>Visit Start Date: </label>
+                                </div>
+                                <div style="margin-left:50px;">
+                                    <label id="PrintGuestVisitSdate" style="font-weight:bold;margin-left: 10px;"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4" style="margin-left:1px;">
+                            <div class="form-group">
+                                <div style="float:left;">
+                                    <label>Visit End Date: </label>
+                                    <br />
+                                </div>
+                                <div>
+                                    <label id="PrintGuestVisitEnddate" style="font-weight:bold;margin-left: 10px;"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" style="margin-left:1px;">
+                            <div class="form-group">
+                                <label>Have a Vehicle:</label>
+                                &nbsp;<label id="PrintGuesHaveVehicle" style="font-weight:bold;margin-left: 10px;"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="" id="Pvehicle">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm-4" style="margin-left:1px;">
+                                <div class="form-group">
+                                    <div style="float:left;">
+                                        <label>Vehicle Make: </label>
+                                    </div>
+                                    <div>
+                                        <label id="PrintGuestVMake" style="font-weight:bold;margin-left: 10px;"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4" style="margin-left:1px;">
+                                <div class="form-group">
+                                    <div style="float:left;">
+                                        <label>Vehicle Model: </label>
+                                    </div>
+                                    <div>
+                                        <label id="PrintGuestVModel" style="font-weight:bold;margin-left: 10px;"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3" style="margin-left:1px;">
+                                <div class="form-group">
+                                    <div style="float:left;">
+                                        <span>Tag: </span>
+                                    </div>
+                                    <div>
+                                        <label id="PrintGuestTag" style="font-weight:bold;margin-left: 10px;"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm-4" style="margin-left:1px;">
+                                <div class="form-group">
+                                    <div style="float:left;">
+                                        <label>Vehicle Registration: </label>
+                                    </div>
+                                    <div>
+                                        <label id="PrintGuestRegistration" style="font-weight:bold;margin-left: 10px;"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-5" style="margin-left:1px;">
+                                <div class="form-group">
+                                    <div style="float:left;">
+                                        <label>Driver Licence or Picture Id:</label>
+                                    </div>
+                                    <div>
+                                        <label id="PrintGuestriverLicence" style="font-weight:bold;margin-left: 10px;"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-4" style="margin-left:1px;">
+                            <div class="form-group">
+                                <div style="float:left;">
+                                    <label>Status</label>
+                                </div>
+                                <div style="margin-left:50px;">
+                                    <select id="ddlStatus" class="form-control form-control-small">
+                                        <option value="0"> Select </option>
+                                        <option value="1"> Approved </option>
+                                        <option value="2"> Decline </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <button id="btnSave" class="btn btn-primary pull-right" onclick="StatusUpdate()">Save</button>
+                            </div>
+                            <div class="col-sm-6 hidden" id="tag">
+                                <button id="btnTag" class="btn btn-primary pull-right" onclick="openTag()" >Print Tag</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="popTag">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 47%; height:454px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <div id="TagPrint">
+                <div class="modal-header center">
+                    <h3 class="modal-title">Tag Details</h3>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body table-bordered">
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Unit No:</label>
+                                <label id="TagUnitNo" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Tenanat Name:</label>
+                                <label id="TagTenantName" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Guest Name:</label>
+                                <label id="TagGuesttName" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Vehicle Make :</label>
+                                <label id="TagVehicleMake" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Vehicle Model :</label>
+                                <label id="TagVehicleModel" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Tag :</label>
+                                <label id="Tag" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="col-sm-12 text-center">
+                    <div class="col-sm-6">
+                        <button id="btnTagPrint" class="btn btn-primary" onclick="print('TagPrint')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print Tag</b> </button>
+                        @*<button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Print</button>*@
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(function () {
+        $("#txtEventDate").datepicker();
+        var photo = document.getElementById('wizard-picture');
+    });
+    function print(divName) {
+        let printContents, popupWin;
+        printContents = document.getElementById(divName).innerHTML;
+        popupWin = window.open('', '', 'width=950,height=800,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes');
+        popupWin.document.open();
+        popupWin.document.write(`
+                  <html >
+                    <head>
+                    <link rel="stylesheet" href="/Content/bootstrap/css/bootstrap.css" >
+                    <link rel="stylesheet" href="/Content/bootstrap/css/bootstrap.min.css">
+                    <link rel="stylesheet" href="/Content/assets/css/wizard.css" >
+
+                    </head>
+                    <style>
+            hr {
+                margin-top: 0px !important;
+                margin-bottom: 0px !important;
+                border: 0;
+                border-top: 1px solid #bebdbd;
+            }
+            body { font-size: 12px;line-height: 20px; margin: 0px 10px 0px 0px; }
+            h3, .h3 { font-size: 18px;margin: 10px 0 5px; }
+            p { font-size: 14px; line-height: 1.20em;}
+
+                    </style>
+                <body onload="window.print();window.close()">${printContents}</body>
+                  </html>`
+        );
+        popupWin.document.close();
+    }
+</script>

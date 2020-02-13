@@ -36,6 +36,9 @@ namespace ShomaRM.Areas.Tenant.Models
         public string GuestName { get; set; }
         public Nullable<bool> HaveVehicle { get; set; }
         public string HaveVehicleString { get; set; }
+        public Nullable<int> Status { get; set; }
+        public Nullable<int> ApprovedBy { get; set; }
+        public string StatusString { get; set; }
 
 
         public GuestRegistrationModel UploadGuestDriverLicence(HttpPostedFileBase fileBaseGuestDriverLicence, GuestRegistrationModel model)
@@ -124,7 +127,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     TenantID = model.TenantID,
                     OriginalDriverLicence = model.OriginalDriverLicence,
                     OriginalVehicleRegistration = model.OriginalVehicleRegistration,
-                    HaveVehicle = model.HaveVehicle
+                    HaveVehicle = model.HaveVehicle,
+                    Status=0
                 };
                 db.tbl_GuestRegistration.Add(saveGuestRegistration);
                 db.SaveChanges();
@@ -162,7 +166,64 @@ namespace ShomaRM.Areas.Tenant.Models
             return Msg;
         }
 
+        public GuestRegistrationModel goToGuestDetails(long GuestID)
+        {
+            GuestRegistrationModel model = new GuestRegistrationModel();
+            ShomaRMEntities db = new ShomaRMEntities();
+            var getTenantGuest = db.tbl_GuestRegistration.Where(co => co.GuestID == GuestID).FirstOrDefault();
+            if (getTenantGuest != null)
+            {
+                var tenantInfo = db.tbl_TenantInfo.Where(co => co.TenantID == getTenantGuest.TenantID).FirstOrDefault();
 
+                if (tenantInfo != null)
+                {
+                    var getUnit = db.tbl_PropertyUnits.Where(co => co.UID == tenantInfo.UnitID).FirstOrDefault();
+                    if (getUnit != null)
+                    {
+                        model.UnitNo = getUnit.UnitNo;
+                    }
+                    model.TenantName = tenantInfo.FirstName + " " + tenantInfo.LastName;
+                    model.GuestName = getTenantGuest.FirstName + " " + getTenantGuest.LastName;
+                    model.VehicleMake = getTenantGuest.VehicleMake;
+                    model.VehicleModel = getTenantGuest.VehicleModel;
+                    model.Tag = getTenantGuest.Tag;
+                    model.Email = getTenantGuest.Email;
+                    model.FirstName = getTenantGuest.FirstName;
+                    model.LastName = getTenantGuest.LastName;
+                    model.Address = getTenantGuest.Address;
+                    model.Phone = getTenantGuest.Phone;
+                    model.VisitStartDateString = getTenantGuest.VisitStartDate.Value.ToString("MM/dd/yyyy");
+                    model.VisitEndDateString = getTenantGuest.VisitEndDate.Value.ToString("MM/dd/yyyy");
+                    model.OriginalDriverLicence = getTenantGuest.OriginalDriverLicence;
+                    model.OriginalVehicleRegistration = getTenantGuest.OriginalVehicleRegistration;
+                    model.HaveVehicleString = getTenantGuest.HaveVehicle == true ? "Yes" : getTenantGuest.HaveVehicle == false ? "No" : "";
+                    model.StatusString = getTenantGuest.Status == 1 ? "Approved" : getTenantGuest.Status == 2 ? "Decline" : getTenantGuest.Status == 0 ? "" : ""; 
+
+                }
+            }
+            db.Dispose();
+            return model;
+        }
+
+        public string StatusUpdate(GuestRegistrationModel model)
+        {
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            var UpdateStatus = db.tbl_GuestRegistration.Where(co => co.GuestID == model.GuestID).FirstOrDefault();
+
+            if (UpdateStatus != null)
+            {
+                UpdateStatus.Status = model.Status;
+                UpdateStatus.ApprovedBy = Convert.ToInt32(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID);
+              
+                db.SaveChanges();
+                msg = "Guest Status Update Successfully";
+            }
+
+            db.Dispose();
+            return msg;
+        }
 
         public GuestRegistrationModel gotiGuestList(long TagId)
         {
@@ -253,6 +314,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     pr.TenantName = dr["TenantName"].ToString();
                     pr.VisitStartDateString = dr["VisitStartDate"].ToString();
                     pr.VisitEndDateString = dr["VisitEndDate"].ToString();
+                    pr.StatusString = dr["Status"].ToString();
                     listGuestRegistration.Add(pr);
                 }
                 db.Dispose();
