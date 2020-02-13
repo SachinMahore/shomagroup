@@ -31,5 +31,7 @@ namespace ShomaRM.Data
         public string OriginalDriverLicence { get; set; }
         public string OriginalVehicleRegistration { get; set; }
         public Nullable<bool> HaveVehicle { get; set; }
+        public Nullable<int> Status { get; set; }
+        public Nullable<int> ApprovedBy { get; set; }
     }
 }

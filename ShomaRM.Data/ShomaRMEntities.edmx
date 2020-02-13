@@ -5,16 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ShomaRMEntitiesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'ShomaRMDev.dbo.CountryState' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="CountryState">
-          <Property Name="ID" Type="varchar" MaxLength="500" />
-          <Property Name="CountryName" Type="varchar" MaxLength="500" />
-          <Property Name="StateID" Type="varchar" MaxLength="500" />
-          <Property Name="CountryID" Type="varchar" MaxLength="500" />
-          <Property Name="StateName" Type="varchar" MaxLength="500" />
-        </EntityType>-->
         <EntityType Name="tbl_Advertiser">
           <Key>
             <PropertyRef Name="AdID" />
@@ -398,6 +388,8 @@ warning 6013: The table/view 'ShomaRMDev.dbo.CountryState' does not have a prima
           <Property Name="OriginalDriverLicence" Type="varchar" MaxLength="500" />
           <Property Name="OriginalVehicleRegistration" Type="varchar" MaxLength="500" />
           <Property Name="HaveVehicle" Type="bit" />
+          <Property Name="Status" Type="int" />
+          <Property Name="ApprovedBy" Type="int" />
         </EntityType>
         <EntityType Name="tbl_Invoice">
           <Key>
@@ -3128,6 +3120,8 @@ warning 6013: The table/view 'ShomaRMDev.dbo.CountryState' does not have a prima
           <Property Name="OriginalDriverLicence" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="OriginalVehicleRegistration" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="HaveVehicle" Type="Boolean" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="ApprovedBy" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_Invoice">
           <Key>
@@ -5973,6 +5967,8 @@ warning 6013: The table/view 'ShomaRMDev.dbo.CountryState' does not have a prima
           <EntitySetMapping Name="tbl_GuestRegistration">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_GuestRegistration">
               <MappingFragment StoreEntitySet="tbl_GuestRegistration">
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="HaveVehicle" ColumnName="HaveVehicle" />
                 <ScalarProperty Name="GuestID" ColumnName="GuestID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />

@@ -1,5 +1,13 @@
 ﻿$(document).ready(function () {
     getGuestRegistrationList();
+    goToGuestDetails($("#hndGuestID").val());
+    $('#tblGuestRegistration tbody').on('click', 'tr', function () {
+        $('#tblUser tr').removeClass("pds-selected-row");
+        $(this).addClass("pds-selected-row");
+    });
+    $('#tblGuestRegistration tbody').on('dblclick', 'tr', function () {
+        goToEdit();
+    });
 });
 
 var getGuestRegistrationList = function () {
@@ -45,7 +53,8 @@ var getGuestRegistrationList = function () {
                 html += '<td style="color:#3d3939;">' + elementValue.VisitEndDateString + '</td>';
                 html += '<td style="color:#3d3939;">' + guestIdTag + '</td>';
                 html += '<td style="color:#3d3939;">' + guestVehicleRegTag + '</td>';
-                html += '<td style="color:#3d3939;"><button class="btn btn-danger" style="padding: 5px 8px !important;" onclick="delGuestRegistration(' + elementValue.GuestID + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
+                html += '<td style="color:#3d3939;">' + elementValue.StatusString + '</td>';
+                //html += '<td style="color:#3d3939;"><button class="btn btn-danger" style="padding: 5px 8px !important;" onclick="delGuestRegistration(' + elementValue.GuestID + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
                 html += '</tr>';
                 $("#tblGuestRegistration>tbody").append(html);
             });
@@ -66,7 +75,7 @@ var delGuestRegistration = function (id) {
     $("#divLoader").show();
     $.alert({
         title: "",
-        content: "Are you sure to remove Vehicle?",
+        content: "Are you sure to remove Guest Registration?",
         type: 'blue',
         buttons: {
             yes: {
@@ -97,4 +106,122 @@ var delGuestRegistration = function (id) {
         }
     });
     $("#divLoader").hide();
+};
+
+var goToEdit = function () {
+    var row = $('#tblGuestRegistration tbody tr.pds-selected-row').closest('tr');
+    var ID = $(row).attr("data-value");
+   
+    if (ID !== null) {
+        window.location.href = ("../Admin/GuestManagement/Edit/" + ID);
+      
+    }
+};
+
+var goToGuestDetails = function () {
+    $("#divLoader").show();
+    var guestID = $("#hndGuestID").val();
+   
+    var model = {
+        GuestID: guestID,
+
+    };
+    $.ajax({
+        url: '/GuestManagement/goToGuestDetails',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#TagUnitNo").text(response.msg.UnitNo);
+            $("#TagTenantName").text(response.msg.TenantName);
+            $("#TagGuesttName").text(response.msg.GuestName);
+            $("#TagVehicleMake").text(response.msg.VehicleMake);
+            $("#TagVehicleModel").text(response.msg.VehicleModel);
+            $("#Tag").text(response.msg.Tag);
+
+
+            $("#PrintGuestFname").text(response.msg.FirstName);
+            $("#PrintGuestLname").text(response.msg.LastName);
+            $("#PrintGuestAddress").text(response.msg.Address);
+            $("#PrintGuestPhone").text(response.msg.Phone);
+            $("#PrintGuestEmail").text(response.msg.Email);
+            $("#PrintGuestVisitSdate").text(response.msg.VisitStartDateString);
+            $("#PrintGuestVisitEnddate").text(response.msg.VisitEndDateString);
+            $("#PrintGuesHaveVehicle").text(response.msg.HaveVehicleString);
+            if (response.msg.HaveVehicleString == 'Yes') {
+                $("#Pvehicle").removeClass('hidden'); 
+               
+                $("#PrintGuestVMake").text(response.msg.VehicleMake);
+                $("#PrintGuestVModel").text(response.msg.VehicleModel);
+                $("#PrintGuestTag").text(response.msg.Tag);
+                $("#PrintGuestRegistration").text(response.msg.OriginalDriverLicence);
+                $("#PrintGuestriverLicence").text(response.msg.OriginalVehicleRegistration);
+            } else {
+                $("#Pvehicle").addClass('hidden');
+            }
+        
+            if (response.msg.StatusString == 'Approved'||response.msg.HaveVehicleString == 'Yes') {
+                $("#tag").removeClass('hidden');
+            } else {
+                $("#tag").addClass('hidden');
+            }
+            $("#PspanGuestCertGName").text(response.msg.GuestName);
+            $("#PspanTenantSignName").text(response.msg.TenantName);
+            $("#PspanGuestSignName").text(response.msg.GuestName);
+
+        }
+    });
+    $("#divLoader").hide();
+}
+
+var openTag = function () {
+    $('#popTag').modal('show');
+   
+};
+var StatusUpdate = function (id) {
+    $("#divLoader").show();
+    var msg = '';
+    var id = $("#hndGuestID").val();
+    var status = $('#ddlStatus').val();
+    if (status == '0') {
+        msg += 'Select The Status</br>'
+    }
+   
+    if (msg!="") {
+        $.alert({
+            title: '',
+            content: msg,
+            type: 'red'
+        });
+        $("#divLoader").hide();
+        return
+    }
+
+    var model = {
+        GuestID: id,
+        Status: status,
+       
+    };
+    $.ajax({
+        url: '/GuestManagement/StatusUpdate',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $.alert({
+                title: '',
+                content: response.model,
+                type: 'red'
+            });
+            $("#ddlStatus").val('0');
+        }
+       
+    });
+    $("#divLoader").hide();
+}
+
+var goGuestRequestList = function () {
+    window.location.href = "/Admin/GuestManagement/Index";
 };
