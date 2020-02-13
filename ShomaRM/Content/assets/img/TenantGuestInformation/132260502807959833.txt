@@ -1,0 +1,858 @@
+$("#chkHaveVehicle").on('ifChanged', function (event) {
+        if ($(this).is(":checked")) {
+            $("#HaveVehicle").removeClass('hidden');
+            var randNo = makeid(6);
+            $("#txtGuestVehicleTag").val(randNo);
+             //$("#printTag").removeClass('hidden');
+            
+        }
+        else {
+            $("#HaveVehicle").addClass('hidden');
+            $("#txtGuestVehicleTag").val('');
+        }
+    });
+    $("#txtGuestVehicleTag").attr("disabled", true); 
+    $('#chkHaveVehicle').iCheck('Uncheck');
+
+***************************************
+
+var openTag = function () {
+   
+    $('#popTag').modal('show');
+   
+};
+
+var openForm = function () {
+    getTagInfo();
+    $('#popguest').modal('show');
+};
+var makeid = function (length) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+
+
+
+var getTagInfo = function () {
+    var tagId = $("#hdnTagGuestId").val();
+    var model = {
+        TagId: tagId,
+        
+    };
+    $.ajax({
+        url: '/GuestRegistration/GetTagInfo',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#TagUnitNo").text(response.msg.UnitNo);
+            $("#TagTenantName").text(response.msg.TenantName);
+            $("#TagGuesttName").text(response.msg.GuestName);
+            $("#TagVehicleMake").text(response.msg.VehicleMake);
+            $("#TagVehicleModel").text(response.msg.VehicleModel);
+            $("#Tag").text(response.msg.Tag);
+
+
+            $("#PrintGuestFname").text(response.msg.FirstName);
+            $("#PrintGuestLname").text(response.msg.LastName);
+            $("#PrintGuestAddress").text(response.msg.Address);
+            $("#PrintGuestPhone").text(response.msg.Phone);
+            $("#PrintGuestEmail").text(response.msg.Email);
+            $("#PrintGuestVisitSdate").text(response.msg.VisitStartDateString);
+            $("#PrintGuestVisitEnddate").text(response.msg.VisitEndDateString);
+            $("#PrintGuesHaveVehicle").text(response.msg.HaveVehicleString);
+            if ( response.msg.HaveVehicleString == 'Yes') {
+                $("#Pvehicle").removeClass('hidden');
+                
+                $("#PrintGuestVMake").text(response.msg.VehicleMake);
+                $("#PrintGuestVModel").text(response.msg.VehicleModel);
+                $("#PrintGuestTag").text(response.msg.Tag);
+                $("#PrintGuestRegistration").text(response.msg.OriginalDriverLicence);
+                $("#PrintGuestriverLicence").text(response.msg.OriginalVehicleRegistration);
+            } else {
+                $("#Pvehicle").addClass('hidden');
+            }
+
+            $("#PspanGuestCertGName").text(response.msg.GuestName);
+            $("#PspanTenantSignName").text(response.msg.TenantName);
+            $("#PspanGuestSignName").text(response.msg.GuestName);
+           
+        }
+    });
+}
+
+
+
+
+
+var saveUpdateGuestRegistration = function () {
+    var msg = '';
+    var guestId = $("#hdnGuestId").val();
+    var tenantId = $("#hndTenantID").val();
+    var guestFirstName = $("#txtGuestFirstName").val();
+    var guestLastName = $("#txtGuestLastName").val();
+    var guestAddress = $("#txtGuestAddress").val();
+    var guestPhone = $("#txtGuestPhone").val();
+    var guestEmail = $("#txtGuestEmail").val();
+    var guestVisitStartDate = $("#txtGuestVistStartDate").val();
+    var guestVisitEndDate = $("#txtGuestVistEndDate").val();
+    var guestVehicleMake = $("#txtGuestVehicleMake").val();
+    var guestVehicleModel = $("#txtGuestVehicleModel").val();
+    var guestVehicleTag = $("#txtGuestVehicleTag").val();
+    var uploadGuestDriverLicence = $("#hndUploadGuestDriverLicence").val();
+    var uploadOriginalGuestDriverLicence = $("#hndOriginalUploadGuestDriverLicence").val();
+    var uploadGuestVehicleRigistration = $("#hndUploadGuestRegistration").val();
+    var uploadGuestVehicleRegis = $("#hndOriginalUploadGuestRegistration").val();
+    var fileGueDrvLic = document.getElementById('fileUploadGuestDriverLicence').value;
+    var fileGueVehReg = document.getElementById('fileUploadGuestRegistration').value;
+    var haveVehicle = 0;
+
+
+    if (guestFirstName == '') {
+        msg += 'Plese Enter First Name</br>'
+    }
+    if (guestLastName == '') {
+        msg += 'Plese Enter Last Name</br>'
+    }
+    if (guestPhone == '') {
+        msg += 'Plese Enter The Phone Number</br>'
+    }
+    else {
+        if (!validatePhone(unformatText($("#txtGuestPhone").val()))) {
+            msg += "Please Fill Valid Phone Number </br>";
+        }
+    }
+    if (guestEmail == '') {
+        msg += 'Plese Enter The Email Id</br>'
+    }
+    else {
+        if (!validateEmail($("#txtGuestEmail").val())) {
+            msg += "Please Fill Valid Email </br>";
+        }
+    }
+    if (guestVisitStartDate == '') {
+        msg += 'Plese Select The Visit Start Date</br>'
+    }
+    if (guestVisitEndDate == '') {
+        msg += 'Plese Select The Visit End Date</br>'
+    }
+  
+    if ($("#chkHaveVehicle").is(":checked")) {
+        haveVehicle = 1
+        if (guestVehicleMake == '') {
+            msg += 'Plese Enter The Vehicle Make</br>'
+        }
+        if (guestVehicleModel == '') {
+            msg += 'Plese Enter The Vehicle Model</br>'
+        }
+        if (document.getElementById('fileUploadGuestDriverLicence').files.length == 0) {
+            msg += 'Plese Upload The Driver Licence</br>'
+        }
+        if (document.getElementById('fileUploadGuestRegistration').files.length == 0) {
+            msg += 'Plese Upload The Vehicle Registration</br>'
+        }
+    }
+    if (msg != '') {
+        $.alert({
+            title: "",
+            content: msg,
+            type: 'red'
+        });
+        return
+    }
+
+    var model = {
+        GuestID: guestId,
+        TenantID: tenantId,
+        FirstName: guestFirstName,
+        LastName: guestLastName,
+        Address: guestAddress,
+        Phone: unformatText(guestPhone),
+        Email: guestEmail,
+        VisitStartDate: guestVisitStartDate,
+        VisitEndDate: guestVisitEndDate,
+        VehicleMake: guestVehicleMake,
+        VehicleModel: guestVehicleModel,
+        Tag: guestVehicleTag,
+        DriverLicence: uploadGuestDriverLicence,
+        VehicleRegistration: uploadGuestVehicleRigistration,
+        OriginalDriverLicence: uploadOriginalGuestDriverLicence,
+        OriginalVehicleRegistration: uploadGuestVehicleRegis,
+        HaveVehicle: haveVehicle
+    };
+    $.ajax({
+        url: '/GuestRegistration/SaveUpdateGuestRegistration',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            var msg = response.model.split("|");
+            var splitData = msg[1];
+            $("#hdnTagGuestId").val(splitData);
+            getTagInfo();
+            $.alert({
+                title: '',
+                content: msg[0],
+                type: 'blue'
+            });
+            clearFieldGuestRegistration();
+            //$("#printTag").removeClass('hidden');
+            $("#printForm").removeClass('hidden');
+        }
+    });
+};
+
+********************Controller******************
+ public JsonResult GetTagInfo(long TagId)
+        {
+            try
+            {
+                return Json(new { msg = (new GuestRegistrationModel().gotiGuestList(TagId)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { msg = (Ex.Message) }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+****************************
+Model
+
+        public string UnitNo { get; set; }
+        public string GuestName { get; set; }
+        public Nullable<bool> HaveVehicle { get; set; }
+        public string HaveVehicleString { get; set; }
+
+
+ public string SaveUpdateGuestRegistration(GuestRegistrationModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string Msg = "";
+            if (model.GuestID == 0)
+            {
+                var saveGuestRegistration = new tbl_GuestRegistration()
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Address = model.Address,
+                    Phone = model.Phone,
+                    Email = model.Email,
+                    VisitStartDate = model.VisitStartDate,
+                    VisitEndDate = model.VisitEndDate,
+                    VehicleMake = model.VehicleMake,
+                    VehicleModel = model.VehicleModel,
+                    Tag = model.Tag,
+                    DriverLicence = model.DriverLicence,
+                    VehicleRegistration = model.VehicleRegistration,
+                    TenantID = model.TenantID,
+                    OriginalDriverLicence = model.OriginalDriverLicence,
+                    OriginalVehicleRegistration = model.OriginalVehicleRegistration,
+                    HaveVehicle=model.HaveVehicle
+                };
+                db.tbl_GuestRegistration.Add(saveGuestRegistration);
+                db.SaveChanges();
+                var guestID = saveGuestRegistration.GuestID;
+                db.Dispose();
+                Msg = "Progress Saved | " + guestID;
+            }
+            else
+            {
+                var updateGuestRegistration = db.tbl_GuestRegistration.Where(co => co.GuestID == model.GuestID).FirstOrDefault();
+
+                if (updateGuestRegistration != null)
+                {
+                    updateGuestRegistration.FirstName = model.FirstName;
+                    updateGuestRegistration.LastName = model.LastName;
+                    updateGuestRegistration.Address = model.Address;
+                    updateGuestRegistration.Phone = model.Phone;
+                    updateGuestRegistration.Email = model.Email;
+                    updateGuestRegistration.VisitStartDate = model.VisitStartDate;
+                    updateGuestRegistration.VisitEndDate = model.VisitEndDate;
+                    updateGuestRegistration.VehicleMake = model.VehicleMake;
+                    updateGuestRegistration.VehicleModel = model.VehicleModel;
+                    updateGuestRegistration.Tag = model.Tag;
+                    updateGuestRegistration.DriverLicence = model.DriverLicence;
+                    updateGuestRegistration.VehicleRegistration = model.VehicleRegistration;
+                    updateGuestRegistration.TenantID = model.TenantID;
+                    updateGuestRegistration.OriginalDriverLicence = model.OriginalDriverLicence;
+                    updateGuestRegistration.OriginalVehicleRegistration = model.OriginalVehicleRegistration;
+                    updateGuestRegistration.HaveVehicle = model.HaveVehicle;
+                    db.SaveChanges();
+                    db.Dispose();
+                    Msg = "Progress Updated";
+                }
+            }
+            return Msg;
+        }
+
+
+
+  public GuestRegistrationModel gotiGuestList(long TagId)
+        {
+            GuestRegistrationModel model = new GuestRegistrationModel();
+            ShomaRMEntities db = new ShomaRMEntities();
+            var getTenantGuest = db.tbl_GuestRegistration.Where(co => co.GuestID == TagId).FirstOrDefault();
+            if (getTenantGuest != null)
+            {
+                var tenantInfo = db.tbl_TenantInfo.Where(co => co.TenantID == getTenantGuest.TenantID).FirstOrDefault();
+
+                if (tenantInfo != null)
+                {
+                    var getUnit = db.tbl_PropertyUnits.Where(co => co.UID == tenantInfo.UnitID).FirstOrDefault();
+                    if (getUnit != null)
+                    {
+                        model.UnitNo = getUnit.UnitNo;
+                    }
+                    model.TenantName = tenantInfo.FirstName + " " + tenantInfo.LastName;
+                    model.GuestName = getTenantGuest.FirstName + " " + getTenantGuest.LastName;
+                    model.VehicleMake = getTenantGuest.VehicleMake;
+                    model.VehicleModel = getTenantGuest.VehicleModel;
+                    model.Tag = getTenantGuest.Tag;
+                    model.Email = getTenantGuest.Email;
+                    model.FirstName = getTenantGuest.FirstName;
+                    model.LastName = getTenantGuest.LastName;
+                    model.Address = getTenantGuest.Address;
+                    model.Phone = getTenantGuest.Phone;
+                    model.VisitStartDateString = getTenantGuest.VisitStartDate.Value.ToString("MM/dd/yyyy");
+                    model.VisitEndDateString = getTenantGuest.VisitEndDate.Value.ToString("MM/dd/yyyy");
+                    model.OriginalDriverLicence = getTenantGuest.OriginalDriverLicence;
+                    model.OriginalVehicleRegistration = getTenantGuest.OriginalVehicleRegistration;
+                    model.HaveVehicleString = getTenantGuest.HaveVehicle==true?"Yes" : getTenantGuest.HaveVehicle == false ? "No":"";
+                    
+
+                }
+            }
+            db.Dispose();
+            return model;
+        }
+
+*****************Index*************
+
+<div class="modal" id="popguest">
+    <div class="modal-dialog" style="width: 60%; height:454px;" >
+        <div class="modal-content" >
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <div id="Form">
+               
+                <!-- Modal body -->
+                <div class="modal-body" style="padding: 0px !important;">
+                    <div class="col-sm-12">
+                        <div id="PrintGuest" style="overflow: hidden !important;">
+                            <h4 class="text-center" style="color:#4d738a;margin-top:10px !important">GUEST REGISTRATION FORM</h4>
+                            <h5 class="text-center" style="text-decoration:underline;font-size: 12pt;">(Registration is only necessary for guests staying overnight)</h5>
+                            <br />
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-6" style="margin-left:1px;">
+                                            <div class="form-group">
+                                                <label style="color:#4D738A !important;font-size:11pt;" class="star">FIRST NAME:</label>
+                                                <label id="PrintGuestFname" style="font-weight:bold;margin-left: 10px;"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label style="color:#4D738A !important;font-size:11pt;">LAST NAME:</label>
+                                                <label id="PrintGuestLname" style="font-weight:bold;margin-left: 10px;"></label>
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-6" style="margin-left:1px;">
+                                            <div class="form-group">
+                                                <label style="color:#4D738A !important;font-size:11pt;" class="star">EMAIL:</label>
+                                                <label id="PrintGuestEmail" style="font-weight:bold;margin-left: 10px;"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5" >
+                                            <div class="form-group">
+                                                <label style="color:#4D738A !important;font-size:11pt;" class="star">PHONE#:</label>
+                                                <label id="PrintGuestPhone" style="font-weight:bold;margin-left: 10px;"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-10" style="margin-left:1px;">
+                                            <div class="form-group">
+                                                <label style="color:#4D738A !important;font-size:11pt;" class="star">GUEST ADDRESS:</label>
+                                                &nbsp;<label id="PrintGuestAddress" style="font-weight:bold;margin-left: 10px;"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-4" style="margin-left:1px;">
+                                            <div class="form-group">
+                                                <div style="float:left;">
+                                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">Visit Start Date: </label>
+                                                </div>
+                                                <div style="margin-left:50px;">
+                                                    <label id="PrintGuestVisitSdate" style="font-weight:bold;margin-left: 10px;"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4" style="margin-left:1px;">
+                                            <div class="form-group">
+                                                <div style="float:left;">
+                                                    <label style="color:#4D738A !important;font-size:11pt;position:relative;" class="star">Visit End Date: </label>
+                                                    <br />
+                                                    <span style="color:#4D738A !important; font-size:8pt; position:absolute; top:15px;">(Limited to 10 days)</span>
+                                                </div>
+                                                <div>
+                                                    <label id="PrintGuestVisitEnddate" style="font-weight:bold;margin-left: 10px;"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3" style="margin-left:1px;">
+                                            <div class="form-group">
+                                                <label style="color:#4D738A !important;font-size:11pt;" class="star">Have a Vehicle:</label>
+                                                &nbsp;<label id="PrintGuesHaveVehicle" style="font-weight:bold;margin-left: 10px;"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="hidden" id="Pvehicle">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-4" style="margin-left:1px;">
+                                                <div class="form-group">
+                                                    <div style="float:left;">
+                                                        <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Make: </label>
+                                                    </div>
+                                                    <div>
+                                                        <label id="PrintGuestVMake" style="font-weight:bold;margin-left: 10px;"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4" style="margin-left:1px;">
+                                                <div class="form-group">
+                                                    <div style="float:left;">
+                                                        <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Model: </label>
+                                                    </div>
+                                                    <div>
+                                                        <label id="PrintGuestVModel" style="font-weight:bold;margin-left: 10px;"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3" style="margin-left:1px;">
+                                                <div class="form-group">
+                                                    <div style="float:left;">
+                                                        <span style="color:#4D738A !important;font-size:11pt;" class="star">Tag#: </span>
+                                                    </div>
+                                                    <div>
+                                                        <label id="PrintGuestTag" style="font-weight:bold;margin-left: 10px;"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-4" style="margin-left:1px;">
+                                                <div class="form-group">
+                                                    <div style="float:left;">
+                                                        <label style="color:#4D738A !important;font-size:11pt;" class="star">Registration: </label>
+                                                    </div>
+                                                    <div>
+                                                        <label id="PrintGuestRegistration" style="font-weight:bold;margin-left: 10px;"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5" style="margin-left:1px;">
+                                                <div class="form-group">
+                                                    <div style="float:left;">
+                                                        <label style="color:#4D738A !important;font-size:11pt;" class="star">Driver Licence or Picture Id:</label>
+                                                    </div>
+                                                    <div>
+                                                        <label id="PrintGuestriverLicence" style="font-weight:bold;margin-left: 10px;"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h5 style="text-decoration:underline;">Guest Certification</h5>
+
+                                    <p>I, <span id="PspanGuestCertGName" style="text-decoration:underline"></span> , hereby certify that I have been informed of the rules and regulations of the community, and I will abide by them.  I also certify that I will not use any of the amenities/common areas without the presence of the Tenant.</p>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h5 style="text-decoration:underline;">Tenant's Certification</h5>
+
+                                    <p>
+                                        Tenants are fully responsible for any damage to the unit and/or common areas caused by their guests.  Tenants will be held financially liable for damages to the property.  Tenants are responsible to advise their guests of the community’s rules and regulations and ensure that the guests fully abide by them.  Tenants must accompany their guests for the use of all amenities/common areas.
+                                        <br /><br />I have read and understood my financial responsibility for my guests and agree to advise my guests to abide by the community’s rules and regulations.
+                                    </p>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label id="PspanTenantSignName" style="text-decoration:underline"></label><br />
+                                                <label>Tenant</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label id="PspanGuestSignName" style="text-decoration:underline"></label><br />
+                                                <label>Guest</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="col-sm-12 text-center">
+                    <div class="col-sm-6">
+                        <button id="btnTagPrint" class="btn btn-primary pull-right" onclick="print('Form')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="popTag">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 47%; height:454px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <div id="TagPrint">
+                <div class="modal-header center">
+                    <h3 class="modal-title">Tag Details</h3>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body table-bordered">
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Unit No:</label>
+                                <label id="TagUnitNo" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Tenanat Name:</label>
+                                <label id="TagTenantName" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Guest Name:</label>
+                                <label id="TagGuesttName" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Vehicle Make :</label>
+                                <label id="TagVehicleMake" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Vehicle Model :</label>
+                                <label id="TagVehicleModel" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-left:20px;">
+                            <div class="form-group">
+                                <label>Tag :</label>
+                                <label id="Tag" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="col-sm-12 text-center">
+                    <div class="col-sm-6">
+                        <button id="btnTagPrint" class="btn btn-primary" onclick="print('TagPrint')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print Tag</b> </button>
+                        @*<button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Print</button>*@
+                    </div>
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+****************
+
+ <div class="col-sm-6 hidden" id="printForm">
+                                            <div class="form-group">
+                                                <button id="btnPrintForm" type="button" onclick="openForm();" class="btn btn-primary pull-right"><i class="fa fa-print"></i>Print Form</button>
+                                            </div>
+                                        </div>
+
+*****************
+
+      $("#txtGuestVistStartDate").datepicker({ dateFormat: "MM/dd/yyyy" }).on('change', function (ev) {
+                $("#txtGuestVistEndDate").val('');
+                var startDate = $(this).val();
+                var endDate = $('#txtGuestVistStartDate').datepicker('getDate');
+                endDate.setDate(endDate.getDate() + 9);
+
+                $("#txtGuestVistEndDate").datepicker('setStartDate', startDate);
+                $("#txtGuestVistEndDate").datepicker('setEndDate', endDate);
+            });
+
+
+
+******************************
+<div class="hidden" id="step7">
+                                <div class="col-sm-12">
+                                    <input id="hdnGuestId" type="hidden" value="0" />
+                                    <input id="hdnTagGuestId" type="hidden" value="0" />
+                                    <button type="submit" class="btn-blue pull-right text-center" onclick="printGuest('PrintGuest')"><i class="fa fa-print"></i> Print</button>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div id="PrintGuest" style="overflow: hidden !important;">
+                                        <h4 class="text-center" style="color:#4d738a;">GUEST REGISTRATION FORM</h4>
+                                        <h5 class="text-center" style="text-decoration:underline;font-size: 12pt;">(Registration is only necessary for guests staying overnight)</h5>
+                                        <br />
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-2">
+                                                            <label style="color:#4D738A !important;font-size:11pt;" class="star">GUEST NAME:</label>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" id="txtGuestFirstName" onchange="copyGuestName();" /><hr />
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <label style="color:#4D738A !important;font-size:11pt;">LAST NAME:</label>
+                                                        </div>
+                                                        <div class="col-sm-4" style="margin-left: -29px;">
+                                                            <input type="text" id="txtGuestLastName" onchange="copyGuestName();" /><hr />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-2">
+                                                            <label style="color:#4D738A !important;font-size:11pt;" class="star">GUEST ADDRESS:</label>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            &nbsp;<textarea id="txtGuestAddress" style="width:98%; min-height:90px; border: none;"></textarea><hr />
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="row">
+                                                                <div class="col-sm-4">
+                                                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">PHONE#:</label>
+                                                                </div>
+                                                                <div class="col-sm-8" style="margin-left: -29px;">
+                                                                    <input type="text" id="txtGuestPhone" maxlength="10" onkeypress="return isOnlyNumber(event);" /><hr>
+                                                                </div>
+                                                            </div>
+                                                            <br />
+                                                            <div class="row">
+                                                                <div class="col-sm-4">
+                                                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">EMAIL:</label>
+                                                                </div>
+                                                                <div class="col-sm-8" style="margin-left: -29px;">
+                                                                    <input type="text" id="txtGuestEmail"/><hr />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-8">
+                                                        <div class="col-sm-6" style="margin-left:-15px !important;">
+                                                            <div style="float:left;">
+                                                                <label style="color:#4D738A !important;font-size:11pt;" class="star">Visit Start Date: </label>
+                                                            </div>
+                                                            <div style="margin-left:50px;">
+                                                                <input id="txtGuestVistStartDate" type="text" value="" style="width:150px;"><hr style="width:150px;" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div style="float:left;">
+                                                                <label style="color:#4D738A !important;font-size:11pt;position:relative;" class="star">Visit End Date: </label>
+                                                                <br />
+                                                                <span style="color:#4D738A !important; font-size:8pt; position:absolute; top:15px;">(Limited to 10 days)</span>
+                                                            </div>
+                                                            <div>
+                                                                <input id="txtGuestVistEndDate" type="text" value="" style="width:150px;"><hr style="width:150px;" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" >
+                                                        <div style="margin-left: 35px;">
+                                                            <label style="color:#4D738A !important;font-size:11pt;">Have a Vehicle </label>
+
+                                                        </div>
+                                                        <div style="float:left;margin-top: -34px;">
+                                                            <input id="chkHaveVehicle" type="checkbox" class="form-control" style="font-size:11pt;margin-left: 11px;" />
+                                                        </div>
+                                                    </div>
+                                                  
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row hidden" id="HaveVehicle">
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-8">
+                                                        <div class="col-sm-6" style="margin-left:-14px !important;">
+                                                            <div style="float:left;">
+                                                                <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Make: </label>
+                                                            </div>
+                                                            <div>
+                                                                <input id="txtGuestVehicleMake" type="text" value="" style="width:168px;"><hr style="width:168px;" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div style="float:left;">
+                                                                <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Model: </label>
+                                                            </div>
+                                                            <div>
+                                                                <input id="txtGuestVehicleModel" type="text" value="" style="width:181px;"><hr style="width:181px;" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <div style="float:left; margin-left:-15px;">
+                                                            <span style="color:#4D738A !important;font-size:11pt;" class="star">Tag#: </span>
+                                                        </div>
+                                                        <div>
+                                                            <input type="text" id="txtGuestVehicleTag" style="width:100px;" /><hr style="width:100px;margin-left:30px;" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <br />
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="col-sm-6">
+                                                            <div class="col-sm-5">
+                                                                <span style="color:#4D738A !important;font-size:11pt;" class="star">Upload Registration: </span>
+                                                            </div>
+                                                            <div class="col-sm-5">
+                                                                <input type="file" name="fileUploadGuestRegistration" id="fileUploadGuestRegistration" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                                                <label for="fileUploadGuestRegistration">
+                                                                    <i class="fa fa-upload fa-2x"></i>
+                                                                    <span id="fileSpanShowGuestRegistration">Choose a file&hellip;</span>
+                                                                </label>
+                                                                <input type="hidden" id="hndUploadGuestRegistration" value="0" />
+                                                                <input type="hidden" id="hndOriginalUploadGuestRegistration" value="0" />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-6">
+                                                            <div class="col-sm-7">
+                                                                <span style="color:#4D738A !important;font-size:11pt;" class="star">Upload Driver Licence or Picture Id:</span>
+                                                            </div>
+                                                            <div class="col-sm-5">
+                                                                <input type="file" name="fileUploadGuestDriverLicence" id="fileUploadGuestDriverLicence" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                                                <label for="fileUploadGuestDriverLicence">
+                                                                    <i class="fa fa-upload fa-2x"></i>
+                                                                    <span id="fileSpanShowGuestDriverLicence">Choose a file&hellip;</span>
+                                                                </label>
+                                                                <input type="hidden" id="hndUploadGuestDriverLicence" value="0" />
+                                                                <input type="hidden" id="hndOriginalUploadGuestDriverLicence" value="0" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <br />
+
+                                            <div class="col-sm-12">
+                                                <h5 style="text-decoration:underline;">Guest Certification</h5>
+
+                                                <p>I, <span id="spanGuestCertGName" style="text-decoration:underline"></span> , hereby certify that I have been informed of the rules and regulations of the community, and I will abide by them.  I also certify that I will not use any of the amenities/common areas without the presence of the Tenant.</p>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <h5 style="text-decoration:underline;">Tenant's Certification</h5>
+
+                                                <p>
+                                                    Tenants are fully responsible for any damage to the unit and/or common areas caused by their guests.  Tenants will be held financially liable for damages to the property.  Tenants are responsible to advise their guests of the community’s rules and regulations and ensure that the guests fully abide by them.  Tenants must accompany their guests for the use of all amenities/common areas.
+                                                    <br /><br />I have read and understood my financial responsibility for my guests and agree to advise my guests to abide by the community’s rules and regulations.
+                                                </p>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <span id="spanTenantSignName" style="text-decoration:underline"></span><br />
+                                                            <label>Tenant</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <span id="spanGuestSignName" style="text-decoration:underline"></span><br />
+                                                            <label>Guest</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-6 ">
+                                            <div class="form-group">
+                                                <button id="btnGuestRegSave" type="button" class="btn btn-primary pull-right" onclick="saveUpdateGuestRegistration();">Save</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 hidden" id="printForm">
+                                            <div class="form-group">
+                                                <button id="btnPrintForm" type="button" onclick="openForm();" class="btn btn-primary pull-right"><i class="fa fa-print"></i>Print Form</button>
+                                            </div>
+                                        </div>
+                                        @*<div class="col-sm-4 hidden" id="printTag">
+                                            <div class="form-group">
+                                                <button id="btnPrintTag" type="button" onclick="openTag();" class="btn btn-primary pull-right">Print Tag</button>
+                                            </div>
+                                        </div>*@
+                                        
+                                    </div>
+                                </div>
+                            </div>

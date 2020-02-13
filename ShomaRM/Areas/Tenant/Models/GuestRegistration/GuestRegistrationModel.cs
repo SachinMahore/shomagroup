@@ -32,6 +32,11 @@ namespace ShomaRM.Areas.Tenant.Models
         public string VisitEndDateString { get; set; }
         public string FromDate { get; set; }
         public string ToDate { get; set; }
+        public string UnitNo { get; set; }
+        public string GuestName { get; set; }
+        public Nullable<bool> HaveVehicle { get; set; }
+        public string HaveVehicleString { get; set; }
+
 
         public GuestRegistrationModel UploadGuestDriverLicence(HttpPostedFileBase fileBaseGuestDriverLicence, GuestRegistrationModel model)
         {
@@ -118,12 +123,14 @@ namespace ShomaRM.Areas.Tenant.Models
                     VehicleRegistration = model.VehicleRegistration,
                     TenantID = model.TenantID,
                     OriginalDriverLicence = model.OriginalDriverLicence,
-                    OriginalVehicleRegistration = model.OriginalVehicleRegistration
+                    OriginalVehicleRegistration = model.OriginalVehicleRegistration,
+                    HaveVehicle = model.HaveVehicle
                 };
                 db.tbl_GuestRegistration.Add(saveGuestRegistration);
                 db.SaveChanges();
+                var guestID = saveGuestRegistration.GuestID;
                 db.Dispose();
-                Msg = "Progress Saved";
+                Msg = "Progress Saved | " + guestID;
             }
             else
             {
@@ -146,7 +153,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     updateGuestRegistration.TenantID = model.TenantID;
                     updateGuestRegistration.OriginalDriverLicence = model.OriginalDriverLicence;
                     updateGuestRegistration.OriginalVehicleRegistration = model.OriginalVehicleRegistration;
-
+                    updateGuestRegistration.HaveVehicle = model.HaveVehicle;
                     db.SaveChanges();
                     db.Dispose();
                     Msg = "Progress Updated";
@@ -155,6 +162,46 @@ namespace ShomaRM.Areas.Tenant.Models
             return Msg;
         }
 
+
+
+        public GuestRegistrationModel gotiGuestList(long TagId)
+        {
+            GuestRegistrationModel model = new GuestRegistrationModel();
+            ShomaRMEntities db = new ShomaRMEntities();
+            var getTenantGuest = db.tbl_GuestRegistration.Where(co => co.GuestID == TagId).FirstOrDefault();
+            if (getTenantGuest != null)
+            {
+                var tenantInfo = db.tbl_TenantInfo.Where(co => co.TenantID == getTenantGuest.TenantID).FirstOrDefault();
+
+                if (tenantInfo != null)
+                {
+                    var getUnit = db.tbl_PropertyUnits.Where(co => co.UID == tenantInfo.UnitID).FirstOrDefault();
+                    if (getUnit != null)
+                    {
+                        model.UnitNo = getUnit.UnitNo;
+                    }
+                    model.TenantName = tenantInfo.FirstName + " " + tenantInfo.LastName;
+                    model.GuestName = getTenantGuest.FirstName + " " + getTenantGuest.LastName;
+                    model.VehicleMake = getTenantGuest.VehicleMake;
+                    model.VehicleModel = getTenantGuest.VehicleModel;
+                    model.Tag = getTenantGuest.Tag;
+                    model.Email = getTenantGuest.Email;
+                    model.FirstName = getTenantGuest.FirstName;
+                    model.LastName = getTenantGuest.LastName;
+                    model.Address = getTenantGuest.Address;
+                    model.Phone = getTenantGuest.Phone;
+                    model.VisitStartDateString = getTenantGuest.VisitStartDate.Value.ToString("MM/dd/yyyy");
+                    model.VisitEndDateString = getTenantGuest.VisitEndDate.Value.ToString("MM/dd/yyyy");
+                    model.OriginalDriverLicence = getTenantGuest.OriginalDriverLicence;
+                    model.OriginalVehicleRegistration = getTenantGuest.OriginalVehicleRegistration;
+                    model.HaveVehicleString = getTenantGuest.HaveVehicle == true ? "Yes" : getTenantGuest.HaveVehicle == false ? "No" : "";
+
+
+                }
+            }
+            db.Dispose();
+            return model;
+        }
         public List<GuestRegistrationModel> GetGuestRegistrationList(DateTime FromDate, DateTime ToDate)
         {
             List<GuestRegistrationModel> listGuestRegistration = new List<GuestRegistrationModel>();

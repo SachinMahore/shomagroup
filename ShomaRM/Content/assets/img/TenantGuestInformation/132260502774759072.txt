@@ -1,0 +1,96 @@
+Vehicle Model:-- 
+ public List<VehicleModel> GetProfileVehicleList(long UserId)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<VehicleModel> lstProp = new List<VehicleModel>();
+
+            var appVehicle = db.tbl_ApplyNow.Where(p => p.UserId == UserId).FirstOrDefault();
+            if (appVehicle != null)
+            {
+                var vehList = db.tbl_Vehicle.Where(p => p.TenantID == appVehicle.ID).ToList();
+                if (vehList != null)
+                {
+                    foreach (var pl in vehList)
+                    {
+                        long StateId = Convert.ToInt64(pl.State);
+                        var vehState = db.tbl_State.Where(p => p.ID == StateId).FirstOrDefault();
+
+                        lstProp.Add(new VehicleModel
+                        {
+                            Vehicle_ID = pl.Vehicle_ID,
+                            License = pl.License,
+                            Make = pl.Make,
+                            VModel = pl.Model,
+                            Year = pl.Year,
+                            Color = pl.Color,
+                            State = vehState.StateName,
+                            VehicleRegistration = pl.VehicleRegistration,
+                            OwnerName = pl.OwnerName,
+                            Notes = pl.Notes
+                        });
+
+                    }
+                }
+            }
+            return lstProp;
+        }
+
+*******************************************************************
+My Account Js
+
+var fillCaussingIssue = function (ServiceIssueID) {
+    var params = { ServiceIssueID: ServiceIssueID };
+    $.ajax({
+        url: '/ServiceRequest/GetDdlCausingIssue',
+        method: "post",
+        data: JSON.stringify(params),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if ($.trim(response.error) != "") {
+                //this.cancelChanges();
+            } else {
+               if(response.length!='0'){
+                   $("#ddlProblemCategory1").empty();
+                   $("#ddlProblemCategory1").append("<option value='0'>What Item Is causing The Issue?</option>");
+                   $.each(response, function (index, elementValue) {
+                       $("#ddlProblemCategory1").append("<option value=" + elementValue.CausingIssueID + ">" + elementValue.CausingIssue + "</option>");
+                   });
+               } else {
+                   $("#CausingIssue").addClass("hidden");
+                   $("#ddlProblemCategory1").empty();
+                  
+               }
+            }
+        }
+    });
+}
+
+var fillDdlIssue = function (CausingIssueID, ServiceIssueID) {
+    var params = { CausingIssueID: CausingIssueID, ServiceIssueID: ServiceIssueID };
+    $.ajax({
+        url: '/ServiceRequest/GetDdlIssue',
+        method: "post",
+        data: JSON.stringify(params),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if ($.trim(response.error) != "") {
+
+            } else {
+                if (response.length != '0') {
+                    $("#ddlProblemCategory2").empty();
+                    //$("#ddlProblemCategory2").append("<option value='0'>What Is The Issue?</option>");
+                    $.each(response, function (index, elementValue) {
+                        $("#ddlProblemCategory2").append("<option value=" + elementValue.IssueID + ">" + elementValue.Issue + "</option>");
+                    });
+                }
+                else {
+                    $("#Issue").addClass("hidden");
+                    $("#ddlProblemCategory2").empty();
+                   
+                }
+            }
+        }
+    });
+}

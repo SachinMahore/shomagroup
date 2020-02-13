@@ -65,5 +65,16 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public JsonResult GetTagInfo(long TagId)
+        {
+            try
+            {
+                return Json(new { msg = (new GuestRegistrationModel().gotiGuestList(TagId)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { msg = (Ex.Message) }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

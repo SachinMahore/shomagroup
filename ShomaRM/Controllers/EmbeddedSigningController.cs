@@ -335,7 +335,7 @@ namespace ShomaRM.Controllers
             }
             return buff;
         }
-      public ActionResult GetDocuDoc(string EnvelopeID)
+        public ActionResult GetDocuDoc(string EnvelopeID)
         {
             
             EnvelopesApi envelopesApi = new EnvelopesApi();

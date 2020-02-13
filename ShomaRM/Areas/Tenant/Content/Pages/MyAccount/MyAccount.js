@@ -442,6 +442,24 @@
     $('#btnDesiredDate').click(function () {
         $("#txtDesiredDate").focus();
     });
+
+
+    $("#chkHaveVehicle").on('ifChanged', function (event) {
+        if ($(this).is(":checked")) {
+            $("#HaveVehicle").removeClass('hidden');
+            var randNo = makeid(6);
+            $("#txtGuestVehicleTag").val(randNo);
+            //$("#printTag").removeClass('hidden');
+
+        }
+        else {
+            $("#HaveVehicle").addClass('hidden');
+            $("#txtGuestVehicleTag").val('');
+        }
+    });
+    $("#txtGuestVehicleTag").attr("disabled", true);
+    $('#chkHaveVehicle').iCheck('Uncheck');
+
 });
 var checkRequestButton = function () {
     var ddlAmenityVal = $("#ddlAmenities").val();
@@ -2272,6 +2290,8 @@ var saveUpdateGuestRegistration = function () {
     var uploadGuestVehicleRegis = $("#hndOriginalUploadGuestRegistration").val();
     var fileGueDrvLic = document.getElementById('fileUploadGuestDriverLicence').value;
     var fileGueVehReg = document.getElementById('fileUploadGuestRegistration').value;
+    var haveVehicle = 0;
+
 
     if (guestFirstName == '') {
         msg += 'Plese Enter First Name</br>'
@@ -2301,13 +2321,22 @@ var saveUpdateGuestRegistration = function () {
     if (guestVisitEndDate == '') {
         msg += 'Plese Select The Visit End Date</br>'
     }
-    if (document.getElementById('fileUploadGuestDriverLicence').files.length == 0) {
-        msg += 'Plese Upload The Driver Licence</br>'
-    }
-    if (document.getElementById('fileUploadGuestRegistration').files.length == 0) {
-        msg += 'Plese Upload The Vehicle Registration</br>'
-    }
 
+    if ($("#chkHaveVehicle").is(":checked")) {
+        haveVehicle = 1
+        if (guestVehicleMake == '') {
+            msg += 'Plese Enter The Vehicle Make</br>'
+        }
+        if (guestVehicleModel == '') {
+            msg += 'Plese Enter The Vehicle Model</br>'
+        }
+        if (document.getElementById('fileUploadGuestDriverLicence').files.length == 0) {
+            msg += 'Plese Upload The Driver Licence</br>'
+        }
+        if (document.getElementById('fileUploadGuestRegistration').files.length == 0) {
+            msg += 'Plese Upload The Vehicle Registration</br>'
+        }
+    }
     if (msg != '') {
         $.alert({
             title: "",
@@ -2333,7 +2362,8 @@ var saveUpdateGuestRegistration = function () {
         DriverLicence: uploadGuestDriverLicence,
         VehicleRegistration: uploadGuestVehicleRigistration,
         OriginalDriverLicence: uploadOriginalGuestDriverLicence,
-        OriginalVehicleRegistration: uploadGuestVehicleRegis
+        OriginalVehicleRegistration: uploadGuestVehicleRegis,
+        HaveVehicle: haveVehicle
     };
     $.ajax({
         url: '/GuestRegistration/SaveUpdateGuestRegistration',
@@ -2342,15 +2372,22 @@ var saveUpdateGuestRegistration = function () {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
+            var msg = response.model.split("|");
+            var splitData = msg[1];
+            $("#hdnTagGuestId").val(splitData);
+            getTagInfo();
             $.alert({
                 title: '',
-                content: response.model,
+                content: msg[0],
                 type: 'blue'
             });
             clearFieldGuestRegistration();
+            //$("#printTag").removeClass('hidden');
+            $("#printForm").removeClass('hidden');
         }
     });
 };
+
 
 var onFocus = function () {
 
@@ -5647,3 +5684,76 @@ var savupdateAmenityReservation = function () {
     });
 
 };
+
+
+var openTag = function () {
+
+    $('#popTag').modal('show');
+
+};
+
+var openForm = function () {
+    getTagInfo();
+    $('#popguest').modal('show');
+};
+var makeid = function (length) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+
+
+
+var getTagInfo = function () {
+    var tagId = $("#hdnTagGuestId").val();
+    var model = {
+        TagId: tagId,
+
+    };
+    $.ajax({
+        url: '/GuestRegistration/GetTagInfo',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#TagUnitNo").text(response.msg.UnitNo);
+            $("#TagTenantName").text(response.msg.TenantName);
+            $("#TagGuesttName").text(response.msg.GuestName);
+            $("#TagVehicleMake").text(response.msg.VehicleMake);
+            $("#TagVehicleModel").text(response.msg.VehicleModel);
+            $("#Tag").text(response.msg.Tag);
+
+
+            $("#PrintGuestFname").text(response.msg.FirstName);
+            $("#PrintGuestLname").text(response.msg.LastName);
+            $("#PrintGuestAddress").text(response.msg.Address);
+            $("#PrintGuestPhone").text(response.msg.Phone);
+            $("#PrintGuestEmail").text(response.msg.Email);
+            $("#PrintGuestVisitSdate").text(response.msg.VisitStartDateString);
+            $("#PrintGuestVisitEnddate").text(response.msg.VisitEndDateString);
+            $("#PrintGuesHaveVehicle").text(response.msg.HaveVehicleString);
+            if (response.msg.HaveVehicleString == 'Yes') {
+                $("#Pvehicle").removeClass('hidden');
+
+                $("#PrintGuestVMake").text(response.msg.VehicleMake);
+                $("#PrintGuestVModel").text(response.msg.VehicleModel);
+                $("#PrintGuestTag").text(response.msg.Tag);
+                $("#PrintGuestRegistration").text(response.msg.OriginalDriverLicence);
+                $("#PrintGuestriverLicence").text(response.msg.OriginalVehicleRegistration);
+            } else {
+                $("#Pvehicle").addClass('hidden');
+            }
+
+            $("#PspanGuestCertGName").text(response.msg.GuestName);
+            $("#PspanTenantSignName").text(response.msg.TenantName);
+            $("#PspanGuestSignName").text(response.msg.GuestName);
+
+        }
+    });
+}
