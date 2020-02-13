@@ -214,11 +214,12 @@ namespace ShomaRM.Areas.Tenant.Models
                 foreach (DataRow dr in dtTable.Rows)
                 {
                     AmenitiesReservationSearchModel searchmodel = new AmenitiesReservationSearchModel();
-
+                    
                     searchmodel.ARID = Convert.ToInt64(dr["ARID"].ToString());
                     searchmodel.TenantID = Convert.ToInt64(dr["AmenityID"].ToString());
                     searchmodel.AmenityID = Convert.ToInt64(dr["AmenityID"].ToString());
                     searchmodel.DesiredDate = dr["DesiredDate"].ToString();
+                    
                     string time = dr["DesiredTime"].ToString();
                     DateTime dt = DateTime.Parse(time != string.Empty ? time : "00:00 AM");
                     searchmodel.DesiredTime = dt.ToString("hh:mm tt");
@@ -233,6 +234,17 @@ namespace ShomaRM.Areas.Tenant.Models
                     searchmodel.DesiredTimeFrom = dr["DesiredTimeFrom"].ToString();
                     searchmodel.DesiredTimeTo = dr["DesiredTimeTo"].ToString();
                     searchmodel.Guest = dr["Guest"].ToString();
+                    
+                    string desireDt = dr["DesiredDate"].ToString();
+                    if (desireDt != string.Empty)
+                    {
+                        DateTime dttt = DateTime.Parse(desireDt).AddDays(-3);
+                        searchmodel.calculatedDate = dttt.ToString("MM/dd/yyyy");
+                    }
+                    else
+                    {
+                        searchmodel.calculatedDate = "";
+                    }
 
                     lstReservationRequest.Add(searchmodel);
                 }
@@ -267,6 +279,7 @@ namespace ShomaRM.Areas.Tenant.Models
             public string DesiredTimeFrom { get; set; }
             public string DesiredTimeTo { get; set; }
             public string Guest { get; set; }
+            public string calculatedDate { get; set; }
 
         }
 
