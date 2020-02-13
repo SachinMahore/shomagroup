@@ -1,34 +1,5 @@
-﻿$(document).ready(function(){
-    $("#popVisit").PopupWindow({
-        title: "Add Visit",
-        modal: false,
-        autoOpen: false,
-        top: 120,
-        left: 300,
-        height: 420,
-
-    });
-    getVisitLists();
-    fillUserDDL();
-    TableClick();
-    fillMarketSourceDDL();
-    $("#btnAddVisit").on("click", function (event) {
-        clearVisit();
-        $("#popVisit").PopupWindow("open");
-    });
-    $("#popTransaction").PopupWindow({
-        title: "Add Transaction",
-        modal: false,
-        autoOpen: false,
-        top: 120,
-        left: 300,
-        height: 550,
-
-    });
-    $("#btnAddTrans").on("click", function (event) {
-        clearTrans();
-        $("#popTransaction").PopupWindow("open");
-    });
+﻿$(document).ready(function () {
+    fillDdlSalesAgent();
 });
 var clearBank = function () {
     $("#divCard").addClass("hidden");
@@ -50,60 +21,20 @@ var gotoProspList = function () {
 
 var saveupdateProspect = function () {
     var msg = "";
-    var pid = $("#hndProspectID").val();
-    var fname = $("#txtFirstName").val();
-    var lname = $("#txtLastName").val();
-    var phone = $("#txtPhone").val();
-    var email = $("#txtEmail").val();
-    var address = $("#txtAddress").val();
-    var message = $("#txtMessage").val();
-    var pets = $(".icheckbox_square-yellow").hasClass("checked") ? 1 : 0;
-    var propertyid = $("#ddlProperty").val();
-    var unit = $("#ddlUnit").val();
-    var state = $("#ddlState").val();
-    var city = $("#ddlCity").val();
-    var visittime = $("#txtMoveDate").val();
-    var requireddate = $("#txtRequiredDate").val();
-    if (!fname) {
-        msg += "Enter First Name</br>";
-    }
-    if (!lname) {
-        msg += "Enter Last Name</br>";
-    }
-    if (phone == '') {
-        msg += "Enter Phone</br>";
-    }
-    else {
-        if (!validatePhone(phone)) {
-            msg += 'Invalid Phone No.<br/>';
-        }
-    }
-    if (email == '') {
-        msg += "Enter email Id</br>";
-    }
-    else {
-        if (!validateEmail(email)) {
-            msg += "Invalid email address.<br/>";
-        }
-    }
-    if (state == 0) {
-        msg += "Select State</br>";
-    }
-    if (propertyid == 0) {
-        msg += "Select Property</br>";
-    }
-    if (unit == 0) {
-        msg += "Select Unit</br>";
+    var salesAgent = $("#ddlAgentAssign").val();
+    var prospectId = $("#hndProspectID").val();
+    if (salesAgent == "0") {
+        msg += "Select the sales Agent</br>";
     }
     if (msg != "") {
         $.alert({
-            title: 'Alert!',
+            title: '',
             content: msg,
             type: 'red'
         });
         return;
     }
-    var model = { PID: pid, FirstName: fname, LastName: lname, PhoneNo: phone, EmailId: email, Address: address, Message: message, HavingPets: pets, UnitID: unit, PropertyID: propertyid, State: state, City: city, VisitDateTime: visittime, RequiredDate: requireddate };
+    var model = { SalesAgent: salesAgent, ProspectId: prospectId};
     $.ajax({
         url: "/ProspectManagement/SaveProspectForm/",
         type: "post",
@@ -112,11 +43,18 @@ var saveupdateProspect = function () {
         dataType: "JSON",
         success: function (response) {
             $.alert({
-                title: 'Message!',
-                content:"Prospect form Saved Sucessfully",
+                title: '',
+                content: response.model,
                 type: 'blue',
+                buttons: {
+                    ok: {
+                        text: 'Ok',
+                        action: function (ok) {
+                            window.location.href = '/Admin/ProspectManagement';
+                        }
+                    }
+                }
             });
-            $("#hndProspectID").val(response.model);
         }
     });
 }
@@ -822,6 +760,28 @@ var fillMarketSourceDDL = function () {
                     $("#ddlMarketSource").append("<option value=" + elementValue.AdID + ">" + elementValue.Advertiser + "</option>");
                 });
             
+        }
+    });
+}
+
+var fillDdlSalesAgent = function () {
+    var param = { UserType: 6 };
+    $.ajax({
+        url: '/Users/GetUserListByType',
+        method: "post",
+        data: JSON.stringify(param),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if ($.trim(response.error) != "") {
+                //this.cancelChanges();
+            } else {
+                $("#ddlAgentAssign").empty();
+                $("#ddlAgentAssign").append("<option value='0'>Select Sales Agent</option>");
+                $.each(response, function (index, elementValue) {
+                    $("#ddlAgentAssign").append("<option value=" + elementValue.UserID + ">" + elementValue.FirstName + ' ' + elementValue.LastName + "</option>");
+                });
+            }
         }
     });
 }

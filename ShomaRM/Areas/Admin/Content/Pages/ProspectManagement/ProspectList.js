@@ -77,10 +77,8 @@ var fillProspectList = function (pagenumber) {
                     html += "<td>" + elementValue.LastName + "</td>";
                     html += "<td>" + formatPhoneFax(elementValue.PhoneNo) + "</td>";
                     html += "<td>" + elementValue.EmailId + "</td>";
-                    html += "<td>" + elementValue.StateName + "</td>";
-                    html += "<td>" + elementValue.CityName + "</td>";
-                    html += "<td>" + elementValue.Message + "</td>";
                     html += "<td>" + elementValue.VisitDateTime + "</td>";
+                    html += "<td>" + elementValue.AssignAgentName + "</td>";
                     html += "</tr>";
                     $("#tblProspect>tbody").append(html);
                 });

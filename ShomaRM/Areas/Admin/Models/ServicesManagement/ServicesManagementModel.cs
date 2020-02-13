@@ -66,6 +66,8 @@ namespace ShomaRM.Areas.Admin.Models
         public string MoveIndate { get; set; }
         public string OwnerSignature { get; set; }
         public string TempOwnerSignature { get; set; }
+        public string MStartDateString { get; set; }
+        public string MLeaseEndDateString { get; set; }
 
         public int BuildPaganationUserList(ServicesSearchModel model)
         {
@@ -269,6 +271,8 @@ namespace ShomaRM.Areas.Admin.Models
                     pr.Project = dr["Title"].ToString();
                     pr.TenantID = Convert.ToInt64(dr["TenantID"].ToString());
                     pr.MoveIndate = dr["MoveIndate"].ToString();
+                    pr.MStartDateString = dr["MStartDate"].ToString();
+                    pr.MLeaseEndDateString = dr["LeaseEndDate"].ToString();
                 }
                 db.Dispose();
                 return pr;

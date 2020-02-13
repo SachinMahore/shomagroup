@@ -123,7 +123,7 @@ namespace ShomaRM.Areas.Admin.Models
                 model.Type = GetEventData.Type;
                 model.EventTime = GetEventData.EventTime;
                 model.Fees = GetEventData.Fees;
-                model.FessString = GetEventData.Fees.ToString();
+                model.FessString = GetEventData.Fees != null ? GetEventData.Fees.Value.ToString("0.00") : "0.00";
                 model.EventDateString = GetEventData.EventDate != null ? GetEventData.EventDate.Value.ToString("MM/dd/yyyy") : "";
                 //model.EventTimeString = GetEventData.EventTime != null ? GetEventData.EventTime.ToString() : "";
                 if (GetEventData.EventTime != null)

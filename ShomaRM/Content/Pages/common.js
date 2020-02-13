@@ -90,3 +90,10 @@ function formatPhoneFax(phonefax) {
 
     return '(' + phonefax.substring(0, 3) + ') ' + phonefax.substring(3, 6) + (phonefax.length > 6 ? '-' : '') + phonefax.substring(6);
 }
+
+function unformatText(text) {
+    if (text == null)
+        text = "";
+
+    return text.replace(/[^\d\.]/g, '');
+}

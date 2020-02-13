@@ -36,6 +36,8 @@ var goToServiceDetails = function (ServiceID) {
             $("#hndServiceID").val(response.model.ServiceID);
             $('#lbltenantName').text(response.model.TenantName);
             $('#ProblemCatrgory').text(response.model.ProblemCategorystring);
+            $('#lblLeaseStartDate').text(response.model.MStartDateString);
+            $('#lblLeaseTerminationtDate').text(response.model.MLeaseEndDateString);
            
             if (response.model.Details == null || response.model.Details=='' ) {
 
@@ -71,7 +73,7 @@ var goToServiceDetails = function (ServiceID) {
             $('#lblIssue').text(response.model.Issue);
             $('#lblLocation').text(response.model.LocationString);
             $('#lblUnitNo').text(response.model.Unit);
-            $('#lblContactNo').text(response.model.Phone);
+            $('#lblContactNo').text(formatPhoneFax(response.model.Phone));
             $('#lblCurrentStatus').text(response.model.StatusString);
             $('#lblEnteryNote').text(response.model.Notes);
            // alert(response.model.UrgentStatus);
@@ -81,29 +83,31 @@ var goToServiceDetails = function (ServiceID) {
             } else {
                 $('#NotUrgent').iCheck('check');
             }
-            $('#lblEmergencyNo').text(response.model.EmergencyMobile);
+            $('#lblEmergencyNo').text(formatPhoneFax(response.model.EmergencyMobile));
             $('#lblEmail').text(response.model.Email);
            
             if (response.model.PermissionComeDateString != null) {
-                if (response.model.PermissionComeDateString == "Any Time") {
-                    $('#AnyTime').removeClass('hidden'); 
-                    $('#ActualAnytime').removeClass('hidden'); 
-                    $('#Bydate').addClass('hidden');
-                    $("#lblRequesteddateAnytime").text(response.model.PermissionComeDateString);
-                    $("#lblRequestedAnytime").text(response.model.PermissionComeDateString);
-                    $("#lblAppointmentdate").text(response.model.PermissionComeDateString);
-                    $("#lblAppointmentTime").text(response.model.PermissionComeDateString);
-                } else {
-                    $('#AnyTime').addClass('hidden');
-                    $('#ActualAnytime').addClass('hidden'); 
-                    $('#ActualDateTime').removeClass('hidden'); 
+                $('#AnyTime').addClass('hidden');
+                $('#ActualAnytime').addClass('hidden');
+                $('#ActualDateTime').removeClass('hidden');
+                if (response.model.PermissionComeTime != 'Any Time') {
                     $('#lblRequestedTime').val(response.model.PermissionComeTime);
-                    $('#lblAppointmentActualTime').text(response.model.PermissionComeTime);
-                    $('#lblAppointmentActualdate').text(response.model.PermissionComeDateString);
+                }
+                else {
+                    $('#lblRequestedTime').val(0);
+                }
+                
+                $('#lblAppointmentActualTime').text(response.model.PermissionComeTime);
+                $('#lblAppointmentActualdate').text(response.model.PermissionComeDateString);
+                if (response.model.PermissionComeDateString == 'Any Time') {
+                    $("#txtRequestedDate").val();
+                }
+                else {
                     $("#txtRequestedDate").val(response.model.PermissionComeDateString);
                     $("#txtRequestedDate").datepicker("setdate", response.model.PermissionComeDateString);
                     $("#txtRequestedDate").val(response.model.PermissionComeDateString);
                 }
+                
             }
           
             if (response.model.Status != null){
@@ -208,7 +212,7 @@ var StatusUpdateServiceRequest = function (id) {
     $("#divLoader").show();
     var msg = '';
     var id = $("#hndServiceID").val();
-    var emmob = $("#lblEmergencyNo").text();
+    var emmob = unformatText($("#lblEmergencyNo").text());
     var employee = $("#ddlUser").val();
     var CompletedFileTemp = $("#hndfileCompleted").val();
     var CompletedFileOriginal = $("#hndOriginalfileCompleted").val();
@@ -219,7 +223,12 @@ var StatusUpdateServiceRequest = function (id) {
     var ownerSignature = $("#hndHomeownerSignature").val();
     var tempOwnerSignature = $("#hndOriginalHomeownerSignature").val();
 
-   
+    if (!rescheduledate) {
+        msg += 'Select the Date</br>'
+    }
+    if (rescheduletime == '0') {
+        msg += 'Select the Time</br>'
+    }
     if (employee == '0') {
         msg += 'Select The Employee</br>'
     }
