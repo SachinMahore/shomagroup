@@ -950,15 +950,15 @@
                                                         <table id="tblReservationRequest" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                                                             <thead>
                                                                 <tr>
-                                                                    <th width="20%" style="background-color: #c7cdd5;color:#3d3939">Tenant</th>
-                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Amenity</th>
-                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Desire Date</th>
-                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">From Time </th>
-                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">To Time</th>
-                                                                    <th width="20%" style="background-color: #c7cdd5;color:#3d3939">Desire Duration</th>
-                                                                    <th width="20%" style="background-color: #c7cdd5;color:#3d3939">Guest</th>
-                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Status</th>
-                                                                    <th width="15%" style="background-color: #c7cdd5;color:#3d3939">Action</th>
+
+                                                                    <th style="background-color: #c7cdd5;color:#3d3939" width="20%">Amenity</th>
+                                                                    <th style="background-color: #c7cdd5;color:#3d3939" width="10%">Desire Date</th>
+                                                                    <th style="background-color: #c7cdd5;color:#3d3939" width="5%">From Time </th>
+                                                                    <th style="background-color: #c7cdd5;color:#3d3939" width="5%">To Time</th>
+                                                                    <th style="background-color: #c7cdd5;color:#3d3939" width="10%">Desire Duration</th>
+                                                                    <th style="background-color: #c7cdd5;color:#3d3939" width="5%">Guest</th>
+                                                                    <th style="background-color: #c7cdd5;color:#3d3939" width="25%">Status</th>
+                                                                    <th style="background-color: #c7cdd5;color:#3d3939" width="5%">Action</th>
 
                                                                 </tr>
                                                             </thead>
@@ -1924,7 +1924,7 @@
         <div class="modal-content" style="width: 100%;">
             <div class="modal-header center">
                 <h2 class="modal-title" style="color:#4D738A !important; ">Amenity Reservation</h2>
-                <button type="button" class="close pull-right" data-dismiss="modal" style="margin-top: -50px; color:#000 !important">×</button>
+                <button type="button" id="closeReserveAmenityPop" class="close pull-right" data-dismiss="modal" style="margin-top: -50px; color:#000 !important" onclick="clearDdlAmenity();">&times;</button>
             </div>
             <!-- Modal body start -->
             <div class="modal-body table-bordered">
@@ -2050,8 +2050,8 @@
                         </div>
                         <div class="col-sm-12 text-center">
                             <div class="text-center">
-                                <button id="btnInvPrint" class="btn btn-primary" onclick="print('divInv')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
-                                <button id="btnSaveBBQData" class="btn btn-primary" onclick="savupdateAmenityReservation()"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
+                                <button id="btnPrintBBQ" class="btn btn-primary" onclick="printReservation('divBBQ')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintBBQ')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
                             </div>
                         </div>
                     </div>
@@ -2147,8 +2147,8 @@
                         </div>
                         <div class="col-sm-12 text-center">
                             <div class="text-center">
-                                <button id="btnInvPrint" class="btn btn-primary" onclick="print('divInv')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
-                                <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation()"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
+                                <button id="btnPrintPC" class="btn btn-primary" onclick="printReservation('divPoolCabana')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintPC')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
                             </div>
                         </div>
                     </div>
@@ -2241,10 +2241,10 @@
                                     <a href="javascript:void(0)" id="rulesCR" style="color:red">See also the Rules & Regulations in the Clubhouse/Licensed Space Agreement.</a>
                                 </p>
                             </div>
-                            <div class="col-sm-12">
+                            <div class="col-sm-12 text-center">
                                 <div class="text-center">
-                                    <button id="btnInvPrint" class="btn btn-primary" onclick="print('divInv')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
-                                    <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation()"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
+                                    <button id="btnPrintClubroom" class="btn btn-primary" onclick="printReservation('divClubroom')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                    <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintClubroom')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
                                 </div>
                             </div>
                         </div>
@@ -2317,8 +2317,8 @@
                         </div>
                         <div class="col-sm-12 text-center">
                             <div class="text-center">
-                                <button id="btnInvPrint" class="btn btn-primary" onclick="print('divInv')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
-                                <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation()"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
+                                <button id="btnPrintYog" class="btn btn-primary" onclick="printReservation('divYog')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintYog')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
                             </div>
                         </div>
                     </div>
@@ -2347,22 +2347,25 @@
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>BOOKING DATE AND TIME</label></h4></div>
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;">
                             <div class="col-sm-4 text-center" style="margin-left:90px">
-                                <div class="form-group">
-                                    <input id="txtDesiredDateSoccer" type="text" class="form-control" style="width:55%" maxlength="20" placeholder="MM/dd/yyyy" value="">
-                                    <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
-                                        <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-calendar fa"></i></button>
+                                <div class="input-group" style="width:75%">
+
+                                    <input id="txtDesiredDateSoccer" type="text" class="form-control" maxlength="20" placeholder="MM/dd/yyyy" />
+                                    <span class="input-group-btn">
+                                        <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
                                     </span>
                                 </div>
+
                             </div>
                             <div class="col-sm-4 text-center" style="margin-left:-80px">
-
                                 <div class="form-group">
                                     <div class="col-sm-3 text-center">From :</div>
                                     <div class="col-sm-9 text-center">
-                                        <input id="txtDesiredTimeSoccerFrom" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:85%" maxlength="20" placeholder="HH:mm:ss" value="">
-                                        <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
-                                            <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
-                                        </span>
+                                        <div class="input-group">
+                                            <input id="txtDesiredTimeSoccerFrom" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
+                                            <span class="input-group-btn">
+                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-clock-o fa"></i></button>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -2371,10 +2374,12 @@
                                 <div class="form-group">
                                     <div class="col-sm-3 text-center">To :</div>
                                     <div class="col-sm-9 text-center">
-                                        <input id="txtDesiredTimeSoccerTo" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:85%" maxlength="20" placeholder="HH:mm:ss" value="" disabled>
-                                        <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
-                                            <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
-                                        </span>
+                                        <div class="input-group">
+                                            <input id="txtDesiredTimeSoccerTo" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" disabled />
+                                            <span class="input-group-btn">
+                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-clock-o fa"></i></button>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -2393,8 +2398,8 @@
                         </div>
                         <div class="col-sm-12 text-center">
                             <div class="text-center">
-                                <button id="btnInvPrint" class="btn btn-primary" onclick="print('divInv')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
-                                <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation()"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
+                                <button id="btnPrintSoccer" class="btn btn-primary" onclick="printReservation('divSoc')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintSoccer')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
                             </div>
                         </div>
                     </div>
@@ -2403,7 +2408,7 @@
             <!-- Modal body end -->
             <div class="modal-footer">
                 <div class="col-sm-12 text-center">
-                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal" onclick="clearDdlAmenity();">Close</button>
                 </div>
             </div>
         </div>
@@ -2417,12 +2422,9 @@
     <div class="modal-content-term" style="width:66% !important">
 
         <div class="text-center">
-            <div><iframe src="~/Content/assets/img/Document/Rules.pdf" width="950" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
-
+            <div><iframe src="~/Content/assets/img/Document/reservationRules.pdf" width="950" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
         </div>
-
     </div>
-
 </div>
 <div class="modal" id="popguest">
     <div class="modal-dialog" style="width: 60%; height:454px;">
