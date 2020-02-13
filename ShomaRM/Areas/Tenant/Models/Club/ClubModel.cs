@@ -222,7 +222,7 @@ namespace ShomaRM.Areas.Tenant.Models.Club
         public List<ClubModel> GetJoinClubAndMyClubList(long UserId)
         {
             ShomaRMEntities db = new ShomaRMEntities();
-            var DataList = db.tbl_Club.SqlQuery("Select * FROM tbl_club where (SELECT count(*) FROM tbl_ClubMapping where tbl_ClubMapping.ClubId = tbl_club.Id and tbl_ClubMapping.UserId = " + UserId + ")= 1").ToList<tbl_Club>().Select(data=> new ClubModel()
+            var DataList = db.tbl_Club.SqlQuery("Select * FROM tbl_club where (SELECT count(*) FROM tbl_ClubMapping where tbl_ClubMapping.ClubId = tbl_club.Id and tbl_ClubMapping.UserId = " + UserId + ")= 1 AND (tbl_club.Active='1') ").ToList<tbl_Club>().Select(data=> new ClubModel()
                             {
                                 Id = data.Id,
                                 ClubTitle = data.ClubTitle,
@@ -249,6 +249,37 @@ namespace ShomaRM.Areas.Tenant.Models.Club
                                 LastUpdatedDate = DateTime.UtcNow
 
                             }).ToList();
+
+            var InactiveList = db.tbl_Club.Where(a => a.Active == false && a.UserId==UserId).Select(data=>new ClubModel() {
+                Id = data.Id,
+                ClubTitle = data.ClubTitle,
+                ActivityId = data.ActivityId,
+                StartDate = data.StartDate,
+                Venue = data.Venue,
+                DayId = data.DayId,
+                Time = data.Time,
+                Contact = data.Contact,
+                Email = data.Email,
+                PhoneNumber = data.PhoneNumber,
+                PhoneCheck = data.PhoneCheck,
+                EmailCheck = data.EmailCheck,
+                LevelId = data.LevelId,
+                SpecialInstruction = data.SpecialInstruction,
+                Description = data.Description,
+                BriefDescription = data.BriefDescription,
+                TermsAndCondition = data.TermsAndCondition,
+                TenantID = data.TenantID,
+                UserId = data.UserId,
+                IsDeleted = data.IsDeleted,
+                Active = data.Active,
+                CreatedDate = DateTime.UtcNow,
+                LastUpdatedDate = DateTime.UtcNow
+            }).ToList();
+            foreach(var item in InactiveList)
+            {
+                DataList.Add(item);
+            }
+            
 
             return DataList;
         }
