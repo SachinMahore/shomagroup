@@ -243,7 +243,10 @@
             if (hours < 10) sHours = "0" + sHours;
             if (minutes < 10) sMinutes = "0" + sMinutes;
             var endtime = convertTo12Hour(sHours + ":" + sMinutes);
+
             $("#txtDesiredTimeBBQTo").val(endtime);
+            $("#txtDesiredTimeBBQTo").attr("value", endtime);
+            $("#txtDesiredTimeBBQFrom").attr("value", $("#txtDesiredTimeBBQFrom").val());
         }
     });
 
@@ -261,8 +264,9 @@
             if (minutes < 10) sMinutes = "0" + sMinutes;
             var endtime = convertTo12Hour(sHours + ":" + sMinutes);
 
-
             $("#txtDesiredTimePCTo").val(endtime);
+            $("#txtDesiredTimePCTo").attr("value", endtime);
+            $("#txtDesiredTimePCFrom").attr("value", $("#txtDesiredTimePCFrom").val());
         }
     });
 
@@ -280,8 +284,9 @@
             if (minutes < 10) sMinutes = "0" + sMinutes;
             var endtime = convertTo12Hour(sHours + ":" + sMinutes);
 
-
             $("#txtDesiredTimeClubroomTo").val(endtime);
+            $("#txtDesiredTimeClubroomTo").attr("value", endtime);
+            $("#txtDesiredTimeClubroomFrom").attr("value", $("#txtDesiredTimeClubroomFrom").val());
         }
     });
 
@@ -299,6 +304,8 @@
             var endtime = convertTo12Hour(sHours + ":" + sMinutes);
 
             $("#txtDesiredTimeYogaTo").val(endtime);
+            $("#txtDesiredTimeYogaTo").attr("value", endtime);
+            $("#txtDesiredTimeYogaFrom").attr("value", $("#txtDesiredTimeYogaFrom").val());
         }
     });
 
@@ -319,9 +326,10 @@
             var endtime = convertTo12Hour(sHours + ":" + sMinutes);
 
             $("#txtDesiredTimeSoccerTo").val(endtime);
+            $("#txtDesiredTimeSoccerTo").attr("value", endtime);
+            $("#txtDesiredTimeSoccerFrom").attr("value", $("#txtDesiredTimeSoccerFrom").val());
         }
     });
-
 
     $("#rbtnApertmentPermission1").prop("checked", true);
 
@@ -5617,7 +5625,6 @@ var savupdateAmenityReservation = function (printBtnID) {
         if ($('input[type=radio][name=hoursPC]').is(':checked') == false) {
             msg += "Please select any one of the reservation.</br>";
         }
-
         if (desireDate == "") {
             msg += "Booking Date is required.</br>";
         }
@@ -5675,7 +5682,7 @@ var savupdateAmenityReservation = function (printBtnID) {
         desireDuration = 2;
         guestLimit = 22;
     }
-
+    console.log(amenityID);
     var model = {
         TenantID: tenantId,
         AmenityID: amenityID,
@@ -5819,3 +5826,12 @@ var getTagInfo = function () {
         }
     });
 }
+var clearDateTime = function () {
+    $("#txtDesiredDateBBQ,#txtDesiredTimeBBQFrom,#txtDesiredTimeBBQTo").val("").removeAttr("value");
+    $("#txtDesiredDatePC,#txtDesiredTimePCFrom,#txtDesiredTimePCTo").val("").removeAttr("value");
+    $("#txtDesiredDateClubroom,#txtDesiredTimeClubroomFrom,#txtDesiredTimeClubroomTo").val("").removeAttr("value");
+    $("#txtDesiredDateYoga,#txtDesiredTimeYogaFrom,#txtDesiredTimeYogaTo").val("").removeAttr("value");
+    $("#txtDesiredDateSoccer,#txtDesiredTimeSoccerFrom,#txtDesiredTimeSoccerTo").val("").removeAttr("value");
+    $("#btnPrintSoccer,#btnPrintBBQ,#btnPrintPC, #btnPrintClubroom, #btnPrintYog").attr("disabled", true);
+
+};

@@ -436,7 +436,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/13/2019 14:33:57</publishTime>
     </File>
     <File Include="Areas/Tenant/Content/Pages/MyAccount/MyAccount.js">
-      <publishTime>02/14/2020 17:13:50</publishTime>
+      <publishTime>02/14/2020 19:32:10</publishTime>
     </File>
     <File Include="Areas/Tenant/Content/Pages/MyCommunity/MyCommunity.js">
       <publishTime>02/13/2020 12:24:48</publishTime>
@@ -481,7 +481,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/31/2020 12:25:30</publishTime>
     </File>
     <File Include="Areas/Tenant/Views/MyAccount/Index.cshtml">
-      <publishTime>02/13/2020 19:07:45</publishTime>
+      <publishTime>02/14/2020 19:34:22</publishTime>
     </File>
     <File Include="Areas/Tenant/Views/MyCommunity/Index.cshtml">
       <publishTime>02/13/2020 12:24:48</publishTime>
@@ -724,7 +724,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/24/2019 19:11:40</publishTime>
     </File>
     <File Include="bin/ShomaRM.dll">
-      <publishTime>02/14/2020 18:56:05</publishTime>
+      <publishTime>02/14/2020 19:37:13</publishTime>
     </File>
     <File Include="bin/ShomaRM.pdb">
       <publishTime>07/25/2019 19:21:08</publishTime>
