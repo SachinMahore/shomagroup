@@ -73,6 +73,7 @@ namespace ShomaRM.Areas.Tenant.Models
                         Charge_Date = DateTime.Now,
                         Charge_Type = 3,
                         Payment_ID = null,
+                        Authcode="",
                         Charge_Amount = 0,
                         
                         Miscellaneous_Amount = 0,
@@ -127,6 +128,7 @@ namespace ShomaRM.Areas.Tenant.Models
                         Charge_Date = DateTime.Now,
                         Charge_Type = 2,
                         Payment_ID = null,
+                        Authcode="",
                         Charge_Amount = 0,
 
                         Miscellaneous_Amount = 0,
