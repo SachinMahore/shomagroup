@@ -3,7 +3,7 @@ var numberOfDays = 0;
 var QuoteExpires = "";
 $(document).ready(function () {
     localStorage.removeItem("CheckReload");
-    onFocus();
+    onFocus11();
     $("#popRentalQualification").modal("hide");
     checkExpiry();
     $("#chkAgreePetTerms").on('ifChanged', function (event) {
@@ -1531,12 +1531,12 @@ function savePayment() {
         var cardNumber = $("#txtAccountNumber").val();
         var cardMonth = 0;
         var cardYear = 0;
-        var ccvNumber = 0;
         var routingNumber = $("#txtRoutingNumber").val();
+        var ccvNumber = $("#txtRoutingNumber").val();
         var bankName = $("#txtBankName").val();
         var prospectID = $("#hdnOPId").val();
-        var amounttoPay = $("#lbltotalpayment").text();
-        var description = $("#payDes").text();
+        var amounttoPay = unformatText($("#totalFinalFees").text()); 
+        var description = "Online Application Non Refundable fees";
         var glTrans_Description = $("#payDes").text();
         if (bankName == "") {
             msg += "Please Enter Bank Name</br>";
@@ -1547,7 +1547,9 @@ function savePayment() {
         if (cardNumber == "") {
             msg += "Please Enter Account Number</br>";
         }
-
+        if (ccvNumber == "") {
+            msg += "Please Enter Routing Number</br>";
+        }
         if (msg != "") {
             $("#divLoader").hide();
             $.alert({
@@ -1564,6 +1566,7 @@ function savePayment() {
         PID: propertyId,
         Name_On_Card: nameonCard,
         CardNumber: cardNumber,
+        AccountNumber: cardNumber,
         CardMonth: cardMonth,
         CardYear: cardYear,
         CCVNumber: ccvNumber,
@@ -5135,7 +5138,7 @@ var getTenantPetPlaceData = function () {
 };
 
 
-var onFocus = function () {
+var onFocus11 = function () {
 
     $("#txtApplicantPhone").focusout(function () { $("#txtApplicantPhone").val(formatPhoneFax($("#txtApplicantPhone").val())); })
         .focus(function () {
