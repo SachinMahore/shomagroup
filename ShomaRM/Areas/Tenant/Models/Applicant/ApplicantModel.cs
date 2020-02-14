@@ -61,7 +61,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 if (model.Type == "Primary Applicant")
                 {
                     var updateTenantOnline = db.tbl_TenantOnline.Where(co => co.ProspectID == TenantID).FirstOrDefault();
-                    if (updateTenantOnline!=null)
+                    if (updateTenantOnline != null)
                     {
                         updateTenantOnline.DateOfBirth = model.DateOfBirth;
                         updateTenantOnline.Gender = model.Gender;
@@ -70,7 +70,7 @@ namespace ShomaRM.Areas.Tenant.Models
                         db.SaveChanges();
                     }
                 }
-                
+
                 db.tbl_Applicant.Add(saveApplicant);
                 db.SaveChanges();
 
@@ -122,6 +122,7 @@ namespace ShomaRM.Areas.Tenant.Models
 
 
         }
+
         public List<ApplicantModel> GetApplicantList(long TenantID)
         {
             ShomaRMEntities db = new ShomaRMEntities();

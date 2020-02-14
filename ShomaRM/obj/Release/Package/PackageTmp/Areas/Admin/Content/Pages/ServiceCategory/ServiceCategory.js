@@ -20,6 +20,7 @@ $(document).ready(function () {
 
     getServiceCategoryData($("#hndServiceCategoryID").val());
 
+  
     $("#txtCriteriaServiceCategory").keyup(function () {
 
     });
@@ -138,11 +139,11 @@ var getServiceCategoryData = function (ServiceCategoryID) {
             if ($.trim(response.error) != "") {
                 //showMessage("Error!", response.error);
             } else {
-                $("#hndServiceCategoryID").val(response.ServiceCategoryID);
+            
+                $("#hndServiceCategoryID").val(response.ServiceIssueID);
                 $("#txtServiceCategory").val(response.ServiceIssue);
                 if ($("#hndServiceCategoryID").val() != "0") {
                     $("#spanSaveUpdate").text("UPDATE");
-                  
                 }
                 else {
                     $("#spanSaveUpdate").text("SAVE");
@@ -172,7 +173,7 @@ var saveUpdateServiceCategory = function () {
             ServiceIssue: $("#txtServiceCategory").val(),
 
         };
-        alert($("#hndServiceCategoryID").val());
+     
         $.ajax({
             url: "ServiceCategory/SaveUpdateServiceCategory",
             method: "post",

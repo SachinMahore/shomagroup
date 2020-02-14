@@ -2904,7 +2904,7 @@ var saveupdateApplicant = function () {
     var agender = $("#ddlApplicantGender").val();
     var type = $("#ddlApplicantType").text();
     var aotherGender = $("#txtApplicantOtherGender").val();
-    
+
     var dob = "";
     if (type == "Co-Applicant") {
         dob = $("#txtADateOfBirth").val();
@@ -2939,7 +2939,7 @@ var saveupdateApplicant = function () {
             msg += "Enter The Other Gender </br>";
         }
     }
-    
+
     if (msg != "") {
         $.alert({
             title: "",
@@ -2960,6 +2960,7 @@ var saveupdateApplicant = function () {
         TenantID: prospectID,
         Type: type,
         Relationship: relationship,
+        OtherGender: aotherGender
     };
 
     $.ajax({
@@ -2969,12 +2970,15 @@ var saveupdateApplicant = function () {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
+
             $.alert({
                 title: "",
                 content: "Progress Saved.",
                 type: 'blue',
             });
-
+            $('#txtDateOfBirth').val(dob);
+            $('#ddlGender').val(agender);
+            $('#txtOtherGender').val(aotherGender);
             getApplicantLists();
             //$("#popApplicant").PopupWindow("close");
             $("#popApplicant").modal("hide");
@@ -2984,6 +2988,7 @@ var saveupdateApplicant = function () {
     });
 
 }
+
 var getApplicantLists = function () {
     var model = {
 

@@ -1252,7 +1252,7 @@ namespace ShomaRM.Areas.Admin.Models
 
                 }
                 string body = reportHTML;
-                model.Email = "sachinmahore@gmail.com";
+           
                 new EmailSendModel().SendEmail(model.Email, "Welcome To Sanctuary Doral", body);
 
                 msg = model.TenantID.ToString();

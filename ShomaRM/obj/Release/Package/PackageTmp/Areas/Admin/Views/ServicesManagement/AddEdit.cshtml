@@ -366,7 +366,7 @@
                                     <input type="radio" name="options" id="Resolved" autocomplete="off"> Resolved
                                 </label>
                                 <label class="btn btn-secondary">
-                                    <input type="radio" name="options" id="cancel" autocomplete="off"> cancel
+                                    <input type="radio" name="options" id="cancel" autocomplete="off"> Cancel
                                 </label>
                             </div>
                         </div>
@@ -460,6 +460,9 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-sm-12 text-center">
+                        <button type="submit" class="btn btn-primary" onclick="StatusUpdateForServicePerson()">Save</button>
+                    </div>
                 </div>
                 <div class="col-md-5">
                     <div class="col-sm-12" style="padding:12px;border:1px solid !important;box-sizing: border-box; box-shadow:2px;">
@@ -524,11 +527,12 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-12 text-center">
+                            <button type="submit" class="btn btn-primary" onclick="StatusUpdateServiceRequest()">Save</button>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-12 text-center">
-                    <button type="submit" class="btn btn-primary" onclick="StatusUpdateServiceRequest()">Save</button>
-                </div>
+               
             </div>
         </div>
     </div>

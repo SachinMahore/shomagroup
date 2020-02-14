@@ -3855,9 +3855,24 @@
                else {
                    $("#txtOtherGender").attr("disabled", true);
                }
-               $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(@Model.ParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
-               $("#lblProrated_Storage").text(parseFloat(parseFloat(@Model.StorageAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
-               $("#lblProrated_PetRent").text(parseFloat(parseFloat(@Model.PetPlaceAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+              if ('@Model.ParkingAmt' !='') {
+                   $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(@Model.ParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+               }
+               else {
+                   $("#lblProrated_AditionalParking").text('0.00');
+               }
+               if ('@Model.StorageAmt' !='') {
+                   $("#lblProrated_Storage").text(parseFloat(parseFloat(@Model.StorageAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+               }
+               else {
+                   $("#lblProrated_Storage").text('0.00');
+               }
+               if ('@Model.PetPlaceAmt' !='') {
+                   $("#lblProrated_PetRent").text(parseFloat(parseFloat(@Model.PetPlaceAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+               }
+               else {
+                   $("#lblProrated_PetRent").text('0.00');
+               }
            });
         fillMarketSourceDDL();
         if (@Model.ProspectId != 0) {
