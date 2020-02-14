@@ -191,11 +191,13 @@
             var selectedID = $(this).attr("id");
             if (selectedID == "CR_3h500depo") {
                 $("#CR_75person").iCheck("check");
+                $("#CR_5h1000depo").iCheck("uncheck");
                 $("#hdnClubHours").val(3);
 
             }
             else if (selectedID == "CR_5h1000depo") {
                 $("#CR_75person").iCheck("check");
+                $("#CR_3h500depo").iCheck("uncheck");
                 $("#hdnClubHours").val(5);
             }
             else if (selectedID == "CR_cy1500") {
@@ -5015,7 +5017,7 @@ var getReservationRequestList = function () {
                     html += "<td>" + elementValue.Duration + " hours</td>";
                     html += "<td>" + elementValue.Guest + "</td>";
 
-                    if (elementValue.Status == "Approved and pending for payment") {
+                    if (elementValue.Status == "Approved and pending for payment" || elementValue.Status == "Confirmed") {
                         html += "<td>" + elementValue.Status + " &nbsp; <button class='btn btn-primary' onclick='getAmenityReservationPay(" + elementValue.ARID + ")'>Pay</button></td>";
                     }
                     else {
