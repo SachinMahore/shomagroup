@@ -2,8 +2,9 @@
 var numberOfDays = 0;
 var QuoteExpires = "";
 $(document).ready(function () {
+    onFocusApplyNow();
     localStorage.removeItem("CheckReload");
-    onFocus();
+    
     $("#popRentalQualification").modal("hide");
     checkExpiry();
     $("#chkAgreePetTerms").on('ifChanged', function (event) {
@@ -413,13 +414,13 @@ $(document).ready(function () {
             event.strftime('Quote Expires in %D days %H hr : %M min')
         );
     });
-    $("#appGenderOther").addClass("hidden");
+    //$("#appGenderOther").addClass("hidden");
     $("#ddlApplicantGender").on("change", function () {
         if ($("#ddlApplicantGender").val() == '3') {
             $("#policyStart").attr("disabled", false);
         }
         else {
-            $("#appGenderOther").addClass("hidden");
+            //$("#appGenderOther").addClass("hidden");
         }
         $("#txtApplicantOtherGender").val("");
     });
@@ -789,6 +790,11 @@ var goToStep = function (stepid, id) {
             if ($("#ddlIsInter").val() == "0") {
                 if (!$("#txtSSNNumber").data('value')) {
                     msg += "Please Fill The SSN number </br>";
+                }
+                else {
+                    if ($("#txtSSNNumber").data('value') >= '9') {
+                        msg += "SSN number must be 9 digit </br>";
+                    }
                 }
             }
             if (!$("#txtEmailNew").val()) {
@@ -2817,7 +2823,7 @@ var addApplicant = function (at) {
         $('#txtGDateOfBirth').addClass("hidden");
 
         $('#txtApplicantOtherGender').val('');
-        $('#appGenderOther').addClass('hidden');
+        //$('#appGenderOther').addClass('hidden');
     }
     else if (at == 2) {
         $("#ddlApplicantType").text("Minor");
@@ -2846,7 +2852,7 @@ var addApplicant = function (at) {
         $('#txtMDateOfBirth').datepicker({ viewMode: "years", startDate: dtMin, endDate: dtEnd, autoclose: true });
 
         $('#txtApplicantOtherGender').val('');
-        $('#appGenderOther').addClass('hidden');
+        //$('#appGenderOther').addClass('hidden');
     }
     else if (at == 3) {
         $("#ddlApplicantType").text("Guarantor");
@@ -2874,7 +2880,7 @@ var addApplicant = function (at) {
         $('#txtGDateOfBirth').datepicker({ endDate: dtGApp, autoclose: true });
 
         $('#txtApplicantOtherGender').val('');
-        $('#appGenderOther').addClass('hidden');
+        //$('#appGenderOther').addClass('hidden');
     }
 
     clearApplicant();
@@ -2893,14 +2899,8 @@ var saveupdateApplicant = function () {
     var aemail = $("#txtApplicantEmail").val();
     var agender = $("#ddlApplicantGender").val();
     var type = $("#ddlApplicantType").text();
-
     var aotherGender = $("#txtApplicantOtherGender").val();
-
-    if (agender == '3') {
-        if (!($("#txtApplicantOtherGender").val())) {
-            msg += "Enter The Other Gender </br>";
-        }
-    }
+    
     var dob = "";
     if (type == "Co-Applicant") {
         dob = $("#txtADateOfBirth").val();
@@ -2913,8 +2913,6 @@ var saveupdateApplicant = function () {
     else {
         dob = $("#txtHDateOfBirth").val();
     }
-
-
     var relationship = $("#ddlARelationship").val();
 
     if (!fname) {
@@ -2923,33 +2921,21 @@ var saveupdateApplicant = function () {
     if (!lname) {
         msg += "Enter Applicant Last Name</br>";
     }
-
-    //if (agender == "0") {
-    //    msg += "Select The Gender</br>";
-    //}
-
-    //if (type != "Minor" && type != "Guarantor") {
-    //    if (!aphone) {
-    //        msg += "Enter Phone Number</br>";
-    //    }
-    //    else {
-    //        if (!validatePhone(aphone)) {
-    //            msg += "Enter Valid Phone Number</br>";
-    //        }
-    //    }
-    //}
-
-    //if (aemail.length > 0) {
-    //    if (!validateEmail(aemail)) {
-    //        msg += "Enter Valid Email</br>";
-    //    }
-    //}
-    //if ($('#ddlARelationship').val() == '0') {
-    //    msg += "Select The Relationship </br>";
-    //}
-    //if (!dob) {
-    //    msg += "Enter The Date Of Birth </br>";
-    //}
+    if (relationship == '0') {
+        msg += "Select Relationship</br>";
+    }
+    if (!dob) {
+        msg += "Enter Applicant DateOfBirth</br>";
+    }
+    if (agender == '0') {
+        msg += "Select The Gender </br>";
+    }
+    if (agender == '3') {
+        if (!($("#txtApplicantOtherGender").val())) {
+            msg += "Enter The Other Gender </br>";
+        }
+    }
+    
     if (msg != "") {
         $.alert({
             title: "",
@@ -3252,7 +3238,7 @@ var goToEditApplicant = function (aid) {
                     //$("#ddlARelationship").removeCs("hidden");
                     $("#ddlARelationship").empty();
                     var opt = "<option value='0'>Select Relationship</option>";
-                    opt += "<option value='1'>Self</option>";
+                    opt += "<option value='1' selected='selected'>Self</option>";
                     $("#ddlARelationship").append(opt);
 
                     $("#ddlARelationship").val(response.model.Relationship).change();
@@ -3950,6 +3936,7 @@ var getTenantOnlineList = function (id) {
             //    $("#txtSSNNumber").val(countNum + vis);
             //}
             //$("#txtCountry").val(response.model.Country);
+            console.log(response.model.SSN);
             if (!response.model.SSN) {
                 $("#txtSSNNumber").val('');
                 response.model.SSN = "";
@@ -3963,7 +3950,12 @@ var getTenantOnlineList = function (id) {
                 $("#txtIDNumber").val('');
                 response.model.IDNumber = "";
             } else {
-                $("#txtIDNumber").val("*".repeat(response.model.IDNumber.length - 4) + response.model.IDNumber.substr(response.model.IDNumber.length - 4, 4));
+                if (response.model.IDNumber.length > 4) {
+                    $("#txtIDNumber").val("*".repeat(response.model.IDNumber.length - 4) + response.model.IDNumber.substr(response.model.IDNumber.length - 4, 4));
+                }
+                else {
+                    $("#txtIDNumber").val(response.model.IDNumber);
+                }
             }
             $("#txtIDNumber").data("value", response.model.IDNumber);
 
@@ -5135,8 +5127,7 @@ var getTenantPetPlaceData = function () {
 };
 
 
-var onFocus = function () {
-
+var onFocusApplyNow = function () {
     $("#txtApplicantPhone").focusout(function () { $("#txtApplicantPhone").val(formatPhoneFax($("#txtApplicantPhone").val())); })
         .focus(function () {
             $("#txtApplicantPhone").val(unformatText($("#txtApplicantPhone").val()));

@@ -2,7 +2,7 @@
 $(document).ready(function () {
    
     goToServiceDetails($("#hndServiceID").val());
-    onFocus();
+    onFocusServiceAdmin();
     fillDdlUser();
     document.getElementById('fileCompleted').onchange = function () {
         uploadServiceFile();
@@ -163,7 +163,7 @@ var goToServiceDetails = function (ServiceID) {
     });
     $("#divLoader").hide();
 };
-var onFocus = function () {
+var onFocusServiceAdmin = function () {
 
     $("#txtCellPhone").focusout(function () { $("#txtCellPhone").val(formatPhoneFax($("#txtCellPhone").val())); })
         .focus(function () {

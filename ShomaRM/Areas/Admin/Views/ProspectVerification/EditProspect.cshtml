@@ -3932,8 +3932,14 @@
             $("#divstep3save").addClass("hidden");
             $("#divstep3").removeClass("hidden");
             getTransationLists(@Model.ID);
+            if ('@Model.CardNumber' != "") {
+                $("#txtCardNumber").text(("*".repeat('@Model.CardNumber'.length - 4) + '@Model.CardNumber'.substr('@Model.CardNumber'.length - 4, 4)));
+            }
+            else {
+                $("#txtCardNumber").text('@Model.CardNumber');
+            }
 
-            $("#txtCardNumber").text(("*".repeat('@Model.CardNumber'.length - 4) + '@Model.CardNumber'.substr('@Model.CardNumber'.length - 4, 4)));
+
             setTimeout(function () {
             $("#ddlMarketSource").val('@Model.Marketsource');
             $("#ddlMarketSource").trigger('change');

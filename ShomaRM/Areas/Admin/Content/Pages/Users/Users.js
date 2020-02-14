@@ -170,10 +170,10 @@ var searchUser = function () {
 $(document).ready(function () {
     fillUserTypes();
     getUserData($("#hndUserID").val());
-    onFocus();
+    onFocusUsers();
 });
 
-var onFocus = function () {
+var onFocusUsers = function () {
 
     $("#txtCellPhone").focusout(function () { $("#txtCellPhone").val(formatPhoneFax($("#txtCellPhone").val())); })
         .focus(function () {
