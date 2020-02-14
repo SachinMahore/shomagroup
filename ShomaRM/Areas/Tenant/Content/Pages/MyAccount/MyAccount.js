@@ -191,11 +191,13 @@
             var selectedID = $(this).attr("id");
             if (selectedID == "CR_3h500depo") {
                 $("#CR_75person").iCheck("check");
+                $("#CR_5h1000depo").iCheck("uncheck");
                 $("#hdnClubHours").val(3);
 
             }
             else if (selectedID == "CR_5h1000depo") {
                 $("#CR_75person").iCheck("check");
+                $("#CR_3h500depo").iCheck("uncheck");
                 $("#hdnClubHours").val(5);
             }
             else if (selectedID == "CR_cy1500") {
@@ -1711,6 +1713,15 @@ var savePaymentAccounts = function () {
         if (cardYear == '0') {
             msg += 'Select The Card Year</br>'
         }
+        var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
+        var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+
+        GivenDate = new Date(GivenDate);
+        CurrentDate = new Date(CurrentDate);
+
+        if (GivenDate < CurrentDate) {
+            msg += "Your Credit Card Expired..</br>";
+        }
     }
     else if ($("#ddlPayMethodPaymentAccounts").val() == '2') {
         if ($("#txtBankNamePayMethod").val() == '') {
@@ -1727,15 +1738,7 @@ var savePaymentAccounts = function () {
     if ($("#txtAccountNamePayMethod").val() == '') {
         msg += 'Enter the account name</br>'
     }
-    var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
-    var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
-
-    GivenDate = new Date(GivenDate);
-    CurrentDate = new Date(CurrentDate);
-
-    if (GivenDate < CurrentDate) {
-        msg += "Your Credit Card Expired..</br>";
-    }
+   
 
     if (msg != '') {
         $.alert({
@@ -5015,7 +5018,7 @@ var getReservationRequestList = function () {
                     html += "<td>" + elementValue.Duration + " hours</td>";
                     html += "<td>" + elementValue.Guest + "</td>";
 
-                    if (elementValue.Status == "Approved and pending for payment") {
+                    if (elementValue.Status == "Approved and pending for Payment" || elementValue.Status == "Confirmed and pending for Deposit") {
                         html += "<td>" + elementValue.Status + " &nbsp; <button class='btn btn-primary' onclick='getAmenityReservationPay(" + elementValue.ARID + ")'>Pay</button></td>";
                     }
                     else {
@@ -5048,7 +5051,8 @@ var clearDdlAmenity = function () {
 };
 function getAmenityReservationPay(arid)
 {
-    window.location.href="/Paylink/PayAmenityCharges?ARID=" + arid;
+    window.location.href = "/Paylink/PayAmenityCharges?ARID=" + arid + "&FromAcc=1";
+    //window.open("/Paylink/PayAmenityCharges?ARID=" + arid +"&FromAcc=1", 'newStuff');
 }
 var getRecurringPayLists = function () {
     var model = {

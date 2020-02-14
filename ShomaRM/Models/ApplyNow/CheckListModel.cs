@@ -168,9 +168,17 @@ namespace ShomaRM.Models
                     db.tbl_OnlinePayment.Add(savePaymentDetails);
                     db.SaveChanges();
                 }
-
-
-                string transStatus = new UsaePayModel().ChargeCard(model);
+                string transStatus = "";
+                if (model.PaymentMethod == 2)
+                {
+                   
+                    transStatus = new UsaePayModel().ChargeCard(model);
+                }
+                else if (model.PaymentMethod == 1)
+                {
+                    model.AccountNumber = model.CardNumber;
+                    transStatus = new UsaePayModel().ChargeACH(model);
+                }
                 String[] spearator = { "|" };
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 if (strlist[1] != "000000")
@@ -187,10 +195,10 @@ namespace ShomaRM.Models
                         Reference = "PID" + model.ProspectId,
                         CreatedDate = DateTime.Now,
                         Credit_Amount = model.Charge_Amount,
-                        Description = model.Description + "| TransID: " + Convert.ToInt32(strlist[1]),
+                        Description = model.Description + "| TransID: " + strlist[1],
                         Charge_Date = DateTime.Now,
                         Charge_Type = 2,
-                        Payment_ID = Convert.ToInt32(strlist[1]),
+                        Authcode = strlist[1],
                         Charge_Amount = model.Charge_Amount,
                         Miscellaneous_Amount = 0,
                         Accounting_Date = DateTime.Now,
