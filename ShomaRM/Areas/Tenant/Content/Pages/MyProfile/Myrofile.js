@@ -4,7 +4,7 @@
     getServiceInfo($("#hndTenantID").val());
     getTenantVehicleList();
     getPetLists();
-    onFocus();
+    onFocusMyprofile();
     getApplicantLists($("#hndTenantID").val());
     fillStateDDL();
     breakdownPaymentFunction();
@@ -2063,7 +2063,7 @@ function unformatText(text) {
 
     return text.replace(/[^\d\.]/g, '');
 }
-var onFocus = function () {
+var onFocusMyprofile = function () {
 
     $("#txtEmMobile").focusout(function () { $("#txtEmMobile").val(formatPhoneFax($("#txtEmMobile").val())); })
         .focus(function () {

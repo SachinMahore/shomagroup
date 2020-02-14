@@ -183,7 +183,7 @@ var areaAddition = function () {
 
 }
 
-var onFocus = function () {
+var onFocusModels = function () {
 
     $("#txtModelDeposit").focusout(function () { $("#txtModelDeposit").val(formatMoney($("#txtModelDeposit").val())); })
         .focus(function () {

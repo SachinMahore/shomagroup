@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     focuss();
     getServiceRequestOnAlarm();
-    onFocus();
+    onFocusMyAccount();
     breakdownPaymentFunction();
 
     getPaymentAccountsCreditCard();
@@ -2392,7 +2392,7 @@ var saveUpdateGuestRegistration = function () {
 };
 
 
-var onFocus = function () {
+var onFocusMyAccount = function () {
 
     $("#txtGuestPhone").focusout(function () { $("#txtGuestPhone").val(formatPhoneFax($("#txtGuestPhone").val())); })
         .focus(function () {

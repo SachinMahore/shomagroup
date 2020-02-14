@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    onFocus();
+    onFocusProperty();
     fillModelDDL();
     getPropertyList();
     getAmenityList();
@@ -1250,7 +1250,7 @@ function formatMoney(number) {
     return symbol + negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "");
 }
 
-var onFocus = function () {
+var onFocusProperty = function () {
 
     $("#txtApplicationFees").focusout(function () { $("#txtApplicationFees").val(formatMoney($("#txtApplicationFees").val())); })
         .focus(function () {
