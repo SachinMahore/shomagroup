@@ -1140,10 +1140,14 @@ namespace ShomaRM.Areas.Tenant.Models
                     new EmailSendModel().SendEmail(GetTenantData.Email, "Amenity Reservation Deposit Paid", body);
                 }
 
+                msg = "1";
 
-                msg = transStatus.ToString();
-                }
-           
+            }
+            else
+            {
+                msg = "0";
+            }
+       
             db.Dispose();
             return msg;
         }

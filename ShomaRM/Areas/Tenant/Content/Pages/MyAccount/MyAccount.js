@@ -5017,7 +5017,7 @@ var getReservationRequestList = function () {
                     html += "<td>" + elementValue.Duration + " hours</td>";
                     html += "<td>" + elementValue.Guest + "</td>";
 
-                    if (elementValue.Status == "Approved and pending for payment" || elementValue.Status == "Confirmed") {
+                    if (elementValue.Status == "Approved and pending for Payment" || elementValue.Status == "Confirmed and pending for Deposit") {
                         html += "<td>" + elementValue.Status + " &nbsp; <button class='btn btn-primary' onclick='getAmenityReservationPay(" + elementValue.ARID + ")'>Pay</button></td>";
                     }
                     else {
@@ -5050,7 +5050,8 @@ var clearDdlAmenity = function () {
 };
 function getAmenityReservationPay(arid)
 {
-    window.location.href="/Paylink/PayAmenityCharges?ARID=" + arid;
+    window.location.href = "/Paylink/PayAmenityCharges?ARID=" + arid + "&FromAcc=1";
+    //window.open("/Paylink/PayAmenityCharges?ARID=" + arid +"&FromAcc=1", 'newStuff');
 }
 var getRecurringPayLists = function () {
     var model = {

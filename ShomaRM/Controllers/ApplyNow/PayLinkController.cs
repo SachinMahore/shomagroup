@@ -37,9 +37,10 @@ namespace ShomaRM.Controllers
                 return Json(new { msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult PayAmenityCharges(int ARID)
+        public ActionResult PayAmenityCharges(int ARID,int FromAcc)
         {
             ViewBag.UID = "0";
+            ViewBag.FromAcc = FromAcc;
             ViewBag.ARID = ARID;
             var model = new AmenitiesReservationModel().GetRRInfo(ARID);
             if (ShomaGroupWebSession.CurrentUser != null)
