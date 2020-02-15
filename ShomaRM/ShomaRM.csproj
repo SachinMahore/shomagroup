@@ -318,6 +318,11 @@
     <Compile Include="Models\ApplyNow\CheckListModel.cs" />
     <Compile Include="Models\ApplyNow\OnlineProspectModule.cs" />
     <Compile Include="Models\AquatraqHelper.cs" />
+    <Compile Include="Models\Bluemoon\BluemoonService.cs" />
+    <Compile Include="Models\Bluemoon\IBluemoonService.cs" />
+    <Compile Include="Models\Bluemoon\LeaseRequestModel.cs" />
+    <Compile Include="Models\Bluemoon\ResponseModel.cs" />
+    <Compile Include="Models\Bluemoon\TEST.cs" />
     <Compile Include="Models\CommonModel.cs" />
     <Compile Include="Models\Property\PropertyModel.cs" />
     <Compile Include="Models\Prospect\ProspectModel.cs" />

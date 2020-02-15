@@ -1,9 +1,11 @@
 ﻿using ShomaRM.Models;
+using ShomaRM.Models.Bluemoon;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml;
 
 namespace ShomaRM.Controllers
 {
@@ -34,10 +36,29 @@ namespace ShomaRM.Controllers
         }
 
         public ActionResult About()
+        
+        
         {
             ViewBag.Message = "Your application description page.";
+           
+            var data = testAsync();
+            if (data != null)
+            {
+
+            }
 
             return View();
+        }
+
+        public async System.Threading.Tasks.Task<bool> testAsync()
+        {
+            
+            var test = new BluemoonService();
+            LeaseRequestModel leaseRequestModel = new LeaseRequestModel();
+            leaseRequestModel.UNIT_NUMBER = "Apurva";
+            string leaseId = await test.CreateLease(leaseRequestModel: leaseRequestModel,PropertyId : "112154");
+            Session["LeaseId"] = leaseId;
+            return true;
         }
 
         public ActionResult Contact()

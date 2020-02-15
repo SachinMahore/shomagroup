@@ -1,8 +1,10 @@
-﻿using System;
+﻿using ShomaRM.Models.Bluemoon;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -10,7 +12,8 @@ namespace ShomaRM.Models
 {
     public class AcutraqRequest
     {
-        public async Task<OrderXML>   PostAqutraqRequest(object data)
+       
+        public async Task<OrderXML> PostAqutraqRequest(object data)
         {
             var _objAcqutraqOrder = new OrderXML();
             _objAcqutraqOrder.Method = "SEND ORDER";
@@ -55,7 +58,7 @@ namespace ShomaRM.Models
             _objorderdetails.Telephone = "(123)456-7890";
             _objorderdetails.EmployerCity = "Nagpur";
             _objorderdetails.EmployerState = "Nagpur";
-             var _objEmploymentDates = new EmploymentDates();
+            var _objEmploymentDates = new EmploymentDates();
             _objEmploymentDates.StartDate = "10/01/2017";
             _objEmploymentDates.EndDate = "10/10/2019";
             _objorderdetails.EmploymentDates = _objEmploymentDates;
@@ -76,6 +79,7 @@ namespace ShomaRM.Models
 
             string Serialisexml = AquatraqHelper.Serialize(_objAcqutraqOrder);
             Serialisexml = AquatraqHelper.SetAttributeValue(Serialisexml, "123456");
+
             var keyValues = new List<KeyValuePair<string, string>>();
             keyValues.Add(new KeyValuePair<string, string>("request", Serialisexml));
 
@@ -87,13 +91,11 @@ namespace ShomaRM.Models
                     string serviceCode = item.Attribute("EMPVR").Value;
                     string orderID = item.Attribute("orderID").Value;
                     string CRAorderID = item.Attribute("CRAorderID").Value;
-
-                    
                 }
             }
             return null;
         }
-       
+
         public class OrderXML
         {
             public string Method { get; set; }
@@ -101,7 +103,7 @@ namespace ShomaRM.Models
             public string TestMode { get; set; }
             public string ReturnResultURL { get; set; }
             public string OrderingUser { get; set; }
-          
+
             public Order Order { get; set; }
 
         }
@@ -120,7 +122,7 @@ namespace ShomaRM.Models
             public OrderDetailCriminal OrderDetailCriminal { get; set; }
             public OrderDetailCredit OrderDetailCredit { get; set; }
 
-          
+
             public OrderDetailResponse OrderDetail { get; set; }
         }
         public class OrderDetailResponse
@@ -134,7 +136,7 @@ namespace ShomaRM.Models
             [XmlAttribute("CRAorderID")]
             public string CRAorderID { get; set; }
         }
-            public class Subject
+        public class Subject
         {
             public string FirstName { get; set; }
             public string MiddleName { get; set; }
@@ -187,7 +189,7 @@ namespace ShomaRM.Models
             public string ReasonForLeaving { get; set; }
 
         }
-       
+
         public class EmploymentDates
         {
             public string StartDate { get; set; }
@@ -234,9 +236,9 @@ namespace ShomaRM.Models
         }
     }
 
-  
 
-   
 
-    
+
+
+
 }
