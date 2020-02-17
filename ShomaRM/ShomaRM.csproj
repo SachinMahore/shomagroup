@@ -242,9 +242,7 @@
     <Compile Include="Areas\Admin\Models\SendGrid\Web.cs" />
     <Compile Include="Areas\Admin\Models\ServiceCategory\ServiceCategoryModel.cs" />
     <Compile Include="Areas\Admin\Models\ServiceCausingIssue\ServiceCausingIssueModel.cs" />
-
     <Compile Include="Areas\Admin\Models\ServiceIssue\ServiceIssueModel.cs" />
-
     <Compile Include="Areas\Admin\Models\ServiceLocation\ServiceLocationModel.cs" />
     <Compile Include="Areas\Admin\Models\ServicesManagement\ServicesManagementModel.cs" />
     <Compile Include="Areas\Admin\Models\State\StateModel.cs" />
@@ -655,6 +653,7 @@
     <Content Include="Content\Pages\Prospect\Prospect.js" />
     <Content Include="Content\Pages\Tenant\Tenant.js" />
     <Content Include="Content\Pages\Verification\Verification.js" />
+    <Content Include="Content\printThis.js" />
     <Content Include="Content\timepicki.css" />
     <Content Include="Content\timepicki.js" />
     <Content Include="Content\zabuto_calendar.js" />

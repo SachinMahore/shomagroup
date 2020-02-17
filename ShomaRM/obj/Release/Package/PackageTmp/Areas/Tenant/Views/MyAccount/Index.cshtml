@@ -5,6 +5,7 @@
 <link href="~/Content/fileUpload.css" rel="stylesheet" />
 <input type="hidden" id="hdnARId" value="@ViewBag.ARID" />
 <script src="~/Areas/Tenant/Content/Pages/MyAccount/MyAccount.js"></script>
+<script src="~/Content/printThis.js"></script>
 <input type="hidden" id="hndTenantID" value="@ViewBag.TenantID" />@*"*@
 <input type="hidden" id="hndUserId" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID" /> @*value=""*@
 <input type="hidden" id="hndUnitID" value="0" />
@@ -259,8 +260,8 @@
                                                 <table id="tblPaymentHistory" class="table " cellspacing="0" width="100%">
                                                     <thead>
                                                         <tr>
-                                                            <th style="background-color: transparent;color:#4D738A;width:17%;font-size:13pt">Date</th>
-                                                            <th style="background-color: transparent;color:#4D738A;width:35%;font-size:13pt">Description</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:7%;font-size:13pt">Date</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:45%;font-size:13pt">Description</th>
                                                             <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Charge</th>
                                                             <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Credit</th>
                                                             <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Balance</th>
@@ -281,8 +282,8 @@
                                                 <table id="tblUpcomingCharges" class="table" cellspacing="0" style="width:100%">
                                                     <thead>
                                                         <tr>
-                                                            <th style="background-color: transparent;color:#4D738A;width:17%;font-size:13pt">Date</th>
-                                                            <th style="background-color: transparent;color:#4D738A;width:35%;font-size:13pt">Description</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:7%;font-size:13pt">Date</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:45%;font-size:13pt">Description</th>
                                                             <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Charge</th>
                                                             <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Credit</th>
                                                             <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Balance</th>
@@ -1941,7 +1942,7 @@
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; ">RESERVATION AND DEPOSIT FEES: </h4></div>
                         <div class="col-sm-12 text-center">
                             <div class="col-sm-6 form-group">
-                                <label><input type="radio" class="form-control small" name="hours" id="2h50depo" />&nbsp;2 Hours $20/per grill with a $50 Deposit</label>
+                                <label><input type="radio" class="form-control small" name="hoursBBQ" id="2h50depo" />&nbsp;2 Hours $20/per grill with a $50 Deposit</label>
                             </div>
                             <div class="col-sm-6">
                                 Number of Grill:
@@ -1950,7 +1951,7 @@
                         </div>
                         <div class="col-sm-12 text-center">
                             <div class="col-sm-6 form-group">
-                                <label><input type="radio" class="form-control small" name="hours" id="4h100depo" />&nbsp;4 Hours $40/per grill with a $100 Deposit</label>
+                                <label><input type="radio" class="form-control small" name="hoursBBQ" id="4h100depo" />&nbsp;4 Hours $40/per grill with a $100 Deposit</label>
                             </div>
                             <div class="col-sm-6">
                                 Number of Grill:
@@ -1959,13 +1960,13 @@
                         </div>
                         <div class="col-sm-12 text-center">
                             <div class="col-sm-6 form-group" style="margin-left: 25px;">
-                                <label><input type="radio" class="form-control small" name="hours" id="2h300depo" />&nbsp;2 Hours $150/total BBQ area with a $300 Deposit</label>
+                                <label><input type="radio" class="form-control small" name="hoursBBQ" id="2h300depo" />&nbsp;2 Hours $150/total BBQ area with a $300 Deposit</label>
                             </div>
                             <div class="col-sm-6" style="margin-right: -25px;">&nbsp;</div>
                         </div>
                         <div class="col-sm-12 text-center" style="margin-left: 25px;">
                             <div class="col-sm-6 form-group">
-                                <label><input type="radio" class="form-control small" name="hours" id="4h600depo" />&nbsp;4 Hours $300/total BBQ area with a $600 Deposit</label>
+                                <label><input type="radio" class="form-control small" name="hoursBBQ" id="4h600depo" />&nbsp;4 Hours $300/total BBQ area with a $600 Deposit</label>
                             </div>
                             <div class="col-sm-6">&nbsp;</div>
                         </div>
@@ -1974,7 +1975,7 @@
                         <div class="col-sm-12">
                             <div class="col-sm-12 text-center">
                                 <div class="col-sm-6 form-group" style="margin-left: 35px;">
-                                    <label><input type="radio" class="form-control small" name="limit" id="2h10gues" />&nbsp;2 Hours grill reservation LIMIT OF 10 guests per grills</label>
+                                    <label><input type="radio" class="form-control small" name="limitBBQ" id="2h10gues" />&nbsp;2 Hours grill reservation LIMIT OF 10 guests per grills</label>
                                 </div>
                                 <div class="col-sm-6" style="margin-right: -35px;margin-left: -28px;">
                                     Number of Guest:
@@ -1983,7 +1984,7 @@
                             </div>
                             <div class="col-sm-12 text-center">
                                 <div class="col-sm-6 form-group" style="margin-left: 30px;">
-                                    <label><input type="radio" class="form-control small" name="limit" id="4h10gues" />&nbsp;4 Hours grill reservation LIMIT OF 10 guests per grill</label>
+                                    <label><input type="radio" class="form-control small" name="limitBBQ" id="4h10gues" />&nbsp;4 Hours grill reservation LIMIT OF 10 guests per grill</label>
                                 </div>
                                 <div class="col-sm-6" style="margin-right: -30px;margin-left: -23px;">
                                     Number of Guest:
@@ -1992,13 +1993,13 @@
                             </div>
                             <div class="col-sm-12 text-center">
                                 <div class="col-sm-6 form-group" style="margin-left: -3px;">
-                                    <label><input type="radio" class="form-control small" name="limit" id="2h30gues" />&nbsp;2 Hours Total BBQ area  LIMIT 30 guests</label>
+                                    <label><input type="radio" class="form-control small" name="limitBBQ" id="2h30gues" />&nbsp;2 Hours Total BBQ area  LIMIT 30 guests</label>
                                 </div>
                                 <div class="col-sm-6">&nbsp;</div>
                             </div>
                             <div class="col-sm-12 text-center">
                                 <div class="col-sm-6 form-group" style="margin-left: -3px;">
-                                    <label><input type="radio" class="form-control small" name="limit" id="4h30gues" />&nbsp;4 Hours Total BBQ area  LIMIT 30 guests</label>
+                                    <label><input type="radio" class="form-control small" name="limitBBQ" id="4h30gues" />&nbsp;4 Hours Total BBQ area  LIMIT 30 guests</label>
                                 </div>
                                 <div class="col-sm-6">&nbsp;</div>
                             </div>
@@ -2054,7 +2055,7 @@
                         </div>
                         <div class="col-sm-12 text-center">
                             <div class="text-center">
-                                <button id="btnPrintBBQ" class="btn btn-primary" onclick="printReservation('divBBQ')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                <button id="btnPrintBBQ" class="btn btn-primary" onclick="printReservation('divBBQ','BBQ')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
                                 <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintBBQ')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
                             </div>
                         </div>
@@ -2153,7 +2154,7 @@
                         </div>
                         <div class="col-sm-12 text-center">
                             <div class="text-center">
-                                <button id="btnPrintPC" class="btn btn-primary" onclick="printReservation('divPoolCabana')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                <button id="btnPrintPC" class="btn btn-primary" onclick="printReservation('divPoolCabana','PC')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
                                 <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintPC')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
                             </div>
                         </div>
@@ -2251,7 +2252,7 @@
                             </div>
                             <div class="col-sm-12 text-center">
                                 <div class="text-center">
-                                    <button id="btnPrintClubroom" class="btn btn-primary" onclick="printReservation('divClubroom')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                    <button id="btnPrintClubroom" class="btn btn-primary" onclick="printReservation('divClubroom','CR')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
                                     <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintClubroom')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
                                 </div>
                             </div>
@@ -2327,7 +2328,7 @@
                         </div>
                         <div class="col-sm-12 text-center">
                             <div class="text-center">
-                                <button id="btnPrintYog" class="btn btn-primary" onclick="printReservation('divYog')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                <button id="btnPrintYog" class="btn btn-primary" onclick="printReservation('divYog','Yoga')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
                                 <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintYog')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
                             </div>
                         </div>
@@ -2408,7 +2409,7 @@
                         </div>
                         <div class="col-sm-12 text-center">
                             <div class="text-center">
-                                <button id="btnPrintSoccer" class="btn btn-primary" onclick="printReservation('divSoc')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                <button id="btnPrintSoccer" class="btn btn-primary" onclick="printReservation('divSoc','Soccer')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
                                 <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintSoccer')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
                             </div>
                         </div>
@@ -2424,7 +2425,7 @@
         </div>
     </div>
 </div>
-<div class="col-sm-12 hidden" id="divPrintReservation" style="margin-top:10px !important">
+<div class="col-sm-12" id="divPrintReservation" style="margin-top:10px !important;height:100% !important;width:100% !important">
     <div class="modal-header center"><h2 class="modal-title print-title" style="color:#4D738A !important; "></h2></div>
     <div id="divPrintData"></div>
 </div>

@@ -31,30 +31,31 @@
 
     $("#ddlAmenities").on("change", function () {
         var selectedOption = $(this).val();
+        clearDateTime();
         if (selectedOption > 0) {
             $('#reserveAmenity').modal('show');
             $("#divSoc, #divClubroom, #divBBQ, #divPoolCabana, #divYog").addClass("hidden");
             $(".modal-title").html("");
             if (selectedOption == 1) {
                 $("#divSoc").removeClass("hidden");
-                $(".modal-title").html("SOCCER/RECREATIONAL FIELD");
+                $(".modal-title,.print-title").html("SOCCER/RECREATIONAL FIELD");
             }
             else if (selectedOption == 3) {
                 $("#divClubroom").removeClass("hidden");
-                $(".modal-title").html("CLUBROOM/CLUBROOM WITH COURTYARD");
+                $(".modal-title,.print-title").html("CLUBROOM/CLUBROOM WITH COURTYARD");
 
             }
             else if (selectedOption == 11) {
                 $("#divBBQ").removeClass("hidden");
-                $(".modal-title").html("BBQ AREA");
+                $(".modal-title,.print-title").html("BBQ AREA");
             }
             else if (selectedOption == 12) {
                 $("#divPoolCabana").removeClass("hidden");
-                $(".modal-title").html("POOL CABANAS");
+                $(".modal-title,.print-title").html("POOL CABANAS");
             }
             else if (selectedOption == 13) {
                 $("#divYog").removeClass("hidden");
-                $(".modal-title").html("YOGA/MEDITATION LAWN");
+                $(".modal-title,.print-title").html("YOGA/MEDITATION LAWN");
             }
         }
         else {
@@ -71,14 +72,16 @@
             var selectedID = $(this).attr("id");
 
             if (selectedID == "SO_2h200depo") {
-                $("#hdnSoccHours").val(2)
+                $("#hdnSoccHours").val(2);
+
             }
             else if (selectedID == "SO_4h400depo") {
-                $("#hdnSoccHours").val(4)
+                $("#hdnSoccHours").val(4);
+
             }
         }
     });
-    $('input[type=radio][name=hours]').on('ifChanged', function (event) {
+    $('input[type=radio][name=hoursBBQ]').on('ifChanged', function (event) {
         $("#txtDesiredTimeBBQFrom").val("");
         $("#txtDesiredTimeBBQTo").val("");
         if ($(this).is(":checked")) {
@@ -108,7 +111,7 @@
         }
     });
 
-    $('input[type=radio][name=limit]').on('ifChanged', function (event) {
+    $('input[type=radio][name=limitBBQ]').on('ifChanged', function (event) {
         $("#txtDesiredTimeBBQFrom").val("");
         $("#txtDesiredTimeBBQTo").val("");
         if ($(this).is(":checked")) {
@@ -231,7 +234,7 @@
 
     $("#txtDesiredTimeBBQFrom").timepicki({
         on_change: function () {
-            //  console.log($("#hdnBBQHours").val());
+            //  //console.log($("#hdnBBQHours").val());
             var value = "2000-01-01 " + convertTo24Hour($("#txtDesiredTimeBBQFrom").val());
             var startdate = new Date(value);
             var hrs = parseFloat($("#hdnBBQHours").val());
@@ -330,6 +333,7 @@
             $("#txtDesiredTimeSoccerFrom").attr("value", $("#txtDesiredTimeSoccerFrom").val());
         }
     });
+
 
     $("#rbtnApertmentPermission1").prop("checked", true);
 
@@ -5719,40 +5723,38 @@ var printButtonReservation = function (printBtnID) {
     $("#" + printBtnID).attr("disabled", false);
 };
 
-var printReservation = function (divName) {
-    let printContents, popupWin;
-    printContents = document.getElementById(divName).innerHTML;
-    popupWin = window.open('', '', 'width=950,height=800,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes');
-    popupWin.document.open();
-    popupWin.document.write(`
-                  <html >
-                    <head>
-                    <link rel="stylesheet" href="/content/assets/css/font-awesome.min.css">
-                    <link rel="stylesheet" href="/Content/bootstrap/css/bootstrap.css" />
-                    <link rel="stylesheet" href="/Content/bootstrap/css/bootstrap.min.css" />
-                    <link rel="stylesheet" href="/content/assets/css/datepicker.css" />
-                    <link href="/Content/timepicki.css" rel="stylesheet" />
-                    <link rel="stylesheet" href="/Content/assets/css/icheck.min_all.css" />
-                    <link rel="stylesheet" href="/Content/assets/css/wizard.css" />
-                    <link rel="stylesheet" href="/Content/assets/css/style.css" />
-                    
-                    </head>
-                    <style>
-            hr {
-                margin-top: 0px !important;
-                margin-bottom: 0px !important;
-                border: 0;
-                border-top: 1px solid #bebdbd;
-            }
-            body { font-size: 12px;line-height: 20px; margin: 0px 10px 0px 0px; }
-            h3, .h3 { font-size: 18px;margin: 10px 0 5px; }
-            p { font-size: 14px; line-height: 1.20em;}
+var printReservation = function (divName, contName) {
+    let printContents, popupWin, pintRes;
+    printContents = document.all.item(divName).innerHTML;
+    $("#divPrintData").append(printContents);
+    $('#divPrintData input[name="hours' + contName + '"]').each(function () {
+        var img = "";
+        if ($(this).parent().hasClass("checked")) {
 
-                    </style>
-                <body onload="window.print();window.close()">${printContents}</body>
-                  </html>`
-    );
-    popupWin.document.close();
+            img = '<img src="/Content/assets/img/skin/circleC.png" width="30px" height="30px" />';
+        }
+        else {
+            img = '<img src="/Content/assets/img/skin/circleB.png" width="30px" height="30px" />';
+        }
+        $(this).parent().parent().prepend(img);
+    });
+    $('#divPrintData input[name="limit' + contName + '"]').each(function () {
+        if ($(this).parent().hasClass("checked")) {
+
+            img = '<img src="/Content/assets/img/skin/circleC.png" width="30px" height="30px" />';
+        }
+        else {
+            img = '<img src="/Content/assets/img/skin/circleB.png" width="30px" height="30px" />';
+        }
+        $(this).parent().parent().prepend(img);
+    });
+    $('#divPrintData input[name="hours' + contName + '"]').remove();
+    $('#divPrintData .iradio_square-yellow').remove();
+    $("#divPrintReservation").removeClass("hidden").printThis();
+    setTimeout(function () {
+        $("#divPrintReservation").addClass("hidden");
+        $("#divPrintData").empty();
+    }, 3000);
 };
 
 var openTag = function () {

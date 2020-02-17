@@ -169,7 +169,8 @@ var goToGuestDetails = function () {
             $("#PspanGuestCertGName").text(response.msg.GuestName);
             $("#PspanTenantSignName").text(response.msg.TenantName);
             $("#PspanGuestSignName").text(response.msg.GuestName);
-
+            $("#ddlStatus").val(response.msg.Status);
+           
         }
     });
     $("#divLoader").hide();
