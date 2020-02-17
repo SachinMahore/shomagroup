@@ -113,7 +113,7 @@ var goToEdit = function () {
     var ID = $(row).attr("data-value");
    
     if (ID !== null) {
-        window.location.href = ("../Admin/GuestManagement/Edit/" + ID);
+        window.location.replace("/Admin/GuestManagement/Edit/" + ID);
       
     }
 };
@@ -161,7 +161,7 @@ var goToGuestDetails = function () {
                 $("#Pvehicle").addClass('hidden');
             }
         
-            if (response.msg.StatusString == 'Approved'||response.msg.HaveVehicleString == 'Yes') {
+            if (response.msg.StatusString == 'Approved' && response.msg.HaveVehicleString == 'Yes') {
                 $("#tag").removeClass('hidden');
             } else {
                 $("#tag").addClass('hidden');
@@ -216,6 +216,7 @@ var StatusUpdate = function (id) {
                 type: 'red'
             });
             $("#ddlStatus").val('0');
+            goToGuestDetails();
         }
        
     });
@@ -223,5 +224,5 @@ var StatusUpdate = function (id) {
 }
 
 var goGuestRequestList = function () {
-    window.location.href = "/Admin/GuestManagement/Index";
+    window.location.replace( "/Admin/GuestManagement/Index");
 };

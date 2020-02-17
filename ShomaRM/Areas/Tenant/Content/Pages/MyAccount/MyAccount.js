@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     focuss();
     getServiceRequestOnAlarm();
-    onFocus();
+    onFocusMyAccount();
     breakdownPaymentFunction();
 
     getPaymentAccountsCreditCard();
@@ -243,7 +243,10 @@
             if (hours < 10) sHours = "0" + sHours;
             if (minutes < 10) sMinutes = "0" + sMinutes;
             var endtime = convertTo12Hour(sHours + ":" + sMinutes);
+
             $("#txtDesiredTimeBBQTo").val(endtime);
+            $("#txtDesiredTimeBBQTo").attr("value", endtime);
+            $("#txtDesiredTimeBBQFrom").attr("value", $("#txtDesiredTimeBBQFrom").val());
         }
     });
 
@@ -261,8 +264,9 @@
             if (minutes < 10) sMinutes = "0" + sMinutes;
             var endtime = convertTo12Hour(sHours + ":" + sMinutes);
 
-
             $("#txtDesiredTimePCTo").val(endtime);
+            $("#txtDesiredTimePCTo").attr("value", endtime);
+            $("#txtDesiredTimePCFrom").attr("value", $("#txtDesiredTimePCFrom").val());
         }
     });
 
@@ -280,8 +284,9 @@
             if (minutes < 10) sMinutes = "0" + sMinutes;
             var endtime = convertTo12Hour(sHours + ":" + sMinutes);
 
-
             $("#txtDesiredTimeClubroomTo").val(endtime);
+            $("#txtDesiredTimeClubroomTo").attr("value", endtime);
+            $("#txtDesiredTimeClubroomFrom").attr("value", $("#txtDesiredTimeClubroomFrom").val());
         }
     });
 
@@ -299,6 +304,8 @@
             var endtime = convertTo12Hour(sHours + ":" + sMinutes);
 
             $("#txtDesiredTimeYogaTo").val(endtime);
+            $("#txtDesiredTimeYogaTo").attr("value", endtime);
+            $("#txtDesiredTimeYogaFrom").attr("value", $("#txtDesiredTimeYogaFrom").val());
         }
     });
 
@@ -319,9 +326,10 @@
             var endtime = convertTo12Hour(sHours + ":" + sMinutes);
 
             $("#txtDesiredTimeSoccerTo").val(endtime);
+            $("#txtDesiredTimeSoccerTo").attr("value", endtime);
+            $("#txtDesiredTimeSoccerFrom").attr("value", $("#txtDesiredTimeSoccerFrom").val());
         }
     });
-
 
     $("#rbtnApertmentPermission1").prop("checked", true);
 
@@ -1713,6 +1721,15 @@ var savePaymentAccounts = function () {
         if (cardYear == '0') {
             msg += 'Select The Card Year</br>'
         }
+        var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
+        var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+
+        GivenDate = new Date(GivenDate);
+        CurrentDate = new Date(CurrentDate);
+
+        if (GivenDate < CurrentDate) {
+            msg += "Your Credit Card Expired..</br>";
+        }
     }
     else if ($("#ddlPayMethodPaymentAccounts").val() == '2') {
         if ($("#txtBankNamePayMethod").val() == '') {
@@ -1729,15 +1746,7 @@ var savePaymentAccounts = function () {
     if ($("#txtAccountNamePayMethod").val() == '') {
         msg += 'Enter the account name</br>'
     }
-    var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
-    var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
-
-    GivenDate = new Date(GivenDate);
-    CurrentDate = new Date(CurrentDate);
-
-    if (GivenDate < CurrentDate) {
-        msg += "Your Credit Card Expired..</br>";
-    }
+   
 
     if (msg != '') {
         $.alert({
@@ -2391,7 +2400,7 @@ var saveUpdateGuestRegistration = function () {
 };
 
 
-var onFocus = function () {
+var onFocusMyAccount = function () {
 
     $("#txtGuestPhone").focusout(function () { $("#txtGuestPhone").val(formatPhoneFax($("#txtGuestPhone").val())); })
         .focus(function () {
@@ -5017,7 +5026,7 @@ var getReservationRequestList = function () {
                     html += "<td>" + elementValue.Duration + " hours</td>";
                     html += "<td>" + elementValue.Guest + "</td>";
 
-                    if (elementValue.Status == "Approved and pending for payment" || elementValue.Status == "Confirmed") {
+                    if (elementValue.Status == "Approved and pending for Payment" || elementValue.Status == "Confirmed and pending for Deposit") {
                         html += "<td>" + elementValue.Status + " &nbsp; <button class='btn btn-primary' onclick='getAmenityReservationPay(" + elementValue.ARID + ")'>Pay</button></td>";
                     }
                     else {
@@ -5050,7 +5059,8 @@ var clearDdlAmenity = function () {
 };
 function getAmenityReservationPay(arid)
 {
-    window.location.href="/Paylink/PayAmenityCharges?ARID=" + arid;
+    window.location.href = "/Paylink/PayAmenityCharges?ARID=" + arid + "&FromAcc=1";
+    //window.open("/Paylink/PayAmenityCharges?ARID=" + arid +"&FromAcc=1", 'newStuff');
 }
 var getRecurringPayLists = function () {
     var model = {
@@ -5615,7 +5625,6 @@ var savupdateAmenityReservation = function (printBtnID) {
         if ($('input[type=radio][name=hoursPC]').is(':checked') == false) {
             msg += "Please select any one of the reservation.</br>";
         }
-
         if (desireDate == "") {
             msg += "Booking Date is required.</br>";
         }
@@ -5673,7 +5682,7 @@ var savupdateAmenityReservation = function (printBtnID) {
         desireDuration = 2;
         guestLimit = 22;
     }
-
+    console.log(amenityID);
     var model = {
         TenantID: tenantId,
         AmenityID: amenityID,
@@ -5817,3 +5826,12 @@ var getTagInfo = function () {
         }
     });
 }
+var clearDateTime = function () {
+    $("#txtDesiredDateBBQ,#txtDesiredTimeBBQFrom,#txtDesiredTimeBBQTo").val("").removeAttr("value");
+    $("#txtDesiredDatePC,#txtDesiredTimePCFrom,#txtDesiredTimePCTo").val("").removeAttr("value");
+    $("#txtDesiredDateClubroom,#txtDesiredTimeClubroomFrom,#txtDesiredTimeClubroomTo").val("").removeAttr("value");
+    $("#txtDesiredDateYoga,#txtDesiredTimeYogaFrom,#txtDesiredTimeYogaTo").val("").removeAttr("value");
+    $("#txtDesiredDateSoccer,#txtDesiredTimeSoccerFrom,#txtDesiredTimeSoccerTo").val("").removeAttr("value");
+    $("#btnPrintSoccer,#btnPrintBBQ,#btnPrintPC, #btnPrintClubroom, #btnPrintYog").attr("disabled", true);
+
+};

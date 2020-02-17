@@ -26,6 +26,7 @@ namespace ShomaRM.Models
         public string Description { get; set; }
         public string GL_Trans_Description { get; set; }
         public string RoutingNumber { get; set; }
+        public string AccountNumber { get; set; }
         public string BankName { get; set; }
         public int PaymentMethod { get; set; }
         public string Password { get; set; }
@@ -79,9 +80,18 @@ namespace ShomaRM.Models
                     db.tbl_OnlinePayment.Add(savePaymentDetails);
                     db.SaveChanges();
                 }
-
-
-                string transStatus = new UsaePayModel().ChargeCard(model);
+                string transStatus = "";
+                if (model.PaymentMethod ==2)
+                {
+                    
+                    transStatus = new UsaePayModel().ChargeCard(model);
+                }
+                else if (model.PaymentMethod == 1)
+                {
+                    
+                    transStatus = new UsaePayModel().ChargeACH(model);
+                }
+                
                 String[] spearator = { "|" };
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 if(strlist[1]!="000000")
@@ -98,19 +108,15 @@ namespace ShomaRM.Models
                         Reference = "PID" + model.ProspectId,
                         CreatedDate = DateTime.Now,
                         Credit_Amount = model.Charge_Amount,
-                        Description = model.Description +"| TransID: "+ Convert.ToInt32(strlist[1]),
+                        Description = model.Description +"| TransID: "+ strlist[1],
                         Charge_Date = DateTime.Now,
                         Charge_Type = 1,
-                        Payment_ID = Convert.ToInt32(strlist[1]),
+                       
+                        Authcode= strlist[1],
                         Charge_Amount = model.Charge_Amount,
                         Miscellaneous_Amount = 0,
                         Accounting_Date = DateTime.Now,
-                        Journal = 0,
-                        Accrual_Debit_Acct = "400-5000-10500",
-                        Accrual_Credit_Acct = "400-5000-40030",
-                        Cash_Debit_Account = "400-5100-10011",
-                        Cash_Credit_Account = "400-5100-40085",
-                        Appl_of_Origin = "SRM",
+                        
                         Batch = "1",
                         Batch_Source = "",
                         CreatedBy = Convert.ToInt32(GetProspectData.UserId),

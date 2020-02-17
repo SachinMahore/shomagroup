@@ -43,6 +43,7 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public ActionResult getCausingData(int CausingIssueID = 0)
         {
             try
@@ -65,5 +66,6 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
     }
 }

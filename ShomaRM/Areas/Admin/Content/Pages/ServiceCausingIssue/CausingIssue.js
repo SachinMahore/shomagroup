@@ -2,6 +2,7 @@
     fillRPP_CausingIssue();
     clearCausingIssue();
     $('#tblCausingIssue tbody').on('click', 'tr', function () {
+
         $('#tblCausingIssue tr').removeClass("pds-selected-row");
         $(this).addClass("pds-selected-row");
     });
@@ -10,6 +11,7 @@
     });
 
     getCausingData($("#hndCausingIssueID").val());
+
     fillDdlService();
     fillCausgIssue();
 
@@ -88,12 +90,16 @@ var fillCausingSearchGrid = function (pagenumber) {
                 $("#tblCausingIssue>tbody").empty();
                 $.each(response, function (index, elementValue) {
                     var html = '';
+
                     html += '<tr data-value="' + elementValue.CausingIssueID + '"  id="tr_' + elementValue.CausingIssueID + '">';
+
                     html += '<td class="pds-id hidden" style="color:#3d3939;">' + elementValue.CausingIssueID + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.ServiceIssue + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.CausingIssue + '</td>';
                    // html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.ServiceIssue + '</td>';
+
                     html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary" style="padding: 5px 8px !important;margin-right:7px" onclick="goTocausing(' + elementValue.CausingIssueID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button><button class="btn btn-danger" style="padding: 5px 8px !important;" onclick="delLocation(' + elementValue.CausingIssueID + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
+
                     html += '</tr>';
                     $("#tblCausingIssue>tbody").append(html);
                     CausingIssueDataSource.push({ CausingIssueID: elementValue.CausingIssueID, CausingIssue: elementValue.CausingIssue, ServiceIssue: elementValue.ServiceIssue  });
@@ -115,6 +121,7 @@ var fillRPP_CausingIssue = function () {
     });
 };
 var CausingIssueDataSource = [];
+
 var goTocausing = function (CausingIssueID) {
     var ID = CausingIssueID;
     if (ID != null) {
@@ -127,6 +134,7 @@ var clearCausingIssue = function () {
     $("#hndCausingIssueID").val("0");
     $("#ddlProblemCategory").val("0");
     $("#txtCausingIssue").val("");
+
     $("#spanSaveUpdate").text("SAVE");
 };
 var fillDdlService = function () {
@@ -173,6 +181,7 @@ var fillCausgIssue = function (ServiceIssueID) {
         }
     });
 }
+
 var getCausingData = function (CausingIssueID) {
     var params = { CausingIssueID: CausingIssueID };
     $.ajax({
@@ -298,3 +307,4 @@ var delCausingIssue = function (ID) {
         }
     });
 };
+

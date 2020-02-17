@@ -72,6 +72,7 @@ namespace ShomaRM.Areas.Admin.Models
 
             return model;
         }
+
         public int BuildPaganationSLList(SCIListModel model)
     {
         int NOP = 0;

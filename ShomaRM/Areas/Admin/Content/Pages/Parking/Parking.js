@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     //fillParkingList();
-    onFocus();
+    onFocusParking();
     fillRPP_Parking();
     $('#ulPagination_Parking').pagination({
         items: 0,
@@ -293,7 +293,7 @@ var delParking = function (parkingId) {
     });
 };
 
-var onFocus = function () {
+var onFocusParking = function () {
 
     $("#txtCharges").focusout(function () { $("#txtCharges").val(formatMoney($("#txtCharges").val())); })
         .focus(function () {

@@ -286,12 +286,43 @@ namespace ShomaRM.Areas.Admin.Models
         }
         public string SaveScreeningStatus(string Email, long ProspectId,string Status)
         {
-            //Email = "sachinmahore@gmail.com";
+            ShomaRMEntities db = new ShomaRMEntities();
+           // var tenantData = db.tbl_TenantOnline.Where(p => p.ProspectID == ProspectId).FirstOrDefault();
+           ShomaRM.Models.TenantOnlineModel model = new ShomaRM.Models.TenantOnlineModel();
+
+            var tenantData = model.GetTenantOnlineList(Convert.ToInt32(ProspectId));
+            model.FirstName = tenantData.FirstName;
+            model.MiddleInitial = tenantData.MiddleInitial;
+            model.LastName = tenantData.LastName;
+            model.DateOfBirthTxt = tenantData.DateOfBirthTxt;
+            model.SSN = tenantData.SSN;
+            model.Gender = tenantData.Gender;
+            model.IDNumber = tenantData.IDNumber;
+            model.JobTitle = tenantData.JobTitle;
+            model.HomeAddress1 = tenantData.HomeAddress1;
+            model.CityHome = tenantData.CityHome;
+            model.StateHomeString= tenantData.StateHomeString;
+            model.ZipHome = tenantData.ZipHome;
+            model.Country = tenantData.Country;
+            model.EmployerName = tenantData.EmployerName;
+            model.JobTitle = tenantData.JobTitle;
+            model.Income = tenantData.Income;
+            model.SupervisorName = tenantData.SupervisorName;
+            model.SupervisorPhone = tenantData.SupervisorPhone;
+            model.OfficeCity = tenantData.OfficeCity;
+            model.OfficeState = tenantData.OfficeState;
+            model.StartDateTxt = tenantData.StartDateTxt;
+
+            var test = new AcutraqRequest();
+            var acuResult = test.PostAqutraqRequest(model);
+           
+
+
             string msg = "";
             string reportHTML = "";
             string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
             reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect3.html");
-            ShomaRMEntities db = new ShomaRMEntities();
+            
             if (Email != null)
             {
                 var GetTenantDet = db.tbl_ApplyNow.Where(p => p.ID == ProspectId).FirstOrDefault();
@@ -310,9 +341,7 @@ namespace ShomaRM.Areas.Admin.Models
                 {
                     reportHTML = reportHTML.Replace("[%Status%]", "Congratulations ! Your Application is Approved");
                     reportHTML = reportHTML.Replace("[%StatusDet%]", "Good news! We are pleased to notify you that your document is ready and available to sign. For your convenience, this document is being delivered in format that allow for you ro review and sign the document electronically. If you have any question about your document please contact: ");
-                    reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"http://52.4.251.162:8086/Checklist\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"http://52.4.251.162:8086/Checklist\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">LEASE NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
-
-                   
+                    reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"http://52.4.251.162:8086/Checklist\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"http://52.4.251.162:8086/Checklist\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">LEASE NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");         
                    
                 }
                 else if (Status == "Denied")
@@ -395,8 +424,8 @@ namespace ShomaRM.Areas.Admin.Models
 
         public ProspectVerificationModel GetProspectData(long Id)
         {
-            var test = new AcutraqRequest();
-       var data=     test.PostAqutraqRequest(null);
+       //     var test = new AcutraqRequest();
+       //var data=     test.PostAqutraqRequestOld(null);
                ShomaRMEntities db = new ShomaRMEntities();
 
         

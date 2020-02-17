@@ -1929,7 +1929,9 @@
             <!-- Modal body start -->
             <div class="modal-body table-bordered">
                 <div class="row">
+
                     <div class="col-sm-12 hidden" id="divBBQ" style="margin-top:10px !important">
+                        <div class="modal-header center hidden" id="modelHeaderTitle"><h2 class="modal-title" style="color:#4D738A !important; "></h2></div>
                         <div class="col-sm-12 text-center"><h4 style="color:#4D738A !important; "><label>DESCRIPTION:</label></h4></div>
                         <div class="col-sm-12 text-center"><p>The Barbecue area is located near the pool and consist of 3 grills as well as an outside seating area.</p> </div>
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>DESIGNATED USE:</label></h4></div>
@@ -2004,34 +2006,36 @@
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>BOOKING DATE AND TIME</label></h4></div>
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;">
                             <div class="col-sm-4 text-center" style="margin-left:90px">
-                                <div class="form-group">
-                                    <input id="txtDesiredDateBBQ" type="text" class="form-control" style="width:55%" maxlength="20" placeholder="MM/dd/yyyy" value="">
-                                    <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
-                                        <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-calendar fa"></i></button>
+                                <div class="input-group" style="width:75%">
+                                    <input id="txtDesiredDateBBQ" type="text" class="form-control" maxlength="20" placeholder="MM/dd/yyyy" />
+                                    <span class="input-group-btn">
+                                        <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
                                     </span>
                                 </div>
                             </div>
                             <div class="col-sm-4 text-center" style="margin-left:-80px">
-
                                 <div class="form-group">
                                     <div class="col-sm-3 text-center">From :</div>
                                     <div class="col-sm-9 text-center">
-                                        <input id="txtDesiredTimeBBQFrom" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:85%" maxlength="20" placeholder="HH:mm:ss" value="">
-                                        <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
-                                            <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
-                                        </span>
+                                        <div class="input-group">
+                                            <input id="txtDesiredTimeBBQFrom" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
+                                            <span class="input-group-btn">
+                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-4 text-center" style="margin-left:-20px">
-
                                 <div class="form-group">
                                     <div class="col-sm-3 text-center">To :</div>
                                     <div class="col-sm-9 text-center">
-                                        <input id="txtDesiredTimeBBQTo" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:85%" maxlength="20" placeholder="HH:mm:ss" value="" disabled>
-                                        <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
-                                            <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
-                                        </span>
+                                        <div class="input-group">
+                                            <input id="txtDesiredTimeBBQTo" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
+                                            <span class="input-group-btn">
+                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -2098,34 +2102,36 @@
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>BOOKING DATE AND TIME</label></h4></div>
                         <div class="col-sm-12 text-center">
                             <div class="col-sm-4 text-center" style="margin-left:90px">
-                                <div class="form-group">
-                                    <input id="txtDesiredDatePC" type="text" class="form-control" style="width:55%" maxlength="20" placeholder="MM/dd/yyyy" value="">
-                                    <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
-                                        <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-calendar fa"></i></button>
+                                <div class="input-group" style="width:75%">
+                                    <input id="txtDesiredDatePC" type="text" class="form-control" maxlength="20" placeholder="MM/dd/yyyy" />
+                                    <span class="input-group-btn">
+                                        <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
                                     </span>
                                 </div>
                             </div>
                             <div class="col-sm-4 text-center" style="margin-left:-80px">
-
                                 <div class="form-group">
                                     <div class="col-sm-3 text-center">From :</div>
                                     <div class="col-sm-9 text-center">
-                                        <input id="txtDesiredTimePCFrom" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:85%" maxlength="20" placeholder="HH:mm:ss" value="">
-                                        <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
-                                            <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
-                                        </span>
+                                        <div class="input-group">
+                                            <input id="txtDesiredTimePCFrom" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
+                                            <span class="input-group-btn">
+                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-4 text-center" style="margin-left:-20px">
-
                                 <div class="form-group">
                                     <div class="col-sm-3 text-center">To :</div>
                                     <div class="col-sm-9 text-center">
-                                        <input id="txtDesiredTimePCTo" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:85%" maxlength="20" placeholder="HH:mm:ss" value="" disabled>
-                                        <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
-                                            <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
-                                        </span>
+                                        <div class="input-group">
+                                            <input id="txtDesiredTimePCTo" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
+                                            <span class="input-group-btn">
+                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -2195,34 +2201,36 @@
                             <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>BOOKING DATE AND TIME</label></h4></div>
                             <div class="col-sm-12 text-center">
                                 <div class="col-sm-4 text-center" style="margin-left:90px">
-                                    <div class="form-group">
-                                        <input id="txtDesiredDateClubroom" type="text" class="form-control" style="width:55%" maxlength="20" placeholder="MM/dd/yyyy" value="">
-                                        <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
-                                            <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-calendar fa"></i></button>
+                                    <div class="input-group" style="width:75%">
+                                        <input id="txtDesiredDateClubroom" type="text" class="form-control" maxlength="20" placeholder="MM/dd/yyyy" />
+                                        <span class="input-group-btn">
+                                            <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
                                         </span>
                                     </div>
                                 </div>
                                 <div class="col-sm-4 text-center" style="margin-left:-80px">
-
                                     <div class="form-group">
                                         <div class="col-sm-3 text-center">From :</div>
                                         <div class="col-sm-9 text-center">
-                                            <input id="txtDesiredTimeClubroomFrom" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:85%" maxlength="20" placeholder="HH:mm:ss" value="">
-                                            <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
-                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
-                                            </span>
+                                            <div class="input-group">
+                                                <input id="txtDesiredTimeClubroomFrom" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
+                                                <span class="input-group-btn">
+                                                    <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-4 text-center" style="margin-left:-20px">
-
                                     <div class="form-group">
                                         <div class="col-sm-3 text-center">To :</div>
                                         <div class="col-sm-9 text-center">
-                                            <input id="txtDesiredTimeClubroomTo" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:85%" maxlength="20" placeholder="HH:mm:ss" value="" disabled>
-                                            <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
-                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
-                                            </span>
+                                            <div class="input-group">
+                                                <input id="txtDesiredTimeClubroomTo" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
+                                                <span class="input-group-btn">
+                                                    <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -2271,34 +2279,36 @@
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>BOOKING DATE AND TIME</label></h4></div>
                         <div class="col-sm-12 text-center">
                             <div class="col-sm-4 text-center" style="margin-left:90px">
-                                <div class="form-group">
-                                    <input id="txtDesiredDateYoga" type="text" class="form-control" style="width:55%" maxlength="20" placeholder="MM/dd/yyyy" value="">
-                                    <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
-                                        <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-calendar fa"></i></button>
+                                <div class="input-group" style="width:75%">
+                                    <input id="txtDesiredDateYoga" type="text" class="form-control" maxlength="20" placeholder="MM/dd/yyyy" />
+                                    <span class="input-group-btn">
+                                        <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
                                     </span>
                                 </div>
                             </div>
                             <div class="col-sm-4 text-center" style="margin-left:-80px">
-
                                 <div class="form-group">
                                     <div class="col-sm-3 text-center">From :</div>
                                     <div class="col-sm-9 text-center">
-                                        <input id="txtDesiredTimeYogaFrom" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:85%" maxlength="20" placeholder="HH:mm:ss" value="">
-                                        <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
-                                            <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
-                                        </span>
+                                        <div class="input-group">
+                                            <input id="txtDesiredTimeYogaFrom" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
+                                            <span class="input-group-btn">
+                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-4 text-center" style="margin-left:-20px">
-
                                 <div class="form-group">
                                     <div class="col-sm-3 text-center">To :</div>
                                     <div class="col-sm-9 text-center">
-                                        <input id="txtDesiredTimeYogaTo" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:85%" maxlength="20" placeholder="HH:mm:ss" value="" disabled>
-                                        <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:155px;">
-                                            <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
-                                        </span>
+                                        <div class="input-group">
+                                            <input id="txtDesiredTimeYogaTo" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" value="" disabled />
+                                            <span class="input-group-btn">
+                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -2324,6 +2334,7 @@
                     </div>
 
                     <div class="col-sm-12 hidden" id="divSoc">
+                        <div class="modal-header center hidden" id="modelHeaderTitle"><h2 class="modal-title" style="color:#4D738A !important; "></h2></div>
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>DESCRIPTION:</label></h4></div>
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><p>The Soccer/Recreational Field is an area designated for sport events.</p></div>
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>DESIGNATED USE:</label></h4></div>
@@ -2335,26 +2346,25 @@
                             <label><input type="radio" class="form-control small" name="hoursSoccer" id="SO_2h200depo" />&nbsp;Up to 2 Hours - $100/Reservation Fee 	$200/Deposit</label>
                         </div>
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;">
+
                             <label><input type="radio" class="form-control small" name="hoursSoccer" id="SO_4h400depo" />&nbsp;Up to 4 Hours-  $200/Reservation Fee 	$400/Deposit</label>
                         </div>
 
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>MAXIMUM OCCUPANCY:</label></h4></div>
 
                         <div class="col-sm-12 text-center" style="margin-left: 1px;">
-                            <label><input type="radio" class="form-control small" name="limit" id="SO_10players" checked />&nbsp;10 Players in the field at any time</label>
+                            <label><input type="radio" class="form-control small" name="limitSoccer" id="SO_10players" checked />&nbsp;10 Players in the field at any time</label>
                         </div>
 
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>BOOKING DATE AND TIME</label></h4></div>
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;">
                             <div class="col-sm-4 text-center" style="margin-left:90px">
                                 <div class="input-group" style="width:75%">
-
                                     <input id="txtDesiredDateSoccer" type="text" class="form-control" maxlength="20" placeholder="MM/dd/yyyy" />
                                     <span class="input-group-btn">
                                         <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
                                     </span>
                                 </div>
-
                             </div>
                             <div class="col-sm-4 text-center" style="margin-left:-80px">
                                 <div class="form-group">
@@ -2413,6 +2423,10 @@
             </div>
         </div>
     </div>
+</div>
+<div class="col-sm-12 hidden" id="divPrintReservation" style="margin-top:10px !important">
+    <div class="modal-header center"><h2 class="modal-title print-title" style="color:#4D738A !important; "></h2></div>
+    <div id="divPrintData"></div>
 </div>
 <div id="reservationRules" class="modal" style="width:100% !important">
     <div class="modal-header">
@@ -2739,11 +2753,12 @@
         $(function () {
 
 
-            $("#txtDesiredDateSoccer").datepicker({ autoclose: true });
-            $("#txtDesiredDateClubroom").datepicker({ autoclose: true });
-            $("#txtDesiredDateBBQ").datepicker({ autoclose: true });
-            $("#txtDesiredDatePC").datepicker({ autoclose: true });
-            $("#txtDesiredDateYoga").datepicker({ autoclose: true });
+            $("#txtDesiredDateSoccer").datepicker({ autoclose: true, startDate: '+1d' }).on('changeDate', function (e) { $("#txtDesiredDateSoccer").attr("value", $("#txtDesiredDateSoccer").val()) });
+            $("#txtDesiredDateClubroom").datepicker({ autoclose: true, startDate: '+1d' }).on('changeDate', function (e) { $("#txtDesiredDateClubroom").attr("value", $("#txtDesiredDateClubroom").val()) });
+            $("#txtDesiredDateBBQ").datepicker({ autoclose: true, startDate: '+1d' }).on('changeDate', function (e) { $("#txtDesiredDateBBQ").attr("value", $("#txtDesiredDateBBQ").val()) });
+            $("#txtDesiredDatePC").datepicker({ autoclose: true, startDate: '+1d' }).on('changeDate', function (e) { $("#txtDesiredDatePC").attr("value", $("#txtDesiredDatePC").val()) });
+            $("#txtDesiredDateYoga").datepicker({ autoclose: true, startDate: '+1d' }).on('changeDate', function (e) { $("#txtDesiredDateYoga").attr("value", $("#txtDesiredDateYoga").val()) });
+
             $("#txtDesiredDate").on("change", function () {
                 var formatedDate = $("#txtDesiredDate").val();
                 $("#SelectedDate").html(formatedDate);
@@ -2813,7 +2828,7 @@
             top: 112px;
         }
         .timepicker_wrap{
-            width:135% !important;
+            width:150% !important;
         }
 
         .tab-content ul {

@@ -2731,7 +2731,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>Relationship</label>
+                        <label class="star">Relationship</label>
                         <select id="ddlARelationship" class="  form-control">
                             <option value='0'>Select Relationship</option>
                             <option value='1'>Spouse</option>
@@ -2756,7 +2756,7 @@
 
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="dob">Date of Birth</label>
+                        <label for="dob" class="star">Date of Birth</label>
                         <input id="txtHDateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" />
                         <input id="txtADateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" />
                         <input id="txtMDateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" />
@@ -2770,7 +2770,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>Gender</label>
+                        <label class="star">Gender</label>
                         <select id="ddlApplicantGender" class="form-control">
                             <option value='0'>Select Type</option>
                             <option value='1'>Male</option>
@@ -2781,8 +2781,8 @@
                 </div>
                 <div class="col-sm-6" id="appGenderOther">
                     <div class="form-group">
-                        <label class="star">Other Gender</label>
-                        <input id="txtApplicantOtherGender" type="text" class="form-control" maxlength="200" placeholder="Other Gender" value="">
+                        <label>Other Gender</label>
+                        <input id="txtApplicantOtherGender" type="text" class="form-control" maxlength="200" disabled="disabled" value="">
                     </div>
                 </div>
 
@@ -3813,8 +3813,6 @@
         }
 </style>
 <script type="text/javascript">
-
-
     $(function () {
         var searchMinDate = "-2y";
         var searchMaxDate = "-1m";
@@ -3844,24 +3842,38 @@
         $("#txtPhoneNumber").val(formatPhoneFax('@Model.Phone'));
         $("#lblFNLPhone").text(formatPhoneFax('@Model.Phone'));
     });
-</script>
-<script type="text/javascript">
-    $(document).ready(function () {
-         @*localStorage.setItem('hndsummaryDesireMoveIn','@Model.MoveInDateTxt');
-        alert('@Model.MoveInDateTxt');*@
 
+    $(document).ready(function () {
            $("#apartimg_2").maphilight();
            $("#ddlRoom").val(@Model.Bedroom);
            $("#ddlRoom").trigger('change');
            getPropertyModelUnitList(1, 8);
            $("#ddlGender").on("change", function () {
-            if ($(this).val() == 3) {
-                $("#txtOtherGender").attr("disabled", false);
-            }
-            else {
-                $("#txtOtherGender").attr("disabled", true);
-            }
-        });
+               if ($(this).val() == 3) {
+                   $("#txtOtherGender").attr("disabled", false);
+               }
+               else {
+                   $("#txtOtherGender").attr("disabled", true);
+               }
+              if ('@Model.ParkingAmt' !='') {
+                   $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(@Model.ParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+               }
+               else {
+                   $("#lblProrated_AditionalParking").text('0.00');
+               }
+               if ('@Model.StorageAmt' !='') {
+                   $("#lblProrated_Storage").text(parseFloat(parseFloat(@Model.StorageAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+               }
+               else {
+                   $("#lblProrated_Storage").text('0.00');
+               }
+               if ('@Model.PetPlaceAmt' !='') {
+                   $("#lblProrated_PetRent").text(parseFloat(parseFloat(@Model.PetPlaceAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+               }
+               else {
+                   $("#lblProrated_PetRent").text('0.00');
+               }
+           });
         fillMarketSourceDDL();
         if (@Model.ProspectId != 0) {
             $("#logintext").text("Logout");
@@ -3917,7 +3929,7 @@
                 $("#as5").removeAttr("onclick")
                 $("#as5").attr("onclick", "goToStep(6,6)");
 
-                if (@Model.IsRentalPolicy== "1" && @Model.IsRentalQualification== "1") {                    
+                if (@Model.IsRentalPolicy== "1" && @Model.IsRentalQualification== "1") {
                  goToStep(7, 7);
                  $("#chkAgreeTermsPolicy").iCheck('check');
                  } else {
@@ -3940,7 +3952,14 @@
             getPropertyUnitDetails(@Model.SUID);
             goToStep(1, 1);
         }
-        
+        $('#ddlApplicantGender').on('change', function () {
+            if ($(this).val() == '3') {
+                $('#txtApplicantOtherGender').removeAttr('disabled', 'disabled');
+            }
+            else {
+                $('#txtApplicantOtherGender').attr('disabled', 'disabled');
+            }
+        });
     });
     $(function () {
         $('area').click(function () {
@@ -4025,14 +4044,8 @@
         //$('.UAarea').addClass('active_unavil').data('maphilight', { alwaysOn: true, fillColor: '006400', strokeColor: '006400',}).trigger('alwaysOn.maphilight');
         //$('.UYarea').addClass('active_unavil').data('maphilight', { alwaysOn: true, fillColor: 'ffff00', strokeColor: 'ffff00', }).trigger('alwaysOn.maphilight');
         //$('hndsummaryDesireMoveIn').val('');
-        
+
     });
-
-
-</script>
-
-<script>
-    
     var modalPetPolicy = document.getElementById("modalPetPolicy");
 
     var btnPetPolicy = document.getElementById("btnShowPetPolicy");
@@ -4042,23 +4055,14 @@
     btnPetPolicy.onclick = function () {
         modalPetPolicy.style.display = "block";
     }
-
-
     spanPetPolicy.onclick = function () {
         modalPetPolicy.style.display = "none";
     }
-
-
     window.onclick = function (event) {
         if (event.target == modalPetPolicy) {
             modalPetPolicy.style.display = "none";
         }
     }
-
-
-</script>
-<script>
-
     var btnApp = document.getElementById("btnsignInAppl");
 
     btnApp.onclick = function () {
@@ -4066,11 +4070,3 @@
     }
 
 </script>
-<script>
-    $(document).ready(function () {
-        $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(@Model.ParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
-        $("#lblProrated_Storage").text(parseFloat(parseFloat(@Model.StorageAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
-        $("#lblProrated_PetRent").text(parseFloat(parseFloat(@Model.PetPlaceAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
-    });
-</script>
-
