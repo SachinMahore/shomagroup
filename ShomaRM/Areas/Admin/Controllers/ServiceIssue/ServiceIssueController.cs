@@ -7,9 +7,9 @@ using System.Web.Mvc;
 
 namespace ShomaRM.Areas.Admin.Controllers
 {
-    public class ServiceCausingController : Controller
+    public class ServiceIssueController : Controller
     {
-        // GET: Admin/ServiceCausing
+        // GET: Admin/ServiceIssue
         public ActionResult Index()
         {
             ViewBag.ActiveMenu = "admin";
@@ -20,52 +20,49 @@ namespace ShomaRM.Areas.Admin.Controllers
             }
             return View();
         }
-
-        public ActionResult fillCausingSearchGrid(SCIListModel model)
+        public ActionResult fillServiceIssueSearchGrid(SIListModel model)
         {
             try
             {
-                return Json((new ServiceCausingIssueModel()).FillSCISSearchGrid(model), JsonRequestBehavior.AllowGet);
+                return Json((new ServiceIssueModel()).FillSISSearchGrid(model), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult BuildPaganationSLList(SCIListModel model)
+        public ActionResult BuildPaganationSLList(SIListModel model)
         {
             try
             {
-                return Json(new { NOP = (new ServiceCausingIssueModel()).BuildPaganationSLList(model) }, JsonRequestBehavior.AllowGet);
+                return Json(new { NOP = (new ServiceIssueModel()).BuildPaganationSIList(model) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-
-        public ActionResult getCausingData(int CausingIssueID = 0)
+        public ActionResult getIssueData(int IssueID = 0)
         {
             try
             {
-                return Json((new ServiceCausingIssueModel()).GetServiceCausingInfo(CausingIssueID), JsonRequestBehavior.AllowGet);
+                return Json((new ServiceIssueModel()).GetServiceIssueInfo(IssueID), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult saveUpdateCausing(ServiceCausingIssueModel model)
+        public ActionResult saveUpdateIssue(ServiceIssueModel model)
         {
             try
             {
-                return Json(new { result = 1, ID = model.SaveUpdateServiceCausingIssue(model) }, JsonRequestBehavior.AllowGet);
+                return Json(new { result = 1, ID = model.SaveUpdateServiceIssue(model) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-
     }
 }

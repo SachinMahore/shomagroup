@@ -16,6 +16,63 @@ namespace ShomaRM.Areas.Admin.Models
         public string ServiceIssue { get; set; }
 
 
+        public long SaveUpdateServiceCausingIssue(ServiceCausingIssueModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            var userNameExists = db.tbl_CausingIssue.Where(p => p.CausingIssueID != model.CausingIssueID && p.CausingIssue == model.CausingIssue).FirstOrDefault();
+            if (userNameExists == null)
+            {
+                if (model.CausingIssueID == 0)
+                {
+                    var CausingData = new tbl_CausingIssue()
+                    {
+                        CausingIssue = model.CausingIssue,
+                        ServiceIssueID = model.ServiceIssueID,
+                    };
+                    db.tbl_CausingIssue.Add(CausingData);
+                    db.SaveChanges();
+                    model.CausingIssueID = CausingData.CausingIssueID;
+                }
+                else
+                {
+                    var ScausingData = db.tbl_CausingIssue.Where(p => p.CausingIssueID == model.CausingIssueID).FirstOrDefault();
+                    if (ScausingData != null)
+                    {
+                        ScausingData.CausingIssue = model.CausingIssue;
+                        ScausingData.ServiceIssueID = model.ServiceIssueID;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new Exception(model.CausingIssue + " not exists in the system.");
+                    }
+                }
+
+                return model.CausingIssueID;
+            }
+            else
+            {
+                throw new Exception(model.CausingIssue + " already exists in the system.");
+            }
+        }
+
+        public ServiceCausingIssueModel GetServiceCausingInfo(int ID = 0)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            ServiceCausingIssueModel model = new ServiceCausingIssueModel();
+
+
+            var servicecausing = db.tbl_CausingIssue.Where(p => p.CausingIssueID == ID).FirstOrDefault();
+            if (servicecausing != null)
+            {
+                model.CausingIssueID = servicecausing.CausingIssueID;
+                model.ServiceIssueID = servicecausing.ServiceIssueID;
+                model.CausingIssue = servicecausing.CausingIssue;
+            }
+
+            return model;
+        }
+
         public int BuildPaganationSLList(SCIListModel model)
     {
         int NOP = 0;
