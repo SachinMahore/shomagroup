@@ -239,6 +239,7 @@
     <Compile Include="Areas\Admin\Models\SendGrid\SendGrid.cs" />
     <Compile Include="Areas\Admin\Models\SendGrid\Web.cs" />
     <Compile Include="Areas\Admin\Models\ServiceCategory\ServiceCategoryModel.cs" />
+    <Compile Include="Areas\Admin\Models\ServiceCausingIssue\ServiceCausingIssueModel.cs" />
     <Compile Include="Areas\Admin\Models\ServiceLocation\ServiceLocationModel.cs" />
     <Compile Include="Areas\Admin\Models\ServicesManagement\ServicesManagementModel.cs" />
     <Compile Include="Areas\Admin\Models\State\StateModel.cs" />

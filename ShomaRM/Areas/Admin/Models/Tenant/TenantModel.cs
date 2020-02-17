@@ -1096,6 +1096,7 @@ namespace ShomaRM.Areas.Admin.Models
                 db.SaveChanges();
 
                 var getPayMeth = db.tbl_OnlinePayment.Where(p => p.ProspectId == model.ProspectID).FirstOrDefault();
+                long paid = 0;
                 if(getPayMeth.PaymentMethod==2)
                 {
                     var addPaymentMethod = new tbl_PaymentAccounts()
@@ -1115,6 +1116,7 @@ namespace ShomaRM.Areas.Admin.Models
                     };
                     db.tbl_PaymentAccounts.Add(addPaymentMethod);
                     db.SaveChanges();
+                    paid = addPaymentMethod.PAID;
                 }
                 else
                 {
@@ -1136,6 +1138,7 @@ namespace ShomaRM.Areas.Admin.Models
                     };
                     db.tbl_PaymentAccounts.Add(addPaymentMethod);
                     db.SaveChanges();
+                    paid = addPaymentMethod.PAID;
                 }
                
 
@@ -1163,6 +1166,7 @@ namespace ShomaRM.Areas.Admin.Models
                     foreach (var tl in transList)
                     {
                         tl.TenantID = model.TenantID;
+                        tl.Transaction_Type = paid.ToString();
                     }   
                 }
                 db.SaveChanges();

@@ -10,7 +10,7 @@ namespace ShomaRM.Models
 {
     public class AcutraqRequest
     {
-        public async Task<OrderXML>   PostAqutraqRequest(object data)
+        public async Task<OrderXML>   PostAqutraqRequest(TenantOnlineModel data)
         {
             var _objAcqutraqOrder = new OrderXML();
             _objAcqutraqOrder.Method = "SEND ORDER";
@@ -24,21 +24,21 @@ namespace ShomaRM.Models
             var _objorder = new Order();
             _objorder.BillingReferenceCode = "000-0000";
             var _objsubject = new Subject();
-            _objsubject.FirstName = "Lalit";
-            _objsubject.MiddleName = "Rupram";
-            _objsubject.LastName = "Bokde";
-            _objsubject.DOB = "29/03/1990";
-            _objsubject.SSN = "111-22-3333";
-            _objsubject.Gender = "Male";
-            _objsubject.DLNumber = "222";
-            _objsubject.ApplicantPosition = "Director";
+            _objsubject.FirstName = data.FirstName;
+            _objsubject.MiddleName = data.MiddleInitial;
+            _objsubject.LastName = data.LastName;
+            _objsubject.DOB = data.DateOfBirthTxt;
+            _objsubject.SSN = data.SSN;
+            _objsubject.Gender = data.Gender == 1 ? "Male" : "Female";
+            _objsubject.DLNumber = data.IDNumber;
+            _objsubject.ApplicantPosition = data.JobTitle;
             _objorder.Subject = _objsubject;
             _objAcqutraqOrder.Order = _objorder;
             var CurrentAddress = new CurrentAddress();
-            CurrentAddress.StreetAddress = "Omkar Nagar";
-            CurrentAddress.City = "Nagpur";
-            CurrentAddress.State = "Maharashtra";
-            CurrentAddress.Zipcode = "440002";
+            CurrentAddress.StreetAddress = data.HomeAddress1;
+            CurrentAddress.City = data.CityHome;
+            CurrentAddress.State =data.StateHomeString;
+            CurrentAddress.Zipcode = data.ZipHome;
             CurrentAddress.Country = "India";
             _objsubject.CurrentAddress = CurrentAddress;
             _objorder.Subject = _objsubject;
@@ -48,16 +48,100 @@ namespace ShomaRM.Models
             var _objorderdetails = new OrderDetailEMP();
             _objorderdetails.ServiceCode = "EMPVR";
             _objorderdetails.OrderId = "123456";
-            _objorderdetails.CompanyName = "Thinkersteps";
+            _objorderdetails.CompanyName =data.EmployerName;
+            _objorderdetails.Position = data.JobTitle;
+            _objorderdetails.Salary =data.Income.ToString();
+            _objorderdetails.Manager = data.SupervisorName;
+            _objorderdetails.Telephone = data.SupervisorPhone;
+            _objorderdetails.EmployerCity = data.OfficeCity;
+            _objorderdetails.EmployerState = data.StateHomeString;
+             var _objEmploymentDates = new EmploymentDates();
+            _objEmploymentDates.StartDate = data.StartDateTxt;
+
+            _objEmploymentDates.EndDate = "10/10/2019";
+            _objorderdetails.EmploymentDates = _objEmploymentDates;
+            _objorderdetails.ReasonForLeaving = "Test";
+            _objorder.OrderDetailEMP = _objorderdetails;
+
+            var _objCriminal = new OrderDetailCriminal();
+            _objCriminal.state = data.StateHomeString;
+            _objCriminal.ServiceCode = "MULTISTATEEVICT";
+            _objCriminal.OrderId = "123456";
+            _objorder.OrderDetailCriminal = _objCriminal;
+
+
+            var _objCredit = new OrderDetailCredit();
+            _objCredit.ServiceCode = "CREDITTUVANT";
+            _objCredit.OrderId = "123456";
+            _objorder.OrderDetailCredit = _objCredit;
+
+            string Serialisexml = AquatraqHelper.Serialize(_objAcqutraqOrder);
+            Serialisexml = AquatraqHelper.SetAttributeValue(Serialisexml, "123456");
+            var keyValues = new List<KeyValuePair<string, string>>();
+            keyValues.Add(new KeyValuePair<string, string>("request", Serialisexml));
+
+            var result = await AquatraqHelper.PostFormUrlEncoded<List<XElement>>("https://screen.acutraq.com/webservice/default.cfm", keyValues);
+            if (result != null)
+            {
+                foreach (var item in result)
+                {
+                    string serviceCode = item.Attribute("EMPVR").Value;
+                    string orderID = item.Attribute("orderID").Value;
+                    string CRAorderID = item.Attribute("CRAorderID").Value;
+
+                    
+                }
+            }
+            return null;
+        }
+        public async Task<OrderXML> PostAqutraqRequestOld(object data)
+        {
+            var _objAcqutraqOrder = new OrderXML();
+            _objAcqutraqOrder.Method = "SEND ORDER";
+            var Authentication = new Authentication();
+
+            Authentication.Username = "IntegrationUser";
+            Authentication.Password = "Shom@Group2019!!";
+            _objAcqutraqOrder.Authentication = Authentication;
+            _objAcqutraqOrder.TestMode = "Yes";
+            _objAcqutraqOrder.ReturnResultURL = "http://thinkersteps.com/contact.html";
+            var _objorder = new Order();
+            _objorder.BillingReferenceCode = "000-0000";
+            var _objsubject = new Subject();
+            _objsubject.FirstName = "Sachin";
+            _objsubject.MiddleName = "Vijayrao";
+            _objsubject.LastName = "Mahore";
+            _objsubject.DOB = "07/08/1988";
+            _objsubject.SSN = "111-22-3333";
+            _objsubject.Gender = "Male";
+            _objsubject.DLNumber = "222";
+            _objsubject.ApplicantPosition = "Director";
+            _objorder.Subject = _objsubject;
+            _objAcqutraqOrder.Order = _objorder;
+            var CurrentAddress = new CurrentAddress();
+            CurrentAddress.StreetAddress = "Gopal Nagar";
+            CurrentAddress.City = "Nagpur";
+            CurrentAddress.State = "Maharashtra";
+            CurrentAddress.Zipcode = "440016";
+            CurrentAddress.Country = "India";
+            _objsubject.CurrentAddress = CurrentAddress;
+            _objorder.Subject = _objsubject;
+            _objorder.PackageServiceCode = "CCEE";
+
+            //employee
+            var _objorderdetails = new OrderDetailEMP();
+            _objorderdetails.ServiceCode = "EMPVR";
+            _objorderdetails.OrderId = "123456";
+            _objorderdetails.CompanyName = "NirviTech";
             _objorderdetails.Position = "Developer";
-            _objorderdetails.Salary = "1000";
+            _objorderdetails.Salary = "50000";
             _objorderdetails.Manager = "Test";
             _objorderdetails.Telephone = "(123)456-7890";
             _objorderdetails.EmployerCity = "Nagpur";
             _objorderdetails.EmployerState = "Nagpur";
-             var _objEmploymentDates = new EmploymentDates();
-            _objEmploymentDates.StartDate = "10/01/2017";
-            _objEmploymentDates.EndDate = "10/10/2019";
+            var _objEmploymentDates = new EmploymentDates();
+            _objEmploymentDates.StartDate = "01/01/2018";
+            _objEmploymentDates.EndDate = "10/10/2020";
             _objorderdetails.EmploymentDates = _objEmploymentDates;
             _objorderdetails.ReasonForLeaving = "Test";
             _objorder.OrderDetailEMP = _objorderdetails;
@@ -88,12 +172,11 @@ namespace ShomaRM.Models
                     string orderID = item.Attribute("orderID").Value;
                     string CRAorderID = item.Attribute("CRAorderID").Value;
 
-                    
+
                 }
             }
             return null;
         }
-       
         public class OrderXML
         {
             public string Method { get; set; }

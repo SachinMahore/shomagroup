@@ -128,7 +128,7 @@ namespace ShomaRM.Areas.Tenant.Models
 
                     pr.TransID = Convert.ToInt32(dr["TransID"].ToString());
                     pr.Transaction_DateString = transactiondateString == null ? "" : transactiondateString.Value.ToString("MM/dd/yyyy");
-                    pr.Description = dr["Description"].ToString();
+                    pr.Description = dr["Description"].ToString()+" [" + dr["AccountName"].ToString()+"]";
                     pr.Credit_Amount = Convert.ToDecimal(dr["Credit_Amount"].ToString());
 
                     //pr.Balance = Convert.ToDecimal(dr["Balance"].ToString());
