@@ -294,16 +294,10 @@ namespace ShomaRM.Areas.Admin.Models
 
             if (UpdateStatusService != null)
             {
-                UpdateStatusService.Status = model.Status;
-                UpdateStatusService.ApprovedBy = Convert.ToInt32(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID);
                 UpdateStatusService.CompletedPicture = model.CompletedPicture;
                 UpdateStatusService.TempCompletedPicture = model.TempCompletedPicture;
-                UpdateStatusService.ServicePerson=model.ServicePerson;
-                UpdateStatusService.UrgentStatus = model.UrgentStatus;
                 UpdateStatusService.ClosingNotes = model.ClosingNotes;
                 UpdateStatusService.ClosingDate = model.ClosingDate;
-                UpdateStatusService.PermissionComeDate = model.PermissionComeDate;
-                UpdateStatusService.PermissionComeTime = model.PermissionComeTime;
                 UpdateStatusService.OwnerSignature= model.OwnerSignature;
                 UpdateStatusService.TempOwnerSignature = model.TempOwnerSignature;
                 db.SaveChanges();
@@ -313,6 +307,46 @@ namespace ShomaRM.Areas.Admin.Models
             db.Dispose();
             return msg;
         }
+        public string StatusUpdateForServicePerson(ServicesManagementModel model)
+        {
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            var UpdateStatusService = db.tbl_ServiceRequest.Where(co => co.ServiceID == model.ServiceID).FirstOrDefault();
+
+            if (UpdateStatusService != null)
+            {
+               
+                UpdateStatusService.ServicePerson = model.ServicePerson;
+                UpdateStatusService.PermissionComeDate = model.PermissionComeDate;
+                UpdateStatusService.PermissionComeTime = model.PermissionComeTime;
+                UpdateStatusService.Status = model.Status;
+                UpdateStatusService.UrgentStatus = model.UrgentStatus;
+                UpdateStatusService.ApprovedBy = Convert.ToInt32(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID);
+                db.SaveChanges();
+                msg = "Service Request Assign Successfully";
+
+                var userdetail = db.tbl_Login.Where(co => co.UserID == model.ServicePerson).FirstOrDefault();
+
+
+                string reportHTML = "";
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+
+                //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
+                reportHTML = reportHTML.Replace("[%TenantName%]", model.TenantName);
+                reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We hereby assign your service of " + model.ProblemCategorystring + " (facility) on " + model.PermissionComeDate.Value.ToString("MM/dd/yyyy") + " (date) at " + model.PermissionComeTime + " to "+userdetail.FirstName+" "+userdetail.LastName+"</p>");
+                reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+
+              string body = reportHTML;
+                new EmailSendModel().SendEmail(model.Email, "Service Request Assign Successfully ", body);
+                new EmailSendModel().SendEmail(userdetail.Email, "Service Request --("+ model.TenantName+") ", body);
+                db.Dispose();
+
+            }
+            return msg;
+        }
+
 
         public ServicesManagementModel UploadServiceFile(HttpPostedFileBase fileBaseUpload, ServicesManagementModel model)
         {

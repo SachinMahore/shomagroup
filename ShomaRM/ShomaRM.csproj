@@ -196,6 +196,8 @@
     <Compile Include="Areas\Admin\Controllers\ProspectVerification\ProspectVerificationController.cs" />
     <Compile Include="Areas\Admin\Controllers\PurchaseOrder\PurchaseOrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\ServiceCategory\ServiceCategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ServiceCausing\ServiceCausingController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ServiceIssue\ServiceIssueController.cs" />
     <Compile Include="Areas\Admin\Controllers\ServiceLocation\ServiceLocationController.cs" />
     <Compile Include="Areas\Admin\Controllers\ServicesManagement\ServicesManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\State\StateController.cs" />
@@ -239,6 +241,8 @@
     <Compile Include="Areas\Admin\Models\SendGrid\SendGrid.cs" />
     <Compile Include="Areas\Admin\Models\SendGrid\Web.cs" />
     <Compile Include="Areas\Admin\Models\ServiceCategory\ServiceCategoryModel.cs" />
+    <Compile Include="Areas\Admin\Models\ServiceCausingIssue\ServiceCausingIssueModel.cs" />
+    <Compile Include="Areas\Admin\Models\ServiceIssue\ServiceIssueModel.cs" />
     <Compile Include="Areas\Admin\Models\ServiceLocation\ServiceLocationModel.cs" />
     <Compile Include="Areas\Admin\Models\ServicesManagement\ServicesManagementModel.cs" />
     <Compile Include="Areas\Admin\Models\State\StateModel.cs" />
@@ -372,6 +376,8 @@
     <Content Include="Areas\Admin\Content\Pages\PurchaseOrder\PurchaseOrder.js" />
     <Content Include="Areas\Admin\Content\Pages\PurchaseOrder\PurchaseOrderList.js" />
     <Content Include="Areas\Admin\Content\Pages\ServiceCategory\ServiceCategory.js" />
+    <Content Include="Areas\Admin\Content\Pages\ServiceCausingIssue\CausingIssue.js" />
+    <Content Include="Areas\Admin\Content\Pages\ServiceIssue\ServiceIssue.js" />
     <Content Include="Areas\Admin\Content\Pages\ServiceLocation\ServiceLocation.js" />
     <Content Include="Areas\Admin\Content\Pages\ServiceManagement\ServiceAdmin.js" />
     <Content Include="Areas\Admin\Content\Pages\ServiceManagement\ServiceRequestList.js" />
@@ -789,6 +795,8 @@
     <Content Include="Areas\Admin\Views\Country\Index.cshtml" />
     <Content Include="Areas\Admin\Views\GuestManagement\AddEdit.cshtml" />
     <Content Include="Areas\Admin\Views\GuestManagement\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ServiceCausing\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ServiceIssue\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -838,9 +846,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Content\Pages\ServiceCausingIssue\" />
     <Folder Include="Areas\Admin\Views\CommunityManagment\" />
-    <Folder Include="Areas\Admin\Views\ServiceCausing\" />
     <Folder Include="Areas\Tenant\Views\Applicant\" />
     <Folder Include="Areas\Tenant\Views\CommunityActivity\" />
     <Folder Include="Areas\Tenant\Views\MyTransaction\" />
