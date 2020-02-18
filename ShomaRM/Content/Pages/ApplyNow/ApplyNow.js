@@ -1627,19 +1627,7 @@ var getApplyNowList = function (id) {
         }
     });
 }
-var monthsAndYear = function () {
-    $("#ddlcardmonth").empty();
-    $("#ddlcardmonth").append("<option value='1'>January</option>");
-    $("#ddlcardmonth").append("<option value='2'>February</option>");
 
-    var currentYear = (new Date()).getFullYear();
-    $("#ddlcardyear").empty();
-    $("#ddlcardyear").append("<option value='" + currentYear + "'>" + currentYear + "</option>");
-
-    for (var i = 1; i <= 4; i++) {
-        $("#ddlcardyear").append("<option value='" + (parseInt(currentYear) + i) + "'>" + (parseInt(currentYear) + i) + "</option>");
-    }
-}
 //17082019-code changed
 var fillStateDDL_Home = function (countryid) {
     var param = { CID: countryid };
