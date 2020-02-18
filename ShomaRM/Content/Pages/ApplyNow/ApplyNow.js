@@ -793,10 +793,11 @@ var goToStep = function (stepid, id) {
                     msg += "Please Fill The SSN number </br>";
                 }
                 else {
-                    if ($("#txtSSNNumber").data('value') >= '9') {
+                    if ($("#txtSSNNumber").data('value').length <9) {
                         msg += "SSN number must be 9 digit </br>";
                     }
                 }
+
             }
             if (!$("#txtEmailNew").val()) {
                 msg += "Please Fill The Email </br>";

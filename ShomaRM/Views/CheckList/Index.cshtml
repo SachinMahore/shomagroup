@@ -926,11 +926,11 @@
     var getDocuDoc = function () {
 
         $("#divLoader").show();
-        //var param = { EnvelopeID: envelopeID };
+        var param = { UserID: $("#hndUID").val()};
         $.ajax({
-            url: "/EmbeddedSigning/GetDocuDoc",
+            url: "/EmbeddedSigning/GetDocuDocLease",
             method: "post",
-            //data: JSON.stringify(param),
+            data: JSON.stringify(param),
             contentType: "application/json; charset=utf-8", // content type sent to server
             dataType: "json", //Expected data format from server
             success: function (response) {
