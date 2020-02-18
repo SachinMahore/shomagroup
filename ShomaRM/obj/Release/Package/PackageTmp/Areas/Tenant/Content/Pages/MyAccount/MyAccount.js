@@ -31,30 +31,31 @@
 
     $("#ddlAmenities").on("change", function () {
         var selectedOption = $(this).val();
+        clearDateTime();
         if (selectedOption > 0) {
             $('#reserveAmenity').modal('show');
             $("#divSoc, #divClubroom, #divBBQ, #divPoolCabana, #divYog").addClass("hidden");
             $(".modal-title").html("");
             if (selectedOption == 1) {
                 $("#divSoc").removeClass("hidden");
-                $(".modal-title").html("SOCCER/RECREATIONAL FIELD");
+                $(".modal-title,.print-title").html("SOCCER/RECREATIONAL FIELD");
             }
             else if (selectedOption == 3) {
                 $("#divClubroom").removeClass("hidden");
-                $(".modal-title").html("CLUBROOM/CLUBROOM WITH COURTYARD");
+                $(".modal-title,.print-title").html("CLUBROOM/CLUBROOM WITH COURTYARD");
 
             }
             else if (selectedOption == 11) {
                 $("#divBBQ").removeClass("hidden");
-                $(".modal-title").html("BBQ AREA");
+                $(".modal-title,.print-title").html("BBQ AREA");
             }
             else if (selectedOption == 12) {
                 $("#divPoolCabana").removeClass("hidden");
-                $(".modal-title").html("POOL CABANAS");
+                $(".modal-title,.print-title").html("POOL CABANAS");
             }
             else if (selectedOption == 13) {
                 $("#divYog").removeClass("hidden");
-                $(".modal-title").html("YOGA/MEDITATION LAWN");
+                $(".modal-title,.print-title").html("YOGA/MEDITATION LAWN");
             }
         }
         else {
@@ -71,14 +72,16 @@
             var selectedID = $(this).attr("id");
 
             if (selectedID == "SO_2h200depo") {
-                $("#hdnSoccHours").val(2)
+                $("#hdnSoccHours").val(2);
+
             }
             else if (selectedID == "SO_4h400depo") {
-                $("#hdnSoccHours").val(4)
+                $("#hdnSoccHours").val(4);
+
             }
         }
     });
-    $('input[type=radio][name=hours]').on('ifChanged', function (event) {
+    $('input[type=radio][name=hoursBBQ]').on('ifChanged', function (event) {
         $("#txtDesiredTimeBBQFrom").val("");
         $("#txtDesiredTimeBBQTo").val("");
         if ($(this).is(":checked")) {
@@ -108,7 +111,7 @@
         }
     });
 
-    $('input[type=radio][name=limit]').on('ifChanged', function (event) {
+    $('input[type=radio][name=limitBBQ]').on('ifChanged', function (event) {
         $("#txtDesiredTimeBBQFrom").val("");
         $("#txtDesiredTimeBBQTo").val("");
         if ($(this).is(":checked")) {
@@ -191,11 +194,13 @@
             var selectedID = $(this).attr("id");
             if (selectedID == "CR_3h500depo") {
                 $("#CR_75person").iCheck("check");
+                $("#CR_5h1000depo").iCheck("uncheck");
                 $("#hdnClubHours").val(3);
 
             }
             else if (selectedID == "CR_5h1000depo") {
                 $("#CR_75person").iCheck("check");
+                $("#CR_3h500depo").iCheck("uncheck");
                 $("#hdnClubHours").val(5);
             }
             else if (selectedID == "CR_cy1500") {
@@ -229,7 +234,7 @@
 
     $("#txtDesiredTimeBBQFrom").timepicki({
         on_change: function () {
-            //  console.log($("#hdnBBQHours").val());
+            //  //console.log($("#hdnBBQHours").val());
             var value = "2000-01-01 " + convertTo24Hour($("#txtDesiredTimeBBQFrom").val());
             var startdate = new Date(value);
             var hrs = parseFloat($("#hdnBBQHours").val());
@@ -241,7 +246,10 @@
             if (hours < 10) sHours = "0" + sHours;
             if (minutes < 10) sMinutes = "0" + sMinutes;
             var endtime = convertTo12Hour(sHours + ":" + sMinutes);
+
             $("#txtDesiredTimeBBQTo").val(endtime);
+            $("#txtDesiredTimeBBQTo").attr("value", endtime);
+            $("#txtDesiredTimeBBQFrom").attr("value", $("#txtDesiredTimeBBQFrom").val());
         }
     });
 
@@ -259,8 +267,9 @@
             if (minutes < 10) sMinutes = "0" + sMinutes;
             var endtime = convertTo12Hour(sHours + ":" + sMinutes);
 
-
             $("#txtDesiredTimePCTo").val(endtime);
+            $("#txtDesiredTimePCTo").attr("value", endtime);
+            $("#txtDesiredTimePCFrom").attr("value", $("#txtDesiredTimePCFrom").val());
         }
     });
 
@@ -278,8 +287,9 @@
             if (minutes < 10) sMinutes = "0" + sMinutes;
             var endtime = convertTo12Hour(sHours + ":" + sMinutes);
 
-
             $("#txtDesiredTimeClubroomTo").val(endtime);
+            $("#txtDesiredTimeClubroomTo").attr("value", endtime);
+            $("#txtDesiredTimeClubroomFrom").attr("value", $("#txtDesiredTimeClubroomFrom").val());
         }
     });
 
@@ -297,6 +307,8 @@
             var endtime = convertTo12Hour(sHours + ":" + sMinutes);
 
             $("#txtDesiredTimeYogaTo").val(endtime);
+            $("#txtDesiredTimeYogaTo").attr("value", endtime);
+            $("#txtDesiredTimeYogaFrom").attr("value", $("#txtDesiredTimeYogaFrom").val());
         }
     });
 
@@ -317,6 +329,8 @@
             var endtime = convertTo12Hour(sHours + ":" + sMinutes);
 
             $("#txtDesiredTimeSoccerTo").val(endtime);
+            $("#txtDesiredTimeSoccerTo").attr("value", endtime);
+            $("#txtDesiredTimeSoccerFrom").attr("value", $("#txtDesiredTimeSoccerFrom").val());
         }
     });
 
@@ -1711,6 +1725,15 @@ var savePaymentAccounts = function () {
         if (cardYear == '0') {
             msg += 'Select The Card Year</br>'
         }
+        var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
+        var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+
+        GivenDate = new Date(GivenDate);
+        CurrentDate = new Date(CurrentDate);
+
+        if (GivenDate < CurrentDate) {
+            msg += "Your Credit Card Expired..</br>";
+        }
     }
     else if ($("#ddlPayMethodPaymentAccounts").val() == '2') {
         if ($("#txtBankNamePayMethod").val() == '') {
@@ -1727,15 +1750,7 @@ var savePaymentAccounts = function () {
     if ($("#txtAccountNamePayMethod").val() == '') {
         msg += 'Enter the account name</br>'
     }
-    var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
-    var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
-
-    GivenDate = new Date(GivenDate);
-    CurrentDate = new Date(CurrentDate);
-
-    if (GivenDate < CurrentDate) {
-        msg += "Your Credit Card Expired..</br>";
-    }
+   
 
     if (msg != '') {
         $.alert({
@@ -2389,7 +2404,7 @@ var saveUpdateGuestRegistration = function () {
 };
 
 
-var onFocus = function () {
+var onFocusMyAccount = function () {
 
     $("#txtGuestPhone").focusout(function () { $("#txtGuestPhone").val(formatPhoneFax($("#txtGuestPhone").val())); })
         .focus(function () {
@@ -5015,7 +5030,7 @@ var getReservationRequestList = function () {
                     html += "<td>" + elementValue.Duration + " hours</td>";
                     html += "<td>" + elementValue.Guest + "</td>";
 
-                    if (elementValue.Status == "Approved and pending for payment") {
+                    if (elementValue.Status == "Approved and pending for Payment" || elementValue.Status == "Confirmed and pending for Deposit") {
                         html += "<td>" + elementValue.Status + " &nbsp; <button class='btn btn-primary' onclick='getAmenityReservationPay(" + elementValue.ARID + ")'>Pay</button></td>";
                     }
                     else {
@@ -5048,7 +5063,8 @@ var clearDdlAmenity = function () {
 };
 function getAmenityReservationPay(arid)
 {
-    window.location.href="/Paylink/PayAmenityCharges?ARID=" + arid;
+    window.location.href = "/Paylink/PayAmenityCharges?ARID=" + arid + "&FromAcc=1";
+    //window.open("/Paylink/PayAmenityCharges?ARID=" + arid +"&FromAcc=1", 'newStuff');
 }
 var getRecurringPayLists = function () {
     var model = {
@@ -5613,7 +5629,6 @@ var savupdateAmenityReservation = function (printBtnID) {
         if ($('input[type=radio][name=hoursPC]').is(':checked') == false) {
             msg += "Please select any one of the reservation.</br>";
         }
-
         if (desireDate == "") {
             msg += "Booking Date is required.</br>";
         }
@@ -5671,7 +5686,7 @@ var savupdateAmenityReservation = function (printBtnID) {
         desireDuration = 2;
         guestLimit = 22;
     }
-
+    console.log(amenityID);
     var model = {
         TenantID: tenantId,
         AmenityID: amenityID,
@@ -5708,40 +5723,38 @@ var printButtonReservation = function (printBtnID) {
     $("#" + printBtnID).attr("disabled", false);
 };
 
-var printReservation = function (divName) {
-    let printContents, popupWin;
-    printContents = document.getElementById(divName).innerHTML;
-    popupWin = window.open('', '', 'width=950,height=800,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes');
-    popupWin.document.open();
-    popupWin.document.write(`
-                  <html >
-                    <head>
-                    <link rel="stylesheet" href="/content/assets/css/font-awesome.min.css">
-                    <link rel="stylesheet" href="/Content/bootstrap/css/bootstrap.css" />
-                    <link rel="stylesheet" href="/Content/bootstrap/css/bootstrap.min.css" />
-                    <link rel="stylesheet" href="/content/assets/css/datepicker.css" />
-                    <link href="/Content/timepicki.css" rel="stylesheet" />
-                    <link rel="stylesheet" href="/Content/assets/css/icheck.min_all.css" />
-                    <link rel="stylesheet" href="/Content/assets/css/wizard.css" />
-                    <link rel="stylesheet" href="/Content/assets/css/style.css" />
-                    
-                    </head>
-                    <style>
-            hr {
-                margin-top: 0px !important;
-                margin-bottom: 0px !important;
-                border: 0;
-                border-top: 1px solid #bebdbd;
-            }
-            body { font-size: 12px;line-height: 20px; margin: 0px 10px 0px 0px; }
-            h3, .h3 { font-size: 18px;margin: 10px 0 5px; }
-            p { font-size: 14px; line-height: 1.20em;}
+var printReservation = function (divName, contName) {
+    let printContents, popupWin, pintRes;
+    printContents = document.all.item(divName).innerHTML;
+    $("#divPrintData").append(printContents);
+    $('#divPrintData input[name="hours' + contName + '"]').each(function () {
+        var img = "";
+        if ($(this).parent().hasClass("checked")) {
 
-                    </style>
-                <body onload="window.print();window.close()">${printContents}</body>
-                  </html>`
-    );
-    popupWin.document.close();
+            img = '<img src="/Content/assets/img/skin/circleC.png" width="30px" height="30px" />';
+        }
+        else {
+            img = '<img src="/Content/assets/img/skin/circleB.png" width="30px" height="30px" />';
+        }
+        $(this).parent().parent().prepend(img);
+    });
+    $('#divPrintData input[name="limit' + contName + '"]').each(function () {
+        if ($(this).parent().hasClass("checked")) {
+
+            img = '<img src="/Content/assets/img/skin/circleC.png" width="30px" height="30px" />';
+        }
+        else {
+            img = '<img src="/Content/assets/img/skin/circleB.png" width="30px" height="30px" />';
+        }
+        $(this).parent().parent().prepend(img);
+    });
+    $('#divPrintData input[name="hours' + contName + '"]').remove();
+    $('#divPrintData .iradio_square-yellow').remove();
+    $("#divPrintReservation").removeClass("hidden").printThis();
+    setTimeout(function () {
+        $("#divPrintReservation").addClass("hidden");
+        $("#divPrintData").empty();
+    }, 3000);
 };
 
 var openTag = function () {
@@ -5815,3 +5828,12 @@ var getTagInfo = function () {
         }
     });
 }
+var clearDateTime = function () {
+    $("#txtDesiredDateBBQ,#txtDesiredTimeBBQFrom,#txtDesiredTimeBBQTo").val("").removeAttr("value");
+    $("#txtDesiredDatePC,#txtDesiredTimePCFrom,#txtDesiredTimePCTo").val("").removeAttr("value");
+    $("#txtDesiredDateClubroom,#txtDesiredTimeClubroomFrom,#txtDesiredTimeClubroomTo").val("").removeAttr("value");
+    $("#txtDesiredDateYoga,#txtDesiredTimeYogaFrom,#txtDesiredTimeYogaTo").val("").removeAttr("value");
+    $("#txtDesiredDateSoccer,#txtDesiredTimeSoccerFrom,#txtDesiredTimeSoccerTo").val("").removeAttr("value");
+    $("#btnPrintSoccer,#btnPrintBBQ,#btnPrintPC, #btnPrintClubroom, #btnPrintYog").attr("disabled", true);
+
+};

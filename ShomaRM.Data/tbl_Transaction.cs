@@ -54,5 +54,6 @@ namespace ShomaRM.Data
         public string TSecurityNumber { get; set; }
         public string TCardExpirationMonth { get; set; }
         public string TCardExpirationYear { get; set; }
+        public string Authcode { get; set; }
     }
 }

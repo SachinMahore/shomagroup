@@ -1096,23 +1096,51 @@ namespace ShomaRM.Areas.Admin.Models
                 db.SaveChanges();
 
                 var getPayMeth = db.tbl_OnlinePayment.Where(p => p.ProspectId == model.ProspectID).FirstOrDefault();
-                var addPaymentMethod = new tbl_PaymentAccounts()
+                long paid = 0;
+                if(getPayMeth.PaymentMethod==2)
                 {
+                    var addPaymentMethod = new tbl_PaymentAccounts()
+                    {
 
-                    NameOnCard = getPayMeth.Name_On_Card,
-                    CardNumber = getPayMeth.CardNumber,
-                    CardType = 1,
-                    Month = getPayMeth.CardMonth != null? getPayMeth.CardMonth.ToString():"0",
-                    Year= getPayMeth.CardYear != null ? getPayMeth.CardYear.ToString() : "0",
-                    TenantId= getAppldata.TenantID,
-                    NickName=getPayMeth.Name_On_Card,
-                    AccountName = getPayMeth.Name_On_Card,
-                    PayMethod =1,
-                    Default=1,
-                    BankName= getPayMeth.Name_On_Card
-                };
-                db.tbl_PaymentAccounts.Add(addPaymentMethod);
-                db.SaveChanges();
+                        NameOnCard = getPayMeth.Name_On_Card,
+                        CardNumber = getPayMeth.CardNumber,
+                        CardType = 1,
+                        Month = getPayMeth.CardMonth != null ? getPayMeth.CardMonth.ToString() : "0",
+                        Year = getPayMeth.CardYear != null ? getPayMeth.CardYear.ToString() : "0",
+                        TenantId = getAppldata.TenantID,
+                        NickName = getPayMeth.Name_On_Card,
+                        AccountName = getPayMeth.Name_On_Card,
+                        PayMethod = 1,
+                        Default = 1,
+                        BankName = getPayMeth.Name_On_Card
+                    };
+                    db.tbl_PaymentAccounts.Add(addPaymentMethod);
+                    db.SaveChanges();
+                    paid = addPaymentMethod.PAID;
+                }
+                else
+                {
+                    var addPaymentMethod = new tbl_PaymentAccounts()
+                    {
+
+                        NameOnCard = getPayMeth.Name_On_Card,
+                        AccountNumber = getPayMeth.CardNumber,
+                        CardType = 0,
+                        Month = "0",
+                        Year =  "0",
+                        TenantId = getAppldata.TenantID,
+                        NickName = getPayMeth.Name_On_Card,
+                        AccountName = getPayMeth.Name_On_Card,
+                        PayMethod = 2,
+                        Default = 1,
+                        BankName = getPayMeth.Name_On_Card,
+                        RoutingNumber=getPayMeth.CCVNumber.ToString()
+                    };
+                    db.tbl_PaymentAccounts.Add(addPaymentMethod);
+                    db.SaveChanges();
+                    paid = addPaymentMethod.PAID;
+                }
+               
 
 
                 var prospectDet = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectID).FirstOrDefault();
@@ -1138,6 +1166,7 @@ namespace ShomaRM.Areas.Admin.Models
                     foreach (var tl in transList)
                     {
                         tl.TenantID = model.TenantID;
+                        tl.Transaction_Type = paid.ToString();
                     }   
                 }
                 db.SaveChanges();
@@ -1227,7 +1256,7 @@ namespace ShomaRM.Areas.Admin.Models
 
                 }
                 string body = reportHTML;
-                model.Email = "sachinmahore@gmail.com";
+           
                 new EmailSendModel().SendEmail(model.Email, "Welcome To Sanctuary Doral", body);
 
                 msg = model.TenantID.ToString();

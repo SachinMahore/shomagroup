@@ -197,6 +197,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     model.OriginalDriverLicence = getTenantGuest.OriginalDriverLicence;
                     model.OriginalVehicleRegistration = getTenantGuest.OriginalVehicleRegistration;
                     model.HaveVehicleString = getTenantGuest.HaveVehicle == true ? "Yes" : getTenantGuest.HaveVehicle == false ? "No" : "";
+                    model.Status = getTenantGuest.Status;
                     model.StatusString = getTenantGuest.Status == 1 ? "Approved" : getTenantGuest.Status == 2 ? "Decline" : getTenantGuest.Status == 0 ? "" : ""; 
 
                 }

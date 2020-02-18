@@ -21,7 +21,7 @@
         <div class="collapse navbar-collapse yamm" id="navigation">
             <div class="button navbar-right">
                 @*@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.Username*@
-                <button class="navbar-btn nav-button wow bounceInRight login " onclick="goToStep(1)" data-wow-delay="0.4s">Logout</button>
+                <button class="navbar-btn nav-button wow bounceInRight login " onclick="goToStep(1)" data-wow-delay="0.4s" id="btnLogout">Logout</button>
 
             </div>
 
@@ -108,7 +108,7 @@
                                                         <tr>
                                                             <td>$<span id="resFees"></span></td>
                                                             <td>RESERVATION FEE</td>
-                                                            <td width="130" style="text-align: center;"><span class="hidden" id="chkResfeesSpan"><input type="checkbox" class="form-control" id="chkResfees" /></span><span id="chkResfeesPaid" class="hidden">Paid</span></td>
+                                                            <td width="130" style="text-align: center;"><span class="hidden" id="chkResfeesSpan"><input type="checkbox" class="form-control" id="chkResfees"/></span><span id="chkResfeesPaid" class="hidden">Paid</span></td>
                                                         </tr>
                                                         <tr>
                                                             <td>$<span id="resDepo"></span></td>
@@ -230,8 +230,9 @@
                                        <p style="text-align:center;"><br />Thanks <b><span id="resTenant1"></span></b>. Your payment has been processed.  A receipt has been emailed to <b><span id="TenantEmail"></span></b>.  </p>
                                     </div>
                                     <div>
-                                        <a href="~/Account/Login"  class="btn btn-primary pull-left" > Go to Login</a>
-                                        <a href="~/Home/Index" class="btn btn-primary pull-right"> Go to Home</a>
+                                        <a href="~/Account/Login"  class="btn btn-primary pull-left" id="btnLogin"> Go to Login</a>
+                                        <a href="javascript:void(0);" class="btn btn-primary pull-left hidden" onclick="goToTenReserveAmenities()" id="btnAccount"> Go to Account</a>
+                                        <a href="~/Home/Index" class="btn btn-primary pull-right" id="btnHome"> Go to Home</a>
                                     </div>
                                 </div>
                             </div>
@@ -305,7 +306,17 @@
 <script type="text/javascript">
     $(document).ready(function () {
         getTenantInfo(@ViewBag.UID);
-
+        if (@ViewBag.FromAcc==1)
+        {
+            $("#btnAccount").removeClass("hidden");
+            $("#btnLogin").addClass("hidden");
+            $("#btnHome").addClass("hidden");
+            $("#btnLogout").addClass("hidden");
+        } else {
+            $("#btnAccount").addClass("hidden");
+            $("#btnLogin").removeClass("hidden");
+            $("#btnHome").removeClass("hidden");
+        }
          $("#resFees").text(formatMoney(parseFloat(@Model.ReservationFee)));
         $("#resDepo").text(formatMoney(parseFloat(@Model.DepositFee)));
          $("#totalPayAmt").text(formatMoney(parseFloat(@Model.ReservationFee)));
@@ -533,12 +544,21 @@
             data: JSON.stringify(models),
             dataType: "JSON",
             success: function (response) {
-                $.alert({
-                    title: 'Message!',
-                    content: response.Msg,
-                    type: 'blue',
-                });
-                goToStep(4, 4)
+                if (response.Msg == "1") {
+                    $.alert({
+                        title: 'Message!',
+                        content: "Amenity Payment successfull",
+                        type: 'blue',
+                    });
+                    goToStep(4, 4)
+                } else {
+                    $.alert({
+                        title: 'Message!',
+                        content: "Amenity Payment Failed",
+                        type: 'red',
+                    });
+                  
+                }
             }
         });
 
@@ -549,4 +569,22 @@
 
         return text.replace(/[^\d\.]/g, '');
     }
+
+    var goToTenReserveAmenities = function () {
+        model = {
+            StepId: 5,
+            PayStepId: 2
+        };
+
+        $.ajax({
+            url: '/Dashboard/SetSessionSetReserveAmenities',
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                window.location.href = '/Tenant/MyAccount/Index/' + response.model;
+            }
+        });
+    };
 </script>

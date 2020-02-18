@@ -53,9 +53,9 @@
     @RenderSection("scripts", required: false)
 </head>
 <body>
-    <div id="preloader">
+    @*<div id="preloader">
         <div id="status">&nbsp;</div>
-    </div>
+    </div>*@
     <!-- Body content -->
     @RenderBody()
     <div id="divLoader" style="display:none"></div>
@@ -507,8 +507,7 @@
 
         });
     };
-</script>
-<script type="text/javascript">
+
     var SignIn = function () {
         var msg = "";
         var email = $("#UserName").val();
@@ -581,8 +580,7 @@
         owl.play();
         owl.next();
     }
-</script>
-<script>
+
 
     // Get the modal
     var modal = document.getElementById("popSignIn");
@@ -608,9 +606,7 @@
             modal.style.display = "none";
         }
     }
-</script>
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
+
     var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
     (function () {
         var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
@@ -786,8 +782,7 @@
             }
         });
     }
-</script>
-<script>
+
     // Get the modal
     var layoutmodal = document.getElementById("modalMaplayout");
     // Get the button that opens the modal
@@ -811,9 +806,16 @@
         }
     }
 
-</script>
 
-<script>
+    $(document).ajaxStop(function () {
+        $("#divLoader").hide();
+    });
+    $(document).ajaxComplete(function () {
+        $("#divLoader").hide();
+    });
+    $(document).ajaxStart(function () {
+        $("#divLoader").show();
+    });
     $(document).ready(function () {
         $("#btnmapfloor,#btnmaplayout,#btnmapIndex,#btnmapcontact").on('click', function (e) {
             $("#modalMaplayout").css("display", "block");
@@ -823,7 +825,7 @@
         $('#MtDate').click(function () {
             $("#txtMoveDate").focus();
         }); 
-        onFocus();
+        onFocusMainLayout();
     });
 
     function goToSignIn() {
@@ -844,7 +846,7 @@
         $("#UserName").val("");
         $("#password").val("");
     }
-    var onFocus = function () {
+    var onFocusMainLayout = function () {
         $("#txtPhone").focusout(function () { $("#txtPhone").val(formatPhoneFax($("#txtPhone").val())); })
             .focus(function () {
                 $("#txtPhone").val(unformatText($("#txtPhone").val()));
