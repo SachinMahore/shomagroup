@@ -36,14 +36,9 @@ namespace ShomaRM.Models.Bluemoon
 
         }
 
-        private XmlDocument CreateXMLForLease(LeaseRequestModel leaseRequestModel, string propertyId, string sessionId)
+        private string LeaseXMLData(LeaseRequestModel leaseRequestModel)
         {
-            string leaseXmlStr = "";
-            try
-            {
-                leaseXmlStr = @" <ns1:CreateLease>
-                <SessionId>" + sessionId + @"</SessionId>
-                <LeaseXMLData>
+            string leaseData = @"<LeaseXMLData>
             	    &lt;BLUEMOON&gt;
                     &lt;LEASE&gt;
                     &lt;STANDARD&gt;
@@ -357,8 +352,19 @@ namespace ShomaRM.Models.Bluemoon
                     &lt;/STANDARD&gt;
                     &lt;/LEASE&gt;
                     &lt;/BLUEMOON&gt;
-                </LeaseXMLData>" + @"
-                 " + (propertyId == null ? @"<PropertyId xsi:nil=""true""/>" : "<PropertyId>" + propertyId + @"</PropertyId>") + @"
+                </LeaseXMLData>";
+
+            return leaseData;
+        }
+
+        private XmlDocument CreateXMLForLease(LeaseRequestModel leaseRequestModel, string propertyId, string sessionId)
+        {
+            string leaseXmlStr = "";
+            try
+            {
+                leaseXmlStr = @" <ns1:CreateLease>
+                <SessionId>" + sessionId + @"</SessionId>" + LeaseXMLData(leaseRequestModel) +
+                (propertyId == null ? @" <PropertyId xsi:nil=""true""/>" : "<PropertyId>" + propertyId + @"</PropertyId>") + @"
                 <LeaseId xsi:nil=""true""/>
                 </ns1:CreateLease>";
             }
@@ -372,8 +378,75 @@ namespace ShomaRM.Models.Bluemoon
             return bodyForLease;
         }
 
-        public async Task<string> CreateLease(LeaseRequestModel leaseRequestModel, string PropertyId)
+        private XmlDocument EditXMLForLease(LeaseRequestModel leaseRequestModel, string leaseId, string sessionId)
         {
+            string leaseXmlStr = "";
+            try
+            {
+                leaseXmlStr = @" <ns1:EditLease>
+            <SessionId>" + sessionId + @"</SessionId>
+            <LeaseId>" + leaseId + @"</LeaseId>
+            	" + LeaseXMLData(leaseRequestModel) + @"
+            </ns1:EditLease>";
+            }
+            catch (Exception ex)
+            {
+
+            }
+            var bodyForLease = CreateXMLDocument(leaseXmlStr);
+
+
+            return bodyForLease;
+        }
+
+        public async Task<LeaseResponseModel> CreateLease(LeaseRequestModel leaseRequestModel, string sessionId, string PropertyId)
+        {
+            LeaseResponseModel leaseResponseModel = new LeaseResponseModel();
+            string leaseId = "";
+
+
+            var bodyForLease = CreateXMLForLease(leaseRequestModel, PropertyId, sessionId);
+
+            var result = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#CreateLease", bodyForLease);
+            if (result != null)
+            {
+                var resultlease = result
+                 .Descendants("CreateLeaseResult")
+                 .ToList();
+                leaseId = resultlease[0].Value;
+            }
+
+
+
+            leaseResponseModel.LeaseId = leaseId;
+            leaseResponseModel.SessionId = sessionId;
+            return leaseResponseModel;
+        }
+
+        public async Task<LeaseResponseModel> EditLease(LeaseRequestModel leaseRequestModel, string sessionId, string leaseId)
+        {
+            LeaseResponseModel leaseResponseModel = new LeaseResponseModel();
+            
+            var bodyForLease = EditXMLForLease(leaseRequestModel, leaseId, sessionId);
+
+            var result = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#EditLease", bodyForLease);
+            if (result != null)
+            {
+                var resultlease = result
+                 .Descendants("EditLeaseResult")
+                 .ToList();
+                leaseResponseModel.Success = Convert.ToBoolean(resultlease[0].Value);
+            }
+
+
+            leaseResponseModel.LeaseId = leaseId;
+            leaseResponseModel.SessionId = sessionId;
+            return leaseResponseModel;
+        }
+
+        public async Task<LeaseResponseModel> CreateSession()
+        {
+            LeaseResponseModel leaseResponseModel = new LeaseResponseModel();
             string sessionId = "";
             string leaseId = "";
             var bodyForAuth = CreateXMLDocument(@" <ns1:AuthenticateUser>
@@ -398,7 +471,6 @@ namespace ShomaRM.Models.Bluemoon
                                                                     <Password>$homa123</Password>
                                                                 </ns1:CreateSession>");
 
-
                     var resultSession = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#CreateSession", bodyForSession);
                     if (resultSession != null)
                     {
@@ -408,41 +480,86 @@ namespace ShomaRM.Models.Bluemoon
                          .ToList();
 
                         sessionId = resultSessionDetails[0].Value;
-
-                        var bodyForLease = CreateXMLForLease(leaseRequestModel, PropertyId, sessionId);
-
-                        var result = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#CreateLease", bodyForLease);
-                        if (result != null)
-                        {
-                            var resultlease = result
-                             .Descendants("CreateLeaseResult")
-                             .ToList();
-                            leaseId = resultlease[0].Value;
-
-                            var bodyForCloseSession = CreateXMLDocument(@"<ns1:CloseSession>
-                                                                        <SessionId>"+ sessionId + @"</SessionId>
-                                                                     </ns1:CloseSession>");
-
-                            var resultCloseSession = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#CloseSession", bodyForCloseSession);
-                            if (resultCloseSession != null)
-                            {
-                                // for attribute
-                                var resultCloseSessionDetails = resultCloseSession
-                                 .Descendants("CloseSessionResult")
-                                 .ToList();
-
-                                if(Convert.ToBoolean(resultCloseSessionDetails[0].Value)==true)
-                                {
-                                    return leaseId;
-                                }
-
-                            }
-                        }
                     }
                 }
 
             }
-            return leaseId;
+            leaseResponseModel.SessionId = sessionId;
+            return leaseResponseModel;
         }
+
+        public async Task<LeaseResponseModel> CloseSession(string sessionId)
+        {
+            LeaseResponseModel leaseResponseModel = new LeaseResponseModel();
+            var bodyForCloseSession = CreateXMLDocument(@"<ns1:CloseSession>
+                                                        <SessionId>" + sessionId + @"</SessionId>
+                                                     </ns1:CloseSession>");
+
+            var resultCloseSession = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#CloseSession", bodyForCloseSession);
+            if (resultCloseSession != null)
+            {
+                // for attribute
+                var resultCloseSessionDetails = resultCloseSession
+                 .Descendants("CloseSessionResult")
+                 .ToList();
+            }
+
+            return null;
+        }
+
+
+
+
+
+        public async Task<LeaseResponseModel> GenerateLeasePdf(string sessionId, string leaseId)
+        {
+            LeaseResponseModel leaseResponseModel = new LeaseResponseModel();
+            var bodyForAuth = CreateXMLDocument(@"<ns1:GetLeasePDF>
+                                                  <SessionId>" + sessionId + @"</SessionId>
+                                                  <LeaseId>" + leaseId + @"</LeaseId>
+                                                  <LeaseForms>
+    	                                                <item><Id>RENTCON2</Id></item>
+                                                        <item><Id>UTILITY</Id></item>
+                                                        <item><Id>PETAGREE</Id></item>
+                                                        <item><Id>APTLEASE</Id></item>
+                                                        <item><Id>SUPPORTANIMAL</Id></item>
+                                                        <item><Id>BEDBUGADD</Id></item>
+                                                        <item><Id>FLBUYOUT</Id></item>
+                                                        <item><Id>POLICIES</Id></item>
+                                                        <item><Id>CRIMEDRUG</Id></item>
+                                                        <item><Id>ENCGARA2</Id></item>
+                                                        <item><Id>INVENTRY</Id></item>
+                                                        <item><Id>MIXEDUSE</Id></item>
+                                                        <item><Id>MOLDADDN</Id></item>
+                                                        <item><Id>NOSMOKE</Id></item>
+                                                        <item><Id>PKGACCEPT</Id></item>
+                                                        <item><Id>PARKINGADD</Id></item>
+                                                        <item><Id>PHOTORELS</Id></item>
+                                                        <item><Id>RAMFPOLICY</Id></item>
+                                                        <item><Id>ADDGATE2</Id></item>
+                                                        <item><Id>RENTINS2</Id></item>
+                                                        <item><Id>SATELIT2</Id></item>
+                                                        <item><Id>AIRBNB</Id></item>
+                                                    </LeaseForms>
+                                                    <Preview xsi:nil=""true""/>
+                                                  </ns1:GetLeasePDF>");
+
+            var resultAuth = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#GetLeasePDF", bodyForAuth);
+            if (resultAuth != null)
+            {
+                // for attribute
+                var resultOrderDetail = resultAuth
+                 .Descendants("GetLeasePDFResult")
+                 .ToList();
+
+                byte[] bytes = Convert.FromBase64String(resultOrderDetail[0].Value.ToString());
+                leaseResponseModel.leasePdf = bytes;
+            }
+
+            leaseResponseModel.LeaseId = leaseId;
+            leaseResponseModel.SessionId = sessionId;
+            return leaseResponseModel;
+        }
+
     }
 }
