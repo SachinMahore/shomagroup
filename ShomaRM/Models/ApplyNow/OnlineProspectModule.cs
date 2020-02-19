@@ -185,7 +185,7 @@ namespace ShomaRM.Models
                 if (model != null)
                 {
                     reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
-                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  Thank you for registering on our fast and easy Leasing Portal!  Your account has been successfully created as follows:</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;Username : [%TenantEmail%]</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;We are excited you are considering us as your place to live.  If you need any assistance in completing your online application or have any questions about our community, </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Please feel free to contact us at your convenience.  Our contact information with some highlights about our property is shown below. We look forward to serving you.</p>");
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  Thank you for registering on our fast and easy Leasing Portal!  Your account has been successfully created as follows:</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;Username : [%TenantEmail%]</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;We are excited you are considering us as your place to live.  If you need any assistance in completing your online application or have any questions about our community, </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Please feel free to contact us at your convenience.  Our contact information with some highlights about our property is shown below. We look forward to serving you.</p>");
 
                     reportHTML = reportHTML.Replace("[%TenantName%]", model.FirstName + " " + model.LastName);
                     reportHTML = reportHTML.Replace("[%TenantAddress%]", model.Address);
@@ -265,29 +265,32 @@ namespace ShomaRM.Models
             if (model.ID != 0)
             {
                 var onlineProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ID).FirstOrDefault();
+            
+                if (onlineProspectData.IsRentalPolicy ==null)
+                {
+                    string reportHTML = "";
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    if (model != null)
+                    {
+                        reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
+                        reportHTML = reportHTML.Replace("[%EmailBody%]", "  <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We noticed you begun your application process.  Please note for your convenience, the application remains active for 48 hours; however, if the application is  not completed and submitted within 48 hours, you will need to start over.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;   If you have any questions or need assistance in completing the application, please do not hesitate to call us.  We are here to assist you!  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;We know you will love your new home and are excited to have you reside here. </p>");
+
+                        reportHTML = reportHTML.Replace("[%TenantName%]", model.FirstName + " " + model.LastName);
+
+                        reportHTML = reportHTML.Replace("[%TenantEmail%]", model.Email);
+
+                    }
+                    string body = reportHTML;
+                    new EmailSendModel().SendEmail(model.Email, "Application Submission", body);
+                }
                 if (onlineProspectData != null)
                 {
                     onlineProspectData.IsRentalPolicy = model.IsRentalPolicy;
                     onlineProspectData.IsRentalQualification = model.IsRentalQualification;
-                   
+
                     db.SaveChanges();
                 }
-                string reportHTML = "";
-                string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
-                reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
-                if (model != null)
-                {
-                    reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
-                    reportHTML = reportHTML.Replace("[%EmailBody%]", "  <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We noticed you begun your application process.  Please note for your convenience, the application remains active for 48 hours; however, if the application is  not completed and submitted within 48 hours, you will need to start over.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;   If you have any questions or need assistance in completing the application, please do not hesitate to call us.  We are here to assist you!  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;We know you will love your new home and are excited to have you reside here. </p>");
-
-                    reportHTML = reportHTML.Replace("[%TenantName%]", model.FirstName + " " + model.LastName);
-  
-                    reportHTML = reportHTML.Replace("[%TenantEmail%]", model.Email);
-                  
-                }
-                string body = reportHTML;
-                new EmailSendModel().SendEmail(model.Email, "Application Submission", body);
-
             }
             msg = "Policy Checked Successfully";
             db.Dispose();
@@ -753,8 +756,7 @@ namespace ShomaRM.Models
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string DocumentState { get; set; }
-        public string DocumentIDNumber { get; set; }
-    
+        public string DocumentIDNumber { get; set; }    
 
         public string SaveDocumentVerifications(HttpPostedFileBase fb, DocumentVerificationModule model)
         {
@@ -797,7 +799,6 @@ namespace ShomaRM.Models
             db.Dispose();
             return msg;
         }
-
 
     }
     public class EmailData

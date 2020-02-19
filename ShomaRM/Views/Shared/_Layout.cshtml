@@ -175,25 +175,25 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="firstname" class="star">First Name</label>
-                            <input type="text" class="form-control" id="txtFirstName">
+                            <input type="text" class="form-control" id="txtFirstName1">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="lastname" class="star">Last Name</label>
-                            <input type="text" class="form-control" id="txtLastName">
+                            <input type="text" class="form-control" id="txtLastName1">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="email" class="star">Email</label>
-                            <input type="text" class="form-control" id="txtEmail">
+                            <input type="text" class="form-control" id="txtEmail1">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="subject" class="star">Phone Number</label>
-                            <input type="text" class="form-control" maxlength="10" id="txtPhone" onkeypress="return isOnlyNumber(event)">
+                            <input type="text" class="form-control" maxlength="10" id="txtPhone1" onkeypress="return isOnlyNumber(event)">
                         </div>
                     </div>
 
@@ -222,7 +222,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="email">Market Source</label>
-                            <select id="ddlMarketSource" class="form-control"></select>
+                            <select id="ddlMarketSource1" class="form-control"></select>
                         </div>
                     </div>
 
@@ -640,10 +640,10 @@
 
         $("#divLoader").show();
         var msg = "";
-        var fname = $("#txtFirstName").val();
-        var lname = $("#txtLastName").val();
-        var phone = unformatText($("#txtPhone").val());
-        var email = $("#txtEmail").val();
+        var fname = $("#txtFirstName1").val();
+        var lname = $("#txtLastName1").val();
+        var phone = unformatText($("#txtPhone1").val());
+        var email = $("#txtEmail1").val();
         var address = $("#txtAddress").val();
         var message = $("#txtMessage").val();
         var pets = $(".icheckbox_square-yellow").hasClass("checked") ? 1 : 0;
@@ -652,7 +652,7 @@
         var state = $("#ddlState").val();
         var city = $("#ddlCity").val();
         var visittime = $("#txtMoveDate").val();
-        var marketSource = $("#ddlMarketSource").val();
+        var marketSource = $("#ddlMarketSource1").val();
 
         if (!fname) {
             msg += "Enter First Name</br>";
@@ -709,10 +709,10 @@
     }
 
     function clearProspectForm() {
-        $("#txtFirstName").val("");
-        $("#txtLastName").val("");
-        $("#txtPhone").val("");
-        $("#txtEmail").val("");
+        $("#txtFirstName1").val("");
+        $("#txtLastName1").val("");
+        $("#txtPhone1").val("");
+        $("#txtEmail1").val("");
         $("#txtAddress").val("");
         $("#txtMessage").val("");
         $(".icheckbox_square-yellow").removeClass("checked");
@@ -773,10 +773,10 @@
             dataType: "json",
             success: function (response) {
 
-                $("#ddlMarketSource").empty();
-                $("#ddlMarketSource").append("<option value='0'>-- Select Market Source --</option>");
+                $("#ddlMarketSource1").empty();
+                $("#ddlMarketSource1").append("<option value='0'>-- Select Market Source --</option>");
                 $.each(response.model, function (index, elementValue) {
-                    $("#ddlMarketSource").append("<option value=" + elementValue.AdID + ">" + elementValue.Advertiser + "</option>");
+                    $("#ddlMarketSource1").append("<option value=" + elementValue.AdID + ">" + elementValue.Advertiser + "</option>");
                 });
 
             }

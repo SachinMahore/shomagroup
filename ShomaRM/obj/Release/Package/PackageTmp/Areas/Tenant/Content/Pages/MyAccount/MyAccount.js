@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     focuss();
     getServiceRequestOnAlarm();
-    onFocus();
+    onFocusMyAccount();
     breakdownPaymentFunction();
 
     getPaymentAccountsCreditCard();

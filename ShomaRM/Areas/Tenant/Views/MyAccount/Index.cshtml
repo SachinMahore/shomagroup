@@ -1079,7 +1079,7 @@
                                 <div class="col-sm-12">
                                     <input id="hdnGuestId" type="hidden" value="0" />
                                     <input id="hdnTagGuestId" type="hidden" value="0" />
-                                    <button type="submit" class="btn-blue pull-right text-center" onclick="printGuest('PrintGuest')"><i class="fa fa-print"></i> Print</button>
+                                   
                                 </div>
                                 <div class="col-sm-12">
                                     <div id="PrintGuest" style="overflow: hidden !important;">
@@ -1574,13 +1574,13 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="star">Account Number</label>
-                                    <input id="txtAccountNumberPayMethod" type="text" class="form-control" placeholder="Account Number" maxlength="29" value="" onkeypress="return isOnlyNumber(event)">
+                                    <input id="txtAccountNumberPayMethod" type="text" class="form-control" placeholder="Account Number" maxlength="10" value="" onkeypress="return isOnlyNumber(event)">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="star">Routing Number</label>
-                                    <input id="txtRoutingNumberPayMethod" type="text" class="form-control" placeholder="Routing Number" value="" onkeypress="return isOnlyNumber(event)">
+                                    <input id="txtRoutingNumberPayMethod" type="text" class="form-control" placeholder="Routing Number" maxlength="9" value="" onkeypress="return isOnlyNumber(event)">
                                 </div>
                             </div>
                         </div>

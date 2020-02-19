@@ -496,7 +496,7 @@ var goToStep = function (stepid, id) {
         if (id == "2") {
             $("#as2").removeAttr("onclick")
             $("#as2").attr("onclick", "goToStep(2,2)");
-             getPropertyUnitDetails($("#hndUID").val());
+             //getPropertyUnitDetails($("#hndUID").val());
             $("#li1").addClass("active");
             $("#li2").addClass("active");
 
@@ -793,10 +793,11 @@ var goToStep = function (stepid, id) {
                     msg += "Please Fill The SSN number </br>";
                 }
                 else {
-                    if ($("#txtSSNNumber").data('value') >= '9') {
+                    if ($("#txtSSNNumber").data('value').length <9) {
                         msg += "SSN number must be 9 digit </br>";
                     }
                 }
+
             }
             if (!$("#txtEmailNew").val()) {
                 msg += "Please Fill The Email </br>";
@@ -1594,16 +1595,22 @@ function savePayment() {
         dataType: "JSON",
         success: function (response) {
             $("#divLoader").hide();
-            if (response.Msg != "") {
+            if (response.Msg == "1") {
                 // $("#carddetails").addClass("hidden");
                 $(".payNext").removeAttr("disabled");
-                $("#ResponseMsg").html(response.Msg);
+                $("#ResponseMsg").html("Payment Successfull");
                 $.alert({
                     title: "",
-                    content: response.Msg,
+                    content: "Payment Successfull",
                     type: 'red'
                 });
                 getTransationLists($("#hdnUserId").val());
+            } else {
+                $.alert({
+                    title: "",
+                    content: "Payment Failed",
+                    type: 'red'
+                });
             }
         }
     });
@@ -1627,19 +1634,7 @@ var getApplyNowList = function (id) {
         }
     });
 }
-var monthsAndYear = function () {
-    $("#ddlcardmonth").empty();
-    $("#ddlcardmonth").append("<option value='1'>January</option>");
-    $("#ddlcardmonth").append("<option value='2'>February</option>");
 
-    var currentYear = (new Date()).getFullYear();
-    $("#ddlcardyear").empty();
-    $("#ddlcardyear").append("<option value='" + currentYear + "'>" + currentYear + "</option>");
-
-    for (var i = 1; i <= 4; i++) {
-        $("#ddlcardyear").append("<option value='" + (parseInt(currentYear) + i) + "'>" + (parseInt(currentYear) + i) + "</option>");
-    }
-}
 //17082019-code changed
 var fillStateDDL_Home = function (countryid) {
     var param = { CID: countryid };
@@ -3077,8 +3072,10 @@ var getApplicantLists = function () {
                 if (elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
                     //Sachin's work 22-10
                     $("#btnsendemail").removeClass("hidden");
-                    emailhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:18%; padding:6px;'>" + elementValue.Email + " </td><td style='width:30%; padding:6px;'><input type='checkbox' onclick='addEmail(\"" + elementValue.Email + "\")' id='chkEmail" + elementValue.ApplicantID + "' style='width:25%; border:1px solid;' /></td></tr>";
-                }
+                    if (elementValue.Email != null) {
+                        emailhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:18%; padding:6px;'>" + elementValue.Email + " </td><td style='width:30%; padding:6px;'><input type='checkbox' onclick='addEmail(\"" + elementValue.Email + "\")' id='chkEmail" + elementValue.ApplicantID + "' style='width:25%; border:1px solid;' /></td></tr>";
+                    }
+                    }
 
                 if (elementValue.Type == "Minor") {
                     $("#tblApplicantMinor").append(html);

@@ -496,7 +496,7 @@ var goToStep = function (stepid, id) {
         if (id == "2") {
             $("#as2").removeAttr("onclick")
             $("#as2").attr("onclick", "goToStep(2,2)");
-             getPropertyUnitDetails($("#hndUID").val());
+             //getPropertyUnitDetails($("#hndUID").val());
             $("#li1").addClass("active");
             $("#li2").addClass("active");
 
@@ -1595,16 +1595,22 @@ function savePayment() {
         dataType: "JSON",
         success: function (response) {
             $("#divLoader").hide();
-            if (response.Msg != "") {
+            if (response.Msg == "1") {
                 // $("#carddetails").addClass("hidden");
                 $(".payNext").removeAttr("disabled");
-                $("#ResponseMsg").html(response.Msg);
+                $("#ResponseMsg").html("Payment Successfull");
                 $.alert({
                     title: "",
-                    content: response.Msg,
+                    content: "Payment Successfull",
                     type: 'red'
                 });
                 getTransationLists($("#hdnUserId").val());
+            } else {
+                $.alert({
+                    title: "",
+                    content: "Payment Failed",
+                    type: 'red'
+                });
             }
         }
     });
@@ -3066,8 +3072,10 @@ var getApplicantLists = function () {
                 if (elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
                     //Sachin's work 22-10
                     $("#btnsendemail").removeClass("hidden");
-                    emailhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:18%; padding:6px;'>" + elementValue.Email + " </td><td style='width:30%; padding:6px;'><input type='checkbox' onclick='addEmail(\"" + elementValue.Email + "\")' id='chkEmail" + elementValue.ApplicantID + "' style='width:25%; border:1px solid;' /></td></tr>";
-                }
+                    if (elementValue.Email != null) {
+                        emailhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:18%; padding:6px;'>" + elementValue.Email + " </td><td style='width:30%; padding:6px;'><input type='checkbox' onclick='addEmail(\"" + elementValue.Email + "\")' id='chkEmail" + elementValue.ApplicantID + "' style='width:25%; border:1px solid;' /></td></tr>";
+                    }
+                    }
 
                 if (elementValue.Type == "Minor") {
                     $("#tblApplicantMinor").append(html);

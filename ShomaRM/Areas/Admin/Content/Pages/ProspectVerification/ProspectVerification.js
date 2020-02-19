@@ -1743,8 +1743,8 @@ var getTransationLists = function (userid) {
               
                 //html += "<td>" + elementValue.TenantIDString + "</td>";
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                html += "<td>$" + elementValue.Charge_Amount + "</td>";
-                html += "<td>$" + elementValue.Credit_Amount + "</td>";
+                html += "<td>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
+                html += "<td>$" + formatMoney(elementValue.Credit_Amount) + "</td>";
                 html += "<td>" + elementValue.Transaction_Type + "</td>";
               
                 html += "<td>" + elementValue.Description + "</td>";
