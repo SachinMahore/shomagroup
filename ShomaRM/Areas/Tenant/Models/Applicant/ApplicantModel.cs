@@ -58,9 +58,21 @@ namespace ShomaRM.Areas.Tenant.Models
                     Relationship = model.Relationship,
                     OtherGender = model.OtherGender
                 };
+                if (model.Type == "Primary Applicant")
+                {
+                    var updateTenantOnline = db.tbl_TenantOnline.Where(co => co.ProspectID == TenantID).FirstOrDefault();
+                    if (updateTenantOnline != null)
+                    {
+                        updateTenantOnline.DateOfBirth = model.DateOfBirth;
+                        updateTenantOnline.Gender = model.Gender;
+                        updateTenantOnline.OtherGender = model.OtherGender;
+
+                        db.SaveChanges();
+                    }
+                }
+
                 db.tbl_Applicant.Add(saveApplicant);
                 db.SaveChanges();
-
 
                 msg = "Applicant Saved Successfully";
             }
@@ -87,6 +99,19 @@ namespace ShomaRM.Areas.Tenant.Models
                     getAppldata.Type = model.Type;
                     getAppldata.Relationship = model.Relationship;
                     getAppldata.OtherGender = model.OtherGender;
+
+                    if (model.Type == "Primary Applicant")
+                    {
+                        var updateTenantOnline = db.tbl_TenantOnline.Where(co => co.ProspectID == model.TenantID).FirstOrDefault();
+                        if (updateTenantOnline != null)
+                        {
+                            updateTenantOnline.DateOfBirth = model.DateOfBirth;
+                            updateTenantOnline.Gender = model.Gender;
+                            updateTenantOnline.OtherGender = model.OtherGender;
+
+                            db.SaveChanges();
+                        }
+                    }
                 }
                 db.SaveChanges();
                 msg = "Applicant Updated Successfully";
@@ -97,6 +122,7 @@ namespace ShomaRM.Areas.Tenant.Models
 
 
         }
+
         public List<ApplicantModel> GetApplicantList(long TenantID)
         {
             ShomaRMEntities db = new ShomaRMEntities();

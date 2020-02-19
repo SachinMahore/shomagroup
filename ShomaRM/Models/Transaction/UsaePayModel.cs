@@ -20,7 +20,7 @@ namespace ShomaRM.Models
             usaepay.CardHolder = model.Name_On_Card;
             usaepay.CardNumber =model.CardNumber;
             usaepay.CardExp = model.CardMonth.ToString()+model.CardYear.ToString();
-          
+            usaepay.CustEmail = "sachinmahore@gmail.com";
             usaepay.UseSandbox = true;
 
 
@@ -70,6 +70,59 @@ namespace ShomaRM.Models
             try
             {
                 usaepay.Refund(RefNo);
+                if (usaepay.ResultCode == "A")
+                {
+                    transStatus = "Transaction approved\n" +
+                        "Auth Code: " + usaepay.AuthCode + "\n" +
+                        "Ref Num: " + usaepay.ResultRefNum + "\n" +
+                        "AVS: " + usaepay.AvsResult + "\n" +
+                        "CVV: " + usaepay.Cvv2Result;
+                }
+                else if (usaepay.ResultCode == "D")
+                {
+                    transStatus = "Transaction Declined\n" +
+                        "Ref Num: " + usaepay.ResultRefNum;
+                }
+                else
+                {
+                    transStatus = "Transaction Error\n" +
+                        "Ref Num: " + usaepay.ResultRefNum + "\n" +
+                        "Error: " + usaepay.ErrorMesg + "\n" +
+                        "Error Code: " + usaepay.ErrorCode;
+                }
+
+
+            }
+            catch (Exception x)
+            {
+                transStatus = "ERROR: " + x.Message;
+            }
+            return transStatus + "|" + usaepay.AuthCode;
+        }
+
+        public string ChargeACH(ApplyNowModel model)
+        {
+            string transStatus = "";
+            USAePayAPI.USAePay usaepay = new USAePayAPI.USAePay();
+            usaepay.SourceKey = "_y8h5x1TGONQjE491cj9mb8bRdA57u32";
+            usaepay.Pin = model.CCVNumber.ToString();
+            usaepay.Amount = Convert.ToDecimal(model.Charge_Amount);
+            usaepay.Description = model.Description;
+            usaepay.CardHolder = model.Name_On_Card;
+
+            
+            usaepay.CheckAccount = model.AccountNumber;
+            usaepay.CheckRouting = model.RoutingNumber;
+            usaepay.CustEmail = "sachinmahore@gmail.com";
+            usaepay.CustReceipt = true;
+            usaepay.Command = "check";
+
+            usaepay.UseSandbox = true;
+
+
+            try
+            {
+                usaepay.Process();
                 if (usaepay.ResultCode == "A")
                 {
                     transStatus = "Transaction approved\n" +

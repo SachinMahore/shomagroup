@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    onFocus();
+    onFocusTenant();
     $("#ddlGender").on("change", function () {
         if ($(this).val() == 3) {
             $("#txtOtherGender").attr("disabled", false);
@@ -1266,7 +1266,7 @@ var fillCountryDropDownList = function () {
     });
 }
 
-var onFocus = function () {
+var onFocusTenant = function () {
 
     $("#txtApplicantPhone").focusout(function () { $("#txtApplicantPhone").val(formatPhoneFax($("#txtApplicantPhone").val())); })
         .focus(function () {

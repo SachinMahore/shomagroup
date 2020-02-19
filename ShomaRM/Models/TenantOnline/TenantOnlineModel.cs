@@ -22,6 +22,7 @@ namespace ShomaRM.Models
         public Nullable<System.DateTime> DateOfBirth { get; set; }
         public string DateOfBirthTxt { get; set; }
         public Nullable<int> Gender { get; set; }
+    
         public string Email { get; set; }
         public string Mobile { get; set; }
         public string PassportNumber { get; set; }

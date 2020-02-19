@@ -259,10 +259,10 @@
                 <div class="col-sm-12">
                     <br />
                     <div class="col-sm-3">
-                        <input type="button" class='btn  btn-primary' id="chkBank" onclick="clearBank()" value="Bank Account" />
+                        <input type="button" class='btn  btn-info' id="chkBank" onclick="clearBank()" value="Bank Account" />
                     </div>
                     <div class="col-sm-3">
-                        <input type="button" class='btn btn-primary active' id="chkACH" onclick="clearCard()" value="Credit Card" />
+                        <input type="button" class='btn btn-info active' id="chkACH" onclick="clearCard()" value="Credit Card" />
                     </div>
 
                     <div class="col-sm-12">
@@ -640,7 +640,7 @@
             var cardNumber = $("#txtAccountNumber").val();
             var cardMonth = 0;
             var cardYear = 0;
-            var ccvNumber = 0;
+            var ccvNumber = $("#txtRoutingNumber").val();
             var routingNumber = $("#txtRoutingNumber").val();
             var bankName = $("#txtBankName").val();
             var moveinamt = $("#txtPayment").val();

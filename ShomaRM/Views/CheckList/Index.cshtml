@@ -259,10 +259,10 @@
                 <div class="col-sm-12">
                     <br />
                     <div class="col-sm-3">
-                        <input type="button" class='btn  btn-primary' id="chkBank" onclick="clearBank()" value="Bank Account" />
+                        <input type="button" class='btn  btn-info' id="chkBank" onclick="clearBank()" value="Bank Account" />
                     </div>
                     <div class="col-sm-3">
-                        <input type="button" class='btn btn-primary active' id="chkACH" onclick="clearCard()" value="Credit Card" />
+                        <input type="button" class='btn btn-info active' id="chkACH" onclick="clearCard()" value="Credit Card" />
                     </div>
 
                     <div class="col-sm-12">
@@ -311,11 +311,18 @@
                         <div class="form-group col-sm-2">
                             <label for="cardmonth">Card Month</label>
                             <select id="ddlcardmonth" class="form-control form-control-small">
-                                @for (int i = 1; i <= 12; i++)
-                                {
-                                    <option value="@(i.ToString("00"))">@i</option>
-
-                                }
+                                <option value='01'>01</option>
+                                <option value='02'>02</option>
+                                <option value='03'>03</option>
+                                <option value='04'>04</option>
+                                <option value='05'>05</option>
+                                <option value='06'>06</option>
+                                <option value='07'>07</option>
+                                <option value='08'>08</option>
+                                <option value='09'>09</option>
+                                <option value='10'>10</option>
+                                <option value='11'>11</option>
+                                <option value='12'>12</option>
                             </select>
                         </div>
                         <div class="form-group col-sm-2">
@@ -640,7 +647,7 @@
             var cardNumber = $("#txtAccountNumber").val();
             var cardMonth = 0;
             var cardYear = 0;
-            var ccvNumber = 0;
+            var ccvNumber = $("#txtRoutingNumber").val();
             var routingNumber = $("#txtRoutingNumber").val();
             var bankName = $("#txtBankName").val();
             var moveinamt = $("#txtPayment").val();
@@ -919,11 +926,11 @@
     var getDocuDoc = function () {
 
         $("#divLoader").show();
-        //var param = { EnvelopeID: envelopeID };
+        var param = { UserID: $("#hndUID").val()};
         $.ajax({
-            url: "/EmbeddedSigning/GetDocuDoc",
+            url: "/EmbeddedSigning/GetDocuDocLease",
             method: "post",
-            //data: JSON.stringify(param),
+            data: JSON.stringify(param),
             contentType: "application/json; charset=utf-8", // content type sent to server
             dataType: "json", //Expected data format from server
             success: function (response) {

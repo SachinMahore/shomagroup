@@ -288,9 +288,9 @@ namespace ShomaRM.Controllers
             RecipientViewRequest viewOptions = new RecipientViewRequest
 
             {
-                //ReturnUrl = "http://localhost:53680/PayLink/LeaseNow/",
-                ReturnUrl = "http://52.4.251.162:8086/PayLink/LeaseNow/",
-                //ReturnUrl = "http://52.4.251.162:8096/ApplyNow/Index/" + uid,
+                //ReturnUrl = "http://localhost:53673/Checklist",
+                ReturnUrl = "http://52.4.251.162:8086/Checklist",
+
                 ClientUserId = TenantID,
 
                 AuthenticationMethod = "none",
@@ -363,11 +363,10 @@ namespace ShomaRM.Controllers
             }
             
         }
-        public ActionResult GetDocuDocLease()
+        public ActionResult GetDocuDocLease(long UserID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
-            string uid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID.ToString();
-            long UserID = Convert.ToInt64(uid);
+        
             var tenantData = db.tbl_ApplyNow.Where(p => p.UserId == UserID).FirstOrDefault();
             EnvelopesApi envelopesApi = new EnvelopesApi();
             EnvelopeDocumentsResult docsList = envelopesApi.ListDocuments(accountId, tenantData.EnvelopeID);

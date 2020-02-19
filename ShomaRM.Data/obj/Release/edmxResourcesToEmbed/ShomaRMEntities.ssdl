@@ -1,5 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ShomaRMEntitiesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbl_AcutraqScrenning">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenantId" Type="int" />
+    <Property Name="ServiceCode" Type="varchar(max)" />
+    <Property Name="OrderCode" Type="varchar(max)" />
+    <Property Name="CAOrderCode" Type="varchar(max)" />
+    <Property Name="Status" Type="varchar(max)" />
+    <Property Name="Message" Type="varbinary(max)" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="LastUpdateDate" Type="datetime" />
+  </EntityType>
   <EntityType Name="tbl_Advertiser">
     <Key>
       <PropertyRef Name="AdID" />
@@ -1307,6 +1321,7 @@
     <Property Name="TSecurityNumber" Type="nvarchar" MaxLength="29" />
     <Property Name="TCardExpirationMonth" Type="nvarchar" MaxLength="29" />
     <Property Name="TCardExpirationYear" Type="nvarchar" MaxLength="29" />
+    <Property Name="Authcode" Type="nvarchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="tbl_Utility">
     <Key>
@@ -2331,6 +2346,7 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="ShomaRMEntitiesModelStoreContainer">
+    <EntitySet Name="tbl_AcutraqScrenning" EntityType="Self.tbl_AcutraqScrenning" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Advertiser" EntityType="Self.tbl_Advertiser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Amenities" EntityType="Self.tbl_Amenities" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_AmenityPriceRange" EntityType="Self.tbl_AmenityPriceRange" Schema="dbo" store:Type="Tables" />

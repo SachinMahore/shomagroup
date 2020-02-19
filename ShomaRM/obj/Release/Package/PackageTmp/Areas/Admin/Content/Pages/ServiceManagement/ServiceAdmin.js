@@ -208,20 +208,105 @@ var fillDdlUser = function () {
         }
     });
 }
+
 var StatusUpdateServiceRequest = function (id) {
     $("#divLoader").show();
     var msg = '';
     var id = $("#hndServiceID").val();
     var emmob = unformatText($("#lblEmergencyNo").text());
-    var employee = $("#ddlUser").val();
     var CompletedFileTemp = $("#hndfileCompleted").val();
     var CompletedFileOriginal = $("#hndOriginalfileCompleted").val();
     var closingNotes = $("#txtClosingNotes").val(); 
     var closingDate = $("#txtClosingDate").val();  
-    var rescheduledate = $("#txtRequestedDate").val();
-    var rescheduletime = $("#lblRequestedTime").val();
+    //var rescheduledate = $("#txtRequestedDate").val();
+    //var rescheduletime = $("#lblRequestedTime").val();
     var ownerSignature = $("#hndHomeownerSignature").val();
     var tempOwnerSignature = $("#hndOriginalHomeownerSignature").val();
+
+    //if (!rescheduledate) {
+    //    msg += 'Select the Date</br>'
+    //}
+    //if (rescheduletime == '0') {
+    //    msg += 'Select the Time</br>'
+    //}
+    //if (employee == '0') {
+    //    msg += 'Select The Employee</br>'
+    //}
+
+    //var Urgentstatus = '';
+    //if ($("#Urgent").is(":checked")) {
+    //    Urgentstatus = 1;
+    //}
+    //else if ($("#NotUrgent").is(":checked")) {
+    //    Urgentstatus = 0;
+    //}
+
+    //var status = '';
+    //if ($("#UnAssigned").is(":checked")) {
+    //    status = 1;
+    //}
+    //else if ($("#Active").is(":checked")) {
+    //    status = 4;
+    //}
+    //else if ($("#Resolved").is(":checked")) {
+    //    status = 2;
+    //}
+    //else if ($("#Cancel").is(":checked")) {
+    //    status = 3;
+    //}
+
+
+
+    if (msg!="") {
+        $.alert({
+            title: '',
+            content: msg,
+            type: 'red'
+        });
+        $("#divLoader").hide();
+        return
+    }
+
+    var model = {
+        ServiceID: id,
+        CompletedPicture: CompletedFileOriginal,
+        TempCompletedPicture: CompletedFileTemp,
+        ClosingNotes: closingNotes,
+        ClosingDate: closingDate,
+        OwnerSignature: ownerSignature,
+        TempOwnerSignature: tempOwnerSignature,
+    };
+    $.ajax({
+        url: '/ServicesManagement/StatusUpdateServiceRequest',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $.alert({
+                title: '',
+                content: response.model,
+                type: 'red'
+            });
+           
+            $("#fileCompletedShow").val('');
+            $("#txtClosingNotes").val('');
+           
+        }
+    });
+    $("#divLoader").hide();
+}
+var StatusUpdateForServicePerson = function (id) {
+      $("#divLoader").show();
+    var msg = '';
+    var id = $("#hndServiceID").val();
+    var emmob = unformatText($("#lblEmergencyNo").text());
+    var employee = $("#ddlUser").val();
+    var rescheduledate = $("#txtRequestedDate").val();
+    var rescheduletime = $("#lblRequestedTime").val();
+    var tenantname = $("#lbltenantName").text();
+    var tenantemail = $("#lblEmail").text();
+    var problecategory = $("#ProblemCatrgory").text();
 
     if (!rescheduledate) {
         msg += 'Select the Date</br>'
@@ -251,14 +336,12 @@ var StatusUpdateServiceRequest = function (id) {
     else if ($("#Resolved").is(":checked")) {
         status = 2;
     }
-    else if ($("#cancel").is(":checked")) {
+    else if ($("#Cancel").is(":checked")) {
         status = 3;
     }
 
 
-
-
-    if (msg!="") {
+    if (msg != "") {
         $.alert({
             title: '',
             content: msg,
@@ -270,20 +353,17 @@ var StatusUpdateServiceRequest = function (id) {
 
     var model = {
         ServiceID: id,
-        Status: status,
-        CompletedPicture: CompletedFileOriginal,
-        TempCompletedPicture: CompletedFileTemp,
         ServicePerson: employee,
         UrgentStatus: Urgentstatus,
-        ClosingNotes: closingNotes,
-        ClosingDate: closingDate,
+        Status: status,
         PermissionComeDate: rescheduledate,
         PermissionComeTime: rescheduletime,
-        OwnerSignature: ownerSignature,
-        TempOwnerSignature: tempOwnerSignature,
+        TenantName: tenantname,
+        Email: tenantemail,
+        ProblemCategorystring: problecategory,
     };
     $.ajax({
-        url: '/ServicesManagement/StatusUpdateServiceRequest',
+        url: '/ServicesManagement/StatusUpdateForServicePerson',
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
@@ -296,9 +376,7 @@ var StatusUpdateServiceRequest = function (id) {
             });
             $("#ddlStatus1").val('0');
             $("#ddlUser").val('0');
-            $("#fileCompletedShow").val('');
-            $("#txtClosingNotes").val('');
-           
+
         }
     });
     $("#divLoader").hide();
