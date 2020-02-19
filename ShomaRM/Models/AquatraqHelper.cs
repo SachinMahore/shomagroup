@@ -104,7 +104,42 @@ namespace ShomaRM.Models
             }
         }
 
-       
+
+        public static async Task<XDocument> Post<TResult>(string url, XmlDocument SOAPReqBody)
+        {
+            //Making Web Request  
+            HttpWebRequest Req = (HttpWebRequest)WebRequest.Create(@"https://www.bluemoonforms.com/services/lease.php#AuthenticateUser");
+            ////SOAPAction  
+            //Req.Headers.Add(@"SOAPAction:http://tempuri.org/Addition");
+            //Content_type  
+            Req.ContentType = "application/xml;";
+            Req.Accept = "application/xml";
+            //HTTP method  
+            Req.Method = "POST";
+
+            using (Stream stream = Req.GetRequestStream())
+            {
+                SOAPReqBody.Save(stream);
+            }
+            //Geting response from request  
+            using (WebResponse Serviceres = Req.GetResponse())
+            {
+                using (StreamReader rd = new StreamReader(Serviceres.GetResponseStream()))
+                {
+                    //reading stream  
+                    var ServiceResult = rd.ReadToEnd();
+                    ////writting stream result on console  
+                    //Console.WriteLine(ServiceResult);
+                    //Console.ReadLine();
+
+                    var xDoc = XDocument.Parse(ServiceResult);
+
+                    return xDoc;
+                }
+            }
+        }
+
+      
 
     }
    

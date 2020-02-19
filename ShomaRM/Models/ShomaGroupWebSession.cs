@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
+using System.Xml;
 using ShomaRM.Data;
 
 namespace ShomaRM.Models
@@ -18,6 +21,10 @@ namespace ShomaRM.Models
         {
 
         }
+
+       
+
+      
 
         public static CurrentUser CurrentUser
         {
