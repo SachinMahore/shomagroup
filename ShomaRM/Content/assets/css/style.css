@@ -2,6 +2,33 @@
     padding: 0px;
     margin: 0px;
     font-size: 14px;
+    font-weight: normal;
+    font-family: Futura Medium;
+}
+
+@font-face {
+    font-family: Futura Bold;
+    src: url('../font/Futura Bold.otf');
+}
+
+@font-face {
+    font-family: Futura Medium;
+    src: url('../font/Futura Medium.otf');
+}
+
+@font-face {
+    font-family: HelveticaNeue;
+    src: url('../font/FontsFree-Net-HelveticaNeueBold.ttf');
+}
+
+@font-face {
+    font-family: HelveticaNeueMediumItalic;
+    src: url('../font/HelveticaNeueMediumItalic.otf');
+}
+
+@font-face {
+    font-family: Helvetica;
+    src: url('../font/Helvetica25UltraLight_22433.ttf');
 }
 
 .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
@@ -21,9 +48,16 @@
     font-size: 25px;
 }
 
+.nameprofile {
+    line-height: 0px;
+    margin: 38px;
+    color: #4d738a;
+}
+
 .text-subheding {
     font-size: 17px;
     color: #000000;
+    font-family: HelveticaNeue;
 }
 
 .border-right {
@@ -48,11 +82,18 @@
     float: left;
     margin-bottom: -1px;
     background: #fff;
+    font-family: Futura Medium;
+    width: 20%;
+}
+
+.nav-tabs1 > li {
+    width: auto !important;
 }
 
 .nav > li > a:focus, .nav > li > a:hover {
     text-decoration: none;
     background-color: #fff;
+    font-family: Futura Medium;
 }
 
 .nav-tabs > li > a {
@@ -60,6 +101,7 @@
     line-height: 1.42857143;
     border: 0px solid #fff;
     border-radius: 4px 4px 0 0;
+    font-family: Futura Medium;
 }
 
 .border-bottom1 {
@@ -77,17 +119,48 @@
     float: left;
 }
 
-    .selectdiv:after {
-        content: '\f078';
-        font: normal normal normal 14px/1 FontAwesome;
-        color: #171717;
-        right: 16px;
-        top: 6px;
-        height: 34px;
-        padding: 12px 9px 0px 8px;
-        position: absolute;
-        pointer-events: none;
-    }
+.myprofilebox {
+    background-image: url(../img/myprofile.png);
+    width: 150px;
+    height: 150px;
+    background-size: 100%;
+}
+
+.profile-picherbox {
+    width: auto;
+    margin: 0 auto;
+    display: table;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.fa-plus:before {
+    color: #fff;
+    content: "\f067";
+    background: #4d738a;
+    border-radius: 50%;
+    padding: 5px;
+    margin-right: 5px;
+}
+
+.add {
+    width: 100%;
+    text-align: center;
+    margin-bottom: unset;
+    margin-top: 95%;
+}
+
+.selectdiv:after {
+    content: '\f078';
+    font: normal normal normal 14px/1 FontAwesome;
+    color: #171717;
+    right: 16px;
+    top: 6px;
+    height: 34px;
+    padding: 12px 9px 0px 8px;
+    position: absolute;
+    pointer-events: none;
+}
 
 
 select::-ms-expand {
@@ -129,6 +202,7 @@ select::-ms-expand {
     -ms-user-select: none;
     user-select: none;
     font-weight: 200;
+    font-family: HelveticaNeue;
 }
 
     /* Hide the browser's default radio button */
@@ -1305,11 +1379,12 @@ header {
         list-style: none;
         display: inline;
         padding: 5px 20px;
-        font-size: 15px;
+        font-size: 16px;
         float: left;
         text-align: center;
         line-height: 0px;
         letter-spacing: 1px;
+        font-family: Futura Medium;
     }
 
 li.active > a, .active > a > img a:focus {
@@ -1339,6 +1414,7 @@ li.active > a, .active > a > img a:focus {
     font-weight: 100;
     line-height: 16px;
     border: 1px solid gray;
+    font-family: HelveticaNeue;
 }
 
 .Profile-button {
@@ -1370,23 +1446,25 @@ li.active > a, .active > a > img a:focus {
     padding: 10px;
 }
 
+
 .welcome-text {
     font-size: 54px;
     color: rgb(77, 115, 138);
-    font-weight: 400;
     margin: 20px 0px 10px;
+    font-family: Futura Bold;
 }
+
 
 textarea {
     height: 75px;
     border: 1px solid #B3ADA6;
+    font-size: 18px;
+    font-family: HelveticaNeue;
 }
 
     textarea::-webkit-input-placeholder {
         color: #B3ADA6;
     }
-
-
 
 .btn-primary {
     background-color: rgb(77, 115, 138);
@@ -1432,8 +1510,9 @@ textarea {
 }
 
 .agree-text {
-    font-size: 18px;
+    font-size: 17px;
     color: rgb(0, 0, 0);
+    font-family: HelveticaNeue;
 }
 
 .condition-text {
@@ -1441,6 +1520,7 @@ textarea {
     font-weight: bold;
     font-size: 18px;
     color: rgb(77, 115, 138) !important;
+    font-family: HelveticaNeue;
 }
 
 .margin-top1 {
@@ -1452,6 +1532,7 @@ textarea {
     color: #4d738a;
     margin-bottom: 16px;
     font-weight: 400;
+    font-family: Futura Medium;
 }
 
 .Activity-box {
@@ -1473,8 +1554,9 @@ textarea {
 }
 
 .client-name {
-    font-size: 24px;
+    font-size: 22px;
     color: #000;
+    font-family: HelveticaNeue;
 }
 
 .client-name1 {
@@ -1485,12 +1567,14 @@ textarea {
 .span {
     color: #B3ADA6;
     font-size: 14px;
+    font-family: Helvetica;
 }
 
 .comment-text {
     font-size: 16px;
     margin: 10px 0px;
     color: #000000;
+    font-family: Helvetica;
 }
 
 .comment-text0 {
@@ -1531,11 +1615,12 @@ textarea {
     font-weight: 400;
     font-size: 21px;
     text-align: center;
+    font-family: Futura Medium;
 }
 
 table {
     border-collapse: collapse;
-    width: 90%;
+    width: 96%;
 }
 
 td {
@@ -1543,18 +1628,66 @@ td {
     border: 1px solid #dedcdc;
     font-size: 20px;
     color: #000000;
+    width: 14%;
+    font-family: HelveticaNeue;
+}
+
+span.datebox {
+    background: #B3ADA6;
+    border-radius: 20%;
+    padding: 0px 4px;
+    color: #fff;
+    float: left;
+}
+
+span.datebox1 {
+    float: left;
+}
+
+span.cercal1 {
+    height: 10px;
+    width: 10px;
+    background: #00BFF3;
+    padding: 9px;
+    border-radius: 50%;
+    margin-top: 6px;
+    float: left;
+    margin-left: 6px;
+}
+
+span.cercal2 {
+    height: 10px;
+    width: 10px;
+    background: #FFF200;
+    padding: 9px;
+    border-radius: 50%;
+    margin-top: 6px;
+    float: left;
+    margin-left: 6px;
+}
+
+span.cercal3 {
+    height: 10px;
+    width: 10px;
+    background: #ED1C24;
+    padding: 9px;
+    border-radius: 50%;
+    margin-top: 6px;
+    float: left;
+    margin-left: 6px;
 }
 
 .calendar-menu {
     width: 100%;
     padding: 0px;
     margin: 0px;
+    font-family: Futura Medium;
 }
 
     .calendar-menu > li {
         list-style: none;
         display: inline;
-        padding: 7px 6px;
+        padding: 7px 10px;
         font-size: 14px;
         float: left;
         text-align: center;
@@ -1621,6 +1754,7 @@ td {
     text-align: center;
     padding: 13px 18px;
     font-weight: bold;
+    font-family: HelveticaNeue;
 }
 
 .events-text {
@@ -1633,6 +1767,7 @@ td {
     text-align: center;
     font-size: 18px;
     padding: 13px 20px;
+    font-family: HelveticaNeue;
 }
 
 .events-count1 {
@@ -1675,7 +1810,7 @@ td {
 
 .left-side-subtext {
     color: #547288;
-    font-size: 18px;
+    font-size: 24px;
     text-align: center;
 }
 
@@ -1706,12 +1841,14 @@ td {
     font-weight: bold;
     margin-top: 10px;
     font-size: 18px;
+    font-family: HelveticaNeue;
 }
 
 .bell-sub-text {
     font-size: 20px;
     margin-top: -6px;
     color: #000000;
+    font-family: HelveticaNeue;
 }
 
 .Clubs-text {
@@ -1751,6 +1888,7 @@ td {
     font-size: 42px;
     text-align: center;
     font-weight: 400;
+    font-family: HelveticaNeue;
 }
 
 .paybutton {
@@ -1764,10 +1902,11 @@ td {
     text-align: center;
     margin: 0 auto;
     display: table;
+    font-family: HelveticaNeue;
 }
 
 .right-sub-text-link {
-    font-size: 13px;
+    font-size: 16px;
     text-align: center;
     color: #547288 !important;
     text-decoration: underline;
@@ -1775,6 +1914,7 @@ td {
 
     .right-sub-text-link a {
         color: #547288 !important;
+        font-family: HelveticaNeue;
     }
 
         .right-sub-text-link a:hover {
@@ -1788,6 +1928,27 @@ td {
     text-align: center;
 }
 
+.text-color1 span {
+    text-align: 20px;
+}
+
+.text-color1 a {
+    color: #547288;
+    font-size: 18px;
+    font-family: HelveticaNeue;
+}
+
+.text-color1 i:hover {
+    color: #B3ADA6;
+    font-size: 18px;
+    font-family: HelveticaNeue;
+}
+
+.text-color1 a:hover {
+    color: #B3ADA6;
+    font-size: 18px;
+    font-family: HelveticaNeue;
+}
 /*------my-home----*/
 .margin {
     margin-bottom: 10px;
@@ -1813,14 +1974,25 @@ td {
 
 .nav-tabs {
     border-bottom: 1px solid #fffafa;
-    background: #f1f1f1cc;
+    background: #ffffffcc;
 }
+
+/*.nav > li > a {
+  position: relative;
+  display: block;
+  padding: 10px 42px 10px 31px;
+  font-size: 20px;
+}*/
 
 .nav > li > a {
     position: relative;
     display: block;
-    padding: 10px 28px 10px 31px;
+    padding: 5% 10%;
     font-size: 20px;
+}
+
+.nav1 > li > a {
+    padding: 5% 21px !important;
 }
 
 .condition-wrapper {
@@ -1829,6 +2001,10 @@ td {
     margin: 0 auto;
     line-height: 32px;
     margin-top: 5px;
+    font-family: HelveticaNeue;
+    font-size: 17px;
+}
+
 }
 
 .condition-wrapper1 {
@@ -1872,8 +2048,8 @@ ul.submenupayment {
 .submenu {
     background: #547288;
     color: #fcfcfc;
-    padding: 4px 16px;
-    height: 34px;
+    padding: 5px 7px;
+    height: 36px;
     /*float: left;*/
 }
 
@@ -1893,6 +2069,7 @@ ul.submenupayment {
     background: #ffffff;
     padding: 9px 38px 9px 15px;
     text-decoration: none;
+    font-family: Futura Medium;
 }
 
 
@@ -1900,12 +2077,14 @@ ul.submenupayment {
     background: #547288;
     color: #fcfcfc;
     padding: 9px 38px 9px 15px;
+    font-family: Futura Medium;
 }
 
     .submenu li > a:hover {
         background: #fff;
         color: #4e738a;
         padding: 9px 38px 9px 15px;
+        font-family: Futura Medium;
     }
 
 .text-payment {
@@ -1981,6 +2160,12 @@ ul.submenupayment {
 
 .margin-top {
     margin-top: 30px;
+}
+
+.addspan {
+    color: #547288;
+    font-weight: 800;
+    font-size: 20px;
 }
 
 .span1 a {
@@ -2116,7 +2301,7 @@ button:hover {
 .Access-text {
     font-size: 20px;
     color: #000;
-    margin-left: 20px;
+    margin-left: 30px;
 }
 
 .Access-text1 {
@@ -2200,7 +2385,11 @@ button:hover {
     margin-top: 120px;
 }
 
-
+@media only screen and (max-width: 1418px) {
+    .date-spacing {
+        margin-left: 10px;
+    }
+}
 
 @media only screen and (max-width: 1318px) {
     .sidenav {
@@ -2236,6 +2425,69 @@ button:hover {
     .events-count3 {
         padding: 10px;
     }
+
+    .nav > li > a {
+        position: relative;
+        display: block;
+        /*padding: 10px 55px 10px 4px;*/
+        font-size: 18px;
+    }
+}
+
+
+@media only screen and (max-width: 1255px) {
+    .nav > li > a {
+        position: relative;
+        display: block;
+        /*padding: 10px 62px 10px 4px;*/
+        font-size: 16px;
+    }
+
+    .submenu {
+        padding: 0px;
+    }
+
+    .submenupayment li.active > a {
+        padding: 9px 12px 12px 15px;
+    }
+
+    .submenupayment > li {
+        padding: 12px 0px;
+        font-size: 12px;
+        margin-bottom: 3px;
+    }
+
+    .date-spacing {
+        margin-left: 18px;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .nav > li > a {
+        position: relative;
+        display: block;
+        /*padding: 10px 56px 10px 4px;*/
+        font-size: 16px;
+    }
+
+    .submenu {
+        padding: 0px;
+    }
+
+    .submenupayment li.active > a {
+        padding: 9px 12px 9px 15px;
+    }
+
+    .submenupayment > li {
+        padding: 12px 0px;
+        font-size: 12px;
+        margin-bottom: 3px;
+    }
+
+    .payment-box {
+        width: 100% !important;
+        float: left !important;
+    }
 }
 
 @media only screen and (max-width: 1120px) {
@@ -2259,8 +2511,55 @@ button:hover {
     .events-count3 {
         padding: 10px;
     }
+
+    .nav > li > a {
+        position: relative;
+        display: block;
+        /*padding: 10px 32px 10px 4px;*/
+        font-size: 13px;
+    }
+
+    .submenu {
+        padding: 0px;
+    }
+
+    .submenupayment li.active > a {
+        padding: 9px 12px 12px 15px;
+    }
+
+    .submenupayment > li {
+        padding: 12px 0px;
+        font-size: 12px;
+        margin-bottom: 3px;
+    }
 }
 
+@media only screen and (max-width: 1090px) {
+    .nav > li > a {
+        position: relative;
+        display: block;
+        /*padding: 10px 58px 10px 4px;*/
+        font-size: 13px;
+    }
+
+    .submenu {
+        padding: 0px;
+    }
+
+    .submenupayment li.active > a {
+        padding: 9px 12px 12px 15px;
+    }
+
+    .submenupayment > li {
+        padding: 12px 0px;
+        font-size: 12px;
+        margin-bottom: 3px;
+    }
+
+    .col-size {
+        width: 50% !important;
+    }
+}
 
 @media only screen and (max-width: 1057px) {
     .top-menu > li {
@@ -2269,11 +2568,6 @@ button:hover {
 
     .logout-but {
         padding: 3px 10px;
-    }
-
-
-    .nav > li > a {
-        padding: 10px 31px 10px 1px;
     }
 
     table {
@@ -2288,7 +2582,7 @@ button:hover {
     }
 
     .submenupayment li.active > a {
-        padding: 9px 20px 9px 15px;
+        padding: 9px 7px 10px 5px;
     }
 
     .margin-box {
@@ -2304,9 +2598,7 @@ button:hover {
             top: 15px;
         }
 
-    .box-none {
-        display: none;
-    }
+
 
     .submenu {
         padding: 0px 1px;
@@ -2321,15 +2613,53 @@ button:hover {
     .nav > li > a {
         position: relative;
         display: block;
-        padding: 10px 4px 10px 4px;
+        /*padding: 10px 53px 10px 4px;*/
         font-size: 13px;
+    }
+
+    .responsive {
+        margin-top: 15px;
+    }
+
+    .submenu li > a {
+        background: #547288;
+        color: #fcfcfc;
+        padding: 9px 9px 9px 9px;
+    }
+
+    .flot-box1 {
+        float: left;
+    }
+}
+
+@media only screen and (max-width: 1019px) {
+    /*.nav > li > a {
+    padding: 10px 52px 10px 1px;
+  }*/
+}
+
+@media only screen and (max-width: 991px) {
+    /*.nav > li > a {
+        padding: 10px 35px 10px 1px;
+      }*/
+
+    .box-none {
+        display: none;
+    }
+
+    .text-right {
+        text-align: left !important;
+    }
+
+    .date-spacing {
+        margin-left: 5px;
     }
 }
 
 @media only screen and (max-width: 977px) {
-    .nav > li > a {
-        padding: 10px 22px 10px 1px;
-    }
+    /*.nav > li > a {
+        padding: 10px 32px 10px 1px;
+      }*/
 
 
     table {
@@ -2346,8 +2676,36 @@ button:hover {
     .top-menu > li {
         padding: 3px 8px;
     }
+
+    /*.nav > li > a {
+        padding: 10px 30px 10px 1px;
+      }*/
+
+    .submenu li > a {
+        background: #547288;
+        color: #fcfcfc;
+        padding: 9px 28px 9px 15px;
+    }
+
+    .submenu li > a {
+        background: #547288;
+        color: #fcfcfc;
+        padding: 9px 23px 9px 15px;
+    }
 }
 
+@media only screen and (max-width: 940px) {
+
+    .submenu li > a {
+        background: #547288;
+        color: #fcfcfc;
+        padding: 9px 23px 9px 15px;
+    }
+
+    .nav > li > a {
+        font-size: 11px;
+    }
+}
 
 @media only screen and (max-width: 902px) {
     .logout-but {
@@ -2369,12 +2727,18 @@ button:hover {
         padding: 10px;
     }
 
-    .nav > li > a {
+    /*.nav > li > a {
         padding: 10px 19px 10px 1px;
-    }
+      }*/
 
     .calendar-menu > li {
         padding: 7px 3px;
+    }
+
+    .margin-box {
+        margin-right: 0px;
+        margin-left: 0px;
+        float: left;
     }
 }
 
@@ -2384,6 +2748,18 @@ button:hover {
 
     .calendar-menu > li {
         padding: 7px 3px;
+    }
+
+    .submenu li > a {
+        background: #547288;
+        color: #fcfcfc;
+        padding: 9px 5px 9px 5px;
+    }
+
+    .headding-sub-text {
+        font-size: 35px;
+        text-align: center;
+        margin-top: 20px;
     }
 }
 
@@ -2397,15 +2773,40 @@ button:hover {
     .calendar-menu > li {
         padding: 7px 3px;
     }
+
+    /*.nav > li > a {
+        padding: 10px 18px 10px 1px;
+      }*/
+}
+
+@media only screen and (max-width: 845px) {
+
+    /*.nav > li > a {
+        padding: 10px 17px 10px 1px;
+      }*/
 }
 
 @media only screen and (max-width: 830px) {
 
-    .nav > li > a {
-        padding: 10px 8px 10px 1px;
+    /*.nav > li > a {
+        padding: 10px 16px 10px 1px;
+      }*/
+    .submenu li > a {
+        padding: 9px 5px 9px 13px;
+        font-size: 10px;
+    }
+
+    .submenupayment li.active > a {
+        padding: 9px 4px 9px 2px;
     }
 }
 
+@media only screen and (max-width: 821px) {
+
+    /*.nav > li > a {
+        padding: 10px 14px 10px 1px;
+      }*/
+}
 
 @media only screen and (max-width: 800px) {
 
@@ -2435,20 +2836,21 @@ button:hover {
         font-size: 22px;
         text-align: center;
         margin-top: 20px;
+        float: left;
     }
 
     .payment-box {
-        width: 100%;
-        float: left;
+        width: 100% !important;
+        float: left !important;
     }
 
     .margin2 {
         margin-bottom: 10px;
     }
 
-    .nav > li > a {
+    /*.nav > li > a {
         padding: 10px 6px 10px 1px;
-    }
+      }*/
 
     .calendar-menu > li {
         padding: 7px 6px;
@@ -2458,10 +2860,6 @@ button:hover {
         padding: 12px 0px;
         font-size: 12px;
         margin-bottom: 3px;
-    }
-
-    .submenupayment li.active > a {
-        padding: 9px 20px 9px 15px;
     }
 
     .margin-box {
@@ -2494,21 +2892,21 @@ button:hover {
     .nav > li > a {
         position: relative;
         display: block;
-        padding: 10px 4px 10px 4px;
+        /*padding: 10px 15px 10px 3px;*/
         font-size: 13px;
     }
 }
 
 @media only screen and (max-width: 785px) {
-    .nav > li > a {
+    /*.nav > li > a {
         padding: 10px 4px 10px 1px;
-    }
+      }*/
 
     .nav > li > a {
         position: relative;
         display: block;
-        padding: 10px 4px 10px 4px;
-        font-size: 13px;
+        /*padding: 10px 4px 10px 4px;*/
+        font-size: 10px;
     }
 
     .submenupayment > li {
@@ -2518,7 +2916,7 @@ button:hover {
     }
 
     .submenupayment li.active > a {
-        padding: 9px 20px 9px 15px;
+        padding: 10px 5px 10px 5px;
     }
 
     .margin-box {
@@ -2615,12 +3013,16 @@ button:hover {
         padding: 0px;
     }
 
-    .submenupayment li.active > a {
-        padding: 8px 70px;
+        .submenu li > a {
+            padding: 0px;
+        }
+
+    .paynow {
+        font-size: 15px;
     }
 
-    .submenu li > a {
-        padding: 0px;
+    .date-spacing {
+        margin-left: 30px;
     }
 }
 
@@ -2652,6 +3054,22 @@ button:hover {
 
     .box-none {
         display: none;
+    }
+
+    .text-right {
+        text-align: left !important;
+    }
+
+    .community-nav {
+        width: 100%;
+    }
+
+    .m-t40 {
+        margin-top: 15px;
+    }
+
+    .m-t30 {
+        margin-top: 1px;
     }
 }
 
@@ -2698,6 +3116,10 @@ button:hover {
 @media only screen and (max-width: 645px) {
     .calendar-menu > li {
         padding: 7px 7px;
+    }
+
+    .date-spacing {
+        margin-left: 45px;
     }
 }
 
@@ -2780,8 +3202,17 @@ button:hover {
     }
 
     .myprofilebox {
-        width: 115px;
-        height: 115px;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+    }
+
+    .profile-picherbox {
+        margin-bottom: 0px;
+    }
+
+    .margin-top {
+        margin-top: 5px;
     }
 
     .nameprofile {
@@ -2823,6 +3254,12 @@ button:hover {
     .margin-box {
         margin-right: 0px;
         margin-left: 0px;
+        float: left;
+    }
+
+    .pading-box {
+        padding-right: 0px;
+        padding-left: 0px;
     }
 
     .fa-icon {
@@ -2861,6 +3298,10 @@ button:hover {
     .checkmark2 {
         margin: 4px -36px;
     }
+
+    .date-spacing {
+        margin-left: 0px;
+    }
 }
 
 
@@ -2884,6 +3325,15 @@ button:hover {
     .agree-text {
         font-size: 17px;
     }
+}
+#EventCatogary button {
+    float: left;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #fff;
+    font-size: 9px;
 }
 
 @media only screen and (max-width: 430px) {
@@ -2933,7 +3383,7 @@ button:hover {
     }
 
     .headding-sub-text {
-        font-size: 25px;
+        font-size: 20px;
         margin-top: 10px;
     }
 

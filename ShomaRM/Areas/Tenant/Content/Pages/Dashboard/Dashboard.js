@@ -233,62 +233,6 @@ var saveUpdateCommunityPost = function () {
     });
 };
 
-//var getCommunityActivityList = function () {
-//    //var model = { TenantId: $('#hdnUserId').val() };
-
-//    $.ajax({
-//        url: '/CommunityActivity/GetCommunityActivityList',
-//        type: 'post',
-//        contentType: 'application/json utf-8',
-//        //data: JSON.stringify(model),
-//        dataType: 'json',
-//        success: function (response) {
-//            getIsAgreeDisclaimer();
-//            var attachFile = '';
-//            $('#DivCommunityActivityList').empty();
-//            $.each(response.model, function (elementType, elementValue) {
-//                var fileExist = doesFileExist('/Content/assets/img/CommunityPostFiles/' + elementValue.AttatchFile);
-//                if (fileExist == true) {
-//                    attachFile = "<a href='/Content/assets/img/CommunityPostFiles/" + elementValue.AttatchFile + "' target='_blank'><i class='fa fa-paperclip'></i> Attachment</a>";
-//                }
-//                else {
-//                    attachFile = "<a href='javascript:void(0);' onclick='fileNotFound();'><i class='fa fa-paperclip'></i> Attachment</a>";
-//                }
-//                var Html = '<div class="col-md-12 m-b15">';
-//                Html += '<div class="row">';
-//                Html += '<div class="col-lg-1 col-md-2 col-sm-2 col-xs-4 flot-box">';
-//                if (elementValue.ProfilePicture == null) {
-//                    Html += '<img src="/Content/assets/img/IMG/Circle.png" class="img-circle" height="50" width="50" />';
-//                }
-//                else {
-//                    var fileEx = doesFileExist('/Content/assets/img/tenantProfile/' + elementValue.ProfilePicture);
-//                    if (fileEx == true) {
-//                        Html += '<img src="/Content/assets/img/tenantProfile/' + elementValue.ProfilePicture + '" class="img-circle" height="50" width="50" />';
-//                    }
-//                    else {
-//                        Html += '<img src="/Content/assets/img/IMG/Circle.png" class="img-circle" height="50" width="50" />';
-//                    }
-//                }
-//                Html += '</div>';
-//                Html += '<div class="col-md-8 col-sm-7 col-xs-8 date-spacing p-l0 flot-box">';
-//                Html += '<span class="client-name">' + elementValue.TenantName + '</span><br>';
-//                Html += '<span class="span">' + elementValue.DateString + '</span>';
-//                Html += '</div>';
-//                Html += '</div>';
-//                Html += '<div class="col-md-12 padding-box comment-text p-lr0">' + elementValue.Details;
-//                Html += '</div>';
-//                if (elementValue.AttatchFile != null) {
-//                    Html += '<span style="margin-left: 11%;">' + "  " + attachFile + '</span>';
-//                }
-//                Html += '</div>';
-
-//                $('#DivCommunityActivityList').append(Html);
-//            });
-//            shorten();
-//            $("#divLoader").hide();
-//        }
-//    });
-//};
 var getCommunityActivityList = function () {
     //var model = { TenantId: $('#hdnUserId').val() };
 
@@ -310,9 +254,9 @@ var getCommunityActivityList = function () {
                 else {
                     attachFile = "<a href='javascript:void(0);' onclick='fileNotFound();'><i class='fa fa-paperclip'></i> Attachment</a>";
                 }
-                var Html = '<div class="col-lg-12" style="margin-bottom: 2% !important;">';
-                Html += '<div class="col-lg-12">';
-                Html += '<div class="col-lg-1">';
+                var Html = '<div class="col-md-12 m-b15">';
+                Html += '<div class="row">';
+                Html += '<div class="col-lg-1 col-md-2 col-sm-2 col-xs-4 flot-box">';
                 if (elementValue.ProfilePicture == null) {
                     Html += '<img src="/Content/assets/img/Circle.png" class="img-circle" height="50" width="50" />';
                 }
@@ -326,12 +270,12 @@ var getCommunityActivityList = function () {
                     }
                 }
                 Html += '</div>';
-                Html += '<div class="col-lg-8">';
-                Html += '<span style="font-size: 130%;">' + elementValue.TenantName + '</span><br />';
-                Html += '<span style="color:#B7B0A7 !important;font-size: 96%!important;">' + elementValue.DateString + '</span>';
+                Html += '<div class="col-md-8 col-sm-7 col-xs-8 date-spacing p-l0 flot-box">';
+                Html += '<span class="client-name">' + elementValue.TenantName + '</span><br>';
+                Html += '<span class="span">' + elementValue.DateString + '</span>';
                 Html += '</div>';
                 Html += '</div>';
-                Html += '<div class="col-lg-12 comment" style="margin-left: 20px;">' + elementValue.Details;
+                Html += '<div class="col-md-12 padding-box comment-text p-lr0">' + elementValue.Details;
                 Html += '</div>';
                 if (elementValue.AttatchFile != null) {
                     Html += '<span style="margin-left: 11%;">' + "  " + attachFile + '</span>';
@@ -345,6 +289,62 @@ var getCommunityActivityList = function () {
         }
     });
 };
+//var getCommunityActivityList = function () {
+//    //var model = { TenantId: $('#hdnUserId').val() };
+
+//    $.ajax({
+//        url: '/CommunityActivity/GetCommunityActivityList',
+//        type: 'post',
+//        contentType: 'application/json utf-8',
+//        //data: JSON.stringify(model),
+//        dataType: 'json',
+//        success: function (response) {
+//            getIsAgreeDisclaimer();
+//            var attachFile = '';
+//            $('#DivCommunityActivityList').empty();
+//            $.each(response.model, function (elementType, elementValue) {
+//                var fileExist = doesFileExist('/Content/assets/img/CommunityPostFiles/' + elementValue.AttatchFile);
+//                if (fileExist == true) {
+//                    attachFile = "<a href='/Content/assets/img/CommunityPostFiles/" + elementValue.AttatchFile + "' target='_blank'><i class='fa fa-paperclip'></i> Attachment</a>";
+//                }
+//                else {
+//                    attachFile = "<a href='javascript:void(0);' onclick='fileNotFound();'><i class='fa fa-paperclip'></i> Attachment</a>";
+//                }
+//                var Html = '<div class="col-lg-12" style="margin-bottom: 2% !important;">';
+//                Html += '<div class="col-lg-12">';
+//                Html += '<div class="col-lg-1">';
+//                if (elementValue.ProfilePicture == null) {
+//                    Html += '<img src="/Content/assets/img/Circle.png" class="img-circle" height="50" width="50" />';
+//                }
+//                else {
+//                    var fileEx = doesFileExist('/Content/assets/img/tenantProfile/' + elementValue.ProfilePicture);
+//                    if (fileEx == true) {
+//                        Html += '<img src="/Content/assets/img/tenantProfile/' + elementValue.ProfilePicture + '" class="img-circle" height="50" width="50" />';
+//                    }
+//                    else {
+//                        Html += '<img src="/Content/assets/img/Circle.png" class="img-circle" height="50" width="50" />';
+//                    }
+//                }
+//                Html += '</div>';
+//                Html += '<div class="col-lg-8">';
+//                Html += '<span style="font-size: 130%;">' + elementValue.TenantName + '</span><br />';
+//                Html += '<span style="color:#B7B0A7 !important;font-size: 96%!important;">' + elementValue.DateString + '</span>';
+//                Html += '</div>';
+//                Html += '</div>';
+//                Html += '<div class="col-lg-12 comment" style="margin-left: 20px;">' + elementValue.Details;
+//                Html += '</div>';
+//                if (elementValue.AttatchFile != null) {
+//                    Html += '<span style="margin-left: 11%;">' + "  " + attachFile + '</span>';
+//                }
+//                Html += '</div>';
+
+//                $('#DivCommunityActivityList').append(Html);
+//            });
+//            shorten();
+//            $("#divLoader").hide();
+//        }
+//    });
+//};
 
 //Amit
 
@@ -587,7 +587,7 @@ function colorFunction() {
 
             console.log(duplicates_list);
 
-            $("#spanEventCalender").zabuto_calendar({
+            $("#spanEventCalender")({
                 data: eventData,
                 cell_border: true,
                 today: true,

@@ -35,19 +35,21 @@
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/lightslider.min.css")">
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/jquery.slitslider.css")">
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/wizard.css")">
-    <link rel="stylesheet" href="@Url.Content("/content/assets/css/style.css")">
+
     @*<link rel="stylesheet" href="@Url.Content("/content/assets/css/stylenew.css")">*@
     <link rel="stylesheet" href="@Url.Content("/content/jquery-confirm-master/css/jquery-confirm.css")" />
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/popupwindow.css")">
-   
+
     <script src="@Url.Content("~/content/Pages/common.js")"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/responsive.css")">
     <script src="@Url.Content("/content/assets/js/jquery-1.10.2.min.js")"></script>
     <script src="@Url.Content("/content/assets/js/modernizr-2.6.2.min.js")"></script>
     <script src="@Url.Content("/content/assets/js/popupwindow.js")"></script>
     <script src="@Url.Content("/content/assets/js/jquery.simplePagination.js")"></script>
     <link href="~/content/timepicki.css" rel="stylesheet" />
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/style.css")">
     <script src="~/content/timepicki.js"></script>
     @RenderSection("scripts", required: false)
 </head>
@@ -85,14 +87,14 @@
     <div id="mySidenav" class="sidenav mobile-logo">
 
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="Dashboard_pagenew.html"><i class="fa fa-tachometer fa-icon"></i> Dashboard</a>
-        <a href="myhomenew.html"><i class="fa fa-home fa-icon"></i> My Home</a>
-        <a href="mycommunity.html"><i class="fa fa-users fa-icon icon-community"></i> My Community</a>
-        <a href="myprofile.html"><i class="fa fa-address-card fa-icon"></i> Profile</a>
+        <a href="/Tenant/Dashboard/Index"><i class="fa fa-tachometer fa-icon"></i> Dashboard</a>
+        <a href="/Tenant/MyAccount/Index/@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID"><i class="fa fa-home fa-icon"></i> My Home</a>
+        <a href="/Tenant/MyCommunity/Index"><i class="fa fa-users fa-icon icon-community"></i> My Community</a>
+        <a href="/Tenant/MyProfile/Index/@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID"><i class="fa fa-address-card fa-icon"></i> Profile</a>
 
     </div>
     <div>
-        <span class="mobile-logo" style="font-size:30px;padding-left: 8px;cursor:pointer;color: #4d738a;" onclick="openNav()">&#9776; <a href="#"><img src="img/logoTenant.png" alt="logo" class="responsive "></a></span>
+        <span class="mobile-logo" style="font-size:30px;padding-left: 8px;cursor:pointer;color: #4d738a;" onclick="openNav()">&#9776; <a href="#"><img src="~/content/assets/img/IMG/logoTenant.png" alt="logo" class="responsive "></a></span>
 
     </div>
 
@@ -123,8 +125,9 @@
             <div class="col-md-4 col-sm-5 col-xs-12">
                 <button class="logout-but wow  animated bounceInRight" onclick="gotoLogin()">Logout</button>
                 <ul class="top-menu">
-                    <li class="wow fadeInDown animated Profile-button">
-                        <a href="myprofile.html" class="center"><i class="fa fa-address-card fa-icon"></i><br>My Profile</a>
+                    <li class="wow fadeInDown animated Profile-button @(ViewBag.ActiveMenu == "myprofile"?"active":"")" data-wow-delay="0.1s">
+                  <a href="/Tenant/MyProfile/Index/@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID" class="center"><i class="fa fa-address-card fa-icon"></i><br>My Profile</a>
+
                     </li>
                 </ul>
 
@@ -135,31 +138,30 @@
     <div class="row">
 
     </div>
-    <br />
+   
 
     <!-- End of nav bar -->
     <!-----Right section---->
-    <div class="row">
-        <div class="col-md-9">
-            @RenderBody()
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-12 box-padding-mobile">
-
-            <div class="col-sm-12">
+    <div class="container container-box">
+        <div class="row">
+            <div class="col-lg-9 col-md-8 col-sm-12 border-box margin">
+                @RenderBody()
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-12 box-padding-mobile">
                 <div class="Wraper-left-box">
-                    <div class="left-side-subtext">amount due:</div>
-                    <div class="left-side-amount">$2676.50</div>
-                    <button class="paybutton">Pay</button>
-                    <div class="right-sub-text-link m-t5"><a href="#">set up recurring payments</a></div>
+                    <div class="left-side-subtext">Amount Due:</div>
+                    <div id="spanCurrentAmountDue" class="left-side-amount" onclick="openPaymentBreakdown()">$2676.50</div>
+                    <button id="btnMakeAPayment" class="paybutton" onclick="goToMakeAPayment();">Pay</button>
+                    <div class="right-sub-text-link m-t5"><a href="javascript:void(0)" id="btnSetUpRecurringPayment" onclick="goToSetUpRecurringPayment();">set up recurring payments</a></div>
                 </div>
 
 
                 <div class="Wraper-left-box">
-                    <div><!--<i class="fa fa-bell"></i>--><img src="~/content/assets/img/IMG/bill.png" /></div>
+                    <div id="bellDiv"><!--<i class="fa fa-bell"></i>--><img src="~/content/assets/img/IMG/bill.png" /></div>
                     <div class="bell-text">Exterminator</div>
-                    <div class="bell-sub-text">12/27/19 at 11.30A</div>
-                    <div class="bell-text">Plumbing</div>
-                    <div class="bell-sub-text">1/4/20 at 2.00P</div>
+                    <div id="divServiceRequestAlarm" class="bell-sub-text"><span>12/27/19 at 11.30A</span></div>
+                    <div id="spanServiceRequestlabelAlarm" class="bell-text">Plumbing</div>
+                    <div id="spanServiceRequestDateTimeAlarm" class="bell-sub-text">1/4/20 at 2.00P</div>
                 </div>
 
                 <div class="Wraper-left-box club-box">
@@ -169,17 +171,17 @@
 
                 <div class="Wraper-left-box club-box">
                     <div class="Clubs-text"><img src="~/content/assets/img/IMG/Celebrate.png"><span class="club">Celebrate</span></div>
-                    <div class="text-color1"><a href="#"><i class="fa fa-plus"></i><span>Reserve Amenities</span></a></div>
+                    <div class="text-color1"><a href="javascript:void(0)" id="btnReserveAmenities" onclick="goToReserveAmenities();"><i class="fa fa-plus"></i><span>Reserve Amenities</span></a></div>
                 </div>
 
                 <div class="Wraper-left-box club-box">
                     <div class="Clubs-text"><img src="~/content/assets/img/IMG/EnjoyCompany.png"><span class="club">Enjoy Company</span></div>
-                    <div class="text-color1"><a href="#"><i class="fa fa-plus"></i><span>Register a Guest</span></a></div>
+                    <div class="text-color1"><a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToRegisterGuest();"><i class="fa fa-plus"></i><span>Register a Guest</span></a></div>
                 </div>
 
                 <div class="Wraper-left-box club-box">
                     <div class="Clubs-text"><img src="~/content/assets/img/IMG/service.png"><span class="club">Service Request</span></div>
-                    <div class="text-color1"><a href="#"><i class="fa fa-plus"></i><span>Submit a Service Request</span></a></div>
+                    <div class="text-color1"><a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToSubmitServiceRequest();"><i class="fa fa-plus"></i><span>Submit a Service Request</span></a></div>
                     <div class="bell-text">After-Hours</div>
                     <div class="bell-sub-text">(786) 437-8658</div>
                     <div class="bell-text">Emergencies</div>
@@ -188,12 +190,11 @@
                 </div>
                 <!-----Right section--End-->
             </div>
-
         </div>
-    </div>
-       
-        <div id="divLoader" style="display:none"></div>
-        <!-- Footer area-->
+</div>
+    
+        @*<div id="divLoader" style="display:none"></div>
+         Footer area
         <div class="footer-area navbar-fixed-bottom">
 
             <div class="footer-copy text-center">
@@ -213,7 +214,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>*@
 
         <script src="@Url.Content("/content/bootstrap/js/bootstrap.min.js")"></script>
         <script src="@Url.Content("/content/assets/js/bootstrap-datepicker.js")"></script>

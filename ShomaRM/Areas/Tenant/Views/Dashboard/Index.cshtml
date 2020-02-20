@@ -10,193 +10,159 @@
 
 @*<div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;*@
-    <div class="container" style="width:100%;">
-        <div class="wizard-container">
-            <div class="tab-content">
-                <div class="tab-content1">
-                    <div class="" id="step3">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="panel-body table-bordered">
-                                    @*<div class="panel-heading center" style="padding:0px !important">
-                                            <h3><b sstyle="font-size: 20pt !important;">WELCOME HOME</b></h3>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <textarea id="txtCommunityActivity" maxlength="500" style="width:100%" placeholder="Share something with your neighbors..."></textarea>
-                                        </div>*@
-                                    <div class="col-md-12 center"><h3 class="welcome-text">WELCOME HOME</h3></div>
-                                    <div class="col-lg-12">
-                                        <textarea id="txtCommunityActivity" style="width:100%" placeholder="Share something with your neighbors..."></textarea>
+<div class="container" style="width:100%;">
+    <div class="wizard-container">
+        <div class="tab-content">
+            <div class="tab-content1">
+                <div class="" id="step3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-body table-bordered">
+                                @*<div class="panel-heading center" style="padding:0px !important">
+                                        <h3><b sstyle="font-size: 20pt !important;">WELCOME HOME</b></h3>
                                     </div>
-                                    @*<div class="col-lg-12">
+                                    <div class="col-lg-12">
+                                        <textarea id="txtCommunityActivity" maxlength="500" style="width:100%" placeholder="Share something with your neighbors..."></textarea>
+                                    </div>*@
+                                <div class="col-md-12 center"><h3 class="welcome-text">WELCOME HOME</h3></div>
+                                <div class="col-lg-12">
+                                    <textarea id="txtCommunityActivity" style="width:100%" placeholder="Share something with your neighbors..."></textarea>
+                                </div>
+
+
+
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="col-lg-3 col-md-4 col-sm-3 col-xs-2 pull-right box-padding box-width">
                                             <div class="pull-right">
-                                                <label for="fileCommunityActivity" class=" btn btn-primary" style="background-color:#4D738A;border-color:#4D738A;color:#fff;margin-top:5px;font-size:8pt;"><i class="fa fa-paperclip"></i></label>
+                                                <label for="fileCommunityActivity" class=" btn btn-primary"><i class="fa fa-paperclip"></i></label>
                                                 <input type="file" name="fileCommunityActivity" id="fileCommunityActivity" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
                                                 <input type="hidden" id="hndfileCommunityActivity" />
                                                 <input type="hidden" id="hndfileCommunityActivityOriginalName" />
-                                                <button type="button" class=" btn btn-primary" style="background-color:#4D738A;border-color:#4D738A;color:#fff;margin-top:5px;font-size:8pt;" onclick="saveUpdateCommunityPost();">Post</button>
+                                                <button type="button" class=" btn btn-primary" onclick="saveUpdateCommunityPost();">Post</button>
                                             </div>
-
                                         </div>
-                                        <div class="col-lg-12" id="disclaimerCommunity">
+
+                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 pull-right box-padding1 box-width" id="disclaimerCommunity">
                                             <div class="pull-right">
-                                                <input id="chkDisclaimer" type="checkbox" class="form-control" style="font-size:11pt;" /> I agree to the <a style="cursor:pointer" id="ShowDisclaimer" href="javascript:void(0);">Terms & Condition</a>
+                                                <div class="icheckbox_square-yellow checked" style="position: relative;" id="chkDisclaimer">
+
+
+                                                    <input type="checkbox">
+
+
+                                                </div><span class="agree-text">I agree to the</span>  <a id="ShowDisclaimer" href="javascript:void(0);" class="condition-text"> Terms &amp; Condition</a>
                                             </div>
-                                        </div>*@
-                                <div class="col-md-12">
-                                    <div class="col-lg-3 col-md-4 col-sm-3 col-xs-2 pull-right box-padding box-width">
-                                        <div class="pull-right">
-                                            <label for="fileCommunityActivity" class=" btn btn-primary"><i class="fa fa-paperclip"></i></label>
-                                            <input type="file" name="fileCommunityActivity" id="fileCommunityActivity" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                            <input type="hidden" id="hndfileCommunityActivity" />
-                                            <input type="hidden" id="hndfileCommunityActivityOriginalName" />
-                                            <button type="button" class=" btn btn-primary" onclick="saveUpdateCommunityPost();">Post</button>
-                                        </div>
-                                    </div>
-                                    @*<div class="col-lg-12" id="disclaimerCommunity">
-                                        <div class="pull-right">
-                                            <input id="chkDisclaimer" type="checkbox" class="form-control" style="font-size:11pt;" /> I agree to the <a id="ShowDisclaimer" href="javascript:void(0);">Terms & Condition</a>
-                                        </div>
-                                    </div>*@
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 pull-right box-padding1 box-width" id="disclaimerCommunity">
-                                        <div class="pull-right">
-                                            <div class="icheckbox_square-yellow checked" style="position: relative;">
-                                                <div  id="chkDisclaimer">
-                                                   
-                                                        <input type="checkbox">
-                                                      
-                                                  
-                                                </div>
-                                            </div><span class="agree-text">I agree to the</span>  <a  id="ShowDisclaimer" href="javascript:void(0);" class="condition-text"> Terms &amp; Condition</a>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <!-----Community Activity section---->
+
+
+                        <div class="col-md-12"><h3 class="headding-sub-text">Community Activity</h3></div>
+                        @*<div class="col-sm-12" style="overflow-x:auto">
+                                <div class="panel-body table-bordered">
+                                    <div id="DivCommunityActivityList" class="slim-scroll" style="width: 1019px;height: 351px;"></div>
+                                </div><br />
+                            </div>*@
+                        <div class="row margin">
+                            <div class="col-md-12">
+                                <div class="panel-body table-bordered">
+
+                                    <div class="slim-scroll" id="DivCommunityActivityList">
+                                    </div>
 
                                 </div>
-                                </div>
-                                <!-----Community Activity section---->
+                            </div>
+                        </div>
+                        <br />
 
 
-                                <div class="col-md-12"><h3 class="headding-sub-text">Community Activity</h3></div>
-                                @*<div class="col-sm-12" style="overflow-x:auto">
-                                        <div class="panel-body table-bordered">
-                                            <div id="DivCommunityActivityList" class="slim-scroll" style="width: 1019px;height: 351px;"></div>
-                                        </div><br />
-                                    </div>*@
-                                <div class="row margin">
-                                    <div class="col-md-12">
-                                        <div class="panel-body table-bordered">
+                    </div>
+                    @*<div class="col-md-12">
+                            ---Community-image-and -name-box--
+                            <div class="col-md-12 calender-box  p-a0">
+                                <div class="row">
+                                    ---calendar section--
 
-                                            <div class="slim-scroll" id="DivCommunityActivityList">
-                                            </div>
+                                    <div class="col-lg-8 col-md-12 col-sm-12 padding-box margin">
+                                        <h3 class="headding-sub-text">Community Calendar</h3>
+                                        <span id="spanEventCalender" style="cursor:pointer"></span>
+                                        <br />
+
+
+                                        <ul id="EventCatogary" class="calendar-menu">
+                                            <li id="Event"><span class="dot-1"></span>Neighborhood</li>
+                                            <li id="Event"><span class="dot-2"></span>Community</li>
+                                            <li id="Event"><span class="dot-3"></span>Service</li>
+                                            <li id="Event"><span class="dot-4"></span>Other</li>
+                                            <li id="Event"><span class="dot-5"></span>Current Date</li>
+                                        </ul>
+
+
+                                    </div>
+
+                                    ---calendar section-end-
+                                    ---Upcoming Events-
+                                    <div class="col-lg-4 col-md-12 col-sm-12 padding-box ">
+                                        <h3 class="headding-sub-text">Upcoming Events</h3>
+                                        <div id="divEvents" class="Wraper m-b10">
+
 
                                         </div>
                                     </div>
+
+                                    ---Upcoming Events-End
+
                                 </div>
-                                <br />
-                                <div class="col-sm-12">
-                                    <div class="panel-body table-bordered">
-                                        <div class="col-sm-5" style="height:200px !important;">
-                                            <h3 class="headding-sub-text">Community Calendar</h3>
-                                            <span id="spanEventCalender" style="cursor:pointer"></span><br />
-                                        </div>
-                                        <div class="col-sm-7">
-                                            <div class="panel-body">
-                                                <h3 class="headding-sub-text">Upcoming Events</h3>
-                                                @*<span style="font-size: 12pt;color:#4D738A">Upcoming Events:</span><br /><br />*@
-                                                <div id="divEvents" class="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12" id="EventCatogary" style="padding-left:0px !important; margin-top: 130px !important;">
-                                            <button id="Event"><i class="fa fa-square fa-lg" style="color: #00bfff;"></i> Neighborhood </button>
-                                            <button id="Event"><i class="fa fa-square fa-lg" style="color: #a2d900;"></i> Community </button>
-                                            <button id="Event"><i class="fa fa-square fa-lg" style="color: #ff6;"></i> Other </button>
-                                            <button id="Event"><i class="fa fa-square fa-lg" style="color: #ff6347;"></i> Multiple </button>
-                                            <button id="Event"><i class="fa fa-square fa-lg" style="color: #daf6ff;"></i> Current Date </button>
-                                        </div>
-                                    </div><br/>
-                                </div>
+                            </div>
+                        </div>*@
+                    <div class="col-md-12 calender-box  p-a0">
+                        <div class="row">
+                            <!-----calendar section---->
+
+                            <div class="col-lg-8 col-md-12 col-sm-12 padding-box margin">
+                                <h3 class="headding-sub-text">Community Calendar</h3>
+                                <span id="spanEventCalender" style="cursor:pointer"></span>
+
+
+
+                                <ul id="EventCatogary" class="calendar-menu">
+                                    <li id="Event"><span class="dot-1"></span>Neighborhood</li>
+                                    <li id="Event"><span class="dot-2"></span>Community</li>
+                                    <li id="Event"><span class="dot-3"></span>Service</li>
+                                    <li id="Event"><span class="dot-4"></span>Other</li>
+                                    <li id="Event"><span class="dot-5"></span>Current Date</li>
+                                </ul>
+
+
 
                             </div>
-                            @*<div class="col-md-3">
-                                <div data-spy="affix" data-offset-top="0">
-                                    <div class="col-sm-12" style="margin-bottom:-20px;">
-                                        <div class="panel-body table-bordered" style="padding:5px !important;">
-                                            <div class="center">
-                                                <span style="color:#4D738A;font-size:20pt;">Amount Due:</span>
-                                            </div>
-                                            <div class="center">
-                                                <span id="spanCurrentAmountDue" style="color:#c82828;font-size:20px;cursor:pointer;" onclick="openPaymentBreakdown()">0.00</span><br />
-                                                <button id="btnMakeAPayment" class="" style="background-color:#8cb954;border-collapse:collapse;border-radius:2px;color:#ffffff;margin-top:4px;width:60%;font-size:10pt" type="button" onclick="goToMakeAPayment();">Pay</button><br />
-                                                <a href="javascript:void(0)" id="btnSetUpRecurringPayment" style="text-decoration:underline;font-size:10pt" onclick="goToSetUpRecurringPayment();">Set Up Recurring Payment</a>
-                                            </div>
-                                        </div><br/>
-                                    </div>
-                                    <div class="col-sm-12" style="margin-bottom:-20px;">
-                                        <div class="panel-body table-bordered" style="padding:10px !important">
-                                            <div class="center" id="bellDiv">
-                                                <span style="color:#c82828;font-size:30px;"><i class="fa fa-bell"></i></span>
-                                            </div><br />
-                                            <div id="divServiceRequestAlarm" style="margin-top:-30px;">
-                                                <div class="center">
-                                                    <span id="spanServiceRequestlabelAlarm" style="font-size:27px;"></span>
-                                                </div>
-                                                <div class="center">
-                                                    <span id="spanServiceRequestDateTimeAlarm"></span>
-                                                </div>
-                                            </div>
-                                        </div><br/>
-                                    </div>
-                                    <div class="col-sm-12" style="margin-bottom:-20px;">
-                                        <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
-                                            <h3 class="panel-title" style="color:#ffffff"><img src="~/Content/assets/Assets/cheers-whight.png" height="20" width="20" /> Celebrate</h3>
-                                        </div>
-                                        <div class="panel-body table-bordered" style="padding:5px !important">
-                                            <div class="center">
-                                                <a href="javascript:void(0)" id="btnReserveAmenities" onclick="goToReserveAmenities();"><i class="fa fa-plus-circle"></i> Reserve Amenities</a>
-                                            </div>
-                                        </div><br />
-                                    </div>
-                                    <div class="col-sm-12" style="margin-bottom:-20px;">
-                                        <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
-                                            <h3 class="panel-title" style="color:#ffffff"><i class="fa fa-user-plus"></i> Enjoy Company</h3>
-                                        </div>
-                                        <div class="panel-body table-bordered" style="padding:5px !important">
-                                            <div class="center">
-                                                <a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToRegisterGuest();"><i class="fa fa-plus-circle"></i> Register a Guest</a>
-                                            </div>
-                                        </div><br />
-                                    </div>
-                                    <div class="col-sm-12" style="margin-bottom:-20px;">
-                                        <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
-                                            <h3 class="panel-title" style="color:#ffffff"><i class="glyphicon glyphicon-wrench"></i> Service Request</h3>
-                                        </div>
-                                        <div class="panel-body table-bordered">
-                                            <div class="center">
-                                                <a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToSubmitServiceRequest();"><i class="fa fa-plus-circle"></i> Submit a Service Request</a>
-                                            </div>
-                                            <div class="center">
-                                                <span><b>After-Hours</b></span>
-                                            </div>
-                                            <div class="center" style="margin-top:-3%">
-                                                <span>(786)437-8658</span>
-                                            </div>
-                                            <div class="center" style="margin-top:2%">
-                                                <span><b>Emergencies</b></span>
-                                            </div>
-                                            <div class="center" style="margin-top:-3%">
-                                                <span>(786)437-8658 or (911)</span>
-                                            </div>
-                                        </div><br />
-                                    </div>
+
+                            <!-----calendar section-end--->
+                            <!-----Upcoming Events--->
+                            <div class="col-lg-4 col-md-12 col-sm-12 padding-box ">
+                                <h3 class="headding-sub-text">Upcoming Events</h3>
+
+                                <div id="divEvents" class="Wraper m-b10 ">
+
                                 </div>
-                            </div>*@
+
+
+
+                            </div>
+
+                            <!-----Upcoming Events-End-->
+
+                        </div>
                     </div>
-                 </div>
+                </div>
             </div>
-                <!-- End submit form -->
-            
+            <!-- End submit form -->
+
         </div>
     </div>
     <div class="modal" id="popRateOpinion" style="padding-right: 370px !important;">
@@ -402,354 +368,355 @@
             </div>
         </div>
     </div>
+</div>
 @*</div>*@
 
 @*<style>
 
-    .tab-content ul {
-        background-color: #c7d5c733;
-    }
-
-        .tab-content ul li {
-            margin-right: 2px;
-            overflow: hidden;
-            background-color: #a4a9a433;
-            border-radius: 5%;
+        .tab-content ul {
+            background-color: #c7d5c733;
         }
 
-    .nav {
-        padding-left: 0;
-        list-style: none;
-    }
+            .tab-content ul li {
+                margin-right: 2px;
+                overflow: hidden;
+                background-color: #a4a9a433;
+                border-radius: 5%;
+            }
 
-    .tab-content1 ul {
-        background-color: #4d738a;
-        color: #dfe4e8;
-    }
-
-        .tab-content1 ul li a {
-            color: #B7B0A7;
+        .nav {
+            padding-left: 0;
+            list-style: none;
         }
 
-
-
-
-    .tab-content.wizard li {
-        width: 100%;
-        float: none;
-        margin-bottom: 0px;
-    }
-
-        .tab-content.wizard li > * {
-            position: relative;
-            padding: 1em .8em .8em 1.5em;
-            color: #ffffff;
-            background-color: #B4ADA5;
-            border-color: #B4ADA5;
+        .tab-content1 ul {
+            background-color: #4d738a;
+            color: #dfe4e8;
         }
 
-        .tab-content.wizard li.completed > * {
-            color: #fff !important;
-            background-color: #96c03d !important;
-            border-color: #96c03d !important;
-            border-bottom: none !important;
-        }
+            .tab-content1 ul li a {
+                color: #B7B0A7;
+            }
 
-    .tab-content li.active > * {
-        color: #fff !important;
-        background-color: #4d738a !important;
-        border-color: #4d738a !important;
-        /*border-bottom: none !important;*/
-        margin-bottom: 0px;
-    }
 
-    .tab-content.wizard li::after:last-child {
-        border: none;
-        border-bottom-left-radius: 0px;
-    }
 
-    .tab-content.wizard > li > a {
-        opacity: 1;
-        font-size: 14px;
-    }
 
-    .tab-content.wizard a:hover {
-        color: #fff;
-        background-color: #4d738a;
-        border-color: #4d738a
-    }
-
-    span.nmbr {
-        display: inline-block;
-        padding: 10px 0 0 0;
-        background: #ffffff;
-        width: 35px;
-        line-height: 100%;
-        height: 35px;
-        margin: auto;
-        border-radius: 50%;
-        font-weight: bold;
-        font-size: 16px;
-        color: #555;
-        margin-bottom: 10px;
-        text-align: center;
-    }
-
-    @@media(min-width:992px) {
         .tab-content.wizard li {
-            position: relative;
-            padding: 0;
-            /*margin: 4px 4px 4px 0;*/
-            width: 19.6%;
-            float: left;
-            text-align: center;
+            width: 100%;
+            float: none;
+            margin-bottom: 0px;
         }
 
-        .nav-tabs.wizard li.active a {
-            padding-top: 15px;
+            .tab-content.wizard li > * {
+                position: relative;
+                padding: 1em .8em .8em 1.5em;
+                color: #ffffff;
+                background-color: #B4ADA5;
+                border-color: #B4ADA5;
+            }
+
+            .tab-content.wizard li.completed > * {
+                color: #fff !important;
+                background-color: #96c03d !important;
+                border-color: #96c03d !important;
+                border-bottom: none !important;
+            }
+
+        .tab-content li.active > * {
+            color: #fff !important;
+            background-color: #4d738a !important;
+            border-color: #4d738a !important;
+            border-bottom: none !important;
+            margin-bottom: 0px;
         }
 
-        .tab-content.wizard li::after, .nav-tabs.wizard li > ::after {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: 100%;
-            height: 0;
-            width: 0;
-            border: 24px solid transparent;
-            border-right-width: 24px;
-            border-left-color: transparent;
-            border-right-width: 0;
-            border-left-width: 20px;
-        }
-
-        .tab-content.wizard li::after {
-            z-index: 1;
-            -webkit-transform: translateX(4px);
-            -moz-transform: translateX(4px);
-            -ms-transform: translateX(4px);
-            -o-transform: translateX(4px);
-            transform: translateX(4px);
-            border-left-color: #fff;
-            margin: 0
-        }
-
-        .tab-content.wizard li > *::after {
-            z-index: 2;
-            border-left-color: inherit
-        }
-
-        .tab-content.wizard > li:nth-of-type(1) > a {
-            border-top-left-radius: 0px;
+        .tab-content.wizard li::after:last-child {
+            border: none;
             border-bottom-left-radius: 0px;
         }
 
-        .tab-content.wizard li:last-child a {
-            border-top-right-radius: 0px;
-            border-bottom-right-radius: 0px;
+        .tab-content.wizard > li > a {
+            opacity: 1;
+            font-size: 14px;
         }
 
-        .tab-content.wizard li:last-child {
-            margin-right: 0;
-        }
-
-        .nav-tabs.wizard li:last-child a:after,
-        .nav-tabs.wizard li:last-child:after {
-            content: "";
-            border: none;
+        .tab-content.wizard a:hover {
+            color: #fff;
+            background-color: #4d738a;
+            border-color: #4d738a
         }
 
         span.nmbr {
-            display: block;
+            display: inline-block;
+            padding: 10px 0 0 0;
+            background: #ffffff;
+            width: 35px;
+            line-height: 100%;
+            height: 35px;
+            margin: auto;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 10px;
+            text-align: center;
         }
-    }
 
-    .wizard-card {
-        border: groove;
-        border-color: black;
-    }
+        @@media(min-width:992px) {
+            .tab-content.wizard li {
+                position: relative;
+                padding: 0;
+                /*margin: 4px 4px 4px 0;*/
+                width: 19.6%;
+                float: left;
+                text-align: center;
+            }
 
-    .btn-blue {
-        background-color: #4d738a;
-        color: #fff;
-    }
+            .nav-tabs.wizard li.active a {
+                padding-top: 15px;
+            }
 
-        .btn-blue:hover {
-            background-color: #B7B0A7;
+            .tab-content.wizard li::after, .nav-tabs.wizard li > ::after {
+                content: '';
+                position: absolute;
+                top: -1px;
+                left: 100%;
+                height: 0;
+                width: 0;
+                border: 24px solid transparent;
+                border-right-width: 24px;
+                border-left-color: transparent;
+                border-right-width: 0;
+                border-left-width: 20px;
+            }
+
+            .tab-content.wizard li::after {
+                z-index: 1;
+                -webkit-transform: translateX(4px);
+                -moz-transform: translateX(4px);
+                -ms-transform: translateX(4px);
+                -o-transform: translateX(4px);
+                transform: translateX(4px);
+                border-left-color: #fff;
+                margin: 0
+            }
+
+            .tab-content.wizard li > *::after {
+                z-index: 2;
+                border-left-color: inherit
+            }
+
+            .tab-content.wizard > li:nth-of-type(1) > a {
+                border-top-left-radius: 0px;
+                border-bottom-left-radius: 0px;
+            }
+
+            .tab-content.wizard li:last-child a {
+                border-top-right-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
+
+            .tab-content.wizard li:last-child {
+                margin-right: 0;
+            }
+
+            .nav-tabs.wizard li:last-child a:after,
+            .nav-tabs.wizard li:last-child:after {
+                content: "";
+                border: none;
+            }
+
+            span.nmbr {
+                display: block;
+            }
+        }
+
+        .wizard-card {
+            border: groove;
+            border-color: black;
+        }
+
+        .btn-blue {
+            background-color: #4d738a;
             color: #fff;
         }
 
-    hr {
-        margin-top: 0px !important;
-        margin-bottom: 0px !important;
-        border: 0;
-        border-top: 1px solid #bebdbd;
-    }
+            .btn-blue:hover {
+                background-color: #B7B0A7;
+                color: #fff;
+            }
 
-    .select-unit {
-        background-color: #4d738a !important;
-        color: #fff !important;
-    }
+        hr {
+            margin-top: 0px !important;
+            margin-bottom: 0px !important;
+            border: 0;
+            border-top: 1px solid #bebdbd;
+        }
 
-        .select-unit a {
+        .select-unit {
+            background-color: #4d738a !important;
             color: #fff !important;
         }
-    /*.badge {
-            font-size:14px !important;
-            color:#000 !important;
-            background-color: #fff !important;
-            border-radius: 5px !important;
+
+            .select-unit a {
+                color: #fff !important;
+            }
+        /*.badge {
+                font-size:14px !important;
+                color:#000 !important;
+                background-color: #fff !important;
+                border-radius: 5px !important;
+            }*/
+
+        .tab-content1 ul {
+            background-color: transparent !important;
+            color: black !important;
+        }
+
+        .tab-content ul li {
+            background-color: transparent !important;
+        }
+
+        .colorNeigh {
+            background-color: #00bfff !important;
+            padding: 5px !important;
+        }
+
+        .neighbor {
+            background: linear-gradient(110deg, #00bfff 60%, #a2d900 60%);
+        }
+
+        .colorCommu {
+            background-color: #a2d900 !important;
+            padding: 5px !important;
+            /*background: linear-gradient(to right, #a2d900, #00bfff 100%, #293f50);*/
+        }
+
+        .colorOther {
+            background-color: #ff6 !important;
+            padding: 5px !important;
+        }
+
+        .colorMulti {
+            background-color: #ff6347 !important;
+            padding: 5px !important;
+        }
+
+        .colorCurrDate {
+            background-color: #daf6ff !important;
+            padding: 5px !important;
+        }
+
+        .button-pill {
+            background-color: #ddd;
+            border: none;
+            color: black;
+            padding: 8px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0px -10px;
+            cursor: default;
+            border-radius: 16px;
+        }
+
+
+        .button-square {
+            background-color: #ddd;
+            border: none;
+            color: white;
+            padding: 8px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 2px 0px;
+            cursor: default;
         }*/
 
-    .tab-content1 ul {
-        background-color: transparent !important;
-        color: black !important;
-    }
+        #EventCatogary button {
+            float: left;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            background-color: #fff;
+            font-size: 9px;
+        }
 
-    .tab-content ul li {
-        background-color: transparent !important;
-    }
+        /*div.zabuto_calendar .badge-event,
+        div.zabuto_calendar div.legend span.badge-event {
+            background: #4D738A !important;
+            color: #fff;
+            text-shadow: none;
+        }
 
-    .colorNeigh {
-        background-color: #00bfff !important;
-        padding: 5px !important;
-    }
+        .zabuto_calendar .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+            line-height: 100% !important;
+            text-align: center;
+            width: 15%;
+        }
 
-    .neighbor {
-        background: linear-gradient(110deg, #00bfff 60%, #a2d900 60%);
-    }
+        .affix {
+            position: fixed !important;
+            background-color: white !important;
+            z-index: 777 !important;
+            padding-right: 15px !important;
+        }
 
-    .colorCommu {
-        background-color: #a2d900 !important;
-        padding: 5px !important;
-        /*background: linear-gradient(to right, #a2d900, #00bfff 100%, #293f50);*/
-    }
-
-    .colorOther {
-        background-color: #ff6 !important;
-        padding: 5px !important;
-    }
-
-    .colorMulti {
-        background-color: #ff6347 !important;
-        padding: 5px !important;
-    }
-
-    .colorCurrDate {
-        background-color: #daf6ff !important;
-        padding: 5px !important;
-    }
-
-    .button-pill {
-        background-color: #ddd;
-        border: none;
-        color: black;
-        padding: 8px 10px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        margin: 0px -10px;
-        cursor: default;
-        border-radius: 16px;
-    }
-
-
-    .button-square {
-        background-color: #ddd;
-        border: none;
-        color: white;
-        padding: 8px 10px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        margin: 2px 0px;
-        cursor: default;
-    }
-
-    #EventCatogary button {
-        float: left;
-        display: block;
-        text-align: center;
-        text-decoration: none;
-        cursor: pointer;
-        background-color: #fff;
-        font-size: 9px;
-    }
-
-    div.zabuto_calendar .badge-event,
-    div.zabuto_calendar div.legend span.badge-event {
-        background: #4D738A !important;
-        color: #fff;
-        text-shadow: none;
-    }
-
-    .zabuto_calendar .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
-        line-height: 100% !important;
-        text-align: center;
-        width: 15%;
-    }
-
-    .affix {
-        position: fixed !important;
-        background-color: white !important;
-        z-index: 777 !important;
-        padding-right: 15px !important;
-    }
-
-    .calendar-month-header {
-        background: #4D738A !important;
-        color: #fff;
-        text-shadow: none;
-        border: 1px solid #4D738A !important;
-    }
-
-        .calendar-month-header td {
+        .calendar-month-header {
+            background: #4D738A !important;
+            color: #fff;
+            text-shadow: none;
             border: 1px solid #4D738A !important;
         }
 
-    .zabuto_calendar .table-bordered {
-        border: 3px solid #B7B0A7 !important;
-        height: 100% !important;
-    }
+            .calendar-month-header td {
+                border: 1px solid #4D738A !important;
+            }
 
-    #ratingButtons .btn {
-        display: inline-block;
-        padding: 6px 12px;
-        margin-bottom: 2px;
-        font-size: 15px;
-        font-weight: normal;
-        line-height: 1.42857143;
-        text-align: center;
-        white-space: nowrap;
-        vertical-align: middle;
-        -ms-touch-action: manipulation;
-        touch-action: manipulation;
-        cursor: pointer;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        background-image: none;
-        border: 3px solid transparent;
-        border-top-color: transparent;
-        border-right-color: transparent;
-        border-bottom-color: transparent;
-        border-left-color: transparent;
-        margin-right: 8px !important;
-    }
+        .zabuto_calendar .table-bordered {
+            border: 3px solid #B7B0A7 !important;
+            height: 100% !important;
+        }*/
 
-    .ratingpoor {
-        background-color: red;
-    }
+        #ratingButtons .btn {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 2px;
+            font-size: 15px;
+            font-weight: normal;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 3px solid transparent;
+            border-top-color: transparent;
+            border-right-color: transparent;
+            border-bottom-color: transparent;
+            border-left-color: transparent;
+            margin-right: 8px !important;
+        }
 
-    .ratingavg {
-        background-color: orange;
-    }
+        .ratingpoor {
+            background-color: red;
+        }
 
-    .ratinggood {
-        background-color: green;
-    }
-</style>*@
+        .ratingavg {
+            background-color: orange;
+        }
+
+        .ratinggood {
+            background-color: green;
+        }
+    </style>*@
 
 <script>
     $(document).ready(function () {
@@ -773,13 +740,13 @@
 
     var modalTermcondition = document.getElementById("modalDisclaimer");
 
-    //var ShowTermcondition = document.getElementById("ShowDisclaimer");
+    var ShowTermcondition = document.getElementById("ShowDisclaimer");
 
     var spanTermcondition = document.getElementById("TermDisclaimer");
 
-    //ShowTermcondition.onclick = function () {
-    //    modalTermcondition.style.display = "block";
-    //}
+    ShowTermcondition.onclick = function () {
+        modalTermcondition.style.display = "block";
+    }
 
 
     spanTermcondition.onclick = function () {
