@@ -8,71 +8,114 @@
 <input id="hndTenantID" type="hidden" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID" />
 <input id="hndEventID" type="hidden" value="0" />
 
-<div class="content-area submit-property" style="background-color: #FCFCFC;">
-    &nbsp;
+@*<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;*@
     <div class="container" style="width:100%;">
         <div class="wizard-container">
             <div class="tab-content">
                 <div class="tab-content1">
                     <div class="" id="step3">
                         <div class="row">
-                            <div class="col-md-9">
+                            <div class="col-md-12">
                                 <div class="panel-body table-bordered">
-                                    <div class="panel-heading center" style="padding:0px !important">
-                                        <h3><b sstyle="font-size: 20pt !important;">WELCOME HOME</b></h3>
-                                    </div>
+                                    @*<div class="panel-heading center" style="padding:0px !important">
+                                            <h3><b sstyle="font-size: 20pt !important;">WELCOME HOME</b></h3>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <textarea id="txtCommunityActivity" maxlength="500" style="width:100%" placeholder="Share something with your neighbors..."></textarea>
+                                        </div>*@
+                                    <div class="col-md-12 center"><h3 class="welcome-text">WELCOME HOME</h3></div>
                                     <div class="col-lg-12">
-                                        <textarea id="txtCommunityActivity" maxlength="500" style="width:100%" placeholder="Share something with your neighbors..."></textarea>
+                                        <textarea id="txtCommunityActivity" style="width:100%" placeholder="Share something with your neighbors..."></textarea>
                                     </div>
-                                    <div class="col-lg-12">
+                                    @*<div class="col-lg-12">
+                                            <div class="pull-right">
+                                                <label for="fileCommunityActivity" class=" btn btn-primary" style="background-color:#4D738A;border-color:#4D738A;color:#fff;margin-top:5px;font-size:8pt;"><i class="fa fa-paperclip"></i></label>
+                                                <input type="file" name="fileCommunityActivity" id="fileCommunityActivity" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                                <input type="hidden" id="hndfileCommunityActivity" />
+                                                <input type="hidden" id="hndfileCommunityActivityOriginalName" />
+                                                <button type="button" class=" btn btn-primary" style="background-color:#4D738A;border-color:#4D738A;color:#fff;margin-top:5px;font-size:8pt;" onclick="saveUpdateCommunityPost();">Post</button>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-lg-12" id="disclaimerCommunity">
+                                            <div class="pull-right">
+                                                <input id="chkDisclaimer" type="checkbox" class="form-control" style="font-size:11pt;" /> I agree to the <a style="cursor:pointer" id="ShowDisclaimer" href="javascript:void(0);">Terms & Condition</a>
+                                            </div>
+                                        </div>*@
+                                <div class="col-md-12">
+                                    <div class="col-lg-3 col-md-4 col-sm-3 col-xs-2 pull-right box-padding box-width">
                                         <div class="pull-right">
-                                            <label for="fileCommunityActivity" class=" btn btn-primary" style="background-color:#4D738A;border-color:#4D738A;color:#fff;margin-top:5px;font-size:8pt;"><i class="fa fa-paperclip"></i></label>
+                                            <label for="fileCommunityActivity" class=" btn btn-primary"><i class="fa fa-paperclip"></i></label>
                                             <input type="file" name="fileCommunityActivity" id="fileCommunityActivity" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
                                             <input type="hidden" id="hndfileCommunityActivity" />
                                             <input type="hidden" id="hndfileCommunityActivityOriginalName" />
-                                            <button type="button" class=" btn btn-primary" style="background-color:#4D738A;border-color:#4D738A;color:#fff;margin-top:5px;font-size:8pt;" onclick="saveUpdateCommunityPost();">Post</button>
+                                            <button type="button" class=" btn btn-primary" onclick="saveUpdateCommunityPost();">Post</button>
                                         </div>
-
                                     </div>
-                                    <div class="col-lg-12" id="disclaimerCommunity">
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 pull-right box-padding1 box-width" id="disclaimerCommunity">
+                                        
                                         <div class="pull-right">
-                                            <input id="chkDisclaimer" type="checkbox" class="form-control" style="font-size:11pt;" /> I agree to the <a style="cursor:pointer" id="ShowDisclaimer" href="javascript:void(0);">Terms & Condition</a>
+                                            <div class="icheckbox_square-yellow checked" style="position: relative;">
+                                                
+                                                    <label class="square">
+                                                        <input id="chkDisclaimer" type="checkbox" name="radio">
+                                                        
+                                                    </label>
+                                                </div>
+                                            </div><span class="agree-text">I agree to the</span>  <a class="condition-text"> Terms &amp; Condition</a>
                                         </div>
+                                        
                                     </div>
-                                    <div class="panel-heading" style="padding:0px  0px 0px 15px !important">
-                                        <h3 style="font-size: 12pt;">Community Activity</h3>
-                                    </div>
-                                    <div class="col-sm-12" style="overflow-x:auto">
+
+                                </div>
+                                </div>
+                                <!-----Community Activity section---->
+
+
+                                <div class="col-md-12"><h3 class="headding-sub-text">Community Activity</h3></div>
+                                @*<div class="col-sm-12" style="overflow-x:auto">
                                         <div class="panel-body table-bordered">
                                             <div id="DivCommunityActivityList" class="slim-scroll" style="width: 1019px;height: 351px;"></div>
                                         </div><br />
-                                    </div>
-                                    <br />
-                                    <div class="col-sm-12">
+                                    </div>*@
+                                <div class="row margin">
+                                    <div class="col-md-12">
                                         <div class="panel-body table-bordered">
-                                            <div class="col-sm-5" style="height:200px !important;">
-                                                <h3 style="font-size: 12pt;">Community Calendar</h3><br />
-                                                <span id="spanEventCalender" style="cursor:pointer"></span><br />
+
+                                            <div class="slim-scroll" id="DivCommunityActivityList">
                                             </div>
-                                            <div class="col-sm-7">
-                                                <div class="panel-body">
-                                                    <span style="font-size: 12pt;color:#4D738A">Upcoming Events:</span><br /><br />
-                                                    <div id="divEvents" class="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12" id="EventCatogary" style="padding-left:0px !important; margin-top: 130px !important;">
-                                                <button id="Event"><i class="fa fa-square fa-lg" style="color: #00bfff;"></i> Neighborhood </button>
-                                                <button id="Event"><i class="fa fa-square fa-lg" style="color: #a2d900;"></i> Community </button>
-                                                <button id="Event"><i class="fa fa-square fa-lg" style="color: #ff6;"></i> Other </button>
-                                                <button id="Event"><i class="fa fa-square fa-lg" style="color: #ff6347;"></i> Multiple </button>
-                                                <button id="Event"><i class="fa fa-square fa-lg" style="color: #daf6ff;"></i> Current Date </button>
-                                            </div>
-                                        </div><br />
+
+                                        </div>
                                     </div>
                                 </div>
+                                <br />
+                                <div class="col-sm-12">
+                                    <div class="panel-body table-bordered">
+                                        <div class="col-sm-5" style="height:200px !important;">
+                                            <h3 class="headding-sub-text">Community Calendar</h3>
+                                            <span id="spanEventCalender" style="cursor:pointer"></span><br />
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <div class="panel-body">
+                                                <h3 class="headding-sub-text">Upcoming Events</h3>
+                                                @*<span style="font-size: 12pt;color:#4D738A">Upcoming Events:</span><br /><br />*@
+                                                <div id="divEvents" class="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12" id="EventCatogary" style="padding-left:0px !important; margin-top: 130px !important;">
+                                            <button id="Event"><i class="fa fa-square fa-lg" style="color: #00bfff;"></i> Neighborhood </button>
+                                            <button id="Event"><i class="fa fa-square fa-lg" style="color: #a2d900;"></i> Community </button>
+                                            <button id="Event"><i class="fa fa-square fa-lg" style="color: #ff6;"></i> Other </button>
+                                            <button id="Event"><i class="fa fa-square fa-lg" style="color: #ff6347;"></i> Multiple </button>
+                                            <button id="Event"><i class="fa fa-square fa-lg" style="color: #daf6ff;"></i> Current Date </button>
+                                        </div>
+                                    </div><br/>
+                                </div>
+
                             </div>
-                            <div class="col-md-3">
+                            @*<div class="col-md-3">
                                 <div data-spy="affix" data-offset-top="0">
                                     <div class="col-sm-12" style="margin-bottom:-20px;">
                                         <div class="panel-body table-bordered" style="padding:5px !important;">
@@ -84,7 +127,7 @@
                                                 <button id="btnMakeAPayment" class="" style="background-color:#8cb954;border-collapse:collapse;border-radius:2px;color:#ffffff;margin-top:4px;width:60%;font-size:10pt" type="button" onclick="goToMakeAPayment();">Pay</button><br />
                                                 <a href="javascript:void(0)" id="btnSetUpRecurringPayment" style="text-decoration:underline;font-size:10pt" onclick="goToSetUpRecurringPayment();">Set Up Recurring Payment</a>
                                             </div>
-                                        </div><br />
+                                        </div><br/>
                                     </div>
                                     <div class="col-sm-12" style="margin-bottom:-20px;">
                                         <div class="panel-body table-bordered" style="padding:10px !important">
@@ -99,7 +142,7 @@
                                                     <span id="spanServiceRequestDateTimeAlarm"></span>
                                                 </div>
                                             </div>
-                                        </div><br />
+                                        </div><br/>
                                     </div>
                                     <div class="col-sm-12" style="margin-bottom:-20px;">
                                         <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
@@ -144,12 +187,12 @@
                                         </div><br />
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div>*@
                     </div>
-                </div>
-                <!-- End submit form -->
+                 </div>
             </div>
+                <!-- End submit form -->
+            
         </div>
     </div>
     <div class="modal" id="popRateOpinion" style="padding-right: 370px !important;">
@@ -185,7 +228,7 @@
         </div>
     </div>
 
-    
+
 
     <div id="modalDisclaimer" class="modal" style="width:100% !important">
         <div class="modal-header">
@@ -283,7 +326,7 @@
     <div class="modal" id="popEventDetails">
         <div class="modal-dialog">
             <div class="modal-content" style="width: 100%;">
-                
+
                 <div class="modal-header center">
                     <h3 class="modal-title">Event Detail</h3>
                     <button type="button" class="close pull-right" data-dismiss="modal" style="margin-top: -30px;">&times;</button>
@@ -355,9 +398,9 @@
             </div>
         </div>
     </div>
-</div>
+@*</div>*@
 
-<style>
+@*<style>
 
     .tab-content ul {
         background-color: #c7d5c733;
@@ -592,6 +635,7 @@
         background-color: #daf6ff !important;
         padding: 5px !important;
     }
+
     .button-pill {
         background-color: #ddd;
         border: none;
@@ -640,6 +684,7 @@
         text-align: center;
         width: 15%;
     }
+
     .affix {
         position: fixed !important;
         background-color: white !important;
@@ -686,18 +731,21 @@
         border-right-color: transparent;
         border-bottom-color: transparent;
         border-left-color: transparent;
-        margin-right:8px !important;
+        margin-right: 8px !important;
     }
+
     .ratingpoor {
         background-color: red;
     }
+
     .ratingavg {
         background-color: orange;
     }
-    .ratinggood{
-        background-color:green;
+
+    .ratinggood {
+        background-color: green;
     }
-</style>
+</style>*@
 
 <script>
     $(document).ready(function () {
@@ -716,18 +764,18 @@
             disableFadeOut: false
         });
 
-        
+
     });
 
     var modalTermcondition = document.getElementById("modalDisclaimer");
 
-    var ShowTermcondition = document.getElementById("ShowDisclaimer");
+    //var ShowTermcondition = document.getElementById("ShowDisclaimer");
 
     var spanTermcondition = document.getElementById("TermDisclaimer");
 
-    ShowTermcondition.onclick = function () {
-        modalTermcondition.style.display = "block";
-    }
+    //ShowTermcondition.onclick = function () {
+    //    modalTermcondition.style.display = "block";
+    //}
 
 
     spanTermcondition.onclick = function () {
