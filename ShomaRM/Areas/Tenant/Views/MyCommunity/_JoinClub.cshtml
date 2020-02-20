@@ -8,20 +8,134 @@
                 <div class="row @ViewBag.CallenderHidden">
                     <div class="col-sm-12 center">
                         <div class="col-sm-offset-4 col-sm-4">
+                            <div class="col-md-12 calender-box  p-a0">
+                                <div class="row">
+                                    @*<span id="zabuto_calendar_5x3" style="cursor:pointer">
+                <div class="zabuto_calendar">*@
+                                    @*<table class="table table-bordered">
+                <tbody>
+                <tr class="calendar-month-header">
+                    <td><div class="calendar-month-navigation" id="zabuto_calendar_5x3_nav-prev"><span><i class="fa fa-chevron-circle-left"></i></span></div>
+                        </td><td colspan="5" style="text-align:center;"><span>January 2020</span></td>
+                    <td><div class="calendar-month-navigation" id="zabuto_calendar_5x3_nav-next"><span><i class="fa fa-chevron-circle-right"></i></span></div>
+                        </td></tr><tr class="calendar-dow"><td></td>
+                    <td></td>
+                    <td></td>
+                    <td id="zabuto_calendar_5x3_2020-01-01" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-01_day" class="day">1</div>
+                        </td><td id="zabuto_calendar_5x3_2020-01-02" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-02_day" class="day">2</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-03" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-03_day" class="day">3</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-04" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-04_day" class="day">4</div></td>
+                            </tr><tr class="calendar-dow">
+                    <td id="zabuto_calendar_5x3_2020-01-05" class="dow-clickable">
+                    <div id="zabuto_calendar_5x3_2020-01-05_day" class="day">5</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-06" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-06_day" class="day">6</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-07" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-07_day" class="day">7</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-08" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-08_day" class="day">8</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-09" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-09_day" class="day">9</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-10" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-10_day" class="day">10</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-11" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-11_day" class="day">11</div></td>
+                                </tr><tr class="calendar-dow">
+                    <td id="zabuto_calendar_5x3_2020-01-12" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-12_day" class="day">12</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-13" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-13_day" class="day">13</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-14" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-14_day" class="day">14</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-15" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-15_day" class="day">15</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-16" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-16_day" class="day">16</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-17" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-17_day" class="day">17</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-18" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-18_day" class="day">18</div></td>
+                                    </tr><tr class="calendar-dow">
+                    <td id="zabuto_calendar_5x3_2020-01-19" class="dow-clickable">
+                    <div id="zabuto_calendar_5x3_2020-01-19_day" class="day">19</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-20" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-20_day" class="day">20</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-21" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-21_day" class="day">21</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-22" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-22_day" class="day">22</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-23" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-23_day" class="day">23</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-24" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-24_day" class="day">24</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-25" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-25_day" class="day">25</div></td>
+                                        </tr><tr class="calendar-dow"><td id="zabuto_calendar_5x3_2020-01-26" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-26_day" class="day">26</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-27" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-27_day" class="day">27</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-28" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-28_day" class="day">28</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-29" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-29_day" class="day">29</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-30" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-30_day" class="day">30</div></td>
+                    <td id="zabuto_calendar_5x3_2020-01-31" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-31_day" class="day">31</div></td>
+                    <td></td></tr></tbody></table>*@
+                                    <table>
+                                        <tr style="text-align:center;">
+                                            <th class="month-banner" colspan="7"><i style="float:left;margin:5px 15px;" class="fa fa-chevron-circle-left"></i>DECEMBER 2019<i style="float:right;margin:5px 15px ;" class="fa fa-chevron-circle-right"></i></th>
 
-                            <span id="zabuto_calendar_5x3" style="cursor:pointer">
-                                <div class="zabuto_calendar"><table class="table table-bordered"><tbody><tr class="calendar-month-header"><td><div class="calendar-month-navigation" id="zabuto_calendar_5x3_nav-prev"><span><i class="fa fa-chevron-circle-left"></i></span></div></td><td colspan="5" style="text-align:center;"><span>January 2020</span></td><td><div class="calendar-month-navigation" id="zabuto_calendar_5x3_nav-next"><span><i class="fa fa-chevron-circle-right"></i></span></div></td></tr><tr class="calendar-dow"><td></td><td></td><td></td><td id="zabuto_calendar_5x3_2020-01-01" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-01_day" class="day">1</div></td><td id="zabuto_calendar_5x3_2020-01-02" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-02_day" class="day">2</div></td><td id="zabuto_calendar_5x3_2020-01-03" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-03_day" class="day">3</div></td><td id="zabuto_calendar_5x3_2020-01-04" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-04_day" class="day">4</div></td></tr><tr class="calendar-dow"><td id="zabuto_calendar_5x3_2020-01-05" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-05_day" class="day">5</div></td><td id="zabuto_calendar_5x3_2020-01-06" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-06_day" class="day">6</div></td><td id="zabuto_calendar_5x3_2020-01-07" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-07_day" class="day">7</div></td><td id="zabuto_calendar_5x3_2020-01-08" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-08_day" class="day">8</div></td><td id="zabuto_calendar_5x3_2020-01-09" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-09_day" class="day">9</div></td><td id="zabuto_calendar_5x3_2020-01-10" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-10_day" class="day">10</div></td><td id="zabuto_calendar_5x3_2020-01-11" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-11_day" class="day">11</div></td></tr><tr class="calendar-dow"><td id="zabuto_calendar_5x3_2020-01-12" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-12_day" class="day">12</div></td><td id="zabuto_calendar_5x3_2020-01-13" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-13_day" class="day">13</div></td><td id="zabuto_calendar_5x3_2020-01-14" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-14_day" class="day">14</div></td><td id="zabuto_calendar_5x3_2020-01-15" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-15_day" class="day">15</div></td><td id="zabuto_calendar_5x3_2020-01-16" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-16_day" class="day">16</div></td><td id="zabuto_calendar_5x3_2020-01-17" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-17_day" class="day">17</div></td><td id="zabuto_calendar_5x3_2020-01-18" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-18_day" class="day">18</div></td></tr><tr class="calendar-dow"><td id="zabuto_calendar_5x3_2020-01-19" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-19_day" class="day">19</div></td><td id="zabuto_calendar_5x3_2020-01-20" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-20_day" class="day">20</div></td><td id="zabuto_calendar_5x3_2020-01-21" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-21_day" class="day">21</div></td><td id="zabuto_calendar_5x3_2020-01-22" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-22_day" class="day">22</div></td><td id="zabuto_calendar_5x3_2020-01-23" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-23_day" class="day">23</div></td><td id="zabuto_calendar_5x3_2020-01-24" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-24_day" class="day">24</div></td><td id="zabuto_calendar_5x3_2020-01-25" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-25_day" class="day">25</div></td></tr><tr class="calendar-dow"><td id="zabuto_calendar_5x3_2020-01-26" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-26_day" class="day">26</div></td><td id="zabuto_calendar_5x3_2020-01-27" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-27_day" class="day">27</div></td><td id="zabuto_calendar_5x3_2020-01-28" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-28_day" class="day">28</div></td><td id="zabuto_calendar_5x3_2020-01-29" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-29_day" class="day">29</div></td><td id="zabuto_calendar_5x3_2020-01-30" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-30_day" class="day">30</div></td><td id="zabuto_calendar_5x3_2020-01-31" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-31_day" class="day">31</div></td><td></td></tr></tbody></table><div class="legend" id="zabuto_calendar_5x3_legend"></div></div>
-                            </span>
+                                        </tr>
+                                        <tr>
+                                            <td>1
+                                            <td>2
+                                            <td>3
+                                            <td>4
+                                            <td>5
+                                            <td>6
+                                            <td>7
+                                        </tr>
+
+                                        <tr>
+                                            <td>8
+                                            <td>9
+                                            <td>10
+                                            <td>11
+                                            <td>12
+                                            <td>13
+                                            <td>14
+                                        </tr>
+
+                                        <tr>
+                                            <td>15
+                                            <td>16
+                                            <td>17
+                                            <td>18
+                                            <td>19
+                                            <td>20
+                                            <td><span class="datebox1">21</span><span class="cercal1"></span>
+                                        </tr>
+
+                                        <tr>
+                                            <td>22
+                                            <td><span class="datebox">23</span><span class="cercal2"></span>
+                                            <td>24
+                                            <td>25
+                                            <td>26
+                                            <td><span class="datebox1">27</span><span class="cercal3"></span>
+                                            <td>28
+                                        </tr>
+
+                                        <tr>
+                                            <td>29
+                                            <td>30
+                                            <td>31
+                                            <td>
+                                            <td>
+                                            <td>
+                                            <td>
+                                        </tr>
+
+                                    </table>
+                                    @*<div class="legend" id="zabuto_calendar_5x3_legend"></div>*@
+                                    @*</div>
+                </span>*@
+                                </div>
+                                @*<div class="col-sm-offset-3 col-sm-6" id="EventCatogary" style="padding-left:0px !important; margin-top: -15px !important;margin-left: 215pt;">
+                <button id="Event"><i class="fa fa-square fa-lg" style="color: #00bfff;"></i> Neighborhood </button>
+                <button id="Event"><i class="fa fa-square fa-lg" style="color: #a2d900;"></i> Community </button>
+                <button id="Event"><i class="fa fa-square fa-lg" style="color: #ff6;"></i> Other </button>
+                <button id="Event"><i class="fa fa-square fa-lg" style="color: #ff6347;"></i> Multiple </button>
+                <button id="Event"><i class="fa fa-square fa-lg" style="color: #daf6ff;"></i> Current Date </button>
+            </div>*@
+                                <ul id="EventCatogary" class="calendar-menu">
+                                    <li id="Event"><span class="dot-1"></span>Neighborhood</li>
+                                    <li id="Event"><span class="dot-2"></span>Community</li>
+                                    <li id="Event"><span class="dot-3"></span>Service</li>
+                                    <li id="Event"><span class="dot-4"></span>Other</li>
+                                    <li id="Event"><span class="dot-5"></span>Current Date</li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="col-sm-offset-3 col-sm-6" id="EventCatogary" style="padding-left:0px !important; margin-top: -15px !important;margin-left: 215pt;">
-                            <button id="Event"><i class="fa fa-square fa-lg" style="color: #00bfff;"></i> Neighborhood </button>
-                            <button id="Event"><i class="fa fa-square fa-lg" style="color: #a2d900;"></i> Community </button>
-                            <button id="Event"><i class="fa fa-square fa-lg" style="color: #ff6;"></i> Other </button>
-                            <button id="Event"><i class="fa fa-square fa-lg" style="color: #ff6347;"></i> Multiple </button>
-                            <button id="Event"><i class="fa fa-square fa-lg" style="color: #daf6ff;"></i> Current Date </button>
                         </div>
                     </div>
-                </div>
                 <br>
                 <div class="row">
                     <div class="col-sm-12 mb-15">
