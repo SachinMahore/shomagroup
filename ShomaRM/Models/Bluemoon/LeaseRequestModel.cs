@@ -11,9 +11,9 @@ namespace ShomaRM.Models.Bluemoon
         [StringLength(54, ErrorMessage = "")]
         public string ADDRESS { get; set; }
 
-        public DateTime? DATE_OF_LEASE { get; set; }
-        public DateTime? LEASE_BEGIN_DATE { get; set; }
-        public DateTime? LEASE_END_DATE { get; set; }
+        public string DATE_OF_LEASE { get; set; }
+        public string LEASE_BEGIN_DATE { get; set; }
+        public string LEASE_END_DATE { get; set; }
 
         [Range(0, 99, ErrorMessage = "")]
         public int? MAXIMUM_GUEST_STAY { get; set; }
@@ -527,7 +527,7 @@ namespace ShomaRM.Models.Bluemoon
         public DateTime? PARKING_ONE_TIME_DATE { get; set; }
 
         [StringLength(8, ErrorMessage = "")]
-        public string PARKING_ONE_TIME_FEE { get; set; }
+        public float? PARKING_ONE_TIME_FEE { get; set; }
         [StringLength(12, ErrorMessage = "")]
         public string PARKING_SPACE_NUMBER_1 { get; set; }
         [StringLength(12, ErrorMessage = "")]
