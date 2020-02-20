@@ -39,7 +39,7 @@
     @*<link rel="stylesheet" href="@Url.Content("/content/assets/css/stylenew.css")">*@
     <link rel="stylesheet" href="@Url.Content("/content/jquery-confirm-master/css/jquery-confirm.css")" />
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/popupwindow.css")">
-   
+
     <script src="@Url.Content("~/content/Pages/common.js")"></script>
 
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/responsive.css")">
@@ -92,7 +92,7 @@
 
     </div>
     <div>
-        <span class="mobile-logo" style="font-size:30px;padding-left: 8px;cursor:pointer;color: #4d738a;" onclick="openNav()">&#9776; <a href="#"><img src="img/logoTenant.png" alt="logo" class="responsive "></a></span>
+        @*<span class="mobile-logo" style="font-size:30px;padding-left: 8px;cursor:pointer;color: #4d738a;" onclick="openNav()">&#9776; <a href="#"><img src="img/logoTenant.png" alt="logo" class="responsive "></a></span>*@
 
     </div>
 
@@ -139,100 +139,102 @@
 
     <!-- End of nav bar -->
     <!-----Right section---->
-    <div class="row">
-        <div class="col-md-9">
-            @RenderBody()
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-12 box-padding-mobile">
-
-            <div class="col-sm-12">
-                <div class="Wraper-left-box">
-                    <div class="left-side-subtext">amount due:</div>
-                    <div class="left-side-amount">$2676.50</div>
-                    <button class="paybutton">Pay</button>
-                    <div class="right-sub-text-link m-t5"><a href="#">set up recurring payments</a></div>
-                </div>
-
-
-                <div class="Wraper-left-box">
-                    <div><!--<i class="fa fa-bell"></i>--><img src="~/content/assets/img/IMG/bill.png" /></div>
-                    <div class="bell-text">Exterminator</div>
-                    <div class="bell-sub-text">12/27/19 at 11.30A</div>
-                    <div class="bell-text">Plumbing</div>
-                    <div class="bell-sub-text">1/4/20 at 2.00P</div>
-                </div>
-
-                <div class="Wraper-left-box club-box">
-                    <div class="Clubs-text"><img src="~/content/assets/img/IMG/club.png"><span class="club">Clubs</span></div>
-                    <div class="text-color1"><a href="#"><i class="fa fa-plus"></i><span>Join or Start a Club</span></a></div>
-                </div>
-
-                <div class="Wraper-left-box club-box">
-                    <div class="Clubs-text"><img src="~/content/assets/img/IMG/Celebrate.png"><span class="club">Celebrate</span></div>
-                    <div class="text-color1"><a href="#"><i class="fa fa-plus"></i><span>Reserve Amenities</span></a></div>
-                </div>
-
-                <div class="Wraper-left-box club-box">
-                    <div class="Clubs-text"><img src="~/content/assets/img/IMG/EnjoyCompany.png"><span class="club">Enjoy Company</span></div>
-                    <div class="text-color1"><a href="#"><i class="fa fa-plus"></i><span>Register a Guest</span></a></div>
-                </div>
-
-                <div class="Wraper-left-box club-box">
-                    <div class="Clubs-text"><img src="~/content/assets/img/IMG/service.png"><span class="club">Service Request</span></div>
-                    <div class="text-color1"><a href="#"><i class="fa fa-plus"></i><span>Submit a Service Request</span></a></div>
-                    <div class="bell-text">After-Hours</div>
-                    <div class="bell-sub-text">(786) 437-8658</div>
-                    <div class="bell-text">Emergencies</div>
-                    <div class="bell-sub-text">(786) 437-8658 or 911</div>
-
-                </div>
-                <!-----Right section--End-->
+    <div class="container container-box">
+        <div class="row">
+            <div class="col-lg-9 col-md-8 col-sm-12 border-box margin">
+                @RenderBody()
             </div>
+            <div class="col-lg-3 col-md-4 col-sm-12 box-padding-mobile">
 
+                <div class="col-sm-12">
+                    <div class="Wraper-left-box">
+                        <div class="left-side-subtext">amount due:</div>
+                        <div class="left-side-amount">$2676.50</div>
+                        <button class="paybutton">Pay</button>
+                        <div class="right-sub-text-link m-t5"><a href="#">set up recurring payments</a></div>
+                    </div>
+
+
+                    <div class="Wraper-left-box">
+                        <div><!--<i class="fa fa-bell"></i>--><img src="~/content/assets/img/IMG/bill.png" /></div>
+                        <div class="bell-text">Exterminator</div>
+                        <div class="bell-sub-text">12/27/19 at 11.30A</div>
+                        <div class="bell-text">Plumbing</div>
+                        <div class="bell-sub-text">1/4/20 at 2.00P</div>
+                    </div>
+
+                    <div class="Wraper-left-box club-box">
+                        <div class="Clubs-text"><img src="~/content/assets/img/IMG/club.png"><span class="club">Clubs</span></div>
+                        <div class="text-color1"><a href="#"><i class="fa fa-plus"></i><span>Join or Start a Club</span></a></div>
+                    </div>
+
+                    <div class="Wraper-left-box club-box">
+                        <div class="Clubs-text"><img src="~/content/assets/img/IMG/Celebrate.png"><span class="club">Celebrate</span></div>
+                        <div class="text-color1"><a href="#"><i class="fa fa-plus"></i><span>Reserve Amenities</span></a></div>
+                    </div>
+
+                    <div class="Wraper-left-box club-box">
+                        <div class="Clubs-text"><img src="~/content/assets/img/IMG/EnjoyCompany.png"><span class="club">Enjoy Company</span></div>
+                        <div class="text-color1"><a href="#"><i class="fa fa-plus"></i><span>Register a Guest</span></a></div>
+                    </div>
+
+                    <div class="Wraper-left-box club-box">
+                        <div class="Clubs-text"><img src="~/content/assets/img/IMG/service.png"><span class="club">Service Request</span></div>
+                        <div class="text-color1"><a href="#"><i class="fa fa-plus"></i><span>Submit a Service Request</span></a></div>
+                        <div class="bell-text">After-Hours</div>
+                        <div class="bell-sub-text">(786) 437-8658</div>
+                        <div class="bell-text">Emergencies</div>
+                        <div class="bell-sub-text">(786) 437-8658 or 911</div>
+
+                    </div>
+                    <!-----Right section--End-->
+                </div>
+
+            </div>
         </div>
     </div>
-       
-        <div id="divLoader" style="display:none"></div>
-        <!-- Footer area-->
-        <div class="footer-area navbar-fixed-bottom">
 
-            <div class="footer-copy text-center">
-                <div class="container">
-                    <div class="row">
-                        <div class="pull-left">
-                            <span> (C) <a href="http://www.shomagroup.com">Shoma Group</a> , All rights reserved @DateTime.Now.ToString("yyyy")   </span>
-                        </div>
-                        <div class="bottom-menu pull-right">
-                            <ul>
-                                <li><a class="wow fadeInUp animated" href="~/Home/Index" data-wow-delay="0.2s">Home</a></li>
-                                <li><a class="wow fadeInUp animated" href="~/Property/Index" data-wow-delay="0.3s">Property</a></li>
-                                <li><a class="wow fadeInUp animated" href="~/Home/FAQ" data-wow-delay="0.4s">FAQ</a></li>
-                                <li><a class="wow fadeInUp animated" href="~/Home/Contact" data-wow-delay="0.6s">Contact</a></li>
-                            </ul>
-                        </div>
+    <div id="divLoader" style="display:none"></div>
+    <!-- Footer area-->
+    <div class="footer-area navbar-fixed-bottom">
+
+        <div class="footer-copy text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="pull-left">
+                        <span> (C) <a href="http://www.shomagroup.com">Shoma Group</a> , All rights reserved @DateTime.Now.ToString("yyyy")   </span>
+                    </div>
+                    <div class="bottom-menu pull-right">
+                        <ul>
+                            <li><a class="wow fadeInUp animated" href="~/Home/Index" data-wow-delay="0.2s">Home</a></li>
+                            <li><a class="wow fadeInUp animated" href="~/Property/Index" data-wow-delay="0.3s">Property</a></li>
+                            <li><a class="wow fadeInUp animated" href="~/Home/FAQ" data-wow-delay="0.4s">FAQ</a></li>
+                            <li><a class="wow fadeInUp animated" href="~/Home/Contact" data-wow-delay="0.6s">Contact</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <script src="@Url.Content("/content/bootstrap/js/bootstrap.min.js")"></script>
-        <script src="@Url.Content("/content/assets/js/bootstrap-datepicker.js")"></script>
-        <script src="@Url.Content("/content/assets/js/bootstrap-select.min.js")"></script>
-        <script src="@Url.Content("/content/assets/js/bootstrap-hover-dropdown.js")"></script>
-        <script src="@Url.Content("/content/assets/js/easypiechart.min.js")"></script>
-        <script src="@Url.Content("/content/assets/js/jquery.easypiechart.min.js")"></script>
-        <script src="@Url.Content("/content/assets/js/owl.carousel.min.js")"></script>
-        <script src="@Url.Content("/content/assets/js/wow.js")"></script>
-        <script src="@Url.Content("/content/assets/js/icheck.min.js")"></script>
-        <script src="@Url.Content("/content/assets/js/price-range.js")"></script>
-        <script src="@Url.Content("/content/assets/js/lightslider.min.js")"></script>
-        <script src="@Url.Content("/content/assets/js/jquery.ba-cond.min.js")"></script>
-        <script src="@Url.Content("/content/assets/js/jquery.slitslider.js")"></script>
-        <script src="@Url.Content("/content/assets/js/jquery.bootstrap.wizard.js")"></script>
-        <script src="@Url.Content("/content/assets/js/jquery.validate.min.js")"></script>
-        <script src="@Url.Content("/content/assets/js/wizard.js")"></script>
-        <script src="@Url.Content("/content/assets/js/main.js")"></script>
-        <script src="@Url.Content("/Content/jquery-confirm-master/js/jquery-confirm.js")"></script>
+    <script src="@Url.Content("/content/bootstrap/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/bootstrap-datepicker.js")"></script>
+    <script src="@Url.Content("/content/assets/js/bootstrap-select.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/bootstrap-hover-dropdown.js")"></script>
+    <script src="@Url.Content("/content/assets/js/easypiechart.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/jquery.easypiechart.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/owl.carousel.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/wow.js")"></script>
+    <script src="@Url.Content("/content/assets/js/icheck.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/price-range.js")"></script>
+    <script src="@Url.Content("/content/assets/js/lightslider.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/jquery.ba-cond.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/jquery.slitslider.js")"></script>
+    <script src="@Url.Content("/content/assets/js/jquery.bootstrap.wizard.js")"></script>
+    <script src="@Url.Content("/content/assets/js/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("/content/assets/js/wizard.js")"></script>
+    <script src="@Url.Content("/content/assets/js/main.js")"></script>
+    <script src="@Url.Content("/Content/jquery-confirm-master/js/jquery-confirm.js")"></script>
 </body>
 </html>
 <style>
@@ -253,14 +255,14 @@
     .navbar-default .navbar-nav > a :hover {
         border-bottom: none !important;
     }*/
-    
+
 </style>
 <script type="text/javascript">
     function gotoLogin() {
         window.location = "/Account/Login";
     }
     $(document).ready(function () {
-      
+
         getAllDues();
     });
     var getAllDues = function () {
@@ -279,8 +281,8 @@
                 $('#spanCurrentAmountDue').text('$' + formatMoney(gg[0]));
                 $("#lblCurrentPrePayAmount").text('$' + formatMoney(gg[0]));
                 $("#hndRecId").val(gg[1]);
-                
-               
+
+
             }
         });
     };

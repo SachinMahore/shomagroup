@@ -2022,9 +2022,9 @@ ul.submenupayment {
     font-family: Arial;
 }
 
-    .custom-select select {
-        display: none; /*hide original SELECT element:*/
-    }
+    /*.custom-select select {
+        display: none; 
+    }*/
 
 .select-selected {
     background-color: #ffffff;
@@ -2940,4 +2940,14 @@ button:hover {
     .icheckbox_square-yellow.checked {
         margin: 2px 0px;
     }
+}
+select {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20fill%3D%22%23555555%22%20%0A%09%20width%3D%2224px%22%20height%3D%2224px%22%20viewBox%3D%22-261%20145.2%2024%2024%22%20style%3D%22enable-background%3Anew%20-261%20145.2%2024%2024%3B%22%20xml%3Aspace%3D%22preserve%22%3E%0A%3Cpath%20d%3D%22M-245.3%2C156.1l-3.6-6.5l-3.7%2C6.5%20M-252.7%2C159l3.7%2C6.5l3.6-6.5%22%2F%3E%0A%3C%2Fsvg%3E") !important;
+    background-repeat: no-repeat !important;
+    padding-right: 25px !important;
+    background-position: right center !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    -webkit-border-radius: 0px !important;
+    border-radius: 0px !important;
 }
