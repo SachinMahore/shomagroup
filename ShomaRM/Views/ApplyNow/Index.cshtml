@@ -2242,11 +2242,10 @@
                                     <div class="form-group">
                                         <div class="">
                                             @*<a href="javascript:void(0)" id="btnDownloadLeaseDocument" class="btn btn-primary" onclick="saveLeaseDoc()">Review and Sign Your Online Leasing Application</a>*@
-                                            <label class="info-text pull-left hidden" style="color:#4d738a" id="lblsignin">Your Lease Agreement Signing has been successfull. Please click on continue button.</label>
+                                            <label class="info-text pull-left hidden" style="color:#4d738a" id="lblsignin">Your Lease Agreement generated successfull at Bluemoon. Please click on continue button. Lease ID: @Model.EnvelopeID</label>
                                             <br />
-                                            <input type="submit" class="btn btn-primary" value="Review and Sign Your Online Leasing Application!" id="btnDownloadLeaseDocument"
-                                                   style="width:437px;margin-right:16px;" onclick="location.href='@Url.Action("OnPostAsync","EmbeddedSigning",new { TenantID = Model.ProspectId })'" />
-                                            <input type="submit" class="btn btn-primary" style="width: 300px;" id="btnleaseDownl" onclick="getDocuDoc('@Model.EnvelopeID')" value="Download Leasing Application" />
+                                            <input type="submit" class="btn btn-primary pull-right" width="400" style="width: 420px;" value="Process Online Leasing Application to Bluemoon!" id="btnDownloadLeaseDocument" onclick="location.href='@Url.Action("LeaseBlumoon","CheckList")'" />
+                                            <input type="submit" class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="location.href='@Url.Action("GetLeaseDocBlumoon","CheckList")'" value="Download Lease Document" disabled />
                                         </div>
                                     </div>
                                 </div>
@@ -2369,7 +2368,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Routing Number</label>
-                                                <input id="txtRoutingNumber" type="text" class="form-control" placeholder="Routing Number" onkeypress="return isNumber(event)" value="">
+                                                <input id="txtRoutingNumber" type="text" class="form-control" placeholder="Routing Number" maxlength="9" onkeypress="return isNumber(event)" value="">
                                             </div>
                                         </div>
                                     </div>
@@ -3914,7 +3913,7 @@
 
             if (('@Model.EnvelopeID') !="") {
                 $("#btnAddPet").attr("disabled", true);
-                $("#btnleaseDownl").removeClass("hidden");
+                $("#btnleaseDownl").removeAttr("disabled");
                 goToStep(15, 15);
                 $("#btnDownloadLeaseDocument").css("background-color", "#B4ADA5").attr("disabled", "disabled");
                 $("#lblsignin").removeClass("hidden");

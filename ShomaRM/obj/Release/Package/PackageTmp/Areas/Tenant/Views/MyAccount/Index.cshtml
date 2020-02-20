@@ -1011,56 +1011,56 @@
                                             <h4 style="margin-top: 2%;margin-bottom: 2%;font-size: 12pt;color:#4D738A !important; ">My Documents</h4>
                                         </div>
                                         <div class="panel-group" id="accordion">
-                                            <div class="panel panel-default" style="border:0.1px solid;border-color:#ddd;">
-                                                <div class="panel-heading" style="background-color:transparent;border-bottom: 0.1px solid;border-color: #ddd;">
+                                            <div class="panel panel-default accordian-border-group">
+                                                <div class="panel-heading accordian-border">
                                                     <h3 class="panel-title">
                                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Lease Document<i class="fa fa-angle-down pull-right"></i></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse1" class="panel-collapse collapse">
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading" id="accordionSubLeaseDocument" style="background-color:transparent"></div>
+                                                    <div class="panel panel-default ">
+                                                        <div class="panel-heading " id="accordionSubLeaseDocument"></div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="panel panel-default" style="border:0.1px solid;border-color:#ddd;">
-                                                <div class="panel-heading" style="background-color:transparent;border-bottom: 0.1px solid;border-color: #ddd;">
+                                            <div class="panel panel-default accordian-border-group">
+                                                <div class="panel-heading accordian-border">
                                                     <h3 class="panel-title">
                                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Personal Identity<i class="fa fa-angle-down pull-right"></i></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse2" class="panel-collapse collapse">
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading" id="accordionSubIdentity" style="background-color:transparent"></div>
+                                                    <div class="panel panel-default ">
+                                                        <div class="panel-heading " id="accordionSubIdentity"></div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="panel panel-default" style="border:0.1px solid;border-color:#ddd;">
-                                                <div class="panel-heading" style="background-color:transparent;border-bottom: 0.1px solid;border-color: #ddd;">
+                                            <div class="panel panel-default accordian-border-group">
+                                                <div class="panel-heading accordian-border">
                                                     <h3 class="panel-title">
                                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Pay Stub/Tax Return<i class="fa fa-angle-down pull-right"></i></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse3" class="panel-collapse collapse">
                                                     <div class="panel panel-default">
-                                                        <div class="panel-heading" id="accordionSubTaxReturn" style="background-color:transparent"></div>
+                                                        <div class="panel-heading" id="accordionSubTaxReturn"></div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="panel panel-default" style="border:0.1px solid;border-color:#ddd;">
-                                                <div class="panel-heading" style="background-color:transparent;border-bottom: 0.1px solid;border-color: #ddd;">
+                                            <div class="panel panel-default accordian-border-group">
+                                                <div class="panel-heading accordian-border">
                                                     <h3 class="panel-title">
                                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Pets<i class="fa fa-angle-down pull-right"></i></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse4" class="panel-collapse collapse">
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading" id="accordionSubPetCertificate" style="background-color:transparent"></div>
+                                                    <div class="panel panel-default ">
+                                                        <div class="panel-heading " id="accordionSubPetCertificate"></div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="panel panel-default" style="border:0.1px solid;border-color:#ddd;">
-                                                <div class="panel-heading" style="background-color:transparent;border-bottom: 0.1px solid;border-color: #ddd;">
+                                            <div class="panel panel-default accordian-border-group">
+                                                <div class="panel-heading accordian-border">
                                                     <h3 class="panel-title">
                                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Vehicle<i class="fa fa-angle-down pull-right"></i></a>
                                                     </h3>
@@ -1574,13 +1574,13 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="star">Account Number</label>
-                                    <input id="txtAccountNumberPayMethod" type="text" class="form-control" placeholder="Account Number" maxlength="29" value="" onkeypress="return isOnlyNumber(event)">
+                                    <input id="txtAccountNumberPayMethod" type="text" class="form-control" placeholder="Account Number" maxlength="10" value="" onkeypress="return isOnlyNumber(event)">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="star">Routing Number</label>
-                                    <input id="txtRoutingNumberPayMethod" type="text" class="form-control" placeholder="Routing Number" value="" onkeypress="return isOnlyNumber(event)">
+                                    <input id="txtRoutingNumberPayMethod" type="text" class="form-control" placeholder="Routing Number" maxlength="9" value="" onkeypress="return isOnlyNumber(event)">
                                 </div>
                             </div>
                         </div>
@@ -2786,7 +2786,7 @@
           
 
             $("#txtChargeDate").datepicker();
-            $("#txtGuestVistStartDate").datepicker({ dateFormat: "MM/dd/yyyy" }).on('change', function (ev) {
+            $("#txtGuestVistStartDate").datepicker({ dateFormat: "MM/dd/yyyy", startDate: new Date() }).on('change', function (ev) {
                 $("#txtGuestVistEndDate").val('');
                 var startDate = $(this).val();
                 var endDate = $('#txtGuestVistStartDate').datepicker('getDate');
@@ -3143,7 +3143,16 @@
             z-index: 777 !important;
             padding-right: 30px !important;
         }
+        .accordian-border-group {
+            border: 1px solid !important;
+            border-color: #ddd !important;
+        }
 
+        .accordian-border {
+            background-color: transparent !important;
+            border: 0.1px solid !important;
+            border-color: #ddd;
+        }
     </style>
     <style>
         /* The Modal (background) */

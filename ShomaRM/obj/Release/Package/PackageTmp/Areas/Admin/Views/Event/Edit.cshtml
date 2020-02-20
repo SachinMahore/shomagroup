@@ -116,7 +116,7 @@
 
 <script>
     $(function () {
-        $("#txtEventDate").datepicker();
+        $("#txtEventDate").datepicker({ autoclose: true, dateFormat: "MM/dd/yyyy", startDate: new Date() });
         $("#iconEventDate").click(function () {
             $("#txtEventDate").focus();
         });

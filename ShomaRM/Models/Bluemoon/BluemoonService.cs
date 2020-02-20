@@ -420,6 +420,8 @@ namespace ShomaRM.Models.Bluemoon
 
             leaseResponseModel.LeaseId = leaseId;
             leaseResponseModel.SessionId = sessionId;
+
+           
             return leaseResponseModel;
         }
 

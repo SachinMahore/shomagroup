@@ -4,7 +4,7 @@ var QuoteExpires = "";
 $(document).ready(function () {
     onFocusApplyNow();
     localStorage.removeItem("CheckReload");
-
+    fillMarketSourceDDLA();
 
     $("#popRentalQualification").modal("hide");
     checkExpiry();
@@ -1371,7 +1371,23 @@ var SaveOnlineProspect = function () {
         }
     });
 }
+var fillMarketSourceDDLA = function () {
+    $.ajax({
+        url: '/Admin/ProspectManagement/GetDdlMarketSourceList',
+        method: "post",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
 
+            $("#ddlMarketSource").empty();
+            $("#ddlMarketSource").append("<option value='0'>-- Select Market Source --</option>");
+            $.each(response.model, function (index, elementValue) {
+                $("#ddlMarketSource").append("<option value=" + elementValue.AdID + ">" + elementValue.Advertiser + "</option>");
+            });
+
+        }
+    });
+}
 var SaveQuote = function () {
     $("#divLoader").show();
     var msg = "";
