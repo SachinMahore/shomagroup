@@ -1,4 +1,5 @@
-﻿using ShomaRM.Data;
+﻿using ShomaRM.Areas.Admin.Models;
+using ShomaRM.Data;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -39,7 +40,7 @@ namespace ShomaRM.Areas.Tenant.Models
         public Nullable<int> Status { get; set; }
         public Nullable<int> ApprovedBy { get; set; }
         public string StatusString { get; set; }
-
+       
 
         public GuestRegistrationModel UploadGuestDriverLicence(HttpPostedFileBase fileBaseGuestDriverLicence, GuestRegistrationModel model)
         {
@@ -182,6 +183,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     {
                         model.UnitNo = getUnit.UnitNo;
                     }
+                   
                     model.TenantName = tenantInfo.FirstName + " " + tenantInfo.LastName;
                     model.GuestName = getTenantGuest.FirstName + " " + getTenantGuest.LastName;
                     model.VehicleMake = getTenantGuest.VehicleMake;
@@ -195,7 +197,9 @@ namespace ShomaRM.Areas.Tenant.Models
                     model.VisitStartDateString = getTenantGuest.VisitStartDate.Value.ToString("MM/dd/yyyy");
                     model.VisitEndDateString = getTenantGuest.VisitEndDate.Value.ToString("MM/dd/yyyy");
                     model.OriginalDriverLicence = getTenantGuest.OriginalDriverLicence;
+                    model.DriverLicence = getTenantGuest.DriverLicence;
                     model.OriginalVehicleRegistration = getTenantGuest.OriginalVehicleRegistration;
+                    model.VehicleRegistration = getTenantGuest.VehicleRegistration;
                     model.HaveVehicleString = getTenantGuest.HaveVehicle == true ? "Yes" : getTenantGuest.HaveVehicle == false ? "No" : "";
                     model.Status = getTenantGuest.Status;
                     model.StatusString = getTenantGuest.Status == 1 ? "Approved" : getTenantGuest.Status == 2 ? "Decline" : getTenantGuest.Status == 0 ? "" : ""; 
@@ -220,6 +224,57 @@ namespace ShomaRM.Areas.Tenant.Models
               
                 db.SaveChanges();
                 msg = "Guest Status Update Successfully";
+               
+                var tenantInfo = db.tbl_TenantInfo.Where(co => co.TenantID == UpdateStatus.TenantID).FirstOrDefault();
+                if (model.Status != 2)
+                {
+                    if (model.HaveVehicleString == "Yes")
+                    {
+                        string reportHTML = "";
+                        string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                        reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+
+                        //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
+                        reportHTML = reportHTML.Replace("[%TenantName%]", model.TenantName);
+                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We thank you for your request and  We are pleased to confirm your guest reservation on " + model.VisitStartDateString + " to " + model.VisitEndDateString + "  for guest " + model.GuestName + "and your Tag Information is " + model.Tag + " </p>");
+                        reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+
+                        string body = reportHTML;
+                        new EmailSendModel().SendEmail(tenantInfo.Email, "Your Reuest for Guest Registration  is Confirmed ", body);
+                    }
+                    else
+                    {
+                        string reportHTMLTag = "";
+                        string filePathTag = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                        reportHTMLTag = System.IO.File.ReadAllText(filePathTag + "EmailTemplateAmenity.html");
+
+                        //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
+                        reportHTMLTag = reportHTMLTag.Replace("[%TenantName%]", model.TenantName);
+                        reportHTMLTag = reportHTMLTag.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We thank you for your request and  We are pleased to confirm your guest reservation on " + model.VisitStartDateString + " to " + model.VisitEndDateString + " for guest " + model.GuestName + ".  </p>");
+                        reportHTMLTag = reportHTMLTag.Replace("[%LeaseNowButton%]", "");
+
+                        string bodyTAg = reportHTMLTag;
+                        new EmailSendModel().SendEmail(tenantInfo.Email, "Your Reuest for Guest Registration  is Confirmed. ", bodyTAg);
+
+                    }
+                }
+                else
+                {
+
+                    string reportHTMLTag = "";
+                    string filePathTag = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    reportHTMLTag = System.IO.File.ReadAllText(filePathTag + "EmailTemplateAmenity.html");
+
+                    //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
+                    reportHTMLTag = reportHTMLTag.Replace("[%TenantName%]", model.TenantName);
+                    reportHTMLTag = reportHTMLTag.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; I would like to inform you that Your Request is Decline For Guest " +model.GuestName+ " due to some reason please contact the Administrator. </p>");
+                    reportHTMLTag = reportHTMLTag.Replace("[%LeaseNowButton%]", "");
+
+                    string bodyTAg = reportHTMLTag;
+                    new EmailSendModel().SendEmail(tenantInfo.Email, "Your Reuest for Guest Registration  is Decline. ", bodyTAg);
+                }
+               
+
             }
 
             db.Dispose();

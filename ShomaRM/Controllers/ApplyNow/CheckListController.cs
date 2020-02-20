@@ -131,7 +131,7 @@ namespace ShomaRM.Controllers
             leaseRequestModel.UTILITY_ADDENDUM_ADMINISTRATION_FEE = (float)Convert.ToDecimal(appData.AdministrationFee);
             leaseRequestModel.PARKING_ONE_TIME_FEE = (float)Convert.ToDecimal(appData.VehicleRegistration);
             leaseRequestModel.RENTERS_INSURANCE_PROVIDER = "";
-
+            
 
             if (GetCoappDet.Count == 1)
             {
