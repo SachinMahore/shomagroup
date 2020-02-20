@@ -36,7 +36,7 @@
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/jquery.slitslider.css")">
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/wizard.css")">
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/style.css")">
-    <link rel="stylesheet" href="@Url.Content("/content/assets/css/stylenew.css")">
+    @*<link rel="stylesheet" href="@Url.Content("/content/assets/css/stylenew.css")">*@
     <link rel="stylesheet" href="@Url.Content("/content/jquery-confirm-master/css/jquery-confirm.css")" />
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/popupwindow.css")">
    
@@ -102,16 +102,16 @@
         <div class="row">
             <div class="col-md-5 col-sm-7 col-xs-12">
                 <ul class="top-menu top-menu-mobile ">
-                    <li class="wow fadeInDown  animated active ">
-                        <a href="~/Tenant/Dashboard/Index" class="center topmenu-font @(ViewBag.ActiveMenu == "dashboard"?"active":"")"><i class="fa fa-tachometer fa-icon"></i><br> Dashboard</a>
+                    <li class="wow fadeInDown  animated active @(ViewBag.ActiveMenu == "dashboard"?"active":"")">
+                        <a href="/Tenant/Dashboard/Index" class="center topmenu-font "><i class="fa fa-tachometer fa-icon"></i><br> Dashboard</a>
                     </li>
 
-                    <li class="wow fadeInDown animated tt">
-                        <a href="~/Tenant/MyAccount/Index/@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID" class="center @(ViewBag.ActiveMenu == "myhome"?"active":"")" data-wow-delay="0.1s"><i class="fa fa-home fa-icon"></i><br>My Home</a>
+                    <li class="wow fadeInDown animated tt @(ViewBag.ActiveMenu == "myhome"?"active":"")" data-wow-delay="0.1s">
+                        <a href="/Tenant/MyAccount/Index/@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID"><i class="fa fa-home fa-icon"></i><br>My Home</a>
                     </li>
 
-                    <li class="wow fadeInDown animated">
-                        <a href="~/Tenant/MyCommunity/Index" class="center @(ViewBag.ActiveMenu == "mycommunity"?"active":"")" data-wow-delay="0.1s"><i class="fa fa-users fa-icon"></i><br> My Community</a>
+                    <li class="wow fadeInDown animated @(ViewBag.ActiveMenu == "mycommunity"?"active":"")" data-wow-delay="0.1s">
+                        <a href="/Tenant/MyCommunity/Index" class="center "><i class="fa fa-users fa-icon"></i><br> My Community</a>
                     </li>
                 </ul>
             </div>
@@ -124,9 +124,7 @@
                 <button class="logout-but wow  animated bounceInRight" onclick="gotoLogin()">Logout</button>
                 <ul class="top-menu">
                     <li class="wow fadeInDown animated Profile-button">
-                        <i class="fa fa-address-card fa-icon">
-                            <a href="~/Tenant/MyProfile/Index/@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID" class="center"><br>My Profile</a>
-                        </i>
+                        <a href="myprofile.html" class="center"><i class="fa fa-address-card fa-icon"></i><br>My Profile</a>
                     </li>
                 </ul>
 
