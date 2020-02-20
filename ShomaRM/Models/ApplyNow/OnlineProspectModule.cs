@@ -390,7 +390,7 @@ namespace ShomaRM.Models
                     model.MonthlyCharges = GetProspectData.MonthlyCharges;
                     model.PetDeposit = GetProspectData.PetDeposit;
                     model.FOBAmt = 0;
-                    model.EnvelopeID = GetProspectData.EnvelopeID;
+                    model.EnvelopeID = GetProspectData.EnvelopeID==null?"" : GetProspectData.EnvelopeID;
                     model.LeaseTerm = Convert.ToInt32(GetProspectData.LeaseTerm);
 
                     DateTime? dateExpire = null;

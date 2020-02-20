@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ShomaRM.Areas.Admin.Models;
+using ShomaRM.Models.Bluemoon;
 
 namespace ShomaRM.Areas.Admin.Controllers
 {
@@ -96,6 +97,28 @@ namespace ShomaRM.Areas.Admin.Controllers
             {
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
+
+
+        }
+        public async System.Threading.Tasks.Task<ActionResult> GetLeaseDocBlumoonAdm(string LeaseId)
+        {
+
+            var data = await GetLeaseDocBlumoonAsyncAdm(LeaseId);
+            if (data != null)
+            {
+
+            }
+
+            return File(data.leasePdf, "application/pdf", $"LeaseDocument_{0}.pdf");
+        }
+        public async System.Threading.Tasks.Task<LeaseResponseModel> GetLeaseDocBlumoonAsyncAdm(string LeaseId)
+        {
+
+            var test = new BluemoonService();
+            LeaseResponseModel authenticateData = await test.CreateSession();
+            LeaseResponseModel leasePdfResponse = await test.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: LeaseId);
+            await test.CloseSession(sessionId: authenticateData.SessionId);
+            return leasePdfResponse;
 
 
         }
