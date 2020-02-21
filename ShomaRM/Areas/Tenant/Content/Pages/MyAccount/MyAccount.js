@@ -1594,12 +1594,12 @@ var goToPayStep = function (stepid, id) {
         clearMakePaymentFields();
         ddlPaymentMethod();
         ddlPayMethodPageLoadFunction();
-        $("#pay1").addClass("active1");
-        $("#pay2").removeClass("active1");
-        $("#pay3").removeClass("active1");
-        $("#pay4").removeClass("active1");
-        $("#pay5").removeClass("active1");
-        $("#pay6").removeClass("active1");
+        $("#pay1").addClass("active");
+        $("#pay2").removeClass("active");
+        $("#pay3").removeClass("active");
+        $("#pay4").removeClass("active");
+        $("#pay5").removeClass("active");
+        $("#pay6").removeClass("active");
 
         $("#payStep1").removeClass("hidden");
         $("#payStep2").addClass("hidden");
@@ -1612,12 +1612,12 @@ var goToPayStep = function (stepid, id) {
 
     }
     if (stepid == "2") {
-        $("#pay1").removeClass("active1");
-        $("#pay2").addClass("active1");
-        $("#pay3").removeClass("active1");
-        $("#pay4").removeClass("active1");
-        $("#pay5").removeClass("active1");
-        $("#pay6").removeClass("active1");
+        $("#pay1").removeClass("active");
+        $("#pay2").addClass("active");
+        $("#pay3").removeClass("active");
+        $("#pay4").removeClass("active");
+        $("#pay5").removeClass("active");
+        $("#pay6").removeClass("active");
 
         $("#payStep1").addClass("hidden");
         $("#payStep2").removeClass("hidden");
@@ -1629,12 +1629,12 @@ var goToPayStep = function (stepid, id) {
         $('#DivNote').removeClass('hidden');
     }
     if (stepid == "3") {
-        $("#pay1").removeClass("active1");
-        $("#pay2").removeClass("active1");
-        $("#pay3").addClass("active1");
-        $("#pay4").removeClass("active1");
-        $("#pay5").removeClass("active1");
-        $("#pay6").removeClass("active1");
+        $("#pay1").removeClass("active");
+        $("#pay2").removeClass("active");
+        $("#pay3").addClass("active");
+        $("#pay4").removeClass("active");
+        $("#pay5").removeClass("active");
+        $("#pay6").removeClass("active");
 
         $("#payStep1").addClass("hidden");
         $("#payStep2").addClass("hidden");
@@ -1646,12 +1646,12 @@ var goToPayStep = function (stepid, id) {
         $('#DivNote').addClass('hidden');
     }
     if (stepid == "4") {
-        $("#pay1").removeClass("active1");
-        $("#pay2").removeClass("active1");
-        $("#pay3").removeClass("active1");
-        $("#pay4").addClass("active1");
-        $("#pay5").removeClass("active1");
-        $("#pay6").removeClass("active1");
+        $("#pay1").removeClass("active");
+        $("#pay2").removeClass("active");
+        $("#pay3").removeClass("active");
+        $("#pay4").addClass("active");
+        $("#pay5").removeClass("active");
+        $("#pay6").removeClass("active");
 
         $("#payStep1").addClass("hidden");
         $("#payStep2").addClass("hidden");
@@ -1663,12 +1663,12 @@ var goToPayStep = function (stepid, id) {
         $('#DivNote').addClass('hidden');
     }
     if (stepid == "5") {
-        $("#pay1").removeClass("active1");
-        $("#pay2").removeClass("active1");
-        $("#pay3").removeClass("active1");
-        $("#pay4").removeClass("active1");
-        $("#pay5").addClass("active1");
-        $("#pay6").removeClass("active1");
+        $("#pay1").removeClass("active");
+        $("#pay2").removeClass("active");
+        $("#pay3").removeClass("active");
+        $("#pay4").removeClass("active");
+        $("#pay5").addClass("active");
+        $("#pay6").removeClass("active");
 
         $("#payStep1").addClass("hidden");
         $("#payStep2").addClass("hidden");
@@ -1680,12 +1680,12 @@ var goToPayStep = function (stepid, id) {
         $('#DivNote').addClass('hidden');
     }
     if (stepid == "6") {
-        $("#pay1").removeClass("active1");
-        $("#pay2").removeClass("active1");
-        $("#pay3").removeClass("active1");
-        $("#pay4").removeClass("active1");
-        $("#pay5").removeClass("active1");
-        $("#pay6").addClass("active1");
+        $("#pay1").removeClass("active");
+        $("#pay2").removeClass("active");
+        $("#pay3").removeClass("active");
+        $("#pay4").removeClass("active");
+        $("#pay5").removeClass("active");
+        $("#pay6").addClass("active");
 
         $("#payStep1").addClass("hidden");
         $("#payStep2").addClass("hidden");

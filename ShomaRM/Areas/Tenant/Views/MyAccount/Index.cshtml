@@ -42,7 +42,6 @@
     <div id="step3" class="tab-pane fade in active">
         <div class="col-lg-12 submenu margin2">
             <ul class="submenupayment">
-                <li id=""><a href="javascript:void(0);"></a></li>
                 <li id="pay1" class="active"><a href="javascript:void(0);" onclick="goToPayStep(1)">Pay Rent Online</a></li>
                 <li id="pay2"><a href="javascript:void(0);" onclick="goToPayStep(2)">Payment History</a></li>
 
@@ -51,232 +50,208 @@
             </ul>
         </div>
         @*<div class="row">
-            <div class="col-md-12" style="margin-top:10px!important;">*@
+            <div class="col-md-12" style="margin-top:10px!important;">
+                <div class="" id="payStep1">
+                <div class="panel-heading">
+            <div class="col-sm-12">
+                </div>
+            </div>
+                <div class="col-sm-3">
+                </div>
+                <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3">
+                </div>
+                <i class="fa fa-file-txt-o"></i>*@
         <div id="payStep1" class="col-lg-12 payment-box">
-            @*<div class="" id="payStep1">*@
             <input id="hdnTablePaidId" type="hidden" value="" />
-            @*<div class="panel-heading">
-                <div class="col-sm-12">*@
             <h3 class="headding-sub-text margin1  col-lg-12">Make a One-Time Payment</h3>
-            @*</div>
-                </div>*@
             <div class="payment-box">
-                <div  class="col-lg-12 margin2">
+                <div class="col-lg-12 margin2">
                     <div class="row margin margin-box">
-                        @*<div class="col-sm-3">*@
                         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
                             Payment type:
                         </div>
-                        @*</div>*@
-                    <div class="col-xl-5 col-lg-5 col-md-6 col-sm-6 col-xs-12">
-                        <div class="custom-select">
-                            <select id="ddlPaymentMethod" class="form-control"></select>
+                        <div class="col-xl-5 col-lg-5 col-md-6 col-sm-6 col-xs-12">
+                            <div class="custom-select">
+                                <select id="ddlPaymentMethod" class="form-control"></select>
+                            </div>
                         </div>
                     </div>
-                    </div>
-                </div>                
+                </div>
             </div>
+
             <div class="payment-box">
                 <div class="col-lg-12">
                     <div class="row margin margin-box">
-                        @*<div class="row">
-        <div class="form-group">*@
-                        @*<div class="col-sm-3">*@
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mobile-margin text-payment">
-                            Amount To Pay:
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mobile-margin text-payment">Amount to Pay:</div>
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-4 col-xl-4 mobile-margin">
+                            <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
+                            <label>
+                                <input type="radio" id="rbtnAmountToPay1" name="AmountToPay" checked="checked">
+                                Current
+                            </label>
+
                         </div>
-                            @*</div>*@
-                            @*<i class="fa fa-file-txt-o"></i>*@
-                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-4 col-xl-4 mobile-margin">
-                        <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
-                        <label class="checbox">
-                            Current
-                            <input type="radio" checked="checked" id="rbtnAmountToPay1" name="radio">
-                            <span class="checkmark"></span>
+                        <label id="lblCurrentPrePayAmount" class="col-xs-12 col-sm-3 col-md-3 col-lg-2 mobile-margin text-right checbox">
+
                         </label>
-                        @*<input id="rbtnAmountToPay1" class="form-control form-control-small" type="radio" name="AmountToPay" checked="checked" style="font-size:11pt;" /> Current
-        <br />*@
-                        <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
-                    <label class="checbox">
-                        Other Amount
-                        <input type="radio" checked="checked" id="rbtnAmountToPay2" name="radio">
-                        <span class="checkmark"></span>
-                    </label>
-                        @*<input id="rbtnAmountToPay2" class="form-control form-control-small" type="radio" name="AmountToPay" style="font-size:11pt;" /> Other Amount*@
                     </div>
-                            <div class="col-sm-4">
-                                <label id="lblCurrentPrePayAmount" style="font-size:11pt;"></label>
-                                <div id="divOtherAmount" class="hidden">
-                                    <input id="txtOtherAmount" type="text" class="form-control" style="width:50%;text-align:right" onkeypress="return isNumber(event);" value="0.00" onblur="if (this.value == '') { this.value = this.defaultValue };" onfocus="if (this.value == this.defaultValue) { this.value = '' };" />
-                                    <span class="input-group-btn" style="margin-top: -34px;display: flex;">
-                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
-                                    </span>
-                                </div>
-                            </div>
-                            @*</div>
-            </div>*@
-                        </div>
-                    </div>
+                </div>
             </div>
 
-            <div class="col-lg-12">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="form-group">
+            <div class="payment-box">
+                <div class="col-lg-12 margin2">
+                    <div class="row margin margin-box">
+                        <div class="col-lg-4 col-md-2 col-sm-2 col-xl-3 box-none"></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3">
+                            <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
+                            <label>
+                                <input type="radio" id="rbtnAmountToPay2" name="AmountToPay">
+                                Other Amount
+
+                            </label>
+
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 hidden" id="divOtherAmount">
+                            <input id="txtOtherAmount" type="text" name="number" value="$0.00" class="text-right Wraper1" onkeypress="return isNumber(event);" value="0.00" onblur="if (this.value == '') { this.value = this.defaultValue };" onfocus="if (this.value == this.defaultValue) { this.value = '' };">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="payment-box" hidden>
+                <div class="col-lg-12 margin">
+                    <div class="row margin margin-box">
+                        <div class="col-lg-4 col-md-2 col-sm-2 col-xl-3 box-none"></div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-xl-3">
+                            @*<div class="form-group">
                                 <div class="col-sm-3">
                                     <label></label><br />
                                 </div>
-                                <div class="col-sm-8">
-                                    <br />
-                                    <div class=""></div>
-                                </div>
-                            </div>
+                                <div class="col-sm-4">*@
+                            <label style="font-size:11pt;">Current Amount Due (Include Past Due)</label>
                         </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 ">
+                            <label id="lblCurrentAmtDueMakePayment"></label>
+                        </div>
+                        @*</div>*@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-12 hidden">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-sm-3">
-                                    <label></label><br />
-                                </div>
-                                <div class="col-sm-4">
-                                    <label style="font-size:11pt;">Current Amount Due (Include Past Due)</label>
-                                </div>
-                                <div class="col-sm-4">
-                                    <label id="lblCurrentAmtDueMakePayment"></label>
-                                </div>
+
+            <div class="payment-box">
+                <div class="col-lg-12 margin">
+                    <div class="row margin margin-box">
+
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-xl-3">
+                            <div class="control-label  requiredField text-payment" for="date">
+                                Preferred Date:
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="row">
-                    <br />
-                    <div class=""></div>
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="row">
+                        <div class='col-sm-6 col-md-6 col-lg-4 col-xl-3'>
                             <div class="form-group">
-                                <div class="col-sm-3">
-                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt">Preferred Date:</label>
-                                </div>
-                                <div class="col-sm-4">
-                                    <input id="txtPrefarredDate" type="text" class="form-control form-control-small" value="@DateTime.Now.ToString("MM/dd/yyyy")" style="width:50% !important" />
-                                    <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:162px;">
-                                        <button class="btn btn-primary search" id="Date" type="button"><i class="fa-calendar fa"></i></button>
+                                <div class='input-group date'>
+                                    <input id="txtPrefarredDate" type="text" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
+                                    <span class="input-group-addon">
+                                        @*<button class="btn btn-primary search" id="Date" type="button"><i class="fa-calendar fa"></i></button>*@
+                                        <a><span class="fa fa-calendar"></span></a>
                                     </span>
                                 </div>
+                            </div>
+                        </div>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><br />
-            <div class="col-lg-12">
-                <div class="row">
-                    <br />
-                    <div class=""></div>
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-sm-3">
-                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt">Description:</label>
-                                </div>
-                                <div class="col-sm-4">
-                                    <textarea id="txtDescriptionText" type="text" class="form-control form-control-small"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><br />
-            <div class="col-lg-12">
-                <div class="row">
-                    <br />
-                    <div class=""></div>
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-sm-4">
-                                    <label></label>
-                                </div>
-                                <div class="col-sm-4">
-                                    <input id="chkTermsAndCondition" type="checkbox" class="form-control" style="font-size:11pt;" /> I agree to the <a style="cursor:pointer" id="ShowTermsAndCondition" href="javascript:void(0);">Terms & Condition</a>
-                                </div>
-                                <div class="col-sm-4">
-                                    <label></label>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-12">
-                <div class="row">
-                    <br />
-                    <div class=""></div>
-                </div>
-            </div>
-            <div class="col-lg-12" id="DivCVVNumberPayRentOnline">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-sm-3">
-                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt" class="star">CVV Number:</label>
-                                </div>
-                                <div class="col-sm-4">
-                                    <input id="txtCVVNumberPayRentOnline" type="password" class="form-control form-control-small" maxlength="3" value="" style="width:50% !important" onkeypress="return isOnlyNumber(event);" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><br />
-            <div class="col-lg-12">
-                <div class="col-sm-7">
-                    <div class="form-group">
-                        <button id="btnSaveMakeOneTimePayment" type="button" class="btn btn-primary pull-right" onclick="makeOneTimePaymentSaveUpdate();" style="font-size: 11pt;"> Pay</button>
-                    </div>
-                </div>
-                <div class="col-sm-5">
 
+            <div class="payment-box">
+                <div class="col-lg-12 margin">
+                    <div class="row margin margin-box">
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-xl-3">
+                            <div class="control-label  requiredField text-payment">
+                                Description:
+                            </div>
+                        </div>
+                        <div class='col-sm-6 col-md-6 col-lg-4 col-xl-3'>
+                            <textarea id="txtDescriptionText" type="text" class="form-control"></textarea>
+                        </div>
+
+                    </div>
                 </div>
             </div>
+
+            <div class="payment-box">
+                <div class="col-lg-12 margin">
+                    <div class="row margin margin-box">
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-xl-3">
+                            <div class="control-label  requiredField text-payment">
+                            </div>
+                        </div>
+                        <div class='col-sm-6 col-md-6 col-lg-4 col-xl-3'>
+                            <input type="checkbox" id="chkTermsAndCondition">
+                            <span class="chektext">I agree to the <span class="span1"><a id="ShowTermsAndCondition" href="javascript:void(0);">Terms &amp; Condition </a></span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="payment-box" id="DivCVVNumberPayRentOnline">
+                <div class="col-lg-12 margin2">
+                    <div class="row margin margin-box">
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-xl-3 text-payment ">
+                            CVV Number:
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-xl-3">
+                            <input id="txtCVVNumberPayRentOnline" type="password" class="Wraper1 cvv-box" maxlength="3" value="" onkeypress="return isOnlyNumber(event);" />
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="condition-wrapper ">
+                <button id="btnSaveMakeOneTimePayment" type="button" class="paynow" onclick="makeOneTimePaymentSaveUpdate();">Pay Now</button>
+            </div>
+
         </div>
-        <div class="hidden" id="payStep2">
-            <div class="col-md-12 clear">
-                <div class="panel-heading">
-                    <div class="col-sm-4">
-                        <h4 style="margin-top: 2%;font-size: 12pt;color:#4D738A !important;">Payment History</h4>
-                    </div>
 
-                    <div class="col-sm-3 pull-right" style="margin-bottom:20px !important;">
-                        <select id="ddlPaymentHistory" class="form-control" onchange="paymentHistory();">
-                            <option value='1'>Current month</option>
-                            <option value='2'>Next month</option>
-                            <option value='3'>Previous month</option>
-                            <option value='4'>Date Range</option>
-                        </select>
+        <div class="col-lg-12 hidden payment-box" id="payStep2">
+            <div class="col-md-12 clear">
+
+
+
+                <div class="payment-box">
+                    <div class="col-lg-12 margin2">
+                        <div class="row margin margin-box">
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mobile-margin headding-sub-text">
+                            Payment History
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-xs-12 pull-right">
+                                <div class="custom-select">
+                                    <select id="ddlPaymentHistory" class="form-control" onchange="paymentHistory();">
+                                        <option value='1'>Current month</option>
+                                        <option value='2'>Next month</option>
+                                        <option value='3'>Previous month</option>
+                                        <option value='4'>Date Range</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                @*<div class="col-sm-3 pull-right" style="margin-bottom:20px !important;">
+                    <select id="ddlPaymentHistory" class="form-control" onchange="paymentHistory();">
+                        <option value='1'>Current month</option>
+                        <option value='2'>Next month</option>
+                        <option value='3'>Previous month</option>
+                        <option value='4'>Date Range</option>
+                    </select>
+                </div>*@
+
                 <table id="tblPaymentHistory" class="table " cellspacing="0" width="100%">
                     <thead>
                         <tr>
@@ -290,8 +265,7 @@
                     <tbody></tbody>
                 </table>
 
-            </div>
-            <br /><br />
+           
             <div class="panel-heading">
                 <div class="col-sm-4">
                     <h4 style="margin-top: 2%;margin-bottom: 8%;font-size: 12pt;color:#4D738A !important; ">Upcoming Charges</h4>
@@ -325,7 +299,7 @@
                 </div>
             </div>
         </div>
-
+            </div>
         <div class="hidden" id="payStep4">
 
             <div class="col-md-12 clear hidden" id="divRecPayList">
@@ -611,8 +585,6 @@
                 </table>
             </div>
         </div>
-        @*</div>
-            </div>*@
 
     </div>
     <div class="hidden" id="step4">
@@ -2758,405 +2730,405 @@
     };
 </script>
 
-<style>
-    .modal-dialog {
-        overflow-y: initial !important
-    }
-
-    .modal-body {
-        height: 550px;
-        overflow-y: auto;
-        overflow-x: hidden !important;
-    }
-
-    div.sticky {
-        position: -webkit-sticky;
-        position: sticky !important;
-        top: 112px;
-    }
-
-    .timepicker_wrap {
-        width: 150% !important;
-    }
-
-    .tab-content ul {
-        /*background-color: #c7d5c733;*/
-    }
-
-        .tab-content ul li {
-            margin-right: 23px;
+@*<style>
+        .modal-dialog {
+            overflow-y: initial !important
         }
 
-    .nav {
-        padding-left: 0;
-        list-style: none;
-    }
-
-    .tab-content1 ul {
-        background-color: #4d738a;
-        color: #dfe4e8;
-    }
-
-        .tab-content1 ul li a {
-            color: #B7B0A7;
+        .modal-body {
+            height: 550px;
+            overflow-y: auto;
+            overflow-x: hidden !important;
         }
 
-
-
-
-    .tab-content.wizard li {
-        width: 100%;
-        float: none;
-        margin-bottom: 0px;
-    }
-
-        .tab-content.wizard li > * {
-            position: relative;
-            padding: 1em .8em .8em 1.5em;
-            color: #ffffff;
-            background-color: #B4ADA5;
-            border-color: #B4ADA5;
+        div.sticky {
+            position: -webkit-sticky;
+            position: sticky !important;
+            top: 112px;
         }
 
-        .tab-content.wizard li.completed > * {
-            color: #fff !important;
-            background-color: #96c03d !important;
-            border-color: #96c03d !important;
-            border-bottom: none !important;
+        .timepicker_wrap {
+            width: 150% !important;
         }
 
-    .tab-content li.active > * {
-        color: #4d738a !important;
-        background-color: transparent !important;
-        /*border-color: #4d738a !important;*/
-        /*border-bottom: none !important;*/
-        margin-bottom: 0px;
-        border: none !important;
-    }
+        .tab-content ul {
+            /*background-color: #c7d5c733;*/
+        }
 
-    .tab-content li.active1 > * {
-        color: #4d738a !important;
-    }
-    /*.active1 > a {
-            color: #4d738a !important;
-            background-color: #ffffff !important;
-        }*/
+            .tab-content ul li {
+                margin-right: 23px;
+            }
+
+        .nav {
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .tab-content1 ul {
+            background-color: #4d738a;
+            color: #dfe4e8;
+        }
+
+            .tab-content1 ul li a {
+                color: #B7B0A7;
+            }
 
 
-    .tab-content.wizard li::after:last-child {
-        border: none;
-        border-bottom-left-radius: 0px;
-    }
 
-    .tab-content.wizard > li > a {
-        opacity: 1;
-        font-size: 14px;
-    }
 
-    .tab-content.wizard a:hover {
-        color: #fff;
-        background-color: #4d738a;
-        /*border-color: #4d738a*/
-    }
-
-    span.nmbr {
-        display: inline-block;
-        padding: 10px 0 0 0;
-        background: #ffffff;
-        width: 35px;
-        line-height: 100%;
-        height: 35px;
-        margin: auto;
-        border-radius: 50%;
-        font-weight: bold;
-        font-size: 16px;
-        color: #555;
-        margin-bottom: 10px;
-        text-align: center;
-    }
-
-    @@media(min-width:992px) {
         .tab-content.wizard li {
-            position: relative;
-            padding: 0;
-            /*margin: 4px 4px 4px 0;*/
-            width: 19.6%;
-            float: left;
-            text-align: center;
+            width: 100%;
+            float: none;
+            margin-bottom: 0px;
         }
 
-        .nav-tabs {
-            border-bottom: none;
-        }
-
-            .nav-tabs.wizard li.active a {
-                padding-top: 15px;
+            .tab-content.wizard li > * {
+                position: relative;
+                padding: 1em .8em .8em 1.5em;
+                color: #ffffff;
+                background-color: #B4ADA5;
+                border-color: #B4ADA5;
             }
 
-            .nav-tabs.wizard li.active1 a {
-                padding-top: 15px;
+            .tab-content.wizard li.completed > * {
+                color: #fff !important;
+                background-color: #96c03d !important;
+                border-color: #96c03d !important;
+                border-bottom: none !important;
             }
 
-
-            .tab-content.wizard li::after, .nav-tabs.wizard li > ::after {
-                content: '';
-                position: absolute;
-                top: -1px;
-                left: 100%;
-                height: 0;
-                width: 0;
-                border: 24px solid transparent;
-                border-right-width: 24px;
-                border-left-color: transparent;
-                border-right-width: 0;
-                border-left-width: 20px;
-            }
-
-        .tab-content.wizard li::after {
-            z-index: 1;
-            -webkit-transform: translateX(4px);
-            -moz-transform: translateX(4px);
-            -ms-transform: translateX(4px);
-            -o-transform: translateX(4px);
-            transform: translateX(4px);
-            border-left-color: #fff;
-            margin: 0
+        .tab-content li.active > * {
+            color: #4d738a !important;
+            background-color: transparent !important;
+            /*border-color: #4d738a !important;*/
+            /*border-bottom: none !important;*/
+            margin-bottom: 0px;
+            border: none !important;
         }
 
-        .tab-content.wizard li > *::after {
-            z-index: 2;
-            border-left-color: inherit
+        .tab-content li.active1 > * {
+            color: #4d738a !important;
         }
+        /*.active1 > a {
+                color: #4d738a !important;
+                background-color: #ffffff !important;
+            }*/
 
-        .tab-content.wizard > li:nth-of-type(1) > a {
-            border-top-left-radius: 0px;
+
+        .tab-content.wizard li::after:last-child {
+            border: none;
             border-bottom-left-radius: 0px;
         }
 
-        .tab-content.wizard li:last-child a {
-            border-top-right-radius: 0px;
-            border-bottom-right-radius: 0px;
+        .tab-content.wizard > li > a {
+            opacity: 1;
+            font-size: 14px;
         }
 
-        .tab-content.wizard li:last-child {
-            margin-right: 0;
-        }
-
-        .nav-tabs.wizard li:last-child a:after,
-        .nav-tabs.wizard li:last-child:after {
-            content: "";
-            border: none;
+        .tab-content.wizard a:hover {
+            color: #fff;
+            background-color: #4d738a;
+            /*border-color: #4d738a*/
         }
 
         span.nmbr {
-            display: block;
+            display: inline-block;
+            padding: 10px 0 0 0;
+            background: #ffffff;
+            width: 35px;
+            line-height: 100%;
+            height: 35px;
+            margin: auto;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 10px;
+            text-align: center;
         }
-    }
 
-    .wizard-card {
-        border: groove;
-        border-color: black;
-    }
+        @@media(min-width:992px) {
+            .tab-content.wizard li {
+                position: relative;
+                padding: 0;
+                /*margin: 4px 4px 4px 0;*/
+                width: 19.6%;
+                float: left;
+                text-align: center;
+            }
 
-    .btn-blue {
-        background-color: #4d738a;
-        color: #fff;
-    }
+            .nav-tabs {
+                border-bottom: none;
+            }
 
-        .btn-blue:hover {
-            background-color: #B7B0A7;
+                .nav-tabs.wizard li.active a {
+                    padding-top: 15px;
+                }
+
+                .nav-tabs.wizard li.active1 a {
+                    padding-top: 15px;
+                }
+
+
+                .tab-content.wizard li::after, .nav-tabs.wizard li > ::after {
+                    content: '';
+                    position: absolute;
+                    top: -1px;
+                    left: 100%;
+                    height: 0;
+                    width: 0;
+                    border: 24px solid transparent;
+                    border-right-width: 24px;
+                    border-left-color: transparent;
+                    border-right-width: 0;
+                    border-left-width: 20px;
+                }
+
+            .tab-content.wizard li::after {
+                z-index: 1;
+                -webkit-transform: translateX(4px);
+                -moz-transform: translateX(4px);
+                -ms-transform: translateX(4px);
+                -o-transform: translateX(4px);
+                transform: translateX(4px);
+                border-left-color: #fff;
+                margin: 0
+            }
+
+            .tab-content.wizard li > *::after {
+                z-index: 2;
+                border-left-color: inherit
+            }
+
+            .tab-content.wizard > li:nth-of-type(1) > a {
+                border-top-left-radius: 0px;
+                border-bottom-left-radius: 0px;
+            }
+
+            .tab-content.wizard li:last-child a {
+                border-top-right-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
+
+            .tab-content.wizard li:last-child {
+                margin-right: 0;
+            }
+
+            .nav-tabs.wizard li:last-child a:after,
+            .nav-tabs.wizard li:last-child:after {
+                content: "";
+                border: none;
+            }
+
+            span.nmbr {
+                display: block;
+            }
+        }
+
+        .wizard-card {
+            border: groove;
+            border-color: black;
+        }
+
+        .btn-blue {
+            background-color: #4d738a;
             color: #fff;
         }
 
-    hr {
-        margin-top: 0px !important;
-        margin-bottom: 0px !important;
-        border: 0;
-        border-top: 1px solid #bebdbd;
-    }
+            .btn-blue:hover {
+                background-color: #B7B0A7;
+                color: #fff;
+            }
 
-    .select-unit {
-        background-color: #4d738a !important;
-        color: #fff !important;
-    }
+        hr {
+            margin-top: 0px !important;
+            margin-bottom: 0px !important;
+            border: 0;
+            border-top: 1px solid #bebdbd;
+        }
 
-        .select-unit a {
+        .select-unit {
+            background-color: #4d738a !important;
             color: #fff !important;
         }
 
-    .nav-tabs > li {
-        float: left;
-        margin-bottom: -1px !important;
-        margin-top: -1px !important;
-    }
+            .select-unit a {
+                color: #fff !important;
+            }
 
-    nav > li > a {
-        padding: 10px 36px !important;
-        outline: none !important;
-    }
+        .nav-tabs > li {
+            float: left;
+            margin-bottom: -1px !important;
+            margin-top: -1px !important;
+        }
 
-    .nav-tabs > li > a:hover {
-        border-color: none !important;
-        outline: none !important;
-    }
+        nav > li > a {
+            padding: 10px 36px !important;
+            outline: none !important;
+        }
 
-    .nav > li > a:hover, .nav > li > a:focus {
-        background-color: #fff !important;
-        outline: none !important;
-    }
+        .nav-tabs > li > a:hover {
+            border-color: none !important;
+            outline: none !important;
+        }
 
-    .main-tab > li > a:hover {
-        text-decoration: none !important;
-        color: #4D738A !important;
-        /*color: #B7B0A7;*/
-        /*-webkit-transition: all .8s ease !important;*/
-        transition: all .8s ease !important;
-    }
+        .nav > li > a:hover, .nav > li > a:focus {
+            background-color: #fff !important;
+            outline: none !important;
+        }
 
-    .main-tab > li > a {
-        color: #B7B0A7 !important;
-        /*outline: 0;
-            font-weight: bold;
-            -webkit-transition: all .8s ease;
-            transition: all .8s ease;*/
-    }
+        .main-tab > li > a:hover {
+            text-decoration: none !important;
+            color: #4D738A !important;
+            /*color: #B7B0A7;*/
+            /*-webkit-transition: all .8s ease !important;*/
+            transition: all .8s ease !important;
+        }
 
-    .hov {
-        color: #ffffff !important;
-    }
+        .main-tab > li > a {
+            color: #B7B0A7 !important;
+            /*outline: 0;
+                font-weight: bold;
+                -webkit-transition: all .8s ease;
+                transition: all .8s ease;*/
+        }
 
-        .hov > a {
+        .hov {
             color: #ffffff !important;
         }
 
-        .hov:hover {
-            background-color: #ffffff;
+            .hov > a {
+                color: #ffffff !important;
+            }
+
+            .hov:hover {
+                background-color: #ffffff;
+            }
+
+        .nav-tabs {
+            border-bottom: none !important;
         }
 
-    .nav-tabs {
-        border-bottom: none !important;
-    }
+        .nact > li.active1 {
+            background-color: #fff !important;
+            outline: none !important;
+        }
 
-    .nact > li.active1 {
-        background-color: #fff !important;
-        outline: none !important;
-    }
+        .nact > li > a {
+            color: #ffffff !important;
+            outline: none !important;
+        }
 
-    .nact > li > a {
-        color: #ffffff !important;
-        outline: none !important;
-    }
+            .nact > li > a:hover {
+                color: #B7B0A7 !important;
+                outline: none !important;
+            }
 
-        .nact > li > a:hover {
+        .nact > li:hover {
+            background-color: #fff !important;
             color: #B7B0A7 !important;
             outline: none !important;
         }
 
-    .nact > li:hover {
-        background-color: #fff !important;
-        color: #B7B0A7 !important;
-        outline: none !important;
-    }
+        .nact > li.active1 > a:hover {
+            color: #B7B0A7 !important;
+            outline: none !important;
+            background-color: #fff !important;
+        }
 
-    .nact > li.active1 > a:hover {
-        color: #B7B0A7 !important;
-        outline: none !important;
-        background-color: #fff !important;
-    }
+        .nact > li.active1:hover {
+            background-color: #fff !important;
+            outline: none !important;
+            color: #B7B0A7 !important;
+        }
 
-    .nact > li.active1:hover {
-        background-color: #fff !important;
-        outline: none !important;
-        color: #B7B0A7 !important;
-    }
-
-    p {
-        font-size: 11pt;
-    }
+        p {
+            font-size: 11pt;
+        }
 
 
-    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
-        padding: 8px;
-        line-height: 1.42857143;
-        vertical-align: top;
-        border-top: 1px solid #fff;
-        border-right: 2px solid #ddd;
-        border-bottom: 0px;
-    }
+        .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+            padding: 8px;
+            line-height: 1.42857143;
+            vertical-align: top;
+            border-top: 1px solid #fff;
+            border-right: 2px solid #ddd;
+            border-bottom: 0px;
+        }
 
-    .affix {
-        position: fixed !important;
-        background-color: white !important;
-        z-index: 777 !important;
-        padding-right: 30px !important;
-    }
-</style>
-<style>
-    /* The Modal (background) */
-    .modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        /*z-index: 1;*/ /* Sit on top */
-        padding-top: 5px !important; /* Location of the box */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    }
+        .affix {
+            position: fixed !important;
+            background-color: white !important;
+            z-index: 777 !important;
+            padding-right: 30px !important;
+        }
+    </style>
+    <style>
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            /*z-index: 1;*/ /* Sit on top */
+            padding-top: 5px !important; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
 
-    .modal-header-H {
-        margin: auto;
-        padding: 20px;
-        width: 35%;
-    }
+        .modal-header-H {
+            margin: auto;
+            padding: 20px;
+            width: 35%;
+        }
 
-    /* Modal Content */
-    .modal-content-term {
-        background-color: #fefefe;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 30%;
-        text-align: justify;
-    }
+        /* Modal Content */
+        .modal-content-term {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%;
+            text-align: justify;
+        }
 
-    /* The Close Button */
-    .close {
-        color: #fff;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-        opacity: 1;
-    }
-
-        .close:hover,
-        .close:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
+        /* The Close Button */
+        .close {
+            color: #fff;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
             opacity: 1;
         }
 
-    .grid-box {
-        border: 2px solid black;
-        margin-bottom: 5px !important;
-    }
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+                opacity: 1;
+            }
+
+        .grid-box {
+            border: 2px solid black;
+            margin-bottom: 5px !important;
+        }
 
 
-    a.disabled {
-        pointer-events: none;
-        cursor: default;
-        color: #B4ADA5;
-    }
+        a.disabled {
+            pointer-events: none;
+            cursor: default;
+            color: #B4ADA5;
+        }
 
-    .modal-footer-custom {
-        padding: 35px;
-        text-align: right;
-    }
-</style>
+        .modal-footer-custom {
+            padding: 35px;
+            text-align: right;
+        }
+    </style>*@
 
 <script>
 
@@ -3257,11 +3229,11 @@
 
     $(document).ready(function () {
 
-   
+
     });
 
 </script>
-<script>    
+<script>
     function closeAllSelect(elmnt) {
         /*a function that will close all select boxes in the document,
         except the current select box:*/
