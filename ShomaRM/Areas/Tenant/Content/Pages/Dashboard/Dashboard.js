@@ -357,40 +357,40 @@ var getEventsList = function () {
         success: function (response) {
             var span = '';
             $("#divEvents").empty();
-            span += '<ul class="list-group">';
+            span += '<div  class="list-group">';
             $.each(response.model, function (elementType, elementValue) {
                 if (elementValue.Type == 1) {
                     // span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #00bfff;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + '</li>';
-                    span += '<li  id= Event' + elementValue.EventID + '><button class="button-square" style="background-color: #00bfff;z-index:999;" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A" onclick="eventDetailShow(' + elementValue.EventID +')">&nbsp;</button></li>';
 
+                    span += '<div  id= Event' + elementValue.EventID + '> <div class="Wraper m-b10 "><div class="events-count"  onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventDateString + '</div><div class="events-text"  onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventName + '</div></div></div>';
                 }
                 else if (elementValue.Type == 2) {
                     //span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #a2d900;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + '</li>';
-                    span += '<li  id= Event' + elementValue.EventID + '><button class="button-square" style="background-color: #a2d900;z-index:999;" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A" onclick="eventDetailShow(' + elementValue.EventID +')">&nbsp;</button></li>';
+                    span += '<div  id= Event' + elementValue.EventID + '> <div class="Wraper m-b10 "><div class="events-count1"  onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventDateString + '</div><div class="events-text" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventName + '</div></div></div>';
 
 
                 }
                 else if (elementValue.Type == 3) {
                     //span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #ff6;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + '</li>';
-                    span += '<li  id= Event' + elementValue.EventID + '><button class="button-square" style="background-color: #ff6;z-index:999;" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A" onclick="eventDetailShow(' + elementValue.EventID +')">&nbsp;</button></li>';
+                    span += '<div  id= Event' + elementValue.EventID + '> <div class="Wraper m-b10 "><div class="events-count2"  onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventDateString + '</div><div class="events-text"  onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventName + '</div></div></div>';
 
 
                 }
                 else if (elementValue.Type == 4) {
                     // span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #ff6347;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + '</li>';
-                    span += '<li  id= Event' + elementValue.EventID + '><button class="button-square" style="background-color: #ff6347;z-index:999;" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A" onclick="eventDetailShow(' + elementValue.EventID +')">&nbsp;</button></li>';
+                    span += '<div id= Event' + elementValue.EventID + '> <div class="Wraper m-b10 "><div class="events-count3"  onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventDateString + '</div><div class="events-text" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventName + '</div></div></div>';
 
 
                 }
                 else if (elementValue.Type == 5) {
                     //span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #daf6ff;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + '</li>';
-                    span += '<li  id= Event' + elementValue.EventID + '><button class="button-square" style="background-color: #00bfff;z-index:999;" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventDateString + '</button><button class="button-square" style="background-color:#4D738A" onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventName + '</button><button class="button-pill" style="background-color:#4D738A" onclick="eventDetailShow(' + elementValue.EventID +')">&nbsp;</button></li>';
+                    span += '<div  id= Event' + elementValue.EventID + '> <div class="Wraper m-b10 "><div class="events-count2"  onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventDateString + '</div><div class="events-text"  onclick="eventDetailShow(' + elementValue.EventID + ')">' + elementValue.EventName + '</div></div></div>';
 
 
                 }
 
             });
-            span += '</ul>';
+            span += '</div>';
             $("#divEvents").append(span);
             $("#divLoader").hide();
         }
