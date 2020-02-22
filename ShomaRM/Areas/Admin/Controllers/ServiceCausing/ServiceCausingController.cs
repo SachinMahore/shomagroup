@@ -66,6 +66,19 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult DeleteServiceCausing(long CausingIssueID)
+        {
+            try
+            {
+                return Json(new { model = new ServiceCausingIssueModel().DeleteServiceCausing(CausingIssueID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
 
     }
 }

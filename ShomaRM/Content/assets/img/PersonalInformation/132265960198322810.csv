@@ -1,0 +1,66 @@
+User Details,"Nov, 2019",,,"Dec, 2019",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jan, 2020",,,,,,,,,,Total Hours
+,"Thu, 28","Fri, 29","Sat, 30","Sun, 01","Mon, 02","Tue, 03","Wed, 04","Thu, 05","Fri, 06","Sat, 07","Sun, 08","Mon, 09","Tue, 10","Wed, 11","Thu, 12","Fri, 13","Sat, 14","Sun, 15","Mon, 16","Tue, 17","Wed, 18","Thu, 19","Fri, 20","Sat, 21","Sun, 22","Mon, 23","Tue, 24","Wed, 25","Thu, 26","Fri, 27","Sat, 28","Sun, 29","Mon, 30","Tue, 31","Wed, 01","Thu, 02","Fri, 03","Sat, 04","Sun, 05","Mon, 06","Tue, 07","Wed, 08","Thu, 09","Fri, 10",
+Default group: No name set,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+"Sachin Mahore(sachinmahore@gmail.com, time zone: Asia/Kolkata)",8h,8h,8h,,8h 30m,8h,5h,8h,8h,,,8h,8h,,8h,8h,8h,,8h,8h,8h,8h,9h,,,8h,8h,,8h,8h,,,8h,8h,8h 30m,8h,9h,,,,,,,,216h
+SRMP-413 -Combine and Test All work (Done),,,,,,,,,,,,,,,,,,,1h,,,,,,,,,,,,,,,,,,,,,,,,,,1h
+SRMP-410 - SRMP-412 -Design New form For Lease Now and Move In Check list And provide link in Email (Done),,,,,,,,,,,,,,,,,,,,,3h,,,,,,,,,,,,,,,,,,,,,,,,3h
+SRMP-410 - SRMP-411 -Design Email for Status (Done),,,,,,,,,,,,,,,,,,,,,,2h,,,,,,,,,,,,,,,,,,,,,,,2h
+"SRMP-410 -Online Application Form 2 : Admin Check background verification and Function to save and Send Email for Status (Approved,Denied, Conditional) (Done)",,,,,,,,,,,,,,,,,,,,,,6h,,,,,,,,,,,,,,,,,,,,,,,6h
+SRMP-409 -Tenant Portal : Redesign Guest Registration Form with upload (Done),,,,,,,,,,,,,,,,,,,,,5h,,,,,,,,,,,,,,,,,,,,,,,,5h
+"SRMP-408 -Tenant Portal : Design Panel for Account snapshot, Contact Information (Done)",,,,,,,,,,,,,,,,,,,,4h,,,,,,,,,,,,,,,,,,,,,,,,,4h
+SRMP-407 -Tenant Portal : Design new Step Design with Menu Submenu (Done),,,,,,,,,,,,,,,,,,,,4h,,,,,,,,,,,,,,,,,,,,,,,,,4h
+LMM-56 -Changes during meeting 3rd Jan (Done),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3h,,,,,,,,3h
+LMM-55 -Create function to Check Entered zip code is available or not (Done),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2h,,,,,,,,2h
+"LMM-54 -Create function and stored procedure to Convert single Zip Code to City, State, County (Done)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,4h,,,,,,,,4h
+"LMM-53 -Create function to save Count Result after edit, Remove Total count row (Done)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,5h,,,,,,,,,5h
+"LMM-52 -Design and Create function, stored procedure to Get MSADMA List with count and CBSA List with counts (Done)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3h 30m,3h,,,,,,,,,6h 30m
+"LMM-51 -Conversion : Create Function and stored procedure to Convert Zip to state, City to Zip (Done)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,5h,,,,,,,,,,5h
+"LMM-50 -Counts : When a user selects a geolocation, they can only select 1 demographic with that location with counts (Done)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2h,,,,,,,,,,,2h
+LMM-49 -Quick Order Form & Order Form1 Changes (Done),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,6h,,,,,,,,,,,6h
+"LMM-48 -New Demographic Added. Change Java script a, function, stored Procedure accordingly (Done)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,8h,,,,,,,,,,,,8h
+"LMM-47 -Combine Count Request Project and Campaign monitor. Add New Pages, controller, model, jquery. Make changes in design. Database changes (Done)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,8h,,,,,,,,,,,,,,,8h
+LMM-46 -Redesign Quick order form and make code changes to save and update. Change design and procedure to get Order list (Done),,,,,,,,,,,,,,,,,,,,,,,,,,,,,8h,,,,,,,,,,,,,,,,8h
+"LMM-45 -Make code changes in Add demographic (Age, Gender,Income) to change counts as per Zip (Backlog)",,,,,,,,,,,,,,,,,,,,,,,,,,,2h,,,,,,,,,,,,,,,,,,2h
+LMM-44 -Make function to convert Zip to County with counts (Done),,,,,,,,,,,,,,,,,,,,,,,,,,,3h,,,,,,,,,,,,,,,,,,3h
+LMM-43 -Make function to convert Zip to City with counts (Done),,,,,,,,,,,,,,,,,,,,,,,,,,,3h,,,,,,,,,,,,,,,,,,3h
+LMM-42 -Create function and stored procedure to get Zipwise count for single zip entered in Textbox and design changes (Done),,,,,,,,,,,,,,,,,,,,,,,,,,4h,,,,,,,,,,,,,,,,,,,4h
+LMM-41 -Create function and stored procedure to get Zipwise count for uploaded Zip file (Done),,,,,,,,,,,,,,,,,,,,,,,,,,4h,,,,,,,,,,,,,,,,,,,4h
+LMM-40 -Create function to Convert County to City  for County group (Backlog),,,,,,,,,,,,,,,,,,,,,,,3h,,,,,,,,,,,,,,,,,,,,,,3h
+LMM-39 -Create function to Convert State to City and state to County for State group (Backlog),,,,,,,,,,,,,,,,,,,,,,,4h,,,,,,,,,,,,,,,,,,,,,,4h
+"LMM-38 -Design Pop for Conversion with Conversion button for State, County, City Group (Done)",,,,,,,,,,,,,,,,,,,,,,,2h,,,,,,,,,,,,,,,,,,,,,,2h
+LMM-37 -Add Foregn key relation in All tables (Backlog),,,,,,,,,,,,,,,,,,,2h,,,,,,,,,,,,,,,,,,,,,,,,,,2h
+LMM-36 -Redesign Count Page with Fixed Group list and Demographic selection and Give option to expand Count Result Panel (Done),,,,,,,,,,,,,,,,,,,5h,,,,,,,,,,,,,,,,,,,,,,,,,,5h
+LMM-35 -Create Stored procedure and  function to Get dynamic Result from database and display  (Done),,,,,,,,,,,,,,,,,8h,,,,,,,,,,,,,,,,,,,,,,,,,,,,8h
+"LMM-34 -Create Stored Procedure and Function to get Age,Gender,House value, Income wise (Demographic multiple selection) Count result data for Nationwide Group (Done)",,,,,,,,,,,,,,,,4h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,4h
+LMM-33 -Create Stored Procedure and Function to get Age wise (Demographic multiple selection) Count result data for City and County Group (Done),,,,,,,,,,,,,,,4h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,4h
+LMM-32 -Create Stored Procedure and Function to get Income wise (Demographic multiple selection) Count result data for City and CountyGroup (Done),,,,,,,,,,,,,,,4h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,4h
+LMM-31 -Create Stored Procedure and Function to get House value wise / Gender Wise (Demographic multiple selection) Count result data for City and CountyGroup  (Done),,,,,,,,,,,,,,,,4h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,4h
+LMM-30 -Create Stored Procedure and Function  to get House value wise / Gender Wise (Demographic multiple selection) Count result data for State Group (Done),,,,,,,,,,,,,3h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3h
+LMM-29 -Create Stored Procedure and Function  to get Income wise (Demographic multiple selection) Count result data for State Group (Done),,,,,,,,,,,,,3h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3h
+LMM-28 -Create Stored Procedure and Function  to get Age wise (Demographic multiple selection) Count result data for State Group (Done),,,,,,,,,,,,2h,2h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,4h
+"LMM-27 -Create function and stored procedure to Get State wise, City wise , County wise  Counts Result Data (Done)",,,,,,,,,,,,6h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,6h
+LMM-21 -Create function to Save dynamic Result in database (Done),,,,,,,,,8h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,8h
+"LMM-20 -Add Steps in County , City Group for State selection (Done)",,,,,,,,1h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1h
+LMM-19 -Create function to Edit Group Details (Done),,,,,,,,3h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3h
+LMM-15 - LMM-18 -Change Design and function as per new Checkbox to get County List  (Done),,,,,,,,2h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2h
+LMM-6 - LMM-17 -Change Design and function as per new Checkbox to get State List  (Done),,,,,,,,2h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2h
+LMM-7 - LMM-16 -Change Design and function as per new Checkbox to get City List  (In Progress),,,,,,,2h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2h
+"LMM-15 -Create function to Get County list after selecting County Group type, Crete procedure to get county list (Done)",,,,,,,3h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3h
+LMM-14 -Function to Delete Group from list (Done),,,,,,2h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2h
+LMM-13 -Function to Create dynamic column for Selected Demographics in Result table  (Done),,,,,,6h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,6h
+LMM-12 -Create Multiple Dropdown for Demographics (Done),,,,,5h 30m,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,5h 30m
+LMM-11 -Create function to display Group list for particular CR (Done),,,,,3h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3h
+LMM-9 -Create function to save Group details (Done),,,2h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2h
+LMM-8 -Design tab for ZipCode group selection and function to upload Zipcode file After upload zipcode display in result table (Done),,,3h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3h
+LMM-7 -Create function to Get City list after selecting City  Group type Crete procedure to get city list (Done),,,3h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3h
+LMM-6 -Create function to Get State list after selecting State Group type Crete procedure to get state list (Done),,3h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3h
+LMM-5 -Create function to display Group type and select (Done),,3h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3h
+"LMM-4 -Create Database for  State, City, Zipcode, Group, Demographics, CR (Done)",,2h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2h
+"LMM-3 -Design Layout for Count Request Creation with Group List, Details, Demographics (Done)",4h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,4h
+"LMM-2 -Design new Web application , Layout page, style (In Progress)",2h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2h
+LMM-1 -Analysis of Given work and Make rough design (In Progress),2h,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2h
+"Sohan Dawande(sohan_dawande, time zone: Asia/Kolkata)",8h,6h,,,,8h,6h,,8h,,,7h,4h,,8h,8h,6h,,8h,6h,8h,2h,,,,7h,6h,,7h,4h,,,8h,8h,8h,8h,8h,,,,,,,,157h
+"Amit Partakke(amit.partakke, time zone: Asia/Kolkata)",7h,3h,,,,7h,7h,3h,,,,,,,,,,,,,,,,,,,,,,,,,8h,8h,9h,8h,8h,,,,,,,,68h
+"piyush mate(piyushmate04, time zone: America/New_York)",,,,,,,,,,,,,,,6h,5h,5h,,6h,6h,6h,,,,,6h,,,,4h,,,4h,12h,6h,,,,,,,,,,66h
+Default group: No name set  Total,23h,17h,8h,,8h 30m,23h,18h,11h,16h,,,15h,12h,,22h,21h,19h,,22h,20h,22h,10h,9h,,,21h,14h,,15h,16h,,,28h,36h,31h 30m,24h,25h,,,,,,,,507h
+Grand Total,23h,17h,8h,,8h 30m,23h,18h,11h,16h,,,15h,12h,,22h,21h,19h,,22h,20h,22h,10h,9h,,,21h,14h,,15h,16h,,,28h,36h,31h 30m,24h,25h,,,,,,,,507h

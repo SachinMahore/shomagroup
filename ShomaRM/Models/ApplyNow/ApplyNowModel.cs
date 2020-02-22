@@ -156,14 +156,15 @@ namespace ShomaRM.Models
                     }
                     string body = reportHTML;
                     new EmailSendModel().SendEmail(GetProspectData.Email, "Application Completed and Payment Received", body);
+                    msg = "1";
                 }
-               
-                msg = transStatus.ToString();
+                else
+                {
+                    msg = "0";
+                }
+
             }
-            else
-            {
-                msg = "Property Not Found";
-            }
+           
             db.Dispose();
             return msg;
         }

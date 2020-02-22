@@ -56,7 +56,7 @@ namespace ShomaRM.Areas.Tenant.Controllers
         {
             if (SearchId <= 1)
             {
-                var Model = new ClubModel().GetJoiningClubList(UserId: UserId).OrderByDescending(a => a.ClubTitle).ToList();
+                var Model = new ClubModel().GetJoiningClubList(UserId: UserId).Where(a=>a.Active==true).OrderByDescending(a => a.ClubTitle).ToList();
                 ViewBag.CallenderHidden = "";
                 return PartialView("~/Areas/Tenant/Views/MyCommunity/_JoinClub.cshtml", Model);
             }

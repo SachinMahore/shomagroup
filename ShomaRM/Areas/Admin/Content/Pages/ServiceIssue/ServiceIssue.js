@@ -11,7 +11,7 @@
 
     getIssueData($("#hndIssueID").val());
     fillDdlService();
-    //fillCausgIssue();
+
     $("#ddlProblemCategory").on('change', function (evt, params) {
         var selected = $(this).val();
         if (selected != null) {
@@ -64,20 +64,20 @@ var buildPaganationIssueList = function (pagenumber) {
             if ($.trim(response.error) !== "") {
                 alert(response.error);
             } else {
-                if (response.NOP == 0) {
-                    $('#ddlRPP_Issue').addClass("hidden");
-                    $('#divPagination_Issue').addClass("hidden");
-                    $('#lblRPP_Issue').addClass("hidden");
-                }
-                else {
-                    $('#ddlRPP_Issue').removeClass("hidden");
-                    $('#divPagination_Issue').removeClass("hidden");
-                    $('#lblRPP_Issue').removeClass("hidden");
+                //if (response.NOP == 0) {
+                //    $('#ddlRPP_Issue').addClass("hidden");
+                //    $('#divPagination_Issue').addClass("hidden");
+                //    $('#lblRPP_Issue').addClass("hidden");
+                //}
+                //else {
+                //    $('#ddlRPP_Issue').removeClass("hidden");
+                //    $('#divPagination_Issue').removeClass("hidden");
+                //    $('#lblRPP_Issue').removeClass("hidden");
 
                     $('#ulPagination_Issue').pagination('updateItems', response.NOP);
                     $('#ulPagination_Issue').pagination('selectPage', 1);
                 }
-            }
+            //}
         }
     });
 };
@@ -202,7 +202,9 @@ var getIssueData = function (IssueID) {
             } else {
                 $("#hndIssueID").val(response.IssueID);
                 $("#ddlProblemCategory").val(response.ServiceIssueID);
-                fillCausingIssue(response.ServiceIssueID);
+                //setTimeout(function () {
+                    fillCausingIssue(response.ServiceIssueID);
+                //}, 300);
                 $("#ddlCausingIssue").val(response.CausingIssueID);
                 $("#txtIssue").val(response.Issue);
                 if ($("#hndIssueID").val() != "0") {
@@ -298,7 +300,7 @@ var delIssue = function (ID) {
                 text: 'Yes',
                 action: function (yes) {
                     $.ajax({
-                        url: "/ServiceLocation/DeleteServiceLocation",
+                        url: "/ServiceIssue/DeleteService",
                         type: "post",
                         contentType: "application/json utf-8",
                         data: JSON.stringify(model),

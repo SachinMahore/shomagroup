@@ -25,18 +25,18 @@ namespace ShomaRM.Tests.Controllers
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
-        public void About()
-        {
-            // Arrange
-            HomeController controller = new HomeController();
+        //[TestMethod]
+        //public void About()
+        //{
+        //    // Arrange
+        //    HomeController controller = new HomeController();
 
-            // Act
-            ViewResult result = controller.AboutAsync() as ViewResult;
+        //    // Act
+        //    ViewResult result = controller.AboutAsync() as ViewResult;
 
-            // Assert
-            Assert.AreEqual("Your application description page.", result.ViewBag.Message);
-        }
+        //    // Assert
+        //    Assert.AreEqual("Your application description page.", result.ViewBag.Message);
+        //}
 
         [TestMethod]
         public void Contact()

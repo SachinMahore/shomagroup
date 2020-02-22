@@ -1110,20 +1110,30 @@ namespace ShomaRM.Areas.Tenant.Models
                     reportHTML = reportHTML.Replace("[%EmailHeader%]", "Amenity Reservation Fees & Deposit Paid");
                     reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
                     reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Fee payment in the Amount of $" + ameDet.ReservationFee + "and your Deposit Fee in the Amount of $"+ameDet.DepositFee+" for your reservation of the " + model.Description + " on " + ameDet.DesiredDate + " at " + ameDet.DesiredTime + " has been received. Your Reservation is now confirmed. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
-                    body = reportHTML;
                     reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+                    body = reportHTML;
+                 
                     new EmailSendModel().SendEmail(GetTenantData.Email, "Amenity Reservation Fees & Deposit Paid", body);
                 }
                 else if(model.IsAmeDepoPay == 0)
                 {
                     CreateTransBill(TransId, Convert.ToDecimal(ameDet.ReservationFee), model.Description + " Fees");
-                    ameDet.Status = 2;
+                    if(Convert.ToDecimal(ameDet.DepositFee)==0)
+                    {
+                        ameDet.Status = 4;
+                    }
+                    else
+                    {
+                        ameDet.Status = 2;
+                    }
+                   
                     db.SaveChanges();
                     reportHTML = reportHTML.Replace("[%EmailHeader%]", "Amenity Reservation Fees Paid");
                     reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
                     reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Fee payment in the Amount of $"+ ameDet.ReservationFee + " for your reservation of the "+model.Description+" on "+ameDet.DesiredDate+" at "+ameDet.DesiredTime+" has been received. Your Reservation is now confirmed subject to the payment of the Security Deposit at least 3 business days prior to the scheduled event. If we do 	not receive the Security Deposit fee prior to the deadline, management reserves the right to cancel the event and the Reservation fee will not be refunded. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
-                    body = reportHTML;
                     reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+                    body = reportHTML;
+                  
                     new EmailSendModel().SendEmail(GetTenantData.Email, "Amenity Reservation Fees Paid", body);
                 }
                 else if (model.IsAmeDepoPay == 3)
@@ -1134,8 +1144,9 @@ namespace ShomaRM.Areas.Tenant.Models
                     reportHTML = reportHTML.Replace("[%EmailHeader%]", "Amenity Reservation Deposit Paid");
                     reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
                     reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Deposit payment in the Amount of $" + ameDet.DepositFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate + " at " + ameDet.DesiredTime + " has been received. Your Reservation is now completed. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
-                    body = reportHTML;
                     reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+                    body = reportHTML;
+                    
                     new EmailSendModel().SendEmail(GetTenantData.Email, "Amenity Reservation Deposit Paid", body);
                 }
 
