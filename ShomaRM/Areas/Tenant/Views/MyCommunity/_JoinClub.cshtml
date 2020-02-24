@@ -153,9 +153,9 @@
                 <div class="row">
                     <!--table heading-->
                     <div class="col-sm-12 lead">
-                        <div class="col-sm-3 text-payment"><h3 class="m-t0">Name</h3></div>
+                        <div class="col-sm-4 text-payment"><h3 class="m-t0">Name</h3></div>
                         <div class="col-sm-3 border-left text-payment"><h3 class="m-t0">Day & Time</h3></div>
-                        <div class="col-sm-4 border-left text-payment"><h3 class="m-t0">Description</h3></div>
+                        <div class="col-sm-3 border-left text-payment"><h3 class="m-t0">Description</h3></div>
                         <div class="col-sm-2 border-left text-payment"><h3 class="m-t0">Edit</h3></div>
                     </div>
                     <!--table data-->
@@ -175,15 +175,15 @@
                                         <div class="col-sm-9">
 
                                             <a href="javascript:void(0);" onclick="goToStep(6,@item.Id)">
-                                                <div class="col-sm-3 center text-subheding  communityname"><b>@item.ClubTitle</b></div>
-                                                <div class="col-sm-3 center text-subheding  communityname"><b>@item.StartDate.Date.ToString("dd/MM/yyyy") &amp; @item.Time</b></div>
+                                                <div class="col-sm-4  text-subheding  communityname"><b>@item.ClubTitle</b></div>
+                                                <div class="col-sm-4 center text-subheding  communityname"><b>@item.StartDate.Date.ToString("dd/MM/yyyy") &amp; @item.Time</b></div>
                                                 <div class="col-sm-4 center  text-subheding communityname"><b>@item.Description</b></div>
                                             </a>
                                         </div>
-                                        <div class="col-sm-2 start"><label style="@(item.Active == true ?"color:green;font-size:16px":"color:red;font-size:16px")" >@(item.Active == true ? "Active" : "InActive")</label@(item.Active></div>
-                                        <div class="col-sm-1 center">
+                                        @*<div class="col-sm-2 start"><label style="@(item.Active == true ?"color:green;font-size:16px":"color:red;font-size:16px")" >@(item.Active == true ? "Active" : "InActive")</label>@(item.Active)</div>*@
+                                        <div class="col-sm-2 center">
                                             @if (@item.UserId == @ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID)
-                                            {<a style="cursor:pointer;" class="text-subheding" onclick="goToStep(8,@item.Id)"><i class="fa fa-edit "></i></a>}
+                                            {<a style="cursor:pointer;" class="  text-subheding" onclick="goToStep(8,@item.Id)"><i class="fa fa-edit "></i></a>}
                                         </div>
 
                                     </div>
