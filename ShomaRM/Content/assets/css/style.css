@@ -3556,6 +3556,7 @@ th.border-box1 {
 th.border-box2 {
     border: none;
     border-left: 0px solid #dedcdc;
+    border-right: 1px solid #dedcdc;
 }
 td {
     padding: 4px 8px;
@@ -3569,3 +3570,24 @@ td {
     td.border-table {
         border-left: 1px solid #dedcdc;
     }
+
+.borderlessTable tbody tr td {
+    border: none;
+    border-right: 1px solid #dedcdc;
+}
+
+.border-table-none {
+    border: none !important;
+}
+
+.tbale-box {
+    width: auto;
+    display: table;
+    margin: 0 auto;
+}
+
+.tabletr {
+    font-size: 34px;
+    font-family: Futura Medium;
+    font-weight: 400;
+}
