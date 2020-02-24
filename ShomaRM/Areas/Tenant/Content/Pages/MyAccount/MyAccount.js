@@ -848,15 +848,15 @@ var goToStep = function (stepid, id) {
         $("#li2").removeClass("active");
         $("#li3").removeClass("active");
         $("#li4").removeClass("active");
-        $("#step2").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step4").addClass("hidden");
+        $("#step2").removeClass("active");
+        $("#step3").removeClass("active");
+        $("#step4").removeClass("active");
         $("#li5").removeClass("active");
         $("#li6").removeClass("active");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step1").removeClass("hidden");
-        $("#step7").addClass("hidden");
+        $("#step5").removeClass("active");
+        $("#step6").removeClass("active");
+        $("#step1").addClass("active");
+        $("#step7").removeClass("active");
         $("#li7").removeClass("active");
     }
     if (stepid == "2") {
@@ -867,15 +867,15 @@ var goToStep = function (stepid, id) {
         $("#li1").removeClass("active");
         $("#li3").removeClass("active");
         $("#li4").removeClass("active");
-        $("#step1").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step2").removeClass("hidden");
+        $("#step1").removeClass("active");
+        $("#step3").removeClass("active");
+        $("#step4").removeClass("active");
+        $("#step2").addClass("active");
         $("#li5").removeClass("active");
         $("#li6").removeClass("active");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
+        $("#step5").removeClass("active");
+        $("#step6").removeClass("active");
+        $("#step7").removeClass("active");
         $("#li7").removeClass("active");
     }
     if (stepid == "3") {
@@ -887,15 +887,15 @@ var goToStep = function (stepid, id) {
         $("#li2").removeClass("active");
         $("#li1").removeClass("active");
         $("#li4").removeClass("active");
-        $("#step2").addClass("hidden");
-        $("#step1").addClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step3").removeClass("hidden");
+        $("#step2").removeClass("active");
+        $("#step1").removeClass("active");
+        $("#step4").removeClass("active");
+        $("#step3").addClass("active");
         $("#li5").removeClass("active");
         $("#li6").removeClass("active");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
+        $("#step5").removeClass("active");
+        $("#step6").removeClass("active");
+        $("#step7").removeClass("active");
         $("#li7").removeClass("active");
     }
     if (stepid == "4") {
@@ -907,19 +907,19 @@ var goToStep = function (stepid, id) {
         $("#li2").removeClass("active");
         $("#li3").removeClass("active");
         $("#li1").removeClass("active");
-        $("#step2").addClass("hidden");
-        $("#step1").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step4").removeClass("hidden");
+        $("#step2").removeClass("active");
+        $("#step1").removeClass("active");
+        $("#step3").removeClass("active");
+        $("#step4").addClass("active");
         $("#li5").removeClass("active");
         $("#li6").removeClass("active");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
+        $("#step5").removeClass("active");
+        $("#step6").removeClass("active");
+        $("#step7").removeClass("active");
         $("#li7").removeClass("active");
     }
     if (stepid == "5") {
-        $("#step5").removeClass("hidden");
+        $("#step5").addClass("active");
         //getVehicleLists();
         $("#li5").addClass("active");
 
@@ -927,30 +927,30 @@ var goToStep = function (stepid, id) {
         $("#li2").removeClass("active");
         $("#li3").removeClass("active");
         $("#li1").removeClass("active");
-        $("#step2").addClass("hidden");
-        $("#step1").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step4").addClass("hidden");
+        $("#step2").removeClass("active");
+        $("#step1").removeClass("active");
+        $("#step3").removeClass("active");
+        $("#step4").removeClass("active");
         $("#li6").removeClass("active");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
+        $("#step6").removeClass("active");
+        $("#step7").removeClass("active");
         $("#li7").removeClass("active");
     }
     if (stepid == "6") {
         //getPetLists();
         $("#li6").addClass("active");
-        $("#step6").removeClass("hidden");
-        $("#step1").addClass("hidden");
+        $("#step6").addClass("active");
+        $("#step1").removeClass("active");
         $("#li1").removeClass("active");
-        $("#step2").addClass("hidden");
+        $("#step2").removeClass("active");
         $("#li2").removeClass("active");
-        $("#step3").addClass("hidden");
+        $("#step3").removeClass("active");
         $("#li3").removeClass("active");
-        $("#step4").addClass("hidden");
+        $("#step4").removeClass("active");
         $("#li4").removeClass("active");
-        $("#step5").addClass("hidden");
+        $("#step5").removeClass("active");
         $("#li5").removeClass("active");
-        $("#step7").addClass("hidden");
+        $("#step7").removeClass("active");
         $("#li7").removeClass("active");
     }
     if (stepid == "7") {
@@ -963,18 +963,18 @@ var goToStep = function (stepid, id) {
         };
         getServiceInfo();
         $("#li7").addClass("active");
-        $("#step7").removeClass("hidden");
-        $("#step1").addClass("hidden");
+        $("#step7").addClass("active");
+        $("#step1").removeClass("active");
         $("#li1").removeClass("active");
-        $("#step2").addClass("hidden");
+        $("#step2").removeClass("active");
         $("#li2").removeClass("active");
-        $("#step3").addClass("hidden");
+        $("#step3").removeClass("active");
         $("#li3").removeClass("active");
-        $("#step4").addClass("hidden");
+        $("#step4").removeClass("active");
         $("#li4").removeClass("active");
-        $("#step5").addClass("hidden");
+        $("#step5").removeClass("active");
         $("#li5").removeClass("active");
-        $("#step6").addClass("hidden");
+        $("#step6").removeClass("active");
         $("#li6").removeClass("active");
     }
 };
