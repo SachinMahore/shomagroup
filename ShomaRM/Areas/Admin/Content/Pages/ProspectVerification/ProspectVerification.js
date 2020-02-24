@@ -3451,7 +3451,7 @@ var getTenantOnlineList = function (id) {
             }
             
            // $("#hndFileUploadName3").val(response.model.TaxReturn3);
-            $("#hndFileUploadName3").text(response.model.UploadOriginalFileName3);
+            $("#hndFileUploadName3").html("<i class='fa fa-download fa-lg'></i>" + " " +response.model.UploadOriginalFileName3);
             $("#hndOriginalFileUploadName3").val(response.model.UploadOriginalFileName3);
             $("#hndFileUploadName3").data('value', response.model.TaxReturn3);
             var resultTaxReturn3Exist = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn3);

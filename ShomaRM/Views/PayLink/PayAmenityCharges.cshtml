@@ -185,12 +185,12 @@
                                                 </td>
                                                 <td><span id="paymeth"></span></td>
                                             </tr>
-                                            <tr>
+                                            <tr id="trcvvnumberpl" class="hidden">
                                                 <td>
                                                     CVV Number:
                                                 </td>
                                                 <td>
-                                                    <input id="txtCVVNumberPayRentOnline" type="password" class="form-control form-control-small hidden" maxlength="3" value="" style="width:50% !important" onkeypress="return isOnlyNumber(event);" />
+                                                    <input id="txtCVVNumberPayRentOnline" type="password" class="form-control form-control-small" maxlength="3" value="" style="width:50% !important" onkeypress="return isOnlyNumber(event);" />
                                                 </td>
                                             </tr>
                                             <tr>
@@ -355,6 +355,7 @@
          ddlPaymentMethod();
 
         if ($("#hndUID").val() != "0") {
+
             goToStep(2, 2);
         }
         else {
@@ -423,6 +424,8 @@
                     $("#hndUID").val(response);
                     getTenantInfo(response);
                     goToStep(2, 2);
+                    $("#btnLogout").removeClass("hidden");
+
                 } else {
                     alert("Invalid Email ID / password.")
                 }
@@ -436,20 +439,17 @@
 
     var goToStep = function (stepid, id) {
         if (stepid == "1") {
-
             $("#step1").removeClass("hidden");
             $("#step2").addClass("hidden");
             $("#step3").addClass("hidden");
-
+            $("#btnLogout").addClass("hidden");
         }
         if (stepid == "2") {
-
             if (id == "2") {
                 $("#step1").addClass("hidden");
                 $("#step3").addClass("hidden");
                 $("#step2").removeClass("hidden");
             }
-
         }
         if (stepid == "3") {
 
@@ -457,24 +457,18 @@
                 var value = $("#ddlPaymentMethod option:selected");
                 var transtype = value.text();
                 $("#paymeth").text(transtype);
-
                 $("#step1").addClass("hidden");
                 $("#step3").removeClass("hidden");
-
                 $("#step2").addClass("hidden");
-
             }
-
         }
         if (stepid == "4") {
-
             if (id == "4") {
                 $("#step1").addClass("hidden");
                 $("#step3").addClass("hidden");
                 $("#step2").addClass("hidden");
                 $("#step4").removeClass("hidden");
             }
-
         }
     }
 
@@ -492,6 +486,13 @@
                 $.each(response.model, function (elementType, elementValue) {
                     if (elementValue.Default == '1') {
                         html = "<option value='" + elementValue.PAID + "' selected='selected' data-value='" + elementValue.PayMethod + "'>" + elementValue.AccountName + "</option>";
+                        if (elementValue.PayMethod == 1) {
+                            $("#trcvvnumberpl").removeClass("hidden");
+                        }
+                        else {
+                            $("#trcvvnumberpl").addClass("hidden");
+                        }
+
                     }
                     else {
                         html = "<option value='" + elementValue.PAID + "' data-value='" + elementValue.PayMethod + "'>" + elementValue.AccountName + "</option>";
@@ -513,12 +514,12 @@
             msg += "Select Payment Method</br>";
         }
         if ($('#ddlPaymentMethod').find(':selected').data('value') == '1') {
-            $("#txtCVVNumberPayRentOnline").removeClass("hidden");
+            $("#trcvvnumberpl").removeClass("hidden");
             if ($("#txtCVVNumberPayRentOnline").val() == '') {
                 msg += "Enter CVV Number</br>";
             }
         } else {
-            $("#txtCVVNumberPayRentOnline").addClass("hidden");
+            $("#trcvvnumberpl").addClass("hidden");
         }
         if (msg != "") {
             $.alert({

@@ -249,7 +249,7 @@
                                                     </div>
 
                                                     <div class="col-sm-3 pull-right" style="margin-bottom:20px !important;">
-                                                        <select id="ddlPaymentHistory" class="form-control" onchange="paymentHistory();">
+                                                        <select id="ddlPaymentHistory" class="form-control">
                                                             <option value='1'>Current month</option>
                                                             <option value='2'>Next month</option>
                                                             <option value='3'>Previous month</option>
@@ -654,8 +654,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div id="MoreDetails">
+                                                    <div class="col-sm-12 ">
+                                                        <div id="MoreDetails" class="hidden">
                                                             <div class="form-group">
                                                                 <div class="col-sm-3">
                                                                     <label style="color:#4D738A !important;font-size:11pt;"></label>
@@ -779,7 +779,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                </br>
+                                                <br>
                                                 <div class="row ">
                                                     <div class="form-group">
                                                         <div class="col-sm-12">
@@ -913,15 +913,16 @@
                                                 <br />
                                                 <div class="row">
                                                     <div class="col-sm-12">
-
                                                         <div class="form-group">
                                                             <div class="col-sm-3">
                                                                 <label style="color:#4D738A !important;font-size:11pt;"></label>
                                                             </div>
-                                                            <div class="col-sm-4">
+                                                            <div class="col-sm-4" style="margin-left: -19px;">
                                                                 <button id="btnServiceRequestSave" class="btn btn-primary" onclick="saveUpdateServiceRequest()">Submit Service Request</button>
                                                             </div>
-
+                                                            <div class="col-sm-4" style="margin-left: -136px;">
+                                                                <button id="btnCancel" class="btn btn-primary" onclick="clearServiceRequestField()">Cancel</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

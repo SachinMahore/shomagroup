@@ -139,7 +139,7 @@
                     <div class="bottom-menu pull-right">
                         <ul>
                             <li><a class="wow fadeInUp animated" href="~/Home/Index" data-wow-delay="0.2s">Home</a></li>
-                            <li><a id="btnsignIn" class="wow fadeInUp animated" href="javascript:void(0);" data-wow-delay="0.3s" onclick="goToSignIn()">Sign In</a></li>
+                            <li><a id="btnsignIn" class="wow fadeInUp animated" href="javascript:void(0);" data-wow-delay="0.3s" >Sign In</a></li>
                         </ul>
                     </div>
                 </div>
@@ -286,30 +286,31 @@
             <div id="signInHead" class="text-center">
                 <h5 style="">Sign In</h5>
             </div>
-            <div id="forgtPassHead" class="text-center hide">
+            <div id="forgtPassHead" class="text-center hidden">
                 <h5 style="">Retrive Password</h5>
             </div>
             <div class="text-justify">
                 <div class="form-group">
                     <label for="email">Email ID</label>
-                    <input type="text" class="form-control" id="UserName" name="UserName">
+                    <input id="UserEmail" type="text" class="form-control"  name="UserEmail">
                 </div>
                 <div id="DivPass" class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="Password">
+                    <input type="password" class="form-control" id="UserPassword" name="Password">
                 </div>
             </div>
             <div id="Signinbtn" class="text-center">
-                <button type="submit" class="btn btn-primary" onclick="SignIn()"> Sign In</button>
-                <a href="javascript:void(0);" onclick="goToForgetPassword();" class="pull-right" style="padding-top:6%">Forget Password?</a>
+                <button type="submit" class="btn btn-primary" onclick="SignIn()" style="margin-left:100px !important"> Sign In</button>
+                <a href="javascript:void(0);" onclick="goToForgetPassword();" class="pull-right" style="padding-top:2%">Forget Password?</a>
             </div>
-            <div id="Forgtbtn" class="text-center hide">
+            <div id="Forgtbtn" class="text-center hidden">
                 <button type="button" class="btn btn-primary" onclick="ForgetPasswordss();">Verify</button>
-                <a href="javascript:void(0);" onclick="goToSignIn();" class="pull-right" style="padding-top:6%">Sign In</a>
+                <a href="javascript:void(0);" onclick="goToSignIn();" class="pull-right" style="padding-top:2%">Go Back</a>
             </div>
         </div>
-
     </div>
+
+
     <script src="@Url.Content("/content/bootstrap/js/bootstrap.min.js")"></script>
     <script src="@Url.Content("/content/assets/js/bootstrap-datepicker.js")"></script>
     <script src="@Url.Content("/content/assets/js/bootstrap-select.min.js")"></script>
@@ -462,10 +463,10 @@
 <script>
     var ForgetPasswordss = function () {
         var msg = "";
-        var email = $("#UserName").val();
-
+        var email = $("#UserEmail").val();
+        console.log(email)
         if (email == "") {
-            msg += "Enter Registerd Email ID</br>";
+            msg += "Enter Registerd Email ID </br> ";
         }
 
         if (msg != "") {
@@ -510,9 +511,9 @@
 
     var SignIn = function () {
         var msg = "";
-        var email = $("#UserName").val();
-        var pass = $("#password").val();
-
+        var email = $("#UserEmail").val();
+        var pass = $("#UserPassword").val();
+        console.log($("#UserPassword").val())
         if (email == "") {
             msg += "Enter Registerd Email ID</br>";
         }
@@ -592,6 +593,7 @@
 
    
     btn.onclick = function () {
+        goToSignIn();
         modal.style.display = "block";
     }
     // When the user clicks on <span> (x), close the modal
@@ -827,24 +829,18 @@
         }); 
         onFocusMainLayout();
     });
-
+    
     function goToSignIn() {
-        $("#Forgtbtn").addClass("hide");
-        $("#Signinbtn").removeClass("hide");
-        $("#DivPass").removeClass("hide");
-        $("#forgtPassHead").addClass("hide");
-        $("#signInHead").removeClass("hide");
-        $("#UserName").val("");
-        $("#password").val("");
+        $("#Signinbtn, #DivPass, #signInHead").removeClass("hidden");
+        $("#forgtPassHead, #Forgtbtn").addClass("hidden");
+        $("#UserEmail").val("");
+        $("#UserPassword").val("");
     }
     function goToForgetPassword() {
-        $("#Forgtbtn").removeClass("hide");
-        $("#Signinbtn").addClass("hide");
-        $("#DivPass").addClass("hide");
-        $("#forgtPassHead").removeClass("hide");
-        $("#signInHead").addClass("hide");
-        $("#UserName").val("");
-        $("#password").val("");
+        $("#Signinbtn, #DivPass, #signInHead").addClass("hidden");
+        $("#forgtPassHead, #Forgtbtn").removeClass("hidden");
+        $("#UserEmail").val("");
+        $("#UserPassword").val("");
     }
     var onFocusMainLayout = function () {
         $("#txtPhone").focusout(function () { $("#txtPhone").val(formatPhoneFax($("#txtPhone").val())); })

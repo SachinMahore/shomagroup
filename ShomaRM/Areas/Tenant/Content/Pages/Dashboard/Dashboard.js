@@ -4,6 +4,7 @@
     getServiceRequestOnAlarm();
     getEventsList();
     getRatings();
+    
     $("#ratingButtons button").click(function () {
         saveRatings(this.innerHTML);
     });
@@ -791,6 +792,7 @@ var breakdownPaymentFunction = function () {
 };
 
 var eventDetailShow = function (id) {
+    getEventJoiningStatus(id);
     $('#hndEventID').val(id);
     var model = { EventID: id };
 
@@ -834,6 +836,7 @@ var saveTenantEventsJoin = function () {
                                 content: response.model,
                                 type: 'blue'
                             });
+                            getEventJoiningStatus($('#hndEventID').val());
                         }
                     });
                 }
@@ -879,6 +882,71 @@ var tenantEventsJoin = function (id) {
             no: {
                 text: 'No',
                 action: function (no) {
+                }
+            }
+        }
+    });
+    $("#divLoader").hide();
+};
+
+var getEventJoiningStatus = function (id) {
+    $("#divLoader").show();
+    var model = { EventID: id, TenantID: $('#hndTenantID').val() };
+
+    $.ajax({
+        url: '/Dashboard/GetEventJoiningStatus',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            console.log(JSON.stringify(response));
+            if (response.model == "join") {
+                $("#requestToJoin").removeClass("hidden");
+                $("#requestToUnjoin").addClass("hidden");
+            }
+            else if (response.model == "unjoin") {
+                $("#requestToUnjoin").removeClass("hidden");
+                $("#requestToJoin").addClass("hidden");
+            }
+        }
+    });
+        $("#divLoader").hide();
+};
+
+var saveTenantEventsUnjoin = function () {
+    $("#divLoader").show();
+    var model = { EventID: $('#hndEventID').val(), TenantID: $('#hndTenantID').val() };
+
+    $.alert({
+        title: "",
+        content: "Are you sure to un-join this Event?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: '/Dashboard/SaveTenantEventUnJoin',
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $.alert({
+                                title: "",
+                                content: response.model,
+                                type: 'blue'
+                            });
+                            getEventJoiningStatus($('#hndEventID').val());
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                    return;
                 }
             }
         }
