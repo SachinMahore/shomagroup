@@ -166,7 +166,7 @@
                                 <div class="col-sm-5 border-left"><b>Description</b></div>
                             </a>
                         </div>*@
-                    <table class="comunitytable">
+                    <table class="borderlessTable tbale-box">
                         @*<tbody id="Tbl_JoinClub">
             @{
                 foreach (var item in Model)
@@ -193,29 +193,29 @@
 
 
 
-                        <th scope="row" class="border-box border-box2 text-payment">Name</th>
-                        <th scope="row" class="border-box border-box1 text-payment">Day & Time</th>
-                        <th scope="row" class="border-box border-box1 text-payment">Description</th>
-                        <th scope="row" class="border-box border-box1 text-payment">Edit</th>
-
+                        <th scope="row" class="border-box border-box2 text-payment tabletr">Name</th>
+                        <th scope="row" class="border-box border-box1 text-payment tabletr">Day & Time</th>
+                        <th scope="row" class="border-box border-box1 text-payment tabletr">Description</th>
+                        <th scope="row" class="border-box border-box1 text-payment tabletr">Edit</th>
+                       
 
                         <tbody>
                             @{
                                 foreach (var item in Model)
                                 {
                                     <tr class="s-11">
-                                        <td style="width:20%;" class="table-width border-tableborder-tableborder-table">                                         
+                                        <td style="width:20%;" class="">
                                             @item.ClubTitle
                                         </td>
-                                        <td style="width:20%;" class="border-table">
+                                        <td style="width:20%;" class="">
                                             @item.StartDate.Date.ToString("dd/MM/yyyy") &amp; @item.Time
                                         </td>
 
-                                        <td style="width:15%;" class="border-table">
+                                        <td style="width:15%;" class="">
                                             @item.Description
                                         </td>
 
-                                        <td style="width:10%;" class="border-table">
+                                        <td style="width:10%;"  class="border-table-none">
                                             @if (@item.UserId == @ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID)
                                             {
                                                 <a style="cursor:pointer;" class="" text-subheding border-table" onclick="goToStep(8,@item.Id)"><i class="fa fa-edit "></i></a>
