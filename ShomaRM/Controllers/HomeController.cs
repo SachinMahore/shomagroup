@@ -51,8 +51,8 @@ namespace ShomaRM.Controllers
             ViewBag.Message = "Your application description page.";
 
             TwilioService twilioService = new TwilioService();
-            twilioService.TestSMS("+9547908408");
-            twilioService.TestCall("+9547908408");
+            twilioService.SMS("+9547908408","Message Text");
+            //twilioService.Call("+9547908408");
 
 
             var data = await testAsync();
