@@ -902,6 +902,7 @@ var goToStep = function (stepid, id) {
         getServiceRequestList();
         serviceRequestChangeDDL();
         getServiceInfo();
+      
         $("#li4").addClass("active");
         $("#li2").removeClass("active");
         $("#li3").removeClass("active");
@@ -1983,8 +1984,8 @@ var deletePaymentAccounts = function (id) {
 var goToServiceStep = function (stepid, id) {
 
     if (stepid == "1") {
-        $("#service1").addClass("active1");
-        $("#service2").removeClass("active1");
+        $("#service1").addClass("active");
+        $("#service2").removeClass("active");
 
         $("#serviceStep1").removeClass("hidden");
         $("#serviceStep2").addClass("hidden");
@@ -1993,8 +1994,8 @@ var goToServiceStep = function (stepid, id) {
     }
     if (stepid == "2") {
         $('#txtPreferredDate').datepicker();
-        $("#service1").removeClass("active1");
-        $("#service2").addClass("active1");
+        $("#service1").removeClass("active");
+        $("#service2").addClass("active");
 
         $("#serviceStep1").addClass("hidden");
         $("#serviceStep2").removeClass("hidden");
@@ -2205,7 +2206,7 @@ var getServiceRequestList = function () {
                 // html += "<td> <a  target='_blank' href='/Content/assets/img/Document/" + elementValue.TempServiceFile + "'><i class='fa fa-eye'></i></a></td>";
                 html += "<td class='text-center'>";
                 if (elementValue.StatusString == 'Open') {
-                    html += "<a style='padding: 5px 8px !important; margin-right:7px; cursor:pointer;' onclick='cancelServiceRequest(" + elementValue.ServiceID + ")'><i class='fa fa-times'></i> Cancel Request</a></td>"
+                    html += "<a style=' cursor:pointer;' onclick='cancelServiceRequest(" + elementValue.ServiceID + ")'><i class='fa fa-times'></i> Cancel Request</a></td>"
                 }
                 html += "</tr>";
                 $("#tblServiceRequest>tbody").append(html);
@@ -2460,15 +2461,15 @@ var clearFieldGuestRegistration = function () {
 var goToReservationStep = function (stepid, id) {
 
     if (stepid == "1") {
-        $("#reservation1").addClass("active1");
-        $("#reservation2").removeClass("active1");
+        $("#reservation1").addClass("active");
+        $("#reservation2").removeClass("active");
 
         $("#reservationStep1").removeClass("hidden");
         $("#reservationStep2").addClass("hidden");
     }
     if (stepid == "2") {
-        $("#reservation1").removeClass("active1");
-        $("#reservation2").addClass("active1");
+        $("#reservation1").removeClass("active");
+        $("#reservation2").addClass("active");
 
         $("#reservationStep1").addClass("hidden");
         $("#reservationStep2").removeClass("hidden");
@@ -2764,8 +2765,8 @@ var fromDashboardGoToSubmitServiceRequest = function () {
         }
         if ($('#hdnServiceStepIdServiceRequest2').val() == "2") {
             $('#txtPreferredDate').datepicker();
-            $("#service1").removeClass("active1");
-            $("#service2").addClass("active1");
+            $("#service1").removeClass("active");
+            $("#service2").addClass("active");
 
             $("#serviceStep1").addClass("hidden");
             $("#serviceStep2").removeClass("hidden");
@@ -3083,8 +3084,8 @@ var goToSubmitServiceRequestFromMyHome = function () {
     $("#li7").removeClass("active");
 
     $('#txtPreferredDate').datepicker();
-    $("#service1").removeClass("active1");
-    $("#service2").addClass("active1");
+    $("#service1").removeClass("active");
+    $("#service2").addClass("active");
 
     $("#serviceStep1").addClass("hidden");
     $("#serviceStep2").removeClass("hidden");

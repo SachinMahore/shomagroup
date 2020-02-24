@@ -2017,10 +2017,10 @@ ul.submenupayment {
 
 
 .submenu li > a {
-  background: #547288;
-  color: #fcfcfc;
-  padding: 9px 38px 9px 15px;
-  font-family: Futura Medium;
+    background: #547288;
+    color: #fcfcfc;
+    padding: 7px 38px 7px 15px;
+    font-family: Futura Medium;
 }
 
   .submenu li > a:hover {
