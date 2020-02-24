@@ -627,7 +627,7 @@ function colorNewFunction() {
                 var types = elementValue.TypeText.split(',');
                 var eventName = elementValue.EventName;
                 var eventDate = elementValue.EventDateText;
-                var eventColors = "to right";
+                var eventColors = "";
                 var colorPercentage = 0;
                 if (types.length == 2) {
                     colorPercentage = 50;
@@ -642,48 +642,47 @@ function colorNewFunction() {
                     colorPercentage = 20;
                 }
 
+
+
                 if (types.length == 1) {
                     if ($.trim(types[0]) == "1") {
-                        eventColors += ",#00bfff 100%,#00bfff 100%";
+                        eventColors += '<div class="event-box" style="background-color:#00BFF3"></div>';
                     }
                     else if ($.trim(types[0]) == "2") {
-                        eventColors += ",#a2d900 100%,#a2d900 100%";
+                        eventColors += '<div class="event-box" style="background-color:#8DB954"></div>';
                     }
                     else if ($.trim(types[0]) == "3") {
-                        eventColors += ",#ff6 100%,#ff6 100%";
+                        eventColors += '<div class="event-box" style="background-color:#ED1C24"></div>';
                     }
                     else if ($.trim(types[0]) == "4") {
-                        eventColors += ",#ff6347 100%,#ff6347 100%";
+                        eventColors += '<div class="event-box" style="background-color:#FFF200"></div>';
                     }
                     else if ($.trim(types[0]) == "5") {
-                        eventColors += ",#daf6ff 100%,#daf6ff 100%";
+                        eventColors += '<div class="event-box" style="background-color:#B3ADA6"></div>';
                     }
                 }
                 else {
                     for (var i = 0; i <= types.length; i++) {
                         if ($.trim(types[i]) == "1") {
 
-                            eventColors += ",#00bfff " + colorPercentage * (i) + "%,#00bfff " + colorPercentage * (i + 1) + "%";
+                            eventColors += '<div class="event-box" style="background-color:#00BFF3"></div>';
                         }
                         else if ($.trim(types[i]) == "2") {
-                            eventColors += ",#a2d900 " + colorPercentage * (i) + "%,#a2d900 " + colorPercentage * (i + 1) + "%";
+                            eventColors += '<div class="event-box" style="background-color:#8DB954"></div>';
                         }
                         else if ($.trim(types[i]) == "3") {
-                            eventColors += ",#ff6 " + colorPercentage * (i) + "%,#ff6 " + colorPercentage * (i + 1) + "%";
+                            eventColors += '<div class="event-box" style="background-color:#ED1C24"></div>';
                         }
                         else if ($.trim(types[i]) == "4") {
-                            eventColors += ",#ff6347 " + colorPercentage * (i) + "%,#ff6347 " + colorPercentage * (i + 1) + "%";
+                            eventColors += '<div class="event-box" style="background-color:#FFF200"></div>';
                         }
                         else if ($.trim(types[i]) == "5") {
-                            eventColors += ",#daf6ff " + colorPercentage * (i) + "%,#daf6ff " + colorPercentage * (i + 1) + "%";
+                            eventColors += '<div class="event-box" style="background-color:#B3ADA6"></div>';
                         }
                     }
-
                 }
                 console.log(eventColors + " " + types.length);
-                $('.neighbor').css({
-                    background: "linear-gradient(" + eventColors + ")!important;"
-                });
+              
                 eventData.push({ date: eventDate, badge: false, title: eventName, lineargradient: eventColors });
             });
             console.log(eventData);
@@ -692,6 +691,7 @@ function colorNewFunction() {
                 data: eventData,
                 cell_border: true,
                 today: true,
+                show_today: true,
                 show_days: false,
                 weekstartson: 0,
                 nav_icon: {
@@ -702,7 +702,7 @@ function colorNewFunction() {
                     return myDateFunction(this.id);
                 }
             });
-
+        
             var modalOpenDate = document.getElementById("date-popover");
             var modalCloseDate = document.getElementById("closeDate");
             var modalCloseDate1 = document.getElementById("closeDate1");
