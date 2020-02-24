@@ -1490,15 +1490,7 @@ textarea::-webkit-input-placeholder {
   padding: 1px 10px;
 }
 
-.icheckbox_square-yellow.checked {
-  float: left;
-  width: 28px;
-  border-width: initial;
-  border-style: none;
-  border-color: initial;
-  border-image: initial;
-  margin: 2px 20px;
-}
+
 
 .form-control-box {
   display: block;
@@ -3554,9 +3546,7 @@ button:hover {
       margin-top: 25px;
     }
 
-    .icheckbox_square-yellow.checked {
-      margin: 2px 0px;
-    }
+   
   }
 
 th.border-box1 {
