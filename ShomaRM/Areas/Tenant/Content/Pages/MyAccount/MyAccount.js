@@ -1831,7 +1831,7 @@ var getPaymentAccountsCreditCard = function () {
                 html += "<td>" + elementValue.AccountName + "</td>";
                 html += "<td>" + elementValue.NameOnCard + "</td>";
                 html += "<td>" + MaskCardNumber(elementValue.CardNumber) + "</td>";
-                html += "<td><a href='javascript:void(0);' onclick='editPaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-edit'></i></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-trash'></i></a></td>";
+                html += "<td><a href='javascript:void(0);' onclick='editPaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-pencil color-blue'></i></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-times color-red'></i></a></td>";
                 html += "<td width='11%'>" + checked + "</td>";
                 html += "</tr>";
                 $("#tblPaymentAccountsCreditCard>tbody").append(html);
@@ -1874,7 +1874,7 @@ var getPaymentAccountsBankAccount = function () {
                 html += "<td>" + elementValue.AccountName + "</td>";
                 html += "<td>" + MaskCardNumber(elementValue.AccountNumber) + "</td>";
                 html += "<td>" + elementValue.RoutingNumber + "</td>";
-                html += "<td><a href='javascript:void(0);' onclick='editPaymentBankAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-edit'></i></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-trash'></i></a></td>";
+                html += "<td><a href='javascript:void(0);' onclick='editPaymentBankAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-pencil color-blue'></i></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-times color-red'></i></a></td>";
                 html += "<td width='11%'>" + checked + "</td>";
                 html += "</tr>";
                 $("#tblPaymentAccountsBankAccount>tbody").append(html);
@@ -2206,7 +2206,7 @@ var getServiceRequestList = function () {
                 // html += "<td> <a  target='_blank' href='/Content/assets/img/Document/" + elementValue.TempServiceFile + "'><i class='fa fa-eye'></i></a></td>";
                 html += "<td class='text-center'>";
                 if (elementValue.StatusString == 'Open') {
-                    html += "<a style=' cursor:pointer;' onclick='cancelServiceRequest(" + elementValue.ServiceID + ")'><i class='fa fa-times'></i> Cancel Request</a></td>"
+                    html += "<a style=' cursor:pointer;' onclick='cancelServiceRequest(" + elementValue.ServiceID + ")'><i class='fa fa-times '></i> Cancel Request</a></td>"
                 }
                 html += "</tr>";
                 $("#tblServiceRequest>tbody").append(html);
@@ -5043,10 +5043,10 @@ var getReservationRequestList = function () {
                     else {
                         console.log(elementValue.calculatedDate + " " + elementValue.DesiredDate + " " + dateC);
                         if (elementValue.calculatedDate <= dateC) {
-                            html += "<td onclick='cancleRequest(" + elementValue.ARID + ")' style='cursor:pointer;'><button class='btn btn-danger' disabled>Cancel</button></td>";
+                            html += "<td onclick='cancleRequest(" + elementValue.ARID + ")' style='cursor:pointer;'><a><i class='fa fa-times color-red'></i></a></td>";
                         }
                         else {
-                            html += "<td onclick='cancleRequest(" + elementValue.ARID + ")' style='cursor:pointer;'><button class='btn btn-danger'>Cancel</button></td>";
+                            html += "<td onclick='cancleRequest(" + elementValue.ARID + ")' style='cursor:pointer;'><a><i class='fa fa-times color-red'></i></a></td>";
                         }
 
                     }
@@ -5089,7 +5089,7 @@ var getRecurringPayLists = function () {
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
           
                 html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                html += "<td><a href='javascript:void(0);' onclick='editRecPayment(" + elementValue.TransID + ",\"" + formatMoney(elementValue.Charge_Amount) + "\",\"" + elementValue.Transaction_DateString + "\"," + elementValue.PAID + ")'><i class='fa fa-edit'></i></a>   <a href='javascript:void(0);' onclick='deleteRecPayment(" + elementValue.TransID + ")'><i class='fa fa-trash'></i></a></td>";
+                html += "<td><a href='javascript:void(0);' onclick='editRecPayment(" + elementValue.TransID + ",\"" + formatMoney(elementValue.Charge_Amount) + "\",\"" + elementValue.Transaction_DateString + "\"," + elementValue.PAID + ")'><i class='fa fa-pencil color-blue'></i></a>   <a href='javascript:void(0);' onclick='deleteRecPayment(" + elementValue.TransID + ")'><i class='fa fa-times color-red'></i></a></td>";
                 html += "</tr>";
               
                 $("#tblRecurringPayments>tbody").append(html);
