@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="panel-body">
                 <div class="row @ViewBag.CallenderHidden">
-                    <div class="col-sm-12 center">
+                    <div class="col-sm-12 center ">
                         @*<div class="col-sm-offset-4 col-sm-4">
                             <div class="col-md-12 calender-box  p-a0">*@
                         <div class="calender-box-community">
@@ -59,67 +59,67 @@
                                         <td id="zabuto_calendar_5x3_2020-01-30" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-30_day" class="day">30</div></td>
                                         <td id="zabuto_calendar_5x3_2020-01-31" class="dow-clickable"><div id="zabuto_calendar_5x3_2020-01-31_day" class="day">31</div></td>
                                         <td></td></tr></tbody></table>*@
-                                
-                                    <table>
-                                        <tr style="text-align:center;">
-                                            <th class="month-banner" colspan="7"><i style="float:left;margin:5px 15px;" class="fa fa-chevron-circle-left" id="zabuto_calendar_5x3_nav-prev"></i>DECEMBER 2019<i style="float:right;margin:5px 15px ;" id="zabuto_calendar_5x3_nav-next" class="fa fa-chevron-circle-right"></i></th>
 
-                                        </tr>
-                                        <tr>
-                                            <td>1
-                                            <td>2
-                                            <td>3
-                                            <td>4
-                                            <td>5
-                                            <td>6
-                                            <td>7
-                                        </tr>
+                                <table>
+                                    <tr style="text-align:center;">
+                                        <th class="month-banner" colspan="7"><i style="float:left;margin:5px 15px;" class="fa fa-chevron-circle-left" id="zabuto_calendar_5x3_nav-prev"></i>DECEMBER 2019<i style="float:right;margin:5px 15px ;" id="zabuto_calendar_5x3_nav-next" class="fa fa-chevron-circle-right"></i></th>
 
-                                        <tr>
-                                            <td>8
-                                            <td>9
-                                            <td>10
-                                            <td>11
-                                            <td>12
-                                            <td>13
-                                            <td>14
-                                        </tr>
+                                    </tr>
+                                    <tr>
+                                        <td>1
+                                        <td>2
+                                        <td>3
+                                        <td>4
+                                        <td>5
+                                        <td>6
+                                        <td>7
+                                    </tr>
 
-                                        <tr>
-                                            <td>15
-                                            <td>16
-                                            <td>17
-                                            <td>18
-                                            <td>19
-                                            <td>20
-                                            <td><span class="datebox1">21</span><span class="cercal1"></span>
-                                        </tr>
+                                    <tr>
+                                        <td>8
+                                        <td>9
+                                        <td>10
+                                        <td>11
+                                        <td>12
+                                        <td>13
+                                        <td>14
+                                    </tr>
 
-                                        <tr>
-                                            <td>22
-                                            <td><span class="datebox">23</span><span class="cercal2"></span>
-                                            <td>24
-                                            <td>25
-                                            <td>26
-                                            <td><span class="datebox1">27</span><span class="cercal3"></span>
-                                            <td>28
-                                        </tr>
+                                    <tr>
+                                        <td>15
+                                        <td>16
+                                        <td>17
+                                        <td>18
+                                        <td>19
+                                        <td>20
+                                        <td><span class="datebox1">21</span><span class="cercal1"></span>
+                                    </tr>
 
-                                        <tr>
-                                            <td>29
-                                            <td>30
-                                            <td>31
-                                            <td>
-                                            <td>
-                                            <td>
-                                            <td>
-                                        </tr>
+                                    <tr>
+                                        <td>22
+                                        <td><span class="datebox">23</span><span class="cercal2"></span>
+                                        <td>24
+                                        <td>25
+                                        <td>26
+                                        <td><span class="datebox1">27</span><span class="cercal3"></span>
+                                        <td>28
+                                    </tr>
 
-                                    </table>
-                                    <div class="legend" id="zabuto_calendar_5x3_legend"></div>
-                                    @*</div>
-                                        </span>*@
-                            
+                                    <tr>
+                                        <td>29
+                                        <td>30
+                                        <td>31
+                                        <td>
+                                        <td>
+                                        <td>
+                                        <td>
+                                    </tr>
+
+                                </table>
+                                <div class="legend" id="zabuto_calendar_5x3_legend"></div>
+                                @*</div>
+                                    </span>*@
+
                             </div>
 
                             @*<div class="col-sm-offset-3 col-sm-6" id="EventCatogary" style="padding-left:0px !important; margin-top: -15px !important;margin-left: 215pt;">
@@ -152,48 +152,91 @@
                 </div>
                 <div class="row">
                     <!--table heading-->
-                    <div class="col-sm-12 lead">
-                        <div class="col-sm-3 text-payment"><h3 class="m-t0">Name</h3></div>
-                        <div class="col-sm-3 border-left text-payment"><h3 class="m-t0">Day & Time</h3></div>
-                        <div class="col-sm-4 border-left text-payment"><h3 class="m-t0">Description</h3></div>
-                        <div class="col-sm-2 border-left text-payment"><h3 class="m-t0">Edit</h3></div>
-                    </div>
+                    @*<div class="row col-lg-11 col-sm-12 col-xs-12 margin-box m-t30">
+                        <div class="col-sm-3   align-left border-right text-payment"><h3 class="m-t0">Name</h3></div>
+                        <div class="col-sm-3 align-left border-right text-payment"><h3 class="m-t0">Day & Time</h3></div>
+                        <div class="col-sm-3 align-left border-right text-payment"><h3 class="m-t0">Description</h3></div>
+                        <div class="col-sm-2 align-left text-payment"><h3 class="m-t0">Edit</h3></div>
+                    </div>*@
                     <!--table data-->
                     @*<div class="col-sm-12">
-            <a href="javascript:void(0);" onclick="goToStep(7,1)">
-                <div class="col-sm-3"><b>Name</b></div>
-                <div class="col-sm-4 border-left"><b>Date &amp; Time</b></div>
-                <div class="col-sm-5 border-left"><b>Description</b></div>
-            </a>
-        </div>*@
-                    <table>
-                        <tbody id="Tbl_JoinClub">
+                            <a href="javascript:void(0);" onclick="goToStep(7,1)">
+                                <div class="col-sm-3"><b>Name</b></div>
+                                <div class="col-sm-4 border-left"><b>Date &amp; Time</b></div>
+                                <div class="col-sm-5 border-left"><b>Description</b></div>
+                            </a>
+                        </div>*@
+                    <table class="comunitytable">
+                        @*<tbody id="Tbl_JoinClub">
+            @{
+                foreach (var item in Model)
+                {
+                    <div class="row ">
+                        <div class="col-sm-9 ">
+
+                            <a href="javascript:void(0);" onclick="goToStep(6,@item.Id)">
+                                <div class="col-sm-4 border-right  text-subheding  communityname margin"><b>@item.ClubTitle</b></div>
+                                <div class="col-sm-4 border-right  text-subheding  communityname margin"><b>@item.StartDate.Date.ToString("dd/MM/yyyy") &amp; @item.Time</b></div>
+                                <div class="col-sm-4  border-right  text-subheding communityname margin"><b>@item.Description</b></div>
+                            </a>
+                        </div>
+                        <div class="col-sm-2 start"><label style="@(item.Active == true ?"color:green;font-size:16px":"color:red;font-size:16px")" >@(item.Active == true ? "Active" : "InActive")</label>@(item.Active)</div>
+                        <div class="col-sm-2 ">
+                            @if (@item.UserId == @ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID)
+                            {<a style="cursor:pointer;" class="" text-subheding" onclick="goToStep(8,@item.Id)"><i class="fa fa-edit "></i></a>}
+                        </div>
+
+                    </div>
+                }
+            }
+        </tbody>*@
+
+
+
+                        <th scope="row" class="border-box border-box2 text-payment">Name</th>
+                        <th scope="row" class="border-box border-box1 text-payment">Day & Time</th>
+                        <th scope="row" class="border-box border-box1 text-payment">Description</th>
+                        <th scope="row" class="border-box border-box1 text-payment">Edit</th>
+
+
+                        <tbody>
                             @{
                                 foreach (var item in Model)
                                 {
-                                    <div class="row">
-                                        <div class="col-sm-9">
+                                    <tr class="s-11">
+                                        <td style="width:20%;" class="table-width border-tableborder-tableborder-table">                                         
+                                            @item.ClubTitle
+                                        </td>
+                                        <td style="width:20%;" class="border-table">
+                                            @item.StartDate.Date.ToString("dd/MM/yyyy") &amp; @item.Time
+                                        </td>
 
-                                            <a href="javascript:void(0);" onclick="goToStep(6,@item.Id)">
-                                                <div class="col-sm-3 center text-subheding  communityname"><b>@item.ClubTitle</b></div>
-                                                <div class="col-sm-3 center text-subheding  communityname"><b>@item.StartDate.Date.ToString("dd/MM/yyyy") &amp; @item.Time</b></div>
-                                                <div class="col-sm-4 center  text-subheding communityname"><b>@item.Description</b></div>
-                                            </a>
-                                        </div>
-                                        <div class="col-sm-2 start"><label style="@(item.Active == true ?"color:green;font-size:16px":"color:red;font-size:16px")" >@(item.Active == true ? "Active" : "InActive")</label@(item.Active></div>
-                                        <div class="col-sm-1 center">
+                                        <td style="width:15%;" class="border-table">
+                                            @item.Description
+                                        </td>
+
+                                        <td style="width:10%;" class="border-table">
                                             @if (@item.UserId == @ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID)
-                                            {<a style="cursor:pointer;" class="text-subheding" onclick="goToStep(8,@item.Id)"><i class="fa fa-edit "></i></a>}
-                                        </div>
+                                            {
+                                                <a style="cursor:pointer;" class="" text-subheding border-table" onclick="goToStep(8,@item.Id)"><i class="fa fa-edit "></i></a>
+                                            }
+                                        </td>
 
-                                    </div>
+
+                                    </tr>
                                 }
+
+
                             }
                         </tbody>
+
                     </table>
                 </div>
-                </div>
+            </div>
         </div>
     </div>
 </div>
 <script src="~/Areas/Tenant/Content/Pages/MyCommunity/MyCommunity.js"></script>
+
+
+

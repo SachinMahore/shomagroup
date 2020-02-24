@@ -6,6 +6,38 @@
   font-family: Futura Medium;
 }
 
+.calendar-month-header {
+    background: #4D738A !important;
+    color: #fff;
+    text-shadow: none;
+    border: 1px solid #4D738A !important;
+}
+
+    .calendar-month-header td {
+        color: white;
+        border: 1px solid #4D738A !important;
+    }
+
+.calendar-dow td
+{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.pad10TopBottom
+{
+    padding-top: 10px;
+    padding-bottom : 10px;
+}
+
+.calendar-month-navigation {
+    text-align: center;
+}
+
+.zabuto_calendar .table-bordered {
+    /*border: 3px solid #B7B0A7 !important;*/
+    height: 100% !important;
+}
 @font-face {
   font-family: Futura Bold;
   src: url('../font/Futura Bold.otf');
@@ -1458,15 +1490,7 @@ textarea::-webkit-input-placeholder {
   padding: 1px 10px;
 }
 
-.icheckbox_square-yellow.checked {
-  float: left;
-  width: 28px;
-  border-width: initial;
-  border-style: none;
-  border-color: initial;
-  border-image: initial;
-  margin: 2px 20px;
-}
+
 
 .form-control-box {
   display: block;
@@ -1593,11 +1617,9 @@ textarea::-webkit-input-placeholder {
 }
 table {
   border-collapse: collapse;
-  width: 96%;
 }
 td {
   padding: 4px 8px;
-  border: 1px solid #dedcdc;
   font-size: 20px;
   color: #000000;
   width: 14%;
@@ -1702,6 +1724,27 @@ span.cercal3 {
   border-radius: 50%;
   padding: 0px 9px;
   margin: 5px;
+}
+
+.dot-today {
+    /* width: 10px; */
+    /* height: 10px; */
+    background: #B3ADA6;
+    border-radius: 8px;
+    padding: 2px 5px;
+    /* margin: 5px; */
+    color: white;
+}
+
+.event-box {
+    width: 20%;
+    height: auto;
+    background: gray;
+    float: left;
+    border-radius: 50%;
+    margin: 2px;
+    margin-top: 5px;
+    padding: 10%;
 }
 
 .Wraper {
@@ -3503,8 +3546,26 @@ button:hover {
       margin-top: 25px;
     }
 
-    .icheckbox_square-yellow.checked {
-      margin: 2px 0px;
-    }
+   
   }
 
+th.border-box1 {
+    border: none;
+    border-left: 1px solid #dedcdc;
+}
+th.border-box2 {
+    border: none;
+    border-left: 0px solid #dedcdc;
+}
+td {
+    padding: 4px 8px;
+    font-size: 20px;
+    color: #000000;
+    width: 14%;
+    font-family: HelveticaNeue;
+
+}
+
+    td.border-table {
+        border-left: 1px solid #dedcdc;
+    }
