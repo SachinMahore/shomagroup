@@ -190,7 +190,7 @@
                                                     CVV Number:
                                                 </td>
                                                 <td>
-                                                    <input id="txtCVVNumberPayRentOnline" type="password" class="form-control form-control-small" maxlength="3" value="" style="width:50% !important" onkeypress="return isOnlyNumber(event);" />
+                                                    <input id="txtCVVNumberPayRentOnline" type="password" class="form-control form-control-small hidden" maxlength="3" value="" style="width:50% !important" onkeypress="return isOnlyNumber(event);" />
                                                 </td>
                                             </tr>
                                             <tr>
@@ -513,9 +513,12 @@
             msg += "Select Payment Method</br>";
         }
         if ($('#ddlPaymentMethod').find(':selected').data('value') == '1') {
+            $("#txtCVVNumberPayRentOnline").removeClass("hidden");
             if ($("#txtCVVNumberPayRentOnline").val() == '') {
                 msg += "Enter CVV Number</br>";
             }
+        } else {
+            $("#txtCVVNumberPayRentOnline").addClass("hidden");
         }
         if (msg != "") {
             $.alert({

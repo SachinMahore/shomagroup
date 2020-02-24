@@ -64,5 +64,19 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult DeleteService(long IssueID)
+        {
+            try
+            {
+                return Json(new { model = new ServiceIssueModel().DeleteService(IssueID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
     }
 }

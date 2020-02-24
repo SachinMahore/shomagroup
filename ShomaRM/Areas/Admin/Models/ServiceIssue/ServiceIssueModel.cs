@@ -174,7 +174,26 @@ namespace ShomaRM.Areas.Admin.Models
                 throw ex;
             }
         }
-    }
+        public string DeleteService(long IssueID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string msg = "";
+
+            if (IssueID != 0)
+            {
+                var IssueIDData = db.tbl_Issue.Where(p => p.IssueID == IssueID).FirstOrDefault();
+                if (IssueIDData != null)
+                {
+                    db.tbl_Issue.Remove(IssueIDData);
+                    db.SaveChanges();
+                    msg = "Service  Issue  Removed Successfully";
+                }
+            }
+            db.Dispose();
+            return msg;
+        }
+    
+}
     public class SIListModel
     {
         public int IssueID { get; set; }

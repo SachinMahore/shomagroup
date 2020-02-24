@@ -23,6 +23,9 @@ var saveupdateProspect = function () {
     var msg = "";
     var salesAgent = $("#ddlAgentAssign").val();
     var prospectId = $("#hndProspectID").val();
+    var appDate = $("#txtAppointmentDate").text();
+    alert(appDate);
+    alert(prospectId);
     if (salesAgent == "0") {
         msg += "Select the sales Agent</br>";
     }
@@ -34,7 +37,7 @@ var saveupdateProspect = function () {
         });
         return;
     }
-    var model = { SalesAgent: salesAgent, ProspectId: prospectId};
+    var model = { AssignAgentID: salesAgent, PID: prospectId, RequiredDateText: appDate};
     $.ajax({
         url: "/ProspectManagement/SaveProspectForm/",
         type: "post",

@@ -1095,140 +1095,140 @@
             </div>
         </div>
 
-    </div>
-    <div class="hidden" id="step6">
-        <ul class="nav nav-tabs nact">
-            <li id="myLeaseDocuments1" class="active1"><a href="javascript:void(0);" onclick="goToMyLeaseDocuments(1)" style="font-size:12pt;">My Lease Documents</a></li>
-        </ul>
-        <div class="" id="leaseDocStep1">
-            <div class="col-md-12">
-                <div class="panel-heading">
-                    <h4 style="margin-top: 2%;margin-bottom: 2%;font-size: 12pt;color:#4D738A !important; ">My Documents</h4>
-                </div>
-                <div class="panel-group" id="accordion">
-                    <div class="panel panel-default" style="border:0.1px solid;border-color:#ddd;">
-                        <div class="panel-heading" style="background-color:transparent;border-bottom: 0.1px solid;border-color: #ddd;">
-                            <h3 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Lease Document<i class="fa fa-angle-down pull-right"></i></a>
-                            </h3>
-                        </div>
-                        <div id="collapse1" class="panel-collapse collapse">
-                            <div class="panel panel-default">
-                                <div class="panel-heading" id="accordionSubLeaseDocument" style="background-color:transparent"></div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default" style="border:0.1px solid;border-color:#ddd;">
-                        <div class="panel-heading" style="background-color:transparent;border-bottom: 0.1px solid;border-color: #ddd;">
-                            <h3 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Personal Identity<i class="fa fa-angle-down pull-right"></i></a>
-                            </h3>
-                        </div>
-                        <div id="collapse2" class="panel-collapse collapse">
-                            <div class="panel panel-default">
-                                <div class="panel-heading" id="accordionSubIdentity" style="background-color:transparent"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default" style="border:0.1px solid;border-color:#ddd;">
-                        <div class="panel-heading" style="background-color:transparent;border-bottom: 0.1px solid;border-color: #ddd;">
-                            <h3 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Pay Stub/Tax Return<i class="fa fa-angle-down pull-right"></i></a>
-                            </h3>
-                        </div>
-                        <div id="collapse3" class="panel-collapse collapse">
-                            <div class="panel panel-default">
-                                <div class="panel-heading" id="accordionSubTaxReturn" style="background-color:transparent"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default" style="border:0.1px solid;border-color:#ddd;">
-                        <div class="panel-heading" style="background-color:transparent;border-bottom: 0.1px solid;border-color: #ddd;">
-                            <h3 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Pets<i class="fa fa-angle-down pull-right"></i></a>
-                            </h3>
-                        </div>
-                        <div id="collapse4" class="panel-collapse collapse">
-                            <div class="panel panel-default">
-                                <div class="panel-heading" id="accordionSubPetCertificate" style="background-color:transparent"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default" style="border:0.1px solid;border-color:#ddd;">
-                        <div class="panel-heading" style="background-color:transparent;border-bottom: 0.1px solid;border-color: #ddd;">
-                            <h3 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Vehicle<i class="fa fa-angle-down pull-right"></i></a>
-                            </h3>
-                        </div>
-                        <div id="collapse5" class="panel-collapse collapse">
-                            <div class="panel panel-default">
-                                <div class="panel-heading" id="accordionSubVehicleCertificate" style="background-color:transparent"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="hidden" id="step7">
-        <div class="col-sm-12">
-            <input id="hdnGuestId" type="hidden" value="0" />
-            <input id="hdnTagGuestId" type="hidden" value="0" />
-            <button type="submit" class="btn-blue pull-right text-center" onclick="printGuest('PrintGuest')"><i class="fa fa-print"></i> Print</button>
-        </div>
-        <div class="col-sm-12">
-            <div id="PrintGuest" style="overflow: hidden !important;">
-                <h4 class="text-center" style="color:#4d738a;">GUEST REGISTRATION FORM</h4>
-                <h5 class="text-center" style="text-decoration:underline;font-size: 12pt;">(Registration is only necessary for guests staying overnight)</h5>
-                <br />
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <div class="col-sm-2">
-                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">GUEST NAME:</label>
-                                </div>
-                                <div class="col-sm-4">
-                                    <input type="text" id="txtGuestFirstName" onchange="copyGuestName();" /><hr />
-                                </div>
-                                <div class="col-sm-2">
-                                    <label style="color:#4D738A !important;font-size:11pt;">LAST NAME:</label>
-                                </div>
-                                <div class="col-sm-4" style="margin-left: -29px;">
-                                    <input type="text" id="txtGuestLastName" onchange="copyGuestName();" /><hr />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <div class="col-sm-2">
-                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">GUEST ADDRESS:</label>
-                                </div>
-                                <div class="col-sm-4">
-                                    &nbsp;<textarea id="txtGuestAddress" style="width:98%; min-height:90px; border: none;"></textarea><hr />
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <label style="color:#4D738A !important;font-size:11pt;" class="star">PHONE#:</label>
+                            <div class="hidden" id="step6">
+                                <ul class="nav nav-tabs nact">
+                                    <li id="myLeaseDocuments1" class="active1"><a href="javascript:void(0);" onclick="goToMyLeaseDocuments(1)" style="font-size:12pt;">My Lease Documents</a></li>
+                                </ul>
+                                <div class="" id="leaseDocStep1">
+                                    <div class="col-md-12">
+                                        <div class="panel-heading">
+                                            <h4 style="margin-top: 2%;margin-bottom: 2%;font-size: 12pt;color:#4D738A !important; ">My Documents</h4>
                                         </div>
-                                        <div class="col-sm-8" style="margin-left: -29px;">
-                                            <input type="text" id="txtGuestPhone" maxlength="10" onkeypress="return isOnlyNumber(event);" /><hr>
-                                        </div>
-                                    </div>
-                                    <br />
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <label style="color:#4D738A !important;font-size:11pt;" class="star">EMAIL:</label>
-                                        </div>
-                                        <div class="col-sm-8" style="margin-left: -29px;">
-                                            <input type="text" id="txtGuestEmail" /><hr />
+                                        <div class="panel-group" id="accordion">
+                                            <div class="panel panel-default accordian-border-group">
+                                                <div class="panel-heading accordian-border">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Lease Document<i class="fa fa-angle-down pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse1" class="panel-collapse collapse">
+                                                    <div class="panel panel-default ">
+                                                        <div class="panel-heading " id="accordionSubLeaseDocument"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default accordian-border-group">
+                                                <div class="panel-heading accordian-border">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Personal Identity<i class="fa fa-angle-down pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse2" class="panel-collapse collapse">
+                                                    <div class="panel panel-default ">
+                                                        <div class="panel-heading " id="accordionSubIdentity"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default accordian-border-group">
+                                                <div class="panel-heading accordian-border">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Pay Stub/Tax Return<i class="fa fa-angle-down pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse3" class="panel-collapse collapse">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading" id="accordionSubTaxReturn"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default accordian-border-group">
+                                                <div class="panel-heading accordian-border">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Pets<i class="fa fa-angle-down pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse4" class="panel-collapse collapse">
+                                                    <div class="panel panel-default ">
+                                                        <div class="panel-heading " id="accordionSubPetCertificate"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default accordian-border-group">
+                                                <div class="panel-heading accordian-border">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Vehicle<i class="fa fa-angle-down pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse5" class="panel-collapse collapse">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading" id="accordionSubVehicleCertificate" style="background-color:transparent"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="hidden" id="step7">
+                                <div class="col-sm-12">
+                                    <input id="hdnGuestId" type="hidden" value="0" />
+                                    <input id="hdnTagGuestId" type="hidden" value="0" />
+                                   
+                                </div>
+                                <div class="col-sm-12">
+                                    <div id="PrintGuest" style="overflow: hidden !important;">
+                                        <h4 class="text-center" style="color:#4d738a;">GUEST REGISTRATION FORM</h4>
+                                        <h5 class="text-center" style="text-decoration:underline;font-size: 12pt;">(Registration is only necessary for guests staying overnight)</h5>
+                                        <br />
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-2">
+                                                            <label style="color:#4D738A !important;font-size:11pt;" class="star">GUEST NAME:</label>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" id="txtGuestFirstName" onchange="copyGuestName();" /><hr />
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <label style="color:#4D738A !important;font-size:11pt;">LAST NAME:</label>
+                                                        </div>
+                                                        <div class="col-sm-4" style="margin-left: -29px;">
+                                                            <input type="text" id="txtGuestLastName" onchange="copyGuestName();" /><hr />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-2">
+                                                            <label style="color:#4D738A !important;font-size:11pt;" class="star">GUEST ADDRESS:</label>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            &nbsp;<textarea id="txtGuestAddress" style="width:98%; min-height:90px; border: none;"></textarea><hr />
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="row">
+                                                                <div class="col-sm-4">
+                                                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">PHONE#:</label>
+                                                                </div>
+                                                                <div class="col-sm-8" style="margin-left: -29px;">
+                                                                    <input type="text" id="txtGuestPhone" maxlength="10" onkeypress="return isOnlyNumber(event);" /><hr>
+                                                                </div>
+                                                            </div>
+                                                            <br />
+                                                            <div class="row">
+                                                                <div class="col-sm-4">
+                                                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">EMAIL:</label>
+                                                                </div>
+                                                                <div class="col-sm-8" style="margin-left: -29px;">
+                                                                    <input type="text" id="txtGuestEmail" /><hr />
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
                             </div>
                         </div>
@@ -1580,34 +1580,34 @@
                                 {
                                     <option value="@(i.ToString().Substring(2,2))">@i</option>
 
-                                }
-                            </select>
+                                       }
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row hidden" id="DivPayMethodBankAccount">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="star">Bank Name</label>
-                            <input id="txtBankNamePayMethod" type="text" class="form-control" placeholder="Bank Name" value="">
+                        <div class="row hidden" id="DivPayMethodBankAccount">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="star">Bank Name</label>
+                                    <input id="txtBankNamePayMethod" type="text" class="form-control" placeholder="Bank Name" value="">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="star">Account Number</label>
+                                    <input id="txtAccountNumberPayMethod" type="text" class="form-control" placeholder="Account Number" maxlength="10" value="" onkeypress="return isOnlyNumber(event)">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="star">Routing Number</label>
+                                    <input id="txtRoutingNumberPayMethod" type="text" class="form-control" placeholder="Routing Number" maxlength="9" value="" onkeypress="return isOnlyNumber(event)">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="star">Account Number</label>
-                            <input id="txtAccountNumberPayMethod" type="text" class="form-control" placeholder="Account Number" maxlength="29" value="" onkeypress="return isOnlyNumber(event)">
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="star">Routing Number</label>
-                            <input id="txtRoutingNumberPayMethod" type="text" class="form-control" placeholder="Routing Number" value="" onkeypress="return isOnlyNumber(event)">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
 
                             <button id="btnCloseAddNewPaymentAccount" type="button" class="btn btn-primary pull-right" data-dismiss="modal" style="margin-left: 10px;">Close</button>
                             <button id="btnSaveAddNewPaymentAccount" type="button" class="btn btn-primary pull-right" onclick="savePaymentAccounts();">Save</button>
@@ -2806,12 +2806,12 @@
         });
 
 
-        $("#txtChargeDate").datepicker();
-        $("#txtGuestVistStartDate").datepicker({ dateFormat: "MM/dd/yyyy" }).on('change', function (ev) {
-            $("#txtGuestVistEndDate").val('');
-            var startDate = $(this).val();
-            var endDate = $('#txtGuestVistStartDate').datepicker('getDate');
-            endDate.setDate(endDate.getDate() + 9);
+            $("#txtChargeDate").datepicker();
+            $("#txtGuestVistStartDate").datepicker({ dateFormat: "MM/dd/yyyy", startDate: new Date() }).on('change', function (ev) {
+                $("#txtGuestVistEndDate").val('');
+                var startDate = $(this).val();
+                var endDate = $('#txtGuestVistStartDate').datepicker('getDate');
+                endDate.setDate(endDate.getDate() + 9);
 
             $("#txtGuestVistEndDate").datepicker('setStartDate', startDate);
             $("#txtGuestVistEndDate").datepicker('setEndDate', endDate);
@@ -3164,6 +3164,16 @@
             background-color: white !important;
             z-index: 777 !important;
             padding-right: 30px !important;
+        }
+        .accordian-border-group {
+            border: 1px solid !important;
+            border-color: #ddd !important;
+        }
+
+        .accordian-border {
+            background-color: transparent !important;
+            border: 0.1px solid !important;
+            border-color: #ddd;
         }
     </style>
     <style>

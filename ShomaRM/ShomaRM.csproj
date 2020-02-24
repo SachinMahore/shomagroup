@@ -18,10 +18,10 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressSSLPort>53673</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -91,6 +91,7 @@
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.4.0\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
@@ -143,6 +144,15 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Twilio, Version=5.33.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.5.33.1\lib\net451\Twilio.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.AspNet.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.AspNet.Common.5.33.1\lib\net45\Twilio.AspNet.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.AspNet.Mvc, Version=5.33.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.AspNet.Mvc.5.33.1\lib\net451\Twilio.AspNet.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="USAePayAPI, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\USAePayAPI.dll</HintPath>
@@ -310,6 +320,7 @@
     <Compile Include="Controllers\Property\PropertyController.cs" />
     <Compile Include="Controllers\Prospect\ProspectController.cs" />
     <Compile Include="Controllers\ShomaGroupWebAuthorizationController.cs" />
+    <Compile Include="Controllers\Test1Controller.cs" />
     <Compile Include="Controllers\Verification\VerificationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -322,6 +333,10 @@
     <Compile Include="Models\ApplyNow\CheckListModel.cs" />
     <Compile Include="Models\ApplyNow\OnlineProspectModule.cs" />
     <Compile Include="Models\AquatraqHelper.cs" />
+    <Compile Include="Models\Bluemoon\BluemoonService.cs" />
+    <Compile Include="Models\Bluemoon\IBluemoonService.cs" />
+    <Compile Include="Models\Bluemoon\LeaseRequestModel.cs" />
+    <Compile Include="Models\Bluemoon\ResponseModel.cs" />
     <Compile Include="Models\CommonModel.cs" />
     <Compile Include="Models\Property\PropertyModel.cs" />
     <Compile Include="Models\Prospect\ProspectModel.cs" />
@@ -335,6 +350,7 @@
     <Compile Include="Models\ShomaGroupWebSession.cs" />
     <Compile Include="Models\TenantOnline\TenantOnlineModel.cs" />
     <Compile Include="Models\Transaction\UsaePayModel.cs" />
+    <Compile Include="Models\TwilioApi\TwilioService.cs" />
     <Compile Include="Models\Verification\VerificationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -811,6 +827,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="VoiceMessage.xml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -857,6 +874,7 @@
     <Folder Include="Content\assets\img\property-1\" />
     <Folder Include="Content\assets\img\slide1\" />
     <Folder Include="Views\ShomaGroupWebAuthorization\" />
+    <Folder Include="Views\Test1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

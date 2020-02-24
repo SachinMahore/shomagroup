@@ -40,11 +40,11 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult SaveProspectForm(long SalesAgent,long ProspectId)
+        public ActionResult SaveProspectForm(ProspectManagementModel model)
         {
             try
             {
-                return Json(new { model = new ProspectManagementModel().SaveProspectForm(SalesAgent, ProspectId) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = new ProspectManagementModel().SaveProspectForm(model) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

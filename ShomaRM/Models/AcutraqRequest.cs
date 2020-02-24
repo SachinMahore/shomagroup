@@ -1,8 +1,10 @@
-﻿using System;
+﻿using ShomaRM.Models.Bluemoon;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -10,6 +12,7 @@ namespace ShomaRM.Models
 {
     public class AcutraqRequest
     {
+
         public async Task<OrderXML>   PostAqutraqRequest(TenantOnlineModel data)
         {
             var _objAcqutraqOrder = new OrderXML();
@@ -20,7 +23,7 @@ namespace ShomaRM.Models
             Authentication.Password = "Shom@Group2019!!";
             _objAcqutraqOrder.Authentication = Authentication;
             _objAcqutraqOrder.TestMode = "Yes";
-            _objAcqutraqOrder.ReturnResultURL = "http://thinkersteps.com/contact.html";
+            _objAcqutraqOrder.ReturnResultURL = "http://52.4.251.162:8086/";
             var _objorder = new Order();
             _objorder.BillingReferenceCode = "000-0000";
             var _objsubject = new Subject();
@@ -39,7 +42,7 @@ namespace ShomaRM.Models
             CurrentAddress.City = data.CityHome;
             CurrentAddress.State =data.StateHomeString;
             CurrentAddress.Zipcode = data.ZipHome;
-            CurrentAddress.Country = "India";
+            CurrentAddress.Country = "USA";
             _objsubject.CurrentAddress = CurrentAddress;
             _objorder.Subject = _objsubject;
             _objorder.PackageServiceCode = "CCEE";
@@ -47,7 +50,7 @@ namespace ShomaRM.Models
             //employee
             var _objorderdetails = new OrderDetailEMP();
             _objorderdetails.ServiceCode = "EMPVR";
-            _objorderdetails.OrderId = "123456";
+            _objorderdetails.OrderId = data.ProspectID.ToString();
             _objorderdetails.CompanyName =data.EmployerName;
             _objorderdetails.Position = data.JobTitle;
             _objorderdetails.Salary =data.Income.ToString();
@@ -58,7 +61,7 @@ namespace ShomaRM.Models
              var _objEmploymentDates = new EmploymentDates();
             _objEmploymentDates.StartDate = data.StartDateTxt;
 
-            _objEmploymentDates.EndDate = "10/10/2019";
+            _objEmploymentDates.EndDate = "10/10/2020";
             _objorderdetails.EmploymentDates = _objEmploymentDates;
             _objorderdetails.ReasonForLeaving = "Test";
             _objorder.OrderDetailEMP = _objorderdetails;
@@ -66,17 +69,17 @@ namespace ShomaRM.Models
             var _objCriminal = new OrderDetailCriminal();
             _objCriminal.state = data.StateHomeString;
             _objCriminal.ServiceCode = "MULTISTATEEVICT";
-            _objCriminal.OrderId = "123456";
+            _objCriminal.OrderId = data.ProspectID.ToString();
             _objorder.OrderDetailCriminal = _objCriminal;
 
 
             var _objCredit = new OrderDetailCredit();
             _objCredit.ServiceCode = "CREDITTUVANT";
-            _objCredit.OrderId = "123456";
+            _objCredit.OrderId = data.ProspectID.ToString();
             _objorder.OrderDetailCredit = _objCredit;
 
             string Serialisexml = AquatraqHelper.Serialize(_objAcqutraqOrder);
-            Serialisexml = AquatraqHelper.SetAttributeValue(Serialisexml, "123456");
+            Serialisexml = AquatraqHelper.SetAttributeValue(Serialisexml, data.ProspectID.ToString());
             var keyValues = new List<KeyValuePair<string, string>>();
             keyValues.Add(new KeyValuePair<string, string>("request", Serialisexml));
 
@@ -88,13 +91,13 @@ namespace ShomaRM.Models
                     string serviceCode = item.Attribute("EMPVR").Value;
                     string orderID = item.Attribute("orderID").Value;
                     string CRAorderID = item.Attribute("CRAorderID").Value;
-
                     
                 }
             }
             return null;
         }
         public async Task<OrderXML> PostAqutraqRequestOld(object data)
+
         {
             var _objAcqutraqOrder = new OrderXML();
             _objAcqutraqOrder.Method = "SEND ORDER";
@@ -140,8 +143,10 @@ namespace ShomaRM.Models
             _objorderdetails.EmployerCity = "Nagpur";
             _objorderdetails.EmployerState = "Nagpur";
             var _objEmploymentDates = new EmploymentDates();
+
             _objEmploymentDates.StartDate = "01/01/2018";
             _objEmploymentDates.EndDate = "10/10/2020";
+
             _objorderdetails.EmploymentDates = _objEmploymentDates;
             _objorderdetails.ReasonForLeaving = "Test";
             _objorder.OrderDetailEMP = _objorderdetails;
@@ -160,6 +165,7 @@ namespace ShomaRM.Models
 
             string Serialisexml = AquatraqHelper.Serialize(_objAcqutraqOrder);
             Serialisexml = AquatraqHelper.SetAttributeValue(Serialisexml, "123456");
+
             var keyValues = new List<KeyValuePair<string, string>>();
             keyValues.Add(new KeyValuePair<string, string>("request", Serialisexml));
 
@@ -172,11 +178,11 @@ namespace ShomaRM.Models
                     string orderID = item.Attribute("orderID").Value;
                     string CRAorderID = item.Attribute("CRAorderID").Value;
 
-
                 }
             }
             return null;
         }
+
         public class OrderXML
         {
             public string Method { get; set; }
@@ -184,7 +190,7 @@ namespace ShomaRM.Models
             public string TestMode { get; set; }
             public string ReturnResultURL { get; set; }
             public string OrderingUser { get; set; }
-          
+
             public Order Order { get; set; }
 
         }
@@ -203,7 +209,7 @@ namespace ShomaRM.Models
             public OrderDetailCriminal OrderDetailCriminal { get; set; }
             public OrderDetailCredit OrderDetailCredit { get; set; }
 
-          
+
             public OrderDetailResponse OrderDetail { get; set; }
         }
         public class OrderDetailResponse
@@ -217,7 +223,7 @@ namespace ShomaRM.Models
             [XmlAttribute("CRAorderID")]
             public string CRAorderID { get; set; }
         }
-            public class Subject
+        public class Subject
         {
             public string FirstName { get; set; }
             public string MiddleName { get; set; }
@@ -270,7 +276,7 @@ namespace ShomaRM.Models
             public string ReasonForLeaving { get; set; }
 
         }
-       
+
         public class EmploymentDates
         {
             public string StartDate { get; set; }
@@ -317,9 +323,9 @@ namespace ShomaRM.Models
         }
     }
 
-  
 
-   
 
-    
+
+
+
 }

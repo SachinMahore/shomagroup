@@ -86,11 +86,10 @@
                                         <div class="form-group">
                                             <div class="">
                                                 @*<a href="javascript:void(0)" id="btnDownloadLeaseDocument" class="btn btn-primary" onclick="saveLeaseDoc()">Review and Sign Your Online Leasing Application</a>*@
-                                                <label class="info-text pull-left hidden" style="color:#4d738a" id="lblsignin">Your Lease Agreement Signing has been successfull. Please click on continue button.</label>
-
-                                                <input type="submit" value="Review and Sign Your Online Leasing Application!" id="btnDownloadLeaseDocument"
-                                                       style="width:23em;height:2em;background:#4D738A;color:white;font:bold 1.5em arial;margin: 3em;" onclick="location.href='@Url.Action("OnPostAsyncLease","EmbeddedSigning")'" />
-                                                <input type="submit" class="btn btn-primary" width="300" style="width: 300px;" id="btnleaseDownl" onclick="getDocuDoc()" value="Download Leasing Application" />
+                                                <span class="hidden" style="color:#4d738a" id="lblLeaseStatus"> Your Lease Agreement already Generated and processed at Bluemoon. Lease ID:</span> <span  style="color:#4d738a" id="lblLeaseNo"></span>
+                                                <br /><br />
+                                                <input type="submit" class="btn btn-primary pull-right" width="400" style="width: 400px;" value="Edit Your Online Leasing Application!" id="btnDownloadLeaseDocument" onclick="location.href='@Url.Action("LeaseBlumoon","CheckList")'" />
+                                                <input type="submit" class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="location.href='@Url.Action("GetLeaseDocBlumoon","CheckList")'"  value="Download Leasing Application" disabled/>
                                             </div>
                                         </div>
                                     </div>
@@ -311,11 +310,18 @@
                         <div class="form-group col-sm-2">
                             <label for="cardmonth">Card Month</label>
                             <select id="ddlcardmonth" class="form-control form-control-small">
-                                @for (int i = 1; i <= 12; i++)
-                                {
-                                    <option value="@(i.ToString("00"))">@i</option>
-
-                                }
+                                <option value='01'>01</option>
+                                <option value='02'>02</option>
+                                <option value='03'>03</option>
+                                <option value='04'>04</option>
+                                <option value='05'>05</option>
+                                <option value='06'>06</option>
+                                <option value='07'>07</option>
+                                <option value='08'>08</option>
+                                <option value='09'>09</option>
+                                <option value='10'>10</option>
+                                <option value='11'>11</option>
+                                <option value='12'>12</option>
                             </select>
                         </div>
                         <div class="form-group col-sm-2">
@@ -485,6 +491,12 @@
                 $("#lblmoveincharge").text(response.model.MoveInCharges);
                 $("#txtPayment").val(response.model.MoveInCharges);
                 $("#hndPID").val(response.model.PropertyId);
+                $("#lblLeaseNo").text(response.model.EnvelopeID);
+                if (response.model.EnvelopeID!="")
+                {
+                    $("#lblLeaseStatus").removeClass("hidden");
+                    $("#btnleaseDownl").removeAttr("disabled");
+                }
             }
         });
     };
@@ -919,11 +931,11 @@
     var getDocuDoc = function () {
 
         $("#divLoader").show();
-        //var param = { EnvelopeID: envelopeID };
+        var param = { UserID: $("#hndUID").val()};
         $.ajax({
-            url: "/EmbeddedSigning/GetDocuDoc",
+            url: "/EmbeddedSigning/GetDocuDocLease",
             method: "post",
-            //data: JSON.stringify(param),
+            data: JSON.stringify(param),
             contentType: "application/json; charset=utf-8", // content type sent to server
             dataType: "json", //Expected data format from server
             success: function (response) {

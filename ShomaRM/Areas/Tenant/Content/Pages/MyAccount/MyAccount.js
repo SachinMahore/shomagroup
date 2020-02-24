@@ -5567,7 +5567,7 @@ var savupdateAmenityReservation = function (printBtnID) {
         desireTimeFrom = $("#txtDesiredTimeBBQFrom").val();
         desireTimeTo = $("#txtDesiredTimeBBQTo").val();
 
-        if ($('input[type=radio][name=hours]').is(':checked') == false) {
+        if ($('input[type=radio][name=hoursBBQ]').is(':checked') == false) {
             msg += "Please select any one of the reservation.</br>";
         }
 
@@ -5589,8 +5589,8 @@ var savupdateAmenityReservation = function (printBtnID) {
         }
         else {
             $("#divLoader").show();
-            if ($('input[type=radio][name=hours]').is(':checked')) {
-                selectedID = selectedID = $('input[type=radio][name=hours]:checked').attr("id");
+            if ($('input[type=radio][name=hoursBBQ]').is(':checked')) {
+                selectedID = selectedID = $('input[type=radio][name=hoursBBQ]:checked').attr("id");
                 if (selectedID == "2h50depo") {
                     depositeFee = 200;
                     reservationFee = 100;

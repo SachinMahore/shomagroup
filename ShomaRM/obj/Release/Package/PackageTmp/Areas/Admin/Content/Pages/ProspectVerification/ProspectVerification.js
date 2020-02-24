@@ -1743,8 +1743,8 @@ var getTransationLists = function (userid) {
               
                 //html += "<td>" + elementValue.TenantIDString + "</td>";
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                html += "<td>$" + elementValue.Charge_Amount + "</td>";
-                html += "<td>$" + elementValue.Credit_Amount + "</td>";
+                html += "<td>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
+                html += "<td>$" + formatMoney(elementValue.Credit_Amount) + "</td>";
                 html += "<td>" + elementValue.Transaction_Type + "</td>";
               
                 html += "<td>" + elementValue.Description + "</td>";
@@ -4043,17 +4043,17 @@ $(function () {
 
 var getDocuDoc = function (envelopeID) {
 
-    $("#divLoader").show();
-    var param = { EnvelopeID: envelopeID };
+  
+    var param = { LeaseId: envelopeID };
     $.ajax({
-        url: "/EmbeddedSigning/GetDocuDoc",
+        url: "/CheckList/GetLeaseDocBlumoonAdm",
         method: "post",
         data: JSON.stringify(param),
         contentType: "application/json; charset=utf-8", // content type sent to server
         dataType: "json", //Expected data format from server
         success: function (response) {
-            $("#divLoader").hide();
-            window.open("/Content/assets/img/Document/" + response.result, "popupWindow", "width=900,height=600,scrollbars=yes");
+           // $("#divLoader").hide();
+           // window.open("/Content/assets/img/Document/" + response.result, "popupWindow", "width=900,height=600,scrollbars=yes");
             //signLeaseDoc(response.result);
         }
     });

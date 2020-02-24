@@ -160,19 +160,19 @@
                     </div>
                     <!--table data-->
                     @*<div class="col-sm-12">
-                            <a href="javascript:void(0);" onclick="goToStep(7,1)">
-                                <div class="col-sm-3"><b>Name</b></div>
-                                <div class="col-sm-4 border-left"><b>Date &amp; Time</b></div>
-                                <div class="col-sm-5 border-left"><b>Description</b></div>
-                            </a>
-                        </div>*@
+            <a href="javascript:void(0);" onclick="goToStep(7,1)">
+                <div class="col-sm-3"><b>Name</b></div>
+                <div class="col-sm-4 border-left"><b>Date &amp; Time</b></div>
+                <div class="col-sm-5 border-left"><b>Description</b></div>
+            </a>
+        </div>*@
                     <table>
                         <tbody id="Tbl_JoinClub">
                             @{
                                 foreach (var item in Model)
                                 {
                                     <div class="row">
-                                        <div class="col-sm-10">
+                                        <div class="col-sm-9">
 
                                             <a href="javascript:void(0);" onclick="goToStep(6,@item.Id)">
                                                 <div class="col-sm-3 center text-subheding  communityname"><b>@item.ClubTitle</b></div>
@@ -180,7 +180,8 @@
                                                 <div class="col-sm-4 center  text-subheding communityname"><b>@item.Description</b></div>
                                             </a>
                                         </div>
-                                        <div class="col-sm-2 left">
+                                        <div class="col-sm-2 start"><label style="@(item.Active == true ?"color:green;font-size:16px":"color:red;font-size:16px")" >@(item.Active == true ? "Active" : "InActive")</label@(item.Active></div>
+                                        <div class="col-sm-1 center">
                                             @if (@item.UserId == @ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID)
                                             {<a style="cursor:pointer;" class="text-subheding" onclick="goToStep(8,@item.Id)"><i class="fa fa-edit "></i></a>}
                                         </div>
@@ -191,7 +192,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+                </div>
         </div>
     </div>
 </div>

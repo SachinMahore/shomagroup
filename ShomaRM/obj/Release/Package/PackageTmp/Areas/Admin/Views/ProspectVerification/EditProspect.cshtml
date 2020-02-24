@@ -2143,7 +2143,7 @@
                                         @*<a href="javascript:void(0)" id="btnDownloadLeaseDocument" class="btn btn-primary" onclick="saveLeaseDoc()">Review and Sign Your Online Leasing Application</a>*@
                                         <label class="info-text pull-left hidden" style="color:#4d738a" id="lblsignin">Your Lease Agreement Signing has been successfull. Please click on continue button.</label>
 
-                                        <input type="submit" class="btn btn-primary" width="300" style="width: 300px;" id="btnleaseDownl" onclick="getDocuDoc('@Model.EnvelopeID')" value="Download Leasing Application" />
+                                        <input type="submit" class="btn btn-primary" width="300" style="width: 300px;" id="btnleaseDownl"  onclick="location.href='@Url.Action("GetLeaseDocBlumoonAdm","ProspectVerification",new { LeaseId = Model.EnvelopeID })'"  value="Download Leasing Application" />
                                     </div>
                                 </div>
                             </div>
