@@ -265,7 +265,7 @@ $.fn.zabuto_calendar = function (options) {
                 var $dowRow = $('<tr class="calendar-dow"></tr>');
                 for (var dow = 0; dow < 7; dow++) {
                     if (dow < firstDow || currDayOfMonth > lastDayinMonth) {
-                        $dowRow.append('<td></td>');
+                        $dowRow.append('<td class="pad10TopBottom"></td>');
                     } else {
                         var dateId = $calendarElement.attr('id') + '_' + dateAsString(year, month, currDayOfMonth);
                         var dayId = dateId + '_day';
@@ -276,7 +276,7 @@ $.fn.zabuto_calendar = function (options) {
                         if (isToday(year, month, currDayOfMonth)) {
                             $dayElement.addClass('today');
                             if ($calendarElement.data('showToday') === true) {
-                                $dayElement.html('<span class="badge badge-today">' + currDayOfMonth + '</span>');
+                                $dayElement.html('<span class="dot-today">' + currDayOfMonth + '</span>');
                             }
                             
                         }
@@ -416,8 +416,8 @@ $.fn.zabuto_calendar = function (options) {
                         $dowElement.addClass('event');
                     } else {
                         $dowElement.addClass('event-styled');
-                        //$dayElement.addClass(value.classname);
-                        $dayElement.attr('style', 'background-image:linear-gradient(' + value.lineargradient+');padding:17px;margin:-8px;');
+                        var dayLabel1 = $dayElement.data('day');
+                        $dayElement.html('<span style="float:left; margin-right:5px">' + dayLabel1 + '</span>' + value.lineargradient);
                     }
 
                     if (typeof(value.badge) !== 'undefined' && value.badge !== false) {

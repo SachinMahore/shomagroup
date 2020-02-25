@@ -35,19 +35,22 @@
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/lightslider.min.css")">
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/jquery.slitslider.css")">
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/wizard.css")">
-    <link rel="stylesheet" href="@Url.Content("/content/assets/css/style.css")">
-    <link rel="stylesheet" href="@Url.Content("/Content/jquery-confirm-master/css/jquery-confirm.css")" />
+
+    @*<link rel="stylesheet" href="@Url.Content("/content/assets/css/stylenew.css")">*@
+    <link rel="stylesheet" href="@Url.Content("/content/jquery-confirm-master/css/jquery-confirm.css")" />
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/popupwindow.css")">
 
-    <script src="@Url.Content("~/Content/Pages/common.js")"></script>
+    <script src="@Url.Content("~/content/Pages/common.js")"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/responsive.css")">
     <script src="@Url.Content("/content/assets/js/jquery-1.10.2.min.js")"></script>
     <script src="@Url.Content("/content/assets/js/modernizr-2.6.2.min.js")"></script>
     <script src="@Url.Content("/content/assets/js/popupwindow.js")"></script>
     <script src="@Url.Content("/content/assets/js/jquery.simplePagination.js")"></script>
-    <link href="~/Content/timepicki.css" rel="stylesheet" />
-    <script src="~/Content/timepicki.js"></script>
+    <link href="~/content/timepicki.css" rel="stylesheet" />
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/style.css")">
+    <script src="~/content/timepicki.js"></script>
     @RenderSection("scripts", required: false)
 </head>
 <body>
@@ -55,57 +58,163 @@
         <div id="status">&nbsp;</div>
     </div>
     <!-- Body content -->
+    @*<nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container" style="width:100%">
+                 Brand and toggle get grouped for better mobile display
 
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container" style="width:100%">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse yamm" id="navigation">
-                <ul class="main-nav nav navbar-nav navbar-left">
-                    <li class="wow fadeInDown @(ViewBag.ActiveMenu == "dashboard"?"active":"")" data-wow-delay="0.1s"><a class="center" href="~/Tenant/Dashboard/Index/" style="font-size:21px;margin-top: -24px !important;"><img src="~/Content/assets/Assets/@(ViewBag.ActiveMenu == "dashboard"?"dashboard-sanctuary.png":"dashboard-default.png")" width="40" /><br />Dashboard</a></li>
-                    <li class="wow fadeInDown @(ViewBag.ActiveMenu == "myhome"?"active":"")" data-wow-delay="0.1s"><a class="center" href="~/Tenant/MyAccount/Index/@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID" style="font-size:21px;margin-top: -24px !important;"><img src="~/Content/assets/Assets/@(ViewBag.ActiveMenu == "myhome"?"home-sanctuary.png":"home-default.png")" width="40" /><br />My Home</a></li>
-                    <li class="wow fadeInDown @(ViewBag.ActiveMenu == "mycommunity"?"active":"")" data-wow-delay="0.1s"><a class="center" href="~/Tenant/MyCommunity/Index/" style="font-size:21px;margin-top: -24px !important;"><img src="~/Content/assets/Assets/@(ViewBag.ActiveMenu == "mycommunity"?"multiple-users-silhouette-sanctuary.png":"multiple-users-silhouette-default.png")" width="40" /><br />My Community </a></li>
-                </ul>
-                <div class="navbar-header" style="margin-left:18%">
-                    <a class="navbar-brand" href="~/Home/Index"><img src="~/content/assets/img/logoTenant.png" alt="" style="width: 240px;margin-top: -13px;"></a>
-                </div>
-                <div class="button navbar-right">
-                    <button class="navbar-btn nav-button wow bounceInRight login" onclick="gotoLogin()" data-wow-delay="0.4s" style="width: 128px;margin-right: 32px;font-size: 30px;height: 50px;padding-bottom: 6px;margin-top: -2px;">Logout</button>
-                </div>
-                <ul class="main-nav nav navbar-nav navbar-right">
-                    <li class="wow fadeInDown @(ViewBag.ActiveMenu == "myprofile"?"active":"")" data-wow-delay="0.1s"><a class="center" href="~/Tenant/MyProfile/Index/@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID" style="font-size:21px;margin-top: -24px !important;"><img src="~/Content/assets/Assets/@(ViewBag.ActiveMenu == "myprofile"?"id-card-sanctuary.png":"id-card-default.png")" width="40" /><br />My Profile </a></li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
-
-        </div><!-- /.container-fluid -->
-    </nav>
-    <div class="row"><br /><br /><br /></div>
-    <!-- End of nav bar -->
-
-    @RenderBody()
-    <div id="divLoader" style="display:none"></div>
-    <!-- Footer area-->
-    <div class="footer-area navbar-fixed-bottom">
-
-        <div class="footer-copy text-center">
-            <div class="container">
-                <div class="row">
-                    <div class="pull-left">
-                        <span> (C) <a href="http://www.shomagroup.com">Shoma Group</a> , All rights reserved @DateTime.Now.ToString("yyyy")   </span>
+                 Collect the nav links, forms, and other content for toggling
+                <div class="collapse navbar-collapse yamm" id="navigation">
+                    <ul class="main-nav nav navbar-nav navbar-left">
+                        <li class="wow fadeInDown @(ViewBag.ActiveMenu == "dashboard"?"active":"")" data-wow-delay="0.1s"><a class="center" href="~/Tenant/Dashboard/Index/" style="font-size:21px;margin-top: -24px !important;"><img src="~/Content/assets/Assets/@(ViewBag.ActiveMenu == "dashboard"?"dashboard-sanctuary.png":"dashboard-default.png")" width="40" /><br />Dashboard</a></li>
+                        <li class="wow fadeInDown @(ViewBag.ActiveMenu == "myhome"?"active":"")" data-wow-delay="0.1s"><a class="center" href="~/Tenant/MyAccount/Index/@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID" style="font-size:21px;margin-top: -24px !important;"><img src="~/Content/assets/Assets/@(ViewBag.ActiveMenu == "myhome"?"home-sanctuary.png":"home-default.png")" width="40" /><br />My Home</a></li>
+                        <li class="wow fadeInDown @(ViewBag.ActiveMenu == "mycommunity"?"active":"")" data-wow-delay="0.1s"><a class="center" href="~/Tenant/MyCommunity/Index/" style="font-size:21px;margin-top: -24px !important;"><img src="~/Content/assets/Assets/@(ViewBag.ActiveMenu == "mycommunity"?"multiple-users-silhouette-sanctuary.png":"multiple-users-silhouette-default.png")" width="40" /><br />My Community </a></li>
+                    </ul>
+                    <div class="navbar-header" style="margin-left:18%">
+                        <a class="navbar-brand" href="~/Home/Index"><img src="~/content/assets/img/logoTenant.png" alt="" style="width: 240px;margin-top: -13px;"></a>
                     </div>
-                    <div class="bottom-menu pull-right">
-                        <ul>
-                            <li><a class="wow fadeInUp animated" href="~/Home/Index" data-wow-delay="0.2s">Home</a></li>
-                            <li><a class="wow fadeInUp animated" href="~/Property/Index" data-wow-delay="0.3s">Property</a></li>
-                            <li><a class="wow fadeInUp animated" href="~/Home/FAQ" data-wow-delay="0.4s">FAQ</a></li>
-                            <li><a class="wow fadeInUp animated" href="~/Home/Contact" data-wow-delay="0.6s">Contact</a></li>
-                        </ul>
+                    <div class="button navbar-right">
+                        <button class="navbar-btn nav-button wow bounceInRight login" onclick="gotoLogin()" data-wow-delay="0.4s" style="width: 128px;margin-right: 32px;font-size: 30px;height: 50px;padding-bottom: 6px;margin-top: -2px;">Logout</button>
+                    </div>
+                    <ul class="main-nav nav navbar-nav navbar-right">
+                        <li class="wow fadeInDown @(ViewBag.ActiveMenu == "myprofile"?"active":"")" data-wow-delay="0.1s"><a class="center" href="~/Tenant/MyProfile/Index/@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID" style="font-size:21px;margin-top: -24px !important;"><img src="~/Content/assets/Assets/@(ViewBag.ActiveMenu == "myprofile"?"id-card-sanctuary.png":"id-card-default.png")" width="40" /><br />My Profile </a></li>
+                    </ul>
+                </div> /.navbar-collapse
+
+            </div> /.container-fluid
+        </nav>*@
+    <!------Header--top------>
+    <!-----Mobile--menu--section-->
+    <div id="mySidenav" class="sidenav mobile-logo">
+
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/Tenant/Dashboard/Index"><i class="fa fa-tachometer fa-icon"></i> Dashboard</a>
+        <a href="/Tenant/MyAccount/Index/@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID"><i class="fa fa-home fa-icon"></i> My Home</a>
+        <a href="/Tenant/MyCommunity/Index"><i class="fa fa-users fa-icon icon-community"></i> My Community</a>
+        <a href="/Tenant/MyProfile/Index/@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID"><i class="fa fa-address-card fa-icon"></i> Profile</a>
+
+    </div>
+    <div>
+        <span class="mobile-logo" style="font-size:30px;padding-left: 8px;cursor:pointer;color: #4d738a;" onclick="openNav()">&#9776; <a href="#"><img src="~/content/assets/img/IMG/logoTenant.png" alt="logo" class="responsive "></a></span>
+
+    </div>
+
+    <!-----Mobile--menu--section--End--->
+
+    <header class="desktop-logo">
+        <div class="row">
+            <div class="col-md-5 col-sm-7 col-xs-12">
+                <ul class="top-menu top-menu-mobile ">
+                    <li class="wow fadeInDown  animated active @(ViewBag.ActiveMenu == "dashboard"?"active":"")">
+                        <a href="/Tenant/Dashboard/Index" class="center topmenu-font "><i class="fa fa-tachometer fa-icon"></i><br> Dashboard</a>
+                    </li>
+
+                    <li class="wow fadeInDown animated tt @(ViewBag.ActiveMenu == "myhome"?"active":"")" data-wow-delay="0.1s">
+                        <a href="/Tenant/MyAccount/Index/@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID"><i class="fa fa-home fa-icon"></i><br>My Home</a>
+                    </li>
+
+                    <li class="wow fadeInDown animated @(ViewBag.ActiveMenu == "mycommunity"?"active":"")" data-wow-delay="0.1s">
+                        <a href="/Tenant/MyCommunity/Index" class="center "><i class="fa fa-users fa-icon"></i><br> My Community</a>
+                    </li>
+                </ul>
+            </div>
+            <!------Logo--Section------>
+            <div class="col-md-3 col-sm-6 col-xs-12 logo-img center-logo desktop-logo">
+                <a href="#"><img src="~/content/assets/img/IMG/logoTenant.png" alt="logo" class="responsive"></a>
+            </div>
+            <!------Profile--Section------>
+            <div class="col-md-4 col-sm-5 col-xs-12">
+                <button class="logout-but wow  animated bounceInRight" onclick="gotoLogin()">Logout</button>
+                <ul class="top-menu">
+                    <li class="wow fadeInDown animated Profile-button @(ViewBag.ActiveMenu == "myprofile"?"active":"")" data-wow-delay="0.1s">
+                  <a href="/Tenant/MyProfile/Index/@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID" class="center"><i class="fa fa-address-card fa-icon"></i><br>My Profile</a>
+
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </header>
+    <!------Header--End------>
+    <div class="row">
+
+    </div>
+   
+
+    <!-- End of nav bar -->
+    <!-----Right section---->
+    <div class="container container-box">
+        <div class="row">
+            <div class="col-lg-9 col-md-8 col-sm-12 border-box margin">
+                @RenderBody()
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-12 box-padding-mobile">
+                <div class="Wraper-left-box">
+                    <div class="left-side-subtext">Amount Due:</div>
+                    <div id="spanCurrentAmountDue" class="left-side-amount" onclick="openPaymentBreakdown()">$2676.50</div>
+                    <button id="btnMakeAPayment" class="paybutton" onclick="goToMakeAPayment();">Pay</button>
+                    <div class="right-sub-text-link m-t5"><a href="javascript:void(0)" id="btnSetUpRecurringPayment" onclick="goToSetUpRecurringPayment();">set up recurring payments</a></div>
+                </div>
+
+
+                <div class="Wraper-left-box">
+                    <div id="bellDiv"><!--<i class="fa fa-bell"></i>--><img src="~/content/assets/img/IMG/bill.png" /></div>
+                    <div class="bell-text">Exterminator</div>
+                    <div id="divServiceRequestAlarm" class="bell-sub-text"><span>12/27/19 at 11.30A</span></div>
+                    <div id="spanServiceRequestlabelAlarm" class="bell-text">Plumbing</div>
+                    <div id="spanServiceRequestDateTimeAlarm" class="bell-sub-text">1/4/20 at 2.00P</div>
+                </div>
+
+                    <div class="Wraper-left-box club-box">
+                        <div class="Clubs-text"><img src="~/content/assets/img/IMG/club.png"><span class="club">Clubs</span></div>
+                        <div class="text-color1"><a href="#"><i class="fa fa-plus"></i><span>Join or Start a Club</span></a></div>
+                    </div>
+
+                <div class="Wraper-left-box club-box">
+                    <div class="Clubs-text"><img src="~/content/assets/img/IMG/Celebrate.png"><span class="club">Celebrate</span></div>
+                    <div class="text-color1"><a href="javascript:void(0)" id="btnReserveAmenities" onclick="goToReserveAmenities();"><i class="fa fa-plus"></i><span>Reserve Amenities</span></a></div>
+                </div>
+
+                <div class="Wraper-left-box club-box">
+                    <div class="Clubs-text"><img src="~/content/assets/img/IMG/EnjoyCompany.png"><span class="club">Enjoy Company</span></div>
+                    <div class="text-color1"><a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToRegisterGuest();"><i class="fa fa-plus"></i><span>Register a Guest</span></a></div>
+                </div>
+
+                <div class="Wraper-left-box club-box">
+                    <div class="Clubs-text"><img src="~/content/assets/img/IMG/service.png"><span class="club">Service Request</span></div>
+                    <div class="text-color1"><a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToSubmitServiceRequest();"><i class="fa fa-plus"></i><span>Submit a Service Request</span></a></div>
+                    <div class="bell-text">After-Hours</div>
+                    <div class="bell-sub-text">(786) 437-8658</div>
+                    <div class="bell-text">Emergencies</div>
+                    <div class="bell-sub-text">(786) 437-8658 or 911</div>
+
+                </div>
+                <!-----Right section--End-->
+            </div>
+        </div>
+</div>
+    
+        @*<div id="divLoader" style="display:none"></div>
+         Footer area
+        <div class="footer-area navbar-fixed-bottom">
+
+            <div class="footer-copy text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="pull-left">
+                            <span> (C) <a href="http://www.shomagroup.com">Shoma Group</a> , All rights reserved @DateTime.Now.ToString("yyyy")   </span>
+                        </div>
+                        <div class="bottom-menu pull-right">
+                            <ul>
+                                <li><a class="wow fadeInUp animated" href="~/Home/Index" data-wow-delay="0.2s">Home</a></li>
+                                <li><a class="wow fadeInUp animated" href="~/Property/Index" data-wow-delay="0.3s">Property</a></li>
+                                <li><a class="wow fadeInUp animated" href="~/Home/FAQ" data-wow-delay="0.4s">FAQ</a></li>
+                                <li><a class="wow fadeInUp animated" href="~/Home/Contact" data-wow-delay="0.6s">Contact</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </div>*@
 
     <script src="@Url.Content("/content/bootstrap/js/bootstrap.min.js")"></script>
     <script src="@Url.Content("/content/assets/js/bootstrap-datepicker.js")"></script>
@@ -139,20 +248,20 @@
         background: url('../../Content/img/Loader.gif') center no-repeat rgba(255,255,255,0.5);
         display: none;
     }
-    .navbar-default .navbar-nav > .active > a {
+    /*.navbar-default .navbar-nav > .active > a {
         border-bottom: none !important;
     }
     .navbar-default .navbar-nav > a :hover {
         border-bottom: none !important;
-    }
-    
+    }*/
+
 </style>
 <script type="text/javascript">
     function gotoLogin() {
         window.location = "/Account/Login";
     }
     $(document).ready(function () {
-      
+
         getAllDues();
     });
     var getAllDues = function () {
@@ -171,8 +280,8 @@
                 $('#spanCurrentAmountDue').text('$' + formatMoney(gg[0]));
                 $("#lblCurrentPrePayAmount").text('$' + formatMoney(gg[0]));
                 $("#hndRecId").val(gg[1]);
-                
-               
+
+
             }
         });
     };
