@@ -78,9 +78,10 @@ namespace ShomaRM.Areas.Tenant
                     OriginalServiceFile = model.OriginalServiceFile,
                     TempServiceFile = model.TempServiceFile,
                     EmergencyMobile = model.EmergencyMobile,
-                    ServicePerson=1,
+                    ServicePerson = 1,
                     PermissionComeTime = model.PermissionComeTime,
-                    UrgentStatus=model.UrgentStatus,
+                    UrgentStatus = model.UrgentStatus,
+                    WarrantyStatus = 1
                 };
                 db.tbl_ServiceRequest.Add(saveServiceRequest);
                 db.SaveChanges();

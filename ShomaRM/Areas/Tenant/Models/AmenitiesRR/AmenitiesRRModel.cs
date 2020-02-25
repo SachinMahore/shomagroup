@@ -31,6 +31,8 @@ namespace ShomaRM.Areas.Tenant.Models
         public Nullable<long> Guest { get; set; }
         public string AmenityName { get; set; }
         public string TenantName { get; set; }
+        public long? UnitId { get; set; }
+        public string UnitName { get; set; }
 
         public string SaveUpdateReservationRequest(AmenitiesReservationModel model)
         {
@@ -88,6 +90,30 @@ namespace ShomaRM.Areas.Tenant.Models
             return msg;
         }
 
+        public List<AmenitiesReservationModel> BindUnitNoFromTenantInfo()
+        {
+            List<AmenitiesReservationModel> list = new List<AmenitiesReservationModel>();
+            ShomaRMEntities db = new ShomaRMEntities();
+            var unitNoTenantInfo = db.tbl_TenantInfo.OrderBy(co => co.UnitID).ToList();
+            if (unitNoTenantInfo != null)
+            {
+                foreach (var item in unitNoTenantInfo)
+                {
+                    var unitName = db.tbl_PropertyUnits.Where(co => co.UID == item.UnitID).FirstOrDefault();
+                    if (unitName != null)
+                    {
+                        list.Add(new AmenitiesReservationModel()
+                        {
+                            UnitId = item.UnitID,
+                            UnitName = unitName.UnitNo
+                        });
+                    }
+                }
+            }
+
+            return list;
+        }
+
         public AmenitiesReservationModel GetRRData(int Id)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -134,8 +160,6 @@ namespace ShomaRM.Areas.Tenant.Models
                 model.DesiredTimeFrom = GetRRData.DesiredTimeFrom;
                 model.DesiredTimeTo = GetRRData.DesiredTimeTo;
                 model.Guest = GetRRData.Guest;
-
-
             }
 
             var GetAmenityData = db.tbl_Amenities.Where(p => p.ID == model.AmenityID).FirstOrDefault();
@@ -280,6 +304,8 @@ namespace ShomaRM.Areas.Tenant.Models
             public string DesiredTimeTo { get; set; }
             public string Guest { get; set; }
             public string calculatedDate { get; set; }
+            public string UnitId { get; set; }
+            public string UnitNo { get; set; }
 
         }
 
@@ -315,6 +341,16 @@ namespace ShomaRM.Areas.Tenant.Models
                     param4.ParameterName = "NumberOfRows";
                     param4.Value = model.NumberOfRows;
                     cmd.Parameters.Add(param4);
+
+                    DbParameter param5 = cmd.CreateParameter();
+                    param5.ParameterName = "UnitId";
+                    param5.Value = model.UnitId != null ? Convert.ToInt32(model.UnitId) : 0;
+                    cmd.Parameters.Add(param5);
+
+                    DbParameter param6 = cmd.CreateParameter();
+                    param6.ParameterName = "AmenityName";
+                    param6.Value = model.AmenityName != null ? model.AmenityName : string.Empty;
+                    cmd.Parameters.Add(param6);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -367,6 +403,16 @@ namespace ShomaRM.Areas.Tenant.Models
                     param4.Value = model.NumberOfRows;
                     cmd.Parameters.Add(param4);
 
+                    DbParameter param5 = cmd.CreateParameter();
+                    param5.ParameterName = "UnitId";
+                    param5.Value = model.UnitId;
+                    cmd.Parameters.Add(param5);
+
+                    DbParameter param6 = cmd.CreateParameter();
+                    param6.ParameterName = "AmenityName";
+                    param6.Value = model.AmenityName != null ? model.AmenityName : string.Empty;
+                    cmd.Parameters.Add(param6);
+
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
                     da.Fill(dtTable);
@@ -386,13 +432,15 @@ namespace ShomaRM.Areas.Tenant.Models
                     searchmodel.DurationID = dr["DurationID"].ToString();
                     searchmodel.DepositFee = dr["DepositFee"].ToString();
                     searchmodel.ReservationFee = dr["ReservationFee"].ToString();
-                    searchmodel.Status = dr["Status"].ToString()==null? "": dr["Status"].ToString();
+                    searchmodel.Status = dr["Status"].ToString() == null ? "" : dr["Status"].ToString();
                     searchmodel.Duration = dr["Duration"].ToString();
                     searchmodel.TenantName = dr["TenantName"].ToString();
                     searchmodel.AmenityName = dr["AmenityName"].ToString();
                     searchmodel.DesiredTimeFrom = dr["DesiredTimeFrom"].ToString();
                     searchmodel.DesiredTimeTo = dr["DesiredTimeTo"].ToString();
                     searchmodel.Guest = dr["Guest"].ToString();
+                    searchmodel.UnitId = dr["UnitID"].ToString();
+                    searchmodel.UnitNo = dr["UnitNo"].ToString();
 
                     lstReservationRequest.Add(searchmodel);
                 }

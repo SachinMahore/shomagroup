@@ -136,7 +136,7 @@ namespace ShomaRM.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
+        
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
         public ActionResult ForgotPassword()

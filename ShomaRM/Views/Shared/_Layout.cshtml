@@ -537,31 +537,34 @@
         };
 
         $.ajax({
-            url: "/ApplyNow/SignIn/",
+            url: "/ApplyNow/SignIn",
             type: "post",
             contentType: "application/json utf-8",
             data: JSON.stringify(model),
             dataType: "JSON",
             success: function (response) {
-                if (response == "-1") {
+                var result = response.UserData.split("|");
+                if (result[0] == "-1") {
                     window.location = "/Home/";
                 }
-                else if (response != "0") {
-                    window.location = "/ApplyNow/Index/" + response;
+                else if (result[0] != 0) {
+                    if (result[1] == "ad") {
+                        window.location = "/Admin/AdminHome";
+                    }
+                    else if (result[1] == "te") {
+                        window.location = "/Tenant/Dashboard";
+                    }
+                    else {
+                        window.location = "/ApplyNow/Index/" + result[0];
+                    }
 
                     $("#popSignIn").PopupWindow("close");
                 } else {
-                    alert("Invalid Email ID / password.")
+                    alert("Invalid Email ID / Password.")
                 }
-
             }
-
-
         });
-
     };
-
-    
 
     function gotoLogin() {
 

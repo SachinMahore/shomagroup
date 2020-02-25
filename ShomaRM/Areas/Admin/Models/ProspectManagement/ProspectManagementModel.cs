@@ -51,6 +51,7 @@ namespace ShomaRM.Areas.Admin.Models
         public string Advertiser { get; set; }
         public long AssignAgentID { get; set; }
         public string AssignAgentName { get; set; }
+        public int AppointmentStatus { get; set; }
 
         public List<ProspectManagementModel> GetProspectList(DateTime FromDate, DateTime ToDate)
         {
@@ -242,6 +243,7 @@ namespace ShomaRM.Areas.Admin.Models
                     psmodel.CreatedDate = dr["CreatedDate"].ToString();
                     psmodel.VisitDateTime = dr["VisitDateTime"].ToString();
                     psmodel.AssignAgentID = Convert.ToInt64(dr["AssignAgentId"].ToString());
+                    psmodel.AppointmentStatusString = dr["AppointmentStatus"].ToString();
                     var salesAgentName = db.tbl_Login.Where(co => co.UserID == psmodel.AssignAgentID).FirstOrDefault();
                     if (salesAgentName != null)
                     {
@@ -249,7 +251,7 @@ namespace ShomaRM.Areas.Admin.Models
                     }
                     else
                     {
-                        psmodel.AssignAgentName = "Agent not yet assigned";
+                        psmodel.AssignAgentName = "Agent not yet assign";
                     }
                     lstProspect.Add(psmodel);
                 }
@@ -272,6 +274,7 @@ namespace ShomaRM.Areas.Admin.Models
                 if (prospData != null)
                 {
                     prospData.AssignAgentId = model.AssignAgentID;
+                    prospData.AppointmentStatus = model.AppointmentStatus;
                     db.SaveChanges();
                     msg = "Progress Saved";
 
@@ -311,8 +314,8 @@ namespace ShomaRM.Areas.Admin.Models
             ShomaRMEntities db = new ShomaRMEntities();
             ProspectManagementModel model = new ProspectManagementModel();
             model.CreatedDate = DateTime.Now;
-           var prospectData = db.tbl_Prospect.Where(p => p.PID == id).FirstOrDefault();
-            if(prospectData!=null)
+            var prospectData = db.tbl_Prospect.Where(p => p.PID == id).FirstOrDefault();
+            if (prospectData != null)
             {
                 model.PID = prospectData.PID;
                 model.FirstName = prospectData.FirstName;
@@ -332,7 +335,8 @@ namespace ShomaRM.Areas.Admin.Models
                 model.RequiredDate = prospectData.RequiredDate;
                 model.MarketSource = prospectData.MarketSource;
                 model.PetsDetails = prospectData.PetsDetails;
-                
+                model.AssignAgentID = prospectData.AssignAgentId != null ? prospectData.AssignAgentId.Value : 0;
+                model.AppointmentStatus = prospectData.AppointmentStatus != null ? prospectData.AppointmentStatus.Value : 0;
             }
 
             return model;
@@ -377,6 +381,7 @@ namespace ShomaRM.Areas.Admin.Models
         public int NumberOfRows { get; set; }
         public long AssignAgentID { get; set; }
         public string AssignAgentName { get; set; }
+        public string AppointmentStatusString { get; set; }
     }
     public partial class VisitModel
     {

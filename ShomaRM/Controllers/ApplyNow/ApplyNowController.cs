@@ -14,10 +14,9 @@ namespace ShomaRM.Controllers
         //
         // GET: /ApplyNow/
         public ActionResult Index(string id)
-
         {
             ShomaRMEntities db = new ShomaRMEntities();
-           
+
             if (!string.IsNullOrEmpty(id))
             {
                 ViewBag.PID = Convert.ToInt32(id);
@@ -26,14 +25,14 @@ namespace ShomaRM.Controllers
             {
                 return Redirect("/Property");
             }
-            
+
             var model = new OnlineProspectModule().GetProspectData(Convert.ToInt64(id));
             if (Session["Bedroom"] != null)
             {
                 model.Bedroom = Convert.ToInt32(Session["Bedroom"].ToString());
                 model.MoveInDate = Convert.ToDateTime(Session["MoveInDate"].ToString());
                 model.MaxRent = Convert.ToDecimal(Session["MaxRent"].ToString());
-                model.LeaseTerm= Convert.ToInt32(Session["LeaseTerm"].ToString());
+                model.LeaseTerm = Convert.ToInt32(Session["LeaseTerm"].ToString());
                 model.FromHome = 1;
                 Session.Remove("Bedroom");
                 Session.Remove("MoveInDate");
@@ -55,7 +54,7 @@ namespace ShomaRM.Controllers
             else
             {
                 model.StepNo = 0;
-               
+
             }
             return View(model);
         }
@@ -139,39 +138,60 @@ namespace ShomaRM.Controllers
 
 
         }
-        public string SignIn(string UserName, string Password)
+        public ActionResult SignIn(string UserName, string Password)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string userid = "";
             var user = db.tbl_Login.Where(p => p.Username == UserName && p.Password == Password && p.IsActive == 1).FirstOrDefault();
             if (user != null)
             {
-
-
+                //var currentUser = new CurrentUser();
+                //currentUser.TenantID = user.TenantID == 0 ? 0 : Convert.ToInt64(user.TenantID);
+                //currentUser.UserID = user.UserID;
                 var currentUser = new CurrentUser();
-
-                currentUser.TenantID = user.TenantID == 0 ? 0 : Convert.ToInt64(user.TenantID);
                 currentUser.UserID = user.UserID;
+                currentUser.Username = user.Username;
+                currentUser.FullName = user.FirstName + " " + user.LastName;
+                currentUser.EmailAddress = user.Email;
+                currentUser.IsAdmin = (user.IsSuperUser.HasValue ? user.IsSuperUser.Value : 0);
+                currentUser.EmailAddress = user.Email;
+                currentUser.UserType = Convert.ToInt32(user.UserType == null ? 0 : user.UserType);
+                currentUser.LoggedInUser = user.FirstName;
+                currentUser.TenantID = user.TenantID == 0 ? 0 : Convert.ToInt64(user.TenantID);
+                currentUser.UserType = Convert.ToInt32((user.UserType).ToString());
+
                 (new ShomaGroupWebSession()).SetWebSession(currentUser);
                 userid = user.UserID.ToString();
 
-                var checkExpiry = db.tbl_ApplyNow.Where(co => co.UserId == currentUser.UserID).FirstOrDefault();
-                if (checkExpiry != null)
+                if (currentUser.TenantID == 0 && currentUser.UserType != 3)
                 {
-
-                    if (checkExpiry.CreatedDate < DateTime.Now.AddHours(-72))
+                    //admin site 
+                    userid += "|ad";
+                    SignInFormAuth(UserName, false);
+                }
+                else if (currentUser.TenantID != 0)
+                {
+                    //tenant site
+                    userid += "|te";
+                    SignInFormAuth(UserName, false);
+                }
+                else
+                {
+                    var checkExpiry = db.tbl_ApplyNow.Where(co => co.UserId == currentUser.UserID).FirstOrDefault();
+                    if (checkExpiry != null)
                     {
-                        new ApplyNowController().DeleteApplicantTenantID(checkExpiry.ID, currentUser.UserID);
-                        Session["DelDatAll"] = "Del";
-                        //Response.Redirect("~/Home/Index");
-                        userid = "-1";
+                        if (checkExpiry.CreatedDate < DateTime.Now.AddHours(-72))
+                        {
+                            new ApplyNowController().DeleteApplicantTenantID(checkExpiry.ID, currentUser.UserID);
+                            Session["DelDatAll"] = "Del";
+                            userid = "-1|hp";
+                        }
+                        else
+                        {
+                            Session["DelDatAll"] = null;
+                            userid += "|an";
+                        }
                     }
-                    else
-                    {
-                        Session["DelDatAll"] = null;
-                        //Response.Redirect("../ApplyNow/Index/" + currentUser.UserID);
-                    }
-                   
                 }
             }
             else
@@ -179,19 +199,23 @@ namespace ShomaRM.Controllers
                 user = db.tbl_Login.Where(p => p.Username == UserName).FirstOrDefault();
                 if (user == null)
                 {
-                    userid = "Email ID not registerd.";
+                    userid = "Email ID not registerd.|er";
                 }
                 else if (user == null)
                 {
-                    userid = "Invalid password.";
+                    userid = "Invalid password.|er";
                 }
                 else
                 {
-                    userid = "User is not active.";
+                    userid = "User is not active.|er";
                 }
-                userid = "0";
+                userid = "0|er";
             }
-            return userid;
+            return Json(new { UserData = userid }, JsonRequestBehavior.AllowGet);
+        }
+        public void SignInFormAuth(string userName, bool rememberMe)
+        {
+            System.Web.Security.FormsAuthentication.SetAuthCookie(userName, rememberMe);
         }
         public ActionResult SaveTenantOnline(TenantOnlineModel model)
         {

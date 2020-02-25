@@ -73,5 +73,17 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult BindUnitNoFromTenantInfo()
+        {
+            try
+            {
+                return Json(new { model = new AmenitiesReservationModel().BindUnitNoFromTenantInfo() }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
