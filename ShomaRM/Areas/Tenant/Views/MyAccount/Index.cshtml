@@ -219,9 +219,21 @@
         </div>
 
         <div class="col-lg-12 hidden payment-box" id="payStep2">
-            <div class="panel-heading">
-                <h3 class="headding-sub-text margin1  col-lg-12">Payment History</h3>
-                <div class="col-sm-3 pull-right" style="margin-bottom:20px !important;">
+            @*<div class="panel-heading">
+                    <h3 class="headding-sub-text margin1  col-lg-12">Payment History</h3>
+                    <div class="col-sm-3 pull-right" style="margin-bottom:20px !important;">
+                        <select id="ddlPaymentHistory" class="form-control">
+                            <option value='1'>Current month</option>
+                            <option value='2'>Next month</option>
+                            <option value='3'>Previous month</option>
+                            <option value='4'>Date Range</option>
+                        </select>
+
+                    </div>
+                </div>*@
+            <div class="panel-heading col-md-12">
+                <h3 class="headding-sub-text col-md-9">Payment History</h3>
+                <div class="col-sm-3 pull-right">
                     <select id="ddlPaymentHistory" class="form-control">
                         <option value='1'>Current month</option>
                         <option value='2'>Next month</option>
@@ -230,44 +242,56 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-12 clear">
-
-                <table class="borderlessTable tbale-box" id="tblPaymentHistory" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th scope="row" class="border-box border-box2 text-payment tabletr">Date</th>
-                            <th scope="row" class="border-box border-box2 text-payment tabletr">Description</th>
-                            <th scope="row" class="border-box border-box2 text-payment tabletr">Charge</th>
-                            <th scope="row" class="border-box border-box2 text-payment tabletr">Credit</th>
-                            <th scope="row" class="border-box border-box2 text-payment tabletr">Balance</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-
-            </div>
-            <br /><br />
-            <div class="panel-heading">
-                <div class="col-sm-4">
-                    <h4 style="margin-top: 2%;margin-bottom: 8%;font-size: 12pt;color:#4D738A !important; ">Upcoming Charges</h4>
+            <div class="col-md-12">
+                <div class="panel-body search-widget">
+                    <div class="col-md-12 clear">
+                        <table id="tblPaymentHistory" class="borderlessTable tbale-box" width="100%">
+                            <thead>
+                                <tr>
+                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Date</th>
+                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Description</th>
+                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Charge</th>
+                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Credit</th>
+                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-12 clear">
 
-                <table class="borderlessTable tbale-box" id="tblUpcomingCharges" cellspacing="0" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th scope="row" class="border-box border-box2 text-payment tabletr">Date</th>
-                            <th scope="row" class="border-box border-box2 text-payment tabletr">Description</th>
-                            <th scope="row" class="border-box border-box2 text-payment tabletr">Charge</th>
-                            <th scope="row" class="border-box border-box2 text-payment tabletr">Credit</th>
-                            <th scope="row" class="border-box border-box2 text-payment tabletr">Balance</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
 
+
+
+            <br /><br />
+            <div class="panel-heading">
+                <div class="col-sm-6">
+                    <h5 class="headding-sub-text col-md-9">Upcoming Charges</h5>
+
+                </div>
             </div>
+
+            <div class="col-md-12">
+                <div class="panel-body search-widget">
+                    <div class="col-md-12 clear">
+                        <table id="tblUpcomingCharges" class="borderlessTable tbale-box" width="100%">
+                            <thead>
+                                <tr>
+                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Date</th>
+                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Description</th>
+                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Charge</th>
+                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Credit</th>
+                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <br />
+
             <div class="col-sm-12">
                 <div class="text-center">
                     <button id="btnAccountHistoryPrint" class="btn btn-primary hidden" onclick="print('payStep2')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print Statement</b> </button>
@@ -286,8 +310,8 @@
             <div class="col-md-12 clear hidden" id="divRecPayList">
 
                 <p>Both active and cancelled scheduled payments are listed below. To cancel a scheduled payment. Click the cancel button in the scheduled payment details</p>
+                <table id="tblRecurringPayments" class="borderlessTable tbale-box" width="100%">
 
-                <table id="tblRecurringPayments" class="borderlessTable tbale-box" cellspacing="0" width="100%" style="margin-left: 20px;">
                     <thead>
                         <tr>
                             <th scope="row" class="border-box border-box2 text-payment tabletr">Sr. No.</th>
@@ -520,21 +544,27 @@
 
 
         <div class="hidden" id="payStep5">
-            <h3 class="headding-sub-text margin1  col-lg-12">Save Payment Accounts</h3>
+            @*<h3 class="headding-sub-text">Saved Payment Accounts</h3>*@
 
-            <div class="col-sm-3">
-                <div class="form-group">
-                    <button id="btnAddNewPaymentAccount" type="button" class="btn btn-primary" data-toggle="modal" data-target="#popAddNewAccount" onclick="clearSavePaymentAccounts();" style="font-size: 11pt;">Add New Payment Accounts</button>
+
+            @*<div class="col-sm-3">
+                    <select id="ddlBankAccountList" class=" form-control">
+                        <option value='1'>Credit Card List</option>
+                        <option value='2'>Bank Account List</option>
+                    </select>
+                </div>*@
+            <div class="panel-heading col-md-12">
+                <h3 class="headding-sub-text col-md-9">Saved Payment Accounts</h3>
+                <div class="col-sm-3 pull-right">
+                    <select id="ddlBankAccountList" class="form-control">
+                        <option value='1'>Credit Card List</option>
+                        <option value='2'>Bank Account List</option>
+
+                    </select>
                 </div>
             </div>
-            <div class="col-sm-3">
-                <select id="ddlBankAccountList" class=" form-control">
-                    <option value='1'>Credit Card List</option>
-                    <option value='2'>Bank Account List</option>
-                </select>
-            </div>
             <div class="col-md-12 clear">
-                <table id="tblPaymentAccountsCreditCard" class="borderlessTable tbale-box" cellspacing="0" style="width:100%">
+                <table id="tblPaymentAccountsCreditCard" class="borderlessTable tbale-box" width="100%">
                     <thead>
                         <tr>
                             <th scope="row" class="border-box border-box2 text-payment tabletr">Bank Name</th>
@@ -549,7 +579,7 @@
                 </table>
             </div>
             <div class="col-md-12 clear">
-                <table id="tblPaymentAccountsBankAccount" class="borderlessTable tbale-box" cellspacing="0" style="width:100%">
+                <table id="tblPaymentAccountsBankAccount" class="borderlessTable tbale-box" width="100%">
                     <thead>
                         <tr>
                             <th scope="row" class="border-box border-box2 text-payment tabletr">Bank Name</th>
@@ -563,6 +593,14 @@
                     </thead>
                     <tbody></tbody>
                 </table>
+            </div>
+            @*<div class="col-sm-3">
+                    <div class="form-group">
+                        <button id="btnAddNewPaymentAccount" type="button" class="btn btn-primary" data-toggle="modal" data-target="#popAddNewAccount" onclick="clearSavePaymentAccounts();" style="font-size: 11pt;">Add New Payment Accounts</button>
+                    </div>
+                </div>*@
+            <div class="condition-wrapper ">
+                <button id="btnAddNewPaymentAccount" class="paynow m-t20" data-toggle="modal" data-target="#popAddNewAccount" onclick="clearSavePaymentAccounts();">Add a New Payment Account</button>
             </div>
         </div>
 
@@ -1066,201 +1104,246 @@
             <input id="hdnTagGuestId" type="hidden" value="0" />
 
         </div>
-        <div class="col-sm-12">
-            <div id="PrintGuest" style="overflow: hidden !important;">
-                <h4 class="text-center m-t10" style="color:#4d738a;">GUEST REGISTRATION FORM</h4>
-                <h5 class="text-center" style="text-decoration:underline;font-size: 12pt;">(Registration is only necessary for guests staying overnight)</h5>
-                <br />
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <div class="col-sm-2">
-                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">GUEST NAME:</label>
-                                </div>
-                                <div class="col-sm-4">
+        
+        <div id="PrintGuest" class="payment-box">
+
+
+            <h3 class="headding-sub-text margin1  col-lg-12">GUEST REGISTRATION FORM</h3>
+            <div class="text-redcolor1 center m-t20 m-b40">
+                (Registration is only necessary for guests staying overnight)
+            </div>
+
+
+            @*<div class="payment-box">
+                <div class="col-lg-12 margin2">
+                    <div class="row margin margin-box">
+                        <div class="col-lg-3">
+                            <div class="col-lg-12 mobile-margin text-payment">
+                                GUEST NAME:
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" id="txtGuestFirstName" class="form-control" onchange="copyGuestName();" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="payment-box">
+                <div class="col-lg-12 margin2">
+                    <div class="row margin margin-box">
+                        <div class="col-lg-3">
+                            <div class="col-lg-12 mobile-margin text-payment">
+                                LAST NAME:
+                            </div>
+                        </div>
+                        <div class="col-sm-4" style="margin-left: -29px;">
+                            <input type="text" id="txtGuestLastName" class="form-control" onchange="copyGuestName();" />
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+
+
+            <div class="payment-box">
+                <div class="col-lg-12 margin2">
+                    <div class="row margin margin-box">
+                        <div class="col-lg-3">
+                            <div class="col-lg-12 mobile-margin text-payment">GUEST NAME:</div>
+                        </div>
+
+                        <div class="col-lg-9">
+                            <div class="row">
+                                <div class="Club-text col-lg-2">First:</div>
+                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
                                     <input type="text" id="txtGuestFirstName" class="form-control" onchange="copyGuestName();" />
                                 </div>
-                                <div class="col-sm-2">
-                                    <label style="color:#4D738A !important;font-size:11pt;">LAST NAME:</label>
-                                </div>
-                                <div class="col-sm-4" style="margin-left: -29px;">
+                            </div>
+                            <div class="row">
+                                <div class="Club-text col-lg-2">Last:</div>
+                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
                                     <input type="text" id="txtGuestLastName" class="form-control" onchange="copyGuestName();" />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <div class="col-sm-2">
-                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">GUEST ADDRESS:</label>
-                                </div>
+                </div>
+            </div>
+
+
+
+
+
+            <br />
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <label style="color:#4D738A !important;font-size:11pt;" class="star">GUEST ADDRESS:</label>
+                        </div>
+                        <div class="col-sm-4">
+                            &nbsp;<textarea id="txtGuestAddress" style="width:98%; min-height:90px; border: none;"></textarea>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
                                 <div class="col-sm-4">
-                                    &nbsp;<textarea id="txtGuestAddress" style="width:98%; min-height:90px; border: none;"></textarea>
+                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">PHONE#:</label>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <label style="color:#4D738A !important;font-size:11pt;" class="star">PHONE#:</label>
-                                        </div>
-                                        <div class="col-sm-8" style="margin-left: -29px;">
-                                            <input type="text" id="txtGuestPhone" class="form-control" maxlength="10" onkeypress="return isOnlyNumber(event);" />
-                                        </div>
-                                    </div>
-                                    <br />
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <label style="color:#4D738A !important;font-size:11pt;" class="star">EMAIL:</label>
-                                        </div>
-                                        <div class="col-sm-8" style="margin-left: -29px;">
-                                            <input type="text" class="form-control" id="txtGuestEmail" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="col-sm-8">
-                                <div class="col-sm-6" style="margin-left:-15px !important;">
-                                    <div style="float:left;">
-                                        <label style="color:#4D738A !important;font-size:11pt;" class="star">Visit Start Date: </label>
-                                    </div>
-                                    <div style="margin-left:50px;">
-                                        <input id="txtGuestVistStartDate" class="form-control" type="text" value="" style="width:150px;">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div style="float:left;">
-                                        <label style="color:#4D738A !important;font-size:11pt;position:relative;" class="star">Visit End Date: </label>
-                                        <br />
-                                        <span style="color:#4D738A !important; font-size:8pt; position:absolute; top:15px;">(Limited to 10 days)</span>
-                                    </div>
-                                    <div>
-                                        <input id="txtGuestVistEndDate" type="text" class="form-control" value="" style="width:150px;">
-                                    </div>
+                                <div class="col-sm-8" style="margin-left: -29px;">
+                                    <input type="text" id="txtGuestPhone" class="form-control" maxlength="10" onkeypress="return isOnlyNumber(event);" />
                                 </div>
                             </div>
-                            <div class="col-sm-2">
-                                <div style="margin-left: 35px;">
-                                    <label style="color:#4D738A !important;font-size:11pt;">Have a Vehicle </label>
-
+                            <br />
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label style="color:#4D738A !important;font-size:11pt;" class="star">EMAIL:</label>
                                 </div>
-                                <div style="float:left;margin-top: -26px;">
-                                    <input id="chkHaveVehicle" type="checkbox" class="form-control" style="font-size:11pt;margin-left: 11px;" />
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row hidden" id="HaveVehicle">
-                        <div class="col-sm-12">
-                            <div class="col-sm-8">
-                                <div class="col-sm-6" style="margin-left:-14px !important;">
-                                    <div style="float:left;">
-                                        <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Make: </label>
-                                    </div>
-                                    <div>
-                                        <input id="txtGuestVehicleMake" type="text" value="" style="width:168px;">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div style="float:left;">
-                                        <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Model: </label>
-                                    </div>
-                                    <div>
-                                        <input id="txtGuestVehicleModel" type="text" value="" style="width:181px;">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div style="float:left; margin-left:-15px;">
-                                    <span style="color:#4D738A !important;font-size:11pt;" class="star">Tag#: </span>
-                                </div>
-                                <div>
-                                    <input type="text" id="txtGuestVehicleTag" style="width:100px;" />
+                                <div class="col-sm-8" style="margin-left: -29px;">
+                                    <input type="text" class="form-control" id="txtGuestEmail" />
                                 </div>
                             </div>
                         </div>
 
-                        <br />
-                        <br />
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="col-sm-6">
-                                    <div class="col-sm-5">
-                                        <span style="color:#4D738A !important;font-size:11pt;" class="star">Upload Registration: </span>
-                                    </div>
-                                    <div class="col-sm-5">
-                                        <input type="file" name="fileUploadGuestRegistration" id="fileUploadGuestRegistration" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileUploadGuestRegistration">
-                                            <i class="fa fa-upload fa-2x"></i>
-                                            <span id="fileSpanShowGuestRegistration">Choose a file&hellip;</span>
-                                        </label>
-                                        <input type="hidden" id="hndUploadGuestRegistration" value="0" />
-                                        <input type="hidden" id="hndOriginalUploadGuestRegistration" value="0" />
-                                    </div>
-                                </div>
+                    </div>
+                </div>
+            </div>
+            <br />
 
-                                <div class="col-sm-6">
-                                    <div class="col-sm-7">
-                                        <span style="color:#4D738A !important;font-size:11pt;" class="star">Upload Driver Licence or Picture Id:</span>
-                                    </div>
-                                    <div class="col-sm-5">
-                                        <input type="file" name="fileUploadGuestDriverLicence" id="fileUploadGuestDriverLicence" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileUploadGuestDriverLicence">
-                                            <i class="fa fa-upload fa-2x"></i>
-                                            <span id="fileSpanShowGuestDriverLicence">Choose a file&hellip;</span>
-                                        </label>
-                                        <input type="hidden" id="hndUploadGuestDriverLicence" value="0" />
-                                        <input type="hidden" id="hndOriginalUploadGuestDriverLicence" value="0" />
-                                    </div>
-                                </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-8">
+                        <div class="col-sm-6" style="margin-left:-15px !important;">
+                            <div style="float:left;">
+                                <label style="color:#4D738A !important;font-size:11pt;" class="star">Visit Start Date: </label>
                             </div>
-
+                            <div style="margin-left:50px;">
+                                <input id="txtGuestVistStartDate" class="form-control" type="text" value="" style="width:150px;">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div style="float:left;">
+                                <label style="color:#4D738A !important;font-size:11pt;position:relative;" class="star">Visit End Date: </label>
+                                <br />
+                                <span style="color:#4D738A !important; font-size:8pt; position:absolute; top:15px;">(Limited to 10 days)</span>
+                            </div>
+                            <div>
+                                <input id="txtGuestVistEndDate" type="text" class="form-control" value="" style="width:150px;">
+                            </div>
                         </div>
                     </div>
-                    <br />
+                    <div class="col-sm-2">
+                        <div style="margin-left: 35px;">
+                            <label style="color:#4D738A !important;font-size:11pt;">Have a Vehicle </label>
 
-                    <div class="col-sm-12">
-                        <h5 style="text-decoration:underline;">Guest Certification</h5>
-
-                        <p>I, <span id="spanGuestCertGName" style="text-decoration:underline"></span> , hereby certify that I have been informed of the rules and regulations of the community, and I will abide by them.  I also certify that I will not use any of the amenities/common areas without the presence of the Tenant.</p>
+                        </div>
+                        <div style="float:left;margin-top: -26px;">
+                            <input id="chkHaveVehicle" type="checkbox" class="form-control" style="font-size:11pt;margin-left: 11px;" />
+                        </div>
                     </div>
-                    <div class="col-sm-12">
-                        <h5 style="text-decoration:underline;">Tenant's Certification</h5>
 
-                        <p>
-                            Tenants are fully responsible for any damage to the unit and/or common areas caused by their guests.  Tenants will be held financially liable for damages to the property.  Tenants are responsible to advise their guests of the community’s rules and regulations and ensure that the guests fully abide by them.  Tenants must accompany their guests for the use of all amenities/common areas.
-                            <br /><br />I have read and understood my financial responsibility for my guests and agree to advise my guests to abide by the community’s rules and regulations.
-                        </p>
+                </div>
+            </div>
+            <br />
+            <div class="row hidden" id="HaveVehicle">
+                <div class="col-sm-12">
+                    <div class="col-sm-8">
+                        <div class="col-sm-6" style="margin-left:-14px !important;">
+                            <div style="float:left;">
+                                <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Make: </label>
+                            </div>
+                            <div>
+                                <input id="txtGuestVehicleMake" type="text" value="" style="width:168px;">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div style="float:left;">
+                                <label style="color:#4D738A !important;font-size:11pt;" class="star">Vehicle Model: </label>
+                            </div>
+                            <div>
+                                <input id="txtGuestVehicleModel" type="text" value="" style="width:181px;">
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <span id="spanTenantSignName" style="text-decoration:underline"></span><br />
-                                    <label>Tenant</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 pull-right">
-                                <div class="form-group" style="margin-left: 330px;">
-                                    <span id="spanGuestSignName" style="text-decoration:underline"></span><br />
-                                    <label>Guest</label>
-                                </div>
-                            </div>
+                    <div class="col-sm-2">
+                        <div style="float:left; margin-left:-15px;">
+                            <span style="color:#4D738A !important;font-size:11pt;" class="star">Tag#: </span>
+                        </div>
+                        <div>
+                            <input type="text" id="txtGuestVehicleTag" style="width:100px;" />
                         </div>
                     </div>
                 </div>
 
+                <br />
+                <br />
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <div class="col-sm-5">
+                                <span style="color:#4D738A !important;font-size:11pt;" class="star">Upload Registration: </span>
+                            </div>
+                            <div class="col-sm-5">
+                                <input type="file" name="fileUploadGuestRegistration" id="fileUploadGuestRegistration" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                <label for="fileUploadGuestRegistration">
+                                    <i class="fa fa-upload fa-2x"></i>
+                                    <span id="fileSpanShowGuestRegistration">Choose a file&hellip;</span>
+                                </label>
+                                <input type="hidden" id="hndUploadGuestRegistration" value="0" />
+                                <input type="hidden" id="hndOriginalUploadGuestRegistration" value="0" />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="col-sm-7">
+                                <span style="color:#4D738A !important;font-size:11pt;" class="star">Upload Driver Licence or Picture Id:</span>
+                            </div>
+                            <div class="col-sm-5">
+                                <input type="file" name="fileUploadGuestDriverLicence" id="fileUploadGuestDriverLicence" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                <label for="fileUploadGuestDriverLicence">
+                                    <i class="fa fa-upload fa-2x"></i>
+                                    <span id="fileSpanShowGuestDriverLicence">Choose a file&hellip;</span>
+                                </label>
+                                <input type="hidden" id="hndUploadGuestDriverLicence" value="0" />
+                                <input type="hidden" id="hndOriginalUploadGuestDriverLicence" value="0" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
+            <br />
+
+            <div class="col-sm-12">
+                <h5 style="text-decoration:underline;">Guest Certification</h5>
+
+                <p>I, <span id="spanGuestCertGName" style="text-decoration:underline"></span> , hereby certify that I have been informed of the rules and regulations of the community, and I will abide by them.  I also certify that I will not use any of the amenities/common areas without the presence of the Tenant.</p>
+            </div>
+            <div class="col-sm-12">
+                <h5 style="text-decoration:underline;">Tenant's Certification</h5>
+
+                <p>
+                    Tenants are fully responsible for any damage to the unit and/or common areas caused by their guests.  Tenants will be held financially liable for damages to the property.  Tenants are responsible to advise their guests of the community’s rules and regulations and ensure that the guests fully abide by them.  Tenants must accompany their guests for the use of all amenities/common areas.
+                    <br /><br />I have read and understood my financial responsibility for my guests and agree to advise my guests to abide by the community’s rules and regulations.
+                </p>
+            </div>
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <span id="spanTenantSignName" style="text-decoration:underline"></span><br />
+                            <label>Tenant</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 pull-right">
+                        <div class="form-group" style="margin-left: 330px;">
+                            <span id="spanGuestSignName" style="text-decoration:underline"></span><br />
+                            <label>Guest</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
         <div class="col-sm-12">
             <div class="row">
