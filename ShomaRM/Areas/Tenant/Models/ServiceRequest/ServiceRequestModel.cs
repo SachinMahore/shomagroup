@@ -205,6 +205,42 @@ namespace ShomaRM.Areas.Tenant
             return listServiceRequestList;
         }
 
+        public List<ServiceRequestModel> GetServiceRequestListForAdmin(ServiceRequestModel model)
+        {
+            List<ServiceRequestModel> listServiceRequestList = new List<ServiceRequestModel>();
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            var getServiceRequestList = db.tbl_ServiceRequest.Where(co => co.TenantID == model.TenantID).ToList();
+            if (getServiceRequestList != null)
+            {
+                foreach (var item in getServiceRequestList)
+                {
+                    listServiceRequestList.Add(new ServiceRequestModel()
+                    {
+                        ServiceID = item.ServiceID,
+                        TenantID = item.TenantID,
+                        ProblemCategorystring = item.ProblemCategory == 1 ? "Appliance" : item.ProblemCategory == 2 ? "Doors & Locks" : item.ProblemCategory == 3 ? "Electrical and Lighting" : item.ProblemCategory == 4 ? "Flooring" : item.ProblemCategory == 5 ? "General" : item.ProblemCategory == 6 ? "Heating & cooling" : item.ProblemCategory == 7 ? "Plumbing & bath" : item.ProblemCategory == 8 ? "Safety equipment" : item.ProblemCategory == 9 ? "Preventative maintenance" : item.ProblemCategory == 10 ? "Other" : "",
+                        Details = item.Details,
+                        PermissionEnterApartment = item.PermissionEnterApartment,
+                        PermissionComeDate = item.PermissionComeDate,
+                        PetInforChange = item.PetInforChange,
+                        AlarmCodeChange = item.AlarmCodeChange,
+                        Notes = item.Notes,
+                        Status = item.Status,
+                        DateString = item.PermissionComeDate != null ? item.PermissionComeDate.Value.ToString("MM/dd/yyyy") : "Any Time",
+                        StatusString = item.Status == 1 ? "Open" : item.Status == 2 ? "Completed" : item.Status == 3 ? "Cancelled" : item.Status == 4 ? "In Process" : "",
+                        PriorityString = item.Priority == 1 ? "Normal" : item.Priority == 2 ? "Medium" : item.Priority == 3 ? "High" : item.Priority == 4 ? "Emergency" : "",
+                        OriginalServiceFile = item.OriginalServiceFile,
+                        TempServiceFile = item.TempServiceFile,
+                    });
+                }
+            }
+
+            db.Dispose();
+            return listServiceRequestList;
+        }
+
+
         public string CancelServiceRequest(ServiceRequestModel model)
         {
             string msg = "";

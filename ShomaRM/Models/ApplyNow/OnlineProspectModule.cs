@@ -354,6 +354,8 @@ namespace ShomaRM.Models
             model.FOBAmt = 0;
             model.EnvelopeID = "";
             model.LeaseTerm = 12;
+            model.FirstName = "";
+            model.LastName = "";
             if (Id != 0)
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.UserId == Id).FirstOrDefault();

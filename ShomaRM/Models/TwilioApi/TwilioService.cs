@@ -10,7 +10,7 @@ namespace ShomaRM.Models.TwilioApi
 {
     public class TwilioService
     {
-        public void TestSMS(string To)
+        public void SMS(string To, string MsgText)
         {
             var accountSid = ConfigurationManager.AppSettings["TwilioAccountSID"];
             var authToken = ConfigurationManager.AppSettings["TwilioAuthToken"];
@@ -20,7 +20,7 @@ namespace ShomaRM.Models.TwilioApi
 
             try
             {
-                var message = MessageResource.Create(body: "Test Twilio SMS",
+                var message = MessageResource.Create(body: MsgText,
                     from: new Twilio.Types.PhoneNumber(twilioNumber),//+1 202 866 1345
                     to: new Twilio.Types.PhoneNumber(To), forceDelivery: true
                 );
@@ -32,7 +32,7 @@ namespace ShomaRM.Models.TwilioApi
         }
 
 
-        public void TestCall(string To)
+        public void Call(string To)
         {
             var accountSid = ConfigurationManager.AppSettings["TwilioAccountSID"];
             var authToken = ConfigurationManager.AppSettings["TwilioAuthToken"];

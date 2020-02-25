@@ -383,5 +383,9 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#txtPhone').text(formatPhoneFax("@Model.PhoneNo"));
+       // fillDdlSalesAgent();
+       
+        $('#ddlAgentAssign').find("option[value=' "+ @Model.AssignAgentID +" ']").attr('selected', true);
+       
     });
 </script>
