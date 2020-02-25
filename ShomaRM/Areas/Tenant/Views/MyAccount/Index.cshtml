@@ -220,17 +220,17 @@
 
         <div class="col-lg-12 hidden payment-box" id="payStep2">
             @*<div class="panel-heading">
-                    <h3 class="headding-sub-text margin1  col-lg-12">Payment History</h3>
-                    <div class="col-sm-3 pull-right" style="margin-bottom:20px !important;">
-                        <select id="ddlPaymentHistory" class="form-control">
-                            <option value='1'>Current month</option>
-                            <option value='2'>Next month</option>
-                            <option value='3'>Previous month</option>
-                            <option value='4'>Date Range</option>
-                        </select>
+            <h3 class="headding-sub-text margin1  col-lg-12">Payment History</h3>
+            <div class="col-sm-3 pull-right" style="margin-bottom:20px !important;">
+                <select id="ddlPaymentHistory" class="form-control">
+                    <option value='1'>Current month</option>
+                    <option value='2'>Next month</option>
+                    <option value='3'>Previous month</option>
+                    <option value='4'>Date Range</option>
+                </select>
 
-                    </div>
-                </div>*@
+            </div>
+        </div>*@
             <div class="panel-heading col-md-12">
                 <h3 class="headding-sub-text col-md-9">Payment History</h3>
                 <div class="col-sm-3 pull-right">
@@ -266,8 +266,9 @@
 
             <br /><br />
             <div class="panel-heading">
-                <div class="col-sm-4">
-                    <h3 class="headding-sub-text margin1  col-lg-12">Upcoming Charges</h3>
+                <div class="row">
+                    
+                    <div class="col-lg-9"><h3 class="headding-sub-text">Upcoming Charges</h3></div>
                 </div>
             </div>
 
@@ -291,10 +292,13 @@
             </div>
             <br />
 
-            <div class="col-sm-12">
-                <div class="text-center">
-                    <button id="btnAccountHistoryPrint" class="btn btn-primary hidden" onclick="print('payStep2')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print Statement</b> </button>
-                </div>
+            @*<div class="col-sm-12">
+            <div class="text-center">
+                <button id="btnAccountHistoryPrint" class="btn btn-primary hidden" onclick="print('payStep2')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print Statement</b> </button>
+            </div>
+        </div>*@
+            <div class="condition-wrapper ">
+                <button id="btnAccountHistoryPrint" onclick="print('payStep2')" class="paynow"><i class="fa fa-print"></i>Print Statement</button>
             </div>
             <div class="col-sm-12 hidden" id="DivNote">
                 <div class="text-center">
@@ -1279,31 +1283,10 @@
                             <div class="col-lg-12 mobile-margin text-payment">Address:</div>
                         </div>
 
-                        <div class="col-lg-10">
-                            
+                        <div class="col-lg-10">                            
                                 <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
                                     <textarea id="txtGuestAddress" style="width:100%; height:100px;"></textarea>
-                                </div>
-                                
-                            
-                            <div class="row">
-                                <div class="Club-text">City:</div>
-                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
-                                    Miami
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="Club-text">State:</div>
-                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
-                                    Florida
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="Club-text">Zip Code:</div>
-                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
-                                    12345
-                                </div>
-                            </div>
+                                </div> 
                         </div>
                     </div>
                 </div>
