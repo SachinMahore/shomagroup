@@ -109,11 +109,26 @@ namespace ShomaRM.Areas.Tenant.Models
             var isAlreadyTenantEventJoin = db.tbl_TenantEventJoin.Where(co => co.EventID == model.EventID && co.TenantID == model.TenantID).FirstOrDefault();
             if (isAlreadyTenantEventJoin != null)
             {
-                msg = "You Already Registered For This Event";
+                msg = "unjoin";
             }
             else
             {
-                msg = "";
+                msg = "join";
+            }
+            db.Dispose();
+            return msg;
+        }
+
+        public string SaveTenantEventUnJoin(TenantEventJoinModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string msg = "";
+            var unjoin = db.tbl_TenantEventJoin.Where(co => co.EventID == model.EventID && co.TenantID == model.TenantID).FirstOrDefault();
+            if (unjoin != null)
+            {
+                db.tbl_TenantEventJoin.Remove(unjoin);
+                db.SaveChanges();
+                msg = "Event unjoin successfully";
             }
             db.Dispose();
             return msg;
