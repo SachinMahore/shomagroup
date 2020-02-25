@@ -183,5 +183,29 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult GetEventJoiningStatus(TenantEventJoinModel model)
+        {
+            try
+            {
+                return Json(new { model = new TenantEventJoinModel().AlreadyJoinTenantEvent(model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult SaveTenantEventUnJoin(TenantEventJoinModel model)
+        {
+            try
+            {
+                return Json(new { model = new TenantEventJoinModel().SaveTenantEventUnJoin(model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

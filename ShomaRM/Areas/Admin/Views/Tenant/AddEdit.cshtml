@@ -73,14 +73,14 @@
                                                 <div class="col-sm-4">
                                                     <h4 style="margin-top: 2%;margin-bottom: 5%;font-size: 12pt;color:#4D738A !important; ">Current Service Request</h4>
                                                 </div>
-                                                <div class="col-sm-3 pull-right">
-                                                    <select id="ddlOpenServiceRequest" class=" form-control">
-                                                        <option value='1'>Open</option>
-                                                        <option value='2'>Completed</option>
-                                                        <option value='3'>Cancelled</option>
-                                                        <option value='4'>Show All</option>
-                                                    </select>
-                                                </div>
+                                                @*<div class="col-sm-3 pull-right">
+                                                        <select id="ddlOpenServiceRequest" class=" form-control">
+                                                            <option value='1'>Open</option>
+                                                            <option value='2'>Completed</option>
+                                                            <option value='3'>Cancelled</option>
+                                                            <option value='4'>Show All</option>
+                                                        </select>
+                                                    </div>*@
                                             </div>
                                             <div class="col-md-12 clear">
                                                 <table id="tblServiceRequest" class="table-bordered" width="100%">
@@ -239,272 +239,273 @@
                                 </div>
                             </div>
 
+
                             <div class="" id="step13">
                                 <div style="margin-top:10px!important;"><ul class="nav nav-tabs nact"><li><a href="javascript:void(0);"></a></li></ul></div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="panel-heading">
-                                            <div class="col-sm-4">
-                                                <h4 style="margin-top: 2%;margin-bottom: 5%;font-size: 12pt;color:#4D738A !important; ">Tenant Profile</h4>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 clear ">
-                                            <div class="content-area submit-property" style="background-color: #FCFCFC;">
-                                                &nbsp;
-                                                <div class="container" style="width:100%;">
-                                                    <div class="wizard-container">
-                                                        <div class="col-md-12">
-                                                            <div class="panel-body table-bordered">
-                                                                <div class="tab-content">
-                                                                    <div class="col-lg-12 ">
-                                                                        <div style="text-align: right;" hidden>
-                                                                            <a href="javascript:void(0)" data-toggle="modal" data-target="#popChangePsw" id="btnpopChangePsw" style="text-decoration:underline">Change Password</a><br />
-                                                                        </div>
-                                                                        <div class="col-lg-1">
-                                                                            &nbsp;
-                                                                        </div>
-                                                                        <div class="col-sm-6">
-                                                                            <div class="circle" style=" margin: auto ;float: right;">
-                                                                                <!-- User Profile Image -->
-                                                                                <img class="profile-pic img-responsive" id="imgTenantProfilePicture" data-value="" src="~/Content/assets/Assets/Circle.jpg">
-                                                                                <!-- Default Image -->
-                                                                                <!-- <i class="fa fa-user fa-5x"></i> -->
-                                                                            </div>
-                                                                            <div class="p-image fa-2x " style="color: #4d738a; cursor:pointer;" hidden>
-                                                                                <i class="fa fa-plus-circle  upload-button"></i>
-                                                                                <input class="file-upload hidden" name="ProfilePic" id="ProfilePic" type="file" accept="image/*" />
-                                                                                <input type="hidden" id="hndProfilePic" value="0" />
-                                                                                <input type="hidden" id="hndOriginalProfilePic" value="0" />
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-5">
-                                                                            <div class="col-lg-8" style="margin-top: 38px; margin-left: -36px;">
-                                                                                <span id="FirstName" style="font-size: 22px; color: #4d738a"></span>
-                                                                                <br />
-                                                                                <label style="font-size: 22px; color: #4d738a"></label>&nbsp;<span id="lblUnitUnitAccess" style="font-size: 22px; color: #4d738a"></span>
-                                                                            </div>
-                                                                            <div class="col-lg-4">
-                                                                                &nbsp;
-                                                                            </div>
-                                                                        </div>
-
+                                @*<div class="row">*@
+                                @*<div class="col-md-12">
+                                    <div class="panel-heading">
+                                        <div class="col-sm-4">*@
+                                <h4 style="margin-top: 1%;margin-left: 47px;font-size: 12pt;color:#4D738A !important; ">Tenant Profile</h4>
+                                @*</div>
+                                    </div>*@
+                                <div class="col-md-12 clear ">
+                                    <div class="content-area submit-property" style="background-color: #FCFCFC;">
+                                        &nbsp;
+                                        <div class="container" style="width:100%;">
+                                            <div class="wizard-container">
+                                                <div class="col-md-12" style="margin-top:-25px;">
+                                                    <div class="panel-body table-bordered">
+                                                        <div class="tab-content">
+                                                            <div class="col-lg-12 ">
+                                                                <div style="text-align: right;" hidden>
+                                                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#popChangePsw" id="btnpopChangePsw" style="text-decoration:underline">Change Password</a><br />
+                                                                </div>
+                                                                <div class="col-lg-1">
+                                                                    &nbsp;
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="circle" style=" margin: auto ;float: right;">
+                                                                        <!-- User Profile Image -->
+                                                                        <img class="profile-pic img-responsive" id="imgTenantProfilePicture" data-value="" src="~/Content/assets/Assets/Circle.jpg">
+                                                                        <!-- Default Image -->
+                                                                        <!-- <i class="fa fa-user fa-5x"></i> -->
                                                                     </div>
-                                                                    <div class="col-lg-12">
-                                                                        &nbsp;
-                                                                        <br />
-                                                                        <br />
-                                                                    </div>
-
-                                                                    <div class="col-lg-12">
-                                                                        <div class="col-lg-6">
-                                                                            <div class="row">
-                                                                                <div class="panel-heading">
-                                                                                    <div class="col-sm-12">
-                                                                                        <h3 class="modal-title">Contact Information</h3>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-12">
-                                                                                <div class="col-sm-4">
-                                                                                    <span id="">Name: </span>
-                                                                                </div>
-                                                                                <div class="col-sm-8">
-                                                                                    <span id="FirstName1"></span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-12">
-                                                                                <div class="col-sm-4">
-                                                                                    <span id="">Mobile Number:</span>
-                                                                                </div>
-                                                                                <div class="col-sm-8">
-                                                                                    <span id="Mobile1"></span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-12">
-                                                                                <div class="col-sm-4">
-                                                                                    <span id="">Email:</span>
-                                                                                </div>
-                                                                                <div class="col-sm-8">
-                                                                                    <span id="Email1"></span>
-                                                                                </div>
-                                                                                <br />
-                                                                                <br />
-                                                                            </div>
-                                                                            <div class="row">
-                                                                                <div class="panel-heading">
-                                                                                    <div class="col-sm-12">
-                                                                                        <h3 class="modal-title">Career</h3>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-12">
-                                                                                <div class="col-sm-4">
-                                                                                    <span id="">Job Title:</span>
-                                                                                </div>
-                                                                                <div class="col-sm-8">
-                                                                                    <span id="JobTitle"></span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-12">
-                                                                                <div class="col-sm-4">
-                                                                                    <span id="">Employer Name: </span>
-                                                                                </div>
-                                                                                <div class="col-sm-8">
-                                                                                    <span id="EmployerName"></span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-12">
-                                                                                <div class="col-sm-4">
-                                                                                    <span id="">Job Type:</span>
-                                                                                </div>
-                                                                                <div class="col-sm-8">
-                                                                                    <span id="JobType"></span>
-                                                                                </div>
-                                                                                <br />
-                                                                                <br />
-                                                                            </div>
-                                                                            <div class="row">
-                                                                                <div class="panel-heading">
-                                                                                    <div class="col-sm-12">
-                                                                                        <h3 class="modal-title">Emergency Contact </h3>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-12">
-                                                                                <div class="col-sm-4">
-                                                                                    <span id="">Name: </span>
-                                                                                </div>
-                                                                                <div class="col-sm-8">
-                                                                                    <span id="EmFirstName">&nbsp;</span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-12">
-                                                                                <div class="col-sm-4">
-                                                                                    <span id="">Relationship: </span>
-                                                                                </div>
-                                                                                <div class="col-sm-8">
-                                                                                    <span id="EmRelationship">&nbsp;</span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-12">
-                                                                                <div class="col-sm-4">
-                                                                                    <span id="">Address: </span>
-                                                                                </div>
-                                                                                <div class="col-sm-8">
-                                                                                    <span id="EmAddress"></span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-12">
-                                                                                <div class="col-sm-4">
-                                                                                    <span id="">Mobile Number: </span>
-                                                                                </div>
-                                                                                <div class="col-sm-8">
-                                                                                    <span id="EmMobile"></span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-12">
-                                                                                <div class="col-sm-4">
-                                                                                    <span id="">Work Phone: </span>
-                                                                                </div>
-                                                                                <div class="col-sm-8">
-                                                                                    <span id="EmWorkPhone"></span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-12">
-                                                                                <div class="col-sm-4">
-                                                                                    <span id="">Email: </span>
-                                                                                </div>
-                                                                                <div class="col-sm-8">
-                                                                                    <span id="EmEmail"></span>
-                                                                                </div>
-                                                                                <br />
-                                                                                <br />
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-6">
-                                                                            <div class="col-lg-12">
-                                                                                <div class="row">
-                                                                                    <div class="panel-heading">
-                                                                                        <div class="col-sm-12">
-                                                                                            <h3 class="modal-title">Vehicle</h3>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-12 clear">
-                                                                                    <table id="tblVehicle" width="100%">
-                                                                                        <tbody></tbody>
-                                                                                    </table>
-                                                                                    <br />
-                                                                                </div>
-                                                                                <div class="col-lg-12"></div>
-                                                                            </div>
-                                                                            <div class="col-lg-12">
-
-                                                                                <div class="row">
-                                                                                    <div class="panel-heading">
-                                                                                        <div class="col-sm-12">
-                                                                                            <h3 class="modal-title">Pets</h3>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-12 clear">
-                                                                                    <table id="tblPet" width="100%">
-                                                                                        <tbody></tbody>
-                                                                                    </table>
-                                                                                    <br />
-                                                                                </div>
-                                                                                <div class="col-lg-12"></div>
-                                                                            </div>
-
-                                                                        </div>
+                                                                    <div class="p-image fa-2x " style="color: #4d738a; cursor:pointer;" hidden>
+                                                                        <i class="fa fa-plus-circle  upload-button"></i>
+                                                                        <input class="file-upload hidden" name="ProfilePic" id="ProfilePic" type="file" accept="image/*" />
+                                                                        <input type="hidden" id="hndProfilePic" value="0" />
+                                                                        <input type="hidden" id="hndOriginalProfilePic" value="0" />
                                                                     </div>
                                                                 </div>
+                                                                <div class="col-sm-5">
+                                                                    <div class="col-lg-8" style="margin-top: 38px; margin-left: -36px;">
+                                                                        <span id="FirstName" style="font-size: 22px; color: #4d738a"></span>
+                                                                        <br />
+                                                                        <label style="font-size: 22px; color: #4d738a"></label>&nbsp;<span id="lblUnitUnitAccess" style="font-size: 22px; color: #4d738a"></span>
+                                                                    </div>
+                                                                    <div class="col-lg-4">
+                                                                        &nbsp;
+                                                                    </div>
+                                                                </div>
+
                                                             </div>
-                                                            <!-- End submit form -->
+                                                            <div class="col-lg-12">
+                                                                &nbsp;
+                                                                <br />
+                                                                <br />
+                                                            </div>
+
+                                                            <div class="col-lg-12">
+                                                                <div class="col-lg-6">
+                                                                    <div class="row">
+                                                                        <div class="panel-heading">
+                                                                            <div class="col-sm-12">
+                                                                                <h3 class="modal-title">Contact Information</h3>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-12">
+                                                                        <div class="col-sm-4">
+                                                                            <span id="">Name: </span>
+                                                                        </div>
+                                                                        <div class="col-sm-8">
+                                                                            <span id="FirstName1"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-12">
+                                                                        <div class="col-sm-4">
+                                                                            <span id="">Mobile Number:</span>
+                                                                        </div>
+                                                                        <div class="col-sm-8">
+                                                                            <span id="Mobile1"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-12">
+                                                                        <div class="col-sm-4">
+                                                                            <span id="">Email:</span>
+                                                                        </div>
+                                                                        <div class="col-sm-8">
+                                                                            <span id="Email1"></span>
+                                                                        </div>
+                                                                        <br />
+                                                                        <br />
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="panel-heading">
+                                                                            <div class="col-sm-12">
+                                                                                <h3 class="modal-title">Career</h3>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-12">
+                                                                        <div class="col-sm-4">
+                                                                            <span id="">Job Title:</span>
+                                                                        </div>
+                                                                        <div class="col-sm-8">
+                                                                            <span id="JobTitle"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-12">
+                                                                        <div class="col-sm-4">
+                                                                            <span id="">Employer Name: </span>
+                                                                        </div>
+                                                                        <div class="col-sm-8">
+                                                                            <span id="EmployerName"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-12">
+                                                                        <div class="col-sm-4">
+                                                                            <span id="">Job Type:</span>
+                                                                        </div>
+                                                                        <div class="col-sm-8">
+                                                                            <span id="JobType"></span>
+                                                                        </div>
+                                                                        <br />
+                                                                        <br />
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="panel-heading">
+                                                                            <div class="col-sm-12">
+                                                                                <h3 class="modal-title">Emergency Contact </h3>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-12">
+                                                                        <div class="col-sm-4">
+                                                                            <span id="">Name: </span>
+                                                                        </div>
+                                                                        <div class="col-sm-8">
+                                                                            <span id="EmFirstName">&nbsp;</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-12">
+                                                                        <div class="col-sm-4">
+                                                                            <span id="">Relationship: </span>
+                                                                        </div>
+                                                                        <div class="col-sm-8">
+                                                                            <span id="EmRelationship">&nbsp;</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-12">
+                                                                        <div class="col-sm-4">
+                                                                            <span id="">Address: </span>
+                                                                        </div>
+                                                                        <div class="col-sm-8">
+                                                                            <span id="EmAddress"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-12">
+                                                                        <div class="col-sm-4">
+                                                                            <span id="">Mobile Number: </span>
+                                                                        </div>
+                                                                        <div class="col-sm-8">
+                                                                            <span id="EmMobile"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-12">
+                                                                        <div class="col-sm-4">
+                                                                            <span id="">Work Phone: </span>
+                                                                        </div>
+                                                                        <div class="col-sm-8">
+                                                                            <span id="EmWorkPhone"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-12">
+                                                                        <div class="col-sm-4">
+                                                                            <span id="">Email: </span>
+                                                                        </div>
+                                                                        <div class="col-sm-8">
+                                                                            <span id="EmEmail"></span>
+                                                                        </div>
+                                                                        <br />
+                                                                        <br />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="col-lg-12">
+                                                                        <div class="row">
+                                                                            <div class="panel-heading">
+                                                                                <div class="col-sm-12">
+                                                                                    <h3 class="modal-title">Vehicle</h3>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12 clear">
+                                                                            <table id="tblVehicle" width="100%">
+                                                                                <tbody></tbody>
+                                                                            </table>
+                                                                            <br />
+                                                                        </div>
+                                                                        <div class="col-lg-12"></div>
+                                                                    </div>
+                                                                    <div class="col-lg-12">
+
+                                                                        <div class="row">
+                                                                            <div class="panel-heading">
+                                                                                <div class="col-sm-12">
+                                                                                    <h3 class="modal-title">Pets</h3>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12 clear">
+                                                                            <table id="tblPet" width="100%">
+                                                                                <tbody></tbody>
+                                                                            </table>
+                                                                            <br />
+                                                                        </div>
+                                                                        <div class="col-lg-12"></div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    <!-- End submit form -->
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
-
-                            <div class="hidden" id="step14">
-                                <div style="margin-top:10px!important;"><ul class="nav nav-tabs nact"><li><a href="javascript:void(0);"></a></li></ul></div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="panel-heading">
-                                            <div class="col-sm-4">
-                                                <h4 style="margin-top: 2%;margin-bottom: 5%;font-size: 12pt;color:#4D738A !important; ">Community Activity Chat</h4>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <table id="tblCommunityActivity" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="background-color: #c7cdd5;color:#3d3939" width="60%">Activity</th>
-                                                        <th style="background-color: #c7cdd5;color:#3d3939" width="15%">Attachements</th>
-                                                        <th style="background-color: #c7cdd5;color:#3d3939" width="15%">Date Posted</th>
-                                                        <th style="background-color: #c7cdd5;color:#3d3939" width="10%">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody></tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
 
                         </div>
-                        <!-- End submit form -->
                     </div>
+
+                    <div class="hidden" id="step14">
+                        <div style="margin-top:10px!important;"><ul class="nav nav-tabs nact"><li><a href="javascript:void(0);"></a></li></ul></div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel-heading">
+                                    <div class="col-sm-4">
+                                        <h4 style="margin-top: 2%;margin-bottom: 5%;font-size: 12pt;color:#4D738A !important; ">Community Activity Chat</h4>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <table id="tblCommunityActivity" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th style="background-color: #c7cdd5;color:#3d3939" width="60%">Activity</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939" width="15%">Attachements</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939" width="15%">Date Posted</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939" width="10%">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
                 </div>
+                <!-- End submit form -->
             </div>
         </div>
+    </div>
+</div>
     </div>
 </div>
 

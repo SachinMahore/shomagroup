@@ -51,6 +51,19 @@ namespace ShomaRM.Areas.Tenant.Controllers
             }
         }
 
+        public JsonResult GetServiceRequestListAdmin(ServiceRequestModel model)
+        {
+            try
+            {
+                return Json(new { model = new ServiceRequestModel().GetServiceRequestListForAdmin(model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
         public JsonResult CancelServiceRequest(ServiceRequestModel model)
         {
             try

@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
     fillDdlSalesAgent();
+    //alert(model.AssignAgentID);
+    //$('#ddlAgentAssign').val("Model.AssignAgentID");
 });
 var clearBank = function () {
     $("#divCard").addClass("hidden");
@@ -20,12 +22,11 @@ var gotoProspList = function () {
 }
 
 var saveupdateProspect = function () {
+    $("#divLoader").show();
     var msg = "";
     var salesAgent = $("#ddlAgentAssign").val();
     var prospectId = $("#hndProspectID").val();
     var appDate = $("#txtAppointmentDate").text();
-    alert(appDate);
-    alert(prospectId);
     if (salesAgent == "0") {
         msg += "Select the sales Agent</br>";
     }
@@ -37,7 +38,7 @@ var saveupdateProspect = function () {
         });
         return;
     }
-    var model = { AssignAgentID: salesAgent, PID: prospectId, RequiredDateText: appDate};
+    var model = { AssignAgentID: salesAgent, PID: prospectId, RequiredDateText: appDate };
     $.ajax({
         url: "/ProspectManagement/SaveProspectForm/",
         type: "post",
@@ -53,14 +54,18 @@ var saveupdateProspect = function () {
                     ok: {
                         text: 'Ok',
                         action: function (ok) {
-                            window.location.href = '/Admin/ProspectManagement';
+                            //window.location.href = '/Admin/ProspectManagement';
+                            window.location = "/Admin/ProspectManagement/";
                         }
                     }
                 }
             });
+            $("#divLoader").hide();
         }
+
     });
 }
+
 var fillStateDDL = function () {
     var param= { CID: 1 };
     $.ajax({

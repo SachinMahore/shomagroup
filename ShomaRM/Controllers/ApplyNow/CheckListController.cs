@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
 
 namespace ShomaRM.Controllers
 {
@@ -89,10 +90,9 @@ namespace ShomaRM.Controllers
             var data = await LeaseBlumoonAsync();
             if (data != null)
             {
-
+                System.IO.File.WriteAllBytes(Server.MapPath("/Content/assets/img/Document/" + data.LeaseId + ".pdf"), data.leasePdf);
             }
-
-            return File(data.leasePdf, "application/pdf", $"LeaseDocument_{0}.pdf");
+            return File(data.leasePdf, "application/pdf", "LeaseDocument_"+data.LeaseId+".pdf");
         }
 
         public async System.Threading.Tasks.Task<LeaseResponseModel> LeaseBlumoonAsync()
@@ -233,10 +233,10 @@ namespace ShomaRM.Controllers
             var data = await GetLeaseDocBlumoonAsync();
             if (data != null)
             {
-
+               System.IO.File.WriteAllBytes(Server.MapPath("/Content/assets/img/Document/"+ data.LeaseId + ".pdf"), data.leasePdf);
             }
 
-            return File(data.leasePdf, "application/pdf", $"LeaseDocument_{0}.pdf");
+            return File(data.leasePdf, "application/pdf", "LeaseDocument_" + data.LeaseId + ".pdf");
         }
         public async System.Threading.Tasks.Task<LeaseResponseModel> GetLeaseDocBlumoonAsync()
         {
