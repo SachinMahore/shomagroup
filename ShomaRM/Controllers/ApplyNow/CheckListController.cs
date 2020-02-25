@@ -86,19 +86,19 @@ namespace ShomaRM.Controllers
 
         public async System.Threading.Tasks.Task<ActionResult> LeaseBlumoon()
         {
-          
+
             var data = await LeaseBlumoonAsync();
             if (data != null)
             {
                 System.IO.File.WriteAllBytes(Server.MapPath("/Content/assets/img/Document/" + data.LeaseId + ".pdf"), data.leasePdf);
             }
-            return File(data.leasePdf, "application/pdf", "LeaseDocument_"+data.LeaseId+".pdf");
+            return Json(new { LeaseId = data.LeaseId }, JsonRequestBehavior.AllowGet);
+            //return File(data.leasePdf, "application/pdf", "LeaseDocument_" + data.LeaseId + ".pdf");
         }
 
         public async System.Threading.Tasks.Task<LeaseResponseModel> LeaseBlumoonAsync()
         {
-
-            var test = new BluemoonService();
+            var bmservice = new BluemoonService();
             LeaseRequestModel leaseRequestModel = new LeaseRequestModel();
 
             ShomaRMEntities db = new ShomaRMEntities();
@@ -110,14 +110,14 @@ namespace ShomaRM.Controllers
             if (appData != null)
             {
                 tid = appData.ID;
-            }            
+            }
 
             var tenantdata = db.tbl_TenantOnline.Where(p => p.ProspectID == tid).FirstOrDefault();
             var GetCoappDet = db.tbl_Applicant.Where(c => c.TenantID == appData.ID).ToList();
             var GetVehicleList = db.tbl_Vehicle.Where(c => c.TenantID == appData.ID).ToList();
             var GetPetList = db.tbl_TenantPet.Where(c => c.TenantID == appData.ID).ToList();
 
-            leaseRequestModel.UNIT_NUMBER ="Unit-"+appData.PropertyId.ToString();
+            leaseRequestModel.UNIT_NUMBER = "Unit-" + appData.PropertyId.ToString();
             leaseRequestModel.ADDRESS = tenantdata.HomeAddress1 + " " + tenantdata.CityHome;
             leaseRequestModel.DATE_OF_LEASE = appData.CreatedDate.Value.ToString("MM-dd-yyyy");
             leaseRequestModel.LEASE_BEGIN_DATE = appData.MoveInDate.Value.ToString("MM-dd-yyyy");
@@ -131,7 +131,7 @@ namespace ShomaRM.Controllers
             leaseRequestModel.UTILITY_ADDENDUM_ADMINISTRATION_FEE = (float)Convert.ToDecimal(appData.AdministrationFee);
             leaseRequestModel.PARKING_ONE_TIME_FEE = (float)Convert.ToDecimal(appData.VehicleRegistration);
             leaseRequestModel.RENTERS_INSURANCE_PROVIDER = "";
-            
+
 
             if (GetCoappDet.Count == 1)
             {
@@ -159,7 +159,7 @@ namespace ShomaRM.Controllers
             {
                 long StateId1 = Convert.ToInt64(GetVehicleList[0].State);
                 var vehState1 = db.tbl_State.Where(p => p.ID == StateId1).FirstOrDefault();
-               
+
                 if (GetVehicleList.Count == 1)
                 {
 
@@ -208,23 +208,34 @@ namespace ShomaRM.Controllers
                     leaseRequestModel.PET_2_BREED = GetPetList[1].Breed;
                 }
             }
-            LeaseResponseModel authenticateData = await test.CreateSession();
-            LeaseResponseModel leaseCreateResponse = await test.CreateLease(leaseRequestModel: leaseRequestModel, PropertyId: "112154", sessionId: authenticateData.SessionId);
-           
-            var onlineProspectData = db.tbl_ApplyNow.Where(p => p.ID == tid).FirstOrDefault();
-            if (onlineProspectData != null)
-            {
-                onlineProspectData.EnvelopeID = leaseCreateResponse.LeaseId;
+            LeaseResponseModel authenticateData = await bmservice.CreateSession();
 
-                db.SaveChanges();
+
+            string leaseid = "";
+            if(!string.IsNullOrWhiteSpace(appData.EnvelopeID))
+            {
+                leaseid = appData.EnvelopeID;
             }
 
-            LeaseResponseModel leaseEditResponse = await test.EditLease(leaseRequestModel: leaseRequestModel, leaseId: leaseCreateResponse.LeaseId, sessionId: authenticateData.SessionId);
-            LeaseResponseModel leasePdfResponse = await test.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: leaseCreateResponse.LeaseId);
-            await test.CloseSession(sessionId: authenticateData.SessionId);
+            if (leaseid=="")
+            {
+                LeaseResponseModel leaseCreateResponse = await bmservice.CreateLease(leaseRequestModel: leaseRequestModel, PropertyId: "112154", sessionId: authenticateData.SessionId);
+                var onlineProspectData = db.tbl_ApplyNow.Where(p => p.ID == tid).FirstOrDefault();
+                if (onlineProspectData != null)
+                {
+                    onlineProspectData.EnvelopeID = leaseCreateResponse.LeaseId;
+                    db.SaveChanges();
+                }
+                leaseid = leaseCreateResponse.LeaseId;
+            }
+            else
+            {
+                LeaseResponseModel leaseEditResponse = await bmservice.EditLease(leaseRequestModel: leaseRequestModel, leaseId: leaseid, sessionId: authenticateData.SessionId);
+            }
+
+            LeaseResponseModel leasePdfResponse = await bmservice.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: leaseid);
+            await bmservice.CloseSession(sessionId: authenticateData.SessionId);
             return leasePdfResponse;
-
-
         }
 
         public async System.Threading.Tasks.Task<ActionResult> GetLeaseDocBlumoon()
@@ -233,7 +244,7 @@ namespace ShomaRM.Controllers
             var data = await GetLeaseDocBlumoonAsync();
             if (data != null)
             {
-               System.IO.File.WriteAllBytes(Server.MapPath("/Content/assets/img/Document/"+ data.LeaseId + ".pdf"), data.leasePdf);
+                System.IO.File.WriteAllBytes(Server.MapPath("/Content/assets/img/Document/" + data.LeaseId + ".pdf"), data.leasePdf);
             }
 
             return File(data.leasePdf, "application/pdf", "LeaseDocument_" + data.LeaseId + ".pdf");
@@ -244,17 +255,13 @@ namespace ShomaRM.Controllers
             string uid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID.ToString();
             long UserID = Convert.ToInt64(uid);
             var tenantData = db.tbl_ApplyNow.Where(p => p.UserId == UserID).FirstOrDefault();
-            string  LeaseId = tenantData.EnvelopeID;
-            var test = new BluemoonService();
-           
-            LeaseResponseModel authenticateData = await test.CreateSession();
-            LeaseResponseModel leasePdfResponse = await test.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: LeaseId);
-            await test.CloseSession(sessionId: authenticateData.SessionId);
+            string LeaseId = tenantData.EnvelopeID;
+            var bmservice = new BluemoonService();
+
+            LeaseResponseModel authenticateData = await bmservice.CreateSession();
+            LeaseResponseModel leasePdfResponse = await bmservice.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: LeaseId);
+            await bmservice.CloseSession(sessionId: authenticateData.SessionId);
             return leasePdfResponse;
-
-
         }
-       
     }
-
 }

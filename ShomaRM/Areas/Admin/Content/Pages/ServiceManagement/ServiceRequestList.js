@@ -8,6 +8,9 @@
 var addNewUser = function () {
     window.location.href = "users/new";
 };
+var ServiceList = function () {
+    window.location.href = ("../../ServicesManagement/Index/");
+};
 var fillRPP_UserList = function () {
     $("#ddlRPP_UserList").empty();
     $("#ddlRPP_UserList").append("<option value='25'>25</option>");
@@ -20,13 +23,22 @@ var fillRPP_UserList = function () {
     });
 };
 var buildPaganationUserList = function (pagenumber) {
+    $("#divLoader").show();
+    var selected = $("#ddlCriteria").find(":Selected").val();
+    if (selected == 1) {
+        var criteria = $("#txtCriteria").val()
+    } else {
+        var criteria = 'Unit' + ' ' + $("#txtCriteria").val()
+    }
+    
     var model = {
         ToDate: $("#txtToDate").val(),
         FromDate: $("#txtFromDate").val(),
         Piority: 0,
         Status: $("#ddlStatus").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_UserList").val()
+        NumberOfRows: $("#ddlRPP_UserList").val(),
+        Criteria: criteria
     };
     $.ajax({
         url: "/ServicesManagement/BuildPaganationUserList",
@@ -48,20 +60,31 @@ var buildPaganationUserList = function (pagenumber) {
                     $('#ulPagination_UserList').pagination('selectPage', 1);
                 }
             }
+            $("#divLoader").hide();
         }
+         
     });
 };
 var fillUserList = function (pagenumber) {
-   
+    $("#divLoader").show();
+    var selectedValue = $("#ddlCriteria").find(":selected").data("value");
+    var selected = $("#ddlCriteria").find(":Selected").val();
+    if (selected == 1) {
+        var criteria = $("#txtCriteria").val()
+    } else {
+        var criteria = 'Unit' + ' ' + $("#txtCriteria").val()
+    }
+    
     var model = {
         ToDate: $("#txtToDate").val(),
         FromDate: $("#txtFromDate").val(),
         Piority:0,
         Status: $("#ddlStatus").val(),	
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_UserList").val()
+        NumberOfRows: $("#ddlRPP_UserList").val(),
+        Criteria: criteria
     };
-   
+ 
     $.ajax({
         url: '/ServicesManagement/FillServicesSearchGrid',
         method: "post",
@@ -70,7 +93,7 @@ var fillUserList = function (pagenumber) {
         dataType: "json",
         success: function (response) {
             if ($.trim(response.error) !== "") {
-                alert('hi');
+               
             } else {
                 $("#tblServiceRequest>tbody").empty();
                 $.each(response.model, function (elementType, elementValue) {
@@ -78,6 +101,7 @@ var fillUserList = function (pagenumber) {
                     html += '<tr data-value="' + elementValue.ServiceID + '">';
                     html += '<td class="pds-id hidden" style="color:#3d3939;">' + elementValue.ServiceID + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.TenantName + '</td>';
+                    html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.UnitNo+ '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.Problemcategory + '</td>';
                     html += '<td class="pds-lastname" style="color:#3d3939;">' + elementValue.ItemCaussing + '</td>';
                     html += '<td class="pds-username" style="color:#3d3939;">' + elementValue.ItemIssue + '</td>';
@@ -92,7 +116,7 @@ var fillUserList = function (pagenumber) {
                 if (response.model.length == 0) {
                     $("#tblServiceRequest>tbody").empty();
                 }
-            }
+            } $("#divLoader").hide();
         }
     });
 };
@@ -122,8 +146,40 @@ $(document).ready(function () {
     $('#tblServiceRequest tbody').on('dblclick', 'tr', function () {
        goToEdit();
     });
-  
+    $("#txtCriteria").val('');
+    $("#ddlCriteria").val('1');
     fillDdlUser();
+    //$("#ddlCriteria").on('change', function (evt, params) {
+    //    var selected = $(this).find(":Selected").val();
+    //    var selectedData = $(this).find(":selected").data("value");
+    //    if (selected != null) {
+    //        if (selected == 1) {
+                
+    //        }
+    //        else 
+    //        {
+              
+    //        }
+    //    }
+    //});
+
+    $("#ddlCriteria").on('change', function ()
+    {
+        $("#txtCriteria").val('');
+        if ($(this).val() == 2) {
+            $("#txtCriteria").keypress(function () {
+                if ($("#ddlCriteria").val() == 2) {
+                var k = isOnlyNumber($(this).event);
+                if (k == false) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+                }
+            });
+        }
+    });
 });
 $(document).keypress(function (e) {
     if (e.which === 13) {

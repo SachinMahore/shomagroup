@@ -25,10 +25,14 @@ var saveupdateProspect = function () {
     $("#divLoader").show();
     var msg = "";
     var salesAgent = $("#ddlAgentAssign").val();
+    var appointmentStatus = $("#ddlAppointmentStatus").val();
     var prospectId = $("#hndProspectID").val();
     var appDate = $("#txtAppointmentDate").text();
     if (salesAgent == "0") {
         msg += "Select the sales Agent</br>";
+    }
+    if (appointmentStatus == "0") {
+        msg += "Select the appointment status</br>";
     }
     if (msg != "") {
         $.alert({
@@ -36,9 +40,10 @@ var saveupdateProspect = function () {
             content: msg,
             type: 'red'
         });
+        $("#divLoader").hide();
         return;
     }
-    var model = { AssignAgentID: salesAgent, PID: prospectId, RequiredDateText: appDate };
+    var model = { AssignAgentID: salesAgent, PID: prospectId, RequiredDateText: appDate, AppointmentStatus: appointmentStatus };
     $.ajax({
         url: "/ProspectManagement/SaveProspectForm/",
         type: "post",

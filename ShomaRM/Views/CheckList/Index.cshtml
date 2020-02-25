@@ -61,7 +61,7 @@
                                         </div>
                                     </div>
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-primary" onclick="SignInFromEmail()"> Sign In</button>
+                                        <button type="submit" class="btn btn-primary" onclick="SignInFromEmailCheckList()"> Sign In</button>
                                     </div>
 
                                 </div>
@@ -86,10 +86,13 @@
                                         <div class="form-group">
                                             <div class="">
                                                 @*<a href="javascript:void(0)" id="btnDownloadLeaseDocument" class="btn btn-primary" onclick="saveLeaseDoc()">Review and Sign Your Online Leasing Application</a>*@
-                                                <span class="hidden" style="color:#4d738a" id="lblLeaseStatus"> Your Lease Agreement already Generated and processed at Bluemoon. Lease ID:</span> <span  style="color:#4d738a" id="lblLeaseNo"></span>
+                                                 @*<span class="hidden" style="color:#4d738a" id="lblLeaseStatus"> Your Lease Agreement already Generated and processed at Bluemoon. Lease ID:</span> <span  style="color:#4d738a" id="lblLeaseNo"></span>
                                                 <br /><br />
-                                                <input type="submit" class="btn btn-primary pull-right" width="400" style="width: 400px;" value="Edit Your Online Leasing Application" id="btnDownloadLeaseDocument" onclick="location.href='@Url.Action("LeaseBlumoon","CheckList")'" />
-                                                <input type="submit" class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="location.href='@Url.Action("GetLeaseDocBlumoon","CheckList")'"  value="Download Leasing Application" disabled/>
+                                                onclick="location.href='@Url.Action("LeaseBlumoon","CheckList")'"
+                                                onclick="location.href='@Url.Action("GetLeaseDocBlumoon","CheckList")'"
+                                                *@
+                                                <a class="btn btn-primary pull-right" width="400" style="width: 400px;" id="btnDownloadLeaseDocument" onclick="createLeaseDocument()" >Process Online Leasing Application</a>
+                                                <a class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="downloadLeaseDocument()"  disabled="disabled">Download Leasing Application</a>
                                             </div>
                                         </div>
                                     </div>
@@ -341,7 +344,7 @@
 
                     </div>
                     <div class="col-sm-2">
-                        <button type="submit" class="btn btn-primary" onclick="savePayment()">Pay Now</button>
+                        <button type="submit" class="btn btn-primary" onclick="savePaymentCheckList()">Pay Now</button>
                     </div>
                     <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsg"></b></p></div>
 
@@ -494,13 +497,16 @@
                 $("#lblLeaseNo").text(response.model.EnvelopeID);
                 if (response.model.EnvelopeID!="")
                 {
-                    $("#lblLeaseStatus").removeClass("hidden");
+                    //$("#lblLeaseStatus").removeClass("hidden");
                     $("#btnleaseDownl").removeAttr("disabled");
+                    $("#btnleaseDownl").attr('href', '/Content/assets/img/Document/' + response.model.EnvelopeID + '.pdf');
+                    $("#btnleaseDownl").attr('download', 'LeaseDocument_' + response.model.EnvelopeID + '.pdf');
+                    $("#btnleaseDownl").attr('target', '_parent');
                 }
             }
         });
     };
-    var SignInFromEmail = function () {
+    var SignInFromEmailCheckList = function () {
         var msg = "";
         var email = $("#UserName").val();
         var pass = $("#password").val();
@@ -534,21 +540,38 @@
             data: JSON.stringify(model),
             dataType: "JSON",
             success: function (response) {
-
-                if (response != "0") {
-
-                    $("#hndUID").val(response);
-                      getTenantInfo(response);
-                    goToStep(2, 2);
-                } else {
-                    alert("Invalid Email ID / password.")
+                //if (response != "0") {
+                //    $("#hndUID").val(response);
+                //    getTenantInfo(response);
+                //    goToStep(2, 2);
+                //} else {
+                //    alert("Invalid Email ID / password.")
+                //}
+                var result = response.UserData.split("|");
+                if (result[0] == -1) {
+                    window.location = "/Home/";
                 }
-
+                else if (result[0] != 0) {
+                    if (result[1] == "ad") {
+                        window.location = "/Admin/AdminHome";
+                    }
+                    else if (result[1] == "te") {
+                        window.location = "/Tenant/Dashboard";
+                    }
+                    else if (result[1] == "an") {
+                        $("#hndUID").val(response);
+                        getTenantInfo(response);
+                        goToStep(2, 2);
+                    }
+                    else {
+                        window.location = "/Home/";
+                    }
+                    $("#popSignIn").PopupWindow("close");
+                } else {
+                    alert("Invalid Email ID / Password.")
+                }
             }
-
-
         });
-
     }
 
     var goToStep = function (stepid, id) {
@@ -585,7 +608,7 @@
 
     }
 
-    function savePayment() {
+    function savePaymentCheckList() {
         $("#divLoader").show();
         var msg = "";
         if ($("#hndTransMethod").val() == "0") {
@@ -690,13 +713,13 @@
             Credit_Amount: amounttoPay,
             ProspectID: prospectID,
             Description: description,
-           
+
             RoutingNumber: routingNumber,
             BankName: bankName,
             PaymentMethod: paymentMethod,
         };
 
-      
+
         $.ajax({
             url: "/CheckList/SaveMoveInPayment/",
             type: "post",
@@ -764,7 +787,7 @@
 
     var saveMoveInCheckList = function () {
         var msg = "";
-      
+
         var ProspectID = $("#hndProspectID").val();
 
         var MoveInDate = $("#txtMoveInDate").val();
@@ -822,7 +845,7 @@
                 setTimeout(function () {
                     window.location.href = "/Home/Index";
                 }, 1500);
-               
+
             }
         });
     };
@@ -940,8 +963,42 @@
             dataType: "json", //Expected data format from server
             success: function (response) {
                 $("#divLoader").hide();
-                window.open("/Content/assets/img/Document/" + response.result, "popupWindow", "width=900,height=600,scrollbars=yes");               
+                window.open("/Content/assets/img/Document/" + response.result, "popupWindow", "width=900,height=600,scrollbars=yes");
             }
         });
+    }
+
+    var createLeaseDocument = function () {
+        $("#divLoader").show();
+        var param = { UserID: $("#hndUID").val() };
+        $.ajax({
+            url: "/CheckList/LeaseBlumoon",
+            method: "post",
+            data: JSON.stringify(param),
+            contentType: "application/json; charset=utf-8", // content type sent to server
+            dataType: "json", //Expected data format from server
+            success: function (response) {
+                $("#divLoader").hide();
+                $("#btnleaseDownl").removeAttr("disabled");
+                $("#btnleaseDownl").attr('href', '/Content/assets/img/Document/' + response.LeaseId + '.pdf');
+                $("#btnleaseDownl").attr('download', 'LeaseDocument_' + response.LeaseId + '.pdf');
+                $("#btnleaseDownl").attr('target', '_parent');
+            }
+        });
+    }
+    var downloadLeaseDocument = function () {
+        //$("#divLoader").show();
+        //var param = { UserID: $("#hndUID").val() };
+        //$.ajax({
+        //    url: "/EmbeddedSigning/GetDocuDocLease",
+        //    method: "post",
+        //    data: JSON.stringify(param),
+        //    contentType: "application/json; charset=utf-8", // content type sent to server
+        //    dataType: "json", //Expected data format from server
+        //    success: function (response) {
+        //        $("#divLoader").hide();
+
+        //    }
+        //});
     }
 </script>

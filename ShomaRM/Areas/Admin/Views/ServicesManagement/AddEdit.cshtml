@@ -21,10 +21,14 @@
             </div>
             <div class="form-group clearfix panel">
                 <div class="col-md-12 center">
-                    <h4 class="text-center" style="text-decoration:underline;margin-top:2%;margin-bottom:2%;font-size: 12pt;background-color:transparent;color:#4D738A">Tenant Information</h4>
+                    <div class="col-sm-10"><h4 class="text-center" style="text-decoration:underline;margin-bottom:1%;font-size: 12pt;background-color:transparent;color:#4D738A">Tenant Information</h4></div>
+                    <div class="col-sm-2">
+                        @*<h4 style="text-decoration:underline;margin-bottom:1%;font-size: 12pt;background-color:transparent;color:#4D738A"><a href="javascript:void(0)"  onclick="aa()"</a>Service Request List</h4>*@
+                        <a href="javascript:void(0)"  onclick="ServiceList()" style="text-decoration:underline;margin-bottom:1%;font-size: 12pt;background-color:transparent;color:#4D738A">Service Request List</a><br />
+                    </div>
                 </div>
 
-                <div class="col-sm-12" style="padding:12px;border:1px solid !important;box-sizing: border-box; box-shadow:2px;">
+                <div class="col-sm-12" style="padding:12px;border:1px solid !important;box-sizing: border-box; box-shadow:2px; width:99%!important">
                     <div class="col-sm-12" style="margin-bottom:8px !important;">
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -135,13 +139,7 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    
-
-                   
-
-              
                 </div>
                 <div class="col-md-12 center">
                     &nbsp;
@@ -291,7 +289,7 @@
                         <div class="col-sm-12" style="margin-bottom:8px !important;margin-left:-35px;">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-6">
                                         <label for="firstname">Emergency Contact :</label>
                                     </div>
                                     <div class="col-sm-7" style="margin-left: -17px;">
@@ -299,6 +297,16 @@
                                     </div>
                                 </div>
                             </div>
+                            @*<div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="col-sm-5">
+                                        <label for="firstname">View Pictures :</label>
+                                    </div>
+                                    <div class="col-sm-7" style="margin-left: -60px;">
+                                        <a href="javascript:void(0);" onclick="fileDoesNotExist();" class="fa fa-eye"></a>
+                                    </div>
+                                </div>
+                            </div>*@
                         </div>
 
                         <div class="col-sm-12" style="margin-bottom:8px !important;margin-left:-35px;">
@@ -373,12 +381,18 @@
                     <div class="col-md-12 center">
                         &nbsp;
                     </div>
-                    <div class="col-md-12 center" style="padding:6px;border:1px solid !important;box-sizing: border-box; box-shadow:2px;">
+                    <div class="col-md-12 center" style="padding:6px;border:1px solid !important;box-sizing: border-box; box-shadow:2px;height: 96px;">
                         <h4 class="text-center" style="text-decoration:underline;margin-top:2%;margin-bottom:2%;font-size: 12pt;background-color:transparent;color:#4D738A">Warranty Status</h4>
-                        <input id="toggle-on" class="toggle toggle-left" name="toggle" value="false" type="radio" checked>
+                        @*<input id="toggle-on" class="toggle toggle-left" name="toggle" value="false" type="radio" checked>
                         <label for="toggle-on" class="btn">Yes</label>
                         <input id="toggle-off" class="toggle toggle-right" name="toggle" value="true" type="radio">
-                        <label for="toggle-off" class="btn">No</label>
+                        <label for="toggle-off" class="btn">No</label>*@
+                        <label class="btn btn-secondary active">
+                            <input type="radio" name="Warranty" id="Yes" autocomplete="off" checked> Yes
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="Warranty" id="No" autocomplete="off"> No
+                        </label>
                     </div>
                     </div>
                 <div class="col-md-12 ">
@@ -401,11 +415,12 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-12" id="Bydate" style="margin-bottom:8px !important;margin-left:-35px;">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <div class="col-sm-6">
-                                        <label for="firstname" class="star">Requested Date :</label>
+                                        <label for="firstname" class="star">Appointment Date :</label>
                                     </div>
                                     <div class="col-sm-6" style="margin-left: -63px;">
                                         <input id="txtRequestedDate" placeholder="MM/DD/YYYY" style="width:222px!important" class="form-control form-control-small" type="text"> 
@@ -418,7 +433,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <div class="col-sm-6">
-                                        <label for="firstname" class="star">Requested Time :</label>
+                                        <label for="firstname" class="star">Appointment Time :</label>
                                     </div>
                                     <div class="col-sm-6" style="margin-left: -62px;">
                                         <select id="lblRequestedTime" class="form-control">
@@ -442,7 +457,7 @@
                         <div class="col-sm-8">
                             <div class="form-group">
                                 <div class="col-sm-6">
-                                    <label for="firstname">Requested Date :</label>
+                                    <label for="firstname">Appointment Date :</label>
                                 </div>
                                 <div class="col-sm-6" style="margin-left: -71px;">
                                     <span style="font-weight:bold;" id="lblRequesteddateAnytime"></span>
@@ -452,34 +467,108 @@
                         <div class="col-sm-8">
                             <div class="form-group">
                                 <div class="col-sm-6" >
-                                    <label for="firstname">Requested Time :</label>
+                                    <label for="firstname">Appointment Time :</label>
                                 </div>
                                 <div class="col-sm-6" style="margin-left: -71px;">
                                     <span style="font-weight:bold;" id="lblRequestedAnytime"></span>
                                 </div>
                             </div>
                         </div>
+                       
                     </div>
-                    <div class="col-sm-12 text-center">
-                        <button type="submit" class="btn btn-primary" onclick="StatusUpdateForServicePerson()">Save</button>
+                    <div class="col-md-12 center">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-12 center">
+                        &nbsp;
                     </div>
                 </div>
                 <div class="col-md-5">
-                    <div class="col-sm-12" style="padding:12px;border:1px solid !important;box-sizing: border-box; box-shadow:2px;">
+                    <div class="col-sm-12" style="padding:12px;border:1px solid !important;box-sizing: border-box; box-shadow:2px;height:217px;">
                         <div class="col-md-12 center">
                             <h4 class="text-center" style="text-decoration:underline;margin-top:2%;margin-bottom:2%;font-size: 12pt;background-color:transparent;color:#4D738A">Closing Information</h4>
                         </div>
                         <div class="col-md-12" style="margin-bottom:8px !important;margin-left:-35px;">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-4">
                                         <label for="firstname">Closing Date :</label>
                                     </div>
-                                    <div class="col-sm-7" @*style="margin-left: -5px;"*@>
-                                        <input id="txtClosingDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" />
+                                    <div class="col-sm-8">
+                                        <input id="txtClosingDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" style="width:68%!important" />
+                                        <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 157px;">
+                                            <button class="btn btn-primary search" id="ClosingDate"><i class="fa-calendar fa"></i></button>
+                                        </span>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="col-md-12" style="margin-bottom:8px !important;margin-left:-20px;">
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label for="firstname">Closing Pictures :</label>
+                                </div>
+                                <div class="col-sm-3" style="margin-left:-7px;">
+                                    <input type="file" name="fileCompleted" accept="image/*" id="fileCompleted" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                    <label for="fileCompleted"><i class="fa fa-upload fa-2x"></i> <span id="fileCompletedShow">&hellip;</span></label>
+                                    <input type="hidden" id="hndfileCompleted" value="0" />
+                                    <input type="hidden" id="hndOriginalfileCompleted" value="0" />
+                                </div>
+
+                                <div class="col-sm-4" style="margin-left: -48px;">
+                                    <label for="firstname">Tenant Signature:</label>
+                                </div>
+                                    <div class="col-sm-3" style="margin-left: -60px;">
+
+                                        <input type="file" name="uploadphoto" accept="image/*" id="uploadphoto" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                        @*<input type="file" name="photo" accept="image/*" id="uploadphoto" />*@
+                                        <label for="uploadphoto"><i class="fa fa-upload fa-2x"></i> <span id="uploadphoto">&hellip;</span></label>
+                                        <input type="hidden" id="hndHomeownerSignature" value="0" />
+                                        <input type="hidden" id="hndOriginalHomeownerSignature" value="0" />
+
+                                    </div>
+                            </div>
+                                @*<label for="firstname">T Signature:</label>
+                                <input type="file" name="upload-photo" accept="image/*" id="upload-photo" lass="inputfile inputfile-1" data-multiple-caption="{count} files selected"/>
+                                <label for="upload-photo"><i class="fa fa-upload fa-2x"></i> <span id="upload-photoShow">Choose a file&hellip;</span></label>
+                                <input type="hidden" id="hndHomeownerSignature" value="0" />
+                                <input type="hidden" id="hndOriginalHomeownerSignature" value="0" />
+                            </div>*@
+                        </div>
+                        <div class="col-md-12" style="margin-bottom:8px !important;margin-left:-20px;">
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label for="firstname">Closing Notes :</label>
+                                </div>
+                                <div class="col-sm-8" style="margin-left:-5px;">
+                                    <textarea class="form-control form-control-small"  placeholder="Closing notes..." id="txtClosingNotes" maxlength="200" style="height:44px!important"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+              
+                    @*<div class="col-md-5">
+            <div class="col-sm-12" style="padding:12px;border:1px solid !important;box-sizing: border-box; box-shadow:2px;">
+                <div class="col-md-12 center">
+                    <h4 class="text-center" style="text-decoration:underline;margin-top:2%;margin-bottom:2%;font-size: 12pt;background-color:transparent;color:#4D738A">Closing Information</h4>
+                </div>
+                <div class="col-md-12" style="margin-bottom:8px !important;margin-left:-35px;">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-sm-5">
+                                <label for="firstname">Closing Date :</label>
+                            </div>
+                            <div class="col-sm-7">
+                    <input id="txtClosingDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" />
+                </div>
                                     <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 422px;">
-                                        <button class="btn btn-primary search" id="ClosingDate" type="fi"><i class="fa-calendar fa"></i></button>
+                                        <button class="btn btn-primary search" id="ClosingDate" ><i class="fa-calendar fa"></i></button>
                                     </span>
                                 </div>
                             </div>
@@ -531,8 +620,28 @@
                             <button type="submit" class="btn btn-primary" onclick="StatusUpdateServiceRequest()">Save</button>
                         </div>
                     </div>
+                </div>*@
+                <div class="col-md-12 center">
+                    &nbsp;
                 </div>
-               
+                <div class="col-sm-12 text-center">
+                    <button type="submit" class="btn btn-primary" onclick="StatusUpdateForServicePerson()">Save</button>
+                </div>
+                <div class="col-md-12 center">
+                    &nbsp;
+                </div>
+                @*<div class="col-md-6 clear">
+                    <table id="tblEvent" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="background-color: #c7cdd566;color:#3d3939">Tent Name</th>
+                                <th style="background-color: #c7cdd566;color:#3d3939">C p</th>
+                                <th style="background-color: #c7cdd566;color:#3d3939">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>*@
             </div>
         </div>
     </div>
@@ -554,10 +663,10 @@
         /* Style as you please, it will become the visible UI component. */
     }
 
-    #upload-photo {
+    /*#upload-photo {
         opacity: 0;
         position: absolute;
         z-index: -1;
-    }
+    }*/
 
 </style>

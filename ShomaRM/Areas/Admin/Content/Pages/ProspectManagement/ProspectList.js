@@ -80,6 +80,7 @@ var fillProspectList = function (pagenumber) {
                     html += "<td>" + elementValue.EmailId + "</td>";
                     html += "<td>" + elementValue.VisitDateTime + "</td>";
                     html += "<td>" + elementValue.AssignAgentName + "</td>";
+                    html += "<td>" + elementValue.AppointmentStatusString + "</td>";
                     html += "</tr>";
                     $("#tblProspect>tbody").append(html);
                 });

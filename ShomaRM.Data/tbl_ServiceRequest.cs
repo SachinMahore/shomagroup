@@ -44,5 +44,6 @@ namespace ShomaRM.Data
         public Nullable<System.DateTime> ClosingDate { get; set; }
         public string OwnerSignature { get; set; }
         public string TempOwnerSignature { get; set; }
+        public Nullable<int> WarrantyStatus { get; set; }
     }
 }

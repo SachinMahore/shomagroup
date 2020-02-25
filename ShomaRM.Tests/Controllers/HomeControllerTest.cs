@@ -12,18 +12,18 @@ namespace ShomaRM.Tests.Controllers
     [TestClass]
     public class HomeControllerTest
     {
-        [TestMethod]
-        public void Index()
-        {
-            // Arrange
-            HomeController controller = new HomeController();
+        //[TestMethod]
+        //public void Index()
+        //{
+        //    // Arrange
+        //    HomeController controller = new HomeController();
 
-            // Act
-            ViewResult result = controller.Index() as ViewResult;
+        //    // Act
+        //    ViewResult result = controller.Index() as ViewResult;
 
-            // Assert
-            Assert.IsNotNull(result);
-        }
+        //    // Assert
+        //    Assert.IsNotNull(result);
+        //}
 
         //[TestMethod]
         //public void About()
@@ -38,17 +38,17 @@ namespace ShomaRM.Tests.Controllers
         //    Assert.AreEqual("Your application description page.", result.ViewBag.Message);
         //}
 
-        [TestMethod]
-        public void Contact()
-        {
-            // Arrange
-            HomeController controller = new HomeController();
+        //[TestMethod]
+        //public void Contact()
+        //{
+        //    // Arrange
+        //    HomeController controller = new HomeController();
 
-            // Act
-            ViewResult result = controller.Contact() as ViewResult;
+        //    // Act
+        //    ViewResult result = controller.Contact() as ViewResult;
 
-            // Assert
-            Assert.IsNotNull(result);
-        }
+        //    // Assert
+        //    Assert.IsNotNull(result);
+        //}
     }
 }

@@ -18,10 +18,6 @@ namespace ShomaRM.Controllers
     {
         public ActionResult Index()
         {
-
-
-
-
             if (Session["DelDatAll"] != null)
             {
                 if (Session["DelDatAll"].ToString() == "Del")

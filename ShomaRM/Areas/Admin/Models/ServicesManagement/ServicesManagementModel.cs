@@ -68,6 +68,7 @@ namespace ShomaRM.Areas.Admin.Models
         public string TempOwnerSignature { get; set; }
         public string MStartDateString { get; set; }
         public string MLeaseEndDateString { get; set; }
+        public Nullable<int> WarrantyStatus { get; set; }
 
         public int BuildPaganationUserList(ServicesSearchModel model)
         {
@@ -107,6 +108,11 @@ namespace ShomaRM.Areas.Admin.Models
                     param5.ParameterName = "UserID";
                     param5.Value = Convert.ToInt32(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID);
                     cmd.Parameters.Add(param5);
+
+                    DbParameter param6 = cmd.CreateParameter();
+                    param6.ParameterName = "Criteria";
+                    param6.Value = model.Criteria;
+                    cmd.Parameters.Add(param6);
 
                     DbParameter paramPN = cmd.CreateParameter();
                     paramPN.ParameterName = "PageNumber";
@@ -174,6 +180,11 @@ namespace ShomaRM.Areas.Admin.Models
                     param5.Value = Convert.ToInt32(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID);
                     cmd.Parameters.Add(param5);
 
+                    DbParameter param6 = cmd.CreateParameter();
+                    param6.ParameterName = "Criteria";
+                    param6.Value = model.Criteria;
+                    cmd.Parameters.Add(param6);
+
                     DbParameter paramPN = cmd.CreateParameter();
                     paramPN.ParameterName = "PageNumber";
                     paramPN.Value = model.PageNumber;
@@ -204,6 +215,7 @@ namespace ShomaRM.Areas.Admin.Models
                     searchmodel.Notes = dr["Notes"].ToString();
                     searchmodel.OtherItemCaussing = dr["OtherItemCaussing"].ToString();
                     searchmodel.OtherItemIssue = dr["OtherItemIssue"].ToString();
+                    searchmodel.UnitNo = dr["UnitNo"].ToString(); 
                     lstUser.Add(searchmodel);
                 }
                 db.Dispose();
@@ -273,6 +285,7 @@ namespace ShomaRM.Areas.Admin.Models
                     pr.MoveIndate = dr["MoveIndate"].ToString();
                     pr.MStartDateString = dr["MStartDate"].ToString();
                     pr.MLeaseEndDateString = dr["LeaseEndDate"].ToString();
+                    pr.WarrantyStatus = Convert.ToInt32(dr["WarrantyStatus"].ToString());
                 }
                 db.Dispose();
                 return pr;
@@ -285,28 +298,28 @@ namespace ShomaRM.Areas.Admin.Models
            
         }
 
-        public string StatusUpdateServiceRequest(ServicesManagementModel model)
-        {
-            string msg = "";
-            ShomaRMEntities db = new ShomaRMEntities();
+        //public string StatusUpdateServiceRequest(ServicesManagementModel model)
+        //{
+        //    string msg = "";
+        //    ShomaRMEntities db = new ShomaRMEntities();
 
-            var UpdateStatusService = db.tbl_ServiceRequest.Where(co => co.ServiceID == model.ServiceID).FirstOrDefault();
+        //    var UpdateStatusService = db.tbl_ServiceRequest.Where(co => co.ServiceID == model.ServiceID).FirstOrDefault();
 
-            if (UpdateStatusService != null)
-            {
-                UpdateStatusService.CompletedPicture = model.CompletedPicture;
-                UpdateStatusService.TempCompletedPicture = model.TempCompletedPicture;
-                UpdateStatusService.ClosingNotes = model.ClosingNotes;
-                UpdateStatusService.ClosingDate = model.ClosingDate;
-                UpdateStatusService.OwnerSignature= model.OwnerSignature;
-                UpdateStatusService.TempOwnerSignature = model.TempOwnerSignature;
-                db.SaveChanges();
-                msg = "Service Request Status Update Successfully";
-            }
+        //    if (UpdateStatusService != null)
+        //    {
+        //        UpdateStatusService.CompletedPicture = model.CompletedPicture;
+        //        UpdateStatusService.TempCompletedPicture = model.TempCompletedPicture;
+        //        UpdateStatusService.ClosingNotes = model.ClosingNotes;
+        //        UpdateStatusService.ClosingDate = model.ClosingDate;
+        //        UpdateStatusService.OwnerSignature= model.OwnerSignature;
+        //        UpdateStatusService.TempOwnerSignature = model.TempOwnerSignature;
+        //        db.SaveChanges();
+        //        msg = "Service Request Status Update Successfully";
+        //    }
 
-            db.Dispose();
-            return msg;
-        }
+        //    db.Dispose();
+        //    return msg;
+        //}
         public string StatusUpdateForServicePerson(ServicesManagementModel model)
         {
             string msg = "";
@@ -322,6 +335,14 @@ namespace ShomaRM.Areas.Admin.Models
                 UpdateStatusService.PermissionComeTime = model.PermissionComeTime;
                 UpdateStatusService.Status = model.Status;
                 UpdateStatusService.UrgentStatus = model.UrgentStatus;
+
+                UpdateStatusService.CompletedPicture = model.CompletedPicture;
+                UpdateStatusService.TempCompletedPicture = model.TempCompletedPicture;
+                UpdateStatusService.ClosingNotes = model.ClosingNotes;
+                UpdateStatusService.ClosingDate = model.ClosingDate;
+                UpdateStatusService.OwnerSignature = model.OwnerSignature;
+                UpdateStatusService.TempOwnerSignature = model.TempOwnerSignature;
+                UpdateStatusService.WarrantyStatus = model.WarrantyStatus;
                 UpdateStatusService.ApprovedBy = Convert.ToInt32(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID);
                 db.SaveChanges();
                 msg = "Service Request Assign Successfully";
@@ -433,7 +454,8 @@ namespace ShomaRM.Areas.Admin.Models
             public string FirstName { get; set; }
             public string LastName { get; set; }
             public string Notes { get; set; }
-
+            public string UnitNo { get; set; }
+            public string Criteria { get; set; }
 
             public string FromDate { get; set; }
             public string ToDate { get; set; }
