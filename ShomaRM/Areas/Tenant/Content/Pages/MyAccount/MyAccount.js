@@ -1168,7 +1168,7 @@ var getInvoice = function (invid)
                 $("#tblInvoiceBill>tbody").append(html);
                 srno++;
             });
-            $("#tblInvoiceBill>tbody").append("<tr><td colspan='3'><hr /></td></tr>  <tr><td></td><td style='text-align: right;'>Total Amount :</td><td style='text-align: right;'> <b> <span id='invamount'> $" + formatMoney(response.model.Charge_Amount)+"</span></b> </td></tr>");
+            $("#tblInvoiceBill>tbody").append("<tr><td colspan='3'></td></tr>  <tr><td></td><td style='text-align: right;'>Total Amount :</td><td style='text-align: right;'> <b> <span id='invamount'> $" + formatMoney(response.model.Charge_Amount)+"</span></b> </td></tr>");
            
         }
     });
