@@ -333,6 +333,7 @@
     <Compile Include="Models\ApplyNow\OnlineProspectModule.cs" />
     <Compile Include="Models\AquatraqHelper.cs" />
     <Compile Include="Models\Bluemoon\BluemoonService.cs" />
+    <Compile Include="Models\Bluemoon\EsignatureModel.cs" />
     <Compile Include="Models\Bluemoon\IBluemoonService.cs" />
     <Compile Include="Models\Bluemoon\LeaseRequestModel.cs" />
     <Compile Include="Models\Bluemoon\ResponseModel.cs" />
@@ -830,6 +831,10 @@
     <Content Include="Content\assets\font\Lara regular-italic.otf" />
     <Content Include="Content\assets\font\Lara regular.otf" />
     <Content Include="Content\assets\font\Oxygen-Regular.ttf" />
+    <Content Include="Content\assets\font\Helvetica-45-Light_22437.ttf" />
+    <Content Include="Content\assets\font\Helvetica45Light_22437.ttf" />
+    <Content Include="Content\assets\font\Helvetica45Light_22437.woff" />
+    <Content Include="Content\assets\font\BeVietnam-Medium.ttf" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
