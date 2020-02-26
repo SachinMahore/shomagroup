@@ -1,40 +1,9 @@
-﻿﻿body {
+﻿body {
     padding: 0px;
     margin: 0px;
     font-size: 16px;
     font-weight: normal;
     font-family: Futura Medium;
-}
-
-.calendar-month-header {
-    background: #4D738A !important;
-    color: #fff;
-    text-shadow: none;
-    border: 1px solid #4D738A !important;
-}
-
-    .calendar-month-header td {
-        color: white;
-        border: 1px solid #4D738A !important;
-    }
-
-.calendar-dow td {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.pad10TopBottom {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.calendar-month-navigation {
-    text-align: center;
-}
-
-.zabuto_calendar .table-bordered {
-    /*border: 3px solid #B7B0A7 !important;*/
-    height: 100% !important;
 }
 
 @font-face {
@@ -44,12 +13,12 @@
 
 @font-face {
     font-family: Futura Medium;
-    src: url('../font/Futura Medium.otf');
+    src: url('../font/Futura Medium.ttf');
 }
 
 @font-face {
-    font-family: HelveticaNeue;
-    src: url('../font/FontsFree-Net-HelveticaNeueBold.ttf');
+    font-family: HelveticaNeueBold;
+    src: url('../font/HelveticaNeueBold.otf');
 }
 
 @font-face {
@@ -83,7 +52,6 @@
     line-height: 0px;
     margin: 38px;
     color: #4d738a;
-    float:left
 }
 
 .text-subheding {
@@ -152,11 +120,10 @@
 }
 
 .myprofilebox {
-    /*background-image: url(../img/myprofile.png);*/
+    background-image: url(../img/myprofile.png);
     width: 150px;
     height: 150px;
     background-size: 100%;
-    float:left;
 }
 
 .profile-picherbox {
@@ -169,11 +136,6 @@
 
 .fa-plus:before {
     color: #fff;
-    content: "\f067";
-    background: #4d738a;
-    border-radius: 50%;
-    padding: 5px;
-    margin-right: 5px;
 }
 
 .add {
@@ -1351,6 +1313,7 @@ select::-ms-expand {
   font-family: myFirstFont;
   src: url(FuturaBQ-Medium.otf);
 }
+
 .topmenu-font {
   font-family: myFirstFont;
 }*/
@@ -1507,7 +1470,15 @@ textarea {
     padding: 1px 10px;
 }
 
-
+.icheckbox_square-yellow.checked {
+    float: left;
+    width: 28px;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    margin: 2px 20px;
+}
 
 .form-control-box {
     display: block;
@@ -1643,10 +1614,12 @@ textarea {
 
 table {
     border-collapse: collapse;
+    width: 96%;
 }
 
 td {
     padding: 4px 8px;
+    border: 1px solid #dedcdc;
     font-size: 20px;
     color: #000000;
     width: 14%;
@@ -1758,27 +1731,6 @@ span.cercal3 {
     border-radius: 50%;
     padding: 0px 9px;
     margin: 5px;
-}
-
-.dot-today {
-    /* width: 10px; */
-    /* height: 10px; */
-    background: #B3ADA6;
-    border-radius: 8px;
-    padding: 2px 5px;
-    /* margin: 5px; */
-    color: white;
-}
-
-.event-box {
-    width: 20%;
-    height: auto;
-    background: gray;
-    float: left;
-    border-radius: 50%;
-    margin: 2px;
-    margin-top: 5px;
-    padding: 10%;
 }
 
 .Wraper {
@@ -1913,7 +1865,7 @@ span.cercal3 {
     margin-top: -8px;
 }
 
-.fa-plus:before {
+.fa-plus {
     color: #fff;
     content: "\f067";
     background: #4d738a;
@@ -1949,7 +1901,7 @@ span.cercal3 {
 }
 
 .right-sub-text-link {
-    font-size: 16px;
+    font-size: 20px;
     text-align: center;
     color: #547288 !important;
     text-decoration: underline;
@@ -1973,24 +1925,28 @@ span.cercal3 {
 
 .text-color1 span {
     text-align: 20px;
+    font-family: HelveticaNeue;
+    font-size: 18px;
 }
 
 .text-color1 a {
     color: #547288;
-    font-size: 18px;
-    font-family: HelveticaNeue;
 }
 
 .text-color1 i:hover {
     color: #B3ADA6;
     font-size: 18px;
-    font-family: HelveticaNeue;
+    background: #B3ADA6;
+}
+
+.text-color1 span:hover {
+    color: #B3ADA6;
+    font-size: 18px;
 }
 
 .text-color1 a:hover {
     color: #B3ADA6;
     font-size: 18px;
-    font-family: HelveticaNeue;
 }
 /*------my-home----*/
 .margin {
@@ -3694,7 +3650,7 @@ td {
     font-size: 20px;
     color: #000000;
     width: 14%;
-    font-family: HelveticaNeue;
+    font-family: HelveticaNeueBold;
     text-align: left;
 }
 
