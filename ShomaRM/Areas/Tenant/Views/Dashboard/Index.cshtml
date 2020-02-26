@@ -8,158 +8,107 @@
 <input id="hndTenantID" type="hidden" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID" />
 <input id="hndEventID" type="hidden" value="0" />
 
-@*<div class="content-area submit-property" style="background-color: #FCFCFC;">
-    &nbsp;*@
-<div class="container" style="width:100%;">
-    <div class="wizard-container">
-        <div class="tab-content">
-            <div class="tab-content1">
-                <div class="" id="step3">
-                    <div class="row">
-                        <div class="">
-                            <div class="">
-                                @*<div class="panel-heading center" style="padding:0px !important">
-                                        <h3><b sstyle="font-size: 20pt !important;">WELCOME HOME</b></h3>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <textarea id="txtCommunityActivity" maxlength="500" style="width:100%" placeholder="Share something with your neighbors..."></textarea>
-                                    </div>*@
-                                <div class="col-md-12 center"><h3 class="welcome-text">WELCOME HOME</h3></div>
-                                <div class="col-lg-12">
-                                    <textarea id="txtCommunityActivity" style="width:100%" placeholder="Share something with your neighbors..."></textarea>
-                                </div>
+@*<div class="container container-box">*@
+@*<div class="row">*@
+<!-----Left section---->
 
-
-
-                                <div class="row">
-
-                                    <div class="col-md-12 m-t10">
-                                        <div class="col-lg-3 col-md-4 col-sm-3 col-xs-2 pull-right box-padding box-width">
-                                            <div class="pull-right">
-                                                <label for="fileCommunityActivity" class=" btn btn-primary"><i class="fa fa-paperclip"></i></label>
-                                                <input type="file" name="fileCommunityActivity" id="fileCommunityActivity" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                                <input type="hidden" id="hndfileCommunityActivity" />
-                                                <input type="hidden" id="hndfileCommunityActivityOriginalName" />
-                                                <button type="button" class=" btn btn-primary" onclick="saveUpdateCommunityPost();">Post</button>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 pull-right box-padding1 box-width" id="disclaimerCommunity">
-                                          
-                                            <div class="pull-right">
-                                                <input id="chkDisclaimer" type="checkbox" class="form-control" style="font-size:11pt;" /> <span class="agree-text">I agree to the</span>   <a style="cursor:pointer" id="ShowDisclaimer" href="javascript:void(0);" class="condition-text">Terms & Condition</a>
-                                            </div>
-                                           
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-md-12 center"><h3 class="welcome-text">WELCOME HOME</h3></div>
+            <div class="col-lg-12">
+                <textarea id="txtCommunityActivity" style="width:100%" placeholder="Share something with your neighbors..."></textarea>
+            </div>
+            <div class="row">
+                <div class="col-md-12 m-t10">
+                    <div class="col-lg-3 col-md-4 col-sm-3 col-xs-2 pull-right box-padding box-width">
+                        <div class="pull-right">
+                            <label for="fileCommunityActivity" class=" btn btn-primary"><i class="fa fa-paperclip"></i></label>
+                            <input type="file" name="fileCommunityActivity" id="fileCommunityActivity" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                            <input type="hidden" id="hndfileCommunityActivity" />
+                            <input type="hidden" id="hndfileCommunityActivityOriginalName" />
+                            <button type="button" class=" btn btn-primary" onclick="saveUpdateCommunityPost();">Post</button>
                         </div>
-                        <!-----Community Activity section---->
-
-
-                        <div class="col-md-12"><h3 class="headding-sub-text">Community Activity</h3></div>
-                        @*<div class="col-sm-12" style="overflow-x:auto">
-                                <div class="panel-body table-bordered">
-                                    <div id="DivCommunityActivityList" class="slim-scroll" style="width: 1019px;height: 351px;"></div>
-                                </div><br />
-                            </div>*@
-                        <div class="">
-                            <div class="col-md-12">
-                                <div class="panel-body table-bordered">
-
-                                    <div id="DivCommunityActivityList" class="flot-box">
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <br />
-
-
                     </div>
-                    @*<div class="col-md-12">
-                            ---Community-image-and -name-box--
-                            <div class="col-md-12 calender-box  p-a0">
-                                <div class="row">
-                                    ---calendar section--
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 pull-right box-padding1 box-width" id="disclaimerCommunity">
 
-                                    <div class="col-lg-8 col-md-12 col-sm-12 padding-box margin">
-                                        <h3 class="headding-sub-text">Community Calendar</h3>
-                                        <span id="spanEventCalender" style="cursor:pointer"></span>
-                                        <br />
-
-
-                                        <ul id="EventCatogary" class="calendar-menu">
-                                            <li id="Event"><span class="dot-1"></span>Neighborhood</li>
-                                            <li id="Event"><span class="dot-2"></span>Community</li>
-                                            <li id="Event"><span class="dot-3"></span>Service</li>
-                                            <li id="Event"><span class="dot-4"></span>Other</li>
-                                            <li id="Event"><span class="dot-5"></span>Current Date</li>
-                                        </ul>
-
-
-                                    </div>
-
-                                    ---calendar section-end-
-                                    ---Upcoming Events-
-                                    <div class="col-lg-4 col-md-12 col-sm-12 padding-box ">
-                                        <h3 class="headding-sub-text">Upcoming Events</h3>
-                                        <div id="divEvents" class="Wraper m-b10">
-
-
-                                        </div>
-                                    </div>
-
-                                    ---Upcoming Events-End
-
-                                </div>
-                            </div>
-                        </div>*@
-                    <div class="col-md-12 p-a0 ">
-                        <div class="row">
-                            <!-----calendar section---->
-
-                            <div class="col-lg-8 col-md-12 col-sm-12 padding-box margin">
-                                <h3 class="headding-sub-text">Community Calendar</h3>
-                                <span id="spanEventCalender" ></span>
-
-
-                                <ul class="calendar-menu">
-                                    <li><span class="dot-1"></span>Neighborhood</li>
-                                    <li><span class="dot-2"></span>Community</li>
-                                    <li><span class="dot-3"></span>Service</li>
-                                    <li><span class="dot-4"></span>Other</li>
-                                    <li><span class="dot-5"></span>Current Date</li>
-                                </ul>
-
-
-
-                            </div>
-
-                            <!-----calendar section-end--->
-                            <!-----Upcoming Events--->
-                            <div class="col-lg-4 col-md-12 col-sm-12 padding-box ">
-                                <h3 class="headding-sub-text">Upcoming Events</h3>
-
-                                <div id="divEvents" >
-
-                                </div>
-
-
-
-                            </div>
-
-                            <!-----Upcoming Events-End-->
-
+                        <div class="pull-right">
+                            <input id="chkDisclaimer" type="checkbox" class="form-control" style="font-size:11pt;" /> <span class="agree-text">I agree to the</span>   <a style="cursor:pointer" id="ShowDisclaimer" href="javascript:void(0);" class="condition-text">Terms & Condition</a>
                         </div>
+
                     </div>
                 </div>
             </div>
-            <!-- End submit form -->
-
         </div>
     </div>
+    <!-----Community Activity section---->
+    <div class="row margin">
+        <div class="col-md-12">
+            <div class="col-md-12"><h3 class="headding-sub-text">Community Activity</h3></div>
+
+            <!-----Community-image-and -name-box---->
+
+            <div class="col-md-12 Activity-box margin-box p-l5 p-r0">
+                <div class="Activity-box-inner myBox">
+
+                   
+                            <div id="DivCommunityActivityList">
+
+                            </div>
+
+                       
+                </div>
+            </div>
+        </div>
+
+        <!-----Community Activity section---->
+
+        <div class="col-md-12">
+            <!-----Community-image-and -name-box---->
+            <div class="col-md-12 calender-box  p-a0">
+                <div class="row">
+                    <!-----calendar section---->
+
+                    <div class="col-lg-8 col-md-12 col-sm-12 padding-box margin">
+                        <h3 class="headding-sub-text">Community Calendar</h3>
+                        <span id="spanEventCalender"></span>
+
+
+                        <ul class="calendar-menu">
+                            <li><span class="dot-1"></span>Neighborhood</li>
+                            <li><span class="dot-2"></span>Community</li>
+                            <li><span class="dot-3"></span>Service</li>
+                            <li><span class="dot-4"></span>Other</li>
+                            <li><span class="dot-5"></span>Current Date</li>
+                        </ul>
+
+
+                    </div>
+
+                    <!-----calendar section-end--->
+                    <!-----Upcoming Events--->
+                    <div class="col-lg-4 col-md-12 col-sm-12 padding-box ">
+                        <h3 class="headding-sub-text">Upcoming Events</h3>
+
+                        <div class="Wraper m-b10 ">
+                            <div id="divEvents">
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                    <!-----Upcoming Events-End-->
+
+                </div>
+            </div>
+        </div>
+        <!-----Community Activity section-End--->
+    </div>
+    <!-----Left section--End-->
+    @*</div>*@
+    @*</div>*@
     <div class="modal" id="popRateOpinion" style="padding-right: 370px !important;">
         <div class="modal-dialog">
             <div class="modal-content" style="width:100%; height:215px;text-align: center;">
@@ -364,395 +313,436 @@
             </div>
         </div>
     </div>
-</div>
-@*</div>*@
 
-@*<style>
+        @*</div>*@
 
-        .tab-content ul {
-            background-color: #c7d5c733;
-        }
 
-            .tab-content ul li {
-                margin-right: 2px;
-                overflow: hidden;
-                background-color: #a4a9a433;
-                border-radius: 5%;
+
+
+
+
+        @*<div class="content-area submit-property" style="background-color: #FCFCFC;">
+            &nbsp;*@
+        @*<style>
+
+                .tab-content ul {
+                    background-color: #c7d5c733;
+                }
+
+                    .tab-content ul li {
+                        margin-right: 2px;
+                        overflow: hidden;
+                        background-color: #a4a9a433;
+                        border-radius: 5%;
+                    }
+
+                .nav {
+                    padding-left: 0;
+                    list-style: none;
+                }
+
+                .tab-content1 ul {
+                    background-color: #4d738a;
+                    color: #dfe4e8;
+                }
+
+                    .tab-content1 ul li a {
+                        color: #B7B0A7;
+                    }
+
+
+
+
+                .tab-content.wizard li {
+                    width: 100%;
+                    float: none;
+                    margin-bottom: 0px;
+                }
+
+                    .tab-content.wizard li > * {
+                        position: relative;
+                        padding: 1em .8em .8em 1.5em;
+                        color: #ffffff;
+                        background-color: #B4ADA5;
+                        border-color: #B4ADA5;
+                    }
+
+                    .tab-content.wizard li.completed > * {
+                        color: #fff !important;
+                        background-color: #96c03d !important;
+                        border-color: #96c03d !important;
+                        border-bottom: none !important;
+                    }
+
+                .tab-content li.active > * {
+                    color: #fff !important;
+                    background-color: #4d738a !important;
+                    border-color: #4d738a !important;
+                    border-bottom: none !important;
+                    margin-bottom: 0px;
+                }
+
+                .tab-content.wizard li::after:last-child {
+                    border: none;
+                    border-bottom-left-radius: 0px;
+                }
+
+                .tab-content.wizard > li > a {
+                    opacity: 1;
+                    font-size: 14px;
+                }
+
+                .tab-content.wizard a:hover {
+                    color: #fff;
+                    background-color: #4d738a;
+                    border-color: #4d738a
+                }
+
+                span.nmbr {
+                    display: inline-block;
+                    padding: 10px 0 0 0;
+                    background: #ffffff;
+                    width: 35px;
+                    line-height: 100%;
+                    height: 35px;
+                    margin: auto;
+                    border-radius: 50%;
+                    font-weight: bold;
+                    font-size: 16px;
+                    color: #555;
+                    margin-bottom: 10px;
+                    text-align: center;
+                }
+
+                @@media(min-width:992px) {
+                    .tab-content.wizard li {
+                        position: relative;
+                        padding: 0;
+                        /*margin: 4px 4px 4px 0;*/
+                        width: 19.6%;
+                        float: left;
+                        text-align: center;
+                    }
+
+                    .nav-tabs.wizard li.active a {
+                        padding-top: 15px;
+                    }
+
+                    .tab-content.wizard li::after, .nav-tabs.wizard li > ::after {
+                        content: '';
+                        position: absolute;
+                        top: -1px;
+                        left: 100%;
+                        height: 0;
+                        width: 0;
+                        border: 24px solid transparent;
+                        border-right-width: 24px;
+                        border-left-color: transparent;
+                        border-right-width: 0;
+                        border-left-width: 20px;
+                    }
+
+                    .tab-content.wizard li::after {
+                        z-index: 1;
+                        -webkit-transform: translateX(4px);
+                        -moz-transform: translateX(4px);
+                        -ms-transform: translateX(4px);
+                        -o-transform: translateX(4px);
+                        transform: translateX(4px);
+                        border-left-color: #fff;
+                        margin: 0
+                    }
+
+                    .tab-content.wizard li > *::after {
+                        z-index: 2;
+                        border-left-color: inherit
+                    }
+
+                    .tab-content.wizard > li:nth-of-type(1) > a {
+                        border-top-left-radius: 0px;
+                        border-bottom-left-radius: 0px;
+                    }
+
+                    .tab-content.wizard li:last-child a {
+                        border-top-right-radius: 0px;
+                        border-bottom-right-radius: 0px;
+                    }
+
+                    .tab-content.wizard li:last-child {
+                        margin-right: 0;
+                    }
+
+                    .nav-tabs.wizard li:last-child a:after,
+                    .nav-tabs.wizard li:last-child:after {
+                        content: "";
+                        border: none;
+                    }
+
+                    span.nmbr {
+                        display: block;
+                    }
+                }
+
+                .wizard-card {
+                    border: groove;
+                    border-color: black;
+                }
+
+                .btn-blue {
+                    background-color: #4d738a;
+                    color: #fff;
+                }
+
+                    .btn-blue:hover {
+                        background-color: #B7B0A7;
+                        color: #fff;
+                    }
+
+                hr {
+                    margin-top: 0px !important;
+                    margin-bottom: 0px !important;
+                    border: 0;
+                    border-top: 1px solid #bebdbd;
+                }
+
+                .select-unit {
+                    background-color: #4d738a !important;
+                    color: #fff !important;
+                }
+
+                    .select-unit a {
+                        color: #fff !important;
+                    }
+                /*.badge {
+                        font-size:14px !important;
+                        color:#000 !important;
+                        background-color: #fff !important;
+                        border-radius: 5px !important;
+                    }*/
+
+                .tab-content1 ul {
+                    background-color: transparent !important;
+                    color: black !important;
+                }
+
+                .tab-content ul li {
+                    background-color: transparent !important;
+                }
+
+                .colorNeigh {
+                    background-color: #00bfff !important;
+                    padding: 5px !important;
+                }
+
+                .neighbor {
+                    background: linear-gradient(110deg, #00bfff 60%, #a2d900 60%);
+                }
+
+                .colorCommu {
+                    background-color: #a2d900 !important;
+                    padding: 5px !important;
+                    /*background: linear-gradient(to right, #a2d900, #00bfff 100%, #293f50);*/
+                }
+
+                .colorOther {
+                    background-color: #ff6 !important;
+                    padding: 5px !important;
+                }
+
+                .colorMulti {
+                    background-color: #ff6347 !important;
+                    padding: 5px !important;
+                }
+
+                .colorCurrDate {
+                    background-color: #daf6ff !important;
+                    padding: 5px !important;
+                }
+
+                .button-pill {
+                    background-color: #ddd;
+                    border: none;
+                    color: black;
+                    padding: 8px 10px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    margin: 0px -10px;
+                    cursor: default;
+                    border-radius: 16px;
+                }
+
+
+                .button-square {
+                    background-color: #ddd;
+                    border: none;
+                    color: white;
+                    padding: 8px 10px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    margin: 2px 0px;
+                    cursor: default;
+                }*/
+
+                #EventCatogary button {
+                    float: left;
+                    display: block;
+                    text-align: center;
+                    text-decoration: none;
+                    cursor: pointer;
+                    background-color: #fff;
+                    font-size: 9px;
+                }
+
+                /*div.zabuto_calendar .badge-event,
+                div.zabuto_calendar div.legend span.badge-event {
+                    background: #4D738A !important;
+                    color: #fff;
+                    text-shadow: none;
+                }
+
+                .zabuto_calendar .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+                    line-height: 100% !important;
+                    text-align: center;
+                    width: 15%;
+                }
+
+                .affix {
+                    position: fixed !important;
+                    background-color: white !important;
+                    z-index: 777 !important;
+                    padding-right: 15px !important;
+                }
+
+                .calendar-month-header {
+                    background: #4D738A !important;
+                    color: #fff;
+                    text-shadow: none;
+                    border: 1px solid #4D738A !important;
+                }
+
+                    .calendar-month-header td {
+                        border: 1px solid #4D738A !important;
+                    }
+
+                .zabuto_calendar .table-bordered {
+                    border: 3px solid #B7B0A7 !important;
+                    height: 100% !important;
+                }*/
+
+                #ratingButtons .btn {
+                    display: inline-block;
+                    padding: 6px 12px;
+                    margin-bottom: 2px;
+                    font-size: 15px;
+                    font-weight: normal;
+                    line-height: 1.42857143;
+                    text-align: center;
+                    white-space: nowrap;
+                    vertical-align: middle;
+                    -ms-touch-action: manipulation;
+                    touch-action: manipulation;
+                    cursor: pointer;
+                    -webkit-user-select: none;
+                    -moz-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+                    background-image: none;
+                    border: 3px solid transparent;
+                    border-top-color: transparent;
+                    border-right-color: transparent;
+                    border-bottom-color: transparent;
+                    border-left-color: transparent;
+                    margin-right: 8px !important;
+                }
+
+                .ratingpoor {
+                    background-color: red;
+                }
+
+                .ratingavg {
+                    background-color: orange;
+                }
+
+                .ratinggood {
+                    background-color: green;
+                }
+            </style>*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <script>
+            //$(document).ready(function () {
+            //    $("#DivCommunityActivityList").slimScroll({
+            //        width: '100%',
+            //        height: '351px',
+            //        size: '10px',
+            //        color: '#4D738A',
+            //        alwaysVisible: true,
+            //        distance: '1px',
+            //        railVisible: true,
+            //        railColor: '#6C6E72',
+            //        railOpacity: 0.2,
+            //        wheelStep: 1,
+            //        allowPageScroll: false,
+            //        disableFadeOut: false
+            //    });
+
+
+            //});
+
+            var modalTermcondition = document.getElementById("modalDisclaimer");
+
+            var ShowTermcondition = document.getElementById("ShowDisclaimer");
+
+            var spanTermcondition = document.getElementById("TermDisclaimer");
+
+            ShowTermcondition.onclick = function () {
+                modalTermcondition.style.display = "block";
             }
 
-        .nav {
-            padding-left: 0;
-            list-style: none;
-        }
 
-        .tab-content1 ul {
-            background-color: #4d738a;
-            color: #dfe4e8;
-        }
-
-            .tab-content1 ul li a {
-                color: #B7B0A7;
+            spanTermcondition.onclick = function () {
+                modalTermcondition.style.display = "none";
             }
 
 
-
-
-        .tab-content.wizard li {
-            width: 100%;
-            float: none;
-            margin-bottom: 0px;
-        }
-
-            .tab-content.wizard li > * {
-                position: relative;
-                padding: 1em .8em .8em 1.5em;
-                color: #ffffff;
-                background-color: #B4ADA5;
-                border-color: #B4ADA5;
+            window.onclick = function (event) {
+                if (event.target == modalTermcondition) {
+                    modalTermcondition.style.display = "none";
+                }
             }
-
-            .tab-content.wizard li.completed > * {
-                color: #fff !important;
-                background-color: #96c03d !important;
-                border-color: #96c03d !important;
-                border-bottom: none !important;
-            }
-
-        .tab-content li.active > * {
-            color: #fff !important;
-            background-color: #4d738a !important;
-            border-color: #4d738a !important;
-            border-bottom: none !important;
-            margin-bottom: 0px;
-        }
-
-        .tab-content.wizard li::after:last-child {
-            border: none;
-            border-bottom-left-radius: 0px;
-        }
-
-        .tab-content.wizard > li > a {
-            opacity: 1;
-            font-size: 14px;
-        }
-
-        .tab-content.wizard a:hover {
-            color: #fff;
-            background-color: #4d738a;
-            border-color: #4d738a
-        }
-
-        span.nmbr {
-            display: inline-block;
-            padding: 10px 0 0 0;
-            background: #ffffff;
-            width: 35px;
-            line-height: 100%;
-            height: 35px;
-            margin: auto;
-            border-radius: 50%;
-            font-weight: bold;
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        @@media(min-width:992px) {
-            .tab-content.wizard li {
-                position: relative;
-                padding: 0;
-                /*margin: 4px 4px 4px 0;*/
-                width: 19.6%;
-                float: left;
-                text-align: center;
-            }
-
-            .nav-tabs.wizard li.active a {
-                padding-top: 15px;
-            }
-
-            .tab-content.wizard li::after, .nav-tabs.wizard li > ::after {
-                content: '';
-                position: absolute;
-                top: -1px;
-                left: 100%;
-                height: 0;
-                width: 0;
-                border: 24px solid transparent;
-                border-right-width: 24px;
-                border-left-color: transparent;
-                border-right-width: 0;
-                border-left-width: 20px;
-            }
-
-            .tab-content.wizard li::after {
-                z-index: 1;
-                -webkit-transform: translateX(4px);
-                -moz-transform: translateX(4px);
-                -ms-transform: translateX(4px);
-                -o-transform: translateX(4px);
-                transform: translateX(4px);
-                border-left-color: #fff;
-                margin: 0
-            }
-
-            .tab-content.wizard li > *::after {
-                z-index: 2;
-                border-left-color: inherit
-            }
-
-            .tab-content.wizard > li:nth-of-type(1) > a {
-                border-top-left-radius: 0px;
-                border-bottom-left-radius: 0px;
-            }
-
-            .tab-content.wizard li:last-child a {
-                border-top-right-radius: 0px;
-                border-bottom-right-radius: 0px;
-            }
-
-            .tab-content.wizard li:last-child {
-                margin-right: 0;
-            }
-
-            .nav-tabs.wizard li:last-child a:after,
-            .nav-tabs.wizard li:last-child:after {
-                content: "";
-                border: none;
-            }
-
-            span.nmbr {
-                display: block;
-            }
-        }
-
-        .wizard-card {
-            border: groove;
-            border-color: black;
-        }
-
-        .btn-blue {
-            background-color: #4d738a;
-            color: #fff;
-        }
-
-            .btn-blue:hover {
-                background-color: #B7B0A7;
-                color: #fff;
-            }
-
-        hr {
-            margin-top: 0px !important;
-            margin-bottom: 0px !important;
-            border: 0;
-            border-top: 1px solid #bebdbd;
-        }
-
-        .select-unit {
-            background-color: #4d738a !important;
-            color: #fff !important;
-        }
-
-            .select-unit a {
-                color: #fff !important;
-            }
-        /*.badge {
-                font-size:14px !important;
-                color:#000 !important;
-                background-color: #fff !important;
-                border-radius: 5px !important;
-            }*/
-
-        .tab-content1 ul {
-            background-color: transparent !important;
-            color: black !important;
-        }
-
-        .tab-content ul li {
-            background-color: transparent !important;
-        }
-
-        .colorNeigh {
-            background-color: #00bfff !important;
-            padding: 5px !important;
-        }
-
-        .neighbor {
-            background: linear-gradient(110deg, #00bfff 60%, #a2d900 60%);
-        }
-
-        .colorCommu {
-            background-color: #a2d900 !important;
-            padding: 5px !important;
-            /*background: linear-gradient(to right, #a2d900, #00bfff 100%, #293f50);*/
-        }
-
-        .colorOther {
-            background-color: #ff6 !important;
-            padding: 5px !important;
-        }
-
-        .colorMulti {
-            background-color: #ff6347 !important;
-            padding: 5px !important;
-        }
-
-        .colorCurrDate {
-            background-color: #daf6ff !important;
-            padding: 5px !important;
-        }
-
-        .button-pill {
-            background-color: #ddd;
-            border: none;
-            color: black;
-            padding: 8px 10px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            margin: 0px -10px;
-            cursor: default;
-            border-radius: 16px;
-        }
-
-
-        .button-square {
-            background-color: #ddd;
-            border: none;
-            color: white;
-            padding: 8px 10px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            margin: 2px 0px;
-            cursor: default;
-        }*/
-
-        #EventCatogary button {
-            float: left;
-            display: block;
-            text-align: center;
-            text-decoration: none;
-            cursor: pointer;
-            background-color: #fff;
-            font-size: 9px;
-        }
-
-        /*div.zabuto_calendar .badge-event,
-        div.zabuto_calendar div.legend span.badge-event {
-            background: #4D738A !important;
-            color: #fff;
-            text-shadow: none;
-        }
-
-        .zabuto_calendar .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
-            line-height: 100% !important;
-            text-align: center;
-            width: 15%;
-        }
-
-        .affix {
-            position: fixed !important;
-            background-color: white !important;
-            z-index: 777 !important;
-            padding-right: 15px !important;
-        }
-
-        .calendar-month-header {
-            background: #4D738A !important;
-            color: #fff;
-            text-shadow: none;
-            border: 1px solid #4D738A !important;
-        }
-
-            .calendar-month-header td {
-                border: 1px solid #4D738A !important;
-            }
-
-        .zabuto_calendar .table-bordered {
-            border: 3px solid #B7B0A7 !important;
-            height: 100% !important;
-        }*/
-
-        #ratingButtons .btn {
-            display: inline-block;
-            padding: 6px 12px;
-            margin-bottom: 2px;
-            font-size: 15px;
-            font-weight: normal;
-            line-height: 1.42857143;
-            text-align: center;
-            white-space: nowrap;
-            vertical-align: middle;
-            -ms-touch-action: manipulation;
-            touch-action: manipulation;
-            cursor: pointer;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            background-image: none;
-            border: 3px solid transparent;
-            border-top-color: transparent;
-            border-right-color: transparent;
-            border-bottom-color: transparent;
-            border-left-color: transparent;
-            margin-right: 8px !important;
-        }
-
-        .ratingpoor {
-            background-color: red;
-        }
-
-        .ratingavg {
-            background-color: orange;
-        }
-
-        .ratinggood {
-            background-color: green;
-        }
-    </style>*@
-
-<script>
-    $(document).ready(function () {
-        $("#DivCommunityActivityList").slimScroll({
-            width: '100%',
-            height: '351px',
-            size: '10px',
-            color: '#4D738A',
-            alwaysVisible: true,
-            distance: '1px',
-            railVisible: true,
-            railColor: '#6C6E72',
-            railOpacity: 0.2,
-            wheelStep: 1,
-            allowPageScroll: false,
-            disableFadeOut: false
-        });
-
-
-    });
-
-    var modalTermcondition = document.getElementById("modalDisclaimer");
-
-    var ShowTermcondition = document.getElementById("ShowDisclaimer");
-
-    var spanTermcondition = document.getElementById("TermDisclaimer");
-
-    ShowTermcondition.onclick = function () {
-        modalTermcondition.style.display = "block";
-    }
-
-
-    spanTermcondition.onclick = function () {
-        modalTermcondition.style.display = "none";
-    }
-
-
-    window.onclick = function (event) {
-        if (event.target == modalTermcondition) {
-            modalTermcondition.style.display = "none";
-        }
-    }
-</script>
+        </script>

@@ -257,7 +257,7 @@ var getCommunityActivityList = function () {
                 }
                 var Html = '<div class="col-md-12 m-b15">';
                 Html += '<div class="row">';
-                Html += '<div class="col-lg-1 col-md-2 col-sm-2 col-xs-4 flot-box">';
+                Html += '<div class="col-lg-1 col-md-2 col-sm-1 col-xs-4 flot-box">';
                 if (elementValue.ProfilePicture == null) {
                     Html += '<img src="/Content/assets/img/Circle.png" class="img-circle" height="50" width="50" />';
                 }
@@ -279,7 +279,7 @@ var getCommunityActivityList = function () {
                 Html += '<div class="col-md-12 padding-box comment-text p-lr0">' + elementValue.Details;
                 Html += '</div>';
                 if (elementValue.AttatchFile != null) {
-                    Html += '<span style="margin-left: 11%;">' + "  " + attachFile + '</span>';
+                    Html += '<span >' + "  " + attachFile + '</span>';
                 }
                 Html += '</div>';
 
