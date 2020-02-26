@@ -24,7 +24,9 @@ var buildPaganationReservationRequestList = function (pagenumber) {
         ToDate: $("#txtToDate").val(),
         FromDate: $("#txtFromDate").val(),
         PageNumber: 1,
-        NumberOfRows: $("#ddlRPP_ReservationRequestList").val()
+        NumberOfRows: $("#ddlRPP_ReservationRequestList").val(),
+        UnitId: $("#ddlUnitNoAmeResReq").val(),
+        AmenityName: $("#txtAmenitiesAmeResReq").val()
     };
     $.ajax({
         url: "/Tenant/AmenitiesRR/BuildPaganationReservationRequestList",
@@ -38,9 +40,11 @@ var buildPaganationReservationRequestList = function (pagenumber) {
             } else {
                 if (response.NOP == 0) {
                     $('#divPagination_ReservationRequestList').addClass("hidden");
+                    $("#tblReservationRequest>tbody").empty();
                 }
                 else {
                     $('#divPagination_ReservationRequestList').removeClass("hidden");
+                    //$('#tblReservationRequest').removeClass("hidden");
                     $('#ulPagination_ReservationRequestList').pagination('updateItems', response.NOP);
                     $('#ulPagination_ReservationRequestList').pagination('selectPage', 1);
                 }
@@ -49,11 +53,14 @@ var buildPaganationReservationRequestList = function (pagenumber) {
     });
 };
 var fillReservationRequestList = function (pagenumber) {
+    $("#divLoader").show();
     var model = {
         ToDate: $("#txtToDate").val(),
         FromDate: $("#txtFromDate").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_ReservationRequestList").val()
+        NumberOfRows: $("#ddlRPP_ReservationRequestList").val(),
+        UnitId: $("#ddlUnitNoAmeResReq").val(),
+        AmenityName: $("#txtAmenitiesAmeResReq").val()
     };
     $.ajax({
         url: '/Tenant/AmenitiesRR/FillReservationRequestSearchGrid',
@@ -67,9 +74,9 @@ var fillReservationRequestList = function (pagenumber) {
             } else {
                 $("#tblReservationRequest>tbody").empty();
                 $.each(response, function (elementType, elementValue) {
-                    console.log(JSON.stringify(response));
                     var html = "<tr data-value=" + elementValue.ARID + " data-amenity=" + elementValue.AmenityID + ">";
                     html += "<td>" + elementValue.TenantName + "</td>";
+                    html += "<td>" + elementValue.UnitNo + "</td>";
                     html += "<td>" + elementValue.AmenityName + "</td>";
                     html += "<td>" + elementValue.DesiredDate + "</td>";
                     html += "<td>" + elementValue.DesiredTimeFrom + "</td>";
@@ -84,8 +91,10 @@ var fillReservationRequestList = function (pagenumber) {
             }
         }
     });
+    $("#divLoader").hide();
 };
 $(document).ready(function () {
+    $('#txtAmenitiesAmeResReq').val('');
     fillRPP_ReservationRequestList();
     $('#ulPagination_ReservationRequestList').pagination({
         items: 0,
@@ -111,6 +120,7 @@ $(document).ready(function () {
     $('#tblReservationRequest tbody').on('dblclick', 'tr', function () {
         goToEditReservationRequest();
     });
+    bindUnitNoDDL();
 });
 $(document).keypress(function (e) {
     if (e.which === 13) {
@@ -118,3 +128,19 @@ $(document).keypress(function (e) {
     }
 });
 
+var bindUnitNoDDL = function () {
+    $.ajax({
+        url: "/Tenant/AmenitiesRR/BindUnitNoFromTenantInfo",
+        method: "post",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#ddlUnitNoAmeResReq").empty();
+            var ddlUnit = "<option value='0'>Select Unit</option>";
+            $.each(response.model, function (elementType, elementValue) {
+                ddlUnit += "<option value=" + elementValue.UnitId + ">" + elementValue.UnitName + "</option>"
+            })
+            $("#ddlUnitNoAmeResReq").append(ddlUnit);
+        }
+    });
+};

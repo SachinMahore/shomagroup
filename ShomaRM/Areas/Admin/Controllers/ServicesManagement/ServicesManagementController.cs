@@ -57,17 +57,17 @@ namespace ShomaRM.Areas.Admin.Controllers
             }
         }
 
-        public JsonResult StatusUpdateServiceRequest(ServicesManagementModel model)
-        {
-            try
-            {
-                return Json(new { model = new ServicesManagementModel().StatusUpdateServiceRequest(model) }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception Ex)
-            {
-                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
-            }
-        }
+        //public JsonResult StatusUpdateServiceRequest(ServicesManagementModel model)
+        //{
+        //    try
+        //    {
+        //        return Json(new { model = new ServicesManagementModel().StatusUpdateServiceRequest(model) }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
 
         public JsonResult StatusUpdateForServicePerson(ServicesManagementModel model)
         {

@@ -1,16 +1,16 @@
 ﻿
 $(document).ready(function () {
-   
+
     goToServiceDetails($("#hndServiceID").val());
     onFocus();
     fillDdlUser();
     document.getElementById('fileCompleted').onchange = function () {
         uploadServiceFile();
-    }; 
+    };
 
-    document.getElementById('upload-photo').onchange = function () {
+    document.getElementById('uploadphoto').onchange = function () {
         OwnerSignature();
-    }; 
+    };
     $("#txtClosingDate").datepicker();
     $('#ClosingDate').click(function () {
         $("#txtClosingDate").focus();
@@ -19,7 +19,9 @@ $(document).ready(function () {
         $("#txtRequestedDate").focus();
     });
 });
-
+var ServiceList = function () {
+    window.location.href = ("../../ServicesManagement/Index/");
+};
 var goToServiceDetails = function (ServiceID) {
     $("#divLoader").show();
     var model = {
@@ -38,28 +40,24 @@ var goToServiceDetails = function (ServiceID) {
             $('#ProblemCatrgory').text(response.model.ProblemCategorystring);
             $('#lblLeaseStartDate').text(response.model.MStartDateString);
             $('#lblLeaseTerminationtDate').text(response.model.MLeaseEndDateString);
-           
-            if (response.model.Details == null || response.model.Details=='' ) {
+            if (response.model.Details == null || response.model.Details == '') {
 
                 $('#ProbleOther').addClass('hidden');
 
             } else {
-              
+
                 $('#lblProbleOther').text(response.model.Details);
                 $('#ProbleOther').removeClass('hidden');
-               
-
             }
             if (response.model.OtherItemCaussing == null || response.model.OtherItemCaussing == '') {
 
                 $('#CaussingOther').addClass('hidden');
             } else {
 
-               
                 $('#lblCaussingOther').text(response.model.OtherItemCaussing);
                 $('#CaussingOther').removeClass('hidden');
             }
-            if (response.model.OtherItemIssue == null || response.model.OtherItemIssue == '' ) {
+            if (response.model.OtherItemIssue == null || response.model.OtherItemIssue == '') {
 
                 $('#IssueOther').addClass('hidden');
             } else {
@@ -76,16 +74,23 @@ var goToServiceDetails = function (ServiceID) {
             $('#lblContactNo').text(formatPhoneFax(response.model.Phone));
             $('#lblCurrentStatus').text(response.model.StatusString);
             $('#lblEnteryNote').text(response.model.Notes);
-           // alert(response.model.UrgentStatus);
             if (response.model.UrgentStatus == '1') {
                 $('#Urgent').iCheck('check');
-              
+
             } else {
                 $('#NotUrgent').iCheck('check');
             }
+
+            if (response.model.WarrantyStatus == 1) {
+                $('#Yes').iCheck('check');
+
+            } else {
+                $('#No').iCheck('check');
+            }
+
             $('#lblEmergencyNo').text(formatPhoneFax(response.model.EmergencyMobile));
             $('#lblEmail').text(response.model.Email);
-           
+
             if (response.model.PermissionComeDateString != null) {
                 $('#AnyTime').addClass('hidden');
                 $('#ActualAnytime').addClass('hidden');
@@ -96,7 +101,7 @@ var goToServiceDetails = function (ServiceID) {
                 else {
                     $('#lblRequestedTime').val(0);
                 }
-                
+
                 $('#lblAppointmentActualTime').text(response.model.PermissionComeTime);
                 $('#lblAppointmentActualdate').text(response.model.PermissionComeDateString);
                 if (response.model.PermissionComeDateString == 'Any Time') {
@@ -107,42 +112,39 @@ var goToServiceDetails = function (ServiceID) {
                     $("#txtRequestedDate").datepicker("setdate", response.model.PermissionComeDateString);
                     $("#txtRequestedDate").val(response.model.PermissionComeDateString);
                 }
-                
-            }
-          
-            if (response.model.Status != null){
-           
-            if (response.model.Status=="1") {
-                $('#UnAssigned').iCheck('check');
-            }
-            else if (response.model.Status == "2"){
-                $('#Resolved').iCheck('check');
-            }
-            else if (response.model.Status == "3") {
-                $('#cancel').iCheck('check');
-            }
-            else if (response.model.Status == "4") {
-                $('#Active').iCheck('check');
-            }
 
             }
-           
+
+            if (response.model.Status != null) {
+
+                if (response.model.Status == "1") {
+                    $('#UnAssigned').iCheck('check');
+                }
+                else if (response.model.Status == "2") {
+                    $('#Resolved').iCheck('check');
+                }
+                else if (response.model.Status == "3") {
+                    $('#cancel').iCheck('check');
+                }
+                else if (response.model.Status == "4") {
+                    $('#Active').iCheck('check');
+                }
+
+            }
             if (response.model.ServicePerson == "1") {
                 $("#ddlUser").val('0');
             }
             else {
                 setTimeout(function () {
                     $("#ddlUser").val(response.model.ServicePerson);
-                } ,1000);
-               
+                }, 1000);
+
             }
-
-
             $("#txtClosingNotes").val(response.model.ClosingNotes);
             $("#txtClosingDate").val(response.model.ClosingDatestring);
             $("#txtClosingDate").datepicker("setdate", response.model.ClosingDatestring);
-            
-         
+
+
             if (response.model.TempServiceFile != null) {
                 var fileExist = doesFileExist('/Content/assets/img/Document/' + response.model.TempServiceFile);
                 if (fileExist) {
@@ -156,9 +158,6 @@ var goToServiceDetails = function (ServiceID) {
             else {
                 $('#wizardPicturePreview').attr('src', '/Content/assets/img/aaa.png');
             }
-           
-           
-
         }
     });
     $("#divLoader").hide();
@@ -216,8 +215,8 @@ var StatusUpdateServiceRequest = function (id) {
     var emmob = unformatText($("#lblEmergencyNo").text());
     var CompletedFileTemp = $("#hndfileCompleted").val();
     var CompletedFileOriginal = $("#hndOriginalfileCompleted").val();
-    var closingNotes = $("#txtClosingNotes").val(); 
-    var closingDate = $("#txtClosingDate").val();  
+    var closingNotes = $("#txtClosingNotes").val();
+    var closingDate = $("#txtClosingDate").val();
     //var rescheduledate = $("#txtRequestedDate").val();
     //var rescheduletime = $("#lblRequestedTime").val();
     var ownerSignature = $("#hndHomeownerSignature").val();
@@ -257,7 +256,7 @@ var StatusUpdateServiceRequest = function (id) {
 
 
 
-    if (msg!="") {
+    if (msg != "") {
         $.alert({
             title: '',
             content: msg,
@@ -288,16 +287,16 @@ var StatusUpdateServiceRequest = function (id) {
                 content: response.model,
                 type: 'red'
             });
-           
+
             $("#fileCompletedShow").val('');
             $("#txtClosingNotes").val('');
-           
+
         }
     });
     $("#divLoader").hide();
 }
 var StatusUpdateForServicePerson = function (id) {
-      $("#divLoader").show();
+    $("#divLoader").show();
     var msg = '';
     var id = $("#hndServiceID").val();
     var emmob = unformatText($("#lblEmergencyNo").text());
@@ -307,6 +306,13 @@ var StatusUpdateForServicePerson = function (id) {
     var tenantname = $("#lbltenantName").text();
     var tenantemail = $("#lblEmail").text();
     var problecategory = $("#ProblemCatrgory").text();
+
+    var CompletedFileTemp = $("#hndfileCompleted").val();
+    var CompletedFileOriginal = $("#hndOriginalfileCompleted").val();
+    var closingNotes = $("#txtClosingNotes").val();
+    var closingDate = $("#txtClosingDate").val();
+    var ownerSignature = $("#hndHomeownerSignature").val();
+    var tempOwnerSignature = $("#hndOriginalHomeownerSignature").val();
 
     if (!rescheduledate) {
         msg += 'Select the Date</br>'
@@ -339,6 +345,13 @@ var StatusUpdateForServicePerson = function (id) {
     else if ($("#Cancel").is(":checked")) {
         status = 3;
     }
+    var Warrantystatus = '';
+    if ($("#Yes").is(":checked")) {
+        Warrantystatus = 1;
+    }
+    else if ($("#No").is(":checked")) {
+        Warrantystatus = 0;
+    }
 
 
     if (msg != "") {
@@ -361,6 +374,13 @@ var StatusUpdateForServicePerson = function (id) {
         TenantName: tenantname,
         Email: tenantemail,
         ProblemCategorystring: problecategory,
+        CompletedPicture: CompletedFileOriginal,
+        TempCompletedPicture: CompletedFileTemp,
+        ClosingNotes: closingNotes,
+        ClosingDate: closingDate,
+        OwnerSignature: ownerSignature,
+        TempOwnerSignature: tempOwnerSignature,
+        WarrantyStatus: Warrantystatus,
     };
     $.ajax({
         url: '/ServicesManagement/StatusUpdateForServicePerson',
@@ -416,7 +436,7 @@ var OwnerSignature = function () {
     $("#divLoader").show();
     $formData = new FormData();
 
-    var OwnerSignatureFile = document.getElementById('upload-photo');
+    var OwnerSignatureFile = document.getElementById('uploadphoto');
 
     for (var i = 0; i < OwnerSignatureFile.files.length; i++) {
         $formData.append('file-' + i, OwnerSignatureFile.files[i]);

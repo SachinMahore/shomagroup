@@ -60,6 +60,22 @@
                         <select id="ddlAgentAssign" class="form-control form-control-small"></select>
                     </div>
                 </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label id="lblAgentsName" style="margin-top:36px;"></label>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="ddlAppointmentStatus" class="star">Appointment Status</label>
+                        <select id="ddlAppointmentStatus" class="form-control form-control-small">
+                            <option value="0">Select Appointment Status</option>
+                            <option value="1">In Process</option>
+                            <option value="2">Attended</option>
+                            <option value="3">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="col-sm-12 text-center">
                     <button type="submit" class="btn btn-primary" onclick="saveupdateProspect()"> Save</button>
                 </div>
@@ -383,9 +399,26 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#txtPhone').text(formatPhoneFax("@Model.PhoneNo"));
-       // fillDdlSalesAgent();
-       
-        $('#ddlAgentAssign').find("option[value=' "+ @Model.AssignAgentID +" ']").attr('selected', true);
-       
+        $('#ddlAgentAssign').on('change', function () {
+            if ($(this).val() == 0) {
+                $('#lblAgentsName').html('');
+            }
+            else {
+                var ddlValue = $("#ddlAgentAssign option:selected").text();
+                $('#lblAgentsName').html('<i class="fa fa-check fa-lg"></i> ' + " Agent " + ddlValue + " Assign" + '');
+            }
+        });
+        // fillDdlSalesAgent();
+        setTimeout(function () {
+            $('#ddlAgentAssign').val('@Model.AssignAgentID');
+            if (@Model.AssignAgentID == 0) {
+                $('#lblAgentsName').html('');
+            }
+            else {
+                var ddlValue = $("#ddlAgentAssign option:selected").text();
+                $('#lblAgentsName').html('<i class="fa fa-check fa-lg"></i> ' + " Agent " + ddlValue + " Assigned" + '');
+            }
+            $('#ddlAppointmentStatus').val('@Model.AppointmentStatus');
+        },1000);
     });
 </script>

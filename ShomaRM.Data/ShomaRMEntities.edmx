@@ -842,6 +842,7 @@
           <Property Name="Status" Type="int" />
           <Property Name="PropertyID" Type="bigint" />
           <Property Name="AssignAgentId" Type="bigint" />
+          <Property Name="AppointmentStatus" Type="int" />
         </EntityType>
         <EntityType Name="tbl_PurchaseOrder">
           <Key>
@@ -948,6 +949,7 @@
           <Property Name="ClosingDate" Type="datetime" />
           <Property Name="OwnerSignature" Type="nvarchar" MaxLength="100" />
           <Property Name="TempOwnerSignature" Type="nvarchar" MaxLength="100" />
+          <Property Name="WarrantyStatus" Type="int" />
         </EntityType>
         <EntityType Name="tbl_State">
           <Key>
@@ -3649,6 +3651,7 @@
           <NavigationProperty Name="tbl_State" Relationship="Self.FK_tbl_Prospect_tbl_State" FromRole="tbl_Prospect" ToRole="tbl_State" />
           <NavigationProperty Name="tbl_Visit" Relationship="Self.FK_tbl_Visit_tbl_Prospect" FromRole="tbl_Prospect" ToRole="tbl_Visit" />
           <Property Name="AssignAgentId" Type="Int64" />
+          <Property Name="AppointmentStatus" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_PurchaseOrder">
           <Key>
@@ -3761,6 +3764,7 @@
           <Property Name="ClosingDate" Type="DateTime" Precision="3" />
           <Property Name="OwnerSignature" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="TempOwnerSignature" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="WarrantyStatus" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_State">
           <Key>
@@ -6448,6 +6452,7 @@
           <EntitySetMapping Name="tbl_Prospect">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Prospect">
               <MappingFragment StoreEntitySet="tbl_Prospect">
+                <ScalarProperty Name="AppointmentStatus" ColumnName="AppointmentStatus" />
                 <ScalarProperty Name="AssignAgentId" ColumnName="AssignAgentId" />
                 <ScalarProperty Name="PID" ColumnName="PID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -6563,6 +6568,7 @@
           <EntitySetMapping Name="tbl_ServiceRequest">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ServiceRequest">
               <MappingFragment StoreEntitySet="tbl_ServiceRequest">
+                <ScalarProperty Name="WarrantyStatus" ColumnName="WarrantyStatus" />
                 <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
                 <ScalarProperty Name="TenantID" ColumnName="TenantID" />
                 <ScalarProperty Name="ProblemCategory" ColumnName="ProblemCategory" />
