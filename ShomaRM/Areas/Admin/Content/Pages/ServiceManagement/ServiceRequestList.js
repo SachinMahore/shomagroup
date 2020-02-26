@@ -2,6 +2,8 @@
     var row = $('#tblServiceRequest tbody tr.pds-selected-row').closest('tr');
     var ID = $(row).attr("data-value");
     if (ID !== null) {
+
+        $('#tblServiceRequest tbody tr').removeClass('pds-selected-row');
         window.location.href=("../../ServicesManagement/Edit/" + ID);
     }
 };

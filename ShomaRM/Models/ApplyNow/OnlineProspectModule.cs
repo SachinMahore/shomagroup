@@ -6,6 +6,8 @@ using ShomaRM.Data;
 using System.Data;
 using System.Data.Common;
 using System.IO;
+using System.Web.Configuration;
+using ShomaRM.Models.TwilioApi;
 
 namespace ShomaRM.Models
 {
@@ -87,12 +89,17 @@ namespace ShomaRM.Models
         public List<EmailData> lstemailsend { get; set; }
         public string Building { get; set; }
         public int FloorID { get; set; }
+
+
+        string message = "";
+        string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
+
         public string SaveOnlineProspect(OnlineProspectModule model)
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
             long Uid = 0;
-       
+
             if (model.ID == 0)
             {
                 var loginDet = db.tbl_Login.Where(p => p.Email == model.Email).FirstOrDefault();
@@ -139,7 +146,7 @@ namespace ShomaRM.Models
                     Marketsource = model.Marketsource,
                     UserId = Uid,
                     MoveInDate = model.MoveInDate,
-                    LeaseTerm=model.LeaseTerm,
+                    LeaseTerm = model.LeaseTerm,
                 };
 
                 db.tbl_ApplyNow.Add(saveOnlineProspect);
@@ -148,7 +155,7 @@ namespace ShomaRM.Models
 
                 var saveApplicant = new tbl_Applicant()
                 {
-                 
+
                     TenantID = model.ID,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
@@ -156,7 +163,7 @@ namespace ShomaRM.Models
                     Email = model.Email,
                     DateOfBirth = model.DateofBirth,
                     Gender = 0,
-                    Type= "Primary Applicant",
+                    Type = "Primary Applicant",
 
                 };
                 db.tbl_Applicant.Add(saveApplicant);
@@ -172,7 +179,7 @@ namespace ShomaRM.Models
                     Email = model.Email,
                     Mobile = model.Phone,
                     CreatedDate = DateTime.Now,
-                    IsInternational=0,
+                    IsInternational = 0,
                 };
                 db.tbl_TenantOnline.Add(getAppldata);
                 db.SaveChanges();
@@ -182,6 +189,7 @@ namespace ShomaRM.Models
                 string reportHTML = "";
                 string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                string phonenumber = model.Phone;
                 if (model != null)
                 {
                     reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
@@ -199,18 +207,26 @@ namespace ShomaRM.Models
                     reportHTML = reportHTML.Replace("[%TenantPassword%]", model.Password);
                     reportHTML = reportHTML.Replace("[%QuoteNo%]", model.ID.ToString());
                     reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+
+                    message = "Your account has been successfully created. Please check the email for detail.";
                 }
                 string body = reportHTML;
                 new EmailSendModel().SendEmail(model.Email, "Application Submission", body);
+                if (SendMessage == "yes")
+                {
+                    new TwilioService().SMS(phonenumber, message);
+                }
+
             }
-            msg = model.ID.ToString() + "|Online Prospect Save Successfully|" +Uid;
+            msg = model.ID.ToString() + "|Online Prospect Save Successfully|" + Uid;
 
             var currentUser = new CurrentUser();
-            currentUser.UserID =Convert.ToInt32(Uid);
+            currentUser.UserID = Convert.ToInt32(Uid);
             (new ShomaGroupWebSession()).SetWebSession(currentUser);
             db.Dispose();
             return msg;
         }
+
         public string UpdateOnlineProspect(OnlineProspectModule model)
         {
             string msg = "";
@@ -265,12 +281,13 @@ namespace ShomaRM.Models
             if (model.ID != 0)
             {
                 var onlineProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ID).FirstOrDefault();
-            
-                if (onlineProspectData.IsRentalPolicy ==null)
+
+                if (onlineProspectData.IsRentalPolicy == null)
                 {
                     string reportHTML = "";
                     string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    string phonenumber = onlineProspectData.Phone;
                     if (model != null)
                     {
                         reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
@@ -280,9 +297,15 @@ namespace ShomaRM.Models
 
                         reportHTML = reportHTML.Replace("[%TenantEmail%]", model.Email);
 
+                        message = "We noticed you begun your application process. Please note for your convenience, the application remains active for 48 hours; Please check the email for detail.";
+
                     }
                     string body = reportHTML;
                     new EmailSendModel().SendEmail(model.Email, "Application Submission", body);
+                    if (SendMessage == "yes")
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                 }
                 if (onlineProspectData != null)
                 {
@@ -529,57 +552,67 @@ namespace ShomaRM.Models
             string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
             string body = "";
             ShomaRMEntities db = new ShomaRMEntities();
-          
-                DateTime nn = DateTime.Now.AddHours(-50);
-                DateTime dd = DateTime.Now.AddHours(-48);
-                var GetTenantDet = db.tbl_ApplyNow.Where(p => p.CreatedDate >= nn && p.CreatedDate <= dd).ToList();
-                
-                if (GetTenantDet != null)
+
+            DateTime nn = DateTime.Now.AddHours(-50);
+            DateTime dd = DateTime.Now.AddHours(-48);
+            var GetTenantDet = db.tbl_ApplyNow.Where(p => p.CreatedDate >= nn && p.CreatedDate <= dd).ToList();
+            var phonenumber = "";
+            if (GetTenantDet != null)
+            {
+
+                foreach (var cd in GetTenantDet)
                 {
+                    phonenumber = cd.Phone;
+                    body = "";
+                    reportHTML = "";
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    reportHTML = reportHTML.Replace("[%TenantName%]", cd.FirstName + " " + cd.LastName);
+                    reportHTML = reportHTML.Replace("[%TenantEmail%]", cd.Email);
 
-                    foreach (var cd in GetTenantDet)
+                    reportHTML = reportHTML.Replace("[%EmailHeader%]", "Final Notification to complete your Application");
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", "<p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;                                           This is your final notification that your application has not been completed.  Unless the application is submitted today, it will be deleted and you will be kindly asked to reenter the information.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We know you will love your new home in our project, so don’t delay and send us your application now.  We are eager to welcome you into our community.</p>");
+                    body = reportHTML;
+
+                    new EmailSendModel().SendEmail(cd.Email, "Final Notification to complete your Application", body);
+
+                    message = "This is final Notification to complete your Application. Finishing is fast and easy, so log in and get started. Please check the email for detail.";
+                    if (SendMessage == "yes")
                     {
-                        body = "";
-                        reportHTML = "";
-                        reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
-                        reportHTML = reportHTML.Replace("[%TenantName%]", cd.FirstName + " " + cd.LastName);
-                        reportHTML = reportHTML.Replace("[%TenantEmail%]", cd.Email);
-
-                        reportHTML = reportHTML.Replace("[%EmailHeader%]", "Final Notification to complete your Application");
-                        reportHTML = reportHTML.Replace("[%EmailBody%]", "<p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;                                           This is your final notification that your application has not been completed.  Unless the application is submitted today, it will be deleted and you will be kindly asked to reenter the information.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We know you will love your new home in our project, so don’t delay and send us your application now.  We are eager to welcome you into our community.</p>");
-                        body = reportHTML;
-
-                        new EmailSendModel().SendEmail(cd.Email, "Final Notification to complete your Application", body);
-
+                        new TwilioService().SMS(phonenumber, message);
                     }
+
                 }
-          
-                DateTime nnn = DateTime.Now.AddHours(-26);
-                DateTime ddd = DateTime.Now.AddHours(-24);
-                var GetTenantDetn = db.tbl_ApplyNow.Where(p => p.CreatedDate >= nnn && p.CreatedDate <= ddd).ToList();
-               
-                if (GetTenantDetn != null)
+            }
+
+            DateTime nnn = DateTime.Now.AddHours(-26);
+            DateTime ddd = DateTime.Now.AddHours(-24);
+            var GetTenantDetn = db.tbl_ApplyNow.Where(p => p.CreatedDate >= nnn && p.CreatedDate <= ddd).ToList();
+
+            if (GetTenantDetn != null)
+            {
+
+                foreach (var cd in GetTenantDetn)
                 {
+                    phonenumber = cd.Phone;
+                    body = "";
+                    reportHTML = "";
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    reportHTML = reportHTML.Replace("[%TenantName%]", cd.FirstName + " " + cd.LastName);
+                    reportHTML = reportHTML.Replace("[%TenantEmail%]", cd.Email);
 
-                    foreach (var cd in GetTenantDetn)
+                    reportHTML = reportHTML.Replace("[%EmailHeader%]", "Reminder to complete your Application");
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", "<p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We are sending you a kindly reminder that your application has not been completed.  Finishing is fast and easy, so log in and get started.  You are just a few steps away from submitting your application.  We are here to help, so if you need any assistance, please do not hesitate to contact us.”</p>");
+
+                    body = reportHTML;
+                    new EmailSendModel().SendEmail(cd.Email, "Reminder to complete your Application", body);
+                    message = "This is kindly reminder that your application has not been completed. Finishing is fast and easy, so log in and get started. Please check the email for detail.";
+                    if (SendMessage == "yes")
                     {
-                        body = "";
-                        reportHTML = "";
-                        reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
-                        reportHTML = reportHTML.Replace("[%TenantName%]", cd.FirstName + " " + cd.LastName);
-                        reportHTML = reportHTML.Replace("[%TenantEmail%]", cd.Email);
-
-                        reportHTML = reportHTML.Replace("[%EmailHeader%]", "Reminder to complete your Application");
-                        reportHTML = reportHTML.Replace("[%EmailBody%]", "<p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We are sending you a kindly reminder that your application has not been completed.  Finishing is fast and easy, so log in and get started.  You are just a few steps away from submitting your application.  We are here to help, so if you need any assistance, please do not hesitate to contact us.”</p>");
-
-                        body = reportHTML;
-                        new EmailSendModel().SendEmail(cd.Email, "Reminder to complete your Application", body);
-
-
+                        new TwilioService().SMS(phonenumber, message);
                     }
+
                 }
-           
-      
+            }
 
             msg = "Email Send Successfully";
             return msg;
@@ -592,29 +625,37 @@ namespace ShomaRM.Models
             string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
             reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect2.html");
             ShomaRMEntities db = new ShomaRMEntities();
+            var phonenumber = "";
             if (model.lstemailsend != null)
             {
                 var GetTenantDet = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
-                
+
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == GetTenantDet.PropertyId).FirstOrDefault();
                 foreach (var cd in model.lstemailsend)
                 {
-                    var GetCoappDet = db.tbl_Applicant.Where(c => c.Email ==cd.AppEmail).FirstOrDefault();
+
+                    var GetCoappDet = db.tbl_Applicant.Where(c => c.Email == cd.AppEmail).FirstOrDefault();
+                    phonenumber = GetCoappDet.Phone;
                     reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
                     reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + GetCoappDet.FirstName + " " + GetCoappDet.LastName + "</b>,<br/>Your Online application submitted successfully. Please login to see status. <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + model.Email + " </br>Password :" + model.Password);
 
                     reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
-                   
+
                     reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
                     reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
                     reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString("0.00"));
                     reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString("0.00"));
                     reportHTML = reportHTML.Replace("[%TenantEmail%]", cd.AppEmail);
-                 
+
                     reportHTML = reportHTML.Replace("[%QuoteNo%]", model.ID.ToString());
                     reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
                     string body = reportHTML;
                     new EmailSendModel().SendEmail(cd.AppEmail, "Application Submission", body);
+                    message = "Your Online application submitted successfully and credentials has been sent on your email. Please check the email for detail.";
+                    if (SendMessage == "yes")
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                 }
             }
 
@@ -629,29 +670,35 @@ namespace ShomaRM.Models
             string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
             reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect2.html");
             ShomaRMEntities db = new ShomaRMEntities();
+            var phonenumber = "";
             if (model.Email != null)
             {
                 var GetTenantDet = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
-
+                phonenumber = GetTenantDet.Phone;
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == GetTenantDet.PropertyId).FirstOrDefault();
-              
-                var GetCoappDet = db.tbl_Applicant.Where(c => c.Email ==model.Email).FirstOrDefault();
-                    reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Fee Payment Link");
-                    reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + GetCoappDet.FirstName + " " + GetCoappDet.LastName + "</b>,<br/>Your Online application submitted successfully. Please click below to Pay Application fees. <br/><br/><u><b>Payment Link :<a href=''></a> </br></b></u>  </br>");
 
-                    reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
+                var GetCoappDet = db.tbl_Applicant.Where(c => c.Email == model.Email).FirstOrDefault();
+                reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Fee Payment Link");
+                reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + GetCoappDet.FirstName + " " + GetCoappDet.LastName + "</b>,<br/>Your Online application submitted successfully. Please click below to Pay Application fees. <br/><br/><u><b>Payment Link :<a href=''></a> </br></b></u>  </br>");
 
-                    reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
-                    reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
-                    reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString("0.00"));
-                    reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString("0.00"));
-                    reportHTML = reportHTML.Replace("[%TenantEmail%]", model.Email);
+                reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
 
-                    reportHTML = reportHTML.Replace("[%QuoteNo%]", model.ID.ToString());
-                    reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
-                    string body = reportHTML;
-                    new EmailSendModel().SendEmail(model.Email, "Application Fee Payment Link", body);
-               
+                reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
+                reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
+                reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString("0.00"));
+                reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString("0.00"));
+                reportHTML = reportHTML.Replace("[%TenantEmail%]", model.Email);
+
+                reportHTML = reportHTML.Replace("[%QuoteNo%]", model.ID.ToString());
+                reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+                string body = reportHTML;
+                new EmailSendModel().SendEmail(model.Email, "Application Fee Payment Link", body);
+
+                message = "Your Online application submitted successfully and payment link has been send your email. Please check the email for detail.";
+                if (SendMessage == "yes")
+                {
+                    new TwilioService().SMS(phonenumber, message);
+                }
             }
 
             msg = "Email Send Successfully";

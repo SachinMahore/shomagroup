@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using ShomaRM.Data;
 using ShomaRM.Areas.Tenant.Models;
+using ShomaRM.Models.TwilioApi;
+using System.Web.Configuration;
 
 namespace ShomaRM.Models
 {
@@ -41,6 +43,8 @@ namespace ShomaRM.Models
         public string PetPlaceAmountString { get; set; }
         public string StorageAmountString { get; set; }
         public string Rent { set; get; }
+        string message = "";
+        string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
 
         public string SavePaymentDetails(ApplyNowModel model)
         {
@@ -60,7 +64,7 @@ namespace ShomaRM.Models
                     GetPayDetails.CCVNumber = model.CCVNumber;
                     GetPayDetails.ProspectId = model.ProspectId;
                     GetPayDetails.PaymentMethod = model.PaymentMethod;
-                    
+
                     db.SaveChanges();
 
                 }
@@ -81,20 +85,20 @@ namespace ShomaRM.Models
                     db.SaveChanges();
                 }
                 string transStatus = "";
-                if (model.PaymentMethod ==2)
+                if (model.PaymentMethod == 2)
                 {
-                    
+
                     transStatus = new UsaePayModel().ChargeCard(model);
                 }
                 else if (model.PaymentMethod == 1)
                 {
-                    
+
                     transStatus = new UsaePayModel().ChargeACH(model);
                 }
-                
+
                 String[] spearator = { "|" };
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
-                if(strlist[1]!="000000")
+                if (strlist[1] != "000000")
                 {
                     var saveTransaction = new tbl_Transaction()
                     {
@@ -108,15 +112,15 @@ namespace ShomaRM.Models
                         Reference = "PID" + model.ProspectId,
                         CreatedDate = DateTime.Now,
                         Credit_Amount = model.Charge_Amount,
-                        Description = model.Description +"| TransID: "+ strlist[1],
+                        Description = model.Description + "| TransID: " + strlist[1],
                         Charge_Date = DateTime.Now,
                         Charge_Type = 1,
-                       
-                        Authcode= strlist[1],
+
+                        Authcode = strlist[1],
                         Charge_Amount = model.Charge_Amount,
                         Miscellaneous_Amount = 0,
                         Accounting_Date = DateTime.Now,
-                        
+
                         Batch = "1",
                         Batch_Source = "",
                         CreatedBy = Convert.ToInt32(GetProspectData.UserId),
@@ -144,6 +148,8 @@ namespace ShomaRM.Models
                     string reportHTML = "";
                     string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    string message = "";
+                    string phonenumber = GetProspectData.Phone;
                     if (model != null)
                     {
                         reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Completed and Payment Received");
@@ -156,6 +162,11 @@ namespace ShomaRM.Models
                     }
                     string body = reportHTML;
                     new EmailSendModel().SendEmail(GetProspectData.Email, "Application Completed and Payment Received", body);
+                    message = "Thank you for signing and submitting your application. Please check the email for detail.";
+                    if (SendMessage == "yes")
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                     msg = "1";
                 }
                 else
@@ -164,7 +175,7 @@ namespace ShomaRM.Models
                 }
 
             }
-           
+
             db.Dispose();
             return msg;
         }
@@ -173,6 +184,8 @@ namespace ShomaRM.Models
             ShomaRMEntities db = new ShomaRMEntities();
 
             var forgetPassword = db.tbl_Login.Where(co => co.Username == model.Email).FirstOrDefault();
+            string message = "";
+            string phonenumber = "";
             if (forgetPassword != null)
             {
                 model.Password = forgetPassword.Password;
@@ -186,18 +199,26 @@ namespace ShomaRM.Models
             if (model.Message != "Invalid UserName")
             {
                 string reportHTML = "";
-            string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
-            reportHTML = System.IO.File.ReadAllText(filePath + "ForgetPassword.html");
-            
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                reportHTML = System.IO.File.ReadAllText(filePath + "ForgetPassword.html");
+
                 //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
                 reportHTML = reportHTML.Replace("[%TenantName%]", model.FullName);
                 reportHTML = reportHTML.Replace("[%TenantPassword%]", model.Password);
-            
-            string body = reportHTML;
-            new EmailSendModel().SendEmail(model.Email, "Password", body);
+
+                string body = reportHTML;
+                new EmailSendModel().SendEmail(model.Email, "Password", body);
+
+                message = "Your credentials has been sent to your email. Please check the email for detail.";
+                if (SendMessage == "yes")
+                {
+                    new TwilioService().SMS(phonenumber, message);
+                }
             }
             return model;
         }
+
+
 
         public string CheckEmailAreadyExist(string EmailId)
         {

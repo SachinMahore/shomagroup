@@ -10,6 +10,8 @@ using System.Data;
 using System.Data.Common;
 using System.IO;
 using ShomaRM.Areas.Tenant.Models;
+using System.Web.Configuration;
+using ShomaRM.Models.TwilioApi;
 
 namespace ShomaRM.Areas.Admin.Models
 {
@@ -57,8 +59,8 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<System.DateTime> LastModifiedeDate { get; set; }
         public int ProspectID { get; set; }
         public string FullName { get; set; }
-
-        
+        string message = "";
+        string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
 
         public List<PropertyList> FillPropertyDropDownList()
         {
@@ -388,7 +390,7 @@ namespace ShomaRM.Areas.Admin.Models
             db.Dispose();
             return model.ID;
         }
-   
+
         public long OnlinePToTenant(TenantModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -423,7 +425,7 @@ namespace ShomaRM.Areas.Admin.Models
                 Status = 1,
                 CreatedBy = 1,
                 CreatedDate = DateTime.Now,
-                
+
             };
             db.tbl_Lease.Add(addLease);
             db.SaveChanges();
@@ -460,6 +462,9 @@ namespace ShomaRM.Areas.Admin.Models
             string reportHTML = "";
             string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
             reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplate.html");
+            string message = "";
+            string phonenumber = prospectDet.Phone;
+
             if (model != null)
             {
                 reportHTML = reportHTML.Replace("[%EmailHeader%]", "Tenant Registration");
@@ -473,9 +478,16 @@ namespace ShomaRM.Areas.Admin.Models
                 reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString());
                 reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString());
                 reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+
+                message = "Your Tenant Account created successfully. Please check the email for detail.";
             }
             string body = reportHTML;
             new EmailSendModel().SendEmail(model.OfficeEmail, "Tenant Registration Successfull", body);
+
+            if (SendMessage == "yes")
+            {
+                new TwilioService().SMS(phonenumber, message);
+            }
 
             db.Dispose();
             return model.ID;
@@ -672,6 +684,8 @@ namespace ShomaRM.Areas.Admin.Models
         public string LeaseTerm { get; set; }
         public int ProRemainingday { get; set; }
         public int ProNumberOfDays { get; set; }
+        string message = "";
+        string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
 
         public TenantOnlineModel getTenantOnlineData(int id)
         {
@@ -996,10 +1010,10 @@ namespace ShomaRM.Areas.Admin.Models
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
 
-                var getAppldata1 = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID).FirstOrDefault();
-                if (getAppldata1 != null)
-                {
-                    tbl_TenantInfo getAppldata = new tbl_TenantInfo();
+            var getAppldata1 = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID).FirstOrDefault();
+            if (getAppldata1 != null)
+            {
+                tbl_TenantInfo getAppldata = new tbl_TenantInfo();
                 getAppldata.ProspectID = getAppldata1.ProspectID;
                 getAppldata.PropertyID = 8;
                 getAppldata.UnitID = model.UnitID;
@@ -1078,8 +1092,8 @@ namespace ShomaRM.Areas.Admin.Models
                 getAppldata.HaveVehicle = getAppldata1.HaveVehicle;
                 getAppldata.HavePet = getAppldata1.HavePet;
                 db.tbl_TenantInfo.Add(getAppldata);
-                    db.SaveChanges();
-                    model.TenantID = getAppldata.TenantID;
+                db.SaveChanges();
+                model.TenantID = getAppldata.TenantID;
 
                 var addLease = new tbl_Lease()
                 {
@@ -1097,7 +1111,7 @@ namespace ShomaRM.Areas.Admin.Models
 
                 var getPayMeth = db.tbl_OnlinePayment.Where(p => p.ProspectId == model.ProspectID).FirstOrDefault();
                 long paid = 0;
-                if(getPayMeth.PaymentMethod==2)
+                if (getPayMeth.PaymentMethod == 2)
                 {
                     var addPaymentMethod = new tbl_PaymentAccounts()
                     {
@@ -1127,20 +1141,20 @@ namespace ShomaRM.Areas.Admin.Models
                         AccountNumber = getPayMeth.CardNumber,
                         CardType = 0,
                         Month = "0",
-                        Year =  "0",
+                        Year = "0",
                         TenantId = getAppldata.TenantID,
                         NickName = getPayMeth.Name_On_Card,
                         AccountName = getPayMeth.Name_On_Card,
                         PayMethod = 2,
                         Default = 1,
                         BankName = getPayMeth.Name_On_Card,
-                        RoutingNumber=getPayMeth.CCVNumber.ToString()
+                        RoutingNumber = getPayMeth.CCVNumber.ToString()
                     };
                     db.tbl_PaymentAccounts.Add(addPaymentMethod);
                     db.SaveChanges();
                     paid = addPaymentMethod.PAID;
                 }
-               
+
 
 
                 var prospectDet = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectID).FirstOrDefault();
@@ -1167,11 +1181,11 @@ namespace ShomaRM.Areas.Admin.Models
                     {
                         tl.TenantID = model.TenantID;
                         tl.Transaction_Type = paid.ToString();
-                    }   
+                    }
                 }
                 db.SaveChanges();
 
-                DateTime EMiDate=  new DateTime(DateTime.Now.Year, (DateTime.Now.Month), 1);
+                DateTime EMiDate = new DateTime(DateTime.Now.Year, (DateTime.Now.Month), 1);
 
                 for (int i = 1; i < prospectDet.LeaseTerm; i++)
                 {
@@ -1179,12 +1193,12 @@ namespace ShomaRM.Areas.Admin.Models
                     {
 
                         TenantID = model.TenantID,
-                        Revision_Num = i ,                       
+                        Revision_Num = i,
                         Transaction_Date = Convert.ToDateTime(EMiDate).AddMonths(i),
-                        
-                        Description = "Monthly Charges - " + Convert.ToDateTime(EMiDate).AddMonths(i).ToString("MM/dd/yyyy"),                       
+
+                        Description = "Monthly Charges - " + Convert.ToDateTime(EMiDate).AddMonths(i).ToString("MM/dd/yyyy"),
                         Charge_Amount = prospectDet.MonthlyCharges,
-                       
+
                     };
                     db.tbl_TenantMonthlyPayments.Add(saveTransaction);
                     db.SaveChanges();
@@ -1196,6 +1210,10 @@ namespace ShomaRM.Areas.Admin.Models
                 string reportHTML = "";
                 string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplate.html");
+
+                string message = "";
+                string phonenumber = prospectDet.Phone;
+
                 if (model != null)
                 {
                     var appliList = db.tbl_Applicant.Where(pp => pp.TenantID == model.ProspectID).ToList();
@@ -1208,9 +1226,9 @@ namespace ShomaRM.Areas.Admin.Models
                         foreach (var pl in appliList)
                         {
                             applicant += "<tr>";
-                            applicant += string.Format("<td style=\"text-align:left;\">{0}</td>","Resident Name: " );
+                            applicant += string.Format("<td style=\"text-align:left;\">{0}</td>", "Resident Name: ");
                             applicant += string.Format("<td  style=\"text-align:left;\">{0}</td>", pl.FirstName + " " + pl.LastName);
-                         
+
                             applicant += "</tr>";
                             appFess = appFess + 175;
                         }
@@ -1237,7 +1255,7 @@ namespace ShomaRM.Areas.Admin.Models
                     reportHTML = reportHTML.Replace("[%ProratedRent%]", prospectDet.Prorated_Rent.Value.ToString(("0.00")));
                     reportHTML = reportHTML.Replace("[%VehicleReg%]", prospectDet.VehicleRegistration.Value.ToString(("0.00")));
 
-                    reportHTML = reportHTML.Replace("[%ProratedTrash%]", (((prospectDet.TrashAmt)/model.ProNumberOfDays)*model.ProRemainingday).Value.ToString(("0.00")));
+                    reportHTML = reportHTML.Replace("[%ProratedTrash%]", (((prospectDet.TrashAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")));
                     reportHTML = reportHTML.Replace("[%ProratedPest%]", (((prospectDet.PestAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")));
                     reportHTML = reportHTML.Replace("[%ProratedConvergent%]", (((prospectDet.ConvergentAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")));
                     reportHTML = reportHTML.Replace("[%ProratedVehicleRent%]", (((prospectDet.ParkingAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")));
@@ -1253,20 +1271,23 @@ namespace ShomaRM.Areas.Admin.Models
                     reportHTML = reportHTML.Replace("[%Vehicle%]", prospectDet.ParkingAmt.Value.ToString(("0.00")));
                     reportHTML = reportHTML.Replace("[%Storage%]", prospectDet.StorageAmt.Value.ToString(("0.00")));
                     reportHTML = reportHTML.Replace("[%TotalMonthly%]", prospectDet.MonthlyCharges.Value.ToString(("0.00")));
-
+                    message = "Your Tenant Account created successfully. Please check the email for detail.";
                 }
                 string body = reportHTML;
-           
+
                 new EmailSendModel().SendEmail(model.Email, "Welcome To Sanctuary Doral", body);
 
-                msg = model.TenantID.ToString();
+                if (SendMessage == "yes")
+                {
+                    new TwilioService().SMS(phonenumber, message);
                 }
-             
+                msg = model.TenantID.ToString();
+            }
+
             db.Dispose();
             return msg;
 
         }
-
         public string SaveUpdatePostDisclaimer(TenantOnlineModel model)
         {
             string msg = "";
