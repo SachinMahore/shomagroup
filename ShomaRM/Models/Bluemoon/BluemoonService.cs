@@ -421,14 +421,14 @@ namespace ShomaRM.Models.Bluemoon
             leaseResponseModel.LeaseId = leaseId;
             leaseResponseModel.SessionId = sessionId;
 
-           
+
             return leaseResponseModel;
         }
 
         public async Task<LeaseResponseModel> EditLease(LeaseRequestModel leaseRequestModel, string sessionId, string leaseId)
         {
             LeaseResponseModel leaseResponseModel = new LeaseResponseModel();
-            
+
             var bodyForLease = EditXMLForLease(leaseRequestModel, leaseId, sessionId);
 
             var result = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#EditLease", bodyForLease);
@@ -508,6 +508,127 @@ namespace ShomaRM.Models.Bluemoon
 
             return null;
         }
+
+
+        public async Task<LeaseResponseModel> RequestEsignature(string sessionId, string leaseId, List<EsignatureParty> esignatureParties)
+        {
+            var owner = esignatureParties.Where(a => a.IsOwner == true).FirstOrDefault();
+
+            string requestEsignStr = @"<ns1:RequestEsignature>
+          <SessionId>" + sessionId + @"</SessionId>
+            <LeaseId>" + leaseId + @"</LeaseId>
+            <OwnerRep>
+                <Name>" + owner.Name + @"</Name>
+                <Email>rjuarez" + owner.Email + @"</Email>
+                <Phone>" + owner.Phone + @"</Phone>
+            </OwnerRep><Residents>";
+
+            foreach (var item in esignatureParties.Where(a => a.IsOwner == false))
+            {
+                requestEsignStr += @"<item>
+                    <Name>" + item.Name + @"</Name>
+                    <Email>" + item.Email + @"</Email>
+                    <Phone>" + item.Phone + @"</Phone>
+                </item>";
+            }
+
+            requestEsignStr += @"</Residents>
+                                    <LeaseForms>
+    	                                                <item><Id>RENTCON2</Id></item>
+                                                        <item><Id>UTILITY</Id></item>
+                                                        <item><Id>PETAGREE</Id></item>
+                                                        <item><Id>APTLEASE</Id></item>
+                                                        <item><Id>SUPPORTANIMAL</Id></item>
+                                                        <item><Id>BEDBUGADD</Id></item>
+                                                        <item><Id>FLBUYOUT</Id></item>
+                                                        <item><Id>POLICIES</Id></item>
+                                                        <item><Id>CRIMEDRUG</Id></item>
+                                                        <item><Id>ENCGARA2</Id></item>
+                                                        <item><Id>INVENTRY</Id></item>
+                                                        <item><Id>MIXEDUSE</Id></item>
+                                                        <item><Id>MOLDADDN</Id></item>
+                                                        <item><Id>NOSMOKE</Id></item>
+                                                        <item><Id>PKGACCEPT</Id></item>
+                                                        <item><Id>PARKINGADD</Id></item>
+                                                        <item><Id>PHOTORELS</Id></item>
+                                                        <item><Id>RAMFPOLICY</Id></item>
+                                                        <item><Id>ADDGATE2</Id></item>
+                                                        <item><Id>RENTINS2</Id></item>
+                                                        <item><Id>SATELIT2</Id></item>
+                                                        <item><Id>AIRBNB</Id></item>
+                                         </LeaseForms>
+                                        <SendOwnerRepNotices xsi:nil=""true""/>
+                                    </ns1:RequestEsignature>
+                                  ";
+            LeaseResponseModel leaseResponseModel = new LeaseResponseModel();
+            var bodyForCloseSession = CreateXMLDocument(requestEsignStr);
+
+            var resultCloseSession = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#RequestEsignature", bodyForCloseSession);
+            if (resultCloseSession != null)
+            {
+                // for attribute
+                var resultCloseSessionDetails = resultCloseSession
+                 .Descendants("RequestEsignatureResult")
+                 .ToList();
+
+
+
+                var bodyEsignatureData = CreateXMLDocument(@"<ns1:GetEsignatureData>
+                                                        <SessionId>" + sessionId + @"</SessionId>
+                                                        <EsignatureId>" + resultCloseSessionDetails[0].Value + @"</EsignatureId>
+                                                     </ns1:GetEsignatureData>");
+
+                var resultEsignatureData = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#GetEsignatureData", bodyEsignatureData);
+                if (resultCloseSession != null)
+                {
+                    // for attribute
+                    var resultGetEsignatureDetails = resultEsignatureData
+                     .Descendants("GetEsignatureDataResult")
+                     .ToList();
+
+                    var bodyEsignaturePdfData = CreateXMLDocument(@"<ns1:GetEsignaturePDF>
+                                                                        <SessionId>" + sessionId + @"</SessionId>
+                                                                        <EsignatureId>" + resultCloseSessionDetails[0].Value + @"</EsignatureId>
+                                                                        <SignerKey xsi:nil=""true""/>
+                                                                    </ns1:GetEsignaturePDF>");
+
+                    var resultEsignaturePdfData = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#GetEsignaturePDF", bodyEsignaturePdfData);
+                    if (resultCloseSession != null)
+                    {
+                        // for attribute
+                        var resultGetEsignaturePdfDetails = resultEsignaturePdfData
+                         .Descendants("GetEsignaturePDFResult")
+                         .ToList();
+
+                        byte[] bytes = Convert.FromBase64String(resultGetEsignaturePdfDetails[0].Value.ToString());
+                        leaseResponseModel.leasePdf = bytes;
+                    }
+
+                }
+            }
+
+            return null;
+        }
+
+        public async Task<LeaseResponseModel> GetEsignatureData(string sessionId)
+        {
+            LeaseResponseModel leaseResponseModel = new LeaseResponseModel();
+            var bodyForCloseSession = CreateXMLDocument(@"<ns1:CloseSession>
+                                                        <SessionId>" + sessionId + @"</SessionId>
+                                                     </ns1:CloseSession>");
+
+            var resultCloseSession = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#CloseSession", bodyForCloseSession);
+            if (resultCloseSession != null)
+            {
+                // for attribute
+                var resultCloseSessionDetails = resultCloseSession
+                 .Descendants("CloseSessionResult")
+                 .ToList();
+            }
+
+            return null;
+        }
+
 
 
 
