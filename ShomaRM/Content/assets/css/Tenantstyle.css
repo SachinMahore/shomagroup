@@ -1,10 +1,62 @@
+﻿Skip to content
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+
+@bhawanaanasane
+12-skies-tech
+/
+Shoma-RM
+Private
+0
+00
+Code Issues 8 Pull requests 0 Actions Projects 0 Wiki Security Insights
+Shoma-RM/ShomaRM/Content/assets/css/style.css
+@atulbobade84 atulbobade84 Css Changes
+2ee2bb6 22 hours ago
+@lalitbokde@aakansha12@bhawanaanasane@apurvaraut@atulbobade84
+3637 lines (2992 sloc) 51 KB
+
 ﻿body {
     padding: 0px;
     margin: 0px;
     font-size: 16px;
     font-weight: normal;
     font-family: Futura Medium;
-    background: #fff !important;
+}
+
+.calendar-month-header {
+    background: #4D738A !important;
+    color: #fff;
+    text-shadow: none;
+    border: 1px solid #4D738A !important;
+}
+
+    .calendar-month-header td {
+        color: white;
+        border: 1px solid #4D738A !important;
+    }
+
+.calendar-dow td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.pad10TopBottom {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.calendar-month-navigation {
+    text-align: center;
+}
+
+.zabuto_calendar .table-bordered {
+    /*border: 3px solid #B7B0A7 !important;*/
+    height: 100% !important;
 }
 
 @font-face {
@@ -14,7 +66,7 @@
 
 @font-face {
     font-family: Futura Medium;
-    src: url('../font/Futura Medium.ttf');
+    src: url('../font/Futura Medium.otf');
 }
 
 @font-face {
@@ -137,6 +189,11 @@
 
 .fa-plus:before {
     color: #fff;
+    content: "\f067";
+    background: #4d738a;
+    border-radius: 50%;
+    padding: 5px;
+    margin-right: 5px;
 }
 
 .add {
@@ -1314,7 +1371,6 @@ select::-ms-expand {
   font-family: myFirstFont;
   src: url(FuturaBQ-Medium.otf);
 }
-
 .topmenu-font {
   font-family: myFirstFont;
 }*/
@@ -1471,15 +1527,7 @@ textarea {
     padding: 1px 10px;
 }
 
-.icheckbox_square-yellow.checked {
-    float: left;
-    width: 28px;
-    border-width: initial;
-    border-style: none;
-    border-color: initial;
-    border-image: initial;
-    margin: 2px 20px;
-}
+
 
 .form-control-box {
     display: block;
@@ -1615,12 +1663,10 @@ textarea {
 
 table {
     border-collapse: collapse;
-    width: 96%;
 }
 
 td {
     padding: 4px 8px;
-    border: 1px solid #dedcdc;
     font-size: 20px;
     color: #000000;
     width: 14%;
@@ -1732,6 +1778,27 @@ span.cercal3 {
     border-radius: 50%;
     padding: 0px 9px;
     margin: 5px;
+}
+
+.dot-today {
+    /* width: 10px; */
+    /* height: 10px; */
+    background: #B3ADA6;
+    border-radius: 8px;
+    padding: 2px 5px;
+    /* margin: 5px; */
+    color: white;
+}
+
+.event-box {
+    width: 20%;
+    height: auto;
+    background: gray;
+    float: left;
+    border-radius: 50%;
+    margin: 2px;
+    margin-top: 5px;
+    padding: 10%;
 }
 
 .Wraper {
@@ -1866,7 +1933,7 @@ span.cercal3 {
     margin-top: -8px;
 }
 
-.fa-plus {
+.fa-plus:before {
     color: #fff;
     content: "\f067";
     background: #4d738a;
@@ -1902,7 +1969,7 @@ span.cercal3 {
 }
 
 .right-sub-text-link {
-    font-size: 20px;
+    font-size: 16px;
     text-align: center;
     color: #547288 !important;
     text-decoration: underline;
@@ -1926,30 +1993,25 @@ span.cercal3 {
 
 .text-color1 span {
     text-align: 20px;
-    font-family: HelveticaNeue;
-    font-size: 18px;
 }
 
 .text-color1 a {
     color: #547288;
+    font-size: 18px;
+    font-family: HelveticaNeue;
 }
 
 .text-color1 i:hover {
     color: #B3ADA6;
     font-size: 18px;
-    background: #B3ADA6;
-}
-
-.text-color1 span:hover {
-    color: #B3ADA6;
-    font-size: 18px;
+    font-family: HelveticaNeue;
 }
 
 .text-color1 a:hover {
     color: #B3ADA6;
     font-size: 18px;
+    font-family: HelveticaNeue;
 }
-
 /*------my-home----*/
 .margin {
     margin-bottom: 10px;
@@ -2006,6 +2068,7 @@ span.cercal3 {
     font-size: 17px;
 }
 
+}
 
 .condition-wrapper1 {
     width: 57%;
@@ -2076,7 +2139,7 @@ ul.submenupayment {
 .submenu li > a {
     background: #547288;
     color: #fcfcfc;
-    padding: 9px 38px 9px 15px;
+    padding: 7px 38px 7px 15px;
     font-family: Futura Medium;
 }
 
@@ -2523,7 +2586,7 @@ button:hover {
     }
 
     .cvv-box {
-        width: 83%;
+        width: 61%;
     }
 
     .headding-sub-text {
@@ -2548,7 +2611,6 @@ button:hover {
         font-size: 18px;
     }
 }
-
 
 
 @media only screen and (max-width: 1800px) and (min-width: 1400px) {
@@ -3620,8 +3682,51 @@ button:hover {
         font-size: 20px;
         margin-top: 25px;
     }
-
-    .icheckbox_square-yellow.checked {
-        margin: 2px 0px;
-    }
 }
+
+th.border-box1 {
+    border: none;
+    border-left: 1px solid #dedcdc;
+}
+
+th.border-box2 {
+    border: none;
+    border-left: 0px solid #dedcdc;
+    border-right: 1px solid #dedcdc;
+}
+
+td {
+    padding: 12px 8px;
+    font-size: 20px;
+    color: #000000;
+    width: 14%;
+    font-family: HelveticaNeue;
+    text-align: left;
+}
+
+    td.border-table {
+        border-left: 1px solid #dedcdc;
+    }
+
+.borderlessTable tbody tr td {
+    border: none;
+    border-right: 1px solid #dedcdc;
+}
+
+.border-table-none {
+    border: none !important;
+}
+
+.tbale-box {
+    width: auto;
+    display: table;
+    margin: 0 auto;
+}
+
+.tabletr {
+    font-size: 34px;
+    font-family: Futura Medium;
+    font-weight: 400;
+}
+
+
