@@ -23,7 +23,6 @@ namespace ShomaRM.Models
             usaepay.CustEmail = "sachinmahore@gmail.com";
             usaepay.UseSandbox = true;
 
-
             try
             {
                 usaepay.Sale();
@@ -47,8 +46,6 @@ namespace ShomaRM.Models
                         "Error: " + usaepay.ErrorMesg + "\n" +
                         "Error Code: " + usaepay.ErrorCode;
                 }
-
-
             }
             catch (Exception x)
             {

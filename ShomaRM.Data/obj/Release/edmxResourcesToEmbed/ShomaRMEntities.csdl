@@ -907,6 +907,7 @@
     <NavigationProperty Name="tbl_State" Relationship="Self.FK_tbl_Prospect_tbl_State" FromRole="tbl_Prospect" ToRole="tbl_State" />
     <NavigationProperty Name="tbl_Visit" Relationship="Self.FK_tbl_Visit_tbl_Prospect" FromRole="tbl_Prospect" ToRole="tbl_Visit" />
     <Property Name="AssignAgentId" Type="Int64" />
+    <Property Name="AppointmentStatus" Type="Int32" />
   </EntityType>
   <EntityType Name="tbl_PurchaseOrder">
     <Key>
@@ -1019,6 +1020,7 @@
     <Property Name="ClosingDate" Type="DateTime" Precision="3" />
     <Property Name="OwnerSignature" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="TempOwnerSignature" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="WarrantyStatus" Type="Int32" />
   </EntityType>
   <EntityType Name="tbl_State">
     <Key>

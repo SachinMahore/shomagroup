@@ -13,20 +13,76 @@ namespace ShomaRM.Models
         public long MIID { get; set; }
         public Nullable<long> ProspectID { get; set; }
         public Nullable<System.DateTime> MoveInDate { get; set; }
+        public string MoveInDateTxt { get; set; }
         public string MoveInTime { get; set; }
         public Nullable<decimal> MoveInCharges { get; set; }
         public string InsuranceDoc { get; set; }
         public string ElectricityDoc { get; set; }
+
+
+        public Nullable<int> IsCheckPay { get; set; }
+        public Nullable<int> IsCheckSch { get; set; }
+        public Nullable<int> IsCheckIns { get; set; }
+        public Nullable<int> IsCheckElc { get; set; }
+
         public Nullable<int> IsCheckPO { get; set; }
         public Nullable<int> IsCheckATT { get; set; }
         public Nullable<int> IsCheckWater { get; set; }
+
         public Nullable<System.DateTime> CreatedDate { get; set; }
+
+        public CheckListModel GetMoveInData(long Id)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            CheckListModel model = new CheckListModel();
+            model.MIID = 0;
+            model.MoveInTime = "";
+            model.IsCheckATT = 0;
+            model.IsCheckPO = 0;
+            model.IsCheckWater = 0;
+            model.IsCheckPay = 0;
+            model.IsCheckSch = 0;
+            model.IsCheckIns = 0;
+            model.IsCheckElc = 0;
+            model.InsuranceDoc = "";
+            model.ElectricityDoc = "";
+            var MoveInData = db.tbl_MoveInChecklist.Where(co => co.ProspectID == Id).FirstOrDefault();
+            if (MoveInData != null)
+            {
+                model.MIID = MoveInData.MIID;
+                if(MoveInData.MoveInCharges.HasValue)
+                {
+                    model.IsCheckPay = 1;
+                }
+                model.MoveInDateTxt = MoveInData.MoveInDate.HasValue ? MoveInData.MoveInDate.Value.ToString("MM/dd/yyyy") : "";
+                if (MoveInData.MoveInDate.HasValue)
+                {
+                    model.IsCheckSch = 1;
+                }
+                model.MoveInTime = MoveInData.MoveInTime;
+                model.InsuranceDoc = MoveInData.InsuranceDoc;
+                if(!string.IsNullOrWhiteSpace( MoveInData.InsuranceDoc))
+                {
+                    model.IsCheckIns = 1;
+                }
+                model.ElectricityDoc = MoveInData.ElectricityDoc;
+                if (!string.IsNullOrWhiteSpace(MoveInData.ElectricityDoc))
+                {
+                    model.IsCheckElc = 1;
+                }
+                model.IsCheckATT = MoveInData.IsCheckATT ?? 0;
+                model.IsCheckPO = MoveInData.IsCheckPO ?? 0;
+                model.IsCheckWater = MoveInData.IsCheckWater ?? 0;
+            }
+            return model;
+        }
+
 
         public string SaveMoveInCheckList(CheckListModel model)
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
-           
+
             if (model.ProspectID != null)
             {
                 var loginDet = db.tbl_MoveInChecklist.Where(p => p.ProspectID == model.ProspectID).FirstOrDefault();
@@ -34,7 +90,6 @@ namespace ShomaRM.Models
                 {
                     var saveMoveInCheckList = new tbl_MoveInChecklist()
                     {
-                       
                         ProspectID = model.ProspectID,
                         MoveInDate = model.MoveInDate,
                         MoveInTime = model.MoveInTime,
@@ -44,21 +99,30 @@ namespace ShomaRM.Models
                         IsCheckPO = model.IsCheckPO,
                         IsCheckATT = model.IsCheckATT,
                         IsCheckWater = model.IsCheckWater,
-                         CreatedDate = DateTime.Now,
+                        CreatedDate = DateTime.Now,
                     };
                     db.tbl_MoveInChecklist.Add(saveMoveInCheckList);
                     db.SaveChanges();
-                  
-
                 }
-               
+                else
+                {
+
+                    loginDet.ProspectID = model.ProspectID;
+                    loginDet.MoveInDate = model.MoveInDate;
+                    loginDet.MoveInTime = model.MoveInTime;
+                    loginDet.MoveInCharges = model.MoveInCharges;
+                    loginDet.InsuranceDoc = model.InsuranceDoc;
+                    loginDet.ElectricityDoc = model.ElectricityDoc;
+                    loginDet.IsCheckPO = model.IsCheckPO;
+                    loginDet.IsCheckATT = model.IsCheckATT;
+                    loginDet.IsCheckWater = model.IsCheckWater;
+                    db.SaveChanges();
+                }
+
             }
             msg = "Move In Check List Save Successfully";
-
-           
             return msg;
         }
-
         public CheckListModel UploadInsurenceDoc(HttpPostedFileBase fileBaseUploadInsurenceDoc, CheckListModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -94,7 +158,6 @@ namespace ShomaRM.Models
             }
             return checklistModelIns;
         }
-
         public CheckListModel UploadProofOfElectricityDoc(HttpPostedFileBase fileBaseUploadProofOfElectricityDoc, CheckListModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -171,7 +234,6 @@ namespace ShomaRM.Models
                 string transStatus = "";
                 if (model.PaymentMethod == 2)
                 {
-                   
                     transStatus = new UsaePayModel().ChargeCard(model);
                 }
                 else if (model.PaymentMethod == 1)
@@ -185,7 +247,6 @@ namespace ShomaRM.Models
                 {
                     var saveTransaction = new tbl_Transaction()
                     {
-
                         TenantID = Convert.ToInt64(GetProspectData.UserId),
                         Revision_Num = 1,
                         Transaction_Type = "1",
@@ -236,8 +297,6 @@ namespace ShomaRM.Models
                     mm.CreateTransBill(TransId, Convert.ToDecimal(GetProspectData.PetDeposit), "Pet Deposit");
                     mm.CreateTransBill(TransId, Convert.ToDecimal(GetProspectData.VehicleRegistration), "Vehicle Registration Charges");
                    
-
-
                     string reportHTML = "";
                     string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
@@ -264,7 +323,5 @@ namespace ShomaRM.Models
             db.Dispose();
             return msg;
         }
-
-
     }
 }

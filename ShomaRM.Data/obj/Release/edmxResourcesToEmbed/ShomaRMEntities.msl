@@ -813,6 +813,7 @@
     <EntitySetMapping Name="tbl_Prospect">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Prospect">
         <MappingFragment StoreEntitySet="tbl_Prospect">
+          <ScalarProperty Name="AppointmentStatus" ColumnName="AppointmentStatus" />
           <ScalarProperty Name="AssignAgentId" ColumnName="AssignAgentId" />
           <ScalarProperty Name="PID" ColumnName="PID" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -928,6 +929,7 @@
     <EntitySetMapping Name="tbl_ServiceRequest">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ServiceRequest">
         <MappingFragment StoreEntitySet="tbl_ServiceRequest">
+          <ScalarProperty Name="WarrantyStatus" ColumnName="WarrantyStatus" />
           <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
           <ScalarProperty Name="TenantID" ColumnName="TenantID" />
           <ScalarProperty Name="ProblemCategory" ColumnName="ProblemCategory" />

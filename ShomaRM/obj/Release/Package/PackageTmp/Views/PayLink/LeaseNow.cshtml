@@ -418,7 +418,6 @@
         var model = {
             UserName: email,
             Password: pass,
-
         };
 
         $.ajax({
@@ -428,21 +427,36 @@
             data: JSON.stringify(model),
             dataType: "JSON",
             success: function (response) {
-
-                if (response != "0") {
-
-                    $("#hndUID").val(response);
-                    getTenantInfo(response);
-                    goToStep(2, 2);
+                //if (response != "0") {
+                //    $("#hndUID").val(response);
+                //    getTenantInfo(response);
+                //    goToStep(2, 2);
+                //} else {
+                //    alert("Invalid Email ID / password.")
+                //}
+                var result = response.split("|");
+                if (result[0] == -1) {
+                    window.location = "/Home/";
+                }
+                else if (result[0] != "0") {
+                    if (result[1] == "ad") {
+                        window.location = "/Admin/AdminHome";
+                    }
+                    else if (result[1] == "te") {
+                        $("#hndUID").val(response);
+                        getTenantInfo(response);
+                        goToStep(2, 2);
+                    }
+                    else {
+                        window.location = "/Home/";
+                    }
+                    $("#popSignIn").PopupWindow("close");
                 } else {
-                    alert("Invalid Email ID / password.")
+                    alert("Invalid Email ID / Password.")
                 }
 
             }
-
-
         });
-
     }
 
     var goToStep = function (stepid, id) {
@@ -456,27 +470,19 @@
         if (stepid == "2") {
 
             if (id == "2") {
-
-
                 $("#step1").addClass("hidden");
                 $("#step3").addClass("hidden");
-
                 $("#step2").removeClass("hidden");
-
             }
 
         }
         if (stepid == "3") {
             if (id == "3") {
-
                 $("#step2").addClass("hidden");
                 $("#step1").addClass("hidden");
-
                 $("#step3").removeClass("hidden");
-
             }
         }
-
     }
 
     function savePayment() {
@@ -490,7 +496,6 @@
                 type: 'red'
             });
             return;
-
         }
         if ($("#hndTransMethod").val() == "2") {
             var paymentMethod = 2;
@@ -619,7 +624,15 @@
             $.alert({
                 title: "",
                 content: "Please Select Move In Date ",
-                type: 'red'
+                type: 'red',
+                buttons: {
+                    yes: {
+                        text: "Ok",
+                        action: function (yes) {
+
+                        }
+                    }
+                }
             });
             return;
         }

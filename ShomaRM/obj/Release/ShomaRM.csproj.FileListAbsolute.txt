@@ -976,3 +976,9 @@ E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\SendGrid.pdb
 E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\SendGrid.xml
 E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\System.Net.Http.Formatting.dll
 E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\System.Net.Http.Formatting.xml
+E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\SendGrid.SmtpApi.dll
+E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\Twilio.AspNet.Common.dll
+E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\Twilio.AspNet.Mvc.dll
+E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\Twilio.dll
+E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\SendGrid.SmtpApi.xml
+E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\Twilio.xml

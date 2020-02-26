@@ -11,11 +11,11 @@
 
     getIssueData($("#hndIssueID").val());
     fillDdlService();
-    //fillCausgIssue();
+
     $("#ddlProblemCategory").on('change', function (evt, params) {
         var selected = $(this).val();
         if (selected != null) {
-            if ( selected == 0) {
+            if (selected == 0) {
                 $("#ddlProblemCategory").empty();
             }
             else {
@@ -64,20 +64,20 @@ var buildPaganationIssueList = function (pagenumber) {
             if ($.trim(response.error) !== "") {
                 alert(response.error);
             } else {
-                if (response.NOP == 0) {
-                    $('#ddlRPP_Issue').addClass("hidden");
-                    $('#divPagination_Issue').addClass("hidden");
-                    $('#lblRPP_Issue').addClass("hidden");
-                }
-                else {
-                    $('#ddlRPP_Issue').removeClass("hidden");
-                    $('#divPagination_Issue').removeClass("hidden");
-                    $('#lblRPP_Issue').removeClass("hidden");
+                //if (response.NOP == 0) {
+                //    $('#ddlRPP_Issue').addClass("hidden");
+                //    $('#divPagination_Issue').addClass("hidden");
+                //    $('#lblRPP_Issue').addClass("hidden");
+                //}
+                //else {
+                //    $('#ddlRPP_Issue').removeClass("hidden");
+                //    $('#divPagination_Issue').removeClass("hidden");
+                //    $('#lblRPP_Issue').removeClass("hidden");
 
-                    $('#ulPagination_Issue').pagination('updateItems', response.NOP);
-                    $('#ulPagination_Issue').pagination('selectPage', 1);
-                }
+                $('#ulPagination_Issue').pagination('updateItems', response.NOP);
+                $('#ulPagination_Issue').pagination('selectPage', 1);
             }
+            //}
         }
     });
 };
@@ -100,7 +100,7 @@ var fillCausingSearchGrid = function (pagenumber) {
                 $("#tblIssue>tbody").empty();
                 $.each(response, function (index, elementValue) {
                     var html = '';
-                    html += '<tr data-value="' + elementValue.IssueID + '"  id="tr_' + elementValue.IssueID + '">';
+                    html += '<tr data-value="' + elementValue.IssueID + '"  id="tr_' + elementValue.ServiceIssueID + '">';
                     html += '<td class="pds-id hidden" style="color:#3d3939;">' + elementValue.IssueID + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.ServiceIssue + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.CausingIssue + '</td>';
@@ -132,7 +132,7 @@ var goToIssue = function (IssueID) {
     if (ID != null) {
         $("#hndIssueID").val(ID);
         getIssueData(ID);
-        
+
 
     }
 };
@@ -174,20 +174,23 @@ var fillCausingIssue = function (ServiceIssueID) {
             } else {
                 if (response.length != '0') {
                     $("#ddlCausingIssue").empty();
-                    //$("#ddlProblemCategory1").append("<option value='0'>What Item Is causing The Issue?</option>");
+
+                    $("#ddlCausingIssue").append("<option value='0' selected='selected'>What Item Is causing The Issue?</option>");
                     $.each(response, function (index, elementValue) {
                         $("#ddlCausingIssue").append("<option value=" + elementValue.CausingIssueID + ">" + elementValue.CausingIssue + "</option>");
                     });
                 } else {
-                  
-                   
+
+
                 }
             }
         }
     });
 }
+
+
 var getIssueData = function (IssueID) {
-    var params = {IssueID:IssueID };
+    var params = { IssueID: IssueID };
     $.ajax({
         url: "ServiceIssue/getIssueData",
         method: "post",
@@ -195,7 +198,7 @@ var getIssueData = function (IssueID) {
         contentType: "application/json; charset=utf-8", // content type sent to server
         dataType: "json", //Expected data format from server
         success: function (response) {
-            clearIssue();
+            //clearIssue();
             
             if ($.trim(response.error) != "") {
                 //showMessage("Error!", response.error);
@@ -203,7 +206,8 @@ var getIssueData = function (IssueID) {
                 $("#hndIssueID").val(response.IssueID);
                 $("#ddlProblemCategory").val(response.ServiceIssueID);
                 fillCausingIssue(response.ServiceIssueID);
-                $("#ddlCausingIssue").val(response.CausingIssueID);
+                setTimeout(function () { $("#ddlCausingIssue").val(response.CausingIssueID); }, 500);
+
                 $("#txtIssue").val(response.Issue);
                 if ($("#hndIssueID").val() != "0") {
                     $("#spanSaveUpdate").text("UPDATE");
@@ -211,24 +215,28 @@ var getIssueData = function (IssueID) {
                 else {
                     $("#spanSaveUpdate").text("SAVE");
                 }
+               
+                
             }
         }
     });
 };
 
+
 var saveUpdateIssueData = function () {
     ////showProgress('#btnSaveUpdate');
 
     var msg = "";
-    if ($.trim($("#ddlProblemCategory").val()).length == 0) {
-        msg = msg + "Service Category is required.\r\n"
+    if ($.trim($("#ddlProblemCategory").val()) == 0) {
+        msg = msg + " Service Category is required.\r\n </br>"
     }
-    if ($.trim($("#ddlCausingIssue").val()).length <= 0) {
-        msg = msg + "Causing Issue is required.\r\n"
+    if ($.trim($("#ddlCausingIssue").val())== 0) {
+        msg = msg + " Causing Issue is required.\r\n</br>"
     }
     if ($.trim($("#txtIssue").val()).length <= 0) {
         msg = msg + " Issue is required.\r\n"
     }
+  
     if (msg != "") {
         msg = "Following field(s) is/are required</br>" + msg;
         $.alert({
@@ -244,7 +252,7 @@ var saveUpdateIssueData = function () {
             ServiceIssueID: $("#ddlProblemCategory").val(),
             CausingIssueID: $("#ddlCausingIssue").val(),
         };
-        alert($("#hndIssueID").val());
+       
         $.ajax({
             url: "ServiceIssue/saveUpdateIssue",
             method: "post",
@@ -298,7 +306,7 @@ var delIssue = function (ID) {
                 text: 'Yes',
                 action: function (yes) {
                     $.ajax({
-                        url: "/ServiceLocation/DeleteServiceLocation",
+                        url: "/ServiceIssue/DeleteService",
                         type: "post",
                         contentType: "application/json utf-8",
                         data: JSON.stringify(model),

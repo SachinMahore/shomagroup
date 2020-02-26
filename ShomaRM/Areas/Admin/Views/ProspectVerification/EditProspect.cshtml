@@ -2395,7 +2395,7 @@
                                             <div class="checkbox">
                                                 <div class="col-sm-3" style="margin-left: -20px;">
                                                     <label>
-                                                        <input type="checkbox" id="chkPay" checked="@(Model.MoveInCharges != null ? "checked" : "")" disabled="@(Model.MoveInCharges != null ? "disabled" : "")"><span style="margin-left: 10px;">
+                                                        <input type="checkbox" id="chkPay" checked="@(Model.MoveInCharges != 0 ? true : false)" disabled="@(Model.MoveInCharges != 0 ? "disabled" : "disabled")"><span style="margin-left: 10px;">
                                                             Pay your Move-in charges
                                                         </span>
                                                     </label>
@@ -2414,7 +2414,7 @@
                                             <div class="checkbox">
                                                 <div class="col-sm-3" style="margin-left: -20px;">
                                                     <label>
-                                                        <input type="checkbox" id="chkMovein" checked="@(Model.MoveInDateTxt != null ? "checked" : "")" disabled="@(Model.MoveInDateTxt != null ? "disabled" : "")"><span style="margin-left: 10px;">
+                                                        <input type="checkbox" id="chkMovein" checked="@(Model.MoveInDateTxt != null ? true : false)" disabled /><span style="margin-left: 10px;">
                                                             Schedule a move-in date and time
                                                         </span>
                                                     </label>
@@ -2440,7 +2440,7 @@
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label style="margin-left: -5px;">
-                                                    <input type="checkbox" id="chkIns" checked="@(Model.InsuranceDoc != null ? "checked" : "")" disabled="@(Model.InsuranceDoc != null ? "disabled" : "")"><span style="margin-left: 10px;">
+                                                    <input type="checkbox" id="chkIns" checked="@(string.IsNullOrWhiteSpace(Model.InsuranceDoc) == false ? true : false)" disabled><span style="margin-left: 10px;">
                                                         Make sure you have Renter’s insurance.  If you have not purchased it and would like to use our partner, login or call Serrod Insurance 	Agency at (305) 445-6441
                                                     </span>
                                                 </label>
@@ -2456,7 +2456,7 @@
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label style="margin-left: -5px;">
-                                                    <input type="checkbox" id="chkPo" checked="@(Model.IsCheckPO == 1 ? "checked" : "")" disabled="@(Model.IsCheckPO == 1 ? "disabled" : "")"><span style="margin-left: 10px;">
+                                                    <input type="checkbox" id="chkPo" checked="@(Model.IsCheckPO == 1 ? true : false)" disabled><span style="margin-left: 10px;">
                                                         Complete the Post Office change of address by logging into <a href="https://movingonlineservice.com" target="_blank">https://movingonlineservice.com</a>
                                                     </span>
                                                 </label>
@@ -2466,7 +2466,7 @@
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label style="margin-left: -5px;">
-                                                    <input type="checkbox" id="chkEle" checked="@(Model.ElectricityDoc != null ? "checked" : "")" disabled="@(Model.ElectricityDoc != null ? "disabled" : "")"><span style="margin-left: 10px;">
+                                                    <input type="checkbox" id="chkEle" checked="@(string.IsNullOrWhiteSpace(Model.ElectricityDoc) == false ? true : false)" disabled><span style="margin-left: 10px;">
                                                         Electricity- log in to <a href="https://fpl.com" target="_blank">https://fpl.com</a> to start service or call 1-800-226-3545 .
                                                     </span>
                                                 </label>
@@ -2481,7 +2481,7 @@
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label style="margin-left: -5px;">
-                                                    <input type="checkbox" id="chkAt" checked="@(Model.IsCheckATT == 1 ? "checked" : "")" disabled="@(Model.IsCheckATT == 1 ? "disabled" : "")" /><span style="margin-left: 10px;">
+                                                    <input type="checkbox" id="chkAt" checked="@(Model.IsCheckATT == 1 ? true : false)" disabled /><span style="margin-left: 10px;">
                                                         AT&T- Call to establish your internet service and/or enhance your cable plan.
                                                     </span>
                                                 </label>
@@ -2490,7 +2490,7 @@
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label style="margin-left: -5px;">
-                                                    <input type="checkbox" id="chkWater" checked="@(Model.IsCheckWater == 1 ? "checked" : "")" disabled="@(Model.IsCheckWater == 1 ? "disabled" : "")" /><span style="margin-left: 10px;">
+                                                    <input type="checkbox" id="chkWater" checked="@(Model.IsCheckWater == 1 ? true : false)" disabled /><span style="margin-left: 10px;">
                                                         If needed, contact Miami Dade Water and Sewer Department to stop service at your previous address. Login to <a href="http://www.miamidade.gov/global/water/home.page" target="_blank">www.miamidade.gov/global/water/home.page</a>
                                                         or call (305) 665-7488.  Your water will be set up automatically upon move-in and will be billed directly the following month.
                                                     </span>
@@ -3936,9 +3936,9 @@
         }
 
 
-         var fileExistInsurenceDoc = doesFileExist('/Content/assets/img/ChecklistDocument/' + '@Model.InsuranceDoc');
+         var fileExistInsurenceDoc = doesFileExist('/../Content/assets/img/ChecklistDocument/' + '@Model.InsuranceDoc');
         if (fileExistInsurenceDoc) {
-            $("#dwnldPOI").attr('href', '/Content/assets/img/ChecklistDocument/' + '@Model.InsuranceDoc');
+            $("#dwnldPOI").attr('href', '/../Content/assets/img/ChecklistDocument/' + '@Model.InsuranceDoc');
             $("#dwnldPOI").attr('download','@Model.InsuranceDoc');
             $("#dwnldPOI").attr('target', '_parent');
             $("#dwnldPOI").html('<i class="fa fa-download"></i>' + ' ' + '@Model.InsuranceDoc');
@@ -3946,14 +3946,15 @@
         else {
             $("#dwnldPOI").attr('href', 'javascript:void(0)');
             $("#dwnldPOI").attr('onclick', 'fileNotFound()');
+            $("#dwnldPOI").html('<i class="fa fa-download"></i>' + ' ' + '@Model.InsuranceDoc');
         }
 
-        var fileExistElectricityDoc = doesFileExist('/Content/assets/img/ChecklistDocument/' + '@Model.ElectricityDoc');
+        var fileExistElectricityDoc = doesFileExist('/../Content/assets/img/ChecklistDocument/' + '@Model.ElectricityDoc');
         if (fileExistElectricityDoc) {
-            $("#dwnldPOE").attr('href', '/Content/assets/img/ChecklistDocument/' + '@Model.ElectricityDoc');
+            $("#dwnldPOE").attr('href', '/../Content/assets/img/ChecklistDocument/' + '@Model.ElectricityDoc');
             $("#dwnldPOE").attr('download','@Model.ElectricityDoc');
             $("#dwnldPOE").attr('target', '_parent');
-            $("#dwnldPOE").text('@Model.ElectricityDoc');
+            $("#dwnldPOE").html('<i class="fa fa-download"></i>' + ' ' + '@Model.ElectricityDoc');
         }
         else {
             $("#dwnldPOE").attr('href', 'javascript:void(0)');

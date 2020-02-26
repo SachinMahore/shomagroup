@@ -424,11 +424,9 @@ namespace ShomaRM.Areas.Admin.Models
 
         public ProspectVerificationModel GetProspectData(long Id)
         {
-       //     var test = new AcutraqRequest();
-       //var data=     test.PostAqutraqRequestOld(null);
-               ShomaRMEntities db = new ShomaRMEntities();
-
-        
+            //var test = new AcutraqRequest();
+            //var data=     test.PostAqutraqRequestOld(null);
+            ShomaRMEntities db = new ShomaRMEntities();
 
             ProspectVerificationModel model = new ProspectVerificationModel();
             model.ProspectId = 0;
@@ -524,7 +522,7 @@ namespace ShomaRM.Areas.Admin.Models
                     }
 
                     var MarketSourceString = db.tbl_Advertiser.Where(co => co.AdID == model.Marketsource).FirstOrDefault();
-                    if (MarketSourceString!=null)
+                    if (MarketSourceString != null)
                     {
                         model.MarketsourceString = MarketSourceString.Advertiser;
                     }
@@ -544,17 +542,17 @@ namespace ShomaRM.Areas.Admin.Models
                     //model.MoveInDateTxt = "";
                     model.MoveInTime = "";
                     model.MoveInCharges = 0;
-                    model.IsCheckATT =  0;
-                    model.IsCheckPO =  0;
-                    model.IsCheckWater =  0;
+                    model.IsCheckATT = 0;
+                    model.IsCheckPO = 0;
+                    model.IsCheckWater = 0;
                     model.InsuranceDoc = "";
-                    model.ElectricityDoc ="";
+                    model.ElectricityDoc = "";
                     var MoveInData = db.tbl_MoveInChecklist.Where(co => co.ProspectID == model.ProspectId).FirstOrDefault();
                     if (MoveInData != null)
                     {
-                        model.MoveInDateTxt = MoveInData.MoveInDate.HasValue? MoveInData.MoveInDate.Value.ToString("MM/dd/yyyy"):"";
+                        model.MoveInDateTxt = MoveInData.MoveInDate.HasValue ? MoveInData.MoveInDate.Value.ToString("MM/dd/yyyy") : "";
                         model.MoveInTime = MoveInData.MoveInTime;
-                        model.MoveInCharges = MoveInData.MoveInCharges??0;
+                        model.MoveInCharges = MoveInData.MoveInCharges ?? 0;
                         model.IsCheckATT = MoveInData.IsCheckATT ?? 0;
                         model.IsCheckPO = MoveInData.IsCheckPO ?? 0;
                         model.IsCheckWater = MoveInData.IsCheckWater ?? 0;

@@ -72,19 +72,19 @@ var buildPaganationScategoryList = function (pagenumber) {
             if ($.trim(response.error) !== "") {
                 alert(response.error);
             } else {
-                if (response.NOP == 0) {
-                    $('#ddlRPP_ServiceCategory').addClass("hidden");
-                    $('#divPagination_ServiceCategory').addClass("hidden");
-                    $('#lblRPP_ServiceCategory').addClass("hidden");
-                }
-                else {
-                    $('#ddlRPP_ServiceCategory').removeClass("hidden");
-                    $('#divPagination_ServiceCategory').removeClass("hidden");
-                    $('#lblRPP_ServiceCategory').removeClass("hidden");
+                //if (response.NOP == 0) {
+                //    $('#ddlRPP_ServiceCategory').addClass("hidden");
+                //    $('#divPagination_ServiceCategory').addClass("hidden");
+                //    $('#lblRPP_ServiceCategory').addClass("hidden");
+                //}
+                //else {
+                    //$('#ddlRPP_ServiceCategory').removeClass("hidden");
+                    //$('#divPagination_ServiceCategory').removeClass("hidden");
+                    //$('#lblRPP_ServiceCategory').removeClass("hidden");
 
                     $('#ulPagination_ServiceCategory').pagination('updateItems', response.NOP);
                     $('#ulPagination_ServiceCategory').pagination('selectPage', 1);
-                }
+                //}
             }
         }
     });

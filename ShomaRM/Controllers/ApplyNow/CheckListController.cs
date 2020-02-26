@@ -23,6 +23,20 @@ namespace ShomaRM.Controllers
 
             return View();
         }
+        public ActionResult GetProspectMoveInData(long UID)
+        {
+            try
+            {
+                var tenantData = (new OnlineProspectModule().GetProspectData(UID));
+                var moveinData = (new CheckListModel().GetMoveInData(tenantData.ProspectId ?? 0));
+
+                return Json(new { model = tenantData, moveindata = moveinData }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         public ActionResult SaveMoveInCheckList(CheckListModel model)
         {
             try
@@ -76,7 +90,15 @@ namespace ShomaRM.Controllers
         {
             try
             {
-                return Json(new { Msg = (new CheckListModel().SaveMoveInPayment(model)) }, JsonRequestBehavior.AllowGet);
+                string paymentDone = "0";
+                string result = (new CheckListModel().SaveMoveInPayment(model));
+                String[] spearator = { "|" };
+                String[] strlist = result.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
+                if (strlist[1] != "000000")
+                {
+                    paymentDone = "1";
+                }
+                return Json(new { Msg = result, PaymentDone = paymentDone }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

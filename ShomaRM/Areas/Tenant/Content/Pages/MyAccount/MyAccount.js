@@ -1832,7 +1832,7 @@ var getPaymentAccountsCreditCard = function () {
                 html += "<td>" + elementValue.AccountName + "</td>";
                 html += "<td>" + elementValue.NameOnCard + "</td>";
                 html += "<td>" + MaskCardNumber(elementValue.CardNumber) + "</td>";
-                html += "<td><a href='javascript:void(0);' onclick='editPaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-pencil color-blue'></i></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-times color-red'></i></a></td>";
+                html += "<td><a href='javascript:void(0);' onclick='editPaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-pencil color-blue m-r20 ml-10'></i></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-times color-red'></i></a></td>";
                 html += "<td width='11%'>" + checked + "</td>";
                 html += "</tr>";
                 $("#tblPaymentAccountsCreditCard>tbody").append(html);
@@ -5099,7 +5099,7 @@ var getRecurringPayLists = function () {
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
           
                 html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                html += "<td><a href='javascript:void(0);' onclick='editRecPayment(" + elementValue.TransID + ",\"" + formatMoney(elementValue.Charge_Amount) + "\",\"" + elementValue.Transaction_DateString + "\"," + elementValue.PAID + ")'><i class='fa fa-pencil color-blue'></i></a>   <a href='javascript:void(0);' onclick='deleteRecPayment(" + elementValue.TransID + ")'><i class='fa fa-times color-red'></i></a></td>";
+                html += "<td><a href='javascript:void(0);' onclick='editRecPayment(" + elementValue.TransID + ",\"" + formatMoney(elementValue.Charge_Amount) + "\",\"" + elementValue.Transaction_DateString + "\"," + elementValue.PAID + ")'><i class='fa fa-pencil color-blue m-r20 m-l10'></i></a>   <a href='javascript:void(0);' onclick='deleteRecPayment(" + elementValue.TransID + ")'><i class='fa fa-times color-red'></i></a></td>";
                 html += "</tr>";
               
                 $("#tblRecurringPayments>tbody").append(html);
