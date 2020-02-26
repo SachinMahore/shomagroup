@@ -18,14 +18,10 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>
-    </IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>
-    </IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>
-    </IISExpressUseClassicPipelineMode>
+    <IISExpressSSLPort>53673</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -818,6 +814,23 @@
     <Content Include="Areas\Admin\Views\GuestManagement\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ServiceCausing\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ServiceIssue\Index.cshtml" />
+    <Content Include="Content\assets\font\FontsFree-Net-HelveticaNeueBold.ttf" />
+    <Content Include="Content\assets\font\Futura Bold.otf" />
+    <Content Include="Content\assets\font\Futura Medium.otf" />
+    <Content Include="Content\assets\font\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\assets\font\Helvetica25UltraLight_22433.ttf" />
+    <Content Include="Content\assets\font\Helvetica35Thin_22435.ttf" />
+    <Content Include="Content\assets\font\HelveticaNeueBlackItalic 1.otf" />
+    <Content Include="Content\assets\font\HelveticaNeueBold.otf" />
+    <Content Include="Content\assets\font\HelveticaNeueMediumItalic.otf" />
+    <Content Include="Content\assets\font\Lara book-italic - Copy.otf" />
+    <Content Include="Content\assets\font\Lara book-italic.otf" />
+    <Content Include="Content\assets\font\Lara book.otf" />
+    <Content Include="Content\assets\font\Lara light-italic.otf" />
+    <Content Include="Content\assets\font\Lara light.otf" />
+    <Content Include="Content\assets\font\Lara regular-italic.otf" />
+    <Content Include="Content\assets\font\Lara regular.otf" />
+    <Content Include="Content\assets\font\Oxygen-Regular.ttf" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -830,7 +843,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="VoiceMessage.xml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

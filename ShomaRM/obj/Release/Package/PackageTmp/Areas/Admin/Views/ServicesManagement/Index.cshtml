@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "Service List";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    DateTime now = DateTime.Now;
+    ViewBag.StartDate = new DateTime(now.Year,now.Month, 1);
+    ViewBag.EndDate = ViewBag.StartDate.AddMonths(1).AddDays(-1);
 }
 <script src="@Url.Content("~/Areas/Admin/Content/Pages/ServiceManagement/ServiceRequestList.js")"></script>
 <input type="hidden" id="hdnCurrentPage_PVL" value="1" />
@@ -16,19 +19,25 @@
             <div class="col-md-12  pr0  properties-page">
                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                     <div class="panel-heading">
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                 <h3 class="panel-title">From Date</h3>
-                                <input id="txtFromDate" type="text" class="form-control" value="@DateTime.Now.AddDays(-30).ToString("MM/dd/yyyy")">
+                                <input id="txtFromDate" type="text" class="form-control" value="@ViewBag.StartDate.ToString("MM/dd/yyyy")">
+                                <span class="input-group-btn" style="width:0% !important">
+                                    <button class="btn btn-primary search" type="button" id="iconFromDate" style="margin-top: -60px;margin-left: 164px;"><i class="fa-calendar fa"></i></button>
+                                </span>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                 <h3 class="panel-title">To Date</h3>
-                                <input id="txtToDate" type="text" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")">
+                                <input id="txtToDate" type="text" class="form-control" value="@ViewBag.EndDate.ToString("MM/dd/yyyy")">
+                                <span class="input-group-btn" style="width:0% !important">
+                                    <button class="btn btn-primary search" type="button" id="iconToDate" style="margin-top: -60px;margin-left: 164px;"><i class="fa-calendar fa"></i></button>
+                                </span>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                 <h3 class="panel-title">Status</h3>
                                 <select id="ddlStatus" class="form-control">
@@ -39,7 +48,22 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <h3 class="panel-title">Criteria</h3>
+                                <select id="ddlCriteria" class="form-control">
+                                    <option value='1' data-value="Tenant">Tenant Name</option>
+                                    <option value='2' data-value="Unit">Unit No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 " id="EnterC">
+                            <div class="form-group">
+                                <h3 class="panel-title">Enter Criteria</h3>
+                                <input id="txtCriteria" type="text" class="form-control" >
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
                             <div class="form-group padding-top-25">
                                 <button type='button' class='btn btn-next btn-primary' name='Search' value='Search' onclick="buildPaganationUserList(1)"><i class="fa fa-search"></i> SEARCH</button>
                             </div>
@@ -65,6 +89,7 @@
                                 <thead>
                                     <tr>
                                         <th class="pds-name" style="background-color: #c7cdd566;color:#3d3939">Tennant Name</th>
+                                        <th class="pds-name" style="background-color: #c7cdd566;color:#3d3939">Unit No</th>
                                         <th class="pds-Category" style="background-color: #c7cdd566;color:#3d3939">Problem Category</th>
                                         <th class="pds-Caussing" style="background-color: #c7cdd566;color:#3d3939">Problem Caussing</th>
                                         <th class="pds-Issue" style="background-color: #c7cdd566;color:#3d3939">Problem Issue</th>
@@ -255,8 +280,15 @@
 <script>
     $(function () {
         $("#txtFromDate").datepicker();
+        $("#iconFromDate").click(function () {
+            $("#txtFromDate").focus();
+        });
         $("#txtToDate").datepicker();
+        $("#iconToDate").click(function () {
+            $("#txtToDate").focus();
+        });
     });
+   
 </script>
 <style>
     .wizard-card .picture-src {

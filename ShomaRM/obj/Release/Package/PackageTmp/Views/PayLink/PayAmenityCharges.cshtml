@@ -62,7 +62,7 @@
                                         </div>
                                     </div>
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-primary" onclick="SignInFromEmail()"> Sign In</button>
+                                        <button type="submit" class="btn btn-primary" onclick="SignInFromEmailPaymentLink()"> Sign In</button>
                                     </div>
 
                                 </div>
@@ -108,17 +108,17 @@
                                                         <tr>
                                                             <td>$<span id="resFees"></span></td>
                                                             <td>RESERVATION FEE</td>
-                                                            <td width="130" style="text-align: center;"><span class="hidden" id="chkResfeesSpan"><input type="checkbox" class="form-control" id="chkResfees"/></span><span id="chkResfeesPaid" class="hidden">Paid</span></td>
+                                                            <td width="130"><span class="hidden" id="chkResfeesSpan"><input type="checkbox" class="form-control" id="chkResfees" disabled="disabled" /></span><span id="chkResfeesPaid" class="hidden">Paid</span></td>
                                                         </tr>
                                                         <tr>
                                                             <td>$<span id="resDepo"></span></td>
                                                             <td>SECURITY DEPOSIT</td>
-                                                            <td style="text-align: center;"><input type="checkbox" class="form-control" id="chkResDepo" /></td>
+                                                            <td><span class="hidden" id="chkResDepoSpan"><input type="checkbox" class="form-control" id="chkResDepo" /></span><span id="chkResDepoPaid" class="hidden">Paid</span></td>
                                                         </tr>
                                                         <tr>
                                                             <td>$<span id="totalAmt"></span></td>
                                                             <td>TOTAL</td>
-                                                            <td style="text-align: center;"></td>
+                                                            <td></td>
                                                         </tr>
                                                     </table>
                                                 </td>
@@ -140,13 +140,13 @@
                                                 <td>
                                                     SELECT PAYMENT METHOD:
                                                 </td>
-                                                <td><select id="ddlPaymentMethod" class="form-control" style="width:200px;"></select></td>
+                                                <td><select id="ddlPaymentMethodPaymentLink" class="form-control" style="width:200px;"></select></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="2">
                                                     <br />
                                                     <div>
-                                                        <button type="submit" class="btn btn-primary pull-right" onclick=" goToStep(3, 3)"> Next</button>
+                                                        <button id="btnSubmitStep22" type="submit" class="btn btn-primary pull-right" onclick=" goToStep(3, 3)"> Next</button>
                                                     </div>
                                                 </td>
 
@@ -185,12 +185,12 @@
                                                 </td>
                                                 <td><span id="paymeth"></span></td>
                                             </tr>
-                                            <tr>
+                                            <tr id="trcvvnumberpl" class="hidden">
                                                 <td>
                                                     CVV Number:
                                                 </td>
                                                 <td>
-                                                    <input id="txtCVVNumberPayRentOnline" type="password" class="form-control form-control-small hidden" maxlength="3" value="" style="width:50% !important" onkeypress="return isOnlyNumber(event);" />
+                                                    <input id="txtCVVNumberPaymentLink" type="password" class="form-control form-control-small" maxlength="3" value="" style="width:50% !important" onkeypress="return isOnlyNumber(event);" />
                                                 </td>
                                             </tr>
                                             <tr>
@@ -209,7 +209,7 @@
                                                     <br />
                                                     <div>
                                                         <button type="submit" class="btn btn-primary pull-left" onclick=" goToStep(2, 2)"> BACK</button>
-                                                        <button type="submit" class="btn btn-primary pull-right" onclick="makePayment()"> CONFIRM</button>
+                                                        <button type="submit" class="btn btn-primary pull-right" onclick="makePaymentPaymentLink()"> CONFIRM</button>
                                                     </div>
                                                 </td>
 
@@ -253,8 +253,7 @@
         text-align: left !important;
         margin-bottom: 10px;
     }
-</style>
-<style>
+
     /* The Modal (background) */
     .modal {
         display: none; /* Hidden by default */
@@ -302,12 +301,18 @@
             cursor: pointer;
             opacity: 1;
         }
+    .wizard-card .disabled {
+        display: block !important;
+    }
+    .icheckbox_square-yellow.checked.disabled {
+        background-position: -48px 0 !important;
+    }
 </style>
 <script type="text/javascript">
     $(document).ready(function () {
-        getTenantInfo(@ViewBag.UID);
-        if (@ViewBag.FromAcc==1)
-        {
+        
+        getTenantInfoPaymentLink(@ViewBag.UID);
+        if (@ViewBag.FromAcc==1) {
             $("#btnAccount").removeClass("hidden");
             $("#btnLogin").addClass("hidden");
             $("#btnHome").addClass("hidden");
@@ -317,16 +322,40 @@
             $("#btnLogin").removeClass("hidden");
             $("#btnHome").removeClass("hidden");
         }
-         $("#resFees").text(formatMoney(parseFloat(@Model.ReservationFee)));
+        $("#resFees").text(formatMoney(parseFloat(@Model.ReservationFee)));
         $("#resDepo").text(formatMoney(parseFloat(@Model.DepositFee)));
-         $("#totalPayAmt").text(formatMoney(parseFloat(@Model.ReservationFee)));
-        $("#totalConfAmt").text(formatMoney(parseFloat(@Model.ReservationFee) ));
+        $("#totalPayAmt").text(formatMoney(parseFloat(@Model.ReservationFee)));
+        $("#totalConfAmt").text(formatMoney(parseFloat(@Model.ReservationFee)));
+        $("#btnSubmitStep22").removeClass("hidden");
+        if (@Model.Status>2)
+        {
+            $.alert({
+                title: "",
+                content: "Payment Link is expired",
+                type: 'red',
+                buttons: {
+                    yes: {
+                        text: "Ok",
+                        action: function (yes) {
+                            window.location.href = "/home";
+                        }
+                    }
+                }
+            });
+        }
 
         if (@Model.Status==2) {
             $("#chkResfees").prop("checked", false);
             $("#chkResDepo").prop("checked", true);
+
+            $("#chkResDepo").prop("disabled", "disabled");
+
             $("#chkResfeesSpan").addClass("hidden");
             $("#chkResfeesPaid").removeClass("hidden");
+
+            $("#chkResDepoSpan").removeClass("hidden");
+            $("#chkResDepoPaid").addClass("hidden");
+
             $("#totalAmt").text(formatMoney(parseFloat(@Model.DepositFee)));
             $("#totalPayAmt").text(formatMoney(parseFloat(@Model.DepositFee)));
             $("#totalConfAmt").text(formatMoney(parseFloat(@Model.DepositFee)));
@@ -336,8 +365,12 @@
             $("#chkResfees").prop("checked", true);
             $("#chkResfeesSpan").removeClass("hidden");
             $("#chkResfeesPaid").addClass("hidden");
+
+            $("#chkResDepoSpan").removeClass("hidden");
+            $("#chkResDepoPaid").addClass("hidden");
+
             $("#totalAmt").text(formatMoney(parseFloat(parseFloat(@Model.ReservationFee) + parseFloat(@Model.DepositFee))));
-          
+
             $("#chkResDepo").on('ifChanged', function (event) {
                 if ($(this).is(":checked")) {
                     $("#totalPayAmt").text(formatMoney(parseFloat(parseFloat(@Model.ReservationFee) + parseFloat(@Model.DepositFee))));
@@ -351,18 +384,39 @@
                 }
             });
         }
+        else {
+            $("#chkResfees").prop("checked", false);
+            $("#chkResfeesSpan").addClass("hidden");
+            $("#chkResfeesPaid").removeClass("hidden");
+            $("#chkResDepo").prop("checked", false);
+            $("#chkResDepoSpan").addClass("hidden");
+            $("#chkResDepoPaid").removeClass("hidden");
 
-         ddlPaymentMethod();
+            $("#totalAmt").text("0.00");
+            $("#totalPayAmt").text("0.00");
+            $("#totalConfAmt").text("0.00");
+            $("#btnSubmitStep22").addClass("hidden");
+        }
 
+        ddlPaymentMethodPaymentLink();
+        $('#ddlPaymentMethodPaymentLink').on('change', function () {
+            if ($(this).find(':selected').data('value') == '1') {
+                $("#trcvvnumberpl").removeClass("hidden");
+            }
+            else {
+                $("#trcvvnumberpl").addClass("hidden");
+            }
+            $('#txtCVVNumberPaymentLink').val('');
+        });
         if ($("#hndUID").val() != "0") {
             goToStep(2, 2);
         }
         else {
-
+            $("#btnLogout").addClass("hidden");
         }
     });
 
-    var getTenantInfo = function (uid) {
+    var getTenantInfoPaymentLink = function (uid) {
         var model = { UID: uid}
         $.ajax({
             url: '/PayLink/GetProspectData/',
@@ -383,7 +437,7 @@
             }
         });
     };
-    var SignInFromEmail = function () {
+    var SignInFromEmailPaymentLink = function () {
         var msg = "";
         var email = $("#UserName").val();
         var pass = $("#password").val();
@@ -411,74 +465,82 @@
         };
 
         $.ajax({
-            url: "/ApplyNow/SignIn/",
+            url: "/ApplyNow/SignIn",
             type: "post",
             contentType: "application/json utf-8",
             data: JSON.stringify(model),
             dataType: "JSON",
             success: function (response) {
+                //if (response != "0") {
+                //    $("#hndUID").val(response);
+                //    getTenantInfo(response);
+                //    goToStep(2, 2);
+                //    $("#btnLogout").removeClass("hidden");
+                //} else {
+                //    alert("Invalid Email ID / password.")
+                //}
 
-                if (response != "0") {
+                var result = response.UserData.split("|");
 
-                    $("#hndUID").val(response);
-                    getTenantInfo(response);
-                    goToStep(2, 2);
-                } else {
-                    alert("Invalid Email ID / password.")
+                if (result[0] == -1) {
+                    window.location = "/Home/";
                 }
-
+                else if (result[0] != 0) {
+                    if (result[1] == "ad") {
+                        window.location = "/Admin/AdminHome";
+                    }
+                    else if (result[1] == "te") {
+                        $("#hndUID").val(result[0]);
+                        getTenantInfoPaymentLink(result[0]);
+                        goToStep(2, 2);
+                        $("#btnLogout").removeClass("hidden");
+                    }
+                    else {
+                        window.location = "/Home/";
+                    }
+                    $("#popSignIn").PopupWindow("close");
+                } else {
+                    alert("Invalid Email ID / Password.")
+                }
             }
-
-
         });
-
     }
 
     var goToStep = function (stepid, id) {
         if (stepid == "1") {
-
             $("#step1").removeClass("hidden");
             $("#step2").addClass("hidden");
             $("#step3").addClass("hidden");
-
+            $("#btnLogout").addClass("hidden");
         }
         if (stepid == "2") {
-
             if (id == "2") {
                 $("#step1").addClass("hidden");
                 $("#step3").addClass("hidden");
                 $("#step2").removeClass("hidden");
             }
-
         }
         if (stepid == "3") {
-
             if (id == "3") {
-                var value = $("#ddlPaymentMethod option:selected");
+                var value = $("#ddlPaymentMethodPaymentLink option:selected");
                 var transtype = value.text();
                 $("#paymeth").text(transtype);
-
                 $("#step1").addClass("hidden");
                 $("#step3").removeClass("hidden");
-
                 $("#step2").addClass("hidden");
-
             }
-
         }
         if (stepid == "4") {
-
             if (id == "4") {
                 $("#step1").addClass("hidden");
                 $("#step3").addClass("hidden");
                 $("#step2").addClass("hidden");
                 $("#step4").removeClass("hidden");
             }
-
         }
     }
 
-    var ddlPaymentMethod = function () {
+    var ddlPaymentMethodPaymentLink = function () {
         var model = { TenantId: $("#hndTenantID").val() };
         $.ajax({
             url: '/PaymentAccounts/GetPaymentMethods',
@@ -487,38 +549,46 @@
             data: JSON.stringify(model),
             dataType: "JSON",
             success: function (response) {
-                $('#ddlPaymentMethod').empty();
+                $('#ddlPaymentMethodPaymentLink').empty();
                 var html = '';
                 $.each(response.model, function (elementType, elementValue) {
                     if (elementValue.Default == '1') {
                         html = "<option value='" + elementValue.PAID + "' selected='selected' data-value='" + elementValue.PayMethod + "'>" + elementValue.AccountName + "</option>";
+                        if (elementValue.PayMethod == 1) {
+                            $("#trcvvnumberpl").removeClass("hidden");
+                        }
+                        else {
+                            $("#trcvvnumberpl").addClass("hidden");
+                        }
+
                     }
                     else {
                         html = "<option value='" + elementValue.PAID + "' data-value='" + elementValue.PayMethod + "'>" + elementValue.AccountName + "</option>";
                     }
-                    $('#ddlPaymentMethod').append(html);
+                    $('#ddlPaymentMethodPaymentLink').append(html);
                 });
+                
             }
         });
     };
 
-    function makePayment() {
+    function makePaymentPaymentLink() {
         var msg = "";
         var tenantid = $("#hndTenantID").val();
-        var transtype = $("#ddlPaymentMethod").val();
+        var transtype = $("#ddlPaymentMethodPaymentLink").val();
         var chargeAmount = unformatText($("#totalConfAmt").text());
         var desc = $("#resAmenity").text();
 
-        if ($("#ddlPaymentMethod").val() == '0') {
+        if ($("#ddlPaymentMethodPaymentLink").val() == '0') {
             msg += "Select Payment Method</br>";
         }
-        if ($('#ddlPaymentMethod').find(':selected').data('value') == '1') {
-            $("#txtCVVNumberPayRentOnline").removeClass("hidden");
-            if ($("#txtCVVNumberPayRentOnline").val() == '') {
+        if ($('#ddlPaymentMethodPaymentLink').find(':selected').data('value') == '1') {
+            $("#trcvvnumberpl").removeClass("hidden");
+            if ($("#txtCVVNumberPaymentLink").val() == '') {
                 msg += "Enter CVV Number</br>";
             }
         } else {
-            $("#txtCVVNumberPayRentOnline").addClass("hidden");
+            $("#trcvvnumberpl").addClass("hidden");
         }
         if (msg != "") {
             $.alert({
@@ -529,12 +599,12 @@
             return;
         }
         var models = {
-            PAID: $('#ddlPaymentMethod').val(),
+            PAID: $('#ddlPaymentMethodPaymentLink').val(),
             TenantID: tenantid,
             Transaction_Type: transtype,
             Charge_Amount: chargeAmount,
             Description: desc,
-            CCVNumber: $("#txtCVVNumberPayRentOnline").val(),
+            CCVNumber: $("#txtCVVNumberPaymentLink").val(),
             UserId: $("#hndUID").val(),
             Batch: $("#hndARID").val(),
             IsAmeDepoPay: $("#hndDepoPay").val(),
@@ -560,7 +630,7 @@
                         content: "Amenity Payment Failed",
                         type: 'red',
                     });
-                  
+
                 }
             }
         });
@@ -572,7 +642,6 @@
 
         return text.replace(/[^\d\.]/g, '');
     }
-
     var goToTenReserveAmenities = function () {
         model = {
             StepId: 5,

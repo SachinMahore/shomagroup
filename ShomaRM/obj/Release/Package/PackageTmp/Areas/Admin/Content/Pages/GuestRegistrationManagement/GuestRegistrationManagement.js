@@ -8,6 +8,7 @@
     $('#tblGuestRegistration tbody').on('dblclick', 'tr', function () {
         goToEdit();
     });
+
 });
 
 var getGuestRegistrationList = function () {
@@ -144,7 +145,7 @@ var goToGuestDetails = function () {
             $("#PrintGuestFname").text(response.msg.FirstName);
             $("#PrintGuestLname").text(response.msg.LastName);
             $("#PrintGuestAddress").text(response.msg.Address);
-            $("#PrintGuestPhone").text(response.msg.Phone);
+            $("#PrintGuestPhone").text(formatPhoneFax(response.msg.Phone));
             $("#PrintGuestEmail").text(response.msg.Email);
             $("#PrintGuestVisitSdate").text(response.msg.VisitStartDateString);
             $("#PrintGuestVisitEnddate").text(response.msg.VisitEndDateString);
@@ -155,8 +156,28 @@ var goToGuestDetails = function () {
                 $("#PrintGuestVMake").text(response.msg.VehicleMake);
                 $("#PrintGuestVModel").text(response.msg.VehicleModel);
                 $("#PrintGuestTag").text(response.msg.Tag);
-                $("#PrintGuestRegistration").text(response.msg.OriginalDriverLicence);
-                $("#PrintGuestriverLicence").text(response.msg.OriginalVehicleRegistration);
+                ////$("#PrintGuestRegistration").text(response.msg.OriginalDriverLicence);
+                //$("#PrintGuestriverLicence").text(response.msg.OriginalVehicleRegistration);
+
+                var guestIdTag = '';
+                var guestVehicleRegTag = '';
+                var isIdentityFileExist = doesFileExist('/Content/assets/img/TenantGuestInformation/' + response.msg.DriverLicence);
+                if (isIdentityFileExist) {
+                    guestIdTag = '<a href="/Content/assets/img/TenantGuestInformation/' + response.msg.DriverLicence + '" target="_blank" class="fa fa-eye"></a>';
+                }
+                else {
+                    guestIdTag = '<a href="javascript:void(0);" onclick="fileDoesNotExist();" class="fa fa-eye"></a>';
+                }
+                var isVehicleRegFileExist = doesFileExist('/Content/assets/img/TenantGuestInformation/' + response.msg.VehicleRegistration);
+                if (isVehicleRegFileExist) {
+                    guestVehicleRegTag = '<a href="/Content/assets/img/TenantGuestInformation/' + response.msg.VehicleRegistration + '" target="_blank" class="fa fa-eye"></a>';
+                }
+                else {
+                    guestVehicleRegTag = '<a href="javascript:void(0);" onclick="fileDoesNotExist();" class="fa fa-eye"></a>';
+                }
+               
+                $("#PrintGuestRegistration").html(guestIdTag);
+                $("#PrintGuestriverLicence").html(guestVehicleRegTag);
             } else {
                 $("#Pvehicle").addClass('hidden');
             }
@@ -185,6 +206,12 @@ var StatusUpdate = function (id) {
     var msg = '';
     var id = $("#hndGuestID").val();
     var status = $('#ddlStatus').val();
+    var guestStartDate = $('#PrintGuestVisitSdate').text();
+    var guestEnddate = $('#PrintGuestVisitEnddate').text();
+    var guestHaveVehicle = $('#PrintGuesHaveVehicle').text();
+    var guestName = $('#TagGuesttName').text(); 
+    var TenantName = $('#TagTenantName').text();
+
     if (status == '0') {
         msg += 'Select The Status</br>'
     }
@@ -202,7 +229,11 @@ var StatusUpdate = function (id) {
     var model = {
         GuestID: id,
         Status: status,
-       
+        GuestName: guestName,
+        TenantName:TenantName,
+        HaveVehicleString: guestHaveVehicle,
+        VisitStartDateString: guestStartDate,
+        VisitEndDateString: guestEnddate,
     };
     $.ajax({
         url: '/GuestManagement/StatusUpdate',

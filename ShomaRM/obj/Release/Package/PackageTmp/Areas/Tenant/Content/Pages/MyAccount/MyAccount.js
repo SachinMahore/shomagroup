@@ -350,7 +350,7 @@
     });
 
     clearServiceRequestField();
-    $("#ddlPaymentHistory").on("click", function (event) {
+    $("#ddlPaymentHistory").on("change", function (event) {
 
         if ($(this).val() == 4) {
             dateRangeAccountHistory();
@@ -359,7 +359,7 @@
             getTransationLists();
         }
     });
-    r();
+    recPayment();
     ddlPayMethodSelect();
     ddlBankAccountListShow();
     ddlPaymentMethodSelectFunction();
@@ -369,18 +369,19 @@
     document.getElementById('fileUploadService').onchange = function () {
         uploadServiceFile();
     };
-    fillDdlLocation();
     fillDdlServiceCategory();
+    fillDdlLocation();
     $("#ddlProblemCategory").on('change', function (evt, params) {
         var selected = $(this).val();
         if (selected != null) {
-            if (selected == 10 || selected == 0) {
+            if (selected == 10) {
                 $("#ddlProblemCategory1").empty();
                 $("#Issue").addClass("hidden");
                 $("#MoreDetails").removeClass("hidden");
                 $("#CausingIssue").addClass("hidden");
                 $("#OtherCausingIssue").addClass("hidden");
                 $("#OtherIssue").addClass("hidden");
+
             }
             else {
                 fillCaussingIssue(selected);
@@ -848,15 +849,15 @@ var goToStep = function (stepid, id) {
         $("#li2").removeClass("active");
         $("#li3").removeClass("active");
         $("#li4").removeClass("active");
-        $("#step2").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step4").addClass("hidden");
+        $("#step2").removeClass("active");
+        $("#step3").removeClass("active");
+        $("#step4").removeClass("active");
         $("#li5").removeClass("active");
         $("#li6").removeClass("active");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step1").removeClass("hidden");
-        $("#step7").addClass("hidden");
+        $("#step5").removeClass("active");
+        $("#step6").removeClass("active");
+        $("#step1").addClass("active");
+        $("#step7").removeClass("active");
         $("#li7").removeClass("active");
     }
     if (stepid == "2") {
@@ -867,15 +868,15 @@ var goToStep = function (stepid, id) {
         $("#li1").removeClass("active");
         $("#li3").removeClass("active");
         $("#li4").removeClass("active");
-        $("#step1").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step2").removeClass("hidden");
+        $("#step1").removeClass("active");
+        $("#step3").removeClass("active");
+        $("#step4").removeClass("active");
+        $("#step2").addClass("active");
         $("#li5").removeClass("active");
         $("#li6").removeClass("active");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
+        $("#step5").removeClass("active");
+        $("#step6").removeClass("active");
+        $("#step7").removeClass("active");
         $("#li7").removeClass("active");
     }
     if (stepid == "3") {
@@ -887,38 +888,39 @@ var goToStep = function (stepid, id) {
         $("#li2").removeClass("active");
         $("#li1").removeClass("active");
         $("#li4").removeClass("active");
-        $("#step2").addClass("hidden");
-        $("#step1").addClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step3").removeClass("hidden");
+        $("#step2").removeClass("active");
+        $("#step1").removeClass("active");
+        $("#step4").removeClass("active");
+        $("#step3").addClass("active");
         $("#li5").removeClass("active");
         $("#li6").removeClass("active");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
+        $("#step5").removeClass("active");
+        $("#step6").removeClass("active");
+        $("#step7").removeClass("active");
         $("#li7").removeClass("active");
     }
     if (stepid == "4") {
         getServiceRequestList();
         serviceRequestChangeDDL();
         getServiceInfo();
+      
         $("#li4").addClass("active");
         $("#li2").removeClass("active");
         $("#li3").removeClass("active");
         $("#li1").removeClass("active");
-        $("#step2").addClass("hidden");
-        $("#step1").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step4").removeClass("hidden");
+        $("#step2").removeClass("active");
+        $("#step1").removeClass("active");
+        $("#step3").removeClass("active");
+        $("#step4").addClass("active");
         $("#li5").removeClass("active");
         $("#li6").removeClass("active");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
+        $("#step5").removeClass("active");
+        $("#step6").removeClass("active");
+        $("#step7").removeClass("active");
         $("#li7").removeClass("active");
     }
     if (stepid == "5") {
-        $("#step5").removeClass("hidden");
+        $("#step5").addClass("active");
         //getVehicleLists();
         $("#li5").addClass("active");
 
@@ -926,30 +928,30 @@ var goToStep = function (stepid, id) {
         $("#li2").removeClass("active");
         $("#li3").removeClass("active");
         $("#li1").removeClass("active");
-        $("#step2").addClass("hidden");
-        $("#step1").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step4").addClass("hidden");
+        $("#step2").removeClass("active");
+        $("#step1").removeClass("active");
+        $("#step3").removeClass("active");
+        $("#step4").removeClass("active");
         $("#li6").removeClass("active");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
+        $("#step6").removeClass("active");
+        $("#step7").removeClass("active");
         $("#li7").removeClass("active");
     }
     if (stepid == "6") {
         //getPetLists();
         $("#li6").addClass("active");
-        $("#step6").removeClass("hidden");
-        $("#step1").addClass("hidden");
+        $("#step6").addClass("active");
+        $("#step1").removeClass("active");
         $("#li1").removeClass("active");
-        $("#step2").addClass("hidden");
+        $("#step2").removeClass("active");
         $("#li2").removeClass("active");
-        $("#step3").addClass("hidden");
+        $("#step3").removeClass("active");
         $("#li3").removeClass("active");
-        $("#step4").addClass("hidden");
+        $("#step4").removeClass("active");
         $("#li4").removeClass("active");
-        $("#step5").addClass("hidden");
+        $("#step5").removeClass("active");
         $("#li5").removeClass("active");
-        $("#step7").addClass("hidden");
+        $("#step7").removeClass("active");
         $("#li7").removeClass("active");
     }
     if (stepid == "7") {
@@ -962,18 +964,18 @@ var goToStep = function (stepid, id) {
         };
         getServiceInfo();
         $("#li7").addClass("active");
-        $("#step7").removeClass("hidden");
-        $("#step1").addClass("hidden");
+        $("#step7").addClass("active");
+        $("#step1").removeClass("active");
         $("#li1").removeClass("active");
-        $("#step2").addClass("hidden");
+        $("#step2").removeClass("active");
         $("#li2").removeClass("active");
-        $("#step3").addClass("hidden");
+        $("#step3").removeClass("active");
         $("#li3").removeClass("active");
-        $("#step4").addClass("hidden");
+        $("#step4").removeClass("active");
         $("#li4").removeClass("active");
-        $("#step5").addClass("hidden");
+        $("#step5").removeClass("active");
         $("#li5").removeClass("active");
-        $("#step6").addClass("hidden");
+        $("#step6").removeClass("active");
         $("#li6").removeClass("active");
     }
 };
@@ -1594,12 +1596,12 @@ var goToPayStep = function (stepid, id) {
         clearMakePaymentFields();
         ddlPaymentMethod();
         ddlPayMethodPageLoadFunction();
-        $("#pay1").addClass("active1");
-        $("#pay2").removeClass("active1");
-        $("#pay3").removeClass("active1");
-        $("#pay4").removeClass("active1");
-        $("#pay5").removeClass("active1");
-        $("#pay6").removeClass("active1");
+        $("#pay1").addClass("active");
+        $("#pay2").removeClass("active");
+        $("#pay3").removeClass("active");
+        $("#pay4").removeClass("active");
+        $("#pay5").removeClass("active");
+        $("#pay6").removeClass("active");
 
         $("#payStep1").removeClass("hidden");
         $("#payStep2").addClass("hidden");
@@ -1612,12 +1614,12 @@ var goToPayStep = function (stepid, id) {
 
     }
     if (stepid == "2") {
-        $("#pay1").removeClass("active1");
-        $("#pay2").addClass("active1");
-        $("#pay3").removeClass("active1");
-        $("#pay4").removeClass("active1");
-        $("#pay5").removeClass("active1");
-        $("#pay6").removeClass("active1");
+        $("#pay1").removeClass("active");
+        $("#pay2").addClass("active");
+        $("#pay3").removeClass("active");
+        $("#pay4").removeClass("active");
+        $("#pay5").removeClass("active");
+        $("#pay6").removeClass("active");
 
         $("#payStep1").addClass("hidden");
         $("#payStep2").removeClass("hidden");
@@ -1629,12 +1631,12 @@ var goToPayStep = function (stepid, id) {
         $('#DivNote').removeClass('hidden');
     }
     if (stepid == "3") {
-        $("#pay1").removeClass("active1");
-        $("#pay2").removeClass("active1");
-        $("#pay3").addClass("active1");
-        $("#pay4").removeClass("active1");
-        $("#pay5").removeClass("active1");
-        $("#pay6").removeClass("active1");
+        $("#pay1").removeClass("active");
+        $("#pay2").removeClass("active");
+        $("#pay3").addClass("active");
+        $("#pay4").removeClass("active");
+        $("#pay5").removeClass("active");
+        $("#pay6").removeClass("active");
 
         $("#payStep1").addClass("hidden");
         $("#payStep2").addClass("hidden");
@@ -1646,12 +1648,12 @@ var goToPayStep = function (stepid, id) {
         $('#DivNote').addClass('hidden');
     }
     if (stepid == "4") {
-        $("#pay1").removeClass("active1");
-        $("#pay2").removeClass("active1");
-        $("#pay3").removeClass("active1");
-        $("#pay4").addClass("active1");
-        $("#pay5").removeClass("active1");
-        $("#pay6").removeClass("active1");
+        $("#pay1").removeClass("active");
+        $("#pay2").removeClass("active");
+        $("#pay3").removeClass("active");
+        $("#pay4").addClass("active");
+        $("#pay5").removeClass("active");
+        $("#pay6").removeClass("active");
 
         $("#payStep1").addClass("hidden");
         $("#payStep2").addClass("hidden");
@@ -1663,12 +1665,12 @@ var goToPayStep = function (stepid, id) {
         $('#DivNote').addClass('hidden');
     }
     if (stepid == "5") {
-        $("#pay1").removeClass("active1");
-        $("#pay2").removeClass("active1");
-        $("#pay3").removeClass("active1");
-        $("#pay4").removeClass("active1");
-        $("#pay5").addClass("active1");
-        $("#pay6").removeClass("active1");
+        $("#pay1").removeClass("active");
+        $("#pay2").removeClass("active");
+        $("#pay3").removeClass("active");
+        $("#pay4").removeClass("active");
+        $("#pay5").addClass("active");
+        $("#pay6").removeClass("active");
 
         $("#payStep1").addClass("hidden");
         $("#payStep2").addClass("hidden");
@@ -1680,12 +1682,12 @@ var goToPayStep = function (stepid, id) {
         $('#DivNote').addClass('hidden');
     }
     if (stepid == "6") {
-        $("#pay1").removeClass("active1");
-        $("#pay2").removeClass("active1");
-        $("#pay3").removeClass("active1");
-        $("#pay4").removeClass("active1");
-        $("#pay5").removeClass("active1");
-        $("#pay6").addClass("active1");
+        $("#pay1").removeClass("active");
+        $("#pay2").removeClass("active");
+        $("#pay3").removeClass("active");
+        $("#pay4").removeClass("active");
+        $("#pay5").removeClass("active");
+        $("#pay6").addClass("active");
 
         $("#payStep1").addClass("hidden");
         $("#payStep2").addClass("hidden");
@@ -1830,7 +1832,7 @@ var getPaymentAccountsCreditCard = function () {
                 html += "<td>" + elementValue.AccountName + "</td>";
                 html += "<td>" + elementValue.NameOnCard + "</td>";
                 html += "<td>" + MaskCardNumber(elementValue.CardNumber) + "</td>";
-                html += "<td><a href='javascript:void(0);' onclick='editPaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-edit'></i></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-trash'></i></a></td>";
+                html += "<td><a href='javascript:void(0);' onclick='editPaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-pencil color-blue'></i></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-times color-red'></i></a></td>";
                 html += "<td width='11%'>" + checked + "</td>";
                 html += "</tr>";
                 $("#tblPaymentAccountsCreditCard>tbody").append(html);
@@ -1873,7 +1875,7 @@ var getPaymentAccountsBankAccount = function () {
                 html += "<td>" + elementValue.AccountName + "</td>";
                 html += "<td>" + MaskCardNumber(elementValue.AccountNumber) + "</td>";
                 html += "<td>" + elementValue.RoutingNumber + "</td>";
-                html += "<td><a href='javascript:void(0);' onclick='editPaymentBankAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-edit'></i></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-trash'></i></a></td>";
+                html += "<td><a href='javascript:void(0);' onclick='editPaymentBankAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-pencil color-blue'></i></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-times color-red'></i></a></td>";
                 html += "<td width='11%'>" + checked + "</td>";
                 html += "</tr>";
                 $("#tblPaymentAccountsBankAccount>tbody").append(html);
@@ -1983,8 +1985,8 @@ var deletePaymentAccounts = function (id) {
 var goToServiceStep = function (stepid, id) {
 
     if (stepid == "1") {
-        $("#service1").addClass("active1");
-        $("#service2").removeClass("active1");
+        $("#service1").addClass("active");
+        $("#service2").removeClass("active");
 
         $("#serviceStep1").removeClass("hidden");
         $("#serviceStep2").addClass("hidden");
@@ -1993,8 +1995,8 @@ var goToServiceStep = function (stepid, id) {
     }
     if (stepid == "2") {
         $('#txtPreferredDate').datepicker();
-        $("#service1").removeClass("active1");
-        $("#service2").addClass("active1");
+        $("#service1").removeClass("active");
+        $("#service2").addClass("active");
 
         $("#serviceStep1").addClass("hidden");
         $("#serviceStep2").removeClass("hidden");
@@ -2022,17 +2024,6 @@ var saveUpdateServiceRequest = function () {
     var emergency = $("#txtEmergencyMobile").val();
     var preferredTime = $("#txtPreferredTime").val();
     var urgentStatus = 0;
-
-    if ($("#rbtnApertmentPermission1").is(":checked")) {
-        apartmentPermission = 1;
-    }
-    else if ($("#rbtnApertmentPermission2").is(":checked")) {
-        apartmentPermission = 0;
-        if (preferredDate == '' || preferredTime == '') {
-            msg += 'Enter The Preferred Date and Time In AM/PM</br>'
-        }
-    }
-
 
     var petInfoChange = '';
     if ($("#rbtnPetInformation1").is(":checked")) {
@@ -2084,6 +2075,15 @@ var saveUpdateServiceRequest = function () {
         msg += 'Select The Priority</br>'
     }
 
+    if ($("#rbtnApertmentPermission1").is(":checked")) {
+        apartmentPermission = 1;
+    }
+    else if ($("#rbtnApertmentPermission2").is(":checked")) {
+        apartmentPermission = 0;
+        if (preferredDate == '' || preferredTime == '') {
+            msg += 'Enter The Preferred Date and Time </br>'
+        }
+    }
 
     if (msg != '') {
         $.alert({
@@ -2130,14 +2130,12 @@ var saveUpdateServiceRequest = function () {
             });
             clearServiceRequestField();
             getServiceRequestList();
-            fillDropdowns();
             getServiceRequestOnAlarm();
             $('#rbtnApertmentPermission1').iCheck('check');
             goToServiceStep(1);
         }
     });
 };
-
 var getServiceInfo = function () {
     var tenantId = $("#hndTenantID").val();
     var model = {
@@ -2162,22 +2160,28 @@ var getServiceInfo = function () {
 }
 
 var clearServiceRequestField = function () {
-    $("#ddlProblemCategory1").empty();
-    $("#txtMoreDetails").val('');
-    $("#txtEntryNote").val('');
-    $("#txtOtherCausingIssue").val('');
+    $("#ddlProblemCategory").val('0');
+    $("#ddlProblemCategory1").val('0');
+    $("#ddlProblemCategory2").val('0');
     $("#ddlLocation").val('0');
-    $("#txtPreferredDate").val('');
-    $("#txtPreferredTime").val('');
-    $("#Issue").addClass('hidden');
+    $("#ddlPriority").val('0');
+    $("#txtMoreDetails").val('');
+    $("#txtOtherCausingIssue").val('');
     $("#OtherIssue").addClass('hidden');
     $("#OtherCausingIssue").addClass('hidden');
+    $("#Issue").addClass('hidden');
+    $("#Mobile").addClass('hidden');
+    $("#CausingIssue").addClass('hidden');
     $("#txtOtherIssue").val('');
+    $("#txtEntryNote").val('');
+    $("#txtPreferredDate").val('');
+    $("#txtPreferredTime").val('');
     $("#txtEmergencyMobile").val('');
-    $("#ddlPriority").val('0');
     document.getElementById('fileUploadServiceShow').value = '';
     $("#fileUploadServiceShow").html('Choose a file&hellip;');
-
+    $('#rbtnApertmentPermission1').iCheck('check');
+    $('#rbtnPetInformation1').iCheck('check');
+    $("#MoreDetails").addClass("hidden");
 }
 
 var getServiceRequestList = function () {
@@ -2205,7 +2209,7 @@ var getServiceRequestList = function () {
                 // html += "<td> <a  target='_blank' href='/Content/assets/img/Document/" + elementValue.TempServiceFile + "'><i class='fa fa-eye'></i></a></td>";
                 html += "<td class='text-center'>";
                 if (elementValue.StatusString == 'Open') {
-                    html += "<a style='padding: 5px 8px !important; margin-right:7px; cursor:pointer;' onclick='cancelServiceRequest(" + elementValue.ServiceID + ")'><i class='fa fa-times'></i> Cancel Request</a></td>"
+                    html += "<a style=' cursor:pointer;' onclick='cancelServiceRequest(" + elementValue.ServiceID + ")'><i class='fa fa-times '></i> Cancel Request</a></td>"
                 }
                 html += "</tr>";
                 $("#tblServiceRequest>tbody").append(html);
@@ -2460,15 +2464,15 @@ var clearFieldGuestRegistration = function () {
 var goToReservationStep = function (stepid, id) {
 
     if (stepid == "1") {
-        $("#reservation1").addClass("active1");
-        $("#reservation2").removeClass("active1");
+        $("#reservation1").addClass("active");
+        $("#reservation2").removeClass("active");
 
         $("#reservationStep1").removeClass("hidden");
         $("#reservationStep2").addClass("hidden");
     }
     if (stepid == "2") {
-        $("#reservation1").removeClass("active1");
-        $("#reservation2").addClass("active1");
+        $("#reservation1").removeClass("active");
+        $("#reservation2").addClass("active");
 
         $("#reservationStep1").addClass("hidden");
         $("#reservationStep2").removeClass("hidden");
@@ -2764,8 +2768,8 @@ var fromDashboardGoToSubmitServiceRequest = function () {
         }
         if ($('#hdnServiceStepIdServiceRequest2').val() == "2") {
             $('#txtPreferredDate').datepicker();
-            $("#service1").removeClass("active1");
-            $("#service2").addClass("active1");
+            $("#service1").removeClass("active");
+            $("#service2").addClass("active");
 
             $("#serviceStep1").addClass("hidden");
             $("#serviceStep2").removeClass("hidden");
@@ -2876,12 +2880,12 @@ var amountToPayRadioButtonFunction = function () {
 
 
 
-var r = function () {
+var recPayment = function () {
     $('#rbtnAmountToPay2').removeAttr('checked');
     $('#rbtnAmountToPay1').attr('checked', 'checked');
     $('#rbtnModiAll').removeAttr('checked');
     $('#rbtnModi1').attr('checked', 'checked');
-}
+};
 
 function makeOneTimePaymentSaveUpdate() {
     var cardName = '';
@@ -3083,8 +3087,8 @@ var goToSubmitServiceRequestFromMyHome = function () {
     $("#li7").removeClass("active");
 
     $('#txtPreferredDate').datepicker();
-    $("#service1").removeClass("active1");
-    $("#service2").addClass("active1");
+    $("#service1").removeClass("active");
+    $("#service2").addClass("active");
 
     $("#serviceStep1").addClass("hidden");
     $("#serviceStep2").removeClass("hidden");
@@ -4418,9 +4422,9 @@ var getLeaseInfoDocuments = function () {
             var Ldhtml = '';
             if (response.model.EnvelopeID != null) {
                 intCount++;
-                var resultLease = doesFileExist('/Content/assets/img/Document/' + response.model.EnvelopeID);
+                var resultLease = doesFileExist('/Content/assets/img/Document/' + response.model.EnvelopeID + ".pdf");
                 if (resultLease == true) {
-                    Ldhtml += "<a href='/Content/assets/img/Document/" + response.model.EnvelopeID + "' download='" + response.model.EnvelopeID + "'>" + response.model.EnvelopeID + "</a></br>";
+                    Ldhtml += "<a href='/Content/assets/img/Document/" + response.model.EnvelopeID + ".pdf' download='LeaseDocument_" + response.model.EnvelopeID + "'>" + response.model.EnvelopeID + "</a></br>";
                 }
                 else {
                     Ldhtml += "<a href='javascript:void(0)' onclick='FileNotFound();'>" + response.model.EnvelopeID + "</a></br>";
@@ -4871,6 +4875,7 @@ var clearReservationRequest = function () {
 };
 
 var fillDdlLocation = function () {
+    $("#divLoader").show();
     $.ajax({
         url: '/ServiceRequest/GetDdlLocation',
         method: "post",
@@ -4883,12 +4888,14 @@ var fillDdlLocation = function () {
             $.each(response.model, function (index, elementValue) {
                 $("#ddlLocation").append("<option value=" + elementValue.LocationId + ">" + elementValue.LocationString + "</option>");
             });
-
+            $("#divLoader").hide();
         }
     });
 }
 
+
 var fillDdlServiceCategory = function () {
+    $("#divLoader").show();
     $.ajax({
         url: '/ServiceRequest/GetDdlServiceCategory',
         method: "post",
@@ -4901,12 +4908,13 @@ var fillDdlServiceCategory = function () {
             $.each(response.model, function (index, elementValue) {
                 $("#ddlProblemCategory").append("<option value=" + elementValue.ServiceIssueID + ">" + elementValue.ServiceIssueString + "</option>");
             });
-
+            $("#divLoader").hide();
         }
     });
 }
 var fillCaussingIssue = function (ServiceIssueID) {
     var params = { ServiceIssueID: ServiceIssueID };
+    $("#divLoader").show();
     $.ajax({
         url: '/ServiceRequest/GetDdlCausingIssue',
         method: "post",
@@ -4928,11 +4936,13 @@ var fillCaussingIssue = function (ServiceIssueID) {
                     $("#ddlProblemCategory1").empty();
 
                 }
+                $("#divLoader").hide();
             }
         }
     });
 }
 var fillDdlIssue = function (CausingIssueID, ServiceIssueID) {
+    $("#divLoader").show();
     var params = { CausingIssueID: CausingIssueID, ServiceIssueID: ServiceIssueID };
     $.ajax({
         url: '/ServiceRequest/GetDdlIssue',
@@ -4957,6 +4967,7 @@ var fillDdlIssue = function (CausingIssueID, ServiceIssueID) {
 
                 }
             }
+            $("#divLoader").hide();
         }
     });
 }
@@ -5042,10 +5053,10 @@ var getReservationRequestList = function () {
                     else {
                         console.log(elementValue.calculatedDate + " " + elementValue.DesiredDate + " " + dateC);
                         if (elementValue.calculatedDate <= dateC) {
-                            html += "<td onclick='cancleRequest(" + elementValue.ARID + ")' style='cursor:pointer;'><button class='btn btn-danger' disabled>Cancel</button></td>";
+                            html += "<td onclick='cancleRequest(" + elementValue.ARID + ")' style='cursor:pointer;'><a><i class='fa fa-times color-red'></i></a></td>";
                         }
                         else {
-                            html += "<td onclick='cancleRequest(" + elementValue.ARID + ")' style='cursor:pointer;'><button class='btn btn-danger'>Cancel</button></td>";
+                            html += "<td onclick='cancleRequest(" + elementValue.ARID + ")' style='cursor:pointer;'><a><i class='fa fa-times color-red'></i></a></td>";
                         }
 
                     }
@@ -5088,7 +5099,7 @@ var getRecurringPayLists = function () {
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
           
                 html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                html += "<td><a href='javascript:void(0);' onclick='editRecPayment(" + elementValue.TransID + ",\"" + formatMoney(elementValue.Charge_Amount) + "\",\"" + elementValue.Transaction_DateString + "\"," + elementValue.PAID + ")'><i class='fa fa-edit'></i></a>   <a href='javascript:void(0);' onclick='deleteRecPayment(" + elementValue.TransID + ")'><i class='fa fa-trash'></i></a></td>";
+                html += "<td><a href='javascript:void(0);' onclick='editRecPayment(" + elementValue.TransID + ",\"" + formatMoney(elementValue.Charge_Amount) + "\",\"" + elementValue.Transaction_DateString + "\"," + elementValue.PAID + ")'><i class='fa fa-pencil color-blue'></i></a>   <a href='javascript:void(0);' onclick='deleteRecPayment(" + elementValue.TransID + ")'><i class='fa fa-times color-red'></i></a></td>";
                 html += "</tr>";
               
                 $("#tblRecurringPayments>tbody").append(html);
@@ -5102,7 +5113,8 @@ var getRecurringPayLists = function () {
             } else {
                 $("#divRecPayList").addClass("hidden");
                 $("#divSetRecPay").removeClass("hidden");
-
+                $("#RecStep1").removeClass("hidden");
+                $("#RecStep2").addClass("hidden");
             }
 
         }
@@ -5371,7 +5383,8 @@ function deleteRecPayment(transid) {
 
 function recurringPaymentCancel()
 {
-    $("#RecStep1").removeClass("hidden");
+    $("#recHeader").text("");
+    $("#RecStep1").addClass("hidden");
     $("#RecStep2").addClass("hidden");
     $("#txtOtherAmountR").val("");
 }

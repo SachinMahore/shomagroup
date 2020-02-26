@@ -837,6 +837,7 @@
     <Property Name="Status" Type="int" />
     <Property Name="PropertyID" Type="bigint" />
     <Property Name="AssignAgentId" Type="bigint" />
+    <Property Name="AppointmentStatus" Type="int" />
   </EntityType>
   <EntityType Name="tbl_PurchaseOrder">
     <Key>
@@ -943,6 +944,7 @@
     <Property Name="ClosingDate" Type="datetime" />
     <Property Name="OwnerSignature" Type="nvarchar" MaxLength="100" />
     <Property Name="TempOwnerSignature" Type="nvarchar" MaxLength="100" />
+    <Property Name="WarrantyStatus" Type="int" />
   </EntityType>
   <EntityType Name="tbl_State">
     <Key>

@@ -54,19 +54,19 @@ var buildPaganationCausingIssueList = function (pagenumber) {
             if ($.trim(response.error) !== "") {
                 alert(response.error);
             } else {
-                if (response.NOP == 0) {
-                    $('#ddlRPP_CausingIssue').addClass("hidden");
-                    $('#divPagination_CausingIssue').addClass("hidden");
-                    $('#lblRPP_CausingIssue').addClass("hidden");
-                }
-                else {
-                    $('#ddlRPP_CausingIssue').removeClass("hidden");
-                    $('#divPagination_CausingIssue').removeClass("hidden");
-                    $('#lblRPP_CausingIssue').removeClass("hidden");
+                //if (response.NOP == 0) {
+                //    $('#ddlRPP_CausingIssue').addClass("hidden");
+                //    $('#divPagination_CausingIssue').addClass("hidden");
+                //    $('#lblRPP_CausingIssue').addClass("hidden");
+                //}
+                //else {
+                //    $('#ddlRPP_CausingIssue').removeClass("hidden");
+                //    $('#divPagination_CausingIssue').removeClass("hidden");
+                //    $('#lblRPP_CausingIssue').removeClass("hidden");
 
                     $('#ulPagination_CausingIssue').pagination('updateItems', response.NOP);
                     $('#ulPagination_CausingIssue').pagination('selectPage', 1);
-                }
+                //}
             }
         }
     });
@@ -98,7 +98,7 @@ var fillCausingSearchGrid = function (pagenumber) {
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.CausingIssue + '</td>';
                    // html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.ServiceIssue + '</td>';
 
-                    html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary" style="padding: 5px 8px !important;margin-right:7px" onclick="goTocausing(' + elementValue.CausingIssueID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button><button class="btn btn-danger" style="padding: 5px 8px !important;" onclick="delLocation(' + elementValue.CausingIssueID + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
+                    html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary" style="padding: 5px 8px !important;margin-right:7px" onclick="goTocausing(' + elementValue.CausingIssueID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button><button class="btn btn-danger" style="padding: 5px 8px !important;" onclick="delCausingIssue(' + elementValue.CausingIssueID + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
 
                     html += '</tr>';
                     $("#tblCausingIssue>tbody").append(html);
@@ -288,7 +288,7 @@ var delCausingIssue = function (ID) {
                 text: 'Yes',
                 action: function (yes) {
                     $.ajax({
-                        url: "/ServiceLocation/DeleteServiceLocation",
+                        url: "/ServiceCausing/DeleteServiceCausing",
                         type: "post",
                         contentType: "application/json utf-8",
                         data: JSON.stringify(model),

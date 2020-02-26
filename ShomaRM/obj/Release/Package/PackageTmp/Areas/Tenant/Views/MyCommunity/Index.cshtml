@@ -8,522 +8,548 @@
 <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 <input id="hdnUserId" name="UserId" type="hidden" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID" />
 <input id="hndTenantID" name="TenantID" type="hidden" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID" />
-<div class="content-area submit-property" style="background-color: #FCFCFC;">
-    &nbsp;
-    <div class="container" style="width:100%;">
-        <div class="wizard-container">
-            <div class="col-md-9">
-                <div class="panel-body table-bordered">
-                    <div class="tab-content1">
-                        <ul class="nav nav-tabs main-tab t-ul">
-                            @*<li id="li1" class="active"><a href="javascript:void(0);" onclick="goToStep(1)" style="font-size:12pt;">Overview</a></li>
-                                <li id="li2"><a href="javascript:void(0);" onclick="goToStep(2)" style="font-size:12pt;">Community Info</a></li>
-                                <li id="li3"><a href="javascript:void(0);" onclick="goToStep(3)" style="font-size:12pt;">Events</a></li>*@
-                            <li id="li5" class="active"><a id="JoinClubEvent" href="javascript:void(0);" onclick="goToStep(5)" style="font-size:12pt;">Join a Club</a></li>
-                            <li id="li4"><a href="javascript:void(0);" onclick="goToStep(4)" style="font-size:12pt;">Start a Club</a></li>
 
-                            <li id="li6"><a href="javascript:void(0);" onclick="goToStep(7,@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID)" style="font-size:12pt;">My Clubs</a></li>
-                        </ul>
+<div class="col-md-12">
+    <div class="">
+        <div class="tab-content1">
+            <div class="community-nav">
+                <ul class="nav nav1 nav-tabs nav-tabs1">
+                    <li id="li5" class="active"><a data-toggle="tab" id="JoinClubEvent" href="javascript:void(0);" onclick="goToStep(5)">Join a Club</a></li>
+                    <li id="li4"><a data-toggle="tab" href="javascript:void(0);" onclick="goToStep(4)">Start a Club</a></li>
+                    <li id="li6"><a data-toggle="tab" href="javascript:void(0);" onclick="goToStep(7,@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID)">My Clubs</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-12 submenu margin2">
+            </div>
+            <div class="hidden" id="step4">
+                @{
+                    ViewBag.Title = "CreateCommunityClubJoin";
+                }
+                <h3 class="center headding-sub-text">Club Registration Form</h3>
 
-                        <div class="hidden" id="step4">
-                            @{
-                                ViewBag.Title = "CreateCommunityClubJoin";
-                            }
 
-                            <h3 class="center">Club Registration</h3>
-                            <br />
-                            @using (Html.BeginForm())
-                            {
-                                @Html.AntiForgeryToken()
-                                <div class="col-md-12">
-                                    <div class="row mb-15">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <div class="col-sm-2 star">
-                                                    <label style="color:#4D738A !important;font-size:11pt;">Club Title:</label>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <input id="txtClubTitle" type="text" name="ClubTitle" class="form-control" />
-                                                </div>
-                                            </div>
+                <br />
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+
+
+
+                    
+                    <form class="payment-box">
+                        <div class="col-lg-12 margin2">
+                            <div class="row margin margin-box">
+
+
+                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Club Title:</div>
+
+                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                    <input id="txtClubTitle" type="text" name="ClubTitle" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
+                    <form class="payment-box">
+                        <div class="col-lg-12 margin2">
+                            <div class="row margin margin-box">
+                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Activity:</div>
+                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12  border-bottom1 m-l15">
+                                    @Html.DropDownListFor(o => o.ActivityId, Enum.GetValues(typeof(ActivityEnum)).Cast<ActivityEnum>
+                               ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "ActivityId", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form class="payment-box">
+                        <div class="col-lg-12 margin">
+                            <div class="row margin margin-box">
+                                <div class="col-lg-2 col-md-6 col-sm-6">
+                                    <div class="control-label  requiredField text-payment" for="date">
+                                        Start Date
+                                    </div>
+                                </div>
+                                <div class='col-sm-6 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <div class='input-group date' id='datetimepicker1'>
+                                            <input id="txtStartDate" type='text' class="form-control" data-provide="datepicker" name="StartDate" maxlength="20" placeholder="MM/dd/yyyy">
+                                            <span class="input-group-addon">
+                                                <a><span id="btnStartDate" class="fa fa-calendar"></span></a>
+                                            </span>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
 
-                                    <div class="row mb-15">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <div class="col-sm-2 star">
-                                                    <label style="color:#4D738A !important;font-size:11pt;">Activity:</label>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    @Html.DropDownListFor(o => o.ActivityId, Enum.GetValues(typeof(ActivityEnum)).Cast<ActivityEnum>
-                                                        ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "ActivityId", @class = "form-control" })
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="row mb-15">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <div class="col-sm-2 star">
-                                                    <label style="color:#4D738A !important;font-size:11pt;">Start Date:</label>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <input id="txtStartDate" type="text" class="form-control" data-provide="datepicker" name="StartDate" maxlength="20" placeholder="MM/dd/yyyy">
-                                                    <span class="input-group-btn pull-right" style="margin-top: -34px; margin-right: 37px;">
-                                                        <button id="btnStartDate" class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="row mb-15">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <div class="col-sm-2 star">
-                                                    <label style="color:#4D738A !important;font-size:11pt;">Venue:</label>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <input id="txtVenue" type="text" name="Venue" class="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="row mb-15">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <div class="col-sm-2 star">
-                                                    <label style="color:#4D738A !important;font-size:11pt;">Meeting Day:</label>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    @Html.DropDownListFor(o => o.DayId, Enum.GetValues(typeof(DayEnum)).Cast<DayEnum>
-                                                      ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "DayId", @class = "form-control" })
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="row mb-15">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <div class="col-sm-2 star">
-                                                    <label style="color:#4D738A !important;font-size:11pt;">Meeting Time:</label>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="time_pick"><input id="txtMeetingTime" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:60%" maxlength="20" placeholder="HH:mm:ss" value="" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
-                                                    <span class="input-group-btn pull-right" style="margin-top: -34px; margin-right: 137px;">
-                                                        <button id="btnStartDateid" class="btn btn-primary search" type="button"><i class="fa-clock-o fa"></i></button>
-                                                    </span>
-                                                    @*<input id="txtMeetingTime" data-provide="t" type="text" name="Time" class="form-control" />*@
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="row mb-15">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <div class="col-sm-2">
-                                                    <label style="color:#4D738A !important;font-size:11pt;">Contact/ Organizer:</label>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <input id="txtContact" type="text" name="Contact" class="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <form class="payment-box">
+                        <div class="col-lg-12 margin2">
+                            <div class="row margin margin-box">
+                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Venue:</div>
+                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                    <input id="txtVenue" type="text" name="Venue" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
 
-                                    <div class="row mb-15">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <div class="col-sm-2 star">
-                                                    <label style="color:#4D738A !important;font-size:11pt;">Email:</label>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <input id="txtEmail" type="text" name="Email" class="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="row mb-15">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <div class="col-sm-2 star">
-                                                    <label style="color:#4D738A !important;font-size:11pt;">Phone:</label>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <input id="txtPhoneNumber" type="text" name="PhoneNumber" class="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="row mb-15">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <div class="col-sm-2">
-                                                    <label style="color:#4D738A !important;font-size:11pt;">Best way to contact:</label>
-                                                </div>
-                                                <div class="col-sm-9">
-                                                    <div class="col-sm-2">
-                                                        <input id="PhoneCheck" class="form-control" type="radio" name="check" checked="checked" /> Phone
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <input id="EmailCheck" class="form-control" type="radio" name="check" /> Email
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <form class="payment-box">
+                        <div class="col-lg-12 margin2">
+                            <div class="row margin margin-box">
+                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                                    Meeting Day:
+                                </div>
+                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                    @Html.DropDownListFor(o => o.DayId, Enum.GetValues(typeof(DayEnum)).Cast<DayEnum>
+                              ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "DayId", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </form>
 
-                                    <div class="row mb-15">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <div class="col-sm-2">
-                                                    <label style="color:#4D738A !important;font-size:11pt;">Level:</label>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    @Html.DropDownListFor(o => o.LevelId, Enum.GetValues(typeof(LevelEnum)).Cast<LevelEnum>
-                                                      ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "LevelId", @class = "form-control" })
 
-                                                    <textarea id="txtSpecialInstruction" rows="3" name="SpecialInstruction" placeholder="Special Instructions/Comments" class="form-control" style="margin-top:4px"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-15">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <div class="col-sm-2">
-                                                    <label style="color:#4D738A !important;font-size:11pt;">Description:</label>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <textarea id="txtDescription" name="Description" rows="5" placeholder="What is your club about?" class="form-control mb-5"></textarea>
-
-                                                    <textarea id="txtBriefDescription" name="BriefDescription" rows="2" maxlength="40" placeholder="Brief description (limited to 40 characters)" class="form-control mb-5"></textarea>
-
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input id="chkTermsConditions" class="form-control" type="checkbox" onchange="ClubSubmitEnableDisable(this)" name="TermsAndCondition" />
-                                                            &nbsp;I agree to the <a style="color:#4D738A !important;font-size:11pt;">Terms &amp; Conditions</a>
-                                                        </label>
-                                                    </div>
-
-                                                    <div class="center">
-                                                        <input type="hidden" id="hndfileCommunityActivity" />
-                                                        <input type="hidden" id="hndfileCommunityActivityOriginalName" />
-                                                        <button id="ClubSubmit" type="button" class=" btn btn-primary" onclick="SubmitClub()" style="background-color:#4D738A;border-color:#4D738A;color:#fff;margin-top:5px;font-size:11pt;">Create Club</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <form class="payment-box">
+                        <div class="col-lg-12 margin2">
+                            <div class="row margin margin-box">
+                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                                    Meeting Time:
 
                                 </div>
-                            }
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <div class='input-group date' id='datetimepicker1'>
+                                            <div class="time_pick"><input id="txtMeetingTime" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:90%" maxlength="20" placeholder="HH:mm:ss" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
+
+                                            <span class="input-group-addon">
+                                                <a><span id="btnStartDate" class="fa fa-clock-o "></span></a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="hidden" id="step5">
-                            @{Html.RenderPartial("_JoinClub", Model.GetClubList().Where(a => a.UserId != ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID).ToList());}
+                    </form>
+
+
+
+                    <form class="payment-box">
+                        <div class="col-lg-12 margin2">
+                            <div class="row margin margin-box">
+                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Contact/ Organizer:</div>
+                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                    <input id="txtContact" type="text" name="Contact" class="form-control" />
+                                </div>
+                            </div>
                         </div>
-                        @*<div >
-                                @{Html.RenderPartial("_JoinClub", Model.GetClubList());}
-                            </div>*@
-                        <div class="hidden" id="step6">
-                            <div class="">
+                    </form>
+                    <form class="payment-box">
+                        <div class="col-lg-12 margin2">
+                            <div class="row margin margin-box">
+                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Email:</div>
+                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                    <input id="txtEmail" type="text" name="Email" class="form-control" />
+                                </div><span class="Required">(Required)</span>
+                            </div>
+                        </div>
+                    </form>
+
+
+
+
+                    <form class="payment-box">
+                        <div class="col-lg-12 margin2">
+                            <div class="row margin margin-box">
+                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Phone:</div>
+                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                    <input id="txtPhoneNumber" type="text" name="PhoneNumber" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="row mb-15">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Best way to contact:</div>
+                                <div class="col-sm-9">
+                                    <div class="col-sm-2">
+                                        <input id="PhoneCheck" class="form-control" type="radio" name="check" checked="checked" /> Phone
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input id="EmailCheck" class="form-control" type="radio" name="check" /> Email
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form class="payment-box">
+                        <div class="col-lg-12 margin2">
+                            <div class="row margin margin-box">
+                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                                    Level:
+                                </div>
+                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                    @Html.DropDownListFor(o => o.LevelId, Enum.GetValues(typeof(LevelEnum)).Cast<LevelEnum>
+                                         ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "LevelIdEdit", @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="row margin margin-box m-t30">
+                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+
+                                </div>
+                                <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 textarea1">
+                                    <textarea id="txtSpecialInstruction" rows="3" name="SpecialInstruction" placeholder="Special Instructions/Comments" class="form-control" style="margin-top:4px"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form class="payment-box">
+                        <div class="col-lg-12 margin2">
+                            <div class="row margin margin-box">
+                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                                    Description:
+                                </div>
+                                <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 textarea1">
+                                    <textarea id="txtDescriptionEdit" name="Description" rows="5" placeholder="What is your club about?" class="form-control mb-5"></textarea>
+                                    <br />
+                                    <textarea id="txtBriefDescription" name="BriefDescription" rows="2" maxlength="40" placeholder="Brief description (limited to 40 characters)" class="form-control mb-5">@Model.BriefDescription</textarea>
+                                </div>
+                            </div>
+
+                            <div class="checkbox " style="margin:0 auto ; display: table">
+                                <label>
+                                    <input id="chkTermsConditions" class="form-control" type="checkbox"  name="TermsAndCondition" />
+                                    &nbsp;I agree to the <a style="color:#4D738A !important;font-size:11pt;">Terms &amp; Conditions</a>
+                                </label>
+                            </div>
+
+
+                            <div class="center">
+                                <input type="hidden" id="hndfileCommunityActivity" />
+                                <input type="hidden" id="hndfileCommunityActivityOriginalName" />
+                                <button id="ClubSubmit" type="button" class=" btn btn-primary" onclick="SubmitClubEdit()" style="background-color:#4D738A;border-color:#4D738A;color:#fff;margin-top:5px;font-size:11pt;">Create Club</button>
+                            </div>
+                        </div>
+                    </form>
+                   
+
+
+
+
+                    
+
+                   
+
+                }
+            </div>
+            <div class="hidden" id="step5">
+                @{Html.RenderPartial("_JoinClub", Model.GetClubList().Where(a => a.UserId != ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID).ToList());}
+            </div>
+            @*<div >
+                    @{Html.RenderPartial("_JoinClub", Model.GetClubList());}
+                </div>*@
+            <div class="hidden" id="step6">
+                <div class="">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="panel-body">
-                                            <div class="row">
-                                                <input type="text" id="JoinClubPopupClubId" hidden="hidden" />
-                                                <div class="col-sm-12">
-                                                    <div class="col-sm-4">
-                                                        <div class="card" style="border:2px solid #4D738A;">
-                                                            <div class="card-body center">
-                                                                <img class="img-avatar" src="../../../content/assets/img/slide2/5.jpg" alt="club img">
-                                                                <h3 class="card-title mb-5">Organizer</h3>
-                                                                <h5 class="card-text mb-15"><label id="ClubOrganization"></label></h5>
-                                                                <h3 class="card-title mb-5">Email</h3>
-                                                                <h5 class="card-text mb-15"><label id="ClubEmail"></label></h5>
-                                                                <button id="btnJoinClub" onclick="JoinUnjoinClub()" type="button" class=" btn btn-primary" style="background-color:#4D738A;border-color:#4D738A;color:#fff;margin-top:5px;font-size:11pt;">Join Club</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-8">
-                                                        <h3><b><label id="ClubTitle"></label></b></h3>
-                                                        <p style="font-size:11pt;">
-                                                            <label id="Description"></label>
-                                                        </p>
-                                                    </div>
+                                    <input type="text" id="JoinClubPopupClubId" hidden="hidden" />
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-4">
+                                            <div class="card" style="border:2px solid #4D738A;">
+                                                <div class="card-body center">
+                                                    <img class="img-avatar" src="../../../content/assets/img/slide2/5.jpg" alt="club img">
+                                                    <h3 class="card-title mb-5">Organizer</h3>
+                                                    <h5 class="card-text mb-15"><label id="ClubOrganization"></label></h5>
+                                                    <h3 class="card-title mb-5">Email</h3>
+                                                    <h5 class="card-text mb-15"><label id="ClubEmail"></label></h5>
+                                                    <button id="btnJoinClub" onclick="JoinUnjoinClub()" type="button" class=" btn btn-primary" style="background-color:#4D738A;border-color:#4D738A;color:#fff;margin-top:5px;font-size:11pt;">Join Club</button>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <h3><b><label id="ClubTitle"></label></b></h3>
+                                            <p style="font-size:11pt;">
+                                                <label id="Description"></label>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="hidden" id="step7">
-                            @{Html.RenderPartial("_JoinClub", Model.GetClubList().Where(a => a.UserId == ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID).ToList());}
+                    </div>
+                </div>
+            </div>
+            <div class="hidden" id="step7">
+                @{Html.RenderPartial("_JoinClub", Model.GetClubList().Where(a => a.UserId == ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID).ToList());}
 
-                        </div>
-                        <div class="hidden" id="step8">
-                            @{Html.RenderPartial("_EditClub", Model);}
-                        </div>
-                        <!-- End submit form -->
-                    </div>
-                </div>
             </div>
-            <div class="col-md-3">
-                <div class="col-sm-12" style="margin-bottom:-20px;">
-                    <div class="panel-body table-bordered" style="padding:5px !important;">
-                        <div class="center">
-                            <span style="color:#4D738A;font-size:20pt;">Amount Due:</span>
-                        </div>
-                        <div class="center">
-                            <span id="spanCurrentAmountDue" style="color:#c82828;font-size:20px;cursor:pointer;" onclick="openPaymentBreakdown()">0.00</span><br />
-                            <button id="btnMakeAPayment" class="" style="background-color:#8cb954;border-collapse:collapse;border-radius:2px;color:#ffffff;margin-top:4px;width:60%;font-size:10pt" type="button" onclick="goToMakeAPayment();">Pay</button><br />
-                            <a href="javascript:void(0)" id="btnSetUpRecurringPayment" style="text-decoration:underline;font-size:10pt" onclick="goToSetUpRecurringPayment();">Set Up Recurring Payment</a>
-                        </div>
-                    </div><br />
+            <div class="hidden" id="step8">
+                @{Html.RenderPartial("_EditClub", Model);}
+            </div>
+            <!-- End submit form -->
+        </div>
+    </div>
+</div>
+@*<div class="col-md-3">
+        <div class="col-sm-12" style="margin-bottom:-20px;">
+            <div class="panel-body table-bordered" style="padding:5px !important;">
+                <div class="center">
+                    <span style="color:#4D738A;font-size:20pt;">Amount Due:</span>
                 </div>
-                <div class="col-sm-12" style="margin-bottom:-20px;">
-                    <div class="panel-body table-bordered" style="padding:10px !important">
-                        <div class="center" id="bellDiv">
-                            <span style="color:#c82828;font-size:30px;"><i class="fa fa-bell"></i></span>
-                        </div><br />
-                        <div id="divServiceRequestAlarm" style="margin-top:-30px;">
-                            <div class="center">
-                                <span id="spanServiceRequestlabelAlarm" style="font-size:27px;"></span>
-                            </div>
-                            <div class="center">
-                                <span id="spanServiceRequestDateTimeAlarm"></span>
-                            </div>
-                        </div>
-                    </div><br />
+                <div class="center">
+                    <span id="spanCurrentAmountDue" style="color:#c82828;font-size:20px;cursor:pointer;" onclick="openPaymentBreakdown()">0.00</span><br />
+                    <button id="btnMakeAPayment" class="" style="background-color:#8cb954;border-collapse:collapse;border-radius:2px;color:#ffffff;margin-top:4px;width:60%;font-size:10pt" type="button" onclick="goToMakeAPayment();">Pay</button><br />
+                    <a href="javascript:void(0)" id="btnSetUpRecurringPayment" style="text-decoration:underline;font-size:10pt" onclick="goToSetUpRecurringPayment();">Set Up Recurring Payment</a>
                 </div>
-                <div class="col-sm-12" style="margin-bottom:-20px;">
-                    <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
-                        <h3 class="panel-title" style="color:#ffffff"><img src="~/Content/assets/Assets/cheers-whight.png" height="20" width="20" /> Celebrate</h3>
+            </div><br />
+        </div>
+        <div class="col-sm-12" style="margin-bottom:-20px;">
+            <div class="panel-body table-bordered" style="padding:10px !important">
+                <div class="center" id="bellDiv">
+                    <span style="color:#c82828;font-size:30px;"><i class="fa fa-bell"></i></span>
+                </div><br />
+                <div id="divServiceRequestAlarm" style="margin-top:-30px;">
+                    <div class="center">
+                        <span id="spanServiceRequestlabelAlarm" style="font-size:27px;"></span>
                     </div>
-                    <div class="panel-body table-bordered" style="padding:5px !important">
-                        <div class="center">
-                            <a href="javascript:void(0)" id="btnReserveAmenities" onclick="goToReserveAmenities();"><i class="fa fa-plus-circle"></i> Reserve Amenities</a>
-                        </div>
-                    </div><br />
-                </div>
-                <div class="col-sm-12" style="margin-bottom:-20px;">
-                    <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
-                        <h3 class="panel-title" style="color:#ffffff"><i class="fa fa-user-plus"></i> Enjoy Company</h3>
+                    <div class="center">
+                        <span id="spanServiceRequestDateTimeAlarm"></span>
                     </div>
-                    <div class="panel-body table-bordered" style="padding:5px !important">
-                        <div class="center">
-                            <a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToRegisterGuest();"><i class="fa fa-plus-circle"></i> Register a Guest</a>
-                        </div>
-                    </div><br />
                 </div>
-                <div class="col-sm-12" style="margin-bottom:-20px;">
-                    <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
-                        <h3 class="panel-title" style="color:#ffffff"><i class="glyphicon glyphicon-wrench"></i> Service Request</h3>
-                    </div>
-                    <div class="panel-body table-bordered" style="padding:5px !important">
-                        <div class="center">
-                            <a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToSubmitServiceRequest();"><i class="fa fa-plus-circle"></i> Submit a Service Request</a>
-                        </div>
-                        <div class="center">
-                            <span><b>After-Hours</b></span>
-                        </div>
-                        <div class="center" style="margin-top:-3%">
-                            <span>(786)437-8658</span>
-                        </div>
-                        <div class="center" style="margin-top:2%">
-                            <span><b>Emergencies</b></span>
-                        </div>
-                        <div class="center" style="margin-top:-3%">
-                            <span>(786)437-8658 or (911)</span>
-                        </div>
-                    </div><br />
+            </div><br />
+        </div>
+        <div class="col-sm-12" style="margin-bottom:-20px;">
+            <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
+                <h3 class="panel-title" style="color:#ffffff"><img src="~/Content/assets/Assets/cheers-whight.png" height="20" width="20" /> Celebrate</h3>
+            </div>
+            <div class="panel-body table-bordered" style="padding:5px !important">
+                <div class="center">
+                    <a href="javascript:void(0)" id="btnReserveAmenities" onclick="goToReserveAmenities();"><i class="fa fa-plus-circle"></i> Reserve Amenities</a>
                 </div>
+            </div><br />
+        </div>
+        <div class="col-sm-12" style="margin-bottom:-20px;">
+            <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
+                <h3 class="panel-title" style="color:#ffffff"><i class="fa fa-user-plus"></i> Enjoy Company</h3>
+            </div>
+            <div class="panel-body table-bordered" style="padding:5px !important">
+                <div class="center">
+                    <a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToRegisterGuest();"><i class="fa fa-plus-circle"></i> Register a Guest</a>
+                </div>
+            </div><br />
+        </div>
+        <div class="col-sm-12" style="margin-bottom:-20px;">
+            <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
+                <h3 class="panel-title" style="color:#ffffff"><i class="glyphicon glyphicon-wrench"></i> Service Request</h3>
+            </div>
+            <div class="panel-body table-bordered" style="padding:5px !important">
+                <div class="center">
+                    <a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToSubmitServiceRequest();"><i class="fa fa-plus-circle"></i> Submit a Service Request</a>
+                </div>
+                <div class="center">
+                    <span><b>After-Hours</b></span>
+                </div>
+                <div class="center" style="margin-top:-3%">
+                    <span>(786)437-8658</span>
+                </div>
+                <div class="center" style="margin-top:2%">
+                    <span><b>Emergencies</b></span>
+                </div>
+                <div class="center" style="margin-top:-3%">
+                    <span>(786)437-8658 or (911)</span>
+                </div>
+            </div><br />
+        </div>
+    </div>*@
+
+<div class="modal" id="date-popover" style="padding-right: 370px !important;margin-top: 203px;margin-left: 303px;">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: auto; height:auto;text-align: center;">
+            <button type="button" class="close" id="closeDate" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div id="divEventsCal" class="tab-content1">
+                </div>
+                <p style="text-align:center;margin-top: -2%;cursor:pointer"></p>
             </div>
         </div>
     </div>
-    <div class="modal" id="date-popover" style="padding-right: 370px !important;margin-top: 203px;margin-left: 303px;">
-        <div class="modal-dialog">
-            <div class="modal-content" style="width: auto; height:auto;text-align: center;">
-                <button type="button" class="close" id="closeDate" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div id="divEventsCal" class="tab-content1">
-                    </div>
-                    <p style="text-align:center;margin-top: -2%;cursor:pointer"></p>
-                </div>
+</div>
+<div class="modal" id="popPaymentBreakdown">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 47%; height:560px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <div class="modal-header center">
+                <h3 class="modal-title">Payment Details</h3>
             </div>
-        </div>
-    </div>
-    <div class="modal" id="popPaymentBreakdown">
-        <div class="modal-dialog">
-            <div class="modal-content" style="width: 47%; height:560px;">
-                <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
-                <div class="modal-header center">
-                    <h3 class="modal-title">Payment Details</h3>
-                </div>
-                <!-- Modal body -->
-                <div class="modal-body table-bordered">
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label>Monthly Charges :</label>
-                                <label id="lblMonthlyChargesBreakdown" style="font-weight:bold;"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label>Additional Parking :</label>
-                                <label id="lblAdditionalParkingBreakdown" style="font-weight:bold;"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label>Storage Charges :</label>
-                                <label id="lblStorageChargesBreakdown" style="font-weight:bold;"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label>Pet Rent :</label>
-                                <label id="lblPetRentBreakdown" style="font-weight:bold;"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label>Trash/Recycle :</label>
-                                <label id="lblTrashRecycleBreakdown" style="font-weight:bold;"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label>Pest Control :</label>
-                                <label id="lblPestControlBreakdown" style="font-weight:bold;"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label>Convergent Billing :</label>
-                                <label id="lblConvergentBillingBreakdown" style="font-weight:bold;"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label style="color:green;font-weight:bold">Total Monthly Charges :</label>
-                                <label id="lblTotalMonthlyChargesBreakdown" style="color:green;font-weight:bold;text-decoration:underline;"></label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="col-sm-12 text-center">
-                        <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal" id="popEventTenantJoin">
-        <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%; height:560px;">
-                <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
-                <div class="modal-header">
-                    <h3 class="modal-title">Event Joining</h3>
-                </div>
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <input id="hdnEventId" type="hidden" value="0" />
+            <!-- Modal body -->
+            <div class="modal-body table-bordered">
+                <div class="row">
                     <div class="col-sm-12" style="margin-left:20px;">
                         <div class="form-group">
-                            <label>Event Name :</label>
-                            <label id="lblEventName"></label>
-                        </div>
-                    </div>
-                    <div class="col-sm-5" style="margin-left:20px;">
-                        <div class="form-group">
-                            <label>Date :</label>
-                            <input id="txtTenantEventDate" type="text" class="form-control form-control-small" />
-                        </div>
-                    </div>
-                    <div class="col-sm-5" style="margin-left:20px;">
-                        <div class="form-group">
-                            <label>Time :</label>
-                            <input id="txtTenantEventTime" type="text" class="form-control form-control-small" />
-                        </div>
-                    </div>
-                    <div class="col-sm-5" style="margin-left:20px;">
-                        <div class="form-group">
-                            <input id="chkTenantEventFees" type="checkbox" class="form-control form-control-small" /> Fees
-                        </div>
-                    </div>
-                    <div class="col-sm-5" style="margin-left:20px;">
-                        <div class="form-group">
-                            <input id="txtTenantEventFees" type="text" class="form-control form-control-small" />
-                        </div>
-                    </div>
-                    <div class="col-sm-5 hidden" id="DivPaymentMethod" style="margin-left:20px;">
-                        <div class="form-group">
-                            <label>Payment Method :</label>
-                            <select id="ddlPaymentMethod" class="form-control form-control-small"></select>
-                        </div>
-                    </div>
-                    <div class="col-sm-5 hidden" id="DivCvvNumber" style="margin-left:20px;">
-                        <div class="form-group">
-                            <label>CVV Number :</label>
-                            <input id="txtCVVNumber" type="password" class="form-control form-control-small" maxlength="3" value="" style="width:50% !important" onkeypress="return isOnlyNumber(event);" />
-                        </div>
-                    </div>
-                    <div class="col-sm-11" style="margin-left:20px;">
-                        <div class="form-group">
-                            <label>Description :</label>
-                            <textarea id="txtTenantEventDescription" class="form-control form-control-small"></textarea>
+                            <label>Monthly Charges :</label>
+                            <label id="lblMonthlyChargesBreakdown" style="font-weight:bold;"></label>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <div class="col-sm-12 text-center">
-                        <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary pull-right" id="btnTenantEventJoinSave" onclick="saveTenantEventJoin();" style="margin-right: 5px;">Save</button>
-                        <button type="button" class="btn btn-primary pull-right hidden" id="btnTenantEventJoinPay" onclick="PayMethod();" style="margin-right: 1px;">Pay</button>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Additional Parking :</label>
+                            <label id="lblAdditionalParkingBreakdown" style="font-weight:bold;"></label>
+                        </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Storage Charges :</label>
+                            <label id="lblStorageChargesBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Pet Rent :</label>
+                            <label id="lblPetRentBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Trash/Recycle :</label>
+                            <label id="lblTrashRecycleBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Pest Control :</label>
+                            <label id="lblPestControlBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Convergent Billing :</label>
+                            <label id="lblConvergentBillingBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label style="color:green;font-weight:bold">Total Monthly Charges :</label>
+                            <label id="lblTotalMonthlyChargesBreakdown" style="color:green;font-weight:bold;text-decoration:underline;"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
-    @*<input id="hdnCardName" value="0" />
-        <input id="hdnCardNumber" value="0" />
-        <input id="hdnCardMonth" value="0" />
-        <input id="hdnCardYar" value="0" />
-        <input id="hdnAccountName" value="0" />
-        <input id="hdnBankName" value="0" />
-        <input id="hdnAccountnumber" value="0" />
-        <input id="hdnRoutingNumber" value="0" />*@
-    <style>
+</div>
+<div class="modal" id="popEventTenantJoin">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 100%; height:560px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <div class="modal-header">
+                <h3 class="modal-title">Event Joining</h3>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input id="hdnEventId" type="hidden" value="0" />
+                <div class="col-sm-12" style="margin-left:20px;">
+                    <div class="form-group">
+                        <label>Event Name :</label>
+                        <label id="lblEventName"></label>
+                    </div>
+                </div>
+                <div class="col-sm-5" style="margin-left:20px;">
+                    <div class="form-group">
+                        <label>Date :</label>
+                        <input id="txtTenantEventDate" type="text" class="form-control form-control-small" />
+                    </div>
+                </div>
+                <div class="col-sm-5" style="margin-left:20px;">
+                    <div class="form-group">
+                        <label>Time :</label>
+                        <input id="txtTenantEventTime" type="text" class="form-control form-control-small" />
+                    </div>
+                </div>
+                <div class="col-sm-5" style="margin-left:20px;">
+                    <div class="form-group">
+                        <input id="chkTenantEventFees" type="checkbox" class="form-control form-control-small" /> Fees
+                    </div>
+                </div>
+                <div class="col-sm-5" style="margin-left:20px;">
+                    <div class="form-group">
+                        <input id="txtTenantEventFees" type="text" class="form-control form-control-small" />
+                    </div>
+                </div>
+                <div class="col-sm-5 hidden" id="DivPaymentMethod" style="margin-left:20px;">
+                    <div class="form-group">
+                        <label>Payment Method :</label>
+                        <select id="ddlPaymentMethod" class="form-control form-control-small"></select>
+                    </div>
+                </div>
+                <div class="col-sm-5 hidden" id="DivCvvNumber" style="margin-left:20px;">
+                    <div class="form-group">
+                        <label>CVV Number :</label>
+                        <input id="txtCVVNumber" type="password" class="form-control form-control-small" maxlength="3" value="" style="width:50% !important" onkeypress="return isOnlyNumber(event);" />
+                    </div>
+                </div>
+                <div class="col-sm-11" style="margin-left:20px;">
+                    <div class="form-group">
+                        <label>Description :</label>
+                        <textarea id="txtTenantEventDescription" class="form-control form-control-small"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary pull-right" id="btnTenantEventJoinSave" onclick="saveTenantEventJoin();" style="margin-right: 5px;">Save</button>
+                    <button type="button" class="btn btn-primary pull-right hidden" id="btnTenantEventJoinPay" onclick="PayMethod();" style="margin-right: 1px;">Pay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<input id="hdnCardName" value="0" />
+    <input id="hdnCardNumber" value="0" />
+    <input id="hdnCardMonth" value="0" />
+    <input id="hdnCardYar" value="0" />
+    <input id="hdnAccountName" value="0" />
+    <input id="hdnBankName" value="0" />
+    <input id="hdnAccountnumber" value="0" />
+    <input id="hdnRoutingNumber" value="0" />*@
+@*<style>
 
         .mb-15 {
             margin-bottom: 15px;
@@ -798,9 +824,9 @@
         p {
             font-size: 6pt;
         }
-    </style>
+    </style>*@
 
-    <style>
+@*<style>
         .tab-content ul {
             background-color: #c7d5c733;
         }
@@ -1098,37 +1124,505 @@
             border: 3px solid #B7B0A7 !important;
             height: 100% !important;
         }
-    </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
-    <script src="~/Content/assets/js/bootstrap-datepicker.js"></script>
-    <script src="~/Content/assets/js/bootstrap-datetimepicker.js"></script>
-    <script src="~/Areas/Tenant/Content/Pages/MyCommunity/MyCommunity.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#txtMeetingTime").timepicki();
-            goToStep(5);
+    </style>*@
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+<script src="~/Content/assets/js/bootstrap-datepicker.js"></script>
+<script src="~/Content/assets/js/bootstrap-datetimepicker.js"></script>
+<script src="~/Areas/Tenant/Content/Pages/MyCommunity/MyCommunity.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#txtMeetingTime").timepicki();
+        goToStep(5);
+    });
+    $("#chkTermsConditions").on('ifChanged', function (event) {
+        if (this.checked == true) {
+            $('#ClubSubmit').removeAttr('disabled');
+        } else {
+            $('#ClubSubmit').attr('disabled', 'disabled');
+        }
+    });
+
+
+
+    var closeDateModel = function () {
+
+        var modalOpDate = document.getElementById("date-popover");
+        var modalClDate = document.getElementById("closeModelDate");
+        modalClDate.onclick = function () { modalOpDate.style.display = "none"; }
+    };
+
+    document.getElementById('txtPhoneNumber').addEventListener('input', function (e) {
+        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker();
+    });
+</script>
+<script>
+
+    function goToStep(stepid) {
+
+        if (stepid == "1") {
+            $("#li1").addClass("active");
+            $("#li2").removeClass("active");
+            $("#li3").removeClass("active");
+            $("#li4").removeClass("active");
+            $("#li5").removeClass("active");
+            $("#li6").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#li8").removeClass("active");
+            $("#li9").removeClass("active");
+            $("#li10").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+
+
+            $("#step1").removeClass("hidden");
+            $("#step2").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+
+
+        }
+
+
+
+        if (stepid == "2") {
+            $("#li1").removeClass("active");
+            $("#li2").addClass("active");
+            $("#li3").removeClass("active");
+            $("#li4").removeClass("active");
+            $("#li5").removeClass("active");
+            $("#li6").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#li8").removeClass("active");
+            $("#li9").removeClass("active");
+            $("#li10").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+
+
+            $("#step1").addClass("hidden");
+            $("#step2").removeClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+        }
+
+        if (stepid == "3") {
+            $("#li1").removeClass("active");
+            $("#li2").removeClass("active");
+            $("#li3").addClass("active");
+            $("#li4").removeClass("active");
+            $("#li5").removeClass("active");
+            $("#li6").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#li8").removeClass("active");
+            $("#li9").removeClass("active");
+            $("#li10").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+
+
+            $("#step1").addClass("hidden");
+            $("#step2").addClass("hidden");
+            $("#step3").removeClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+        }
+
+        if (stepid == "4") {
+            $("#li1").removeClass("active");
+            $("#li2").removeClass("active");
+            $("#li3").removeClass("active");
+            $("#li4").addClass("active");
+            $("#li5").removeClass("active");
+            $("#li6").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#li8").removeClass("active");
+            $("#li9").removeClass("active");
+            $("#li10").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+
+
+            $("#step1").addClass("hidden");
+            $("#step2").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step4").removeClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+
+        }
+
+        if (stepid == "5") {
+            $("#li1").removeClass("active");
+            $("#li2").removeClass("active");
+            $("#li3").removeClass("active");
+            $("#li4").removeClass("active");
+            $("#li5").addClass("active");
+            $("#li6").removeClass("active");
+            $("#li7").removeClass("active")
+            $("#li8").removeClass("active");
+            $("#li9").removeClass("active");
+            $("#li10").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+
+
+            $("#step1").addClass("hidden");
+            $("#step2").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step5").removeClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+        }
+
+        if (stepid == "6") {
+            $("#li1").removeClass("active");
+            $("#li2").removeClass("active");
+            $("#li3").removeClass("active");
+            $("#li4").removeClass("active");
+            $("#li5").removeClass("active");
+            $("#li6").addClass("active");
+            $("#li7").removeClass("active");
+            $("#li8").removeClass("active");
+            $("#li9").removeClass("active");
+            $("#li10").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+
+
+            $("#step1").addClass("hidden");
+            $("#step2").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").removeClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+
+        }
+
+        if (stepid == "7") {
+            $("#li1").removeClass("active");
+            $("#li2").removeClass("active");
+            $("#li3").removeClass("active");
+            $("#li4").removeClass("active");
+            $("#li5").removeClass("active");
+            $("#li6").removeClass("active");
+            $("#li7").addClass("active");
+            $("#li8").removeClass("active");
+            $("#li9").removeClass("active");
+            $("#li10").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+
+
+            $("#step1").addClass("hidden");
+            $("#step2").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").removeClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+
+        }
+
+        if (stepid == "8") {
+            $("#li1").removeClass("active");
+            $("#li2").removeClass("active");
+            $("#li3").removeClass("active");
+            $("#li4").removeClass("active");
+            $("#li5").removeClass("active");
+            $("#li6").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#li8").addClass("active");
+            $("#li9").removeClass("active");
+            $("#li10").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+
+
+            $("#step1").addClass("hidden");
+            $("#step2").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").removeClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+
+        }
+
+        if (stepid == "9") {
+            $("#li1").removeClass("active");
+            $("#li2").removeClass("active");
+            $("#li3").removeClass("active");
+            $("#li4").removeClass("active");
+            $("#li5").removeClass("active");
+            $("#li6").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#li8").removeClass("active");
+            $("#li9").addClass("active");
+            $("#li10").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+
+
+            $("#step1").addClass("hidden");
+            $("#step2").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").removeClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+
+        }
+
+        if (stepid == "10") {
+            $("#li1").removeClass("active");
+            $("#li2").removeClass("active");
+            $("#li3").removeClass("active");
+            $("#li4").removeClass("active");
+            $("#li5").removeClass("active");
+            $("#li6").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#li8").removeClass("active");
+            $("#li9").removeClass("active");
+            $("#li10").addClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+
+
+            $("#step1").addClass("hidden");
+            $("#step2").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").removeClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+
+        }
+        if (stepid == "11") {
+            $("#li1").removeClass("active");
+            $("#li2").removeClass("active");
+            $("#li3").removeClass("active");
+            $("#li4").removeClass("active");
+            $("#li5").removeClass("active");
+            $("#li6").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#li8").removeClass("active");
+            $("#li9").removeClass("active");
+            $("#li10").removeClass("active");
+            $("#li11").addClass("active");
+            $("#li12").removeClass("active");
+
+
+            $("#step1").addClass("hidden");
+            $("#step2").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").removeClass("hidden");
+            $("#step12").addClass("hidden");
+
+        }
+
+        if (stepid == "12") {
+            $("#li1").removeClass("active");
+            $("#li2").removeClass("active");
+            $("#li3").removeClass("active");
+            $("#li4").removeClass("active");
+            $("#li5").removeClass("active");
+            $("#li6").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#li8").removeClass("active");
+            $("#li9").removeClass("active");
+            $("#li10").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").addClass("active");
+
+
+            $("#step1").addClass("hidden");
+            $("#step2").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").removeClass("hidden");
+
+        }
+
+    }
+    $(document).ready(function () {
+
+        var date_input = $('input[name="date"]'); //our date input has the name "date"
+        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+        date_input.datepicker({
+            format: 'mm/dd/yyyy',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        })
+    })
+</script>
+
+<script>
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+
+</script>
+<script>
+    var x, i, j, selElmnt, a, b, c;
+    /*look for any elements with the class "custom-select":*/
+    x = document.getElementsByClassName("custom-select");
+    for (i = 0; i < x.length; i++) {
+        selElmnt = x[i].getElementsByTagName("select")[0];
+        /*for each element, create a new DIV that will act as the selected item:*/
+        a = document.createElement("DIV");
+        a.setAttribute("class", "select-selected");
+        a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+        x[i].appendChild(a);
+        /*for each element, create a new DIV that will contain the option list:*/
+        b = document.createElement("DIV");
+        b.setAttribute("class", "select-items select-hide");
+        for (j = 1; j < selElmnt.length; j++) {
+            /*for each option in the original select element,
+            create a new DIV that will act as an option item:*/
+            c = document.createElement("DIV");
+            c.innerHTML = selElmnt.options[j].innerHTML;
+            c.addEventListener("click", function (e) {
+                /*when an item is clicked, update the original select box,
+                and the selected item:*/
+                var y, i, k, s, h;
+                s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                h = this.parentNode.previousSibling;
+                for (i = 0; i < s.length; i++) {
+                    if (s.options[i].innerHTML == this.innerHTML) {
+                        s.selectedIndex = i;
+                        h.innerHTML = this.innerHTML;
+                        y = this.parentNode.getElementsByClassName("same-as-selected");
+                        for (k = 0; k < y.length; k++) {
+                            y[k].removeAttribute("class");
+                        }
+                        this.setAttribute("class", "same-as-selected");
+                        break;
+                    }
+                }
+                h.click();
+            });
+            b.appendChild(c);
+        }
+        x[i].appendChild(b);
+        a.addEventListener("click", function (e) {
+            /*when the select box is clicked, close any other select boxes,
+            and open/close the current select box:*/
+            e.stopPropagation();
+            closeAllSelect(this);
+            this.nextSibling.classList.toggle("select-hide");
+            this.classList.toggle("select-arrow-active");
         });
-        $("#chkTermsConditions").on('ifChanged', function (event) {
-            if (this.checked == true) {
-                $('#ClubSubmit').removeAttr('disabled');
+    }
+    function closeAllSelect(elmnt) {
+        /*a function that will close all select boxes in the document,
+        except the current select box:*/
+        var x, y, i, arrNo = [];
+        x = document.getElementsByClassName("select-items");
+        y = document.getElementsByClassName("select-selected");
+        for (i = 0; i < y.length; i++) {
+            if (elmnt == y[i]) {
+                arrNo.push(i)
             } else {
-                $('#ClubSubmit').attr('disabled', 'disabled');
+                y[i].classList.remove("select-arrow-active");
             }
-        });
-
-        
-
-        var closeDateModel = function () {
-
-            var modalOpDate = document.getElementById("date-popover");
-            var modalClDate = document.getElementById("closeModelDate");
-            modalClDate.onclick = function () { modalOpDate.style.display = "none"; }
-        };
-
-        document.getElementById('txtPhoneNumber').addEventListener('input', function (e) {
-            var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-            e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-        });
-    </script>
+        }
+        for (i = 0; i < x.length; i++) {
+            if (arrNo.indexOf(i)) {
+                x[i].classList.add("select-hide");
+            }
+        }
+    }
+    /*if the user clicks anywhere outside the select box,
+    then close all select boxes:*/
+    document.addEventListener("click", closeAllSelect);
+</script>
 
 

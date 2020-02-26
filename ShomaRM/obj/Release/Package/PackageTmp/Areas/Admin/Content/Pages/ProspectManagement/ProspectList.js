@@ -6,7 +6,7 @@ var goToEditProspect = function () {
     var row = $('#tblProspect tbody tr.pds-selected-row').closest('tr');
     var ID = $(row).attr("data-value");
     if (ID !== null) {
-        window.location.href = "../ProspectManagement/AddEdit/" + ID;
+        window.location = "/Admin/ProspectManagement/AddEdit/" + ID;
     }
 };
 var addNewProspect = function () {
@@ -54,6 +54,7 @@ var buildPaganationProspectList = function (pagenumber) {
     });
 };
 var fillProspectList = function (pagenumber) {
+    $("#divLoader").show();
     var model = {
         ToDate: $("#txtToDate").val(),
         FromDate: $("#txtFromDate").val(),
@@ -79,13 +80,16 @@ var fillProspectList = function (pagenumber) {
                     html += "<td>" + elementValue.EmailId + "</td>";
                     html += "<td>" + elementValue.VisitDateTime + "</td>";
                     html += "<td>" + elementValue.AssignAgentName + "</td>";
+                    html += "<td>" + elementValue.AppointmentStatusString + "</td>";
                     html += "</tr>";
                     $("#tblProspect>tbody").append(html);
                 });
+                $("#divLoader").hide();
             }
         }
     });
 };
+
 $(document).ready(function () {
     fillRPP_ProspectList();   
     $('#ulPagination_ProspectList').pagination({

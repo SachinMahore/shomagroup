@@ -48,13 +48,13 @@ var getAccountHistory = function () {
 var getServiceRequestList = function () {
     $("#divLoader").show();
     var tenantId = $("#hndNewTenant").val();
-    var serviceReq = $("#ddlOpenServiceRequest").val();
+    var serviceReq = 4;
     var model = {
         TenantId: tenantId,
         ServiceRequest: serviceReq
     };
     $.ajax({
-        url: '/ServiceRequest/GetServiceRequestList',
+        url: '/ServiceRequest/GetServiceRequestListAdmin',
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),

@@ -8,7 +8,7 @@
 <input type="hidden" id="hndProspectID" value="0" />
 <input type="hidden" id="hndPID" value="0" />
 <input type="hidden" id="hndTransMethod" value="2" />
-
+<input type="hidden" id="hndPaymentDone" value="0" />
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -135,26 +135,26 @@
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" id="chkPay">    <span style="margin-left: 25px;">Pay your Move-in charges</span>
+                                                    <input type="checkbox" id="chkPayCL">    <span style="margin-left: 25px;">Pay your Move-in charges</span>
                                                 </label>
                                             </div>
                                             <div class="input-group" style="margin-left: 70px;">
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
                                                 </span>
-                                                <input id="txtPayment" class="form-control form-control-small" style="width: 140px;color:#000" type="text" onkeypress="return isNumber(event)" />
-                                                <input type="button" class="btn-success" data-toggle="modal" data-target="#popPayNow" style="width:90px;height: 34px;" value="Pay Now" />
+                                                <input id="txtPaymentCL" class="form-control form-control-small" readonly="readonly" style="width: 140px;color:#000" type="text" onkeypress="return isNumber(event)" />
+                                                <input id="btnPayNowCheckLink" type="button" class="btn-success" data-toggle="modal" data-target="#popPayNow" style="width:90px;height: 34px;" value="Pay Now" />
                                             </div>
                                         </div>
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" id="chkMovein">    <span style="margin-left: 25px;"> Schedule a move-in date and time</span>
+                                                    <input type="checkbox" id="chkMoveinCL">    <span style="margin-left: 25px;"> Schedule a move-in date and time</span>
                                                 </label>
                                             </div>
                                             <div class="input-group" style="margin-left: 70px;">
 
-                                                <input id="txtMoveInDate" class="form-control form-control-small" style="width: 140px;" type="text" />
+                                                <input id="txtMoveInDateCL" class="form-control form-control-small" style="width: 140px;" type="text" />
                                                 <span class="input-group-btn pull-left">
                                                     <button class="btn btn-primary search" type="button" id="iconMoveInDateChecklist"><i class="fa-calendar fa"></i></button>
                                                 </span>
@@ -452,9 +452,9 @@
 </style>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#txtMoveInDate").datepicker();
+        $("#txtMoveInDateCL").datepicker();
         $("#iconMoveInDateChecklist").click(function () {
-            $("#txtMoveInDate").focus();
+            $("#txtMoveInDateCL").focus();
         });
 
         getTenantInfo(@ViewBag.UID);
@@ -477,7 +477,7 @@
     var getTenantInfo = function (uid) {
         var model = { UID: uid}
         $.ajax({
-            url: '/PayLink/GetProspectData/',
+            url: '/CheckList/GetProspectMoveInData/',
             type: "post",
             contentType: "application/json utf-8",
             data: JSON.stringify(model),
@@ -492,7 +492,7 @@
                 }
 
                 $("#lblmoveincharge").text(response.model.MoveInCharges);
-                $("#txtPayment").val(response.model.MoveInCharges);
+                $("#txtPaymentCL").val(response.model.MoveInCharges);
                 $("#hndPID").val(response.model.PropertyId);
                 $("#lblLeaseNo").text(response.model.EnvelopeID);
                 if (response.model.EnvelopeID!="")
@@ -502,6 +502,63 @@
                     $("#btnleaseDownl").attr('href', '/Content/assets/img/Document/' + response.model.EnvelopeID + '.pdf');
                     $("#btnleaseDownl").attr('download', 'LeaseDocument_' + response.model.EnvelopeID + '.pdf');
                     $("#btnleaseDownl").attr('target', '_parent');
+                }
+                
+                if (response.moveindata.IsCheckPay == 1)
+                {
+                    $("#chkPayCL").prop("checked", true);
+                    $("#chkPayCL").prop("disabled", "disabled");
+                    $("#btnPayNowCheckLink").addClass("hidden");
+                    $("#hndPaymentDone").val(1);
+                } else {
+                    $("#chkPayCL").prop("checked", false);
+                    $("#chkPayCL").removeProp("disabled");
+                    $("#btnPayNowCheckLink").removeClass("hidden");
+                    $("#hndPaymentDone").val(0);
+                }
+                if (response.moveindata.IsCheckSch == 1) {
+                    $("#chkMoveinCL").attr("checked", true);
+                    $("#chkMoveinCL").prop("disabled", "disabled");
+                    $("#txtMoveInDateCL").val(response.moveindata.MoveInDateTxt);
+                    $("#ddlMoveInTime").val(response.moveindata.MoveInTime);
+                } else {
+                    $("#chkMoveinCL").prop("checked", false);
+                    $("#chkMoveinCL").removeProp("disabled");
+                }
+                if (response.moveindata.IsCheckIns == 1) {
+                    $("#chkIns").prop("checked", true);
+                    $("#chkIns").prop("disabled", "disabled");
+                } else {
+                    $("#chkIns").prop("checked", false);
+                    $("#chkIns").removeProp("disabled");
+                }
+                if (response.moveindata.IsCheckPO == 1) {
+                    $("#chkPo").prop("checked", true);
+                    $("#chkPo").prop("disabled", "disabled");
+                } else {
+                    $("#chkPo").prop("checked", false);
+                    $("#chkPo").removeProp("disabled");
+                }
+                if (response.moveindata.IsCheckElc == 1) {
+                    $("#chkEle").prop("checked", true);
+                    $("#chkEle").prop("disabled", "disabled");
+                } else {
+                    $("#chkEle").prop("checked", false);
+                    $("#chkEle").removeProp("disabled");
+                }
+                if (response.moveindata.IsCheckATT == 1) {
+                    $("#chkAt").prop("checked", true);
+                    $("#chkAt").prop("disabled", "disabled");
+                } else {
+                    $("#chkAt").prop("checked", false);
+                    $("#chkAt").removeProp("disabled");
+                }
+                if (response.moveindata.IsCheckWater == 1) {
+                    $("#chkWater").prop("checked", true);
+                    $("#chkWater").prop("disabled", "disabled");
+                } else {
+                    $("#chkWater").prop("checked", false);
+                    $("#chkWater").removeProp("disabled");
                 }
             }
         });
@@ -559,8 +616,8 @@
                         window.location = "/Tenant/Dashboard";
                     }
                     else if (result[1] == "an") {
-                        $("#hndUID").val(response);
-                        getTenantInfo(response);
+                        $("#hndUID").val(result[0]);
+                        getTenantInfo(result[0]);
                         goToStep(2, 2);
                     }
                     else {
@@ -576,36 +633,24 @@
 
     var goToStep = function (stepid, id) {
         if (stepid == "1") {
-
             $("#step1").removeClass("hidden");
             $("#step2").addClass("hidden");
             $("#step3").addClass("hidden");
-
         }
         if (stepid == "2") {
-
             if (id == "2") {
-
-
                 $("#step1").addClass("hidden");
                 $("#step3").addClass("hidden");
-
                 $("#step2").removeClass("hidden");
-
             }
-
         }
         if (stepid == "3") {
             if (id == "3") {
-
                 $("#step2").addClass("hidden");
                 $("#step1").addClass("hidden");
-
                 $("#step3").removeClass("hidden");
-
             }
         }
-
     }
 
     function savePaymentCheckList() {
@@ -630,7 +675,7 @@
             var cardYear = $("#ddlcardyear").val();
             var ccvNumber = $("#txtCCVNumber").val();
             var prospectID = $("#hndProspectID").val();
-            var moveinamt = $("#txtPayment").val();
+            var moveinamt = $("#txtPaymentCL").val();
             var amounttoPay = $("#lblmoveincharge").text();
             var description = "Move In Charges";
 
@@ -678,7 +723,7 @@
             var ccvNumber = $("#txtRoutingNumber").val();
             var routingNumber = $("#txtRoutingNumber").val();
             var bankName = $("#txtBankName").val();
-            var moveinamt = $("#txtPayment").val();
+            var moveinamt = $("#txtPaymentCL").val();
             var amounttoPay = $("#lblmoveincharge").text();
             var description = "Move In Charges";
             var prospectID = $("#hndProspectID").val();
@@ -729,7 +774,7 @@
             success: function (response) {
                 $("#divLoader").hide();
                 if (response.Msg != "") {
-
+                    $("#hndPaymentDone").val(response.PaymentDone);
                     $("#ResponseMsg").html(response.Msg);
                     $("#divLoader").hide();
                     $.alert({
@@ -739,6 +784,7 @@
                     });
                     $("#popPayNow").modal("hide");
                 }
+
             }
         });
     }
@@ -787,25 +833,35 @@
 
     var saveMoveInCheckList = function () {
         var msg = "";
-
+        var paymentDone = $("#hndPaymentDone").val();
         var ProspectID = $("#hndProspectID").val();
-
-        var MoveInDate = $("#txtMoveInDate").val();
+        var MoveInDate = $("#txtMoveInDateCL").val();
         var MoveInTime = $("#ddlMoveInTime").val();
-        var MoveInCharges = $("#txtPayment").val();
+        var MoveInCharges = $("#txtPaymentCL").val();
         var InsuranceDoc = $("#fileUploadPOIShow").text();
         var ElectricityDoc = $("#fileUploadPOEShow").text();
         var IsCheckPO = $("#chkPo").is(":checked") ? "1" : "0";
         var IsCheckATT = $("#chkAt").is(":checked") ? "1" : "0";
         var IsCheckWater = $("#chkWater").is(":checked") ? "1" : "0";
 
+        if (paymentDone==0) {
+            msg += "Please pay the Move In Charges</br>";
+        }
         if (!MoveInDate) {
             msg += "Please fill the Move In Date</br>";
         }
-        if (!MoveInCharges) {
-            msg += "Please fill the Move In Charges</br>";
+        if (!MoveInTime) {
+            msg += "Please select the Move In Time</br>";
         }
 
+        if (InsuranceDoc == "Upload Proof of Insurance…")
+        {
+            InsuranceDoc = "";
+        }
+
+        if (ElectricityDoc == "Upload Proof of Electricity…") {
+            ElectricityDoc = "";
+        }
 
         if (msg != "") {
             $.alert({
