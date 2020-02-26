@@ -350,7 +350,7 @@
     });
 
     clearServiceRequestField();
-    $("#ddlPaymentHistory").on("click", function (event) {
+    $("#ddlPaymentHistory").on("change", function (event) {
 
         if ($(this).val() == 4) {
             dateRangeAccountHistory();
@@ -359,7 +359,7 @@
             getTransationLists();
         }
     });
-    r();
+    recPayment();
     ddlPayMethodSelect();
     ddlBankAccountListShow();
     ddlPaymentMethodSelectFunction();
@@ -369,18 +369,19 @@
     document.getElementById('fileUploadService').onchange = function () {
         uploadServiceFile();
     };
-    fillDdlLocation();
     fillDdlServiceCategory();
+    fillDdlLocation();
     $("#ddlProblemCategory").on('change', function (evt, params) {
         var selected = $(this).val();
         if (selected != null) {
-            if (selected == 10 || selected == 0) {
+            if (selected == 10) {
                 $("#ddlProblemCategory1").empty();
                 $("#Issue").addClass("hidden");
                 $("#MoreDetails").removeClass("hidden");
                 $("#CausingIssue").addClass("hidden");
                 $("#OtherCausingIssue").addClass("hidden");
                 $("#OtherIssue").addClass("hidden");
+
             }
             else {
                 fillCaussingIssue(selected);
@@ -2024,17 +2025,6 @@ var saveUpdateServiceRequest = function () {
     var preferredTime = $("#txtPreferredTime").val();
     var urgentStatus = 0;
 
-    if ($("#rbtnApertmentPermission1").is(":checked")) {
-        apartmentPermission = 1;
-    }
-    else if ($("#rbtnApertmentPermission2").is(":checked")) {
-        apartmentPermission = 0;
-        if (preferredDate == '' || preferredTime == '') {
-            msg += 'Enter The Preferred Date and Time In AM/PM</br>'
-        }
-    }
-
-
     var petInfoChange = '';
     if ($("#rbtnPetInformation1").is(":checked")) {
         petInfoChange = 1;
@@ -2085,6 +2075,15 @@ var saveUpdateServiceRequest = function () {
         msg += 'Select The Priority</br>'
     }
 
+    if ($("#rbtnApertmentPermission1").is(":checked")) {
+        apartmentPermission = 1;
+    }
+    else if ($("#rbtnApertmentPermission2").is(":checked")) {
+        apartmentPermission = 0;
+        if (preferredDate == '' || preferredTime == '') {
+            msg += 'Enter The Preferred Date and Time </br>'
+        }
+    }
 
     if (msg != '') {
         $.alert({
@@ -2131,14 +2130,12 @@ var saveUpdateServiceRequest = function () {
             });
             clearServiceRequestField();
             getServiceRequestList();
-            fillDropdowns();
             getServiceRequestOnAlarm();
             $('#rbtnApertmentPermission1').iCheck('check');
             goToServiceStep(1);
         }
     });
 };
-
 var getServiceInfo = function () {
     var tenantId = $("#hndTenantID").val();
     var model = {
@@ -2163,22 +2160,28 @@ var getServiceInfo = function () {
 }
 
 var clearServiceRequestField = function () {
-    $("#ddlProblemCategory1").empty();
-    $("#txtMoreDetails").val('');
-    $("#txtEntryNote").val('');
-    $("#txtOtherCausingIssue").val('');
+    $("#ddlProblemCategory").val('0');
+    $("#ddlProblemCategory1").val('0');
+    $("#ddlProblemCategory2").val('0');
     $("#ddlLocation").val('0');
-    $("#txtPreferredDate").val('');
-    $("#txtPreferredTime").val('');
-    $("#Issue").addClass('hidden');
+    $("#ddlPriority").val('0');
+    $("#txtMoreDetails").val('');
+    $("#txtOtherCausingIssue").val('');
     $("#OtherIssue").addClass('hidden');
     $("#OtherCausingIssue").addClass('hidden');
+    $("#Issue").addClass('hidden');
+    $("#Mobile").addClass('hidden');
+    $("#CausingIssue").addClass('hidden');
     $("#txtOtherIssue").val('');
+    $("#txtEntryNote").val('');
+    $("#txtPreferredDate").val('');
+    $("#txtPreferredTime").val('');
     $("#txtEmergencyMobile").val('');
-    $("#ddlPriority").val('0');
     document.getElementById('fileUploadServiceShow').value = '';
     $("#fileUploadServiceShow").html('Choose a file&hellip;');
-
+    $('#rbtnApertmentPermission1').iCheck('check');
+    $('#rbtnPetInformation1').iCheck('check');
+    $("#MoreDetails").addClass("hidden");
 }
 
 var getServiceRequestList = function () {
@@ -2877,12 +2880,12 @@ var amountToPayRadioButtonFunction = function () {
 
 
 
-var r = function () {
+var recPayment = function () {
     $('#rbtnAmountToPay2').removeAttr('checked');
     $('#rbtnAmountToPay1').attr('checked', 'checked');
     $('#rbtnModiAll').removeAttr('checked');
     $('#rbtnModi1').attr('checked', 'checked');
-}
+};
 
 function makeOneTimePaymentSaveUpdate() {
     var cardName = '';
@@ -4419,9 +4422,9 @@ var getLeaseInfoDocuments = function () {
             var Ldhtml = '';
             if (response.model.EnvelopeID != null) {
                 intCount++;
-                var resultLease = doesFileExist('/Content/assets/img/Document/' + response.model.EnvelopeID);
+                var resultLease = doesFileExist('/Content/assets/img/Document/' + response.model.EnvelopeID + ".pdf");
                 if (resultLease == true) {
-                    Ldhtml += "<a href='/Content/assets/img/Document/" + response.model.EnvelopeID + "' download='" + response.model.EnvelopeID + "'>" + response.model.EnvelopeID + "</a></br>";
+                    Ldhtml += "<a href='/Content/assets/img/Document/" + response.model.EnvelopeID + ".pdf' download='LeaseDocument_" + response.model.EnvelopeID + "'>" + response.model.EnvelopeID + "</a></br>";
                 }
                 else {
                     Ldhtml += "<a href='javascript:void(0)' onclick='FileNotFound();'>" + response.model.EnvelopeID + "</a></br>";
@@ -4872,6 +4875,7 @@ var clearReservationRequest = function () {
 };
 
 var fillDdlLocation = function () {
+    $("#divLoader").show();
     $.ajax({
         url: '/ServiceRequest/GetDdlLocation',
         method: "post",
@@ -4884,12 +4888,14 @@ var fillDdlLocation = function () {
             $.each(response.model, function (index, elementValue) {
                 $("#ddlLocation").append("<option value=" + elementValue.LocationId + ">" + elementValue.LocationString + "</option>");
             });
-
+            $("#divLoader").hide();
         }
     });
 }
 
+
 var fillDdlServiceCategory = function () {
+    $("#divLoader").show();
     $.ajax({
         url: '/ServiceRequest/GetDdlServiceCategory',
         method: "post",
@@ -4902,12 +4908,13 @@ var fillDdlServiceCategory = function () {
             $.each(response.model, function (index, elementValue) {
                 $("#ddlProblemCategory").append("<option value=" + elementValue.ServiceIssueID + ">" + elementValue.ServiceIssueString + "</option>");
             });
-
+            $("#divLoader").hide();
         }
     });
 }
 var fillCaussingIssue = function (ServiceIssueID) {
     var params = { ServiceIssueID: ServiceIssueID };
+    $("#divLoader").show();
     $.ajax({
         url: '/ServiceRequest/GetDdlCausingIssue',
         method: "post",
@@ -4929,11 +4936,13 @@ var fillCaussingIssue = function (ServiceIssueID) {
                     $("#ddlProblemCategory1").empty();
 
                 }
+                $("#divLoader").hide();
             }
         }
     });
 }
 var fillDdlIssue = function (CausingIssueID, ServiceIssueID) {
+    $("#divLoader").show();
     var params = { CausingIssueID: CausingIssueID, ServiceIssueID: ServiceIssueID };
     $.ajax({
         url: '/ServiceRequest/GetDdlIssue',
@@ -4958,6 +4967,7 @@ var fillDdlIssue = function (CausingIssueID, ServiceIssueID) {
 
                 }
             }
+            $("#divLoader").hide();
         }
     });
 }
@@ -5103,7 +5113,8 @@ var getRecurringPayLists = function () {
             } else {
                 $("#divRecPayList").addClass("hidden");
                 $("#divSetRecPay").removeClass("hidden");
-
+                $("#RecStep1").removeClass("hidden");
+                $("#RecStep2").addClass("hidden");
             }
 
         }
@@ -5372,7 +5383,8 @@ function deleteRecPayment(transid) {
 
 function recurringPaymentCancel()
 {
-    $("#RecStep1").removeClass("hidden");
+    $("#recHeader").text("");
+    $("#RecStep1").addClass("hidden");
     $("#RecStep2").addClass("hidden");
     $("#txtOtherAmountR").val("");
 }

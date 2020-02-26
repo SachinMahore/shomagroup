@@ -418,7 +418,29 @@
                                         </div>
                                     </div>
 
-                                </div>
+
+                                                    <div class="col-sm-3 pull-right" style="margin-bottom:20px !important;">
+                                                        <select id="ddlPaymentHistory" class="form-control">
+                                                            <option value='1'>Current month</option>
+                                                            <option value='2'>Next month</option>
+                                                            <option value='3'>Previous month</option>
+                                                            <option value='4'>Date Range</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <table id="tblPaymentHistory" class="table " cellspacing="0" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="background-color: transparent;color:#4D738A;width:7%;font-size:13pt">Date</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:45%;font-size:13pt">Description</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Charge</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Credit</th>
+                                                            <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Balance</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+
 
 
                                 <div class="col-sm-12 row">
@@ -523,6 +545,306 @@
                                                 <input id="chkTermsAndConditionR" type="checkbox" class="form-control" style="font-size:11pt;" /> I have read and agree to the terms and conditions of the Chase Automatic Payments Service Agreement at the above link, which govern my use of Automatic Payments.
                                             </div>
                                         </div>
+
+                                        <div class="hidden" id="serviceStep2">
+                                            <input id="hdnServiceRequest" type="hidden" value="0" />
+                                            <div class="panel-heading">
+                                                <div class="col-sm-4">
+                                                    <h4 style="margin-top:2%;color:#4D738A !important;">Submit Service Request</h4>
+                                                </div>
+                                            </div>
+                                            <br /><br />
+                                            <div class="col-md-12 clear">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <div class="col-sm-3">
+                                                                <label style="color:#4D738A !important;font-size:13pt;" class="star">Service Issue:</label>
+                                                            </div>
+                                                            <div class="col-sm-4" style="margin-left: -36px;">
+                                                                <select id="ddlProblemCategory" class="form-control"></select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 ">
+                                                        <div id="MoreDetails" class="hidden">
+                                                            <div class="form-group">
+                                                                <div class="col-sm-3">
+                                                                    <label style="color:#4D738A !important;font-size:11pt;"></label>
+                                                                </div>
+                                                                <div class="col-sm-4" style="margin-left: -36px;">
+                                                                    <textarea id="txtMoreDetails" placeholder=" Please provide more detail if needed..." class="form-control"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="hidden" id="CausingIssue">
+                                                            <div class="form-group">
+                                                                <div class="col-sm-3">
+                                                                    <label style="color:#4D738A !important;font-size:13pt;">What Item causing The Issue?</label>
+                                                                </div>
+                                                                <div class="col-sm-4" style="margin-left: -36px;">
+                                                                    <select id="ddlProblemCategory1" class="  form-control"></select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="hidden" id="OtherCausingIssue">
+                                                            <div class="form-group">
+                                                                <div class="col-sm-3">
+                                                                    <label style="color:#4D738A !important;font-size:11pt;"></label>
+                                                                </div>
+                                                                <div class="col-sm-4" style="margin-left: -36px;">
+                                                                    <textarea id="txtOtherCausingIssue" placeholder=" Please provide more detail if needed..." class="form-control"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="hidden" id="Issue">
+                                                            <div class="form-group">
+                                                                <div class="col-sm-3">
+                                                                    <label class="star" style="color:#4D738A !important;font-size:13pt;">What Is The Issue?</label>
+                                                                </div>
+                                                                <div class="col-sm-4" style="margin-left: -36px;">
+                                                                    <select id="ddlProblemCategory2" class="  form-control"></select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="hidden" id="OtherIssue">
+                                                            <div class="form-group">
+                                                                <div class="col-sm-3">
+                                                                    <label style="color:#4D738A !important;font-size:11pt;"></label>
+                                                                </div>
+                                                                <div class="col-sm-4" style="margin-left: -36px;">
+                                                                    <textarea id="txtOtherIssue" placeholder=" Please provide more detail if needed..." class="form-control"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div id="MoreDetails">
+                                                            <div class="form-group">
+                                                                <div class="col-sm-3">
+                                                                    <label class="star" style="color:#4D738A !important;font-size:13pt;">Select Location:</label>
+                                                                </div>
+                                                                <div class="col-sm-4" style="margin-left: -36px;">
+                                                                    <select id="ddlLocation" class="form-control"></select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-3">
+                                                                    <label class="star" style="color:#4D738A !important;font-size:13pt;">Priority:</label>
+                                                                </div>
+                                                                <div class="col-sm-4" style="margin-left: -36px;">
+                                                                    <select id="ddlPriority" class="form-control">
+                                                                        <option value='0'>Select Priority</option>
+                                                                        <option value='1'>Normal</option>
+                                                                        <option value='2'>Medium</option>
+                                                                        <option value='3'>High</option>
+                                                                        <option value='4'>Emergency</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-sm-5" style="margin-top: -8px;">
+                                                                    <input type="file" name="fileUploadService" accept="image/*" id="fileUploadService" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                                                    <label for="fileUploadService"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadServiceShow">Choose a file&hellip;</span></label>
+                                                                    <input type="hidden" id="hndfileUploadService" value="0" />
+                                                                    <input type="hidden" id="hndOriginalfileUploadService" value="0" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="hidden" id="Mobile">
+                                                            <div class="form-group">
+                                                                <div class="col-sm-3">
+                                                                    <label class="star" style="color:#4D738A !important;font-size:13pt;">Emergency Mobile</label>
+                                                                </div>
+                                                                <div class="col-sm-4" style="margin-left: -36px;">
+                                                                    @*<input id="txtEmergencyMobile" type="text" maxlength="10" onkeypress="return isOnlyNumber(event)" placeholder="Mobile Number" class="form-control"><input>*@
+                                                                    <input type="text" class="form-control" id="txtEmergencyMobile" maxlength="10" onkeypress="return isOnlyNumber(event)" placeholder="Mobile Number">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row ">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                            <div class="col-sm-8 ">
+                                                                <div class="col-sm-3"><label style="color:#4D738A !important;margin-left:-14px; font-size:13pt;" &nbsp;&nbsp;&nbsp;&nbsp;>Unit Access:</label></div>
+                                                                <div class="col-sm-7" style="margin-left:43px;"><label>Name :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblNameUnitAccess"></span></div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <div class="col-sm-8 ">
+                                                                <div class="col-sm-3"><label style="color:#4D738A !important;" &nbsp;&nbsp;&nbsp;&nbsp;></label></div>
+                                                                <div class="col-sm-7" style="margin-left: 43px;"><label>Unit# :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblUnitUnitAccess"></span></div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <div class="col-sm-8 ">
+                                                                <div class="col-sm-3"><label style="color:#4D738A !important;" &nbsp;&nbsp;&nbsp;&nbsp;></label></div>
+                                                                <div class="col-sm-7" style="margin-left: 43px;"><label>Phone :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblPhoneUnitAccess"></span></div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <div class="col-sm-8 ">
+                                                                <div class="col-sm-3"><label style="color:#4D738A !important;" &nbsp;&nbsp;&nbsp;&nbsp;></label></div>
+                                                                <div class="col-sm-7" style="margin-left: 43px;"><label>Emergency Phone :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblEmergencyPhoneUnitAccess"></span></div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <div class="col-sm-8 ">
+                                                                <div class="col-sm-3"><label style="color:#4D738A !important;" &nbsp;&nbsp;&nbsp;&nbsp;></label></div>
+                                                                <div class="col-sm-7" style="margin-left: 43px;"><label>Email :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblEmailUnitAccess"></span></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <div class="col-sm-3">
+                                                                <label style="color:#4D738A !important;font-size:11pt;"></label>
+                                                            </div>
+                                                            <div class="col-sm-5" style="margin-left: -36px;">
+                                                                <label>Do we have permission to enter your apartment?</label>
+                                                            </div>
+                                                            <div class="col-sm-12">
+                                                                <div class="col-sm-3"> &nbsp;</div>
+                                                                <div class="col-sm-4">
+                                                                    <input id="rbtnApertmentPermission1" class="form-control form-control-small" value="1" type="radio" name="rbtnPermissionToEnter" checked="checked" /> At anytime<br />
+                                                                </div>
+                                                                <div class="col-sm-5"> &nbsp;</div>
+                                                            </div>
+                                                            <div class="col-sm-12" style="margin-left: 246px;">
+                                                                <div class="col-sm-2">
+                                                                    <input id="rbtnApertmentPermission2" class="form-control form-control-small" value="2" type="radio" name="rbtnPermissionToEnter" /> By appointment
+                                                                </div>
+                                                                <div class="col-sm-8 hidden" id="PreferredDate">
+                                                                    <input id="txtPreferredDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" style="width:138px" type="text" />
+                                                                    <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 98px;">
+                                                                        <button class="btn btn-primary search" id="Sdate" type="button"><i class="fa-calendar fa"></i></button>
+                                                                    </span>
+                                                                    @*<input id="txtPreferredTime" type="time" class="form-control" style="width:120px;margin-left: 162px;margin-top: -34px;" maxlength="20" placeholder="HH:mm:ss" value="">*@
+                                                                    <select id="txtPreferredTime" class="form-control" style="width:120px;margin-left: 162px;margin-top: -34px;">
+                                                                        <option value="">Select Time</option>
+                                                                        <option value="9:00-10:00">9:00 AM-10:00 AM</option>
+                                                                        <option value="10:00-11:00">10:00 AM-11:00 AM</option>
+                                                                        <option value="11:00-12:00">11:00 AM-12:00 AM</option>
+                                                                        <option value="12:00-13:00">12:00 PM-13:00 PM</option>
+                                                                        <option value="13:00-14:00">13:00 PM-14:00 PM</option>
+                                                                        <option value="14:00-15:00">14:00 PM-15:00 PM</option>
+                                                                        <option value="15:00-16:00">15:00 PM-16:00 PM</option>
+                                                                        <option value="16:00-17:00">16:00 PM-17:00 PM</option>
+
+                                                                    </select>
+                                                                    <span class="input-group-btn pull-left" style="margin-left:178px;margin-top: -34px;">
+                                                                        <button id="btnPreferredTime" class="btn btn-primary search" type="button"><i class="fa-clock-o fa"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <div class="col-sm-3">
+                                                                <label style="color:#4D738A !important;font-size:11pt;"></label>
+                                                            </div>
+                                                            <div class="col-sm-4" style="margin-left: -36px;">
+                                                                <label>Has your pet information changed?</label>
+                                                            </div>
+                                                            <div class="col-sm-12">
+                                                                <div class="col-sm-3"> &nbsp;</div>
+                                                                <div class="col-sm-4">
+                                                                    <input id="rbtnPetInformation1" class="form-control" type="radio" name="rbtnPetInformation" value="1" /> Yes
+                                                                </div>
+                                                                <div class="col-sm-5"> &nbsp;</div>
+                                                            </div>
+                                                            <div class="col-sm-12">
+                                                                <div class="col-sm-3"> &nbsp;</div>
+                                                                <div class="col-sm-3">
+                                                                    <input id="rbtnPetInformation2" class="form-control" type="radio" name="rbtnPetInformation" value="2" checked="checked" /> No
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    &nbsp;
+                                                                </div>
+                                                                <div class="col-sm-4"> &nbsp;</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+
+                                                        <div class="form-group">
+                                                            <div class="col-sm-3">
+                                                                <label style="color:#4D738A !important;font-size:11pt;"></label>
+                                                            </div>
+                                                            <div class="col-sm-4" style="margin-left: -36px;">
+                                                                <textarea id="txtEntryNote" type="text" placeholder="Entry notes..." class="form-control"></textarea>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <div class="col-sm-3">
+                                                                <label style="color:#4D738A !important;font-size:11pt;"></label>
+                                                            </div>
+                                                            <div class="col-sm-4" style="margin-left: -19px;">
+                                                                <button id="btnServiceRequestSave" class="btn btn-primary" onclick="saveUpdateServiceRequest()">Submit Service Request</button>
+                                                            </div>
+                                                            <div class="col-sm-4" style="margin-left: -136px;">
+                                                                <button id="btnCancel" class="btn btn-primary" onclick="clearServiceRequestField()">Cancel</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
                                     </div>
                                 </div>
                             </div>
@@ -884,118 +1206,118 @@
 
 
                     @*<div class="col-sm-12">
-                    <div class="col-sm-8 ">
-                        <div class="col-sm-3"><label style="color:#4D738A !important;margin-left:-14px; font-size:13pt;" &nbsp;&nbsp;&nbsp;&nbsp;>Unit Access:</label></div>
-                        <div class="col-sm-7" style="margin-left:43px;"><label>Name :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblNameUnitAccess"></span></div>
-                    </div>
+                            <div class="col-sm-8 ">
+                                <div class="col-sm-3"><label style="color:#4D738A !important;margin-left:-14px; font-size:13pt;" &nbsp;&nbsp;&nbsp;&nbsp;>Unit Access:</label></div>
+                                <div class="col-sm-7" style="margin-left:43px;"><label>Name :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblNameUnitAccess"></span></div>
+                            </div>
 
-                </div>
-                <div class="col-sm-12">
-                    <div class="col-sm-8 ">
-                        <div class="col-sm-3"><label style="color:#4D738A !important;" &nbsp;&nbsp;&nbsp;&nbsp;></label></div>
-                        <div class="col-sm-7" style="margin-left: 43px;"><label>Unit# :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblUnitUnitAccess"></span></div>
-
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="col-sm-8 ">
-                        <div class="col-sm-3"><label style="color:#4D738A !important;" &nbsp;&nbsp;&nbsp;&nbsp;></label></div>
-                        <div class="col-sm-7" style="margin-left: 43px;"><label>Phone :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblPhoneUnitAccess"></span></div>
-
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="col-sm-8 ">
-                        <div class="col-sm-3"><label style="color:#4D738A !important;" &nbsp;&nbsp;&nbsp;&nbsp;></label></div>
-                        <div class="col-sm-7" style="margin-left: 43px;"><label>Emergency Phone :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblEmergencyPhoneUnitAccess"></span></div>
-
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="col-sm-8 ">
-                        <div class="col-sm-3"><label style="color:#4D738A !important;" &nbsp;&nbsp;&nbsp;&nbsp;></label></div>
-                        <div class="col-sm-7" style="margin-left: 43px;"><label>Email :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblEmailUnitAccess"></span></div>
-                    </div>
-                </div>*@
-                </div>
-            </div>
-
-            @*<div class="row">
-            <div class="col-sm-12">
-                <div class="form-group">
-                    <div class="col-sm-3">
-                            <label style="color:#4D738A !important;font-size:11pt;"></label>
-                        </div>
-                        <div class="col-sm-5" style="margin-left: -36px;">
-                            <label>Do we have permission to enter your apartment?</label>
                         </div>
                         <div class="col-sm-12">
-                            <div class="col-sm-3"> &nbsp;</div>
-                            <div class="col-sm-4">
-                                <input id="rbtnApertmentPermission1" class="form-control form-control-small" value="1" type="radio" name="rbtnPermissionToEnter" checked="checked" /> At anytime<br />
-                            </div>
-                            <div class="col-sm-5"> &nbsp;</div>
-                        </div>
-                    <div class="col-sm-12" style="margin-left: 246px;">
-                        <div class="col-sm-2">
-                                <input id="rbtnApertmentPermission2" class="form-control form-control-small" value="2" type="radio" name="rbtnPermissionToEnter" /> By appointment
-                            </div>
-                        <div class="col-sm-8 hidden" id="PreferredDate">
-                            <input id="txtPreferredDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" style="width:138px" type="text" />
-                                <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 98px;">
-                                    <button class="btn btn-primary search" id="Sdate" type="button"><i class="fa-calendar fa"></i></button>
-                                </span>
-                            <input id="txtPreferredTime" type="time" class="form-control" style="width:120px;margin-left: 162px;margin-top: -34px;" maxlength="20" placeholder="HH:mm:ss" value="">
-                            <select id="txtPreferredTime" class="form-control" style="width:120px;margin-left: 162px;margin-top: -34px;">
-                                <option value="">Select Time</option>
-                                <option value="9:00-10:00">9:00 AM-10:00 AM</option>
-                                <option value="10:00-11:00">10:00 AM-11:00 AM</option>
-                                <option value="11:00-12:00">11:00 AM-12:00 AM</option>
-                                <option value="12:00-13:00">12:00 PM-13:00 PM</option>
-                                <option value="13:00-14:00">13:00 PM-14:00 PM</option>
-                                <option value="14:00-15:00">14:00 PM-15:00 PM</option>
-                                <option value="15:00-16:00">15:00 PM-16:00 PM</option>
-                                <option value="16:00-17:00">16:00 PM-17:00 PM</option>
+                            <div class="col-sm-8 ">
+                                <div class="col-sm-3"><label style="color:#4D738A !important;" &nbsp;&nbsp;&nbsp;&nbsp;></label></div>
+                                <div class="col-sm-7" style="margin-left: 43px;"><label>Unit# :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblUnitUnitAccess"></span></div>
 
-                            </select>
-                            <span class="input-group-btn pull-left" style="margin-left:178px;margin-top: -34px;">
-                                <button id="btnPreferredTime" class="btn btn-primary search" type="button"><i class="fa-clock-o fa"></i></button>
-                            </span>
+                            </div>
                         </div>
-                    </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-8 ">
+                                <div class="col-sm-3"><label style="color:#4D738A !important;" &nbsp;&nbsp;&nbsp;&nbsp;></label></div>
+                                <div class="col-sm-7" style="margin-left: 43px;"><label>Phone :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblPhoneUnitAccess"></span></div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-8 ">
+                                <div class="col-sm-3"><label style="color:#4D738A !important;" &nbsp;&nbsp;&nbsp;&nbsp;></label></div>
+                                <div class="col-sm-7" style="margin-left: 43px;"><label>Emergency Phone :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblEmergencyPhoneUnitAccess"></span></div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-8 ">
+                                <div class="col-sm-3"><label style="color:#4D738A !important;" &nbsp;&nbsp;&nbsp;&nbsp;></label></div>
+                                <div class="col-sm-7" style="margin-left: 43px;"><label>Email :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblEmailUnitAccess"></span></div>
+                            </div>
+                        </div>*@
                 </div>
             </div>
-        </div>*@
 
             @*<div class="row">
-            <div class="col-sm-12">
-                <div class="form-group">
-                    <div class="col-sm-3">
-                        <label style="color:#4D738A !important;font-size:11pt;"></label>
-                    </div>
-                    <div class="col-sm-4" style="margin-left: -36px;">
-                        <label>Has your pet information changed?</label>
-                    </div>
                     <div class="col-sm-12">
-                        <div class="col-sm-3"> &nbsp;</div>
-                        <div class="col-sm-4">
-                            <input id="rbtnPetInformation1" class="form-control" type="radio" name="rbtnPetInformation" value="1" /> Yes
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                    <label style="color:#4D738A !important;font-size:11pt;"></label>
+                                </div>
+                                <div class="col-sm-5" style="margin-left: -36px;">
+                                    <label>Do we have permission to enter your apartment?</label>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-3"> &nbsp;</div>
+                                    <div class="col-sm-4">
+                                        <input id="rbtnApertmentPermission1" class="form-control form-control-small" value="1" type="radio" name="rbtnPermissionToEnter" checked="checked" /> At anytime<br />
+                                    </div>
+                                    <div class="col-sm-5"> &nbsp;</div>
+                                </div>
+                            <div class="col-sm-12" style="margin-left: 246px;">
+                                <div class="col-sm-2">
+                                        <input id="rbtnApertmentPermission2" class="form-control form-control-small" value="2" type="radio" name="rbtnPermissionToEnter" /> By appointment
+                                    </div>
+                                <div class="col-sm-8 hidden" id="PreferredDate">
+                                    <input id="txtPreferredDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" style="width:138px" type="text" />
+                                        <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 98px;">
+                                            <button class="btn btn-primary search" id="Sdate" type="button"><i class="fa-calendar fa"></i></button>
+                                        </span>
+                                    <input id="txtPreferredTime" type="time" class="form-control" style="width:120px;margin-left: 162px;margin-top: -34px;" maxlength="20" placeholder="HH:mm:ss" value="">
+                                    <select id="txtPreferredTime" class="form-control" style="width:120px;margin-left: 162px;margin-top: -34px;">
+                                        <option value="">Select Time</option>
+                                        <option value="9:00-10:00">9:00 AM-10:00 AM</option>
+                                        <option value="10:00-11:00">10:00 AM-11:00 AM</option>
+                                        <option value="11:00-12:00">11:00 AM-12:00 AM</option>
+                                        <option value="12:00-13:00">12:00 PM-13:00 PM</option>
+                                        <option value="13:00-14:00">13:00 PM-14:00 PM</option>
+                                        <option value="14:00-15:00">14:00 PM-15:00 PM</option>
+                                        <option value="15:00-16:00">15:00 PM-16:00 PM</option>
+                                        <option value="16:00-17:00">16:00 PM-17:00 PM</option>
+
+                                    </select>
+                                    <span class="input-group-btn pull-left" style="margin-left:178px;margin-top: -34px;">
+                                        <button id="btnPreferredTime" class="btn btn-primary search" type="button"><i class="fa-clock-o fa"></i></button>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-5"> &nbsp;</div>
                     </div>
+                </div>*@
+
+            @*<div class="row">
                     <div class="col-sm-12">
-                        <div class="col-sm-3"> &nbsp;</div>
-                        <div class="col-sm-3">
-                            <input id="rbtnPetInformation2" class="form-control" type="radio" name="rbtnPetInformation" value="2" checked="checked" /> No
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <label style="color:#4D738A !important;font-size:11pt;"></label>
+                            </div>
+                            <div class="col-sm-4" style="margin-left: -36px;">
+                                <label>Has your pet information changed?</label>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-3"> &nbsp;</div>
+                                <div class="col-sm-4">
+                                    <input id="rbtnPetInformation1" class="form-control" type="radio" name="rbtnPetInformation" value="1" /> Yes
+                                </div>
+                                <div class="col-sm-5"> &nbsp;</div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-3"> &nbsp;</div>
+                                <div class="col-sm-3">
+                                    <input id="rbtnPetInformation2" class="form-control" type="radio" name="rbtnPetInformation" value="2" checked="checked" /> No
+                                </div>
+                                <div class="col-sm-2">
+                                    &nbsp;
+                                </div>
+                                <div class="col-sm-4"> &nbsp;</div>
+                            </div>
                         </div>
-                        <div class="col-sm-2">
-                            &nbsp;
-                        </div>
-                        <div class="col-sm-4"> &nbsp;</div>
                     </div>
-                </div>
-            </div>
-        </div>*@
+                </div>*@
 
             <div class="payment-box">
                 <div class="col-lg-12 margin2">
@@ -1011,10 +1333,10 @@
             </div>
 
             <div class="condition-wrapper ">
-                            <button id="btnServiceRequestSave" class="paynow m-t30" onclick="saveUpdateServiceRequest()">Submit Service Request</button>
-                        
-                            <button id="btnCancel" class="paynow m-t30 m-l10" onclick="clearServiceRequestField()">Cancel</button>
-                       
+                <button id="btnServiceRequestSave" class="paynow m-t30" onclick="saveUpdateServiceRequest()">Submit Service Request</button>
+
+                <button id="btnCancel" class="paynow m-t30 m-l10" onclick="clearServiceRequestField()">Cancel</button>
+
             </div>
 
         </div>
@@ -1170,13 +1492,13 @@
         </div>
     </div>
 
-    <div class="tab-pane" id="step7">
+    @*<div class="tab-pane">
         <div class="col-sm-12">
             <input id="hdnGuestId" type="hidden" value="0" />
             <input id="hdnTagGuestId" type="hidden" value="0" />
 
         </div>
-        
+
         <div id="PrintGuest" class="payment-box">
 
 
@@ -1184,37 +1506,6 @@
             <div class="text-redcolor1 center m-t20 m-b40">
                 (Registration is only necessary for guests staying overnight)
             </div>
-
-
-            @*<div class="payment-box">
-            <div class="col-lg-12 margin2">
-                <div class="row margin margin-box">
-                    <div class="col-lg-3">
-                        <div class="col-lg-12 mobile-margin text-payment">
-                            GUEST NAME:
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" id="txtGuestFirstName" class="form-control" onchange="copyGuestName();" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="payment-box">
-            <div class="col-lg-12 margin2">
-                <div class="row margin margin-box">
-                    <div class="col-lg-3">
-                        <div class="col-lg-12 mobile-margin text-payment">
-                            LAST NAME:
-                        </div>
-                    </div>
-                    <div class="col-sm-4" style="margin-left: -29px;">
-                        <input type="text" id="txtGuestLastName" class="form-control" onchange="copyGuestName();" />
-                    </div>
-                </div>
-            </div>
-        </div>*@
-
 
             <div class="payment-box">
                 <div class="col-lg-12 margin2">
@@ -1283,19 +1574,14 @@
                             <div class="col-lg-12 mobile-margin text-payment">Address:</div>
                         </div>
 
-                        <div class="col-lg-10">                            
-                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
-                                    <textarea id="txtGuestAddress" style="width:100%; height:100px;"></textarea>
-                                </div> 
+                        <div class="col-lg-10">
+                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
+                                <textarea id="txtGuestAddress" style="width:100%; height:100px;"></textarea>
+                            </div>                          
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
-
-
             <div class="row">
                 <div class="col-sm-12">
                     <div class="col-sm-8">
@@ -1449,7 +1735,311 @@
 
             </div>
         </div>
+    </div>*@
+
+
+    <div class="tab-pane" id="step7">
+        <input id="hdnGuestId" type="hidden" value="0" />
+        <input id="hdnTagGuestId" type="hidden" value="0" />
+        @*<div class="col-lg-12 submenu margin2">
+            <ul class="submenupayment">
+                <li id="li13" class="active"><a href="#" onclick="goToStep(13)">Pending Request</a></li>
+                <li id="li14"><a href="#NewClub" onclick="goToStep(14)">New Guest</a></li>
+            </ul>
+        </div>*@
+        @*<div id="step13" class="col-lg-12 payment-box active">
+            <div class="row">
+                <div class="col-lg-6"><h3 class="headding-sub-text">Pending Request</h3></div>
+            </div>
+        </div>*@
+    <div id="PrintGuest" class="col-lg-12 payment-box">
+        <h3 class="headding-sub-text margin1  col-lg-12">GUEST REGISTRATION FORM</h3>
+
+        <div class="text-redcolor1 center m-t20 m-b40">Registration is only necessary for guests staying overnight.</div>
+
+        <div class="payment-box">
+            <div class="col-lg-12 margin2">
+                <div class="row margin margin-box">
+                    <div class="col-lg-3">
+                        <div class="col-lg-12 mobile-margin text-payment">GUEST NAME:</div>
+                    </div>
+
+                    <div class="col-lg-9">
+                        <div class="row">
+                            <div class="Club-text col-lg-2">First:</div>
+                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
+                                <input type="text" id="txtGuestFirstName" class="form-control" onchange="copyGuestName();" />
+                            </div>
+                        </div>
+                        <div class="row m-t10">
+                            <div class="Club-text col-lg-2 ">Last:</div>
+                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
+                                <input type="text" id="txtGuestLastName" class="form-control" onchange="copyGuestName();" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-box">
+            <div class="col-lg-12 margin2">
+                <div class="row margin margin-box">
+                    <div class="col-lg-3">
+                        <div class="col-lg-12 mobile-margin text-payment">GUEST ADDRESS:</div>
+                    </div>
+
+                    <div class="col-lg-8">
+                        <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12 p-r30 p-l0">
+                            <textarea id="txtGuestAddress" style="width:100%; height:auto;"></textarea>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-box">
+            <div class="col-lg-12 margin2">
+                <div class="row margin margin-box">
+                    <div class="col-lg-3">
+                        <div class="col-lg-12 mobile-margin text-payment">Contact:</div>
+                    </div>
+
+                    <div class="col-lg-9">
+                        <div class="row">
+                            <div class="Club-text col-lg-2">PHONE#:</div>
+                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
+                                <input type="text" id="txtGuestPhone" class="form-control" maxlength="10" onkeypress="return isOnlyNumber(event);" />
+                            </div>
+                        </div>
+                        <div class="row m-t10">
+                            <div class="Club-text col-lg-2">EMAIL:</div>
+                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
+                                <input type="text" class="form-control" id="txtGuestEmail" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="payment-box">
+            <div class="col-lg-12 margin2">
+                <div class="row margin margin-box">
+                    <div class="col-lg-3">
+                        <div class="col-lg-12 mobile-margin text-payment">Duration:</div>
+                    </div>
+
+                    <div class="col-lg-9">
+                        <div class="row">
+                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 text-redcolor2">
+                                Limited to 10 days.
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="Club-text1 col-lg-2">Visit Start Date:</div>
+                            <div class="col-lg-4 col-md-2 col-sm-6 col-xs-12 border-bottom1 m-r20">
+                                <div class="form-group">
+                                    <div class='input-group date'>
+                                        <input id="txtGuestVistStartDate" type="text" class="form-control" />
+                                        <span class="input-group-addon">
+                                            @*<button class="btn btn-primary search" id="Date" type="button"><i class="fa-calendar fa"></i></button>*@
+                                            <a><span class="fa fa-calendar"></span></a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-t10">
+                            <div class="Club-text1 col-lg-2">Visit End Date:</div>
+                            <div class="col-lg-4 col-md-2 col-sm-6 col-xs-12 border-bottom1 ">
+                                <div class="form-group">
+                                    <div class='input-group date'>
+                                        <input id="txtGuestVistEndDate" type="text" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
+                                        <span class="input-group-addon">
+                                            @*<button class="btn btn-primary search" id="Date" type="button"><i class="fa-calendar fa"></i></button>*@
+                                            <a><span class="fa fa-calendar"></span></a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-box">
+            <div class="col-lg-12">
+                <div class="row margin margin-box">
+                    <div class="col-lg-3">
+                        <div class="col-lg-12 mobile-margin text-payment">Vehicle:</div>
+                    </div>
+
+                    <div class="col-lg-9">
+                        <div class="row">
+                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 text-redcolor3">
+                                Do you have a vehicle?
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 ">
+                                <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
+                                <label>
+                                    <input id="chkHaveVehicle" type="checkbox" checked="checked">
+                                    Yes
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
+                                <label>
+                                    <input type="checkbox">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="payment-box hidden" id="HaveVehicle">
+            <div class="col-lg-12 margin2">
+                <div class="row margin margin-box">
+                    <div class="col-lg-3">
+                        <div class="col-lg-12 mobile-margin text-payment">Vehicle Make:</div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="row">
+                            <input id="txtGuestVehicleMake" type="text" class="form-control" value="">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row margin margin-box">
+                    <div class="col-lg-3">
+                        <div class="col-lg-12 mobile-margin text-payment">Vehicle Model:</div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="row">
+                            <input id="txtGuestVehicleModel" type="text" class="form-control" value="" >
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row margin margin-box">
+                    <div class="col-lg-3">
+                        <div class="col-lg-12 mobile-margin text-payment">Tag#:</div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="row">
+                            <input type="text" id="txtGuestVehicleTag" class="form-control" />
+                        </div>
+
+                    </div>
+                </div>
+                
+                        <div class="row margin margin-box">
+                            <div class="Club-text1 col-lg-3">
+                                <div class="col-lg-12 mobile-margin text-payment">
+                                    Upload Registration:
+                                    </div>
+                                </div>
+                            <div class="col-sm-5">
+                                <input type="file" name="fileUploadGuestRegistration" id="fileUploadGuestRegistration" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                <label for="fileUploadGuestRegistration">
+                                    <i class="fa fa-upload fa-2x"></i>
+                                    <span id="fileSpanShowGuestRegistration">Choose a file&hellip;</span>
+                                </label>
+                                <input type="hidden" id="hndUploadGuestRegistration" value="0" />
+                                <input type="hidden" id="hndOriginalUploadGuestRegistration" value="0" />
+                            </div>
+                        </div>
+
+                        <div class="row margin margin-box">
+                            <div class=" Club-text1 col-lg-3">
+                                <div class="col-lg-12 mobile-margin text-payment">
+                                    Upload Driver Licence or Picture Id:
+                                    </div>
+                                </div>
+                            <div class="col-sm-5">
+                                <input type="file" name="fileUploadGuestDriverLicence" id="fileUploadGuestDriverLicence" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                <label for="fileUploadGuestDriverLicence">
+                                    <i class="fa fa-upload fa-2x"></i>
+                                    <span id="fileSpanShowGuestDriverLicence">Choose a file&hellip;</span>
+                                </label>
+                                <input type="hidden" id="hndUploadGuestDriverLicence" value="0" />
+                                <input type="hidden" id="hndOriginalUploadGuestDriverLicence" value="0" />
+                            </div>
+                        </div>
+                   
+            
+            
+            </div>
+        </div>
+
+        @*<div class="condition-wrapper mrgin-box01">
+            <div class="row">
+                <div><button class="paynow m-t30 m-r15"><i class="fa fa-upload" aria-hidden="true"></i> License or Photo ID</button></div>
+                <div><button class="paynow m-t30 m-l10"><i class="fa fa-upload" aria-hidden="true"></i> Vehicle Registration</button></div>
+            </div>
+        </div>*@
+
+        
+
+        <div class="col-lg-12">
+            <div class="condition-wrapper border-bottom1"><h4 class="m-b0">Guest’s Certification</h4></div>
+            <p class="m-l30 m-r-30 m-t10 text-subheding">
+                I,<span id="spanGuestCertGName" style="text-decoration:underline"></span> , hereby certify that I have been informed of the rules and regulations of the community, and I will abide by them. I also certify that I will not use any of the amenities/common areas without the presence of the Tenant.
+            </p>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="condition-wrapper border-bottom1"><h4 class="m-b0">Tenant’s Certification</h4></div>
+            <p class="m-l30 m-r-30 m-t10 text-subheding">
+                Tenants are fully responsible for any damage to the unit and/or common areas used by their guests. Tenants will be held financially liable for damages to the property. Tenants are responsible to advise their guests of the community’s rules and regulations and ensure that the guests fully abide by them. Tenants must accompany their guests for the use of all amenities/common areas.
+            </p>
+        </div>
+
+        <div class="col-lg-12 mrgin-box02">
+            <p class="m-l30 m-r-30 m-t10 text-subheding">
+                I have read and understood my financial responsibility for my guests and agree to advise my guests to abide by the community’s rules and regulations.
+            </p>
+        </div>
+
+        <div class="col-lg-12 client-name1 m-t20 m-l30">
+            <span id="spanTenantSignName" style="text-decoration:underline"></span><br />
+            <label>Tenant</label>
+        </div>
+        <div class="col-lg-12 client-name1 m-t20 m-l30">
+            <span id="spanGuestSignName" style="text-decoration:underline"></span><br />
+            <label>Guest</label>
+        </div>
+        <div class="condition-wrapper mrgin-box01">
+            <div class="row">
+                <div class="col-sm-6 ">                   
+                        <button id="btnGuestRegSave" type="button" class="paynow m-t30 m-l10" onclick="saveUpdateGuestRegistration();">Save</button>                    
+                </div>
+                <div class="col-sm-6 hidden" id="printForm">                   
+                        <button id="btnPrintForm" type="button" onclick="openForm();" class="paynow m-t30 m-r15">Print Form</button>                   
+                </div>
+               
+            </div>
+        </div>
+
     </div>
+
+    </div>
+
+
 </div>
 
 
