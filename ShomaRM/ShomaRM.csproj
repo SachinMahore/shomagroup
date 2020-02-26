@@ -18,14 +18,10 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>
-    </IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>
-    </IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>
-    </IISExpressUseClassicPipelineMode>
+    <IISExpressSSLPort>53673</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -457,7 +453,7 @@
     <Content Include="Content\assets\css\PrintGuest.css" />
     <Content Include="Content\assets\css\responsive.css" />
     <Content Include="Content\assets\css\slider.css" />
-    <Content Include="Content\assets\css\style.css" />
+    <Content Include="Content\assets\css\Tenantstyle.css" />
     <Content Include="Content\assets\css\stylenew.css" />
     <Content Include="Content\assets\css\styleNoJS.css" />
     <Content Include="Content\assets\css\wizard.css" />
