@@ -502,6 +502,7 @@
                     $("#btnleaseDownl").attr('href', '/Content/assets/img/Document/' + response.model.EnvelopeID + '.pdf');
                     $("#btnleaseDownl").attr('download', 'LeaseDocument_' + response.model.EnvelopeID + '.pdf');
                     $("#btnleaseDownl").attr('target', '_parent');
+
                 }
                 
                 if (response.moveindata.IsCheckPay == 1)
@@ -559,6 +560,7 @@
                 } else {
                     $("#chkWater").prop("checked", false);
                     $("#chkWater").removeProp("disabled");
+
                 }
             }
         });
@@ -616,8 +618,10 @@
                         window.location = "/Tenant/Dashboard";
                     }
                     else if (result[1] == "an") {
+
                         $("#hndUID").val(result[0]);
                         getTenantInfo(result[0]);
+
                         goToStep(2, 2);
                     }
                     else {
@@ -833,7 +837,9 @@
 
     var saveMoveInCheckList = function () {
         var msg = "";
+
         var paymentDone = $("#hndPaymentDone").val();
+
         var ProspectID = $("#hndProspectID").val();
         var MoveInDate = $("#txtMoveInDateCL").val();
         var MoveInTime = $("#ddlMoveInTime").val();
