@@ -485,6 +485,8 @@ var goToStep = function (stepid, id) {
         $("#step15").addClass("hidden");
         $("#step16").addClass("hidden");
         $("#step17").addClass("hidden");
+        $("#subMenu").addClass("hidden");
+        
     }
     if (stepid == "2") {
         if ($('#txtAvailableDate').text() == '') {
@@ -494,6 +496,7 @@ var goToStep = function (stepid, id) {
             $('#lblLeaseStartDate').text($('#txtAvailableDate').text());
         }
         if (id == "2") {
+            $("#subMenu").addClass("hidden");
             $("#as2").removeAttr("onclick")
             $("#as2").attr("onclick", "goToStep(2,2)");
              //getPropertyUnitDetails($("#hndUID").val());
@@ -522,6 +525,7 @@ var goToStep = function (stepid, id) {
             $("#step15").addClass("hidden");
             $("#step16").addClass("hidden");
             $("#step17").addClass("hidden");
+
         }
 
     }
@@ -530,6 +534,7 @@ var goToStep = function (stepid, id) {
             $("#as3").removeAttr("onclick");
             $("#as3").attr("onclick", "goToStep(3,3)");
             if ($("#hndUID").val() != 0) {
+                $("#subMenu").addClass("hidden");
                 SaveQuote();
                 var checkReload = localStorage.getItem("CheckReload");
                 if (checkReload == "Done") {
@@ -572,7 +577,7 @@ var goToStep = function (stepid, id) {
     }
     if (stepid == "4") {
         if (id == "4") {
-
+            $("#subMenu").addClass("hidden");
             $("#as4").removeAttr("onclick")
             $("#as4").attr("onclick", "goToStep(5,5)");
             $("#li1").addClass("active");
@@ -604,6 +609,7 @@ var goToStep = function (stepid, id) {
     }
     if (stepid == "5") {
         if (id == "5") {
+            $("#subMenu").addClass("hidden");
             $("#as5").removeAttr("onclick")
             $("#as5").attr("onclick", "goToStep(6,6)");
             SaveQuote();
@@ -640,6 +646,7 @@ var goToStep = function (stepid, id) {
     if (stepid == "6") {
 
         if (id == "6") {
+            $("#subMenu").addClass("hidden");
             SaveQuote();
             $('#lblRFPAdditionalParking').text($('#lblMonthly_AditionalParking').text());
             $('#lblRFPStorageUnit').text($('#lblMonthly_Storage').text());
@@ -677,6 +684,7 @@ var goToStep = function (stepid, id) {
     }
     if (stepid == "7") {
         if (id == "7") {
+            $("#subMenu").removeClass("hidden");
             SaveCheckPolicy();
             $("#as6").removeAttr("onclick");
             $("#as6").attr("onclick", "goToStep(7,7)");
@@ -697,6 +705,19 @@ var goToStep = function (stepid, id) {
             $("#step15").addClass("hidden");
             $("#step16").addClass("hidden");
             $("#step17").addClass("hidden");
+
+
+            $("#li7").addClass("active");
+            $("#li8").removeClass("active");
+            $("#li9").removeClass("active");
+            $("#li10").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+            $("#li13").removeClass("active");
+            $("#li14").removeClass("active");
+            $("#li15").removeClass("active");
+            $("#li16").removeClass("active");
+            $("#li17").removeClass("active");
         }
     }
     if (stepid == "8") {
@@ -722,6 +743,18 @@ var goToStep = function (stepid, id) {
             $("#step15").addClass("hidden");
             $("#step16").addClass("hidden");
             $("#step17").addClass("hidden");
+
+            $("#li8").addClass("active");
+            $("#li7").removeClass("active");
+            $("#li9").removeClass("active");
+            $("#li10").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+            $("#li13").removeClass("active");
+            $("#li14").removeClass("active");
+            $("#li15").removeClass("active");
+            $("#li16").removeClass("active");
+            $("#li17").removeClass("active");
         }
     }
     if (stepid == "9") {
@@ -754,6 +787,18 @@ var goToStep = function (stepid, id) {
                 $("#step16").addClass("hidden");
                 $("#step17").addClass("hidden");
 
+
+                $("#li9").addClass("active");
+                $("#li8").removeClass("active");
+                $("#li7").removeClass("active");
+                $("#li10").removeClass("active");
+                $("#li11").removeClass("active");
+                $("#li12").removeClass("active");
+                $("#li13").removeClass("active");
+                $("#li14").removeClass("active");
+                $("#li15").removeClass("active");
+                $("#li16").removeClass("active");
+                $("#li17").removeClass("active");
             }
 
             if (msg != "") {
@@ -871,6 +916,7 @@ var goToStep = function (stepid, id) {
                 $("#step14").addClass("hidden");
                 $("#step15").addClass("hidden");
                 $("#step16").addClass("hidden");
+                
                 return;
             }
             else {
@@ -891,6 +937,18 @@ var goToStep = function (stepid, id) {
                 $("#step14").addClass("hidden");
                 $("#step15").addClass("hidden");
                 $("#step16").addClass("hidden");
+
+                $("#li10").addClass("active");
+                $("#li8").removeClass("active");
+                $("#li9").removeClass("active");
+                $("#li7").removeClass("active");
+                $("#li11").removeClass("active");
+                $("#li12").removeClass("active");
+                $("#li13").removeClass("active");
+                $("#li14").removeClass("active");
+                $("#li15").removeClass("active");
+                $("#li16").removeClass("active");
+                $("#li17").removeClass("active");
             }
         }
     }
@@ -964,6 +1022,18 @@ var goToStep = function (stepid, id) {
                 $("#step15").addClass("hidden");
                 $("#step16").addClass("hidden");
                 $("#step17").addClass("hidden");
+
+                $("#li11").addClass("active");
+                $("#li8").removeClass("active");
+                $("#li9").removeClass("active");
+                $("#li7").removeClass("active");
+                $("#li10").removeClass("active");
+                $("#li12").removeClass("active");
+                $("#li13").removeClass("active");
+                $("#li14").removeClass("active");
+                $("#li15").removeClass("active");
+                $("#li16").removeClass("active");
+                $("#li17").removeClass("active");
             }
         }
     }
@@ -1081,6 +1151,18 @@ var goToStep = function (stepid, id) {
                 $("#step14").addClass("hidden");
                 $("#step15").addClass("hidden");
                 $("#step16").addClass("hidden");
+
+                $("#li12").addClass("active");
+                $("#li8").removeClass("active");
+                $("#li9").removeClass("active");
+                $("#li7").removeClass("active");
+                $("#li11").removeClass("active");
+                $("#li10").removeClass("active");
+                $("#li13").removeClass("active");
+                $("#li14").removeClass("active");
+                $("#li15").removeClass("active");
+                $("#li16").removeClass("active");
+                $("#li17").removeClass("active");
             }
         }
     }
@@ -1159,6 +1241,18 @@ var goToStep = function (stepid, id) {
                 $("#step14").addClass("hidden");
                 $("#step15").addClass("hidden");
                 $("#step16").addClass("hidden");
+
+                $("#li13").addClass("active");
+                $("#li8").removeClass("active");
+                $("#li9").removeClass("active");
+                $("#li7").removeClass("active");
+                $("#li11").removeClass("active");
+                $("#li12").removeClass("active");
+                $("#li10").removeClass("active");
+                $("#li14").removeClass("active");
+                $("#li15").removeClass("active");
+                $("#li16").removeClass("active");
+                $("#li17").removeClass("active");
             }
         }
 
@@ -1184,6 +1278,18 @@ var goToStep = function (stepid, id) {
             $("#step15").addClass("hidden");
             $("#step16").addClass("hidden");
             $("#step17").addClass("hidden");
+
+            $("#li14").addClass("active");
+            $("#li8").removeClass("active");
+            $("#li9").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+            $("#li13").removeClass("active");
+            $("#li10").removeClass("active");
+            $("#li15").removeClass("active");
+            $("#li16").removeClass("active");
+            $("#li17").removeClass("active");
         }
     }
     if (stepid == "15") {
@@ -1207,6 +1313,18 @@ var goToStep = function (stepid, id) {
                 $("#step15").removeClass("hidden");
                 $("#step16").addClass("hidden");
                 $("#step17").addClass("hidden");
+
+                $("#li15").addClass("active");
+                $("#li8").removeClass("active");
+                $("#li9").removeClass("active");
+                $("#li7").removeClass("active");
+                $("#li11").removeClass("active");
+                $("#li12").removeClass("active");
+                $("#li13").removeClass("active");
+                $("#li14").removeClass("active");
+                $("#li10").removeClass("active");
+                $("#li16").removeClass("active");
+                $("#li17").removeClass("active");
             }
             else {
 
@@ -1240,6 +1358,18 @@ var goToStep = function (stepid, id) {
             $("#step15").addClass("hidden");
             $("#step16").removeClass("hidden");
             $("#step17").addClass("hidden");
+
+            $("#li16").addClass("active");
+            $("#li8").removeClass("active");
+            $("#li9").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+            $("#li13").removeClass("active");
+            $("#li14").removeClass("active");
+            $("#li15").removeClass("active");
+            $("#li10").removeClass("active");
+            $("#li17").removeClass("active");
         }
     }
     if (stepid == "17") {
@@ -1262,9 +1392,22 @@ var goToStep = function (stepid, id) {
             $("#step15").addClass("hidden");
             $("#step16").addClass("hidden");
             $("#step17").removeClass("hidden");
+
+            $("#li17").addClass("active");
+            $("#li8").removeClass("active");
+            $("#li9").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+            $("#li13").removeClass("active");
+            $("#li14").removeClass("active");
+            $("#li15").removeClass("active");
+            $("#li16").removeClass("active");
+            $("#li10").removeClass("active");
         }
     }
 }
+
 var SaveOnlineProspect = function () {
     $("#divLoader").show();
     var msg = "";
