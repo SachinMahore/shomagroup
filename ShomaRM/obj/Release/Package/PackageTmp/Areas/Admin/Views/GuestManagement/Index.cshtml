@@ -1,6 +1,9 @@
 ﻿
 @{
     ViewBag.Title = "Index";
+    DateTime now = DateTime.Now;
+    var startDate = new DateTime(now.Year, now.Month, 1);
+    var endDate = startDate.AddMonths(1).AddDays(-1);
 }
 <script src="~/Areas/Admin/Content/Pages/GuestRegistrationManagement/GuestRegistrationManagement.js"></script>
 <div class="register-area" style="background-color: rgb(249, 249, 249);">
@@ -14,7 +17,7 @@
                     <div class="col-sm-2">
                         <div class="form-group">
                             <h3 class="panel-title">From Date</h3>
-                            <input id="txtFromDate" type="text" class="form-control" value="@DateTime.Now.AddDays(-15).ToString("MM/dd/yyyy")">
+                            <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
                             <span class="input-group-btn" style="width:0% !important">
                                 <button class="btn btn-primary search" type="button" id="iconFDate" style="margin-top: -60px;margin-left: 158px;"><i class="fa-calendar fa"></i></button>
                             </span>
@@ -23,7 +26,7 @@
                     <div class="col-sm-2">
                         <div class="form-group">
                             <h3 class="panel-title">To Date</h3>
-                            <input id="txtToDate" type="text" class="form-control" value="@DateTime.Now.AddDays(+15).ToString("MM/dd/yyyy")">
+                            <input id="txtToDate" type="text" class="form-control" value="@endDate.ToString("MM/dd/yyyy")">
                             <span class="input-group-btn" style="width:0% !important">
                                 <button class="btn btn-primary search" type="button" id="iconTDate" style="margin-top: -60px;margin-left: 158px;"><i class="fa-calendar fa"></i></button>
                             </span>

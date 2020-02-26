@@ -64,9 +64,9 @@
     @RenderSection("scripts", required: false)
 </head>
 <body>
-    <div id="preloader">
+    @*<div id="preloader">
         <div id="status">&nbsp;</div>
-    </div>
+    </div>*@
     <!-- Body content -->
 
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -317,4 +317,14 @@
     function gotoLogin() {
         window.location.href = "../../../Home/Index";
     }
+
+    $(document).ajaxStop(function () {
+        $("#divLoader").hide();
+    });
+    $(document).ajaxComplete(function () {
+        $("#divLoader").hide();
+    });
+    $(document).ajaxStart(function () {
+        $("#divLoader").show();
+    });
 </script>

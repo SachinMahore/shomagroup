@@ -3,12 +3,12 @@
 
 }
 
-
+<script src="~/Content/printThis.js"></script>
 <input type="hidden" id="hndUID" value="@ViewBag.UID" />
 <input type="hidden" id="hndProspectID" value="0" />
 <input type="hidden" id="hndPID" value="0" />
 <input type="hidden" id="hndTransMethod" value="2" />
-
+<input type="hidden" id="hndPaymentDone" value="0" />
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -111,10 +111,10 @@
                                 <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsgFinal"></b></p></div>
                                 <div class="col-sm-12">
                                     <div class="pull-left text-center">
-                                        <button type="submit" class="btn btn-primary" onclick="goToStep(1,1)"> Back</button>
+                                        <button type="submit" class="btn btn-primary" onclick="goToStepCL(1,1)"> Back</button>
                                     </div>
                                     <div class="pull-right text-center">
-                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(3,3)"> Continue</button>
+                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStepCL(3,3)"> Continue</button>
                                     </div>
                                 </div>
                             </div>
@@ -135,31 +135,31 @@
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" id="chkPay">    <span style="margin-left: 25px;">Pay your Move-in charges</span>
+                                                    <input type="checkbox" id="chkPayCL">    <span style="margin-left: 25px;">Pay your Move-in charges</span>
                                                 </label>
                                             </div>
                                             <div class="input-group" style="margin-left: 70px;">
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
                                                 </span>
-                                                <input id="txtPayment" class="form-control form-control-small" style="width: 140px;color:#000" type="text" onkeypress="return isNumber(event)" />
-                                                <input type="button" class="btn-success" data-toggle="modal" data-target="#popPayNow" style="width:90px;height: 34px;" value="Pay Now" />
+                                                <input id="txtPaymentCL" class="form-control form-control-small" readonly="readonly" style="width: 140px;color:#000" type="text" onkeypress="return isNumber(event)" />
+                                                <input id="btnPayNowCheckLink" type="button" class="btn-success" data-toggle="modal" data-target="#popPayNow" style="width:90px;height: 34px;" value="Pay Now" />
                                             </div>
                                         </div>
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" id="chkMovein">    <span style="margin-left: 25px;"> Schedule a move-in date and time</span>
+                                                    <input type="checkbox" id="chkMoveinCL">    <span style="margin-left: 25px;"> Schedule a move-in date and time</span>
                                                 </label>
                                             </div>
                                             <div class="input-group" style="margin-left: 70px;">
 
-                                                <input id="txtMoveInDate" class="form-control form-control-small" style="width: 140px;" type="text" />
+                                                <input id="txtMoveInDateCL" class="form-control form-control-small" style="width: 140px;" type="text" />
                                                 <span class="input-group-btn pull-left">
                                                     <button class="btn btn-primary search" type="button" id="iconMoveInDateChecklist"><i class="fa-calendar fa"></i></button>
                                                 </span>
                                                 @* <input id="txtMoveInTime" class="form-control form-control-small" style="width: 140px;" type="text" />*@
-                                                <select id="ddlMoveInTime" class="form-control" style="width: 140px;margin-left: 54px;">
+                                                <select id="ddlMoveInTimeCL" class="form-control" style="width: 140px;margin-left: 54px;">
                                                     <option value="">Select a time</option>
                                                     <option value="9:00-10:00">9:00-10:00</option>
                                                     <option value="10:00-11:00">10:00-11:00</option>
@@ -176,7 +176,7 @@
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" id="chkIns"><span style="margin-left: 25px;"> Make sure you have Renter’s insurance.  If you have not purchased it and would like to use our partner, login or call Serrod Insurance 	Agency at (305) 445-6441 </span>
+                                                    <input type="checkbox" id="chkInsCL"><span style="margin-left: 25px;"> Make sure you have Renter’s insurance.  If you have not purchased it and would like to use our partner, login or call Serrod Insurance 	Agency at (305) 445-6441 </span>
 
                                                 </label>
                                             </div>
@@ -190,7 +190,7 @@
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" id="chkPo">    <span style="margin-left: 25px;"> Complete the Post Office change of address by logging into <a href="https://movingonlineservice.com" target="_blank">https://movingonlineservice.com</a></span>
+                                                    <input type="checkbox" id="chkPoCL">    <span style="margin-left: 25px;"> Complete the Post Office change of address by logging into <a href="https://movingonlineservice.com" target="_blank">https://movingonlineservice.com</a></span>
                                                 </label>
                                             </div>
 
@@ -199,7 +199,7 @@
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" id="chkEle">    <span style="margin-left: 25px;">Electricity- log in to <a href="https://fpl.com" target="_blank">https://fpl.com</a> to start service or call 1-800-226-3545 .  </span>
+                                                    <input type="checkbox" id="chkEleCL">    <span style="margin-left: 25px;">Electricity- log in to <a href="https://fpl.com" target="_blank">https://fpl.com</a> to start service or call 1-800-226-3545 .  </span>
 
                                                 </label>
                                             </div>
@@ -213,7 +213,7 @@
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" id="chkAt">    <span style="margin-left: 25px;"> AT&T- Call to establish your internet service and/or enhance your cable plan.</span>
+                                                    <input type="checkbox" id="chkAtCL">    <span style="margin-left: 25px;"> AT&T- Call to establish your internet service and/or enhance your cable plan.</span>
                                                 </label>
                                             </div>
 
@@ -221,7 +221,7 @@
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" id="chkWater">    <span style="margin-left: 25px;">If needed, contact Miami Dade Water and Sewer Department to stop service at your previous address. Login to <a href="http://www.miamidade.gov/global/water/home.page" target="_blank">www.miamidade.gov/global/water/home.page</a></span>
+                                                    <input type="checkbox" id="chkWaterCL">    <span style="margin-left: 25px;">If needed, contact Miami Dade Water and Sewer Department to stop service at your previous address. Login to <a href="http://www.miamidade.gov/global/water/home.page" target="_blank">www.miamidade.gov/global/water/home.page</a></span>
                                                     <span style="margin-left: 50px;">or call (305) 665-7488.  Your water will be set up automatically upon move-in and will be billed directly the following month. </span>
                                                 </label>
                                             </div>
@@ -229,7 +229,7 @@
                                         </div>
                                         <div class="text-center">
 
-                                            <button type="submit" class="btn btn-primary" id="btns" onclick="saveMoveInCheckList()"> Save</button>
+                                            <button  type="submit" class="btn btn-primary" id="btnSaveCheckList" onclick="saveMoveInCheckList()"> Save</button>
                                             <button type="submit" class="btn btn-primary" id="btnnext" onclick="printCheckList('divChecklist')"> Print</button>
                                             <br />
                                         </div>
@@ -272,47 +272,47 @@
                         <div class="dot-hr"></div>
                     </div>
                     <div class="col-sm-12">
-                        <label id="lblPaymentDet">Enter Credit Card Details.</label>
+                        <label id="lblPaymentDetCL">Enter Credit Card Details.</label>
 
                     </div>
                     <div class="col-sm-12 hidden" id="divBank">
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label class="star">Bank Name</label>
-                                <input id="txtBankName" type="text" class="form-control" placeholder="Bank Name" value="">
+                                <input id="txtBankNameCL" type="text" class="form-control" placeholder="Bank Name" value="">
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label id="lblAccCardname" class="star">Account Name</label>
-                                <input id="txtAccountName" type="text" class="form-control" placeholder="Account Name" value="">
+                                <label id="lblAccCardnameCL" class="star">Account Name</label>
+                                <input id="txtAccountNameCL" type="text" class="form-control" placeholder="Account Name" value="">
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label id="lblAccCardnum" class="star">Account Number</label>
-                                <input id="txtAccountNumber" type="text" class="form-control" placeholder="Account Number" onkeypress="return isOnlyNumber(event)" maxlength="29" value="">
+                                <label id="lblAccCardnumCL" class="star">Account Number</label>
+                                <input id="txtAccountNumberCL" type="text" class="form-control" placeholder="Account Number" onkeypress="return isOnlyNumber(event)" maxlength="29" value="">
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Routing Number</label>
-                                <input id="txtRoutingNumber" type="text" class="form-control" placeholder="Routing Number" onkeypress="return isNumber(event)" value="">
+                                <input id="txtRoutingNumberCL" type="text" class="form-control" placeholder="Routing Number" onkeypress="return isNumber(event)" value="">
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-12" id="divCard">
                         <div class="form-group col-sm-3">
                             <label for="name">Name on Card</label>
-                            <input type="text" class="form-control" id="txtNameonCard" placeholder="Name on Card" value="">
+                            <input type="text" class="form-control" id="txtNameonCardCL" placeholder="Name on Card" value="">
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="cardnumber" class="star">Card Number</label>
-                            <input type="text" class="form-control" id="txtCardNumber" placeholder="Card Number" onkeypress="return isOnlyNumber(event)" maxlength="16" value="">
+                            <input type="text" class="form-control" id="txtCardNumberCL" placeholder="Card Number" onkeypress="return isOnlyNumber(event)" maxlength="16" value="">
                         </div>
                         <div class="form-group col-sm-2">
                             <label for="cardmonth">Card Month</label>
-                            <select id="ddlcardmonth" class="form-control form-control-small">
+                            <select id="ddlcardmonthCL" class="form-control form-control-small">
                                 <option value='01'>01</option>
                                 <option value='02'>02</option>
                                 <option value='03'>03</option>
@@ -329,7 +329,7 @@
                         </div>
                         <div class="form-group col-sm-2">
                             <label for="cardyear">Card Year</label>
-                            <select id="ddlcardyear" class="form-control form-control-small">
+                            <select id="ddlcardyearCL" class="form-control form-control-small">
                                 @for (int i = DateTime.Now.Year; i <= DateTime.Now.AddYears(5).Year; i++)
                                 {
                                     <option value="@(i.ToString().Substring(2,2))">@i</option>
@@ -338,8 +338,8 @@
                             </select>
                         </div>
                         <div class="form-group col-sm-2">
-                            <label for="txtCcvNumber" class="star">CVV Number</label>
-                            <input type="password" class="form-control" id="txtCCVNumber" placeholder="CVV Number" onkeypress="return isOnlyNumber(event)" maxlength="3" value="">
+                            <label for="txtCCVNumberCL" class="star">CVV Number</label>
+                            <input type="password" class="form-control" id="txtCCVNumberCL" placeholder="CVV Number" onkeypress="return isOnlyNumber(event)" maxlength="3" value="">
                         </div>
 
                     </div>
@@ -390,6 +390,9 @@
             </div>
         </div>
     </div>
+</div>
+<div class="col-sm-12" id="divPrintCheckList" style="margin-top:10px !important;height:100% !important;width:100% !important">
+    <div id="divPrintData"></div>
 </div>
 <style>
     .tab-content ul li {
@@ -452,15 +455,27 @@
 </style>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#txtMoveInDate").datepicker();
-        $("#iconMoveInDateChecklist").click(function () {
-            $("#txtMoveInDate").focus();
+        $("#txtMoveInDateCL").datepicker({ startDate: '+1d' }).on('change', function (ev) {
+            var moveindate = $(this).val();
+            if (moveindate) {
+                $("#chkMoveinCL").attr("checked", true);
+                $("#chkMoveinCL").prop("disabled", "disabled");
+                $("#chkMoveinCL").parent().addClass("checked");
+            } else {
+                $("#chkMoveinCL").prop("checked", false);
+                $("#chkMoveinCL").removeProp("disabled");
+                $("#chkMoveinCL").parent().removeClass("checked");
+            }
         });
 
-        getTenantInfo(@ViewBag.UID);
+        $("#iconMoveInDateChecklist").click(function () {
+            $("#txtMoveInDateCL").focus();
+        });
+
+        getTenantInfoCL(@ViewBag.UID);
         $("#txtScheduleMoveIn").datepicker();
         if ($("#hndUID").val() != "0") {
-            goToStep(2, 2);
+            goToStepCL(2, 2);
         }
         else {
 
@@ -474,37 +489,119 @@
         };
     });
 
-    var getTenantInfo = function (uid) {
-        var model = { UID: uid}
-        $.ajax({
-            url: '/PayLink/GetProspectData/',
-            type: "post",
-            contentType: "application/json utf-8",
-            data: JSON.stringify(model),
-            dataType: "JSON",
-            success: function (response) {
-                $("#hndProspectID").val(response.model.ProspectId);
-                if (!response.model.FirstName)
-                {
-                    $("#txtname").text("");
-                } else {
-                    $("#txtname").text(response.model.FirstName + " " + response.model.LastName);
-                }
+    var getTenantInfoCL = function (uid) {
+        if (uid > 0) {
 
-                $("#lblmoveincharge").text(response.model.MoveInCharges);
-                $("#txtPayment").val(response.model.MoveInCharges);
-                $("#hndPID").val(response.model.PropertyId);
-                $("#lblLeaseNo").text(response.model.EnvelopeID);
-                if (response.model.EnvelopeID!="")
-                {
-                    //$("#lblLeaseStatus").removeClass("hidden");
-                    $("#btnleaseDownl").removeAttr("disabled");
-                    $("#btnleaseDownl").attr('href', '/Content/assets/img/Document/' + response.model.EnvelopeID + '.pdf');
-                    $("#btnleaseDownl").attr('download', 'LeaseDocument_' + response.model.EnvelopeID + '.pdf');
-                    $("#btnleaseDownl").attr('target', '_parent');
+            $("#divLoader").show();
+            var model = { UID: uid }
+            $.ajax({
+                url: '/CheckList/GetProspectMoveInData/',
+                type: "post",
+                contentType: "application/json utf-8",
+                data: JSON.stringify(model),
+                dataType: "JSON",
+                success: function (response) {
+                    $("#divLoader").hide();
+                    $("#hndProspectID").val(response.model.ProspectId);
+                    if (!response.model.FirstName) {
+                        $("#txtname").text("");
+                    } else {
+                        $("#txtname").text(response.model.FirstName + " " + response.model.LastName);
+                    }
+
+                    $("#lblmoveincharge").text(response.model.MoveInCharges);
+                    $("#txtPaymentCL").val(response.model.MoveInCharges);
+
+                    $("#hndPID").val(response.model.PropertyId);
+                    $("#lblLeaseNo").text(response.model.EnvelopeID);
+                    if (response.model.EnvelopeID != "") {
+                        $("#btnleaseDownl").removeAttr("disabled");
+                        $("#btnleaseDownl").attr('href', '/Content/assets/img/Document/' + response.model.EnvelopeID + '.pdf');
+                        $("#btnleaseDownl").attr('download', 'LeaseDocument_' + response.model.EnvelopeID + '.pdf');
+                        $("#btnleaseDownl").attr('target', '_parent');
+                    }
+
+                    if (response.moveindata.IsCheckPay == 1) {
+                        $("#chkPayCL").prop("checked", true);
+                        $("#chkPayCL").prop("disabled", "disabled");
+                        $("#chkPayCL").parent().addClass("checked");
+                        $("#btnPayNowCheckLink").addClass("hidden");
+                        $("#hndPaymentDone").val(1);
+
+                    } else {
+                        $("#chkPayCL").prop("checked", false);
+                        $("#chkPayCL").removeProp("disabled");
+                        $("#chkPayCL").parent().removeClass("checked");
+                        $("#btnPayNowCheckLink").removeClass("hidden");
+                        $("#hndPaymentDone").val(0);
+                    }
+                    if (response.moveindata.IsCheckSch == 1) {
+                        $("#chkMoveinCL").attr("checked", true);
+                        $("#chkMoveinCL").prop("disabled", "disabled");
+                        $("#chkMoveinCL").parent().addClass("checked");
+                        $("#txtMoveInDateCL").val(response.moveindata.MoveInDateTxt);
+                        $("#ddlMoveInTimeCL").val(response.moveindata.MoveInTime);
+                    } else {
+                        $("#chkMoveinCL").prop("checked", false);
+                        $("#chkMoveinCL").removeProp("disabled");
+                        $("#chkMoveinCL").parent().removeClass("checked");
+                    }
+                    if (response.moveindata.IsCheckIns == 1) {
+                        $("#chkInsCL").prop("checked", true);
+                        $("#chkInsCL").prop("disabled", "disabled");
+                        $("#chkInsCL").parent().addClass("checked");
+                        $('#fileUploadPOIShow').text(response.moveindata.InsuranceDoc);
+                    } else {
+                        $("#chkInsCL").prop("checked", false);
+                        $("#chkInsCL").removeProp("disabled");
+                        $("#chkInsCL").parent().removeClass("checked");
+                    }
+                    if (response.moveindata.IsCheckPO == 1) {
+                        $("#chkPoCL").prop("checked", true);
+                        $("#chkPoCL").prop("disabled", "disabled");
+                        $("#chkPoCL").parent().addClass("checked");
+                    } else {
+                        $("#chkPoCL").prop("checked", false);
+                        $("#chkPoCL").removeProp("disabled");
+                        $("#chkPoCL").parent().removeClass("checked");
+                    }
+                    if (response.moveindata.IsCheckElc == 1) {
+                        $("#chkEleCL").prop("checked", true);
+                        $("#chkEleCL").prop("disabled", "disabled");
+                        $("#chkEleCL").parent().addClass("checked");
+                        $('#fileUploadPOEShow').text(response.moveindata.ElectricityDoc);
+                    } else {
+                        $("#chkEleCL").prop("checked", false);
+                        $("#chkEleCL").removeProp("disabled");
+                        $("#chkEleCL").parent().removeClass("checked");
+                    }
+                    if (response.moveindata.IsCheckATT == 1) {
+                        $("#chkAtCL").prop("checked", true);
+                        $("#chkAtCL").prop("disabled", "disabled");
+                        $("#chkAtCL").parent().addClass("checked");
+                    } else {
+                        $("#chkAtCL").prop("checked", false);
+                        $("#chkAtCL").removeProp("disabled");
+                        $("#chkAtCL").parent().removeClass("checked");
+                    }
+                    if (response.moveindata.IsCheckWater == 1) {
+                        $("#chkWaterCL").prop("checked", true);
+                        $("#chkWaterCL").prop("disabled", "disabled");
+                        $("#chkWaterCL").parent().addClass("checked");
+                    } else {
+                        $("#chkWaterCL").prop("checked", false);
+                        $("#chkWaterCL").removeProp("disabled");
+                        $("#chkWaterCL").parent().removeClass("checked");
+                    }
+
+                    if (response.moveindata.IsAllChecked == 1) {
+                        $("#btnSaveCheckList").addClass("hidden");
+                    } else {
+                        $("#btnSaveCheckList").removeClass("hidden");
+                    }
                 }
-            }
-        });
+            });
+        }
     };
     var SignInFromEmailCheckList = function () {
         var msg = "";
@@ -542,8 +639,8 @@
             success: function (response) {
                 //if (response != "0") {
                 //    $("#hndUID").val(response);
-                //    getTenantInfo(response);
-                //    goToStep(2, 2);
+                //    getTenantInfoCL(response);
+                //    goToStepCL(2, 2);
                 //} else {
                 //    alert("Invalid Email ID / password.")
                 //}
@@ -559,9 +656,11 @@
                         window.location = "/Tenant/Dashboard";
                     }
                     else if (result[1] == "an") {
-                        $("#hndUID").val(response);
-                        getTenantInfo(response);
-                        goToStep(2, 2);
+
+                        $("#hndUID").val(result[0]);
+                        getTenantInfoCL(result[0]);
+
+                        goToStepCL(2, 2);
                     }
                     else {
                         window.location = "/Home/";
@@ -574,38 +673,26 @@
         });
     }
 
-    var goToStep = function (stepid, id) {
+    var goToStepCL = function (stepid, id) {
         if (stepid == "1") {
-
             $("#step1").removeClass("hidden");
             $("#step2").addClass("hidden");
             $("#step3").addClass("hidden");
-
         }
         if (stepid == "2") {
-
             if (id == "2") {
-
-
                 $("#step1").addClass("hidden");
                 $("#step3").addClass("hidden");
-
                 $("#step2").removeClass("hidden");
-
             }
-
         }
         if (stepid == "3") {
             if (id == "3") {
-
                 $("#step2").addClass("hidden");
                 $("#step1").addClass("hidden");
-
                 $("#step3").removeClass("hidden");
-
             }
         }
-
     }
 
     function savePaymentCheckList() {
@@ -624,18 +711,18 @@
         if ($("#hndTransMethod").val() == "2") {
             var paymentMethod = 2;
             var propertyId = $("#hndPID").val();
-            var nameonCard = $("#txtNameonCard").val();
-            var cardNumber = $("#txtCardNumber").val();
-            var cardMonth = $("#ddlcardmonth").val();
-            var cardYear = $("#ddlcardyear").val();
-            var ccvNumber = $("#txtCCVNumber").val();
+            var nameonCard = $("#txtNameonCardCL").val();
+            var cardNumber = $("#txtCardNumberCL").val();
+            var cardMonth = $("#ddlcardmonthCL").val();
+            var cardYear = $("#ddlcardyearCL").val();
+            var ccvNumber = $("#txtCCVNumberCL").val();
             var prospectID = $("#hndProspectID").val();
-            var moveinamt = $("#txtPayment").val();
+            var moveinamt = $("#txtPaymentCL").val();
             var amounttoPay = $("#lblmoveincharge").text();
             var description = "Move In Charges";
 
-            var routingNumber = $("#txtRoutingNumber").val();
-            var bankName = $("#txtBankName").val();
+            var routingNumber = $("#txtRoutingNumberCL").val();
+            var bankName = $("#txtBankNameCL").val();
 
             if (!nameonCard) {
                 msg += "Please Enter Name on Card</br>";
@@ -671,14 +758,14 @@
             }
         } else {
             var paymentMethod = 1;
-            var nameonCard = $("#txtAccountName").val();
-            var cardNumber = $("#txtAccountNumber").val();
+            var nameonCard = $("#txtAccountNameCL").val();
+            var cardNumber = $("#txtAccountNumberCL").val();
             var cardMonth = 0;
             var cardYear = 0;
-            var ccvNumber = $("#txtRoutingNumber").val();
-            var routingNumber = $("#txtRoutingNumber").val();
-            var bankName = $("#txtBankName").val();
-            var moveinamt = $("#txtPayment").val();
+            var ccvNumber = $("#txtRoutingNumberCL").val();
+            var routingNumber = $("#txtRoutingNumberCL").val();
+            var bankName = $("#txtBankNameCL").val();
+            var moveinamt = $("#txtPaymentCL").val();
             var amounttoPay = $("#lblmoveincharge").text();
             var description = "Move In Charges";
             var prospectID = $("#hndProspectID").val();
@@ -729,8 +816,14 @@
             success: function (response) {
                 $("#divLoader").hide();
                 if (response.Msg != "") {
-
+                    $("#hndPaymentDone").val(response.PaymentDone);
                     $("#ResponseMsg").html(response.Msg);
+                    $("#chkPayCL").prop("checked", true);
+                    $("#chkPayCL").prop("disabled", "disabled");
+                    $("#chkPayCL").parent().addClass("checked");
+                    $("#btnPayNowCheckLink").addClass("hidden");
+                    $("#hndPaymentDone").val(1);
+
                     $("#divLoader").hide();
                     $.alert({
                         title: "",
@@ -739,6 +832,7 @@
                     });
                     $("#popPayNow").modal("hide");
                 }
+
             }
         });
     }
@@ -773,7 +867,7 @@
         $("#divCard").addClass("hidden");
         $("#divBank").removeClass("hidden");
 
-        $("#lblPaymentDet").text("Enter Bank Account Details.");
+        $("#lblPaymentDetCL").text("Enter Bank Account Details.");
     }
     var clearCard = function () {
         $("#hndTransMethod").val("2");
@@ -782,30 +876,42 @@
         $("#divCard").removeClass("hidden");
         $("#divBank").addClass("hidden");
 
-        $("#lblPaymentDet").text("Enter Credit Card Details.");
+        $("#lblPaymentDetCL").text("Enter Credit Card Details.");
     }
 
     var saveMoveInCheckList = function () {
         var msg = "";
 
-        var ProspectID = $("#hndProspectID").val();
+        var paymentDone = $("#hndPaymentDone").val();
 
-        var MoveInDate = $("#txtMoveInDate").val();
-        var MoveInTime = $("#ddlMoveInTime").val();
-        var MoveInCharges = $("#txtPayment").val();
+        var ProspectID = $("#hndProspectID").val();
+        var MoveInDate = $("#txtMoveInDateCL").val();
+        var MoveInTime = $("#ddlMoveInTimeCL").val();
+        var MoveInCharges = $("#txtPaymentCL").val();
         var InsuranceDoc = $("#fileUploadPOIShow").text();
         var ElectricityDoc = $("#fileUploadPOEShow").text();
-        var IsCheckPO = $("#chkPo").is(":checked") ? "1" : "0";
-        var IsCheckATT = $("#chkAt").is(":checked") ? "1" : "0";
-        var IsCheckWater = $("#chkWater").is(":checked") ? "1" : "0";
+        var IsCheckPO = $("#chkPoCL").is(":checked") ? "1" : "0";
+        var IsCheckATT = $("#chkAtCL").is(":checked") ? "1" : "0";
+        var IsCheckWater = $("#chkWaterCL").is(":checked") ? "1" : "0";
 
+        if (paymentDone==0) {
+            msg += "Please pay the Move In Charges</br>";
+        }
         if (!MoveInDate) {
             msg += "Please fill the Move In Date</br>";
         }
-        if (!MoveInCharges) {
-            msg += "Please fill the Move In Charges</br>";
+        if (!MoveInTime) {
+            msg += "Please select the Move In Time</br>";
         }
 
+        if (InsuranceDoc == "Upload Proof of Insurance…")
+        {
+            InsuranceDoc = "";
+        }
+
+        if (ElectricityDoc == "Upload Proof of Electricity…") {
+            ElectricityDoc = "";
+        }
 
         if (msg != "") {
             $.alert({
@@ -850,7 +956,7 @@
         });
     };
 
-    function printCheckList(divName) {
+    function printCheckListOld(divName) {
         let printContents, popupWin;
         printContents = document.getElementById(divName).innerHTML;
         popupWin = window.open('', '', 'width=950,height=800,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes');
@@ -889,6 +995,36 @@
         );
         popupWin.document.close();
     }
+    var printCheckList = function (divName) {
+        let printContents, popupWin, pintRes;
+        printContents = document.all.item(divName).innerHTML;
+        $("#divPrintData").append(printContents);
+        $('#divPrintData input[type="checkbox"]').each(function () {
+            var img = "";
+            if ($(this).parent().hasClass("checked")) {
+
+                img = '<img src="/Content/assets/img/skin/squareC.png" width="30px" height="30px" />';
+            }
+            else {
+                img = '<img src="/Content/assets/img/skin/squareB.png" width="30px" height="30px" />';
+            }
+            $(this).parent().parent().prepend(img);
+        });
+       
+        $('#divPrintData .icheckbox_square-yellow').remove();
+        $("#divPrintCheckList").removeClass("hidden").printThis();
+        $('#divPrintData input[id="fileUploadPOI"]').remove();
+        $('#divPrintData input[id="fileUploadPOE"]').remove();
+        $('#divPrintData input[id="txtPaymentCL"]').attr("value", $("#txtPaymentCL").val());
+        $('#divPrintData input[id="txtMoveInDateCL"]').attr("value", $("#txtMoveInDateCL").val());
+        $('#divPrintData input[id="ddlMoveInTimeCL"]').attr("value", $("#ddlMoveInTimeCL").val());
+        
+        
+        setTimeout(function () {
+            $("#divPrintCheckList").addClass("hidden");
+            $("#divPrintData").empty();
+        }, 3000);
+    };
 
     var uploadInsurenceDoc = function () {
         $formData = new FormData();
@@ -911,6 +1047,9 @@
             success: function (response) {
                 $('#hndPOI').val(response.model.InsuranceDoc);
                 $('#fileUploadPOIShow').text(response.model.InsuranceDoc);
+                $("#chkInsCL").prop("checked", true);
+                $("#chkInsCL").prop("disabled", "disabled");
+                $("#chkInsCL").parent().addClass("checked");
                 $.alert({
                     title: "",
                     content: "File uploaded Successfully.",
@@ -942,6 +1081,9 @@
             success: function (response) {
                 $('#hndPOE').val(response.model.ElectricityDoc);
                 $('#fileUploadPOEShow').text(response.model.ElectricityDoc);
+                $("#chkEleCL").prop("checked", true);
+                $("#chkEleCL").prop("disabled", "disabled");
+                $("#chkEleCL").parent().addClass("checked");
                 $.alert({
                     title: "",
                     content: "File uploaded Successfully.",
