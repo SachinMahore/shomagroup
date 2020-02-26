@@ -83,6 +83,7 @@
     line-height: 0px;
     margin: 38px;
     color: #4d738a;
+    float:left
 }
 
 .text-subheding {
@@ -151,10 +152,11 @@
 }
 
 .myprofilebox {
-    background-image: url(../img/myprofile.png);
+    /*background-image: url(../img/myprofile.png);*/
     width: 150px;
     height: 150px;
     background-size: 100%;
+    float:left;
 }
 
 .profile-picherbox {
@@ -178,7 +180,7 @@
     width: 100%;
     text-align: center;
     margin-bottom: unset;
-    margin-top: 95%;
+    /*margin-top: 95%;*/
 }
 
 .selectdiv:after {
@@ -2071,6 +2073,14 @@ span.cercal3 {
     border: none;
     padding: 4px 22px;
 }
+.edit {
+    background: #547288;
+    color: #ffffff;
+    font-size: 17px;
+    border: none;
+    padding: 4px 22px;
+    float:right
+}
 
 .box-padding-mobile {
     padding-left: 25px;
@@ -2459,10 +2469,12 @@ button:hover {
     }
 
     .myprofilebox {
-        background-image: url(../img/myprofile.png);
+        /*background-image: url(../img/myprofile.png);*/
         width: 230px;
         height: 230px;
         background-size: 100%;
+        float:left;
+
     }
 
     .top-menu > li {
@@ -2478,6 +2490,8 @@ button:hover {
         line-height: 0px;
         margin: 57px 40px;
         color: #4d738a;
+        float:right;
+        
     }
 
     .calendar-menu > li {
@@ -2597,10 +2611,12 @@ button:hover {
     }
 
     .myprofilebox {
-        background-image: url(../img/myprofile.png);
-        width: 230px;
+        /*background-image: url(../img/myprofile.png);*/
+        width: auto;
         height: 230px;
         background-size: 100%;
+        float:left;
+
     }
 
     .calendar-menu > li {

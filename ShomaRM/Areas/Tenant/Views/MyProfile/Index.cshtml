@@ -5,246 +5,179 @@
 <link href="~/Content/fileUpload.css" rel="stylesheet" />
 
 <script src="~/Areas/Tenant/Content/Pages/MyProfile/Myrofile.js"></script>
-<input type="hidden" id="hndTenantID" value="@ViewBag.TenantID" />@*value="@ViewBag.TenantID "*@
+<input type="hidden" id="hndTenantID" value="@ViewBag.TenantID" />
+@*value="@ViewBag.TenantID "*@
 <input type="hidden" id="hndUserId" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID" /> @*value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID"*@
-    <div class="container" style="width:100%;">
 
+
+
+
+
+
+<!---MY PROfile Section start-->
+<div class="col-lg-12"><a href="javascript:void(0)" data-toggle="modal" data-target="#popChangePsw" id="btnpopChangePsw" onclick="clearForgetPasswordField()" class=" pull-right changepssw">Change Password</a></div>
+
+<div class="profile-picherbox">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="myprofilebox">
+                <img class="profile-pic img-responsive" id="imgTenantProfilePicture" data-value="" src="~/Content/assets/img/circle.png">
+                <i class="fa fa-plus  add"></i>
+                <input class="file-upload hidden" name="ProfilePic" id="ProfilePic" type="file" accept="image/*" />
+                <input type="hidden" id="hndProfilePic" value="0" />
+                <input type="hidden" id="hndOriginalProfilePic" value="0" />
+            </div>
            
-                <div class="panel-body">
-                    <div class="tab-content">
-                        <div class="col-lg-12 ">
-                            <div style="text-align: right;">
-                                <a href="javascript:void(0)" data-toggle="modal" data-target="#popChangePsw" id="btnpopChangePsw" onclick="clearForgetPasswordField()" style="text-decoration:underline">Change Password</a><br />
-                            </div>
-                            <div class="col-lg-1">
-                                &nbsp;
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="circle" style=" margin: auto ;float: right;">
-                                    <!-- User Profile Image -->
-                                    <img class="profile-pic img-responsive" id="imgTenantProfilePicture" data-value="" src="~/Content/assets/img/myprofile.png">
-                                    <!-- Default Image -->
-                                    <!-- <i class="fa fa-user fa-5x"></i> -->
-                                </div>
-                                <div class="p-image fa-2x " style="color: #4d738a; cursor:pointer;">
-                                    <i class="fa fa-plus-circle  upload-button"></i>
-                                    <input class="file-upload hidden" name="ProfilePic" id="ProfilePic" type="file" accept="image/*" />
-                                    <input type="hidden" id="hndProfilePic" value="0" />
-                                    <input type="hidden" id="hndOriginalProfilePic" value="0" />
-                                </div>
-                            </div>
-                            <div class="col-sm-5">
-                                <div class="col-lg-8" style="margin-top: 38px; margin-left: -36px;">
-                                    <span id="FirstName" style="font-size: 22px; color: #4d738a"></span>
-                                    <br />
-                                    <label style="font-size: 22px; color: #4d738a"></label>&nbsp;<span id="lblUnitUnitAccess" style="font-size: 22px; color: #4d738a"></span>
-                                </div>
-                                <div class="col-lg-4">
-                                    &nbsp;
-                                </div>
-                            </div>
+            <div class="nameprofile"><h3><span id="FirstName"></span></h3><br><h5><span id="lblUnitUnitAccess"></span></h5></div>
+        </div>
+    </div>
+</div>
+<!-----profile top section--End-->
+<!-----Contact Information top section--->
+<div class="col-lg-12 margin-top">
+    <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 ">
+            <div class="headding-sub-text col-lg-12">Contact Information  <i class="fa fa-pencil"></i></div>
+            <div class="row margin-box margin-to-bot col-lg-12">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 mobile-wrapper">Name:</div>
+                <div id="FirstName1" class="col-lg-8 col-md-8 col-sm-8 col-xs-12 mobile-wrapper "></div>
+            </div>
 
-                        </div>
-                        <div class="col-lg-12">
-                            &nbsp;
-                            <br />
-                            <br />
-                          </div>
+            <div class="row margin-box margin-to-bot col-lg-12">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 mobile-wrapper">Mobile No.</div>
+                <div id="Mobile1" class="col-lg-8 col-md-8 col-sm-8 col-xs-12 mobile-wrapper"></div>
+            </div>
 
-                        <div class="col-lg-12">
-                            <div class="col-lg-6">
-                                <div class="row">
-                                    <div class="panel-heading">
-                                        <div class="col-sm-12">
-                                            <h3 class="modal-title">Contact Information</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="col-sm-4">
-                                        <span id="">Name: </span>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <span id="FirstName1"></span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="col-sm-4">
-                                        <span id="">Mobile Number:</span>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <span id="Mobile1"></span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="col-sm-4">
-                                        <span id="">Email:</span>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <span id="Email1"></span>
-                                    </div>
-                                    <br />
-                                    <br />
-                                </div>
-                                <div class="col-sm-12  padding-5">
-                                        <div class="col-sm-6">
-                                            <button class="btn-blue" data-toggle="modal" data-target="#popContactInfo" id="btnContactInfo"><i class="fa fa-edit"></i><b> Edit</b> </button>
-                                        </div>
+            <div class="row margin-box margin-to-bot col-lg-12">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 mobile-wrapper">Email:</div>
+                <div id="Email1" class="col-lg-8 col-md-8 col-sm-8 col-xs-12 mobile-wrapper"></div>
+            </div>
+            @*<div class="col-sm-12  padding-5">*@
+            <div class="col-sm-8">
+                <button class="edit m-t30 m-r15" data-toggle="modal" data-target="#popContactInfo" id="btnContactInfo"><i class="fa fa-edit"></i><b> Edit</b> </button>
+            </div>
 
-                                    </div>
-                                <div class="row">
-                                    <div class="panel-heading">
-                                        <div class="col-sm-12">
-                                            <h3 class="modal-title">Career</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="col-sm-4">
-                                        <span id="">Job Title:</span>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <span id="JobTitle"></span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="col-sm-4">
-                                        <span id="">Employer Name: </span>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <span id="EmployerName"></span>
-                                    </div>
-                                </div>
+            @*</div>*@
+        </div>
+        <!-----Contact Information section-End-->
+        <!-----Vehicles section------->
 
-                                <div class="col-sm-12">
-                                    <div class="col-sm-4">
-                                        <span id="">Job Type:</span>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <span id="JobType"></span>
-                                    </div>
-                                    <br />
-                                    <br />
-                                </div>
-                                <div class="col-sm-12  padding-5">
-                                        <div class="col-sm-6">
-                                            <button class="btn-blue" data-toggle="modal" data-target="#popWorkInfo" id="btnWorkInfo"><i class="fa fa-edit"></i><b> Edit</b> </button>
-                                        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 ">
+            <div class="headding-sub-text col-lg-12">Vehicles <i class="fa fa-pencil"></i></div>
+            <div class="row margin-box margin-to-bot col-md-12">
+                <div class="panel-body search-widget">
+                    <div class="col-md-12 clear">
+                        <table id="tblVehicle" class="borderlessTable tbale-box" width="100%">
 
-                                    </div>
-                                <div class="row">
-                                    <div class="panel-heading">
-                                        <div class="col-sm-12">
-                                            <h3 class="modal-title">Emergency Contact </h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="col-sm-4">
-                                        <span id="">Name: </span>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <span id="EmFirstName">&nbsp;</span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="col-sm-4">
-                                        <span id="">Relationship: </span>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <span id="EmRelationship">&nbsp;</span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="col-sm-4">
-                                        <span id="">Address: </span>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <span id="EmAddress"></span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="col-sm-4">
-                                        <span id="">Mobile Number: </span>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <span id="EmMobile"></span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="col-sm-4">
-                                        <span id="">Work Phone: </span>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <span id="EmWorkPhone"></span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="col-sm-4">
-                                        <span id="">Email: </span>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <span id="EmEmail"></span>
-                                    </div>
-                                    <br />
-                                    <br />
-                                </div>
-                                <div class="col-sm-12  padding-5">
-                                        <div class="col-sm-6">
-                                            <button class="btn-blue" data-toggle="modal" data-target="#popEmergencyContact" id="btnEmergencyContact"><i class="fa fa-edit"></i><b> Edit</b> </button>
-                                        </div>
-                                    </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="col-lg-12">
-                                    <div class="row">
-                                        <div class="panel-heading">
-                                            <div class="col-sm-12">
-                                                <h3 class="modal-title">Vehicle</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 clear">
-                                        <table id="tblVehicle" width="100%">
-                                            <tbody></tbody>
-                                        </table>
-                                        <br />
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <a href="javascript:void(0)" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle fa-lg"></i> Add a Vehicle</a>
-                                        @*<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle"></i> Add</button>*@
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-
-                                    <div class="row">
-                                        <div class="panel-heading">
-                                            <div class="col-sm-12">
-                                                <h3 class="modal-title">Pets</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 clear">
-                                        <table id="tblPet" width="100%">
-                                            <tbody></tbody>
-                                        </table>
-                                        <br />
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <a href="javascript:void(0)" data-toggle="modal" data-target="#popPet" id="btnAddPet"><i class="fa fa-plus-circle fa-lg"></i> Add a Pet</a>
-                                        @*<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle"></i> Add</button>*@
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+                            <tbody></tbody>
+                        </table>
                     </div>
                 </div>
-                <!-- End submit form -->
-           
-  
+            </div>
+            <div class="row margin-box margin-to-bot col-md-12">
+                <a href="javascript:void(0)" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle fa-lg"></i> Add a Vehicle</a>
+                @*<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle"></i> Add</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-----Contact Information top section-End-->
+<!-----Career-section--->
+
+<div class="col-lg-12 margin-top">
+    <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 ">
+            <div class="headding-sub-text col-lg-12">Career <i class="fa fa-pencil"></i></div>
+            <div class="row margin-box margin-to-bot col-lg-12">
+                <div class="col-lg-3 col-sm-4 col-xs-12 mobile-wrapper">Job Title:</div>
+                <div id="JobTitle" class="col-lg-8 col-sm-8 col-xs-12 mobile-wrapper"></div>
+            </div>
+
+            <div class="row margin-box margin-to-bot col-lg-12">
+                <div class="col-lg-3 col-sm-4 mobile-wrapper">Employer Name:</div>
+                <div id="EmployerName" class="col-lg-8 col-sm-8 mobile-wrapper"></div>
+            </div>
+
+            <div class="row margin-box margin-to-bot col-lg-12">
+                <div class="col-lg-3 col-sm-4 col-xs-12 mobile-wrapper">Job Type:</div>
+                <div id="JobType" class="col-lg-8 col-sm-8 col-xs-12 mobile-wrapper"></div>
+            </div>
+
+
+            <div class="row margin-box margin-to-bot col-lg-12">
+
+                <div class="col-sm-8">
+                    <button class="edit m-t30 m-r15" data-toggle="modal" data-target="#popWorkInfo" id="btnWorkInfo"><i class="fa fa-edit"></i><b> Edit</b> </button>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <!-----Pets--section--->
+
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 ">
+            <div class="headding-sub-text col-lg-12">Pets <i class="fa fa-pencil"></i></div>
+            <div class="row margin-box margin-to-bot col-lg-12">
+                <table id="tblPet" class="borderlessTable tbale-box" width="100%">
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="row margin-box margin-to-bot col-lg-12">
+                <a href="javascript:void(0)" data-toggle="modal" data-target="#popPet" id="btnAddPet"><i class="fa fa-plus-circle fa-lg"></i> Add a Pet</a>
+                @*<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle"></i> Add</button>*@
+            </div>
+
+        </div>
 
     </div>
+</div>
+
+<div class="col-lg-12 margin-top">
+    <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 ">
+            <div class="headding-sub-text col-lg-12">Emergency Contact <i class="fa fa-pencil"></i></div>
+            <div class="row margin-box margin-to-bot col-lg-12">
+                <div class="col-lg-3 col-xs-12 mobile-wrapper">Name:</div>
+                <div id="EmFirstName" class="col-lg-8 col-xs-12 mobile-wrapper"></div>
+            </div>
+
+            <div class="row margin-box margin-to-bot col-lg-12">
+                <div class="col-lg-3 col-xs-12 mobile-wrapper">Relationship:</div>
+                <div id="EmRelationship" class="col-lg-8 col-xs-12 mobile-wrapper"></div>
+            </div>
+            <div class="row margin-box margin-to-bot col-lg-12">
+                <div class="col-lg-3 col-xs-12 mobile-wrapper">Address:</div>
+                <div id="EmAddress" class="col-lg-4 col-xs-12 mobile-wrapper"></div>
+            </div>
+            <div class="row margin-box margin-to-bot col-lg-12">
+                <div class="col-lg-3 col-xs-12 mobile-wrapper">Mobile Number:</div>
+                <div id="EmMobile" class="col-lg-8 col-xs-12 mobile-wrapper"></div>
+            </div>
+            <div class="row margin-box margin-to-bot col-lg-12">
+                <div class="col-lg-3 col-xs-12 mobile-wrapper">Work Phone:</div>
+                <div id="EmWorkPhone" class="col-lg-8 col-xs-12 mobile-wrapper"></div>
+            </div>
+            <div class="row margin-box margin-to-bot col-lg-12">
+                <div class="col-lg-3 col-xs-12 mobile-wrapper">Email:</div>
+                <div id="EmEmail" class="col-lg-8 col-xs-12 mobile-wrapper"></div>
+            </div>
+            <div class="row margin-box margin-to-bot col-lg-12">
+                <div class="col-sm-8">
+
+                    <button class="edit m-t30 m-r15" data-toggle="modal" data-target="#popEmergencyContact" id="btnEmergencyContact"><i class="fa fa-edit"></i><b> Edit</b> </button>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+</div>
+
+
+<!---MY PROfile Section end-->
 
 <div class="modal" id="popVehicle">
     <div class="modal-dialog">
@@ -359,19 +292,19 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="star">First Name</label>
-                        <input id="txtFirstName" type="text" class="form-control"  placeholder="First Name" value="">
+                        <input id="txtFirstName" type="text" class="form-control" placeholder="First Name" value="">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="">Middle Name</label>
-                        <input id="txtMiddleName" type="text" maxlength="1" class="form-control"  placeholder="Middle Name" value="">
+                        <input id="txtMiddleName" type="text" maxlength="1" class="form-control" placeholder="Middle Name" value="">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="star">Last Name</label>
-                        <input id="txtLastName" type="text" class="form-control"  placeholder="Last Name" value="">
+                        <input id="txtLastName" type="text" class="form-control" placeholder="Last Name" value="">
                     </div>
                 </div>
 
@@ -419,13 +352,13 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="star">Employer Name</label>
-                        <input id="txtEmployerName" type="text" class="form-control"  placeholder="Employer Name" value="">
+                        <input id="txtEmployerName" type="text" class="form-control" placeholder="Employer Name" value="">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="">Job Title</label>
-                        <input id="txtJobTitle" type="text" class="form-control"  placeholder="Job Title" value="">
+                        <input id="txtJobTitle" type="text" class="form-control" placeholder="Job Title" value="">
                     </div>
                 </div>
                 <div class="col-sm-4">
@@ -471,14 +404,14 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="star"> First Name</label>
-                        <input id="txtEmFirstName" type="text" class="form-control"  placeholder="First Name" value="">
+                        <input id="txtEmFirstName" type="text" class="form-control" placeholder="First Name" value="">
                     </div>
                 </div>
 
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="star">Last Name</label>
-                        <input id="txtEmLastName" type="text" class="form-control"  placeholder="Last Name" value="">
+                        <input id="txtEmLastName" type="text" class="form-control" placeholder="Last Name" value="">
                     </div>
                 </div>
                 <div class="col-sm-4">
@@ -880,7 +813,7 @@
 
 
 </script>
-<style>
+@*<style>
     .btn-blue {
         background-color: #4d738a;
         color: #fff;
@@ -906,8 +839,8 @@
             cursor: pointer;
             opacity: 1;
         }
-</style>
-<style>
+</style>*@
+@*<style>
     body {
         background-color: #efefef;
     }
@@ -963,13 +896,14 @@
         cursor: default;
         color: #B4ADA5;
     }
+
     .affix {
         position: fixed !important;
         background-color: white !important;
         z-index: 777 !important;
         padding-right: 30px !important;
     }
-</style>
+</style>*@
 <script>
     $(document).ready(function () {
 
@@ -990,7 +924,7 @@
             readURL(this);
         });
 
-        $(".upload-button").on('click', function () {
+        $(".add").on('click', function () {
             $(".file-upload").click();
         });
     });
