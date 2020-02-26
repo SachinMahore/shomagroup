@@ -54,9 +54,7 @@
     @RenderSection("scripts", required: false)
 </head>
 <body>
-    <div id="preloader">
-        <div id="status">&nbsp;</div>
-    </div>
+   
     <!-- Body content -->
     @*<nav class="navbar navbar-default navbar-fixed-top">
             <div class="container" style="width:100%">
@@ -290,4 +288,13 @@
             }
         });
     };
+    $(document).ajaxStop(function () {
+        $("#divLoader").hide();
+    });
+    $(document).ajaxComplete(function () {
+        $("#divLoader").hide();
+    });
+    $(document).ajaxStart(function () {
+        $("#divLoader").show();
+    });
 </script>

@@ -1,12 +1,10 @@
 ﻿using ShomaRM.Areas.Tenant.Models;
 using ShomaRM.Data;
-using ShomaRM.Models.TwilioApi;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-using System.Web.Configuration;
 
 namespace ShomaRM.Models
 {
@@ -30,8 +28,8 @@ namespace ShomaRM.Models
         public Nullable<int> IsCheckPO { get; set; }
         public Nullable<int> IsCheckATT { get; set; }
         public Nullable<int> IsCheckWater { get; set; }
-        string message = "";
-        string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
+
+        public int IsAllChecked { get; set; }
 
         public Nullable<System.DateTime> CreatedDate { get; set; }
 
@@ -48,6 +46,7 @@ namespace ShomaRM.Models
             model.IsCheckSch = 0;
             model.IsCheckIns = 0;
             model.IsCheckElc = 0;
+            model.IsAllChecked = 0;
             model.InsuranceDoc = "";
             model.ElectricityDoc = "";
             var MoveInData = db.tbl_MoveInChecklist.Where(co => co.ProspectID == Id).FirstOrDefault();
@@ -77,10 +76,16 @@ namespace ShomaRM.Models
                 model.IsCheckATT = MoveInData.IsCheckATT ?? 0;
                 model.IsCheckPO = MoveInData.IsCheckPO ?? 0;
                 model.IsCheckWater = MoveInData.IsCheckWater ?? 0;
+
+                if(model.IsCheckPay == 1 && model.IsCheckSch == 1 && model.IsCheckIns == 1 && model.IsCheckElc == 1 && model.IsCheckATT==1 && model.IsCheckPO==1 && model.IsCheckWater==1)
+                {
+                    model.IsAllChecked = 1;
+                }
             }
             return model;
         }
-       
+
+
         public string SaveMoveInCheckList(CheckListModel model)
         {
             string msg = "";
@@ -237,7 +242,6 @@ namespace ShomaRM.Models
                 string transStatus = "";
                 if (model.PaymentMethod == 2)
                 {
-
                     transStatus = new UsaePayModel().ChargeCard(model);
                 }
                 else if (model.PaymentMethod == 1)
@@ -251,7 +255,6 @@ namespace ShomaRM.Models
                 {
                     var saveTransaction = new tbl_Transaction()
                     {
-
                         TenantID = Convert.ToInt64(GetProspectData.UserId),
                         Revision_Num = 1,
                         Transaction_Type = "1",
@@ -301,16 +304,10 @@ namespace ShomaRM.Models
                     mm.CreateTransBill(TransId, Convert.ToDecimal(GetProspectData.Deposit), "Security Deposit");
                     mm.CreateTransBill(TransId, Convert.ToDecimal(GetProspectData.PetDeposit), "Pet Deposit");
                     mm.CreateTransBill(TransId, Convert.ToDecimal(GetProspectData.VehicleRegistration), "Vehicle Registration Charges");
-
-
-
+                   
                     string reportHTML = "";
                     string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
-
-                    string message = "";
-                    string phonenumber = GetProspectData.Phone;
-
                     if (model != null)
                     {
                         reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Completed and Payment Received");
@@ -320,16 +317,9 @@ namespace ShomaRM.Models
 
                         reportHTML = reportHTML.Replace("[%TenantEmail%]", GetProspectData.Email);
 
-                        message = "Thank you for signing and submitting your application. Please check the email for detail.";
-
                     }
                     string body = reportHTML;
                     new EmailSendModel().SendEmail(GetProspectData.Email, "Application Completed and Payment Received", body);
-
-                    if (SendMessage == "yes")
-                    {
-                        new TwilioService().SMS(phonenumber, message);
-                    }
                 }
 
                 msg = transStatus.ToString();

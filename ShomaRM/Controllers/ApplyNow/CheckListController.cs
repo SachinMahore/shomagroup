@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.IO;
+using System.Web.Security;
 
 namespace ShomaRM.Controllers
 {
@@ -41,7 +42,11 @@ namespace ShomaRM.Controllers
         {
             try
             {
-                return Json(new { msg = (new CheckListModel().SaveMoveInCheckList(model)) }, JsonRequestBehavior.AllowGet);
+                string result = (new CheckListModel().SaveMoveInCheckList(model));
+                Session.RemoveAll();
+                FormsAuthentication.SignOut();
+                (new ShomaGroupWebSession()).RemoveWebSession();
+                return Json(new { msg = result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception Ex)
             {

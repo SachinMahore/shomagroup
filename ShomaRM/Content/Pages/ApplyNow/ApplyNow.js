@@ -2553,18 +2553,21 @@ var getTransationLists = function (userid) {
                 $("#carddetails").addClass("hidden");
                 $("#btnpaynext").removeProp("disabled");
                 var html = "<tr data-value=" + elementValue.TransID + ">";
-                html += "<td>" + elementValue.TransID + "</td>";
+                //html += "<td>" + elementValue.TransID + "</td>";
                 //html += "<td>" + elementValue.TenantIDString + "</td>";
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
                 html += "<td>$" + elementValue.Charge_Amount + "</td>";
                 html += "<td>" + elementValue.Transaction_Type + "</td>";
-                html += "<td>" + elementValue.Charge_Type + "</td>";
+                //html += "<td>" + elementValue.Charge_Type + "</td>";
                 html += "<td>" + elementValue.Description + "</td>";
                 //html += "<td>" + elementValue.CreatedDateString + "</td>";
                 html += "</tr>";
                 $("#tblTransaction>tbody").append(html);
             });
-
+            if (response.model.length >= 1) {
+                goToStep(16, 16);
+                $("#getting-startedTimeRemainingClock").addClass("hidden")
+            }
         }
     });
 }
