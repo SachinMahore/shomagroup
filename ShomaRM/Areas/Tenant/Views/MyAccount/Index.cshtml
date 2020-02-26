@@ -69,7 +69,7 @@
             <div class="payment-box">
                 <div class="col-lg-12 margin2">
                     <div class="row margin margin-box">
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
                             Payment type:
                         </div>
                         <div class="col-xl-5 col-lg-5 col-md-6 col-sm-6 col-xs-12">
@@ -84,7 +84,7 @@
             <div class="payment-box">
                 <div class="col-lg-12">
                     <div class="row margin margin-box">
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mobile-margin text-payment">Amount to Pay:</div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mobile-margin text-payment">Amount to Pay:</div>
                         <div class="col-xs-12 col-sm-3 col-md-3 col-lg-4 col-xl-4 mobile-margin">
                             <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
                             <label>
@@ -103,7 +103,7 @@
             <div class="payment-box">
                 <div class="col-lg-12 margin2">
                     <div class="row margin margin-box">
-                        <div class="col-lg-4 col-md-2 col-sm-2 col-xl-3 box-none"></div>
+                        <div class="col-lg-3 col-md-2 col-sm-2 col-xl-3 box-none"></div>
                         <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3">
                             <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
                             <label>
@@ -123,7 +123,7 @@
             <div class="payment-box" hidden>
                 <div class="col-lg-12 margin">
                     <div class="row margin margin-box">
-                        <div class="col-lg-4 col-md-2 col-sm-2 col-xl-3 box-none"></div>
+                        <div class="col-lg-3 col-md-2 col-sm-2 col-xl-3 box-none"></div>
                         <div class="col-lg-4 col-md-6 col-sm-6 col-xl-3">
                             @*<div class="form-group">
                                 <div class="col-sm-3">
@@ -144,7 +144,7 @@
                 <div class="col-lg-12 margin">
                     <div class="row margin margin-box">
 
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-xl-3">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3">
                             <div class="control-label  requiredField text-payment" for="date">
                                 Preferred Date:
                             </div>
@@ -168,7 +168,7 @@
             <div class="payment-box">
                 <div class="col-lg-12 margin">
                     <div class="row margin margin-box">
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-xl-3">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3">
                             <div class="control-label  requiredField text-payment">
                                 Description:
                             </div>
@@ -184,7 +184,7 @@
             <div class="payment-box">
                 <div class="col-lg-12 margin">
                     <div class="row margin margin-box">
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-xl-3">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3">
                             <div class="control-label  requiredField text-payment">
                             </div>
                         </div>
@@ -200,7 +200,7 @@
             <div class="payment-box" id="DivCVVNumberPayRentOnline">
                 <div class="col-lg-12 margin2">
                     <div class="row margin margin-box">
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-xl-3 text-payment ">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3 text-payment ">
                             CVV Number:
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-6 col-xl-3">
@@ -307,23 +307,26 @@
         <div class="col-lg-12 hidden payment-box" id="payStep4">
             <h3 class="headding-sub-text margin1  col-lg-12">Manage Recurring Payments</h3>
             <div class="col-md-12 clear hidden" id="divRecPayList">
+                <div class="panel-body search-widget">
+                    <div class="col-md-12 clear">
+                        <p>Both active and cancelled scheduled payments are listed below. To cancel a scheduled payment. Click the cancel button in the scheduled payment details</p>
+                        <table id="tblRecurringPayments" class="borderlessTable tbale-box" width="100%">
 
-                <p>Both active and cancelled scheduled payments are listed below. To cancel a scheduled payment. Click the cancel button in the scheduled payment details</p>
-                <table id="tblRecurringPayments" class="borderlessTable tbale-box" width="100%">
+                            <thead>
+                                <tr>
+                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Sr. No.</th>
+                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Account</th>
+                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Due Date</th>
+                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Amount</th>
+                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Action</th>
 
-                    <thead>
-                        <tr>
-                            <th scope="row" class="border-box border-box2 text-payment tabletr">Sr. No.</th>
-                            <th scope="row" class="border-box border-box2 text-payment tabletr">Account</th>
-                            <th scope="row" class="border-box border-box2 text-payment tabletr">Due Date</th>
-                            <th scope="row" class="border-box border-box2 text-payment tabletr">Amount</th>
-                            <th scope="row" class="border-box border-box2 text-payment tabletr">Action</th>
-
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>            
             <div class="col-md-12 clear" id="divSetRecPay">
                 <div class="panel-heading">
                     <div class="col-sm-12">
@@ -415,27 +418,27 @@
                                     </div>
 
 
-                                                    <div class="col-sm-3 pull-right" style="margin-bottom:20px !important;">
-                                                        <select id="ddlPaymentHistory" class="form-control">
-                                                            <option value='1'>Current month</option>
-                                                            <option value='2'>Next month</option>
-                                                            <option value='3'>Previous month</option>
-                                                            <option value='4'>Date Range</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <table id="tblPaymentHistory" class="table " cellspacing="0" width="100%">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="background-color: transparent;color:#4D738A;width:7%;font-size:13pt">Date</th>
-                                                            <th style="background-color: transparent;color:#4D738A;width:45%;font-size:13pt">Description</th>
-                                                            <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Charge</th>
-                                                            <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Credit</th>
-                                                            <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Balance</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody></tbody>
-                                                </table>
+                                    <div class="col-sm-3 pull-right" style="margin-bottom:20px !important;">
+                                        <select id="ddlPaymentHistory" class="form-control">
+                                            <option value='1'>Current month</option>
+                                            <option value='2'>Next month</option>
+                                            <option value='3'>Previous month</option>
+                                            <option value='4'>Date Range</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <table id="tblPaymentHistory" class="table " cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="background-color: transparent;color:#4D738A;width:7%;font-size:13pt">Date</th>
+                                            <th style="background-color: transparent;color:#4D738A;width:45%;font-size:13pt">Description</th>
+                                            <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Charge</th>
+                                            <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Credit</th>
+                                            <th style="background-color: transparent;color:#4D738A;width:10%;font-size:13pt">Balance</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
 
 
 
@@ -864,16 +867,16 @@
         </div>
 
 
-        <div class="hidden" id="payStep5">
+        <div class="col-lg-12 hidden payment-box" id="payStep5">
             @*<h3 class="headding-sub-text">Saved Payment Accounts</h3>*@
 
 
             @*<div class="col-sm-3">
-                    <select id="ddlBankAccountList" class=" form-control">
-                        <option value='1'>Credit Card List</option>
-                        <option value='2'>Bank Account List</option>
-                    </select>
-                </div>*@
+            <select id="ddlBankAccountList" class=" form-control">
+                <option value='1'>Credit Card List</option>
+                <option value='2'>Bank Account List</option>
+            </select>
+        </div>*@
             <div class="panel-heading col-md-12">
                 <h3 class="headding-sub-text col-md-9">Saved Payment Accounts</h3>
                 <div class="col-sm-3 pull-right">
@@ -884,21 +887,26 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-12 clear">
-                <table id="tblPaymentAccountsCreditCard" class="borderlessTable tbale-box" width="100%">
-                    <thead>
-                        <tr>
-                            <th scope="row" class="border-box border-box2 text-payment tabletr">Bank Name</th>
-                            <th scope="row" class="border-box border-box2 text-payment tabletr">Card Name</th>
-                            <th scope="row" class="border-box border-box2 text-payment tabletr">Card Number</th>
-                            <th scope="row" class="border-box border-box2 text-payment tabletr">Action</th>
-                            <th scope="row" class="border-box border-box2 text-payment tabletr">Default Pay</th>
+            <div class="col-md-12">
+                <div class="panel-body search-widget">
+                    <div class="col-md-12 clear">
+                        <table id="tblPaymentAccountsCreditCard" class="borderlessTable tbale-box" width="100%">
+                            <thead>
+                                <tr>
+                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Bank Name</th>
+                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Card Name</th>
+                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Card Number</th>
+                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Action</th>
+                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Default Pay</th>
 
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
+           
             <div class="col-md-12 clear">
                 <table id="tblPaymentAccountsBankAccount" class="borderlessTable tbale-box" width="100%">
                     <thead>
@@ -916,10 +924,10 @@
                 </table>
             </div>
             @*<div class="col-sm-3">
-                    <div class="form-group">
-                        <button id="btnAddNewPaymentAccount" type="button" class="btn btn-primary" data-toggle="modal" data-target="#popAddNewAccount" onclick="clearSavePaymentAccounts();" style="font-size: 11pt;">Add New Payment Accounts</button>
-                    </div>
-                </div>*@
+            <div class="form-group">
+                <button id="btnAddNewPaymentAccount" type="button" class="btn btn-primary" data-toggle="modal" data-target="#popAddNewAccount" onclick="clearSavePaymentAccounts();" style="font-size: 11pt;">Add New Payment Accounts</button>
+            </div>
+        </div>*@
             <div class="condition-wrapper ">
                 <button id="btnAddNewPaymentAccount" class="paynow m-t20" data-toggle="modal" data-target="#popAddNewAccount" onclick="clearSavePaymentAccounts();">Add a New Payment Account</button>
             </div>
@@ -974,7 +982,7 @@
 
 
         </div>
-        <div class="col-lg-12 hidden payment-box" id="serviceStep2">
+        <div id="serviceStep2" class="col-lg-12  payment-box hidden" >
             <input id="hdnServiceRequest" type="hidden" value="0" />
             <h3 class="headding-sub-text margin1  col-lg-12">Submit Service Request</h3>
 
@@ -1925,7 +1933,7 @@
 
                     <div class="col-lg-5">
                         <div class="row">
-                            <input id="txtGuestVehicleModel" type="text" class="form-control" value="" >
+                            <input id="txtGuestVehicleModel" type="text" class="form-control" value="">
                         </div>
 
                     </div>
@@ -1942,43 +1950,43 @@
 
                     </div>
                 </div>
-                
-                        <div class="row margin margin-box">
-                            <div class="Club-text1 col-lg-3">
-                                <div class="col-lg-12 mobile-margin text-payment">
-                                    Upload Registration:
-                                    </div>
-                                </div>
-                            <div class="col-sm-5">
-                                <input type="file" name="fileUploadGuestRegistration" id="fileUploadGuestRegistration" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                <label for="fileUploadGuestRegistration">
-                                    <i class="fa fa-upload fa-2x"></i>
-                                    <span id="fileSpanShowGuestRegistration">Choose a file&hellip;</span>
-                                </label>
-                                <input type="hidden" id="hndUploadGuestRegistration" value="0" />
-                                <input type="hidden" id="hndOriginalUploadGuestRegistration" value="0" />
-                            </div>
-                        </div>
 
-                        <div class="row margin margin-box">
-                            <div class=" Club-text1 col-lg-3">
-                                <div class="col-lg-12 mobile-margin text-payment">
-                                    Upload Driver Licence or Picture Id:
-                                    </div>
-                                </div>
-                            <div class="col-sm-5">
-                                <input type="file" name="fileUploadGuestDriverLicence" id="fileUploadGuestDriverLicence" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                <label for="fileUploadGuestDriverLicence">
-                                    <i class="fa fa-upload fa-2x"></i>
-                                    <span id="fileSpanShowGuestDriverLicence">Choose a file&hellip;</span>
-                                </label>
-                                <input type="hidden" id="hndUploadGuestDriverLicence" value="0" />
-                                <input type="hidden" id="hndOriginalUploadGuestDriverLicence" value="0" />
-                            </div>
+                <div class="row margin margin-box">
+                    <div class="Club-text1 col-lg-3">
+                        <div class="col-lg-12 mobile-margin text-payment">
+                            Upload Registration:
                         </div>
-                   
-            
-            
+                    </div>
+                    <div class="col-sm-5">
+                        <input type="file" name="fileUploadGuestRegistration" id="fileUploadGuestRegistration" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                        <label for="fileUploadGuestRegistration">
+                            <i class="fa fa-upload fa-2x"></i>
+                            <span id="fileSpanShowGuestRegistration">Choose a file&hellip;</span>
+                        </label>
+                        <input type="hidden" id="hndUploadGuestRegistration" value="0" />
+                        <input type="hidden" id="hndOriginalUploadGuestRegistration" value="0" />
+                    </div>
+                </div>
+
+                <div class="row margin margin-box">
+                    <div class=" Club-text1 col-lg-3">
+                        <div class="col-lg-12 mobile-margin text-payment">
+                            Upload Driver Licence or Picture Id:
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <input type="file" name="fileUploadGuestDriverLicence" id="fileUploadGuestDriverLicence" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                        <label for="fileUploadGuestDriverLicence">
+                            <i class="fa fa-upload fa-2x"></i>
+                            <span id="fileSpanShowGuestDriverLicence">Choose a file&hellip;</span>
+                        </label>
+                        <input type="hidden" id="hndUploadGuestDriverLicence" value="0" />
+                        <input type="hidden" id="hndOriginalUploadGuestDriverLicence" value="0" />
+                    </div>
+                </div>
+
+
+
             </div>
         </div>
 
@@ -1989,7 +1997,7 @@
             </div>
         </div>*@
 
-        
+
 
         <div class="col-lg-12">
             <div class="condition-wrapper border-bottom1"><h4 class="m-b0">Guest’s Certification</h4></div>
@@ -2016,20 +2024,26 @@
             <label>Tenant</label>
         </div>
         <div class="col-lg-12 client-name1 m-t20 m-l30">
-            <span id="spanGuestSignName" style="text-decoration:underline"></span><br />
+            <span id="spanGuestSignName" style="text-decoration:underline"></span><br/>
             <label>Guest</label>
         </div>
         <div class="condition-wrapper mrgin-box01">
             <div class="row">
-                <div class="col-sm-6 ">                   
-                        <button id="btnGuestRegSave" type="button" class="paynow m-t30 m-l10" onclick="saveUpdateGuestRegistration();">Save</button>                    
-                </div>
-                <div class="col-sm-6 hidden" id="printForm">                   
-                        <button id="btnPrintForm" type="button" onclick="openForm();" class="paynow m-t30 m-r15">Print Form</button>                   
-                </div>
-               
+                <div><button id="btnGuestRegSave" type="button" class="paynow m-t30 m-r15" onclick="saveUpdateGuestRegistration();">Save</button></div>
+                <div class="hidden" id="printForm"><button id="btnPrintForm" type="button" onclick="openForm();" class="paynow m-t30 m-l10">Print Form</button></div>
             </div>
         </div>
+        @*<div class="condition-wrapper mrgin-box01">
+            <div class="row">
+                <div class="col-sm-6 ">
+                    <button id="btnGuestRegSave" type="button" class="paynow m-t30 m-l10" onclick="saveUpdateGuestRegistration();">Save</button>
+                </div>
+                <div class="col-sm-6 hidden" id="printForm">
+                    <button id="btnPrintForm" type="button" onclick="openForm();" class="paynow m-t30 m-r15">Print Form</button>
+                </div>
+
+            </div>
+        </div>*@
 
     </div>
 
