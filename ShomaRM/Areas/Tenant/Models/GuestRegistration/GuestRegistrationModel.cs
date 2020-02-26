@@ -1,5 +1,6 @@
 ﻿using ShomaRM.Areas.Admin.Models;
 using ShomaRM.Data;
+using ShomaRM.Models.TwilioApi;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 
 namespace ShomaRM.Areas.Tenant.Models
 {
@@ -40,7 +42,8 @@ namespace ShomaRM.Areas.Tenant.Models
         public Nullable<int> Status { get; set; }
         public Nullable<int> ApprovedBy { get; set; }
         public string StatusString { get; set; }
-       
+        string message = "";
+        string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
 
         public GuestRegistrationModel UploadGuestDriverLicence(HttpPostedFileBase fileBaseGuestDriverLicence, GuestRegistrationModel model)
         {
@@ -221,11 +224,13 @@ namespace ShomaRM.Areas.Tenant.Models
             {
                 UpdateStatus.Status = model.Status;
                 UpdateStatus.ApprovedBy = Convert.ToInt32(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID);
-              
+
                 db.SaveChanges();
                 msg = "Guest Status Update Successfully";
-               
+
                 var tenantInfo = db.tbl_TenantInfo.Where(co => co.TenantID == UpdateStatus.TenantID).FirstOrDefault();
+                string message = "";
+                string phonenumber = tenantInfo.Mobile;
                 if (model.Status != 2)
                 {
                     if (model.HaveVehicleString == "Yes")
@@ -241,6 +246,11 @@ namespace ShomaRM.Areas.Tenant.Models
 
                         string body = reportHTML;
                         new EmailSendModel().SendEmail(tenantInfo.Email, "Your Reuest for Guest Registration  is Confirmed ", body);
+                        message = "Thank you for your guest reservation request. We will inform you on email. Please check the email for detail.";
+                        if (SendMessage == "yes")
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
                     else
                     {
@@ -255,6 +265,11 @@ namespace ShomaRM.Areas.Tenant.Models
 
                         string bodyTAg = reportHTMLTag;
                         new EmailSendModel().SendEmail(tenantInfo.Email, "Your Reuest for Guest Registration  is Confirmed. ", bodyTAg);
+                        message = "Thank you for your guest reservation request. We will inform you on email. Please check the email for detail.";
+                        if (SendMessage == "yes")
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
 
                     }
                 }
@@ -267,19 +282,25 @@ namespace ShomaRM.Areas.Tenant.Models
 
                     //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
                     reportHTMLTag = reportHTMLTag.Replace("[%TenantName%]", model.TenantName);
-                    reportHTMLTag = reportHTMLTag.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; I would like to inform you that Your Request is Decline For Guest " +model.GuestName+ " due to some reason please contact the Administrator. </p>");
+                    reportHTMLTag = reportHTMLTag.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; I would like to inform you that Your Request is Decline For Guest " + model.GuestName + " due to some reason please contact the Administrator. </p>");
                     reportHTMLTag = reportHTMLTag.Replace("[%LeaseNowButton%]", "");
 
                     string bodyTAg = reportHTMLTag;
                     new EmailSendModel().SendEmail(tenantInfo.Email, "Your Reuest for Guest Registration  is Decline. ", bodyTAg);
+                    message = "Your status regarding guest reservation is sent on email. Please check the email for detail.";
+                    if (SendMessage == "yes")
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                 }
-               
+
 
             }
 
             db.Dispose();
             return msg;
         }
+
 
         public GuestRegistrationModel gotiGuestList(long TagId)
         {

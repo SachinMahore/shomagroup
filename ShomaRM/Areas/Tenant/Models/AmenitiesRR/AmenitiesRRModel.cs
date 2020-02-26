@@ -7,6 +7,8 @@ using ShomaRM.Data;
 using System.Data.Common;
 using System.IO;
 using ShomaRM.Areas.Admin.Models;
+using System.Web.Configuration;
+using ShomaRM.Models.TwilioApi;
 
 namespace ShomaRM.Areas.Tenant.Models
 {
@@ -33,6 +35,8 @@ namespace ShomaRM.Areas.Tenant.Models
         public string TenantName { get; set; }
         public long? UnitId { get; set; }
         public string UnitName { get; set; }
+        string message = "";
+        string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
 
         public string SaveUpdateReservationRequest(AmenitiesReservationModel model)
         {
@@ -459,7 +463,6 @@ namespace ShomaRM.Areas.Tenant.Models
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
             if (ARID != 0)
-          
             {
                 var GetARRData = db.tbl_AmenityReservation.Where(p => p.ARID == ARID).FirstOrDefault();
                 if (GetARRData != null)
@@ -477,9 +480,11 @@ namespace ShomaRM.Areas.Tenant.Models
                     string reportHTML = "";
                     string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+                    string message = "";
+                    string phonenumber = "";
                     if (GetTenantData != null)
                     {
-                        
+                        phonenumber = GetTenantData.Mobile;
                         DateTime? arDate = null;
                         try
                         {
@@ -493,24 +498,27 @@ namespace ShomaRM.Areas.Tenant.Models
                         var tm = new MyTransactionModel();
                         reportHTML = reportHTML.Replace("[%EmailHeader%]", "Amenity Reservation Request Status");
                         reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
-                        if(Status==1)
-                        {
-                            reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We hereby approve your reservation of the " + AmenityName + " (facility) on " + arDate.Value.ToString("MM/dd/yyyy") + " (date) at " + GetARRData.DesiredTimeFrom + "to " + GetARRData.DesiredTimeTo + " (time) for a total of " + GetARRData.Duration + " (hours).  For your reservation to be confirmed, the security deposit and reservation 	fee must be paid.  If you desire to make your payment now, kindly follow this link.  Please note 	that the date will not be reserved in the system until payment is received. </p>");
-                            reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"http://52.4.251.162:8086/PayLink/PayAmenityCharges/?ARID=" + ARID+ "&FromAcc=0\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"http://52.4.251.162:8086/PayLink/PayAmenityCharges/?ARID=" + ARID + "&FromAcc=0\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
 
-                           
+                        if (Status == 1)
+                        {
+                            //payment
+                            reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We hereby approve your reservation of the " + AmenityName + " (facility) on " + arDate.Value.ToString("MM/dd/yyyy") + " (date) at " + GetARRData.DesiredTimeFrom + "to " + GetARRData.DesiredTimeTo + " (time) for a total of " + GetARRData.Duration + " (hours).  For your reservation to be confirmed, the security deposit and reservation 	fee must be paid.  If you desire to make your payment now, kindly follow this link.  Please note 	that the date will not be reserved in the system until payment is received. </p>");
+                            reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"http://52.4.251.162:8086/PayLink/PayAmenityCharges/?ARID=" + ARID + "&FromAcc=0\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"http://52.4.251.162:8086/PayLink/PayAmenityCharges/?ARID=" + ARID + "&FromAcc=0\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                            message = "Your reservation to be confirmed, the security deposit and reservation fees must be paid. Please check the email for detail.";
                         }
                         else if (Status == 2)
                         {
-                            reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We hereby approve your reservation of the " + AmenityName + " (facility) on " + GetARRData.DesiredDate + " (date) at " + GetARRData.DesiredTimeFrom + "to " + GetARRData.DesiredTimeTo + " (time) for a total of " + GetARRData.Duration + " (hours).  For your reservation to be Completed. Please pay your deposit. If you desire to make your payment now, kindly follow this link.  Please note 	that the date will not be reserved in the system until payment is received. </p>");
+                            //Desposte
+                            reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We hereby approve your reservation of the " + AmenityName + " (facility) on " + arDate.Value.ToString("MM/dd/yyyy") + " (date) at " + GetARRData.DesiredTimeFrom + "to " + GetARRData.DesiredTimeTo + " (time) for a total of " + GetARRData.Duration + " (hours).  For your reservation to be Completed. Please pay your deposit. If you desire to make your payment now, kindly follow this link.  Please note 	that the date will not be reserved in the system until payment is received. </p>");
                             reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"http://52.4.251.162:8086/PayLink/PayAmenityCharges/?ARID=" + ARID + "&FromAcc=0\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"http://52.4.251.162:8086/PayLink/PayAmenityCharges/?ARID=" + ARID + "&FromAcc=0\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
-
-
+                            message = "Your reservation to be Completed. Please pay your deposit. Please check the email for detail.";
                         }
                         else
                         {
-                            reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We are sorry for your reservation of the " + AmenityName + " (facility) on " + GetARRData.DesiredDate + " (date) at " + GetARRData.DesiredTimeFrom + "to " + GetARRData.DesiredTimeTo + " (time) for a total of " + GetARRData.Duration + " (hours). Your reservation date is not be available. </p>");
+                            // Cancel 
+                            reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We are sorry for your reservation of the " + AmenityName + " (facility) on " + arDate.Value.ToString("MM/dd/yyyy") + " (date) at " + GetARRData.DesiredTimeFrom + "to " + GetARRData.DesiredTimeTo + " (time) for a total of " + GetARRData.Duration + " (hours). Your reservation date is not be available. </p>");
                             reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+                            message = "Your reservation is cancelled due to date is not be available. Please check the email for detail.";
                         }
 
                         reportHTML = reportHTML.Replace("[%TenantEmail%]", GetTenantData.Email);
@@ -518,7 +526,10 @@ namespace ShomaRM.Areas.Tenant.Models
                     }
                     string body = reportHTML;
                     new EmailSendModel().SendEmail(GetTenantData.Email, "Amenity Reservation Request Status", body);
-
+                    if (SendMessage == "yes")
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                 }
             }
             db.Dispose();

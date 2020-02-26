@@ -9,6 +9,8 @@ using ShomaRM.Data;
 using ShomaRM.Areas.Tenant.Models;
 using ShomaRM.Models;
 using System.Xml.Serialization;
+using System.Web.Configuration;
+using ShomaRM.Models.TwilioApi;
 
 namespace ShomaRM.Areas.Admin.Models
 {
@@ -96,6 +98,8 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<int> IsCheckPO { get; set; }
         public Nullable<int> IsCheckATT { get; set; }
         public Nullable<int> IsCheckWater { get; set; }
+        string message = "";
+        string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
 
         public List<ProspectVerificationModel> GetProspectVerificationList(DateTime FromDate, DateTime ToDate)
         {
@@ -284,11 +288,11 @@ namespace ShomaRM.Areas.Admin.Models
                 throw ex;
             }
         }
-        public string SaveScreeningStatus(string Email, long ProspectId,string Status)
+        public string SaveScreeningStatus(string Email, long ProspectId, string Status)
         {
             ShomaRMEntities db = new ShomaRMEntities();
-           // var tenantData = db.tbl_TenantOnline.Where(p => p.ProspectID == ProspectId).FirstOrDefault();
-           ShomaRM.Models.TenantOnlineModel model = new ShomaRM.Models.TenantOnlineModel();
+            // var tenantData = db.tbl_TenantOnline.Where(p => p.ProspectID == ProspectId).FirstOrDefault();
+            ShomaRM.Models.TenantOnlineModel model = new ShomaRM.Models.TenantOnlineModel();
 
             var tenantData = model.GetTenantOnlineList(Convert.ToInt32(ProspectId));
             model.FirstName = tenantData.FirstName;
@@ -301,7 +305,7 @@ namespace ShomaRM.Areas.Admin.Models
             model.JobTitle = tenantData.JobTitle;
             model.HomeAddress1 = tenantData.HomeAddress1;
             model.CityHome = tenantData.CityHome;
-            model.StateHomeString= tenantData.StateHomeString;
+            model.StateHomeString = tenantData.StateHomeString;
             model.ZipHome = tenantData.ZipHome;
             model.Country = tenantData.Country;
             model.EmployerName = tenantData.EmployerName;
@@ -316,45 +320,57 @@ namespace ShomaRM.Areas.Admin.Models
 
             var test = new AcutraqRequest();
             var acuResult = test.PostAqutraqRequest(model);
-           
+
 
             string msg = "";
             string reportHTML = "";
             string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
             reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect3.html");
-            
+            string message = "";
+
+
             if (Email != null)
             {
                 var GetTenantDet = db.tbl_ApplyNow.Where(p => p.ID == ProspectId).FirstOrDefault();
                 if (GetTenantDet != null)
                 {
-                    GetTenantDet.IsApplyNow =5;
+                    GetTenantDet.IsApplyNow = 5;
                     db.SaveChanges();
                 }
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == GetTenantDet.PropertyId).FirstOrDefault();
-              
+
                 var GetCoappDet = db.tbl_Applicant.Where(c => c.Email == Email).FirstOrDefault();
+                string phonenumber = GetTenantDet.Phone;
+
                 reportHTML = reportHTML.Replace("[%EmailHeader%]", "Online Application Status");
                 reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + GetTenantDet.FirstName + " " + GetTenantDet.LastName + "</b>,<br/>Your Online application submitted successfully. Please click below to Pay Application fees. <br/><br/><u><b>Payment Link :<a href=''></a> </br></b></u>  </br>");
                 reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantDet.FirstName + " " + GetTenantDet.LastName);
+
+
                 if (Status == "Approved")
                 {
                     reportHTML = reportHTML.Replace("[%Status%]", "Congratulations ! Your Application is Approved");
                     reportHTML = reportHTML.Replace("[%StatusDet%]", "Good news! We are pleased to notify you that your document is ready and available to sign. For your convenience, this document is being delivered in format that allow for you ro review and sign the document electronically. If you have any question about your document please contact: ");
-                    reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"http://52.4.251.162:8086/Checklist\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"http://52.4.251.162:8086/Checklist\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Review & Sign Document</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");         
-                   
+                    reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"http://52.4.251.162:8086/Checklist\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"http://52.4.251.162:8086/Checklist\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Review & Sign Document</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+
+                    message = "Notification: Your document is ready and available to sign. Please check the email for detail.";
+
                 }
                 else if (Status == "Denied")
                 {
                     reportHTML = reportHTML.Replace("[%Status%]", "Sorry ! Your Application is Denied");
                     reportHTML = reportHTML.Replace("[%StatusDet%]", "We are sorry that your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community.");
                     reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+
+                    message = "Sorry ! Your Application is Denied. Please check the email for detail.";
                 }
                 else
                 {
                     reportHTML = reportHTML.Replace("[%Status%]", "Congratulations ! Your Application is Approved with Condition");
                     reportHTML = reportHTML.Replace("[%StatusDet%]", "Your application has been approved with conditions.  Kindly click here to call our office or schedule an appointment to discuss your options.  We look forward to assisting you in becoming a member of our community.");
                     reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+
+                    message = "Congratulations ! Your Application is Approved with Condition. Please check the email for detail.";
                 }
 
                 reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
@@ -367,6 +383,10 @@ namespace ShomaRM.Areas.Admin.Models
                 reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
                 string body = reportHTML;
                 new EmailSendModel().SendEmail(Email, "Online Application Status", body);
+                if (SendMessage == "yes")
+                {
+                    new TwilioService().SMS(phonenumber, message);
+                }
 
             }
 
@@ -374,6 +394,9 @@ namespace ShomaRM.Areas.Admin.Models
             return msg;
 
         }
+
+
+       
 
         public class ProspectVerifySearchModel
         {
@@ -420,7 +443,6 @@ namespace ShomaRM.Areas.Admin.Models
             }
             return docType;
         }
-
 
         public ProspectVerificationModel GetProspectData(long Id)
         {
@@ -637,11 +659,11 @@ namespace ShomaRM.Areas.Admin.Models
             return model;
         }
 
-        public void SaveProspectVerification(long DocId, int VerificationStatus,long PID)
+      public void SaveProspectVerification(long DocId, int VerificationStatus, long PID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             var docInfo = db.tbl_DocumentVerification.Where(p => p.DocID == DocId).FirstOrDefault();
-            if(docInfo != null)
+            if (docInfo != null)
             {
                 docInfo.VerificationStatus = VerificationStatus;
                 db.SaveChanges();
@@ -660,11 +682,14 @@ namespace ShomaRM.Areas.Admin.Models
                     db.SaveChanges();
                 }
 
-               
+
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == prosInfo.PropertyId).FirstOrDefault();
                 string reportHTML = "";
                 string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplate.html");
+                string message = "";
+                string phonenumber = prosInfo.Phone;
+
                 if (prosInfo != null)
                 {
                     reportHTML = reportHTML.Replace("[%EmailHeader%]", "Background Verification");
@@ -677,9 +702,16 @@ namespace ShomaRM.Areas.Admin.Models
                     reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString());
                     reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString());
                     reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Shoma RM");
+
+                    message = "Prospect Background Verification is done. Please check the email for detail.";
                 }
-                string body =reportHTML;
+                string body = reportHTML;
                 new EmailSendModel().SendEmail(prosInfo.Email, "Background verification status", body);
+
+                if (SendMessage == "yes")
+                {
+                    new TwilioService().SMS(phonenumber, message);
+                }
             }
             db.Dispose();
         }

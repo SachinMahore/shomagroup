@@ -6,6 +6,8 @@ using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
+using ShomaRM.Models.TwilioApi;
 
 namespace ShomaRM.Areas.Admin.Models
 {
@@ -69,6 +71,9 @@ namespace ShomaRM.Areas.Admin.Models
         public string MStartDateString { get; set; }
         public string MLeaseEndDateString { get; set; }
         public Nullable<int> WarrantyStatus { get; set; }
+
+        string message = "";
+        string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
 
         public int BuildPaganationUserList(ServicesSearchModel model)
         {
@@ -326,23 +331,16 @@ namespace ShomaRM.Areas.Admin.Models
             ShomaRMEntities db = new ShomaRMEntities();
 
             var UpdateStatusService = db.tbl_ServiceRequest.Where(co => co.ServiceID == model.ServiceID).FirstOrDefault();
-
+            string message = "";
+            string phonenumber = "";
             if (UpdateStatusService != null)
             {
-               
+
                 UpdateStatusService.ServicePerson = model.ServicePerson;
                 UpdateStatusService.PermissionComeDate = model.PermissionComeDate;
                 UpdateStatusService.PermissionComeTime = model.PermissionComeTime;
                 UpdateStatusService.Status = model.Status;
                 UpdateStatusService.UrgentStatus = model.UrgentStatus;
-
-                UpdateStatusService.CompletedPicture = model.CompletedPicture;
-                UpdateStatusService.TempCompletedPicture = model.TempCompletedPicture;
-                UpdateStatusService.ClosingNotes = model.ClosingNotes;
-                UpdateStatusService.ClosingDate = model.ClosingDate;
-                UpdateStatusService.OwnerSignature = model.OwnerSignature;
-                UpdateStatusService.TempOwnerSignature = model.TempOwnerSignature;
-                UpdateStatusService.WarrantyStatus = model.WarrantyStatus;
                 UpdateStatusService.ApprovedBy = Convert.ToInt32(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID);
                 db.SaveChanges();
                 msg = "Service Request Assign Successfully";
@@ -356,18 +354,24 @@ namespace ShomaRM.Areas.Admin.Models
 
                 //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
                 reportHTML = reportHTML.Replace("[%TenantName%]", model.TenantName);
-                reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We hereby assign your service of " + model.ProblemCategorystring + " (facility) on " + model.PermissionComeDate.Value.ToString("MM/dd/yyyy") + " (date) at " + model.PermissionComeTime + " to "+userdetail.FirstName+" "+userdetail.LastName+"</p>");
+                reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We hereby assign your service of " + model.ProblemCategorystring + " (facility) on " + model.PermissionComeDate.Value.ToString("MM/dd/yyyy") + " (date) at " + model.PermissionComeTime + " to " + userdetail.FirstName + " " + userdetail.LastName + "</p>");
                 reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
 
-              string body = reportHTML;
+                string body = reportHTML;
                 new EmailSendModel().SendEmail(model.Email, "Service Request Assign Successfully ", body);
-                new EmailSendModel().SendEmail(userdetail.Email, "Service Request --("+ model.TenantName+") ", body);
+                new EmailSendModel().SendEmail(userdetail.Email, "Service Request --(" + model.TenantName + ") ", body);
+                phonenumber = model.Phone;
+                message = "Your service of " + model.ProblemCategorystring + " (facility) on " + model.PermissionComeDate.Value.ToString("MM/dd/yyyy") + " (date) at " + model.PermissionComeTime + " to " + userdetail.FirstName + " " + userdetail.LastName + ". Please check the email for detail.";
+                if (SendMessage == "yes")
+                {
+                    new TwilioService().SMS(phonenumber, message);
+                }
+
                 db.Dispose();
 
             }
             return msg;
         }
-
 
         public ServicesManagementModel UploadServiceFile(HttpPostedFileBase fileBaseUpload, ServicesManagementModel model)
         {

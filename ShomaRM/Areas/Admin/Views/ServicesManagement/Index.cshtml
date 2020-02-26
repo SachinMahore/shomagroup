@@ -3,8 +3,8 @@
     ViewBag.Title = "Service List";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     DateTime now = DateTime.Now;
-    ViewBag.StartDate = new DateTime(now.Year,now.Month, 1);
-    ViewBag.EndDate = ViewBag.StartDate.AddMonths(1).AddDays(-1);
+    var startDate = new DateTime(now.Year, now.Month, 1);
+    var endDate = startDate.AddMonths(1).AddDays(-1);
 }
 <script src="@Url.Content("~/Areas/Admin/Content/Pages/ServiceManagement/ServiceRequestList.js")"></script>
 <input type="hidden" id="hdnCurrentPage_PVL" value="1" />
@@ -22,7 +22,7 @@
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <h3 class="panel-title">From Date</h3>
-                                <input id="txtFromDate" type="text" class="form-control" value="@ViewBag.StartDate.ToString("MM/dd/yyyy")">
+                                <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
                                 <span class="input-group-btn" style="width:0% !important">
                                     <button class="btn btn-primary search" type="button" id="iconFromDate" style="margin-top: -60px;margin-left: 164px;"><i class="fa-calendar fa"></i></button>
                                 </span>
@@ -31,7 +31,7 @@
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <h3 class="panel-title">To Date</h3>
-                                <input id="txtToDate" type="text" class="form-control" value="@ViewBag.EndDate.ToString("MM/dd/yyyy")">
+                                <input id="txtToDate" type="text" class="form-control"  value="@endDate.ToString("MM/dd/yyyy")">
                                 <span class="input-group-btn" style="width:0% !important">
                                     <button class="btn btn-primary search" type="button" id="iconToDate" style="margin-top: -60px;margin-left: 164px;"><i class="fa-calendar fa"></i></button>
                                 </span>

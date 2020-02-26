@@ -7,6 +7,8 @@ using ShomaRM.Areas.Tenant.Models;
 using System.Data;
 using System.Data.Common;
 using ShomaRM.Models;
+using System.Web.Configuration;
+using ShomaRM.Models.TwilioApi;
 
 namespace ShomaRM.Areas.Tenant.Models
 {
@@ -82,6 +84,8 @@ namespace ShomaRM.Areas.Tenant.Models
         public int IsAllUpdate { get; set; }
         public int IsAmeDepoPay { get; set; }
         public long ARID { get; set; }
+        string message = "";
+        string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
 
         public List<MyTransactionModel> GetTenantTransactionList(long TenantID, int AccountHistoryDDL)
         {
@@ -1031,7 +1035,7 @@ namespace ShomaRM.Areas.Tenant.Models
             string transStatus = "";
             if (editPaymentAccounts != null)
             {
-               
+
                 mm.CardNumber = editPaymentAccounts.CardNumber;
                 mm.CardMonth = Convert.ToInt32(editPaymentAccounts.Month);
                 mm.CardYear = Convert.ToInt32(editPaymentAccounts.Year);
@@ -1055,70 +1059,80 @@ namespace ShomaRM.Areas.Tenant.Models
                     transStatus = new UsaePayModel().ChargeACH(mm);
                 }
             }
-            
-                        
-                String[] spearator = { "|" };
-                String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
-                if (strlist[1] != "000000")
+
+
+            String[] spearator = { "|" };
+            String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
+            if (strlist[1] != "000000")
+            {
+                var saveTransaction = new tbl_Transaction()
                 {
-                    var saveTransaction = new tbl_Transaction()
-                    {
 
-                        TenantID = model.TenantID,
-                        Revision_Num =1,
-                        Transaction_Type = model.Transaction_Type,
-                        Transaction_Date = DateTime.Now,
-                        Run = 1,
-                        LeaseID = model.LeaseID,
-                        Reference = "AR"+ model.Batch,
-                        CreatedDate = DateTime.Now,
-                        Credit_Amount = model.Charge_Amount,
-                        Description = model.Description + " | TransID: " + strlist[1],
-                        Charge_Date = DateTime.Now,
-                        Charge_Type = 4,
-                        Authcode =strlist[1],
-                        Charge_Amount = model.Charge_Amount,
+                    TenantID = model.TenantID,
+                    Revision_Num = 1,
+                    Transaction_Type = model.Transaction_Type,
+                    Transaction_Date = DateTime.Now,
+                    Run = 1,
+                    LeaseID = model.LeaseID,
+                    Reference = "AR" + model.Batch,
+                    CreatedDate = DateTime.Now,
+                    Credit_Amount = model.Charge_Amount,
+                    Description = model.Description + " | TransID: " + strlist[1],
+                    Charge_Date = DateTime.Now,
+                    Charge_Type = 4,
+                    Authcode = strlist[1],
+                    Charge_Amount = model.Charge_Amount,
 
-                        Accounting_Date = DateTime.Now,
+                    Accounting_Date = DateTime.Now,
 
-                        Batch = model.Batch,
-                        Batch_Source = "",
-                        CreatedBy =Convert.ToInt32(model.UserId),
+                    Batch = model.Batch,
+                    Batch_Source = "",
+                    CreatedBy = Convert.ToInt32(model.UserId),
 
-                        GL_Trans_Description = transStatus.ToString(),
-                       
-                    };
-                    db.tbl_Transaction.Add(saveTransaction);
-                    db.SaveChanges();
-                    var TransId = saveTransaction.TransID;
+                    GL_Trans_Description = transStatus.ToString(),
+
+                };
+                db.tbl_Transaction.Add(saveTransaction);
+                db.SaveChanges();
+                var TransId = saveTransaction.TransID;
 
                 var ameDet = db.tbl_AmenityReservation.Where(p => p.ARID == model.ARID).FirstOrDefault();
                 var GetTenantData = db.tbl_TenantInfo.Where(p => p.TenantID == ameDet.TenantID).FirstOrDefault();
-               
+
                 string reportHTML = "";
                 string body = "";
 
                 string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
 
-                if (model.IsAmeDepoPay==1)
-                {
-                    CreateTransBill(TransId, Convert.ToDecimal(ameDet.DepositFee), model.Description+" Deposit");
-                    ameDet.Status = 3;
-                    db.SaveChanges();
-                   
-                    reportHTML = reportHTML.Replace("[%EmailHeader%]", "Amenity Reservation Fees & Deposit Paid");
-                    reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
-                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Fee payment in the Amount of $" + ameDet.ReservationFee + "and your Deposit Fee in the Amount of $"+ameDet.DepositFee+" for your reservation of the " + model.Description + " on " + ameDet.DesiredDate.Value.ToString("MM/dd/yyyy") + " at " + ameDet.DesiredTimeFrom + " to " + ameDet.DesiredTimeTo + " has been received. Your Reservation is now confirmed. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
-                    reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
-                    body = reportHTML;
-                 
-                    new EmailSendModel().SendEmail(GetTenantData.Email, "Amenity Reservation Fees & Deposit Paid", body);
-                }
-                else if(model.IsAmeDepoPay == 0)
+                string message = "";
+                string phonenumber = GetTenantData.Mobile;
+
+                if (model.IsAmeDepoPay == 1)
                 {
                     CreateTransBill(TransId, Convert.ToDecimal(ameDet.ReservationFee), model.Description + " Fees");
-                    if(Convert.ToDecimal(ameDet.DepositFee)==0)
+                    CreateTransBill(TransId, Convert.ToDecimal(ameDet.DepositFee), model.Description + " Deposit");
+                    ameDet.Status = 4;
+                    db.SaveChanges();
+
+                    reportHTML = reportHTML.Replace("[%EmailHeader%]", "Amenity Reservation Fees & Deposit Paid");
+                    reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Fee payment in the Amount of $" + ameDet.ReservationFee + "and your Deposit Fee in the Amount of $" + ameDet.DepositFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate + " at " + ameDet.DesiredTime + " has been received. Your Reservation is now confirmed. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
+                    reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+                    body = reportHTML;
+
+                    new EmailSendModel().SendEmail(GetTenantData.Email, "Amenity Reservation Fees & Deposit Paid", body);
+
+                    message = "Your Reservation Fee payment has been received. Please check the email for detail.";
+                    if (SendMessage == "yes")
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
+                }
+                else if (model.IsAmeDepoPay == 0)
+                {
+                    CreateTransBill(TransId, Convert.ToDecimal(ameDet.ReservationFee), model.Description + " Fees");
+                    if (Convert.ToDecimal(ameDet.DepositFee) == 0)
                     {
                         ameDet.Status = 4;
                     }
@@ -1126,15 +1140,20 @@ namespace ShomaRM.Areas.Tenant.Models
                     {
                         ameDet.Status = 2;
                     }
-                   
+
                     db.SaveChanges();
                     reportHTML = reportHTML.Replace("[%EmailHeader%]", "Amenity Reservation Fees Paid");
                     reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
-                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Fee payment in the Amount of $" + ameDet.ReservationFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate.Value.ToString("MM/dd/yyyy") + " at " + ameDet.DesiredTimeFrom + " to " + ameDet.DesiredTimeTo + " has been received. Your Reservation is now confirmed subject to the payment of the Security Deposit at least 3 business days prior to the scheduled event. If we do 	not receive the Security Deposit fee prior to the deadline, management reserves the right to cancel the event and the Reservation fee will not be refunded. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Fee payment in the Amount of $" + ameDet.ReservationFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate + " at " + ameDet.DesiredTime + " has been received. Your Reservation is now confirmed subject to the payment of the Security Deposit at least 3 business days prior to the scheduled event. If we do 	not receive the Security Deposit fee prior to the deadline, management reserves the right to cancel the event and the Reservation fee will not be refunded. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
                     reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
                     body = reportHTML;
-                  
+
                     new EmailSendModel().SendEmail(GetTenantData.Email, "Amenity Reservation Fees Paid", body);
+                    message = "Your Reservation Fee payment has been received. Please check the email for detail.";
+                    if (SendMessage == "yes")
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                 }
                 else if (model.IsAmeDepoPay == 3)
                 {
@@ -1143,11 +1162,16 @@ namespace ShomaRM.Areas.Tenant.Models
                     db.SaveChanges();
                     reportHTML = reportHTML.Replace("[%EmailHeader%]", "Amenity Reservation Deposit Paid");
                     reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
-                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Deposit payment in the Amount of $" + ameDet.DepositFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate.Value.ToString("MM/dd/yyyy") + " at " + ameDet.DesiredTimeFrom + " to " + ameDet.DesiredTimeTo + " has been received. Your Reservation is now completed. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Deposit payment in the Amount of $" + ameDet.DepositFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate + " at " + ameDet.DesiredTime + " has been received. Your Reservation is now completed. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
                     reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
                     body = reportHTML;
-                    
+
                     new EmailSendModel().SendEmail(GetTenantData.Email, "Amenity Reservation Deposit Paid", body);
+                    message = "Your Reservation Deposit payment has been received. Please check the email for detail.";
+                    if (SendMessage == "yes")
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                 }
 
                 msg = "1";
@@ -1157,7 +1181,7 @@ namespace ShomaRM.Areas.Tenant.Models
             {
                 msg = "0";
             }
-       
+
             db.Dispose();
             return msg;
         }
