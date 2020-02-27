@@ -233,11 +233,11 @@ var GetTenantDetails = function (TenantID) {
                         $('#imgTenantProfilePicture').attr('src', '/Content/assets/img/tenantProfile/' + response.TempProfilePic);
                     }
                     else {
-                        $('#imgTenantProfilePicture').attr('src', '/Content/assets/img/myprofile.png');
+                        $('#imgTenantProfilePicture').attr('src', '/Content/assets/img/circle.png');
                     }
                 }
                 else {
-                    $('#imgTenantProfilePicture').attr('src', '/Content/assets/img/myprofile.png');
+                    $('#imgTenantProfilePicture').attr('src', '/Content/assets/img/circle.png');
                 }
                 setTimeout(function () {
                     $("#ddlJobType").find("option[value='" + response.JobType+ "']").attr('selected', 'selected');

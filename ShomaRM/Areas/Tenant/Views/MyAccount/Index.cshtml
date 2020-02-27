@@ -63,163 +63,165 @@
                 <div class="col-sm-3">
                 </div>
                 <i class="fa fa-file-txt-o"></i>*@
-        <div id="payStep1" class="col-lg-12 payment-box">
-            <input id="hdnTablePaidId" type="hidden" value="" />
-            <h3 class="headding-sub-text margin1  col-lg-12">Make a One-Time Payment</h3>
-            <div class="payment-box">
-                <div class="col-lg-12 margin2">
-                    <div class="row margin margin-box">
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
-                            Payment type:
-                        </div>
-                        <div class="col-xl-5 col-lg-5 col-md-6 col-sm-6 col-xs-12">
-                            <div class="">
-                                <select id="ddlPaymentMethod" class="form-control"></select>
-                            </div>
+    <div id="payStep1" class="col-lg-12 payment-box">
+        <input id="hdnTablePaidId" type="hidden" value="" />
+        <h3 class="headding-sub-text margin3  col-lg-12">Make a One-Time Payment</h3>
+        <div class="payment-box">
+            <div class="col-lg-12 margin2">
+                <div class="row margin margin-box">
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                        Payment type:
+                    </div>
+                    <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="">
+                            <select id="ddlPaymentMethod" class="form-control"></select>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="payment-box">
-                <div class="col-lg-12">
-                    <div class="row margin margin-box">
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mobile-margin text-payment">Amount to Pay:</div>
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-4 col-xl-4 mobile-margin">
-                            <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
-                            <label>
-                                <input type="radio" id="rbtnAmountToPay1" name="AmountToPay" checked="checked">
-                                Current
-                            </label>
-
-                        </div>
-                        <label id="lblCurrentPrePayAmount" class="col-xs-12 col-sm-3 col-md-3 col-lg-2 mobile-margin text-right checbox">
-
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="payment-box">
-                <div class="col-lg-12 margin2">
-                    <div class="row margin margin-box">
-                        <div class="col-lg-3 col-md-2 col-sm-2 col-xl-3 box-none"></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3">
-                            <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
-                            <label>
-                                <input type="radio" id="rbtnAmountToPay2" name="AmountToPay">
-                                Other Amount
-
-                            </label>
-
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 hidden" id="divOtherAmount">
-                            <input id="txtOtherAmount" type="text" name="number" value="$0.00" class="text-right Wraper1" onkeypress="return isNumber(event);" value="0.00" onblur="if (this.value == '') { this.value = this.defaultValue };" onfocus="if (this.value == this.defaultValue) { this.value = '' };">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="payment-box" hidden>
-                <div class="col-lg-12 margin">
-                    <div class="row margin margin-box">
-                        <div class="col-lg-3 col-md-2 col-sm-2 col-xl-3 box-none"></div>
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-xl-3">
-                            @*<div class="form-group">
-                                <div class="col-sm-3">
-                                    <label></label><br />
-                                </div>
-                                <div class="col-sm-4">*@
-                            <label style="font-size:11pt;">Current Amount Due (Include Past Due)</label>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <label id="lblCurrentAmtDueMakePayment"></label>
-                        </div>
-                        @*</div>*@
-                    </div>
-                </div>
-            </div>
-
-            <div class="payment-box">
-                <div class="col-lg-12 margin">
-                    <div class="row margin margin-box">
-
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3">
-                            <div class="control-label  requiredField text-payment" for="date">
-                                Preferred Date:
-                            </div>
-                        </div>
-                        <div class='col-sm-6 col-md-6 col-lg-4 col-xl-3'>
-                            <div class="form-group">
-                                <div class='input-group date'>
-                                    <input id="txtPrefarredDate" type="text" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
-                                    <span class="input-group-addon">
-                                        @*<button class="btn btn-primary search" id="Date" type="button"><i class="fa-calendar fa"></i></button>*@
-                                        <a><span class="fa fa-calendar"></span></a>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="payment-box">
-                <div class="col-lg-12 margin">
-                    <div class="row margin margin-box">
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3">
-                            <div class="control-label  requiredField text-payment">
-                                Description:
-                            </div>
-                        </div>
-                        <div class='col-sm-6 col-md-6 col-lg-4 col-xl-3'>
-                            <textarea id="txtDescriptionText" type="text" class="form-control"></textarea>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="payment-box">
-                <div class="col-lg-12 margin">
-                    <div class="row margin margin-box">
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3">
-                            <div class="control-label  requiredField text-payment">
-                            </div>
-                        </div>
-                        <div class='col-sm-6 col-md-6 col-lg-4 col-xl-3'>
-                            <input type="checkbox" id="chkTermsAndCondition">
-                            <span class="chektext">I agree to the <span class="span1"><a id="ShowTermsAndCondition" href="javascript:void(0);">Terms &amp; Condition </a></span></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="payment-box" id="DivCVVNumberPayRentOnline">
-                <div class="col-lg-12 margin2">
-                    <div class="row margin margin-box">
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3 text-payment ">
-                            CVV Number:
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-xl-3">
-                            <input id="txtCVVNumberPayRentOnline" type="password" class="Wraper1 cvv-box" maxlength="3" value="" onkeypress="return isOnlyNumber(event);" />
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="condition-wrapper ">
-                <button id="btnSaveMakeOneTimePayment" type="button" class="paynow" onclick="makeOneTimePaymentSaveUpdate();">Pay Now</button>
-            </div>
-
         </div>
 
-        <div class="col-lg-12 hidden payment-box" id="payStep2">
-            @*<div class="panel-heading">
+        <div class="payment-box">
+            <div class="col-lg-12">
+                <div class="row margin margin-box">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mobile-margin text-payment">Amount to Pay:</div>
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-4 col-xl-4 mobile-margin">
+                        <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
+                        <label class="checbox">
+                            <input type="radio" id="rbtnAmountToPay1" name="AmountToPay" checked="checked">
+                            Current
+                        </label>
+
+                    </div>
+                    <label id="lblCurrentPrePayAmount" class="col-xs-12 col-sm-3 col-md-3 col-lg-2 mobile-margin text-right checbox">
+
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-box">
+            <div class="col-lg-12 margin2">
+                <div class="row margin margin-box">
+                    <div class="col-lg-3 col-md-2 col-sm-2 col-xl-3 box-none"></div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3">
+                        <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
+                        <label class="checbox">
+                            <input type="radio" id="rbtnAmountToPay2" name="AmountToPay">
+                            Other Amount
+
+                        </label>
+
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 hidden" id="divOtherAmount">
+                        <input id="txtOtherAmount" type="text" name="number" value="$0.00" class="text-right Wraper1" onkeypress="return isNumber(event);" value="0.00" onblur="if (this.value == '') { this.value = this.defaultValue };" onfocus="if (this.value == this.defaultValue) { this.value = '' };">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-box" hidden>
+            <div class="col-lg-12 margin">
+                <div class="row margin margin-box">
+                    <div class="col-lg-3 col-md-2 col-sm-2 col-xl-3 box-none"></div>
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-xl-3">
+                        @*<div class="form-group">
+                        <div class="col-sm-3">
+                            <label></label><br />
+                        </div>
+                        <div class="col-sm-4">*@
+                        <label style="font-size:11pt;">Current Amount Due (Include Past Due)</label>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 ">
+                        <label id="lblCurrentAmtDueMakePayment"></label>
+                    </div>
+                    @*</div>*@
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-box">
+            <div class="col-lg-12 margin">
+                <div class="row margin margin-box">
+
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3">
+                        <div class="control-label  requiredField text-payment" for="date">
+                            Preferred Date:
+                        </div>
+                    </div>
+                    <div class='col-sm-6 col-md-6 col-lg-4 col-xl-3'>
+                        <div class="form-group">
+                            <div class='input-group date'>
+                                <input id="txtPrefarredDate" type="text" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
+                                <span class="input-group-addon">
+                                    @*<button class="btn btn-primary search" id="Date" type="button"><i class="fa-calendar fa"></i></button>*@
+                                    <a><span class="fa fa-calendar"></span></a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-box">
+            <div class="col-lg-12 margin">
+                <div class="row margin margin-box">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3">
+                        <div class="control-label  requiredField text-payment">
+                            Description:
+                        </div>
+                    </div>
+                    <div class='col-sm-6 col-md-6 col-lg-4 col-xl-3'>
+                        <textarea id="txtDescriptionText" type="text" class="form-control"></textarea>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-box" id="DivCVVNumberPayRentOnline">
+            <div class="col-lg-12 margin2">
+                <div class="row margin margin-box">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3 text-payment ">
+                        CVV Number:
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-xl-3">
+                        <input id="txtCVVNumberPayRentOnline" type="password" class="Wraper1 cvv-box" maxlength="3" value="" onkeypress="return isOnlyNumber(event);" />
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-box">
+            <div class="col-lg-12 margin">
+                <div class="row margin margin-box">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3">
+                        <div class="control-label  requiredField text-payment">
+                        </div>
+                    </div>
+                    <div class='col-sm-6 col-md-6 col-lg-4 col-xl-3'>
+                        <input type="checkbox" id="chkTermsAndCondition">
+                        <span class="chektext">I agree to the <span class="span1"><a id="ShowTermsAndCondition" href="javascript:void(0);">Terms &amp; Condition </a></span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="condition-wrapper ">
+            <button id="btnSaveMakeOneTimePayment" type="button" class="paynow" onclick="makeOneTimePaymentSaveUpdate();">Pay Now</button>
+        </div>
+
+    </div>
+
+    <div class="col-lg-12 hidden payment-box" id="payStep2">
+        @*<div class="panel-heading">
             <h3 class="headding-sub-text margin1  col-lg-12">Payment History</h3>
             <div class="col-sm-3 pull-right" style="margin-bottom:20px !important;">
                 <select id="ddlPaymentHistory" class="form-control">
@@ -231,325 +233,323 @@
 
             </div>
         </div>*@
-            <div class="panel-heading col-md-12">
-                <h3 class="headding-sub-text col-md-9">Payment History</h3>
-                <div class="col-sm-3 pull-right">
-                    <select id="ddlPaymentHistory" class="form-control">
-                        <option value='1'>Current month</option>
-                        <option value='2'>Next month</option>
-                        <option value='3'>Previous month</option>
-                        <option value='4'>Date Range</option>
-                    </select>
+
+     
+        <div class="panel-heading col-md-12">
+            <h3 class="headding-sub-text col-md-9">Payment History</h3>
+            <div class="col-sm-3 pull-right">
+                <select id="ddlPaymentHistory" class="form-control">
+                    <option value='1'>Current month</option>
+                    <option value='2'>Next month</option>
+                    <option value='3'>Previous month</option>
+                    <option value='4'>Date Range</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="panel-body search-widget">
+                <div class="col-md-12 clear">
+                    <table id="tblPaymentHistory" class="borderlessTable tbale-box" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="10%" scope="row" class="border-box border-box2 text-payment tabletr">Date</th>
+                                <th width="60%" scope="row" class="border-box border-box2 text-payment tabletr">Description</th>
+                                <th width="10%" scope="row" class="border-box border-box2 text-payment tabletr">Charge</th>
+                                <th width="10%" scope="row" class="border-box border-box2 text-payment tabletr">Credit</th>
+                                <th width="10%" scope="row" class="border-box border-box2 text-payment tabletr">Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="panel-body search-widget">
-                    <div class="col-md-12 clear">
-                        <table id="tblPaymentHistory" class="borderlessTable tbale-box" width="100%">
-                            <thead>
-                                <tr>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Date</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Description</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Charge</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Credit</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Balance</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
+        </div>
+
+
+        <div class="panel-heading">
+            <div class="row">
+
+                <div class="col-lg-9"><h3 class="headding-sub-text">Upcoming Charges</h3></div>
+            </div>
+        </div>
+
+        <div class="col-md-12 m-b50">
+            <div class="panel-body search-widget">
+                <div class="col-md-12 clear">
+                    <table id="tblUpcomingCharges" class="borderlessTable tbale-box" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="10%" scope="row" class="border-box border-box2 text-payment tabletr">Date</th>
+                                <th width="60%" scope="row" class="border-box border-box2 text-payment tabletr">Description</th>
+                                <th width="10%" scope="row" class="border-box border-box2 text-payment tabletr">Charge</th>
+                                <th width="10%" scope="row" class="border-box border-box2 text-payment tabletr">Credit</th>
+                                <th width="10%" scope="row" class="border-box border-box2 text-payment tabletr">Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
+        </div>
 
 
-
-
-            <br /><br />
-            <div class="panel-heading">
-                <div class="row">
-                    
-                    <div class="col-lg-9"><h3 class="headding-sub-text">Upcoming Charges</h3></div>
-                </div>
-            </div>
-
-            <div class="col-md-12">
-                <div class="panel-body search-widget">
-                    <div class="col-md-12 clear">
-                        <table id="tblUpcomingCharges" class="borderlessTable tbale-box" width="100%">
-                            <thead>
-                                <tr>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Date</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Description</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Charge</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Credit</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Balance</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <br />
-
-            @*<div class="col-sm-12">
+        @*<div class="col-sm-12">
             <div class="text-center">
                 <button id="btnAccountHistoryPrint" class="btn btn-primary hidden" onclick="print('payStep2')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print Statement</b> </button>
             </div>
         </div>*@
-            <div class="condition-wrapper ">
-                <button id="btnAccountHistoryPrint" onclick="print('payStep2')" class="paynow"><i class="fa fa-print"></i>Print Statement</button>
+
+        <div class="condition-wrapper">
+            <button id="btnAccountHistoryPrint" onclick="print('payStep2')" class="paynow">Print Statement</button>
+        </div>
+        <div class="col-sm-12 hidden" id="DivNote">
+            <div class="text-center">
+                <p style="font-size:84%;margin-top:4%;color:#B7B0A7;">NOTE: Any payments generated will not be reflected in your account until the next business day!</p>
+                <p style="font-size:84%;margin-top:-1%;color:#B7B0A7">UPCOMING CHARGES: Estimated future charges for next month billing.</p>
             </div>
-            <div class="col-sm-12 hidden" id="DivNote">
-                <div class="text-center">
-                    <p style="font-size:84%;margin-top:4%;color:#B7B0A7;">NOTE: Any payments generated will not be reflected in your account until the next business day!</p>
-                    <p style="font-size:84%;margin-top:-1%;color:#B7B0A7">UPCOMING CHARGES: Estimated future charges for next month billing.</p>
+        </div>
+    </div>
+
+    <div class="col-lg-12 hidden payment-box" id="payStep4">        
+        <div class="col-md-12 clear hidden" id="divRecPayList">
+            <h3 class="headding-sub-text margin1  col-lg-12">Manage Recurring Payments</h3>
+            <div class="panel-body search-widget">
+                <div class="col-md-12 clear">
+                    <p>Both active and cancelled scheduled payments are listed below. To cancel a scheduled payment. Click the cancel button in the scheduled payment details</p>
+                    <table id="tblRecurringPayments" class="borderlessTable tbale-box" width="100%">
+
+                        <thead>
+                            <tr>
+                                <th scope="row" class="border-box border-box2 text-payment tabletr">Sr. No.</th>
+                                <th scope="row" class="border-box border-box2 text-payment tabletr">Account</th>
+                                <th scope="row" class="border-box border-box2 text-payment tabletr">Due Date</th>
+                                <th scope="row" class="border-box border-box2 text-payment tabletr">Amount</th>
+                                <th scope="row" class="border-box border-box2 text-payment tabletr table-border-right"></th>
+
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-12 hidden payment-box" id="payStep4">
-            <h3 class="headding-sub-text margin1  col-lg-12">Manage Recurring Payments</h3>
-            <div class="col-md-12 clear hidden" id="divRecPayList">
-                <div class="panel-body search-widget">
-                    <div class="col-md-12 clear">
-                        <p>Both active and cancelled scheduled payments are listed below. To cancel a scheduled payment. Click the cancel button in the scheduled payment details</p>
-                        <table id="tblRecurringPayments" class="borderlessTable tbale-box" width="100%">
 
-                            <thead>
-                                <tr>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Sr. No.</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Account</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Due Date</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Amount</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Action</th>
-
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
+        <div class="col-md-12 clear" id="divSetRecPay">
+            <h3 id="recHeader" class="headding-sub-text margin1  col-lg-12">Set Up Recurring Payments</h3>                
+                <div class="col-sm-12" id="RecStep1">
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-11">
+                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt">Pay From:<span id="rcpid" class="hidden"></span></label>
+                                </div>
+                                <div class="col-sm-11">
+                                    <select id="ddlPaymentMethodR" class="form-control"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class=""></div>
+                        </div>
                     </div>
-                </div>
-            </div>            
-            <div class="col-md-12 clear" id="divSetRecPay">
-                <div class="panel-heading">
-                    <div class="col-sm-12">
-                        <h4 style="margin-top: 2%;font-size: 18pt;color:#4D738A !important;"><span id="recHeader">Set Up Recurring Payments</span></h4><br />
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label style="background-color: transparent;color:#4D738A;font-size:13pt">Payment Date:</label>
+                                            <p>We will make payments to this credit card account each month on your due date (Or it falls on Saturday, the Friday before).</p>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input id="txtPayDateR" type="text" class="form-control form-control-small" value="" style="width:60% !important" />
+                                            <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:162px;">
+                                                <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                                            </span>
+                                        </div>
 
-                    </div>
-                    <div class="col-sm-12" id="RecStep1">
-                        <div class="col-lg-6">
-                            <div class="row">
-                                <div class="form-group">
-                                    <div class="col-sm-11">
-                                        <label style="background-color: transparent;color:#4D738A;font-size:13pt">Pay From:<span id="rcpid" class="hidden"></span></label>
-                                    </div>
-                                    <div class="col-sm-11">
-                                        <select id="ddlPaymentMethodR" class="form-control"></select>
                                     </div>
                                 </div>
                             </div>
-                            <br />
-                            <div class="row">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <label style="background-color: transparent;color:#4D738A;font-size:13pt">Payment Date:</label>
-                                                <p>We will make payments to this credit card account each month on your due date (Or it falls on Saturday, the Friday before).</p>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <input id="txtPayDateR" type="text" class="form-control form-control-small" value="" style="width:60% !important" />
-                                                <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:162px;">
-                                                    <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-sm-4">
+                                            <label style="background-color: transparent;color:#4D738A;font-size:13pt">Payment Amount:</label><br />
+                                        </div>
+                                        <i class="fa fa-file-txt-o"></i>
+                                        <div class="col-sm-4">
+                                            <input id="rbtnAmountToPayR1" class="form-control form-control-small" type="radio" name="AmountToPay" checked="checked" style="font-size:11pt;" /> Total Rent
+                                            <br />
+                                            <input id="rbtnAmountToPayR2" class="form-control form-control-small" type="radio" name="AmountToPay" style="font-size:11pt;" /> Other Amount
+                                        </div>
+                                        <div class="col-sm-4">
+                                            $<label id="lblCurrentPrePayAmountR" style="font-size:11pt;"></label>
+                                            <div id="divOtherAmountR" class="hidden">
+                                                <input id="txtOtherAmountR" type="text" class="form-control" style="width:90%;text-align:right" onkeypress="return isNumber(event);" value="0.00" onblur="if (this.value == '') { this.value = this.defaultValue };" onfocus="if (this.value == this.defaultValue) { this.value = '' };" />
+                                                <span class="input-group-btn" style="margin-top: -34px;display: flex;">
+                                                    <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
                                                 </span>
                                             </div>
-
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <div class="col-sm-4">
-                                                <label style="background-color: transparent;color:#4D738A;font-size:13pt">Payment Amount:</label><br />
-                                            </div>
-                                            <i class="fa fa-file-txt-o"></i>
-                                            <div class="col-sm-4">
-                                                <input id="rbtnAmountToPayR1" class="form-control form-control-small" type="radio" name="AmountToPay" checked="checked" style="font-size:11pt;" /> Total Rent
-                                                <br />
-                                                <input id="rbtnAmountToPayR2" class="form-control form-control-small" type="radio" name="AmountToPay" style="font-size:11pt;" /> Other Amount
-                                            </div>
-                                            <div class="col-sm-4">
-                                                $<label id="lblCurrentPrePayAmountR" style="font-size:11pt;"></label>
-                                                <div id="divOtherAmountR" class="hidden">
-                                                    <input id="txtOtherAmountR" type="text" class="form-control" style="width:90%;text-align:right" onkeypress="return isNumber(event);" value="0.00" onblur="if (this.value == '') { this.value = this.defaultValue };" onfocus="if (this.value == this.defaultValue) { this.value = '' };" />
-                                                    <span class="input-group-btn" style="margin-top: -34px;display: flex;">
-                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <br />
-                                    <div class="row">
-                                        <div class=""></div>
-                                    </div>
-                                    <div class="row hidden" id="modiDiv">
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <label style="background-color: transparent;color:#4D738A;font-size:13pt">What would you like to modify ?</label>
-                                            </div>
-                                            <div class="col-sm-5" style="border: #4d738a solid;border-radius: 5px;height: 60px;">
-                                                <input id="rbtnModi1" class="form-control form-control-small" type="radio" name="rbtnModi" checked="checked" style="font-size:11pt;" /> The Next Payment
-                                                <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh" style="color:#929292;"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh" style="color:#929292;"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh" style="color:#929292;"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh" style="color:#929292;"></i>
-                                            </div>
-                                            <div class="col-sm-1" style="height: 60px;">
-                                                <br />
-                                            </div>
-                                            <div class="col-sm-5" style="border: #4d738a solid;border-radius: 5px;height: 60px;">
-                                                <input id="rbtnModiAll" class="form-control form-control-small" type="radio" name="rbtnModi" style="font-size:11pt;" /> All Future Payments
-                                                <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                   
-                                </div>                              
-
-
-
-                                <div class="col-sm-12 row">
-                                    <div class=""><br /></div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <button id="btnCancelRecurringPayment" type="button" class="btn btn-primary" onclick="recurringPaymentCancel();" style="font-size: 11pt;width:90%;"> Cancel</button>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <button id="btnNextRecurringPayment" type="button" class="btn btn-primary" onclick="recurringPaymentNext();" style="font-size: 11pt;width:90%;"> Next</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                            <div class="col-lg-12">
+                                <br />
+                                <div class="row">
+                                    <div class=""></div>
+                                </div>
+                                <div class="row hidden" id="modiDiv">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label style="background-color: transparent;color:#4D738A;font-size:13pt">What would you like to modify ?</label>
+                                        </div>
+                                        <div class="col-sm-5" style="border: #4d738a solid;border-radius: 5px;height: 60px;">
+                                            <input id="rbtnModi1" class="form-control form-control-small" type="radio" name="rbtnModi" checked="checked" style="font-size:11pt;" /> The Next Payment
+                                            <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh" style="color:#929292;"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh" style="color:#929292;"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh" style="color:#929292;"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh" style="color:#929292;"></i>
+                                        </div>
+                                        <div class="col-sm-1" style="height: 60px;">
+                                            <br />
+                                        </div>
+                                        <div class="col-sm-5" style="border: #4d738a solid;border-radius: 5px;height: 60px;">
+                                            <input id="rbtnModiAll" class="form-control form-control-small" type="radio" name="rbtnModi" style="font-size:11pt;" /> All Future Payments
+                                            <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh"></i>&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh"></i>
+                                        </div>
+                                    </div>
+                                </div>
 
-                    <div class="col-sm-12 hidden" id="RecStep2">
-                        <div class="col-sm-12">
-                            <h4 style="margin-top: 2%;font-size: 15pt;color:#4D738A !important;">Does everithing look Ok?</h4><br />
+                            </div>
 
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="row">
+
+
+                            <div class="col-sm-12 row">
+                                <div class=""><br /></div>
+                            </div>
+                            <div class="col-sm-6">
                                 <div class="form-group">
-                                    <div class="col-sm-11">
-                                        <label style="background-color: transparent;color:#4D738A;font-size:13pt">Pay From:</label>
-                                    </div>
-                                    <div class="col-sm-11">
-                                        <label id="lblReccPayFrom"></label>
-                                    </div>
+                                    <button id="btnCancelRecurringPayment" type="button" class="btn btn-primary" onclick="recurringPaymentCancel();" style="font-size: 11pt;width:90%;"> Cancel</button>
                                 </div>
                             </div>
-
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <label style="background-color: transparent;color:#4D738A;font-size:13pt">Payment Date:</label>
-                                                <p>We will make payments to this credit card account each month on your due date (Or it falls on Saturday, the Friday before). <span id="lblPayDateR"></span></p>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <div class="col-sm-11">
-                                                <label style="background-color: transparent;color:#4D738A;font-size:13pt">Payment Amount:</label><br />
-                                            </div>
-                                            <div class="col-sm-11">
-
-                                                <label id=""> Fixed Amount: <b>$<span id="lblFixedamt"></span></b></label>
-
-
-                                            </div>
-
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="row">
-
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="row">
-                                                <br />
-                                                <div class=""></div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-12">
-                                            <div class="row">
-                                                <br />
-                                                <div class=""></div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="row">
-                                        <div class="form-group">
-
-                                            <div class="col-sm-12">
-                                                See the terms of the <a style="cursor:pointer" id="ShowTermsAndConditionR" href="javascript:void(0);">Chase Automatic Payments Service Agreement</a>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <input id="chkTermsAndConditionR" type="checkbox" class="form-control" style="font-size:11pt;" /> I have read and agree to the terms and conditions of the Chase Automatic Payments Service Agreement at the above link, which govern my use of Automatic Payments.
-                                            </div>
-                                        </div>
-                                     
-                                    </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <button id="btnNextRecurringPayment" type="button" class="btn btn-primary" onclick="recurringPaymentNext();" style="font-size: 11pt;width:90%;"> Next</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <button id="btnBackRecurringPayment" type="button" class="btn btn-primary" onclick="recurringPaymentBack();" style="font-size: 11pt;width:50%;"> Back</button>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <button id="btnSetUpRecurringPayment" type="button" class="btn btn-primary pull-right" onclick="recurringPaymentSetUp();" style="font-size: 11pt;">Set up a Recurring Payment</button>
-                                <button id="btnSaveRecurringPayment" type="button" class="btn btn-primary pull-right hidden" onclick="recurringPaymentSaveUpdate();" style="font-size: 11pt;"> Save Recurring Payment</button>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
 
-            </div>
+                <div class="col-sm-12 hidden" id="RecStep2">
+                    <div class="col-sm-12">
+                        <h4 style="margin-top: 2%;font-size: 15pt;color:#4D738A !important;">Does everithing look Ok?</h4><br />
+
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-11">
+                                    <label style="background-color: transparent;color:#4D738A;font-size:13pt">Pay From:</label>
+                                </div>
+                                <div class="col-sm-11">
+                                    <label id="lblReccPayFrom"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label style="background-color: transparent;color:#4D738A;font-size:13pt">Payment Date:</label>
+                                            <p>We will make payments to this credit card account each month on your due date (Or it falls on Saturday, the Friday before). <span id="lblPayDateR"></span></p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-sm-11">
+                                            <label style="background-color: transparent;color:#4D738A;font-size:13pt">Payment Amount:</label><br />
+                                        </div>
+                                        <div class="col-sm-11">
+
+                                            <label id=""> Fixed Amount: <b>$<span id="lblFixedamt"></span></b></label>
+
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="row">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <br />
+                                            <div class=""></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <br />
+                                            <div class=""></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="form-group">
+
+                                        <div class="col-sm-12">
+                                            See the terms of the <a style="cursor:pointer" id="ShowTermsAndConditionR" href="javascript:void(0);">Chase Automatic Payments Service Agreement</a>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <input id="chkTermsAndConditionR" type="checkbox" class="form-control" style="font-size:11pt;" /> I have read and agree to the terms and conditions of the Chase Automatic Payments Service Agreement at the above link, which govern my use of Automatic Payments.
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <button id="btnBackRecurringPayment" type="button" class="btn btn-primary" onclick="recurringPaymentBack();" style="font-size: 11pt;width:50%;"> Back</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <button id="btnSetUpRecurringPayment" type="button" class="btn btn-primary pull-right" onclick="recurringPaymentSetUp();" style="font-size: 11pt;">Set up a Recurring Payment</button>
+                            <button id="btnSaveRecurringPayment" type="button" class="btn btn-primary pull-right hidden" onclick="recurringPaymentSaveUpdate();" style="font-size: 11pt;"> Save Recurring Payment</button>
+                        </div>
+                    </div>
+
+                </div>
+            
+
         </div>
 
+    </div>
 
         <div class="col-lg-12 hidden payment-box" id="payStep5">
             @*<h3 class="headding-sub-text">Saved Payment Accounts</h3>*@
@@ -573,16 +573,15 @@
             </div>
             <div class="col-md-12">
                 <div class="panel-body search-widget">
-                    <div class="col-md-12 clear">
+                    <div class="col-md-12 clear m-b30">
                         <table id="tblPaymentAccountsCreditCard" class="borderlessTable tbale-box" width="100%">
                             <thead>
                                 <tr>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Bank Name</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Card Name</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Card Number</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Action</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Default Pay</th>
-
+                                    <th width="20%" scope="row" class="border-box border-box2 text-payment tabletr">Bank Name</th>
+                                    <th width="25%" scope="row" class="border-box border-box2 text-payment tabletr">Card Name</th>
+                                    <th width="25%" scope="row" class="border-box border-box2 text-payment tabletr">Card Number</th>
+                                    <th width="20%" scope="row" class="border-box border-box2 text-payment tabletr">Default Pay</th>
+                                    <th width="10%" scope="row" class="border-box border-box2 text-payment tabletr table-border-right"></th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -591,7 +590,7 @@
                 </div>
             </div>
            
-            <div class="col-md-12 clear">
+            <div class="col-md-12 clear m-b30">
                 <table id="tblPaymentAccountsBankAccount" class="borderlessTable tbale-box" width="100%">
                     <thead>
                         <tr>
@@ -599,8 +598,9 @@
                             <th scope="row" class="border-box border-box2 text-payment tabletr">Account Name</th>
                             <th scope="row" class="border-box border-box2 text-payment tabletr">Account Number</th>
                             <th scope="row" class="border-box border-box2 text-payment tabletr">Routing Number</th>
-                            <th scope="row" class="border-box border-box2 text-payment tabletr">Action</th>
                             <th scope="row" class="border-box border-box2 text-payment tabletr">Default Pay</th>
+                            <th scope="row" class="border-box border-box2 text-payment tabletr  table-border-right"></th>
+
 
                         </tr>
                     </thead>
@@ -651,11 +651,11 @@
                         <table id="tblServiceRequest" class="borderlessTable tbale-box" width="100%">
                             <thead>
                                 <tr>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Preferred Date</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Problem Category</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Status</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Priority</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Action</th>
+                                    <th width="35%" scope="row" class="border-box border-box2 text-payment tabletr">Preferred Date</th>
+                                    <th  width="35%" scope="row" class="border-box border-box2 text-payment tabletr">Problem Category</th>
+                                    <th  width="10%" scope="row" class="border-box border-box2 text-payment tabletr">Status</th>
+                                    <th  width="10%" scope="row" class="border-box border-box2 text-payment tabletr">Priority</th>
+                                    <th  width="10%" scope="row" class="border-box border-box2 text-payment tabletr table-border-right"></th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -668,7 +668,7 @@
         </div>
         <div id="serviceStep2" class="col-lg-12 payment-box hidden" >
             <input id="hdnServiceRequest" type="hidden" value="0" />
-            <h3 class="headding-sub-text margin1  col-lg-12">Submit Service Request</h3>
+            <h3 class="headding-sub-text margin3  col-lg-12">Submit Service Request</h3>
 
             <div class="payment-box">
                 <div class="col-lg-12 ">
@@ -809,11 +809,11 @@
                         Unit Access:
                     </div>
                     <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 textarea1">
-                        <div class="comment-text">Name:<span class="Access-text p-l20" id="lblNameUnitAccess"></span></div>
-                        <div class="comment-text">Unit#:<span class="Access-text p-l30" id="lblUnitUnitAccess"></span></div>
-                        <div class="comment-text">Phone:<span class="Access-text p-l20" id="lblPhoneUnitAccess"></span></div>
-                        <div class="comment-text">Emergency Phone:<span class="Access-text p-l20" id="lblEmergencyPhoneUnitAccess"></span></div>
-                        <div class="comment-text">Email:<span class="Access-text p-l30" id="lblEmailUnitAccess"></span></div>
+                        <div class="comment-text">Name:<span class="Access-text p-l100" id="lblNameUnitAccess"></span></div>
+                        <div class="comment-text">Unit#:<span class="Access-text p-l100" id="lblUnitUnitAccess"></span></div>
+                        <div class="comment-text">Phone:<span class="Access-text p-l90" id="lblPhoneUnitAccess"></span></div>
+                        <div class="comment-text">Emergency Phone:<span class="Access-text" id="lblEmergencyPhoneUnitAccess"></span></div>
+                        <div class="comment-text">Email:<span class="Access-text p-l100" id="lblEmailUnitAccess"></span></div>
 
                         <div class="m-t50 text-subheding">Do we have permission to enter your apartment?</div>
 
@@ -821,7 +821,7 @@
 
                             <div class="col-lg-8 p-l30">
                                 <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
-                                <label>
+                                <label class="checbox">
                                     <input type="radio" id="rbtnApertmentPermission1" name="rbtnPermissionToEnter" value="1" checked="checked">
                                     Current
                                 </label>
@@ -830,7 +830,7 @@
                         <div class="row m-t10">
                             <div class="col-lg-4 p-l30">
                                 <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
-                                <label>
+                                <label class="checbox">
                                     <input type="radio" id="rbtnApertmentPermission2" name="rbtnPermissionToEnter" value="2" checked="checked">
                                     By appointment
                                 </label>
@@ -869,7 +869,7 @@
                         <div class="row m-t10">
                             <div class="col-lg-8 p-l30">
                                 <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
-                                <label>
+                                <label class="checbox">
                                     <input type="radio" id="rbtnPetInformation1" name="rbtnPetInformation" value="1">
                                     Yes
                                 </label>
@@ -880,7 +880,7 @@
                         <div class="row m-t10">
                             <div class="col-lg-8 p-l30">
                                 <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
-                                <label>
+                                <label class="checbox">
                                     <input type="radio" id="rbtnPetInformation2" name="rbtnPetInformation" value="2" checked="checked">
                                     No
                                 </label>
@@ -1021,7 +1021,7 @@
             </div>
 
             <div class="condition-wrapper ">
-                <button id="btnServiceRequestSave" class="paynow m-t30" onclick="saveUpdateServiceRequest()">Submit Service Request</button>
+                <button id="btnServiceRequestSave" class="paynow m-t30" onclick="saveUpdateServiceRequest()">Submit</button>
 
                 <button id="btnCancel" class="paynow m-t30 m-l10" onclick="clearServiceRequestField()">Cancel</button>
 
@@ -1065,7 +1065,7 @@
                                             <th scope="row" class="border-box border-box2 text-payment tabletr">Desire Duration</th>
                                             <th scope="row" class="border-box border-box2 text-payment tabletr">Guest</th>
                                             <th scope="row" class="border-box border-box2 text-payment tabletr">Status</th>
-                                            <th scope="row" class="border-box border-box2 text-payment tabletr">Action</th>
+                                            <th scope="row" class="border-box border-box2 text-payment tabletr table-border-right"></th>
 
                                             @*<a><i class="fa fa-times"></i></a>*@
                                         </tr>
@@ -1446,7 +1446,7 @@
         <div class="text-redcolor1 center m-t20 m-b40">Registration is only necessary for guests staying overnight.</div>
 
         <div class="payment-box">
-            <div class="col-lg-12 margin2">
+            <div class="col-lg-12 margin3">
                 <div class="row margin margin-box">
                     <div class="col-lg-3">
                         <div class="col-lg-12 mobile-margin text-payment">GUEST NAME:</div>
@@ -1459,7 +1459,7 @@
                                 <input type="text" id="txtGuestFirstName" class="form-control" onchange="copyGuestName();" />
                             </div>
                         </div>
-                        <div class="row m-t10">
+                        <div class="row m-t20">
                             <div class="Club-text col-lg-2 ">Last:</div>
                             <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
                                 <input type="text" id="txtGuestLastName" class="form-control" onchange="copyGuestName();" />
@@ -1501,7 +1501,7 @@
                                 <input type="text" id="txtGuestPhone" class="form-control" maxlength="10" onkeypress="return isOnlyNumber(event);" />
                             </div>
                         </div>
-                        <div class="row m-t10">
+                        <div class="row m-t20">
                             <div class="Club-text col-lg-2">EMAIL:</div>
                             <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
                                 <input type="text" class="form-control" id="txtGuestEmail" />
@@ -1540,9 +1540,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row m-t10">
+                        <div class="row m-t20">
                             <div class="Club-text1 col-lg-2">Visit End Date:</div>
-                            <div class="col-lg-4 col-md-2 col-sm-6 col-xs-12 border-bottom1 ">
+                            <div class="col-lg-4 col-md-2 col-sm-6 col-xs-12 border-bottom1 m-l10">
                                 <div class="form-group">
                                     <div class='input-group date'>
                                         <input id="txtGuestVistEndDate" type="text" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")" />

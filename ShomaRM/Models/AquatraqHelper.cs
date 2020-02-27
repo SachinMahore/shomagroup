@@ -52,7 +52,7 @@ namespace ShomaRM.Models
 
                 defaultXML = defaultXML.Replace("<PackageServiceCode", "<PackageServiceCode OrderId=\"" + ordernumber + "\"");
                 defaultXML = defaultXML.Replace("<Salary", "<Salary period=\"Yearly\"");
-               
+
                 defaultXML = defaultXML.Replace("<OrderDetailEMP", "<OrderDetail");
                 defaultXML = defaultXML.Replace("</OrderDetailEMP", "</OrderDetail");
 
@@ -78,10 +78,10 @@ namespace ShomaRM.Models
 
 
         }
-      
+
         public static async Task<List<XElement>> PostFormUrlEncoded<TResult>(string url, List<KeyValuePair<string, string>> postData)
         {
-            using (var httpClient = new  HttpClient())
+            using (var httpClient = new HttpClient())
             {
                 using (var content = new FormUrlEncodedContent(postData))
                 {
@@ -91,15 +91,15 @@ namespace ShomaRM.Models
                     HttpResponseMessage response = await httpClient.PostAsync(url, content);
                     string serializedString = await response.Content.ReadAsStringAsync();
                     var xDoc = XDocument.Parse(serializedString);
-                  
-                        // for attribute
-                        var resultOrderDetail = xDoc
-                         .Descendants("OrderXML")
-                         .Descendants("Order")
-                         .Descendants("OrderDetail")
-                         .ToList();
-                        return resultOrderDetail;
-                  
+
+                    // for attribute
+                    var resultOrderDetail = xDoc
+                     .Descendants("OrderXML")
+                     .Descendants("Order")
+                     .Descendants("OrderDetail")
+                     .ToList();
+                    return resultOrderDetail;
+
                 }
             }
         }
@@ -107,8 +107,9 @@ namespace ShomaRM.Models
 
         public static async Task<XDocument> Post<TResult>(string url, XmlDocument SOAPReqBody)
         {
+            XDocument xmlDocument = new XDocument();
             //Making Web Request  
-            HttpWebRequest Req = (HttpWebRequest)WebRequest.Create(@"https://www.bluemoonforms.com/services/lease.php#AuthenticateUser");
+            HttpWebRequest Req = (HttpWebRequest)WebRequest.Create(url);
             ////SOAPAction  
             //Req.Headers.Add(@"SOAPAction:http://tempuri.org/Addition");
             //Content_type  
@@ -117,32 +118,40 @@ namespace ShomaRM.Models
             //HTTP method  
             Req.Method = "POST";
 
+
             using (Stream stream = Req.GetRequestStream())
             {
                 SOAPReqBody.Save(stream);
             }
-            //Geting response from request  
-            using (WebResponse Serviceres = Req.GetResponse())
+            try
             {
-                using (StreamReader rd = new StreamReader(Serviceres.GetResponseStream()))
-                {
-                    //reading stream  
-                    var ServiceResult = rd.ReadToEnd();
-                    ////writting stream result on console  
-                    //Console.WriteLine(ServiceResult);
-                    //Console.ReadLine();
+                //Geting response from request  
+                WebResponse Serviceres = Req.GetResponse();
 
-                    var xDoc = XDocument.Parse(ServiceResult);
+                StreamReader rd = new StreamReader(Serviceres.GetResponseStream());
 
-                    return xDoc;
-                }
+                //reading stream  
+                var ServiceResult = rd.ReadToEnd();
+                ////writting stream result on console  
+                //Console.WriteLine(ServiceResult);
+                //Console.ReadLine();
+
+                xmlDocument = XDocument.Parse(ServiceResult);
+
+
+
+
             }
+            catch (Exception ex)
+            {
+
+            }
+            return xmlDocument;
         }
 
-      
+
 
     }
-   
-}	    
 
-    
+}
+
