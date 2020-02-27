@@ -1822,7 +1822,7 @@ var getPaymentAccountsCreditCard = function () {
                     checked = "<a href='javascript:void(0)' onclick='makeDefaultPayment(" + elementValue.PAID + ");'>Make Default</a>";
                 }
                 if (elementValue.IsLessThanSevenDays == true) {
-                    cla = 'class="disabled" style="cursor:pointer;" tooltip="Cant edit or delete before 7 days of payment date"';
+                    cla = 'class="disabled" style="cursor:pointer;" tooltip="Cant edit or delete before 7 days of payment date"'; 
                 }
                 else {
                     cla = 'class="" style="cursor:pointer;"';
@@ -1833,7 +1833,7 @@ var getPaymentAccountsCreditCard = function () {
                 html += "<td>" + elementValue.NameOnCard + "</td>";
                 html += "<td>" + MaskCardNumber(elementValue.CardNumber) + "</td>";
                 html += "<td width='11%'>" + checked + "</td>";
-                html += "<td  class='table-border-right'><a href='javascript:void(0);' onclick='editPaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-pencil color-blue m-r20 ml-10'></i></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-times color-red'></i></a></td>";
+                html += "<td  class='table-border-right'><a href='javascript:void(0);' onclick='editPaymentAccounts(" + elementValue.PAID + ")' " + cla + "><img class='m-r20 ml-10' src='/Content/assets/img/icon/pencil.png'/></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")' " + cla + "><img src='/Content/assets/img/icon/Cancel.png'/></a></td>";
 
                 html += "</tr>";
                 $("#tblPaymentAccountsCreditCard>tbody").append(html);
@@ -1876,7 +1876,7 @@ var getPaymentAccountsBankAccount = function () {
                 html += "<td>" + elementValue.AccountName + "</td>";
                 html += "<td>" + MaskCardNumber(elementValue.AccountNumber) + "</td>";
                 html += "<td>" + elementValue.RoutingNumber + "</td>";
-                html += "<td><a href='javascript:void(0);' onclick='editPaymentBankAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-pencil color-blue'></i></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")' " + cla + "><i class='fa fa-times color-red'></i></a></td>";
+                html += "<td><a href='javascript:void(0);' onclick='editPaymentBankAccounts(" + elementValue.PAID + ")' " + cla + "><img class='m-r20 ml-10' src='/Content/assets/img/icon/pencil.png'/></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")' " + cla + "><img src='/Content/assets/img/icon/Cancel.png'/></a></td>";
                 html += "<td width='11%'>" + checked + "</td>";
                 html += "</tr>";
                 $("#tblPaymentAccountsBankAccount>tbody").append(html);
@@ -5054,10 +5054,12 @@ var getReservationRequestList = function () {
                     else {
                         console.log(elementValue.calculatedDate + " " + elementValue.DesiredDate + " " + dateC);
                         if (elementValue.calculatedDate <= dateC) {
-                            html += "<td class='table-border-right' onclick='cancleRequest(" + elementValue.ARID + ")' style='cursor:pointer;'><a><i class='fa fa-times color-red'></i></a></td>";
+
+                            html += "<td class='table-border-right' onclick='cancleRequest(" + elementValue.ARID + ")' style='cursor:pointer;'><a><img src='/Content/assets/img/icon/Cancel.png'/></a></td>";
                         }
                         else {
-                            html += "<td class='table-border-right' onclick='cancleRequest(" + elementValue.ARID + ")' style='cursor:pointer;'><a><i class='fa fa-times color-red'></i></a></td>";
+                            html += "<td class='table-border-right' onclick='cancleRequest(" + elementValue.ARID + ")' style='cursor:pointer;'><a><img src='/Content/assets/img/icon/Cancel.png'/></a></td>";
+
                         }
 
                     }
@@ -5100,7 +5102,9 @@ var getRecurringPayLists = function () {
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
           
                 html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                html += "<td class='table-border-right'><a href='javascript:void(0);' onclick='editRecPayment(" + elementValue.TransID + ",\"" + formatMoney(elementValue.Charge_Amount) + "\",\"" + elementValue.Transaction_DateString + "\"," + elementValue.PAID + ")'><i class='fa fa-pencil color-blue m-r20 m-l10'></i></a>   <a href='javascript:void(0);' onclick='deleteRecPayment(" + elementValue.TransID + ")'><i class='fa fa-times color-red'></i></a></td>";
+
+                html += "<td class='table-border-right'><a href='javascript:void(0);' onclick='editRecPayment(" + elementValue.TransID + ",\"" + formatMoney(elementValue.Charge_Amount) + "\",\"" + elementValue.Transaction_DateString + "\"," + elementValue.PAID + ")'><img class='m-r20 ml-10' src='/Content/assets/img/icon/pencil.png'/></a>   <a href='javascript:void(0);' onclick='deleteRecPayment(" + elementValue.TransID + ")'><img src='/Content/assets/img/icon/Cancel.png'/></a></td>";
+
                 html += "</tr>";
               
                 $("#tblRecurringPayments>tbody").append(html);
