@@ -294,7 +294,7 @@
                 <h5 style="">Sign In</h5>
             </div>
             <div id="forgtPassHead" class="text-center hidden">
-                <h5 style="">Retrive Password</h5>
+                <h5 style="">Retrieve Password</h5>
             </div>
             <div class="text-justify">
                 <div class="form-group">
@@ -308,7 +308,7 @@
             </div>
             <div id="Signinbtn" class="text-center">
                 <button type="submit" class="btn btn-primary" onclick="SignIn()" style="margin-left:100px !important"> Sign In</button>
-                <a href="javascript:void(0);" onclick="goToForgetPassword();" class="pull-right" style="padding-top:2%">Forget Password?</a>
+                <a href="javascript:void(0);" onclick="goToForgetPassword();" class="pull-right" style="padding-top:2%">Forgot Password?</a>
             </div>
             <div id="Forgtbtn" class="text-center hidden">
                 <button type="button" class="btn btn-primary" onclick="ForgetPasswordss();">Verify</button>
@@ -577,7 +577,10 @@
 
         window.location = "/Account/Login";
     }
+    function gotoLogOff() {
 
+        window.location = "/Account/LogOff";
+    }
     function gotoApplyNow() {
         window.location = "/ApplyNow/Index/0";
     }

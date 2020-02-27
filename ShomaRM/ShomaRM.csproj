@@ -892,8 +892,6 @@
     <Folder Include="Areas\Tenant\Views\ServiceRequest\" />
     <Folder Include="Content\assets\img\property-1\" />
     <Folder Include="Content\assets\img\slide1\" />
-    <Folder Include="Views\ShomaGroupWebAuthorization\" />
-    <Folder Include="Views\Test1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

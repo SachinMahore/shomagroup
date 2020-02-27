@@ -22,7 +22,7 @@ namespace ShomaRM.Models.TwilioApi
             {
                 var message = MessageResource.Create(body: MsgText,
                     from: new Twilio.Types.PhoneNumber(twilioNumber),//+1 202 866 1345
-                    to: new Twilio.Types.PhoneNumber(To), forceDelivery: true
+                    to: new Twilio.Types.PhoneNumber("+1" + To), forceDelivery: true
                 );
             }
             catch (Exception ex)
