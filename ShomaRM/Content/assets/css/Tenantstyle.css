@@ -53,20 +53,6 @@
     src: url('../font/Futura Medium.otf');
 }
 
-/*@font-face {
-    font-family: HelveticaNeue;
-    src: url('../font/FontsFree-Net-HelveticaNeueBold.ttf');
-}*/
-
-@font-face {
-    font-family: HelveticaNeueMediumItalic;
-    src: url('../font/HelveticaNeueMediumItalic.otf');
-}
-
-@font-face {
-    font-family: Helvetica;
-    src: url('../font/Helvetica25UltraLight_22433.ttf');
-}
 
 .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
     color: #fff;
@@ -1348,13 +1334,6 @@ select::-ms-expand {
 
 /*--@-Font--css---------*/
 
-/*@font-face {
-  font-family: myFirstFont;
-  src: url(FuturaBQ-Medium.otf);
-}
-.topmenu-font {
-  font-family: myFirstFont;
-}*/
 
 
 /*---comman--css---------*/
@@ -1591,14 +1570,14 @@ textarea {
 .span {
     color: #B3ADA6;
     font-size: 14px;
-    font-family: Helvetica;
+    font-family: HelveticaNeue;
 }
 
 .comment-text {
     font-size: 16px;
     margin: 10px 0px;
     color: #000000;
-    font-family: Helvetica;
+    font-family: HelveticaNeue;
 }
 
 .comment-text0 {
