@@ -402,10 +402,12 @@
         $('#ddlAgentAssign').on('change', function () {
             if ($(this).val() == 0) {
                 $('#lblAgentsName').html('');
+                $('#ddlAppointmentStatus').val('0');
             }
             else {
                 var ddlValue = $("#ddlAgentAssign option:selected").text();
                 $('#lblAgentsName').html('<i class="fa fa-check fa-lg"></i> ' + " Agent " + ddlValue + " Assign" + '');
+                $('#ddlAppointmentStatus').val('1');
             }
         });
         // fillDdlSalesAgent();
@@ -413,6 +415,7 @@
             $('#ddlAgentAssign').val('@Model.AssignAgentID');
             if (@Model.AssignAgentID == 0) {
                 $('#lblAgentsName').html('');
+                $('#ddlAppointmentStatus').val('0');
             }
             else {
                 var ddlValue = $("#ddlAgentAssign option:selected").text();

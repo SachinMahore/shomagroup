@@ -89,7 +89,7 @@ var fillProspectVerifyList = function (pagenumber, sortby, orderby) {
                     html += "<td style='padding: 10px;'>" + formatPhoneFax(elementValue.Phone) + "</td>";
                     html += "<td style='padding: 10px;'>" + elementValue.Email + "</td>";
                     html += "<td style='padding: 10px;'>" + elementValue.CreatedDate + "</td>";
-                    html += "<td style='padding: 10px;'>" + elementValue.PropertyId + "</td>";
+                    html += "<td style='padding: 10px;'>" + elementValue.UnitNo + "</td>";
                     html += "</tr>";
                     $("#tblProspectVerify>tbody").append(html);
                 });
