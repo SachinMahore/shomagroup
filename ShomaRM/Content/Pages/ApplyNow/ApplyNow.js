@@ -3095,7 +3095,16 @@ var saveupdateApplicant = function () {
             msg += "Enter The Other Gender </br>";
         }
     }
-
+    if (type == 'Primary Applicant') {
+        $('#txtDateOfBirth').val(dob);
+        $('#ddlGender').val(agender);
+        if (agender == '3') {
+            $('#txtOtherGender').val(aotherGender);
+        }
+        else {
+            $('#txtOtherGender').val('');
+        }
+    }
     if (msg != "") {
         $.alert({
             title: "",
@@ -3132,9 +3141,6 @@ var saveupdateApplicant = function () {
                 content: "Progress Saved.",
                 type: 'blue',
             });
-            $('#txtDateOfBirth').val(dob);
-            $('#ddlGender').val(agender);
-            $('#txtOtherGender').val(aotherGender);
             getApplicantLists();
             //$("#popApplicant").PopupWindow("close");
             $("#popApplicant").modal("hide");
@@ -3419,7 +3425,12 @@ var goToEditApplicant = function (aid) {
                     var dtHApp = new Date();
                     dtHApp.setFullYear(new Date().getFullYear() - 18);
                     $('#txtHDateOfBirth').datepicker({ endDate: dtHApp, autoclose: true });
-                    $("#txtApplicantOtherGender").val(response.model.OtherGender);
+                    if (response.model.OtherGender == '3') {
+                        $("#txtApplicantOtherGender").val(response.model.OtherGender);
+                    }
+                    else {
+                        $("#txtApplicantOtherGender").val('');
+                    }
 
                 }
                 else if (response.model.Type == "Co-Applicant") {
