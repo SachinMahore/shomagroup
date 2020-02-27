@@ -260,9 +260,40 @@ namespace ShomaRM.Controllers
                 LeaseResponseModel leaseEditResponse = await bmservice.EditLease(leaseRequestModel: leaseRequestModel, leaseId: leaseid, sessionId: authenticateData.SessionId);
             }
 
-            LeaseResponseModel leasePdfResponse = await bmservice.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: leaseid);
+            List<EsignatureParty> esignatureParties = new List<EsignatureParty>();
+
+            // please provide the list with the correct data from lease methods. below is some static details I provided - Apurva
+            // Note. For owmer please set IsOwner true and other will ve residents which will be set to false.
+            esignatureParties.Add(new EsignatureParty()
+            {
+                Email = "lalit.thinker@gmail.com",
+                IsOwner = true, 
+                Name = "Lalit Bokde",
+                Phone = "837-900-8118"
+            });
+
+            // add the residents details who will sign the document
+            // Note 1. email should be valid email . on this email , the residents will get the esignature request
+            //      2. name should match exact as per resisdent detail in create lease otherwise we will not get any response
+
+            esignatureParties.Add(new EsignatureParty()
+            {
+                Email = "apurvaraut20@gmail.com",
+                IsOwner = false,
+                Name = "Piyush Mate",
+                Phone = "703-855-1722"
+            });
+
+            LeaseResponseModel EsignatureResponse = await bmservice.RequestEsignature(leaseId: leaseid, sessionId: authenticateData.SessionId, esignatureParties: esignatureParties);
+
+            // this will not give pdf with signature right away because this will need to be called after residents will sign the esignature. 
+            // so please call it on any download lease document button 
+            // Note. please save the esignature id for downloading document 
+            LeaseResponseModel leaseDocumentWithEsignature = await bmservice.GetLeaseDocumentWithEsignature(SessionId: authenticateData.SessionId, EsignatureId: EsignatureResponse.EsignatureId);
+
+            //LeaseResponseModel leasePdfResponse = await bmservice.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: leaseid);
             await bmservice.CloseSession(sessionId: authenticateData.SessionId);
-            return leasePdfResponse;
+            return leaseDocumentWithEsignature;
         }
 
         public async System.Threading.Tasks.Task<ActionResult> GetLeaseDocBlumoon()
