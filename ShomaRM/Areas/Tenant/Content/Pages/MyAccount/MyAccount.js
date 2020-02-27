@@ -1876,8 +1876,12 @@ var getPaymentAccountsBankAccount = function () {
                 html += "<td>" + elementValue.AccountName + "</td>";
                 html += "<td>" + MaskCardNumber(elementValue.AccountNumber) + "</td>";
                 html += "<td>" + elementValue.RoutingNumber + "</td>";
-                html += "<td><a href='javascript:void(0);' onclick='editPaymentBankAccounts(" + elementValue.PAID + ")' " + cla + "><img class='m-r20 ml-10' src='/Content/assets/img/icon/pencil.png'/></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")' " + cla + "><img src='/Content/assets/img/icon/Cancel.png'/></a></td>";
+
+               
                 html += "<td width='11%'>" + checked + "</td>";
+                html += "<td class='table-border-right'><a href='javascript:void(0);' onclick='editPaymentBankAccounts(" + elementValue.PAID + ")' " + cla + "><img class='m-r20 ml-10' src='/Content/assets/img/icon/pencil.png'/></a>   <a href='javascript:void(0);' onclick='deletePaymentAccounts(" + elementValue.PAID + ")' " + cla + "><img src='/Content/assets/img/icon/Cancel.png'/></a></td>";
+
+
                 html += "</tr>";
                 $("#tblPaymentAccountsBankAccount>tbody").append(html);
             });
@@ -2210,7 +2214,7 @@ var getServiceRequestList = function () {
                 // html += "<td> <a  target='_blank' href='/Content/assets/img/Document/" + elementValue.TempServiceFile + "'><i class='fa fa-eye'></i></a></td>";
                 html += "<td class='table-border-right'>";
                 if (elementValue.StatusString == 'Open') {
-                    html += "<a style=' cursor:pointer;' onclick='cancelServiceRequest(" + elementValue.ServiceID + ")'><i class='fa fa-times '></i> Cancel Request</a></td>"
+                    html += "<a style=' cursor:pointer;' onclick='cancelServiceRequest(" + elementValue.ServiceID + ")'><i class='fa fa-times '></i></a></td>"
                 }
                 html += "</tr>";
                 $("#tblServiceRequest>tbody").append(html);
