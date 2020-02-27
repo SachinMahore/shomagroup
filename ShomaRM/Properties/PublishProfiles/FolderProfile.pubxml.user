@@ -151,7 +151,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/25/2020 19:10:51</publishTime>
     </File>
     <File Include="Areas/Admin/Content/Pages/ServiceManagement/ServiceRequestList.js">
-      <publishTime>02/25/2020 19:10:51</publishTime>
+      <publishTime>02/26/2020 17:18:55</publishTime>
     </File>
     <File Include="Areas/Admin/Content/Pages/State/State.js">
       <publishTime>01/31/2020 12:25:30</publishTime>
@@ -163,7 +163,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/31/2020 12:25:30</publishTime>
     </File>
     <File Include="Areas/Admin/Content/Pages/Tenant/NewTenant.js">
-      <publishTime>02/24/2020 13:28:07</publishTime>
+      <publishTime>02/26/2020 17:18:55</publishTime>
     </File>
     <File Include="Areas/Admin/Content/Pages/Tenant/Tenant.js">
       <publishTime>02/14/2020 17:13:50</publishTime>
@@ -199,7 +199,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/31/2020 12:25:30</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Amenities/AmenitiesReservationRequest.cshtml">
-      <publishTime>02/25/2020 19:10:51</publishTime>
+      <publishTime>02/26/2020 17:18:55</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Amenities/ARREdit.cshtml">
       <publishTime>02/14/2020 12:24:03</publishTime>
@@ -211,7 +211,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/06/2020 12:08:13</publishTime>
     </File>
     <File Include="Areas/Admin/Views/AmenitiesSlot/index.cshtml">
-      <publishTime>02/13/2020 18:47:15</publishTime>
+      <publishTime>02/26/2020 17:18:55</publishTime>
     </File>
     <File Include="Areas/Admin/Views/BankAccount/Edit.cshtml">
       <publishTime>01/31/2020 12:25:30</publishTime>
@@ -235,7 +235,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/31/2020 12:25:30</publishTime>
     </File>
     <File Include="Areas/Admin/Views/ClubManagement/Index.cshtml">
-      <publishTime>02/13/2020 12:24:48</publishTime>
+      <publishTime>02/26/2020 17:18:55</publishTime>
     </File>
     <File Include="Areas/Admin/Views/CommunityActivity/Index.cshtml">
       <publishTime>01/31/2020 12:25:30</publishTime>
@@ -253,7 +253,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/20/2020 15:46:18</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Event/Index.cshtml">
-      <publishTime>02/13/2020 18:47:15</publishTime>
+      <publishTime>02/26/2020 17:18:55</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Facility/Edit.cshtml">
       <publishTime>01/31/2020 12:25:30</publishTime>
@@ -271,7 +271,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/24/2020 13:28:07</publishTime>
     </File>
     <File Include="Areas/Admin/Views/GuestManagement/Index.cshtml">
-      <publishTime>02/24/2020 13:28:07</publishTime>
+      <publishTime>02/26/2020 17:18:55</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Invoice/Edit.cshtml">
       <publishTime>01/31/2020 12:25:30</publishTime>
@@ -349,13 +349,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/25/2020 19:10:51</publishTime>
     </File>
     <File Include="Areas/Admin/Views/ProspectManagement/Index.cshtml">
-      <publishTime>02/25/2020 19:10:51</publishTime>
+      <publishTime>02/26/2020 17:18:55</publishTime>
     </File>
     <File Include="Areas/Admin/Views/ProspectVerification/EditProspect.cshtml">
       <publishTime>02/25/2020 19:37:56</publishTime>
     </File>
     <File Include="Areas/Admin/Views/ProspectVerification/Index.cshtml">
-      <publishTime>02/11/2020 12:04:59</publishTime>
+      <publishTime>02/26/2020 17:18:55</publishTime>
     </File>
     <File Include="Areas/Admin/Views/PurchaseOrder/Edit.cshtml">
       <publishTime>01/31/2020 12:25:30</publishTime>
@@ -379,10 +379,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/25/2020 19:10:51</publishTime>
     </File>
     <File Include="Areas/Admin/Views/ServicesManagement/Index.cshtml">
-      <publishTime>02/25/2020 19:10:51</publishTime>
+      <publishTime>02/26/2020 17:18:55</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Shared/_Layout.cshtml">
-      <publishTime>02/25/2020 19:48:53</publishTime>
+      <publishTime>02/26/2020 18:05:45</publishTime>
     </File>
     <File Include="Areas/Admin/Views/State/AddEdit.cshtml">
       <publishTime>01/31/2020 12:25:30</publishTime>
@@ -397,7 +397,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/24/2020 13:28:07</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Tenant/Index.cshtml">
-      <publishTime>02/11/2020 12:04:59</publishTime>
+      <publishTime>02/26/2020 17:18:55</publishTime>
     </File>
     <File Include="Areas/Admin/Views/TenantEventJoinApprove/Index.cshtml">
       <publishTime>01/31/2020 12:25:30</publishTime>
@@ -436,7 +436,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/01/2019 16:00:06</publishTime>
     </File>
     <File Include="Areas/Tenant/Content/Pages/Dashboard/Dashboard.js">
-      <publishTime>02/25/2020 19:10:51</publishTime>
+      <publishTime>02/26/2020 17:18:55</publishTime>
     </File>
     <File Include="Areas/Tenant/Content/Pages/EventBooking/EventBooking.js">
       <publishTime>01/31/2020 12:25:30</publishTime>
@@ -448,13 +448,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/13/2019 14:33:57</publishTime>
     </File>
     <File Include="Areas/Tenant/Content/Pages/MyAccount/MyAccount.js">
-      <publishTime>02/25/2020 19:10:51</publishTime>
+      <publishTime>02/26/2020 17:18:55</publishTime>
     </File>
     <File Include="Areas/Tenant/Content/Pages/MyCommunity/MyCommunity.js">
       <publishTime>02/13/2020 12:24:48</publishTime>
     </File>
     <File Include="Areas/Tenant/Content/Pages/MyProfile/Myrofile.js">
-      <publishTime>02/14/2020 17:13:50</publishTime>
+      <publishTime>02/26/2020 17:18:55</publishTime>
     </File>
     <File Include="Areas/Tenant/Content/Pages/UtilityBilling/UtilityBilling.js">
       <publishTime>01/31/2020 12:25:30</publishTime>
@@ -469,7 +469,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/01/2019 14:35:04</publishTime>
     </File>
     <File Include="Areas/Tenant/Views/Dashboard/Index.cshtml">
-      <publishTime>02/25/2020 19:10:51</publishTime>
+      <publishTime>02/26/2020 18:10:57</publishTime>
     </File>
     <File Include="Areas/Tenant/Views/EventBooking/Edit.cshtml">
       <publishTime>01/31/2020 12:25:30</publishTime>
@@ -493,7 +493,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/31/2020 12:25:30</publishTime>
     </File>
     <File Include="Areas/Tenant/Views/MyAccount/Index.cshtml">
-      <publishTime>02/25/2020 19:10:51</publishTime>
+      <publishTime>02/26/2020 17:18:55</publishTime>
     </File>
     <File Include="Areas/Tenant/Views/MyCommunity/Index.cshtml">
       <publishTime>02/25/2020 19:10:51</publishTime>
@@ -502,16 +502,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/25/2020 19:10:51</publishTime>
     </File>
     <File Include="Areas/Tenant/Views/MyCommunity/_JoinClub.cshtml">
-      <publishTime>02/25/2020 19:10:51</publishTime>
+      <publishTime>02/26/2020 18:10:57</publishTime>
     </File>
     <File Include="Areas/Tenant/Views/MyProfile/Index.cshtml">
-      <publishTime>02/07/2020 18:53:26</publishTime>
+      <publishTime>02/26/2020 18:10:57</publishTime>
     </File>
     <File Include="Areas/Tenant/Views/Property/Index.cshtml">
       <publishTime>01/31/2020 12:25:30</publishTime>
     </File>
     <File Include="Areas/Tenant/Views/Shared/_Layout.cshtml">
-      <publishTime>02/25/2020 19:48:19</publishTime>
+      <publishTime>02/26/2020 18:10:57</publishTime>
     </File>
     <File Include="Areas/Tenant/Views/TenantHome/Index.cshtml">
       <publishTime>01/31/2020 12:25:30</publishTime>
@@ -736,7 +736,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/24/2019 19:11:40</publishTime>
     </File>
     <File Include="bin/ShomaRM.dll">
-      <publishTime>02/25/2020 19:59:32</publishTime>
+      <publishTime>02/26/2020 18:19:16</publishTime>
     </File>
     <File Include="bin/ShomaRM.pdb">
       <publishTime>07/25/2019 19:21:08</publishTime>
@@ -908,6 +908,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/assets/css/styleNoJS.css">
       <publishTime>05/13/2019 14:29:46</publishTime>
+    </File>
+    <File Include="Content/assets/css/Tenantstyle.css">
+      <publishTime>02/26/2020 18:10:57</publishTime>
     </File>
     <File Include="Content/assets/css/wizard.css">
       <publishTime>10/18/2019 12:46:52</publishTime>
@@ -1315,10 +1318,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/25/2020 19:10:51</publishTime>
     </File>
     <File Include="Content/assets/img/skin/sanctuary%402x.png">
-      <publishTime>02/25/2020 19:10:51</publishTime>
+      <publishTime>02/26/2020 17:18:55</publishTime>
     </File>
     <File Include="Content/assets/img/skin/sanctuary.png">
-      <publishTime>02/25/2020 19:10:51</publishTime>
+      <publishTime>02/26/2020 17:18:55</publishTime>
     </File>
     <File Include="Content/assets/img/skin/square%402x.png">
       <publishTime>02/25/2020 19:10:51</publishTime>
@@ -1711,7 +1714,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/23/2019 17:16:58</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/ApplyNow.js">
-      <publishTime>02/25/2020 19:10:51</publishTime>
+      <publishTime>02/26/2020 18:03:40</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/DocumentVerification.js">
       <publishTime>01/31/2020 12:25:30</publishTime>
@@ -1825,13 +1828,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/31/2020 12:25:32</publishTime>
     </File>
     <File Include="Views/ApplyNow/Index.cshtml">
-      <publishTime>02/25/2020 19:10:51</publishTime>
+      <publishTime>02/26/2020 17:53:39</publishTime>
     </File>
     <File Include="Views/ApplyNow/PrintSummary.cshtml">
       <publishTime>01/31/2020 12:25:32</publishTime>
     </File>
     <File Include="Views/CheckList/Index.cshtml">
-      <publishTime>02/25/2020 19:10:51</publishTime>
+      <publishTime>02/26/2020 17:33:42</publishTime>
     </File>
     <File Include="Views/EmbeddedSigning/Index.cshtml">
       <publishTime>01/31/2020 12:25:32</publishTime>
@@ -1891,7 +1894,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/31/2020 12:25:32</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>02/25/2020 19:59:17</publishTime>
+      <publishTime>02/26/2020 18:19:17</publishTime>
     </File>
   </ItemGroup>
 </Project>

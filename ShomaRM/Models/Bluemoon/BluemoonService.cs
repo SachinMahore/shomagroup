@@ -33,7 +33,6 @@ namespace ShomaRM.Models.Bluemoon
             }
 
             return body;
-
         }
 
         private string LeaseXMLData(LeaseRequestModel leaseRequestModel)
@@ -574,6 +573,7 @@ namespace ShomaRM.Models.Bluemoon
             LeaseResponseModel leaseResponseModel = new LeaseResponseModel();
             var bodyForCloseSession = CreateXMLDocument(requestEsignStr);
 
+
             var resultRequestEsign = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#RequestEsignature", bodyForCloseSession);
             if (resultRequestEsign != null)
             {
@@ -584,10 +584,12 @@ namespace ShomaRM.Models.Bluemoon
 
 
 
-                var bodyEsignatureData = CreateXMLDocument(@"<ns1:GetEsignatureData>
+
+                    var bodyEsignatureData = CreateXMLDocument(@"<ns1:GetEsignatureData>
                                                         <SessionId>" + sessionId + @"</SessionId>
                                                         <EsignatureId>" + resultCloseSessionDetails[0].Value + @"</EsignatureId>
                                                      </ns1:GetEsignatureData>");
+
 
                 var resultEsignatureData = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#GetEsignatureData", bodyEsignatureData);
                 if (resultEsignatureData != null)
@@ -631,6 +633,7 @@ namespace ShomaRM.Models.Bluemoon
                 }
             }
            
+
             leaseResponseModel.LeaseId = leaseId;
             leaseResponseModel.SessionId = sessionId;
             return leaseResponseModel;
