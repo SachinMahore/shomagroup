@@ -5094,7 +5094,7 @@ var getRecurringPayLists = function () {
             $("#tblRecurringPayments>tbody").empty();
             $.each(response.model, function (elementType, elementValue) {
                 var html = "<tr data-value=" + elementValue.TransID + ">";
-                html += "<td>" + elementValue.Revision_Num + "</td>";
+                html += "<td>1</td>";
                 html += "<td>" + elementValue.TAccCardName + "</td>";
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
           
@@ -5338,7 +5338,7 @@ function recurringPaymentSetUp() {
 }
 
 function deleteRecPayment(transid) {
-    $("#recHeader").text("Set Up Recurring Payments");
+
     $("#modiDiv").addClass("hidden");
     var tenantid = $("#hndTenantID").val();
     
@@ -5361,6 +5361,7 @@ function deleteRecPayment(transid) {
                         data: JSON.stringify(models),
                         dataType: "JSON",
                         success: function (response) {
+                            $("#recHeader").text("Set Up Recurring Payments");
                             $.alert({
                                 title: 'Message!',
                                 content: response.Msg,
@@ -5370,13 +5371,14 @@ function deleteRecPayment(transid) {
                             getRecurringPayLists();
                         }
                     });
-                },
-                no: {
-                    text: 'No',
-                    action: function (no) {
-                    }
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
                 }
             }
+
         }
         });
 }
@@ -5771,9 +5773,7 @@ var printReservation = function (divName, contName) {
 };
 
 var openTag = function () {
-
     $('#popTag').modal('show');
-
 };
 
 var openForm = function () {

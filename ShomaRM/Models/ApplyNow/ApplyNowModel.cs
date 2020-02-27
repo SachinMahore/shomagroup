@@ -162,7 +162,7 @@ namespace ShomaRM.Models
                     }
                     string body = reportHTML;
                     new EmailSendModel().SendEmail(GetProspectData.Email, "Application Completed and Payment Received", body);
-                    message = "Thank you for signing and submitting your application. Please check the email for detail.";
+                    message = "Online Application Completed and Payment of $"+ model.Charge_Amount + " Received. Please check the email for detail.";
                     if (SendMessage == "yes")
                     {
                         new TwilioService().SMS(phonenumber, message);
