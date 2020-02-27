@@ -73,7 +73,7 @@
 
 .nameprofile {
     line-height: 0px;
-    margin: 38px;
+    margin: 34px;
     color: #4d738a;
     float:left
 }
@@ -145,11 +145,10 @@
 }
 
 .myprofilebox {
-    /*background-image: url(../img/myprofile.png);*/
-    width: 150px;
-    height: 150px;
+    width: auto;
+    height: 230px;
     background-size: 100%;
-    float:left;
+    float: left;
 }
 
 .profile-picherbox {
@@ -165,10 +164,14 @@
 }
 
 .add {
-    width: 100%;
+    width: auto;
     text-align: center;
     margin-bottom: unset;
-    /*margin-top: 95%;*/
+    margin: 0 auto;
+    display: table;
+    position: absolute;
+    margin-left: 13%;
+    margin-top: -10px;
 }
 
 .selectdiv:after {
@@ -1835,6 +1838,7 @@ span.cercal3 {
     color: #547288;
     font-size: 24px;
     text-align: center;
+    font-family: Futura Medium;
 }
 
 .Wraper-left-box {
@@ -1888,6 +1892,7 @@ span.cercal3 {
 
 .club {
     padding: 0px 6px;
+    font-family: Futura Medium;
 }
 
 .Clubs-text > img {
@@ -2058,9 +2063,9 @@ span.cercal3 {
 .paynow {
     background: #547288;
     color: #ffffff;
-    font-size: 18px;
+    font-size: 26px;
     border: none;
-    padding: 4px 10px;
+    padding: 14px 35px;
 }
 .edit {
     background: #547288;
@@ -2207,6 +2212,7 @@ ul.submenupayment {
     color: #547288;
     font-weight: 800;
     font-size: 20px;
+    font-family: HelveticaNeue;
 }
 
 .span1 a {
@@ -2455,18 +2461,21 @@ button:hover {
 i.fa.fa-print {
     margin-right: 5px;
 }
+
+.Change_Password {
+    color: #4d738a;
+    text-decoration-line: underline;
+    font-family: HelveticaNeue;
+}
 @media only screen and (max-width: 1980px) and (min-width: 1820px) {
     .img-box {
         max-width: 5% !important;
     }
-
     .myprofilebox {
-        /*background-image: url(../img/myprofile.png);*/
-        width: 230px;
+        width: auto;
         height: 230px;
         background-size: 100%;
-        float:left;
-
+        float: left;
     }
 
     .top-menu > li {
@@ -2480,10 +2489,9 @@ i.fa.fa-print {
 
     .nameprofile {
         line-height: 0px;
-        margin: 57px 40px;
+        margin: 34px 40px;
         color: #4d738a;
-        float:right;
-        
+        float: right;
     }
 
     .calendar-menu > li {
@@ -2611,12 +2619,10 @@ i.fa.fa-print {
     }
 
     .myprofilebox {
-        /*background-image: url(../img/myprofile.png);*/
         width: auto;
         height: 230px;
         background-size: 100%;
-        float:left;
-
+        float: left;
     }
 
     .calendar-menu > li {
