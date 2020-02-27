@@ -108,6 +108,7 @@
     background: #fff;
     font-family: Futura Medium;
     width: 20%;
+    text-align:center;
 }
 
 .nav-tabs1 > li {
@@ -1484,7 +1485,7 @@ textarea {
     border-color: rgb(77, 115, 138);
     border-radius: 1px;
     font-size: 18px;
-    padding: 1px 10px;
+    padding: 4px 10px;
 }
 
 
@@ -2053,9 +2054,9 @@ span.cercal3 {
 .paynow {
     background: #547288;
     color: #ffffff;
-    font-size: 17px;
+    font-size: 18px;
     border: none;
-    padding: 4px 22px;
+    padding: 4px 10px;
 }
 .edit {
     background: #547288;
@@ -2126,6 +2127,7 @@ ul.submenupayment {
     font-size: 22px;
     color: #4d738a;
     line-height: 32px;
+    font-family: Futura Medium;
 }
 
 .Wraper1 {
@@ -2446,7 +2448,9 @@ button:hover {
     font-family: Futura Medium;
     font-size: 32px;
 }
-
+i.fa.fa-print {
+    margin-right: 5px;
+}
 @media only screen and (max-width: 1980px) and (min-width: 1820px) {
     .img-box {
         max-width: 5% !important;
@@ -2586,6 +2590,14 @@ button:hover {
     .span {
         font-size: 18px;
     }
+
+    .submenupayment li.active > a {
+        padding: 7px 38px 11px 15px;
+    }
+    .submenu li > a:hover {
+        padding: 7px 38px 11px 15px;
+    }
+
 }
 
 
