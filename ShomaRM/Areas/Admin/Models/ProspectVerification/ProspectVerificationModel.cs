@@ -277,6 +277,7 @@ namespace ShomaRM.Areas.Admin.Models
                     searchmodel.VerificationStatus = Convert.ToInt32(dr["VerificationStatus"].ToString());
                     searchmodel.CreatedDate = dr["CreatedDate"].ToString();
                     searchmodel.PropertyId = Convert.ToInt64(dr["PropertyId"].ToString());
+                    searchmodel.UnitNo = dr["UnitNo"].ToString();
                     lstProspectVerify.Add(searchmodel);
                 }
                 db.Dispose();
@@ -419,6 +420,7 @@ namespace ShomaRM.Areas.Admin.Models
             public string CreatedDate { get; set; }
             public string SortBy { get; set; }
             public string OrderBy { get; set; }
+            public string UnitNo { get; set; }
         }
 
         

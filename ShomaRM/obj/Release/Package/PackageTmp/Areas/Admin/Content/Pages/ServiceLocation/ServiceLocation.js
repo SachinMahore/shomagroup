@@ -205,7 +205,7 @@ var saveUpdateLocation = function () {
             Location: $("#txtLocation").val(),
            
         };
-        alert($("#hndLocationID").val());
+       
         $.ajax({
             url: "ServiceLocation/saveUpdateLocation",
             method: "post",

@@ -518,7 +518,7 @@ namespace ShomaRM.Models.Bluemoon
             <LeaseId>" + leaseId + @"</LeaseId>
             <OwnerRep>
                 <Name>" + owner.Name + @"</Name>
-                <Email>rjuarez" + owner.Email + @"</Email>
+                <Email>" + owner.Email + @"</Email>
                 <Phone>" + owner.Phone + @"</Phone>
             </OwnerRep><Residents>";
 

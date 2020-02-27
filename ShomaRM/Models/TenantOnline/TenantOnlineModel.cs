@@ -477,11 +477,12 @@ namespace ShomaRM.Models
                 var saveApplicantGender = db.tbl_Applicant.Where(p => p.Email == model.Email).FirstOrDefault();
                 if (saveApplicantGender != null)
                 {
-                    DateOfBirth = model.DateOfBirth;
-                    Gender = model.Gender;
-
-                };
-                db.SaveChanges();
+                    saveApplicantGender.DateOfBirth = model.DateOfBirth;
+                    saveApplicantGender.Gender = model.Gender;
+                    saveApplicantGender.OtherGender = model.OtherGender;
+                    saveApplicantGender.Relationship = "1";
+                    db.SaveChanges();
+                }
 
                 msg = "Applicant Updated Successfully";
             }
