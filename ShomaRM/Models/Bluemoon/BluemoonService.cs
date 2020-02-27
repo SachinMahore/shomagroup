@@ -33,7 +33,6 @@ namespace ShomaRM.Models.Bluemoon
             }
 
             return body;
-
         }
 
         private string LeaseXMLData(LeaseRequestModel leaseRequestModel)
@@ -562,52 +561,65 @@ namespace ShomaRM.Models.Bluemoon
                                   ";
             LeaseResponseModel leaseResponseModel = new LeaseResponseModel();
             var bodyForCloseSession = CreateXMLDocument(requestEsignStr);
-
-            var resultCloseSession = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#RequestEsignature", bodyForCloseSession);
-            if (resultCloseSession != null)
+            try
             {
-                // for attribute
-                var resultCloseSessionDetails = resultCloseSession
-                 .Descendants("RequestEsignatureResult")
-                 .ToList();
+                var resultCloseSession = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#RequestEsignature", bodyForCloseSession);
+                if (resultCloseSession != null)
+                {
+                    // for attribute
+                    var resultCloseSessionDetails = resultCloseSession
+                     .Descendants("RequestEsignatureResult")
+                     .ToList();
 
 
 
-                var bodyEsignatureData = CreateXMLDocument(@"<ns1:GetEsignatureData>
+                    var bodyEsignatureData = CreateXMLDocument(@"<ns1:GetEsignatureData>
                                                         <SessionId>" + sessionId + @"</SessionId>
                                                         <EsignatureId>" + resultCloseSessionDetails[0].Value + @"</EsignatureId>
                                                      </ns1:GetEsignatureData>");
 
-                var resultEsignatureData = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#GetEsignatureData", bodyEsignatureData);
-                if (resultCloseSession != null)
-                {
-                    // for attribute
-                    var resultGetEsignatureDetails = resultEsignatureData
-                     .Descendants("GetEsignatureDataResult")
-                     .ToList();
+                    var resultEsignatureData = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#GetEsignatureData", bodyEsignatureData);
+                    if (resultCloseSession != null)
+                    {
+                        // for attribute
+                        var resultGetEsignatureDetails = resultEsignatureData
+                         .Descendants("GetEsignatureDataResult")
+                         .ToList();
 
-                    var bodyEsignaturePdfData = CreateXMLDocument(@"<ns1:GetEsignaturePDF>
+                        var signers = resultEsignatureData
+                       .Descendants("Signers")
+                       .ToList();
+
+
+                        var bodyEsignaturePdfData = CreateXMLDocument(@"<ns1:GetEsignaturePDF>
                                                                         <SessionId>" + sessionId + @"</SessionId>
                                                                         <EsignatureId>" + resultCloseSessionDetails[0].Value + @"</EsignatureId>
                                                                         <SignerKey xsi:nil=""true""/>
                                                                     </ns1:GetEsignaturePDF>");
 
-                    var resultEsignaturePdfData = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#GetEsignaturePDF", bodyEsignaturePdfData);
-                    if (resultCloseSession != null)
-                    {
-                        // for attribute
-                        var resultGetEsignaturePdfDetails = resultEsignaturePdfData
-                         .Descendants("GetEsignaturePDFResult")
-                         .ToList();
+                        var resultEsignaturePdfData = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#GetEsignaturePDF", bodyEsignaturePdfData);
+                        if (resultCloseSession != null)
+                        {
+                            // for attribute
+                            var resultGetEsignaturePdfDetails = resultEsignaturePdfData
+                             .Descendants("GetEsignaturePDFResult")
+                             .ToList();
 
-                        byte[] bytes = Convert.FromBase64String(resultGetEsignaturePdfDetails[0].Value.ToString());
-                        leaseResponseModel.leasePdf = bytes;
+                            byte[] bytes = Convert.FromBase64String(resultGetEsignaturePdfDetails[0].Value.ToString());
+                            leaseResponseModel.leasePdf = bytes;
+                        }
+
                     }
-
                 }
             }
+            catch(Exception ex)
+            {
 
-            return null;
+            }
+
+            leaseResponseModel.LeaseId = leaseId;
+            leaseResponseModel.SessionId = sessionId;
+            return leaseResponseModel;
         }
 
         public async Task<LeaseResponseModel> GetEsignatureData(string sessionId)
