@@ -288,7 +288,7 @@ namespace ShomaRM.Controllers
             {
                 Email = "luvsohan@gmail.com",
                 IsOwner = false,
-                Name = "Sohan Dawande",
+                Name = "Tasha Zapata",
                 Phone = "956-522-8285"
             });
 
@@ -301,6 +301,7 @@ namespace ShomaRM.Controllers
 
             //LeaseResponseModel leasePdfResponse = await bmservice.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: leaseid);
             await bmservice.CloseSession(sessionId: authenticateData.SessionId);
+            leaseDocumentWithEsignature.LeaseId = leaseid;
             return leaseDocumentWithEsignature;
         }
 
