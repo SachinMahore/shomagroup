@@ -108,7 +108,7 @@ namespace ShomaRM.Models
         public static async Task<XDocument> Post<TResult>(string url, XmlDocument SOAPReqBody)
         {
             //Making Web Request  
-            HttpWebRequest Req = (HttpWebRequest)WebRequest.Create(@"https://www.bluemoonforms.com/services/lease.php#AuthenticateUser");
+            HttpWebRequest Req = (HttpWebRequest)WebRequest.Create(url);
             ////SOAPAction  
             //Req.Headers.Add(@"SOAPAction:http://tempuri.org/Addition");
             //Content_type  
