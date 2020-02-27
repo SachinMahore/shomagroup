@@ -30,7 +30,7 @@
                             @{
                                 ViewBag.Title = "CreateCommunityClubJoin";
                             }
-                            <h3 class="center headding-sub-text">Club Registration Form</h3>
+                            <h3 class="headding-sub-text margin3  col-lg-12">Club Registration Form</h3>
 
                             <br />
                             @using (Html.BeginForm())
@@ -80,7 +80,7 @@
 
                                                 <div class="form-group">
                                                     <div class='input-group date' id='datetimepicker1'>
-                                                        <input id="txtStartDate" type='text' class="form-control" data-provide="datepicker" name="StartDate" maxlength="20" placeholder="MM/dd/yyyy">
+                                                        <input id="txtStartDate" type='text' style="width:95%;" class="form-control" data-provide="datepicker" name="StartDate" maxlength="20" placeholder="MM/dd/yyyy">
                                                         <span class="input-group-addon">
                                                             <a><span class="fa fa-calendar"></span></a>
                                                         </span>
@@ -246,11 +246,6 @@
                                     <input type="hidden" id="hndfileCommunityActivityOriginalName" />
                                     <button id="ClubSubmit" type="button" onclick="SubmitClubEdit()" class="paynow m-t30">Submit</button>
                                 </div>
-
-
-
-
-
 
                             }
                         </div>
