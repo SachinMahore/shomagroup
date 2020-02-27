@@ -36,81 +36,75 @@
 
 
 
-                    
-                    <form class="payment-box">
+
+                    <div class="payment-box">
                         <div class="col-lg-12 margin2">
                             <div class="row margin margin-box">
 
 
-                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Club Title:</div>
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Club Title:</div>
 
                                 <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
                                     <input id="txtClubTitle" type="text" name="ClubTitle" class="form-control" />
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
 
 
-                    <form class="payment-box">
+                    <div class="payment-box">
                         <div class="col-lg-12 margin2">
                             <div class="row margin margin-box">
-                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Activity:</div>
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Activity:</div>
                                 <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12  border-bottom1 m-l15">
                                     @Html.DropDownListFor(o => o.ActivityId, Enum.GetValues(typeof(ActivityEnum)).Cast<ActivityEnum>
                                ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "ActivityId", @class = "form-control" })
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
 
-                    <form class="payment-box">
+                    <div class="payment-box">
                         <div class="col-lg-12 margin">
                             <div class="row margin margin-box">
-                                <div class="col-lg-2 col-md-6 col-sm-6">
+                                <div class="col-lg-3 col-md-6 col-sm-6">
                                     <div class="control-label  requiredField text-payment" for="date">
                                         Start Date
                                     </div>
                                 </div>
                                 <div class='col-sm-6 col-md-6 col-lg-6'>
+                                    
                                     <div class="form-group">
                                         <div class='input-group date' id='datetimepicker1'>
                                             <input id="txtStartDate" type='text' class="form-control" data-provide="datepicker" name="StartDate" maxlength="20" placeholder="MM/dd/yyyy">
                                             <span class="input-group-addon">
-                                                <a><span id="btnStartDate" class="fa fa-calendar"></span></a>
+                                                <a><span class="fa fa-calendar"></span></a>
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
 
 
-
-
-
-
-
-
-
-                    <form class="payment-box">
+                    <div class="payment-box">
                         <div class="col-lg-12 margin2">
                             <div class="row margin margin-box">
-                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Venue:</div>
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Venue:</div>
                                 <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
                                     <input id="txtVenue" type="text" name="Venue" class="form-control" />
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
 
 
 
-                    <form class="payment-box">
+                    <div class="payment-box">
                         <div class="col-lg-12 margin2">
                             <div class="row margin margin-box">
-                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
                                     Meeting Day:
                                 </div>
                                 <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
@@ -119,13 +113,13 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
 
 
-                    <form class="payment-box">
+                    <div class="payment-box">
                         <div class="col-lg-12 margin2">
                             <div class="row margin margin-box">
-                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
                                     Meeting Time:
 
                                 </div>
@@ -142,64 +136,76 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
 
 
 
-                    <form class="payment-box">
+                    <div class="payment-box">
                         <div class="col-lg-12 margin2">
                             <div class="row margin margin-box">
-                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Contact/ Organizer:</div>
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Contact/ Organizer:</div>
                                 <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
                                     <input id="txtContact" type="text" name="Contact" class="form-control" />
                                 </div>
                             </div>
                         </div>
-                    </form>
-                    <form class="payment-box">
+                    </div>
+                    <div class="payment-box">
                         <div class="col-lg-12 margin2">
                             <div class="row margin margin-box">
-                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Email:</div>
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Email:</div>
                                 <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
                                     <input id="txtEmail" type="text" name="Email" class="form-control" />
                                 </div><span class="Required">(Required)</span>
                             </div>
                         </div>
-                    </form>
+                    </div>
 
 
-
-
-                    <form class="payment-box">
+                    <div class="payment-box">
                         <div class="col-lg-12 margin2">
                             <div class="row margin margin-box">
-                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Phone:</div>
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Phone:</div>
                                 <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
                                     <input id="txtPhoneNumber" type="text" name="PhoneNumber" class="form-control" />
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
 
-                    <div class="row mb-15">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Best way to contact:</div>
-                                <div class="col-sm-9">
-                                    <div class="col-sm-2">
-                                        <input id="PhoneCheck" class="form-control" type="radio" name="check" checked="checked" /> Phone
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <input id="EmailCheck" class="form-control" type="radio" name="check" /> Email
-                                    </div>
-                                </div>
+                    @*<div class="row mb-15">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Best way to contact:</div>
+                        <div class="col-sm-9">
+                            <div class="col-sm-2">
+                                <input  class="form-control" type="radio"  /> Phone
+                            </div>
+                            <div class="col-sm-2">
+                                <input  class="form-control" type="radio"  /> Email
                             </div>
                         </div>
                     </div>
-                    <form class="payment-box">
+                </div>
+            </div>*@
+                    <div class="condition-wrapper m-t30 p-b30 ">
+                        <div class="m-b10 text-subheding">Best way to contact:</div>
+                        <label class="checbox">
+
+                            <input type="radio" id="PhoneCheck" name="check" checked="checked">
+                            Phone
+                        </label>
+                        <label class="checbox">
+
+                            <input type="radio" checked="checked" id="EmailCheck" name="check">
+                            Email
+                        </label>
+                    </div>
+                   
+                    <div class="payment-box">
                         <div class="col-lg-12 margin2">
                             <div class="row margin margin-box">
-                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
                                     Level:
                                 </div>
                                 <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
@@ -208,7 +214,7 @@
                                 </div>
                             </div>
                             <div class="row margin margin-box m-t30">
-                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
 
                                 </div>
                                 <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 textarea1">
@@ -216,44 +222,72 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
 
-                    <form class="payment-box">
+                    @*<div class="payment-box">
                         <div class="col-lg-12 margin2">
                             <div class="row margin margin-box">
-                                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
-                                    Description:
-                                </div>
-                                <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 textarea1">
-                                    <textarea id="txtDescriptionEdit" name="Description" rows="5" placeholder="What is your club about?" class="form-control mb-5"></textarea>
-                                    <br />
-                                    <textarea id="txtBriefDescription" name="BriefDescription" rows="2" maxlength="40" placeholder="Brief description (limited to 40 characters)" class="form-control mb-5">@Model.BriefDescription</textarea>
-                                </div>
-                            </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                            Description:
+                        </div>
+                        <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 textarea1">
+                            <textarea id="txtDescriptionEdit" name="Description" rows="5" placeholder="What is your club about?" class="form-control mb-5"></textarea>
+                            <br />
+                            <textarea id="txtBriefDescription" name="BriefDescription" rows="2" maxlength="40" placeholder="Brief description (limited to 40 characters)" class="form-control mb-5">@Model.BriefDescription</textarea>
+                        </div>
+                    </div>
+                            
 
                             <div class="checkbox " style="margin:0 auto ; display: table">
-                                <label>
-                                    <input id="chkTermsConditions" class="form-control" type="checkbox"  name="TermsAndCondition" />
-                                    &nbsp;I agree to the <a style="color:#4D738A !important;font-size:11pt;">Terms &amp; Conditions</a>
-                                </label>
-                            </div>
+                        <label>
+                            <input  class="form-control"  />
+                            &nbsp;I agree to the <a style="color:#4D738A !important;font-size:11pt;">Terms &amp; Conditions</a>
+                        </label>
+                    </div>
 
 
                             <div class="center">
-                                <input type="hidden" id="hndfileCommunityActivity" />
-                                <input type="hidden" id="hndfileCommunityActivityOriginalName" />
-                                <button id="ClubSubmit" type="button" class=" btn btn-primary" onclick="SubmitClubEdit()" style="background-color:#4D738A;border-color:#4D738A;color:#fff;margin-top:5px;font-size:11pt;">Create Club</button>
+                               
+                                <button  class=" btn btn-primary"  style="background-color:#4D738A;border-color:#4D738A;color:#fff;margin-top:5px;font-size:11pt;">Create Club</button>
                             </div>
                         </div>
-                    </form>
-                   
+                    </div>*@
+
+                    <div class="payment-box">
+                        <div class="col-lg-12 margin2">
+                            <div class="row margin margin-box">
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                                    Description:
+                                </div>
+                                <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 textarea1">
+                                    <textarea id="txtDescriptionEdit" name="Description" rows="5" placeholder="What is your club about?" style="width:100%; height:150px;"></textarea>
+                                </div>
+                            </div>
+                            <div class="row margin margin-box m-t10">
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+
+                                </div>
+                                <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 textarea1">
+                                    <textarea id="txtBriefDescription" name="BriefDescription" rows="2" maxlength="40" placeholder="Brief description (limited to 40 characters)" style="width:100%;height:70px;"></textarea>
+                                </div><span class="Limitto40">(Limit to 40 characters)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="condition-wrapper ">                        
+                                <input type="checkbox" name="TermsAndCondition" id="chkTermsConditions">                            
+                        <span class="chektext">I agree to the <span class="span1"><a>Terms &amp; Condition </a></span></span>
+                    </div>
+
+                    <div class="condition-wrapper ">
+                        <input type="hidden" id="hndfileCommunityActivity" />
+                        <input type="hidden" id="hndfileCommunityActivityOriginalName" />
+                        <button id="ClubSubmit" type="button" onclick="SubmitClubEdit()"  class="paynow m-t30">Submit</button>
+                    </div>
 
 
 
 
-                    
 
-                   
 
                 }
             </div>
@@ -307,77 +341,6 @@
         </div>
     </div>
 </div>
-@*<div class="col-md-3">
-        <div class="col-sm-12" style="margin-bottom:-20px;">
-            <div class="panel-body table-bordered" style="padding:5px !important;">
-                <div class="center">
-                    <span style="color:#4D738A;font-size:20pt;">Amount Due:</span>
-                </div>
-                <div class="center">
-                    <span id="spanCurrentAmountDue" style="color:#c82828;font-size:20px;cursor:pointer;" onclick="openPaymentBreakdown()">0.00</span><br />
-                    <button id="btnMakeAPayment" class="" style="background-color:#8cb954;border-collapse:collapse;border-radius:2px;color:#ffffff;margin-top:4px;width:60%;font-size:10pt" type="button" onclick="goToMakeAPayment();">Pay</button><br />
-                    <a href="javascript:void(0)" id="btnSetUpRecurringPayment" style="text-decoration:underline;font-size:10pt" onclick="goToSetUpRecurringPayment();">Set Up Recurring Payment</a>
-                </div>
-            </div><br />
-        </div>
-        <div class="col-sm-12" style="margin-bottom:-20px;">
-            <div class="panel-body table-bordered" style="padding:10px !important">
-                <div class="center" id="bellDiv">
-                    <span style="color:#c82828;font-size:30px;"><i class="fa fa-bell"></i></span>
-                </div><br />
-                <div id="divServiceRequestAlarm" style="margin-top:-30px;">
-                    <div class="center">
-                        <span id="spanServiceRequestlabelAlarm" style="font-size:27px;"></span>
-                    </div>
-                    <div class="center">
-                        <span id="spanServiceRequestDateTimeAlarm"></span>
-                    </div>
-                </div>
-            </div><br />
-        </div>
-        <div class="col-sm-12" style="margin-bottom:-20px;">
-            <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
-                <h3 class="panel-title" style="color:#ffffff"><img src="~/Content/assets/Assets/cheers-whight.png" height="20" width="20" /> Celebrate</h3>
-            </div>
-            <div class="panel-body table-bordered" style="padding:5px !important">
-                <div class="center">
-                    <a href="javascript:void(0)" id="btnReserveAmenities" onclick="goToReserveAmenities();"><i class="fa fa-plus-circle"></i> Reserve Amenities</a>
-                </div>
-            </div><br />
-        </div>
-        <div class="col-sm-12" style="margin-bottom:-20px;">
-            <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
-                <h3 class="panel-title" style="color:#ffffff"><i class="fa fa-user-plus"></i> Enjoy Company</h3>
-            </div>
-            <div class="panel-body table-bordered" style="padding:5px !important">
-                <div class="center">
-                    <a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToRegisterGuest();"><i class="fa fa-plus-circle"></i> Register a Guest</a>
-                </div>
-            </div><br />
-        </div>
-        <div class="col-sm-12" style="margin-bottom:-20px;">
-            <div class="panel-heading center" style="background-color:#4D738A;padding:5px !important">
-                <h3 class="panel-title" style="color:#ffffff"><i class="glyphicon glyphicon-wrench"></i> Service Request</h3>
-            </div>
-            <div class="panel-body table-bordered" style="padding:5px !important">
-                <div class="center">
-                    <a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToSubmitServiceRequest();"><i class="fa fa-plus-circle"></i> Submit a Service Request</a>
-                </div>
-                <div class="center">
-                    <span><b>After-Hours</b></span>
-                </div>
-                <div class="center" style="margin-top:-3%">
-                    <span>(786)437-8658</span>
-                </div>
-                <div class="center" style="margin-top:2%">
-                    <span><b>Emergencies</b></span>
-                </div>
-                <div class="center" style="margin-top:-3%">
-                    <span>(786)437-8658 or (911)</span>
-                </div>
-            </div><br />
-        </div>
-    </div>*@
 
 <div class="modal" id="date-popover" style="padding-right: 370px !important;margin-top: 203px;margin-left: 303px;">
     <div class="modal-dialog">
@@ -549,582 +512,9 @@
     <input id="hdnBankName" value="0" />
     <input id="hdnAccountnumber" value="0" />
     <input id="hdnRoutingNumber" value="0" />*@
-@*<style>
 
-        .mb-15 {
-            margin-bottom: 15px;
-        }
 
-        .mb-5 {
-            margin-bottom: 5px;
-        }
 
-        .tab-content1 ul.t-ul {
-            background-color: transparent !important;
-        }
-
-            .tab-content1 ul.t-ul > li {
-                margin-right: 2px;
-                overflow: hidden;
-                /*background-color: #a4a9a433;*/
-                border-radius: 5%;
-            }
-
-        .nav.t-ul {
-            padding-left: 0;
-            list-style: none;
-        }
-
-
-
-
-        .tab-content1.wizard > ul > li {
-            width: 100%;
-            float: none;
-            margin-bottom: 0px;
-        }
-
-            .tab-content1.wizard > ul > li > * {
-                position: relative;
-                padding: 1em .8em .8em 1.5em;
-                color: #ffffff;
-                background-color: #B4ADA5;
-                border-color: #B4ADA5;
-            }
-
-            .tab-content1.wizard > ul > li.completed > * {
-                color: #fff !important;
-                background-color: #96c03d !important;
-                border-color: #96c03d !important;
-                border-bottom: none !important;
-            }
-
-        .tab-content1 > ul > li.active > * {
-            color: #4d738a !important;
-            background-color: transparent !important;
-            /*border-color: #4d738a !important;*/
-            /*border-bottom: none !important;*/
-            margin-bottom: 0px;
-            border: none !important;
-        }
-
-        .tab-content1 > ul > li.active1 > * {
-            color: #4d738a !important;
-            /*background-color: #ffffff !important;*/
-            /*border-color: #4d738a !important;*/
-            /*border-bottom: none !important;*/
-            margin-bottom: 0px;
-            border: #ffffff !important;
-            border-radius: 0px;
-        }
-        /*.active1 > a {
-                color: #4d738a !important;
-                background-color: #ffffff !important;
-            }*/
-
-
-        .tab-content1.wizard > ul > li::after:last-child {
-            border: none;
-            border-bottom-left-radius: 0px;
-        }
-
-        .tab-content1 > .wizard > ul > li > a {
-            opacity: 1;
-            font-size: 14px;
-        }
-
-        .tab-content1.wizard a:hover {
-            color: #fff;
-            background-color: #4d738a;
-            border-color: #4d738a
-        }
-
-        span.nmbr {
-            display: inline-block;
-            padding: 10px 0 0 0;
-            background: #ffffff;
-            width: 35px;
-            line-height: 100%;
-            height: 35px;
-            margin: auto;
-            border-radius: 50%;
-            font-weight: bold;
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        @@media(min-width:992px) {
-            .tab-content1.wizard > ul > li {
-                position: relative;
-                padding: 0;
-                /*margin: 4px 4px 4px 0;*/
-                width: 19.6%;
-                float: left;
-                text-align: center;
-            }
-
-            .nav-tabs.wizard.t-ul > ul > li.active a {
-                padding-top: 15px;
-            }
-
-            .nav-tabs.wizard.t-ul > ul > li.active1 a {
-                padding-top: 15px;
-            }
-
-
-            .tab-content1.wizard > ul > li::after, .nav-tabs.wizard.t-ul > ul > li > ::after {
-                content: '';
-                position: absolute;
-                top: -1px;
-                left: 100%;
-                height: 0;
-                width: 0;
-                border: 24px solid transparent;
-                border-right-width: 24px;
-                border-left-color: transparent;
-                border-right-width: 0;
-                border-left-width: 20px;
-            }
-
-            .tab-content1.wizard > ul > li::after {
-                z-index: 1;
-                -webkit-transform: translateX(4px);
-                -moz-transform: translateX(4px);
-                -ms-transform: translateX(4px);
-                -o-transform: translateX(4px);
-                transform: translateX(4px);
-                border-left-color: #fff;
-                margin: 0
-            }
-
-            .tab-content1.wizard > ul > li > *::after {
-                z-index: 2;
-                border-left-color: inherit
-            }
-
-            .tab-content1.wizard > ul > li:nth-of-type(1) > a {
-                border-top-left-radius: 0px;
-                border-bottom-left-radius: 0px;
-            }
-
-            .tab-content1.wizard > ul > li:last-child a {
-                border-top-right-radius: 0px;
-                border-bottom-right-radius: 0px;
-            }
-
-            .tab-content1.wizard > ul > li:last-child {
-                margin-right: 0;
-            }
-
-            .nav-tabs.wizard.t-ul > ul > li:last-child a:after,
-            .nav-tabs.wizard.t-ul > ul > li:last-child:after {
-                content: "";
-                border: none;
-            }
-
-            span.nmbr {
-                display: block;
-            }
-        }
-
-        .wizard-card {
-            border: groove;
-            border-color: black;
-        }
-
-        .btn-blue {
-            background-color: #4d738a;
-            color: #fff;
-        }
-
-            .btn-blue:hover {
-                background-color: #B7B0A7;
-                color: #fff;
-            }
-
-        hr {
-            margin-top: 0px !important;
-            margin-bottom: 0px !important;
-            border: 0;
-            border-top: 1px solid #bebdbd;
-        }
-
-        .select-unit {
-            background-color: #4d738a !important;
-            color: #fff !important;
-        }
-
-            .select-unit a {
-                color: #fff !important;
-            }
-
-        .nav-tabs.t-ul > ul > li > a:hover {
-            border-color: transparent !important;
-        }
-
-        .nav.t-ul > ul > li > a:hover, .nav > li > a:focus {
-            background-color: transparent !important;
-        }
-
-        .main-tab.t-ul > ul > li > a:hover {
-            text-decoration: none !important;
-            color: #4D738A !important;
-            /*color: #B7B0A7;*/
-            /*-webkit-transition: all .8s ease !important;*/
-            transition: all .8s ease !important;
-        }
-
-        .main-tab.t-ul > ul > li > a {
-            color: #B7B0A7 !important;
-            /*outline: 0;
-                font-weight: bold;
-                -webkit-transition: all .8s ease;
-                transition: all .8s ease;*/
-        }
-
-        .hov {
-            color: #ffffff !important;
-        }
-
-            .hov > a {
-                color: #ffffff !important;
-            }
-
-            .hov:hover {
-                background-color: #ffffff;
-            }
-
-        .nact > li.active1 {
-            background-color: #ddd;
-        }
-
-        .nact > li > a {
-            color: #ffffff !important;
-        }
-
-            .nact > li > a:hover {
-                color: #B7B0A7 !important;
-            }
-
-        .nact > li:hover {
-            color: #ffffff !important;
-            background-color: transparent;
-        }
-
-        .nact > li.active1 > a:hover {
-            color: #B7B0A7 !important;
-        }
-
-        .nact > li.active1:hover {
-            background-color: #ddd !important;
-        }
-
-        p {
-            font-size: 6pt;
-        }
-    </style>*@
-
-@*<style>
-        .tab-content ul {
-            background-color: #c7d5c733;
-        }
-
-            .tab-content ul li {
-                margin-right: 2px;
-                overflow: hidden;
-                background-color: #a4a9a433;
-                border-radius: 5%;
-            }
-
-        .nav {
-            padding-left: 0;
-            list-style: none;
-        }
-
-        .tab-content1 ul {
-            background-color: #4d738a;
-            color: #dfe4e8;
-        }
-
-            .tab-content1 ul li a {
-                color: #B7B0A7;
-            }
-
-
-
-
-        .tab-content.wizard li {
-            width: 100%;
-            float: none;
-            margin-bottom: 0px;
-        }
-
-            .tab-content.wizard li > * {
-                position: relative;
-                padding: 1em .8em .8em 1.5em;
-                color: #ffffff;
-                background-color: #B4ADA5;
-                border-color: #B4ADA5;
-            }
-
-            .tab-content.wizard li.completed > * {
-                color: #fff !important;
-                background-color: #96c03d !important;
-                border-color: #96c03d !important;
-                border-bottom: none !important;
-            }
-
-        .tab-content li.active > * {
-            color: #fff !important;
-            background-color: #4d738a !important;
-            border-color: #4d738a !important;
-            /*border-bottom: none !important;*/
-            margin-bottom: 0px;
-        }
-
-        .tab-content.wizard li::after:last-child {
-            border: none;
-            border-bottom-left-radius: 0px;
-        }
-
-        .tab-content.wizard > li > a {
-            opacity: 1;
-            font-size: 14px;
-        }
-
-        .tab-content.wizard a:hover {
-            color: #fff;
-            background-color: #4d738a;
-            border-color: #4d738a
-        }
-
-        span.nmbr {
-            display: inline-block;
-            padding: 10px 0 0 0;
-            background: #ffffff;
-            width: 35px;
-            line-height: 100%;
-            height: 35px;
-            margin: auto;
-            border-radius: 50%;
-            font-weight: bold;
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        @@media(min-width:992px) {
-            .tab-content.wizard li {
-                position: relative;
-                padding: 0;
-                /*margin: 4px 4px 4px 0;*/
-                width: 19.6%;
-                float: left;
-                text-align: center;
-            }
-
-            .nav-tabs.wizard li.active a {
-                padding-top: 15px;
-            }
-
-            .tab-content.wizard li::after, .nav-tabs.wizard li > ::after {
-                content: '';
-                position: absolute;
-                top: -1px;
-                left: 100%;
-                height: 0;
-                width: 0;
-                border: 24px solid transparent;
-                border-right-width: 24px;
-                border-left-color: transparent;
-                border-right-width: 0;
-                border-left-width: 20px;
-            }
-
-            .tab-content.wizard li::after {
-                z-index: 1;
-                -webkit-transform: translateX(4px);
-                -moz-transform: translateX(4px);
-                -ms-transform: translateX(4px);
-                -o-transform: translateX(4px);
-                transform: translateX(4px);
-                border-left-color: #fff;
-                margin: 0
-            }
-
-            .tab-content.wizard li > *::after {
-                z-index: 2;
-                border-left-color: inherit
-            }
-
-            .tab-content.wizard > li:nth-of-type(1) > a {
-                border-top-left-radius: 0px;
-                border-bottom-left-radius: 0px;
-            }
-
-            .tab-content.wizard li:last-child a {
-                border-top-right-radius: 0px;
-                border-bottom-right-radius: 0px;
-            }
-
-            .tab-content.wizard li:last-child {
-                margin-right: 0;
-            }
-
-            .nav-tabs.wizard li:last-child a:after,
-            .nav-tabs.wizard li:last-child:after {
-                content: "";
-                border: none;
-            }
-
-            span.nmbr {
-                display: block;
-            }
-        }
-
-        .wizard-card {
-            border: groove;
-            border-color: black;
-        }
-
-        .btn-blue {
-            background-color: #4d738a;
-            color: #fff;
-        }
-
-            .btn-blue:hover {
-                background-color: #B7B0A7;
-                color: #fff;
-            }
-
-        hr {
-            margin-top: 0px !important;
-            margin-bottom: 0px !important;
-            border: 0;
-            border-top: 1px solid #bebdbd;
-        }
-
-        .select-unit {
-            background-color: #4d738a !important;
-            color: #fff !important;
-        }
-
-            .select-unit a {
-                color: #fff !important;
-            }
-        /*.badge {
-                font-size:14px !important;
-                color:#000 !important;
-                background-color: #fff !important;
-                border-radius: 5px !important;
-            }*/
-
-        .tab-content1 ul {
-            background-color: transparent !important;
-            color: black !important;
-        }
-
-        .tab-content ul li {
-            background-color: #fff !important;
-        }
-
-
-
-        .colorNeigh {
-            background-color: #00bfff !important;
-        }
-
-        .colorCommu {
-            background-color: #a2d900 !important;
-        }
-
-        .colorOther {
-            background-color: #ff6 !important;
-        }
-
-        .colorMulti {
-            background-color: #ff6347 !important;
-        }
-
-        .colorCurrDate {
-            background-color: #daf6ff !important;
-        }
-
-        .button-pill {
-            background-color: #ddd;
-            border: none;
-            color: black;
-            padding: 2px 10px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            margin: 0px -10px;
-            cursor: default;
-            border-radius: 16px;
-        }
-
-
-        .button-square {
-            background-color: #ddd;
-            border: none;
-            color: white;
-            padding: 2px 10px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            margin: 2px 0px;
-            cursor: default;
-        }
-
-        #EventCatogary button {
-            float: left;
-            display: block;
-            text-align: center;
-            text-decoration: none;
-            cursor: pointer;
-            background-color: #fff;
-            font-size: 9px;
-        }
-
-        div.zabuto_calendar .badge-event,
-        div.zabuto_calendar div.legend span.badge-event {
-            background: #4D738A !important;
-            color: #fff;
-            text-shadow: none;
-        }
-
-        .zabuto_calendar .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
-            line-height: 100% !important;
-            text-align: center;
-            width: 15%;
-        }
-
-        .affix {
-            position: fixed !important;
-            background-color: white !important;
-            z-index: 777 !important;
-            padding-right: 15px !important;
-        }
-
-        .calendar-month-header {
-            background: #4D738A !important;
-            color: #fff;
-            text-shadow: none;
-            border: 1px solid #4D738A !important;
-        }
-
-            .calendar-month-header td {
-                border: 1px solid #4D738A !important;
-            }
-
-        .zabuto_calendar .table-bordered {
-            border: 3px solid #B7B0A7 !important;
-            height: 100% !important;
-        }
-    </style>*@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
@@ -1164,465 +554,32 @@
     });
 </script>
 <script>
-
-    function goToStep(stepid) {
-
-        if (stepid == "1") {
-            $("#li1").addClass("active");
-            $("#li2").removeClass("active");
-            $("#li3").removeClass("active");
-            $("#li4").removeClass("active");
-            $("#li5").removeClass("active");
-            $("#li6").removeClass("active");
-            $("#li7").removeClass("active");
-            $("#li8").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li10").removeClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").removeClass("active");
-
-
-            $("#step1").removeClass("hidden");
-            $("#step2").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
-            $("#step8").addClass("hidden");
-            $("#step9").addClass("hidden");
-            $("#step10").addClass("hidden");
-            $("#step11").addClass("hidden");
-            $("#step12").addClass("hidden");
-
-
-        }
-
-
-
-        if (stepid == "2") {
-            $("#li1").removeClass("active");
-            $("#li2").addClass("active");
-            $("#li3").removeClass("active");
-            $("#li4").removeClass("active");
-            $("#li5").removeClass("active");
-            $("#li6").removeClass("active");
-            $("#li7").removeClass("active");
-            $("#li8").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li10").removeClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").removeClass("active");
-
-
-            $("#step1").addClass("hidden");
-            $("#step2").removeClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
-            $("#step8").addClass("hidden");
-            $("#step9").addClass("hidden");
-            $("#step10").addClass("hidden");
-            $("#step11").addClass("hidden");
-            $("#step12").addClass("hidden");
-        }
-
-        if (stepid == "3") {
-            $("#li1").removeClass("active");
-            $("#li2").removeClass("active");
-            $("#li3").addClass("active");
-            $("#li4").removeClass("active");
-            $("#li5").removeClass("active");
-            $("#li6").removeClass("active");
-            $("#li7").removeClass("active");
-            $("#li8").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li10").removeClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").removeClass("active");
-
-
-            $("#step1").addClass("hidden");
-            $("#step2").addClass("hidden");
-            $("#step3").removeClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
-            $("#step8").addClass("hidden");
-            $("#step9").addClass("hidden");
-            $("#step10").addClass("hidden");
-            $("#step11").addClass("hidden");
-            $("#step12").addClass("hidden");
-        }
-
-        if (stepid == "4") {
-            $("#li1").removeClass("active");
-            $("#li2").removeClass("active");
-            $("#li3").removeClass("active");
-            $("#li4").addClass("active");
-            $("#li5").removeClass("active");
-            $("#li6").removeClass("active");
-            $("#li7").removeClass("active");
-            $("#li8").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li10").removeClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").removeClass("active");
-
-
-            $("#step1").addClass("hidden");
-            $("#step2").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step4").removeClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
-            $("#step8").addClass("hidden");
-            $("#step9").addClass("hidden");
-            $("#step10").addClass("hidden");
-            $("#step11").addClass("hidden");
-            $("#step12").addClass("hidden");
-
-        }
-
-        if (stepid == "5") {
-            $("#li1").removeClass("active");
-            $("#li2").removeClass("active");
-            $("#li3").removeClass("active");
-            $("#li4").removeClass("active");
-            $("#li5").addClass("active");
-            $("#li6").removeClass("active");
-            $("#li7").removeClass("active")
-            $("#li8").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li10").removeClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").removeClass("active");
-
-
-            $("#step1").addClass("hidden");
-            $("#step2").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step5").removeClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
-            $("#step8").addClass("hidden");
-            $("#step9").addClass("hidden");
-            $("#step10").addClass("hidden");
-            $("#step11").addClass("hidden");
-            $("#step12").addClass("hidden");
-        }
-
-        if (stepid == "6") {
-            $("#li1").removeClass("active");
-            $("#li2").removeClass("active");
-            $("#li3").removeClass("active");
-            $("#li4").removeClass("active");
-            $("#li5").removeClass("active");
-            $("#li6").addClass("active");
-            $("#li7").removeClass("active");
-            $("#li8").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li10").removeClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").removeClass("active");
-
-
-            $("#step1").addClass("hidden");
-            $("#step2").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").removeClass("hidden");
-            $("#step7").addClass("hidden");
-            $("#step8").addClass("hidden");
-            $("#step9").addClass("hidden");
-            $("#step10").addClass("hidden");
-            $("#step11").addClass("hidden");
-            $("#step12").addClass("hidden");
-
-        }
-
-        if (stepid == "7") {
-            $("#li1").removeClass("active");
-            $("#li2").removeClass("active");
-            $("#li3").removeClass("active");
-            $("#li4").removeClass("active");
-            $("#li5").removeClass("active");
-            $("#li6").removeClass("active");
-            $("#li7").addClass("active");
-            $("#li8").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li10").removeClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").removeClass("active");
-
-
-            $("#step1").addClass("hidden");
-            $("#step2").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").removeClass("hidden");
-            $("#step8").addClass("hidden");
-            $("#step9").addClass("hidden");
-            $("#step10").addClass("hidden");
-            $("#step11").addClass("hidden");
-            $("#step12").addClass("hidden");
-
-        }
-
-        if (stepid == "8") {
-            $("#li1").removeClass("active");
-            $("#li2").removeClass("active");
-            $("#li3").removeClass("active");
-            $("#li4").removeClass("active");
-            $("#li5").removeClass("active");
-            $("#li6").removeClass("active");
-            $("#li7").removeClass("active");
-            $("#li8").addClass("active");
-            $("#li9").removeClass("active");
-            $("#li10").removeClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").removeClass("active");
-
-
-            $("#step1").addClass("hidden");
-            $("#step2").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
-            $("#step8").removeClass("hidden");
-            $("#step9").addClass("hidden");
-            $("#step10").addClass("hidden");
-            $("#step11").addClass("hidden");
-            $("#step12").addClass("hidden");
-
-        }
-
-        if (stepid == "9") {
-            $("#li1").removeClass("active");
-            $("#li2").removeClass("active");
-            $("#li3").removeClass("active");
-            $("#li4").removeClass("active");
-            $("#li5").removeClass("active");
-            $("#li6").removeClass("active");
-            $("#li7").removeClass("active");
-            $("#li8").removeClass("active");
-            $("#li9").addClass("active");
-            $("#li10").removeClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").removeClass("active");
-
-
-            $("#step1").addClass("hidden");
-            $("#step2").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
-            $("#step8").addClass("hidden");
-            $("#step9").removeClass("hidden");
-            $("#step10").addClass("hidden");
-            $("#step11").addClass("hidden");
-            $("#step12").addClass("hidden");
-
-        }
-
-        if (stepid == "10") {
-            $("#li1").removeClass("active");
-            $("#li2").removeClass("active");
-            $("#li3").removeClass("active");
-            $("#li4").removeClass("active");
-            $("#li5").removeClass("active");
-            $("#li6").removeClass("active");
-            $("#li7").removeClass("active");
-            $("#li8").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li10").addClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").removeClass("active");
-
-
-            $("#step1").addClass("hidden");
-            $("#step2").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
-            $("#step8").addClass("hidden");
-            $("#step9").addClass("hidden");
-            $("#step10").removeClass("hidden");
-            $("#step11").addClass("hidden");
-            $("#step12").addClass("hidden");
-
-        }
-        if (stepid == "11") {
-            $("#li1").removeClass("active");
-            $("#li2").removeClass("active");
-            $("#li3").removeClass("active");
-            $("#li4").removeClass("active");
-            $("#li5").removeClass("active");
-            $("#li6").removeClass("active");
-            $("#li7").removeClass("active");
-            $("#li8").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li10").removeClass("active");
-            $("#li11").addClass("active");
-            $("#li12").removeClass("active");
-
-
-            $("#step1").addClass("hidden");
-            $("#step2").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
-            $("#step8").addClass("hidden");
-            $("#step9").addClass("hidden");
-            $("#step10").addClass("hidden");
-            $("#step11").removeClass("hidden");
-            $("#step12").addClass("hidden");
-
-        }
-
-        if (stepid == "12") {
-            $("#li1").removeClass("active");
-            $("#li2").removeClass("active");
-            $("#li3").removeClass("active");
-            $("#li4").removeClass("active");
-            $("#li5").removeClass("active");
-            $("#li6").removeClass("active");
-            $("#li7").removeClass("active");
-            $("#li8").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li10").removeClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").addClass("active");
-
-
-            $("#step1").addClass("hidden");
-            $("#step2").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
-            $("#step8").addClass("hidden");
-            $("#step9").addClass("hidden");
-            $("#step10").addClass("hidden");
-            $("#step11").addClass("hidden");
-            $("#step12").removeClass("hidden");
-
-        }
-
-    }
     $(document).ready(function () {
+        $("#txtMeetingTime").timepicki();
+        goToStep(5);
+    });
+    $("#chkTermsConditions").on('ifChanged', function (event) {
+        if (this.checked == true) {
+            $('#ClubSubmit').removeAttr('disabled');
+        } else {
+            $('#ClubSubmit').attr('disabled', 'disabled');
+        }
+    });
 
-        var date_input = $('input[name="date"]'); //our date input has the name "date"
-        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-        date_input.datepicker({
-            format: 'mm/dd/yyyy',
-            container: container,
-            todayHighlight: true,
-            autoclose: true,
-        })
-    })
+
+
+    var closeDateModel = function () {
+
+        var modalOpDate = document.getElementById("date-popover");
+        var modalClDate = document.getElementById("closeModelDate");
+        modalClDate.onclick = function () { modalOpDate.style.display = "none"; }
+    };
+
+    document.getElementById('txtPhoneNumber').addEventListener('input', function (e) {
+        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+    });
 </script>
 
-<script>
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-    }
-
-    function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-    }
-
-</script>
-<script>
-    var x, i, j, selElmnt, a, b, c;
-    /*look for any elements with the class "custom-select":*/
-    x = document.getElementsByClassName("custom-select");
-    for (i = 0; i < x.length; i++) {
-        selElmnt = x[i].getElementsByTagName("select")[0];
-        /*for each element, create a new DIV that will act as the selected item:*/
-        a = document.createElement("DIV");
-        a.setAttribute("class", "select-selected");
-        a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
-        x[i].appendChild(a);
-        /*for each element, create a new DIV that will contain the option list:*/
-        b = document.createElement("DIV");
-        b.setAttribute("class", "select-items select-hide");
-        for (j = 1; j < selElmnt.length; j++) {
-            /*for each option in the original select element,
-            create a new DIV that will act as an option item:*/
-            c = document.createElement("DIV");
-            c.innerHTML = selElmnt.options[j].innerHTML;
-            c.addEventListener("click", function (e) {
-                /*when an item is clicked, update the original select box,
-                and the selected item:*/
-                var y, i, k, s, h;
-                s = this.parentNode.parentNode.getElementsByTagName("select")[0];
-                h = this.parentNode.previousSibling;
-                for (i = 0; i < s.length; i++) {
-                    if (s.options[i].innerHTML == this.innerHTML) {
-                        s.selectedIndex = i;
-                        h.innerHTML = this.innerHTML;
-                        y = this.parentNode.getElementsByClassName("same-as-selected");
-                        for (k = 0; k < y.length; k++) {
-                            y[k].removeAttribute("class");
-                        }
-                        this.setAttribute("class", "same-as-selected");
-                        break;
-                    }
-                }
-                h.click();
-            });
-            b.appendChild(c);
-        }
-        x[i].appendChild(b);
-        a.addEventListener("click", function (e) {
-            /*when the select box is clicked, close any other select boxes,
-            and open/close the current select box:*/
-            e.stopPropagation();
-            closeAllSelect(this);
-            this.nextSibling.classList.toggle("select-hide");
-            this.classList.toggle("select-arrow-active");
-        });
-    }
-    function closeAllSelect(elmnt) {
-        /*a function that will close all select boxes in the document,
-        except the current select box:*/
-        var x, y, i, arrNo = [];
-        x = document.getElementsByClassName("select-items");
-        y = document.getElementsByClassName("select-selected");
-        for (i = 0; i < y.length; i++) {
-            if (elmnt == y[i]) {
-                arrNo.push(i)
-            } else {
-                y[i].classList.remove("select-arrow-active");
-            }
-        }
-        for (i = 0; i < x.length; i++) {
-            if (arrNo.indexOf(i)) {
-                x[i].classList.add("select-hide");
-            }
-        }
-    }
-    /*if the user clicks anywhere outside the select box,
-    then close all select boxes:*/
-    document.addEventListener("click", closeAllSelect);
-</script>
 
 

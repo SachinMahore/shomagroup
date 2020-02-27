@@ -36,6 +36,12 @@
     /*border: 3px solid #B7B0A7 !important;*/
     height: 100% !important;
 }
+@font-face {
+    font-family: HelveticaNeue;
+    font-style: normal;
+    font-weight: normal;
+    src: url('../font/BeVietnam-Medium.ttf');
+}
 
 @font-face {
     font-family: Futura Bold;
@@ -47,20 +53,6 @@
     src: url('../font/Futura Medium.otf');
 }
 
-@font-face {
-    font-family: HelveticaNeue;
-    src: url('../font/FontsFree-Net-HelveticaNeueBold.ttf');
-}
-
-@font-face {
-    font-family: HelveticaNeueMediumItalic;
-    src: url('../font/HelveticaNeueMediumItalic.otf');
-}
-
-@font-face {
-    font-family: Helvetica;
-    src: url('../font/Helvetica25UltraLight_22433.ttf');
-}
 
 .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
     color: #fff;
@@ -81,7 +73,7 @@
 
 .nameprofile {
     line-height: 0px;
-    margin: 38px;
+    margin: 34px;
     color: #4d738a;
     float:left
 }
@@ -116,6 +108,7 @@
     background: #fff;
     font-family: Futura Medium;
     width: 20%;
+    text-align:center;
 }
 
 .nav-tabs1 > li {
@@ -152,11 +145,10 @@
 }
 
 .myprofilebox {
-    /*background-image: url(../img/myprofile.png);*/
-    width: 150px;
-    height: 150px;
+    width: auto;
+    height: 230px;
     background-size: 100%;
-    float:left;
+    float: left;
 }
 
 .profile-picherbox {
@@ -169,18 +161,17 @@
 
 .fa-plus:before {
     color: #fff;
-    content: "\f067";
-    background: #4d738a;
-    border-radius: 50%;
-    padding: 5px;
-    margin-right: 5px;
 }
 
 .add {
-    width: 100%;
+    width: auto;
     text-align: center;
     margin-bottom: unset;
-    /*margin-top: 95%;*/
+    margin: 0 auto;
+    display: table;
+    position: absolute;
+    margin-left: 13%;
+    margin-top: -10px;
 }
 
 .selectdiv:after {
@@ -226,7 +217,7 @@ select::-ms-expand {
 .checbox {
     display: block;
     position: relative;
-    padding-left: 35px;
+    /*padding-left: 35px;*/
     margin-bottom: 0px;
     cursor: pointer;
     font-size: 17px;
@@ -1347,13 +1338,6 @@ select::-ms-expand {
 
 /*--@-Font--css---------*/
 
-/*@font-face {
-  font-family: myFirstFont;
-  src: url(FuturaBQ-Medium.otf);
-}
-.topmenu-font {
-  font-family: myFirstFont;
-}*/
 
 
 /*---comman--css---------*/
@@ -1504,7 +1488,7 @@ textarea {
     border-color: rgb(77, 115, 138);
     border-radius: 1px;
     font-size: 18px;
-    padding: 1px 10px;
+    padding: 4px 10px;
 }
 
 
@@ -1590,14 +1574,14 @@ textarea {
 .span {
     color: #B3ADA6;
     font-size: 14px;
-    font-family: Helvetica;
+    font-family: HelveticaNeue;
 }
 
 .comment-text {
     font-size: 16px;
     margin: 10px 0px;
     color: #000000;
-    font-family: Helvetica;
+    font-family: HelveticaNeue;
 }
 
 .comment-text0 {
@@ -1854,6 +1838,7 @@ span.cercal3 {
     color: #547288;
     font-size: 24px;
     text-align: center;
+    font-family: Futura Medium;
 }
 
 .Wraper-left-box {
@@ -1907,23 +1892,13 @@ span.cercal3 {
 
 .club {
     padding: 0px 6px;
+    font-family: Futura Medium;
 }
 
 .Clubs-text > img {
     margin-top: -8px;
 }
 
-.fa-plus:before {
-    color: #fff;
-    content: "\f067";
-    background: #4d738a;
-    border-radius: 50%;
-    padding: 6px 8px 5px;
-    margin-right: 5px;
-    text-align: center;
-    justify-content: center;
-    font-size: 18px;
-}
 
 
 .left-side-amount {
@@ -1973,24 +1948,39 @@ span.cercal3 {
 
 .text-color1 span {
     text-align: 20px;
+    font-family: HelveticaNeue;
+    font-size: 18px;
+}
+
+.fa-plus {
+    color: #fff;
+    content: "\f067";
+    background: #4d738a;
+    border-radius: 50%;
+    padding: 6px 8px 5px;
+    margin-right: 5px;
+    text-align: center;
+    justify-content: center;
+    font-size: 18px;
 }
 
 .text-color1 a {
     color: #547288;
-    font-size: 18px;
-    font-family: HelveticaNeue;
 }
 
+
+.text-color1 span:hover {
+    color: #B3ADA6;
+    font-size: 18px;
+}
 .text-color1 i:hover {
     color: #B3ADA6;
     font-size: 18px;
-    font-family: HelveticaNeue;
+    background: #B3ADA6;
 }
-
 .text-color1 a:hover {
     color: #B3ADA6;
     font-size: 18px;
-    font-family: HelveticaNeue;
 }
 /*------my-home----*/
 .margin {
@@ -2003,6 +1993,10 @@ span.cercal3 {
 
 .margin2 {
     margin-bottom: 40px;
+}
+
+.margin3 {
+    margin-bottom: 50px;
 }
 
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
@@ -2069,9 +2063,9 @@ span.cercal3 {
 .paynow {
     background: #547288;
     color: #ffffff;
-    font-size: 17px;
+    font-size: 26px;
     border: none;
-    padding: 4px 22px;
+    padding: 14px 35px;
 }
 .edit {
     background: #547288;
@@ -2118,7 +2112,7 @@ ul.submenupayment {
     color: #4e738a;
     cursor: default;
     background: #ffffff;
-    padding: 9px 38px 9px 15px;
+    padding: 10px 38px 9px 15px;
     text-decoration: none;
     font-family: Futura Medium;
 }
@@ -2133,8 +2127,8 @@ ul.submenupayment {
 
     .submenu li > a:hover {
         background: #fff;
-        color: #4e738a;
-        padding: 9px 38px 9px 15px;
+        color: #4e738a;        
+        padding: 10px 38px 9px 15px;
         font-family: Futura Medium;
     }
 
@@ -2142,6 +2136,7 @@ ul.submenupayment {
     font-size: 22px;
     color: #4d738a;
     line-height: 32px;
+    font-family: Futura Medium;
 }
 
 .Wraper1 {
@@ -2217,6 +2212,7 @@ ul.submenupayment {
     color: #547288;
     font-weight: 800;
     font-size: 20px;
+    font-family: HelveticaNeue;
 }
 
 .span1 a {
@@ -2462,19 +2458,24 @@ button:hover {
     font-family: Futura Medium;
     font-size: 32px;
 }
+i.fa.fa-print {
+    margin-right: 5px;
+}
 
+.Change_Password {
+    color: #4d738a;
+    text-decoration-line: underline;
+    font-family: HelveticaNeue;
+}
 @media only screen and (max-width: 1980px) and (min-width: 1820px) {
     .img-box {
         max-width: 5% !important;
     }
-
     .myprofilebox {
-        /*background-image: url(../img/myprofile.png);*/
-        width: 230px;
+        width: auto;
         height: 230px;
         background-size: 100%;
-        float:left;
-
+        float: left;
     }
 
     .top-menu > li {
@@ -2488,10 +2489,9 @@ button:hover {
 
     .nameprofile {
         line-height: 0px;
-        margin: 57px 40px;
+        margin: 34px 40px;
         color: #4d738a;
-        float:right;
-        
+        float: right;
     }
 
     .calendar-menu > li {
@@ -2573,7 +2573,7 @@ button:hover {
     }
 
     .submenu {
-        padding: 10px 7px;
+        padding: 8px 7px;
         height: 46px;
     }
 
@@ -2602,6 +2602,14 @@ button:hover {
     .span {
         font-size: 18px;
     }
+
+    .submenupayment li.active > a {
+        padding: 10px 38px 11px 15px;
+    }
+    .submenu li > a:hover {
+        padding: 10px 38px 11px 15px;
+    }
+
 }
 
 
@@ -2611,12 +2619,10 @@ button:hover {
     }
 
     .myprofilebox {
-        /*background-image: url(../img/myprofile.png);*/
         width: auto;
         height: 230px;
         background-size: 100%;
-        float:left;
-
+        float: left;
     }
 
     .calendar-menu > li {
@@ -3756,4 +3762,7 @@ td.logo-width {
 
 .boorder-top {
     border-top: none;
+}
+.table-border-right {
+    border: none !important;
 }

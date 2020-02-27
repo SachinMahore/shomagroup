@@ -259,7 +259,7 @@ var getCommunityActivityList = function () {
                 Html += '<div class="row">';
                 Html += '<div class="col-lg-1 col-md-2 col-sm-1 col-xs-4 flot-box">';
                 if (elementValue.ProfilePicture == null) {
-                    Html += '<img src="/Content/assets/img/myprofile.png" class="img-circle" height="50" width="50" />';
+                    Html += '<img src="/Content/assets/img/circle.png" class="img-circle" height="50" width="50" />';
                 }
                 else {
                     var fileEx = doesFileExist('/Content/assets/img/tenantProfile/' + elementValue.ProfilePicture);
@@ -267,7 +267,7 @@ var getCommunityActivityList = function () {
                         Html += '<img src="/Content/assets/img/tenantProfile/' + elementValue.ProfilePicture + '" class="img-circle" height="50" width="50" />';
                     }
                     else {
-                        Html += '<img src="/Content/assets/img/myprofile.png" class="img-circle" height="50" width="50" />';
+                        Html += '<img src="/Content/assets/img/circle.png" class="img-circle" height="50" width="50" />';
                     }
                 }
                 Html += '</div>';
@@ -725,18 +725,14 @@ var getServiceRequestOnAlarm = function () {
         success: function (response) {
             $('#divServiceRequestAlarm').empty();
             $.each(response.model, function (elementType, elementValue) {
-                var Html = '<div class="center">';
-                Html += '<span id="spanServiceRequestlabelAlarm" style="font-size:12pt;">' + elementValue.ProblemCategoryName + '</span>';
-                Html += '</div>';
-                Html += '<div class="center">';
+                var Html = '<div class="bell-text" id="spanServiceRequestlabelAlarm">' + elementValue.ProblemCategoryName + '</div>';              
+               
                 if (elementValue.PermissionComeDateString == 'Any Time') {
-                    Html += '<span id="spanServiceRequestDateTimeAlarm" style="font-size:08pt;">' + elementValue.PermissionComeDateString + '</span>';
+                    Html += '<div class="bell-sub-text" id="spanServiceRequestDateTimeAlarm">' + elementValue.PermissionComeDateString + '</div>';
                 }
                 else {
-
-                    Html += '<span id="spanServiceRequestDateTimeAlarm" style="font-size:08pt;">' + elementValue.PermissionComeDateString + ' at ' + elementValue.PermissionComeTime + '</span>';
-                }
-                Html += '</div>';
+                    Html += '<div class="bell-sub-text" id="spanServiceRequestDateTimeAlarm">' + elementValue.PermissionComeDateString + ' at ' + elementValue.PermissionComeTime +'</div>';                   
+                }                
                 $('#divServiceRequestAlarm').append(Html);
             });
 

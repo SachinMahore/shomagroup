@@ -5578,3 +5578,21 @@ var dateIconFunctions = function () {
         $("#txtDateOfBirth").focus();
     });
 };
+var createLeaseDocument = function () {
+    $("#divLoader").show();
+    var param = { UserID: $("#hndUID").val() };
+    $.ajax({
+        url: "/CheckList/LeaseBlumoon",
+        method: "post",
+        data: JSON.stringify(param),
+        contentType: "application/json; charset=utf-8", // content type sent to server
+        dataType: "json", //Expected data format from server
+        success: function (response) {
+            $("#divLoader").hide();
+            $("#btnleaseDownl").removeAttr("disabled");
+            $("#btnleaseDownl").attr('href', '/Content/assets/img/Document/' + response.LeaseId + '.pdf');
+            $("#btnleaseDownl").attr('download', 'LeaseDocument_' + response.LeaseId + '.pdf');
+            $("#btnleaseDownl").attr('target', '_parent');
+        }
+    });
+}

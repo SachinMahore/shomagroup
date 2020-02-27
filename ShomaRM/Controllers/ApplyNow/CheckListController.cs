@@ -114,12 +114,20 @@ namespace ShomaRM.Controllers
         public async System.Threading.Tasks.Task<ActionResult> LeaseBlumoon()
         {
 
-            var data = await LeaseBlumoonAsync();
-            if (data != null)
+            try
             {
-                System.IO.File.WriteAllBytes(Server.MapPath("/Content/assets/img/Document/" + data.LeaseId + ".pdf"), data.leasePdf);
+                var data = await LeaseBlumoonAsync();
+                if (data != null)
+                {
+                    System.IO.File.WriteAllBytes(Server.MapPath("/Content/assets/img/Document/" + data.LeaseId + ".pdf"), data.leasePdf);
+                }
+                return Json(new { LeaseId = data.LeaseId }, JsonRequestBehavior.AllowGet);
             }
-            return Json(new { LeaseId = data.LeaseId }, JsonRequestBehavior.AllowGet);
+            catch(Exception ex)
+            {
+                return Json(new { LeaseId = "0" }, JsonRequestBehavior.AllowGet);
+            }
+           
             //return File(data.leasePdf, "application/pdf", "LeaseDocument_" + data.LeaseId + ".pdf");
         }
 
@@ -260,9 +268,40 @@ namespace ShomaRM.Controllers
                 LeaseResponseModel leaseEditResponse = await bmservice.EditLease(leaseRequestModel: leaseRequestModel, leaseId: leaseid, sessionId: authenticateData.SessionId);
             }
 
-            LeaseResponseModel leasePdfResponse = await bmservice.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: leaseid);
+            List<EsignatureParty> esignatureParties = new List<EsignatureParty>();
+
+            // please provide the list with the correct data from lease methods. below is some static details I provided - Sachin Mahore upadated dynamic
+            // Note. For owmer please set IsOwner true and other will ve residents which will be set to false.
+            esignatureParties.Add(new EsignatureParty()
+            {
+                Email = tenantdata.Email,
+                IsOwner = true,
+                Name = tenantdata.FirstName+" "+tenantdata.LastName,
+                Phone = "860-087-3002"
+            });
+
+            // add the residents details who will sign the document
+            // Note 1. email should be valid email . on this email , the residents will get the esignature request
+            //      2. name should match exact as per resisdent detail in create lease otherwise we will not get any response
+
+            esignatureParties.Add(new EsignatureParty()
+            {
+                Email = "luvsohan@gmail.com",
+                IsOwner = false,
+                Name = "Sohan Dawande",
+                Phone = "956-522-8285"
+            });
+
+            LeaseResponseModel EsignatureResponse = await bmservice.RequestEsignature(leaseId: leaseid, sessionId: authenticateData.SessionId, esignatureParties: esignatureParties);
+
+            // this will not give pdf with signature right away because this will need to be called after residents will sign the esignature. 
+            // so please call it on any download lease document button 
+            // Note. please save the esignature id for downloading document 
+            LeaseResponseModel leaseDocumentWithEsignature = await bmservice.GetLeaseDocumentWithEsignature(SessionId: authenticateData.SessionId, EsignatureId: EsignatureResponse.EsignatureId);
+
+            //LeaseResponseModel leasePdfResponse = await bmservice.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: leaseid);
             await bmservice.CloseSession(sessionId: authenticateData.SessionId);
-            return leasePdfResponse;
+            return leaseDocumentWithEsignature;
         }
 
         public async System.Threading.Tasks.Task<ActionResult> GetLeaseDocBlumoon()
