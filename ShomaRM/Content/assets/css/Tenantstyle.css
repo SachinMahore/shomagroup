@@ -2433,7 +2433,7 @@ button:hover {
 }
 
 .myprofile-subtext {
-    font-size: 25px;
+    font-size: 20px;
     color: #000000;
     font-family: HelveticaNeue;
 }
@@ -2466,6 +2466,7 @@ i.fa.fa-print {
     color: #4d738a;
     text-decoration-line: underline;
     font-family: HelveticaNeue;
+    font-size: 20px;
 }
 @media only screen and (max-width: 1980px) and (min-width: 1820px) {
     .img-box {
