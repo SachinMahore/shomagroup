@@ -2596,10 +2596,10 @@ i.fa.fa-print {
     }
 
     .submenupayment li.active > a {
-        padding: 7px 38px 11px 15px;
+        padding: 10px 38px 11px 15px;
     }
     .submenu li > a:hover {
-        padding: 7px 38px 11px 15px;
+        padding: 10px 38px 11px 15px;
     }
 
 }
