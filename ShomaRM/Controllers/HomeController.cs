@@ -68,10 +68,39 @@ namespace ShomaRM.Controllers
             leaseRequestModel.UNIT_NUMBER = "Apurva";
             LeaseResponseModel authenticateData = await test.CreateSession();
             LeaseResponseModel leaseCreateResponse = await test.CreateLease(leaseRequestModel: leaseRequestModel, PropertyId: "112154", sessionId: authenticateData.SessionId);
-            LeaseResponseModel leaseEditResponse = await test.EditLease(leaseRequestModel: leaseRequestModel, leaseId: leaseCreateResponse.LeaseId, sessionId: authenticateData.SessionId);
-            LeaseResponseModel leasePdfResponse = await test.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: leaseCreateResponse.LeaseId);
+
+            List<EsignatureParty> esignatureParties = new List<EsignatureParty>();
+            esignatureParties.Add(new EsignatureParty() {
+                 Email = "lalit.thinker@gmail.com",
+                  IsOwner = true,
+                   Name = "Lalit Bokde",
+                    Phone = "837-900-8118"
+            });
+
+            esignatureParties.Add(new EsignatureParty()
+            {
+                Email = "apurvaraut20@gmail.com",
+                IsOwner = false,
+                Name = "Apurva Raut",
+                Phone = "703-855-1722"
+            });
+
+            esignatureParties.Add(new EsignatureParty()
+            {
+                Email = "atulbobade@gmail.com",
+                IsOwner = false,
+                Name = "Atul Bobade",
+                Phone = "703-855-1712"
+            });
+
+
+
+            LeaseResponseModel leaseResponseModel = await test.RequestEsignature(leaseId: leaseCreateResponse.LeaseId, sessionId: authenticateData.SessionId, esignatureParties : esignatureParties);
+
+            //LeaseResponseModel leaseEditResponse = await test.EditLease(leaseRequestModel: leaseRequestModel, leaseId: leaseCreateResponse.LeaseId, sessionId: authenticateData.SessionId);
+            //LeaseResponseModel leasePdfResponse = await test.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: leaseCreateResponse.LeaseId);
             await test.CloseSession(sessionId: authenticateData.SessionId);
-            return leasePdfResponse;
+            return leaseResponseModel;
 
 
         }
