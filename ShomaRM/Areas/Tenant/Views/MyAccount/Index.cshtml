@@ -324,7 +324,7 @@
                                     <th scope="row" class="border-box border-box2 text-payment tabletr">Account</th>
                                     <th scope="row" class="border-box border-box2 text-payment tabletr">Due Date</th>
                                     <th scope="row" class="border-box border-box2 text-payment tabletr">Amount</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Action</th>
+                                    <th scope="row" class="border-box border-box2 text-payment tabletr table-border-right"></th>
 
                                 </tr>
                             </thead>
@@ -579,12 +579,11 @@
                         <table id="tblPaymentAccountsCreditCard" class="borderlessTable tbale-box" width="100%">
                             <thead>
                                 <tr>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Bank Name</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Card Name</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Card Number</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Action</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Default Pay</th>
-
+                                    <th width="20%" scope="row" class="border-box border-box2 text-payment tabletr">Bank Name</th>
+                                    <th width="25%" scope="row" class="border-box border-box2 text-payment tabletr">Card Name</th>
+                                    <th width="25%" scope="row" class="border-box border-box2 text-payment tabletr">Card Number</th>
+                                    <th width="20%" scope="row" class="border-box border-box2 text-payment tabletr">Default Pay</th>
+                                    <th width="10%" scope="row" class="border-box border-box2 text-payment tabletr table-border-right"></th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -653,11 +652,11 @@
                         <table id="tblServiceRequest" class="borderlessTable tbale-box" width="100%">
                             <thead>
                                 <tr>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Preferred Date</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Problem Category</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Status</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Priority</th>
-                                    <th scope="row" class="border-box border-box2 text-payment tabletr">Action</th>
+                                    <th width="35%" scope="row" class="border-box border-box2 text-payment tabletr">Preferred Date</th>
+                                    <th  width="35%" scope="row" class="border-box border-box2 text-payment tabletr">Problem Category</th>
+                                    <th  width="10%" scope="row" class="border-box border-box2 text-payment tabletr">Status</th>
+                                    <th  width="10%" scope="row" class="border-box border-box2 text-payment tabletr">Priority</th>
+                                    <th  width="10%" scope="row" class="border-box border-box2 text-payment tabletr table-border-right"></th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -670,7 +669,7 @@
         </div>
         <div id="serviceStep2" class="col-lg-12 payment-box hidden" >
             <input id="hdnServiceRequest" type="hidden" value="0" />
-            <h3 class="headding-sub-text margin1  col-lg-12">Submit Service Request</h3>
+            <h3 class="headding-sub-text margin3  col-lg-12">Submit Service Request</h3>
 
             <div class="payment-box">
                 <div class="col-lg-12 ">
@@ -811,11 +810,11 @@
                         Unit Access:
                     </div>
                     <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 textarea1">
-                        <div class="comment-text">Name:<span class="Access-text p-l20" id="lblNameUnitAccess"></span></div>
-                        <div class="comment-text">Unit#:<span class="Access-text p-l30" id="lblUnitUnitAccess"></span></div>
-                        <div class="comment-text">Phone:<span class="Access-text p-l20" id="lblPhoneUnitAccess"></span></div>
-                        <div class="comment-text">Emergency Phone:<span class="Access-text p-l20" id="lblEmergencyPhoneUnitAccess"></span></div>
-                        <div class="comment-text">Email:<span class="Access-text p-l30" id="lblEmailUnitAccess"></span></div>
+                        <div class="comment-text">Name:<span class="Access-text p-l100" id="lblNameUnitAccess"></span></div>
+                        <div class="comment-text">Unit#:<span class="Access-text p-l100" id="lblUnitUnitAccess"></span></div>
+                        <div class="comment-text">Phone:<span class="Access-text p-l90" id="lblPhoneUnitAccess"></span></div>
+                        <div class="comment-text">Emergency Phone:<span class="Access-text" id="lblEmergencyPhoneUnitAccess"></span></div>
+                        <div class="comment-text">Email:<span class="Access-text p-l100" id="lblEmailUnitAccess"></span></div>
 
                         <div class="m-t50 text-subheding">Do we have permission to enter your apartment?</div>
 
@@ -823,7 +822,7 @@
 
                             <div class="col-lg-8 p-l30">
                                 <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
-                                <label>
+                                <label class="checbox">
                                     <input type="radio" id="rbtnApertmentPermission1" name="rbtnPermissionToEnter" value="1" checked="checked">
                                     Current
                                 </label>
@@ -832,7 +831,7 @@
                         <div class="row m-t10">
                             <div class="col-lg-4 p-l30">
                                 <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
-                                <label>
+                                <label class="checbox">
                                     <input type="radio" id="rbtnApertmentPermission2" name="rbtnPermissionToEnter" value="2" checked="checked">
                                     By appointment
                                 </label>
@@ -871,7 +870,7 @@
                         <div class="row m-t10">
                             <div class="col-lg-8 p-l30">
                                 <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
-                                <label>
+                                <label class="checbox">
                                     <input type="radio" id="rbtnPetInformation1" name="rbtnPetInformation" value="1">
                                     Yes
                                 </label>
@@ -882,7 +881,7 @@
                         <div class="row m-t10">
                             <div class="col-lg-8 p-l30">
                                 <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
-                                <label>
+                                <label class="checbox">
                                     <input type="radio" id="rbtnPetInformation2" name="rbtnPetInformation" value="2" checked="checked">
                                     No
                                 </label>
@@ -1023,7 +1022,7 @@
             </div>
 
             <div class="condition-wrapper ">
-                <button id="btnServiceRequestSave" class="paynow m-t30" onclick="saveUpdateServiceRequest()">Submit Service Request</button>
+                <button id="btnServiceRequestSave" class="paynow m-t30" onclick="saveUpdateServiceRequest()">Submit</button>
 
                 <button id="btnCancel" class="paynow m-t30 m-l10" onclick="clearServiceRequestField()">Cancel</button>
 
@@ -1067,7 +1066,7 @@
                                             <th scope="row" class="border-box border-box2 text-payment tabletr">Desire Duration</th>
                                             <th scope="row" class="border-box border-box2 text-payment tabletr">Guest</th>
                                             <th scope="row" class="border-box border-box2 text-payment tabletr">Status</th>
-                                            <th scope="row" class="border-box border-box2 text-payment tabletr">Action</th>
+                                            <th scope="row" class="border-box border-box2 text-payment tabletr table-border-right"></th>
 
                                             @*<a><i class="fa fa-times"></i></a>*@
                                         </tr>
@@ -1448,7 +1447,7 @@
         <div class="text-redcolor1 center m-t20 m-b40">Registration is only necessary for guests staying overnight.</div>
 
         <div class="payment-box">
-            <div class="col-lg-12 margin2">
+            <div class="col-lg-12 margin3">
                 <div class="row margin margin-box">
                     <div class="col-lg-3">
                         <div class="col-lg-12 mobile-margin text-payment">GUEST NAME:</div>
@@ -1461,7 +1460,7 @@
                                 <input type="text" id="txtGuestFirstName" class="form-control" onchange="copyGuestName();" />
                             </div>
                         </div>
-                        <div class="row m-t10">
+                        <div class="row m-t20">
                             <div class="Club-text col-lg-2 ">Last:</div>
                             <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
                                 <input type="text" id="txtGuestLastName" class="form-control" onchange="copyGuestName();" />
@@ -1503,7 +1502,7 @@
                                 <input type="text" id="txtGuestPhone" class="form-control" maxlength="10" onkeypress="return isOnlyNumber(event);" />
                             </div>
                         </div>
-                        <div class="row m-t10">
+                        <div class="row m-t20">
                             <div class="Club-text col-lg-2">EMAIL:</div>
                             <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
                                 <input type="text" class="form-control" id="txtGuestEmail" />
@@ -1542,9 +1541,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row m-t10">
+                        <div class="row m-t20">
                             <div class="Club-text1 col-lg-2">Visit End Date:</div>
-                            <div class="col-lg-4 col-md-2 col-sm-6 col-xs-12 border-bottom1 ">
+                            <div class="col-lg-4 col-md-2 col-sm-6 col-xs-12 border-bottom1 m-l10">
                                 <div class="form-group">
                                     <div class='input-group date'>
                                         <input id="txtGuestVistEndDate" type="text" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
