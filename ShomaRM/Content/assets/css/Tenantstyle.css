@@ -53,20 +53,6 @@
     src: url('../font/Futura Medium.otf');
 }
 
-/*@font-face {
-    font-family: HelveticaNeue;
-    src: url('../font/FontsFree-Net-HelveticaNeueBold.ttf');
-}*/
-
-@font-face {
-    font-family: HelveticaNeueMediumItalic;
-    src: url('../font/HelveticaNeueMediumItalic.otf');
-}
-
-@font-face {
-    font-family: Helvetica;
-    src: url('../font/Helvetica25UltraLight_22433.ttf');
-}
 
 .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
     color: #fff;
@@ -122,6 +108,7 @@
     background: #fff;
     font-family: Futura Medium;
     width: 20%;
+    text-align:center;
 }
 
 .nav-tabs1 > li {
@@ -1348,13 +1335,6 @@ select::-ms-expand {
 
 /*--@-Font--css---------*/
 
-/*@font-face {
-  font-family: myFirstFont;
-  src: url(FuturaBQ-Medium.otf);
-}
-.topmenu-font {
-  font-family: myFirstFont;
-}*/
 
 
 /*---comman--css---------*/
@@ -1505,7 +1485,7 @@ textarea {
     border-color: rgb(77, 115, 138);
     border-radius: 1px;
     font-size: 18px;
-    padding: 1px 10px;
+    padding: 4px 10px;
 }
 
 
@@ -1591,14 +1571,14 @@ textarea {
 .span {
     color: #B3ADA6;
     font-size: 14px;
-    font-family: Helvetica;
+    font-family: HelveticaNeue;
 }
 
 .comment-text {
     font-size: 16px;
     margin: 10px 0px;
     color: #000000;
-    font-family: Helvetica;
+    font-family: HelveticaNeue;
 }
 
 .comment-text0 {
@@ -2078,9 +2058,9 @@ span.cercal3 {
 .paynow {
     background: #547288;
     color: #ffffff;
-    font-size: 17px;
+    font-size: 18px;
     border: none;
-    padding: 4px 22px;
+    padding: 4px 10px;
 }
 .edit {
     background: #547288;
@@ -2151,6 +2131,7 @@ ul.submenupayment {
     font-size: 22px;
     color: #4d738a;
     line-height: 32px;
+    font-family: Futura Medium;
 }
 
 .Wraper1 {
@@ -2471,7 +2452,9 @@ button:hover {
     font-family: Futura Medium;
     font-size: 32px;
 }
-
+i.fa.fa-print {
+    margin-right: 5px;
+}
 @media only screen and (max-width: 1980px) and (min-width: 1820px) {
     .img-box {
         max-width: 5% !important;
@@ -2611,6 +2594,14 @@ button:hover {
     .span {
         font-size: 18px;
     }
+
+    .submenupayment li.active > a {
+        padding: 7px 38px 11px 15px;
+    }
+    .submenu li > a:hover {
+        padding: 7px 38px 11px 15px;
+    }
+
 }
 
 
