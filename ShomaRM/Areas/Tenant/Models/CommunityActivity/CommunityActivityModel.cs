@@ -133,7 +133,7 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<CommunityActivityModel> list = new List<CommunityActivityModel>();
-            var getCommunityActivity = db.tbl_CommunityActivity.Where(co => co.TenantId == model.TenantId).ToList();
+            var getCommunityActivity = db.tbl_CommunityActivity.Where(co => co.TenantId == model.TenantId).OrderByDescending(co => co.CID).ToList();
             if (getCommunityActivity != null)
             {
                 foreach (var item in getCommunityActivity)
@@ -157,6 +157,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 }
             }
             db.Dispose();
+           
             return list;
         }
 

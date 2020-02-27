@@ -688,7 +688,7 @@ namespace ShomaRM.Areas.Admin.Models
         {
             List<TransactionModel> listAccountHistory = new List<TransactionModel>();
             ShomaRMEntities db = new ShomaRMEntities();
-            var getAccountHistory = db.tbl_Transaction.Where(co => co.TenantID == TenantId).ToList();
+            var getAccountHistory = db.tbl_Transaction.Where(co => co.TenantID == TenantId).OrderByDescending(co => co.TransID).ToList();
 
             if (getAccountHistory!=null)
             {

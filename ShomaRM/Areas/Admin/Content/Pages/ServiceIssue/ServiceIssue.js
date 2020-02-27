@@ -225,7 +225,7 @@ var getIssueData = function (IssueID) {
 
 var saveUpdateIssueData = function () {
     ////showProgress('#btnSaveUpdate');
-
+   
     var msg = "";
     if ($.trim($("#ddlProblemCategory").val()) == 0) {
         msg = msg + " Service Category is required.\r\n </br>"

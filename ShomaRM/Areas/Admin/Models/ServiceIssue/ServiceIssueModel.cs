@@ -65,7 +65,7 @@ namespace ShomaRM.Areas.Admin.Models
 
             var Serissue = db.tbl_Issue.Where(p => p.IssueID == ID).FirstOrDefault();
             if (Serissue != null)
-            {
+            {   model.IssueID = Serissue.IssueID;
                 model.CausingIssueID = Serissue.CausingIssueID;
                 model.ServiceIssueID = Serissue.ServiceIssueID;
                 model.Issue = Serissue.Issue;
