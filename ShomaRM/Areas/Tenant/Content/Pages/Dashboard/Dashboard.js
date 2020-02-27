@@ -725,18 +725,14 @@ var getServiceRequestOnAlarm = function () {
         success: function (response) {
             $('#divServiceRequestAlarm').empty();
             $.each(response.model, function (elementType, elementValue) {
-                var Html = '<div class="center">';
-                Html += '<span id="spanServiceRequestlabelAlarm" style="font-size:12pt;">' + elementValue.ProblemCategoryName + '</span>';
-                Html += '</div>';
-                Html += '<div class="center">';
+                var Html = '<div class="bell-text" id="spanServiceRequestlabelAlarm">' + elementValue.ProblemCategoryName + '</div>';              
+               
                 if (elementValue.PermissionComeDateString == 'Any Time') {
-                    Html += '<span id="spanServiceRequestDateTimeAlarm" style="font-size:08pt;">' + elementValue.PermissionComeDateString + '</span>';
+                    Html += '<div class="bell-sub-text" id="spanServiceRequestDateTimeAlarm">' + elementValue.PermissionComeDateString + '</div>';
                 }
                 else {
-
-                    Html += '<span id="spanServiceRequestDateTimeAlarm" style="font-size:08pt;">' + elementValue.PermissionComeDateString + ' at ' + elementValue.PermissionComeTime + '</span>';
-                }
-                Html += '</div>';
+                    Html += '<div class="bell-sub-text" id="spanServiceRequestDateTimeAlarm">' + elementValue.PermissionComeDateString + ' at ' + elementValue.PermissionComeTime +'</div>';                   
+                }                
                 $('#divServiceRequestAlarm').append(Html);
             });
 
