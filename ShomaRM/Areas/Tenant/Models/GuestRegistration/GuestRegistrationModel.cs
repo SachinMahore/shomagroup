@@ -469,6 +469,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     pr.TenantName = dr["TenantName"].ToString();
                     pr.VisitStartDateString = dr["VisitStartDate"].ToString();
                     pr.VisitEndDateString = dr["VisitEndDate"].ToString();
+                    pr.StatusString = dr["Status"].ToString();
                     listGuestRegistration.Add(pr);
                 }
                 db.Dispose();
