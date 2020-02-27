@@ -3766,3 +3766,7 @@ td.logo-width {
 .table-border-right {
     border: none !important;
 }
+.scrollbox {
+    height: 320px;
+    overflow: scroll;
+}
