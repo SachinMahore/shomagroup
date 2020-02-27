@@ -2112,7 +2112,7 @@ ul.submenupayment {
     color: #4e738a;
     cursor: default;
     background: #ffffff;
-    padding: 9px 38px 9px 15px;
+    padding: 10px 38px 9px 15px;
     text-decoration: none;
     font-family: Futura Medium;
 }
@@ -2127,8 +2127,8 @@ ul.submenupayment {
 
     .submenu li > a:hover {
         background: #fff;
-        color: #4e738a;
-        padding: 9px 38px 9px 15px;
+        color: #4e738a;        
+        padding: 10px 38px 9px 15px;
         font-family: Futura Medium;
     }
 
@@ -3762,4 +3762,7 @@ td.logo-width {
 
 .boorder-top {
     border-top: none;
+}
+.table-border-right {
+    border: none !important;
 }
