@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     getServiceRequestOnAlarm();
-    colorNewFunction();
+  
     getEventsList();
     getAmenitiesList();
     breakdownPaymentFunction();
@@ -255,7 +255,7 @@ function JoinUnjoinClub() {
 }
 function RefreshJoinClubList(EnumId) {
     $("#divLoader").show();
-    $("#step5").load("/MyCommunity/JoinClubPartial", { SearchId: EnumId, UserId: $("#hdnUserId").val() }, function (response, status, xhr) {
+    $("#joinClubPartial").load("/MyCommunity/JoinClubPartial", { SearchId: EnumId, UserId: $("#hdnUserId").val() }, function (response, status, xhr) {
        
     });
 
@@ -450,180 +450,16 @@ function myDateFunction(id) {
     $("#date-popover").show();
     return true;
 }
-
-function colorFunction() {
-    var eventData = [];
-    var customEvent = {};
-    $.ajax({
-        url: '/Dashboard/GetDateEventList',
-        type: 'post',
-        dataType: 'json',
-        // data: JSON.stringify(model),
-        contentType: 'application/json;charset=utf-8',
-        success: function (response) {
-            $.each(response.model, function (elementType, elementValue) {
-                var dateTest = elementValue.EventDateText;
-                var d = new Date(dateTest),
-                    month = '' + (d.getMonth() + 1),
-                    day = '' + d.getDate(),
-                    year = d.getFullYear();
-
-                if (month.length < 2) month = '0' + month;
-                if (day.length < 2) day = '0' + day;
-
-                var testDAte = [year, month, day].join('-');
-
-                if (elementValue.Type == 1) {
-                    eventData.push({ date: testDAte, badge: true, title: elementValue.EventName, classname: "colorNeigh" });
-                }
-                else if (elementValue.Type == 2) {
-                    eventData.push({ date: testDAte, badge: true, title: elementValue.EventName, classname: "colorCommu" });
-                }
-                else if (elementValue.Type == 3) {
-                    eventData.push({ date: testDAte, badge: true, title: elementValue.EventName, classname: "colorOther" });
-                }
-                else if (elementValue.Type == 4) {
-                    eventData.push({ date: testDAte, badge: true, title: elementValue.EventName, classname: "colorMulti" });
-                }
-                else if (elementValue.Type == 5) {
-                    eventData.push({ date: testDAte, badge: true, title: elementValue.EventName, classname: "colorCurrDate" });
-                }
-
-            });
-            $("#spanEventCalender").zabuto_calendar({
-                data: eventData,
-                cell_border: true,
-                today: true,
-                show_days: false,
-                weekstartson: 0,
-                nav_icon: {
-                    prev: '<i class="fa fa-chevron-circle-left"></i>',
-                    next: '<i class="fa fa-chevron-circle-right"></i>'
-                },
-                action: function () {
-                    return myDateFunction(this.id);
-                }
-            });
-            $("#spanEventCalender2").zabuto_calendar({
-                data: eventData,
-                cell_border: true,
-                today: true,
-                show_days: false,
-                weekstartson: 0,
-                nav_icon: {
-                    prev: '<i class="fa fa-chevron-circle-left"></i>',
-                    next: '<i class="fa fa-chevron-circle-right"></i>'
-                },
-                action: function () {
-                    return myDateFunction(this.id);
-                }
-            });
-
-            var modalOpenDate = document.getElementById("date-popover");
-            var modalCloseDate = document.getElementById("closeDate");
-            modalCloseDate.onclick = function () { modalOpenDate.style.display = "none"; }
-        }
-    });
-}
-
-function colorNewFunction() {
-    var eventData = [];
-    var duplicates_list = [];
-    var unique_list = [];
-    $.ajax({
-        url: '/Dashboard/GetNewDateEventList',
-        type: 'post',
-        dataType: 'json',
-        // data: JSON.stringify(model),
-        contentType: 'application/json;charset=utf-8',
-        success: function (response) {
-            $.each(response.model, function (elementType, elementValue) {
-
-                var types = elementValue.TypeText.split(',');
-                var eventName = elementValue.EventName;
-                var eventDate = elementValue.EventDateText;
-                var eventColors = "";
-                var colorPercentage = 0;
-                if (types.length == 2) {
-                    colorPercentage = 50;
-                }
-                else if (types.length == 3) {
-                    colorPercentage = 33.33;
-                }
-                else if (types.length == 4) {
-                    colorPercentage = 25;
-                }
-                else if (types.length == 5) {
-                    colorPercentage = 20;
-                }
-
-
-
-                if (types.length == 1) {
-                    if ($.trim(types[0]) == "1") {
-                        eventColors += '<div class="event-box" style="background-color:#00BFF3"></div>';
-                    }
-                    else if ($.trim(types[0]) == "2") {
-                        eventColors += '<div class="event-box" style="background-color:#8DB954"></div>';
-                    }
-                    else if ($.trim(types[0]) == "3") {
-                        eventColors += '<div class="event-box" style="background-color:#ED1C24"></div>';
-                    }
-                    else if ($.trim(types[0]) == "4") {
-                        eventColors += '<div class="event-box" style="background-color:#FFF200"></div>';
-                    }
-                    else if ($.trim(types[0]) == "5") {
-                        eventColors += '<div class="event-box" style="background-color:#B3ADA6"></div>';
-                    }
-                }
-                else {
-                    for (var i = 0; i <= types.length; i++) {
-                        if ($.trim(types[i]) == "1") {
-
-                            eventColors += '<div class="event-box" style="background-color:#00BFF3"></div>';
-                        }
-                        else if ($.trim(types[i]) == "2") {
-                            eventColors += '<div class="event-box" style="background-color:#8DB954"></div>';
-                        }
-                        else if ($.trim(types[i]) == "3") {
-                            eventColors += '<div class="event-box" style="background-color:#ED1C24"></div>';
-                        }
-                        else if ($.trim(types[i]) == "4") {
-                            eventColors += '<div class="event-box" style="background-color:#FFF200"></div>';
-                        }
-                        else if ($.trim(types[i]) == "5") {
-                            eventColors += '<div class="event-box" style="background-color:#B3ADA6"></div>';
-                        }
-                    }
-                }
-                console.log(eventColors + " " + types.length);
-
-                eventData.push({ date: eventDate, badge: false, title: eventName, lineargradient: eventColors });
-            });
-            console.log(eventData);
-
-            $("#spanEventCalender").zabuto_calendar({
-                data: eventData,
-                cell_border: true,
-                today: true,
-                show_today: true,
-                show_days: false,
-                weekstartson: 0,
-                nav_icon: {
-                    prev: '<i class="fa fa-chevron-circle-left"></i>',
-                    next: '<i class="fa fa-chevron-circle-right"></i>'
-                },
-                action: function () {
-                    return myDateFunction(this.id);
-                }
-            });
-
-            var modalOpenDate = document.getElementById("date-popover");
-            var modalCloseDate = document.getElementById("closeDate");
-            var modalCloseDate1 = document.getElementById("closeDate1");
-            modalCloseDate.onclick = function () { modalOpenDate.style.display = "none"; };
-            modalCloseDate1.onclick = function () { modalOpenDate.style.display = "none"; };
-        }
+function LoadCalendar() {
+    $("#joinClubEventCalender").zabuto_calendar({
+        cell_border: true,
+        today: true,
+        show_days: false,
+        weekstartson: 0,
+        nav_icon: {
+            prev: '<i class="fa fa-chevron-circle-left"></i>',
+            next: '<i class="fa fa-chevron-circle-right"></i>'
+        }       
     });
 }
 
