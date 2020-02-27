@@ -20,7 +20,7 @@
         <div class="collapse navbar-collapse yamm" id="navigation">
             <div class="button navbar-right">
                 @*@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.Username*@
-                <button class="navbar-btn nav-button wow bounceInRight login hidden" onclick="gotoLogin()" data-wow-delay="0.4s">Logout</button>
+                <button class="navbar-btn nav-button wow bounceInRight login hidden" id="btnLogoff" onclick="gotoLogOffCheck()" data-wow-delay="0.4s">Logout</button>
 
             </div>
 
@@ -488,7 +488,10 @@
             uploadProofOfElectricityDoc();
         };
     });
-
+    function gotoLogOffCheck() {
+        $("#hndUID").val("0"); 
+        window.location = "/Account/LogOff";
+    }
     var getTenantInfoCL = function (uid) {
         if (uid > 0) {
 
@@ -661,6 +664,7 @@
                         getTenantInfoCL(result[0]);
 
                         goToStepCL(2, 2);
+                        $("#btnLogoff").removeClass("hidden");
                     }
                     else {
                         window.location = "/Home/";

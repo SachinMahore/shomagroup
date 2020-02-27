@@ -25,7 +25,7 @@ var getUserData = function (userID) {
             } else {
                 $("#txtFirstName").val(response.FirstName);
                 $("#txtLastName").val(response.LastName);
-                $("#txtCellPhone").val(formatMoney(response.CellPhone));
+                $("#txtCellPhone").val(formatPhoneFax(response.CellPhone));
                 $("#txtEmail").val(response.Email);
                 $("#txtUserName").val(response.Username);
                 $("#txtPassword").val(response.Password);

@@ -114,12 +114,20 @@ namespace ShomaRM.Controllers
         public async System.Threading.Tasks.Task<ActionResult> LeaseBlumoon()
         {
 
-            var data = await LeaseBlumoonAsync();
-            if (data != null)
+            try
             {
-                System.IO.File.WriteAllBytes(Server.MapPath("/Content/assets/img/Document/" + data.LeaseId + ".pdf"), data.leasePdf);
+                var data = await LeaseBlumoonAsync();
+                if (data != null)
+                {
+                    System.IO.File.WriteAllBytes(Server.MapPath("/Content/assets/img/Document/" + data.LeaseId + ".pdf"), data.leasePdf);
+                }
+                return Json(new { LeaseId = data.LeaseId }, JsonRequestBehavior.AllowGet);
             }
-            return Json(new { LeaseId = data.LeaseId }, JsonRequestBehavior.AllowGet);
+            catch(Exception ex)
+            {
+                return Json(new { LeaseId = "0" }, JsonRequestBehavior.AllowGet);
+            }
+           
             //return File(data.leasePdf, "application/pdf", "LeaseDocument_" + data.LeaseId + ".pdf");
         }
 
@@ -262,14 +270,14 @@ namespace ShomaRM.Controllers
 
             List<EsignatureParty> esignatureParties = new List<EsignatureParty>();
 
-            // please provide the list with the correct data from lease methods. below is some static details I provided - Apurva
+            // please provide the list with the correct data from lease methods. below is some static details I provided - Sachin Mahore upadated dynamic
             // Note. For owmer please set IsOwner true and other will ve residents which will be set to false.
             esignatureParties.Add(new EsignatureParty()
             {
-                Email = "lalit.thinker@gmail.com",
-                IsOwner = true, 
-                Name = "Lalit Bokde",
-                Phone = "837-900-8118"
+                Email = tenantdata.Email,
+                IsOwner = true,
+                Name = tenantdata.FirstName+" "+tenantdata.LastName,
+                Phone = "860-087-3002"
             });
 
             // add the residents details who will sign the document
@@ -278,10 +286,10 @@ namespace ShomaRM.Controllers
 
             esignatureParties.Add(new EsignatureParty()
             {
-                Email = "apurvaraut20@gmail.com",
+                Email = "luvsohan@gmail.com",
                 IsOwner = false,
-                Name = "Piyush Mate",
-                Phone = "703-855-1722"
+                Name = "Sohan Dawande",
+                Phone = "956-522-8285"
             });
 
             LeaseResponseModel EsignatureResponse = await bmservice.RequestEsignature(leaseId: leaseid, sessionId: authenticateData.SessionId, esignatureParties: esignatureParties);

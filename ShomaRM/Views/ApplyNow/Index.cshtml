@@ -23,7 +23,7 @@
                         </h3>
                         <div class="button pull-right">
 
-                            <a href="javascript:void(0)" class="btn-success" style="padding:5px;" onclick="gotoLogin()"> Logout..</a>
+                            <a href="javascript:void(0)" class="btn-success" style="padding:5px;" onclick="gotoLogOffAN()"> Logout..</a>
 
                         </div>
                         <span class="pull-right hidden" style="color:red;font-size: 15px;margin-right: 10px;" id="getting-startedTimeRemainingClock"></span>
@@ -4107,5 +4107,8 @@
     btnApp.onclick = function () {
         modal.style.display = "block";
     }
-
+    function gotoLogOffAN() {
+       
+        window.location = "/Account/LogOff";
+    }
 </script>
