@@ -1537,7 +1537,7 @@ textarea {
 .headding-sub-text {
     font-size:40px;
     color: #4d738a;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     font-weight: 400;
     font-family: Futura Medium;
 }
@@ -3769,5 +3769,9 @@ td.logo-width {
 }
 .scrollbox {
     height: 320px;
+    overflow: scroll;
+}
+.modal-scroll {
+    height: 650px;
     overflow: scroll;
 }
