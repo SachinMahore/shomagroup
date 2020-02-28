@@ -1535,9 +1535,9 @@ textarea {
 }
 
 .headding-sub-text {
-    font-size: 34px;
+    font-size:40px;
     color: #4d738a;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     font-weight: 400;
     font-family: Futura Medium;
 }
@@ -2065,7 +2065,7 @@ span.cercal3 {
     color: #ffffff;
     font-size: 26px;
     border: none;
-    padding: 14px 35px;
+    padding: 8px 35px;
 }
 .edit {
     background: #547288;
@@ -2133,7 +2133,7 @@ ul.submenupayment {
     }
 
 .text-payment {
-    font-size: 22px;
+    font-size: 30px;
     color: #4d738a;
     line-height: 32px;
     font-family: Futura Medium;
@@ -2588,7 +2588,7 @@ i.fa.fa-print {
     }
 
     .text-payment {
-        font-size: 32px;
+        font-size: 30px;
     }
 
     .headding-sub-text1 {
@@ -3725,7 +3725,7 @@ td {
 }
 
 .tabletr {
-    font-size: 34px;
+    font-size: 30px;
     font-family: Futura Medium;
     font-weight: 400;
 }
@@ -3770,4 +3770,9 @@ td.logo-width {
 .scrollbox {
     height: 320px;
     overflow: scroll;
+}
+.modal-scroll {
+    height: 650px;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
