@@ -1972,35 +1972,31 @@
 
 </div>
 <div id="modalTermConditionR" class="modal" style="width:100% !important">
-    <div class="modal-header">
-        <span class="close" id="TermConditionR" style="margin-top: -9px !important;margin-right: 223px !important;">&times;</span>
-    </div>
+
     <!-- Modal content -->
-    <div class="modal-content-term" style="width:66% !important">
+    <div class="modal-dialog" style="min-width:1020px !important">
 
-        <div class="text-center">
+        <div class="modal-content modal-scroll" style="width: 100%;">
+
             <div class="modal-body" style="padding:15px;" id="divRecTerm">
-                <table width="960" border="0" cellpadding="0" cellspacing="0" style="margin:auto;padding:0; vertical-align:top;min-height:1180px;width:900px;">
-
-                    <tr>
-                        <td colspan="2">
-                            <p style="font-size:large;text-align:center;"><b>Recurring Payment Terms & Conditions:</b></p>
-                            <p style="font-size:medium">Please read this document carefully. Automatic Payment Agreement (Credit Card and/or Bank Account) </p>
-                            <p style="font-size:medium"><b>AUTOPAY PROGRAM AUTHORIZATION FORM</b></p>
-                            <p style="font-size:medium;text-align:justify;">To ensure proper withdrawal of your payment, please confirm you have provided the correct routing and transit number or credit card information on the Enroll Payment Account screen.  We will notify you by email when your Autopay is established.  Until then, please continue to make payments on your account as your normally do.  If you have any questions, please do not hesitate to call our office at <b>786.437.8658.</b>  </p>
-                            <p style="font-size:medium;text-align:justify;">You have chosen to pay <b>$<span id="recPopAmt"></span></b>  (lump sum or payment amount).  This amount will automatically be debited to your bank or credit card each month on the due date shown above (if the due date falls on a Saturday, it will automatically be withdrawn on the Friday before.  If it falls on a Sunday, it will be withdrawn on the following Monday.) </p>
-                            <p style="font-size:medium;text-align:justify;"><b>Warning:  If you have chosen a FIXED AMOUNT which is less than your monthly rent due including all pertinent charges as shown in the AMOUNT DUE box or your statement, and there is no other Autopay set up by another tenant in your unit, you or the other unit residents must make a payment outside of the AutoPay to satisfy the remaining balance prior to the due date to avoid Late Fees and becoming delinquent.  </b></p>
-                            <p style="font-size:medium;text-align:justify;"><b>By clicking the Terms and Conditions herein, you confirm that you are authorizing to initiate transfer in the amount shown above from the designated bank account or credit card each month via automatic electronic withdrawal on the designated due date.  </b></p>
+                <div width="960" border="0" cellpadding="0" cellspacing="0" style="margin:auto;padding:0; vertical-align:top;min-height:650px;width:900px;">
 
 
-                            <p style="font-size:medium;text-align:justify;">If you wish to EDIT OR CANCEL Autopay, please <a href="javascript:void(0);" onclick=" goToRecurringPaymentFromMyHome();"> click here</a>.  Please note that once Autopay has been cancelled, you will remain fully responsible for any amounts due and will be subject to any late fees if the amounts due are not paid by the due date.</p>
-                            <p style="font-size:medium">If you would like to print this agreement for your records, please <a href="javascript:void(0);" onclick="print('divRecTerm')"> click here</a>.</p>
+                    <div class="modal-header center">
+                        <h2 class="modal-title" style="color:#4D738A !important; ">Recurring Payment Terms & Conditions:</h2>
+                        <button type="button" id="TermConditionR" class="close pull-right" data-dismiss="modal" style="margin-top: -50px; color:#000 !important" onclick="clearDdlAmenity();">&times;</button>
+                    </div>
+                    <div style="font-size:medium">Please read this document carefully. Automatic Payment Agreement (Credit Card and/or Bank Account) </div>
+                    <div style="font-size:medium"><b>AUTOPAY PROGRAM AUTHORIZATION FORM</b></div>
+                    <div style="font-size:medium;text-align:justify;">To ensure proper withdrawal of your payment, please confirm you have provided the correct routing and transit number or credit card information on the Enroll Payment Account screen.  We will notify you by email when your Autopay is established.  Until then, please continue to make payments on your account as your normally do.  If you have any questions, please do not hesitate to call our office at <b>786.437.8658.</b>  </div>
+                    <div style="font-size:medium;text-align:justify;">You have chosen to pay <b>$<span id="recPopAmt"></span></b>  (lump sum or payment amount).  This amount will automatically be debited to your bank or credit card each month on the due date shown above (if the due date falls on a Saturday, it will automatically be withdrawn on the Friday before.  If it falls on a Sunday, it will be withdrawn on the following Monday.) </div>
+                    <div style="font-size:medium;text-align:justify;"><b>Warning:  If you have chosen a FIXED AMOUNT which is less than your monthly rent due including all pertinent charges as shown in the AMOUNT DUE box or your statement, and there is no other Autopay set up by another tenant in your unit, you or the other unit residents must make a payment outside of the AutoPay to satisfy the remaining balance prior to the due date to avoid Late Fees and becoming delinquent.  </b></div>
+                    <div style="font-size:medium;text-align:justify;"><b>By clicking the Terms and Conditions herein, you confirm that you are authorizing to initiate transfer in the amount shown above from the designated bank account or credit card each month via automatic electronic withdrawal on the designated due date.  </b></div>
 
-                        </td>
-                    </tr>
+                    <div style="font-size:medium;text-align:justify;">If you wish to EDIT OR CANCEL Autopay, please <a href="javascript:void(0);" onclick=" goToRecurringPaymentFromMyHome();"> click here</a>.  Please note that once Autopay has been cancelled, you will remain fully responsible for any amounts due and will be subject to any late fees if the amounts due are not paid by the due date.</div>
+                    <div style="font-size:medium">If you would like to print this agreement for your records, please <a href="javascript:void(0);" onclick="print('divRecTerm')"> click here</a>.</div>
 
-
-                </table>
+                </div>
             </div>
         </div>
 
