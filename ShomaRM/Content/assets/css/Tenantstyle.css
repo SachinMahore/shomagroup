@@ -2065,7 +2065,7 @@ span.cercal3 {
     color: #ffffff;
     font-size: 26px;
     border: none;
-    padding: 14px 35px;
+    padding: 8px 35px;
 }
 .edit {
     background: #547288;
@@ -3773,5 +3773,6 @@ td.logo-width {
 }
 .modal-scroll {
     height: 650px;
-    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
