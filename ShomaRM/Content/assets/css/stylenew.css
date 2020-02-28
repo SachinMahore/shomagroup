@@ -8,7 +8,10 @@
     src: url('../../../fonts/Futura Medium.otf') format('opentype');
 }
 
-
+@font-face {
+    font-family: Futura Medium;
+    src: url('../font/Futura Medium.otf');
+}
 html, body {
     width: 100%;
     overflow-x: hidden;
@@ -1567,6 +1570,7 @@ page-header
         font-weight: 300;
         text-transform: uppercase;
         letter-spacing: 2px;
+        font-family: Futura Medium;
     }
 
 .content-area {
@@ -3315,7 +3319,9 @@ blog
     .large-search .search-row {
         overflow: hidden;
     }
-
+.username {
+    font-family: Futura Medium;
+}
 
 .login-blocks h2, .register-blocks h2 {
     display: inline-block;
@@ -3325,6 +3331,7 @@ blog
     border-bottom: 2px solid #6C6E72;
     font-size: 20px;
     line-height: 30px;
+    font-family: Futura Medium;
 }
 
 .login-social {
