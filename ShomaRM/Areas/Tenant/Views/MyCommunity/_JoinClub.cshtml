@@ -21,7 +21,7 @@
                     <th scope="row" class="border-box border-box2 text-payment tabletr">Name</th>
                     <th scope="row" class="border-box border-box1 text-payment tabletr">Day & Time</th>
                     <th scope="row" class="border-box border-box1 text-payment tabletr">Description</th>
-                    <th scope="row" class="border-box border-box1 text-payment tabletr">Edit</th>
+                    <th scope="row" class="border-box border-box1 text-payment tabletr"></th>
                 </tr>
                 <tbody>
                     @{
@@ -42,7 +42,7 @@
                                 <td style="width:10%;" class="border-table-none">
                                     @if (@item.UserId == @ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID)
                                     {
-                                        <a style="cursor:pointer;" class="" text-subheding border-table" onclick="goToStep(8,@item.Id)"><i class="fa fa-edit "></i></a>
+                                        <a style="cursor:pointer;" class="" text-subheding border-table" onclick="goToStep(8,@item.Id)"><img class="m-l10" src="/Content/assets/img/icon/pencilMax.png"></a>
                                     }
                                 </td>
 
