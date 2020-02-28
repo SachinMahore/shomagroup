@@ -97,6 +97,12 @@
     <Compile Include="tbl_ApplyNow.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbl_AuditHistory.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_AuditHistoryDetail.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_BankAccount.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
@@ -131,6 +137,9 @@
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_DocumentVerification.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Estimate.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Event.cs">

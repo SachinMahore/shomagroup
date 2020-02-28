@@ -874,71 +874,15 @@ namespace ShomaRM.Areas.Tenant.Models
                 }
                 foreach (DataRow dr in dtTable.Rows)
                 {
-                    TenantMonthlyPayments pr = new TenantMonthlyPayments();
-                    pr.TenantID = Convert.ToInt64(dr["TenantID"].ToString());
-                    pr.PAID = Convert.ToInt32(dr["PAID"].ToString());
-                    pr.TMPID = Convert.ToInt32(dr["TMPID"].ToString());
-                    pr.Transaction_Date = Convert.ToDateTime(dr["Transaction_Date"]);
-                    pr.Revision_Num = Convert.ToInt32(dr["Revision_Num"].ToString());
-                    pr.Charge_Amount = Convert.ToDecimal(dr["Charge_Amount"].ToString());
-                    pr.Description = dr["Description"].ToString();
-                    lsttmp.Add(pr);
+                    
+                    long TransId = Convert.ToInt64(dr["TransID"].ToString());
+                    long PAID = Convert.ToInt32(dr["Transaction_Type"].ToString());
+                    long TenantID = Convert.ToInt64(dr["TenantID"].ToString());
 
-                    var saveTransaction = new tbl_Transaction()
-                    {
-
-                        TenantID = Convert.ToInt64(dr["TenantID"].ToString()),
-                        Revision_Num = Convert.ToInt32(dr["Revision_Num"].ToString()),
-                        Transaction_Type = dr["PAID"].ToString(),
-                        Transaction_Date = Convert.ToDateTime(dr["Transaction_Date"]),
-                        Run = Convert.ToInt32(dr["TMPID"].ToString()),
-                        CreatedDate = DateTime.Now,
-                        Credit_Amount = 0,
-                        Description = dr["Description"].ToString(),
-                        Charge_Date = Convert.ToDateTime(dr["Transaction_Date"]),
-                        Charge_Type = 3,
-                        Payment_ID = null,
-                        Authcode = "",
-                        Charge_Amount = Convert.ToDecimal(dr["Charge_Amount"].ToString()),
-                        Accounting_Date = DateTime.Now,
-                        Batch = Batch,
-                        Batch_Source = "",
-                        CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
-
-                    };
-                    db.tbl_Transaction.Add(saveTransaction);
-                    db.SaveChanges();
-                    var TransId = saveTransaction.TransID;
-
-                    long tmpid = Convert.ToInt64(dr["TMPID"].ToString());
-                    var RecuuRingData = db.tbl_TenantMonthlyPayments.Where(p => p.TMPID == tmpid).FirstOrDefault();
-                    if (RecuuRingData != null)
-                    {
-                        RecuuRingData.IsRecurring = 3;
-                        db.SaveChanges();
-                    }
-                    long uid = Convert.ToInt64(dr["UserID"].ToString());
-                    var prospectDet = db.tbl_ApplyNow.Where(p => p.UserId == uid).FirstOrDefault();
-
-                    CreateTransBill(TransId, Convert.ToDecimal(prospectDet.Rent), "Monthly Rent");
-                    CreateTransBill(TransId, Convert.ToDecimal(prospectDet.TrashAmt), "Trash/Recycle charges");
-                    CreateTransBill(TransId, Convert.ToDecimal(prospectDet.ConvergentAmt), "Convergent Billing charges");
-                    CreateTransBill(TransId, Convert.ToDecimal(prospectDet.PestAmt), "Pest Control charges");
-
-                    if (prospectDet.ParkingAmt != 0)
-                    {
-                        CreateTransBill(TransId, Convert.ToDecimal(prospectDet.ParkingAmt), "Additional Parking charges");
-                    }
-                    if (prospectDet.PetPlaceAmt != 0)
-                    {
-                        CreateTransBill(TransId, Convert.ToDecimal(prospectDet.PetPlaceAmt), "Pet charges");
-                    }
-                    if (prospectDet.StorageAmt != 0)
-                    {
-                        CreateTransBill(TransId, Convert.ToDecimal(prospectDet.StorageAmt), "Storage Charges");
-                    }
+                    var accountDet = db.tbl_PaymentAccounts.Where(p => p.PAID == PAID).FirstOrDefault();
 
 
+                   
                 }
                 db.Dispose();
 

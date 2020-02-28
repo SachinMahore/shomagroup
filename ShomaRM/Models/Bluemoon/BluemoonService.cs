@@ -531,44 +531,44 @@ namespace ShomaRM.Models.Bluemoon
                 </item>";
             }
 
-            //requestEsignStr += @"</Residents>
-            //                        <LeaseForms>
-    	       //                                         <item><Id>RENTCON2</Id></item>
-            //                                            <item><Id>UTILITY</Id></item>
-            //                                            <item><Id>PETAGREE</Id></item>
-            //                                            <item><Id>APTLEASE</Id></item>
-            //                                            <item><Id>SUPPORTANIMAL</Id></item>
-            //                                            <item><Id>BEDBUGADD</Id></item>
-            //                                            <item><Id>FLBUYOUT</Id></item>
-            //                                            <item><Id>POLICIES</Id></item>
-            //                                            <item><Id>CRIMEDRUG</Id></item>
-            //                                            <item><Id>ENCGARA2</Id></item>
-            //                                            <item><Id>MIXEDUSE</Id></item>
-            //                                            <item><Id>MOLDADDN</Id></item>
-            //                                            <item><Id>NOSMOKE</Id></item>
-            //                                            <item><Id>PKGACCEPT</Id></item>
-            //                                            <item><Id>PARKINGADD</Id></item>
-            //                                            <item><Id>PHOTORELS</Id></item>
-            //                                            <item><Id>RAMFPOLICY</Id></item>
-            //                                            <item><Id>ADDGATE2</Id></item>
-            //                                            <item><Id>RENTINS2</Id></item>
-            //                                            <item><Id>SATELIT2</Id></item>
-            //                                            <item><Id>AIRBNB</Id></item>
-            //                             </LeaseForms>
-            //                            <SendOwnerRepNotices xsi:nil=""true""/>
-            //                        </ns1:RequestEsignature>
-            //                      ";
-
-
             requestEsignStr += @"</Residents>
                                     <LeaseForms>
-    	                                                
+    	                                                <item><Id>RENTCON2</Id></item>
+                                                        <item><Id>UTILITY</Id></item>
                                                         <item><Id>PETAGREE</Id></item>
-                                                        
+                                                        <item><Id>APTLEASE</Id></item>
+                                                        <item><Id>SUPPORTANIMAL</Id></item>
+                                                        <item><Id>BEDBUGADD</Id></item>
+                                                        <item><Id>FLBUYOUT</Id></item>
+                                                        <item><Id>POLICIES</Id></item>
+                                                        <item><Id>CRIMEDRUG</Id></item>
+                                                        <item><Id>ENCGARA2</Id></item>
+                                                        <item><Id>MIXEDUSE</Id></item>
+                                                        <item><Id>MOLDADDN</Id></item>
+                                                        <item><Id>NOSMOKE</Id></item>
+                                                        <item><Id>PKGACCEPT</Id></item>
+                                                        <item><Id>PARKINGADD</Id></item>
+                                                        <item><Id>PHOTORELS</Id></item>
+                                                        <item><Id>RAMFPOLICY</Id></item>
+                                                        <item><Id>ADDGATE2</Id></item>
+                                                        <item><Id>RENTINS2</Id></item>
+                                                        <item><Id>SATELIT2</Id></item>
+                                                        <item><Id>AIRBNB</Id></item>
                                          </LeaseForms>
                                         <SendOwnerRepNotices xsi:nil=""true""/>
                                     </ns1:RequestEsignature>
                                   ";
+
+
+            //requestEsignStr += @"</Residents>
+            //                        <LeaseForms>
+
+            //                                            <item><Id>PETAGREE</Id></item>
+
+            //                             </LeaseForms>
+            //                            <SendOwnerRepNotices xsi:nil=""true""/>
+            //                        </ns1:RequestEsignature>
+            //                      ";
 
             LeaseResponseModel leaseResponseModel = new LeaseResponseModel();
             var bodyForCloseSession = CreateXMLDocument(requestEsignStr);
@@ -626,7 +626,7 @@ namespace ShomaRM.Models.Bluemoon
                              .ToList();
 
                             leaseResponseModel.EsignatureId = resultCloseSessionDetails[0].Value;
-
+                         
                         }
                         i++;
                     }
@@ -636,6 +636,7 @@ namespace ShomaRM.Models.Bluemoon
 
             leaseResponseModel.LeaseId = leaseId;
             leaseResponseModel.SessionId = sessionId;
+           
             return leaseResponseModel;
         }
 

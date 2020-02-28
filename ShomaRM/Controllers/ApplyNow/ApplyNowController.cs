@@ -178,6 +178,10 @@ namespace ShomaRM.Controllers
                 else
                 {
                     var checkExpiry = db.tbl_ApplyNow.Where(co => co.UserId == currentUser.UserID).FirstOrDefault();
+                    if (checkExpiry.Status.Trim() == "Approved")
+                    {
+                        return RedirectToAction("../Checklist/");
+                    }
                     if (checkExpiry != null)
                     {
                         if (checkExpiry.CreatedDate < DateTime.Now.AddHours(-72))

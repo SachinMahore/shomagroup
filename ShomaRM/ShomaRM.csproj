@@ -881,6 +881,7 @@
     <Content Include="Views\PayLink\LeaseNow.cshtml" />
     <Content Include="Views\CheckList\Index.cshtml" />
     <Content Include="Views\PayLink\PayAmenityCharges.cshtml" />
+    <Content Include="Views\PayLink\PayServiceCharges.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

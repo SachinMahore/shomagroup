@@ -45,5 +45,6 @@ namespace ShomaRM.Data
         public string OwnerSignature { get; set; }
         public string TempOwnerSignature { get; set; }
         public Nullable<int> WarrantyStatus { get; set; }
+        public string TaskNotes { get; set; }
     }
 }
