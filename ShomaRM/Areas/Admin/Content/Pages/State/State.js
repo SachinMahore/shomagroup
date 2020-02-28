@@ -10,11 +10,19 @@ $(document).keypress(function (e) {
         buildPaganationStateList(1);
     }
 });
-var fillStateList = function (pagenumber) {
+var fillStateList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = 'StateName';
+    }
+    if (!orderby) {
+        orderby = 'ASC';
+    }
     var model = {
         Criteria: $("#txtCriteriaState").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_State").val()
+        NumberOfRows: $("#ddlRPP_State").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: 'State/GetStateList',
@@ -38,6 +46,7 @@ var fillStateList = function (pagenumber) {
                     $("#tblState>tbody").append(html);
                 });
             }
+            $("#hndPageNo").val(pagenumber);
         }
     });
 };
@@ -52,12 +61,20 @@ var fillRPP_State = function () {
         buildPaganationStateList($("#hdnCurrentPage").val());
     });
 };
-var buildPaganationStateList = function (pagenumber) {
+var buildPaganationStateList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = 'StateName';
+    }
+    if (!orderby) {
+        orderby = 'ASC';
+    }
     var searchtype = $("#hdnSearchType").val();
     var model = {
         Criteria: $("#txtCriteriaState").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_State").val()
+        NumberOfRows: $("#ddlRPP_State").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: 'State/BuildPaganationStateList',
@@ -193,7 +210,9 @@ $(document).ready(function () {
         },
         onPageClick: function (page, evt) {
             $("#hdnCurrentPage").val(page);
-            fillStateList(page);
+            var SortByValue = localStorage.getItem("SortByValue");
+            var OrderByValue = localStorage.getItem("OrderByValue");
+            fillStateList(page, SortByValue, OrderByValue);
         }
     });
     $("#selectFieldState").empty();
@@ -241,4 +260,30 @@ var delState = function (stateID) {
             }
         }
     });
+};
+
+var count = 0;
+var sortTable = function (sortby) {
+
+    var orderby = "";
+    var pNumber = $("#hndPageNo").val();
+    if (!pNumber) {
+        pNumber = 1;
+    }
+
+    if (count % 2 == 1) {
+        orderby = "ASC";
+        $('#sortStateIcon').removeClass('fa fa-sort-down');
+        $('#sortStateIcon').addClass('fa fa-sort-up fa-lg');
+    }
+    else {
+        orderby = "DESC";
+        $('#sortStateIcon').removeClass('fa fa-sort-up');
+        $('#sortStateIcon').addClass('fa fa-sort-down fa-lg');
+    }
+    localStorage.setItem("SortByValue", sortby);
+    localStorage.setItem("OrderByValue", orderby);
+    count++;
+    buildPaganationStateList(pNumber, sortby, orderby);
+    fillStateList(pNumber, sortby, orderby);
 };

@@ -84,12 +84,12 @@ var fillProspectVerifyList = function (pagenumber, sortby, orderby) {
                 $("#tblProspectVerify>tbody").empty();
                 $.each(response, function (elementType, elementValue) {
                     html = "<tr data-value=" + elementValue.UserID + ">";
-                    html += "<td style='padding: 10px;'>" + elementValue.FirstName + "</td>";
-                    html += "<td style='padding: 10px;'>" + elementValue.LastName + "</td>";
-                    html += "<td style='padding: 10px;'>" + formatPhoneFax(elementValue.Phone) + "</td>";
-                    html += "<td style='padding: 10px;'>" + elementValue.Email + "</td>";
-                    html += "<td style='padding: 10px;'>" + elementValue.CreatedDate + "</td>";
-                    html += "<td style='padding: 10px;'>" + elementValue.UnitNo + "</td>";
+                    html += "<td>" + elementValue.FirstName + "</td>";
+                    html += "<td>" + elementValue.LastName + "</td>";
+                    html += "<td>" + formatPhoneFax(elementValue.Phone) + "</td>";
+                    html += "<td>" + elementValue.Email + "</td>";
+                    html += "<td>" + elementValue.CreatedDate + "</td>";
+                    html += "<td>" + elementValue.UnitNo + "</td>";
                     html += "</tr>";
                     $("#tblProspectVerify>tbody").append(html);
                 });
