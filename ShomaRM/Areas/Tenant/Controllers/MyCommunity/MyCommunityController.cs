@@ -68,10 +68,40 @@ namespace ShomaRM.Areas.Tenant.Controllers
             }
         }
 
-        public ActionResult EditClubPartial(long ClubId)
+        public JsonResult EditClubPartial(long ClubId)
         {
                 var Model = new ClubModel().GetClubbyId(ClubId: ClubId,UserId:0);
-                return PartialView("~/Areas/Tenant/Views/MyCommunity/_EditClub.cshtml", Model);
+            var newModel = new ClubModel();
+            newModel.Active = Model.Active;            
+            newModel.Id = Model.Id;
+        newModel.ClubTitle = Model.ClubTitle;
+            newModel.ActivityId = Model.ActivityId;
+
+        newModel.StringStartDate = Model.StartDate.ToShortDateString();
+        newModel.Venue = Model.Venue;
+        newModel.DayId = Model.DayId;
+        newModel.Time = Model.Time;
+        newModel.Contact = Model.Contact;
+        newModel.Email = Model.Email;
+        newModel.PhoneNumber = Model.PhoneNumber;
+        newModel.PhoneCheck = Model.PhoneCheck;
+        newModel.EmailCheck = Model.EmailCheck;
+        newModel.LevelId = Model.LevelId;
+        newModel.SpecialInstruction = Model.SpecialInstruction;
+        newModel.Description = Model.Description;
+        newModel.BriefDescription = Model.BriefDescription;
+        newModel.TermsAndCondition = Model.TermsAndCondition;
+           newModel.TenantID = Model.TenantID;
+        newModel.UserId = Model.UserId;
+        newModel.IsDeleted = Model.IsDeleted;
+        
+        newModel.CreatedDate = Model.CreatedDate;
+        newModel.LastUpdatedDate = Model.LastUpdatedDate;
+        //for Mapping Status do Not Add In Table
+        newModel.ClubJoinStatus = Model.ClubJoinStatus;
+        newModel.SearchId = Model.SearchId;
+
+            return Json(newModel);
            
         }
 
