@@ -2314,12 +2314,12 @@
                             </div>
                         </div>
                         <div class="col-sm-12 text-center">
-                            <div class="col-sm-6 form-group" style="margin-left: 25px;">
+                            <div class="col-sm-6 form-group" style="margin-left: 26px;">
                                 <label><input type="radio" class="form-control small" name="hoursBBQ" id="2h300depo" />&nbsp;2 Hours $150/total BBQ area with a $300 Deposit</label>
                             </div>
                             <div class="col-sm-6" style="margin-right: -25px;">&nbsp;</div>
                         </div>
-                        <div class="col-sm-12 text-center" style="margin-left: 25px;">
+                        <div class="col-sm-12 text-center" style="margin-left: 26px;">
                             <div class="col-sm-6 form-group">
                                 <label><input type="radio" class="form-control small" name="hoursBBQ" id="4h600depo" />&nbsp;4 Hours $300/total BBQ area with a $600 Deposit</label>
                             </div>
@@ -2347,13 +2347,13 @@
                                 </div>
                             </div>
                             <div class="col-sm-12 text-center">
-                                <div class="col-sm-6 form-group" style="margin-left: -3px;">
+                                <div class="col-sm-6 form-group" style="margin-left: -10px;">
                                     <label><input type="radio" class="form-control small" name="limitBBQ" id="2h30gues" />&nbsp;2 Hours Total BBQ area  LIMIT 30 guests</label>
                                 </div>
                                 <div class="col-sm-6">&nbsp;</div>
                             </div>
                             <div class="col-sm-12 text-center">
-                                <div class="col-sm-6 form-group" style="margin-left: -3px;">
+                                <div class="col-sm-6 form-group" style="margin-left: -10px;">
                                     <label><input type="radio" class="form-control small" name="limitBBQ" id="4h30gues" />&nbsp;4 Hours Total BBQ area  LIMIT 30 guests</label>
                                 </div>
                                 <div class="col-sm-6">&nbsp;</div>
@@ -2362,45 +2362,70 @@
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 class="text-payment"><label>BOOKING DATE AND TIME</label></h4></div>
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;">
                             <div class="col-sm-4 text-center">
+                                @*<div class="input-group" style="width:75%">
+                                        <input id="txtDesiredDateBBQ" type="text" class="form-control" maxlength="20" placeholder="MM/dd/yyyy" />
+                                        <span class="input-group-btn">
+                                            <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                        </span>
+                                    </div>*@
                                 <div class="input-group" style="width:75%">
                                     <input id="txtDesiredDateBBQ" type="text" class="form-control" maxlength="20" placeholder="MM/dd/yyyy" />
-                                    <span class="input-group-btn">
-                                        <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                    <span class="input-group-addon">
+                                        <a><span id="btnDesiredDate" class="fa fa-calendar"></span></a>
                                     </span>
                                 </div>
+
                             </div>
                             <div class="col-sm-4 text-center">
+                                @*<div class="form-group">
+                                        <div class="col-sm-3 text-center">From :</div>
+                                        <div class="col-sm-9 text-center">
+
+                                            <div class='input-group date' id='datetimepicker1'>
+                                                <div class="time_pick"><input id="txtDesiredTimeBBQFrom" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:90%" maxlength="20" placeholder="HH:mm:ss" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
+
+                                                <span class="input-group-addon">
+                                                    <a><span id="btnDesiredTime" class="fa fa-clock-o "></span></a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>*@
                                 <div class="form-group">
                                     <div class="col-sm-3 text-center">From :</div>
-                                    <div class="col-sm-9 text-center">
-                                        @*<div class="input-group">
-                                                <input id="txtDesiredTimeBBQFrom" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
+                                    <div class='input-group date' id='datetimepicker1'>
+                                        <div class="time_pick"><input id="txtDesiredTimeBBQFrom" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:90%" maxlength="20" placeholder="HH:mm:ss" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
+
+                                        <span class="input-group-addon">
+                                            <a><span id="btnDesiredTime" class="fa fa-clock-o "></span></a>
+                                        </span>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-sm-4 text-center" >
+                                @*<div class="form-group">
+                                        <div class="col-sm-3 text-center">To :</div>
+                                        <div class="col-sm-9 text-center">
+                                            <div class="input-group">
+                                                <input id="txtDesiredTimeBBQTo" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
                                                 <span class="input-group-btn">
                                                     <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
                                                 </span>
-                                            </div>*@
-                                        <div class='input-group date' id='datetimepicker1'>
-                                            <div class="time_pick"><input id="txtDesiredTimeBBQFrom" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:90%" maxlength="20" placeholder="HH:mm:ss" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
-
-                                            <span class="input-group-addon">
-                                                <a><span id="btnDesiredTime" class="fa fa-clock-o "></span></a>
-                                            </span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4 text-center" style="margin-left:-20px">
+                                    </div>*@
                                 <div class="form-group">
                                     <div class="col-sm-3 text-center">To :</div>
-                                    <div class="col-sm-9 text-center">
-                                        <div class="input-group">
-                                            <input id="txtDesiredTimeBBQTo" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
-                                            <span class="input-group-btn">
-                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
-                                            </span>
-                                        </div>
+                                    <div class='input-group date' id='datetimepicker1'>
+                                        <div class="time_pick"><input id="txtDesiredTimeBBQTo" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:90%" maxlength="20" placeholder="HH:mm:ss" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
+
+                                        <span class="input-group-addon">
+                                            <a><span id="btnDesiredTime" class="fa fa-clock-o "></span></a>
+                                        </span>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>SPECIAL PROVISIONS: </label></h4></div>
@@ -2417,8 +2442,10 @@
                         </div>
                         <div class="col-sm-12 text-center">
                             <div class="text-center">
-                                <button id="btnPrintBBQ" class="btn btn-primary" onclick="printReservation('divBBQ','BBQ')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
-                                <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintBBQ')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
+                                @*<button id="btnPrintBBQ" class="btn btn-primary" onclick="printReservation('divBBQ','BBQ')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                    <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintBBQ')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>*@
+                                <button id="btnPrintBBQ" class="paynow m-t30" onclick="printReservation('divBBQ','BBQ')" disabled><i class="fa fa-print"></i>Print </button>
+                                <button id="btnSavePoolCabanaData" type="button" onclick="savupdateAmenityReservation('btnPrintBBQ')" class="paynow m-t30">Save</button>
                             </div>
                         </div>
                     </div>
@@ -2464,39 +2491,67 @@
 
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>BOOKING DATE AND TIME</label></h4></div>
                         <div class="col-sm-12 text-center">
-                            <div class="col-sm-4 text-center" style="margin-left:90px">
-                                <div class="input-group" style="width:75%">
-                                    <input id="txtDesiredDatePC" type="text" class="form-control" maxlength="20" placeholder="MM/dd/yyyy" />
-                                    <span class="input-group-btn">
-                                        <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
-                                    </span>
+                            @*<div class="col-sm-4 text-center" style="margin-left:90px">
+                                    <div class="input-group" style="width:75%">
+                                        <input id="txtDesiredDatePC" type="text" class="form-control" maxlength="20" placeholder="MM/dd/yyyy" />
+                                        <span class="input-group-btn">
+                                            <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                        </span>
+                                    </div>
+                                </div>*@
+                            <div class="col-sm-4 text-center">
+                                <div class="form-group">
+                                    <div class='input-group date'>
+                                        <input id="txtDesiredDatePC" type='text' class="form-control" data-provide="datepicker" maxlength="20" placeholder="MM/dd/yyyy">
+                                        <span class="input-group-addon">
+                                            <a><span id="btnDesiredDate" class="fa fa-calendar"></span></a>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-4 text-center" style="margin-left:-80px">
+                            <div class="col-sm-4 text-center">
+
+                                @*<div class="input-group">
+                                        <input id="txtDesiredTimePCFrom" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
+                                        <span class="input-group-btn">
+                                            <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
+                                        </span>
+                                    </div>*@
                                 <div class="form-group">
                                     <div class="col-sm-3 text-center">From :</div>
-                                    <div class="col-sm-9 text-center">
-                                        <div class="input-group">
-                                            <input id="txtDesiredTimePCFrom" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
-                                            <span class="input-group-btn">
-                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
-                                            </span>
-                                        </div>
+                                    <div class='input-group date' id='datetimepicker1'>
+                                        <div class="time_pick"><input id="txtDesiredTimePCFrom" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:90%" maxlength="20" placeholder="HH:mm:ss" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
+
+                                        <span class="input-group-addon">
+                                            <a><span id="btnDesiredTime" class="fa fa-clock-o "></span></a>
+                                        </span>
                                     </div>
                                 </div>
+
+
+
                             </div>
-                            <div class="col-sm-4 text-center" style="margin-left:-20px">
+                            <div class="col-sm-4 text-center" >
+
+                                @*<div class="input-group">
+                                        <input id="txtDesiredTimePCTo" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
+                                        <span class="input-group-btn">
+                                            <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
+                                        </span>
+                                    </div>*@
                                 <div class="form-group">
                                     <div class="col-sm-3 text-center">To :</div>
-                                    <div class="col-sm-9 text-center">
-                                        <div class="input-group">
-                                            <input id="txtDesiredTimePCTo" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
-                                            <span class="input-group-btn">
-                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
-                                            </span>
-                                        </div>
+                                    <div class='input-group date' id='datetimepicker1'>
+                                        <div class="time_pick"><input id="txtDesiredTimePCTo" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:90%" maxlength="20" placeholder="HH:mm:ss" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
+
+                                        <span class="input-group-addon">
+                                            <a><span id="btnDesiredTime" class="fa fa-clock-o "></span></a>
+                                        </span>
                                     </div>
                                 </div>
+
+
+
                             </div>
                         </div>
 
@@ -2516,8 +2571,11 @@
                         </div>
                         <div class="col-sm-12 text-center">
                             <div class="text-center">
-                                <button id="btnPrintPC" class="btn btn-primary" onclick="printReservation('divPoolCabana','PC')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
-                                <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintPC')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
+                                @*<button id="btnPrintPC" class="btn btn-primary" onclick="printReservation('divPoolCabana','PC')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                    <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintPC')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>*@
+                                <button id="btnPrintPC" class="paynow m-t30" onclick="printReservation('divPoolCabana','PC')" disabled>Print </button>
+                                <button id="btnSavePoolCabanaData" type="button" onclick="savupdateAmenityReservation('btnPrintPC')" class="paynow m-t30">Save</button>
+
                             </div>
                         </div>
                     </div>
@@ -2557,43 +2615,63 @@
                             <div class="col-sm-12 text-center">
                                 <label><input type="radio" class="form-control small" name="limitCR" id="CR_75person" />&nbsp;Clubroom limited to 75 persons.</label>
                             </div>
-                            <div class="col-sm-12 text-center" style="margin-left: 46px; margin-bottom: 15px;">
+                            <div class="col-sm-12 text-center" style="margin-left: 54px; margin-bottom: 15px;">
                                 <label><input type="radio" class="form-control small" name="limitCR" id="CR_150person" />&nbsp;Clubroom with Courtyard limited to 150 persons.</label>
                             </div>
 
                             <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>BOOKING DATE AND TIME</label></h4></div>
                             <div class="col-sm-12 text-center">
-                                <div class="col-sm-4 text-center" style="margin-left:90px">
+                                <div class="col-sm-4 text-center">
                                     <div class="input-group" style="width:75%">
                                         <input id="txtDesiredDateClubroom" type="text" class="form-control" maxlength="20" placeholder="MM/dd/yyyy" />
-                                        <span class="input-group-btn">
-                                            <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                        <span class="input-group-addon">
+                                            <a><span class="fa fa-calendar"></span></a>
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 text-center" style="margin-left:-80px">
+                                <div class="col-sm-4 text-center">
+                                    @*<div class="form-group">
+                                            <div class="col-sm-3 text-center">From :</div>
+                                            <div class="col-sm-9 text-center">
+                                                <div class="input-group">
+                                                    <input id="txtDesiredTimeClubroomFrom" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
+                                                    <span class="input-group-btn">
+                                                        <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>*@
                                     <div class="form-group">
                                         <div class="col-sm-3 text-center">From :</div>
-                                        <div class="col-sm-9 text-center">
-                                            <div class="input-group">
-                                                <input id="txtDesiredTimeClubroomFrom" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
-                                                <span class="input-group-btn">
-                                                    <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
-                                                </span>
-                                            </div>
+                                        <div class='input-group date' id='datetimepicker1'>
+                                            <div class="time_pick"><input id="txtDesiredTimeClubroomFrom" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:90%" maxlength="20" placeholder="HH:mm:ss" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
+
+                                            <span class="input-group-addon">
+                                                <a><span id="btnDesiredTime" class="fa fa-clock-o "></span></a>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 text-center" style="margin-left:-20px">
+                                <div class="col-sm-4 text-center" >
+                                    @*<div class="form-group">
+                                            <div class="col-sm-3 text-center">To :</div>
+                                            <div class="col-sm-9 text-center">
+                                                <div class="input-group">
+                                                    <input id="txtDesiredTimeClubroomTo" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
+                                                    <span class="input-group-btn">
+                                                        <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>*@
                                     <div class="form-group">
                                         <div class="col-sm-3 text-center">To :</div>
-                                        <div class="col-sm-9 text-center">
-                                            <div class="input-group">
-                                                <input id="txtDesiredTimeClubroomTo" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
-                                                <span class="input-group-btn">
-                                                    <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
-                                                </span>
-                                            </div>
+                                        <div class='input-group date' id='datetimepicker1'>
+                                            <div class="time_pick"><input id="txtDesiredTimeClubroomTo" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:90%" maxlength="20" placeholder="HH:mm:ss" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
+
+                                            <span class="input-group-addon">
+                                                <a><span id="btnDesiredTime" class="fa fa-clock-o "></span></a>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -2614,8 +2692,10 @@
                             </div>
                             <div class="col-sm-12 text-center">
                                 <div class="text-center">
-                                    <button id="btnPrintClubroom" class="btn btn-primary" onclick="printReservation('divClubroom','CR')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
-                                    <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintClubroom')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
+                                    @*<button id="btnPrintClubroom" class="btn btn-primary" onclick="printReservation('divClubroom','CR')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                        <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintClubroom')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>*@
+                                    <button id="btnPrintClubroom" class="paynow m-t30" onclick="printReservation('divClubroom','CR')" disabled>Print </button>
+                                    <button id="btnSavePoolCabanaData" type="button" onclick="savupdateAmenityReservation('btnPrintClubroom')" class="paynow m-t30">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -2641,39 +2721,69 @@
 
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>BOOKING DATE AND TIME</label></h4></div>
                         <div class="col-sm-12 text-center">
-                            <div class="col-sm-4 text-center" style="margin-left:90px">
+                            <div class="col-sm-4 text-center">
+                                @*<div class="input-group" style="width:75%">
+                                        <input id="txtDesiredDateYoga" type="text" class="form-control" maxlength="20" placeholder="MM/dd/yyyy" />
+                                        <span class="input-group-btn">
+                                            <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                        </span>
+                                    </div>*@
                                 <div class="input-group" style="width:75%">
                                     <input id="txtDesiredDateYoga" type="text" class="form-control" maxlength="20" placeholder="MM/dd/yyyy" />
-                                    <span class="input-group-btn">
-                                        <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                    <span class="input-group-addon">
+                                        <a><span id="btnDesiredDate" class="fa fa-calendar"></span></a>
                                     </span>
                                 </div>
+
                             </div>
-                            <div class="col-sm-4 text-center" style="margin-left:-80px">
+                            <div class="col-sm-4 text-center">
+                                @*<div class="form-group">
+                                        <div class="col-sm-3 text-center">From :</div>
+                                        <div class="col-sm-9 text-center">
+                                            <div class="input-group">
+                                                <input id="txtDesiredTimeYogaFrom" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
+                                                <span class="input-group-btn">
+                                                    <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>*@
                                 <div class="form-group">
                                     <div class="col-sm-3 text-center">From :</div>
-                                    <div class="col-sm-9 text-center">
-                                        <div class="input-group">
-                                            <input id="txtDesiredTimeYogaFrom" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
-                                            <span class="input-group-btn">
-                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
-                                            </span>
-                                        </div>
+                                    <div class='input-group date' id='datetimepicker1'>
+                                        <div class="time_pick"><input id="txtDesiredTimeYogaFrom" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:90%" maxlength="20" placeholder="HH:mm:ss" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
+
+                                        <span class="input-group-addon">
+                                            <a><span id="btnDesiredTime" class="fa fa-clock-o "></span></a>
+                                        </span>
                                     </div>
                                 </div>
+
                             </div>
-                            <div class="col-sm-4 text-center" style="margin-left:-20px">
+                            <div class="col-sm-4 text-center" >
+                                @*<div class="form-group">
+                                        <div class="col-sm-3 text-center">To :</div>
+                                        <div class="col-sm-9 text-center">
+                                            <div class="input-group">
+                                                <input id="txtDesiredTimeYogaTo" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" value="" disabled />
+                                                <span class="input-group-btn">
+                                                    <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>*@
                                 <div class="form-group">
                                     <div class="col-sm-3 text-center">To :</div>
-                                    <div class="col-sm-9 text-center">
-                                        <div class="input-group">
-                                            <input id="txtDesiredTimeYogaTo" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" value="" disabled />
-                                            <span class="input-group-btn">
-                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
-                                            </span>
-                                        </div>
+                                    <div class='input-group date' id='datetimepicker1'>
+                                        <div class="time_pick"><input id="txtDesiredTimeYogaTo" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:90%" maxlength="20" placeholder="HH:mm:ss" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
+
+                                        <span class="input-group-addon">
+                                            <a><span id="btnDesiredTime" class="fa fa-clock-o "></span></a>
+                                        </span>
                                     </div>
                                 </div>
+
+
                             </div>
                         </div>
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>SPECIAL PROVISIONS:</label></h4></div>
@@ -2689,10 +2799,12 @@
                             </p>
                         </div>
                         <div class="col-sm-12 text-center">
-                            <div class="text-center">
-                                <button id="btnPrintYog" class="btn btn-primary" onclick="printReservation('divYog','Yoga')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
-                                <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintYog')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
-                            </div>
+                            @*<div class="text-center">
+                                    <button id="btnPrintYog" class="btn btn-primary" onclick="printReservation('divYog','Yoga')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                    <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintYog')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
+                                </div>*@
+                            <button id="btnPrintYog" class="paynow m-t30" onclick="printReservation('divYog','Yoga')" disabled>Print </button>
+                            <button id="btnSavePoolCabanaData" type="button" onclick="savupdateAmenityReservation('btnPrintYog')" class="paynow m-t30">Save</button>
                         </div>
                     </div>
 
@@ -2721,49 +2833,74 @@
 
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>BOOKING DATE AND TIME</label></h4></div>
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;">
-                            <div class="col-sm-4 text-center" style="margin-left:90px">
+                            <div class="col-sm-4 text-center">
                                 <div class="form-group">
                                     <div class='input-group date'>
-                                        <input id="txtDesiredDateSoccer" type='text' style="width:95%;" class="form-control" data-provide="datepicker" maxlength="20" placeholder="MM/dd/yyyy">
+                                        <input id="txtDesiredDateSoccer" type='text' class="form-control" data-provide="datepicker" maxlength="20" placeholder="MM/dd/yyyy">
                                         <span class="input-group-addon">
                                             <a><span class="fa fa-calendar"></span></a>
                                         </span>
                                     </div>
                                 </div>
-                                @*<div class="input-group" style="width:75%">
-                                        <input id="txtDesiredDateSoccer" type="text" class="form-control" maxlength="20" placeholder="MM/dd/yyyy" />
-                                        <span class="input-group-btn">
-                                            <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
-                                        </span>
-                                    </div>*@
                             </div>
+                            @*<div class="input-group" style="width:75%">
+                                    <input id="txtDesiredDateSoccer" type="text" class="form-control" maxlength="20" placeholder="MM/dd/yyyy" />
+                                    <span class="input-group-btn">
+                                        <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>*@
+
+                            @*<div class="col-sm-4 text-center">
+                                    <div class="form-group">
+                                        <div class="col-sm-3 text-center">From :</div>
+                                        <div class="col-sm-9 text-center">
+                                            <div class="input-group">
+                                                <input id="txtDesiredTimeSoccerFrom" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
+                                                <span class="input-group-btn">
+                                                    <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-clock-o fa"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>*@
                             <div class="col-sm-4 text-center">
                                 <div class="form-group">
                                     <div class="col-sm-3 text-center">From :</div>
-                                    <div class="col-sm-9 text-center">
-                                        <div class="input-group">
-                                            <input id="txtDesiredTimeSoccerFrom" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
-                                            <span class="input-group-btn">
-                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-clock-o fa"></i></button>
-                                            </span>
-                                        </div>
+                                    <div class='input-group date' id='datetimepicker1'>
+                                        <div class="time_pick"><input id="txtDesiredTimeSoccerFrom" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:90%" maxlength="20" placeholder="HH:mm:ss" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
+
+                                        <span class="input-group-addon">
+                                            <a><span id="btnDesiredTime" class="fa fa-clock-o "></span></a>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-4 text-center" style="margin-left:-20px">
-
+                            <div class="col-sm-4 text-center">
                                 <div class="form-group">
                                     <div class="col-sm-3 text-center">To :</div>
-                                    <div class="col-sm-9 text-center">
-                                        <div class="input-group">
-                                            <input id="txtDesiredTimeSoccerTo" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" disabled />
-                                            <span class="input-group-btn">
-                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-clock-o fa"></i></button>
-                                            </span>
-                                        </div>
+                                    <div class='input-group date' id='datetimepicker1'>
+                                        <div class="time_pick"><input id="txtDesiredTimeSoccerTo" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:90%" maxlength="20" placeholder="HH:mm:ss" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
+
+                                        <span class="input-group-addon">
+                                            <a><span id="btnDesiredTime" class="fa fa-clock-o "></span></a>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
+                            @*<div class="col-sm-4 text-center" style="margin-left:-20px">
+
+                                    <div class="form-group">
+                                        <div class="col-sm-3 text-center">To :</div>
+                                        <div class="col-sm-9 text-center">
+                                            <div class="input-group">
+                                                <input id="txtDesiredTimeSoccerTo" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" disabled />
+                                                <span class="input-group-btn">
+                                                    <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-clock-o fa"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>*@
                         </div>
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>SPECIAL PROVISIONS:</label></h4></div>
 
@@ -2777,11 +2914,23 @@
                                 <a href="javascript:void(0)" id="rulesSocc" style="color:red">See also the Rules & Regulations in the Clubhouse/Licensed Space Agreement.</a>
                             </p>
                         </div>
-                        <div class="col-sm-12 text-center">
-                            <div class="text-center">
-                                <button id="btnPrintSoccer" class="btn btn-primary" onclick="printReservation('divSoc','Soccer')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
-                                <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintSoccer')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
-                            </div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;">
+                            @*<div class="text-center">
+                                    <button id="btnPrintSoccer" class="btn btn-primary" onclick="printReservation('divSoc','Soccer')" disabled><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                                    <button id="btnSavePoolCabanaData" class="btn btn-primary" onclick="savupdateAmenityReservation('btnPrintSoccer')"><i class="fa fa-save"></i><b style="font-size: 11pt;"> Save </b> </button>
+                                </div>*@
+
+
+                            <button id="btnPrintSoccer" class="paynow m-t30" onclick="printReservation('divSoc','Soccer')" disabled>Print </button>
+                            <button id="btnSavePoolCabanaData" type="button" onclick="savupdateAmenityReservation('btnPrintSoccer')" class="paynow m-t30">Save</button>
+
+
+
+
+
+
+
+
                         </div>
                     </div>
                 </div>
@@ -2789,7 +2938,11 @@
             <!-- Modal body end -->
             <div class="modal-footer">
                 <div class="col-sm-12 text-center">
-                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal" onclick="clearDdlAmenity();">Close</button>
+                    <div class="condition-wrapper ">
+
+                        <button type="button" data-dismiss="modal" onclick="clearDdlAmenity();" class="paynow m-t30">Close</button>
+                    </div>
+                    @* <button type="button" class="btn btn-primary pull-right" data-dismiss="modal" onclick="clearDdlAmenity();">Close</button>*@
                 </div>
             </div>
         </div>
@@ -3001,7 +3154,7 @@
             <div class="modal-footer">
                 <div class="col-sm-12 text-center">
                     <div class="col-sm-6">
-                        <button id="btnTagPrint" class="btn btn-primary pull-right" onclick="print('Form')"><i class="fa fa-print"></i><b style="font-size: 11pt;"> Print</b> </button>
+                        <button id="btnTagPrint" class="btn btn-primary pull-right" onclick="print('Form')"><b style="font-size: 11pt;"> Print</b> </button>
                     </div>
                     <div class="col-sm-6">
                         <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
