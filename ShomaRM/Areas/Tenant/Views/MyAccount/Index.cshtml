@@ -389,9 +389,9 @@
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mobile-margin text-payment"></div>
                                 <div class="col-xs-12 col-sm-3 col-md-3 col-lg-4 col-xl-4 mobile-margin">
                                     <p>We will make payments to this credit card account each month on your due date (Or it falls on Saturday, the Friday before).</p>
-                                  
+
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -518,7 +518,7 @@
                         </div>
 
                     </div>
-                   
+
                     <div class="condition-wrapper ">
                         <button id="btnBackRecurringPayment" class="paynow m-t30" onclick="recurringPaymentBack();">Back</button>
 
@@ -531,7 +531,7 @@
 
 
 
-                    </div>
+            </div>
         </div>
 
         <div class="col-lg-12 hidden payment-box" id="payStep5">
@@ -1409,317 +1409,317 @@
         </div>*@
 
 
-<div class="tab-pane" id="step7">
-    <div class="col-lg-12 submenu margin2">
-        <ul class="submenupayment">
-            <li></li>
-        </ul>
-    </div>
-    <input id="hdnGuestId" type="hidden" value="0" />
-    <input id="hdnTagGuestId" type="hidden" value="0" />
-    @*<div class="col-lg-12 submenu margin2">
+    <div class="tab-pane" id="step7">
+        <div class="col-lg-12 submenu margin2">
             <ul class="submenupayment">
-                <li id="li13" class="active"><a href="#" onclick="goToStep(13)">Pending Request</a></li>
-                <li id="li14"><a href="#NewClub" onclick="goToStep(14)">New Guest</a></li>
+                <li></li>
             </ul>
-        </div>*@
-    @*<div id="step13" class="col-lg-12 payment-box active">
-            <div class="row">
-                <div class="col-lg-6"><h3 class="headding-sub-text">Pending Request</h3></div>
-            </div>
-        </div>*@
-    <div id="PrintGuest" class="col-lg-12 payment-box">
-        <h3 class="headding-sub-text margin1  col-lg-12">Guest Registration Form</h3>
-
-        <div class="text-redcolor1 center m-t20 m-b40">Registration is only necessary for guests staying overnight.</div>
-
-        <div class="payment-box">
-            <div class="col-lg-12 margin3">
-                <div class="row margin margin-box">
-                    <div class="col-lg-3">
-                        <div class="col-lg-12 mobile-margin text-payment">Guest Name:</div>
-                    </div>
-
-                    <div class="col-lg-9">
-                        <div class="row">
-                            <div class="Club-text col-lg-2">First:</div>
-                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
-                                <input type="text" id="txtGuestFirstName" class="form-control" onchange="copyGuestName();" />
-                            </div>
-                        </div>
-                        <div class="row m-t20">
-                            <div class="Club-text col-lg-2 ">Last:</div>
-                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
-                                <input type="text" id="txtGuestLastName" class="form-control" onchange="copyGuestName();" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-
-        <div class="payment-box">
-            <div class="col-lg-12 margin2">
-                <div class="row margin margin-box">
-                    <div class="col-lg-3">
-                        <div class="col-lg-12 mobile-margin text-payment">Guest Address:</div>
-                    </div>
-
-                    <div class="col-lg-8">
-                        <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12 p-r30 p-l0">
-                            <textarea id="txtGuestAddress" style="width:100%; height:auto;"></textarea>
-                        </div>
-
-                    </div>
+        <input id="hdnGuestId" type="hidden" value="0" />
+        <input id="hdnTagGuestId" type="hidden" value="0" />
+        @*<div class="col-lg-12 submenu margin2">
+                <ul class="submenupayment">
+                    <li id="li13" class="active"><a href="#" onclick="goToStep(13)">Pending Request</a></li>
+                    <li id="li14"><a href="#NewClub" onclick="goToStep(14)">New Guest</a></li>
+                </ul>
+            </div>*@
+        @*<div id="step13" class="col-lg-12 payment-box active">
+                <div class="row">
+                    <div class="col-lg-6"><h3 class="headding-sub-text">Pending Request</h3></div>
                 </div>
-            </div>
-        </div>
+            </div>*@
+        <div id="PrintGuest" class="col-lg-12 payment-box">
+            <h3 class="headding-sub-text margin1  col-lg-12">Guest Registration Form</h3>
 
-        <div class="payment-box">
-            <div class="col-lg-12 margin2">
-                <div class="row margin margin-box">
-                    <div class="col-lg-3">
-                        <div class="col-lg-12 mobile-margin text-payment">Contact:</div>
-                    </div>
+            <div class="text-redcolor1 center m-t20 m-b40">Registration is only necessary for guests staying overnight.</div>
 
-                    <div class="col-lg-9">
-                        <div class="row">
-                            <div class="Club-text col-lg-2">Phone#:</div>
-                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
-                                <input type="text" id="txtGuestPhone" class="form-control" maxlength="10" onkeypress="return isOnlyNumber(event);" />
-                            </div>
+            <div class="payment-box">
+                <div class="col-lg-12 margin3">
+                    <div class="row margin margin-box">
+                        <div class="col-lg-3">
+                            <div class="col-lg-12 mobile-margin text-payment">Guest Name:</div>
                         </div>
-                        <div class="row m-t20">
-                            <div class="Club-text col-lg-2">Email:</div>
-                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
-                                <input type="text" class="form-control" id="txtGuestEmail" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-
-        <div class="payment-box">
-            <div class="col-lg-12 margin2">
-                <div class="row margin margin-box">
-                    <div class="col-lg-3">
-                        <div class="col-lg-12 mobile-margin text-payment">Duration:</div>
-                    </div>
-
-                    <div class="col-lg-9">
-                        <div class="row">
-                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 text-redcolor2">
-                                Limited to 10 days.
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="Club-text1 col-lg-2">Visit Start Date:</div>
-                            <div class="col-lg-4 col-md-2 col-sm-6 col-xs-12 border-bottom1 m-r20">
-                                <div class="form-group">
-                                    <div class='input-group date'>
-                                        <input id="txtGuestVistStartDate" type="text" class="form-control" />
-                                        <span class="input-group-addon">
-                                            @*<button class="btn btn-primary search" id="Date" type="button"><i class="fa-calendar fa"></i></button>*@
-                                            <a><span class="fa fa-calendar"></span></a>
-                                        </span>
-                                    </div>
+                        <div class="col-lg-9">
+                            <div class="row">
+                                <div class="Club-text col-lg-2">First:</div>
+                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
+                                    <input type="text" id="txtGuestFirstName" class="form-control" onchange="copyGuestName();" />
                                 </div>
                             </div>
-                        </div>
-                        <div class="row m-t20">
-                            <div class="Club-text1 col-lg-2">Visit End Date:</div>
-                            <div class="col-lg-4 col-md-2 col-sm-6 col-xs-12 border-bottom1 m-l10">
-                                <div class="form-group">
-                                    <div class='input-group date'>
-                                        <input id="txtGuestVistEndDate" type="text" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
-                                        <span class="input-group-addon">
-                                            @*<button class="btn btn-primary search" id="Date" type="button"><i class="fa-calendar fa"></i></button>*@
-                                            <a><span class="fa fa-calendar"></span></a>
-                                        </span>
-                                    </div>
+                            <div class="row m-t20">
+                                <div class="Club-text col-lg-2 ">Last:</div>
+                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
+                                    <input type="text" id="txtGuestLastName" class="form-control" onchange="copyGuestName();" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="payment-box">
+            <div class="payment-box">
+                <div class="col-lg-12 margin2">
+                    <div class="row margin margin-box">
+                        <div class="col-lg-3">
+                            <div class="col-lg-12 mobile-margin text-payment">Guest Address:</div>
+                        </div>
+
+                        <div class="col-lg-8">
+                            <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12 p-r30 p-l0">
+                                <textarea id="txtGuestAddress" style="width:100%; height:auto;"></textarea>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="payment-box">
+                <div class="col-lg-12 margin2">
+                    <div class="row margin margin-box">
+                        <div class="col-lg-3">
+                            <div class="col-lg-12 mobile-margin text-payment">Contact:</div>
+                        </div>
+
+                        <div class="col-lg-9">
+                            <div class="row">
+                                <div class="Club-text col-lg-2">Phone#:</div>
+                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
+                                    <input type="text" id="txtGuestPhone" class="form-control" maxlength="10" onkeypress="return isOnlyNumber(event);" />
+                                </div>
+                            </div>
+                            <div class="row m-t20">
+                                <div class="Club-text col-lg-2">Email:</div>
+                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
+                                    <input type="text" class="form-control" id="txtGuestEmail" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="payment-box">
+                <div class="col-lg-12 margin2">
+                    <div class="row margin margin-box">
+                        <div class="col-lg-3">
+                            <div class="col-lg-12 mobile-margin text-payment">Duration:</div>
+                        </div>
+
+                        <div class="col-lg-9">
+                            <div class="row">
+                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 text-redcolor2">
+                                    Limited to 10 days.
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="Club-text1 col-lg-2">Visit Start Date:</div>
+                                <div class="col-lg-4 col-md-2 col-sm-6 col-xs-12 border-bottom1 m-r20">
+                                    <div class="form-group">
+                                        <div class='input-group date'>
+                                            <input id="txtGuestVistStartDate" type="text" class="form-control" />
+                                            <span class="input-group-addon">
+                                                @*<button class="btn btn-primary search" id="Date" type="button"><i class="fa-calendar fa"></i></button>*@
+                                                <a><span class="fa fa-calendar"></span></a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-t20">
+                                <div class="Club-text1 col-lg-2">Visit End Date:</div>
+                                <div class="col-lg-4 col-md-2 col-sm-6 col-xs-12 border-bottom1 m-l10">
+                                    <div class="form-group">
+                                        <div class='input-group date'>
+                                            <input id="txtGuestVistEndDate" type="text" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
+                                            <span class="input-group-addon">
+                                                @*<button class="btn btn-primary search" id="Date" type="button"><i class="fa-calendar fa"></i></button>*@
+                                                <a><span class="fa fa-calendar"></span></a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="payment-box">
+                <div class="col-lg-12">
+                    <div class="row margin margin-box">
+                        <div class="col-lg-3">
+                            <div class="col-lg-12 mobile-margin text-payment">Vehicle:</div>
+                        </div>
+
+                        <div class="col-lg-9">
+                            <div class="row">
+                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 text-redcolor3">
+                                    Do you have a vehicle?
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 ">
+                                    <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
+                                    <label>
+                                        <input id="chkHaveVehicle" type="checkbox" checked="checked">
+                                        Yes
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                    <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
+                                    <label>
+                                        <input type="checkbox">
+                                        No
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="payment-box hidden" id="HaveVehicle">
+                <div class="col-lg-12 margin2">
+                    <div class="row margin margin-box">
+                        <div class="col-lg-3">
+                            <div class="col-lg-12 mobile-margin text-payment">Vehicle Make:</div>
+                        </div>
+
+                        <div class="col-lg-5">
+                            <div class="row">
+                                <input id="txtGuestVehicleMake" type="text" class="form-control" value="">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row margin margin-box">
+                        <div class="col-lg-3">
+                            <div class="col-lg-12 mobile-margin text-payment">Vehicle Model:</div>
+                        </div>
+
+                        <div class="col-lg-5">
+                            <div class="row">
+                                <input id="txtGuestVehicleModel" type="text" class="form-control" value="">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row margin margin-box">
+                        <div class="col-lg-3">
+                            <div class="col-lg-12 mobile-margin text-payment">Tag#:</div>
+                        </div>
+
+                        <div class="col-lg-5">
+                            <div class="row">
+                                <input type="text" id="txtGuestVehicleTag" class="form-control" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row margin margin-box">
+                        <div class="Club-text1 col-lg-3">
+                            <div class="col-lg-12 mobile-margin text-payment">
+                                Upload Registration:
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <input type="file" name="fileUploadGuestRegistration" id="fileUploadGuestRegistration" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                            <label for="fileUploadGuestRegistration">
+                                <i class="fa fa-upload fa-2x"></i>
+                                <span id="fileSpanShowGuestRegistration">Choose a file&hellip;</span>
+                            </label>
+                            <input type="hidden" id="hndUploadGuestRegistration" value="0" />
+                            <input type="hidden" id="hndOriginalUploadGuestRegistration" value="0" />
+                        </div>
+                    </div>
+
+                    <div class="row margin margin-box">
+                        <div class=" Club-text1 col-lg-3">
+                            <div class="col-lg-12 mobile-margin text-payment">
+                                Upload Driver Licence or Picture Id:
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <input type="file" name="fileUploadGuestDriverLicence" id="fileUploadGuestDriverLicence" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                            <label for="fileUploadGuestDriverLicence">
+                                <i class="fa fa-upload fa-2x"></i>
+                                <span id="fileSpanShowGuestDriverLicence">Choose a file&hellip;</span>
+                            </label>
+                            <input type="hidden" id="hndUploadGuestDriverLicence" value="0" />
+                            <input type="hidden" id="hndOriginalUploadGuestDriverLicence" value="0" />
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            @*<div class="condition-wrapper mrgin-box01">
+                    <div class="row">
+                        <div><button class="paynow m-t30 m-r15"><i class="fa fa-upload" aria-hidden="true"></i> License or Photo ID</button></div>
+                        <div><button class="paynow m-t30 m-l10"><i class="fa fa-upload" aria-hidden="true"></i> Vehicle Registration</button></div>
+                    </div>
+                </div>*@
+
+
+
             <div class="col-lg-12">
-                <div class="row margin margin-box">
-                    <div class="col-lg-3">
-                        <div class="col-lg-12 mobile-margin text-payment">Vehicle:</div>
-                    </div>
-
-                    <div class="col-lg-9">
-                        <div class="row">
-                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 text-redcolor3">
-                                Do you have a vehicle?
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 ">
-                                <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
-                                <label>
-                                    <input id="chkHaveVehicle" type="checkbox" checked="checked">
-                                    Yes
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
-                                <label>
-                                    <input type="checkbox">
-                                    No
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="condition-wrapper border-bottom1"><h4 class="m-b0">Guest’s Certification</h4></div>
+                <p class="m-l30 m-r-30 m-t10 text-subheding">
+                    I,<span id="spanGuestCertGName" style="text-decoration:underline"></span> , hereby certify that I have been informed of the rules and regulations of the community, and I will abide by them. I also certify that I will not use any of the amenities/common areas without the presence of the Tenant.
+                </p>
             </div>
-        </div>
 
-
-        <div class="payment-box hidden" id="HaveVehicle">
-            <div class="col-lg-12 margin2">
-                <div class="row margin margin-box">
-                    <div class="col-lg-3">
-                        <div class="col-lg-12 mobile-margin text-payment">Vehicle Make:</div>
-                    </div>
-
-                    <div class="col-lg-5">
-                        <div class="row">
-                            <input id="txtGuestVehicleMake" type="text" class="form-control" value="">
-                        </div>
-
-                    </div>
-                </div>
-                <div class="row margin margin-box">
-                    <div class="col-lg-3">
-                        <div class="col-lg-12 mobile-margin text-payment">Vehicle Model:</div>
-                    </div>
-
-                    <div class="col-lg-5">
-                        <div class="row">
-                            <input id="txtGuestVehicleModel" type="text" class="form-control" value="">
-                        </div>
-
-                    </div>
-                </div>
-                <div class="row margin margin-box">
-                    <div class="col-lg-3">
-                        <div class="col-lg-12 mobile-margin text-payment">Tag#:</div>
-                    </div>
-
-                    <div class="col-lg-5">
-                        <div class="row">
-                            <input type="text" id="txtGuestVehicleTag" class="form-control" />
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="row margin margin-box">
-                    <div class="Club-text1 col-lg-3">
-                        <div class="col-lg-12 mobile-margin text-payment">
-                            Upload Registration:
-                        </div>
-                    </div>
-                    <div class="col-sm-5">
-                        <input type="file" name="fileUploadGuestRegistration" id="fileUploadGuestRegistration" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                        <label for="fileUploadGuestRegistration">
-                            <i class="fa fa-upload fa-2x"></i>
-                            <span id="fileSpanShowGuestRegistration">Choose a file&hellip;</span>
-                        </label>
-                        <input type="hidden" id="hndUploadGuestRegistration" value="0" />
-                        <input type="hidden" id="hndOriginalUploadGuestRegistration" value="0" />
-                    </div>
-                </div>
-
-                <div class="row margin margin-box">
-                    <div class=" Club-text1 col-lg-3">
-                        <div class="col-lg-12 mobile-margin text-payment">
-                            Upload Driver Licence or Picture Id:
-                        </div>
-                    </div>
-                    <div class="col-sm-5">
-                        <input type="file" name="fileUploadGuestDriverLicence" id="fileUploadGuestDriverLicence" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                        <label for="fileUploadGuestDriverLicence">
-                            <i class="fa fa-upload fa-2x"></i>
-                            <span id="fileSpanShowGuestDriverLicence">Choose a file&hellip;</span>
-                        </label>
-                        <input type="hidden" id="hndUploadGuestDriverLicence" value="0" />
-                        <input type="hidden" id="hndOriginalUploadGuestDriverLicence" value="0" />
-                    </div>
-                </div>
-
-
-
+            <div class="col-lg-12">
+                <div class="condition-wrapper border-bottom1"><h4 class="m-b0">Tenant’s Certification</h4></div>
+                <p class="m-l30 m-r-30 m-t10 text-subheding">
+                    Tenants are fully responsible for any damage to the unit and/or common areas used by their guests. Tenants will be held financially liable for damages to the property. Tenants are responsible to advise their guests of the community’s rules and regulations and ensure that the guests fully abide by them. Tenants must accompany their guests for the use of all amenities/common areas.
+                </p>
             </div>
-        </div>
 
-        @*<div class="condition-wrapper mrgin-box01">
+            <div class="col-lg-12 mrgin-box02">
+                <p class="m-l30 m-r-30 m-t10 text-subheding">
+                    I have read and understood my financial responsibility for my guests and agree to advise my guests to abide by the community’s rules and regulations.
+                </p>
+            </div>
+
+            <div class="col-lg-12 client-name1 m-t20 m-l30">
+                <span id="spanTenantSignName" style="text-decoration:underline"></span><br />
+                <label>Tenant</label>
+            </div>
+            <div class="col-lg-12 client-name1 m-t20 m-l30">
+                <span id="spanGuestSignName" style="text-decoration:underline"></span><br />
+                <label>Guest</label>
+            </div>
+            <div class="condition-wrapper mrgin-box01">
                 <div class="row">
-                    <div><button class="paynow m-t30 m-r15"><i class="fa fa-upload" aria-hidden="true"></i> License or Photo ID</button></div>
-                    <div><button class="paynow m-t30 m-l10"><i class="fa fa-upload" aria-hidden="true"></i> Vehicle Registration</button></div>
+                    <div><button id="btnGuestRegSave" type="button" class="paynow m-t30 m-r15" onclick="saveUpdateGuestRegistration();">Save</button></div>
+                    <div class="hidden" id="printForm"><button id="btnPrintForm" type="button" onclick="openForm();" class="paynow m-t30 m-l10">Print Form</button></div>
                 </div>
-            </div>*@
-
-
-
-        <div class="col-lg-12">
-            <div class="condition-wrapper border-bottom1"><h4 class="m-b0">Guest’s Certification</h4></div>
-            <p class="m-l30 m-r-30 m-t10 text-subheding">
-                I,<span id="spanGuestCertGName" style="text-decoration:underline"></span> , hereby certify that I have been informed of the rules and regulations of the community, and I will abide by them. I also certify that I will not use any of the amenities/common areas without the presence of the Tenant.
-            </p>
-        </div>
-
-        <div class="col-lg-12">
-            <div class="condition-wrapper border-bottom1"><h4 class="m-b0">Tenant’s Certification</h4></div>
-            <p class="m-l30 m-r-30 m-t10 text-subheding">
-                Tenants are fully responsible for any damage to the unit and/or common areas used by their guests. Tenants will be held financially liable for damages to the property. Tenants are responsible to advise their guests of the community’s rules and regulations and ensure that the guests fully abide by them. Tenants must accompany their guests for the use of all amenities/common areas.
-            </p>
-        </div>
-
-        <div class="col-lg-12 mrgin-box02">
-            <p class="m-l30 m-r-30 m-t10 text-subheding">
-                I have read and understood my financial responsibility for my guests and agree to advise my guests to abide by the community’s rules and regulations.
-            </p>
-        </div>
-
-        <div class="col-lg-12 client-name1 m-t20 m-l30">
-            <span id="spanTenantSignName" style="text-decoration:underline"></span><br />
-            <label>Tenant</label>
-        </div>
-        <div class="col-lg-12 client-name1 m-t20 m-l30">
-            <span id="spanGuestSignName" style="text-decoration:underline"></span><br />
-            <label>Guest</label>
-        </div>
-        <div class="condition-wrapper mrgin-box01">
-            <div class="row">
-                <div><button id="btnGuestRegSave" type="button" class="paynow m-t30 m-r15" onclick="saveUpdateGuestRegistration();">Save</button></div>
-                <div class="hidden" id="printForm"><button id="btnPrintForm" type="button" onclick="openForm();" class="paynow m-t30 m-l10">Print Form</button></div>
             </div>
-        </div>
-        @*<div class="condition-wrapper mrgin-box01">
-                <div class="row">
-                    <div class="col-sm-6 ">
-                        <button id="btnGuestRegSave" type="button" class="paynow m-t30 m-l10" onclick="saveUpdateGuestRegistration();">Save</button>
-                    </div>
-                    <div class="col-sm-6 hidden" id="printForm">
-                        <button id="btnPrintForm" type="button" onclick="openForm();" class="paynow m-t30 m-r15">Print Form</button>
-                    </div>
+            @*<div class="condition-wrapper mrgin-box01">
+                    <div class="row">
+                        <div class="col-sm-6 ">
+                            <button id="btnGuestRegSave" type="button" class="paynow m-t30 m-l10" onclick="saveUpdateGuestRegistration();">Save</button>
+                        </div>
+                        <div class="col-sm-6 hidden" id="printForm">
+                            <button id="btnPrintForm" type="button" onclick="openForm();" class="paynow m-t30 m-r15">Print Form</button>
+                        </div>
 
-                </div>
-            </div>*@
+                    </div>
+                </div>*@
+
+        </div>
 
     </div>
-
-</div>
 
 
 </div>
@@ -1838,7 +1838,7 @@
 <div class="modal" id="popAddNewAccount">
     <input type="hidden" id="hndPaymentAccountsID" value="0" />
     <div class="modal-dialog">
-        <div class="modal-content" style="width:732px;height:450px">
+        <div class="modal-content modal-scroll" style="width:732px;height:450px">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -20px; margin-right: -12px;">&times;</button>
             <div class="modal-header" style="width: 100%;">
                 <h5 class="modal-title">Add New Payment Accounts</h5>
@@ -2010,7 +2010,7 @@
 </div>
 <div class="modal" id="popPaymentBreakdown">
     <div class="modal-dialog">
-        <div class="modal-content" style="width: 47%; height:560px;">
+        <div class="modal-content modal-scroll" style="width: 47%; height:560px;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
             <div class="modal-header center">
                 <h3 class="modal-title">Payment Details</h3>
@@ -2132,7 +2132,7 @@
 </div>
 <div class="modal" id="requestAminityReservation">
     <div class="modal-dialog">
-        <div class="modal-content" style="width: 100%; height:210px;">
+        <div class="modal-content modal-scroll" style="width: 100%; height:210px;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;font-size: 30px !important">&times;</button>
             <div class="modal-header"></div>
             <!-- Modal body -->
@@ -2154,7 +2154,7 @@
 </div>
 <div class="modal" id="popInvoice">
     <div class="modal-dialog">
-        <div class="modal-content popInvoice">
+        <div class="modal-content modal-scroll popInvoice">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;font-size: 30px !important">&times;</button>
             <div class="modal-header"></div>
             <!-- Modal body -->
@@ -2200,7 +2200,7 @@
 </div>
 <div class="modal" id="popPaymentReceipt">
     <div class="modal-dialog">
-        <div class="modal-content" style="width: 100%; height:400px;">
+        <div class="modal-content modal-scroll" style="width: 100%; height:400px;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;font-size: 30px !important">&times;</button>
             <div class="modal-header"></div>
             <!-- Modal body -->
@@ -2236,7 +2236,7 @@
 </div>
 <div class="modal" id="popDateRangeAccountHistory">
     <div class="modal-dialog">
-        <div class="modal-content" style="width: 100%; height:290px;">
+        <div class="modal-content modal-scroll" style="width: 100%; height:290px;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
             <div class="modal-header">
                 <h3 class="modal-title">Search Account History</h3>
@@ -2274,9 +2274,10 @@
         </div>
     </div>
 </div>
+<!--Reserve Ammenity SOCCER/RECREATIONAL FIELD Modal popup-->
 <div class="modal" id="reserveAmenity" style="overflow-y:hidden;">
     <div class="modal-dialog" style="min-width:1020px !important">
-        <div class="modal-content" style="width: 100%;">
+        <div class="modal-content modal-scroll" style="width: 100%;">
             <div class="modal-header center">
                 <h2 class="modal-title" style="color:#4D738A !important; ">Amenity Reservation</h2>
                 <button type="button" id="closeReserveAmenityPop" class="close pull-right" data-dismiss="modal" style="margin-top: -50px; color:#000 !important" onclick="clearDdlAmenity();">&times;</button>
@@ -2358,9 +2359,9 @@
                                 <div class="col-sm-6">&nbsp;</div>
                             </div>
                         </div>
-                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>BOOKING DATE AND TIME</label></h4></div>
+                        <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 class="text-payment"><label>BOOKING DATE AND TIME</label></h4></div>
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;">
-                            <div class="col-sm-4 text-center" style="margin-left:90px">
+                            <div class="col-sm-4 text-center">
                                 <div class="input-group" style="width:75%">
                                     <input id="txtDesiredDateBBQ" type="text" class="form-control" maxlength="20" placeholder="MM/dd/yyyy" />
                                     <span class="input-group-btn">
@@ -2368,14 +2369,21 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-sm-4 text-center" style="margin-left:-80px">
+                            <div class="col-sm-4 text-center">
                                 <div class="form-group">
                                     <div class="col-sm-3 text-center">From :</div>
                                     <div class="col-sm-9 text-center">
-                                        <div class="input-group">
-                                            <input id="txtDesiredTimeBBQFrom" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
-                                            <span class="input-group-btn">
-                                                <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
+                                        @*<div class="input-group">
+                                                <input id="txtDesiredTimeBBQFrom" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
+                                                <span class="input-group-btn">
+                                                    <button id="btnDesiredTime" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-clock-o fa"></i></button>
+                                                </span>
+                                            </div>*@
+                                        <div class='input-group date' id='datetimepicker1'>
+                                            <div class="time_pick"><input id="txtDesiredTimeBBQFrom" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:90%" maxlength="20" placeholder="HH:mm:ss" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
+
+                                            <span class="input-group-addon">
+                                                <a><span id="btnDesiredTime" class="fa fa-clock-o "></span></a>
                                             </span>
                                         </div>
                                     </div>
@@ -2714,14 +2722,22 @@
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;"><h4 style="color:#4D738A !important; "><label>BOOKING DATE AND TIME</label></h4></div>
                         <div class="col-sm-12 text-center" style="margin-bottom: 15px;">
                             <div class="col-sm-4 text-center" style="margin-left:90px">
-                                <div class="input-group" style="width:75%">
-                                    <input id="txtDesiredDateSoccer" type="text" class="form-control" maxlength="20" placeholder="MM/dd/yyyy" />
-                                    <span class="input-group-btn">
-                                        <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
-                                    </span>
+                                <div class="form-group">
+                                    <div class='input-group date'>
+                                        <input id="txtDesiredDateSoccer" type='text' style="width:95%;" class="form-control" data-provide="datepicker" maxlength="20" placeholder="MM/dd/yyyy">
+                                        <span class="input-group-addon">
+                                            <a><span class="fa fa-calendar"></span></a>
+                                        </span>
+                                    </div>
                                 </div>
+                                @*<div class="input-group" style="width:75%">
+                                        <input id="txtDesiredDateSoccer" type="text" class="form-control" maxlength="20" placeholder="MM/dd/yyyy" />
+                                        <span class="input-group-btn">
+                                            <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                        </span>
+                                    </div>*@
                             </div>
-                            <div class="col-sm-4 text-center" style="margin-left:-80px">
+                            <div class="col-sm-4 text-center">
                                 <div class="form-group">
                                     <div class="col-sm-3 text-center">From :</div>
                                     <div class="col-sm-9 text-center">
@@ -2779,6 +2795,7 @@
         </div>
     </div>
 </div>
+<!--Print Reservation modal popup-->
 <div class="col-sm-12" id="divPrintReservation" style="margin-top:10px !important;height:100% !important;width:100% !important">
     <div class="modal-header center"><h2 class="modal-title print-title" style="color:#4D738A !important; "></h2></div>
     <div id="divPrintData"></div>
@@ -2795,9 +2812,10 @@
         </div>
     </div>
 </div>
+<!--Print Guest registration popup-->
 <div class="modal" id="popguest">
     <div class="modal-dialog" style="width: 60%; height:454px;">
-        <div class="modal-content">
+        <div class="modal-content modal-scroll">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
             <div id="Form">
 
@@ -2995,7 +3013,7 @@
 </div>
 <div class="modal" id="popTag">
     <div class="modal-dialog">
-        <div class="modal-content" style="width: 47%; height:454px;">
+        <div class="modal-content modal-scroll" style="width: 47%; height:454px;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
             <div id="TagPrint">
                 <div class="modal-header center">
@@ -3165,416 +3183,6 @@
         $('#popDateRangeAccountHistory').modal('show');
     };
 </script>
-
-@*<style>
-        .modal-dialog {
-            overflow-y: initial !important
-        }
-
-        .modal-body {
-            height: 550px;
-            overflow-y: auto;
-            overflow-x: hidden !important;
-        }
-
-        div.sticky {
-            position: -webkit-sticky;
-            position: sticky !important;
-            top: 112px;
-        }
-
-        .timepicker_wrap {
-            width: 150% !important;
-        }
-
-        .tab-content ul {
-            /*background-color: #c7d5c733;*/
-        }
-
-            .tab-content ul li {
-                margin-right: 23px;
-            }
-
-        .nav {
-            padding-left: 0;
-            list-style: none;
-        }
-
-        .tab-content1 ul {
-            background-color: #4d738a;
-            color: #dfe4e8;
-        }
-
-            .tab-content1 ul li a {
-                color: #B7B0A7;
-            }
-
-
-
-
-        .tab-content.wizard li {
-            width: 100%;
-            float: none;
-            margin-bottom: 0px;
-        }
-
-            .tab-content.wizard li > * {
-                position: relative;
-                padding: 1em .8em .8em 1.5em;
-                color: #ffffff;
-                background-color: #B4ADA5;
-                border-color: #B4ADA5;
-            }
-
-            .tab-content.wizard li.completed > * {
-                color: #fff !important;
-                background-color: #96c03d !important;
-                border-color: #96c03d !important;
-                border-bottom: none !important;
-            }
-
-        .tab-content li.active > * {
-            color: #4d738a !important;
-            background-color: transparent !important;
-            /*border-color: #4d738a !important;*/
-            /*border-bottom: none !important;*/
-            margin-bottom: 0px;
-            border: none !important;
-        }
-
-        .tab-content li.active1 > * {
-            color: #4d738a !important;
-        }
-        /*.active1 > a {
-                color: #4d738a !important;
-                background-color: #ffffff !important;
-            }*/
-
-
-        .tab-content.wizard li::after:last-child {
-            border: none;
-            border-bottom-left-radius: 0px;
-        }
-
-        .tab-content.wizard > li > a {
-            opacity: 1;
-            font-size: 14px;
-        }
-
-        .tab-content.wizard a:hover {
-            color: #fff;
-            background-color: #4d738a;
-            /*border-color: #4d738a*/
-        }
-
-        span.nmbr {
-            display: inline-block;
-            padding: 10px 0 0 0;
-            background: #ffffff;
-            width: 35px;
-            line-height: 100%;
-            height: 35px;
-            margin: auto;
-            border-radius: 50%;
-            font-weight: bold;
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        @@media(min-width:992px) {
-            .tab-content.wizard li {
-                position: relative;
-                padding: 0;
-                /*margin: 4px 4px 4px 0;*/
-                width: 19.6%;
-                float: left;
-                text-align: center;
-            }
-
-            .nav-tabs {
-                border-bottom: none;
-            }
-
-                .nav-tabs.wizard li.active a {
-                    padding-top: 15px;
-                }
-
-                .nav-tabs.wizard li.active1 a {
-                    padding-top: 15px;
-                }
-
-
-                .tab-content.wizard li::after, .nav-tabs.wizard li > ::after {
-                    content: '';
-                    position: absolute;
-                    top: -1px;
-                    left: 100%;
-                    height: 0;
-                    width: 0;
-                    border: 24px solid transparent;
-                    border-right-width: 24px;
-                    border-left-color: transparent;
-                    border-right-width: 0;
-                    border-left-width: 20px;
-                }
-
-            .tab-content.wizard li::after {
-                z-index: 1;
-                -webkit-transform: translateX(4px);
-                -moz-transform: translateX(4px);
-                -ms-transform: translateX(4px);
-                -o-transform: translateX(4px);
-                transform: translateX(4px);
-                border-left-color: #fff;
-                margin: 0
-            }
-
-            .tab-content.wizard li > *::after {
-                z-index: 2;
-                border-left-color: inherit
-            }
-
-            .tab-content.wizard > li:nth-of-type(1) > a {
-                border-top-left-radius: 0px;
-                border-bottom-left-radius: 0px;
-            }
-
-            .tab-content.wizard li:last-child a {
-                border-top-right-radius: 0px;
-                border-bottom-right-radius: 0px;
-            }
-
-            .tab-content.wizard li:last-child {
-                margin-right: 0;
-            }
-
-            .nav-tabs.wizard li:last-child a:after,
-            .nav-tabs.wizard li:last-child:after {
-                content: "";
-                border: none;
-            }
-
-            span.nmbr {
-                display: block;
-            }
-        }
-
-        .wizard-card {
-            border: groove;
-            border-color: black;
-        }
-
-        .btn-blue {
-            background-color: #4d738a;
-            color: #fff;
-        }
-
-            .btn-blue:hover {
-                background-color: #B7B0A7;
-                color: #fff;
-            }
-
-        hr {
-            margin-top: 0px !important;
-            margin-bottom: 0px !important;
-            border: 0;
-            border-top: 1px solid #bebdbd;
-        }
-
-        .select-unit {
-            background-color: #4d738a !important;
-            color: #fff !important;
-        }
-
-            .select-unit a {
-                color: #fff !important;
-            }
-
-        .nav-tabs > li {
-            float: left;
-            margin-bottom: -1px !important;
-            margin-top: -1px !important;
-        }
-
-        nav > li > a {
-            padding: 10px 36px !important;
-            outline: none !important;
-        }
-
-        .nav-tabs > li > a:hover {
-            border-color: none !important;
-            outline: none !important;
-        }
-
-        .nav > li > a:hover, .nav > li > a:focus {
-            background-color: #fff !important;
-            outline: none !important;
-        }
-
-        .main-tab > li > a:hover {
-            text-decoration: none !important;
-            color: #4D738A !important;
-            /*color: #B7B0A7;*/
-            /*-webkit-transition: all .8s ease !important;*/
-            transition: all .8s ease !important;
-        }
-
-        .main-tab > li > a {
-            color: #B7B0A7 !important;
-            /*outline: 0;
-                font-weight: bold;
-                -webkit-transition: all .8s ease;
-                transition: all .8s ease;*/
-        }
-
-        .hov {
-            color: #ffffff !important;
-        }
-
-            .hov > a {
-                color: #ffffff !important;
-            }
-
-            .hov:hover {
-                background-color: #ffffff;
-            }
-
-        .nav-tabs {
-            border-bottom: none !important;
-        }
-
-        .nact > li.active1 {
-            background-color: #fff !important;
-            outline: none !important;
-        }
-
-        .nact > li > a {
-            color: #ffffff !important;
-            outline: none !important;
-        }
-
-            .nact > li > a:hover {
-                color: #B7B0A7 !important;
-                outline: none !important;
-            }
-
-        .nact > li:hover {
-            background-color: #fff !important;
-            color: #B7B0A7 !important;
-            outline: none !important;
-        }
-
-        .nact > li.active1 > a:hover {
-            color: #B7B0A7 !important;
-            outline: none !important;
-            background-color: #fff !important;
-        }
-
-        .nact > li.active1:hover {
-            background-color: #fff !important;
-            outline: none !important;
-            color: #B7B0A7 !important;
-        }
-
-        p {
-            font-size: 11pt;
-        }
-
-
-        .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
-            padding: 8px;
-            line-height: 1.42857143;
-            vertical-align: top;
-            border-top: 1px solid #fff;
-            border-right: 2px solid #ddd;
-            border-bottom: 0px;
-        }
-
-        .affix {
-            position: fixed !important;
-            background-color: white !important;
-            z-index: 777 !important;
-            padding-right: 30px !important;
-        }
-        .accordian-border-group {
-            border: 1px solid !important;
-            border-color: #ddd !important;
-        }
-
-        .accordian-border {
-            background-color: transparent !important;
-            border: 0.1px solid !important;
-            border-color: #ddd;
-        }
-    </style>
-    <style>
-        /* The Modal (background) */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            /*z-index: 1;*/ /* Sit on top */
-            padding-top: 5px !important; /* Location of the box */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
-
-        .modal-header-H {
-            margin: auto;
-            padding: 20px;
-            width: 35%;
-        }
-
-        /* Modal Content */
-        .modal-content-term {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 30%;
-            text-align: justify;
-        }
-
-        /* The Close Button */
-        .close {
-            color: #fff;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            opacity: 1;
-        }
-
-            .close:hover,
-            .close:focus {
-                color: #000;
-                text-decoration: none;
-                cursor: pointer;
-                opacity: 1;
-            }
-
-        .grid-box {
-            border: 2px solid black;
-            margin-bottom: 5px !important;
-        }
-
-
-        a.disabled {
-            pointer-events: none;
-            cursor: default;
-            color: #B4ADA5;
-        }
-
-        .modal-footer-custom {
-            padding: 35px;
-            text-align: right;
-        }
-    </style>*@
 
 <script>
 
