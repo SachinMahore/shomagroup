@@ -1071,11 +1071,13 @@ label small {
         background-color: #4D738A;
         color: #fff !important;
         margin-right: 5px;
+        font-family: Futura Medium !important;
     }
 
         .nav-button.login:hover {
             background-color: #B7B0A7;
             color: #fff !important;
+            font-family: Futura Medium !important;
         }
 
     .nav-button:hover {
@@ -3558,6 +3560,7 @@ blog
     line-height: 25px;
     font-size: 13px;
     padding-bottom: 20px;
+    font-family: Futura Medium !important;
 }
 
 .footer h4 {
@@ -3570,6 +3573,7 @@ blog
     line-height: 35px;
     margin-bottom: 0px;
     letter-spacing: 2px;
+    font-family: Futura Medium !important;
 }
 
     .footer h4 span {
@@ -3630,12 +3634,14 @@ ul.footer-adress li {
 
 .footer-copy span {
     margin-right: 20px;
+    font-family: Futura Medium !important;
     font-size: 13px;
 }
 
     .footer-copy span a {
         color: #000;
         font-weight: 500;
+        font-family: Futura Medium !important;
     }
 
 .footer img {
