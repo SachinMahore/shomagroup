@@ -153,6 +153,8 @@ namespace ShomaRM.Areas.Admin.Models
             public int PageNumber { get; set; }
             public int NumberOfRows { get; set; }
             public int Type { get; set; }
+            public string SortBy { get; set; }
+            public string OrderBy { get; set; }
         }
         public int BuildPaganationSlotList(AmenitiesSlotSearchModel model)
         {
@@ -186,6 +188,16 @@ namespace ShomaRM.Areas.Admin.Models
                     param4.ParameterName = "NumberOfRows";
                     param4.Value = model.NumberOfRows;
                     cmd.Parameters.Add(param4);
+
+                    DbParameter param5 = cmd.CreateParameter();
+                    param5.ParameterName = "SortBy";
+                    param5.Value = model.SortBy;
+                    cmd.Parameters.Add(param5);
+
+                    DbParameter param6 = cmd.CreateParameter();
+                    param6.ParameterName = "OrderBy";
+                    param6.Value = model.OrderBy;
+                    cmd.Parameters.Add(param6);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -237,6 +249,16 @@ namespace ShomaRM.Areas.Admin.Models
                     param4.ParameterName = "NumberOfRows";
                     param4.Value = model.NumberOfRows;
                     cmd.Parameters.Add(param4);
+
+                    DbParameter param5 = cmd.CreateParameter();
+                    param5.ParameterName = "SortBy";
+                    param5.Value = model.SortBy;
+                    cmd.Parameters.Add(param5);
+
+                    DbParameter param6 = cmd.CreateParameter();
+                    param6.ParameterName = "OrderBy";
+                    param6.Value = model.OrderBy;
+                    cmd.Parameters.Add(param6);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
