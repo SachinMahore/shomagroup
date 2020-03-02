@@ -230,6 +230,8 @@ namespace ShomaRM.Areas.Admin.Models
             public int PageNumber { get; set; }
             public int NumberOfRows { get; set; }
             public int Type { get; set; }
+            public string SortBy { get; set; }
+            public string OrderBy { get; set; }
         }
         public int BuildPaganationEventList(EventSearchModel model)
         {
@@ -263,6 +265,16 @@ namespace ShomaRM.Areas.Admin.Models
                     param4.ParameterName = "NumberOfRows";
                     param4.Value = model.NumberOfRows;
                     cmd.Parameters.Add(param4);
+
+                    DbParameter paramSortBy = cmd.CreateParameter();
+                    paramSortBy.ParameterName = "SortBy";
+                    paramSortBy.Value = model.SortBy;
+                    cmd.Parameters.Add(paramSortBy);
+
+                    DbParameter paramOrderBy = cmd.CreateParameter();
+                    paramOrderBy.ParameterName = "OrderBy";
+                    paramOrderBy.Value = model.OrderBy;
+                    cmd.Parameters.Add(paramOrderBy);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -314,6 +326,16 @@ namespace ShomaRM.Areas.Admin.Models
                     param4.ParameterName = "NumberOfRows";
                     param4.Value = model.NumberOfRows;
                     cmd.Parameters.Add(param4);
+
+                    DbParameter paramSortBy = cmd.CreateParameter();
+                    paramSortBy.ParameterName = "SortBy";
+                    paramSortBy.Value = model.SortBy;
+                    cmd.Parameters.Add(paramSortBy);
+
+                    DbParameter paramOrderBy = cmd.CreateParameter();
+                    paramOrderBy.ParameterName = "OrderBy";
+                    paramOrderBy.Value = model.OrderBy;
+                    cmd.Parameters.Add(paramOrderBy);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;

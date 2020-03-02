@@ -42,6 +42,16 @@ namespace ShomaRM.Areas.Admin.Models
                     paramNOR.Value = model.NumberOfRows;
                     cmd.Parameters.Add(paramNOR);
 
+                    DbParameter paramSortBy = cmd.CreateParameter();
+                    paramSortBy.ParameterName = "SortBy";
+                    paramSortBy.Value = model.SortBy;
+                    cmd.Parameters.Add(paramSortBy);
+
+                    DbParameter paramOrderBy = cmd.CreateParameter();
+                    paramOrderBy.ParameterName = "OrderBy";
+                    paramOrderBy.Value = model.OrderBy;
+                    cmd.Parameters.Add(paramOrderBy);
+
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
                     da.Fill(dtTable);
@@ -87,6 +97,16 @@ namespace ShomaRM.Areas.Admin.Models
                     paramNOR.ParameterName = "NumberOfRows";
                     paramNOR.Value = model.NumberOfRows;
                     cmd.Parameters.Add(paramNOR);
+
+                    DbParameter paramSortBy = cmd.CreateParameter();
+                    paramSortBy.ParameterName = "SortBy";
+                    paramSortBy.Value = model.SortBy;
+                    cmd.Parameters.Add(paramSortBy);
+
+                    DbParameter paramOrderBy = cmd.CreateParameter();
+                    paramOrderBy.ParameterName = "OrderBy";
+                    paramOrderBy.Value = model.OrderBy;
+                    cmd.Parameters.Add(paramOrderBy);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -138,6 +158,16 @@ namespace ShomaRM.Areas.Admin.Models
                     paramNOR.ParameterName = "NumberOfRows";
                     paramNOR.Value =2;
                     cmd.Parameters.Add(paramNOR);
+
+                    DbParameter paramSortBy = cmd.CreateParameter();
+                    paramSortBy.ParameterName = "SortBy";
+                    paramSortBy.Value = "UtilityName";
+                    cmd.Parameters.Add(paramSortBy);
+
+                    DbParameter paramOrderBy = cmd.CreateParameter();
+                    paramOrderBy.ParameterName = "OrderBy";
+                    paramOrderBy.Value = "ASC";
+                    cmd.Parameters.Add(paramOrderBy);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -248,6 +278,8 @@ namespace ShomaRM.Areas.Admin.Models
         public int PageNumber { get; set; }
         public int NumberOfPages { get; set; }
         public int NumberOfRows { get; set; }
-        public String Criteria { get; set; }
+        public string Criteria { get; set; }
+        public string SortBy { get; set; }
+        public string OrderBy { get; set; }
     }
 }
