@@ -14,7 +14,10 @@
         },
         onPageClick: function (page, evt) {
             $("#hdnCurrentPage").val(page);
-            fillStorageSearchGrid(page);
+            var sortByValue = localStorage.getItem("SortByValueFob");
+            var OrderByValue = localStorage.getItem("OrderByValueFob");
+            fillStorageSearchGrid(page, sortByValue, OrderByValue);
+          
         }
     });
     getPropertyList();
@@ -43,11 +46,19 @@ var fillRPP_Storage = function () {
         buildPaganationStorageList($("#hdnCurrentPage").val());
     });
 };
-var buildPaganationStorageList = function (pagenumber) {
+var buildPaganationStorageList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = "StorageName";
+    }
+    if (!orderby) {
+        orderby = "ASC";
+    }
     var model = {
         Criteria: $("#txtCriteriaStorage").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_Storage").val()
+        NumberOfRows: $("#ddlRPP_Storage").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: '/FOB/buildPaganationStorageList',
@@ -65,11 +76,19 @@ var buildPaganationStorageList = function (pagenumber) {
         }
     });
 };
-var fillStorageSearchGrid = function (pagenumber) {
+var fillStorageSearchGrid = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = "StorageName";
+    }
+    if (!orderby) {
+        orderby = "ASC";
+    }
     var model = {
         Criteria: $("#txtCriteriaStorage").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_Storage").val()
+        NumberOfRows: $("#ddlRPP_Storage").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: '/FOB/FillStorageSearchGrid',
@@ -291,4 +310,45 @@ var delFOB = function (storageId) {
             }
         }
     });
+};
+
+var count = 0;
+var sortTableFob = function (sortby) {
+    var orderby = "";
+    var pagenumber = $("#hndPageNo").val();
+    if (!pagenumber) {
+        pagenumber = 1;
+    }
+
+    if (count % 2 == 1) {
+        orderby = "ASC";
+        $("#SortIconFob").removeClass('fa fa-sort-down');
+        $("#SortIconFob").removeClass('fa fa-sort-up fa-lg');
+        $("#SortIconFobCharge").removeClass('fa fa-sort-down');
+        $("#SortIconFobCharge").removeClass('fa fa-sort-up fa-lg');
+        if (sortby == 'StorageName') {
+            $("#SortIconFob").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'Charge') {
+            $("#SortIconFobCharge").addClass('fa fa-sort-down fa-lg');
+        }
+    }
+    else {
+        orderby = "DESC";
+        $("#SortIconFob").removeClass('fa fa-sort-down');
+        $("#SortIconFob").removeClass('fa fa-sort-up fa-lg');
+        $("#SortIconFobCharge").removeClass('fa fa-sort-down');
+        $("#SortIconFobCharge").removeClass('fa fa-sort-up fa-lg');
+        if (sortby == 'StorageName') {
+            $("#SortIconFob").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'Charge') {
+            $("#SortIconFobCharge").addClass('fa fa-sort-down fa-lg');
+        }
+    }
+    localStorage.setItem("SortByValueFob", sortby);
+    localStorage.setItem("OrderByValueFob", orderby);
+    count++;
+    buildPaganationStorageList(pagenumber, sortby, orderby);
+    fillStorageSearchGrid(pagenumber, sortby, orderby);
 };

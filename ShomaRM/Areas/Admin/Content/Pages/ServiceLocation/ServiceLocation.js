@@ -47,12 +47,12 @@ var fillRPP_Locations = function () {
         buildPaganationLocationList($("#hdnCurrentPage").val());
     });
 };
-var buildPaganationLocationList = function (pagenumber, sortby, orderby) {
-    if (!sortby) {
-        sortby = "Location";
+var buildPaganationLocationList = function (pagenumber, sortbyL, orderbyL) {
+    if (!sortbyL) {
+        sortbyL = "Location";
     }
-    if (!orderby) {
-        orderby = "ASC";
+    if (!orderbyL) {
+        orderbyL = "ASC";
     }
    
     var searchtype = $("#hdnSearchType").val();
@@ -60,8 +60,8 @@ var buildPaganationLocationList = function (pagenumber, sortby, orderby) {
         Criteria: $("#txtCriteriaLocation").val(),
         PageNumber: pagenumber,
         NumberOfRows: $("#ddlRPP_Location").val(),
-        SortBy: sortby,
-        OrderBy: orderby
+        SortBy: sortbyL,
+        OrderBy: orderbyL
     };
     $.ajax({
         url: 'ServiceLocation/BuildPaganationSLList',
@@ -90,20 +90,20 @@ var buildPaganationLocationList = function (pagenumber, sortby, orderby) {
         }
     });
 };
-var fillLocationSearchGrid = function (pagenumber, sortby, orderby) {
-    if (!sortby) {
-        sortby = "Location";
+var fillLocationSearchGrid = function (pagenumber, sortbyL, orderbyL) {
+    if (!sortbyL) {
+        sortbyL = "Location";
     }
-    if (!orderby) {
-        orderby = "ASC";
+    if (!orderbyL) {
+        orderbyL = "ASC";
     }
 
     var model = {
         Criteria: $("#txtCriteriaLocation").val(),
         PageNumber: pagenumber,
         NumberOfRows: $("#ddlRPP_Location").val(),
-        SortBy: sortby,
-        OrderBy: orderby
+        SortBy: sortbyL,
+        OrderBy: orderbyL
     };
     $.ajax({
         url: 'ServiceLocation/fillLocationSearchGrid',

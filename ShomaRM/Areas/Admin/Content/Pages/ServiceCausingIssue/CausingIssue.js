@@ -32,8 +32,8 @@
         },
         onPageClick: function (page, evt) {
             $("#hdnCurrentPage").val(page);
-            var sortByValue = localStorage.getItem("SortByValue");
-            var OrderByValue = localStorage.getItem("OrderByValue");
+            var sortByValue = localStorage.getItem("SortByValueCauIssue");
+            var OrderByValue = localStorage.getItem("OrderByValueCauIssue");
             fillCausingSearchGrid(page, sortByValue, OrderByValue);
             
         }
@@ -361,8 +361,8 @@ var sortTableSC = function (sortby) {
             $("#SortIconCS").addClass('fa fa-sort-down fa-lg');
         }
     }
-    localStorage.setItem("SortByValue", sortby);
-    localStorage.setItem("OrderByValue", orderby);
+    localStorage.setItem("SortByValueCauIssue", sortby);
+    localStorage.setItem("OrderByValueCauIssue", orderby);
     count++;
     buildPaganationCausingIssueList(pagenumber, sortby, orderby);
     fillCausingSearchGrid(pagenumber, sortby, orderby);
