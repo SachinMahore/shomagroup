@@ -118,6 +118,54 @@ namespace ShomaRM.Areas.Admin.Controllers
             }
         }
 
+        public JsonResult SaveUpdateEstimate(ServicesManagementModel.EstimateModel model)
+        {
+            try
+            {
+                return Json(new { model = new ServicesManagementModel.EstimateModel().SaveUpdateEstimate(model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult FillEstimateList()
+        {
+            try
+            {
+                return Json(new { model = new ServicesManagementModel.EstimateModel().FillEstimateList() }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetEstimateData(ServicesManagementModel.EstimateModel model)
+        {
+            try
+            {
+                return Json(new { model = (new ServicesManagementModel.EstimateModel().GetEstimateData(model)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = (Ex.Message) }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult FillAssignmentAuditHistoryList(ServicesManagementModel model)
+        {
+            try
+            {
+                return Json(new { model = new ServicesManagementModel().FillAssignmentAuditHistoryList(model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
 
     }
 }

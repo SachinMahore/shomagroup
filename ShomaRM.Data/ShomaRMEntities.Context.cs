@@ -102,9 +102,11 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_AmenityReservation> tbl_AmenityReservation { get; set; }
         public virtual DbSet<tbl_AcutraqScrenning> tbl_AcutraqScrenning { get; set; }
         public virtual DbSet<tbl_Transaction> tbl_Transaction { get; set; }
+
         public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
         public virtual DbSet<tbl_AuditHistory> tbl_AuditHistory { get; set; }
         public virtual DbSet<tbl_AuditHistoryDetail> tbl_AuditHistoryDetail { get; set; }
+
         public virtual DbSet<tbl_Estimate> tbl_Estimate { get; set; }
     }
 }

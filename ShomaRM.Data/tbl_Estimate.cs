@@ -15,12 +15,15 @@ namespace ShomaRM.Data
     public partial class tbl_Estimate
     {
         public int EID { get; set; }
-        public Nullable<long> ServiceID { get; set; }
+
         public string Description { get; set; }
         public string Vendor { get; set; }
         public string Amount { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<long> CreatedBy { get; set; }
         public string Status { get; set; }
+
+        public Nullable<long> ServiceID { get; set; }
+
     }
 }

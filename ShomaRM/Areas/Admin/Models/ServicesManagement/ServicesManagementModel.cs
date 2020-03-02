@@ -60,8 +60,10 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<int> ApprovedBy { get; set; }
         public string TempCompletedPicture { get; set; }
         public Nullable<int> ServicePerson { get; set; }
+        public string ServicePersonString { get; set; }
         public Nullable<int> UrgentStatus { get; set; }
         public string ClosingNotes { get; set; }
+        public string TaskNotes { get; set; }
         public Nullable<System.DateTime> ClosingDate { get; set; }
         public string ClosingDatestring { get; set; }
         public string Project { get; set; }
@@ -71,6 +73,12 @@ namespace ShomaRM.Areas.Admin.Models
         public string MStartDateString { get; set; }
         public string MLeaseEndDateString { get; set; }
         public Nullable<int> WarrantyStatus { get; set; }
+
+        public string EventName { get; set; }
+        public string EventDate { get; set; }
+        public string UserName { get; set; }
+        public string AuditDetail { get; set; }
+
 
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
@@ -285,6 +293,7 @@ namespace ShomaRM.Areas.Admin.Models
                     pr.ServicePerson = Convert.ToInt32(dr["ServicePerson"].ToString());
                     pr.ClosingDatestring = dr["ClosingDate"].ToString();
                     pr.ClosingNotes = dr["ClosingNotes"].ToString();
+                    pr.TaskNotes = dr["TaskNotes"].ToString();
                     pr.Project = dr["Title"].ToString();
                     pr.TenantID = Convert.ToInt64(dr["TenantID"].ToString());
                     pr.MoveIndate = dr["MoveIndate"].ToString();
@@ -341,6 +350,15 @@ namespace ShomaRM.Areas.Admin.Models
                 UpdateStatusService.PermissionComeTime = model.PermissionComeTime;
                 UpdateStatusService.Status = model.Status;
                 UpdateStatusService.UrgentStatus = model.UrgentStatus;
+
+                UpdateStatusService.CompletedPicture = model.CompletedPicture;
+                UpdateStatusService.TempCompletedPicture = model.TempCompletedPicture;
+                UpdateStatusService.ClosingNotes = model.ClosingNotes;
+                UpdateStatusService.TaskNotes = model.TaskNotes;
+                UpdateStatusService.ClosingDate = model.ClosingDate;
+                UpdateStatusService.OwnerSignature = model.OwnerSignature;
+                UpdateStatusService.TempOwnerSignature = model.TempOwnerSignature;
+                UpdateStatusService.WarrantyStatus = model.WarrantyStatus;
                 UpdateStatusService.ApprovedBy = Convert.ToInt32(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID);
                 db.SaveChanges();
                 msg = "Service Request Assign Successfully";
@@ -442,6 +460,61 @@ namespace ShomaRM.Areas.Admin.Models
             return OwnerSignatureFile;
         }
 
+        public List<ServicesManagementModel> FillAssignmentAuditHistoryList(ServicesManagementModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<ServicesManagementModel> lstAssigment = new List<ServicesManagementModel>();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetAssigmentAuditList";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter param0 = cmd.CreateParameter();
+                    param0.ParameterName = "ServiceID";
+                    param0.Value = model.ServiceID;
+                    cmd.Parameters.Add(param0);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    ServicesManagementModel searchmodel = new ServicesManagementModel();
+
+                    //searchmodel.ServiceID = Convert.ToInt64(dr["ServiceID"].ToString());
+                    searchmodel.EventName = dr["EventName"].ToString();
+                    searchmodel.EventDate = Convert.ToDateTime(dr["EventDate"]).ToString("MM/dd/yyyy");
+                    searchmodel.UserName = dr["UserName"].ToString();
+                    searchmodel.AuditDetail = dr["AuditDetails"].ToString();
+
+                    //searchmodel.ServicePersonString = dr["ServicePersonName"].ToString();
+                    //searchmodel.PermissionComeDateString = Convert.ToDateTime(dr["PermissionComeDate"]).ToString("MM/dd/yyyy");
+                    //searchmodel.PermissionComeTime = Convert.ToDateTime(dr["PermissionComeTime"]).ToString("HH:mm:ss");
+                    //searchmodel.TaskNotes = dr["TaskNotes"].ToString();
+                    //searchmodel.ClosingDatestring = Convert.ToDateTime(dr["ClosingDate"]).ToString();
+                    //searchmodel.ClosingNotes = dr["ClosingNotes"].ToString();
+
+                    lstAssigment.Add(searchmodel);
+                }
+                db.Dispose();
+                return lstAssigment.ToList();
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
+
+
+
+
         public class ServicesSearchModel
         {
             public long ServiceID { get; set; }
@@ -467,6 +540,170 @@ namespace ShomaRM.Areas.Admin.Models
             public int Priority { get; set; }
             public int PageNumber { get; set; }
             public int NumberOfRows { get; set; }
+        }
+
+        public class EstimateModel
+        {
+            public int EID { get; set; }
+            public Nullable<long> ServiceID { get; set; }
+            public string Description { get; set; }
+            public string Vendor { get; set; }
+            public string Amount { get; set; }
+            public Nullable<System.DateTime> CreatedDate { get; set; }
+            public Nullable<long> CreatedBy { get; set; }
+            public string Status { get; set; }
+            public string CreatedDateTxt { get; set; }
+            public string CreatedByTxt { get; set; }
+            public string SendMessage { get; private set; }
+
+            public string SaveUpdateEstimate(EstimateModel model)
+            {
+                string msg = "";
+                ShomaRMEntities db = new ShomaRMEntities();
+
+                if (model.EID == 0)
+                {
+                    var saveEstimate = new tbl_Estimate()
+                    {
+
+                        ServiceID = model.ServiceID,
+                        Vendor = model.Vendor,
+                        Amount = model.Amount,
+                        Description = model.Description,
+                        Status = model.Status,
+                        CreatedDate = DateTime.Now,
+                        CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID
+                    };
+                    db.tbl_Estimate.Add(saveEstimate);
+                    db.SaveChanges();
+                    var GetServiceData = db.tbl_ServiceRequest.Where(p => p.ServiceID == model.ServiceID).FirstOrDefault();
+                    var GetTenantData = db.tbl_TenantInfo.Where(p => p.TenantID == GetServiceData.TenantID).FirstOrDefault();
+                    string reportHTML = "";
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+                    string message = "";
+                    string phonenumber = GetTenantData.Mobile;
+                    reportHTML = reportHTML.Replace("[%EmailHeader%]", "Estimate of Repair");
+                    reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
+
+                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We hereby send the  Estimate of Repair of Amount: $" + Amount + " for Vandor:" + Vendor + ",  with Description: " + Description + ", created by" + CreatedByTxt + " on dated " + CreatedDateTxt + ". Please Accept or Deny the status on click of following link. </p>");
+                        reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"http://52.4.251.162:8086/PayLink/PayServiceCharges/?EID=" + EID + "&FromAcc=0\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"http://52.4.251.162:8086/PayLink/PayServiceCharges/?EID=" + EID + "&FromAcc=0\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                        message = "Estimate of Repair has been sent on your email. Please check the email for detail.";
+                  
+
+                    reportHTML = reportHTML.Replace("[%TenantEmail%]", GetTenantData.Email);
+
+               
+                string body = reportHTML;
+                new EmailSendModel().SendEmail(GetTenantData.Email, "Estimate of Repair", body);
+                if (SendMessage == "yes")
+                {
+                    new TwilioService().SMS(phonenumber, message);
+                }
+                msg = "Estimate Saved Successfully";
+                
+            }
+                else
+                {
+                    var getEstimatedata = db.tbl_Estimate.Where(p => p.EID == model.EID).FirstOrDefault();
+                    if (getEstimatedata != null)
+                    {
+
+                        getEstimatedata.ServiceID = model.ServiceID;
+                        getEstimatedata.Vendor = model.Vendor;
+                        getEstimatedata.Amount = model.Amount;
+                        getEstimatedata.Description = model.Description;
+                        getEstimatedata.Status = model.Status;
+                    }
+                    db.SaveChanges();
+                    var GetServiceData = db.tbl_ServiceRequest.Where(p => p.ServiceID == model.ServiceID).FirstOrDefault();
+                    var GetTenantData = db.tbl_TenantInfo.Where(p => p.TenantID == GetServiceData.TenantID).FirstOrDefault();
+                    string reportHTML = "";
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+                    string message = "";
+                    string phonenumber = GetTenantData.Mobile;
+                    reportHTML = reportHTML.Replace("[%EmailHeader%]", "Estimate of Repair");
+                    reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
+
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We hereby send the  Estimate of Repair of Amount: $" + Amount + " for Vandor:" + Vendor + ",  with Description: " + Description + ", created by" + CreatedByTxt + " on dated " + CreatedDateTxt + ". Please click of following link to Accept or Deny the payment. </p>");
+                    reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"http://52.4.251.162:8086/PayLink/PayServiceCharges/?EID=" + EID + "&FromAcc=0\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"http://52.4.251.162:8086/PayLink/PayServiceCharges/?EID=" + EID + "&FromAcc=0\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                    message = "Estimate of Repair has been sent on your email. Please check the email for detail.";
+
+
+                    reportHTML = reportHTML.Replace("[%TenantEmail%]", GetTenantData.Email);
+
+
+                    string body = reportHTML;
+                    new EmailSendModel().SendEmail(GetTenantData.Email, "Estimate of Repair", body);
+                    if (SendMessage == "yes")
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
+                    msg = "Estimate Updated Successfully";
+                }
+
+                db.Dispose();
+                return msg;
+
+            }
+
+            public List<EstimateModel> FillEstimateList()
+            {
+                ShomaRMEntities db = new ShomaRMEntities();
+                List<EstimateModel> lstEstimate = new List<EstimateModel>();
+                try
+                {
+                    DataTable dtTable = new DataTable();
+                    using (var cmd = db.Database.Connection.CreateCommand())
+                    {
+                        db.Database.Connection.Open();
+                        cmd.CommandText = "usp_GetEstimateList";
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                        da.SelectCommand = cmd;
+                        da.Fill(dtTable);
+                        db.Database.Connection.Close();
+                    }
+                    foreach (DataRow dr in dtTable.Rows)
+                    {
+                        EstimateModel searchmodel = new EstimateModel();
+                        searchmodel.EID = Convert.ToInt32(dr["EID"].ToString());
+                        searchmodel.ServiceID = Convert.ToInt64(dr["ServiceID"].ToString());
+                        searchmodel.Vendor = dr["Vendor"].ToString();
+                        searchmodel.Amount = dr["Amount"].ToString();
+                        searchmodel.Description = dr["Description"].ToString();
+                        searchmodel.CreatedByTxt = dr["CreatedBy"].ToString();
+                        searchmodel.CreatedDateTxt =Convert.ToDateTime(dr["CreatedDate"]).ToString("MM/dd/yyyy");
+                        searchmodel.Status = dr["Status"].ToString();
+
+                        lstEstimate.Add(searchmodel);
+                    }
+                    db.Dispose();
+                    return lstEstimate.ToList();
+                }
+                catch (Exception ex)
+                {
+                    db.Database.Connection.Close();
+                    throw ex;
+                }
+            }
+
+            public EstimateModel GetEstimateData(EstimateModel model)
+            {
+                ShomaRMEntities db = new ShomaRMEntities();
+                var getEstimateInfo = db.tbl_Estimate.Where(co => co.EID == model.EID).FirstOrDefault();
+                if (getEstimateInfo != null)
+                {
+                    model.ServiceID = getEstimateInfo.ServiceID;
+                    model.Vendor = getEstimateInfo.Vendor;
+                    model.Amount = getEstimateInfo.Amount;
+                    model.Description = getEstimateInfo.Description;
+                }
+                db.Dispose();
+                return model;
+            }
         }
     }
 }

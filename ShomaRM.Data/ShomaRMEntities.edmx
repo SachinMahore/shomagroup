@@ -144,6 +144,7 @@
           <Property Name="LeaseTerm" Type="int" />
           <Property Name="MonthlyCharges" Type="money" />
           <Property Name="EsignatureID" Type="nvarchar" MaxLength="50" />
+
         </EntityType>
         <EntityType Name="tbl_AuditHistory">
           <Key>
@@ -165,6 +166,7 @@
           <Property Name="PKColumnValue" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="FKColumnValue" Type="varchar" MaxLength="50" />
           <Property Name="AuditDetails" Type="varchar(max)" />
+
         </EntityType>
         <EntityType Name="tbl_BankAccount">
           <Key>
@@ -986,6 +988,12 @@
           <Property Name="TempOwnerSignature" Type="nvarchar" MaxLength="100" />
           <Property Name="WarrantyStatus" Type="int" />
           <Property Name="TaskNotes" Type="varchar(max)" />
+
+          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedDate" Type="datetime" />
+
         </EntityType>
         <EntityType Name="tbl_State">
           <Key>
@@ -2864,6 +2872,60 @@
           <Property Name="MonthlyPayment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Reason" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+
+        <EntityType Name="tbl_ApplyNow">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PropertyId" Type="Int64" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsApplyNow" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="DateofBirth" Type="DateTime" Precision="3" />
+          <Property Name="AnnualIncome" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="AddiAnnualIncome" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="Marketsource" Type="Int32" />
+          <Property Name="MoveInDate" Type="DateTime" Precision="3" />
+          <Property Name="ParkingAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="StorageAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PetPlaceAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Deposit" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Rent" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PetDeposit" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TrashAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PestAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ConvergentAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MoveInCharges" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="FOBAmt" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsRentalPolicy" Type="Int32" />
+          <Property Name="IsRentalQualification" Type="Int32" />
+          <Property Name="EnvelopeID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Prorated_Rent" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="VehicleRegistration" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AdministrationFee" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="LeaseTerm" Type="Int32" />
+          <Property Name="MonthlyCharges" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="tbl_Applicant" Relationship="Self.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Applicant" />
+          <NavigationProperty Name="tbl_TenantInfo" Relationship="Self.FK_tbl_TenantInfo_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantInfo" />
+          <NavigationProperty Name="tbl_TenantOnline" Relationship="Self.FK_tbl_TenantOnline_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantOnline" />
+          <NavigationProperty Name="tbl_TenantParking" Relationship="Self.FK_tbl_TenantParking_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantParking" />
+          <NavigationProperty Name="tbl_TenantPet" Relationship="Self.FK_tbl_TenantPet_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantPet" />
+          <NavigationProperty Name="tbl_TenantPetPlace" Relationship="Self.FK_tbl_TenantPetPlace_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantPetPlace" />
+          <NavigationProperty Name="tbl_TenantStorage" Relationship="Self.FK_tbl_TenantStorage_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantStorage" />
+          <NavigationProperty Name="tbl_Vehicle" Relationship="Self.FK_tbl_Vehicle_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Vehicle" />
+          <Property Name="EsignatureID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+
         <EntityType Name="tbl_BankAccount">
           <Key>
             <PropertyRef Name="BAID" />
@@ -3770,6 +3832,12 @@
           <Property Name="TempOwnerSignature" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="WarrantyStatus" Type="Int32" />
           <Property Name="TaskNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+
         </EntityType>
         <EntityType Name="tbl_State">
           <Key>
@@ -5423,6 +5491,9 @@
           <EntitySet Name="tbl_AmenityReservation" EntityType="ShomaRMEntitiesModel.tbl_AmenityReservation" />
           <EntitySet Name="tbl_AcutraqScrenning" EntityType="ShomaRMEntitiesModel.tbl_AcutraqScrenning" />
           <EntitySet Name="tbl_Transaction" EntityType="ShomaRMEntitiesModel.tbl_Transaction" />
+
+          <EntitySet Name="tbl_Estimate" EntityType="ShomaRMEntitiesModel.tbl_Estimate" />
+
           <EntitySet Name="tbl_ApplyNow" EntityType="ShomaRMEntitiesModel.tbl_ApplyNow" />
           <EntitySet Name="tbl_AuditHistory" EntityType="ShomaRMEntitiesModel.tbl_AuditHistory" />
           <EntitySet Name="tbl_AuditHistoryDetail" EntityType="ShomaRMEntitiesModel.tbl_AuditHistoryDetail" />
@@ -5463,6 +5534,7 @@
             <End Role="tbl_AuditHistory" EntitySet="tbl_AuditHistory" />
             <End Role="tbl_AuditHistoryDetail" EntitySet="tbl_AuditHistoryDetail" />
           </AssociationSet>
+
 
         </EntityContainer>
         <EntityType Name="tbl_Country">
@@ -5550,6 +5622,7 @@
           <Property Name="TCardExpirationYear" Type="String" MaxLength="29" FixedLength="false" Unicode="true" />
           <Property Name="Authcode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
+
         <EntityType Name="tbl_ApplyNow">
           <Key>
             <PropertyRef Name="ID" />
@@ -5625,18 +5698,24 @@
           <Property Name="AuditDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tbl_AuditHistory" Relationship="ShomaRMEntitiesModel.FK_syAuditHistDetail_syAuditHist" FromRole="tbl_AuditHistoryDetail" ToRole="tbl_AuditHistory" />
         </EntityType>
+
         <EntityType Name="tbl_Estimate">
           <Key>
             <PropertyRef Name="EID" />
           </Key>
           <Property Name="EID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+
           <Property Name="ServiceID" Type="Int64" />
+
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Vendor" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Amount" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="Int64" />
           <Property Name="Status" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+
+        </EntityType>
+
         </EntityType>
         <Association Name="FK_tbl_Applicant_tbl_ApplyNow">
           <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
@@ -5746,6 +5825,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5821,6 +5901,53 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+
+          <EntitySetMapping Name="tbl_ApplyNow">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ApplyNow">
+              <MappingFragment StoreEntitySet="tbl_ApplyNow">
+                <ScalarProperty Name="EsignatureID" ColumnName="EsignatureID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsApplyNow" ColumnName="IsApplyNow" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="DateofBirth" ColumnName="DateofBirth" />
+                <ScalarProperty Name="AnnualIncome" ColumnName="AnnualIncome" />
+                <ScalarProperty Name="AddiAnnualIncome" ColumnName="AddiAnnualIncome" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Marketsource" ColumnName="Marketsource" />
+                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
+                <ScalarProperty Name="ParkingAmt" ColumnName="ParkingAmt" />
+                <ScalarProperty Name="StorageAmt" ColumnName="StorageAmt" />
+                <ScalarProperty Name="PetPlaceAmt" ColumnName="PetPlaceAmt" />
+                <ScalarProperty Name="Deposit" ColumnName="Deposit" />
+                <ScalarProperty Name="Rent" ColumnName="Rent" />
+                <ScalarProperty Name="PetDeposit" ColumnName="PetDeposit" />
+                <ScalarProperty Name="TrashAmt" ColumnName="TrashAmt" />
+                <ScalarProperty Name="PestAmt" ColumnName="PestAmt" />
+                <ScalarProperty Name="ConvergentAmt" ColumnName="ConvergentAmt" />
+                <ScalarProperty Name="MoveInCharges" ColumnName="MoveInCharges" />
+                <ScalarProperty Name="FOBAmt" ColumnName="FOBAmt" />
+                <ScalarProperty Name="IsRentalPolicy" ColumnName="IsRentalPolicy" />
+                <ScalarProperty Name="IsRentalQualification" ColumnName="IsRentalQualification" />
+                <ScalarProperty Name="EnvelopeID" ColumnName="EnvelopeID" />
+                <ScalarProperty Name="Prorated_Rent" ColumnName="Prorated_Rent" />
+                <ScalarProperty Name="VehicleRegistration" ColumnName="VehicleRegistration" />
+                <ScalarProperty Name="AdministrationFee" ColumnName="AdministrationFee" />
+                <ScalarProperty Name="LeaseTerm" ColumnName="LeaseTerm" />
+                <ScalarProperty Name="MonthlyCharges" ColumnName="MonthlyCharges" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+
           <EntitySetMapping Name="tbl_BankAccount">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_BankAccount">
               <MappingFragment StoreEntitySet="tbl_BankAccount">
@@ -6636,6 +6763,12 @@
           <EntitySetMapping Name="tbl_ServiceRequest">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ServiceRequest">
               <MappingFragment StoreEntitySet="tbl_ServiceRequest">
+
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+
                 <ScalarProperty Name="TaskNotes" ColumnName="TaskNotes" />
                 <ScalarProperty Name="WarrantyStatus" ColumnName="WarrantyStatus" />
                 <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
@@ -7210,6 +7343,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+
           <EntitySetMapping Name="tbl_ApplyNow">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ApplyNow">
               <MappingFragment StoreEntitySet="tbl_ApplyNow">
@@ -7281,13 +7415,16 @@
           <EntitySetMapping Name="tbl_Estimate">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Estimate">
               <MappingFragment StoreEntitySet="tbl_Estimate">
+
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="Vendor" ColumnName="Vendor" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+
                 <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+
                 <ScalarProperty Name="EID" ColumnName="EID" />
               </MappingFragment>
             </EntityTypeMapping>
