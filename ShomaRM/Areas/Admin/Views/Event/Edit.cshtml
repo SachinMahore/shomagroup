@@ -70,20 +70,20 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="txtEventFees" class="star">Fees</label>
-                                            <input id="txtEventFees" class="form-control form-control-small" style="text-align:right;" value="@Model.FessString" />
-                                            <span class="input-group-btn pull-left" style="margin-top: -34px;">
-                                                <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
-                                            </span>
+                                        <div class="col-sm-4 hidden">
+                                            <div class="form-group">
+                                                <label for="txtEventFees" class="star">Fees</label>
+                                                <input id="txtEventFees" class="form-control form-control-small" style="text-align:right;" value="@Model.FessString" />
+                                                <span class="input-group-btn pull-left" style="margin-top: -34px;">
+                                                    <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                </span>
+                                            </div>
                                         </div>
-                                    </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="ddlEventType" class="star">Type</label>
                                                 <select id="ddlEventType" class="form-control form-control-small">
-                                                    <option value="0" >--Select--</option>
+                                                    <option value="0">--Select--</option>
                                                     <option value="1">Neighborhood</option>
                                                     <option value="2">Community</option>
                                                     <option value="3">Other</option>
@@ -93,7 +93,8 @@
                                                 @*<input id="txtEventType" class="form-control form-control-small" value="@(Model.EventDate!=null?Model.EventDate.Value.ToString("MM/dd/yyyy"):"")" />*@
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-4">&nbsp;</div>
+                                        <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="txtDescription">Description</label>
                                                 <textarea id="txtDescription" class="form-control form-control-small">@Model.Description</textarea>

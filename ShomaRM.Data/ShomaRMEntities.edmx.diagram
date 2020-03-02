@@ -162,6 +162,7 @@
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_AmenityReservation" Width="1.5" PointX="9.375" PointY="16.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_AcutraqScrenning" Width="1.5" PointX="3.375" PointY="17.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Transaction" Width="1.5" PointX="17.375" PointY="4.75" />
+        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Estimate" Width="1.5" PointX="11.375" PointY="17.75" />
 
       </Diagram>
     </edmx:Diagrams>
