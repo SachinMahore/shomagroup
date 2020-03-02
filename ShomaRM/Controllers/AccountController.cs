@@ -97,6 +97,9 @@ namespace ShomaRM.Controllers
                     else
                     {
                         var checkExpiry = db.tbl_ApplyNow.Where(co => co.UserId == currentUser.UserID).FirstOrDefault();
+
+                        checkExpiry.Status = (!string.IsNullOrWhiteSpace(checkExpiry.Status) ? checkExpiry.Status : "");
+
                         if(checkExpiry.Status.Trim()=="Approved")
                         {
                             return RedirectToAction("../Checklist/");

@@ -297,7 +297,7 @@ namespace ShomaRM.Areas.Admin.Models
                         reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
 
                         string body = reportHTML;
-                        new EmailSendModel().SendEmail(prospData.EmailId, "Your Appointment Confirmed", body);
+                        new EmailSendModel().SendEmail(prospData.EmailId, "Your Appointment is Confirmed", body);
 
                         message = "This is a confirmation message for your appointment. Please check the email for detail.";
                         if (SendMessage == "yes")
@@ -315,7 +315,7 @@ namespace ShomaRM.Areas.Admin.Models
                         reportHTMLAgent = reportHTMLAgent.Replace("[%LeaseNowButton%]", "");
 
                         string bodyAg = reportHTMLAgent;
-                        new EmailSendModel().SendEmail(info.Email, "Your Appointment Confirmed", bodyAg);
+                        new EmailSendModel().SendEmail(info.Email, "Appointment for " + prospData.FirstName + " " + prospData.LastName+" on " + model.RequiredDateText, bodyAg);
 
                         string message1 = "Please to be informed that a meeting has been scheduled. Please check the email for detail.";
                         if (SendMessage == "yes")
@@ -323,6 +323,7 @@ namespace ShomaRM.Areas.Admin.Models
                             new TwilioService().SMS(phonenumber, message1);
                         }
                     }
+                    
                 };
             }
             return msg;

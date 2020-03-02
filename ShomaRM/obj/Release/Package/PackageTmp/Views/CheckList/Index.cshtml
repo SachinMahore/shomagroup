@@ -20,7 +20,7 @@
         <div class="collapse navbar-collapse yamm" id="navigation">
             <div class="button navbar-right">
                 @*@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.Username*@
-                <button class="navbar-btn nav-button wow bounceInRight login hidden" id="btnLogoff" onclick="gotoLogOffCheck()" data-wow-delay="0.4s">Logout</button>
+                <button class="navbar-btn nav-button wow bounceInRight login" id="btnLogoff" onclick="gotoLogOffCheck()" data-wow-delay="0.4s">Logout</button>
 
             </div>
 
@@ -91,7 +91,7 @@
                                                 onclick="location.href='@Url.Action("LeaseBlumoon","CheckList")'"
                                                 onclick="location.href='@Url.Action("GetLeaseDocBlumoon","CheckList")'"
                                                 *@
-                                                <a class="btn btn-primary pull-right" width="400" style="width: 400px;" id="btnDownloadLeaseDocument" onclick="createLeaseDocument()" >Process Online Leasing Application</a>
+                                                <a class="btn btn-primary pull-right" width="400" style="width: 400px;" id="btnDownloadLeaseDocument" onclick="createLeaseDocument()"   disabled="disabled">Process Online Leasing Application</a>
                                                 <a class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="downloadLeaseDocument()"  disabled="disabled">Download Leasing Application</a>
                                             </div>
                                         </div>
@@ -519,11 +519,12 @@
                     $("#lblLeaseNo").text(response.model.EnvelopeID);
                     if (response.model.EnvelopeID != "") {
                         $("#btnleaseDownl").removeAttr("disabled");
-                        $("#btnleaseDownl").attr('href', '/Content/assets/img/Document/' + response.model.EnvelopeID + '.pdf');
-                        $("#btnleaseDownl").attr('download', 'LeaseDocument_' + response.model.EnvelopeID + '.pdf');
-                        $("#btnleaseDownl").attr('target', '_parent');
+                                           
                     }
+                    if (response.model.EsignatureId == "") {
+                        $("#btnDownloadLeaseDocument").removeAttr("disabled");
 
+                    }
                     if (response.moveindata.IsCheckPay == 1) {
                         $("#chkPayCL").prop("checked", true);
                         $("#chkPayCL").prop("disabled", "disabled");
@@ -1126,25 +1127,68 @@
             success: function (response) {
                 $("#divLoader").hide();
                 $("#btnleaseDownl").removeAttr("disabled");
-                $("#btnleaseDownl").attr('href', '/Content/assets/img/Document/' + response.LeaseId + '.pdf');
-                $("#btnleaseDownl").attr('download', 'LeaseDocument_' + response.LeaseId + '.pdf');
-                $("#btnleaseDownl").attr('target', '_parent');
+                //$("#btnleaseDownl").attr('href', '/Content/assets/img/Document/' + response.LeaseId + '.pdf');
+                //$("#btnleaseDownl").attr('download', 'LeaseDocument_' + response.LeaseId + '.pdf');
+                //$("#btnleaseDownl").attr('target', '_parent');
             }
         });
     }
     var downloadLeaseDocument = function () {
-        //$("#divLoader").show();
-        //var param = { UserID: $("#hndUID").val() };
-        //$.ajax({
-        //    url: "/EmbeddedSigning/GetDocuDocLease",
-        //    method: "post",
-        //    data: JSON.stringify(param),
-        //    contentType: "application/json; charset=utf-8", // content type sent to server
-        //    dataType: "json", //Expected data format from server
-        //    success: function (response) {
-        //        $("#divLoader").hide();
+        $("#divLoader").show();
+        var param = { UserID: $("#hndUID").val() };
+        $.ajax({
+            url: "/CheckList/GetLeaseDocBlumoon",
+            method: "post",
+            data: JSON.stringify(param),
+            contentType: "application/json; charset=utf-8", // content type sent to server
+            dataType: "json", //Expected data format from server
+            success: function (response) {
+                $("#divLoader").hide();
+                var hyperlink = document.createElement('a');
+                hyperlink.href = "/Content/assets/img/Document/LeaseDocument_" + response.LeaseId + ".pdf";
+                hyperlink.target = '_blank';
+                hyperlink.download = "LeaseDocument_" + response.LeaseId + ".pdf";
 
-        //    }
-        //});
+                (document.body || document.documentElement).appendChild(hyperlink);
+                hyperlink.onclick = function () {
+                    (document.body || document.documentElement).removeChild(hyperlink);
+                };
+                var mouseEvent = new MouseEvent('click', {
+                    view: window,
+                    bubbles: true,
+                    cancelable: true
+                });
+                hyperlink.dispatchEvent(mouseEvent);
+                if (!navigator.mozGetUserMedia) {
+                    window.URL.revokeObjectURL(hyperlink.href);
+                }
+                
+            }
+        });
+    }
+
+    var saveToDiskFile = function () {
+        var fileName = $("#hndFileName").val();
+        var hName = "AGENT CLOSING";
+        var saveUrl = baseURL() + "/TempFiles/" + fileName;
+        //saveUrl = encodeURIComponent(saveUrl);
+        var hyperlink = document.createElement('a');
+        hyperlink.href = saveUrl;
+        hyperlink.target = '_blank';
+        hyperlink.download = hName + ".xlsx";
+
+        (document.body || document.documentElement).appendChild(hyperlink);
+        hyperlink.onclick = function () {
+            (document.body || document.documentElement).removeChild(hyperlink);
+        };
+        var mouseEvent = new MouseEvent('click', {
+            view: window,
+            bubbles: true,
+            cancelable: true
+        });
+        hyperlink.dispatchEvent(mouseEvent);
+        if (!navigator.mozGetUserMedia) {
+            window.URL.revokeObjectURL(hyperlink.href);
+        }
     }
 </script>
