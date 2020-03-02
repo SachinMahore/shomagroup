@@ -83,6 +83,7 @@ namespace ShomaRM.Models
         public string ExpireDate { get; set; }
         public int StepNo { get; set; }
         public string EnvelopeID { get; set; }
+        public string EsignatureID { get; set; }
         public List<PropertyUnits> lstPropertyUnit { get; set; }
         public List<PropertyFloor> lstPropertyFloor { get; set; }
       
@@ -376,6 +377,7 @@ namespace ShomaRM.Models
             model.StorageSpaceID = "0";
             model.FOBAmt = 0;
             model.EnvelopeID = "";
+            model.EsignatureID = "";
             model.LeaseTerm = 12;
             model.FirstName = "";
             model.LastName = "";
@@ -417,7 +419,7 @@ namespace ShomaRM.Models
                     model.FOBAmt = 0;
                     model.EnvelopeID = GetProspectData.EnvelopeID==null?"" : GetProspectData.EnvelopeID;
                     model.LeaseTerm = Convert.ToInt32(GetProspectData.LeaseTerm);
-
+                    model.EsignatureID = GetProspectData.EsignatureID == null ? "" : GetProspectData.EsignatureID;
                     DateTime? dateExpire = null;
                     try
                     {

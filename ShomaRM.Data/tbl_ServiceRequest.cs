@@ -46,9 +46,11 @@ namespace ShomaRM.Data
         public string TempOwnerSignature { get; set; }
         public Nullable<int> WarrantyStatus { get; set; }
         public string TaskNotes { get; set; }
+
         public Nullable<long> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<long> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
+
     }
 }

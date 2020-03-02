@@ -233,11 +233,11 @@ var GetTenantDetails = function (TenantID) {
                         $('#imgTenantProfilePicture').attr('src', '/Content/assets/img/tenantProfile/' + response.TempProfilePic);
                     }
                     else {
-                        $('#imgTenantProfilePicture').attr('src', '/Content/assets/img/myprofile.png');
+                        $('#imgTenantProfilePicture').attr('src', '/Content/assets/img/circle.png');
                     }
                 }
                 else {
-                    $('#imgTenantProfilePicture').attr('src', '/Content/assets/img/myprofile.png');
+                    $('#imgTenantProfilePicture').attr('src', '/Content/assets/img/circle.png');
                 }
                 setTimeout(function () {
                     $("#ddlJobType").find("option[value='" + response.JobType+ "']").attr('selected', 'selected');
@@ -508,10 +508,10 @@ var getTenantVehicleList = function () {
             $("#tblVehicle>tbody").empty();
             $.each(response.model, function (elementType, elementValue) {
                 var html = "<tr data-value=" + elementValue.Vehicle_ID + ">";
-                html += "<td sstyle='width:70px'>" + elementValue.State + "</td>";
-                html += "<td style='width:80px'>" + elementValue.Year + "</td>";
-                html += "<td style='width:120px'>" + elementValue.VModel + "</td>";
-                html += "<td sstyle='width:70px'>" + elementValue.Color + "</td>";
+                html += "<td style='width:70px; border-right: 0px solid #dedcdc;'>" + elementValue.State + "</td>";
+                html += "<td style='width:80px; border-right: 0px solid #dedcdc;'>" + elementValue.Year + "</td>";
+                html += "<td style='width:120px; border-right: 0px solid #dedcdc;'>" + elementValue.VModel + "</td>";
+                html += "<td style='width:70px; border-right: 0px solid #dedcdc;'>" + elementValue.Color + "</td>";
                
                 $("#tblVehicle>tbody").append(html);
             });
@@ -1093,8 +1093,8 @@ var getPetLists = function () {
             $.each(response.model, function (elementType, elementValue) {
                 var html = "<tr id='tr_" + elementValue.PetID + "' data-value='" + elementValue.PetID + "'>";
                 // html += "<td align='center'><img src='/content/assets/img/pet/" + elementValue.Photo + "' class='picture-src' title='' style='height:70px;width:70px;'/></td>";
-                html += "<td style='width:30px'>" + elementValue.PetName + "</td>";
-                html += "<td style='width:70px'>" + elementValue.Breed + "</td>";
+                html += "<td style='width:30px; border-right: 0px solid #dedcdc;'>" + elementValue.PetName + "</td>";
+                html += "<td style='width:70px; border-right: 0px solid #dedcdc;'>" + elementValue.Breed + "</td>";
                 //html += "<td>" + elementValue.Weight + "</td>";
                 //html += "<td>" + elementValue.VetsName + "</td>";
                 // html += "<td>";

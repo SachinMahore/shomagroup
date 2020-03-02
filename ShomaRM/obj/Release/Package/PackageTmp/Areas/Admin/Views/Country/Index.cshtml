@@ -6,6 +6,7 @@
 <input type="hidden" id="hndCountryID" value="0" />
 <input type="hidden" id="hdnSearchType" value="1" />
 <input type="hidden" id="hdnCurrentPage" value="1" />
+<input type="hidden" id="hndPageNoCountry" value="0" />
 <div class="register-area" style="background-color: rgb(249, 249, 249);">
     <div class="container" style="width:100% !important">
         <div class="breadcrumb">
@@ -40,7 +41,7 @@
                     <table id="tblCountry" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="pds-countryname" style="background-color: #c7cdd566;color:#3d3939;width:45%">Country Name</th>
+                                <th class="pds-countryname" style="background-color: #c7cdd566;color:#3d3939;width:45%;cursor:pointer;" onclick="sortTableCountry('countryName')">Country Name <i id="sortCountryIcon" class=""></i></th>
                                 <th class="pds-countryname" style="background-color: #c7cdd566;color:#3d3939;width:30%">Action</th>
                             </tr>
                         </thead>

@@ -30,8 +30,8 @@
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/icheck.min_all.css")">
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/price-range.css")">
     @*<link rel="stylesheet" href="@Url.Content("/content/assets/css/owl.carousel.css")">
-    <link rel="stylesheet" href="@Url.Content("/content/assets/css/owl.theme.css")">
-    <link rel="stylesheet" href="@Url.Content("/content/assets/css/owl.transitions.css")">*@
+        <link rel="stylesheet" href="@Url.Content("/content/assets/css/owl.theme.css")">
+        <link rel="stylesheet" href="@Url.Content("/content/assets/css/owl.transitions.css")">*@
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/lightslider.min.css")">
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/jquery.slitslider.css")">
     @*<link rel="stylesheet" href="@Url.Content("/content/assets/css/wizard.css")">*@
@@ -49,12 +49,12 @@
     <script src="@Url.Content("/content/assets/js/popupwindow.js")"></script>
     <script src="@Url.Content("/content/assets/js/jquery.simplePagination.js")"></script>
     <link href="~/content/timepicki.css" rel="stylesheet" />
-    <link rel="stylesheet" href="@Url.Content("/content/assets/css/Tenantstyle.css")">  
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/Tenantstyle.css")">
     <script src="~/content/timepicki.js"></script>
     @RenderSection("scripts", required: false)
 </head>
 <body>
-   
+
     <!-- Body content -->
     @*<nav class="navbar navbar-default navbar-fixed-top">
             <div class="container" style="width:100%">
@@ -102,7 +102,7 @@
         <div class="row">
             <div class="col-md-5 col-sm-7 col-xs-12">
                 <ul class="top-menu top-menu-mobile ">
-                    <li class="wow fadeInDown  animated active @(ViewBag.ActiveMenu == "dashboard"?"active":"")">
+                    <li class="wow fadeInDown  animated @(ViewBag.ActiveMenu == "dashboard"?"active":"")">
                         <a href="/Tenant/Dashboard/Index" class="center topmenu-font "><i class="fa fa-tachometer fa-icon"></i><br> Dashboard</a>
                     </li>
 
@@ -139,63 +139,57 @@
 
 
     <!-- End of nav bar -->
-  
-
-
-
-
     <!-----Right section---->
     <div class="container container-box">
         <div class="row">
             <div class="col-lg-9 col-md-8 col-sm-12 border-box margin">
                 @RenderBody()
-              </div>
-                    <div class="col-lg-3 col-md-4 col-sm-12 box-padding-mobile">
-                        <div class="Wraper-left-box">
-                            <div class="left-side-subtext">Amount Due:</div>
-                            <div id="spanCurrentAmountDue" class="left-side-amount" onclick="openPaymentBreakdown()">$2676.50</div>
-                            <button id="btnMakeAPayment" class="paybutton" onclick="goToMakeAPayment();">Pay</button>
-                            <div class="right-sub-text-link m-t5"><a href="javascript:void(0)" id="btnSetUpRecurringPayment" onclick="goToSetUpRecurringPayment();">set up recurring payments</a></div>
-                        </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-12 box-padding-mobile">
+                <div class="Wraper-left-box">
+                    <div class="left-side-subtext">Amount Due:</div>
+                    <div id="spanCurrentAmountDue" class="left-side-amount" onclick="openPaymentBreakdown()">0.00</div>
+                    <button id="btnMakeAPayment" class="paybutton" onclick="goToMakeAPayment();">Pay</button>
+                    <div class="right-sub-text-link m-t5"><a href="javascript:void(0)" id="btnSetUpRecurringPayment" onclick="goToSetUpRecurringPayment();">Set Up Recurring Payment</a></div>
+                </div>
+                <div class="Wraper-left-box">
+                    <div id="bellDiv"><!--<i class="fa fa-bell"></i>--><img src="~/content/assets/img/IMG/bill.png" /></div>
+                    <div id="divServiceRequestAlarm">
+                        <div id="spanServiceRequestlabelAlarm" class="bell-text"></div>
+                        <div id="spanServiceRequestDateTimeAlarm" class="bell-sub-text"></div>
 
-
-                        <div class="Wraper-left-box">
-                            <div id="bellDiv"><!--<i class="fa fa-bell"></i>--><img src="~/content/assets/img/IMG/bill.png" /></div>
-                            <div class="bell-text">Exterminator</div>
-                            <div id="divServiceRequestAlarm" class="bell-sub-text"><span>12/27/19 at 11.30A</span></div>
-                            <div id="spanServiceRequestlabelAlarm" class="bell-text">Plumbing</div>
-                            <div id="spanServiceRequestDateTimeAlarm" class="bell-sub-text">1/4/20 at 2.00P</div>
-                        </div>
-
-                        <div class="Wraper-left-box club-box">
-                            <div class="Clubs-text"><img src="~/content/assets/img/IMG/club.png"><span class="club">Clubs</span></div>
-                            <div class="text-color1"><a href="#"><i class="fa fa-plus"></i><span>Join or Start a Club</span></a></div>
-                        </div>
-
-                        <div class="Wraper-left-box club-box">
-                            <div class="Clubs-text"><img src="~/content/assets/img/IMG/Celebrate.png"><span class="club">Celebrate</span></div>
-                            <div class="text-color1"><a href="javascript:void(0)" id="btnReserveAmenities" onclick="goToReserveAmenities();"><i class="fa fa-plus"></i><span>Reserve Amenities</span></a></div>
-                        </div>
-
-                        <div class="Wraper-left-box club-box">
-                            <div class="Clubs-text"><img src="~/content/assets/img/IMG/EnjoyCompany.png"><span class="club">Enjoy Company</span></div>
-                            <div class="text-color1"><a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToRegisterGuest();"><i class="fa fa-plus"></i><span>Register a Guest</span></a></div>
-                        </div>
-
-                        <div class="Wraper-left-box club-box">
-                            <div class="Clubs-text"><img src="~/content/assets/img/IMG/service.png"><span class="club">Service Request</span></div>
-                            <div class="text-color1"><a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToSubmitServiceRequest();"><i class="fa fa-plus"></i><span>Submit a Service Request</span></a></div>
-                            <div class="bell-text">After-Hours</div>
-                            <div class="bell-sub-text">(786) 437-8658</div>
-                            <div class="bell-text">Emergencies</div>
-                            <div class="bell-sub-text">(786) 437-8658 or 911</div>
-
-                        </div>
-                        <!-----Right section--End-->
                     </div>
                 </div>
+
+                <div class="Wraper-left-box club-box">
+                    <div class="Clubs-text"><img src="~/content/assets/img/IMG/club.png"><span class="club">Clubs</span></div>
+                    <div class="text-color1"><a href="~/Tenant/MyCommunity/Index"><i class="fa fa-plus"></i><span>Join or Start a Club</span></a></div>
+                </div>
+
+                <div class="Wraper-left-box club-box">
+                    <div class="Clubs-text"><img src="~/content/assets/img/IMG/Celebrate.png"><span class="club">Celebrate</span></div>
+                    <div class="text-color1"><a href="javascript:void(0)" id="btnReserveAmenities" onclick="goToReserveAmenities();"><i class="fa fa-plus"></i><span>Reserve Amenities</span></a></div>
+                </div>
+
+                <div class="Wraper-left-box club-box">
+                    <div class="Clubs-text"><img src="~/content/assets/img/IMG/EnjoyCompany.png"><span class="club">Enjoy Company</span></div>
+                    <div class="text-color1"><a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToRegisterGuest();"><i class="fa fa-plus"></i><span>Register a Guest</span></a></div>
+                </div>
+
+                <div class="Wraper-left-box club-box">
+                    <div class="Clubs-text"><img src="~/content/assets/img/IMG/service.png"><span class="club">Service Request</span></div>
+                    <div class="text-color1"><a href="javascript:void(0)" id="btnRegisterGuest" onclick="goToSubmitServiceRequest();"><i class="fa fa-plus"></i><span>Submit a Service Request</span></a></div>
+                    <div class="bell-text">After-Hours</div>
+                    <div class="bell-sub-text">(786) 437-8658</div>
+                    <div class="bell-text">Emergencies</div>
+                    <div class="bell-sub-text">(786) 437-8658 or 911</div>
+
+                </div>
+                <!-----Right section--End-->
             </div>
-     
+        </div>
+    </div>
+
     @*<div id="divLoader" style="display:none"></div>
          Footer area
         <div class="footer-area navbar-fixed-bottom">
@@ -237,6 +231,8 @@
     <script src="@Url.Content("/content/assets/js/wizard.js")"></script>
     <script src="@Url.Content("/content/assets/js/main.js")"></script>
     <script src="@Url.Content("/Content/jquery-confirm-master/js/jquery-confirm.js")"></script>
+    <script src="~/Areas/Tenant/Content/Pages/Dashboard/Dashboard.js"></script>
+
 </body>
 </html>
 <style>
@@ -248,7 +244,7 @@
         top: 0;
         bottom: 0;
         /*background: url(../../Content/assets/images/giphy.gif) center no-repeat rgba(255,255,255,0.5);*/
-        background: url('../../Content/img/Loader.gif') center no-repeat rgba(255,255,255,0.5);
+        background: url('../../Areas/Teanant/Content/img/Loader.gif') center no-repeat rgba(255,255,255,0.5);
         display: none;
     }
     /*.navbar-default .navbar-nav > .active > a {

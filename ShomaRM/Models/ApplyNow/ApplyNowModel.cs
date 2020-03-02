@@ -145,6 +145,9 @@ namespace ShomaRM.Models
                     MyTransactionModel mm = new MyTransactionModel();
                     mm.CreateTransBill(TransId, Convert.ToDecimal(model.Charge_Amount), model.Description);
 
+                    GetProspectData.IsApplyNow = 2;
+                    db.SaveChanges();
+
                     string reportHTML = "";
                     string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
@@ -162,7 +165,7 @@ namespace ShomaRM.Models
                     }
                     string body = reportHTML;
                     new EmailSendModel().SendEmail(GetProspectData.Email, "Application Completed and Payment Received", body);
-                    message = "Thank you for signing and submitting your application. Please check the email for detail.";
+                    message = "Online Application Completed and Payment of $"+ model.Charge_Amount + " Received. Please check the email for detail.";
                     if (SendMessage == "yes")
                     {
                         new TwilioService().SMS(phonenumber, message);

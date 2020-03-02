@@ -23,7 +23,7 @@
                         </h3>
                         <div class="button pull-right">
 
-                            <a href="javascript:void(0)" class="btn-success" style="padding:5px;" onclick="gotoLogin()"> Logout..</a>
+                            <a href="javascript:void(0)" class="btn-success" style="padding:5px;" onclick="gotoLogOffAN()"> Logout..</a>
 
                         </div>
                         <span class="pull-right hidden" style="color:red;font-size: 15px;margin-right: 10px;" id="getting-startedTimeRemainingClock"></span>
@@ -39,20 +39,20 @@
                         <li id="li6"><a href="javascript:void(0);" id="as6" onclick="goToStep(7,0)">6. Complete Application</a></li>
 
                     </ul>
-                    <ul class="nav nav-tabs hidden" style="margin-top:-14px !important;background-color:#4d738a !important;" id="subMenu">
-                        <li class="active"  id="li7"><a style="margin-right: -10px !important;padding: 3px 12px!important;" onclick="goToStep(7,7)" href="javascript:void(0);">a. Applicants</a></li>
-                        <li id="li8"><a style="margin-right: -10px !important;padding: 3px 12px!important;"  href="javascript:void(0);" onclick="goToStep(8,8)">b. Responsibility</a></li>
-                        <li id="li9"><a style="margin-right: -10px !important;padding: 3px 12px!important;"  href="javascript:void(0);" onclick="goToStep(9,9)">c. Personal Info</a></li>
-                        <li id="li10"><a style="margin-right: -10px !important;padding: 3px 12px!important;"  href="javascript:void(0);" onclick="goToStep(10,10)">d. Residence History</a></li>
-                        <li id="li11"><a style="margin-right: -10px !important;padding: 3px 12px!important;"  href="javascript:void(0);" onclick="goToStep(11,11)">e. Employment and Income</a></li>
-                        <li id="li12"><a style="margin-right: -10px !important;padding: 3px 12px!important;"  href="javascript:void(0);" onclick="goToStep(12,12)">f. Emergency Contacts </a></li>
-                        <li id="li13"><a style="margin-right: -10px !important;padding: 3px 12px!important;"  href="javascript:void(0);" onclick="goToStep(13,13)">g. Vehicle Info</a></li>
-                        <li id="li14"><a style="margin-right: -10px !important;padding: 3px 12px!important;"  href="javascript:void(0);" onclick="goToStep(14,14)">h. Pet Info</a></li>
-                        <li id="li15"><a style="margin-right: -10px !important;padding: 3px 12px!important;"  href="javascript:void(0);" onclick="goToStep(15,15)">i. Lease</a></li>
-                        <li id="li16"><a style="margin-right: -10px !important;padding: 3px 12px!important;"  href="javascript:void(0);" onclick="goToStep(16,16)">j. Payment </a></li>
-
-                        
-                    </ul>
+                    <div class="text-center">
+                        <ul class="nav nav-tabs hidden text-center" style="margin-top:-14px !important;background-color:#4d738a !important;height:29px !important" id="subMenu">
+                            <li class="active" id="li7"><a style="padding: 3px 15px!important;margin-left:4px !important" onclick="goToStep(7,7)" href="javascript:void(0);">a. Applicants</a></li>
+                            <li id="li8"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(8,8)">b. Responsibility</a></li>
+                            <li id="li9"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(9,9)">c. Personal Info</a></li>
+                            <li id="li10"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(10,10)">d. Residence History</a></li>
+                            <li id="li11"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(11,11)">e. Employment and Income</a></li>
+                            <li id="li12"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(12,12)">f. Emergency Contacts </a></li>
+                            <li id="li13"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(13,13)">g. Vehicle Info</a></li>
+                            <li id="li14"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(14,14)">h. Pet Info</a></li>
+                            <li id="li15"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(15,15)">i. Lease</a></li>
+                            <li id="li16"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(16,16)">j. Payment </a></li>
+                        </ul>
+                    </div>
                     <div class="tab-content">
                         <div class="" id="step1">
                             <div class="row p-b-15  ">
@@ -2258,8 +2258,10 @@
                                             @*<a href="javascript:void(0)" id="btnDownloadLeaseDocument" class="btn btn-primary" onclick="saveLeaseDoc()">Review and Sign Your Online Leasing Application</a>*@
                                             <label class="info-text pull-left hidden" style="color:#4d738a" id="lblsignin">Your Lease Agreement generated successfull at Bluemoon. Please click on continue button. Lease ID: @Model.EnvelopeID</label>
                                             <br />
-                                            <input type="submit" class="btn btn-primary pull-right" width="400" style="width: 420px;" value="Process Online Leasing Application" id="btnDownloadLeaseDocument" onclick="location.href='@Url.Action("LeaseBlumoon","CheckList")'" />
-                                            <input type="submit" class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="location.href='@Url.Action("GetLeaseDocBlumoon","CheckList")'" value="Download Lease Document" disabled />
+                                            
+                                            <a class="btn btn-primary pull-right" width="400" style="width: 400px;" id="btnDownloadLeaseDocument" onclick="createLeaseDocument()">Process Online Leasing Application</a>
+                                            <a class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="downloadLeaseDocument()" disabled="disabled">Download Leasing Application</a>
+
                                         </div>
                                     </div>
                                 </div>
@@ -3663,12 +3665,18 @@
 </style>
 
 <style>
+    .submenu-padding {
+        padding: 3px 5.5px !important;
+    }
+
     .nav-tabs > li > a {
         margin-right: 2px;
         line-height: 1.42857143;
-        border: 1px solid transparent;
+        /*border: 0px;
+        border-style: none !important;*/
+        border: 1px solid #4d738a !important;
         border-radius: 0;
-        color: #fff ;
+        color: #fff;
     }
     .nav-tabs.wizard {
         background-color: transparent;
@@ -3936,9 +3944,12 @@
             if (('@Model.EnvelopeID') !="") {
                 $("#btnAddPet").attr("disabled", true);
                 $("#btnleaseDownl").removeAttr("disabled");
+                $("#btnleaseDownl").attr('href', '/Content/assets/img/Document/' + @Model.EnvelopeID+ '.pdf');
+                $("#btnleaseDownl").attr('download', 'LeaseDocument_' + @Model.EnvelopeID+ '.pdf');
+                $("#btnleaseDownl").attr('target', '_parent');
                 goToStep(15, 15);
                 $("#btnDownloadLeaseDocument").css("background-color", "#B4ADA5").attr("disabled", "disabled");
-                $("#lblsignin").removeClass("hidden");
+                //$("#lblsignin").removeClass("hidden");
                 $("#as2").removeAttr("onclick")
                 $("#as2").attr("onclick", "goToStep(2,2)");
                 $("#as3").removeAttr("onclick")
@@ -4096,5 +4107,8 @@
     btnApp.onclick = function () {
         modal.style.display = "block";
     }
-
+    function gotoLogOffAN() {
+       
+        window.location = "/Account/LogOff";
+    }
 </script>

@@ -34,7 +34,7 @@ var fillAmenitySearchGrid = function (pagenumber) {
                     html += '<tr data-value="' + elementValue.ID + '"  id="tr_' + elementValue.ID +'">';
                     html += '<td class="pds-id hidden" style="color:#3d3939;">' + elementValue.ID + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.Amenity + '</td>';
-                    html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary" style="padding: 5px 8px !important;margin-right:7px" onclick="goToAmenities(' + elementValue.ID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button><button class="btn btn-danger" style="padding: 5px 8px !important;" onclick="delAmenities(' + elementValue.ID + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
+                    html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary" style="padding: 5px 8px !important;margin-right:7px" onclick="goToAmenities(' + elementValue.ID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button><button class="btn btn-danger hidden" style="padding: 5px 8px !important;" onclick="delAmenities(' + elementValue.ID + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
                     html += '</tr>';
                     $("#tblAminities>tbody").append(html);
                     amenitiesDataSource.push({ ID: elementValue.ID, Amenity: elementValue.Amenity });

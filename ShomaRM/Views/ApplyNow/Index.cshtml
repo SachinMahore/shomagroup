@@ -23,7 +23,7 @@
                         </h3>
                         <div class="button pull-right">
 
-                            <a href="javascript:void(0)" class="btn-success" style="padding:5px;" onclick="gotoLogin()"> Logout..</a>
+                            <a href="javascript:void(0)" class="btn-success" style="padding:5px;" onclick="gotoLogOffAN()"> Logout..</a>
 
                         </div>
                         <span class="pull-right hidden" style="color:red;font-size: 15px;margin-right: 10px;" id="getting-startedTimeRemainingClock"></span>
@@ -802,7 +802,7 @@
                                             <span>TERM: </span>
                                         </div>
                                         <div class="col-sm-9">
-                                            <span id="lblFNLTerm" style="text-decoration:underline;font-weight:bold;"></span>
+                                            <span id="lblFNLTerm" style="text-decoration:underline;font-weight:bold;">@Model.LeaseTerm</span>
                                         </div>
                                     </div>
                                 </div>
@@ -847,7 +847,7 @@
 
                                         </div>
                                         <div class="col-sm-3">
-                                            <a href="#" id="lblFNLRentersInsurance" style="text-decoration:underline;">www.erenterplan.com</a>
+                                            <a href="javascript:void(0);" id="lblFNLRentersInsurance" style="text-decoration:underline;">www.erenterplan.com</a>
                                         </div>
                                     </div>
 
@@ -2258,8 +2258,10 @@
                                             @*<a href="javascript:void(0)" id="btnDownloadLeaseDocument" class="btn btn-primary" onclick="saveLeaseDoc()">Review and Sign Your Online Leasing Application</a>*@
                                             <label class="info-text pull-left hidden" style="color:#4d738a" id="lblsignin">Your Lease Agreement generated successfull at Bluemoon. Please click on continue button. Lease ID: @Model.EnvelopeID</label>
                                             <br />
-                                            <input type="submit" class="btn btn-primary pull-right" width="400" style="width: 420px;" value="Process Online Leasing Application" id="btnDownloadLeaseDocument" onclick="location.href='@Url.Action("LeaseBlumoon","CheckList")'" />
-                                            <input type="submit" class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="location.href='@Url.Action("GetLeaseDocBlumoon","CheckList")'" value="Download Lease Document" disabled />
+                                            
+                                            <a class="btn btn-primary pull-right" width="400" style="width: 400px;" id="btnDownloadLeaseDocument" onclick="createLeaseDocument()">Process Online Leasing Application</a>
+                                            <a class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="downloadLeaseDocument()" disabled="disabled">Download Leasing Application</a>
+
                                         </div>
                                     </div>
                                 </div>
@@ -3942,9 +3944,12 @@
             if (('@Model.EnvelopeID') !="") {
                 $("#btnAddPet").attr("disabled", true);
                 $("#btnleaseDownl").removeAttr("disabled");
+                $("#btnleaseDownl").attr('href', '/Content/assets/img/Document/' + @Model.EnvelopeID+ '.pdf');
+                $("#btnleaseDownl").attr('download', 'LeaseDocument_' + @Model.EnvelopeID+ '.pdf');
+                $("#btnleaseDownl").attr('target', '_parent');
                 goToStep(15, 15);
                 $("#btnDownloadLeaseDocument").css("background-color", "#B4ADA5").attr("disabled", "disabled");
-                $("#lblsignin").removeClass("hidden");
+                //$("#lblsignin").removeClass("hidden");
                 $("#as2").removeAttr("onclick")
                 $("#as2").attr("onclick", "goToStep(2,2)");
                 $("#as3").removeAttr("onclick")
@@ -4102,5 +4107,8 @@
     btnApp.onclick = function () {
         modal.style.display = "block";
     }
-
+    function gotoLogOffAN() {
+       
+        window.location = "/Account/LogOff";
+    }
 </script>

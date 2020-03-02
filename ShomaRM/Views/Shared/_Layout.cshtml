@@ -73,7 +73,7 @@
             <div class="container">
                 <div class="row grid-container" style="text-align: center;">
                     <div class="col-sm-3">
-                        <h3><i class="fa fa-map-marker" style="color:white !important;"></i> Location</h3>
+                        <h3 class="username"><i class="fa fa-map-marker " style="color:white !important;"></i> Location</h3>
                         <p>
                             <a id="btnmapcontact" href="javascript:void(0);" style="font-weight:300;"><i class="pe-7s-map-marker strong"> </i> 9400 NW 41st Street,<br />Doral, FL 33178</a>
                             <br>
@@ -82,7 +82,7 @@
                     </div>
                     <!-- /.col-sm-4 -->
                     <div class="col-sm-3">
-                        <h3><i class="fa fa-phone"></i> Call Us</h3>
+                        <h3 class="username"><i class="fa fa-phone"></i> Call Us</h3>
                         <p class="text-muted">
                             Call us to schedule an appointment
                         </p>
@@ -90,7 +90,7 @@
                     </div>
                     <!-- /.col-sm-4 -->
                     <div class="col-sm-3">
-                        <h3><i class="fa fa-envelope"></i> Message Us</h3>
+                        <h3 class="username"><i class="fa fa-envelope"></i> Message Us</h3>
                         <p class="text-muted">Send us a message or use our Live Chat.</p>
                         <p><strong><a href="mailto:">info@sanctuarydoral.com</a></strong></p>
                     </div>
@@ -104,7 +104,7 @@
                 <div class="row">
                     <div class="col-md-4 col-sm-6 wow fadeInRight animated">
                         <div class="single-footer news-letter">
-                            <h4>Office Hours</h4>
+                            <h4 class="username">Office Hours</h4>
                             <div class="footer-title-line"></div>
                             <p>M-F : 9AM - 6PM</p>
                             <p>SAT : 9AM - 5PM</p>
@@ -168,17 +168,15 @@
     </div>
     <div class="modal" id="popContactForm">
         <div class="modal-dialog">
-            <div class="modal-content" style="width:732px; height:657px;">
-                <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+            <div class="modal-content" style="width:732px; height:600px;">
                 <!-- Modal Header -->
                 <div class="modal-header" style="width: 100%; padding:0px;">
                     <h5 class="modal-title">Appointment Request</h5>
-
+                    <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px;color:black;">&times;</button>
                 </div>
 
                 <!-- Modal body -->
                 <div class="modal-body">
-
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="firstname" class="star">First Name</label>
@@ -218,13 +216,12 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Visit Date </label>
+                            <label class="star">Visit Date </label>
                             <input type="text" id="txtMoveDate" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")">
-                            <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 259px;">
+                            <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 262px;">
                                 <button class="btn btn-primary search" id="MtDate" type="button"><i class="fa-calendar fa"></i></button>
                             </span>
                         </div>
-
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
@@ -232,7 +229,6 @@
                             <select id="ddlMarketSource1" class="form-control"></select>
                         </div>
                     </div>
-
                     <div class="col-sm-6 hidden">
                         <div class="form-group">
                             <label for="address">Address</label>
@@ -245,39 +241,31 @@
                             <textarea id="txtMessage" class="form-control" maxlength="500"></textarea>
                         </div>
                     </div>
-
                     <div class="col-sm-6 hidden">
                         <div class="form-group">
                             <label>Do you have Pets?</label>
                             <div class="checkbox">
-
                                 <label>
                                     <input type="checkbox" id="chkPets"> Yes
                                 </label>
                             </div>
                         </div>
                     </div>
-
-
                     <div class="col-sm-12">
                         <div class="dot-hr"></div>
                     </div>
                     <div class="col-sm-12 text-justify">
                         By clicking submit, you agree that you are the individual whose information has been entered above or that you have that individual's express consent to submit their information. Additionally, you agree and acknowledge that by submitting this information, you may be contacted regarding your inquiry for more information from the relevant property.
                     </div>
-                    <div class="col-sm-12">
-                        <div class="dot-hr"></div>
-                    </div>
-                    <div class="col-sm-12 text-center">
-                        <button type="submit" class="btn btn-primary" onclick="saveProspectForm()"><i class="fa fa-envelope-o"></i> Submit</button>
-                    </div>
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer-custom">
-
+                    <div class="col-sm-12 text-center">
+                        <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary pull-right" onclick="saveProspectForm()" style="margin-right: 10px;">Submit</button>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -294,7 +282,7 @@
                 <h5 style="">Sign In</h5>
             </div>
             <div id="forgtPassHead" class="text-center hidden">
-                <h5 style="">Retrive Password</h5>
+                <h5 style="">Retrieve Password</h5>
             </div>
             <div class="text-justify">
                 <div class="form-group">
@@ -308,7 +296,7 @@
             </div>
             <div id="Signinbtn" class="text-center">
                 <button type="submit" class="btn btn-primary" onclick="SignIn()" style="margin-left:100px !important"> Sign In</button>
-                <a href="javascript:void(0);" onclick="goToForgetPassword();" class="pull-right" style="padding-top:2%">Forget Password?</a>
+                <a href="javascript:void(0);" onclick="goToForgetPassword();" class="pull-right" style="padding-top:2%">Forgot Password?</a>
             </div>
             <div id="Forgtbtn" class="text-center hidden">
                 <button type="button" class="btn btn-primary" onclick="ForgetPasswordss();">Verify</button>
@@ -577,7 +565,10 @@
 
         window.location = "/Account/Login";
     }
+    function gotoLogOff() {
 
+        window.location = "/Account/LogOff";
+    }
     function gotoApplyNow() {
         window.location = "/ApplyNow/Index/0";
     }
@@ -688,9 +679,9 @@
                 msg += "Invalid email address.<br/>"
             }
         }
-        //if (state == 0) {
-        //    msg += "Select State</br>";
-        //}
+        if (!visittime) {
+            msg += "Enter Visit Date</br>";
+        }
         if (msg != "") {
             $("#divLoader").hide();
             $.alert({

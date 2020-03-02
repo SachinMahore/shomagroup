@@ -29,23 +29,23 @@
                       
                         <form action="" method="post">
                             <div class="form-group">
-                                <label for="email">User Name</label>
+                                <label for="email" class="username">User Name</label>
                                 <input type="text" class="form-control" id="UserName" name="UserName">
                             </div>
                             <div class="form-group">
-                                <label for="password">Password</label>
+                                <label for="password" class="username">Password</label>
                                 <input type="password" class="form-control" id="password" name="Password">
                             </div>
                             <div class="form-group">
                                 <div class="controls pull-right">
-                                    <span><input type="checkbox" id="chkRemeber"/> Remember Me?</span>
+                                    <span class="username"><input  type="checkbox" id="chkRemeber"/> Remember Me?</span>
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary"> Sign in</button>
+                                <button type="submit" class="btn btn-primary username"> Sign in</button>
                             </div>
                             <div class="text-center">
-                                <a href="javascript:void(0);" onclick="ForgetPassword()" class="pull-right" style="padding-top:2%">Forget Password?</a>
+                                <a href="javascript:void(0);" onclick="ForgetPassword()" class="pull-right username" style="padding-top:2%">Forgot Password?</a>
                             </div>
                         </form>
                     }
@@ -56,7 +56,7 @@
 
             </div>
         </div>
-        <div class="col-md-3"></div>
+        <div class="col-md-3 username"></div>
     </div>
 </div>
 
@@ -67,7 +67,7 @@
     <!-- Modal content -->
     <div class="modal-content">
         <div id="forgtPassHead" class="text-center hide">
-            <h5 style="">Retrive Password</h5>
+            <h5 class="username">Retrive Password</h5>
         </div>
         <div class="text-justify">
             <div class="form-group">

@@ -97,6 +97,12 @@
     <Compile Include="tbl_ApplyNow.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbl_AuditHistory.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_AuditHistoryDetail.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_BankAccount.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>

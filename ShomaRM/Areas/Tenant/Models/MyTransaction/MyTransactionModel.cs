@@ -852,6 +852,54 @@ namespace ShomaRM.Areas.Tenant.Models
             db.Dispose();
             return msg;
         }
+        public string ScheduleRecurring()
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string msg = "";
+
+            List<TenantMonthlyPayments> lsttmp = new List<TenantMonthlyPayments>();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetScheduleRecurringLists";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    
+                    long TransId = Convert.ToInt64(dr["TransID"].ToString());
+                    long PAID = Convert.ToInt32(dr["Transaction_Type"].ToString());
+                    long TenantID = Convert.ToInt64(dr["TenantID"].ToString());
+
+                    var accountDet = db.tbl_PaymentAccounts.Where(p => p.PAID == PAID).FirstOrDefault();
+
+
+                   
+                }
+                db.Dispose();
+
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+
+
+            msg = "Monthly Payment Generated Successfully";
+
+
+            db.Dispose();
+            return msg;
+        }
         public string GenerateMonthlyRent()
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -1117,7 +1165,7 @@ namespace ShomaRM.Areas.Tenant.Models
 
                     reportHTML = reportHTML.Replace("[%EmailHeader%]", "Amenity Reservation Fees & Deposit Paid");
                     reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
-                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Fee payment in the Amount of $" + ameDet.ReservationFee + "and your Deposit Fee in the Amount of $" + ameDet.DepositFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate + " at " + ameDet.DesiredTime + " has been received. Your Reservation is now confirmed. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Fee payment in the Amount of $" + ameDet.ReservationFee + "and your Deposit Fee in the Amount of $" + ameDet.DepositFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate.Value.ToString("MM/dd/yyyy") + " from " + ameDet.DesiredTimeFrom + " to " + ameDet.DesiredTimeTo + " has been received. Your Reservation is now confirmed. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
                     reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
                     body = reportHTML;
 
@@ -1144,7 +1192,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     db.SaveChanges();
                     reportHTML = reportHTML.Replace("[%EmailHeader%]", "Amenity Reservation Fees Paid");
                     reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
-                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Fee payment in the Amount of $" + ameDet.ReservationFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate + " at " + ameDet.DesiredTime + " has been received. Your Reservation is now confirmed subject to the payment of the Security Deposit at least 3 business days prior to the scheduled event. If we do 	not receive the Security Deposit fee prior to the deadline, management reserves the right to cancel the event and the Reservation fee will not be refunded. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Fee payment in the Amount of $" + ameDet.ReservationFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate.Value.ToString("MM/dd/yyyy") + " from " + ameDet.DesiredTimeFrom + " to " + ameDet.DesiredTimeTo + " has been received. Your Reservation is now confirmed subject to the payment of the Security Deposit at least 3 business days prior to the scheduled event. If we do 	not receive the Security Deposit fee prior to the deadline, management reserves the right to cancel the event and the Reservation fee will not be refunded. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
+
                     reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
                     body = reportHTML;
 
@@ -1162,7 +1211,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     db.SaveChanges();
                     reportHTML = reportHTML.Replace("[%EmailHeader%]", "Amenity Reservation Deposit Paid");
                     reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
-                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Deposit payment in the Amount of $" + ameDet.DepositFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate + " at " + ameDet.DesiredTime + " has been received. Your Reservation is now completed. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Deposit payment in the Amount of $" + ameDet.DepositFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate.Value.ToString("MM/dd/yyyy") + " from " + ameDet.DesiredTimeFrom + " to "+ameDet.DesiredTimeTo+"  has been received. Your Reservation is now completed. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
                     reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
                     body = reportHTML;
 

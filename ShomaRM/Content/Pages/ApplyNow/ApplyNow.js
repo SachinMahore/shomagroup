@@ -2350,7 +2350,7 @@ var getPropertyUnitDetails = function (uid) {
             //Amit's Work for final Quotation form 15-10
             $("#lblFNLUnit").text("#" + response.model.UnitNo);
             $("#lblFNLModel").text(response.model.Building);
-            $("#lblFNLTerm").text(response.model.Leased);
+            //$("#lblFNLTerm").text(response.model.Leased);
             $("#lblMonthly_MonthlyCharge").text(formatMoney(response.model.Current_Rent.toFixed(2)));
             $("#lblProrated_MonthlyCharge").text(formatMoney(parseFloat(parseFloat(response.model.Current_Rent) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
 
@@ -3095,7 +3095,16 @@ var saveupdateApplicant = function () {
             msg += "Enter The Other Gender </br>";
         }
     }
-
+    if (type == 'Primary Applicant') {
+        $('#txtDateOfBirth').val(dob);
+        $('#ddlGender').val(agender);
+        if (agender == '3') {
+            $('#txtOtherGender').val(aotherGender);
+        }
+        else {
+            $('#txtOtherGender').val('');
+        }
+    }
     if (msg != "") {
         $.alert({
             title: "",
@@ -3132,9 +3141,6 @@ var saveupdateApplicant = function () {
                 content: "Progress Saved.",
                 type: 'blue',
             });
-            $('#txtDateOfBirth').val(dob);
-            $('#ddlGender').val(agender);
-            $('#txtOtherGender').val(aotherGender);
             getApplicantLists();
             //$("#popApplicant").PopupWindow("close");
             $("#popApplicant").modal("hide");
@@ -3419,7 +3425,12 @@ var goToEditApplicant = function (aid) {
                     var dtHApp = new Date();
                     dtHApp.setFullYear(new Date().getFullYear() - 18);
                     $('#txtHDateOfBirth').datepicker({ endDate: dtHApp, autoclose: true });
-                    $("#txtApplicantOtherGender").val(response.model.OtherGender);
+                    if (response.model.OtherGender == '3') {
+                        $("#txtApplicantOtherGender").val(response.model.OtherGender);
+                    }
+                    else {
+                        $("#txtApplicantOtherGender").val('');
+                    }
 
                 }
                 else if (response.model.Type == "Co-Applicant") {
@@ -5578,3 +5589,21 @@ var dateIconFunctions = function () {
         $("#txtDateOfBirth").focus();
     });
 };
+var createLeaseDocument = function () {
+    $("#divLoader").show();
+    var param = { UserID: $("#hndUID").val() };
+    $.ajax({
+        url: "/CheckList/LeaseBlumoon",
+        method: "post",
+        data: JSON.stringify(param),
+        contentType: "application/json; charset=utf-8", // content type sent to server
+        dataType: "json", //Expected data format from server
+        success: function (response) {
+            $("#divLoader").hide();
+            $("#btnleaseDownl").removeAttr("disabled");
+            $("#btnleaseDownl").attr('href', '/Content/assets/img/Document/' + response.LeaseId + '.pdf');
+            $("#btnleaseDownl").attr('download', 'LeaseDocument_' + response.LeaseId + '.pdf');
+            $("#btnleaseDownl").attr('target', '_parent');
+        }
+    });
+}

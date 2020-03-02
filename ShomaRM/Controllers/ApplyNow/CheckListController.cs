@@ -114,12 +114,20 @@ namespace ShomaRM.Controllers
         public async System.Threading.Tasks.Task<ActionResult> LeaseBlumoon()
         {
 
-            var data = await LeaseBlumoonAsync();
-            if (data != null)
+            try
             {
-                System.IO.File.WriteAllBytes(Server.MapPath("/Content/assets/img/Document/" + data.LeaseId + ".pdf"), data.leasePdf);
+                var data = await LeaseBlumoonAsync();
+                if (data != null)
+                {
+                    System.IO.File.WriteAllBytes(Server.MapPath("/Content/assets/img/Document/" + data.LeaseId + ".pdf"), data.leasePdf);
+                }
+                return Json(new { LeaseId = data.LeaseId }, JsonRequestBehavior.AllowGet);
             }
-            return Json(new { LeaseId = data.LeaseId }, JsonRequestBehavior.AllowGet);
+            catch(Exception ex)
+            {
+                return Json(new { LeaseId = "0" }, JsonRequestBehavior.AllowGet);
+            }
+           
             //return File(data.leasePdf, "application/pdf", "LeaseDocument_" + data.LeaseId + ".pdf");
         }
 
@@ -140,12 +148,12 @@ namespace ShomaRM.Controllers
             }
 
             var tenantdata = db.tbl_TenantOnline.Where(p => p.ProspectID == tid).FirstOrDefault();
-            var GetCoappDet = db.tbl_Applicant.Where(c => c.TenantID == appData.ID).ToList();
+            var GetCoappDet = db.tbl_Applicant.Where(c => c.TenantID == appData.ID && c.Type!= "Guarantor").ToList();
             var GetVehicleList = db.tbl_Vehicle.Where(c => c.TenantID == appData.ID).ToList();
             var GetPetList = db.tbl_TenantPet.Where(c => c.TenantID == appData.ID).ToList();
 
             leaseRequestModel.UNIT_NUMBER = "Unit-" + appData.PropertyId.ToString();
-            leaseRequestModel.ADDRESS = tenantdata.HomeAddress1 + " " + tenantdata.CityHome;
+            leaseRequestModel.ADDRESS = " 9400 NW 41st Street,Doral, FL 33178, USA";
             leaseRequestModel.DATE_OF_LEASE = appData.CreatedDate.Value.ToString("MM-dd-yyyy");
             leaseRequestModel.LEASE_BEGIN_DATE = appData.MoveInDate.Value.ToString("MM-dd-yyyy");
             leaseRequestModel.LEASE_END_DATE = appData.MoveInDate.Value.AddMonths(Convert.ToInt32(appData.LeaseTerm)).ToString("MM-dd-yyyy");
@@ -248,11 +256,10 @@ namespace ShomaRM.Controllers
             {
                 LeaseResponseModel leaseCreateResponse = await bmservice.CreateLease(leaseRequestModel: leaseRequestModel, PropertyId: "112154", sessionId: authenticateData.SessionId);
                 var onlineProspectData = db.tbl_ApplyNow.Where(p => p.ID == tid).FirstOrDefault();
-                if (onlineProspectData != null)
-                {
+               
                     onlineProspectData.EnvelopeID = leaseCreateResponse.LeaseId;
                     db.SaveChanges();
-                }
+              
                 leaseid = leaseCreateResponse.LeaseId;
             }
             else
@@ -260,21 +267,113 @@ namespace ShomaRM.Controllers
                 LeaseResponseModel leaseEditResponse = await bmservice.EditLease(leaseRequestModel: leaseRequestModel, leaseId: leaseid, sessionId: authenticateData.SessionId);
             }
 
-            LeaseResponseModel leasePdfResponse = await bmservice.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: leaseid);
+            List<EsignatureParty> esignatureParties = new List<EsignatureParty>();
+
+            // please provide the list with the correct data from lease methods. below is some static details I provided - Sachin Mahore upadated dynamic
+            // Note. For owmer please set IsOwner true and other will ve residents which will be set to false.
+            esignatureParties.Add(new EsignatureParty()
+            {
+                Email = "info@sanctuarydoral.com",
+                IsOwner = true,
+                Name = "Sachin Mahore",
+                Phone = "786-437-8658"
+            });
+
+            // add the residents details who will sign the document
+            // Note 1. email should be valid email . on this email , the residents will get the esignature request
+            //      2. name should match exact as per resisdent detail in create lease otherwise we will not get any response
+
+            if (GetCoappDet.Count == 1)
+            {
+              esignatureParties.Add(new EsignatureParty()
+                {
+                    Email = GetCoappDet[0].Email ,
+                    IsOwner = false,
+                    Name = GetCoappDet[0].FirstName + " " + GetCoappDet[0].LastName,
+                    Phone = GetCoappDet[0].Phone,
+              });
+            }
+            if (GetCoappDet.Count == 2)
+            {
+                esignatureParties.Add(new EsignatureParty()
+                {
+                    Email = GetCoappDet[0].Email,
+                    IsOwner = false,
+                    Name = GetCoappDet[0].FirstName + " " + GetCoappDet[0].LastName,
+                    Phone = GetCoappDet[0].Phone,
+                });
+                esignatureParties.Add(new EsignatureParty()
+                {
+                    Email = GetCoappDet[1].Email,
+                    IsOwner = false,
+                    Name = GetCoappDet[1].FirstName + " " + GetCoappDet[1].LastName,
+                    Phone = GetCoappDet[1].Phone,
+                });
+            }
+            if (GetCoappDet.Count == 3)
+            {
+                esignatureParties.Add(new EsignatureParty()
+                {
+                    Email = GetCoappDet[0].Email,
+                    IsOwner = false,
+                    Name = GetCoappDet[0].FirstName + " " + GetCoappDet[0].LastName,
+                    Phone = GetCoappDet[0].Phone,
+                });
+                esignatureParties.Add(new EsignatureParty()
+                {
+                    Email = GetCoappDet[1].Email,
+                    IsOwner = false,
+                    Name = GetCoappDet[1].FirstName + " " + GetCoappDet[1].LastName,
+                    Phone = GetCoappDet[1].Phone,
+                });
+                esignatureParties.Add(new EsignatureParty()
+                {
+                    Email = GetCoappDet[2].Email,
+                    IsOwner = false,
+                    Name = GetCoappDet[2].FirstName + " " + GetCoappDet[2].LastName,
+                    Phone = GetCoappDet[2].Phone,
+                });
+            }
+
+
+            LeaseResponseModel EsignatureResponse = await bmservice.RequestEsignature(leaseId: leaseid, sessionId: authenticateData.SessionId, esignatureParties: esignatureParties);
+
+            // this will not give pdf with signature right away because this will need to be called after residents will sign the esignature. 
+            // so please call it on any download lease document button 
+            // Note. please save the esignature id for downloading document 
+
+            LeaseResponseModel leaseDocumentWithEsignature = await bmservice.GetLeaseDocumentWithEsignature(SessionId: authenticateData.SessionId, EsignatureId: EsignatureResponse.EsignatureId);
+
+            if (leaseid != "")
+            {
+                var onlineProspectData = db.tbl_ApplyNow.Where(p => p.ID == tid).FirstOrDefault();
+                onlineProspectData.EsignatureID = EsignatureResponse.EsignatureId;
+                db.SaveChanges();               
+            }
+            //LeaseResponseModel leasePdfResponse = await bmservice.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: leaseid);
             await bmservice.CloseSession(sessionId: authenticateData.SessionId);
-            return leasePdfResponse;
+            leaseDocumentWithEsignature.LeaseId = leaseid;
+            return leaseDocumentWithEsignature;
         }
 
         public async System.Threading.Tasks.Task<ActionResult> GetLeaseDocBlumoon()
         {
 
-            var data = await GetLeaseDocBlumoonAsync();
-            if (data != null)
+       
+            try
             {
-                System.IO.File.WriteAllBytes(Server.MapPath("/Content/assets/img/Document/" + data.LeaseId + ".pdf"), data.leasePdf);
+                var data = await GetLeaseDocBlumoonAsync();
+                if (data != null)
+                {
+                    System.IO.File.WriteAllBytes(Server.MapPath("/Content/assets/img/Document/LeaseDocument_" + data.LeaseId + ".pdf"), data.leasePdf);
+                }
+                return Json(new { LeaseId = data.LeaseId }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { LeaseId = "0" }, JsonRequestBehavior.AllowGet);
             }
 
-            return File(data.leasePdf, "application/pdf", "LeaseDocument_" + data.LeaseId + ".pdf");
         }
         public async System.Threading.Tasks.Task<LeaseResponseModel> GetLeaseDocBlumoonAsync()
         {
@@ -283,12 +382,15 @@ namespace ShomaRM.Controllers
             long UserID = Convert.ToInt64(uid);
             var tenantData = db.tbl_ApplyNow.Where(p => p.UserId == UserID).FirstOrDefault();
             string LeaseId = tenantData.EnvelopeID;
+            string esignatureId = tenantData.EsignatureID;
             var bmservice = new BluemoonService();
 
             LeaseResponseModel authenticateData = await bmservice.CreateSession();
-            LeaseResponseModel leasePdfResponse = await bmservice.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: LeaseId);
+           // LeaseResponseModel leasePdfResponse = await bmservice.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: LeaseId);
+            LeaseResponseModel leaseDocumentWithEsignature = await bmservice.GetLeaseDocumentWithEsignature(SessionId: authenticateData.SessionId, EsignatureId: esignatureId);
             await bmservice.CloseSession(sessionId: authenticateData.SessionId);
-            return leasePdfResponse;
+            leaseDocumentWithEsignature.LeaseId = LeaseId;
+            return leaseDocumentWithEsignature;
         }
     }
 }

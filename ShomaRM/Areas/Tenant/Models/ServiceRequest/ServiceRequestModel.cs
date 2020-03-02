@@ -211,7 +211,7 @@ namespace ShomaRM.Areas.Tenant
             List<ServiceRequestModel> listServiceRequestList = new List<ServiceRequestModel>();
             ShomaRMEntities db = new ShomaRMEntities();
 
-            var getServiceRequestList = db.tbl_ServiceRequest.Where(co => co.TenantID == model.TenantID).ToList();
+            var getServiceRequestList = db.tbl_ServiceRequest.Where(co => co.TenantID == model.TenantID).OrderByDescending(co => co.ServiceID).ToList();
             if (getServiceRequestList != null)
             {
                 foreach (var item in getServiceRequestList)
@@ -236,8 +236,8 @@ namespace ShomaRM.Areas.Tenant
                     });
                 }
             }
-
             db.Dispose();
+           
             return listServiceRequestList;
         }
 

@@ -2,6 +2,7 @@
 using ShomaRM.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -37,6 +38,8 @@ namespace ShomaRM.Areas.Tenant.Models.Club
         //for Mapping Status do Not Add In Table
         public bool ClubJoinStatus { get; set; }
         public long SearchId { get; set; }
+        [NotMapped]
+        public string StringStartDate { get; set; }
 
         public ResponseModel SaveclubEvent(ClubModel model)
         {

@@ -34,6 +34,7 @@ namespace ShomaRM.Controllers
             {
                 if (returnUrl.ToString().ToLower().Contains("logoff"))
                     returnUrl = null;
+
             }
             catch
             {
@@ -96,9 +97,15 @@ namespace ShomaRM.Controllers
                     else
                     {
                         var checkExpiry = db.tbl_ApplyNow.Where(co => co.UserId == currentUser.UserID).FirstOrDefault();
+
+                        checkExpiry.Status = (!string.IsNullOrWhiteSpace(checkExpiry.Status) ? checkExpiry.Status : "");
+
+                        if(checkExpiry.Status.Trim()=="Approved")
+                        {
+                            return RedirectToAction("../Checklist/");
+                        }
                         if (checkExpiry != null)
                         {
-
                             if (checkExpiry.CreatedDate < DateTime.Now.AddHours(-72))
                             {
                                 new ApplyNowController().DeleteApplicantTenantID(checkExpiry.ID,currentUser.UserID);
@@ -212,7 +219,7 @@ namespace ShomaRM.Controllers
         //
         // POST: /Account/LogOff
 
-
+        [AllowAnonymous]
         public ActionResult LogOff()
         {
             Session.RemoveAll();
@@ -220,14 +227,21 @@ namespace ShomaRM.Controllers
             (new ShomaGroupWebSession()).RemoveWebSession();
 
             new CommonModel().AddPageLoginHistory("");
-
-            var loginHistory = db.tbl_LoginHistory.Where(p => p.UserID == ShomaGroupWebSession.CurrentUser.UserID && p.SessionID == Session.SessionID.ToString() && p.LogoutDateTime == null).FirstOrDefault();
-
-            if (loginHistory != null)
+            try
             {
-                loginHistory.LogoutDateTime = DateTime.Now;
-                db.SaveChanges();
+                var loginHistory = db.tbl_LoginHistory.Where(p => p.UserID == ShomaGroupWebSession.CurrentUser.UserID && p.SessionID == Session.SessionID.ToString() && p.LogoutDateTime == null).FirstOrDefault();
+
+                if (loginHistory != null)
+                {
+                    loginHistory.LogoutDateTime = DateTime.Now;
+                    db.SaveChanges();
+                }
             }
+            catch(Exception ex)
+            {
+
+            }
+           
 
             return RedirectToAction("Login", "Account");
         }

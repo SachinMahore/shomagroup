@@ -8,7 +8,10 @@
     src: url('../../../fonts/Futura Medium.otf') format('opentype');
 }
 
-
+@font-face {
+    font-family: Futura Medium;
+    src: url('../font/Futura Medium.otf');
+}
 html, body {
     width: 100%;
     overflow-x: hidden;
@@ -1068,11 +1071,13 @@ label small {
         background-color: #4D738A;
         color: #fff !important;
         margin-right: 5px;
+        font-family: Futura Medium !important;
     }
 
         .nav-button.login:hover {
             background-color: #B7B0A7;
             color: #fff !important;
+            font-family: Futura Medium !important;
         }
 
     .nav-button:hover {
@@ -1567,6 +1572,7 @@ page-header
         font-weight: 300;
         text-transform: uppercase;
         letter-spacing: 2px;
+        font-family: Futura Medium;
     }
 
 .content-area {
@@ -3315,7 +3321,9 @@ blog
     .large-search .search-row {
         overflow: hidden;
     }
-
+.username {
+    font-family: Futura Medium;
+}
 
 .login-blocks h2, .register-blocks h2 {
     display: inline-block;
@@ -3325,6 +3333,7 @@ blog
     border-bottom: 2px solid #6C6E72;
     font-size: 20px;
     line-height: 30px;
+    font-family: Futura Medium;
 }
 
 .login-social {
@@ -3551,6 +3560,7 @@ blog
     line-height: 25px;
     font-size: 13px;
     padding-bottom: 20px;
+    font-family: Futura Medium !important;
 }
 
 .footer h4 {
@@ -3563,6 +3573,7 @@ blog
     line-height: 35px;
     margin-bottom: 0px;
     letter-spacing: 2px;
+    font-family: Futura Medium !important;
 }
 
     .footer h4 span {
@@ -3623,12 +3634,14 @@ ul.footer-adress li {
 
 .footer-copy span {
     margin-right: 20px;
+    font-family: Futura Medium !important;
     font-size: 13px;
 }
 
     .footer-copy span a {
         color: #000;
         font-weight: 500;
+        font-family: Futura Medium !important;
     }
 
 .footer img {

@@ -109,20 +109,20 @@ var getDurationSlot = function (selectedValue) {
     $("#ddlDuration").empty();
     var option = "<option value='0'>Select Duration Slot</option>";
     if (selectedValue == 1) {
-        option += "<option value='1' data-res='100' data-dep='100'> 2 hours </option>";
-        option += "<option value='2' data-res='200' data-dep='200'> 4 hours </option>";
+        option += "<option value='1' data-res='100.00' data-dep='100.00'> 2 hours </option>";
+        option += "<option value='2' data-res='200.00' data-dep='200.00'> 4 hours </option>";
     }
     else if (selectedValue == 3) {
-        option += "<option value='1' data-res='250' data-dep='500'> 3 hours </option>";
-        option += "<option value='2' data-res='500' data-dep='1000'> 5 hours </option>";
+        option += "<option value='1' data-res='250.00' data-dep='500.00'> 3 hours </option>";
+        option += "<option value='2' data-res='500.00' data-dep='1000.00'> 5 hours </option>";
     }
     else if (selectedValue == 11) {
-        option += "<option value='1' data-res='20' data-dep='50'> 2 hours </option>";
-        option += "<option value='2' data-res='40' data-dep='100'> 4 hours </option>";
+        option += "<option value='1' data-res='20.00' data-dep='50.00'> 2 hours </option>";
+        option += "<option value='2' data-res='40.00' data-dep='100.00'> 4 hours </option>";
     }
     else if (selectedValue == 12) {
-        option += "<option value='1' data-res='75' data-dep='250'> 2 hours </option>";
-        option += "<option value='2' data-res='150' data-dep='450'> 4 hours </option>";
+        option += "<option value='1' data-res='75.00' data-dep='250.00'> 2 hours </option>";
+        option += "<option value='2' data-res='150.00' data-dep='450.00'> 4 hours </option>";
     }
     else if (selectedValue == 13) {
         option += "<option value='1' data-res='0' data-dep='0'> 2 hours </option>";

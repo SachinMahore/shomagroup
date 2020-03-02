@@ -333,6 +333,7 @@
     <Compile Include="Models\ApplyNow\OnlineProspectModule.cs" />
     <Compile Include="Models\AquatraqHelper.cs" />
     <Compile Include="Models\Bluemoon\BluemoonService.cs" />
+    <Compile Include="Models\Bluemoon\EsignatureModel.cs" />
     <Compile Include="Models\Bluemoon\IBluemoonService.cs" />
     <Compile Include="Models\Bluemoon\LeaseRequestModel.cs" />
     <Compile Include="Models\Bluemoon\ResponseModel.cs" />
@@ -830,6 +831,10 @@
     <Content Include="Content\assets\font\Lara regular-italic.otf" />
     <Content Include="Content\assets\font\Lara regular.otf" />
     <Content Include="Content\assets\font\Oxygen-Regular.ttf" />
+    <Content Include="Content\assets\font\Helvetica-45-Light_22437.ttf" />
+    <Content Include="Content\assets\font\Helvetica45Light_22437.ttf" />
+    <Content Include="Content\assets\font\Helvetica45Light_22437.woff" />
+    <Content Include="Content\assets\font\BeVietnam-Medium.ttf" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -876,6 +881,7 @@
     <Content Include="Views\PayLink\LeaseNow.cshtml" />
     <Content Include="Views\CheckList\Index.cshtml" />
     <Content Include="Views\PayLink\PayAmenityCharges.cshtml" />
+    <Content Include="Views\PayLink\PayServiceCharges.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -887,8 +893,6 @@
     <Folder Include="Areas\Tenant\Views\ServiceRequest\" />
     <Folder Include="Content\assets\img\property-1\" />
     <Folder Include="Content\assets\img\slide1\" />
-    <Folder Include="Views\ShomaGroupWebAuthorization\" />
-    <Folder Include="Views\Test1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

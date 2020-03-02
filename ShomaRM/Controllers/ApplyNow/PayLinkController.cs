@@ -52,5 +52,20 @@ namespace ShomaRM.Controllers
             }
             return View("..//Paylink//PayAmenityCharges", model);
         }
+        public ActionResult PayServiceCharges(int ARID, int FromAcc)
+        {
+            ViewBag.UID = "0";
+            ViewBag.FromAcc = FromAcc;
+            ViewBag.ARID = ARID;
+            var model = new AmenitiesReservationModel().GetRRInfo(ARID);
+            if (FromAcc != 0)
+            {
+                if (ShomaGroupWebSession.CurrentUser != null)
+                {
+                    ViewBag.UID = ShomaGroupWebSession.CurrentUser.UserID.ToString();
+                }
+            }
+            return View("..//Paylink//PayServiceCharges", model);
+        }
     }
 }

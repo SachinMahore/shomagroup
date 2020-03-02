@@ -10,11 +10,19 @@ $(document).keypress(function (e) {
         buildPaganationCountryList(1);
     }
 });
-var fillCountryList = function (pagenumber) {
+var fillCountryList = function (pagenumber, sortbyCountry, orderbyCountry) {
+    if (!sortbyCountry) {
+        sortbyCountry = 'CountryName';
+    }
+    if (!orderbyCountry) {
+        orderbyCountry = 'ASC';
+    }
     var model = {
         Criteria: $("#txtCriteriaCountry").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_Country").val()
+        NumberOfRows: $("#ddlRPP_Country").val(),
+        SortBy: sortbyCountry,
+        OrderBy: orderbyCountry
     };
     $.ajax({
         url: 'Country/GetCountryList',
@@ -37,6 +45,7 @@ var fillCountryList = function (pagenumber) {
                     $("#tblCountry>tbody").append(html);
                 });
             }
+            $("#hndPageNoCountry").val(pagenumber);
         }
     });
 };
@@ -51,12 +60,20 @@ var fillRPP_Country = function () {
         buildPaganationCountryList($("#hdnCurrentPage").val());
     });
 };
-var buildPaganationCountryList = function (pagenumber) {
+var buildPaganationCountryList = function (pagenumber, sortbyCountry, orderbyCountry) {
+    if (!sortbyCountry) {
+        sortbyCountry = 'CountryName';
+    }
+    if (!orderbyCountry) {
+        orderbyCountry = 'ASC';
+    }
     var searchtype = $("#hdnSearchType").val();
     var model = {
         Criteria: $("#txtCriteriaCountry").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_Country").val()
+        NumberOfRows: $("#ddlRPP_Country").val(),
+        SortBy: sortbyCountry,
+        OrderBy: orderbyCountry
     };
     $.ajax({
         url: 'Country/BuildPaganationCountryList',
@@ -191,7 +208,9 @@ $(document).ready(function () {
         },
         onPageClick: function (page, evt) {
             $("#hdnCurrentPage").val(page);
-            fillCountryList(page);
+            var SortByValueCountry = localStorage.getItem("SortByValueCountry");
+            var OrderByValueCountry = localStorage.getItem("OrderByValueCountry");
+            fillCountryList(page, SortByValueCountry, OrderByValueCountry);
         }
     });
     $("#selectFieldCountry").empty();
@@ -238,4 +257,30 @@ var delCountry = function (countryID) {
             }
         }
     });
+};
+
+var count = 0;
+var sortTableCountry = function (sortbyCountry) {
+
+    var orderbyCountry = "";
+    var pNumberCountry = $("#hndPageNoCountry").val();
+    if (!pNumberCountry) {
+        pNumberCountry = 1;
+    }
+
+    if (count % 2 == 1) {
+        orderbyCountry = "ASC";
+        $('#sortCountryIcon').removeClass('fa fa-sort-down');
+        $('#sortCountryIcon').addClass('fa fa-sort-up fa-lg');
+    }
+    else {
+        orderbyCountry = "DESC";
+        $('#sortCountryIcon').removeClass('fa fa-sort-up');
+        $('#sortCountryIcon').addClass('fa fa-sort-down fa-lg');
+    }
+    localStorage.setItem("SortByValueCountry", sortbyCountry);
+    localStorage.setItem("OrderByValueCountry", orderbyCountry);
+    count++;
+    buildPaganationCountryList(pNumberCountry, sortbyCountry, orderbyCountry);
+    fillCountryList(pNumberCountry, sortbyCountry, orderbyCountry);
 };
