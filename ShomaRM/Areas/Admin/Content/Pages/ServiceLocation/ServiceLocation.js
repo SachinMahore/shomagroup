@@ -28,7 +28,10 @@
         },
         onPageClick: function (page, evt) {
             $("#hdnCurrentPage").val(page);
-            fillLocationSearchGrid(page);
+            var sortByValue = localStorage.getItem("SortByValue");
+            var OrderByValue = localStorage.getItem("OrderByValue");
+            fillLocationSearchGrid(page, sortByValue, OrderByValue);
+           
         }
     });
 });
@@ -44,13 +47,21 @@ var fillRPP_Locations = function () {
         buildPaganationLocationList($("#hdnCurrentPage").val());
     });
 };
-var buildPaganationLocationList = function (pagenumber) {
+var buildPaganationLocationList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = "Location";
+    }
+    if (!orderby) {
+        orderby = "ASC";
+    }
    
     var searchtype = $("#hdnSearchType").val();
     var model = {
         Criteria: $("#txtCriteriaLocation").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_Location").val()
+        NumberOfRows: $("#ddlRPP_Location").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: 'ServiceLocation/BuildPaganationSLList',
@@ -79,11 +90,20 @@ var buildPaganationLocationList = function (pagenumber) {
         }
     });
 };
-var fillLocationSearchGrid = function (pagenumber) {
+var fillLocationSearchGrid = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = "Location";
+    }
+    if (!orderby) {
+        orderby = "ASC";
+    }
+
     var model = {
         Criteria: $("#txtCriteriaLocation").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_Location").val()
+        NumberOfRows: $("#ddlRPP_Location").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: 'ServiceLocation/fillLocationSearchGrid',
@@ -244,4 +264,29 @@ var saveUpdateLocation = function () {
             }
         });
     }
+};
+
+var count = 0;
+var sortTableL = function (sortby) {
+    var orderby = "";
+    var pagenumber = $("#hndPageNo").val();
+    if (!pagenumber) {
+        pagenumber = 1;
+    }
+
+    if (count % 2 == 1) {
+        orderby = "ASC";
+        $("#SortIconL").removeClass('fa fa-sort-down');
+        $("#SortIconL").addClass('fa fa-sort-up fa-lg');
+    }
+    else {
+        orderby = "DESC";
+        $("#SortIconL").removeClass('fa fa-sort-up');
+        $("#SortIconL").addClass('fa fa-sort-down fa-lg');
+    }
+    localStorage.setItem("SortByValue", sortby);
+    localStorage.setItem("OrderByValue", orderby);
+    count++;
+    buildPaganationLocationList(pagenumber, sortby, orderby);
+    fillLocationSearchGrid(pagenumber, sortby, orderby);
 };
