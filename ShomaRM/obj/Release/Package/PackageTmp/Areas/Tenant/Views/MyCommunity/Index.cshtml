@@ -4,14 +4,14 @@
 @{
     ViewBag.Title = "Index";
 }
-<script src="~/Areas/Tenant/Content/Pages/MyCommunity/MyCommunity.js"></script>
+
 <script src="~/Content/zabuto_calendar.js"></script>
 @*<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />*@
 <input id="hdnUserId" name="UserId" type="hidden" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID" />
 <input id="hndTenantID" name="TenantID" type="hidden" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID" />
 
 <div class="col-md-12">
-    <div class="">
+   
         <div class="tab-content1">
             <div class="community-nav">
                 <ul class="nav nav1 nav-tabs nav-tabs1">
@@ -30,7 +30,7 @@
                             @{
                                 ViewBag.Title = "CreateCommunityClubJoin";
                             }
-                            <h3 class="center headding-sub-text">Club Registration Form</h3>
+                            <h3 class="headding-sub-text margin3  col-lg-12">Club Registration Form</h3>
 
                             <br />
                             @using (Html.BeginForm())
@@ -79,8 +79,8 @@
                                             <div class='col-sm-6 col-md-6 col-lg-6'>
 
                                                 <div class="form-group">
-                                                    <div class='input-group date' id='datetimepicker1'>
-                                                        <input id="txtStartDate" type='text' class="form-control" data-provide="datepicker" name="StartDate" maxlength="20" placeholder="MM/dd/yyyy">
+                                                    <div class='input-group date' @*id='datetimepicker1'*@>
+                                                        <input id="txtStartDate" type='text' style="width:99%;" class="form-control" data-provide="datepicker" name="StartDate" maxlength="20" placeholder="MM/dd/yyyy">
                                                         <span class="input-group-addon">
                                                             <a><span class="fa fa-calendar"></span></a>
                                                         </span>
@@ -130,7 +130,7 @@
                                             <div class="col-sm-6 col-md-6 col-lg-6">
                                                 <div class="form-group">
                                                     <div class='input-group date' id='datetimepicker1'>
-                                                        <div class="time_pick"><input id="txtMeetingTime" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:90%" maxlength="20" placeholder="HH:mm:ss" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
+                                                        <div class="time_pick"><input id="txtMeetingTime" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:99%" maxlength="20" placeholder="HH:mm:ss" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
 
                                                         <span class="input-group-addon">
                                                             <a><span id="btnStartDate" class="fa fa-clock-o "></span></a>
@@ -208,7 +208,7 @@
 
                                             </div>
                                             <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 textarea1">
-                                                <textarea id="txtSpecialInstruction" rows="3" name="SpecialInstruction" placeholder="Special Instructions/Comments" class="form-control" style="margin-top:4px"></textarea>
+                                                <textarea id="txtSpecialInstruction" rows="3" style="width:99%" name="SpecialInstruction" placeholder="Special Instructions/Comments" class="form-control" style="margin-top:4px"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -238,7 +238,7 @@
                                 </div>
                                 <div class="condition-wrapper ">
                                     <input type="checkbox" name="TermsAndCondition" id="chkTermsConditions">
-                                    <span class="chektext">I agree to the <span class="span1"><a>Terms &amp; Condition </a></span></span>
+                                    <span class="chektext pull-right">I agree to the <span class="span1"><a>Terms &amp; Conditions </a></span></span>
                                 </div>
 
                                 <div class="condition-wrapper ">
@@ -246,11 +246,6 @@
                                     <input type="hidden" id="hndfileCommunityActivityOriginalName" />
                                     <button id="ClubSubmit" type="button" onclick="SubmitClubEdit()" class="paynow m-t30">Submit</button>
                                 </div>
-
-
-
-
-
 
                             }
                         </div>
@@ -344,11 +339,218 @@
                 </div>
 
             </div>
-            <div class="hidden" id="step8">
+             <div class="hidden" id="step8">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel-body">
-                            @{Html.RenderPartial("_EditClub", Model);}
+                            @*@{Html.RenderPartial("_EditClub", Model);}*@
+                            <h3 class="headding-sub-text margin3  col-lg-12">Edit CLub</h3>
+                            <br />
+                            <div class="col-md-12">
+                                <div class="row mb-15">
+                                    <div class="col-sm-12">
+
+                                        <div class="payment-box">
+                                            <div class="col-lg-12 margin2">
+                                                <div class="row margin margin-box">
+                                                    <input class="hidden" id="txtClubIdEdit" value="@Model.Id" type="text" />
+
+                                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Club Title:</div>
+
+                                                    <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                                        <input id="txtClubTitleEdit" type="text" name="ClubTitle"  class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Activity:</div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12  border-bottom1 m-l15">
+                                                @Html.DropDownListFor(o => o.ActivityId, Enum.GetValues(typeof(ActivityEnum)).Cast<ActivityEnum>
+                                                   ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "ActivityIdEdit", @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                                <div class="control-label  requiredField text-payment" for="date">
+                                                    Start Date
+                                                </div>
+                                            </div>
+                                            <div class='col-sm-6 col-md-6 col-lg-6'>
+                                                <div class="div-group">
+                                                    <div class='input-group date'>
+                                                        <input id="txtStartDateEdit" type='text' class="form-control" style="width:99%" data-provide="datepicker" value="@Model.StartDate" name="StartDate" maxlength="20" placeholder="MM/dd/yyyy">
+                                                        <span class="input-group-addon">
+                                                            <a><span id="btnStartDateEdit" class="fa fa-calendar"></span></a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Venue:</div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                                <input id="txtVenueEdit" type="text" name="Venue" value="@Model.Venue" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                                                Meeting Day:
+                                            </div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                                @Html.DropDownListFor(o => o.DayId, Enum.GetValues(typeof(DayEnum)).Cast<DayEnum>
+                                                    ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "DayIdEdit", @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                                                Meeting Time:
+
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                                <div class="div-group">
+                                                    <div class='input-group date' id='datetimepicker1'>
+                                                        <div class="time_pick"><input id="txtMeetingTimeEdit" class="time_element form-control form-control-small" type="text"  name="timepicker" style="width:99%" maxlength="20" placeholder="HH:mm:ss" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
+
+                                                        <span class="input-group-addon">
+                                                            <a><span id="btnStartDateEdit" class="fa fa-clock-o "></span></a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Contact/ Organizer:</div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                                <input id="txtContactEdit" type="text" name="Contact"  class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Email:</div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                                <input id="txtEmailEdit" type="text" name="Email"  class="form-control" />
+                                            </div><span class="Required">(Required)</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Phone:</div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                                <input id="txtPhoneNumberEdit" type="text" name="PhoneNumber"  class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="condition-wrapper m-t30 p-b30 ">
+                                    <div class="m-b10 text-subheding">Best way to contact:</div>
+                                    <label class="checbox">
+
+                                        <input id="PhoneCheckEdit" type="radio" name="check">
+                                        Phone
+                                    </label>
+                                    <label class="checbox">
+
+                                        <input id="EmailCheckEdit" type="radio"  name="check" >
+                                        Email
+                                    </label>
+                                </div>
+
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                                                Level:
+                                            </div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                                @Html.DropDownListFor(o => o.LevelId, Enum.GetValues(typeof(LevelEnum)).Cast<LevelEnum>
+                                                     ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "LevelIdEdit", @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="row margin margin-box m-t30">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+
+                                            </div>
+                                            <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 textarea1">
+                                                <textarea id="txtSpecialInstructionEdit" rows="3" name="SpecialInstruction"  placeholder="Special Instructions/Comments" class="form-control" style="margin-top:4px"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                                                Description:
+                                            </div>
+                                            <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 textarea1">
+                                                <textarea id="txtDescriptionEdit" name="Description" rows="5" placeholder="What is your club about?" class="form-control mb-5">@Model.Description</textarea>
+                                                <br />
+                                                <textarea id="txtBriefDescriptionEdit" name="BriefDescription" rows="2" maxlength="40" placeholder="Brief description (limited to 40 characters)" class="form-control mb-5">@Model.BriefDescription</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="condition-wrapper ">
+                                    <input type="checkbox" name="TermsAndCondition" id="chkTermsConditionsEdit">
+                                    <span class="chektext ">I agree to the <span class="span1"><a>Terms &amp; Conditions </a></span></span>
+                                </div>
+
+                                <div class="center">
+                                    <input type="hidden" id="hndfileCommunityActivityEdit" />
+                                    <input type="hidden" id="hndfileCommunityActivityOriginalNameEdit" />
+                                    <button id="ClubSubmitEdit" type="button" class="paynow m-t30" onclick="SubmitClubEdit()">Create Club</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -356,7 +558,7 @@
             </div>
             <!-- End submit form -->
         </div>
-    </div>
+    
 </div>
 
 <div class="modal" id="date-popover" style="padding-right: 370px !important;margin-top: 203px;margin-left: 303px;">

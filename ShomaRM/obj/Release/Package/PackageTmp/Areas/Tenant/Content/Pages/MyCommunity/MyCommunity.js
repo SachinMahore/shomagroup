@@ -274,13 +274,55 @@ function RefreshJoinClubListCurrentUser(EnumId) {
 
 function GetClubEditDetailByClubId(ClubId) {
     $("#divLoader").show();
-    $("#step8").load("/MyCommunity/EditClubPartial", { ClubId: ClubId }, function (response, status, xhr) {
+    //$("#step8").load("/MyCommunity/EditClubPartial", { ClubId: ClubId }, function (response, status, xhr) {
 
-    });
+    //});
+    debugger
+    var jsonData = {
+        ClubId: ClubId
+    };
+    $.post("/MyCommunity/EditClubPartial", jsonData,
+        function (data, status) {
+            $("#divLoader").hide();
+            $("#txtClubIdEdit").val(data.Id);
+            $("#hndTenantID").val(data.TenantID);
+            $("#hdnUserId").val(data.UserId);           
+            
+            $("#txtClubTitleEdit").val(data.ClubTitle);
+            $('#ActivityIdEdit').val(data.ActivityId);
+            var startdate = new Date(data.StringStartDate);
+            var sdate = startdate.getDate();
+            //Note: GetMonth takes  0=January, 1=February etc
+            var smonth = startdate.getMonth() + 1;
+            var syear = startdate.getFullYear();          
+            $("#txtStartDateEdit").val(smonth + '/' + sdate + '/' + syear);
+            $('#txtVenueEdit').val(data.Venue);
+            $("#DayIdEdit").val(data.DayId);
+            $('#txtMeetingTimeEdit').val(data.Time);
+            $("#txtContactEdit").val(data.Contact);
+            $('#txtEmailEdit').val(data.Email);
+            $('#txtPhoneNumberEdit').val(data.PhoneNumber);
+            if (data.PhoneCheck == true) {
+                $("#PhoneCheckEdit").iCheck('check');
+            }
+            else { $("#EmailCheckEdit").iCheck('check');}
+
+            $('#LevelIdEdit').val(data.LevelId);
+            $('#txtSpecialInstructionEdit').val(data.SpecialInstruction);
+            $("#txtDescriptionEdit").val(data.Description);
+            $('#txtBriefDescriptionEdit').val(data.BriefDescription);
+            if (data.TermsAndCondition == true) {
+                $("#chkTermsConditionsEdit").iCheck('check');
+                }
+            
+            
+        });
 
 
 
 }
+
+
 
 var goToStep = function (stepid, id) {
 

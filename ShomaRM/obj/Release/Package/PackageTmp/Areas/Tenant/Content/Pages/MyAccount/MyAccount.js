@@ -2591,14 +2591,14 @@ var fromDashboardGoToMakePayment = function () {
             $("#li5").removeClass("active");
             $("#li6").removeClass("active");
             $("#li7").removeClass("active");
-            $("#step2").addClass("hidden");
-            $("#step1").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step3").removeClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
-            $("#btnAccountHistoryPrint").addClass("hidden")
+            $("#step2").removeClass("active");
+            $("#step1").removeClass("active");
+            $("#step4").removeClass("active");
+            $("#step3").addClass("active");
+            $("#step5").removeClass("active");
+            $("#step6").removeClass("active");
+            $("#step7").removeClass("active");
+            $("#btnAccountHistoryPrint").addClass("hidden");
         }
         if ($('#hdnPayStepIdMakePayment').val() == "2") {
             $("#pay1").removeClass("active1");
@@ -2633,15 +2633,15 @@ var fromDashboardGoToRecurringPayment = function () {
             $("#li2").removeClass("active");
             $("#li1").removeClass("active");
             $("#li4").removeClass("active");
-            $("#step2").addClass("hidden");
-            $("#step1").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step3").removeClass("hidden");
+            $("#step2").removeClass("active");
+            $("#step1").removeClass("active");
+            $("#step4").removeClass("active");
+            $("#step3").addClass("active");//add
             $("#li5").removeClass("active");
             $("#li6").removeClass("active");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
+            $("#step5").removeClass("active");
+            $("#step6").removeClass("active");
+            $("#step7").removeClass("active");
             $("#li7").removeClass("active");
         }
         if ($('#hdnPayStepIdRecurring').val() == "4") {
@@ -2684,13 +2684,13 @@ var fromDashboardGoToRegisterGuest = function () {
             $("#li7").addClass("active");
             $("#li5").removeClass("active");
             $("#li6").removeClass("active");
-            $("#step2").addClass("hidden");
-            $("#step1").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").removeClass("hidden");
+            $("#step2").removeClass("active");
+            $("#step1").removeClass("active");
+            $("#step4").removeClass("active");
+            $("#step3").removeClass("active");
+            $("#step5").removeClass("active");
+            $("#step6").removeClass("active");
+            $("#step7").addClass("active");//active
 
 
 
@@ -2707,20 +2707,20 @@ var fromDashboardGoToReserveAmenities = function () {
     if ($('#hdnStepReserveAmenities').val() == "5" && $('#hdnPayIdReserveAmenities').val() == "2") {
 
         if ($('#hdnStepReserveAmenities').val() == "5") {
-            $("#step5").removeClass("hidden");
+            $("#step5").addClass("active");//active
             $("#li5").addClass("active");
 
             $("#li4").removeClass("active");
             $("#li2").removeClass("active");
             $("#li3").removeClass("active");
             $("#li1").removeClass("active");
-            $("#step2").addClass("hidden");
-            $("#step1").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step4").addClass("hidden");
+            $("#step2").removeClass("active");
+            $("#step1").removeClass("active");
+            $("#step3").removeClass("active");
+            $("#step4").removeClass("active");
             $("#li6").removeClass("active");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
+            $("#step6").removeClass("active");
+            $("#step7").removeClass("active");
             $("#li7").removeClass("active");
 
         }
@@ -2737,8 +2737,14 @@ var fromDashboardGoToReserveAmenities = function () {
             //    $("#payStep3").addClass("hidden");
             //    $("#payStep4").addClass("hidden");
             //    $("#payStep5").addClass("hidden");
-            $("#reservationStep1").removeClass("active");
-            $("#reservationStep2").addClass("active");
+
+            $("#reservation1").removeClass("active");
+            $("#reservation2").addClass("active");
+
+            $("#reservationStep1").addClass("hidden");
+            $("#reservationStep2").removeClass("hidden");
+
+          
             //    $('#btnPaymentSnapshot').addClass('hidden');
             //    $('#btnRecurringPayment').removeClass('hidden');
         }
@@ -2760,15 +2766,15 @@ var fromDashboardGoToSubmitServiceRequest = function () {
             $("#li2").removeClass("active");
             $("#li3").removeClass("active");
             $("#li1").removeClass("active");
-            $("#step2").addClass("hidden");
-            $("#step1").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step4").removeClass("hidden");
+            $("#step2").removeClass("active");
+            $("#step1").removeClass("active");
+            $("#step3").removeClass("active");
+            $("#step4").addClass("active");//active
             $("#li5").removeClass("active");
             $("#li6").removeClass("active");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
+            $("#step5").removeClass("active");
+            $("#step6").removeClass("active");
+            $("#step7").removeClass("active");
             $("#li7").removeClass("active");
         }
         if ($('#hdnServiceStepIdServiceRequest2').val() == "2") {
@@ -3135,6 +3141,7 @@ var goToPaymentFromMyHome = function () {
 };
 
 var goToRecurringPaymentFromMyHome = function () {
+ 
     getUpTransationLists();
     getAllDues();
     getTransationLists();
