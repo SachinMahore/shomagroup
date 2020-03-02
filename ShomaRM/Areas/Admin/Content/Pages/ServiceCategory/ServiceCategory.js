@@ -34,7 +34,7 @@ $(document).ready(function () {
         nextText: '&raquo;',
         onInit: function () {
             //console.log("Pagination_Init");
-            buildPaganationScategoryList(1, "ServiceIssue",  "ASC");
+            buildPaganationScategoryList(1);
         },
         onPageClick: function (page, evt) {
             $("#hdnCurrentPage").val(page);
