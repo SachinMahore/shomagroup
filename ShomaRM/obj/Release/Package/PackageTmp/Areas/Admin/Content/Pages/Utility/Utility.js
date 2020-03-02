@@ -12,11 +12,19 @@ $(document).keypress(function (e) {
         buildPaganationUtilityList(1);
     }
 });
-var fillUtilityList = function (pagenumber) {
+var fillUtilityList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = 'UtilityName';
+    }
+    if (!orderby) {
+        orderby = 'ASC';
+    }
     var model = {
         Criteria: $("#txtCriteriaUtility").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_Utility").val()
+        NumberOfRows: $("#ddlRPP_Utility").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: 'Utility/GetUtilityList',
@@ -39,6 +47,7 @@ var fillUtilityList = function (pagenumber) {
                     $("#tblUtility>tbody").append(html);
                 });
             }
+            $("#hndPageNo").val(pagenumber);
         }
     });
 };
@@ -53,12 +62,20 @@ var fillRPP_Utility = function () {
         buildPaganationUtilityList($("#hdnCurrentPage").val());
     });
 };
-var buildPaganationUtilityList = function (pagenumber) {
+var buildPaganationUtilityList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = 'UtilityName';
+    }
+    if (!orderby) {
+        orderby = 'ASC';
+    }
     var searchtype = $("#hdnSearchType").val();
     var model = {
         Criteria: $("#txtCriteriaUtility").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_Utility").val()
+        NumberOfRows: $("#ddlRPP_Utility").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: 'Utility/BuildPaganationUtilityList',
@@ -197,7 +214,9 @@ $(document).ready(function () {
         },
         onPageClick: function (page, evt) {
             $("#hdnCurrentPage").val(page);
-            fillUtilityList(page);
+            var SortByValueUtility = localStorage.getItem("SortByValueUtility");
+            var OrderByValueUtility = localStorage.getItem("OrderByValueUtility");
+            fillUtilityList(page, SortByValueUtility, OrderByValueUtility);
         }
     });
     $('#tblUtility tbody').on('click', 'tr', function () {
@@ -244,4 +263,30 @@ var delUtility = function (utilityID) {
             }
         }
     });
+};
+
+var count = 0;
+var sortTableUtility = function (sortby) {
+
+    var orderby = "";
+    var pNumber = $("#hndPageNo").val();
+    if (!pNumber) {
+        pNumber = 1;
+    }
+
+    if (count % 2 == 1) {
+        orderby = "ASC";
+        $('#SortIconUtility').removeClass('fa fa-sort-down');
+        $('#SortIconUtility').addClass('fa fa-sort-up fa-lg');
+    }
+    else {
+        orderby = "DESC";
+        $('#SortIconUtility').removeClass('fa fa-sort-up');
+        $('#SortIconUtility').addClass('fa fa-sort-down fa-lg');
+    }
+    localStorage.setItem("SortByValueUtility", sortby);
+    localStorage.setItem("OrderByValueUtility", orderby);
+    count++;
+    buildPaganationUtilityList(pNumber, sortby, orderby);
+    fillUtilityList(pNumber, sortby, orderby);
 };

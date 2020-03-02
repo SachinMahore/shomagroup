@@ -19,13 +19,22 @@ var fillRPP_SlotList = function () {
         buildPaganationSlotList($("#hdnCurrentPage_FL").val());
     });
 };
-var buildPaganationSlotList = function (pagenumber) {
+var buildPaganationSlotList = function (pagenumber, sortbyAS, orderbyAS) {
+    if (!sortbyAS) {
+        sortbyAS = "AmenityName";
+    }
+    if (!orderbyAS) {
+        orderbyAS = "ASC";
+    }
     var model = {
         ToDate: $("#txtToDate").val(),
         FromDate: $("#txtFromDate").val(),
         PageNumber: 1,
-        NumberOfRows: $("#ddlRPP_SlotList").val()
+        NumberOfRows: $("#ddlRPP_SlotList").val(),
+        SortBy: sortbyAS,
+        OrderBy: orderbyAS
     };
+    
     $.ajax({
         url: "/AmenitiesSlot/BuildPaganationSlotList",
         method: "post",
@@ -48,12 +57,20 @@ var buildPaganationSlotList = function (pagenumber) {
         }
     });
 };
-var fillSlotList = function (pagenumber) {
+var fillSlotList = function (pagenumber, sortbyAS, orderbyAS) {
+    if (!sortbyAS) {
+        sortbyAS = "AmenityName";
+    }
+    if (!orderbyAS) {
+        orderbyAS = "ASC";
+    }
     var model = {
         ToDate: $("#txtToDate").val(),
         FromDate: $("#txtFromDate").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_SlotList").val()
+        NumberOfRows: $("#ddlRPP_SlotList").val(),
+        SortBy: sortbyAS,
+        OrderBy: orderbyAS
     };
     $.ajax({
         url: '/AmenitiesSlot/FillSlotSearchGrid',
@@ -96,7 +113,9 @@ $(document).ready(function () {
         },
         onPageClick: function (page, evt) {
             $("#hdnCurrentPage_FL").val(page);
-            fillSlotList(page);
+            var sortByValueAS = localStorage.getItem("SortByValueAS");
+            var OrderByValueAS = localStorage.getItem("OrderByValueAS");
+            fillSlotList(page, sortByValueAS, OrderByValueAS);
         }
     });
     $('#tblSlot tbody').on('click', 'tr', function () {
@@ -113,3 +132,63 @@ $(document).keypress(function (e) {
     }
 });
 
+var count = 0;
+var sortTableAmenitiesSlot = function (sortbyAS) {
+    var orderbyAS = "";
+    var pagenumber = $("#hndPageNo").val();
+    if (!pagenumber) {
+        pagenumber = 1;
+    }
+
+    if (count % 2 == 1) {
+        orderbyAS = "ASC";
+        $("#SortIconAmenities").removeClass('fa fa-sort-up');
+        $("#SortIconAmenities").removeClass('fa fa-sort-down');
+        $("#SortIconDuration").removeClass('fa fa-sort-up');
+        $("#SortIconDuration").removeClass('fa fa-sort-down');
+        $("#SortIconDepositFeeName").removeClass('fa fa-sort-up');
+        $("#SortIconDepositFeeName").removeClass('fa fa-sort-down');
+        $("#SortIconReservationFeeName").removeClass('fa fa-sort-up');
+        $("#SortIconReservationFeeName").removeClass('fa fa-sort-down');
+        if (sortbyAS == 'AmenityName') {
+            $("#SortIconAmenities").addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortbyAS == 'DurationName') {
+            $("#SortIconDuration").addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortbyAS == 'DepositFeeName') {
+            $("#SortIconDepositFeeName").addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortbyAS == 'ReservationFeeName') {
+            $("#SortIconReservationFeeName").addClass('fa fa-sort-up fa-lg');
+        }
+    }
+    else {
+        orderbyAS = "DESC";
+        $("#SortIconAmenities").removeClass('fa fa-sort-up');
+        $("#SortIconAmenities").removeClass('fa fa-sort-down');
+        $("#SortIconDuration").removeClass('fa fa-sort-up');
+        $("#SortIconDuration").removeClass('fa fa-sort-down');
+        $("#SortIconDepositFeeName").removeClass('fa fa-sort-up');
+        $("#SortIconDepositFeeName").removeClass('fa fa-sort-down');
+        $("#SortIconReservationFeeName").removeClass('fa fa-sort-up');
+        $("#SortIconReservationFeeName").removeClass('fa fa-sort-down');
+        if (sortbyAS == 'AmenityName') {
+            $("#SortIconAmenities").addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortbyAS == 'DurationName') {
+            $("#SortIconDuration").addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortbyAS == 'DepositFeeName') {
+            $("#SortIconDepositFeeName").addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortbyAS == 'ReservationFeeName') {
+            $("#SortIconReservationFeeName").addClass('fa fa-sort-down fa-lg');
+        }
+    }
+    localStorage.setItem("SortByValueAS", sortbyAS);
+    localStorage.setItem("OrderByValueAS", orderbyAS);
+    count++;
+    buildPaganationSlotList(pagenumber, sortbyAS, orderbyAS);
+    fillSlotList(pagenumber, sortbyAS, orderbyAS);
+};

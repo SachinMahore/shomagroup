@@ -138,6 +138,28 @@
     <Property Name="AdministrationFee" Type="money" />
     <Property Name="LeaseTerm" Type="int" />
     <Property Name="MonthlyCharges" Type="money" />
+    <Property Name="EsignatureID" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tbl_AuditHistory">
+    <Key>
+      <PropertyRef Name="AHID" />
+    </Key>
+    <Property Name="AHID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TableName" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="EventName" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="EventRows" Type="int" Nullable="false" />
+    <Property Name="EventDate" Type="datetime" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_AuditHistoryDetail">
+    <Key>
+      <PropertyRef Name="AHDID" />
+    </Key>
+    <Property Name="AHDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AHID" Type="int" Nullable="false" />
+    <Property Name="PKColumnValue" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FKColumnValue" Type="varchar" MaxLength="50" />
+    <Property Name="AuditDetails" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="tbl_BankAccount">
     <Key>
@@ -298,6 +320,19 @@
     <Property Name="LeaseDocuments" Type="varchar" MaxLength="500" />
     <Property Name="DocumentState" Type="varchar" MaxLength="500" />
     <Property Name="DocumentIDNumber" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="tbl_Estimate">
+    <Key>
+      <PropertyRef Name="EID" />
+    </Key>
+    <Property Name="EID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceID" Type="bigint" />
+    <Property Name="Description" Type="varchar(max)" />
+    <Property Name="Vendor" Type="varchar" MaxLength="500" />
+    <Property Name="Amount" Type="varchar" MaxLength="500" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="Status" Type="varchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="tbl_Event">
     <Key>
@@ -837,6 +872,7 @@
     <Property Name="Status" Type="int" />
     <Property Name="PropertyID" Type="bigint" />
     <Property Name="AssignAgentId" Type="bigint" />
+    <Property Name="AppointmentStatus" Type="int" />
   </EntityType>
   <EntityType Name="tbl_PurchaseOrder">
     <Key>
@@ -943,6 +979,12 @@
     <Property Name="ClosingDate" Type="datetime" />
     <Property Name="OwnerSignature" Type="nvarchar" MaxLength="100" />
     <Property Name="TempOwnerSignature" Type="nvarchar" MaxLength="100" />
+    <Property Name="WarrantyStatus" Type="int" />
+    <Property Name="TaskNotes" Type="varchar(max)" />
+    <Property Name="CreatedBy" Type="bigint" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="bigint" />
+    <Property Name="ModifiedDate" Type="datetime" />
   </EntityType>
   <EntityType Name="tbl_State">
     <Key>
@@ -1421,6 +1463,18 @@
     <Property Name="AreaCode" Type="varchar" MaxLength="3" />
     <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
+  <Association Name="FK_syAuditHistDetail_syAuditHist">
+    <End Role="tbl_AuditHistory" Type="Self.tbl_AuditHistory" Multiplicity="1" />
+    <End Role="tbl_AuditHistoryDetail" Type="Self.tbl_AuditHistoryDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_AuditHistory">
+        <PropertyRef Name="AHID" />
+      </Principal>
+      <Dependent Role="tbl_AuditHistoryDetail">
+        <PropertyRef Name="AHID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_tbl_Applicant_tbl_ApplyNow">
     <End Role="tbl_ApplyNow" Type="Self.tbl_ApplyNow" Multiplicity="0..1" />
     <End Role="tbl_Applicant" Type="Self.tbl_Applicant" Multiplicity="*" />
@@ -2354,6 +2408,8 @@
     <EntitySet Name="tbl_Applicant" EntityType="Self.tbl_Applicant" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_ApplicantHistory" EntityType="Self.tbl_ApplicantHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_ApplyNow" EntityType="Self.tbl_ApplyNow" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_AuditHistory" EntityType="Self.tbl_AuditHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_AuditHistoryDetail" EntityType="Self.tbl_AuditHistoryDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_BankAccount" EntityType="Self.tbl_BankAccount" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Bill" EntityType="Self.tbl_Bill" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_CashReceipts" EntityType="Self.tbl_CashReceipts" Schema="dbo" store:Type="Tables" />
@@ -2366,6 +2422,7 @@
     <EntitySet Name="tbl_Country" EntityType="Self.tbl_Country" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Document" EntityType="Self.tbl_Document" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_DocumentVerification" EntityType="Self.tbl_DocumentVerification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Estimate" EntityType="Self.tbl_Estimate" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Event" EntityType="Self.tbl_Event" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_EventBooking" EntityType="Self.tbl_EventBooking" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Facility" EntityType="Self.tbl_Facility" Schema="dbo" store:Type="Tables" />
@@ -2424,6 +2481,10 @@
     <EntitySet Name="tbl_Visit" EntityType="Self.tbl_Visit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_WorkOrder" EntityType="Self.tbl_WorkOrder" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_ZipCodes" EntityType="Self.tbl_ZipCodes" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_syAuditHistDetail_syAuditHist" Association="Self.FK_syAuditHistDetail_syAuditHist">
+      <End Role="tbl_AuditHistory" EntitySet="tbl_AuditHistory" />
+      <End Role="tbl_AuditHistoryDetail" EntitySet="tbl_AuditHistoryDetail" />
+    </AssociationSet>
     <AssociationSet Name="FK_tbl_Applicant_tbl_ApplyNow" Association="Self.FK_tbl_Applicant_tbl_ApplyNow">
       <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
       <End Role="tbl_Applicant" EntitySet="tbl_Applicant" />

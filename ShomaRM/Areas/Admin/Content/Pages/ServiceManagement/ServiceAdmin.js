@@ -39,9 +39,15 @@ var goToServiceDetails = function (ServiceID) {
 
             $("#hndServiceID").val(response.model.ServiceID);
             $('#lbltenantName').text(response.model.TenantName);
+            $('#lbltenantNameAssignment').text(response.model.TenantName);
             $('#ProblemCatrgory').text(response.model.ProblemCategorystring);
+            $('#ProblemCatrgoryAssignment').text(response.model.ProblemCategorystring);
             $('#lblLeaseStartDate').text(response.model.MStartDateString);
+            $('#lblLeaseStartDateAssignment').text(response.model.MStartDateString);
             $('#lblLeaseTerminationtDate').text(response.model.MLeaseEndDateString);
+            $('#lblLeaseTerminationtDateAssignment').text(response.model.MLeaseEndDateString);
+            $('#lblLeaseStartDateAssignment').text(response.model.MStartDateString);
+            $('#lblLeaseTerminationtDateAssignment').text(response.model.MLeaseEndDateString);
             if (response.model.Details == null || response.model.Details == '') {
 
                 $('#ProbleOther').addClass('hidden');
@@ -76,11 +82,24 @@ var goToServiceDetails = function (ServiceID) {
             $('#lblContactNo').text(formatPhoneFax(response.model.Phone));
             $('#lblCurrentStatus').text(response.model.StatusString);
             $('#lblEnteryNote').text(response.model.Notes);
+
+            $('#lbltenantDateAssignment').text(response.model.MoveIndate);
+            $('#lblProjectAssignment').text(response.model.Project);
+            $('#lbltenantIdAssignment').text(response.model.ServiceID);
+            $('#lblcaussingIssueAssignment').text(response.model.CausingIssue);
+            $('#lblIssueAssignment').text(response.model.Issue);
+            $('#lblLocationAssignment').text(response.model.LocationString);
+            $('#lblUnitNoAssignment').text(response.model.Unit);
+            $('#lblContactNoAssignment').text(formatPhoneFax(response.model.Phone));
+            $('#lblCurrentStatusAssignment').text(response.model.StatusString);
+            $('#lblEnteryNoteAssignment').text(response.model.Notes);
             if (response.model.UrgentStatus == '1') {
                 $('#Urgent').iCheck('check');
+                $("#urgentStatus").text("URGENT!!!");
 
             } else {
                 $('#NotUrgent').iCheck('check');
+                $("#urgentStatus").text("NOT URGENT!!!");
             }
 
             if (response.model.WarrantyStatus == 1) {
@@ -91,7 +110,10 @@ var goToServiceDetails = function (ServiceID) {
             }
 
             $('#lblEmergencyNo').text(formatPhoneFax(response.model.EmergencyMobile));
+            $('#lblEmergencyNoAssignment').text(formatPhoneFax(response.model.EmergencyMobile));
             $('#lblEmail').text(response.model.Email);
+            $('#lblEmergencyNoAssignment').text(formatPhoneFax(response.model.EmergencyMobile));
+            $('#lblEmailAssignment').text(response.model.Email);
 
             if (response.model.PermissionComeDateString != null) {
                 $('#AnyTime').addClass('hidden');
@@ -144,6 +166,7 @@ var goToServiceDetails = function (ServiceID) {
             }
             $("#txtClosingNotes").val(response.model.ClosingNotes);
             $("#txtTaskNotes").val(response.model.TaskNotes);
+            $("#taskDescriptionAssignment").text(response.model.TaskNotes);
             $("#txtClosingDate").val(response.model.ClosingDatestring);
             $("#txtClosingDate").datepicker("setdate", response.model.ClosingDatestring);
 
@@ -563,6 +586,15 @@ var getEstimateData = function (id) {
         data: JSON.stringify(model),
         dataType: "json",
         success: function (response) {
+            alert(response.model.Status)
+            if (response.model.Status == "1")
+            {
+                $("#generateInvoice").removeClass("hidden");
+                $("#saveEstimate").addClass("hidden");
+            } else {
+                $("#saveEstimate").removeClass("hidden");
+                $("#generateInvoice").addClass("hidden");
+            }
             //console.log(JSON.stringify(response));
             updateEstimateDesign(1);
             var id = $("#hndServiceID").val(response.model.ServiceID);
@@ -609,3 +641,55 @@ var fillAssignmentAuditHistory = function () {
         }
     });
 };  
+var generateSerInvoice = function () {
+    $("#divLoader").show();
+    var msg = '';
+    var id = $("#hndServiceID").val();
+    var eid = $("#hndEID").val();
+    var vendor = $("#txtEstimateVendor").val();
+    var amount = $("#txtEstimateAmount").val();
+    var description = $("#txtEstimateDesc").val();
+    var status =3;
+
+    if (vendor == "") {
+        msg += 'Please fill the Vendor details</br>';
+    }
+    if (amount < 0 || amount == "") {
+        msg += 'Please fill the amount</br>';
+    }
+
+    if (msg != "") {
+        $.alert({
+            title: '',
+            content: msg,
+            type: 'red'
+        });
+        $("#divLoader").hide();
+        return;
+    }
+    var model = {
+        EID: eid,
+        ServiceID: id,
+        Vendor: vendor,
+        Amount: amount,
+        Description: description,
+        Status: status
+    };
+
+    $.ajax({
+        url: '/ServicesManagement/SaveUpdateEstimate',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $.alert({
+                title: "",
+                content: response.model,
+                type: 'blue'
+            });
+            fillEstimate();
+        }
+    });
+    $("#divLoader").hide();
+};

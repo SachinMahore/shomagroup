@@ -50,8 +50,8 @@
                     <table id="tblCausingIssue" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939;width:20%;">Service Category </th>
-                                <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939;width:60%;">Causing Issue </th>
+                                <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939;width:20%;cursor:pointer" onclick="sortTableSC('ServiceIssue')">Service Category <i id="SortIconSC"></i></th>
+                                <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939;width:60%;cursor:pointer" onclick="sortTableSC('CausingIssue')">Causing Issue <i id="SortIconCS"></i></th>
                                 <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939;width:20%;">Action </th>
                             </tr>
                         </thead>
@@ -79,7 +79,7 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label for="firstname" class="star">Causing Issue</label>
+                                <label for="firstname" class="star" >Causing Issue</label>
                                 <input class="form-control form-control-small" id="txtCausingIssue" maxlength="100" />
                             </div>
 

@@ -19,12 +19,20 @@ var fillRPP_EventList = function () {
         buildPaganationEventList($("#hdnCurrentPage_FL").val());
     });
 };
-var buildPaganationEventList = function (pagenumber) {
+var buildPaganationEventList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = 'EventName';
+    }
+    if (!orderby) {
+        orderby = 'ASC';
+    }
     var model = {
         ToDate: $("#txtToDate").val(),
         FromDate: $("#txtFromDate").val(),
         PageNumber: 1,
-        NumberOfRows: $("#ddlRPP_EventList").val()
+        NumberOfRows: $("#ddlRPP_EventList").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: "/Event/BuildPaganationEventList",
@@ -48,12 +56,20 @@ var buildPaganationEventList = function (pagenumber) {
         }
     });
 };
-var fillEventList = function (pagenumber) {
+var fillEventList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = 'EventName';
+    }
+    if (!orderby) {
+        orderby = 'ASC';
+    }
     var model = {
         ToDate: $("#txtToDate").val(),
         FromDate: $("#txtFromDate").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_EventList").val()
+        NumberOfRows: $("#ddlRPP_EventList").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: '/Event/FillEventSearchGrid',
@@ -91,6 +107,7 @@ var fillEventList = function (pagenumber) {
                     $("#tblEvent>tbody").append(html);
                 });
             }
+            $("#hndPageNo").val(pagenumber);
         }
     });
 };
@@ -110,7 +127,9 @@ $(document).ready(function () {
         },
         onPageClick: function (page, evt) {
             $("#hdnCurrentPage_FL").val(page);
-            fillEventList(page);
+            var SortByValueEvent = localStorage.getItem("SortByValueEvent");
+            var OrderByValueEvent = localStorage.getItem("OrderByValueEvent");
+            fillEventList(page, SortByValueEvent, OrderByValueEvent);
         }
     });
     $('#tblEvent tbody').on('click', 'tr', function () {
@@ -126,4 +145,66 @@ $(document).keypress(function (e) {
         buildPaganationEventList(1);
     }
 });
+
+var count = 0;
+var sortTableEvent = function (sortby) {
+
+    var orderby = "";
+    var pNumber = $("#hndPageNo").val();
+    if (!pNumber) {
+        pNumber = 1;
+    }
+
+    if (count % 2 == 1) {
+        orderby = "ASC";
+        $('#sortEventIcon').removeClass('fa fa-sort-up');
+        $('#sortEventIcon').removeClass('fa fa-sort-down');
+        $('#sortPropertyIcon').removeClass('fa fa-sort-up');
+        $('#sortPropertyIcon').removeClass('fa fa-sort-down');
+        $('#sortEventDateIcon').removeClass('fa fa-sort-up');
+        $('#sortEventDateIcon').removeClass('fa fa-sort-down');
+        $('#sortTypeIcon').removeClass('fa fa-sort-up');
+        $('#sortTypeIcon').removeClass('fa fa-sort-down');
+        if (sortby == 'EventName') {
+            $('#sortEventIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'PropertyName') {
+            $('#sortPropertyIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'EventDateName') {
+            $('#sortEventDateIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'TypeName') {
+            $('#sortTypeIcon').addClass('fa fa-sort-up fa-lg');
+        }
+    }
+    else {
+        orderby = "DESC";
+        $('#sortEventIcon').removeClass('fa fa-sort-up');
+        $('#sortEventIcon').removeClass('fa fa-sort-down');
+        $('#sortPropertyIcon').removeClass('fa fa-sort-up');
+        $('#sortPropertyIcon').removeClass('fa fa-sort-down');
+        $('#sortEventDateIcon').removeClass('fa fa-sort-up');
+        $('#sortEventDateIcon').removeClass('fa fa-sort-down');
+        $('#sortTypeIcon').removeClass('fa fa-sort-up');
+        $('#sortTypeIcon').removeClass('fa fa-sort-down');
+        if (sortby == 'EventName') {
+            $('#sortEventIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'PropertyName') {
+            $('#sortPropertyIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'EventDateName') {
+            $('#sortEventDateIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'TypeName') {
+            $('#sortTypeIcon').addClass('fa fa-sort-down fa-lg');
+        }
+    }
+    localStorage.setItem("SortByValueEvent", sortby);
+    localStorage.setItem("OrderByValueEvent", orderby);
+    count++;
+    buildPaganationEventList(pNumber, sortby, orderby);
+    fillEventList(pNumber, sortby, orderby);
+};
 

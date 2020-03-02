@@ -115,6 +115,7 @@
     <NavigationProperty Name="tbl_TenantPetPlace" Relationship="Self.FK_tbl_TenantPetPlace_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantPetPlace" />
     <NavigationProperty Name="tbl_TenantStorage" Relationship="Self.FK_tbl_TenantStorage_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantStorage" />
     <NavigationProperty Name="tbl_Vehicle" Relationship="Self.FK_tbl_Vehicle_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Vehicle" />
+    <Property Name="EsignatureID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="tbl_BankAccount">
     <Key>
@@ -907,6 +908,7 @@
     <NavigationProperty Name="tbl_State" Relationship="Self.FK_tbl_Prospect_tbl_State" FromRole="tbl_Prospect" ToRole="tbl_State" />
     <NavigationProperty Name="tbl_Visit" Relationship="Self.FK_tbl_Visit_tbl_Prospect" FromRole="tbl_Prospect" ToRole="tbl_Visit" />
     <Property Name="AssignAgentId" Type="Int64" />
+    <Property Name="AppointmentStatus" Type="Int32" />
   </EntityType>
   <EntityType Name="tbl_PurchaseOrder">
     <Key>
@@ -1019,6 +1021,12 @@
     <Property Name="ClosingDate" Type="DateTime" Precision="3" />
     <Property Name="OwnerSignature" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="TempOwnerSignature" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="WarrantyStatus" Type="Int32" />
+    <Property Name="TaskNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="Int64" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="tbl_State">
     <Key>
@@ -2801,6 +2809,13 @@
     <EntitySet Name="tbl_AmenityReservation" EntityType="ShomaRMEntitiesModel.tbl_AmenityReservation" />
     <EntitySet Name="tbl_AcutraqScrenning" EntityType="ShomaRMEntitiesModel.tbl_AcutraqScrenning" />
     <EntitySet Name="tbl_Transaction" EntityType="ShomaRMEntitiesModel.tbl_Transaction" />
+    <EntitySet Name="tbl_AuditHistory" EntityType="ShomaRMEntitiesModel.tbl_AuditHistory" />
+    <EntitySet Name="tbl_AuditHistoryDetail" EntityType="ShomaRMEntitiesModel.tbl_AuditHistoryDetail" />
+    <EntitySet Name="tbl_Estimate" EntityType="ShomaRMEntitiesModel.tbl_Estimate" />
+    <AssociationSet Name="FK_syAuditHistDetail_syAuditHist" Association="ShomaRMEntitiesModel.FK_syAuditHistDetail_syAuditHist">
+      <End Role="tbl_AuditHistory" EntitySet="tbl_AuditHistory" />
+      <End Role="tbl_AuditHistoryDetail" EntitySet="tbl_AuditHistoryDetail" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="tbl_Country">
     <Key>
@@ -2887,4 +2902,52 @@
     <Property Name="TCardExpirationYear" Type="String" MaxLength="29" FixedLength="false" Unicode="true" />
     <Property Name="Authcode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
   </EntityType>
+  <EntityType Name="tbl_AuditHistory">
+    <Key>
+      <PropertyRef Name="AHID" />
+    </Key>
+    <Property Name="AHID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TableName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="EventName" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="EventRows" Type="Int32" Nullable="false" />
+    <Property Name="EventDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_AuditHistoryDetail" Relationship="ShomaRMEntitiesModel.FK_syAuditHistDetail_syAuditHist" FromRole="tbl_AuditHistory" ToRole="tbl_AuditHistoryDetail" />
+  </EntityType>
+  <EntityType Name="tbl_AuditHistoryDetail">
+    <Key>
+      <PropertyRef Name="AHDID" />
+    </Key>
+    <Property Name="AHDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AHID" Type="Int32" Nullable="false" />
+    <Property Name="PKColumnValue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FKColumnValue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AuditDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_AuditHistory" Relationship="ShomaRMEntitiesModel.FK_syAuditHistDetail_syAuditHist" FromRole="tbl_AuditHistoryDetail" ToRole="tbl_AuditHistory" />
+  </EntityType>
+  <EntityType Name="tbl_Estimate">
+    <Key>
+      <PropertyRef Name="EID" />
+    </Key>
+    <Property Name="EID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ServiceID" Type="Int64" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Vendor" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Amount" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="Status" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_syAuditHistDetail_syAuditHist">
+    <End Type="ShomaRMEntitiesModel.tbl_AuditHistory" Role="tbl_AuditHistory" Multiplicity="1" />
+    <End Type="ShomaRMEntitiesModel.tbl_AuditHistoryDetail" Role="tbl_AuditHistoryDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_AuditHistory">
+        <PropertyRef Name="AHID" />
+      </Principal>
+      <Dependent Role="tbl_AuditHistoryDetail">
+        <PropertyRef Name="AHID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

@@ -8,6 +8,7 @@
 <input type="hidden" id="hndUtilityID" value="" />
 <input type="hidden" id="hdnSearchType" value="1" />
 <input type="hidden" id="hdnCurrentPage" value="1" />
+<input type="hidden" id="hndPageNo" value="0" />
 <div class="register-area" style="background-color: rgb(249, 249, 249);">
     <div class="container" style="width:100% !important">
         <div class="breadcrumb">
@@ -46,7 +47,7 @@
                     <table id="tblUtility" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939;width:75%;">Utility </th>
+                                <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939;width:75%;cursor:pointer;" title="Sort" onclick="sortTableUtility('UtilityName')">Utility <i id="SortIconUtility"></i></th>
                                 <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939;width:25%;">Action</th>
                             </tr>
                         </thead>

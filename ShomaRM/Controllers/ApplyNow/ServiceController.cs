@@ -1,4 +1,5 @@
-﻿using ShomaRM.Data;
+﻿using ShomaRM.Areas.Admin.Models;
+using ShomaRM.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,17 +19,37 @@ namespace ShomaRM.Controllers.ApplyNow
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
             var GetServiceData = db.tbl_Estimate.Where(p => p.EID == EID).FirstOrDefault();
-            if(GetServiceData!=null)
+            var salesPersonnInfo = db.tbl_Login.Where(p => p.UserID == GetServiceData.CreatedBy).FirstOrDefault();
+            var GetServiceDet = db.tbl_ServiceRequest.Where(p => p.ServiceID == GetServiceData.ServiceID).FirstOrDefault();
+            var GetTenantData = db.tbl_TenantInfo.Where(p => p.TenantID == GetServiceDet.TenantID).FirstOrDefault();
+            if (GetServiceData!=null)
             {
                 if (GetServiceData.Status == "0")
                 {
                     GetServiceData.Status = Status.ToString();
                     db.SaveChanges();
+
+                    string reportHTMLAgent = "";
+                    string filePathAg = HttpContext.Server.MapPath("~/Content/assets/img/Document/");
+                    reportHTMLAgent = System.IO.File.ReadAllText(filePathAg + "EmailTemplateAmenity.html");
+
+                    //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
+                    reportHTMLAgent = reportHTMLAgent.Replace("[%TenantName%]", salesPersonnInfo.FirstName + " " + salesPersonnInfo.LastName);
+                    reportHTMLAgent = reportHTMLAgent.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Service Estimate of Repair of Amount: $" + GetServiceData.Amount + " for Vendor: " + GetServiceData.Vendor + ",  with Description: " + GetServiceData.Description + ". </p><p><h2>STATUS: " + (Status == 1 ? "ACCEPTED" : "DENIED") + "</h2></p>");
+
+                    reportHTMLAgent = reportHTMLAgent.Replace("[%LeaseNowButton%]", "");
+
+                    string bodyAg = reportHTMLAgent;
+                    salesPersonnInfo.Email = "sachinmahore@gmail.com";
+                    new EmailSendModel().SendEmail(salesPersonnInfo.Email, "Service Request Estimate Status of " + GetTenantData.FirstName + " " + GetTenantData.LastName + "- STATUS: " + (Status == 1 ? "ACCEPTED" : "DENIED") + "", bodyAg);
+
                 }
                 else
                 {
                     ViewBag.Status = 3;
                 }
+
+                
             }
             return View();
         }

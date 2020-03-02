@@ -42,11 +42,14 @@
 
         if (checkboxChecked) {
             status = 1;
+            $("#btnPostCommunity").attr("disabled", false);
         } else {
             status = 0;
+            $("#btnPostCommunity").attr("disabled", true).css('color', '#4D738A');
         }
 
         saveUpdatePostDisclaimer(status);
+
     });
 
 });
@@ -780,10 +783,12 @@ var getIsAgreeDisclaimer = function () {
 
             if(response.model.IsAgreePostDisclaimer == 0) {
                 $("#chkDisclaimer").iCheck('uncheck');
+                $("#btnPostCommunity").attr("disabled", true).css('background-color', '#4D738A');
             }
             else {
                 
                 $("#chkDisclaimer").iCheck('check');
+                $("#btnPostCommunity").attr("disabled", false);
             }
         }
     });

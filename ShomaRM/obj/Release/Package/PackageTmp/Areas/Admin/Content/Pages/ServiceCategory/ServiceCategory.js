@@ -38,7 +38,9 @@ $(document).ready(function () {
         },
         onPageClick: function (page, evt) {
             $("#hdnCurrentPage").val(page);
-            fillSCategorySearchGrid(page);
+            var sortByValue = localStorage.getItem("SortByValue");
+            var OrderByValue = localStorage.getItem("OrderByValue");
+            fillSCategorySearchGrid(page, sortByValue, OrderByValue);
         }
     });
 });
@@ -54,13 +56,20 @@ var fillRPP_ServiceCategory = function () {
         buildPaganationScategoryList($("#hdnCurrentPage").val());
     });
 };
-var buildPaganationScategoryList = function (pagenumber) {
-
+var buildPaganationScategoryList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = "ServiceIssue";
+    }
+    if (!orderby) {
+        orderby = "ASC";
+    }
     var searchtype = $("#hdnSearchType").val();
     var model = {
         Criteria: $("#txtCriteriaServiceCategory").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_ServiceCategory").val()
+        NumberOfRows: $("#ddlRPP_ServiceCategory").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: 'ServiceCategory/buildPaganationScategoryList',
@@ -89,11 +98,19 @@ var buildPaganationScategoryList = function (pagenumber) {
         }
     });
 };
-var fillSCategorySearchGrid = function (pagenumber) {
+var fillSCategorySearchGrid = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = "ServiceIssue";
+    }
+    if (!orderby) {
+        orderby = "ASC";
+    }
     var model = {
         Criteria: $("#txtCriteriaServiceCategory").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_ServiceCategory").val()
+        NumberOfRows: $("#ddlRPP_ServiceCategory").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: 'ServiceCategory/fillSCategorySearchGrid',
@@ -245,4 +262,28 @@ var delServiceCategory = function (ID) {
             }
         }
     });
+};
+var count = 0;
+var sortTable = function (sortby) {
+    var orderby = "";
+    var pagenumber = $("#hndPageNo").val();
+    if (!pagenumber) {
+        pagenumber = 1;
+    }
+
+    if (count % 2 == 1) {
+        orderby = "ASC";
+        $("#SortIcon").removeClass('fa fa-sort-down');
+        $("#SortIcon").addClass('fa fa-sort-up fa-lg');
+    }
+    else {
+        orderby = "DESC";
+        $("#SortIcon").removeClass('fa fa-sort-up');
+        $("#SortIcon").addClass('fa fa-sort-down fa-lg');
+    }
+    localStorage.setItem("SortByValue", sortby);
+    localStorage.setItem("OrderByValue", orderby);
+    count++;
+    buildPaganationScategoryList(pagenumber, sortby, orderby);
+    fillSCategorySearchGrid(pagenumber, sortby, orderby);
 };

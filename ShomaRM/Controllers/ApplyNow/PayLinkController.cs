@@ -52,12 +52,12 @@ namespace ShomaRM.Controllers
             }
             return View("..//Paylink//PayAmenityCharges", model);
         }
-        public ActionResult PayServiceCharges(int ARID, int FromAcc)
+        public ActionResult PayServiceCharges(int EID, int FromAcc)
         {
             ViewBag.UID = "0";
             ViewBag.FromAcc = FromAcc;
-            ViewBag.ARID = ARID;
-            var model = new AmenitiesReservationModel().GetRRInfo(ARID);
+            ViewBag.ARID = EID;
+            var model = new AmenitiesReservationModel().GetRRInfo(EID);
             if (FromAcc != 0)
             {
                 if (ShomaGroupWebSession.CurrentUser != null)
