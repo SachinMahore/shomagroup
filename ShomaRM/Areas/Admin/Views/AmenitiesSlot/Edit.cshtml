@@ -27,7 +27,7 @@
                                     <h4 class="info-text pull-left"> Let's start with the basic information</h4>
                                     <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="goSlotList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">Amenity Slot List</span></button>
                                     <div class="pull-right" style="padding-right:2px;">
-                                        <input type='button' class='btn btn-success' value='Save' onclick="SaveUpdateSlot()" />
+                                        <input type='button' class='btn btn-success hidden' value='Save' onclick="SaveUpdateSlot()" />
                                     </div>
                                 </div>
                                 <div class="col-sm-8">
@@ -48,20 +48,26 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Deposit Fee</label>
-                                                <input id="txtDepositFee" type="text" class="form-control form-control-small" style="width:80%" maxlength="10"  value="@(Model.Deposit==null?0:Model.Deposit)" disabled>
-                                                <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:118px;height:35px !important">
-                                                    <button id="btnDepositeFee" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-dollar fa"></i></button>
-                                                </span>
+                                            
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                    </span>
+                                                    <input id="txtDepositFee" type="text" class="form-control form-control-small" style="width:80%" maxlength="10" value="@(Model.Deposit==null?"0.00":Model.Deposit.Value.ToString("0.00"))" disabled>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Reservation Fee</label>
-                                                <input id="txtReservationFee" type="text" class="form-control form-control-small" style="width:80%" maxlength="10"  value="@(Model.Fees==null?0:Model.Fees)" disabled>
-                                                <span class="input-group-btn pull-left" style="margin-top: -35px;margin-left:118px;height:35px !important">
-                                                    <button id="btnReservationFee" class="btn btn-primary search" type="button" style="height:35px !important"><i class="fa-dollar fa"></i></button>
-                                                </span>
-                                            </div>
+                                               
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                    </span>
+                                                    <input id="txtReservationFee" type="text" class="form-control form-control-small" style="width:80%" maxlength="10" value="@(Model.Fees==null?"0.00":Model.Fees.Value.ToString("0.00"))" disabled>
+                                                </div>
+                                                </div>
                                         </div>
                                     </div>
                                 </div>
