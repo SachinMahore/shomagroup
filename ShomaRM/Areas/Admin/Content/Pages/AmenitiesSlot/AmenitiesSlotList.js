@@ -133,7 +133,7 @@ $(document).keypress(function (e) {
 });
 
 var count = 0;
-var sortTable = function (sortbyAS) {
+var sortTableAmenitiesSlot = function (sortbyAS) {
     var orderbyAS = "";
     var pagenumber = $("#hndPageNo").val();
     if (!pagenumber) {
@@ -142,13 +142,49 @@ var sortTable = function (sortbyAS) {
 
     if (count % 2 == 1) {
         orderbyAS = "ASC";
-        $("#SortIcon").removeClass('fa fa-sort-down');
-        $("#SortIcon").addClass('fa fa-sort-up fa-lg');
+        $("#SortIconAmenities").removeClass('fa fa-sort-up');
+        $("#SortIconAmenities").removeClass('fa fa-sort-down');
+        $("#SortIconDuration").removeClass('fa fa-sort-up');
+        $("#SortIconDuration").removeClass('fa fa-sort-down');
+        $("#SortIconDepositFeeName").removeClass('fa fa-sort-up');
+        $("#SortIconDepositFeeName").removeClass('fa fa-sort-down');
+        $("#SortIconReservationFeeName").removeClass('fa fa-sort-up');
+        $("#SortIconReservationFeeName").removeClass('fa fa-sort-down');
+        if (sortbyAS == 'AmenityName') {
+            $("#SortIconAmenities").addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortbyAS == 'DurationName') {
+            $("#SortIconDuration").addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortbyAS == 'DepositFeeName') {
+            $("#SortIconDepositFeeName").addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortbyAS == 'ReservationFeeName') {
+            $("#SortIconReservationFeeName").addClass('fa fa-sort-up fa-lg');
+        }
     }
     else {
         orderbyAS = "DESC";
-        $("#SortIcon").removeClass('fa fa-sort-up');
-        $("#SortIcon").addClass('fa fa-sort-down fa-lg');
+        $("#SortIconAmenities").removeClass('fa fa-sort-up');
+        $("#SortIconAmenities").removeClass('fa fa-sort-down');
+        $("#SortIconDuration").removeClass('fa fa-sort-up');
+        $("#SortIconDuration").removeClass('fa fa-sort-down');
+        $("#SortIconDepositFeeName").removeClass('fa fa-sort-up');
+        $("#SortIconDepositFeeName").removeClass('fa fa-sort-down');
+        $("#SortIconReservationFeeName").removeClass('fa fa-sort-up');
+        $("#SortIconReservationFeeName").removeClass('fa fa-sort-down');
+        if (sortbyAS == 'AmenityName') {
+            $("#SortIconAmenities").addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortbyAS == 'DurationName') {
+            $("#SortIconDuration").addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortbyAS == 'DepositFeeName') {
+            $("#SortIconDepositFeeName").addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortbyAS == 'ReservationFeeName') {
+            $("#SortIconReservationFeeName").addClass('fa fa-sort-down fa-lg');
+        }
     }
     localStorage.setItem("SortByValueAS", sortbyAS);
     localStorage.setItem("OrderByValueAS", orderbyAS);
