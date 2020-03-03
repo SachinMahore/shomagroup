@@ -620,7 +620,7 @@ var getEstimateData = function (id) {
         data: JSON.stringify(model),
         dataType: "json",
         success: function (response) {
-            alert(response.model.Status)
+           
             if (response.model.Status == "1")
             {
                 $("#generateInvoice").removeClass("hidden");
