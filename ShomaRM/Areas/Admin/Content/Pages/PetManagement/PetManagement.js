@@ -13,7 +13,9 @@
         },
         onPageClick: function (page, evt) {
             $("#hdnCurrentPage").val(page);
-            fillPetPlaceSearchGrid(page);
+            var SortByValuePetManagement = localStorage.getItem("SortByValuePetManagement");
+            var OrderByValuePetManagement = localStorage.getItem("OrderByValuePetManagement");
+            fillPetPlaceSearchGrid(page, SortByValuePetManagement, OrderByValuePetManagement);
         }
     });
     btnSaveUpdate();
@@ -37,11 +39,19 @@ var fillRPP_PetPlace = function () {
         buildPaganationPetPlaceList($("#hdnCurrentPage").val());
     });
 };
-var buildPaganationPetPlaceList = function (pagenumber) {
+var buildPaganationPetPlaceList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = 'PetName';
+    }
+    if (!orderby) {
+        orderby = 'ASC';
+    }
     var model = {
         Criteria: $("#txtCriteriaPetPlace").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_PetPlace").val()
+        NumberOfRows: $("#ddlRPP_PetPlace").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: '/PetManagement/buildPaganationPetPlaceList',
@@ -59,12 +69,20 @@ var buildPaganationPetPlaceList = function (pagenumber) {
         }
     });
 };
-var fillPetPlaceSearchGrid = function (pagenumber) {
+var fillPetPlaceSearchGrid = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = 'PetName';
+    }
+    if (!orderby) {
+        orderby = 'ASC';
+    }
     $("#divLoader").show();
     var model = {
         Criteria: $("#txtCriteriaPetPlace").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_PetPlace").val()
+        NumberOfRows: $("#ddlRPP_PetPlace").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: '/PetManagement/FillPetPlaceSearchGrid',
@@ -89,6 +107,7 @@ var fillPetPlaceSearchGrid = function (pagenumber) {
                 });
                 $("#divLoader").hide();
             }
+            $("#hndPageNo").val(pagenumber);
         }
     });
 };
@@ -294,3 +313,45 @@ var deletePetPlaces = function (ID) {
         });
     }
 }
+
+var count = 0;
+var sortTablePet = function (sortby) {
+
+    var orderby = "";
+    var pNumber = $("#hndPageNo").val();
+    if (!pNumber) {
+        pNumber = 1;
+    }
+
+    if (count % 2 == 1) {
+        orderby = "ASC";
+        $('#sortPetIcon').removeClass('fa fa-sort-up');
+        $('#sortPetIcon').removeClass('fa fa-sort-down');
+        $('#sortChargesIcon').removeClass('fa fa-sort-up');
+        $('#sortChargesIcon').removeClass('fa fa-sort-down');
+        if (sortby == 'PetName') {
+            $('#sortPetIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'ChargesName') {
+            $('#sortChargesIcon').addClass('fa fa-sort-up fa-lg');
+        }
+    }
+    else {
+        orderby = "DESC";
+        $('#sortPetIcon').removeClass('fa fa-sort-up');
+        $('#sortPetIcon').removeClass('fa fa-sort-down');
+        $('#sortChargesIcon').removeClass('fa fa-sort-up');
+        $('#sortChargesIcon').removeClass('fa fa-sort-down');
+        if (sortby == 'PetName') {
+            $('#sortPetIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'ChargesName') {
+            $('#sortChargesIcon').addClass('fa fa-sort-down fa-lg');
+        }
+    }
+    localStorage.setItem("SortByValuePetManagement", sortby);
+    localStorage.setItem("OrderByValuePetManagement", orderby);
+    count++;
+    buildPaganationPetPlaceList(pNumber, sortby, orderby);
+    fillPetPlaceSearchGrid(pNumber, sortby, orderby);
+};
