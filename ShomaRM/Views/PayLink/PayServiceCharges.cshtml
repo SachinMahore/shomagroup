@@ -91,7 +91,7 @@
                                             </tr>
                                             <tr>
                                                 <td>SERVICE REPAIR </td>
-                                                <td><b><span id="resAmenity">@Model.Description</span> </b></td>
+                                                <td><b><span id="resService">@Model.Description</span> </b></td>
                                             </tr>
                                             <tr>
                                                 <td>DATE:</td>
@@ -204,7 +204,7 @@
                                     </div>
                                     <div>
                                         <a href="~/Account/Login" class="btn btn-primary pull-left" id="btnLogin"> Go to Login</a>
-                                        <a href="javascript:void(0);" class="btn btn-primary pull-left hidden" onclick="goToTenReserveAmenities()" id="btnAccount"> Go to Account</a>
+                                        <a href="javascript:void(0);" class="btn btn-primary pull-left hidden" onclick="goToTenReserveService()" id="btnAccount"> Go to Account</a>
                                         <a href="~/Home/Index" class="btn btn-primary pull-right" id="btnHome"> Go to Home</a>
                                     </div>
                                 </div>
@@ -474,7 +474,7 @@
         var tenantid = $("#hndTenantID").val();
         var transtype = $("#ddlPaymentMethodPaymentLink").val();
         var chargeAmount = unformatText($("#totalConfAmt").text());
-        var desc = $("#resAmenity").text();
+        var desc = $("#resService").text();
 
         if ($("#ddlPaymentMethodPaymentLink").val() == '0') {
             msg += "Select Payment Method</br>";
@@ -539,14 +539,14 @@
 
         return text.replace(/[^\d\.]/g, '');
     }
-    var goToTenReserveAmenities = function () {
+    var goToTenReserveService= function () {
         model = {
             StepId: 5,
-            PayStepId: 2
+            ServiceRequestId: 2
         };
 
         $.ajax({
-            url: '/Dashboard/SetSessionSetReserveAmenities',
+            url: '/Dashboard/SetSessionSetSubmitServiceRequest',
             type: "post",
             contentType: "application/json utf-8",
             data: JSON.stringify(model),
