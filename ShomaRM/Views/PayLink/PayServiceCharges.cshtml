@@ -1,5 +1,5 @@
-﻿@using ShomaRM.Areas.Tenant.Models
-@model AmenitiesReservationModel
+﻿@using ShomaRM.Areas.Admin.Models
+@model ServicesManagementModel
 @{
     ViewBag.Title = "Pay Service Charges";
 }
@@ -7,7 +7,7 @@
 <input type="hidden" id="hndUID" value="@ViewBag.UID" />
 <input type="hidden" id="hndProspectID" value="0" />
 <input type="hidden" id="hndTenantID" value="@Model.TenantID" />
-<input type="hidden" id="hndARID" value="@ViewBag.ARID" />
+<input type="hidden" id="hndARID" value="@ViewBag.EID" />
 <input type="hidden" id="hndDepoPay" value="0" />
 
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -78,7 +78,7 @@
                                     <div class="col-md-12 clear">
                                         <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                             <div class="panel-heading">
-                                                <h3 class="panel-title">Pay Amenity Reservation Charges</h3>
+                                                <h3 class="panel-title">Pay Service Charges</h3>
 
                                             </div>
                                         </div>
@@ -90,7 +90,7 @@
                                                 <td>TENANT’S NAME: <b><span id="resTenant"></span></b></td>
                                             </tr>
                                             <tr>
-                                                <td>RESERVATION OF </td>
+                                                <td>SERVICE REPAIR </td>
                                                 <td><b><span id="resAmenity">@Model.AmenityName</span> </b></td>
                                             </tr>
                                             <tr>
