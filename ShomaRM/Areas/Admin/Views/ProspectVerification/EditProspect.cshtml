@@ -9,6 +9,8 @@
 <input type="hidden" id="hndPID" value="0" />
 <input type="hidden" id="hndIDNumber" value="" />
 <input type="hidden" id="hndSSNNumber" value="" />
+<input type="hidden" id="hndLeaseId" value="@Model.EnvelopeID" />
+<input type="hidden" id="hndEsignatureId" value="@Model.EsignatureID" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container" style="width:100%!important">
@@ -374,7 +376,7 @@
 
                                                 <span class="property-info-entry">
                                                     <span class="property-info-label">Lease</span>
-                                                    <span class="property-info-value"><span id="lblLease"></span> Mo</span>
+                                                    <span class="property-info-value"><span id="lblLease">@Model.LeaseTerm</span> Mo</span>
                                                 </span>
                                             </div>
                                             <div class="col-xs-6 col-sm-6 col-md-6 p-b-15">
@@ -504,7 +506,7 @@
                                         <span id="">Lease Term: </span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span id="lblLease2"></span> Mo
+                                        <span id="lblLease2">@Model.LeaseTerm</span> Mo
                                     </div>
 
                                     <div class="col-sm-6">
@@ -755,7 +757,7 @@
                                                 <span>TERM: </span>
                                             </div>
                                             <div class="col-sm-9">
-                                                <span id="lblFNLTerm" style="text-decoration:underline;font-weight:bold;"></span>
+                                                <span id="lblFNLTerm" style="text-decoration:underline;font-weight:bold;">@Model.LeaseTerm</span>
                                             </div>
                                         </div>
                                     </div>
@@ -2145,8 +2147,7 @@
                             <div class="col-sm-11">
                                 <div class="form-group">
                                     <div class="">
-                                       
-                                        <input type="submit" class="btn btn-primary" width="300" style="width: 300px;" id="btnleaseDownl"  onclick="location.href='@Url.Action("GetLeaseDocBlumoonAdm","ProspectVerification",new { LeaseId = Model.EnvelopeID })'"  value="Download Leasing Application" />
+                                        <a class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="downloadLeaseDocumentPV()" >Download Leasing Application</a>
                                     </div>
                                 </div>
                             </div>
@@ -2325,11 +2326,10 @@
                                 <div class="form-group">
                                     <label for="">Select Status</label>
                                     <select id="ddlStatus" class="form-control">
-                                        <option value="0">Select</option>
-                                        <option value="Approved">Approved</option>
-                                        <option value="Denied">Denied</option>
-
-                                        <option value="Conditional">Conditional</option>
+                                        <option value="0" @(Model.Status=="0"?"selected='selected'":"")>Select</option>
+                                        <option value="Approved" @(Model.Status=="Approved"?"selected='selected'":"")>Approved</option>
+                                        <option value="Denied" @(Model.Status=="Denied"?"selected='selected'":"")>Denied</option>
+                                        <option value="Conditional" @(Model.Status=="Conditional"?"selected='selected'":"")>Conditional</option>
                                     </select>
                                 </div>
                             </div>
@@ -3235,7 +3235,7 @@
                                             <span id="">LEASE TERM: </span>
                                         </div>
                                         <div class="col-sm-5">
-                                            <span><span id="lblLease4"></span> Mo</span>
+                                            <span><span id="lblLease4">@Model.LeaseTerm</span> Mo</span>
                                         </div>
 
                                     </div>
@@ -4077,5 +4077,45 @@
         }
     }
 
+    var downloadLeaseDocumentPV = function () {
+        if ($("#hndLeaseId").val() != "" || $("#hndEsignatureId").val() != "") {
+            $("#divLoader").show();
+            var param = { LeaseId: $("#hndLeaseId").val(), EsignatureId: $("#hndEsignatureId").val() };
+            $.ajax({
+                url: "/ProspectVerification/GetLeaseDocBlumoonAdm",
+                method: "post",
+                data: JSON.stringify(param),
+                contentType: "application/json; charset=utf-8", // content type sent to server
+                dataType: "json", //Expected data format from server
+                success: function (response) {
+                    $("#divLoader").hide();
+                    var hyperlink = document.createElement('a');
+                    hyperlink.href = "/Content/assets/img/Document/LeaseDocument_" + response.LeaseId + ".pdf";
+                    hyperlink.target = '_blank';
+                    hyperlink.download = "LeaseDocument_" + response.LeaseId + ".pdf";
 
+                    (document.body || document.documentElement).appendChild(hyperlink);
+                    hyperlink.onclick = function () {
+                        (document.body || document.documentElement).removeChild(hyperlink);
+                    };
+                    var mouseEvent = new MouseEvent('click', {
+                        view: window,
+                        bubbles: true,
+                        cancelable: true
+                    });
+                    hyperlink.dispatchEvent(mouseEvent);
+                    if (!navigator.mozGetUserMedia) {
+                        window.URL.revokeObjectURL(hyperlink.href);
+                    }
+                }
+            });
+        }
+        else {
+            $.alert({
+                title: "",
+                content: "Document Not Yet Signed.",
+                type: 'red'
+            });
+        }
+    };
 </script>
