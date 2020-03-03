@@ -50,7 +50,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 };
                 db.tbl_PaymentAccounts.Add(savePaymentAccounts);
                 db.SaveChanges();
-                msg = "Progress Saved Successfully";
+                msg = "Payment Account Saved Successfully";
             }
             else
             {
@@ -76,8 +76,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     {
                         updatePaymentAccounts.NameOnCard = "";
                         updatePaymentAccounts.CardNumber = "";
-                        updatePaymentAccounts.Month = "";
-                        updatePaymentAccounts.Year = "";
+                        updatePaymentAccounts.Month = "0";
+                        updatePaymentAccounts.Year = "0";
                         updatePaymentAccounts.CardType = 0;
 
                         updatePaymentAccounts.PayMethod = model.PayMethod;

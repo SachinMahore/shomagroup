@@ -8,7 +8,7 @@
 
 <script src="@Url.Content("~/Content/pages/common.js")"></script>
 <script src="@Url.Content("~/Areas/Admin/Content/Pages/ServiceManagement/ServiceAdmin.js")"></script>
-
+<script src="~/Content/printThis.js"></script>
 <input type="hidden" id="hndUserType" value="0" />
 <input type="hidden" id="hndServiceID" value="@ServiceID" />
 <input type="hidden" id="hndEID" value="" />
@@ -363,19 +363,13 @@
                     </div>
                     <div class="col-md-12 center" style="padding:6px;border:1px solid !important;box-sizing: border-box; box-shadow:2px;">
                         <h4 class="text-center" style="text-decoration:underline;margin-top:2%;margin-bottom:2%;font-size: 12pt;background-color:transparent;color:#4D738A">Warranty Status</h4>
-                        @*<input id="toggle-on" class="toggle toggle-left" name="toggle" value="false" type="radio" checked>
-                                <label for="toggle-on" class="btn">Yes</label>
-                                <input id="toggle-off" class="toggle toggle-right" name="toggle" value="true" type="radio">
-                                <label for="toggle-off" class="btn">No</label>*@
-                        <div class="col-sm-12">
-                            <button class="navbar-btn nav-button login " style="float:right" id="WarrantyEstimate" onclick="openEstimatepop();">Estimate</button>
-                        </div>
                         <label class="btn btn-secondary active">
-                            <input type="radio" name="Warranty" id="Yes" autocomplete="off" checked> Yes
+                            <input type="radio" name="Warranty" id="Yes" autocomplete="off" value="yes" checked> Yes
                         </label>
                         <label class="btn btn-secondary">
-                            <input type="radio" name="Warranty" id="No" autocomplete="off"> No
+                            <input type="radio" name="Warranty" id="No" autocomplete="off" value="no"> No
                         </label>
+                        <button class="navbar-btn nav-button login " style="float:right" id="WarrantyEstimate" onclick="openEstimatepop();">Estimate</button>
                     </div>
                 </div>
                 <div class="col-md-12 center">&nbsp;</div>
@@ -388,7 +382,7 @@
                         <h4 class="text-center" style="text-decoration:underline;margin-top:2%;margin-bottom:2%;font-size: 12pt;background-color:transparent;color:#4D738A">Assignments</h4>
                     </div>
                     <div class="col-sm-12">
-                        <button class="navbar-btn nav-button login " style="float:right" id="PrintAssignment">Print</button>
+                        <button class="navbar-btn nav-button login " style="float:right" id="PrintAssignment" onclick="openAssignmentPrintpop();">Print</button>
                         <button class="navbar-btn nav-button login " style="float:right" id="AuditAssignment" onclick="openAuditHistorypop();">Audit History</button>
                     </div>
                     
@@ -451,8 +445,8 @@
                                 <div class="col-sm-2">
                                     <label for="txtTaskNotes" class="">Task / Note:</label>
                                 </div>
-                                <div class="col-sm-10" >
-                                    <textarea class="form-control form-control-small" placeholder="Task / Notes...." id="txtTaskNotes" maxlength="200" style="height:44px!important"></textarea>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control form-control-small" placeholder="Task / Notes...." id="txtTaskNotes" maxlength="200" style="height:44px!important; margin-left:25px !important"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -675,10 +669,10 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body table-bordered">
-                <div class="row" id="tblAuditHistoryDiv">
+                <div class="row" id="printAssignmentDiv">
                     <div class="col-md-12 clear">
                         <div class="col-md-12">
-                            <div class="col-sm-12"><h4 class="text-center" style="text-decoration:underline;margin-bottom:1%;font-size: 12pt;background-color:transparent;color:red"> > > > ATTENTION : <span id="urgentStatus"></span> < < < </h4></div>
+                            <div class="col-sm-12 hidden" id="attensionAssignment1"><h4 class="text-center" style="text-decoration:underline;margin-bottom:1%;font-size: 12pt;background-color:transparent;color:red"> > > > ATTENTION : <span id="urgentStatus"></span> < < < </h4></div>
                             <div class="col-sm-12" style="border:1px solid !important;box-sizing: border-box; box-shadow:2px; margin-bottom:8px !important;">
                                 <h3 class="text-center" style="text-decoration:underline;margin-top:5px !important; margin-bottom:1%;background-color:transparent;color:#4d738a">
                                     Sanctuary Doral : Work Order
@@ -688,7 +682,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <div class="col-sm-5">
-                                            <label>Work Order :</label>
+                                            <label>Tenant Id :</label>
                                         </div>
                                         <div class="col-sm-7" style="margin-left: -30px;">
                                             <span style="font-weight:bold;" id="lbltenantIdAssignment"></span>
@@ -786,7 +780,11 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-sm-12" style="border:1px solid !important;box-sizing: border-box; box-shadow:2px; margin-bottom:8px !important;">
+                                <div class="col-md-12 text-center" style="margin-bottom:8px !important;">
+                                    <label>Work Order : <b><span style="font-weight:bold;" id="workOrderNewAssignment"></span></b></label>
+                                </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <div class="col-sm-5">
@@ -794,6 +792,16 @@
                                         </div>
                                         <div class="col-sm-7" style="margin-left: -30px;">
                                             <span style="font-weight:bold;" id="ProblemCatrgoryAssignment"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 hidden" id="ProbleOtherAssignment">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label>Other :</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="lblProbleOtherAssignment"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -807,6 +815,16 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-sm-6 hidden" id="CaussingOtherAssignment">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label>Other:</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="lblCaussingOtherAssignment"></span>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <div class="col-sm-5">
@@ -814,6 +832,16 @@
                                         </div>
                                         <div class="col-sm-7" style="margin-left: -30px;">
                                             <span style="font-weight:bold;" id="lblIssueAssignment"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 hidden" id="IssueOtherAssignment">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label>Other:</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="lblIssueOtherAssignment"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -857,6 +885,18 @@
                                 <p id="taskDescriptionAssignment">
                                 </p>
                             </div>
+                            <div class="col-sm-12 hidden" id="attensionAssignment2"><h4 class="text-center" style="text-decoration:underline;margin-bottom:1%;font-size: 12pt;background-color:transparent;color:red"> > > > ATTENTION : <span id="urgentStatus1"></span> < < < </h4></div>
+
+                            <div class="col-sm-2" style="border:1px solid !important;box-sizing: border-box; box-shadow:2px; padding-bottom:50px">
+                                <label class="text-center" style="text-decoration:underline">Date Repaired: </label>
+                            </div>
+                            <div class="col-sm-2" style="border:1px solid !important;box-sizing: border-box; box-shadow:2px; padding-bottom:50px">
+                                <label class="text-center" style="text-decoration:underline">By: </label>
+                            </div>
+                            <div class="col-sm-8" style="border:1px solid !important;box-sizing: border-box; box-shadow:2px; padding-bottom:50px">
+                                <label class="text-center" style="text-decoration:underline">Homeowner Acceptance: </label>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -881,10 +921,12 @@
         $("#estimateWarranty").modal('show');
     };
 
+    var openAssignmentPrintpop = function () {
+        $("#printAssignmentDiv").printThis();
+    };
     var openAuditHistorypop = function () {
         $("#assignmentAuditHistory").modal('show');
     };
-
     var updateEstimateDesign = function (status) {
         if (status == 1) {
             $("#tblEstimateDiv").addClass('hidden');
@@ -894,9 +936,10 @@
             $("#fillEstimate").addClass('hidden');
             $("#tblEstimateDiv").removeClass('hidden');
         }
-        
+
     };
 </script>
+
 
 <style>
     label {

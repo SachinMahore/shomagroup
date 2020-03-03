@@ -20,7 +20,7 @@ namespace ShomaRM.Models
             usaepay.CardHolder = model.Name_On_Card;
             usaepay.CardNumber =model.CardNumber;
             usaepay.CardExp = model.CardMonth.ToString()+model.CardYear.ToString();
-            usaepay.CustEmail = "sachinmahore@gmail.com";
+            usaepay.CustEmail = "vijayramteke@gmail.com";
             usaepay.UseSandbox = true;
 
             try

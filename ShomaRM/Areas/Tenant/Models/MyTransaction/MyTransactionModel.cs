@@ -84,6 +84,8 @@ namespace ShomaRM.Areas.Tenant.Models
         public int IsAllUpdate { get; set; }
         public int IsAmeDepoPay { get; set; }
         public long ARID { get; set; }
+        public long EID { get; set; }
+
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
 
@@ -1221,6 +1223,120 @@ namespace ShomaRM.Areas.Tenant.Models
                     {
                         new TwilioService().SMS(phonenumber, message);
                     }
+                }
+
+                msg = "1";
+
+            }
+            else
+            {
+                msg = "0";
+            }
+
+            db.Dispose();
+            return msg;
+        }
+        public string SaveServiceTransaction(MyTransactionModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string msg = "";
+
+            var editPaymentAccounts = db.tbl_PaymentAccounts.Where(co => co.PAID == model.PAID).FirstOrDefault();
+            ApplyNowModel mm = new ApplyNowModel();
+            string transStatus = "";
+            if (editPaymentAccounts != null)
+            {
+
+                mm.CardNumber = editPaymentAccounts.CardNumber;
+                mm.CardMonth = Convert.ToInt32(editPaymentAccounts.Month);
+                mm.CardYear = Convert.ToInt32(editPaymentAccounts.Year);
+                mm.CCVNumber = model.CCVNumber;
+                mm.ProspectId = model.TenantID;
+                mm.PaymentMethod = 1;
+                mm.Charge_Amount = model.Charge_Amount;
+
+                mm.AccountNumber = editPaymentAccounts.AccountNumber;
+                mm.RoutingNumber = editPaymentAccounts.RoutingNumber;
+                mm.BankName = editPaymentAccounts.BankName;
+
+                if (mm.CardNumber != null)
+                {
+                    mm.Name_On_Card = editPaymentAccounts.NameOnCard;
+                    transStatus = new UsaePayModel().ChargeCard(mm);
+                }
+                else if (mm.RoutingNumber != null)
+                {
+                    mm.Name_On_Card = editPaymentAccounts.AccountName;
+                    transStatus = new UsaePayModel().ChargeACH(mm);
+                }
+            }
+
+
+            String[] spearator = { "|" };
+            String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
+            if (strlist[1] != "000000")
+            {
+                var saveTransaction = new tbl_Transaction()
+                {
+
+                    TenantID = model.TenantID,
+                    Revision_Num = 1,
+                    Transaction_Type = model.Transaction_Type,
+                    Transaction_Date = DateTime.Now,
+                    Run = 1,
+                    LeaseID = model.LeaseID,
+                    Reference = "SR" + model.Batch,
+                    CreatedDate = DateTime.Now,
+                    Credit_Amount = model.Charge_Amount,
+                    Description = model.Description + " | TransID: " + strlist[1],
+                    Charge_Date = DateTime.Now,
+                    Charge_Type = 4,
+                    Authcode = strlist[1],
+                    Charge_Amount = model.Charge_Amount,
+
+                    Accounting_Date = DateTime.Now,
+
+                    Batch = model.Batch,
+                    Batch_Source = "",
+                    CreatedBy = Convert.ToInt32(model.UserId),
+
+                    GL_Trans_Description = transStatus.ToString(),
+
+                };
+                db.tbl_Transaction.Add(saveTransaction);
+                db.SaveChanges();
+                var TransId = saveTransaction.TransID;
+
+                var serEstDet = db.tbl_Estimate.Where(p => p.EID == model.EID).FirstOrDefault();
+                var GetTenantData = db.tbl_TenantInfo.Where(p => p.TenantID == editPaymentAccounts.TenantId).FirstOrDefault();
+
+                string reportHTML = "";
+                string body = "";
+
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+
+                string message = "";
+                string phonenumber = GetTenantData.Mobile;
+
+
+                CreateTransBill(TransId, Convert.ToDecimal(serEstDet.Amount), model.Description + " Charges");
+
+                serEstDet.Status = "4";
+                db.SaveChanges();
+
+                reportHTML = reportHTML.Replace("[%EmailHeader%]", "Service Repair Charges Paid");
+                reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
+                reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Service Repair charges in the Amount of $" + serEstDet.Amount + " for your service of the " + serEstDet.Description + " on " + serEstDet.CreatedDate.Value.ToString("MM/dd/yyyy") + " has been received. Your Service Repair is now confirmed.” </p>");
+                reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+                body = reportHTML;
+
+                new EmailSendModel().SendEmail(GetTenantData.Email, "Service Repair Charges Paid", body);
+
+                message = "Service Repair payment has been received. Please check the email for detail.";
+                if (SendMessage == "yes")
+                {
+                    new TwilioService().SMS(phonenumber, message);
                 }
 
                 msg = "1";
