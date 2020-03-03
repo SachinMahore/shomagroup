@@ -13,8 +13,12 @@
             buildPaganationTenantList(1);
         },
         onPageClick: function (page, evt) {
-            fillTenantList(page, $("#hdnSearchType").val());
             $("#hdnCurrentPage").val(page);
+            var sortByValue = localStorage.getItem("SortByValueTenant");
+            var OrderByValue = localStorage.getItem("OrderByValueTenant");
+            fillTenantList(page, $("#hdnSearchType").val(),  sortByValue, OrderByValue);
+            
+          
         }
     });
     //fillTenantList(1, $("#hdnSearchType").val());
@@ -85,7 +89,13 @@ var goToEditTenant = function () {
 var addNewTenant = function () {
     window.location.href = "../Tenant/New";
 };
-var fillTenantList = function (pagenumber, searchtype) {
+var fillTenantList = function (pagenumber, searchtype, sortby, orderby) {
+    if (!sortby) {
+        sortby = "FirstName";
+    }
+    if (!orderby) {
+        orderby = "ASC";
+    }
     var model = {
         FirstName: (searchtype == "1" ? "" : $("#txtFirstName_TL").val()),
         LastName: (searchtype == "1" ? "" : $("#txtLastName_TL").val()),
@@ -102,7 +112,9 @@ var fillTenantList = function (pagenumber, searchtype) {
         ToDate: $("#txtToDate").val(),
         FromDate: $("#txtFromDate").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_TenantList").val()
+        NumberOfRows: $("#ddlRPP_TenantList").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: '../Tenant/GetTenantList',
@@ -141,7 +153,13 @@ var fillRPP_TenantList = function () {
         buildPaganationTenantList($("#hdnCurrentPage").val());
     });
 };
-var buildPaganationTenantList = function (pagenumber) {
+var buildPaganationTenantList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = "FirstName";
+    }
+    if (!orderby) {
+        orderby = "ASC";
+    }
     var searchtype = $("#hdnSearchType").val();
     var model = {
         FirstName: (searchtype === "1" ? "" : $("#txtFirstName_TL").val()),
@@ -159,7 +177,9 @@ var buildPaganationTenantList = function (pagenumber) {
         ToDate: $("#txtToDate").val(),
         FromDate: $("#txtFromDate").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_TenantList").val()
+        NumberOfRows: $("#ddlRPP_TenantList").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: '../Tenant/BuildPaganationTenantList',
@@ -299,4 +319,63 @@ $(document).keypress(function (e) {
         buildPaganationTenantList();
     }
 });
+var count = 0;
+var sortTableTenant = function (sortbyT) {
+    var orderbyT = "";
+    var pagenumber = $("#hndPageNo").val();
+    if (!pagenumber) {
+        pagenumber = 1;
+    }
 
+    if (count % 2 == 1) {
+        orderbyT = "ASC";
+        $("#SortIconTFN").removeClass('fa fa-sort-up');
+        $("#SortIconTFN").removeClass('fa fa-sort-down');
+        $("#SortIconTLN").removeClass('fa fa-sort-up');
+        $("#SortIconTLN").removeClass('fa fa-sort-down');
+        $("#SortIconTP").removeClass('fa fa-sort-up');
+        $("#SortIconTP").removeClass('fa fa-sort-down');
+        $("#SortIconTunits").removeClass('fa fa-sort-up');
+        $("#SortIconTunits").removeClass('fa fa-sort-down');
+        if (sortbyT == 'FirstName') {
+            $("#SortIconTFN").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortbyT == 'LastName') {
+            $("#SortIconTLN").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortbyT == 'Property') {
+            $("#SortIconTP").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortbyT == 'UnitNo') {
+            $("#SortIconTunits").addClass('fa fa-sort-up fa-lg');
+        }
+    }
+    else {
+        orderbyT = "DESC";
+        $("#SortIconTFN").removeClass('fa fa-sort-up');
+        $("#SortIconTFN").removeClass('fa fa-sort-down');
+        $("#SortIconTLN").removeClass('fa fa-sort-up');
+        $("#SortIconTLN").removeClass('fa fa-sort-down');
+        $("#SortIconTP").removeClass('fa fa-sort-up');
+        $("#SortIconTP").removeClass('fa fa-sort-down');
+        $("#SortIconTunits").removeClass('fa fa-sort-up');
+        $("#SortIconTunits").removeClass('fa fa-sort-down');
+        if (sortbyT == 'FirstName') {
+            $("#SortIconTFN").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortbyT == 'LastName') {
+            $("#SortIconTLN").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortbyT == 'Property') {
+            $("#SortIconTP").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortbyT == 'UnitNo') {
+            $("#SortIconTunits").addClass('fa fa-sort-down fa-lg');
+        }
+    }
+    localStorage.setItem("SortByValueTenant", sortbyT);
+    localStorage.setItem("OrderByValueTenant", orderbyT);
+    count++;
+    buildPaganationTenantList(pagenumber, sortbyT, orderbyT);
+    fillTenantList(pagenumber, $("#hdnSearchType").val(),  sortbyT, orderbyT);
+};

@@ -327,10 +327,10 @@ var sortTableFob = function (sortby) {
         $("#SortIconFobCharge").removeClass('fa fa-sort-down');
         $("#SortIconFobCharge").removeClass('fa fa-sort-up fa-lg');
         if (sortby == 'StorageName') {
-            $("#SortIconFob").addClass('fa fa-sort-down fa-lg');
+            $("#SortIconFob").addClass('fa fa-sort-up fa-lg');
         }
-        if (sortby == 'Charge') {
-            $("#SortIconFobCharge").addClass('fa fa-sort-down fa-lg');
+        if (sortby == 'Charges') {
+            $("#SortIconFobCharge").addClass('fa fa-sort-up fa-lg');
         }
     }
     else {
@@ -342,7 +342,7 @@ var sortTableFob = function (sortby) {
         if (sortby == 'StorageName') {
             $("#SortIconFob").addClass('fa fa-sort-down fa-lg');
         }
-        if (sortby == 'Charge') {
+        if (sortby == 'Charges') {
             $("#SortIconFobCharge").addClass('fa fa-sort-down fa-lg');
         }
     }

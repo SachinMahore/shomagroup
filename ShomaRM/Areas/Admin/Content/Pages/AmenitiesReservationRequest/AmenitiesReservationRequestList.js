@@ -19,14 +19,22 @@ var fillRPP_ReservationRequestList = function () {
         buildPaganationReservationRequestList($("#hdnCurrentPage_FL").val());
     });
 };
-var buildPaganationReservationRequestList = function (pagenumber) {
+var buildPaganationReservationRequestList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = "TenantName";
+    }
+    if (!orderby) {
+        orderby = "ASC";
+    }
     var model = {
         ToDate: $("#txtToDate").val(),
         FromDate: $("#txtFromDate").val(),
         PageNumber: 1,
         NumberOfRows: $("#ddlRPP_ReservationRequestList").val(),
         UnitId: $("#ddlUnitNoAmeResReq").val(),
-        AmenityName: $("#txtAmenitiesAmeResReq").val()
+        AmenityName: $("#txtAmenitiesAmeResReq").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: "/Tenant/AmenitiesRR/BuildPaganationReservationRequestList",
@@ -52,7 +60,13 @@ var buildPaganationReservationRequestList = function (pagenumber) {
         }
     });
 };
-var fillReservationRequestList = function (pagenumber) {
+var fillReservationRequestList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = "TenantName";
+    }
+    if (!orderby) {
+        orderby = "ASC";
+    }
     $("#divLoader").show();
     var model = {
         ToDate: $("#txtToDate").val(),
@@ -60,7 +74,9 @@ var fillReservationRequestList = function (pagenumber) {
         PageNumber: pagenumber,
         NumberOfRows: $("#ddlRPP_ReservationRequestList").val(),
         UnitId: $("#ddlUnitNoAmeResReq").val(),
-        AmenityName: $("#txtAmenitiesAmeResReq").val()
+        AmenityName: $("#txtAmenitiesAmeResReq").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: '/Tenant/AmenitiesRR/FillReservationRequestSearchGrid',
@@ -110,7 +126,10 @@ $(document).ready(function () {
         },
         onPageClick: function (page, evt) {
             $("#hdnCurrentPage_FL").val(page);
-            fillReservationRequestList(page);
+            var sortByValue = localStorage.getItem("SortByValueAmiReg");
+            var OrderByValue = localStorage.getItem("OrderByValueAmiReg");
+            fillReservationRequestList(page, sortByValue, OrderByValue);
+           
         }
     });
     $('#tblReservationRequest tbody').on('click', 'tr', function () {
@@ -143,4 +162,117 @@ var bindUnitNoDDL = function () {
             $("#ddlUnitNoAmeResReq").append(ddlUnit);
         }
     });
+};
+
+var count = 0;
+var sortTableAminiReg = function (sortby) {
+    var orderby = "";
+    var pagenumber = $("#hndPageNo").val();
+    if (!pagenumber) {
+        pagenumber = 1;
+    }
+
+    if (count % 2 == 1) {
+        orderby = "ASC";
+        $("#SortIconARFN").removeClass('fa fa-sort-up');
+        $("#SortIconARFN").removeClass('fa fa-sort-down');
+        $("#SortIconAUn").removeClass('fa fa-sort-up');
+        $("#SortIconAUn").removeClass('fa fa-sort-down');
+        $("#SortIconAmini").removeClass('fa fa-sort-up');
+        $("#SortIconAmini").removeClass('fa fa-sort-down');
+        $("#SortIconARDR").removeClass('fa fa-sort-up');
+        $("#SortIconARDR").removeClass('fa fa-sort-down');
+        $("#SortIconARFT").removeClass('fa fa-sort-up');
+        $("#SortIconARFT").removeClass('fa fa-sort-down');
+        $("#SortIconARTT").removeClass('fa fa-sort-up');
+        $("#SortIconARTT").removeClass('fa fa-sort-down');
+        $("#SortIconARDD").removeClass('fa fa-sort-up');
+        $("#SortIconARDD").removeClass('fa fa-sort-down');
+        $("#SortIconARG").removeClass('fa fa-sort-up');
+        $("#SortIconARG").removeClass('fa fa-sort-down');
+        $("#SortIconARS").removeClass('fa fa-sort-up');
+        $("#SortIconARS").removeClass('fa fa-sort-down');
+
+        if (sortby == 'TenantName') {
+            $("#SortIconARFN").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'UnitNo') {
+            $("#SortIconAUn").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'AmenityName') {
+            $("#SortIconAmini").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'DesiredDate') {
+            $("#SortIconARDR").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'DesiredTimeFrom') {
+            $("#SortIconARFT").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'DesiredTimeTo') {
+            $("#SortIconARTT").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'Duration') {
+            $("#SortIconARDD").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'Guest') {
+            $("#SortIconARG").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'Status') {
+            $("#SortIconARS").addClass('fa fa-sort-up fa-lg');
+        }
+    }
+    else {
+        orderby = "DESC";
+        $("#SortIconARFN").removeClass('fa fa-sort-up');
+        $("#SortIconARFN").removeClass('fa fa-sort-down');
+        $("#SortIconAUn").removeClass('fa fa-sort-up');
+        $("#SortIconAUn").removeClass('fa fa-sort-down');
+        $("#SortIconAmini").removeClass('fa fa-sort-up');
+        $("#SortIconAmini").removeClass('fa fa-sort-down');
+        $("#SortIconARDR").removeClass('fa fa-sort-up');
+        $("#SortIconARDR").removeClass('fa fa-sort-down');
+        $("#SortIconARFT").removeClass('fa fa-sort-up');
+        $("#SortIconARFT").removeClass('fa fa-sort-down');
+        $("#SortIconARTT").removeClass('fa fa-sort-up');
+        $("#SortIconARTT").removeClass('fa fa-sort-down');
+        $("#SortIconARDD").removeClass('fa fa-sort-up');
+        $("#SortIconARDD").removeClass('fa fa-sort-down');
+        $("#SortIconARG").removeClass('fa fa-sort-up');
+        $("#SortIconARG").removeClass('fa fa-sort-down');
+        $("#SortIconARS").removeClass('fa fa-sort-up');
+        $("#SortIconARS").removeClass('fa fa-sort-down');
+        if (sortby == 'TenantName') {
+            $("#SortIconARFN").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'UnitNo') {
+            $("#SortIconAUn").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'AmenityName') {
+            $("#SortIconAmini").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'DesiredDate') {
+            $("#SortIconARDR").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'DesiredTimeFrom') {
+            $("#SortIconARFT").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'DesiredTimeTo') {
+            $("#SortIconARTT").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'Duration') {
+            $("#SortIconARDD").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'Guest') {
+            $("#SortIconARG").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'Status') {
+            $("#SortIconARS").addClass('fa fa-sort-down fa-lg');
+        }
+       
+    }
+    localStorage.setItem("SortByValueAmiReg", sortby);
+    localStorage.setItem("OrderByValueAmiReg", orderby);
+    count++;
+    buildPaganationReservationRequestList(pagenumber, sortby, orderby);
+    fillReservationRequestList(pagenumber, sortby, orderby);
 };

@@ -95,7 +95,7 @@ namespace ShomaRM.Areas.Admin.Models
             }
             return lstTenanat;
         }
-        public string BuildPaganationTenantList(DateTime FromDate, DateTime ToDate, int NumberOfRows)
+        public string BuildPaganationTenantList(DateTime FromDate, DateTime ToDate, int NumberOfRows,string SortBy, string OrderBy )
         {
             string NOR = "0";
             ShomaRMEntities db = new ShomaRMEntities();
@@ -123,6 +123,16 @@ namespace ShomaRM.Areas.Admin.Models
                     paramNOR.ParameterName = "NumberOfRows";
                     paramNOR.Value = NumberOfRows;
                     cmd.Parameters.Add(paramNOR);
+
+                    DbParameter param5 = cmd.CreateParameter();
+                    param5.ParameterName = "SortBy";
+                    param5.Value = SortBy;
+                    cmd.Parameters.Add(param5);
+
+                    DbParameter param6 = cmd.CreateParameter();
+                    param6.ParameterName = "OrderBy";
+                    param6.Value = OrderBy;
+                    cmd.Parameters.Add(param6);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -216,6 +226,16 @@ namespace ShomaRM.Areas.Admin.Models
                     param16.ParameterName = "OfficeCity";
                     param16.Value = model.OfficeCity;
                     cmd.Parameters.Add(param16);
+
+                    DbParameter param17 = cmd.CreateParameter();
+                    param17.ParameterName = "SortBy";
+                    param17.Value = model.SortBy;
+                    cmd.Parameters.Add(param17);
+
+                    DbParameter param18 = cmd.CreateParameter();
+                    param18.ParameterName = "OrderBy";
+                    param18.Value = model.OrderBy;
+                    cmd.Parameters.Add(param18);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -537,6 +557,8 @@ namespace ShomaRM.Areas.Admin.Models
             public string LastName { get; set; }
             public string Property { get; set; }
             public string Unit { get; set; }
+            
+            
         }
         public class PropertyList
         {
@@ -561,6 +583,8 @@ namespace ShomaRM.Areas.Admin.Models
             public string ToDate { get; set; }
             public int PageNumber { get; set; }
             public int NumberOfRows { get; set; }
+            public string SortBy { get; set; }
+            public string OrderBy { get; set; }
         }
     }
 

@@ -21,11 +21,11 @@ namespace ShomaRM.Areas.Admin.Controllers
             }
             return View();
         }
-        public ActionResult BuildPaganationTenantList(DateTime FromDate, DateTime ToDate, int NumberOfRows)
+        public ActionResult BuildPaganationTenantList(DateTime FromDate, DateTime ToDate, int NumberOfRows,string SortBy, string OrderBy)
         {
             try
             {
-                return Json(new { PageNumber = (new TenantModel()).BuildPaganationTenantList(FromDate, ToDate, NumberOfRows) }, JsonRequestBehavior.AllowGet);
+                return Json(new { PageNumber = (new TenantModel()).BuildPaganationTenantList(FromDate, ToDate, NumberOfRows, SortBy, OrderBy) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
