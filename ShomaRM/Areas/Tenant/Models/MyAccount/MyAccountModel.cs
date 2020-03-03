@@ -73,6 +73,8 @@ namespace ShomaRM.Areas.Tenant.Models
         public string OriginalProfileFile { get; set; }
 
         public string EnvelopeID { get; set; }
+        public string EsignatureID { get; set; }
+
         public string PassportDoc { get; set; }
         public string OriginalPassportDoc { get; set; }
         public string IdentityDoc { get; set; }
@@ -613,6 +615,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 if (getCertificates != null)
                 {
                     model.EnvelopeID = appNow.EnvelopeID;
+                    model.EsignatureID = appNow.EsignatureID;
                     model.PassportDoc = getCertificates.PassportDocument;
                     model.OriginalPassportDoc = getCertificates.PassportDocumentOriginalFile;
                     model.IdentityDoc = getCertificates.IdentityDocument;
