@@ -100,27 +100,41 @@ namespace ShomaRM.Areas.Admin.Controllers
 
 
         }
-        public async System.Threading.Tasks.Task<ActionResult> GetLeaseDocBlumoonAdm(string LeaseId)
+        public async System.Threading.Tasks.Task<ActionResult> GetLeaseDocBlumoonAdm(string LeaseId, string EsignatureId)
         {
-
-            var data = await GetLeaseDocBlumoonAsyncAdm(LeaseId);
-            if (data != null)
+            try
             {
-
+                var data = await GetLeaseDocBlumoonAsyncAdm(LeaseId, EsignatureId);
+                if (data != null)
+                {
+                    System.IO.File.WriteAllBytes(Server.MapPath("/Content/assets/img/Document/LeaseDocument_" + data.LeaseId + ".pdf"), data.leasePdf);
+                }
+                return Json(new { LeaseId = data.LeaseId }, JsonRequestBehavior.AllowGet);
             }
-
-            return File(data.leasePdf, "application/pdf", $"LeaseDocument_{0}.pdf");
+            catch (Exception ex)
+            {
+                return Json(new { LeaseId = "0" }, JsonRequestBehavior.AllowGet);
+            }
         }
-        public async System.Threading.Tasks.Task<LeaseResponseModel> GetLeaseDocBlumoonAsyncAdm(string LeaseId)
+        
+        public async System.Threading.Tasks.Task<LeaseResponseModel> GetLeaseDocBlumoonAsyncAdm(string LeaseId, string EsignatureId)
         {
-
-            var test = new BluemoonService();
-            LeaseResponseModel authenticateData = await test.CreateSession();
-            LeaseResponseModel leasePdfResponse = await test.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: LeaseId);
-            await test.CloseSession(sessionId: authenticateData.SessionId);
-            return leasePdfResponse;
-
-
+            var bmservice = new BluemoonService();
+            LeaseResponseModel authenticateData = await bmservice.CreateSession();
+            if (!string.IsNullOrWhiteSpace(EsignatureId))
+            {
+                LeaseResponseModel leaseDocumentWithEsignature = await bmservice.GetLeaseDocumentWithEsignature(SessionId: authenticateData.SessionId, EsignatureId: EsignatureId);
+                await bmservice.CloseSession(sessionId: authenticateData.SessionId);
+                leaseDocumentWithEsignature.LeaseId = LeaseId;
+                return leaseDocumentWithEsignature;
+            }
+            else
+            {
+                LeaseResponseModel leasePdfResponse = await bmservice.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: LeaseId);
+                await bmservice.CloseSession(sessionId: authenticateData.SessionId);
+                leasePdfResponse.LeaseId = LeaseId;
+                return leasePdfResponse;
+            }
         }
     }
 }

@@ -99,6 +99,9 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<int> IsCheckPO { get; set; }
         public Nullable<int> IsCheckATT { get; set; }
         public Nullable<int> IsCheckWater { get; set; }
+        public int LeaseTerm { get; set; }
+        public string EsignatureID { get; set; }
+
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
 
@@ -466,6 +469,8 @@ namespace ShomaRM.Areas.Admin.Models
             model.StorageSpaceID = "0";
             model.FOBAmt = 0;
             model.EnvelopeID = "";
+            model.EsignatureID = "";
+            model.LeaseTerm = 12;
             if (Id != 0)
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.UserId == Id).FirstOrDefault();
@@ -480,7 +485,7 @@ namespace ShomaRM.Areas.Admin.Models
                     model.Email = GetProspectData.Email;
                     model.Phone = GetProspectData.Phone.ToString();
                     model.Date = GetProspectData.Date;
-                    model.Status = GetProspectData.Status;
+                    model.Status = (!string.IsNullOrWhiteSpace(GetProspectData.Status) ? GetProspectData.Status.Trim() : "0");  ;
                     model.Address = GetProspectData.Address;
                     model.IsApplyNow = GetProspectData.IsApplyNow;
                     model.DateofBirth = GetProspectData.DateofBirth;
@@ -502,7 +507,9 @@ namespace ShomaRM.Areas.Admin.Models
                     model.MonthlyCharges = GetProspectData.MonthlyCharges;
                     model.PetDeposit = GetProspectData.PetDeposit;
                     model.FOBAmt = 0;
-                    model.EnvelopeID = GetProspectData.EnvelopeID;
+                    model.EnvelopeID = (!string.IsNullOrWhiteSpace(GetProspectData.EnvelopeID) ? GetProspectData.EnvelopeID : "");
+                    model.EsignatureID = (!string.IsNullOrWhiteSpace(GetProspectData.EsignatureID) ? GetProspectData.EsignatureID : "");
+                    model.LeaseTerm = GetProspectData.LeaseTerm ?? 12;
                     DateTime? dateExpire = null;
                     try
                     {

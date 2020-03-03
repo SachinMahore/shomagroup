@@ -555,8 +555,9 @@ namespace ShomaRM.Areas.Admin.Models
             public string CreatedDateTxt { get; set; }
             public string CreatedByTxt { get; set; }
             public string SendMessage { get; private set; }
-
+            public Nullable<long> TenantID { get; set; }
             string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
+            public  string TenantName { get; set; }
 
             public string SaveUpdateEstimate(EstimateModel model)
             {
@@ -732,6 +733,38 @@ namespace ShomaRM.Areas.Admin.Models
                     model.Status = getEstimateInfo.Status;
                 }
                 db.Dispose();
+                return model;
+            }
+
+            public EstimateModel GetEstimateInvData(int EID)
+            {
+                ShomaRMEntities db = new ShomaRMEntities();
+                EstimateModel model = new EstimateModel();
+
+                var getEstimateInfo = db.tbl_Estimate.Where(co => co.EID == EID).FirstOrDefault();
+                if (getEstimateInfo != null)
+                {
+                    model.CreatedDate = getEstimateInfo.CreatedDate ;
+                  
+                    model.ServiceID = getEstimateInfo.ServiceID;
+                    model.Vendor = getEstimateInfo.Vendor;
+                    model.Amount = getEstimateInfo.Amount;
+                    model.Description = getEstimateInfo.Description;
+                    model.Status = getEstimateInfo.Status;
+                }
+
+                var GetservData = db.tbl_ServiceRequest.Where(p => p.ServiceID == getEstimateInfo.ServiceID).FirstOrDefault();
+                if (GetservData != null)
+                {
+                    model.TenantID = GetservData.TenantID;
+                }
+
+                var GetTenantData = db.tbl_TenantInfo.Where(p => p.TenantID == model.TenantID).FirstOrDefault();
+                if (GetTenantData != null)
+                {
+                    model.TenantName = GetTenantData != null ? GetTenantData.FirstName + " " + GetTenantData.LastName : "";
+                }
+                model.EID = EID;
                 return model;
             }
         }

@@ -304,7 +304,15 @@ namespace ShomaRM.Models
                     mm.CreateTransBill(TransId, Convert.ToDecimal(GetProspectData.Deposit), "Security Deposit");
                     mm.CreateTransBill(TransId, Convert.ToDecimal(GetProspectData.PetDeposit), "Pet Deposit");
                     mm.CreateTransBill(TransId, Convert.ToDecimal(GetProspectData.VehicleRegistration), "Vehicle Registration Charges");
-                   
+
+                    //Save  Data In tbl_MoveInChecklist//
+                    CheckListModel modelCheckList = new CheckListModel();
+                    modelCheckList.ProspectID = model.ProspectId;
+                    modelCheckList.MoveInCharges = model.Charge_Amount;
+
+                    string result = (new CheckListModel().SaveMoveInCheckList(modelCheckList));
+                    //Save  Data In tbl_MoveInChecklist//
+
                     string reportHTML = "";
                     string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");

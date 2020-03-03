@@ -417,13 +417,12 @@ namespace ShomaRM.Models
                     model.MonthlyCharges = GetProspectData.MonthlyCharges;
                     model.PetDeposit = GetProspectData.PetDeposit;
                     model.FOBAmt = 0;
-                    model.EnvelopeID = GetProspectData.EnvelopeID==null?"" : GetProspectData.EnvelopeID;
+                    model.EnvelopeID = (!string.IsNullOrWhiteSpace(GetProspectData.EnvelopeID) ? GetProspectData.EnvelopeID : "");
                     model.LeaseTerm = Convert.ToInt32(GetProspectData.LeaseTerm);
-                    model.EsignatureID = GetProspectData.EsignatureID == null ? "" : GetProspectData.EsignatureID;
+                    model.EsignatureID = (!string.IsNullOrWhiteSpace(GetProspectData.EsignatureID) ? GetProspectData.EsignatureID : ""); 
                     DateTime? dateExpire = null;
                     try
                     {
-
                         dateExpire = Convert.ToDateTime(GetProspectData.CreatedDate.ToString());
                     }
                     catch

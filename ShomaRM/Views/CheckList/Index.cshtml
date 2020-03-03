@@ -494,7 +494,6 @@
     }
     var getTenantInfoCL = function (uid) {
         if (uid > 0) {
-
             $("#divLoader").show();
             var model = { UID: uid }
             $.ajax({
@@ -504,7 +503,9 @@
                 data: JSON.stringify(model),
                 dataType: "JSON",
                 success: function (response) {
+
                     $("#divLoader").hide();
+                    $("#txtMoveInDateCL").datepicker({ dateformat: "MM/dd/yyyy", startDate: response.model.MoveInDateTxt });
                     $("#hndProspectID").val(response.model.ProspectId);
                     if (!response.model.FirstName) {
                         $("#txtname").text("");
@@ -519,11 +520,9 @@
                     $("#lblLeaseNo").text(response.model.EnvelopeID);
                     if (response.model.EnvelopeID != "") {
                         $("#btnleaseDownl").removeAttr("disabled");
-                                           
                     }
-                    if (response.model.EsignatureId == "") {
+                    if (response.model.EsignatureID == "") {
                         $("#btnDownloadLeaseDocument").removeAttr("disabled");
-
                     }
                     if (response.moveindata.IsCheckPay == 1) {
                         $("#chkPayCL").prop("checked", true);
@@ -805,7 +804,6 @@
             Credit_Amount: amounttoPay,
             ProspectID: prospectID,
             Description: description,
-
             RoutingNumber: routingNumber,
             BankName: bankName,
             PaymentMethod: paymentMethod,
@@ -826,9 +824,12 @@
                     $("#chkPayCL").prop("checked", true);
                     $("#chkPayCL").prop("disabled", "disabled");
                     $("#chkPayCL").parent().addClass("checked");
-                    $("#btnPayNowCheckLink").addClass("hidden");
-                    $("#hndPaymentDone").val(1);
-
+                    if (response.PaymentDone == "1") {
+                        $("#btnPayNowCheckLink").addClass("hidden");
+                    }
+                    else {
+                        $("#btnPayNowCheckLink").removeClass("hidden");
+                    }
                     $("#divLoader").hide();
                     $.alert({
                         title: "",
@@ -1116,6 +1117,11 @@
     }
 
     var createLeaseDocument = function () {
+
+        if ($("#btnDownloadLeaseDocument").attr("disabled")) {
+            return;
+        }
+
         $("#divLoader").show();
         var param = { UserID: $("#hndUID").val() };
         $.ajax({
@@ -1127,6 +1133,8 @@
             success: function (response) {
                 $("#divLoader").hide();
                 $("#btnleaseDownl").removeAttr("disabled");
+                $("#btnDownloadLeaseDocument").attr("disabled","disabled");
+
                 //$("#btnleaseDownl").attr('href', '/Content/assets/img/Document/' + response.LeaseId + '.pdf');
                 //$("#btnleaseDownl").attr('download', 'LeaseDocument_' + response.LeaseId + '.pdf');
                 //$("#btnleaseDownl").attr('target', '_parent');
@@ -1167,28 +1175,4 @@
         });
     }
 
-    var saveToDiskFile = function () {
-        var fileName = $("#hndFileName").val();
-        var hName = "AGENT CLOSING";
-        var saveUrl = baseURL() + "/TempFiles/" + fileName;
-        //saveUrl = encodeURIComponent(saveUrl);
-        var hyperlink = document.createElement('a');
-        hyperlink.href = saveUrl;
-        hyperlink.target = '_blank';
-        hyperlink.download = hName + ".xlsx";
-
-        (document.body || document.documentElement).appendChild(hyperlink);
-        hyperlink.onclick = function () {
-            (document.body || document.documentElement).removeChild(hyperlink);
-        };
-        var mouseEvent = new MouseEvent('click', {
-            view: window,
-            bubbles: true,
-            cancelable: true
-        });
-        hyperlink.dispatchEvent(mouseEvent);
-        if (!navigator.mozGetUserMedia) {
-            window.URL.revokeObjectURL(hyperlink.href);
-        }
-    }
 </script>
