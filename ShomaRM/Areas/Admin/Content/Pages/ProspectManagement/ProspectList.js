@@ -23,13 +23,22 @@ var fillRPP_ProspectList = function () {
         buildPaganationProspectList($("#hdnCurrentPage").val());
     });
 };
-var buildPaganationProspectList = function (pagenumber) {
+var buildPaganationProspectList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = "VisitDateTime";
+    }
+    if (!orderby) {
+        orderby = "DESC";
+    }
+    $("#divLoader").show();
     var searchtype = $("#hdnSearchType").val();
     var model = {
         ToDate: $("#txtToDate").val(),
         FromDate: $("#txtFromDate").val(),
         PageNumber: 1,
-        NumberOfRows: $("#ddlRPP_ProspectList").val()
+        NumberOfRows: $("#ddlRPP_ProspectList").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: '/Admin/ProspectManagement/BuildPaganationProspectList',
@@ -50,16 +59,26 @@ var buildPaganationProspectList = function (pagenumber) {
                     $('#ulPagination_ProspectList').pagination('selectPage', 1);
                 }
             }
+            $("#divLoader").hide();
         }
     });
 };
-var fillProspectList = function (pagenumber) {
+var fillProspectList = function (pagenumber, sortby, orderby) {
+   
+    if (!sortby) {
+        sortby = "VisitDateTime";
+    }
+    if (!orderby) {
+        orderby = "DESC";
+    }
     $("#divLoader").show();
     var model = {
         ToDate: $("#txtToDate").val(),
         FromDate: $("#txtFromDate").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_ProspectList").val()
+        NumberOfRows: $("#ddlRPP_ProspectList").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: '/Admin/ProspectManagement/FillProspectSearchGrid',
@@ -84,8 +103,9 @@ var fillProspectList = function (pagenumber) {
                     html += "</tr>";
                     $("#tblProspect>tbody").append(html);
                 });
-                $("#divLoader").hide();
+                
             }
+            $("#divLoader").hide();
         }
     });
 };
@@ -106,7 +126,10 @@ $(document).ready(function () {
         },
         onPageClick: function (page, evt) {
             $("#hdnCurrentPage").val(page);
-            fillProspectList(page);
+            var sortByValue = localStorage.getItem("SortByValueAppo");
+            var OrderByValue = localStorage.getItem("OrderByValueAppo");
+            fillProspectList(page, sortByValue, OrderByValue);
+            
         }
     });
     $('#tblProspect tbody').on('click', 'tr', function () {
@@ -122,6 +145,99 @@ $(document).keypress(function (e) {
         buildPaganationProspectList(1);
     }
 });
+var count = 0;
+var sortTableAppo = function (sortby) {
+    var orderby = "";
+
+    var pagenumber = $("#hndPageNo").val();
+    if (!pagenumber) {
+        pagenumber = 1;
+    }
+
+    if (count % 2 == 1) {
+        orderby = "ASC";
+        //$("#SortIconFN").removeClass('fa fa-sort-down');
+        //$("#SortIconFN").removeClass('fa fa-sort-up fa-lg');
+        //$("#SortIconLN").removeClass('fa fa-sort-down');
+        //$("#SortIconLN").removeClass('fa fa-sort-up fa-lg');
+        //$("#SortIconPNo").removeClass('fa fa-sort-down');
+        //$("#SortIconPNo").removeClass('fa fa-sort-up fa-lg');
+        //$("#SortIconEmail").removeClass('fa fa-sort-down');
+        //$("#SortIconEmail").removeClass('fa fa-sort-up fa-lg');
+        //$("#SortIconDate").removeClass('fa fa-sort-down');
+        //$("#SortIconDate").removeClass('fa fa-sort-up fa-lg');
+        //$("#SortIconAA").removeClass('fa fa-sort-down');
+        //$("#SortIconAA").removeClass('fa fa-sort-up fa-lg');
+        //$("#SortIconStatus").removeClass('fa fa-sort-down');
+        //$("#SortIconStatus").removeClass('fa fa-sort-up fa-lg');
+       
+        if (sortby == 'FirstName') {
+            $("#SortIconFN").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'LastName') {
+            $("#SortIconLN").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'PhoneNo') {
+            $("#SortIconPNo").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'EmailId') {
+            $("#SortIconEmail").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'VisitDateTime') {
+            $("#SortIconDate").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'AssignAgentId') {
+            $("#SortIconAA").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'AppointmentStatus') {
+            $("#SortIconStatus").addClass('fa fa-sort-up fa-lg');
+        }
+   
+    }
+    else {
+        orderby = "DESC";
+        //$("#SortIconFN").removeClass('fa fa-sort-down');
+        //$("#SortIconFN").removeClass('fa fa-sort-up fa-lg');
+        //$("#SortIconLN").removeClass('fa fa-sort-down');
+        //$("#SortIconLN").removeClass('fa fa-sort-up fa-lg');
+        //$("#SortIconPNo").removeClass('fa fa-sort-down');
+        //$("#SortIconPNo").removeClass('fa fa-sort-up fa-lg');
+        //$("#SortIconEmail").removeClass('fa fa-sort-down');
+        //$("#SortIconEmail").removeClass('fa fa-sort-up fa-lg');
+        //$("#SortIconDate").removeClass('fa fa-sort-down');
+        //$("#SortIconDate").removeClass('fa fa-sort-up fa-lg');
+        //$("#SortIconAA").removeClass('fa fa-sort-down');
+        //$("#SortIconAA").removeClass('fa fa-sort-up fa-lg');
+        //$("#SortIconStatus").removeClass('fa fa-sort-down');
+        //$("#SortIconStatus").removeClass('fa fa-sort-up fa-lg');
+        if (sortby == 'FirstName') {
+            $("#SortIconFN").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'LastName') {
+            $("#SortIconLN").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'PhoneNo') {
+            $("#SortIconPNo").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'EmailId') {
+            $("#SortIconEmail").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'VisitDateTime') {
+            $("#SortIconDate").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'AssignAgentId') {
+            $("#SortIconAA").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'AppointmentStatus') {
+            $("#SortIconStatus").addClass('fa fa-sort-down fa-lg');
+        }
+    }
+    localStorage.setItem("SortByValueAppo", sortby);
+    localStorage.setItem("OrderByValueAppo", orderby);
+    count++;
+    buildPaganationProspectList(pagenumber, sortby, orderby);
+    fillProspectList(pagenumber, sortby, orderby);
+};
 
 
 

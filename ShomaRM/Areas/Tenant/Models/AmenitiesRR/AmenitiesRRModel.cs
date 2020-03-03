@@ -311,7 +311,8 @@ namespace ShomaRM.Areas.Tenant.Models
             public string calculatedDate { get; set; }
             public string UnitId { get; set; }
             public string UnitNo { get; set; }
-
+            public string SortBy { get; set; }
+            public string OrderBy { get; set; }
         }
 
         public int BuildPaganationRRList(AmenitiesReservationSearchModel model)
@@ -356,6 +357,16 @@ namespace ShomaRM.Areas.Tenant.Models
                     param6.ParameterName = "AmenityName";
                     param6.Value = model.AmenityName != null ? model.AmenityName : string.Empty;
                     cmd.Parameters.Add(param6);
+
+                    DbParameter param8 = cmd.CreateParameter();
+                    param8.ParameterName = "SortBy";
+                    param8.Value = model.SortBy;
+                    cmd.Parameters.Add(param8);
+
+                    DbParameter param9 = cmd.CreateParameter();
+                    param9.ParameterName = "OrderBy";
+                    param9.Value = model.OrderBy;
+                    cmd.Parameters.Add(param9);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -417,6 +428,16 @@ namespace ShomaRM.Areas.Tenant.Models
                     param6.ParameterName = "AmenityName";
                     param6.Value = model.AmenityName != null ? model.AmenityName : string.Empty;
                     cmd.Parameters.Add(param6);
+
+                    DbParameter param8 = cmd.CreateParameter();
+                    param8.ParameterName = "SortBy";
+                    param8.Value = model.SortBy;
+                    cmd.Parameters.Add(param8);
+
+                    DbParameter param9 = cmd.CreateParameter();
+                    param9.ParameterName = "OrderBy";
+                    param9.Value = model.OrderBy;
+                    cmd.Parameters.Add(param9);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
