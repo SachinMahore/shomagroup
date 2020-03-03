@@ -9,6 +9,13 @@
 <input type="hidden" id="hndPID" value="0" />
 <input type="hidden" id="hndIDNumber" value="" />
 <input type="hidden" id="hndSSNNumber" value="" />
+<input type="hidden" id="hndLeaseId" value="@Model.EnvelopeID" />
+<input type="hidden" id="hndEsignatureId" value="@Model.EsignatureID" />
+<input type="hidden" id="hndHasPOI" value="0" />
+<input type="hidden" id="hndPOI" value="0" />
+<input type="hidden" id="hndOriginalPOI" value="0" />
+<input type="hidden" id="hndPOE" value="0" />
+<input type="hidden" id="hndOriginalPOE" value="0" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container" style="width:100%!important">
@@ -374,7 +381,7 @@
 
                                                 <span class="property-info-entry">
                                                     <span class="property-info-label">Lease</span>
-                                                    <span class="property-info-value"><span id="lblLease"></span> Mo</span>
+                                                    <span class="property-info-value"><span id="lblLease">@Model.LeaseTerm</span> Mo</span>
                                                 </span>
                                             </div>
                                             <div class="col-xs-6 col-sm-6 col-md-6 p-b-15">
@@ -504,7 +511,7 @@
                                         <span id="">Lease Term: </span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span id="lblLease2"></span> Mo
+                                        <span id="lblLease2">@Model.LeaseTerm</span> Mo
                                     </div>
 
                                     <div class="col-sm-6">
@@ -755,7 +762,7 @@
                                                 <span>TERM: </span>
                                             </div>
                                             <div class="col-sm-9">
-                                                <span id="lblFNLTerm" style="text-decoration:underline;font-weight:bold;"></span>
+                                                <span id="lblFNLTerm" style="text-decoration:underline;font-weight:bold;">@Model.LeaseTerm</span>
                                             </div>
                                         </div>
                                     </div>
@@ -2145,12 +2152,11 @@
                             <div class="col-sm-11">
                                 <div class="form-group">
                                     <div class="">
-                                       
-                                        <input type="submit" class="btn btn-primary" width="300" style="width: 300px;" id="btnleaseDownl"  onclick="location.href='@Url.Action("GetLeaseDocBlumoonAdm","ProspectVerification",new { LeaseId = Model.EnvelopeID })'"  value="Download Leasing Application" />
+                                        <a class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="downloadLeaseDocumentPV()">Download Leasing Application</a>
                                     </div>
                                 </div>
                             </div>
-                           
+
 
                         </div>
                         <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsgFinal"></b></p></div>
@@ -2325,11 +2331,10 @@
                                 <div class="form-group">
                                     <label for="">Select Status</label>
                                     <select id="ddlStatus" class="form-control">
-                                        <option value="0">Select</option>
-                                        <option value="Approved">Approved</option>
-                                        <option value="Denied">Denied</option>
-
-                                        <option value="Conditional">Conditional</option>
+                                        <option value="0" @(Model.Status == "0" ? "selected='selected'" : "")>Select</option>
+                                        <option value="Approved" @(Model.Status == "Approved" ? "selected='selected'" : "")>Approved</option>
+                                        <option value="Denied" @(Model.Status == "Denied" ? "selected='selected'" : "")>Denied</option>
+                                        <option value="Conditional" @(Model.Status == "Conditional" ? "selected='selected'" : "")>Conditional</option>
                                     </select>
                                 </div>
                             </div>
@@ -2442,14 +2447,10 @@
                                                 <label style="margin-left: -5px;">
                                                     <input type="checkbox" id="chkIns" checked="@(string.IsNullOrWhiteSpace(Model.InsuranceDoc) == false ? true : false)" disabled><span style="margin-left: 10px;">
                                                         Make sure you have Renter’s insurance.  If you have not purchased it and would like to use our partner, login or call Serrod Insurance 	Agency at (305) 445-6441
+                                                        <br />
+                                                        <b>Download Proof of Insurance&nbsp;&nbsp;&nbsp;</b>
+                                                        <a id="dwnldPOI" href="javascript:void(0)" class="btn btn-primary" target="_parent"><i class="fa fa-download"></i></a>
                                                     </span>
-                                                </label>
-                                                <label class="containerLabel" style="display: unset !important;">
-                                                    <b>Download Proof of Insurance&nbsp;&nbsp;&nbsp;</b>
-                                                    <a id="dwnldPOI" href="javascript:void(0)" class="btn btn-primary" target="_parent"><i class="fa fa-download"></i></a>
-                                                    <input type="hidden" id="hndHasPOI" value="0" />
-                                                    <input type="hidden" id="hndPOI" value="0" />
-                                                    <input type="hidden" id="hndOriginalPOI" value="0" />
                                                 </label>
                                             </div>
                                         </div>
@@ -2467,14 +2468,12 @@
                                             <div class="checkbox">
                                                 <label style="margin-left: -5px;">
                                                     <input type="checkbox" id="chkEle" checked="@(string.IsNullOrWhiteSpace(Model.ElectricityDoc) == false ? true : false)" disabled><span style="margin-left: 10px;">
-                                                        Electricity- log in to <a href="https://fpl.com" target="_blank">https://fpl.com</a> to start service or call 1-800-226-3545 .
+                                                        Electricity- log in to <a href="https://fpl.com" target="_blank">https://fpl.com</a> to start service or call 1-800-226-3545.
+                                                        <br />
+                                                        <b>Download Proof of Electricity&nbsp;&nbsp;&nbsp;</b>
+                                                        <a id="dwnldPOE" href="javascript:void(0)" class="btn btn-primary" target="_parent"><i class="fa fa-download"></i></a>
+
                                                     </span>
-                                                </label>
-                                                <label class="containerLabel" style="display: unset !important;">
-                                                    <b>Download Proof of Electricity&nbsp;&nbsp;&nbsp;</b>
-                                                    <a id="dwnldPOE" href="javascript:void(0)" class="btn btn-primary" target="_parent"><i class="fa fa-download"></i></a>
-                                                    <input type="hidden" id="hndPOE" value="0" />
-                                                    <input type="hidden" id="hndOriginalPOE" value="0" />
                                                 </label>
                                             </div>
                                         </div>
@@ -3235,7 +3234,7 @@
                                             <span id="">LEASE TERM: </span>
                                         </div>
                                         <div class="col-sm-5">
-                                            <span><span id="lblLease4"></span> Mo</span>
+                                            <span><span id="lblLease4">@Model.LeaseTerm</span> Mo</span>
                                         </div>
 
                                     </div>
@@ -4077,5 +4076,45 @@
         }
     }
 
+    var downloadLeaseDocumentPV = function () {
+        if ($("#hndLeaseId").val() != "" || $("#hndEsignatureId").val() != "") {
+            $("#divLoader").show();
+            var param = { LeaseId: $("#hndLeaseId").val(), EsignatureId: $("#hndEsignatureId").val() };
+            $.ajax({
+                url: "/ProspectVerification/GetLeaseDocBlumoonAdm",
+                method: "post",
+                data: JSON.stringify(param),
+                contentType: "application/json; charset=utf-8", // content type sent to server
+                dataType: "json", //Expected data format from server
+                success: function (response) {
+                    $("#divLoader").hide();
+                    var hyperlink = document.createElement('a');
+                    hyperlink.href = "/Content/assets/img/Document/LeaseDocument_" + response.LeaseId + ".pdf";
+                    hyperlink.target = '_blank';
+                    hyperlink.download = "LeaseDocument_" + response.LeaseId + ".pdf";
 
+                    (document.body || document.documentElement).appendChild(hyperlink);
+                    hyperlink.onclick = function () {
+                        (document.body || document.documentElement).removeChild(hyperlink);
+                    };
+                    var mouseEvent = new MouseEvent('click', {
+                        view: window,
+                        bubbles: true,
+                        cancelable: true
+                    });
+                    hyperlink.dispatchEvent(mouseEvent);
+                    if (!navigator.mozGetUserMedia) {
+                        window.URL.revokeObjectURL(hyperlink.href);
+                    }
+                }
+            });
+        }
+        else {
+            $.alert({
+                title: "",
+                content: "Document Not Yet Signed.",
+                type: 'red'
+            });
+        }
+    };
 </script>

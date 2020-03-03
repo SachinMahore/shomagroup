@@ -15,7 +15,9 @@
         },
         onPageClick: function (page, evt) {
             $("#hdnCurrentPage").val(page);
-            fillParkingSearchGrid(page);
+            var SortByValueParking = localStorage.getItem("SortByValueParking");
+            var OrderByValueParking = localStorage.getItem("OrderByValueParking");
+            fillParkingSearchGrid(page, SortByValueParking, OrderByValueParking);
         }
     });
    
@@ -44,11 +46,19 @@ var fillRPP_Parking = function () {
         buildPaganationParkingList($("#hdnCurrentPage").val());
     });
 };
-var buildPaganationParkingList = function (pagenumber) {
+var buildPaganationParkingList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = "ParkingName";
+    }
+    if (!orderby) {
+        orderby = "ASC";
+    }
     var model = {
         Criteria: $("#txtCriteriaParking").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_Parking").val()
+        NumberOfRows: $("#ddlRPP_Parking").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: '/Parking/buildPaganationParkingList',
@@ -66,11 +76,19 @@ var buildPaganationParkingList = function (pagenumber) {
         }
     });
 };
-var fillParkingSearchGrid = function (pagenumber) {
+var fillParkingSearchGrid = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = "ParkingName";
+    }
+    if (!orderby) {
+        orderby = "ASC";
+    }
     var model = {
         Criteria: $("#txtCriteriaParking").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_Parking").val()
+        NumberOfRows: $("#ddlRPP_Parking").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: '/Parking/FillParkingSearchGrid',
@@ -94,6 +112,7 @@ var fillParkingSearchGrid = function (pagenumber) {
                     $("#tblParking>tbody").append(html);
                 });
             }
+            $("#hndPageNo").val(pagenumber);
         }
     });
 };
@@ -319,3 +338,44 @@ function formatMoney(number) {
         j = (j = i.length) > 3 ? j % 3 : 0;
     return symbol + negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "");
 }
+
+var count = 0;
+var sortTableParking = function (sortby) {
+    var orderby = "";
+    var pagenumber = $("#hndPageNo").val();
+    if (!pagenumber) {
+        pagenumber = 1;
+    }
+
+    if (count % 2 == 1) {
+        orderby = "ASC";
+        $("#SortIconParking").removeClass('fa fa-sort-up');
+        $("#SortIconParking").removeClass('fa fa-sort-down');
+        $("#SortIconCharges").removeClass('fa fa-sort-up');
+        $("#SortIconCharges").removeClass('fa fa-sort-down');
+        if (sortby == 'ParkingName') {
+            $("#SortIconParking").addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'ChargesName') {
+            $("#SortIconCharges").addClass('fa fa-sort-up fa-lg');
+        }
+    }
+    else {
+        orderby = "DESC";
+        $("#SortIconParking").removeClass('fa fa-sort-up');
+        $("#SortIconParking").removeClass('fa fa-sort-down');
+        $("#SortIconCharges").removeClass('fa fa-sort-up');
+        $("#SortIconCharges").removeClass('fa fa-sort-down');
+        if (sortby == 'ParkingName') {
+            $("#SortIconParking").addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'ChargesName') {
+            $("#SortIconCharges").addClass('fa fa-sort-down fa-lg');
+        }
+    }
+    localStorage.setItem("SortByValueParking", sortby);
+    localStorage.setItem("OrderByValueParking", orderby);
+    count++;
+    buildPaganationParkingList(pagenumber, sortby, orderby);
+    fillParkingSearchGrid(pagenumber, sortby, orderby);
+};

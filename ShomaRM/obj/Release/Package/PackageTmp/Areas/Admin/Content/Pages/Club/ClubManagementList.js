@@ -7,12 +7,19 @@ function ToJavaScriptDate(value) {
     var dt = new Date(parseFloat(results[1]));
     return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
 }
-var getGuestRegistrationList = function () {
+var getGuestRegistrationList = function (sortby, orderby) {
+    if (!sortby) {
+        sortby = 'ClubTitle';
+    }
+    if (!orderby) {
+        orderby = 'ASC';
+    }
     $("#divLoader").show();
     var model = {
         FromDate: $('#txtFromDate').val(),
-        ToDate: $('#txtToDate').val()
-
+        ToDate: $('#txtToDate').val(),
+        SortBy: sortby,
+        OrderBy: orderby
     }
     $.ajax({
         url: '/ClubManagement/GetClubManagementList',
@@ -70,3 +77,73 @@ function ActiveDeactive(id, val) {
         }
     });
 }
+
+var count = 0;
+var sortTableClubManagement = function (sortby) {
+
+    var orderby = "";
+    $('#sortClubTitleIcon').removeClass('fa fa-sort-up');
+    $('#sortClubTitleIcon').removeClass('fa fa-sort-down');
+    $('#sortVenueIcon').removeClass('fa fa-sort-up');
+    $('#sortVenueIcon').removeClass('fa fa-sort-down');
+    $('#sortPhoneIcon').removeClass('fa fa-sort-up');
+    $('#sortPhoneIcon').removeClass('fa fa-sort-down');
+    $('#sortEmailIcon').removeClass('fa fa-sort-up');
+    $('#sortEmailIcon').removeClass('fa fa-sort-down');
+    $('#sortDateIcon').removeClass('fa fa-sort-up');
+    $('#sortDateIcon').removeClass('fa fa-sort-down');
+    $('#sortTimeIcon').removeClass('fa fa-sort-up');
+    $('#sortTimeIcon').removeClass('fa fa-sort-down');
+    $('#sortActiveIcon').removeClass('fa fa-sort-up');
+    $('#sortActiveIcon').removeClass('fa fa-sort-down');
+    if (count % 2 == 1) {
+        orderby = "ASC";
+        if (sortby == 'ClubTitle') {
+            $('#sortClubTitleIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'Venue') {
+            $('#sortVenueIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'Phone') {
+            $('#sortPhoneIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'Email') {
+            $('#sortEmailIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'Date') {
+            $('#sortDateIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'Time') {
+            $('#sortTimeIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'Active') {
+            $('#sortActiveIcon').addClass('fa fa-sort-up fa-lg');
+        }
+    }
+    else {
+        orderby = "DESC";
+        if (sortby == 'ClubTitle') {
+            $('#sortClubTitleIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'Venue') {
+            $('#sortVenueIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'Phone') {
+            $('#sortPhoneIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'Email') {
+            $('#sortEmailIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'Date') {
+            $('#sortDateIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'Time') {
+            $('#sortTimeIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'Active') {
+            $('#sortActiveIcon').addClass('fa fa-sort-down fa-lg');
+        }
+    }
+    count++;
+    getGuestRegistrationList(sortby, orderby);
+};

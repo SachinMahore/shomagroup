@@ -42,17 +42,28 @@
         },
         onPageClick: function (page, evt) {
             $("#hdnCurrentPage").val(page);
-            fillCausingSearchGrid(page);
+            var sortByValue = localStorage.getItem("SortByValueSerIssue");
+            var OrderByValue = localStorage.getItem("OrderByValueSerIssue");
+            fillCausingSearchGrid(page, sortByValue, OrderByValue);
+           
         }
     });
 });
-var buildPaganationIssueList = function (pagenumber) {
+var buildPaganationIssueList = function (pagenumber, sortbyIssue, orderbyIssue) {
+    if (!sortbyIssue) {
+        sortbyIssue = "Issue";
+    }
+    if (!orderbyIssue) {
+        orderbyIssue = "ASC";
+    }
 
     var searchtype = $("#hdnSearchType").val();
     var model = {
         Criteria: $("#txtCriteriaIssue").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_Issue").val()
+        NumberOfRows: $("#ddlRPP_Issue").val(),
+        SortBy: sortbyIssue,
+        OrderBy: orderbyIssue
     };
     $.ajax({
         url: 'ServiceIssue/BuildPaganationSLList',
@@ -81,11 +92,19 @@ var buildPaganationIssueList = function (pagenumber) {
         }
     });
 };
-var fillCausingSearchGrid = function (pagenumber) {
+var fillCausingSearchGrid = function (pagenumber, sortbyIssue, orderbyIssue) {
+    if (!sortbyIssue) {
+        sortbyIssue = "Issue";
+    }
+    if (!orderbyIssue) {
+        orderbyIssue = "ASC";
+    }
     var model = {
         Criteria: $("#txtCriteriaIssue").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_Issue").val()
+        NumberOfRows: $("#ddlRPP_Issue").val(),
+        SortBy: sortbyIssue,
+        OrderBy: orderbyIssue
     };
     $.ajax({
         url: 'ServiceIssue/fillServiceIssueSearchGrid',
@@ -324,4 +343,55 @@ var delIssue = function (ID) {
             }
         }
     });
+};
+
+var count = 0;
+var sortTableServ = function (sortbySerIssue) {
+    var orderbySerIssue = "";
+    var pagenumber = $("#hndPageNo").val();
+    if (!pagenumber) {
+        pagenumber = 1;
+    }
+
+    if (count % 2 == 1) {
+        orderbySerIssue = "ASC";
+        $("#SortIconService").removeClass('fa fa-sort-up');
+        $("#SortIconService").removeClass('fa fa-sort-down');
+        $("#SortIconCausingI").removeClass('fa fa-sort-up');
+        $("#SortIconCausingI").removeClass('fa fa-sort-down');
+        $("#SortIconI").removeClass('fa fa-sort-up');
+        $("#SortIconI").removeClass('fa fa-sort-down');
+        if (sortbySerIssue == 'ServiceIssue') {
+            $("#SortIconService").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortbySerIssue == 'CausingIssue') {
+            $("#SortIconCausingI").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortbySerIssue == 'Issue') {
+            $("#SortIconI").addClass('fa fa-sort-up fa-lg');
+        }
+    }
+    else {
+        orderbySerIssue = "DESC";
+        $("#SortIconService").removeClass('fa fa-sort-up');
+        $("#SortIconService").removeClass('fa fa-sort-down');
+        $("#SortIconCausingI").removeClass('fa fa-sort-up');
+        $("#SortIconCausingI").removeClass('fa fa-sort-down');
+        $("#SortIconI").removeClass('fa fa-sort-up');
+        $("#SortIconI").removeClass('fa fa-sort-down');
+        if (sortbySerIssue == 'ServiceIssue') {
+            $("#SortIconService").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortbySerIssue == 'CausingIssue') {
+            $("#SortIconCausingI").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortbySerIssue == 'Issue') {
+            $("#SortIconI").addClass('fa fa-sort-down fa-lg');
+        }
+    }
+    localStorage.setItem("SortByValueSerIssue", sortbySerIssue);
+    localStorage.setItem("OrderByValueSerIssue", orderbySerIssue);
+    count++;
+    buildPaganationIssueList(pagenumber, sortbySerIssue, orderbySerIssue);
+    fillCausingSearchGrid(pagenumber, sortbySerIssue, orderbySerIssue);
 };

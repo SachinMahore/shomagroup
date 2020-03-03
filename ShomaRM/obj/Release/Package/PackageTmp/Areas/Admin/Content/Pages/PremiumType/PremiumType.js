@@ -44,9 +44,18 @@ var saveUpdatePremiumType = function () {
     }
 };
 
-var getPremiumTypeList = function () {
+var getPremiumTypeList = function (sortby, orderby) {
+    if (!sortby) {
+        sortby = 'PremiumType';
+    }
+    if (!orderby) {
+        orderby = 'ASC';
+    }
     $("#divLoader").show();
-    var params = { SearchText: $("#txtCriteriaPremiumType").val() };
+    var params = {
+        SearchText: $("#txtCriteriaPremiumType").val(),
+        SortBy: sortby,
+        OrderBy: orderby };
     $.ajax({
         url: '/PremiumType/GetPremiumTypeList',
         method: "post",
@@ -130,3 +139,30 @@ var clearPremiumType = function () {
     $('#txtDetails').val('');
     $("#txtCriteriaPremiumType").val('');
 }
+
+var count = 0;
+var sortTablePremiumType = function (sortby) {
+
+    var orderby = "";
+
+    if (count % 2 == 1) {
+        orderby = "ASC";
+        $('#sortPremiumTypeIcon').removeClass('fa fa-sort-up');
+        $('#sortPremiumTypeIcon').removeClass('fa fa-sort-down');
+        if (sortby == 'PremiumType') {
+            $('#sortPremiumTypeIcon').addClass('fa fa-sort-up fa-lg');
+        }
+    }
+    else {
+        orderby = "DESC";
+        $('#sortPremiumTypeIcon').removeClass('fa fa-sort-up');
+        $('#sortPremiumTypeIcon').removeClass('fa fa-sort-down');
+        if (sortby == 'PremiumType') {
+            $('#sortPremiumTypeIcon').addClass('fa fa-sort-down fa-lg');
+        }
+    }
+    localStorage.setItem("SortByValuePremiumType", sortby);
+    localStorage.setItem("OrderByValuePremiumType", orderby);
+    count++;
+    getPremiumTypeList(sortby, orderby);
+};

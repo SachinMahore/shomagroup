@@ -678,7 +678,7 @@ namespace ShomaRM.Areas.Admin.Models
 
             }
 
-            public List<EstimateModel> FillEstimateList()
+            public List<EstimateModel> FillEstimateList(EstimateModel model)
             {
                 ShomaRMEntities db = new ShomaRMEntities();
                 List<EstimateModel> lstEstimate = new List<EstimateModel>();
@@ -690,6 +690,11 @@ namespace ShomaRM.Areas.Admin.Models
                         db.Database.Connection.Open();
                         cmd.CommandText = "usp_GetEstimateList";
                         cmd.CommandType = CommandType.StoredProcedure;
+
+                        DbParameter param0 = cmd.CreateParameter();
+                        param0.ParameterName = "ServiceID";
+                        param0.Value = model.ServiceID;
+                        cmd.Parameters.Add(param0);
 
                         DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                         da.SelectCommand = cmd;
@@ -705,7 +710,7 @@ namespace ShomaRM.Areas.Admin.Models
                         searchmodel.Amount = dr["Amount"].ToString();
                         searchmodel.Description = dr["Description"].ToString();
                         searchmodel.CreatedByTxt = dr["CreatedBy"].ToString();
-                        searchmodel.CreatedDateTxt =Convert.ToDateTime(dr["CreatedDate"]).ToString("MM/dd/yyyy");
+                        searchmodel.CreatedDateTxt = Convert.ToDateTime(dr["CreatedDate"]).ToString("MM/dd/yyyy");
                         searchmodel.Status = dr["Status"].ToString();
 
                         lstEstimate.Add(searchmodel);

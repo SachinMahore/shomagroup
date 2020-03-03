@@ -68,10 +68,10 @@
                         <table id="tblTenant" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939">First Name</th>
-                                    <th class="pds-lastname" style="background-color: #c7cdd566;color:#3d3939">Last Name</th>
-                                    <th class="pds-Tenantname" style="background-color: #c7cdd566;color:#3d3939">Property</th>
-                                    <th class="pds-Tenanttype" style="background-color: #c7cdd566;color:#3d3939">Units</th>
+                                    <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableTenant('FirstName')">First Name<i id="SortIconTFN"></i></th>
+                                    <th class="pds-lastname" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableTenant('LastName')">Last Name<i id="SortIconTLN"></i></th>
+                                    <th class="pds-Tenantname" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableTenant('Property')">Property <i id="SortIconTP"></i></th>
+                                    <th class="pds-Tenanttype" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableTenant('UnitNo')">Units <i id="SortIconTunits"></i></th>
                                 </tr>
                             </thead>
                             <tbody></tbody>

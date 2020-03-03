@@ -19,12 +19,20 @@ var fillRPP_UserList = function () {
         buildPaganationUserList($("#hdnCurrentPage_PVL").val());
     });
 };
-var buildPaganationUserList = function (pagenumber) {
+var buildPaganationUserList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = 'FirstName';
+    }
+    if (!orderby) {
+        orderby = 'ASC';
+    }
     var model = {
         Filter: $("#ddlFilter_UL").val(),
         Criteria: $("#txtCriteria_UL").val(),
         PageNumber: 1,
-        NumberOfRows: $("#ddlRPP_UserList").val()
+        NumberOfRows: $("#ddlRPP_UserList").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: "/Users/BuildPaganationUserList",
@@ -48,12 +56,20 @@ var buildPaganationUserList = function (pagenumber) {
         }
     });
 };
-var fillUserList = function (pagenumber) {
+var fillUserList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = 'FirstName';
+    }
+    if (!orderby) {
+        orderby = 'ASC';
+    }
     var model = {
         Filter: $("#ddlFilter_UL").val(),
         Criteria: $("#txtCriteria_UL").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_UserList").val()
+        NumberOfRows: $("#ddlRPP_UserList").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: '/Users/FillUserSearchGrid',
@@ -82,6 +98,7 @@ var fillUserList = function (pagenumber) {
                     $("#tblUser>tbody").append(html);
                 });
             }
+            $("#hndPageNo").val(pagenumber);
         }
     });
 };
@@ -101,7 +118,9 @@ $(document).ready(function () {
         },
         onPageClick: function (page, evt) {
             $("#hdnCurrentPage_PVL").val(page);
-            fillUserList(page);
+            var SortByValueUsers = localStorage.getItem("SortByValueUsers");
+            var OrderByValueUsers = localStorage.getItem("OrderByValueUsers");
+            fillUserList(page, SortByValueUsers, OrderByValueUsers);
         }
     });
     $('#tblUser tbody').on('click', 'tr', function () {
@@ -117,3 +136,75 @@ $(document).keypress(function (e) {
         buildPaganationUserList(1);
     }
 });
+
+var count = 0;
+var sortTableUsers = function (sortby) {
+
+    var orderby = "";
+    var pNumber = $("#hndPageNo").val();
+    if (!pNumber) {
+        pNumber = 1;
+    }
+
+    if (count % 2 == 1) {
+        orderby = "ASC";
+        $('#sortFirstNameIcon').removeClass('fa fa-sort-up');
+        $('#sortFirstNameIcon').removeClass('fa fa-sort-down');
+        $('#sortLastNameIcon').removeClass('fa fa-sort-up');
+        $('#sortLastNameIcon').removeClass('fa fa-sort-down');
+        $('#sortUsernameIcon').removeClass('fa fa-sort-up');
+        $('#sortUsernameIcon').removeClass('fa fa-sort-down');
+        $('#sortUserTypeIcon').removeClass('fa fa-sort-up');
+        $('#sortUserTypeIcon').removeClass('fa fa-sort-down');
+        $('#sortStatusIcon').removeClass('fa fa-sort-up');
+        $('#sortStatusIcon').removeClass('fa fa-sort-down');
+        if (sortby == 'FirstName') {
+            $('#sortFirstNameIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'LastName') {
+            $('#sortLastNameIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'Username') {
+            $('#sortUsernameIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'UserType') {
+            $('#sortUserTypeIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'Status') {
+            $('#sortStatusIcon').addClass('fa fa-sort-up fa-lg');
+        }
+    }
+    else {
+        orderby = "DESC";
+        $('#sortFirstNameIcon').removeClass('fa fa-sort-up');
+        $('#sortFirstNameIcon').removeClass('fa fa-sort-down');
+        $('#sortLastNameIcon').removeClass('fa fa-sort-up');
+        $('#sortLastNameIcon').removeClass('fa fa-sort-down');
+        $('#sortUsernameIcon').removeClass('fa fa-sort-up');
+        $('#sortUsernameIcon').removeClass('fa fa-sort-down');
+        $('#sortUserTypeIcon').removeClass('fa fa-sort-up');
+        $('#sortUserTypeIcon').removeClass('fa fa-sort-down');
+        $('#sortStatusIcon').removeClass('fa fa-sort-up');
+        $('#sortStatusIcon').removeClass('fa fa-sort-down');
+        if (sortby == 'FirstName') {
+            $('#sortFirstNameIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'LastName') {
+            $('#sortLastNameIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'Username') {
+            $('#sortUsernameIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'UserType') {
+            $('#sortUserTypeIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'Status') {
+            $('#sortStatusIcon').addClass('fa fa-sort-down fa-lg');
+        }
+    }
+    localStorage.setItem("SortByValueUsers", sortby);
+    localStorage.setItem("OrderByValueUsers", orderby);
+    count++;
+    buildPaganationUserList(pNumber, sortby, orderby);
+    fillUserList(pNumber, sortby, orderby);
+};

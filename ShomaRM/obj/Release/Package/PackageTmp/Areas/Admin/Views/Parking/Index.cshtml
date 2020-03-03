@@ -8,6 +8,7 @@
 <input type="hidden" id="hndParkingID" value="@Model.ParkingID" />
 <input type="hidden" id="hdnSearchType" value="1" />
 <input type="hidden" id="hdnCurrentPage" value="1" />
+<input type="hidden" id="hndPageNo" value="0" />
 <div class="register-area" style="background-color: rgb(249, 249, 249);">
     <div class="container" style="width:100% !important">
         <div class="breadcrumb">
@@ -47,8 +48,8 @@
                     <table id="tblParking" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="pds-cityname" style="background-color: #c7cdd566;color:#3d3939">Parking</th>
-                                <th class="pds-cityname" style="background-color: #c7cdd566;color:#3d3939">Charges</th>
+                                <th class="pds-cityname" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('ParkingName')">Parking <i id="SortIconParking"></i></th>
+                                <th class="pds-cityname" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('ChargesName')">Charges <i id="SortIconCharges"></i></th>
                                 <th class="pds-cityname" style="background-color: #c7cdd566;color:#3d3939">Action</th>
                             </tr>
                         </thead>

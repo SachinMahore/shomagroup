@@ -20,6 +20,15 @@ $(document).ready(function () {
     $('#RequestedDate').click(function () {
         $("#txtRequestedDate").focus();
     });
+
+    $('input[name="Warranty"]').on('ifClicked', function (event) {
+        if (this.value == 'yes') {
+            $('#WarrantyEstimate').prop('disabled', true).css({ "cursor": "not-allowed" });
+        }
+        else {
+            $('#WarrantyEstimate').prop('disabled', false).css({ 'cursor': 'pointer' });
+        }
+    });
 });
 var ServiceList = function () {
     window.location.href = ("../../ServicesManagement/Index/");
@@ -38,6 +47,8 @@ var goToServiceDetails = function (ServiceID) {
         success: function (response) {
 
             $("#hndServiceID").val(response.model.ServiceID);
+            $("#workOrderNew").text(response.model.ServiceID);
+            $("#workOrderNewAssignment").text(response.model.ServiceID);
             $('#lbltenantName').text(response.model.TenantName);
             $('#lbltenantNameAssignment').text(response.model.TenantName);
             $('#ProblemCatrgory').text(response.model.ProblemCategorystring);
@@ -51,26 +62,35 @@ var goToServiceDetails = function (ServiceID) {
             if (response.model.Details == null || response.model.Details == '') {
 
                 $('#ProbleOther').addClass('hidden');
+                $('#ProbleOtherAssignment').addClass('hidden');
 
             } else {
 
                 $('#lblProbleOther').text(response.model.Details);
                 $('#ProbleOther').removeClass('hidden');
+                $('#lblProbleOtherAssignment').text(response.model.Details);
+                $('#ProbleOtherAssignment').removeClass('hidden');
             }
             if (response.model.OtherItemCaussing == null || response.model.OtherItemCaussing == '') {
 
                 $('#CaussingOther').addClass('hidden');
+                $('#CaussingOtherAssignment').addClass('hidden');
             } else {
 
                 $('#lblCaussingOther').text(response.model.OtherItemCaussing);
                 $('#CaussingOther').removeClass('hidden');
+                $('#lblCaussingOtherAssignment').text(response.model.OtherItemCaussing);
+                $('#CaussingOtherAssignment').removeClass('hidden');
             }
             if (response.model.OtherItemIssue == null || response.model.OtherItemIssue == '') {
 
                 $('#IssueOther').addClass('hidden');
+                $('#IssueOtherAssignment').addClass('hidden');
             } else {
                 $('#lblIssueOther').text(response.model.OtherItemIssue);
                 $('#IssueOther').removeClass('hidden');
+                $('#lblIssueOtherAssignment').text(response.model.OtherItemIssue);
+                $('#IssueOtherAssignment').removeClass('hidden');
             }
             $('#lbltenantDate').text(response.model.MoveIndate);
             $('#lblProject').text(response.model.Project);
@@ -85,7 +105,9 @@ var goToServiceDetails = function (ServiceID) {
 
             $('#lbltenantDateAssignment').text(response.model.MoveIndate);
             $('#lblProjectAssignment').text(response.model.Project);
+
             $('#lbltenantIdAssignment').text(response.model.ServiceID);
+
             $('#lblcaussingIssueAssignment').text(response.model.CausingIssue);
             $('#lblIssueAssignment').text(response.model.Issue);
             $('#lblLocationAssignment').text(response.model.LocationString);
@@ -97,16 +119,27 @@ var goToServiceDetails = function (ServiceID) {
                 $('#Urgent').iCheck('check');
                 $("#urgentStatus").text("URGENT!!!");
 
+                $("#attensionAssignment1").removeClass("hidden");
+                $("#attensionAssignment2").removeClass("hidden");
+
+
             } else {
                 $('#NotUrgent').iCheck('check');
                 $("#urgentStatus").text("NOT URGENT!!!");
+
+                $("#attensionAssignment1").addClass("hidden");
+                $("#attensionAssignment2").addClass("hidden");
+
             }
 
             if (response.model.WarrantyStatus == 1) {
                 $('#Yes').iCheck('check');
+                $('#WarrantyEstimate').prop('disabled', true).css({ "cursor": "not-allowed" });
+            }
+            else {
 
-            } else {
                 $('#No').iCheck('check');
+                $('#WarrantyEstimate').prop('disabled', false).css({ 'pointer-events': 'auto', 'cursor': 'pointer' });
             }
 
             $('#lblEmergencyNo').text(formatPhoneFax(response.model.EmergencyMobile));
@@ -188,6 +221,7 @@ var goToServiceDetails = function (ServiceID) {
     });
     $("#divLoader").hide();
 };
+
 var onFocus = function () {
 
     $("#txtCellPhone").focusout(function () { $("#txtCellPhone").val(formatPhoneFax($("#txtCellPhone").val())); })
@@ -547,13 +581,17 @@ var saveUpdateEstimate = function () {
     });
     $("#divLoader").hide();
 };
-
 var fillEstimate = function () {
     updateEstimateDesign(0);
+    var id = $("#hndServiceID").val();
+    var model = {
+        ServiceID: id,
+    };
     $.ajax({
         url: '/ServicesManagement/FillEstimateList',
         method: "post",
         contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(model),
         dataType: "json",
         success: function (response) {
             $("#tblEstimate>tbody").empty();
@@ -566,7 +604,7 @@ var fillEstimate = function () {
                 html += "<td>" + elementValue.CreatedByTxt + "</td>";
                 html += "<td>" + elementValue.CreatedDateTxt + "</td>";
                 html += "<td>" + elementValue.Status + "</td>";
-                html += "<td><a class='btn btn-addon' href='javascript:void(0)' onclick='getEstimateData(" + elementValue.EID+")'><i class='fa fa-edit'></i></a></td>";
+                html += "<td><a class='btn btn-addon' href='javascript:void(0)' onclick='getEstimateData(" + elementValue.EID + ")'><i class='fa fa-edit'></i></a></td>";
                 html += "</tr>";
                 $("#tblEstimate>tbody").append(html);
             });
@@ -586,7 +624,7 @@ var getEstimateData = function (id) {
         data: JSON.stringify(model),
         dataType: "json",
         success: function (response) {
-            alert(response.model.Status)
+           
             if (response.model.Status == "1")
             {
                 $("#generateInvoice").removeClass("hidden");

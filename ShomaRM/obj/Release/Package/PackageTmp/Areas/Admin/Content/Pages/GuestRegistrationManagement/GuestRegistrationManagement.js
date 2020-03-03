@@ -11,11 +11,19 @@
 
 });
 
-var getGuestRegistrationList = function () {
+var getGuestRegistrationList = function (sortby, orderby) {
+    if (!sortby) {
+        sortby = 'FromDate';
+    }
+    if (!orderby) {
+        orderby = 'DESC';
+    }
     $("#divLoader").show();
     var model = {
         FromDate: $('#txtFromDate').val(),
-        ToDate: $('#txtToDate').val()
+        ToDate: $('#txtToDate').val(),
+        SortBy: sortby,
+        OrderBy: orderby
 
     }
     $.ajax({
@@ -48,7 +56,7 @@ var getGuestRegistrationList = function () {
                 html += '<tr data-value="' + elementValue.GuestID + '">';
                 html += '<td style="color:#3d3939;">' + elementValue.FirstName + ' ' + elementValue.LastName + '</td>';
                 html += '<td style="color:#3d3939;">' + elementValue.TenantName + '</td>';
-                html += '<td style="color:#3d3939;">' + elementValue.Phone + '</td>';
+                html += '<td style="color:#3d3939;">' + formatPhoneFax(elementValue.Phone) + '</td>';
                 html += '<td style="color:#3d3939;">' + elementValue.Email + '</td>';
                 html += '<td style="color:#3d3939;">' + elementValue.VisitStartDateString + '</td>';
                 html += '<td style="color:#3d3939;">' + elementValue.VisitEndDateString + '</td>';
@@ -257,4 +265,74 @@ var StatusUpdate = function (id) {
 
 var goGuestRequestList = function () {
     window.location.replace( "/Admin/GuestManagement/Index");
+};
+
+var count = 0;
+var sortTableGuestManagement = function (sortby) {
+
+    var orderby = "";
+    $('#sortGuestNameIcon').removeClass('fa fa-sort-up');
+    $('#sortGuestNameIcon').removeClass('fa fa-sort-down');
+    $('#sortTenantNameIcon').removeClass('fa fa-sort-up');
+    $('#sortTenantNameIcon').removeClass('fa fa-sort-down');
+    $('#sortPhoneIcon').removeClass('fa fa-sort-up');
+    $('#sortPhoneIcon').removeClass('fa fa-sort-down');
+    $('#sortEmailIcon').removeClass('fa fa-sort-up');
+    $('#sortEmailIcon').removeClass('fa fa-sort-down');
+    $('#sortFromDateIcon').removeClass('fa fa-sort-up');
+    $('#sortFromDateIcon').removeClass('fa fa-sort-down');
+    $('#sortToDateIcon').removeClass('fa fa-sort-up');
+    $('#sortToDateIcon').removeClass('fa fa-sort-down');
+    $('#sortGuestStatusIcon').removeClass('fa fa-sort-up');
+    $('#sortGuestStatusIcon').removeClass('fa fa-sort-down');
+    if (count % 2 == 1) {
+        orderby = "ASC";
+        if (sortby == 'GuestName') {
+            $('#sortGuestNameIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'TenantName') {
+            $('#sortTenantNameIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'Phone') {
+            $('#sortPhoneIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'Email') {
+            $('#sortEmailIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'FromDate') {
+            $('#sortFromDateIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'ToDate') {
+            $('#sortToDateIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'GuestStatus') {
+            $('#sortGuestStatusIcon').addClass('fa fa-sort-up fa-lg');
+        }
+    }
+    else {
+        orderby = "DESC";
+        if (sortby == 'GuestName') {
+            $('#sortGuestNameIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'TenantName') {
+            $('#sortTenantNameIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'Phone') {
+            $('#sortPhoneIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'Email') {
+            $('#sortEmailIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'FromDate') {
+            $('#sortFromDateIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'ToDate') {
+            $('#sortToDateIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'GuestStatus') {
+            $('#sortGuestStatusIcon').addClass('fa fa-sort-down fa-lg');
+        }
+    }
+    count++;
+    getGuestRegistrationList(sortby, orderby);
 };

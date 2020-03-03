@@ -38,8 +38,8 @@ $(document).ready(function () {
         },
         onPageClick: function (page, evt) {
             $("#hdnCurrentPage").val(page);
-            var sortByValue = localStorage.getItem("SortByValue");
-            var OrderByValue = localStorage.getItem("OrderByValue");
+            var sortByValue = localStorage.getItem("SortByValueSerCat");
+            var OrderByValue = localStorage.getItem("OrderByValueSerCat");
             fillSCategorySearchGrid(page, sortByValue, OrderByValue);
         }
     });
@@ -281,8 +281,8 @@ var sortTable = function (sortby) {
         $("#SortIcon").removeClass('fa fa-sort-up');
         $("#SortIcon").addClass('fa fa-sort-down fa-lg');
     }
-    localStorage.setItem("SortByValue", sortby);
-    localStorage.setItem("OrderByValue", orderby);
+    localStorage.setItem("SortByValueSerCat", sortby);
+    localStorage.setItem("OrderByValueSerCat", orderby);
     count++;
     buildPaganationScategoryList(pagenumber, sortby, orderby);
     fillSCategorySearchGrid(pagenumber, sortby, orderby);

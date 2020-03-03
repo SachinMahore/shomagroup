@@ -581,13 +581,17 @@ var saveUpdateEstimate = function () {
     });
     $("#divLoader").hide();
 };
-
 var fillEstimate = function () {
     updateEstimateDesign(0);
+    var id = $("#hndServiceID").val();
+    var model = {
+        ServiceID: id,
+    };
     $.ajax({
         url: '/ServicesManagement/FillEstimateList',
         method: "post",
         contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(model),
         dataType: "json",
         success: function (response) {
             $("#tblEstimate>tbody").empty();
@@ -600,7 +604,7 @@ var fillEstimate = function () {
                 html += "<td>" + elementValue.CreatedByTxt + "</td>";
                 html += "<td>" + elementValue.CreatedDateTxt + "</td>";
                 html += "<td>" + elementValue.Status + "</td>";
-                html += "<td><a class='btn btn-addon' href='javascript:void(0)' onclick='getEstimateData(" + elementValue.EID+")'><i class='fa fa-edit'></i></a></td>";
+                html += "<td><a class='btn btn-addon' href='javascript:void(0)' onclick='getEstimateData(" + elementValue.EID + ")'><i class='fa fa-edit'></i></a></td>";
                 html += "</tr>";
                 $("#tblEstimate>tbody").append(html);
             });

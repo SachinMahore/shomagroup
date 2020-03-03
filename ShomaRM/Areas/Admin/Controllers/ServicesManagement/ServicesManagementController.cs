@@ -130,11 +130,11 @@ namespace ShomaRM.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult FillEstimateList()
+        public ActionResult FillEstimateList(ServicesManagementModel.EstimateModel model)
         {
             try
             {
-                return Json(new { model = new ServicesManagementModel.EstimateModel().FillEstimateList() }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = new ServicesManagementModel.EstimateModel().FillEstimateList(model) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
