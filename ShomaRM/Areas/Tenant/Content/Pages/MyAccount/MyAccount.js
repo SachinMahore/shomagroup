@@ -4434,13 +4434,13 @@ var getLeaseInfoDocuments = function () {
             var Ldhtml = '';
             if (response.model.EnvelopeID != null ) {
                 intCount++;
-                var resultLease = doesFileExist('/Content/assets/img/Document/LeaseDocument_' + response.model.EnvelopeID + ".pdf");
-                if (resultLease == true) {
+                //var resultLease = doesFileExist('/Content/assets/img/Document/LeaseDocument_' + response.model.EnvelopeID + ".pdf");
+                //if (resultLease == true) {
                     Ldhtml += "<a href='javascript:void(0)' onclick='downloadLeaseDocumentTP()'>LeaseDocument_" + response.model.EnvelopeID + ".pdf</a></br>";
-                }
-                else {
-                    Ldhtml += "<a href='javascript:void(0)' onclick='FileNotFound();'>LeaseDocument_" + response.model.EnvelopeID + ".pdf</a></br>";
-                }
+                //}
+                //else {
+                //    Ldhtml += "<a href='javascript:void(0)' onclick='FileNotFound();'>LeaseDocument_" + response.model.EnvelopeID + ".pdf</a></br>";
+                //}
             }
             $('#accordionSubLeaseDocument').append(Ldhtml);
 

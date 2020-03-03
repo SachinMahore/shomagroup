@@ -135,9 +135,9 @@ var getLeaseInfoDocuments = function () {
             
             if (response.model.EnvelopeID != null) {
                 intCount++;
-                var resultLease = doesFileExist('/Content/assets/img/Document/' + response.model.EnvelopeID);
+                var resultLease = doesFileExist('/Content/assets/img/Document/LeaseDocument_' + response.model.EnvelopeID + ".pdf");
                 if (resultLease == true) {
-                    Ldhtml += "<a href='/Content/assets/img/Document/" + response.model.EnvelopeID + "' download='" + response.model.EnvelopeID + "'>" + response.model.EnvelopeID + "</a></br>";
+                    Ldhtml += "<a href='javascript:void(0)' onclick='downloadLeaseDocumentATD(\""+ response.model.EnvelopeID + "\",\"" + response.model.EsignatureID +"\")'>LeaseDocument_" + response.model.EnvelopeID + ".pdf</a></br>";
                 }
                 else {
                     Ldhtml += "<a href='javascript:void(0)' onclick='FileNotFound();'>" + response.model.EnvelopeID + "</a></br>";
@@ -1051,4 +1051,45 @@ var delGuestRegistration = function (id) {
         }
     });
     $("#divLoader").hide();
+};
+var downloadLeaseDocumentATD = function (leaseid, esignatureid) {
+    if (leaseid != "" || esignatureid != "") {
+        $("#divLoader").show();
+        var param = { LeaseId: leaseid, EsignatureId: esignatureid};
+        $.ajax({
+            url: "/ProspectVerification/GetLeaseDocBlumoonAdm",
+            method: "post",
+            data: JSON.stringify(param),
+            contentType: "application/json; charset=utf-8", // content type sent to server
+            dataType: "json", //Expected data format from server
+            success: function (response) {
+                $("#divLoader").hide();
+                var hyperlink = document.createElement('a');
+                hyperlink.href = "/Content/assets/img/Document/LeaseDocument_" + response.LeaseId + ".pdf";
+                hyperlink.target = '_blank';
+                hyperlink.download = "LeaseDocument_" + response.LeaseId + ".pdf";
+
+                (document.body || document.documentElement).appendChild(hyperlink);
+                hyperlink.onclick = function () {
+                    (document.body || document.documentElement).removeChild(hyperlink);
+                };
+                var mouseEvent = new MouseEvent('click', {
+                    view: window,
+                    bubbles: true,
+                    cancelable: true
+                });
+                hyperlink.dispatchEvent(mouseEvent);
+                if (!navigator.mozGetUserMedia) {
+                    window.URL.revokeObjectURL(hyperlink.href);
+                }
+            }
+        });
+    }
+    else {
+        $.alert({
+            title: "",
+            content: "Document Not Yet Signed.",
+            type: 'red'
+        });
+    }
 };
