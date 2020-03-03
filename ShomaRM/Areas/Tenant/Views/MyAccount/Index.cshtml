@@ -7,6 +7,8 @@
 <script src="~/Areas/Tenant/Content/Pages/MyAccount/MyAccount.js"></script>
 <script src="~/Content/printThis.js"></script>
 <input type="hidden" id="hndTenantID" value="@ViewBag.TenantID" />
+<input type="hidden" id="hndLeaseId" value="" />
+<input type="hidden" id="hndEsignatureId" value="" />
 @*"*@
 <input type="hidden" id="hndUserId" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID" /> @*value=""*@
 <input type="hidden" id="hndUnitID" value="0" />
@@ -2398,7 +2400,7 @@
 
 
                             </div>
-                            <div class="col-sm-4 text-center" >
+                            <div class="col-sm-4 text-center">
                                 @*<div class="form-group">
                                         <div class="col-sm-3 text-center">To :</div>
                                         <div class="col-sm-9 text-center">
@@ -2526,7 +2528,7 @@
 
 
                             </div>
-                            <div class="col-sm-4 text-center" >
+                            <div class="col-sm-4 text-center">
 
                                 @*<div class="input-group">
                                         <input id="txtDesiredTimePCTo" class="time_element form-control form-control-small" type="text" name="timepicker" maxlength="20" placeholder="HH:mm:ss" />
@@ -2647,7 +2649,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 text-center" >
+                                <div class="col-sm-4 text-center">
                                     @*<div class="form-group">
                                             <div class="col-sm-3 text-center">To :</div>
                                             <div class="col-sm-9 text-center">
@@ -2755,7 +2757,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-sm-4 text-center" >
+                            <div class="col-sm-4 text-center">
                                 @*<div class="form-group">
                                         <div class="col-sm-3 text-center">To :</div>
                                         <div class="col-sm-9 text-center">
