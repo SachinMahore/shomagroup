@@ -4432,14 +4432,14 @@ var getLeaseInfoDocuments = function () {
             //For Lease Documents
             $('#accordionSubLeaseDocument').empty();
             var Ldhtml = '';
-            if (response.model.EnvelopeID != null) {
+            if (response.model.EnvelopeID != null ) {
                 intCount++;
                 var resultLease = doesFileExist('/Content/assets/img/Document/' + response.model.EnvelopeID + ".pdf");
                 if (resultLease == true) {
-                    Ldhtml += "<a href='/Content/assets/img/Document/" + response.model.EnvelopeID + ".pdf' download='LeaseDocument_" + response.model.EnvelopeID + "'>" + response.model.EnvelopeID + "</a></br>";
+                    Ldhtml += "<a href='javascript:void(0)' onclick='downloadLeaseDocumentTP()'>LeaseDocument_" + response.model.EnvelopeID + ".pdf</a></br>";
                 }
                 else {
-                    Ldhtml += "<a href='javascript:void(0)' onclick='FileNotFound();'>" + response.model.EnvelopeID + "</a></br>";
+                    Ldhtml += "<a href='javascript:void(0)' onclick='FileNotFound();'>LeaseDocument_" + response.model.EnvelopeID + ".pdf</a></br>";
                 }
             }
             $('#accordionSubLeaseDocument').append(Ldhtml);
@@ -5864,5 +5864,36 @@ var clearDateTime = function () {
     $("#txtDesiredDateYoga,#txtDesiredTimeYogaFrom,#txtDesiredTimeYogaTo").val("").removeAttr("value");
     $("#txtDesiredDateSoccer,#txtDesiredTimeSoccerFrom,#txtDesiredTimeSoccerTo").val("").removeAttr("value");
     $("#btnPrintSoccer,#btnPrintBBQ,#btnPrintPC, #btnPrintClubroom, #btnPrintYog").attr("disabled", true);
+};
+var downloadLeaseDocumentTP = function () {
+    $("#divLoader").show();
+    var param = { UserID: $("#hndUserId").val() };
+    $.ajax({
+        url: "/CheckList/GetLeaseDocBlumoon",
+        method: "post",
+        data: JSON.stringify(param),
+        contentType: "application/json; charset=utf-8", // content type sent to server
+        dataType: "json", //Expected data format from server
+        success: function (response) {
+            $("#divLoader").hide();
+            var hyperlink = document.createElement('a');
+            hyperlink.href = "/Content/assets/img/Document/LeaseDocument_" + response.LeaseId + ".pdf";
+            hyperlink.target = '_blank';
+            hyperlink.download = "LeaseDocument_" + response.LeaseId + ".pdf";
 
+            (document.body || document.documentElement).appendChild(hyperlink);
+            hyperlink.onclick = function () {
+                (document.body || document.documentElement).removeChild(hyperlink);
+            };
+            var mouseEvent = new MouseEvent('click', {
+                view: window,
+                bubbles: true,
+                cancelable: true
+            });
+            hyperlink.dispatchEvent(mouseEvent);
+            if (!navigator.mozGetUserMedia) {
+                window.URL.revokeObjectURL(hyperlink.href);
+            }
+        }
+    });
 };
