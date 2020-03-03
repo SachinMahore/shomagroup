@@ -15,11 +15,11 @@ namespace ShomaRM.Areas.Admin.Controllers.Club
             return View();
         }
 
-        public JsonResult GetClubManagementList(DateTime FromDate, DateTime ToDate)
+        public JsonResult GetClubManagementList(DateTime FromDate, DateTime ToDate, string SortBy, string OrderBy)
         {
             try
             {
-                return Json(new { model = new ClubModel().GetClubList() }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = new ClubModel().GetClubList(FromDate, ToDate, SortBy, OrderBy) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception Ex)
             {

@@ -8,6 +8,7 @@
 
 <script src="~/Areas/Admin/Content/Pages/ProspectVerification/ProspectVerificationList.js"></script>
 <!-- property area -->
+<input type="hidden" id="hndPageNo" value="0" />
 <div class="register-area" style="background-color: rgb(249, 249, 249);">
     <div class="container"  style="width:100%!important">
         <div class="row">
@@ -38,7 +39,7 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group padding-top-25">
-                                <button type='button' class='btn btn-next btn-primary' name='Search' value='Search' onclick="buildPaganationProspectVerifyList('1','CreatedDate','DESC')"><i class="fa fa-search"></i> SEARCH</button>
+                                <button type='button' class='btn btn-next btn-primary' name='Search' value='Search' onclick="buildPaganationProspectVerifyList(1)"><i class="fa fa-search"></i> SEARCH</button>
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -64,12 +65,12 @@
                             <table id="tblProspectVerify" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th style="background-color: #c7cdd5;color:#3d3939;">First Name</th>
-                                        <th style="background-color: #c7cdd5;color:#3d3939;">Last Name</th>
-                                        <th style="background-color: #c7cdd5;color:#3d3939;">Phone No</th>
-                                        <th style="background-color: #c7cdd5;color:#3d3939;">Email Address</th>
-                                        <th style="background-color: #c7cdd5;color:#3d3939;" onclick="sortTable('CreatedDate')">Apply Date <span></span></th>
-                                        <th style="background-color: #c7cdd5;color:#3d3939;" onclick="sortTable('PropertyId')">Unit No <span></span></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('FirstName')">First Name <i id="sortFirstNameIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('LastName')">Last Name <i id="sortLastNameIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('PhoneNo')">Phone No <i id="sortPhoneNoIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('EmailAddress')">Email Address <i id="sortEmailAddressIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('ApplyDate')">Apply Date <i id="sortApplyDateIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('UnitNo')">Unit No <i id="sortUnitNoIcon" class=""></i></th>
                                         @*<th style="background-color: #c7cdd5;color:#3d3939;padding:10px;">Action</th>*@
                                     </tr>
                                 </thead>

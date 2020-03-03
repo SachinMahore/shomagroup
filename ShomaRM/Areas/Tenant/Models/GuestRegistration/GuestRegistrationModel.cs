@@ -340,7 +340,7 @@ namespace ShomaRM.Areas.Tenant.Models
             db.Dispose();
             return model;
         }
-        public List<GuestRegistrationModel> GetGuestRegistrationList(DateTime FromDate, DateTime ToDate)
+        public List<GuestRegistrationModel> GetGuestRegistrationList(DateTime FromDate, DateTime ToDate, string SortBy, string OrderBy)
         {
             List<GuestRegistrationModel> listGuestRegistration = new List<GuestRegistrationModel>();
             ShomaRMEntities db = new ShomaRMEntities();
@@ -362,6 +362,16 @@ namespace ShomaRM.Areas.Tenant.Models
                     paramC.ParameterName = "ToDate";
                     paramC.Value = ToDate;
                     cmd.Parameters.Add(paramC);
+
+                    DbParameter paramSortBy = cmd.CreateParameter();
+                    paramSortBy.ParameterName = "SortBy";
+                    paramSortBy.Value = SortBy;
+                    cmd.Parameters.Add(paramSortBy);
+
+                    DbParameter paramOrderBy = cmd.CreateParameter();
+                    paramOrderBy.ParameterName = "OrderBy";
+                    paramOrderBy.Value = OrderBy;
+                    cmd.Parameters.Add(paramOrderBy);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;

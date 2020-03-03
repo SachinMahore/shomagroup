@@ -149,10 +149,73 @@ namespace ShomaRM.Areas.Tenant.Models.Club
             return _respnse;
         }
 
-        public List<ClubModel> GetClubList()
+        public List<ClubModel> GetClubList(DateTime FromDate, DateTime ToDate, string SortBy, string OrderBy)
         {
             ShomaRMEntities db = new ShomaRMEntities();
-            var Clublist = db.tbl_Club.ToList();
+            var Clublist = new List<tbl_Club>();
+            if (OrderBy == "ASC")
+            {
+                if (SortBy == "ClubTitle")
+                {
+                    Clublist = db.tbl_Club.Where(co=>co.StartDate >= FromDate && co.StartDate <= ToDate).OrderBy(co=>co.ClubTitle).ToList();
+                }
+                else if (SortBy == "Venue")
+                {
+                    Clublist = db.tbl_Club.Where(co => co.StartDate >= FromDate && co.StartDate <= ToDate).OrderBy(co => co.Venue).ToList();
+                }
+                else if (SortBy == "Phone")
+                {
+                    Clublist = db.tbl_Club.Where(co => co.StartDate >= FromDate && co.StartDate <= ToDate).OrderBy(co => co.PhoneNumber).ToList();
+                }
+                else if (SortBy == "Email")
+                {
+                    Clublist = db.tbl_Club.Where(co => co.StartDate >= FromDate && co.StartDate <= ToDate).OrderBy(co => co.Email).ToList();
+                }
+                else if (SortBy == "Date")
+                {
+                    Clublist = db.tbl_Club.Where(co => co.StartDate >= FromDate && co.StartDate <= ToDate).OrderBy(co => co.StartDate).ToList();
+                }
+                else if (SortBy == "Time")
+                {
+                    Clublist = db.tbl_Club.Where(co => co.StartDate >= FromDate && co.StartDate <= ToDate).OrderBy(co => co.Time).ToList();
+                }
+                else if (SortBy == "Active")
+                {
+                    Clublist = db.tbl_Club.Where(co => co.StartDate >= FromDate && co.StartDate <= ToDate).OrderBy(co => co.Active).ToList();
+                }
+            }
+            else if (OrderBy == "DESC")
+            {
+                if (SortBy == "ClubTitle")
+                {
+                    Clublist = db.tbl_Club.Where(co => co.StartDate >= FromDate && co.StartDate <= ToDate).OrderByDescending(co => co.ClubTitle).ToList();
+                }
+                else if (SortBy == "Venue")
+                {
+                    Clublist = db.tbl_Club.Where(co => co.StartDate >= FromDate && co.StartDate <= ToDate).OrderByDescending(co => co.Venue).ToList();
+                }
+                else if (SortBy == "Phone")
+                {
+                    Clublist = db.tbl_Club.Where(co => co.StartDate >= FromDate && co.StartDate <= ToDate).OrderByDescending(co => co.PhoneNumber).ToList();
+                }
+                else if (SortBy == "Email")
+                {
+                    Clublist = db.tbl_Club.Where(co => co.StartDate >= FromDate && co.StartDate <= ToDate).OrderByDescending(co => co.Email).ToList();
+                }
+                else if (SortBy == "Date")
+                {
+                    Clublist = db.tbl_Club.Where(co => co.StartDate >= FromDate && co.StartDate <= ToDate).OrderByDescending(co => co.StartDate).ToList();
+                }
+                else if (SortBy == "Time")
+                {
+                    Clublist = db.tbl_Club.Where(co => co.StartDate >= FromDate && co.StartDate <= ToDate).OrderByDescending(co => co.Time).ToList();
+                }
+                else if (SortBy == "Active")
+                {
+                    Clublist = db.tbl_Club.Where(co => co.StartDate >= FromDate && co.StartDate <= ToDate).OrderByDescending(co => co.Active).ToList();
+                }
+            }
+            
             if (UserId != 0)
             {
                 Clublist = Clublist.ToList();

@@ -47,12 +47,43 @@ namespace ShomaRM.Areas.Admin.Models
             return model;
         }
 
-        public List<LeaseTermsModel> GetLeaseTermsList()
+        public List<LeaseTermsModel> GetLeaseTermsList(string SortBy, string OrderBy)
         {
             List<LeaseTermsModel> listLeaseTerms = new List<LeaseTermsModel>();
             ShomaRMEntities db = new ShomaRMEntities();
 
-            var LeaseTermsList = db.tbl_LeaseTerms.ToList();
+            var LeaseTermsList = new List<tbl_LeaseTerms>();
+            if (OrderBy == "ASC")
+            {
+                if (SortBy == "LeaseTerms")
+                {
+                    LeaseTermsList = db.tbl_LeaseTerms.OrderBy(co=>co.LeaseTerms).ToList();
+                }
+                if (SortBy == "OfferTerms")
+                {
+                    LeaseTermsList = db.tbl_LeaseTerms.OrderBy(co => co.OfferTerms).ToList();
+                }
+                if (SortBy == "Agent")
+                {
+                    LeaseTermsList = db.tbl_LeaseTerms.OrderBy(co => co.FormAgent).ToList();
+                }
+            }
+            if (OrderBy == "DESC")
+            {
+                if (SortBy == "LeaseTerms")
+                {
+                    LeaseTermsList = db.tbl_LeaseTerms.OrderByDescending(co => co.LeaseTerms).ToList();
+                }
+                if (SortBy == "OfferTerms")
+                {
+                    LeaseTermsList = db.tbl_LeaseTerms.OrderByDescending(co => co.OfferTerms).ToList();
+                }
+                if (SortBy == "Agent")
+                {
+                    LeaseTermsList = db.tbl_LeaseTerms.OrderByDescending(co => co.FormAgent).ToList();
+                }
+            }
+            
             foreach (var item in LeaseTermsList)
             {
                 listLeaseTerms.Add(new LeaseTermsModel()
