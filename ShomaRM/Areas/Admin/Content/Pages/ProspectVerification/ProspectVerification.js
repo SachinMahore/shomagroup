@@ -1435,7 +1435,7 @@ var getPropertyUnitDetails = function (uid) {
             $("#lblBath").text(response.model.Bathroom);
             $("#lblHall").text(response.model.Hall);
             $("#lblDeposit").text("$" + response.model.Deposit);
-            $("#lblLease").text(response.model.Leased);
+            //$("#lblLease").text(response.model.LeaseTerm);
 
             $("#lblRent22").text("$" + response.model.Current_Rent);
             $("#lblArea22").text(response.model.Area);
@@ -1446,9 +1446,10 @@ var getPropertyUnitDetails = function (uid) {
             $("#lblOccupancy").text((parseInt(response.model.Bedroom) * 2).toString());
 
             $("#lblDeposit22").text("$" + response.model.Deposit);
-            $("#lblLease22").text(response.model.Leased);
+            //$("#lblLease22").text(response.model.LeaseTerm);
 
-            $("#lblLease2").text(response.model.Leased);
+            //$("#lblLease2").text(response.model.LeaseTerm);
+
             // $("#lblDeposit").text(response.model.Rent);
             $("#imgFloorPlan").attr("src", "/content/assets/img/plan/" + response.model.Building + ".jpg");
             $("#imgFloorPlan1").attr("src", "/content/assets/img/plan/" + response.model.Building + ".jpg");
@@ -1540,7 +1541,9 @@ var getPropertyUnitDetails = function (uid) {
             //Amit's Work for final Quotation form 15-10
             $("#lblFNLUnit").text("#" + response.model.UnitNo);
             $("#lblFNLModel").text(response.model.Building);
-            $("#lblFNLTerm").text(response.model.Leased);
+
+            //$("#lblFNLTerm").text(response.model.LeaseTerm);
+
             $("#lblMonthly_MonthlyCharge").text(formatMoney(parseFloat(response.model.Current_Rent).toFixed(2)));
 
             $("#lblProrated_MonthlyCharge").text(formatMoney(parseFloat(parseFloat(response.model.Current_Rent) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
@@ -1582,8 +1585,10 @@ var getPropertyUnitDetails = function (uid) {
             $("#lblBath1").text(response.model.Bathroom);
             $("#lblHall1").text(response.model.Hall);
             $("#lblDeposit1").text("$" + response.model.Deposit);
-            $("#lblLease3").text(response.model.Leased);
-            $("#lblLease4").text(response.model.Leased);
+
+            //$("#lblLease3").text(response.model.LeaseTerm);
+            //$("#lblLease4").text(response.model.LeaseTerm);
+
             $("#imgFloorPlanSumm").attr("src", "/content/assets/img/plan/" + response.model.Building + ".jpg");
             $("#lbldeposit2").text(parseFloat(response.model.Deposit).toFixed(2));
             $("#lblFMRent1").text(parseFloat(response.model.Current_Rent).toFixed(2));

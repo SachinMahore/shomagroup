@@ -3944,9 +3944,9 @@
             if (('@Model.EnvelopeID') !="") {
                 $("#btnAddPet").attr("disabled", true);
                 $("#btnleaseDownl").removeAttr("disabled");
-                $("#btnleaseDownl").attr('href', '/Content/assets/img/Document/' + @Model.EnvelopeID+ '.pdf');
-                $("#btnleaseDownl").attr('download', 'LeaseDocument_' + @Model.EnvelopeID+ '.pdf');
-                $("#btnleaseDownl").attr('target', '_parent');
+                //$("#btnleaseDownl").attr('href', '/Content/assets/img/Document/' + @Model.EnvelopeID+ '.pdf');
+                //$("#btnleaseDownl").attr('download', 'LeaseDocument_' + @Model.EnvelopeID+ '.pdf');
+                //$("#btnleaseDownl").attr('target', '_parent');
                 goToStep(15, 15);
                 $("#btnDownloadLeaseDocument").css("background-color", "#B4ADA5").attr("disabled", "disabled");
                 //$("#lblsignin").removeClass("hidden");
