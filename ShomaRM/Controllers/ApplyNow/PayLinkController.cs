@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using ShomaRM.Models;
 using ShomaRM.Areas.Tenant.Models;
+using ShomaRM.Areas.Admin.Models;
+using static ShomaRM.Areas.Admin.Models.ServicesManagementModel;
 
 namespace ShomaRM.Controllers
 {
@@ -56,8 +58,8 @@ namespace ShomaRM.Controllers
         {
             ViewBag.UID = "0";
             ViewBag.FromAcc = FromAcc;
-            ViewBag.ARID = EID;
-            var model = new AmenitiesReservationModel().GetRRInfo(EID);
+            ViewBag.EID = EID;
+            var model = new EstimateModel().GetEstimateInvData(EID);
             if (FromAcc != 0)
             {
                 if (ShomaGroupWebSession.CurrentUser != null)

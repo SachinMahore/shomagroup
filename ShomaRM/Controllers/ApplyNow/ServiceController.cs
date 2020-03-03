@@ -35,13 +35,13 @@ namespace ShomaRM.Controllers.ApplyNow
 
                     //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
                     reportHTMLAgent = reportHTMLAgent.Replace("[%TenantName%]", salesPersonnInfo.FirstName + " " + salesPersonnInfo.LastName);
-                    reportHTMLAgent = reportHTMLAgent.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Service Estimate of Repair of Amount: $" + GetServiceData.Amount + " for Vendor: " + GetServiceData.Vendor + ",  with Description: " + GetServiceData.Description + ". </p><p><h2>STATUS: " + (Status == 1 ? "ACCEPTED" : "DENIED") + "</h2></p>");
+                    reportHTMLAgent = reportHTMLAgent.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Service Repair Estimate of Amount: $" + GetServiceData.Amount + " for Vendor: " + GetServiceData.Vendor + " with Description: " + GetServiceData.Description + ". </p><p><h2>STATUS: " + (Status == 1 ? "ACCEPTED" : "DENIED") + "</h2></p>");
 
                     reportHTMLAgent = reportHTMLAgent.Replace("[%LeaseNowButton%]", "");
 
                     string bodyAg = reportHTMLAgent;
-                    salesPersonnInfo.Email = "sachinmahore@gmail.com";
-                    new EmailSendModel().SendEmail(salesPersonnInfo.Email, "Service Request Estimate Status of " + GetTenantData.FirstName + " " + GetTenantData.LastName + "- STATUS: " + (Status == 1 ? "ACCEPTED" : "DENIED") + "", bodyAg);
+                    //salesPersonnInfo.Email = "sachinmahore@gmail.com";
+                    new EmailSendModel().SendEmail(salesPersonnInfo.Email, "Service Repair Estimate Status of " + GetTenantData.FirstName + " " + GetTenantData.LastName + "- STATUS: " + (Status == 1 ? "ACCEPTED" : "DENIED") + "", bodyAg);
 
                 }
                 else

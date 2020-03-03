@@ -1,5 +1,5 @@
-﻿@using ShomaRM.Areas.Tenant.Models
-@model AmenitiesReservationModel
+﻿@using ShomaRM.Areas.Admin.Models
+@model ServicesManagementModel.EstimateModel
 @{
     ViewBag.Title = "Pay Service Charges";
 }
@@ -7,8 +7,8 @@
 <input type="hidden" id="hndUID" value="@ViewBag.UID" />
 <input type="hidden" id="hndProspectID" value="0" />
 <input type="hidden" id="hndTenantID" value="@Model.TenantID" />
-<input type="hidden" id="hndARID" value="@ViewBag.ARID" />
-<input type="hidden" id="hndDepoPay" value="0" />
+<input type="hidden" id="hndEID" value="@ViewBag.EID" />
+
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -78,7 +78,7 @@
                                     <div class="col-md-12 clear">
                                         <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                             <div class="panel-heading">
-                                                <h3 class="panel-title">Pay Amenity Reservation Charges</h3>
+                                                <h3 class="panel-title">Pay Service Charges</h3>
 
                                             </div>
                                         </div>
@@ -90,40 +90,14 @@
                                                 <td>TENANT’S NAME: <b><span id="resTenant"></span></b></td>
                                             </tr>
                                             <tr>
-                                                <td>RESERVATION OF </td>
-                                                <td><b><span id="resAmenity">@Model.AmenityName</span> </b></td>
+                                                <td>SERVICE REPAIR </td>
+                                                <td><b><span id="resAmenity">@Model.Description</span> </b></td>
                                             </tr>
                                             <tr>
                                                 <td>DATE:</td>
-                                                <td><b><span id="resDate">@Model.DesiredDateString</span></b> </td>
+                                                <td><b><span id="resDate">@Model.CreatedDate.Value.ToString("MM/dd/yyyy")</span></b> </td>
                                             </tr>
-                                            <tr>
-                                                <td colspan="2">
-                                                    <table style="width:72%;">
-                                                        <tr>
-                                                            <td>DUE NOW:</td>
-                                                            <td></td>
-                                                            <td>SELECTED TO PAY:</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>$<span id="resFees"></span></td>
-                                                            <td>RESERVATION FEE</td>
-                                                            <td width="130"><span class="hidden" id="chkResfeesSpan"><input type="checkbox" class="form-control" id="chkResfees" disabled="disabled" /></span><span id="chkResfeesPaid" class="hidden">Paid</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>$<span id="resDepo"></span></td>
-                                                            <td>SECURITY DEPOSIT</td>
-                                                            <td><span class="hidden" id="chkResDepoSpan"><input type="checkbox" class="form-control" id="chkResDepo" /></span><span id="chkResDepoPaid" class="hidden">Paid</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>$<span id="totalAmt"></span></td>
-                                                            <td>TOTAL</td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-
-                                            </tr>
+                                          
                                             <tr>
                                                 <td colspan="2"></td>
 
@@ -132,7 +106,7 @@
                                                 <td>
                                                     PAYMENT AMOUNT:
                                                 </td>
-                                                <td><b>$<span id="totalPayAmt"></span></b></td>
+                                                <td><b>$<span id="totalPayAmt">@Model.Amount</span></b></td>
                                             </tr>
                                             <tr>
                                                 <td>
@@ -323,82 +297,11 @@
             $("#btnLogin").removeClass("hidden");
             $("#btnHome").removeClass("hidden");
         }
-        $("#resFees").text(formatMoney(parseFloat(@Model.ReservationFee)));
-        $("#resDepo").text(formatMoney(parseFloat(@Model.DepositFee)));
-        $("#totalPayAmt").text(formatMoney(parseFloat(@Model.ReservationFee)));
-        $("#totalConfAmt").text(formatMoney(parseFloat(@Model.ReservationFee)));
+
+            $("#totalPayAmt").text(formatMoney(parseFloat(@Model.Amount)));
+            $("#totalConfAmt").text(formatMoney(parseFloat(@Model.Amount)));
         $("#btnSubmitStep22").removeClass("hidden");
-        if (@Model.Status>2)
-        {
-            $.alert({
-                title: "",
-                content: "Payment Link is expired",
-                type: 'red',
-                buttons: {
-                    yes: {
-                        text: "Ok",
-                        action: function (yes) {
-                            window.location.href = "/home";
-                        }
-                    }
-                }
-            });
-        }
-
-        if (@Model.Status==2) {
-            $("#chkResfees").prop("checked", false);
-            $("#chkResDepo").prop("checked", true);
-
-            $("#chkResDepo").prop("disabled", "disabled");
-
-            $("#chkResfeesSpan").addClass("hidden");
-            $("#chkResfeesPaid").removeClass("hidden");
-
-            $("#chkResDepoSpan").removeClass("hidden");
-            $("#chkResDepoPaid").addClass("hidden");
-
-            $("#totalAmt").text(formatMoney(parseFloat(@Model.DepositFee)));
-            $("#totalPayAmt").text(formatMoney(parseFloat(@Model.DepositFee)));
-            $("#totalConfAmt").text(formatMoney(parseFloat(@Model.DepositFee)));
-            $("#hndDepoPay").val(3);
-        }
-        else if (@Model.Status==1) {
-            $("#chkResfees").prop("checked", true);
-            $("#chkResfeesSpan").removeClass("hidden");
-            $("#chkResfeesPaid").addClass("hidden");
-
-            $("#chkResDepoSpan").removeClass("hidden");
-            $("#chkResDepoPaid").addClass("hidden");
-
-            $("#totalAmt").text(formatMoney(parseFloat(parseFloat(@Model.ReservationFee) + parseFloat(@Model.DepositFee))));
-
-            $("#chkResDepo").on('ifChanged', function (event) {
-                if ($(this).is(":checked")) {
-                    $("#totalPayAmt").text(formatMoney(parseFloat(parseFloat(@Model.ReservationFee) + parseFloat(@Model.DepositFee))));
-                    $("#totalConfAmt").text(formatMoney(parseFloat(parseFloat(@Model.ReservationFee) + parseFloat(@Model.DepositFee))));
-                    $("#hndDepoPay").val(1);
-                }
-                else {
-                    $("#totalPayAmt").text(formatMoney(parseFloat(@Model.ReservationFee)));
-                    $("#totalConfAmt").text(formatMoney(parseFloat(@Model.ReservationFee)));
-                    $("#hndDepoPay").val(0);
-                }
-            });
-        }
-        else {
-            $("#chkResfees").prop("checked", false);
-            $("#chkResfeesSpan").addClass("hidden");
-            $("#chkResfeesPaid").removeClass("hidden");
-            $("#chkResDepo").prop("checked", false);
-            $("#chkResDepoSpan").addClass("hidden");
-            $("#chkResDepoPaid").removeClass("hidden");
-
-            $("#totalAmt").text("0.00");
-            $("#totalPayAmt").text("0.00");
-            $("#totalConfAmt").text("0.00");
-            $("#btnSubmitStep22").addClass("hidden");
-        }
-
+       
         ddlPaymentMethodPaymentLink();
         $('#ddlPaymentMethodPaymentLink').on('change', function () {
             if ($(this).find(':selected').data('value') == '1') {
@@ -472,7 +375,7 @@
             data: JSON.stringify(model),
             dataType: "JSON",
             success: function (response) {
-               
+
 
                 var result = response.UserData.split("|");
 
@@ -600,12 +503,12 @@
             Description: desc,
             CCVNumber: $("#txtCVVNumberPaymentLink").val(),
             UserId: $("#hndUID").val(),
-            Batch: $("#hndARID").val(),
-            IsAmeDepoPay: $("#hndDepoPay").val(),
-            ARID: $("#hndARID").val(),
+            Batch: $("#hndEID").val(),
+        
+            EID: $("#hndEID").val(),
         };
         $.ajax({
-            url: "/MyTransaction/SaveAmenityTransaction/",
+            url: "/MyTransaction/SaveServiceTransaction/",
             type: "post",
             contentType: "application/json utf-8",
             data: JSON.stringify(models),
@@ -614,14 +517,14 @@
                 if (response.Msg == "1") {
                     $.alert({
                         title: 'Message!',
-                        content: "Amenity Payment successfull",
+                        content: "Service Repair Payment successfull",
                         type: 'blue',
                     });
                     goToStep(4, 4)
                 } else {
                     $.alert({
                         title: 'Message!',
-                        content: "Amenity Payment Failed",
+                        content: "Service Repair Payment Failed",
                         type: 'red',
                     });
 
