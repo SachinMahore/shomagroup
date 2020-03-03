@@ -29,11 +29,11 @@ namespace ShomaRM.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult GetLeaseTermsList()
+        public ActionResult GetLeaseTermsList(string SortBy, string OrderBy)
         {
             try
             {
-                return Json(new { model = new LeaseTermsModel().GetLeaseTermsList() }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = new LeaseTermsModel().GetLeaseTermsList(SortBy, OrderBy) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception Ex)
             {

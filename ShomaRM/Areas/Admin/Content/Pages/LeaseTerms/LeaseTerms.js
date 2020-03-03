@@ -53,11 +53,22 @@ var saveUpdateLeaseTerms = function () {
     }
 };
 
-var getLeaseTermsList = function () {
+var getLeaseTermsList = function (sortby, orderby) {
+    if (!sortby) {
+        sortby = 'LeaseTerms';
+    }
+    if (!orderby) {
+        orderby = 'ASC';
+    }
+    var params = {
+        SortBy: sortby,
+        OrderBy: orderby
+    };
     $("#divLoader").show();
     $.ajax({
         url: '/LeaseTerms/GetLeaseTermsList',
         method: "post",
+        data: JSON.stringify(params),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -145,3 +156,50 @@ var clearLeaseTerms = function () {
     $('#txtOfferTerms').val('');
     $("#chkIsAgent").iCheck('uncheck');
 }
+
+var count = 0;
+var sortTableLeaseTerms = function (sortby) {
+
+    var orderby = "";
+
+    if (count % 2 == 1) {
+        orderby = "ASC";
+        $('#sortLeaseTermsIcon').removeClass('fa fa-sort-up');
+        $('#sortLeaseTermsIcon').removeClass('fa fa-sort-down');
+        $('#sortOfferTermsIcon').removeClass('fa fa-sort-up');
+        $('#sortOfferTermsIcon').removeClass('fa fa-sort-down');
+        $('#sortAgentIcon').removeClass('fa fa-sort-up');
+        $('#sortAgentIcon').removeClass('fa fa-sort-down');
+        if (sortby == 'LeaseTerms') {
+            $('#sortLeaseTermsIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'OfferTerms') {
+            $('#sortOfferTermsIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'Agent') {
+            $('#sortAgentIcon').addClass('fa fa-sort-up fa-lg');
+        }
+    }
+    else {
+        orderby = "DESC";
+        $('#sortLeaseTermsIcon').removeClass('fa fa-sort-up');
+        $('#sortLeaseTermsIcon').removeClass('fa fa-sort-down');
+        $('#sortOfferTermsIcon').removeClass('fa fa-sort-up');
+        $('#sortOfferTermsIcon').removeClass('fa fa-sort-down');
+        $('#sortAgentIcon').removeClass('fa fa-sort-up');
+        $('#sortAgentIcon').removeClass('fa fa-sort-down');
+        if (sortby == 'LeaseTerms') {
+            $('#sortLeaseTermsIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'OfferTerms') {
+            $('#sortOfferTermsIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'Agent') {
+            $('#sortAgentIcon').addClass('fa fa-sort-down fa-lg');
+        }
+    }
+    localStorage.setItem("SortByValueLeaseTerms", sortby);
+    localStorage.setItem("OrderByValueLeaseTerms", orderby);
+    count++;
+    getLeaseTermsList(sortby, orderby);
+};

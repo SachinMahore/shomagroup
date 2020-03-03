@@ -29,11 +29,11 @@ namespace ShomaRM.Areas.Admin.Controllers.Premium_Type
             }
         }
 
-        public ActionResult GetPremiumTypeList(string SearchText)
+        public ActionResult GetPremiumTypeList(string SearchText, string SortBy, string OrderBy)
         {
             try
             {
-                return Json(new { model = new PremiumTypeModel().GetPremiumTypeList(SearchText) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = new PremiumTypeModel().GetPremiumTypeList(SearchText, SortBy, OrderBy) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception Ex)
             {

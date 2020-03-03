@@ -58,8 +58,10 @@ namespace ShomaRM.Controllers
         {
             ViewBag.UID = "0";
             ViewBag.FromAcc = FromAcc;
+
             ViewBag.EID = EID;
             var model = new EstimateModel().GetEstimateInvData(EID);
+
             if (FromAcc != 0)
             {
                 if (ShomaGroupWebSession.CurrentUser != null)

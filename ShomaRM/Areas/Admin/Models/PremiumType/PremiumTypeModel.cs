@@ -42,13 +42,28 @@ namespace ShomaRM.Areas.Admin.Models
             return model;
         }
 
-        public List<PremiumTypeModel> GetPremiumTypeList(string SearchText)
+        public List<PremiumTypeModel> GetPremiumTypeList(string SearchText, string SortBy, string OrderBy)
         {
             List<PremiumTypeModel> listPremiumType = new List<PremiumTypeModel>();
             ShomaRMEntities db = new ShomaRMEntities();
             if (SearchText.Trim() == string.Empty)
             {
-                var PremiumTypeList = db.tbl_PremiumType.ToList();
+                var PremiumTypeList = new List<tbl_PremiumType>();
+                if (OrderBy == "ASC")
+                {
+                    if (SortBy == "PremiumType")
+                    {
+                        PremiumTypeList = db.tbl_PremiumType.OrderBy(co=>co.PremiumType).ToList();
+                    }
+                }
+                if (OrderBy == "DESC")
+                {
+                    if (SortBy == "PremiumType")
+                    {
+                        PremiumTypeList = db.tbl_PremiumType.OrderByDescending(co => co.PremiumType).ToList();
+                    }
+                }
+
                 foreach (var item in PremiumTypeList)
                 {
                     listPremiumType.Add(new PremiumTypeModel()
@@ -61,7 +76,22 @@ namespace ShomaRM.Areas.Admin.Models
             }
             else
             {
-                var PremiumTypeList = db.tbl_PremiumType.Where(co => co.PremiumType.Contains(SearchText)).ToList();
+                var PremiumTypeList = new List<tbl_PremiumType>();
+                if (OrderBy == "ASC")
+                {
+                    if (SortBy == "PremiumType")
+                    {
+                        PremiumTypeList = db.tbl_PremiumType.Where(co => co.PremiumType.Contains(SearchText)).OrderBy(co=>co.PremiumType).ToList();
+                    }
+                }
+                if (OrderBy == "DESC")
+                {
+                    if (SortBy == "PremiumType")
+                    {
+                        PremiumTypeList = db.tbl_PremiumType.Where(co => co.PremiumType.Contains(SearchText)).OrderByDescending(co => co.PremiumType).ToList();
+                    }
+                }
+
                 foreach (var item in PremiumTypeList)
                 {
 

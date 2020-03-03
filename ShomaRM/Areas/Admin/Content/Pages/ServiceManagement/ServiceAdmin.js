@@ -105,7 +105,9 @@ var goToServiceDetails = function (ServiceID) {
 
             $('#lbltenantDateAssignment').text(response.model.MoveIndate);
             $('#lblProjectAssignment').text(response.model.Project);
-            $('#lbltenantIdAssignment').text(response.model.TenantID);
+
+            $('#lbltenantIdAssignment').text(response.model.ServiceID);
+
             $('#lblcaussingIssueAssignment').text(response.model.CausingIssue);
             $('#lblIssueAssignment').text(response.model.Issue);
             $('#lblLocationAssignment').text(response.model.LocationString);
@@ -116,6 +118,7 @@ var goToServiceDetails = function (ServiceID) {
             if (response.model.UrgentStatus == '1') {
                 $('#Urgent').iCheck('check');
                 $("#urgentStatus").text("URGENT!!!");
+
                 $("#attensionAssignment1").removeClass("hidden");
                 $("#attensionAssignment2").removeClass("hidden");
 
@@ -123,8 +126,10 @@ var goToServiceDetails = function (ServiceID) {
             } else {
                 $('#NotUrgent').iCheck('check');
                 $("#urgentStatus").text("NOT URGENT!!!");
+
                 $("#attensionAssignment1").addClass("hidden");
                 $("#attensionAssignment2").addClass("hidden");
+
             }
 
             if (response.model.WarrantyStatus == 1) {
