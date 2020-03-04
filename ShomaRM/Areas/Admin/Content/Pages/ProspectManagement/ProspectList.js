@@ -156,20 +156,20 @@ var sortTableAppo = function (sortby) {
 
     if (count % 2 == 1) {
         orderby = "ASC";
-        //$("#SortIconFN").removeClass('fa fa-sort-down');
-        //$("#SortIconFN").removeClass('fa fa-sort-up fa-lg');
-        //$("#SortIconLN").removeClass('fa fa-sort-down');
-        //$("#SortIconLN").removeClass('fa fa-sort-up fa-lg');
-        //$("#SortIconPNo").removeClass('fa fa-sort-down');
-        //$("#SortIconPNo").removeClass('fa fa-sort-up fa-lg');
-        //$("#SortIconEmail").removeClass('fa fa-sort-down');
-        //$("#SortIconEmail").removeClass('fa fa-sort-up fa-lg');
-        //$("#SortIconDate").removeClass('fa fa-sort-down');
-        //$("#SortIconDate").removeClass('fa fa-sort-up fa-lg');
-        //$("#SortIconAA").removeClass('fa fa-sort-down');
-        //$("#SortIconAA").removeClass('fa fa-sort-up fa-lg');
-        //$("#SortIconStatus").removeClass('fa fa-sort-down');
-        //$("#SortIconStatus").removeClass('fa fa-sort-up fa-lg');
+        $("#SortIconFN").removeClass('fa fa-sort-down');
+        $("#SortIconFN").removeClass('fa fa-sort-up fa-lg');
+        $("#SortIconLN").removeClass('fa fa-sort-down');
+        $("#SortIconLN").removeClass('fa fa-sort-up fa-lg');
+        $("#SortIconPNo").removeClass('fa fa-sort-down');
+        $("#SortIconPNo").removeClass('fa fa-sort-up fa-lg');
+        $("#SortIconEmail").removeClass('fa fa-sort-down');
+        $("#SortIconEmail").removeClass('fa fa-sort-up fa-lg');
+        $("#SortIconDate").removeClass('fa fa-sort-down');
+        $("#SortIconDate").removeClass('fa fa-sort-up fa-lg');
+        $("#SortIconAA").removeClass('fa fa-sort-down');
+        $("#SortIconAA").removeClass('fa fa-sort-up fa-lg');
+        $("#SortIconStatus").removeClass('fa fa-sort-down');
+        $("#SortIconStatus").removeClass('fa fa-sort-up fa-lg');
        
         if (sortby == 'FirstName') {
             $("#SortIconFN").addClass('fa fa-sort-up fa-lg');
@@ -196,20 +196,20 @@ var sortTableAppo = function (sortby) {
     }
     else {
         orderby = "DESC";
-        //$("#SortIconFN").removeClass('fa fa-sort-down');
-        //$("#SortIconFN").removeClass('fa fa-sort-up fa-lg');
-        //$("#SortIconLN").removeClass('fa fa-sort-down');
-        //$("#SortIconLN").removeClass('fa fa-sort-up fa-lg');
-        //$("#SortIconPNo").removeClass('fa fa-sort-down');
-        //$("#SortIconPNo").removeClass('fa fa-sort-up fa-lg');
-        //$("#SortIconEmail").removeClass('fa fa-sort-down');
-        //$("#SortIconEmail").removeClass('fa fa-sort-up fa-lg');
-        //$("#SortIconDate").removeClass('fa fa-sort-down');
-        //$("#SortIconDate").removeClass('fa fa-sort-up fa-lg');
-        //$("#SortIconAA").removeClass('fa fa-sort-down');
-        //$("#SortIconAA").removeClass('fa fa-sort-up fa-lg');
-        //$("#SortIconStatus").removeClass('fa fa-sort-down');
-        //$("#SortIconStatus").removeClass('fa fa-sort-up fa-lg');
+        $("#SortIconFN").removeClass('fa fa-sort-down');
+        $("#SortIconFN").removeClass('fa fa-sort-up fa-lg');
+        $("#SortIconLN").removeClass('fa fa-sort-down');
+        $("#SortIconLN").removeClass('fa fa-sort-up fa-lg');
+        $("#SortIconPNo").removeClass('fa fa-sort-down');
+        $("#SortIconPNo").removeClass('fa fa-sort-up fa-lg');
+        $("#SortIconEmail").removeClass('fa fa-sort-down');
+        $("#SortIconEmail").removeClass('fa fa-sort-up fa-lg');
+        $("#SortIconDate").removeClass('fa fa-sort-down');
+        $("#SortIconDate").removeClass('fa fa-sort-up fa-lg');
+        $("#SortIconAA").removeClass('fa fa-sort-down');
+        $("#SortIconAA").removeClass('fa fa-sort-up fa-lg');
+        $("#SortIconStatus").removeClass('fa fa-sort-down');
+        $("#SortIconStatus").removeClass('fa fa-sort-up fa-lg');
         if (sortby == 'FirstName') {
             $("#SortIconFN").addClass('fa fa-sort-down fa-lg');
         }
