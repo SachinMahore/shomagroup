@@ -20,6 +20,24 @@
                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                     <div class="panel-heading">
                         <div class="col-sm-2">
+                            <h3 class="panel-title input-group">From Date</h3>
+                            <div class="input-group">
+                                <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
+                                <span class="input-group-btn">
+                                    <button id="iconFromDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <h3 class="panel-title input-group">To Date</h3>
+                            <div class="input-group">
+                                <input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="@endDate.ToString("MM/dd/yyyy")" />
+                                <span class="input-group-btn">
+                                    <button id="iconToDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        @*<div class="col-sm-2">
                             <div class="form-group">
                                 <h3 class="panel-title">From Date</h3>
                                 <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
@@ -36,7 +54,7 @@
                                     <button class="btn btn-primary search" type="button" id="iconToDate" style="margin-top: -60px;margin-left: 164px;"><i class="fa-calendar fa"></i></button>
                                 </span>
                             </div>
-                        </div>
+                        </div>*@
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <h3 class="panel-title">Status</h3>
@@ -88,14 +106,14 @@
                             <table id="tblServiceRequest" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th class="pds-name" style="background-color: #c7cdd566;color:#3d3939">Tennant Name</th>
-                                        <th class="pds-name" style="background-color: #c7cdd566;color:#3d3939">Unit No</th>
-                                        <th class="pds-Category" style="background-color: #c7cdd566;color:#3d3939">Problem Category</th>
-                                        <th class="pds-Caussing" style="background-color: #c7cdd566;color:#3d3939">Problem Caussing</th>
-                                        <th class="pds-Issue" style="background-color: #c7cdd566;color:#3d3939">Problem Issue</th>
-                                        <th class="pds-Status" style="background-color: #c7cdd566;color:#3d3939">Location</th>
-                                        <th class="pds-date" style="background-color: #c7cdd566;color:#3d3939">Piority</th>
-                                        <th class="pds-Picture" style="background-color: #c7cdd566;color:#3d3939">Status</th>
+                                        <th class="pds-name" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableSerReqA('TenantName')">Tennant Name <i id="SortTname"></i></th>
+                                        <th class="pds-name" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableSerReqA('UnitNo')">Unit No <i id="SortUnNo"></i></th>
+                                        <th class="pds-Category" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableSerReqA('ProblemCategory')">Problem Category <i id="SortPrCat"></i></th>
+                                        <th class="pds-Caussing" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableSerReqA('ItemCaussing')">Problem Caussing <i id="SortPrCau"></i></th>
+                                        <th class="pds-Issue" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableSerReqA('ItemIssue')">Problem Issue <i id="SortProIssue"></i></th>
+                                        <th class="pds-Status" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableSerReqA('Location')">Location <i id="SortLoc"></i></th>
+                                        <th class="pds-date" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableSerReqA('Priority')">Piority <i id="SortPrio"></i></th>
+                                        <th class="pds-Picture" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableSerReqA('Status')">Status <i id="SortStatu"></i></th>
                                         @*<th class="pds-Picture" style="background-color: #c7cdd566;color:#3d3939">Action</th>*@
                                     </tr>
                                 </thead>

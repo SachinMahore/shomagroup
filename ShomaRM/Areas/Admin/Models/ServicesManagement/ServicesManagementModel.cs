@@ -137,6 +137,16 @@ namespace ShomaRM.Areas.Admin.Models
                     paramNOR.Value = model.NumberOfRows;
                     cmd.Parameters.Add(paramNOR);
 
+                    DbParameter paramsb= cmd.CreateParameter();
+                    paramsb.ParameterName = "SortBy";
+                    paramsb.Value = model.SortBy;
+                    cmd.Parameters.Add(paramsb);
+
+                    DbParameter paramOb = cmd.CreateParameter();
+                    paramOb.ParameterName = "OrderBy";
+                    paramOb.Value = model.OrderBy;
+                    cmd.Parameters.Add(paramOb);
+
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
                     da.Fill(dtTable);
@@ -207,6 +217,16 @@ namespace ShomaRM.Areas.Admin.Models
                     paramNOR.ParameterName = "NumberOfRows";
                     paramNOR.Value = model.NumberOfRows;
                     cmd.Parameters.Add(paramNOR);
+
+                    DbParameter paramsb = cmd.CreateParameter();
+                    paramsb.ParameterName = "SortBy";
+                    paramsb.Value = model.SortBy;
+                    cmd.Parameters.Add(paramsb);
+
+                    DbParameter paramOb = cmd.CreateParameter();
+                    paramOb.ParameterName = "OrderBy";
+                    paramOb.Value = model.OrderBy;
+                    cmd.Parameters.Add(paramOb);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -533,6 +553,8 @@ namespace ShomaRM.Areas.Admin.Models
             public string Notes { get; set; }
             public string UnitNo { get; set; }
             public string Criteria { get; set; }
+            public string SortBy { get; set; }
+            public string OrderBy { get; set; }
 
             public string FromDate { get; set; }
             public string ToDate { get; set; }

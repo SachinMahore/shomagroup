@@ -17,6 +17,24 @@
             <div class="col-md-12">
                 <div class="panel-heading">
                     <div class="col-sm-2">
+                        <h3 class="panel-title input-group">From Date</h3>
+                        <div class="input-group">
+                            <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
+                            <span class="input-group-btn">
+                                <button id="iconFDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <h3 class="panel-title input-group">To Date</h3>
+                        <div class="input-group">
+                            <input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="@endDate.ToString("MM/dd/yyyy")" />
+                            <span class="input-group-btn">
+                                <button id="iconTDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    @*<div class="col-sm-2">
                         <div class="form-group">
                             <h3 class="panel-title">From Date</h3>
                             <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
@@ -34,7 +52,7 @@
                                 <button class="btn btn-primary search" type="button" id="iconTDate" style="margin-top: -60px;margin-left: 158px;"><i class="fa-calendar fa"></i></button>
                             </span>
                         </div>
-                    </div>
+                    </div>*@
                     <div class="col-sm-3">
                         <div class="form-group  padding-top-25">
                             <button class='btn btn-next btn-primary' name='Search' value='Search' style="height: 34px;margin-top: -28px;" onclick="getGuestRegistrationList()"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
