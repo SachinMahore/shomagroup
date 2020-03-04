@@ -135,13 +135,13 @@ var getLeaseInfoDocuments = function () {
             
             if (response.model.EnvelopeID != null) {
                 intCount++;
-                var resultLease = doesFileExist('/Content/assets/img/Document/LeaseDocument_' + response.model.EnvelopeID + ".pdf");
-                if (resultLease == true) {
+                //var resultLease = doesFileExist('/Content/assets/img/Document/LeaseDocument_' + response.model.EnvelopeID + ".pdf");
+                //if (resultLease == true) {
                     Ldhtml += "<a href='javascript:void(0)' onclick='downloadLeaseDocumentATD(\""+ response.model.EnvelopeID + "\",\"" + response.model.EsignatureID +"\")'>LeaseDocument_" + response.model.EnvelopeID + ".pdf</a></br>";
-                }
-                else {
-                    Ldhtml += "<a href='javascript:void(0)' onclick='FileNotFound();'>" + response.model.EnvelopeID + "</a></br>";
-                }
+                //}
+                //else {
+                //    Ldhtml += "<a href='javascript:void(0)' onclick='FileNotFound();'>LeaseDocument_" + response.model.EnvelopeID + ".pdf</a></br>";
+                //}
             }
             $('#accordionSubLeaseDocument').append(Ldhtml);
 

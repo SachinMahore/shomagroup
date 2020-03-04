@@ -35,15 +35,29 @@
 
                     <ul style="line-height: 14px;" class="nav nav-tabs wizard">
                         @*<li class="active" style="padding-right:2px" id="li1"><a href="javascript:void(0);" onclick="goToStep(1,1)"> 1. Floor Plan </a></li>
-                            <li id="li2"><a href="javascript:void(0);" id="as2" onclick="goToStep(2,0)">2. Select Units</a></li>*@
+            <li id="li2"><a href="javascript:void(0);" id="as2" onclick="goToStep(2,0)">2. Select Units</a></li>*@
                         <li id="li3"><a href="javascript:void(0);" id="as3" onclick="goToStep(3,3)">1. Registration</a></li>
                         <li id="li18"><a href="javascript:void(0);" id="as18" onclick="goToStep(4,4)">2. Unit Details</a></li>
                         <li id="li4"><a href="javascript:void(0);" id="as4" onclick="goToStep(5,5)">3. Quotation</a></li>
                         @*<li id="li5"><a href="javascript:void(0);" id="as5" onclick="goToStep(6,6)">3. Policies & Conditions </a></li>*@
                         <li id="li6"><a href="javascript:void(0);" id="as6" onclick="goToStep(7,7)">4. Application</a></li>
-                        <li id="li7"><a href="javascript:void(0);" id="as7" onclick="goToStep(17,17)">5. Screening Status</a></li>
-                        <li id="li8"><a href="javascript:void(0);" id="as8" onclick="goToStep(18,18)">6. Move In Checklist</a></li>
+                        <li id="li17"><a href="javascript:void(0);" id="as7" onclick="goToStep(17,17)">5. Screening Status</a></li>
+                        <li id="li18"><a href="javascript:void(0);" id="as8" onclick="goToStep(18,18)">6. Move In Checklist</a></li>
                     </ul>
+                    <div class="text-center">
+                        <ul class="nav nav-tabs hidden text-center" style="margin-top:-14px !important;background-color:#4d738a !important;height:29px !important" id="subMenu">
+                            <li class="active" id="li7"><a style="padding: 3px 15px!important;margin-left:4px !important" onclick="goToStep(7,7)" href="javascript:void(0);">a. Applicants</a></li>
+                            <li id="li8"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(8,8)">b. Responsibility</a></li>
+                            <li id="li9"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(9,9)">c. Personal Info</a></li>
+                            <li id="li10"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(10,10)">d. Residence History</a></li>
+                            <li id="li11"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(11,11)">e. Employment and Income</a></li>
+                            <li id="li12"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(12,12)">f. Emergency Contacts </a></li>
+                            <li id="li13"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(13,13)">g. Vehicle Info</a></li>
+                            <li id="li14"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(14,14)">h. Pet Info</a></li>
+                            <li id="li15"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(15,15)">i. Lease</a></li>
+                            <li id="li16"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(16,16)">j. Payment </a></li>
+                        </ul>
+                    </div>
                     <div class="tab-content">
                         <div class="" id="step1">
                             <div class="row p-b-15  ">
@@ -75,15 +89,15 @@
                                             </select>
                                         </div>
                                         @*<label class="col-sm-2">Max Rent:</label>
-                                            <div class="col-xs-2  form-group-sm">
+                            <div class="col-xs-2  form-group-sm">
 
-                                                <input type="text" id="txtMaxRent" class="form-control" value="@Model.MaxRent" placeholder="Max Rent" />
-                                            </div>*@
+                                <input type="text" id="txtMaxRent" class="form-control" value="@Model.MaxRent" placeholder="Max Rent" />
+                            </div>*@
                                         <input type="hidden" id="hndbuilding" value="1" />
                                         <input type="hidden" id="txtMaxRent" class="form-control" value="@Model.MaxRent" placeholder="Max Rent" />
                                         @*<div class="col-xs-1">
-                                                <button class="btn-primary hollow btn" style="padding: 7px 7px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
-                                            </div>*@
+                                <button class="btn-primary hollow btn" style="padding: 7px 7px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
+                            </div>*@
                                         <h5 class="col-sm-1">Sort</h5>
                                         <div class="col-xs-2">
                                             @*<div class="col-xs-12">*@
@@ -3564,6 +3578,20 @@
 
 </script>
 <style>
+    .submenu-padding {
+        padding: 3px 5.5px !important;
+    }
+
+    .nav-tabs > li > a {
+        margin-right: 2px;
+        line-height: 1.42857143;
+        /*border: 0px;
+        border-style: none !important;*/
+        border: 1px solid #4d738a !important;
+        border-radius: 0;
+        color: #fff;
+    }
+
     /* The Modal (background) */
     .modal {
         display: none; /* Hidden by default */
@@ -3650,8 +3678,7 @@
         padding: 35px;
         text-align: right;
     }
-</style>
-<style>
+
     .wizard-card .disabled {
         display: inherit !important;
     }
@@ -3832,8 +3859,7 @@
         .select-unit a {
             color: #fff !important;
         }
-</style>
-<style>
+
     .tab-content ul li {
         margin-right: 14px;
         overflow: hidden;

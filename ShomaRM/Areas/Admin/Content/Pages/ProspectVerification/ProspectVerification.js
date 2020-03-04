@@ -273,6 +273,7 @@ function checkFormstatus() {
 var totalAmt = 0;
 var goToStep = function (stepid, id) {
     if (stepid == "1") {
+        $("#subMenu").addClass("hidden");
         $("#li1").addClass("active");
         $("#li2").removeClass("active");
         $("#li3").removeClass("active");
@@ -303,7 +304,8 @@ var goToStep = function (stepid, id) {
     if (stepid == "2") {
 
         if (id == "2") {
-            $("#as2").removeAttr("onclick")
+            $("#subMenu").addClass("hidden");
+            $("#as2").removeAttr("onclick");
             $("#as2").attr("onclick", "goToStep(2,2)");
             $("#li2").addClass("active");
             $("#li3").removeClass("active");
@@ -335,6 +337,7 @@ var goToStep = function (stepid, id) {
     }
     if (stepid == "3") {
         if (id == "3") {
+            $("#subMenu").addClass("hidden");
             $("#as3").removeAttr("onclick")
             $("#as3").attr("onclick", "goToStep(3,3)");
                 $("#li3").addClass("active");
@@ -367,7 +370,8 @@ var goToStep = function (stepid, id) {
         }
     if (stepid == "4") {
         if (id == "4") {
-            $("#as18").removeAttr("onclick")
+            $("#subMenu").addClass("hidden");
+            $("#as18").removeAttr("onclick");
             $("#as18").attr("onclick", "goToStep(4,4)");
             $("#li3").addClass("active");
             $("#li18").addClass("active");
@@ -399,7 +403,8 @@ var goToStep = function (stepid, id) {
     }
     if (stepid == "5") {
         if (id == "5") {
-            $("#as4").removeAttr("onclick")
+            $("#subMenu").addClass("hidden");
+            $("#as4").removeAttr("onclick");
             $("#as4").attr("onclick", "goToStep(5,5)");
             $("#li3").addClass("active");
             $("#li18").addClass("active");
@@ -433,6 +438,7 @@ var goToStep = function (stepid, id) {
     if (stepid == "6") {
 
         if (id == "6") {
+            $("#subMenu").addClass("hidden");
             $("#li3").addClass("active");
             $("#li5").addClass("active");
             $("#li18").addClass("active");
@@ -464,7 +470,8 @@ var goToStep = function (stepid, id) {
     }
     if (stepid == "7") {
         if (id == "7") {
-            $("#as6").removeAttr("onclick")
+            $("#subMenu").removeClass("hidden");
+            $("#as6").removeAttr("onclick");
             $("#as6").attr("onclick", "goToStep(7,7)");
             $("#li3").addClass("active");
             $("#li18").addClass("active");
@@ -491,6 +498,9 @@ var goToStep = function (stepid, id) {
             $("#step16").addClass("hidden");
             $("#step17").addClass("hidden");
             $("#step18").addClass("hidden");
+
+            $("#li7").addClass("active");
+            $("#li8, #li9, #li10, #li11, #li12, #li13, #li14, #li15, #li16, #li17").removeClass("active");
         }
     }
     if (stepid == "8") {
@@ -500,8 +510,7 @@ var goToStep = function (stepid, id) {
             $("#li4").addClass("active");
             $("#li5").addClass("active");
             $("#li6").addClass("active");
-           
-            $("#li7").removeClass("active");
+            
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
             $("#step4").addClass("hidden");
@@ -520,6 +529,10 @@ var goToStep = function (stepid, id) {
             $("#step16").addClass("hidden");
             $("#step17").addClass("hidden");
             $("#step18").addClass("hidden");
+
+            $("#li8").addClass("active");
+            $("#li7, #li9, #li10, #li11, #li12, #li13, #li14, #li15, #li16").removeClass("active");
+
         }
     }
     if (stepid == "9") {
@@ -549,7 +562,10 @@ var goToStep = function (stepid, id) {
                 $("#step15").addClass("hidden");
                 $("#step16").addClass("hidden");
                 $("#step17").addClass("hidden");
-                $("#step18").addClass("hidden");
+            $("#step18").addClass("hidden");
+
+            $("#li9").addClass("active");
+            $("#li7, #li8, #li10, #li11, #li12, #li13, #li14, #li15, #li16").removeClass("active");
         }
     }
     if (stepid == "10") {
@@ -578,8 +594,11 @@ var goToStep = function (stepid, id) {
                 $("#step14").addClass("hidden");
                 $("#step15").addClass("hidden");
                 $("#step16").addClass("hidden");
-                $("#step18").addClass("hidden");
-            }
+            $("#step18").addClass("hidden");
+
+            $("#li10").addClass("active");
+            $("#li7, #li8, #li9, #li11, #li12, #li13, #li14, #li15, #li16").removeClass("active");
+        }
     }
     if (stepid == "11") {
         if (id == "11") {
@@ -607,7 +626,10 @@ var goToStep = function (stepid, id) {
                 $("#step15").addClass("hidden");
                 $("#step16").addClass("hidden");
                 $("#step17").addClass("hidden");
-                $("#step18").addClass("hidden");
+            $("#step18").addClass("hidden");
+
+            $("#li11").addClass("active");
+            $("#li7, #li8, #li9, #li10, #li12, #li13, #li14, #li15, #li16").removeClass("active");
         }
     }
     if (stepid == "12") {
@@ -635,7 +657,10 @@ var goToStep = function (stepid, id) {
                 $("#step14").addClass("hidden");
                 $("#step15").addClass("hidden");
                 $("#step16").addClass("hidden");
-                $("#step18").addClass("hidden");
+            $("#step18").addClass("hidden");
+
+            $("#li12").addClass("active");
+            $("#li7, #li8, #li9, #li10, #li11, #li13, #li14, #li15, #li16").removeClass("active");
         }
     }
     if (stepid == "13") {
@@ -663,7 +688,10 @@ var goToStep = function (stepid, id) {
                 $("#step14").addClass("hidden");
                 $("#step15").addClass("hidden");
                 $("#step16").addClass("hidden");
-                $("#step18").addClass("hidden");
+            $("#step18").addClass("hidden");
+
+            $("#li13").addClass("active");
+            $("#li7, #li8, #li9, #li10, #li11, #li12, #li14, #li15, #li16").removeClass("active");
         }
     }
     if (stepid == "14") {
@@ -693,6 +721,9 @@ var goToStep = function (stepid, id) {
             $("#step16").addClass("hidden");
             $("#step17").addClass("hidden");
             $("#step18").addClass("hidden");
+
+            $("#li14").addClass("active");
+            $("#li7, #li8, #li9, #li10, #li11, #li12, #li13, #li15, #li16").removeClass("active");
         }
     }
     if (stepid == "15") {
@@ -722,6 +753,9 @@ var goToStep = function (stepid, id) {
             $("#step16").addClass("hidden");
             $("#step17").addClass("hidden");
             $("#step18").addClass("hidden");
+
+            $("#li15").addClass("active");
+            $("#li7, #li8, #li9, #li10, #li11, #li12, #li13, #li14, #li16").removeClass("active");
         }
     }
     if (stepid == "16") {
@@ -753,11 +787,16 @@ var goToStep = function (stepid, id) {
             $("#step16").removeClass("hidden");
             $("#step17").addClass("hidden");
             $("#step18").addClass("hidden");
+
+            $("#li16").addClass("active");
+            $("#li7, #li8, #li9, #li10, #li11, #li12, #li13, #li14, #li15").removeClass("active");
         }
     }
     if (stepid == "17") {
         if (id == "17") {
+            $("#subMenu").addClass("hidden");
             $("#li7").addClass("active");
+            $("#li17").addClass("active");
             $("#li6").addClass("active");
             $("#li4").addClass("active");
             $("#li5").addClass("active");
@@ -784,13 +823,16 @@ var goToStep = function (stepid, id) {
     }
     if (stepid == "18") {
         if (id == "18") {
+            $("#subMenu").addClass("hidden");
             getTransationLists($("#hdnUserId").val());
+           
             $("#li7").addClass("active");
             $("#li6").addClass("active");
             $("#li4").addClass("active");
             $("#li5").addClass("active");
             $("#li18").addClass("active");
-            $("#li6").addClass("active");
+            $("#li17").addClass("active");
+
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
             $("#step4").addClass("hidden");

@@ -24,7 +24,13 @@ var fillRPP_UserList = function () {
         buildPaganationUserList($("#hdnCurrentPage_PVL").val());
     });
 };
-var buildPaganationUserList = function (pagenumber) {
+var buildPaganationUserList = function (pagenumber, sortbyL, orderbyL) {
+    if (!sortbyL) {
+        sortbyL = "PermissionComeDate";
+    }
+    if (!orderbyL) {
+        orderbyL = "ASC";
+    }
     $("#divLoader").show();
     var selected = $("#ddlCriteria").find(":Selected").val();
     if (selected == 1) {
@@ -40,7 +46,9 @@ var buildPaganationUserList = function (pagenumber) {
         Status: $("#ddlStatus").val(),
         PageNumber: pagenumber,
         NumberOfRows: $("#ddlRPP_UserList").val(),
-        Criteria: criteria
+        Criteria: criteria,
+        SortBy: sortbyL,
+        OrderBy: orderbyL
     };
     $.ajax({
         url: "/ServicesManagement/BuildPaganationUserList",
@@ -67,7 +75,13 @@ var buildPaganationUserList = function (pagenumber) {
          
     });
 };
-var fillUserList = function (pagenumber) {
+var fillUserList = function (pagenumber, sortbyL, orderbyL) {
+    if (!sortbyL) {
+        sortbyL = "PermissionComeDate";
+    }
+    if (!orderbyL) {
+        orderbyL = "ASC";
+    }
     $("#divLoader").show();
     var selectedValue = $("#ddlCriteria").find(":selected").data("value");
     var selected = $("#ddlCriteria").find(":Selected").val();
@@ -84,7 +98,9 @@ var fillUserList = function (pagenumber) {
         Status: $("#ddlStatus").val(),	
         PageNumber: pagenumber,
         NumberOfRows: $("#ddlRPP_UserList").val(),
-        Criteria: criteria
+        Criteria: criteria,
+        SortBy: sortbyL,
+        OrderBy: orderbyL
     };
  
     $.ajax({
@@ -138,7 +154,10 @@ $(document).ready(function () {
         },
         onPageClick: function (page, evt) {
             $("#hdnCurrentPage_PVL").val(page);
-            fillUserList(page);
+            var sortByValue = localStorage.getItem("SortByValueSerReqA");
+            var OrderByValue = localStorage.getItem("OrderByValueSerReqA");
+            fillUserList(page, sortByValue, OrderByValue);
+          
         }
     });
     $('#tblServiceRequest tbody').on('click', 'tr', function () {
@@ -189,105 +208,7 @@ $(document).keypress(function (e) {
     }
 });
 
-//var goToServiceDetails = function (ServiceID) {
-//    $("#divLoader").show();
-//    var model = {
-//        ServiceID: ServiceID,
-//    };
-//     $.ajax({
-//         url: '/ServicesManagement/goToServiceDetails',
-//        type: "post",
-//        data: JSON.stringify(model),
-//        contentType: "application/json; charset=utf-8",
-//        dataType: "json",
-//        success: function (response) {
-           
-//            $("#hndServiceID").val(response.model.ServiceID);
-//            $('#lbltenantName').text(response.model.TenantName);
-//            $('#ProblemCatrgory').text(response.model.ProblemCategorystring);
-//            $('#lblProbleOther').text(response.model.Details);
-//            $('#lblcaussingIssue').text(response.model.CausingIssue);
-//            $('#lblIssue').text(response.model.Issue);
-//            $('#lblLocation').text(response.model.LocationString); 
-//            $('#lblUnitNo').text(response.model.Unit);
-//            $('#lblContactNo').text(response.model.Phone); 
-//            $('#lblCurrentStatus').text(response.model.StatusString);
-//            $('#lblEnteryNote').text(response.model.Notes);
-//            $('#lblEmergencyNo').text(response.model.EmergencyMobile); 
-           
-//            if (response.model.TempServiceFile != null) {
-//                var fileExist = doesFileExist('/Content/assets/img/Document/' + response.model.TempServiceFile);
-//                if (fileExist) {
-//                    $('#wizardPicturePreview').attr('src', '/Content/assets/img/Document/' + response.model.TempServiceFile);
-//                }
-//                else {
-//                    $('#wizardPicturePreview').attr('src', '/Content/assets/img/aaa.png');
-                    
-//                }
-//            }
-//            else {
-//                $('#wizardPicturePreview').attr('src', '/Content/assets/img/aaa.png');
-//            }
-//            $("#ddlStatus1").val('0');
-//            $('#popSDetails').modal('show');
-          
-//        }
-//    });
-//    $("#divLoader").hide();
-//};
 
-//var StatusUpdateServiceRequest = function (id) {
-//    $("#divLoader").show();
-//    var msg = '';
-//    var id = $("#hndServiceID").val();
-//    var status = $('#ddlStatus1').val(); 
-//    var employee = $("#ddlUser").val();
-//    var CompletedFileTemp = $("#hndfileCompleted").val();
-//    var CompletedFileOriginal = $("#hndOriginalfileCompleted").val();
-
-//    if (status == '0') {
-//        msg += 'Select The Status</br>'
-//    }
-//    if (employee == '0') {
-//        msg += 'Select The Employee</br>'
-//    }
-//    if (msg!="") {
-//        $.alert({
-//            title: '',
-//            content: msg,
-//            type: 'red'
-//        });
-//        $("#divLoader").hide();
-//        return
-//    }
-   
-//    var model = {
-//        ServiceID: id,
-//        Status: status,
-//        CompletedPicture: CompletedFileOriginal,
-//        TempCompletedPicture: CompletedFileTemp,
-//        ServicePerson: employee,
-//    };
-//    $.ajax({
-//        url: '/ServicesManagement/StatusUpdateServiceRequest',
-//        type: "post",
-//        contentType: "application/json utf-8",
-//        data: JSON.stringify(model),
-//        dataType: "JSON",
-//        success: function (response) {
-//            $.alert({
-//                title: '',
-//                content: response.model,
-//                type: 'red'
-//            });
-//            $("#ddlStatus1").val('0');
-//            $("#ddlUser").val('0');
-//            $("#fileCompletedShow").val('');
-//            $('#popSDetails').modal('hide');
-//        }
-//    });
-//    $("#divLoader").hide();
-//}
 
 
 
@@ -313,3 +234,105 @@ var fillDdlUser = function () {
         }
     });
 }
+
+var count = 0;
+var sortTableSerReqA = function (sortby) {
+    var orderby = "";
+    var pagenumber = $("#hndPageNo").val();
+    if (!pagenumber) {
+        pagenumber = 1;
+    }
+
+    if (count % 2 == 1) {
+        orderby = "ASC";
+        $("#SortTname").removeClass('fa fa-sort-up');
+        $("#SortTname").removeClass('fa fa-sort-down');
+        $("#SortUnNo").removeClass('fa fa-sort-up');
+        $("#SortUnNo").removeClass('fa fa-sort-down');
+        $("#SortPrCat").removeClass('fa fa-sort-up');
+        $("#SortPrCat").removeClass('fa fa-sort-down');
+        $("#SortPrCau").removeClass('fa fa-sort-up');
+        $("#SortPrCau").removeClass('fa fa-sort-down');
+        $("#SortProIssue").removeClass('fa fa-sort-up');
+        $("#SortProIssue").removeClass('fa fa-sort-down');
+        $("#SortLoc").removeClass('fa fa-sort-up');
+        $("#SortLoc").removeClass('fa fa-sort-down');
+        $("#SortPrio").removeClass('fa fa-sort-up');
+        $("#SortPrio").removeClass('fa fa-sort-down');
+        $("#SortStatu").removeClass('fa fa-sort-up');
+        $("#SortStatu").removeClass('fa fa-sort-down');
+        if (sortby == 'TenantName') {
+            $("#SortTname").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'UnitNo') {
+            $("#SortUnNo").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'ProblemCategory') {
+            $("#SortPrCat").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'ItemCaussing') {
+            $("#SortPrCau").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'ItemIssue') {
+            $("#SortProIssue").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'Location') {
+            $("#SortLoc").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'Priority') {
+            $("#SortPrio").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'Status') {
+            $("#SortStatu").addClass('fa fa-sort-up fa-lg');
+        }
+       
+    }
+    else {
+        orderby = "DESC";
+        $("#SortTname").removeClass('fa fa-sort-up');
+        $("#SortTname").removeClass('fa fa-sort-down');
+        $("#SortUnNo").removeClass('fa fa-sort-up');
+        $("#SortUnNo").removeClass('fa fa-sort-down');
+        $("#SortPrCat").removeClass('fa fa-sort-up');
+        $("#SortPrCat").removeClass('fa fa-sort-down');
+        $("#SortPrCau").removeClass('fa fa-sort-up');
+        $("#SortPrCau").removeClass('fa fa-sort-down');
+        $("#SortProIssue").removeClass('fa fa-sort-up');
+        $("#SortProIssue").removeClass('fa fa-sort-down');
+        $("#SortLoc").removeClass('fa fa-sort-up');
+        $("#SortLoc").removeClass('fa fa-sort-down');
+        $("#SortPrio").removeClass('fa fa-sort-up');
+        $("#SortPrio").removeClass('fa fa-sort-down');
+        $("#SortStatu").removeClass('fa fa-sort-up');
+        $("#SortStatu").removeClass('fa fa-sort-down');
+        if (sortby == 'TenantName') {
+            $("#SortTname").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'UnitNo') {
+            $("#SortUnNo").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'ProblemCategory') {
+            $("#SortPrCat").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'ItemCaussing') {
+            $("#SortPrCau").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'ItemIssue') {
+            $("#SortProIssue").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'Location') {
+            $("#SortLoc").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'Priority') {
+            $("#SortPrio").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'Status') {
+            $("#SortStatu").addClass('fa fa-sort-down fa-lg');
+        }
+    }
+    localStorage.setItem("SortByValueSerReqA", sortby);
+    localStorage.setItem("OrderByValueSerReqA", orderby);
+    count++;
+    buildPaganationUserList(pagenumber, sortby, orderby);
+    fillUserList(pagenumber, sortby, orderby);
+};
