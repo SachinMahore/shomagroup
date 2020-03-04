@@ -40,17 +40,23 @@ var getGuestRegistrationList = function (sortby, orderby) {
                 var guestVehicleRegTag = '';
                 var isIdentityFileExist = doesFileExist('/Content/assets/img/TenantGuestInformation/' + elementValue.DriverLicence);
                 if (isIdentityFileExist) {
-                    guestIdTag = '<a href="/Content/assets/img/TenantGuestInformation/' + elementValue.DriverLicence + '" target="_blank" class="fa fa-eye"></a>';
+                    guestIdTag = '<a href="/Content/assets/img/TenantGuestInformation/' + elementValue.DriverLicence + '" target="_blank">' + elementValue.OriginalDriverLicence + '</a>';
+                }
+                else if (elementValue.OriginalDriverLicence == '0') {
+                    guestIdTag = 'File does not exist'
                 }
                 else {
-                    guestIdTag = '<a href="javascript:void(0);" onclick="fileDoesNotExist();" class="fa fa-eye"></a>';
+                    guestIdTag = '<a href="javascript:void(0);" onclick="fileDoesNotExist();">' + elementValue.OriginalDriverLicence + '</a>';
                 }
                 var isVehicleRegFileExist = doesFileExist('/Content/assets/img/TenantGuestInformation/' + elementValue.VehicleRegistration);
                 if (isVehicleRegFileExist) {
-                    guestVehicleRegTag = '<a href="/Content/assets/img/TenantGuestInformation/' + elementValue.VehicleRegistration + '" target="_blank" class="fa fa-eye"></a>';
+                    guestVehicleRegTag = '<a href="/Content/assets/img/TenantGuestInformation/' + elementValue.VehicleRegistration + '" target="_blank">' + elementValue.OriginalVehicleRegistration + '</a>';
+                }
+                else if (elementValue.OriginalVehicleRegistration == '0') {
+                    guestVehicleRegTag = 'File does not exist'
                 }
                 else {
-                    guestVehicleRegTag = '<a href="javascript:void(0);" onclick="fileDoesNotExist();" class="fa fa-eye"></a>';
+                    guestVehicleRegTag = '<a href="javascript:void(0);" onclick="fileDoesNotExist();">' + elementValue.OriginalVehicleRegistration + '</a>';
                 }
                 var html = '';
                 html += '<tr data-value="' + elementValue.GuestID + '">';
@@ -63,7 +69,6 @@ var getGuestRegistrationList = function (sortby, orderby) {
                 html += '<td style="color:#3d3939;">' + guestIdTag + '</td>';
                 html += '<td style="color:#3d3939;">' + guestVehicleRegTag + '</td>';
                 html += '<td style="color:#3d3939;">' + elementValue.StatusString + '</td>';
-                //html += '<td style="color:#3d3939;"><button class="btn btn-danger" style="padding: 5px 8px !important;" onclick="delGuestRegistration(' + elementValue.GuestID + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
                 html += '</tr>';
                 $("#tblGuestRegistration>tbody").append(html);
             });
