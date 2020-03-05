@@ -954,9 +954,10 @@ var goToStep = function (stepid, id) {
     }
     if (stepid == "11") {
         if (id == "11") {
-
+            $("#divLoader").show();
+           getMonthsCountFromApplicantHistory();
             var msg = '';
-
+           
             if ($("#txtCountry").val() == "0") {
                 msg += "Please Select Country </br>";
             }
@@ -975,15 +976,24 @@ var goToStep = function (stepid, id) {
             if (!$("#txtMoveInDateFrom").val()) {
                 msg += "Please Fill Move In Date </br>";
             }
-
-
+            if (!$("#txtMoveInDateTo").val()) {
+                msg += "Please Fill Move Out Date </br>";
+            }
+            setTimeout(function () {
+                
+            var appMCount = $("#hndHistory").val();
+            if (appMCount < 35) {
+                msg += "Please Provide Min 3 Years Of History </br>";
+            };
+            
+            
             if (msg != "") {
                 $.alert({
                     title: "",
                     content: msg,
                     type: 'red'
                 });
-
+                
                 $("#step2").addClass("hidden");
                 $("#step1").addClass("hidden");
                 $("#step4").addClass("hidden");
@@ -1001,6 +1011,8 @@ var goToStep = function (stepid, id) {
                 $("#step15").addClass("hidden");
                 $("#step16").addClass("hidden");
                 $("#step17").addClass("hidden");
+
+                
                 return;
             }
             else {
@@ -1035,6 +1047,8 @@ var goToStep = function (stepid, id) {
                 $("#li16").removeClass("active");
                 $("#li17").removeClass("active");
             }
+            $("#divLoader").hide();
+            }, 2000);
         }
     }
     if (stepid == "12") {
@@ -4715,6 +4729,9 @@ var saveupdateApplicantHistory = function () {
     if ($("#txtMoveInDateFrom2").val() == '') {
         msg += 'Please Fill Move In Date</br>'
     }
+    if ($("#txtMoveInDateTo2").val() == '') {
+        msg += 'Please Fill Move Out Date</br>'
+    }
     if (msg != '') {
         $.alert({
             title: "",
@@ -5643,3 +5660,25 @@ var downloadLeaseDocument = function () {
     });
 };
 
+var getMonthsCountFromApplicantHistory = function () {
+    var tenantId = $("#hdnOPId").val();
+    var fromDateAppHis = $('#txtMoveInDateFrom').val();
+    var toDateAppHis = $('#txtMoveInDateTo').val();
+    
+    var model = {
+        TenantId: tenantId,
+        FromDateAppHis: fromDateAppHis,
+        ToDateAppHis: toDateAppHis
+    };
+    $.ajax({
+        url: '/ApplyNow/GetMonthsFromApplicantHistory',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            
+            $("#hndHistory").val(response.model.TotalMonthsApplicantHistory);
+        }
+    });
+};

@@ -559,5 +559,17 @@ namespace ShomaRM.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult GetMonthsFromApplicantHistory(long TenantId , string FromDateAppHis , string ToDateAppHis)
+        {
+            try
+            {
+                return Json(new { model = new ApplicantHistoryModel().GetMonthsFromApplicantHistory(TenantId, FromDateAppHis, ToDateAppHis) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

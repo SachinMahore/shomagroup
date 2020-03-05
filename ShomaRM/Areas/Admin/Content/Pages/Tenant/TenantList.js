@@ -71,7 +71,6 @@
     fillCityDDL_TL(0, '');
     fillPropertyDDL_TL();
     fillUnitsByPropertyIdDDL_TL(0);
-    
 });
 var selectFieldCampaingDataSource = [
     { text: "First Name", value: "FirstName" },
@@ -90,31 +89,27 @@ var addNewTenant = function () {
     window.location.href = "../Tenant/New";
 };
 var fillTenantList = function (pagenumber, searchtype, sortby, orderby) {
+    var filterName = $('#ddlTenantListFilter').val() === '1' ? 'firstName' : $('#ddlTenantListFilter').val() === '2' ? 'lastName' : $('#ddlTenantListFilter').val() === '3' ? 'unitName' : '0';
+    var crieteriaName = $('#txtTenantListCriteria').val();
     if (!sortby) {
         sortby = "FirstName";
     }
     if (!orderby) {
         orderby = "ASC";
     }
+    if ($('#ddlTenantListFilter').val() == '0') {
+        filterName = '0';
+    }
+
     var model = {
-        FirstName: (searchtype == "1" ? "" : $("#txtFirstName_TL").val()),
-        LastName: (searchtype == "1" ? "" : $("#txtLastName_TL").val()),
-        Gender: (searchtype == "1" ? "0" : $("#ddlGender_TL").val()),
-        MaritalStatus: (searchtype == "1" ? "0" : $("#ddlMaritalStatus_TL").val()),
-        State: (searchtype == "1" ? "0" : $("#ddlState_TL").val()),
-        City: (searchtype == "1" ? "0" : $("#ddlCity_TL").val()),
-        PropertyID: (searchtype == "1" ? "0" : $("#ddlProperty_TL").val()),
-        UnitID: (searchtype == "1" ? "0" : $("#ddlUnit_TL").val()),
-        SocialSecurityNum: (searchtype == "1" ? "" : $("#txtSocialSecurity_TL").val()),
-        Occupation: (searchtype == "1" ? "" : $("#txtOccupation_TL").val()),
-        OfficeState: (searchtype == "1" ? "0" : $("#ddlOfficeState_TL").val()),
-        OfficeCity: (searchtype == "1" ? "0" : $("#ddlOfficeCity_TL").val()),
-        ToDate: $("#txtToDate").val(),
-        FromDate: $("#txtFromDate").val(),
         PageNumber: pagenumber,
         NumberOfRows: $("#ddlRPP_TenantList").val(),
+        FromDate: $("#txtFromDate").val(),
+        ToDate: $("#txtToDate").val(),
         SortBy: sortby,
-        OrderBy: orderby
+        OrderBy: orderby,
+        FilterName: filterName,
+        Crieteria: crieteriaName
     };
     $.ajax({
         url: '../Tenant/GetTenantList',
@@ -378,4 +373,32 @@ var sortTableTenant = function (sortbyT) {
     count++;
     buildPaganationTenantList(pagenumber, sortbyT, orderbyT);
     fillTenantList(pagenumber, $("#hdnSearchType").val(),  sortbyT, orderbyT);
+};
+
+var ddlTenantListFilterSelectFunction = function () {
+    $('#txtTenantListCriteria').val('');
+    if ($('#ddlTenantListFilter').val() == '0') {
+        $('#txtTenantListCriteria').attr('disabled','disabled');
+    }
+    else if ($('#ddlTenantListFilter').val() == '1') {
+        $('#txtTenantListCriteria').removeAttr('disabled');
+    }
+    else if ($('#ddlTenantListFilter').val() == '2') {
+        $('#txtTenantListCriteria').removeAttr('disabled');
+    }
+    else if ($('#ddlTenantListFilter').val() == '3') {
+        $('#txtTenantListCriteria').removeAttr('disabled');
+
+        $("#txtTenantListCriteria").keypress(function () {
+            if ($("#ddlTenantListFilter").val() == '3') {
+                var k = isOnlyNumber($(this).event);
+                if (k == false) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+        });
+    }
 };
