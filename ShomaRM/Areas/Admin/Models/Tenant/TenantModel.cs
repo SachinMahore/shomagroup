@@ -1119,6 +1119,61 @@ namespace ShomaRM.Areas.Admin.Models
                 db.SaveChanges();
                 model.TenantID = getAppldata.TenantID;
 
+                var coapplicantList = db.tbl_Applicant.Where(p => p.TenantID == model.ProspectID).ToList();
+                if (coapplicantList != null)
+                {
+                    foreach (var tl in coapplicantList)
+                    {
+                        var createCoappTenant = new tbl_TenantInfo()
+                        {
+                            FirstName = tl.FirstName,
+                            LastName = tl.LastName,
+                            Email = tl.Email,
+                            Mobile = tl.Phone,
+                            ProspectID = getAppldata1.ProspectID,
+                            PropertyID = 8,
+                            UnitID = model.UnitID,
+                            MoveInDateFrom = getAppldata1.MoveInDateFrom,
+                            MoveInDateTo = getAppldata1.MoveInDateTo,
+                            CreatedDate = DateTime.Now.Date,
+                            DateOfBirth = tl.DateOfBirth,
+                            Gender = tl.Gender,
+
+                        };
+                        db.tbl_TenantInfo.Add(createCoappTenant);
+                        db.SaveChanges();
+
+                        string pass = "";
+                        string _allowedChars = "0123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ";
+                        Random randNum = new Random();
+                        char[] chars = new char[5];
+                        int allowedCharCount = _allowedChars.Length;
+                        for (int i = 0; i < 5; i++)
+                        {
+                            chars[i] = _allowedChars[(int)((_allowedChars.Length) * randNum.NextDouble())];
+                        }
+                        pass = new string(chars);
+                        var createCoApplLogin = new tbl_Login()
+                        {
+                            Username = tl.Email,
+                            Password = pass,
+                            FirstName = tl.FirstName,
+                            LastName = tl.LastName,
+                            Email = tl.Email,
+                            CellPhone = tl.Phone,
+                            IsActive = 1,
+                            TenantID = createCoappTenant.TenantID,
+                            IsSuperUser = 0,
+                            UserType = 10,
+                            ParentTenantID = getAppldata.TenantID
+
+                        };
+                        db.tbl_Login.Add(createCoApplLogin);
+                        db.SaveChanges();
+                    }
+                }
+
+
                 var addLease = new tbl_Lease()
                 {
                     TenantID = getAppldata.TenantID,

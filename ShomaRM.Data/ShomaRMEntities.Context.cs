@@ -55,7 +55,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_LeaseRenewal> tbl_LeaseRenewal { get; set; }
         public virtual DbSet<tbl_LeaseTerms> tbl_LeaseTerms { get; set; }
         public virtual DbSet<tbl_LeaseTransfer> tbl_LeaseTransfer { get; set; }
-        public virtual DbSet<tbl_Login> tbl_Login { get; set; }
         public virtual DbSet<tbl_LoginHistory> tbl_LoginHistory { get; set; }
         public virtual DbSet<tbl_Models> tbl_Models { get; set; }
         public virtual DbSet<tbl_MonthlyPayment> tbl_MonthlyPayment { get; set; }
@@ -85,7 +84,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Tenant> tbl_Tenant { get; set; }
         public virtual DbSet<tbl_TenantEventJoin> tbl_TenantEventJoin { get; set; }
         public virtual DbSet<tbl_TenantEventJoinApprove> tbl_TenantEventJoinApprove { get; set; }
-        public virtual DbSet<tbl_TenantInfo> tbl_TenantInfo { get; set; }
         public virtual DbSet<tbl_TenantMonthlyPayments> tbl_TenantMonthlyPayments { get; set; }
         public virtual DbSet<tbl_TenantOnline> tbl_TenantOnline { get; set; }
         public virtual DbSet<tbl_TenantParking> tbl_TenantParking { get; set; }
@@ -106,5 +104,7 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_AuditHistory> tbl_AuditHistory { get; set; }
         public virtual DbSet<tbl_AuditHistoryDetail> tbl_AuditHistoryDetail { get; set; }
         public virtual DbSet<tbl_Estimate> tbl_Estimate { get; set; }
+        public virtual DbSet<tbl_Login> tbl_Login { get; set; }
+        public virtual DbSet<tbl_TenantInfo> tbl_TenantInfo { get; set; }
     }
 }

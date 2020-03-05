@@ -1,18 +1,45 @@
-﻿
+﻿@using ShomaRM.Areas.Tenant.Models
+@model ApplicantModel
 @{
 
 }
+<input type="hidden" id="hndUID" value="@ViewBag.UID" />
+<input type="hidden" id="hndProspectID" value="@Model.TenantID" />
+<input type="hidden" id="hndPID" value="0" />
+<input type="hidden" id="hndTransMethod" value="2" />
+<input type="hidden" id="hndAID" value="@ViewBag.AID" />
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
 
+            <a class="navbar-brand" href="~/Home/Index"><img src="~/content/assets/img/logo.png" width="300" alt=""></a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse yamm" id="navigation">
+            <div class="button navbar-right">
+
+                <h3>
+                    <b>Welcome @Model.FirstName @Model.LastName</b><br>
+                </h3>
+            </div>
+
+        </div><!-- /.navbar-collapse -->
+
+    </div><!-- /.container-fluid -->
+</nav>
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
-
+    <br /><br /><br />
     <div class="container">
         <div class="wizard-container">
             <div class="wizard-card ct-wizard-orange" id="wizardProperty">
                 <div>
                     <div class="wizard-header">
+
                         <h3>
-                            <b>Payment Link :  </b>Application Fees <br>
+                            <b>Payment Link :  </b>Application Fees $<span id="lblmoveincharge">135.00</span> <br>
                         </h3>
+
                     </div>
                     <div class="tab-content">
                         <div class="" id="step1">
@@ -99,7 +126,9 @@
 
                                     </div>
                                     <div class="col-sm-2">
-                                        <button type="submit" class="btn btn-primary" onclick="savePayment()">Pay Now</button>
+                                        <button type="submit" class="btn btn-primary" onclick="saveCoAppPayment()">Pay Now</button>
+                                        <br />
+                                        <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsg"></b></p></div>
                                     </div>
                                 </div>
                             </div>
@@ -110,3 +139,153 @@
         </div>
     </div>
 </div>
+
+<script>
+    var clearBank = function () {
+        $("#hndTransMethod").val("1");
+        $("#chkBank").addClass("active");
+        $("#chkACH").removeClass("active");
+        $("#divCard").addClass("hidden");
+        $("#divBank").removeClass("hidden");
+
+        $("#lblPaymentDet").text("Enter Bank Account Details.");
+    }
+    var clearCard = function () {
+        $("#hndTransMethod").val("2");
+        $("#chkACH").addClass("active");
+        $("#chkBank").removeClass("active");
+        $("#divCard").removeClass("hidden");
+        $("#divBank").addClass("hidden");
+
+        $("#lblPaymentDet").text("Enter Credit Card Details.");
+    }
+    function saveCoAppPayment() {
+        $("#divLoader").show();
+        var msg = "";
+        if ($("#hndTransMethod").val() == "0") {
+            $("#divLoader").hide();
+            $.alert({
+                title: "",
+                content: "Please Select Payment Method</br>",
+                type: 'red'
+            });
+            return;
+        }
+        if ($("#hndTransMethod").val() == "2") {
+            var paymentMethod = 2;
+            var propertyId = $("#hndPID").val();
+            var nameonCard = $("#txtNameonCard").val();
+            var cardNumber = $("#txtCardNumber").val();
+            var cardMonth = $("#ddlcardmonth").val();
+            var cardYear = $("#ddlcardyear").val();
+            var ccvNumber = $("#txtCCVNumber").val();
+            var prospectID = $("#hndProspectID").val();
+            var amounttoPay = $("#lblmoveincharge").text();
+            var description = "Move In Charges";
+
+            var routingNumber = $("#txtRoutingNumber").val();
+            var bankName = $("#txtBankName").val();
+
+            if (!nameonCard) {
+                msg += "Please Enter Name on Card</br>";
+            }
+            if (cardNumber == "" || cardNumber.length != 16) {
+                msg += "Please enter your 16 digit Card Number</br>";
+            }
+            if (cardMonth == "0") {
+                msg += "Please enter Card Month</br>";
+            }
+            if (cardYear == "0") {
+                msg += "Please enter Card Year</br>";
+            }
+
+            var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
+            var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+
+            GivenDate = new Date(GivenDate);
+            CurrentDate = new Date(CurrentDate);
+
+            if (GivenDate <= CurrentDate) {
+                msg += "Your Credit Card Expired..</br>";
+            }
+
+            if (msg != "") {
+                $("#divLoader").hide();
+                $.alert({
+                    title: "",
+                    content: msg,
+                    type: 'red'
+                });
+                return;
+            }
+        } else {
+            var paymentMethod = 1;
+            var nameonCard = $("#txtAccountName").val();
+            var cardNumber = $("#txtAccountNumber").val();
+            var cardMonth = 0;
+            var cardYear = 0;
+            var ccvNumber = 0;
+            var routingNumber = $("#txtRoutingNumber").val();
+            var bankName = $("#txtBankName").val();
+            var amounttoPay = $("#lblmoveincharge").text();
+            var description = "Move In Charges";
+            var prospectID = $("#hndProspectID").val();
+            var propertyId = $("#hndPID").val();
+            if (nameonCard == "") {
+                msg += "Please Enter Account Name</br>";
+            }
+            if (cardNumber == "") {
+                msg += "Please Enter Account Number</br>";
+            }
+
+            if (msg != "") {
+                $("#divLoader").hide();
+                $.alert({
+                    title: "",
+                    content: msg,
+                    type: 'red'
+                });
+                return;
+            }
+        }
+     var model = {
+            PID: propertyId,
+            Name_On_Card: nameonCard,
+            CardNumber: cardNumber,
+            CardMonth: cardMonth,
+            CardYear: cardYear,
+            CCVNumber: ccvNumber,
+            Charge_Amount: amounttoPay,
+            ProspectID: prospectID,
+            Description: description,
+            GL_Trans_Description: description,
+            RoutingNumber: routingNumber,
+            BankName: bankName,
+            PaymentMethod: paymentMethod,
+            AID: $("#hndAID").val(),
+        };
+
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: "Payment Saved",
+            type: 'red'
+        });
+
+        $.ajax({
+            url: "/ApplyNow/saveCoAppPayment/",
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                $("#divLoader").hide();
+                if (response.Msg != "") {
+
+                    $("#ResponseMsg").html(response.Msg);
+                    //getTransationLists($("#hdnUserId").val());
+                }
+            }
+        });
+    }
+</script>

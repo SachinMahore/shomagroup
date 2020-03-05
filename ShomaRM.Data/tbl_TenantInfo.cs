@@ -104,6 +104,7 @@ namespace ShomaRM.Data
         public string ProfilePicture { get; set; }
         public string OrginalProfilePicture { get; set; }
         public Nullable<int> IsAgreePostDisclaimer { get; set; }
+        public Nullable<long> ParentTenantID { get; set; }
     
         public virtual tbl_ApplyNow tbl_ApplyNow { get; set; }
     }

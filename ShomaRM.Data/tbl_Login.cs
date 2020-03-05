@@ -50,6 +50,7 @@ namespace ShomaRM.Data
         public Nullable<long> TenantID { get; set; }
         public Nullable<int> IsSuperUser { get; set; }
         public Nullable<int> UserType { get; set; }
+        public Nullable<long> ParentTenantID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_CashReceipts> tbl_CashReceipts { get; set; }
