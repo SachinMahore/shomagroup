@@ -353,6 +353,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     loginDet.FirstName = model.FirstName;
                     loginDet.LastName = model.LastName;
                     loginDet.Email = model.Email;
+                    loginDet.Username = model.Email;
 
                 }
                 db.SaveChanges();
