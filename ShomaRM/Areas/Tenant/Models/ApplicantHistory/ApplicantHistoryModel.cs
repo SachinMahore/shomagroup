@@ -19,7 +19,7 @@ namespace ShomaRM.Models
         public string HomeAddress2 { get; set; }
         public Nullable<long> StateHome { get; set; }
         public string StateHomeTxt { get; set; }
-        
+
         public string CityHome { get; set; }
         public string ZipHome { get; set; }
         public Nullable<int> RentOwn { get; set; }
@@ -33,6 +33,8 @@ namespace ShomaRM.Models
         public string StateString { get; set; }
         public string CountryString { get; set; }
         public string RentOwnString { get; set; }
+        public int? MonthsApplicantHistory { get; set; }
+        public int? TotalMonthsApplicantHistory { get; set; }
 
         public string SaveUpdateApplicantHistory(ApplicantHistoryModel model)
         {
@@ -55,7 +57,7 @@ namespace ShomaRM.Models
                     MonthlyPayment = model.MonthlyPayment,
                     Reason = model.Reason,
                     TenantID = model.TenantID
-                 };
+                };
                 db.tbl_ApplicantHistory.Add(saveApplicantHistory);
                 db.SaveChanges();
 
@@ -190,18 +192,18 @@ namespace ShomaRM.Models
                     lstProp.Add(new ApplicantHistoryModel
                     {
                         AHID = Convert.ToInt64(dr["AHID"].ToString()),
-                    Country = dr["Country"].ToString(),
-                    HomeAddress1 = dr["HomeAddress1"].ToString(),
-                    HomeAddress2 = dr["HomeAddress2"].ToString(),
-                    StateHomeTxt = dr["StateHome"].ToString(),
-                    CityHome = dr["CityHome"].ToString(),
-                    ZipHome = dr["ZipHome"].ToString(),
-                    RentOwn = Convert.ToInt32(dr["RentOwn"].ToString()),
-                    MoveInDateFromTxt = moveInFrom == null ? "" : moveInFrom.Value.ToString("MM/dd/yyy"),
-                    MoveInDateToTxt = moveInTo == null ? "" : moveInTo.Value.ToString("MM/dd/yyy"),
-                    MonthlyPayment = dr["MonthlyPayment"].ToString(),
-                    Reason = dr["Reason"].ToString()
-                });
+                        Country = dr["Country"].ToString(),
+                        HomeAddress1 = dr["HomeAddress1"].ToString(),
+                        HomeAddress2 = dr["HomeAddress2"].ToString(),
+                        StateHomeTxt = dr["StateHome"].ToString(),
+                        CityHome = dr["CityHome"].ToString(),
+                        ZipHome = dr["ZipHome"].ToString(),
+                        RentOwn = Convert.ToInt32(dr["RentOwn"].ToString()),
+                        MoveInDateFromTxt = moveInFrom == null ? "" : moveInFrom.Value.ToString("MM/dd/yyy"),
+                        MoveInDateToTxt = moveInTo == null ? "" : moveInTo.Value.ToString("MM/dd/yyy"),
+                        MonthlyPayment = dr["MonthlyPayment"].ToString(),
+                        Reason = dr["Reason"].ToString()
+                    });
                 }
                 db.Dispose();
                 return lstProp;
@@ -248,7 +250,7 @@ namespace ShomaRM.Models
                 model.CityHome = getAHRdata.CityHome;
                 model.ZipHome = getAHRdata.ZipHome;
                 model.RentOwn = getAHRdata.RentOwn;
-                model.MoveInDateFromTxt = moveInFrom == null ? "" : moveInFrom.Value.ToString("MM/dd/yyy"); 
+                model.MoveInDateFromTxt = moveInFrom == null ? "" : moveInFrom.Value.ToString("MM/dd/yyy");
                 model.MoveInDateToTxt = moveInTo == null ? "" : moveInTo.Value.ToString("MM/dd/yyy");
                 model.MonthlyPayment = getAHRdata.MonthlyPayment;
                 model.Reason = getAHRdata.Reason;
@@ -282,6 +284,55 @@ namespace ShomaRM.Models
             }
             db.Dispose();
             return msg;
+        }
+
+        public ApplicantHistoryModel GetMonthsFromApplicantHistory(long TenantId, string FromDateAppHis, string ToDateAppHis)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            ApplicantHistoryModel model = new ApplicantHistoryModel();
+
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_Get_MonthsFromApplicantHistory";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter paramF = cmd.CreateParameter();
+                    paramF.ParameterName = "TenantId";
+                    paramF.Value = TenantId;
+                    cmd.Parameters.Add(paramF);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                int monthsCount = 0;
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    monthsCount = monthsCount + Convert.ToInt32(dr["Months"].ToString());
+                    model.MonthsApplicantHistory = Convert.ToInt32(dr["Months"].ToString());
+                }
+                if (FromDateAppHis != string.Empty && ToDateAppHis != string.Empty)
+                {
+                    DateTime dt1 = Convert.ToDateTime(FromDateAppHis);
+                    DateTime dt2 = Convert.ToDateTime(ToDateAppHis);
+                    int givenDate = ((dt2.Year - dt1.Year) * 12) + dt2.Month - dt1.Month;
+                    monthsCount = monthsCount + givenDate;
+                }
+                model.TotalMonthsApplicantHistory = monthsCount;
+
+                db.Dispose();
+                return model;
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
         }
 
     }

@@ -18,7 +18,7 @@
         <div class="col-md-12  pr0  properties-page">
             <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                 <div class="panel-heading">
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                         <h3 class="panel-title input-group">From Date</h3>
                         <div class="input-group">
                             <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
@@ -27,7 +27,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                         <h3 class="panel-title input-group">To Date</h3>
                         <div class="input-group">
                             <input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="@endDate.ToString("MM/dd/yyyy")" />
@@ -36,30 +36,26 @@
                             </span>
                         </div>
                     </div>
-                    @*<div class="col-sm-3">
+                    <div class="col-sm-2">
+                        <h3 class="panel-title input-group">Filter</h3>
                         <div class="form-group">
-                            <h3 class="panel-title">From Date</h3>
-                            <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
-                            <span class="input-group-btn" style="width:0% !important">
-                                <button class="btn btn-primary search" type="button" id="iconFromDate" style="margin-top: -60px;margin-left: 292px;"><i class="fa-calendar fa"></i></button>
-                            </span>
+                            <select id="ddlTenantListFilter" class="form-control form-control-small" onchange="ddlTenantListFilterSelectFunction()">
+                                <option value="0" selected="selected">Select Filter</option>
+                                <option value="1">First Name</option>
+                                <option value="2">Last Name</option>
+                                <option value="3">Unit No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <h3 class="panel-title input-group">Criteria</h3>
+                        <div class="form-group">
+                            <input id="txtTenantListCriteria" class="form-control form-control-small" disabled="disabled" />
                         </div>
                     </div>
                     <div class="col-sm-3">
-                        <div class="form-group">
-                            <h3 class="panel-title">To Date</h3>
-                            <input id="txtToDate" type="text" class="form-control"  value="@endDate.ToString("MM/dd/yyyy")">
-                            <span class="input-group-btn" style="width:0% !important">
-                                <button class="btn btn-primary search" type="button" id="iconToDate" style="margin-top: -60px;margin-left: 292px;"><i class="fa-calendar fa"></i></button>
-                            </span>
-                        </div>
-                    </div>*@
-                    <div class="col-sm-5">
                         <div class="form-group padding-top-25 col-sm-4">
                             <button class='btn btn-next btn-primary' name='Search' value='Search' style="text-transform:uppercase;" onclick="btnSeachClick()"><i class="glyphicon glyphicon-search"></i> Search</button>
-                        </div>
-                        <div class="form-group padding-top-25 col-sm-8">
-                            <button id="btnAdvanceSearch_TL" type="button" value="Advance Search" style="text-transform:uppercase;" class="btn btn-primary" onclick="openAdvSearchPopup_TL()"><i class="glyphicon glyphicon-search"></i> Advance Search</button>
                         </div>
                     </div>
                     @*<div class="col-sm-1">
@@ -69,7 +65,7 @@
                     </div>*@
                 </div>
                 <div id="divPaginationControl_TenantList" class="col-sm-12 form-group">
-                    <div id="divPgn" class="col-sm-8 pagination">
+                    <div id="divPgn" class="col-sm-8 pagination" style="margin-top:1px;">
                         <ul id="ulPagination_TenantList"></ul>
                     </div>
                     <div class="col-sm-3 padding-0 pull-right">

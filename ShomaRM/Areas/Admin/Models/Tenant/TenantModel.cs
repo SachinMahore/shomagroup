@@ -179,63 +179,21 @@ namespace ShomaRM.Areas.Admin.Models
                     param4.Value = model.ToDate;
                     cmd.Parameters.Add(param4);
                     DbParameter param5 = cmd.CreateParameter();
-                    param5.ParameterName = "FirstName";
-                    param5.Value = model.FirstName == null ? "" : model.FirstName;
+                    param5.ParameterName = "SortBy";
+                    param5.Value = model.SortBy;
                     cmd.Parameters.Add(param5);
                     DbParameter param6 = cmd.CreateParameter();
-                    param6.ParameterName = "LastName";
-                    param6.Value = model.LastName == null ? "" : model.LastName;
+                    param6.ParameterName = "OrderBy";
+                    param6.Value = model.OrderBy;
                     cmd.Parameters.Add(param6);
                     DbParameter param7 = cmd.CreateParameter();
-                    param7.ParameterName = "Gender";
-                    param7.Value = model.Gender;
+                    param7.ParameterName = "FilterName";
+                    param7.Value = model.FilterName == null ? "" : model.FilterName;
                     cmd.Parameters.Add(param7);
                     DbParameter param8 = cmd.CreateParameter();
-                    param8.ParameterName = "MaritalStatus";
-                    param8.Value = model.MaritalStatus;
+                    param8.ParameterName = "Crieteria";
+                    param8.Value = model.Crieteria == null ? "" : model.Crieteria;
                     cmd.Parameters.Add(param8);
-                    DbParameter param9 = cmd.CreateParameter();
-                    param9.ParameterName = "State";
-                    param9.Value = model.MaritalStatus;
-                    cmd.Parameters.Add(param9);
-                    DbParameter param10 = cmd.CreateParameter();
-                    param10.ParameterName = "City";
-                    param10.Value = model.City;
-                    cmd.Parameters.Add(param10);
-                    DbParameter param11 = cmd.CreateParameter();
-                    param11.ParameterName = "PropertyID";
-                    param11.Value = model.PropertyID;
-                    cmd.Parameters.Add(param11);
-                    DbParameter param12 = cmd.CreateParameter();
-                    param12.ParameterName = "UnitID";
-                    param12.Value = model.UnitID;
-                    cmd.Parameters.Add(param12);
-                    DbParameter param13 = cmd.CreateParameter();
-                    param13.ParameterName = "SocialSecurityNum";
-                    param13.Value = model.SocialSecurityNum == null ? "" : model.SocialSecurityNum;
-                    cmd.Parameters.Add(param13);
-                    DbParameter param14 = cmd.CreateParameter();
-                    param14.ParameterName = "Occupation";
-                    param14.Value = model.Occupation == null ? "" : model.Occupation;
-                    cmd.Parameters.Add(param14);
-                    DbParameter param15 = cmd.CreateParameter();
-                    param15.ParameterName = "OfficeState";
-                    param15.Value = model.OfficeState;
-                    cmd.Parameters.Add(param15);
-                    DbParameter param16 = cmd.CreateParameter();
-                    param16.ParameterName = "OfficeCity";
-                    param16.Value = model.OfficeCity;
-                    cmd.Parameters.Add(param16);
-
-                    DbParameter param17 = cmd.CreateParameter();
-                    param17.ParameterName = "SortBy";
-                    param17.Value = model.SortBy;
-                    cmd.Parameters.Add(param17);
-
-                    DbParameter param18 = cmd.CreateParameter();
-                    param18.ParameterName = "OrderBy";
-                    param18.Value = model.OrderBy;
-                    cmd.Parameters.Add(param18);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -585,6 +543,8 @@ namespace ShomaRM.Areas.Admin.Models
             public int NumberOfRows { get; set; }
             public string SortBy { get; set; }
             public string OrderBy { get; set; }
+            public string FilterName { get; set; }
+            public string Crieteria { get; set; }
         }
     }
 
