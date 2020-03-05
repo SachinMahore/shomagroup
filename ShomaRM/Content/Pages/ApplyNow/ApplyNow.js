@@ -2557,11 +2557,11 @@ var getTransationLists = function (userid) {
                 //html += "<td>" + elementValue.TransID + "</td>";
                 //html += "<td>" + elementValue.TenantIDString + "</td>";
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                html += "<td>$" + elementValue.Charge_Amount + "</td>";
+                html += "<td>$" + parseFloat(elementValue.Charge_Amount).toFixed(2)+ "</td>";
                 html += "<td>" + elementValue.Transaction_Type + "</td>";
                 //html += "<td>" + elementValue.Charge_Type + "</td>";
                 html += "<td>" + elementValue.Description + "</td>";
-                //html += "<td>" + elementValue.CreatedDateString + "</td>";
+                html += "<td>Paid</td>";
                 html += "</tr>";
                 $("#tblTransaction>tbody").append(html);
             });
@@ -3226,14 +3226,13 @@ var getApplicantLists = function () {
                         "</td></tr>";
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
-                    //Amit's work 17-10
                     adminfess = $("#lblFNLAmount").text();
-                    totalFinalFees += parseFloat(adminfess);
-                    if (elementValue.Type == "Primary Applicant") {
 
-                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:30%; padding:6px;'>$" + adminfess + "</td><td></td></tr>";
+                    if (elementValue.Type == "Primary Applicant") {
+                        totalFinalFees += parseFloat(adminfess);
+                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + adminfess + "</td><td style='width:14%; padding:6px;'><input type='checkbox' id='chkPayAppFees' checked disabled/></td><td></td></tr>";
                     } else {
-                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:30%; padding:6px;'>$" + adminfess + "</td><td><input type='button' style='width:150px;' onclick='sendPayLinkEmail(\"" + elementValue.Email + "\")' value='Send Payment Link'/></td></tr>";
+                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + adminfess + "</td><td style='width:14%; padding:6px;'><input type='checkbox' class='chkPayAppFees' id='chkPayAppFees1' onclick='addAppFess(" + adminfess + ")'/></td><td><input type='button' id='btnSendPayLink' style='width:150px;' onclick='sendPayLinkEmail(\"" + elementValue.Email + "\")' value='Send Payment Link'/></td></tr>";
                     }
                 }
 
@@ -3378,7 +3377,18 @@ var getApplicantLists = function () {
         }
     });
 }
-
+var addAppFess = function (appFees) {
+    var totfees = unformatText($("#totalFinalFees").text());
+    if ($(".chkPayAppFees").is(':checked')) {
+        $("#btnSendPayLink").addClass("hidden");
+        totfees = parseFloat(totfees) + parseFloat(appFees);
+        $("#totalFinalFees").text("$" + parseFloat(totfees).toFixed(2));
+    } else {
+        totfees = parseFloat(totfees) - parseFloat(appFees);
+        $("#totalFinalFees").text("$" + parseFloat(totfees).toFixed(2));
+        $("#btnSendPayLink").removeClass("hidden");
+    }
+}
 var goToEditApplicant = function (aid) {
 
     if (aid != null) {

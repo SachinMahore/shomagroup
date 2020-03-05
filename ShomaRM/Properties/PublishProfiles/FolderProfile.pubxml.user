@@ -70,7 +70,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/03/2020 18:52:56</publishTime>
     </File>
     <File Include="Areas/Admin/Content/Pages/GuestRegistrationManagement/GuestRegistrationManagement.js">
-      <publishTime>03/03/2020 18:51:33</publishTime>
+      <publishTime>03/04/2020 18:46:13</publishTime>
     </File>
     <File Include="Areas/Admin/Content/Pages/Invoice/Invoice.js">
       <publishTime>01/31/2020 12:25:30</publishTime>
@@ -271,7 +271,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/24/2020 13:28:07</publishTime>
     </File>
     <File Include="Areas/Admin/Views/GuestManagement/Index.cshtml">
-      <publishTime>03/04/2020 18:11:42</publishTime>
+      <publishTime>03/04/2020 18:46:13</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Invoice/Edit.cshtml">
       <publishTime>01/31/2020 12:25:30</publishTime>
@@ -382,7 +382,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/04/2020 18:11:42</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Shared/_Layout.cshtml">
-      <publishTime>02/27/2020 19:33:46</publishTime>
+      <publishTime>03/04/2020 18:46:13</publishTime>
     </File>
     <File Include="Areas/Admin/Views/State/AddEdit.cshtml">
       <publishTime>01/31/2020 12:25:30</publishTime>

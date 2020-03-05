@@ -73,6 +73,8 @@ namespace ShomaRM.Models
 
         public Nullable<decimal> MonthlyCharges { get; set; }
         public Nullable<decimal> MoveInCharges { get; set; }
+        public Nullable<decimal> PartialMoveInCharges { get; set; }
+        public Nullable<decimal> MoveInPercentage { get; set; }
         public string PetPlaceID { get; set; }
         public string ParkingSpaceID { get; set; }
         public string StorageSpaceID { get; set; }
@@ -91,7 +93,7 @@ namespace ShomaRM.Models
         public string Building { get; set; }
         public int FloorID { get; set; }
 
-
+        string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
 
@@ -469,7 +471,12 @@ namespace ShomaRM.Models
                         model.Building = getUnitDet.Building;
                         model.FloorID = Convert.ToInt32(getUnitDet.FloorNo);
                     }
-                   
+                    var getApplicantDet = db.tbl_Applicant.Where(p => p.TenantID == GetProspectData.ID && p.Type == "Primary Applicant").FirstOrDefault();
+                    if (getApplicantDet != null)
+                    {
+                        model.PartialMoveInCharges = ((model.MoveInCharges * getApplicantDet.MoveInPercentage) / 100);
+                        model.MoveInPercentage = getApplicantDet.MoveInPercentage;
+                    }
                 }
             }
 
@@ -681,7 +688,7 @@ namespace ShomaRM.Models
                 var GetCoappDet = db.tbl_Applicant.Where(c => c.Email == model.Email).FirstOrDefault();
                 reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Fee Payment Link");
                 reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + GetCoappDet.FirstName + " " + GetCoappDet.LastName + "</b>,<br/>Your Online application submitted successfully. Please click below to Pay Application fees. <br/><br/><u><b>Payment Link :<a href=''></a> </br></b></u>  </br>");
-
+                reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?AID=" + GetCoappDet.ApplicantID + "&FromAcc=0\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?AID=" + GetCoappDet.ApplicantID + "&FromAcc=0\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
                 reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
 
                 reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");

@@ -124,7 +124,17 @@ namespace ShomaRM.Controllers
                 return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-
+        public ActionResult saveCoAppPayment(ApplyNowModel model)
+        {
+            try
+            {
+                return Json(new { Msg = (new ApplyNowModel().saveCoAppPayment(model)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         public ActionResult GetApplyNowList(int id)
         {
             try

@@ -223,6 +223,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 model.MonthlyPercentage = getApplicantDet.MonthlyPercentage;
                 model.MonthlyPayment = getApplicantDet.MonthlyPayment;
                 model.OtherGender = getApplicantDet.OtherGender;
+                model.TenantID = getApplicantDet.TenantID;
             }
             return model;
         }

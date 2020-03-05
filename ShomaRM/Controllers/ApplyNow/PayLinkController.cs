@@ -13,9 +13,20 @@ namespace ShomaRM.Controllers
     public class PayLinkController : Controller
     {
         // GET: PayLink
-        public ActionResult Index()
+        public ActionResult Index(int AID, int FromAcc)
         {
-            return View();
+            ViewBag.UID = "0";
+            ViewBag.FromAcc = FromAcc;
+            ViewBag.AID = AID;
+            var model = new ApplicantModel().GetApplicantDetails(AID);
+            if (FromAcc != 0)
+            {
+                if (ShomaGroupWebSession.CurrentUser != null)
+                {
+                    ViewBag.UID = ShomaGroupWebSession.CurrentUser.UserID.ToString();
+                }
+            }
+            return View("..//Paylink//Index", model);
         }
         public ActionResult LeaseNow()
         {
