@@ -37,7 +37,7 @@
                     <div class="wizard-header">
 
                         <h3>
-                            <b>Payment Link :  </b>Application Fees $<span id="lblmoveincharge">135.00</span> <br>
+                            <b>Payment Link :  </b><span id="lblDes"></span>$<span id="lblmoveincharge">@ViewBag.Amt</span> <br>
                         </h3>
 
                     </div>
@@ -86,7 +86,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Routing Number</label>
-                                                <input id="txtRoutingNumber" type="text" class="form-control" placeholder="Routing Number" onkeypress="return isNumber(event)" value="">
+                                                <input id="txtRoutingNumber" type="text" class="form-control" placeholder="Routing Number" maxlength="9" onkeypress="return isNumber(event)" value="">
                                             </div>
                                         </div>
                                     </div>
@@ -128,7 +128,7 @@
                                     <div class="col-sm-2">
                                         <button type="submit" class="btn btn-primary" onclick="saveCoAppPayment()">Pay Now</button>
                                         <br />
-                                        <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsg"></b></p></div>
+                                        <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium;text-align:center" class="text-center"><b id="ResponseMsg"></b></p></div>
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +140,19 @@
     </div>
 </div>
 
-<script>
+<script>  
+    var charge_Type = 1;
+    $(document).ready(function () {
+      
+        if (@ViewBag.FromAcc=="3")
+        {
+            $("#lblDes").text("Co-Applicant Move In Charges ");
+            charge_Type = 2;
+        } else {
+            $("#lblDes").text("Co-Applicant Online Application Fees ");
+            charge_Type = 1;
+        }
+    });
     var clearBank = function () {
         $("#hndTransMethod").val("1");
         $("#chkBank").addClass("active");
@@ -171,6 +183,7 @@
             });
             return;
         }
+        
         if ($("#hndTransMethod").val() == "2") {
             var paymentMethod = 2;
             var propertyId = $("#hndPID").val();
@@ -181,7 +194,7 @@
             var ccvNumber = $("#txtCCVNumber").val();
             var prospectID = $("#hndProspectID").val();
             var amounttoPay = $("#lblmoveincharge").text();
-            var description = "Move In Charges";
+            var description = $("#lblDes").text();
 
             var routingNumber = $("#txtRoutingNumber").val();
             var bankName = $("#txtBankName").val();
@@ -228,7 +241,7 @@
             var routingNumber = $("#txtRoutingNumber").val();
             var bankName = $("#txtBankName").val();
             var amounttoPay = $("#lblmoveincharge").text();
-            var description = "Move In Charges";
+            var description = $("#lblDes").text();
             var prospectID = $("#hndProspectID").val();
             var propertyId = $("#hndPID").val();
             if (nameonCard == "") {
@@ -256,6 +269,7 @@
             CardYear: cardYear,
             CCVNumber: ccvNumber,
             Charge_Amount: amounttoPay,
+            Charge_Type: charge_Type,
             ProspectID: prospectID,
             Description: description,
             GL_Trans_Description: description,
@@ -265,13 +279,7 @@
             AID: $("#hndAID").val(),
         };
 
-        $("#divLoader").hide();
-        $.alert({
-            title: "",
-            content: "Payment Saved",
-            type: 'red'
-        });
-
+       
         $.ajax({
             url: "/ApplyNow/saveCoAppPayment/",
             type: "post",
@@ -281,8 +289,37 @@
             success: function (response) {
                 $("#divLoader").hide();
                 if (response.Msg != "") {
+                    if (response.Msg == "1")
+                    {
+                        $("#ResponseMsg").html("Payment successfull");
 
-                    $("#ResponseMsg").html(response.Msg);
+                        $("#divLoader").hide();
+                        $.alert({
+                            title: "",
+                            content: "You want to go to Sanctuary Doral Web portal?",
+                            type: 'blue',
+                            buttons: {
+                                yes: {
+                                    text: 'Yes',
+                                    action: function (yes) {
+                                        window.location = "/Home/";
+                                    }
+                                },
+                                no: {
+                                    text: 'No',
+                                    action: function (no) {
+                                    }
+                                }
+                            }
+                        });
+
+                       
+
+                       
+                    } else {
+                        $("#ResponseMsg").html("Payment failed");
+                    }
+                  
                     //getTransationLists($("#hdnUserId").val());
                 }
             }

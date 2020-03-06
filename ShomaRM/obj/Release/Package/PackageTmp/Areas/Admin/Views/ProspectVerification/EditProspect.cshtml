@@ -1041,7 +1041,7 @@
                                                 <span style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                             <div class="col-sm-2">
-                                                $<span id="lblProratedRent" style="text-decoration:underline;font-weight:bold;"></span>
+                                                $<span id="lblProratedRent" style="text-decoration:underline;font-weight:bold;">@((Model.Prorated_Rent ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
 
@@ -1053,7 +1053,7 @@
                                                 <span style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                             <div class="col-sm-2" style="color:green;">
-                                                $<span style="text-decoration:underline;font-weight:bold;" id="ftotal"></span>
+                                                $<span style="text-decoration:underline;font-weight:bold;" id="ftotal">@((Model.MoveInCharges ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
                                     </div>

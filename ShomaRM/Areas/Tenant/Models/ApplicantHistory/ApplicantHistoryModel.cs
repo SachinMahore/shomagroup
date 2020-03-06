@@ -293,30 +293,46 @@ namespace ShomaRM.Models
 
             try
             {
-                DataTable dtTable = new DataTable();
-                using (var cmd = db.Database.Connection.CreateCommand())
-                {
-                    db.Database.Connection.Open();
-                    cmd.CommandText = "usp_Get_MonthsFromApplicantHistory";
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    DbParameter paramF = cmd.CreateParameter();
-                    paramF.ParameterName = "TenantId";
-                    paramF.Value = TenantId;
-                    cmd.Parameters.Add(paramF);
-
-                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
-                    da.SelectCommand = cmd;
-                    da.Fill(dtTable);
-                    db.Database.Connection.Close();
-                }
                 int monthsCount = 0;
-                foreach (DataRow dr in dtTable.Rows)
+                string fromDateDB = string.Empty;
+                string toDateDB = string.Empty;
+                var moveInApplHist = db.tbl_ApplicantHistory.Where(co => co.TenantID == TenantId).OrderBy(co => co.MoveInDateFrom).ToList();
+                if (moveInApplHist != null)
                 {
-                    monthsCount = monthsCount + Convert.ToInt32(dr["Months"].ToString());
-                    model.MonthsApplicantHistory = Convert.ToInt32(dr["Months"].ToString());
+                    foreach (var item in moveInApplHist)
+                    {
+                        fromDateDB = Convert.ToString(item.MoveInDateFrom);
+                        break;
+                    }
                 }
-                if (FromDateAppHis != string.Empty && ToDateAppHis != string.Empty)
+                var moveOutApplHist = db.tbl_ApplicantHistory.Where(co => co.TenantID == TenantId).OrderByDescending(co => co.MoveInDateTo).ToList();
+                if (moveOutApplHist != null)
+                {
+                    foreach (var item in moveOutApplHist)
+                    {
+                        toDateDB = Convert.ToString(item.MoveInDateTo);
+                        break;
+                    }
+                }
+                if (fromDateDB != string.Empty && toDateDB != string.Empty)
+                {
+                    DateTime dt1FromDB = Convert.ToDateTime(fromDateDB);
+                    DateTime dt2ToDB = Convert.ToDateTime(toDateDB);
+                    if (FromDateAppHis != string.Empty && ToDateAppHis != string.Empty)
+                    {
+                        DateTime dt1Form = Convert.ToDateTime(FromDateAppHis);
+                        DateTime dt2Form = Convert.ToDateTime(ToDateAppHis);
+                        bool fDate = dt1FromDB < dt1Form;
+                        bool tDate = dt2ToDB > dt2Form;
+
+                        DateTime finalDt1 = Convert.ToDateTime(fDate == true ? dt1FromDB : dt1Form);
+                        DateTime finalDt2 = Convert.ToDateTime(tDate == true ? dt2ToDB : dt2Form);
+
+                        int givenDate = ((finalDt2.Year - finalDt1.Year) * 12) + finalDt2.Month - finalDt1.Month;
+                        monthsCount = monthsCount + givenDate;
+                    }
+                }
+                else if (FromDateAppHis != string.Empty && ToDateAppHis != string.Empty)
                 {
                     DateTime dt1 = Convert.ToDateTime(FromDateAppHis);
                     DateTime dt2 = Convert.ToDateTime(ToDateAppHis);
