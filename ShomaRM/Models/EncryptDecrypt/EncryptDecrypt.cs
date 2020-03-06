@@ -10,6 +10,7 @@ namespace ShomaRM.Models
     public class EncryptDecrypt
     {
         private const string _securityKey = "$h0m@Gr0u9";
+        static readonly char[] padding = { '=' };
         public string EncryptText(string PlainText)
         {
 
@@ -24,11 +25,20 @@ namespace ShomaRM.Models
             var objCrytpoTransform = objTripleDESCryptoService.CreateEncryptor();
             byte[] resultArray = objCrytpoTransform.TransformFinalBlock(toEncryptedArray, 0, toEncryptedArray.Length);
             objTripleDESCryptoService.Clear();
-            return Convert.ToBase64String(resultArray, 0, resultArray.Length);
+
+            string returnValue = Convert.ToBase64String(resultArray, 0, resultArray.Length).TrimEnd(padding).Replace('+', '-').Replace('/', '_');
+            return returnValue;
         }
         public string DecryptText(string CipherText)
         {
-            byte[] toEncryptArray = Convert.FromBase64String(CipherText);
+            string incoming = CipherText.Replace('_', '/').Replace('-', '+');
+            switch (CipherText.Length % 4)
+            {
+                case 2: incoming += "=="; break;
+                case 3: incoming += "="; break;
+            }
+
+            byte[] toEncryptArray = Convert.FromBase64String(incoming);
             MD5CryptoServiceProvider objMD5CryptoService = new MD5CryptoServiceProvider();
             byte[] securityKeyArray = objMD5CryptoService.ComputeHash(UTF8Encoding.UTF8.GetBytes(_securityKey));
             objMD5CryptoService.Clear();
