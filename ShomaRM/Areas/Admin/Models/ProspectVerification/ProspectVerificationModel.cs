@@ -600,7 +600,7 @@ namespace ShomaRM.Areas.Admin.Models
 
                     //model.MoveInDateTxt = "";
                     model.MoveInTime = "";
-                    model.MoveInCharges = 0;
+                   // model.MoveInCharges = 0;
                     model.IsCheckATT = 0;
                     model.IsCheckPO = 0;
                     model.IsCheckWater = 0;
@@ -611,7 +611,7 @@ namespace ShomaRM.Areas.Admin.Models
                     {
                         model.MoveInDateTxt = MoveInData.MoveInDate.HasValue ? MoveInData.MoveInDate.Value.ToString("MM/dd/yyyy") : "";
                         model.MoveInTime = MoveInData.MoveInTime;
-                        model.MoveInCharges = MoveInData.MoveInCharges ?? 0;
+                       // model.MoveInCharges = MoveInData.MoveInCharges ?? 0;
                         model.IsCheckATT = MoveInData.IsCheckATT ?? 0;
                         model.IsCheckPO = MoveInData.IsCheckPO ?? 0;
                         model.IsCheckWater = MoveInData.IsCheckWater ?? 0;

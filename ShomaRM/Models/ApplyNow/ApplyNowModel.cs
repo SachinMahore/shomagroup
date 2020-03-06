@@ -23,7 +23,8 @@ namespace ShomaRM.Models
         public Nullable<long> ProspectId { get; set; }
         public Nullable<decimal> Charge_Amount { get; set; }
         public Nullable<decimal> Credit_Amount { get; set; }
-        
+
+        public int Charge_Type { get; set; }
         public string Transaction_Type { get; set; }
         public string Description { get; set; }
         public string GL_Trans_Description { get; set; }
@@ -238,7 +239,7 @@ namespace ShomaRM.Models
                         Credit_Amount = model.Charge_Amount,
                         Description = model.Description + "| TransID: " + strlist[1],
                         Charge_Date = DateTime.Now,
-                        Charge_Type = 1,
+                        Charge_Type = model.Charge_Type,
 
                         Authcode = strlist[1],
                         Charge_Amount = model.Charge_Amount,

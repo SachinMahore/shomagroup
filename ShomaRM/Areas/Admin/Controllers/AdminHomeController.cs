@@ -15,38 +15,6 @@ namespace ShomaRM.Areas.Admin.Controllers
             ViewBag.ActiveMenu = "home";
             return View();
         }
-        public ActionResult GenerateMonthlyRent()
-        {
-            try
-            {
-                return Json(new { model = new MyTransactionModel().GenerateMonthlyRent() }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
-            }
-        }
-        public ActionResult ScheduleRecurring()
-        {
-            try
-            {
-                return Json(new { model = new MyTransactionModel().ScheduleRecurring() }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
-            }
-        }
-        public ActionResult GenerateLateFee()
-        {
-            try
-            {
-                return Json(new { model = new MyTransactionModel().GenerateLateFee() }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
-            }
-        }
+        
     }
 }
