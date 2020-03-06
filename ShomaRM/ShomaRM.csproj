@@ -670,6 +670,7 @@
     <Content Include="Areas\Admin\Content\Pages\Users\UsersList.js" />
     <Content Include="Content\jquery.countdown.js" />
     <Content Include="Content\jquery.countdown.min.js" />
+    <Content Include="Content\keyboardcontrols.js" />
     <Content Include="Content\Pages\ApplyNow\ApplyNow.js" />
     <Content Include="Content\Pages\ApplyNow\DocumentVerification.js" />
     <Content Include="Content\Pages\common.js" />
