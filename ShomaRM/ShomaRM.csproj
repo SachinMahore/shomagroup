@@ -320,6 +320,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Property\PropertyController.cs" />
     <Compile Include="Controllers\Prospect\ProspectController.cs" />
+    <Compile Include="Controllers\ShomaAPIController.cs" />
     <Compile Include="Controllers\ShomaGroupWebAuthorizationController.cs" />
     <Compile Include="Controllers\Verification\VerificationController.cs" />
     <Compile Include="Global.asax.cs">
