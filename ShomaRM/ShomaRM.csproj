@@ -340,6 +340,7 @@
     <Compile Include="Models\Bluemoon\LeaseRequestModel.cs" />
     <Compile Include="Models\Bluemoon\ResponseModel.cs" />
     <Compile Include="Models\CommonModel.cs" />
+    <Compile Include="Models\EncryptDecrypt\EncryptDecrypt.cs" />
     <Compile Include="Models\Property\PropertyModel.cs" />
     <Compile Include="Models\Prospect\ProspectModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
