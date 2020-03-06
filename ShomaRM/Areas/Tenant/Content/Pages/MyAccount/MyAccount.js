@@ -5086,10 +5086,20 @@ var getReservationRequestList = function () {
 var clearDdlAmenity = function () {
     $("#ddlAmenities").val(0);
 };
-function getAmenityReservationPay(arid)
-{
-    window.location.href = "/Paylink/PayAmenityCharges?ARID=" + arid + "&FromAcc=1";
-    //window.open("/Paylink/PayAmenityCharges?ARID=" + arid +"&FromAcc=1", 'newStuff');
+function getAmenityReservationPay(arid) {
+    var model = {
+        ARID: arid
+    };
+    $.ajax({
+        url: '/Tenant/MyAccount/GetPaymentLink',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            window.location.href = "/Paylink/PayAmenityCharges?pid=" + response.payid;
+        }
+    });
 }
 var getRecurringPayLists = function () {
     var model = {

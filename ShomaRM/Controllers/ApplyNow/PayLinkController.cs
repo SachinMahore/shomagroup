@@ -13,8 +13,13 @@ namespace ShomaRM.Controllers
     public class PayLinkController : Controller
     {
         // GET: PayLink
-        public ActionResult Index(int AID, int FromAcc,string Amt)
+        public ActionResult Index(string pid)
         {
+            string[] payid = new EncryptDecrypt().DecryptText(pid).Split(',');
+            int AID=Convert.ToInt32(payid[0]);
+            int FromAcc = Convert.ToInt32(payid[1]);
+            string Amt= payid[2]; ;
+
             ViewBag.UID = "0";
             ViewBag.FromAcc = FromAcc;
             ViewBag.AID = AID;
@@ -51,8 +56,12 @@ namespace ShomaRM.Controllers
                 return Json(new { msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult PayAmenityCharges(int ARID, int FromAcc)
+        public ActionResult PayAmenityCharges(string pid)
         {
+            string[] payid = new EncryptDecrypt().DecryptText(pid).Split(',');
+            int ARID=Convert.ToInt32(payid[0]);
+            int FromAcc= Convert.ToInt32(payid[1]);
+
             ViewBag.UID = "0";
             ViewBag.FromAcc = FromAcc;
             ViewBag.ARID = ARID;
@@ -66,8 +75,11 @@ namespace ShomaRM.Controllers
             }
             return View("..//Paylink//PayAmenityCharges", model);
         }
-        public ActionResult PayServiceCharges(int EID, int FromAcc)
+        public ActionResult PayServiceCharges(string pid)
         {
+            string[] payid = new EncryptDecrypt().DecryptText(pid).Split(',');
+            int EID = Convert.ToInt32(payid[0]);
+            int FromAcc = Convert.ToInt32(payid[1]);
             ViewBag.UID = "0";
             ViewBag.FromAcc = FromAcc;
 

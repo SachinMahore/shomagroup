@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ShomaRM.Areas.Tenant.Models;
+using ShomaRM.Models;
 
 namespace ShomaRM.Areas.Tenant.Controllers
 {
@@ -235,7 +236,17 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-
+        public ActionResult GetPaymentLink(string ARID)
+        {
+            try
+            {
+                return Json(new { payid = new EncryptDecrypt().EncryptText(ARID + ",1") }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 
 }

@@ -1,18 +1,22 @@
-﻿using ShomaRM.Areas.Admin.Models;
-using ShomaRM.Data;
+﻿using ShomaRM.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ShomaRM.Models;
 
 namespace ShomaRM.Controllers.ApplyNow
 {
     public class ServiceController : Controller
     {
         // GET: Service
-        public ActionResult Index(int EID, int Status)
+        public ActionResult Index(string sid)
         {
+            string[] payid = new EncryptDecrypt().DecryptText(sid).Split(',');
+            int EID = Convert.ToInt32(payid[0]);
+            int Status = Convert.ToInt32(payid[1]);
+
             ViewBag.UID = "0";
             ViewBag.Status = Status;
             ViewBag.EID = EID;
@@ -33,7 +37,6 @@ namespace ShomaRM.Controllers.ApplyNow
                     string filePathAg = HttpContext.Server.MapPath("~/Content/assets/img/Document/");
                     reportHTMLAgent = System.IO.File.ReadAllText(filePathAg + "EmailTemplateAmenity.html");
 
-                    //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
                     reportHTMLAgent = reportHTMLAgent.Replace("[%TenantName%]", salesPersonnInfo.FirstName + " " + salesPersonnInfo.LastName);
 
                     reportHTMLAgent = reportHTMLAgent.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Service Repair Estimate of Amount: $" + GetServiceData.Amount + " for Vendor: " + GetServiceData.Vendor + " with Description: " + GetServiceData.Description + ". </p><p><h2>STATUS: " + (Status == 1 ? "ACCEPTED" : "DENIED") + "</h2></p>");
@@ -43,7 +46,6 @@ namespace ShomaRM.Controllers.ApplyNow
 
                     string bodyAg = reportHTMLAgent;
 
-                    //salesPersonnInfo.Email = "sachinmahore@gmail.com";
                     new EmailSendModel().SendEmail(salesPersonnInfo.Email, "Service Repair Estimate Status of " + GetTenantData.FirstName + " " + GetTenantData.LastName + "- STATUS: " + (Status == 1 ? "ACCEPTED" : "DENIED") + "", bodyAg);
 
 
