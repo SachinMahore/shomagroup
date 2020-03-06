@@ -13,11 +13,12 @@ namespace ShomaRM.Controllers
     public class PayLinkController : Controller
     {
         // GET: PayLink
-        public ActionResult Index(int AID, int FromAcc)
+        public ActionResult Index(int AID, int FromAcc,string Amt)
         {
             ViewBag.UID = "0";
             ViewBag.FromAcc = FromAcc;
             ViewBag.AID = AID;
+            ViewBag.Amt = Amt;
             var model = new ApplicantModel().GetApplicantDetails(AID);
             if (FromAcc != 0)
             {

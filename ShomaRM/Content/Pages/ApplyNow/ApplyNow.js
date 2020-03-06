@@ -1308,7 +1308,7 @@ var goToStep = function (stepid, id) {
     }
     if (stepid == "15") {
         if (id == "15") {
-
+           
             if ($("#btnAddPet").is(":disabled")) {
                 $("#step2").addClass("hidden");
                 $("#step1").addClass("hidden");
@@ -1339,6 +1339,11 @@ var goToStep = function (stepid, id) {
                 $("#li10").removeClass("active");
                 $("#li16").removeClass("active");
                 $("#li17").removeClass("active");
+                if (paidamt == totpaid) {
+                    $("#carddetails").addClass("hidden");
+                    goToStep(16, 16);
+                    $("#getting-startedTimeRemainingClock").addClass("hidden")
+                }
             }
             else {
 
@@ -2548,6 +2553,7 @@ var SaveLeaseDocumentVerification = function () {
         });
     }
 }
+var paidamt = 0;
 var getTransationLists = function (userid) {
     var model = {
 
@@ -2560,12 +2566,12 @@ var getTransationLists = function (userid) {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-
+         
             $("#tblTransaction>tbody").empty();
 
             $.each(response.model, function (elementType, elementValue) {
                 $("#Divtranslist").removeClass("hidden");
-                $("#carddetails").addClass("hidden");
+              
                 $("#btnpaynext").removeProp("disabled");
                 var html = "<tr data-value=" + elementValue.TransID + ">";
                 //html += "<td>" + elementValue.TransID + "</td>";
@@ -2578,11 +2584,9 @@ var getTransationLists = function (userid) {
                 html += "<td>Paid</td>";
                 html += "</tr>";
                 $("#tblTransaction>tbody").append(html);
+                paidamt += parseFloat(elementValue.Charge_Amount);
             });
-            if (response.model.length >= 1) {
-                goToStep(16, 16);
-                $("#getting-startedTimeRemainingClock").addClass("hidden")
-            }
+            
         }
     });
 }
@@ -3165,7 +3169,7 @@ var saveupdateApplicant = function () {
     });
 
 }
-
+var totpaid = 0;
 var getApplicantLists = function () {
     var model = {
 
@@ -3239,17 +3243,20 @@ var getApplicantLists = function () {
                         "</div >" +
                         "</td></tr>";
                 }
+              
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
                     adminfess = $("#lblFNLAmount").text();
-
+                    totpaid += parseFloat(adminfess);
                     if (elementValue.Type == "Primary Applicant") {
                         totalFinalFees += parseFloat(adminfess);
                         pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + adminfess + "</td><td style='width:14%; padding:6px;'><input type='checkbox' id='chkPayAppFees' checked disabled/></td><td></td></tr>";
                     } else {
                         pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + adminfess + "</td><td style='width:14%; padding:6px;'><input type='checkbox' class='chkPayAppFees' id='chkPayAppFees1' onclick='addAppFess(" + adminfess + ")'/></td><td><input type='button' id='btnSendPayLink' style='width:150px;' onclick='sendPayLinkEmail(\"" + elementValue.Email + "\")' value='Send Payment Link'/></td></tr>";
                     }
-                }
 
+               
+                }
+                
                 if (elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
                     //Sachin's work 22-10
                     $("#btnsendemail").removeClass("hidden");

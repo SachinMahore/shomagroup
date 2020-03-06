@@ -135,7 +135,7 @@
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" id="chkPayCL">    <span style="margin-left: 25px;">Pay your Move-in charges</span>
+                                                    <input type="checkbox" id="chkPayCL">    <span style="margin-left: 25px;">Pay your <b><span id="lblPaymentPer"></span>%</b> Move-in charges </span> 
                                                 </label>
                                             </div>
                                             <div class="input-group" style="margin-left: 70px;">
@@ -513,9 +513,9 @@
                         $("#txtname").text(response.model.FirstName + " " + response.model.LastName);
                     }
 
-                    $("#lblmoveincharge").text(response.model.MoveInCharges);
-                    $("#txtPaymentCL").val(response.model.MoveInCharges);
-
+                    $("#lblmoveincharge").text(response.model.PartialMoveInCharges);
+                    $("#txtPaymentCL").val(response.model.PartialMoveInCharges);
+                    $("#lblPaymentPer").text(response.model.MoveInPercentage);
                     $("#hndPID").val(response.model.PropertyId);
                     $("#lblLeaseNo").text(response.model.EnvelopeID);
                     if (response.model.EnvelopeID != "") {

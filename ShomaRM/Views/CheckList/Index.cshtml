@@ -297,7 +297,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Routing Number</label>
-                                <input id="txtRoutingNumberCL" type="text" class="form-control" placeholder="Routing Number" onkeypress="return isNumber(event)" value="">
+                                <input id="txtRoutingNumberCL" type="text" class="form-control" placeholder="Routing Number" maxlength="9" onkeypress="return isNumber(event)" value="">
                             </div>
                         </div>
                     </div>
@@ -513,8 +513,8 @@
                         $("#txtname").text(response.model.FirstName + " " + response.model.LastName);
                     }
 
-                    $("#lblmoveincharge").text(response.model.PartialMoveInCharges);
-                    $("#txtPaymentCL").val(response.model.PartialMoveInCharges);
+                    $("#lblmoveincharge").text(parseFloat(response.model.PartialMoveInCharges).toFixed(2));
+                    $("#txtPaymentCL").val(parseFloat(response.model.PartialMoveInCharges).toFixed(2));
                     $("#lblPaymentPer").text(response.model.MoveInPercentage);
                     $("#hndPID").val(response.model.PropertyId);
                     $("#lblLeaseNo").text(response.model.EnvelopeID);

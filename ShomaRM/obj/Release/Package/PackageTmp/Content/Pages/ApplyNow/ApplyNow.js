@@ -954,9 +954,10 @@ var goToStep = function (stepid, id) {
     }
     if (stepid == "11") {
         if (id == "11") {
-
+            $("#divLoader").show();
+           getMonthsCountFromApplicantHistory();
             var msg = '';
-
+           
             if ($("#txtCountry").val() == "0") {
                 msg += "Please Select Country </br>";
             }
@@ -975,15 +976,24 @@ var goToStep = function (stepid, id) {
             if (!$("#txtMoveInDateFrom").val()) {
                 msg += "Please Fill Move In Date </br>";
             }
-
-
+            if (!$("#txtMoveInDateTo").val()) {
+                msg += "Please Fill Move Out Date </br>";
+            }
+            setTimeout(function () {
+                
+            var appMCount = $("#hndHistory").val();
+            if (appMCount < 35) {
+                msg += "Please Provide Min 3 Years Of History </br>";
+            };
+            
+            
             if (msg != "") {
                 $.alert({
                     title: "",
                     content: msg,
                     type: 'red'
                 });
-
+                
                 $("#step2").addClass("hidden");
                 $("#step1").addClass("hidden");
                 $("#step4").addClass("hidden");
@@ -1001,6 +1011,8 @@ var goToStep = function (stepid, id) {
                 $("#step15").addClass("hidden");
                 $("#step16").addClass("hidden");
                 $("#step17").addClass("hidden");
+
+                
                 return;
             }
             else {
@@ -1035,6 +1047,8 @@ var goToStep = function (stepid, id) {
                 $("#li16").removeClass("active");
                 $("#li17").removeClass("active");
             }
+            $("#divLoader").hide();
+            }, 2000);
         }
     }
     if (stepid == "12") {
@@ -2557,11 +2571,11 @@ var getTransationLists = function (userid) {
                 //html += "<td>" + elementValue.TransID + "</td>";
                 //html += "<td>" + elementValue.TenantIDString + "</td>";
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                html += "<td>$" + elementValue.Charge_Amount + "</td>";
+                html += "<td>$" + parseFloat(elementValue.Charge_Amount).toFixed(2)+ "</td>";
                 html += "<td>" + elementValue.Transaction_Type + "</td>";
                 //html += "<td>" + elementValue.Charge_Type + "</td>";
                 html += "<td>" + elementValue.Description + "</td>";
-                //html += "<td>" + elementValue.CreatedDateString + "</td>";
+                html += "<td>Paid</td>";
                 html += "</tr>";
                 $("#tblTransaction>tbody").append(html);
             });
@@ -3226,14 +3240,13 @@ var getApplicantLists = function () {
                         "</td></tr>";
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
-                    //Amit's work 17-10
                     adminfess = $("#lblFNLAmount").text();
-                    totalFinalFees += parseFloat(adminfess);
-                    if (elementValue.Type == "Primary Applicant") {
 
-                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:30%; padding:6px;'>$" + adminfess + "</td><td></td></tr>";
+                    if (elementValue.Type == "Primary Applicant") {
+                        totalFinalFees += parseFloat(adminfess);
+                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + adminfess + "</td><td style='width:14%; padding:6px;'><input type='checkbox' id='chkPayAppFees' checked disabled/></td><td></td></tr>";
                     } else {
-                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:30%; padding:6px;'>$" + adminfess + "</td><td><input type='button' style='width:150px;' onclick='sendPayLinkEmail(\"" + elementValue.Email + "\")' value='Send Payment Link'/></td></tr>";
+                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + adminfess + "</td><td style='width:14%; padding:6px;'><input type='checkbox' class='chkPayAppFees' id='chkPayAppFees1' onclick='addAppFess(" + adminfess + ")'/></td><td><input type='button' id='btnSendPayLink' style='width:150px;' onclick='sendPayLinkEmail(\"" + elementValue.Email + "\")' value='Send Payment Link'/></td></tr>";
                     }
                 }
 
@@ -3378,7 +3391,18 @@ var getApplicantLists = function () {
         }
     });
 }
-
+var addAppFess = function (appFees) {
+    var totfees = unformatText($("#totalFinalFees").text());
+    if ($(".chkPayAppFees").is(':checked')) {
+        $("#btnSendPayLink").addClass("hidden");
+        totfees = parseFloat(totfees) + parseFloat(appFees);
+        $("#totalFinalFees").text("$" + parseFloat(totfees).toFixed(2));
+    } else {
+        totfees = parseFloat(totfees) - parseFloat(appFees);
+        $("#totalFinalFees").text("$" + parseFloat(totfees).toFixed(2));
+        $("#btnSendPayLink").removeClass("hidden");
+    }
+}
 var goToEditApplicant = function (aid) {
 
     if (aid != null) {
@@ -4715,6 +4739,9 @@ var saveupdateApplicantHistory = function () {
     if ($("#txtMoveInDateFrom2").val() == '') {
         msg += 'Please Fill Move In Date</br>'
     }
+    if ($("#txtMoveInDateTo2").val() == '') {
+        msg += 'Please Fill Move Out Date</br>'
+    }
     if (msg != '') {
         $.alert({
             title: "",
@@ -5643,3 +5670,25 @@ var downloadLeaseDocument = function () {
     });
 };
 
+var getMonthsCountFromApplicantHistory = function () {
+    var tenantId = $("#hdnOPId").val();
+    var fromDateAppHis = $('#txtMoveInDateFrom').val();
+    var toDateAppHis = $('#txtMoveInDateTo').val();
+    
+    var model = {
+        TenantId: tenantId,
+        FromDateAppHis: fromDateAppHis,
+        ToDateAppHis: toDateAppHis
+    };
+    $.ajax({
+        url: '/ApplyNow/GetMonthsFromApplicantHistory',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            
+            $("#hndHistory").val(response.model.TotalMonthsApplicantHistory);
+        }
+    });
+};

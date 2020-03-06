@@ -551,6 +551,7 @@
     <Property Name="TenantID" Type="bigint" />
     <Property Name="IsSuperUser" Type="int" />
     <Property Name="UserType" Type="int" />
+    <Property Name="ParentTenantID" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_LoginHistory">
     <Key>
@@ -1168,6 +1169,7 @@
     <Property Name="ProfilePicture" Type="varchar" MaxLength="500" />
     <Property Name="OrginalProfilePicture" Type="varchar" MaxLength="500" />
     <Property Name="IsAgreePostDisclaimer" Type="int" />
+    <Property Name="ParentTenantID" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_TenantMonthlyPayments">
     <Key>

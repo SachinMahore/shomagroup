@@ -74,6 +74,7 @@ namespace ShomaRM.Areas.Admin.Models
 
         public Nullable<decimal> MonthlyCharges { get; set; }
         public Nullable<decimal> MoveInCharges { get; set; }
+        public Nullable<decimal> Prorated_Rent { get; set; }
         public string PetPlaceID { get; set; }
         public string ParkingSpaceID { get; set; }
         public string StorageSpaceID { get; set; }
@@ -368,16 +369,19 @@ namespace ShomaRM.Areas.Admin.Models
                     {
                         foreach (var app in GetCoappDet)
                         {
-                            reportHTMLCoapp = reportHTMLCoapp.Replace("[%Status%]", "Congratulations ! Your Application is Approved");
-                            reportHTMLCoapp = reportHTMLCoapp.Replace("[%EmailHeader%]",app.MoveInPercentage+ "% Move In charges Payment Link");
-                            reportHTMLCoapp = reportHTMLCoapp.Replace("[%StatusDet%]", "Hi <b>" + app.FirstName + " " + app.LastName + "</b>,<br/>Your Online application is Approved. Please click below to pay "+app.MoveInPercentage+ "% Move In Charges $"+ (((GetTenantDet.MoveInCharges * app.MoveInPercentage) / 100).Value.ToString("0.00")) + ". <br/><br/><u><b>Payment Link :<a href=''></a> </br></b></u>  </br>");
-                            reportHTMLCoapp = reportHTMLCoapp.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?AID=" + app.ApplicantID + "&FromAcc=3\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?AID=" + app.ApplicantID + "&FromAcc=3\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
-                            reportHTMLCoapp = reportHTMLCoapp.Replace("[%TenantName%]", app.FirstName + " " + app.LastName);
-                            string bodyCoapp = reportHTMLCoapp;
-                            new EmailSendModel().SendEmail(app.Email, "Move In charges Payment Link", bodyCoapp);
-                            if (SendMessage == "yes")
+                            if (app.MoveInPercentage >= 0)
                             {
-                                new TwilioService().SMS(app.Phone, "Congratulations ! Your Application is Approved with Condition. Please check the email for Move In charges Payment Link.");
+                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%Status%]", "Congratulations ! Your Application is Approved");
+                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%EmailHeader%]", app.MoveInPercentage + "% Move In charges Payment Link");
+                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%StatusDet%]", "Hi <b>" + app.FirstName + " " + app.LastName + "</b>,<br/>Your Online application is Approved. Please click below to pay " + app.MoveInPercentage + "% Move In Charges $" + (((GetTenantDet.MoveInCharges * app.MoveInPercentage) / 100).Value.ToString("0.00")) + ". <br/><br/><u><b>Payment Link :<a href=''></a> </b></u> ");
+                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?AID=" + app.ApplicantID + "&FromAcc=3&Amt=" + (((GetTenantDet.MoveInCharges * app.MoveInPercentage) / 100).Value.ToString("0.00")) + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?AID=" + app.ApplicantID + "&FromAcc=3&Amt=" + (((GetTenantDet.MoveInCharges * app.MoveInPercentage) / 100).Value.ToString("0.00")) + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%TenantName%]", app.FirstName + " " + app.LastName);
+                                string bodyCoapp = reportHTMLCoapp;
+                                new EmailSendModel().SendEmail(app.Email, "Move In charges Payment Link", bodyCoapp);
+                                if (SendMessage == "yes")
+                                {
+                                    new TwilioService().SMS(app.Phone, "Congratulations ! Your Application is Approved with Condition. Please check the email for Move In charges Payment Link.");
+                                }
                             }
                         }
                     }
@@ -526,6 +530,7 @@ namespace ShomaRM.Areas.Admin.Models
                     model.StorageAmt = GetProspectData.StorageAmt;
                     model.MoveInCharges = GetProspectData.MoveInCharges;
                     model.MonthlyCharges = GetProspectData.MonthlyCharges;
+                    model.Prorated_Rent = GetProspectData.Prorated_Rent;
                     model.PetDeposit = GetProspectData.PetDeposit;
                     model.FOBAmt = 0;
                     model.EnvelopeID = (!string.IsNullOrWhiteSpace(GetProspectData.EnvelopeID) ? GetProspectData.EnvelopeID : "");
