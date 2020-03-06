@@ -854,11 +854,10 @@ namespace ShomaRM.Areas.Tenant.Models
             db.Dispose();
             return msg;
         }
-        public string ScheduleRecurring()
+        public void ScheduleRecurring()
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
-
             List<TenantMonthlyPayments> lsttmp = new List<TenantMonthlyPayments>();
             try
             {
@@ -876,31 +875,119 @@ namespace ShomaRM.Areas.Tenant.Models
                 }
                 foreach (DataRow dr in dtTable.Rows)
                 {
-                    
+                    int isFailed = 0;
                     long TransId = Convert.ToInt64(dr["TransID"].ToString());
                     long PAID = Convert.ToInt32(dr["Transaction_Type"].ToString());
                     long TenantID = Convert.ToInt64(dr["TenantID"].ToString());
-
                     var accountDet = db.tbl_PaymentAccounts.Where(p => p.PAID == PAID).FirstOrDefault();
+                    var transData = db.tbl_Transaction.Where(p => p.TransID == TransId).FirstOrDefault();
+                    var tenantData = db.tbl_TenantInfo.Where(p => p.TenantID == TenantID).FirstOrDefault();
+                    ApplyNowModel mm = new ApplyNowModel();
+                    string transStatus = "";
+                    if (accountDet != null)
+                    {
+                        mm.Name_On_Card = accountDet.NameOnCard;
+                        mm.CardNumber = accountDet.CardNumber;
+                        mm.CardMonth = Convert.ToInt32(accountDet.Month);
+                        mm.CardYear = Convert.ToInt32(accountDet.Year);
+                        mm.ProspectId = TenantID;
+                        mm.PaymentMethod = 1;
+                        mm.Charge_Amount = transData.Charge_Amount;
+                        mm.AccountNumber = accountDet.AccountNumber;
+                        mm.RoutingNumber = accountDet.RoutingNumber;
+                        mm.BankName = accountDet.BankName;
+                        if (mm.CardNumber != null)
+                        {
+                            mm.Name_On_Card = accountDet.NameOnCard;
+                            transStatus = new UsaePayModel().ChargeCard(mm);
+                        }
+                        else if (mm.RoutingNumber != null)
+                        {
+                            mm.Name_On_Card = accountDet.AccountName;
+                            transStatus = new UsaePayModel().ChargeACH(mm);
+                        }
 
+                        String[] spearator = { "|" };
+                        String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
+                        if (strlist[1] != "000000")
+                        {
+                            transData.Transaction_Date = DateTime.Now;
+                            transData.Credit_Amount = transData.Charge_Amount;
+                            transData.Description = transData.Description + " | TransID: " + strlist[1];
+                            transData.Authcode = strlist[1];
+                            transData.Accounting_Date = DateTime.Now;
+                            transData.GL_Trans_Description = transStatus.ToString();
+                            db.SaveChanges();
+                            msg = transStatus.ToString();
+                        }
+                        else
+                        {
+                            isFailed = 1;
+                            var saveTransaction = new tbl_Transaction()
+                            {
+                                TenantID = TenantID,
+                                Revision_Num = 1,
+                                Transaction_Type = PAID.ToString(),
+                                Transaction_Date = DateTime.Now,
+                                Run = 0,
+                                CreatedDate = DateTime.Now,
+                                Credit_Amount = 0,
+                                Description = transData.Description,
+                                Charge_Date = DateTime.Now,
+                                Charge_Type = 11,
+                                Payment_ID = null,
+                                Authcode = "",
+                                Charge_Amount = transData.Charge_Amount,
+                                Accounting_Date = DateTime.Now,
+                                Batch = TransId.ToString(),
+                                Batch_Source = "",
+                                CreatedBy = 1
+                            };
+                            db.tbl_Transaction.Add(saveTransaction);
+                            db.SaveChanges();
+                        }
 
-                   
+                        string reportHTML = "";
+                        string body = "";
+                        string subject = "";
+                        string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                        reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+                        string message = "";
+                        string phonenumber = tenantData.Mobile;
+
+                        if (isFailed == 0)
+                        {
+                            subject = "Monthly charges received -" + DateTime.Now.ToString("MM/dd/yyyy");
+                            reportHTML = reportHTML.Replace("[%EmailHeader%]", "Monthly charges received -" + DateTime.Now.ToString("MM/dd/yyyy"));
+                            reportHTML = reportHTML.Replace("[%TenantName%]", tenantData.FirstName + " " + tenantData.LastName);
+                            reportHTML = reportHTML.Replace("[%EmailBody%]", "<p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your monthly charges received $" + transData.Charge_Amount.Value.ToString("0.00") + " on " + DateTime.Now + ". Transaction ID : " + strlist[1] + ".” </p>");
+                            reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+                        }
+                        else
+                        {
+                            subject = "Monthly charges payment failed -" + DateTime.Now.ToString("MM/dd/yyyy");
+                            reportHTML = reportHTML.Replace("[%EmailHeader%]", "Monthly charges payment failed -" + DateTime.Now.ToString("MM/dd/yyyy"));
+                            reportHTML = reportHTML.Replace("[%TenantName%]", tenantData.FirstName + " " + tenantData.LastName);
+                            reportHTML = reportHTML.Replace("[%EmailBody%]", "<p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your monthly charges failed $" + transData.Charge_Amount.Value.ToString("0.00") + " on " + DateTime.Now + ". Transaction Details : " + strlist[0] + ".” </p>");
+                            reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+                        }
+
+                        body = reportHTML;
+
+                        new EmailSendModel().SendEmail(tenantData.Email, subject, body);
+
+                        message = subject + ". Please check the email for detail.";
+                        if (SendMessage == "yes")
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
+                    }
                 }
-                db.Dispose();
-
             }
             catch (Exception ex)
             {
-                db.Database.Connection.Close();
-                throw ex;
             }
-
-
-            msg = "Monthly Payment Generated Successfully";
-
-
             db.Dispose();
-            return msg;
         }
         public string GenerateMonthlyRent()
         {
@@ -948,7 +1035,7 @@ namespace ShomaRM.Areas.Tenant.Models
                         Charge_Date = Convert.ToDateTime(dr["Transaction_Date"]),
                         Charge_Type = 3,
                         Payment_ID = null,
-                        Authcode="",
+                        Authcode = "",
                         Charge_Amount = Convert.ToDecimal(dr["Charge_Amount"].ToString()),
                         Accounting_Date = DateTime.Now,
                         Batch = Batch,
@@ -968,7 +1055,7 @@ namespace ShomaRM.Areas.Tenant.Models
                         db.SaveChanges();
                     }
                     long uid = Convert.ToInt64(dr["UserID"].ToString());
-                    var prospectDet = db.tbl_ApplyNow.Where(p => p.UserId ==uid).FirstOrDefault();
+                    var prospectDet = db.tbl_ApplyNow.Where(p => p.UserId == uid).FirstOrDefault();
 
                     CreateTransBill(TransId, Convert.ToDecimal(prospectDet.Rent), "Monthly Rent");
                     CreateTransBill(TransId, Convert.ToDecimal(prospectDet.TrashAmt), "Trash/Recycle charges");
@@ -991,7 +1078,7 @@ namespace ShomaRM.Areas.Tenant.Models
 
                 }
                 db.Dispose();
-             
+
             }
             catch (Exception ex)
             {
@@ -999,9 +1086,9 @@ namespace ShomaRM.Areas.Tenant.Models
                 throw ex;
             }
 
-    
+
             msg = "Monthly Payment Generated Successfully";
-            
+
 
             db.Dispose();
             return msg;
@@ -1010,68 +1097,68 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
-            decimal dueAmt = 0;
-            List<TenantMonthlyPayments> lsttmp = new List<TenantMonthlyPayments>();
-            try
-            {
-                DataTable dtTable = new DataTable();
-                using (var cmd = db.Database.Connection.CreateCommand())
-                {
-                    db.Database.Connection.Open();
-                    cmd.CommandText = "usp_GetMonthlyPayLists";
-                    cmd.CommandType = CommandType.StoredProcedure;
+            //decimal dueAmt = 0;
+            //List<TenantMonthlyPayments> lsttmp = new List<TenantMonthlyPayments>();
+            //try
+            //{
+            //    DataTable dtTable = new DataTable();
+            //    using (var cmd = db.Database.Connection.CreateCommand())
+            //    {
+            //        db.Database.Connection.Open();
+            //        cmd.CommandText = "usp_GetMonthlyPayLists";
+            //        cmd.CommandType = CommandType.StoredProcedure;
 
-                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
-                    da.SelectCommand = cmd;
-                    da.Fill(dtTable);
-                    db.Database.Connection.Close();
-                }
-                foreach (DataRow dr in dtTable.Rows)
-                {
-                  
-                    var saveTransaction = new tbl_Transaction()
-                    {
+            //        DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+            //        da.SelectCommand = cmd;
+            //        da.Fill(dtTable);
+            //        db.Database.Connection.Close();
+            //    }
+            //    foreach (DataRow dr in dtTable.Rows)
+            //    {
 
-                        TenantID = Convert.ToInt64(dr["TenantID"].ToString()),
-                        Revision_Num = Convert.ToInt32(dr["Revision_Num"].ToString()),
-                        Transaction_Type = dr["PAID"].ToString(),
-                        Transaction_Date = Convert.ToDateTime(dr["Transaction_Date"]),
-                        Run = Convert.ToInt32(dr["TMPID"].ToString()),
-                        CreatedDate = DateTime.Now,
-                        Credit_Amount = 0,
-                        Description = "Late fees",
-                        Charge_Date = Convert.ToDateTime(dr["Transaction_Date"]),
-                        Charge_Type = 3,
-                        Payment_ID = null,
-                        Authcode="",
-                        Charge_Amount = Convert.ToDecimal(dr["Charge_Amount"].ToString()),
-                        Accounting_Date = DateTime.Now,
-                        Batch = Batch,
-                        Batch_Source = "",
-                        CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
+            //        var saveTransaction = new tbl_Transaction()
+            //        {
 
-                    };
-                    db.tbl_Transaction.Add(saveTransaction);
-                    db.SaveChanges();
-                    var TransId = saveTransaction.TransID;
+            //            TenantID = Convert.ToInt64(dr["TenantID"].ToString()),
+            //            Revision_Num = Convert.ToInt32(dr["Revision_Num"].ToString()),
+            //            Transaction_Type = dr["PAID"].ToString(),
+            //            Transaction_Date = Convert.ToDateTime(dr["Transaction_Date"]),
+            //            Run = Convert.ToInt32(dr["TMPID"].ToString()),
+            //            CreatedDate = DateTime.Now,
+            //            Credit_Amount = 0,
+            //            Description = "Late fees",
+            //            Charge_Date = Convert.ToDateTime(dr["Transaction_Date"]),
+            //            Charge_Type = 8,
+            //            Payment_ID = null,
+            //            Authcode="",
+            //            Charge_Amount = Convert.ToDecimal(dr["Charge_Amount"].ToString()),
+            //            Accounting_Date = DateTime.Now,
+            //            Batch = Batch,
+            //            Batch_Source = "",
+            //            CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
 
-                    CreateTransBill(TransId, Convert.ToDecimal(dueAmt), "Late fees");
-                   
-                }
-                db.Dispose();
+            //        };
+            //        db.tbl_Transaction.Add(saveTransaction);
+            //        db.SaveChanges();
+            //        var TransId = saveTransaction.TransID;
 
-            }
-            catch (Exception ex)
-            {
-                db.Database.Connection.Close();
-                throw ex;
-            }
+            //        CreateTransBill(TransId, Convert.ToDecimal(dueAmt), "Late fees");
 
+            //    }
+            //    db.Dispose();
 
-            msg = "Monthly Payment Generated Successfully";
+            //}
+            //catch (Exception ex)
+            //{
+            //    db.Database.Connection.Close();
+            //    throw ex;
+            //}
 
 
-            db.Dispose();
+            //msg = "Monthly Payment Generated Successfully";
+
+
+            //db.Dispose();
             return msg;
         }
 

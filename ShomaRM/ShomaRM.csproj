@@ -434,6 +434,12 @@
     <Content Include="Content\assets\Assets\multiple-users-silhouette.png" />
     <Content Include="Content\assets\Assets\paperclip.png" />
     <Content Include="Content\assets\Assets\user-64.png" />
+    <Content Include="Content\assets\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\assets\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\assets\bootstrap\js\bootstrap.bundle.js" />
+    <Content Include="Content\assets\bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="Content\assets\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\assets\bootstrap\js\bootstrap.min.js" />
     <Content Include="Content\assets\css\animate.css" />
     <Content Include="Content\assets\css\bootstrap-datetimepicker.css" />
     <Content Include="Content\assets\css\bootstrap-select.min.css" />
@@ -838,6 +844,10 @@
     <Content Include="Content\assets\font\Helvetica45Light_22437.ttf" />
     <Content Include="Content\assets\font\Helvetica45Light_22437.woff" />
     <Content Include="Content\assets\font\BeVietnam-Medium.ttf" />
+    <Content Include="Content\assets\bootstrap\js\bootstrap.bundle.js.map" />
+    <Content Include="Content\assets\bootstrap\js\bootstrap.bundle.min.js.map" />
+    <Content Include="Content\assets\bootstrap\js\bootstrap.js.map" />
+    <Content Include="Content\assets\bootstrap\js\bootstrap.min.js.map" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
