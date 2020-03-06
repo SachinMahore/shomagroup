@@ -3731,8 +3731,7 @@ td {
 }
 .popInvoice {
     width: 100% !important;
-    height: 700px !important;
-    overflow-y: scroll;
+    height: 700px !important;  
     padding-bottom: 100px;
     overflow-x: hidden;
 }
@@ -3772,7 +3771,59 @@ td.logo-width {
     overflow: scroll;
 }
 .modal-scroll {
-    height: 650px;
+    height: 700px;
     overflow-x: hidden;
     overflow-y: scroll;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+::-webkit-scrollbar {
+    width: 12px; /* for vertical scrollbars */
+    height: 12px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.5);
+}
+#ratingButtons .btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 2px;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 3px solid transparent;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    margin-right: 8px !important;
+}
+
+.ratingpoor {
+    background-color: red;
+}
+
+.ratingavg {
+    background-color: orange;
+}
+
+.ratinggood {
+    background-color: green;
 }
