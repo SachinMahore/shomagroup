@@ -1079,7 +1079,7 @@ namespace ShomaRM.Areas.Admin.Models
                 db.SaveChanges();
                 model.TenantID = getAppldata.TenantID;
 
-                var coapplicantList = db.tbl_Applicant.Where(p => p.TenantID == model.ProspectID).ToList();
+                var coapplicantList = db.tbl_Applicant.Where(p => p.TenantID == model.ProspectID && p.Type != "Primary Applicant" && p.Type != "Guarantor").ToList();
                 if (coapplicantList != null)
                 {
                     foreach (var tl in coapplicantList)
