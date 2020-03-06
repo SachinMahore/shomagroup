@@ -41,11 +41,13 @@ var buildPaganationUserList = function (pagenumber, sortby, orderby) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
+            $("#tblUser>tbody").empty();
             if ($.trim(response.error) !== "") {
                 alert(response.error);
             } else {
                 if (response.NOP == 0) {
                     $('#divPagination_UserList').addClass("hidden");
+
                 }
                 else {
                     $('#divPagination_UserList').removeClass("hidden");
