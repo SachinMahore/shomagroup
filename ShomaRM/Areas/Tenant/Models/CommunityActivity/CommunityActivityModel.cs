@@ -97,7 +97,7 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<CommunityActivityModel> list = new List<CommunityActivityModel>();
-            var getCommunityActivity = db.tbl_CommunityActivity.OrderByDescending(co=>co.Date).ToList();
+            var getCommunityActivity = db.tbl_CommunityActivity.OrderByDescending(co=>co.CID).ToList();
             if (getCommunityActivity != null)
             {
                

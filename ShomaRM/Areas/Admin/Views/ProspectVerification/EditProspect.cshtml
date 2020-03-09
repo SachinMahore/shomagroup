@@ -3943,7 +3943,7 @@
             $("#getting-startedTimeRemainingClock").removeClass("hidden");
             $("#divstep3save").addClass("hidden");
             $("#divstep3").removeClass("hidden");
-            getTransationLists(@Model.ID);
+            //getTransationLists(@Model.ID);
             if ('@Model.CardNumber' != "") {
                 $("#txtCardNumber").text(("*".repeat('@Model.CardNumber'.length - 4) + '@Model.CardNumber'.substr('@Model.CardNumber'.length - 4, 4)));
             }
