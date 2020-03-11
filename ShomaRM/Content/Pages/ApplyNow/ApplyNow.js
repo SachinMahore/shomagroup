@@ -1705,7 +1705,7 @@ function savePayment() {
 
         GivenDate = new Date(GivenDate);
         CurrentDate = new Date(CurrentDate);
-
+         
         if (GivenDate < CurrentDate) {
             msg += "Your Credit Card Expired..</br>";
         }
