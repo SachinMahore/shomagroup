@@ -102,7 +102,8 @@ namespace ShomaRM.Models
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
             long Uid = 0;
-
+            string encryptedPassword = new EncryptDecrypt().EncryptText(model.Password);
+            string decryptedPassword = new EncryptDecrypt().DecryptText(encryptedPassword);
             if (model.ID == 0)
             {
                 var loginDet = db.tbl_Login.Where(p => p.Email == model.Email).FirstOrDefault();
@@ -111,7 +112,7 @@ namespace ShomaRM.Models
                     var saveUserNamePassword = new tbl_Login()
                     {
                         Username = model.Email,
-                        Password = model.Password,
+                        Password = encryptedPassword,
                         FirstName = model.FirstName,
                         LastName = model.LastName,
                         Email = model.Email,
@@ -139,7 +140,7 @@ namespace ShomaRM.Models
                     Date = DateTime.Now,
                     Status = model.Status,
                     Address = model.Address,
-                    Password = model.Password,
+                    Password = encryptedPassword,
                     IsApplyNow = 1,
                     //CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
                     CreatedDate = DateTime.Now,
@@ -391,6 +392,8 @@ namespace ShomaRM.Models
                 {
                     var GetPaymentProspectData = db.tbl_OnlinePayment.Where(p => p.ProspectId == GetProspectData.ID).FirstOrDefault();
                     var GetDocumentVerificationData = db.tbl_DocumentVerification.Where(p => p.ProspectusID == GetProspectData.ID).FirstOrDefault();
+                    string encryptedPassword = new EncryptDecrypt().EncryptText(GetProspectData.Password);
+                    string decryptedPassword = new EncryptDecrypt().DecryptText(encryptedPassword);
 
                     model.FirstName = GetProspectData.FirstName;
                     model.LastName = GetProspectData.LastName;
@@ -407,7 +410,7 @@ namespace ShomaRM.Models
                     model.PropertyId = GetProspectData.PropertyId;
                     model.ProspectId = GetProspectData.ID;
                     model.TenantID = Convert.ToInt64(GetProspectData.UserId);
-                    model.Password = GetProspectData.Password;
+                    model.Password = decryptedPassword;
                     model.Marketsource = Convert.ToInt32(GetProspectData.Marketsource);
                     model.CreatedDate = Convert.ToDateTime(GetProspectData.CreatedDate);
                     model.IsRentalQualification = Convert.ToInt32(GetProspectData.IsRentalQualification);
@@ -636,6 +639,8 @@ namespace ShomaRM.Models
             var phonenumber = "";
             if (model.lstemailsend != null)
             {
+                string encryptedPassword = new EncryptDecrypt().EncryptText(model.Password);
+                string decryptedPassword = new EncryptDecrypt().DecryptText(encryptedPassword);
                 var GetTenantDet = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
 
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == GetTenantDet.PropertyId).FirstOrDefault();
@@ -646,8 +651,7 @@ namespace ShomaRM.Models
                     phonenumber = GetCoappDet.Phone;
                     reportHTML = reportHTML.Replace("[%CoAppType%]", GetCoappDet.Type);
                     reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
-                    reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + GetCoappDet.FirstName + " " + GetCoappDet.LastName + "</b>,<br/>Your Online application submitted successfully. Please login to see status. <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + model.Email + " </br>Password :" + model.Password);
-
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + GetCoappDet.FirstName + " " + GetCoappDet.LastName + "</b>,<br/>Your Online application submitted successfully. Please login to see status. <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + model.Email + " </br>Password :" + decryptedPassword);
                     reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
                     reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
                     reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");

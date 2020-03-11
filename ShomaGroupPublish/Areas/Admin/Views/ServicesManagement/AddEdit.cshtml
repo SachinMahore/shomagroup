@@ -1,0 +1,968 @@
+﻿@{
+    ViewBag.Title = (ViewBag.ServiceID == 0 ? "Add" : "Edit") + "";
+    var ServiceID = ViewBag.ServiceID;
+    var pageTitle = (ViewBag.ServiceID == 0 ? "Add" : "Edit");
+
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<script src="@Url.Content("~/Content/pages/common.js")"></script>
+<script src="@Url.Content("~/Areas/Admin/Content/Pages/ServiceManagement/ServiceAdmin.js")"></script>
+<script src="~/Content/printThis.js"></script>
+<input type="hidden" id="hndUserType" value="0" />
+<input type="hidden" id="hndServiceID" value="@ServiceID" />
+<input type="hidden" id="hndEID" value="" />
+
+<!-- register-area -->
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container" style="width:100%!important">
+        <div class="row">
+            <div class="breadcrumb">
+                <h4 class="">Service Details</h4>
+            </div>
+            <div class="form-group clearfix panel">
+                <div class="col-md-12 center">
+                    <div class="col-sm-10"><h4 class="text-center" style="text-decoration:underline;margin-bottom:1%;font-size: 12pt;background-color:transparent;color:#4D738A">Tenant Information</h4></div>
+                    <div class="col-sm-2">
+                        @*<h4 style="text-decoration:underline;margin-bottom:1%;font-size: 12pt;background-color:transparent;color:#4D738A"><a href="javascript:void(0)"  onclick="aa()"</a>Service Request List</h4>*@
+                        <a href="javascript:void(0)" onclick="ServiceList()" style="text-decoration:underline;margin-bottom:1%;font-size: 12pt;background-color:transparent;color:#4D738A">Service Request List</a><br />
+                    </div>
+                </div>
+
+                <div class="col-sm-12" style="padding:12px;border:1px solid !important;box-sizing: border-box; box-shadow:2px; width:99%!important">
+                    <div class="col-sm-12" style="margin-bottom:8px !important;">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-3">
+                                    <label for="firstname">Tenant Id :</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <span style="font-weight:bold;" id="lbltenantId"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-3">
+                                    <label for="firstname">Contact No :</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <span style="font-weight:bold;" id="lblContactNo"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="margin-bottom:8px !important;">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-3">
+                                    <label for="firstname">Project :</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <span style="font-weight:bold;" id="lblProject"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-3">
+                                    <label for="firstname">E-mail :</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <span style="font-weight:bold;" id="lblEmail"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="margin-bottom:8px !important;">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-3">
+                                    <label for="firstname">Unit No :</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <span style="font-weight:bold;" id="lblUnitNo"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-3">
+                                    <label for="firstname">Status :</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <span style="font-weight:bold;" id="lblBuyerStatus">Tenant</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="margin-bottom:8px !important;">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-3">
+                                    <label for="firstname">Tenant Name :</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <span style="font-weight:bold;" id="lbltenantName"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-3">
+                                    <label for="firstname">Lease Start Date :</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <span style="font-weight:bold;" id="lblLeaseStartDate"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-12" style="margin-bottom:8px !important;">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-3">
+                                    <label for="firstname">Request Date :</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <span style="font-weight:bold;" id="lbltenantDate"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-3">
+                                    <label for="firstname">Lease End Date :</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <span style="font-weight:bold;" id="lblLeaseTerminationtDate"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 center">
+                    &nbsp;
+                </div>
+                <div class="col-md-7" style="padding:12px;border:1px solid !important;box-sizing: border-box; box-shadow:2px;">
+                    <div class="col-md-12 center">
+                        <h4 class="text-center" style="text-decoration:underline;margin-top:2%;margin-bottom:2%;font-size: 12pt;background-color:transparent;color:#4D738A">Work Order Information</h4>
+                    </div>
+                    <div class="col-md-12" style="margin-bottom:8px !important;margin-left:-35px;">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label>Work Order :</label>
+                                </div>
+                                <div class="col-sm-6" style="margin-left: -49px;">
+                                    <span style="font-weight:bold;" id="workOrderNew"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="margin-bottom:8px !important;margin-left:-35px;">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label for="firstname">Problem Category :</label>
+                                </div>
+                                <div class="col-sm-6" style="margin-left: -49px;">
+                                    <span style="font-weight:bold;" id="ProblemCatrgory"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 hidden" id="ProbleOther">
+                            <div class="form-group">
+                                <div class="col-sm-3">
+                                    <label for="firstname">Other :</label>
+                                </div>
+                                <div class="col-sm-10" style="margin-left: -47px;">
+                                    <span style="font-weight:bold;" id="lblProbleOther"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" style="margin-bottom:8px !important;margin-left:-35px;">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-5">
+                                    <label for="firstname">Caussing Issue :</label>
+                                </div>
+                                <div class="col-sm-7" style="margin-left: -19px;">
+                                    <span style="font-weight:bold;" id="lblcaussingIssue"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 hidden" id="CaussingOther">
+                            <div class="form-group">
+                                <div class="col-sm-3">
+                                    <label for="firstname">Other:</label>
+                                </div>
+                                <div class="col-sm-10" style="margin-left: -47px;">
+                                    <span style="font-weight:bold;" id="lblCaussingOther"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12" style="margin-bottom:8px !important;margin-left:-35px;">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-5">
+                                    <label for="firstname">Problem Issue :</label>
+                                </div>
+                                <div class="col-sm-7" style="margin-left: -18px;">
+                                    <span style="font-weight:bold;" id="lblIssue"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 hidden" id="IssueOther">
+                            <div class="form-group">
+                                <div class="col-sm-3">
+                                    <label for="firstname">Other:</label>
+                                </div>
+                                <div class="col-sm-10" style="margin-left: -47px;">
+                                    <span style="font-weight:bold;" id="lblIssueOther"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" style="margin-bottom:8px !important;margin-left:-35px;">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-5">
+                                    <label for="firstname">Location :</label>
+                                </div>
+                                <div class="col-sm-7" style="margin-left: -16px;">
+                                    <span style="font-weight:bold;" id="lblLocation"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="col-md-12" style="margin-bottom:8px !important;margin-left:-39px;">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="col-sm-5">
+                                        <label for="firstname">Current Status :</label>
+                                    </div>
+                                    <div class="col-sm-7" style="margin-left: -130px;">
+                                        <span style="font-weight:bold;" id="lblCurrentStatus"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+                   
+                    <div class="col-md-12 hidden" id="ActualAnytime" style="margin-bottom:8px !important;margin-left:-35px;">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-5">
+                                    <label for="firstname">Appointment date :</label>
+                                </div>
+                                <div class="col-sm-7" style="margin-left: -21px;">
+                                    <span style="font-weight:bold;" id="lblAppointmentdate"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-5">
+                                    <label for="firstname">Appointment Time :</label>
+                                </div>
+                                <div class="col-sm-7" style="margin-left: -60px;">
+                                    <span style="font-weight:bold;" id="lblAppointmentTime"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="margin-bottom:8px !important;margin-left:-35px;">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label for="firstname">Emergency Contact :</label>
+                                </div>
+                                <div class="col-sm-7" style="margin-left: -17px;">
+                                    <span style="font-weight:bold;" id="lblEmergencyNo"></span>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="col-sm-5">
+                                        <label for="firstname">View Pictures :</label>
+                                    </div>
+                                    <div class="col-sm-7" style="margin-left: -60px;">
+                                        <a href="javascript:void(0);" onclick="fileDoesNotExist();" class="fa fa-eye"></a>
+                                    </div>
+                                </div>
+                            </div>*@
+                    </div>
+
+                    <div class="col-sm-12" style="margin-bottom:8px !important;margin-left:-35px;">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label for="firstname">Entery Note :</label>
+                                </div>
+                                <div class="col-sm-8" style="margin-left: -116px;">
+                                    <span style="font-weight:bold;" id="lblEnteryNote"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="col-sm-12" style="margin-bottom:8px !important;margin-left:-39px;">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        <label for="firstname">Status :</label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <select id="ddlStatus1" class="form-control" style="width:40%!important">
+                                            <option value="0">Select</option>
+                                            <option value="4">In Progress</option>
+                                            <option value="2">Completed</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+
+
+
+                </div>
+                <div class="col-md-5">
+                    <div class="col-md-12 center" style="padding:12px;border:1px solid !important;box-sizing: border-box; box-shadow:2px;">
+                        <h4 class="text-center" style="text-decoration:underline;margin-top:2%;margin-bottom:2%;font-size: 12pt;background-color:transparent;color:#4D738A">Urgent Status</h4>
+                        <div class="col-sm-12">
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-secondary active">
+                                    <input type="radio" name="UrgentStatus" id="Urgent" autocomplete="off" checked> Urgent
+                                </label>
+                                <label class="btn btn-secondary">
+                                    <input type="radio" name="UrgentStatus" id="NotUrgent" autocomplete="off"> Not Urgent
+                                </label>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12 center">
+                        &nbsp;
+                    </div>
+
+                    <div class="col-md-12 center" style="padding:12px;border:1px solid !important;box-sizing: border-box; box-shadow:2px;">
+                        <h4 class="text-center" style="text-decoration:underline;margin-top:2%;margin-bottom:2%;font-size: 12pt;background-color:transparent;color:#4D738A">Work Order Status</h4>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-secondary active">
+                                <input type="radio" name="options" id="UnAssigned" autocomplete="off" checked> UnAssigned
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="options" id="Active" autocomplete="off"> Active
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="options" id="Resolved" autocomplete="off"> Resolved
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="options" id="cancel" autocomplete="off"> Cancel
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-12 center">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-12 center" style="padding:6px;border:1px solid !important;box-sizing: border-box; box-shadow:2px;">
+                        <h4 class="text-center" style="text-decoration:underline;margin-top:2%;margin-bottom:2%;font-size: 12pt;background-color:transparent;color:#4D738A">Warranty Status</h4>
+                        <label class="btn btn-secondary active">
+                            <input type="radio" name="Warranty" id="Yes" autocomplete="off" value="yes" checked> Yes
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="Warranty" id="No" autocomplete="off" value="no"> No
+                        </label>
+                        <button class="navbar-btn nav-button login " style="float:right" id="WarrantyEstimate" onclick="openEstimatepop();">Estimate</button>
+                    </div>
+                </div>
+                <div class="col-md-12 center">&nbsp;</div>
+                @*<div class="col-md-12 ">
+                        <div class="col-sm-6"><h4 style="margin-top:2%;margin-bottom:2%;font-size: 12pt;">Assignments</h4></div>
+                        <div class="col-sm-6"><h4 class="text-center" style="margin-top:2%;margin-bottom:2%;font-size: 12pt;">Closing Information</h4></div>
+                    </div>*@
+                <div class="col-md-7" style="margin-bottom:8px !important;padding:12px;border:1px solid !important;box-sizing: border-box; box-shadow:2px;">
+                    <div class="col-md-12 center">
+                        <h4 class="text-center" style="text-decoration:underline;margin-top:2%;margin-bottom:2%;font-size: 12pt;background-color:transparent;color:#4D738A">Assignments</h4>
+                    </div>
+                    <div class="col-sm-12">
+                        <button class="navbar-btn nav-button login " style="float:right" id="PrintAssignment" onclick="openAssignmentPrintpop();">Print</button>
+                        <button class="navbar-btn nav-button login " style="float:right" id="AuditAssignment" onclick="openAuditHistorypop();">Audit History</button>
+                    </div>
+                    
+                    
+                    <div class="col-md-12" style="margin-bottom:8px !important;">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-5">
+                                    <label for="firstname" class="star">Service Person :</label>
+                                </div>
+                                <div class="col-sm-7">
+                                    <select id="ddlUser" class="form-control"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" id="Bydate" style="margin-bottom:8px !important;">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-5">
+                                    <label for="firstname" class="star input-group">Appointment Date :</label>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+                                        <input id="txtRequestedDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text">
+                                        <span class="input-group-btn">
+                                            <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-5">
+                                    <label for="firstname" class="star">Appointment Time :</label>
+                                </div>
+                                <div class="col-sm-7">
+                                    <select id="lblRequestedTime" class="form-control">
+                                        <option value="0">Select Time</option>
+                                        <option value="9:00-10:00">9:00-10:00</option>
+                                        <option value="10:00-11:00">10:00-11:00</option>
+                                        <option value="11:00-12:00">11:00-12:00</option>
+                                        <option value="12:00-13:00">12:00-13:00</option>
+                                        <option value="13:00-14:00">13:00-14:00</option>
+                                        <option value="14:00-15:00">14:00-15:00</option>
+                                        <option value="15:00-16:00">15:00-16:00</option>
+                                        <option value="16:00-17:00">16:00-17:00</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12" style="margin-bottom:8px !important;">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="col-sm-2">
+                                    <label for="txtTaskNotes" class="">Task / Note:</label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control form-control-small" placeholder="Task / Notes...." id="txtTaskNotes" maxlength="200" style="height:44px!important; margin-left:25px !important"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5" style="margin-bottom:8px !important;">
+                    <div class="col-sm-12" style="padding:12px;border:1px solid !important;box-sizing: border-box; box-shadow:2px;">
+                        <div class="col-md-12" style="margin-bottom:8px !important;margin-left:-20px;">
+                            <div class="col-sm-12">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="firstname">Closing Date :</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <input id="txtClosingDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" />
+                                        <span class="input-group-btn">
+                                            <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" style="margin-bottom:8px !important;margin-left:-20px;">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <label for="firstname">Closing Pictures :</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="file" name="fileCompleted" accept="image/*" id="fileCompleted" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                        <label for="fileCompleted"><i class="fa fa-upload fa-2x"></i> <span id="fileCompletedShow">&hellip;</span></label>
+                                        <input type="hidden" id="hndfileCompleted" value="0" />
+                                        <input type="hidden" id="hndOriginalfileCompleted" value="0" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <label for="firstname">Tenant Signature:</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="file" name="uploadphoto" accept="image/*" id="uploadphoto" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                        <label for="uploadphoto"><i class="fa fa-upload fa-2x"></i> <span id="uploadphoto">&hellip;</span></label>
+                                        <input type="hidden" id="hndHomeownerSignature" value="0" />
+                                        <input type="hidden" id="hndOriginalHomeownerSignature" value="0" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-12" style="margin-bottom:8px !important;">
+                            <div class="form-group">
+                                <div class="col-sm-3">
+                                    <label for="firstname">Closing Notes :</label>
+                                </div>
+                                <div class="col-sm-8" style="margin-left:-5px;">
+                                    <textarea class="form-control form-control-small" placeholder="Closing notes..." id="txtClosingNotes" maxlength="200" style="height:44px!important"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 center">
+                    &nbsp;
+                </div>
+                <div class="col-sm-12 text-center">
+                    <button type="submit" class="btn btn-primary" onclick="StatusUpdateForServicePerson()">Save</button>
+                </div>
+                <div class="col-md-12 center">
+                    &nbsp;
+                </div>
+                @*<div class="col-md-6 clear">
+                        <table id="tblEvent" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th style="background-color: #c7cdd566;color:#3d3939">Tent Name</th>
+                                    <th style="background-color: #c7cdd566;color:#3d3939">C p</th>
+                                    <th style="background-color: #c7cdd566;color:#3d3939">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="estimateWarranty">
+    <div class="modal-dialog" style="width:60% !important;">
+        <div class="modal-content" style="height:100% !important">
+            <div class="modal-header center">
+                <h3 class="modal-title">Estimate Detail</h3>
+                <button type="button" class="close pull-right" data-dismiss="modal" style="margin-top: -30px;" onclick="updateEstimateDesign(0);">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body table-bordered" style="min-height: 400px;">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button class="navbar-btn nav-button login " style="float:right" id="createEstimate" onclick="updateEstimateDesign(1);">Create</button>
+                    </div>
+                </div>
+                <div class="row" id="tblEstimateDiv">
+                    <div class="col-md-12 clear">
+                        <table id="tblEstimate" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th style="background-color: #c7cdd5;color:#3d3939; width:15%">Vendor</th>
+                                    <th style="background-color: #c7cdd5;color:#3d3939; width:8%">Amount</th>
+                                    <th style="background-color: #c7cdd5;color:#3d3939">Description</th>
+                                    <th style="background-color: #c7cdd5;color:#3d3939; width:15%">Created By</th>
+                                    <th style="background-color: #c7cdd5;color:#3d3939; width:12%">Created Date</th>
+                                    <th style="background-color: #c7cdd5;color:#3d3939; width:8%">Status</th>
+                                    <th style="background-color: #c7cdd5;color:#3d3939; width:5%">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row hidden" id="fillEstimate">
+                    <div class="col-sm-12" style="margin-bottom:10px !important">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label for="txtEstimateVendor" class="star input-group">Vendor :</label>
+                                </div>
+                                <div class="col-sm-8" style="margin-left:-5px !important">
+                                    <input id="txtEstimateVendor" placeholder="Vendor" class="form-control form-control-small" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="col-sm-3">
+                                    <label for="txtEstimateAmount" class="star input-group">Amount :</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <input id="txtEstimateAmount" placeholder="Amount" class="form-control form-control-small" type="text" onkeypress="return isOnlyNumber(event);">
+                                        <span class="input-group-btn">
+                                            <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-dollar fa"></i></button>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label for="txtEstimateDesc" class="">Description :</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <textarea class="form-control form-control-small" placeholder="Task / Notes...." id="txtEstimateDesc" style="height:44px!important"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 center">
+                        <button class="navbar-btn nav-button login text-center " id="saveEstimate" onclick="saveUpdateEstimate();">Save</button>
+                        <button class="navbar-btn nav-button login text-center hidden " id="generateInvoice" onclick="generateSerInvoice();">Generate Invoice</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal"  onclick="updateEstimateDesign(0);">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="assignmentAuditHistory">
+    <div class="modal-dialog" style="width:60% !important;">
+        <div class="modal-content" style="height:100% !important">
+            <div class="modal-header center">
+                <h3 class="modal-title">Assignment Audit History</h3>
+                <button type="button" class="close pull-right" data-dismiss="modal" style="margin-top: -30px;">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body table-bordered">
+                <div class="row" id="tblAuditHistoryDiv">
+                    <div class="col-md-12 clear">
+                        <table id="tblAssignmentAuditHistory" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th style="background-color: #c7cdd5;color:#3d3939; width:20%">Event Name</th>
+                                    <th style="background-color: #c7cdd5;color:#3d3939; width:10%">Event Date</th>
+                                    <th style="background-color: #c7cdd5;color:#3d3939; width:10%">User Name</th>
+                                    <th style="background-color: #c7cdd5;color:#3d3939;">Audit Details</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                    @*<button type="button" id="requestToJoin" class="btn btn-primary pull-right" style="margin-right: 10px;" onclick="saveTenantEventsJoin()">Save</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="printAssignment">
+    <div class="modal-dialog" style="width:60% !important;">
+        <div class="modal-content" style="height:100% !important">
+            <div class="modal-header center">
+                <h3 class="modal-title">Work Order</h3>
+                <button type="button" class="close pull-right" data-dismiss="modal" style="margin-top: -30px;">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body table-bordered">
+                <div class="row" id="printAssignmentDiv">
+                    <div class="col-md-12 clear">
+                        <div class="col-md-12">
+                            <div class="col-sm-12 hidden" id="attensionAssignment1"><h4 class="text-center" style="text-decoration:underline;margin-bottom:1%;font-size: 12pt;background-color:transparent;color:red"> > > > ATTENTION : <span id="urgentStatus"></span> < < < </h4></div>
+                            <div class="col-sm-12" style="border:1px solid !important;box-sizing: border-box; box-shadow:2px; margin-bottom:8px !important;">
+                                <h3 class="text-center" style="text-decoration:underline;margin-top:5px !important; margin-bottom:1%;background-color:transparent;color:#4d738a">
+                                    Sanctuary Doral : Work Order
+                                </h3>
+                            </div>
+                            <div class="col-sm-12" style="border:1px solid !important;box-sizing: border-box; box-shadow:2px; margin-bottom:8px !important;">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label>Tenant Id :</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="lbltenantIdAssignment"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label for="firstname">Contact No :</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="lblContactNoAssignment">Test</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label for="firstname">Project :</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="lblProjectAssignment"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label for="firstname">E-mail :</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="lblEmailAssignment"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label for="firstname">Unit No :</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="lblUnitNoAssignment"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label for="firstname">Status :</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="lblBuyerStatusAssignment">Tenant</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label for="firstname">Tenant Name :</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="lbltenantNameAssignment"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label for="firstname">Lease Start Date :</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="lblLeaseStartDateAssignment"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label for="firstname">Request Date :</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="lbltenantDateAssignment"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label for="firstname">Lease End Date :</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="lblLeaseTerminationtDateAssignment"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12" style="border:1px solid !important;box-sizing: border-box; box-shadow:2px; margin-bottom:8px !important;">
+                                <div class="col-md-12 text-center" style="margin-bottom:8px !important;">
+                                    <label>Work Order : <b><span style="font-weight:bold;" id="workOrderNewAssignment"></span></b></label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label for="firstname">Problem Category :</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="ProblemCatrgoryAssignment"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 hidden" id="ProbleOtherAssignment">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label>Other :</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="lblProbleOtherAssignment"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label for="firstname">Caussing Issue :</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="lblcaussingIssueAssignment"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 hidden" id="CaussingOtherAssignment">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label>Other:</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="lblCaussingOtherAssignment"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label for="firstname">Problem Issue :</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="lblIssueAssignment"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 hidden" id="IssueOtherAssignment">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label>Other:</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="lblIssueOtherAssignment"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label for="firstname">Location :</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="lblLocationAssignment"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label for="firstname">Emergency Contact :</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="lblEmergencyNoAssignment"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-sm-5">
+                                            <label for="firstname">Entery Note :</label>
+                                        </div>
+                                        <div class="col-sm-7" style="margin-left: -30px;">
+                                            <span style="font-weight:bold;" id="lblEnteryNoteAssignment"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12" style="border:1px solid !important;box-sizing: border-box; box-shadow:2px; margin-bottom:8px !important;min-height:200px">
+                                <h5 class="pull-left" style="margin-top:5px !important; margin-bottom:1%;">
+                                    Instructions:
+                                </h5>
+                                <br />
+                                <p id="taskDescriptionAssignment">
+                                </p>
+                            </div>
+                            <div class="col-sm-12 hidden" id="attensionAssignment2"><h4 class="text-center" style="text-decoration:underline;margin-bottom:1%;font-size: 12pt;background-color:transparent;color:red"> > > > ATTENTION : <span id="urgentStatus1"></span> < < < </h4></div>
+
+                            <div class="col-sm-2" style="border:1px solid !important;box-sizing: border-box; box-shadow:2px; padding-bottom:50px">
+                                <label class="text-center" style="text-decoration:underline">Date Repaired: </label>
+                            </div>
+                            <div class="col-sm-2" style="border:1px solid !important;box-sizing: border-box; box-shadow:2px; padding-bottom:50px">
+                                <label class="text-center" style="text-decoration:underline">By: </label>
+                            </div>
+                            <div class="col-sm-8" style="border:1px solid !important;box-sizing: border-box; box-shadow:2px; padding-bottom:50px">
+                                <label class="text-center" style="text-decoration:underline">Homeowner Acceptance: </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-sm-12 pull-left">
+                        <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                        @*<button type="button" id="requestToJoin" class="btn btn-primary pull-right" style="margin-right: 10px;" onclick="saveTenantEventsJoin()">Save</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#txtClosingDate').datepicker();
+        $("#txtRequestedDate").datepicker();
+
+    });
+    var openEstimatepop = function () {
+        $("#estimateWarranty").modal('show');
+    };
+
+    var openAssignmentPrintpop = function () {
+        $("#printAssignmentDiv").printThis();
+    };
+    var openAuditHistorypop = function () {
+        $("#assignmentAuditHistory").modal('show');
+        fillAssignmentAuditHistory();
+    };
+    var updateEstimateDesign = function (status) {
+        if (status == 1) {
+            $("#tblEstimateDiv").addClass('hidden');
+            $("#fillEstimate").removeClass('hidden');
+        }
+        else {
+            $("#fillEstimate").addClass('hidden');
+            $("#tblEstimateDiv").removeClass('hidden');
+        }
+
+    };
+</script>
+
+
+<style>
+    label {
+        cursor: pointer;
+        /* Style as you please, it will become the visible UI component. */
+    }
+
+    /*#upload-photo {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+    }*/
+
+</style>

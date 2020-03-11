@@ -19,7 +19,7 @@
                             <b>Add </b>PROPERTY <br>
                         </h3>
                     </div>
-                    <ul>
+                    <ul class="nav nav-tabs wizard nav-pills">
                         <li class="active" id="li1"><a href="javascript:void(0);"  onclick="goToStep(1)">Property Details </a></li>
                         <li id="li2"><a href="javascript:void(0);"   onclick="goToStep(2)">Floor Details</a></li>
                         <li id="li3"><a href="javascript:void(0);"  onclick="goToStep(3)">Models </a></li>
@@ -32,9 +32,9 @@
                             <div class="row p-b-15  ">
                                 <div class="col-sm-12">
                                     <h4 class="info-text pull-left"> Let's start with the basic information</h4>
-                                    <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="gotoPropList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-align-center"></i> <span id="spanSaveUpdate">Property List</span></button>
+                                    @*<button type="button" class="btn btn-success  pull-right" id="btnSaveUpdate" onclick="gotoPropList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-align-center"></i> <span id="spanSaveUpdate">Property List</span></button>*@
                                     <div class="pull-right" style="padding-right:2px;">
-                                        <input type='button' class='btn btn-default' value='Save' onclick="SaveUpdateProperty()" />
+                                        <button type='button' class='btn btn-success ' value='Save' onclick="SaveUpdateProperty()"><i class="fa fa-save"></i> SAVE</button>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -242,12 +242,6 @@
                                     <div class="col-sm-12 padding-top-15" id="tblAminities">
                                     </div>
                                 </div>
-                                <div class="col-sm-12 ">
-                                
-                                    <div class="pull-right text-center">
-                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(2,2)"> Next</button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                        
@@ -295,17 +289,9 @@
                                             <button class='btn btn-danger' onclick="resetcords()">Reset</button>
                                         </div>
                                         <div class="pull-right">
-                                            <input type='button' class='btn btn-default' value='Add Floor' onclick="saveUpdateFloor()" />
-
+                                           
+                                            <button type='button' class='btn btn-success ' style="width:120px;" onclick="saveUpdateFloor()"><i class="glyphicon glyphicon-plus-sign"></i> Add Floor</button>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="pull-left text-center">
-                                        <button type="submit" class="btn btn-primary" onclick="goToStep(1,1)"> Back</button>
-                                    </div>
-                                    <div class="pull-right text-center">
-                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(3,3)"> Next</button>
                                     </div>
                                 </div>
                             </div>
@@ -336,14 +322,6 @@
                                         <tbody></tbody>
                                     </table>
                                 </div>
-                                <div class="col-sm-12">
-                                    <div class="pull-left text-center">
-                                        <button type="submit" class="btn btn-primary" onclick="goToStep(2,2)"> Back</button>
-                                    </div>
-                                    <div class="pull-right text-center">
-                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(5,5)"> Next</button>
-                                    </div>
-                                </div>
                             </div>
                            
                         </div>
@@ -369,13 +347,19 @@
                                             <label class="control-label">Row/Page</label>
                                         </div>
                                         <div class="col-sm-6">
-                                            <select id="ddlRPP_PUList" class="form-control form-control-small"></select>
+                                            <select id="ddlRPP_PUList" class="form-control form-control-small">
+                                                <option value="10" @(Session["UNOR"] == null ? "" : Session["UNOR"].ToString()=="10"?"selected":"")>10</option>
+                                                <option value="25" @(Session["UNOR"] == null ? "" : Session["UNOR"].ToString()=="25"?"selected":"")>25</option>
+                                                <option value="50" @(Session["UNOR"] == null ? "" : Session["UNOR"].ToString()=="50"?"selected":"")>50</option>
+                                                <option value="75" @(Session["UNOR"] == null ? "" : Session["UNOR"].ToString()=="75"?"selected":"")>75</option>
+                                                <option value="100" @(Session["UNOR"] == null ? "" : Session["UNOR"].ToString()=="100"?"selected":"")>100</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12 clear" id="UnitListPrint">
 
-                                    <table id="tblPUList" class="table-bordered" width="100%">
+                                    <table id="tblPUList" class="table-bordered" width="100%" style="text-align:center">
                                         <thead>
                                             <tr>
                                                 <th style="background-color: #c7cdd5;color:#3d3939; width:5%;" class='text-center' onclick="sortTable('UnitNo')">Unit No <i class="fa fa-sort-numeric-desc"></i></th>
@@ -398,14 +382,6 @@
                                         </thead>
                                         <tbody></tbody>
                                     </table>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="pull-left text-center">
-                                        <button type="submit" class="btn btn-primary" onclick="goToStep(3,3)"> Back</button>
-                                    </div>
-                                    <div class="pull-right text-center">
-                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(6,0)"> Next</button>
-                                    </div>
                                 </div>
                             </div>
                          
@@ -550,6 +526,7 @@
      input {
         width: 2%;
     }
+ 
     .btn-default {
         width: 100%;
     }

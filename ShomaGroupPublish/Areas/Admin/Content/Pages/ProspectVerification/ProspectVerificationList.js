@@ -18,7 +18,7 @@ var fillRPP_ProspectVerifyList = function () {
 };
 var buildPaganationProspectVerifyList = function (pagenumber, sortby, orderby) {
     if (!sortby) {
-        sortby = "PropertyId";
+        sortby = "FirstName";
     }
     if (!orderby) {
         orderby = "ASC";
@@ -56,7 +56,7 @@ var buildPaganationProspectVerifyList = function (pagenumber, sortby, orderby) {
 var fillProspectVerifyList = function (pagenumber, sortby, orderby) {
     $("#divLoader").show();
     if (!sortby) {
-        sortby = "PropertyId";
+        sortby = "FirstName";
     }
     if (!orderby) {
         orderby = "ASC";
@@ -84,16 +84,17 @@ var fillProspectVerifyList = function (pagenumber, sortby, orderby) {
                 $("#tblProspectVerify>tbody").empty();
                 $.each(response, function (elementType, elementValue) {
                     html = "<tr data-value=" + elementValue.UserID + ">";
-                    html += "<td style='padding: 10px;'>" + elementValue.FirstName + "</td>";
-                    html += "<td style='padding: 10px;'>" + elementValue.LastName + "</td>";
-                    html += "<td style='padding: 10px;'>" + elementValue.Phone + "</td>";
-                    html += "<td style='padding: 10px;'>" + elementValue.Email + "</td>";
-                    html += "<td style='padding: 10px;'>" + elementValue.CreatedDate + "</td>";
-                    html += "<td style='padding: 10px;'>" + elementValue.PropertyId + "</td>";
+                    html += "<td>" + elementValue.FirstName + "</td>";
+                    html += "<td>" + elementValue.LastName + "</td>";
+                    html += "<td>" + formatPhoneFax(elementValue.Phone) + "</td>";
+                    html += "<td>" + elementValue.Email + "</td>";
+                    html += "<td>" + elementValue.CreatedDate + "</td>";
+                    html += "<td>" + elementValue.UnitNo + "</td>";
                     html += "</tr>";
                     $("#tblProspectVerify>tbody").append(html);
                 });
             }
+            $("#hndPageNo").val(pagenumber);
             $("#divLoader").hide();
         }
     });
@@ -113,10 +114,10 @@ $(document).ready(function () {
             buildPaganationProspectVerifyList(1);
         },
         onPageClick: function (page, evt) {
-            var sortByValue = localStorage.getItem("SortByValue");
-            var OrderByValue = localStorage.getItem("OrderByValue");
+            var SortByValueProsVerification = localStorage.getItem("SortByValueProsVerification");
+            var OrderByValueProsVerification = localStorage.getItem("OrderByValueProsVerification");
             $("#hdnCurrentPage_PVL").val(page);
-            fillProspectVerifyList(page, sortByValue, OrderByValue);
+            fillProspectVerifyList(page, SortByValueProsVerification, OrderByValueProsVerification);
         }
     });
     $('#tblProspectVerify tbody').on('click', 'tr', function () {
@@ -143,22 +144,69 @@ var createDropDown = function (docid, selectedid) {
 
 
 var count = 0;
-var sortTable = function (sortby) {
+var sortTableProspectVerification = function (sortby) {
    
     var orderby = "";
     var pNumber = $("#hndPageNo").val();
     if (!pNumber) {
         pNumber = 1;
     }
-
+    $('#sortFirstNameIcon').removeClass('fa fa-sort-up');
+    $('#sortFirstNameIcon').removeClass('fa fa-sort-down');
+    $('#sortLastNameIcon').removeClass('fa fa-sort-up');
+    $('#sortLastNameIcon').removeClass('fa fa-sort-down');
+    $('#sortPhoneNoIcon').removeClass('fa fa-sort-up');
+    $('#sortPhoneNoIcon').removeClass('fa fa-sort-down');
+    $('#sortEmailAddressIcon').removeClass('fa fa-sort-up');
+    $('#sortEmailAddressIcon').removeClass('fa fa-sort-down');
+    $('#sortApplyDateIcon').removeClass('fa fa-sort-up');
+    $('#sortApplyDateIcon').removeClass('fa fa-sort-down');
+    $('#sortUnitNoIcon').removeClass('fa fa-sort-up');
+    $('#sortUnitNoIcon').removeClass('fa fa-sort-down');
     if (count % 2 == 1) {
         orderby = "ASC";
+        if (sortby == 'FirstName') {
+            $('#sortFirstNameIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'LastName') {
+            $('#sortLastNameIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'PhoneNo') {
+            $('#sortPhoneNoIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'EmailAddress') {
+            $('#sortEmailAddressIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'ApplyDate') {
+            $('#sortApplyDateIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'UnitNo') {
+            $('#sortUnitNoIcon').addClass('fa fa-sort-up fa-lg');
+        }
     }
     else {
         orderby = "DESC";
+        if (sortby == 'FirstName') {
+            $('#sortFirstNameIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'LastName') {
+            $('#sortLastNameIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'PhoneNo') {
+            $('#sortPhoneNoIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'EmailAddress') {
+            $('#sortEmailAddressIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'ApplyDate') {
+            $('#sortApplyDateIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'UnitNo') {
+            $('#sortUnitNoIcon').addClass('fa fa-sort-down fa-lg');
+        }
     }
-    localStorage.setItem("SortByValue", sortby);
-    localStorage.setItem("OrderByValue", orderby);
+    localStorage.setItem("SortByValueProsVerification", sortby);
+    localStorage.setItem("OrderByValueProsVerification", orderby);
     count++;
     buildPaganationProspectVerifyList(pNumber, sortby, orderby);
     fillProspectVerifyList(pNumber, sortby, orderby);

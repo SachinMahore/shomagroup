@@ -15,7 +15,7 @@
         <div class="col-md-12 padding-5">
             <div class="form-group pull-right clearfix" style="padding-top:5px;">
                 <button type="button" class="btn btn-primary" id="btnPremiumType" style="text-transform:uppercase!important" onclick="clearPremiumType()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-plus"></i> New</button>
-                <button type="button" class="btn btn-success" id="btnSavePremiumType" style="text-transform:uppercase!important" onclick="saveUpdatePremiumType()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">Save</span></button>
+                <button type="button" class="btn btn-primary" id="btnSavePremiumType" style="text-transform:uppercase!important" onclick="saveUpdatePremiumType()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">Save</span></button>
             </div>
         </div>
         <div class="form-group clearfix panel">
@@ -37,7 +37,7 @@
                     <table id="tblPremiumType" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:45%!important;">Premium Type</th>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:45%!important;cursor:pointer;" title="Sort" onclick="sortTablePremiumType('PremiumType')">Premium Type <i id="sortPremiumTypeIcon" class=""></i></th>
                                 <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:40%!important;">Details</th>
                                 <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:15%!important;">Action</th>
                             </tr>
@@ -47,7 +47,6 @@
                 </div>
             </div>
             <div class="col-md-5">
-             
                 <div class="form-group clearfix padding-5">
                     <div class="row">
                         <div class="col-sm-12">
@@ -70,9 +69,3 @@
         </div>
     </div>
 </div>
-
-@*<script>
-        $(document).ready(function () {
-            setTimeout(function () { $("#ddlProperty").find("option[value='" + @Model.PropertyID + "']").attr('selected', 'selected'); }, 1200);
-        });
-    </script>*@

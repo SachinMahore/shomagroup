@@ -62,7 +62,7 @@
         <div class="container slider-content">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
-                    <img src="../Content/assets/img/HomepageMsg.png" style="width:300px;height:300px;" />
+                    <a href="~/Account/Login"> <img src="../Content/assets/img/HomepageMsg.png" style="width:300px;height:300px;" /></a>
 
                 </div>
 
@@ -96,7 +96,7 @@
                                 <div class="col-md-6">
                                     <div class="input-group">
                                         <span class="input-group-btn">
-                                            <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                                            <button class="btn btn-primary search" type="button" id="iconMoveInDate"><i class="fa-calendar fa"></i></button>
                                         </span>
                                         <input type="text" id="txtMoveInDate" class="form-control" value="@DateTime.Now.AddDays(30).ToString("MM/dd/yyyy")" style="color:#6c6e72;background-color:white;">
                                     </div>
@@ -109,10 +109,10 @@
                                         <span class="input-group-btn">
                                             <button class="btn btn-primary search" type="button"><i class="fa-info-circle fa"></i></button>
                                         </span>
-                                        <select id="ddlLease" class="form-control" style="background-color:white;height:44px;">
-                                            <option value='0'>Lease Term</option>
-                                            <option value='1'>7 Months</option>
-                                            <option value='2'>12 Months</option>
+                                        <select id="ddlLease" class="form-control" style="background-color:white;">
+                                           
+                                            <option value='7'>7 Months</option>
+                                            <option value='12' selected>12 Months</option>
                                            
                                         </select>
                                     </div>
@@ -125,7 +125,7 @@
                                         <span class="input-group-btn">
                                             <button class="btn btn-primary search" type="button"><i class="fa-bed fa"></i></button>
                                         </span>
-                                        <select id="ddlBedroom" class="form-control" style="background-color:white;height:44px;">
+                                        <select id="ddlBedroom" class="form-control" style="background-color:white;">
                                             <option value='0'>Beds</option>
                                             <option value='1'>1</option>
                                             <option value='2'>2</option>
@@ -328,7 +328,21 @@
     </div>
 
 </div>
-
+<div class="modal" id="popQuoteExpire" style="padding-right: 370px !important;">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 421px; height:170px;text-align: center;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <p><b>Your Quotation is Expired. Please register again..</b></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default pull-right" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<input id="hndQuoteExp" type="hidden" value="@(ViewBag.DelAData)"/>
 <style>
     /* The Modal (background) */
     .modal {
@@ -611,6 +625,15 @@
             autoclose: true,
 
         });
-
+       
+        if ($('#hndQuoteExp').val() == "Del") {
+                $('#popQuoteExpire').modal('show');
+            }
+            else {
+                $('#popQuoteExpire').modal('hide');
+            }
+        $('#iconMoveInDate').click(function () {
+            $("#txtMoveInDate").focus();
+        });
     });
 </script>

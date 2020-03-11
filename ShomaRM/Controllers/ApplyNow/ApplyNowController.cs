@@ -150,9 +150,10 @@ namespace ShomaRM.Controllers
         }
         public ActionResult SignIn(string UserName, string Password)
         {
+            string encryptedPassword = new EncryptDecrypt().EncryptText(Password);
             ShomaRMEntities db = new ShomaRMEntities();
             string userid = "";
-            var user = db.tbl_Login.Where(p => p.Username == UserName && p.Password == Password && p.IsActive == 1).FirstOrDefault();
+            var user = db.tbl_Login.Where(p => p.Username == UserName && p.Password == encryptedPassword && p.IsActive == 1).FirstOrDefault();
             if (user != null)
             {
                 //var currentUser = new CurrentUser();

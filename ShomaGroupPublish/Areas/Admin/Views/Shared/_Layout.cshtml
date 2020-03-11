@@ -19,6 +19,7 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
 
+
     <link href="~/Content/assets/css/bootstrap-datetimepicker.css" rel="stylesheet" />
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/normalize.css")">
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/font-awesome.min.css")">
@@ -38,13 +39,13 @@
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/lightslider.min.css")">
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/jquery.slitslider.css")">
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/wizard.css")">
-    <link rel="stylesheet" href="@Url.Content("/content/assets/css/style.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/stylenew.css")">
     <link rel="stylesheet" href="@Url.Content("/Content/jquery-confirm-master/css/jquery-confirm.css")" />
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/popupwindow.css")">
     <link href="~/Content/fileUpload.css" rel="stylesheet" />
-        @*<link rel="stylesheet" href="@Url.Content("/content/assets/css/glDatePicker.darkneon.css")">
-        
-                <link rel="stylesheet" href="@Url.Content("/content/assets/css/glDatePicker.flatwhite.css")">*@
+    @*<link rel="stylesheet" href="@Url.Content("/content/assets/css/glDatePicker.darkneon.css")">
+
+        <link rel="stylesheet" href="@Url.Content("/content/assets/css/glDatePicker.flatwhite.css")">*@
 
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/responsive.css")">
     <script src="@Url.Content("/content/assets/js/jquery-1.10.2.min.js")"></script>
@@ -59,13 +60,13 @@
     <script src="@Url.Content("/content/assets/js/jquery.simplePagination.js")"></script>
     <script src="@Url.Content("/Content/jquery.countdown.js")"></script>
     <script src="@Url.Content("/Content/jquery.countdown.min.js")"></script>
-    <script src="~/Content/file-Upload.js"></script>
+    <script src="~/Content/keyboardcontrols.js"></script>
     @RenderSection("scripts", required: false)
 </head>
-<body>
-    <div id="preloader">
+<body oncontextmenu="return false;">
+    @*<div id="preloader">
         <div id="status">&nbsp;</div>
-    </div>
+    </div>*@
     <!-- Body content -->
 
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -96,9 +97,12 @@
                             <li>
                                 <div class="yamm-content">
                                     <div class="row">
-                                        <div class="col-sm-3">
-                                            <h5>Masters</h5>
+                                        <div class="col-sm-3" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "":"style=display:none")>
+                                            <h5>Main Masters</h5>
                                             <ul>
+                                                <li>
+                                                    <a href="/Admin/Country">Country Management</a>
+                                                </li>
                                                 <li>
                                                     <a href="/Admin/State">State Management</a>
                                                 </li>
@@ -111,12 +115,19 @@
                                                     <a href="/Admin/Amenities">Amenity Management</a>
                                                 </li>
                                                 <li>
+                                                    <a href="/Admin/AmenitiesSlot">Amenity Slot Management</a>
+                                                </li>
+
+                                                <li>
                                                     <a href="/Admin/Utility">Utility Management</a>
                                                 </li>
                                                 <li>
                                                     <a href="/Admin/Marketsource/Index/0">Marketsource Management</a>
                                                 </li>
-                                       
+                                                <li>
+                                                    <a href="/Admin/Event/Index/0">Event Management</a>
+                                                </li>
+
                                                 <li>
                                                     <a href="/Admin/Parking/Index/0">Parking Management</a>
                                                 </li>
@@ -129,6 +140,7 @@
                                                 <li>
                                                     <a href="/Admin/FOB/Index/0">FOB Management</a>
                                                 </li>
+                                           
                                                 <li>
                                                     <a href="/Admin/PremiumType">Premium Type Management</a>
                                                 </li>
@@ -138,35 +150,43 @@
                                             </ul>
                                         </div>
 
-                                        <div class="col-sm-3 hidden">
-                                            <h5>Community</h5>
+                                        <div class="col-sm-3">
+                                            <h5>Service Master</h5>
                                             <ul>
-                                                <li><a href="/Admin/Notice">Notice List</a>  </li>
-                                                <li><a href="/Admin/Notice/Edit/0">Add/Edit Notice</a>  </li>
-                                                <li><a href="/Admin/Facility">Facility List</a>  </li>
-                                                <li><a href="/Admin/Facility/Edit/0">Add Facility</a>  </li>
-                                                <li><a href="/Admin/Event">Event List</a>  </li>
-                                                <li><a href="/Admin/Event/Edit/0">Add/EditEvent</a>  </li>
-                                                <li><a href="/Admin/City">Booking List</a>  </li>
-
-                                            </ul>
-                                        </div>
-                                        <div class="col-sm-3 hidden">
-                                            <h5>Purchase</h5>
-                                            <ul>
-                                                <li><a href="/Admin/Vendor">Vendor List</a>  </li>
-                                                <li><a href="/Admin/Vendor/Edit/0">Add/Edit Vendor</a>  </li>
-                                                <li><a href="/Admin/PurchaseOrder">Purchase Order List</a>  </li>
-                                                <li><a href="/Admin/PurchaseOrder/Edit/0">Add/Edit Purchase</a>  </li>
-
-                                                <li><a href="/Admin/Invoice">Invoice List</a>  </li>
-                                                <li><a href="/Admin/Invoice/Edit/0">Add/Edit Invoice</a>  </li>
-                                                <li><a href="/Admin/CashReceipt">Cash Receipts List</a>  </li>
-                                                <li><a href="/Admin/CashReceipt/Edit/0">Add/Edit Cash Receipts</a>  </li>
+                                                <li>
+                                                    <a href="/Admin/ServiceCategory">Service Category</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Admin/ServiceCausing">Service Causing</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Admin/ServiceIssue">Service Issue</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Admin/ServiceLocation">Service Location</a>
+                                                </li>
 
                                             </ul>
                                         </div>
                                         <div class="col-sm-3">
+                                            <h5>Approval</h5>
+                                            <ul>
+                                                <li @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "" : "style=display:none")>
+                                                    <a href="/Admin/Amenities/AmenitiesReservationRequest">Amenity Reservation Request Approval</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Admin/ServicesManagement/Index/0">Services Approval</a>
+                                                </li>
+                                                <li @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "" : "style=display:none")>
+                                                    <a href="/Admin/GuestManagement">Guest Approval</a>
+                                                </li>
+                                                <li @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "" : "style=display:none")>
+                                                    <a href="/Admin/ClubManagement">Club Activation</a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                        <div class="col-sm-3" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 ? "":"hidden")>
                                             <h5>User</h5>
                                             <ul>
                                                 <li>
@@ -187,8 +207,10 @@
                             </li>
                         </ul>
                     </li>
-
-                    <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "property" ? "active" : "")" data-wow-delay="0.1s">
+                    <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "property" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "" : "style=display:none")>
+                        <a href="/Admin/PropertyManagement/EditProperty/8">Property</a>
+                    </li>
+                    @*<li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "property" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "":"style=display:none")>
                         <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="200">Property <b class="caret"></b></a>
                         <ul class="dropdown-menu navbar-nav">
                             <li>
@@ -199,10 +221,10 @@
                             </li>
 
                         </ul>
-                    </li>
-                    <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "prospectverification" ? "active" : "")" data-wow-delay="0.1s"><a class="" href="~/Admin/ProspectVerification">Online Application</a></li>
-                    <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "prospect" ? "active" : "")" data-wow-delay="0.1s">
-                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="200">Appointment <b class="caret"></b></a>
+                    </li>*@
+                    <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "prospectverification" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 ? "":"style=display:none")><a class="" href="~/Admin/ProspectVerification" >Online Application</a></li>
+                    <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "prospect" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "":"style=display:none")><a href="/Admin/ProspectManagement/">Appointment</a>
+   @*<a href="/Admin/ProspectManagement/" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="200" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "":"style=display:none")>Appointment <b class="caret"></b></a>
                         <ul class="dropdown-menu navbar-nav">
                             <li>
                                 <a href="/Admin/ProspectManagement/">Appointment List</a>
@@ -210,11 +232,11 @@
                             <li>
                                 <a href="/Admin/ProspectManagement/AddEdit/0">Add New Appointment</a>
                             </li>
-                        </ul>
+                        </ul>*@
                     </li>
 
-                    <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "tenant" ? "active" : "")" data-wow-delay="0.1s">
-                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="200">Tenant <b class="caret"></b></a>
+                    <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "tenant" ? "active" : "")" data-wow-delay="0.1s"><a href="/Admin/Tenant/" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "":"style=display:none")>Tenant List</a>
+                        @*<a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="200">Tenant <b class="caret"></b></a>
                         <ul class="dropdown-menu navbar-nav">
                             <li>
                                 <a href="/Admin/Tenant/">Tenant List</a>
@@ -223,7 +245,7 @@
                                 <a href="/Admin/Tenant/New">Add New Tenant</a>
                             </li>
 
-                        </ul>
+                        </ul>*@
                     </li>
             
                     
@@ -250,7 +272,7 @@
                         <ul>
                             <li><a class="wow fadeInUp animated" href="~/Home/Index" data-wow-delay="0.2s">Home</a></li>
                             <li><a class="wow fadeInUp animated" href="~/Property/Index" data-wow-delay="0.3s">Property</a></li>
-                            <li><a class="wow fadeInUp animated" href="~/Home/FAQ" data-wow-delay="0.4s">Faq</a></li>
+                            <li><a class="wow fadeInUp animated" href="~/Home/FAQ" data-wow-delay="0.4s">FAQ</a></li>
                             <li><a class="wow fadeInUp animated" href="~/Home/Contact" data-wow-delay="0.6s">Contact</a></li>
                         </ul>
                     </div>
@@ -297,4 +319,12 @@
     function gotoLogin() {
         window.location.href = "../../../Home/Index";
     }
+
+    
+    $(document).ajaxComplete(function () {
+        $("#divLoader").hide();
+    });
+    $(document).ajaxStart(function () {
+        $("#divLoader").show();
+    });
 </script>

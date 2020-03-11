@@ -58,3 +58,42 @@ function formatMoney(number) {
         j = (j = i.length) > 3 ? j % 3 : 0;
     return symbol + negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "");
 }
+
+function doesFileExist(urlToFile) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('HEAD', urlToFile, false);
+    xhr.send();
+
+    if (xhr.status == "404") {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function restrictFileUpload(uploaderId) {
+    var ext = uploaderId.split('.').pop().toLowerCase();
+    if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+        return false;
+    }
+    else {
+        return true;
+    }
+};
+
+function formatPhoneFax(phonefax) {
+    if (phonefax == null)
+        phonefax = "";
+    phonefax = phonefax.replace(/[^0-9]/g, '');
+    if (phonefax.length == 0)
+        return phonefax;
+
+    return '(' + phonefax.substring(0, 3) + ') ' + phonefax.substring(3, 6) + (phonefax.length > 6 ? '-' : '') + phonefax.substring(6);
+}
+
+function unformatText(text) {
+    if (text == null)
+        text = "";
+
+    return text.replace(/[^\d\.]/g, '');
+}

@@ -34,7 +34,13 @@
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/lightslider.min.css")">
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/jquery.slitslider.css")">
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/wizard.css")">
-    <link rel="stylesheet" href="@Url.Content("/content/assets/css/style.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/stylenew.css")">
+    @*aakansha_18feb  *@
+    @*<link rel="stylesheet" type="text/css" href="@Url.Content("../Content/assets/css/stylenew.css")">
+        <link rel="stylesheet" type="text/css" href="@Url.Content("../Content/assets/bootstrap/css/bootstrap.css")">
+        <link rel="stylesheet" type="text/css" href="@Url.Content("../Content/assets/bootstrap/css/bootstrap.min.css")">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
+
     <link rel="stylesheet" href="@Url.Content("/Content/jquery-confirm-master/css/jquery-confirm.css")" />
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/popupwindow.css")">
     @*<link rel="stylesheet" href="@Url.Content("/content/assets/css/glDatePicker.darkneon.css")">
@@ -45,15 +51,19 @@
     <script src="@Url.Content("/content/assets/js/popupwindow.js")"></script>
     <script src="@Url.Content("~/Content/Pages/common.js")"></script>
     <script src="@Url.Content("/content/assets/js/jquery.simplePagination.js")"></script>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("/Content/assets/css/stylenew.css")">
     <script src="~/Content/Pages/Home.js"></script>
     <link rel="stylesheet" href="@Url.Content("/Content/fileUpload.css")" />
-
+    <link href="~/Content/fileUpload.css" rel="stylesheet" />
+    <link href="~/Content/timepicki.css" rel="stylesheet" />
+    <script src="~/Content/timepicki.js"></script>
+    <script src="~/Content/keyboardcontrols.js"></script>
     @RenderSection("scripts", required: false)
 </head>
-<body>
-    <div id="preloader">
+<body oncontextmenu="return false;">
+    @*<div id="preloader">
         <div id="status">&nbsp;</div>
-    </div>
+    </div>*@
     <!-- Body content -->
     @RenderBody()
     <div id="divLoader" style="display:none"></div>
@@ -64,16 +74,16 @@
             <div class="container">
                 <div class="row grid-container" style="text-align: center;">
                     <div class="col-sm-3">
-                        <h3><i class="fa fa-map-marker"></i> Location</h3>
+                        <h3 class="username"><i class="fa fa-map-marker " style="color: #718fa1 !important;"></i> Location</h3>
                         <p>
-                            <a id="btnmapcontact" href="javascript:void(0);" style="font-weight:300;color:#777"><i class="pe-7s-map-marker strong"> </i> 9400 NW 41st Street,<br />Doral, FL 33178</a>
+                            <a id="btnmapcontact" href="javascript:void(0);" style="font-weight:300;"><i class="pe-7s-map-marker strong"> </i> 9400 NW 41st Street,<br />Doral, FL 33178</a>
                             <br>
                             <strong>USA</strong>
                         </p>
                     </div>
                     <!-- /.col-sm-4 -->
                     <div class="col-sm-3">
-                        <h3><i class="fa fa-phone"></i> Call Us</h3>
+                        <h3 class="username"><i class="fa fa-phone"></i> Call Us</h3>
                         <p class="text-muted">
                             Call us to schedule an appointment
                         </p>
@@ -81,9 +91,9 @@
                     </div>
                     <!-- /.col-sm-4 -->
                     <div class="col-sm-3">
-                        <h3><i class="fa fa-envelope"></i> Message Us</h3>
+                        <h3 class="username"><i class="fa fa-envelope"></i> Message Us</h3>
                         <p class="text-muted">Send us a message or use our Live Chat.</p>
-                        <p><strong><a href="mailto:" style="color:#B4ADA5">info@sanctuarydoral.com</a></strong></p>
+                        <p><strong><a href="mailto:">info@sanctuarydoral.com</a></strong></p>
                     </div>
                     <div class="col-sm-3">
                         <button id="btnContact" class="nav-button wow bounceInRight login" data-wow-delay="0.5s" style="margin-top: 55px;">Appointment</button>
@@ -95,7 +105,7 @@
                 <div class="row">
                     <div class="col-md-4 col-sm-6 wow fadeInRight animated">
                         <div class="single-footer news-letter">
-                            <h4>Office Hours</h4>
+                            <h4 class="username">Office Hours</h4>
                             <div class="footer-title-line"></div>
                             <p>M-F : 9AM - 6PM</p>
                             <p>SAT : 9AM - 5PM</p>
@@ -137,7 +147,7 @@
                     <div class="bottom-menu pull-right">
                         <ul>
                             <li><a class="wow fadeInUp animated" href="~/Home/Index" data-wow-delay="0.2s">Home</a></li>
-                            <li><a id="btnsignIn" class="wow fadeInUp animated" href="javascript:void(0);" data-wow-delay="0.3s">Sign In</a></li>
+                            <li><a id="btnsignIn" class="wow fadeInUp animated" href="javascript:void(0);" data-wow-delay="0.3s" >Sign In</a></li>
                         </ul>
                     </div>
                 </div>
@@ -159,39 +169,37 @@
     </div>
     <div class="modal" id="popContactForm">
         <div class="modal-dialog">
-            <div class="modal-content" style="width:732px; height:657px;">
-                <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+            <div class="modal-content" style="width:732px; height:600px;">
                 <!-- Modal Header -->
                 <div class="modal-header" style="width: 100%; padding:0px;">
                     <h5 class="modal-title">Appointment Request</h5>
-
+                    <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px;color:black;">&times;</button>
                 </div>
 
                 <!-- Modal body -->
                 <div class="modal-body">
-
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="firstname" class="star">First Name</label>
-                            <input type="text" class="form-control" id="txtFirstName">
+                            <input type="text" class="form-control" id="txtFirstName1">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="lastname" class="star">Last Name</label>
-                            <input type="text" class="form-control" id="txtLastName">
+                            <input type="text" class="form-control" id="txtLastName1">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="email" class="star">Email</label>
-                            <input type="text" class="form-control" id="txtEmail">
+                            <input type="text" class="form-control" id="txtEmail1">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="subject" class="star">Phone Number</label>
-                            <input type="text" class="form-control" maxlength="15" id="txtPhone" onkeypress="return isOnlyNumber(event)">
+                            <input type="text" class="form-control" maxlength="10" id="txtPhone1" onkeypress="return isOnlyNumber(event)">
                         </div>
                     </div>
 
@@ -209,18 +217,19 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Visit Date </label>
+                            <label class="star">Visit Date </label>
                             <input type="text" id="txtMoveDate" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")">
+                            <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 262px;">
+                                <button class="btn btn-primary search" id="MtDate" type="button"><i class="fa-calendar fa"></i></button>
+                            </span>
                         </div>
-
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="email">Market Source</label>
-                            <select id="ddlMarketSource" class="form-control"></select>
+                            <select id="ddlMarketSource1" class="form-control"></select>
                         </div>
                     </div>
-
                     <div class="col-sm-6 hidden">
                         <div class="form-group">
                             <label for="address">Address</label>
@@ -230,42 +239,34 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="message">Message</label>
-                            <textarea id="txtMessage" class="form-control" maxlength="100"></textarea>
+                            <textarea id="txtMessage" class="form-control" maxlength="500"></textarea>
                         </div>
                     </div>
-
                     <div class="col-sm-6 hidden">
                         <div class="form-group">
                             <label>Do you have Pets?</label>
                             <div class="checkbox">
-
                                 <label>
                                     <input type="checkbox" id="chkPets"> Yes
                                 </label>
                             </div>
                         </div>
                     </div>
-
-
                     <div class="col-sm-12">
                         <div class="dot-hr"></div>
                     </div>
                     <div class="col-sm-12 text-justify">
                         By clicking submit, you agree that you are the individual whose information has been entered above or that you have that individual's express consent to submit their information. Additionally, you agree and acknowledge that by submitting this information, you may be contacted regarding your inquiry for more information from the relevant property.
                     </div>
-                    <div class="col-sm-12">
-                        <div class="dot-hr"></div>
-                    </div>
-                    <div class="col-sm-12 text-center">
-                        <button type="submit" class="btn btn-primary" onclick="saveProspectForm()"><i class="fa fa-envelope-o"></i> Submit</button>
-                    </div>
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer-custom">
-
+                    <div class="col-sm-12 text-center">
+                        <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary pull-right" onclick="saveProspectForm()" style="margin-right: 10px;">Submit</button>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -278,25 +279,34 @@
         </div>
         <!-- Modal content -->
         <div class="modal-content">
-            <div class="text-center">
+            <div id="signInHead" class="text-center">
                 <h5 style="">Sign In</h5>
+            </div>
+            <div id="forgtPassHead" class="text-center hidden">
+                <h5 style="">Retrieve Password</h5>
             </div>
             <div class="text-justify">
                 <div class="form-group">
                     <label for="email">Email ID</label>
-                    <input type="text" class="form-control" id="UserName" name="UserName">
+                    <input id="UserEmail" type="text" class="form-control"  name="UserEmail">
                 </div>
-                <div class="form-group">
+                <div id="DivPass" class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="Password">
+                    <input type="password" class="form-control" id="UserPassword" name="Password">
                 </div>
             </div>
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary" onclick="SignIn()"> Sign In</button>
+            <div id="Signinbtn" class="text-center">
+                <button type="submit" class="btn btn-primary" onclick="SignIn()" style="margin-left:100px !important"> Sign In</button>
+                <a href="javascript:void(0);" onclick="goToForgetPassword();" class="pull-right" style="padding-top:2%">Forgot Password?</a>
+            </div>
+            <div id="Forgtbtn" class="text-center hidden">
+                <button type="button" class="btn btn-primary" onclick="ForgetPasswordss();">Verify</button>
+                <a href="javascript:void(0);" onclick="goToSignIn();" class="pull-right" style="padding-top:2%">Go Back</a>
             </div>
         </div>
-
     </div>
+
+
     <script src="@Url.Content("/content/bootstrap/js/bootstrap.min.js")"></script>
     <script src="@Url.Content("/content/assets/js/bootstrap-datepicker.js")"></script>
     <script src="@Url.Content("/content/assets/js/bootstrap-select.min.js")"></script>
@@ -385,6 +395,30 @@
         opacity: 1;
     }
 
+    .closeF {
+        color: #fff;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        opacity: 1;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+        opacity: 1;
+    }
+
+    .closeF:hover,
+    .closeF:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+        opacity: 1;
+    }
+
     #btnsearchpropertyslider.btn-primary {
         color: #fff !important;
         background-color: #4D738A;
@@ -422,13 +456,60 @@
         z-index: 9999 !important;
     }
 </style>
+<script>
+    var ForgetPasswordss = function () {
+        var msg = "";
+        var email = $("#UserEmail").val();
+        console.log(email)
+        if (email == "") {
+            msg += "Enter Registerd Email ID </br> ";
+        }
 
-<script type="text/javascript">
+        if (msg != "") {
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
+
+        var model = {
+            Email: email,
+        };
+        $.ajax({
+            url: "/ApplyNow/ForgetPassword/",
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                var msg = response.model.Message;
+                if (msg == "Invalid UserName") {
+                    $.alert({
+                        title: "",
+                        content: "Invalid UserName Please Try With Valid Id",
+                        type: 'red'
+                    });
+                }
+                else {
+                    $.alert({
+                        title: "",
+                        content: "Password send to your registered email",
+                        type: 'red'
+                    });
+                }
+            }
+
+
+        });
+    };
+
     var SignIn = function () {
         var msg = "";
-        var email = $("#UserName").val();
-        var pass = $("#password").val();
-
+        var email = $("#UserEmail").val();
+        var pass = $("#UserPassword").val();
+        console.log($("#UserPassword").val())
         if (email == "") {
             msg += "Enter Registerd Email ID</br>";
         }
@@ -452,32 +533,43 @@
         };
 
         $.ajax({
-            url: "/ApplyNow/SignIn/",
+            url: "/ApplyNow/SignIn",
             type: "post",
             contentType: "application/json utf-8",
             data: JSON.stringify(model),
             dataType: "JSON",
             success: function (response) {
+                var result = response.UserData.split("|");
+                if (result[0] == "-1") {
+                    window.location = "/Home/";
+                }
+                else if (result[0] != 0) {
+                    if (result[1] == "ad") {
+                        window.location = "/Admin/AdminHome";
+                    }
+                    else if (result[1] == "te") {
+                        window.location = "/Tenant/Dashboard";
+                    }
+                    else {
+                        window.location = "/ApplyNow/Index/" + result[0];
+                    }
 
-                if (response != "0") {
-                    window.location = "/ApplyNow/Index/" + response;
-                    
                     $("#popSignIn").PopupWindow("close");
                 } else {
-                    alert("Invalid Email ID / password.")
+                    alert("Invalid Email ID / Password.")
                 }
-
             }
-
-
         });
+    };
 
-    }
     function gotoLogin() {
 
         window.location = "/Account/Login";
     }
+    function gotoLogOff() {
 
+        window.location = "/Account/LogOff";
+    }
     function gotoApplyNow() {
         window.location = "/ApplyNow/Index/0";
     }
@@ -491,8 +583,7 @@
         owl.play();
         owl.next();
     }
-</script>
-<script>
+
 
     // Get the modal
     var modal = document.getElementById("popSignIn");
@@ -504,6 +595,7 @@
 
    
     btn.onclick = function () {
+        goToSignIn();
         modal.style.display = "block";
     }
     // When the user clicks on <span> (x), close the modal
@@ -518,9 +610,7 @@
             modal.style.display = "none";
         }
     }
-</script>
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
+
     var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
     (function () {
         var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
@@ -554,10 +644,10 @@
 
         $("#divLoader").show();
         var msg = "";
-        var fname = $("#txtFirstName").val();
-        var lname = $("#txtLastName").val();
-        var phone = $("#txtPhone").val();
-        var email = $("#txtEmail").val();
+        var fname = $("#txtFirstName1").val();
+        var lname = $("#txtLastName1").val();
+        var phone = unformatText($("#txtPhone1").val());
+        var email = $("#txtEmail1").val();
         var address = $("#txtAddress").val();
         var message = $("#txtMessage").val();
         var pets = $(".icheckbox_square-yellow").hasClass("checked") ? 1 : 0;
@@ -566,7 +656,7 @@
         var state = $("#ddlState").val();
         var city = $("#ddlCity").val();
         var visittime = $("#txtMoveDate").val();
-        var marketSource = $("#ddlMarketSource").val();
+        var marketSource = $("#ddlMarketSource1").val();
 
         if (!fname) {
             msg += "Enter First Name</br>";
@@ -590,9 +680,9 @@
                 msg += "Invalid email address.<br/>"
             }
         }
-        //if (state == 0) {
-        //    msg += "Select State</br>";
-        //}
+        if (!visittime) {
+            msg += "Enter Visit Date</br>";
+        }
         if (msg != "") {
             $("#divLoader").hide();
             $.alert({
@@ -623,10 +713,10 @@
     }
 
     function clearProspectForm() {
-        $("#txtFirstName").val("");
-        $("#txtLastName").val("");
-        $("#txtPhone").val("");
-        $("#txtEmail").val("");
+        $("#txtFirstName1").val("");
+        $("#txtLastName1").val("");
+        $("#txtPhone1").val("");
+        $("#txtEmail1").val("");
         $("#txtAddress").val("");
         $("#txtMessage").val("");
         $(".icheckbox_square-yellow").removeClass("checked");
@@ -687,17 +777,16 @@
             dataType: "json",
             success: function (response) {
 
-                $("#ddlMarketSource").empty();
-                $("#ddlMarketSource").append("<option value='0'>-- Select Market Source --</option>");
+                $("#ddlMarketSource1").empty();
+                $("#ddlMarketSource1").append("<option value='0'>-- Select Market Source --</option>");
                 $.each(response.model, function (index, elementValue) {
-                    $("#ddlMarketSource").append("<option value=" + elementValue.AdID + ">" + elementValue.Advertiser + "</option>");
+                    $("#ddlMarketSource1").append("<option value=" + elementValue.AdID + ">" + elementValue.Advertiser + "</option>");
                 });
 
             }
         });
     }
-</script>
-<script>
+
     // Get the modal
     var layoutmodal = document.getElementById("modalMaplayout");
     // Get the button that opens the modal
@@ -721,13 +810,44 @@
         }
     }
 
-</script>
 
-<script>
+    $(document).ajaxStop(function () {
+        $("#divLoader").hide();
+    });
+    $(document).ajaxComplete(function () {
+        $("#divLoader").hide();
+    });
+    $(document).ajaxStart(function () {
+        $("#divLoader").show();
+    });
     $(document).ready(function () {
         $("#btnmapfloor,#btnmaplayout,#btnmapIndex,#btnmapcontact").on('click', function (e) {
             $("#modalMaplayout").css("display", "block");
         });
         $('.owl-carousel').trigger('stop.owl.autoplay');
+
+        $('#MtDate').click(function () {
+            $("#txtMoveDate").focus();
+        }); 
+        onFocusMainLayout();
     });
+    
+    function goToSignIn() {
+        $("#Signinbtn, #DivPass, #signInHead").removeClass("hidden");
+        $("#forgtPassHead, #Forgtbtn").addClass("hidden");
+        $("#UserEmail").val("");
+        $("#UserPassword").val("");
+    }
+    function goToForgetPassword() {
+        $("#Signinbtn, #DivPass, #signInHead").addClass("hidden");
+        $("#forgtPassHead, #Forgtbtn").removeClass("hidden");
+        $("#UserEmail").val("");
+        $("#UserPassword").val("");
+    }
+    var onFocusMainLayout = function () {
+        $("#txtPhone").focusout(function () { $("#txtPhone").val(formatPhoneFax($("#txtPhone").val())); })
+            .focus(function () {
+                $("#txtPhone").val(unformatText($("#txtPhone").val()));
+            });
+    };
 </script>

@@ -11,9 +11,10 @@
 <input type="hidden" id="hndAmenityID" value="" />
 <input type="hidden" id="hdnSearchType" value="1" />
 <input type="hidden" id="hdnCurrentPage" value="1" />
+<input type="hidden" id="hndPageNo" value="0" />
 
 <div class="register-area" style="background-color: rgb(249, 249, 249);">
-    <div class="container">
+    <div class="container" style="width:100%">
         <div class="breadcrumb">
             <h4 class="">Add / Edit Amenities  </h4>
         </div>
@@ -27,26 +28,31 @@
                         <input type="text" id="txtCriteriaAmenities" name="Criteria" class="form-control form-control-small" />
                     </div>
                     <div class="form-group col-md-2 padding-5">
-                        <button id="btnSearch" class='btn btn-next btn-primary' name='Search' onclick="buildPaganationAmenityList(1)"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
+                        <button id="btnSearch" class='btn btn-next btn-primary' name='Search' style="margin-left:-10px; height:34px" onclick="buildPaganationAmenityList(1)"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
                         <button id="btnGoAmenities" class="btn btn-success pull-right hidden" style="margin-right:15px;" onclick="goToAmenities()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-arrow-right"></i> GO TO</button>
                     </div>
-                    <div class="form-group col-md-2 padding-5 text-right">
-                        <label id="lblRPP_Amenity" class="control-label">Row/Page</label>
-                    </div>
-                    <div class="form-group col-md-2 padding-5">
-                        <select id="ddlRPP_Amenities" class="form-control form-control-small"></select>
-                    </div>
+                   
                 </div>
-                <div id="divPagination_Amenity" class="form-inline clearfix panel">
-                    <div id="divPgn" class="col-sm-12 pagination">
+                <div id="divPagination_Amenity" class="col-sm-12 form-group">
+                    <div id="divPgn" class="col-sm-7 pagination">
                         <ul id="ulPagination_Amenities"></ul>
                     </div>
+                    <div class="col-sm-4 padding-0 pull-right" style="margin-top: 22px;" >
+                        <div class="col-sm-5">
+                            <label id="lblRPP_Amenity" class="control-label" style="margin-left:6px">Row/Page</label>
+                        </div>
+                        <div  class="col-sm-7">
+                            <select id="ddlRPP_Amenities" class="form-control form-control-small"></select>
+                        </div>
+                    </div>
                 </div>
+                
+           
                 <div class="form-group clearfix">
                     <table id="tblAminities" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939;width:75%;">Amenity </th>
+                                <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939;width:75%;cursor:pointer;" title="Sort" onclick="sortTableAmenities('Amenities')">Amenity <i id="sortAmenitiesIcon" class=""></i></th>
                                 <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939;width:25%;">Action </th>
                             </tr>
                         </thead>
@@ -56,9 +62,9 @@
             </div>
             <div class="col-md-5">
                 <div class="col-md-12 padding-5">
-                    <div class="form-group pull-right clearfix" style="padding-top:5px;">
+                    <div class="form-group pull-right clearfix">
                         <button type="button" class="btn btn-primary" id="btnNew" onclick="clearAmenities()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> NEW</button>
-                        <button type="button" class="btn btn-success" id="btnSaveUpdate" onclick="saveUpdateAmenity()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">SAVE</span></button>
+                        <button type="button" class="btn btn-primary" id="btnSaveUpdate" onclick="saveUpdateAmenity()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">SAVE</span></button>
                     </div>
                 </div>
                 <div class="form-group clearfix padding-5">

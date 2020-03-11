@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = (ViewBag.CausingIssueID == 0 ? "Add" : "Edit") + " Causing Issue";
+    var CausingIssueID = ViewBag.CausingIssueID;
+    var pageTitle = (ViewBag.CausingIssueID == 0 ? "Add Causing Issue" : "Edit CausingIssue");
+
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<script src="@Url.Content("~/Areas/Admin/Content/Pages/ServiceCausingIssue/CausingIssue.js")"></script>
+<input type="hidden" id="hndCausingIssueID" value="" />
+<input type="hidden" id="hdnSearchType" value="1" />
+<input type="hidden" id="hdnCurrentPage" value="1" />
+
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container" style="width:100%">
+        <div class="breadcrumb">
+            <h4 class="">Add / Edit Causing Issue </h4>
+        </div>
+        <div class="form-group clearfix panel">
+            <div class="col-md-7">
+                <div class="form-inline clearfix panel">
+                    <div class="form-group col-md-2 padding-5">
+                        <label class="control-label" style="padding:0px 5px;">Enter Crieria</label>
+                    </div>
+                    <div class="form-group col-md-4 padding-5">
+                        <input type="text" id="txtCriteriaCausingIssue" name="Criteria" class="form-control form-control-small" />
+                    </div>
+                    <div class="form-group col-md-2 padding-5">
+                        <button id="btnSearch" class='btn btn-next btn-primary' name='Search' style="margin-left:-10px; height:34px" onclick="buildPaganationCausingIssueList(1)"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
+                        <button id="btnGoCausingIssue" class="btn btn-success pull-right hidden" style="margin-right:15px;" onclick="goToCausingIssue()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-arrow-right"></i> GO TO</button>
+                    </div>
+
+                </div>
+                <div id="divPagination_CausingIssue" class="col-sm-12 form-group">
+                    <div id="divPgn" class="col-sm-7 pagination">
+                        <ul id="ulPagination_CausingIssue"></ul>
+                    </div>
+                    <div class="col-sm-4 padding-0 pull-right" style="margin-top: 22px;">
+                        <div class="col-sm-5">
+                            <label id="lblRPP_CausingIssue" class="control-label" style="margin-left:6px">Row/Page</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <select id="ddlRPP_CausingIssue" class="form-control form-control-small"></select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group clearfix">
+                    <table id="tblCausingIssue" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939;width:20%;cursor:pointer" onclick="sortTableSC('ServiceIssue')">Service Category <i id="SortIconSC"></i></th>
+                                <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939;width:60%;cursor:pointer" onclick="sortTableSC('CausingIssue')">Causing Issue <i id="SortIconCS"></i></th>
+                                <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939;width:20%;">Action </th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="col-md-12 padding-5">
+                    <div class="form-group pull-right clearfix">
+                        <button type="button" class="btn btn-primary" id="btnNew" onclick="clearCausingIssue()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> NEW</button>
+
+                        <button type="button" class="btn btn-primary" id="btnSaveUpdate" onclick="saveUpdateCausingData()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">SAVE</span></button>
+
+                    </div>
+                </div>
+                <div class="form-group clearfix padding-5">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="firstname" class="star">Service Category</label>
+                                <select class="form-control form-control" id="ddlProblemCategory"></select>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="firstname" class="star" >Causing Issue</label>
+                                <input class="form-control form-control-small" id="txtCausingIssue" maxlength="100" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

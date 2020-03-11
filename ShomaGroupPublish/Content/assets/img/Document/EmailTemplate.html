@@ -1,0 +1,333 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,600italic,700italic' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+        body {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 13px;
+            background-color: gainsboro;
+    
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            font-size: 22px;
+        }
+
+        h2 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 19px;
+            font-weight: normal !important;
+        }
+
+        .dark-gray {
+            color: #ACADB4;
+        }
+
+        .Pen-Black {
+            color: #4D4D4D;
+        }
+
+        .Pen-White {
+            color: #FFF;
+        }
+
+        .Pen-Orange {
+            color: #FAA11F;
+        }
+
+        .BG-White {
+            background-color: #FFF;
+        }
+
+        .BG-Black {
+            background-color: #4d738a;
+        }
+
+        .BG-Black2 {
+            background-color: #4d738a;
+        }
+
+        .BG-Orange {
+            background-color: green;
+        }
+
+    </style>
+</head>
+<body>
+    <table width="700"  class="BG-White" >
+        <tr>
+            <td colspan="2" class="BG-White" style="height:4px;font-size:1px;">&nbsp;</td>
+        </tr>
+        <tr>
+            <td style="font-size:12px;text-align:center;width:500px;">9400 NW 41st Street,<br />Doral, FL 33178<br />USA</td>
+            <td align="left" class="BG-White">
+                <span style="padding-left:20px;"><img style="max-height: 30px;max-width: 250px;" src="http://52.4.251.162:8086/content/assets/img/logo.png" /></span>
+            </td>
+        </tr>
+ 
+        <tr>
+            <td colspan="2" class="BG-Black2" style="height:2px;font-size:1px;">&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="2"  style="font-size:12px;width:500px;">Sactuary Doral is pleased to welcome you home!</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="height:4px;font-size:1px;"><br /><br /></td>
+        </tr>
+        <tr>
+            <td  style="font-size:12px;width:500px;">[%OtherResidents%]</td>
+            <td  style="font-size:12px;width:200px;">9400 NW 41st Street,<br />Unit [%UnitName%] <br />Doral, FL 33178</td>
+        </tr>
+        <tr>
+            <td style="font-size:12px;width:500px;">Move In Information</td>
+            <td style="font-size:12px;width:200px;"></td>
+        </tr>
+        <tr>
+            <td style="font-size:12px;width:500px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apartment Secured: [%LeaseDate%]</td>
+            <td style="font-size:12px;width:200px;"></td>
+        </tr>
+        <tr>
+            <td style="font-size:12px;width:500px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lease Start:  [%LeaseStart%] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Lease End:  [%LeaseEnd%]</td>
+            <td style="font-size:12px;width:200px;"></td>
+        </tr>
+        <tr>
+            <td style="font-size:12px;width:500px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lease Term:  [%LeaseTerm%] Months</td>
+            <td style="font-size:12px;width:200px;"></td>
+        </tr>
+
+        <tr>
+            <td colspan="2" class="BG-Black2" style="height:8px;font-size:1px;">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td colspan="2" style="height:4px;font-size:1px;">
+                <table>
+                    <tr>
+                        <td>
+                            <div style="border: 2px solid #4d738a;margin: 2px; width:320px;">
+                                <table>
+                                    <tr>
+                                        <td style="font-size:12px;text-align:left;text-decoration:underline;">Initial Fee</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;text-align:right;">Application Fee</td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ [%ApplicationFee%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;text-align:right;">Administration Fee</td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ [%AdministrationFee%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;text-align:right;">Holding Reservation Fee</td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ 0.00</td>
+                                    </tr>
+                                 
+                                </table>
+                            </div>
+                            <div style="border: 2px solid #4d738a;margin-left:2px;margin-top:10px; width:320px;">
+                                <table style="width:320px;">
+                                    <tr>
+                                        <td style="font-size:12px;text-align:left;text-decoration:underline;">Move In Charges</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;text-align:right;">Security Deposit</td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ [%SecurityDeposit%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;text-align:right;">Pet Fee </td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ [%PetFee%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;text-align:right;">Vehicle Registration</td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ [%VehicleReg%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;text-align:right;">Prorated Rent</td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ [%ProratedRent%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;text-align:right;">Prorated Trash/Recycle </td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ [%ProratedTrash%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;text-align:right;">Prorated Pest</td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ [%ProratedPest%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;text-align:right;">Prorated Convergent</td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ [%ProratedConvergent%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;text-align:right;">Prorated Vehicle Rent </td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ [%ProratedVehicleRent%]</td>
+                                    </tr>
+                                    <!--<tr>
+                                        <td style="font-size:12px;text-align:right;">Prorated Pet Rent </td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ [%ProratedPetRent%]</td>
+                                    </tr>-->
+                                    <tr>
+                                        <td style="font-size:12px;text-align:right;">Concession Amount </td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ [%ConcessionAmount%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="BG-Black2" style="height:1px;font-size:1px;">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;text-align:right;"><b>Total</b></td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ [%TotalMoveIn%]</td>
+                                    </tr>
+                                  
+                                </table>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="border: 2px solid #4d738a;margin-left:10px; width:320px;">
+                                <table style="width:320px;">
+                                    <tr>
+                                        <td style="font-size:12px;text-align:left;text-decoration:underline;">Monthly Charges</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;text-align:right;">Rent</td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ [%Rent%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;text-align:right;">Trash/Recycle </td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ [%Trash%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;text-align:right;">Pest Control </td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ [%PestControl%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;text-align:right;">Convergent </td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ [%ConvergentAmt%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;text-align:right;">Pet Rent</td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ [%PetRent%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;text-align:right;">Vehicle</td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ [%Vehicle%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;text-align:right;">Storage </td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ [%Storage%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="BG-Black2" style="height:1px;font-size:1px;">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:12px;text-align:right;"><b>Total</b></td>
+                                        <td style="font-size:12px;text-align:right;border-bottom: 2px solid #4d738a;">$ [%TotalMonthly%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="font-size:12px;text-align:center;">
+                                            <br />
+                                            <b>Does not include utility charges. </b><br />
+                                            Water, Sewer, Electricity, Cable, Internet, etc. You will receive a monthly statement outlining your monthly charges that are due the 1st of each month.
+
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div style="border: 2px solid #4d738a;margin-left:10px; width:320px;">
+                                <table style="width:320px;">                             
+                                    <tr>
+                                        <td colspan="2" style="font-size:12px;">
+                                           
+                                            <b>Notes: </b><br />
+                                            <span style="font-size:9px;"> Look and Lease special applied to waive Application Fee  ($150.00) and half of the Administrative Fee ($175.00).</span>
+                                            <br />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="height:10px;font-size:12px;text-align:center;"><br /></td>
+        </tr>
+
+        <tr>
+            <td colspan="2" style="height:35px;font-size:12px;text-align:center;background-color:gainsboro;">* ALL MOVE-IN INFORMATION IS PENDING YOUR APPLICATION APPROVAL *</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="height:40px;font-size:12px;text-align:center;">It is our goal to help make this move as easy as possible for you.  If there is anything we can do to help, please let us know. Welcome Home!</td>
+        </tr>
+
+        <tr>
+            <td colspan="2" style="height:30px;font-size:1px;">&nbsp;</td>
+        </tr>
+        
+        <tr>
+            <td colspan="2" class="BG-Black2" style="height:4px;font-size:1px;">&nbsp;</td>
+        </tr>
+
+
+
+        <tr>
+            <td colspan="2" style="height:4px;font-size:12px;w">
+                <table>
+                    <tr>
+                        <td>
+                            <div style="border: 4px groove #4d738a;border-radius:9px; margin: 15px; width:280px;">
+                              <div style="margin: 15px; width:260px;">
+                                  <h2 style="color:cornflowerblue;"> Helpful Telephone Numbers</h2>
+
+                                  <br />
+                                  <br />
+                                  <h3 style="color:black;font-style:italic;color:#4d738a;">Utilities</h3>
+                                  <i>Please be sure to connect the following utilities at least five business days in advance.</i><br /><br />
+                                  <h4 style="color:black;font-style:italic;color:#4d738a;">❖ Electric - Florida Power & Light</h4>
+                                   <a href="https://fpl.com">fpl.com</a>  or 305-442-8770 <br />
+                                  <h4 style="color:black;font-style:italic;color:#4d738a;">❖ Cable</h4>
+                                  <b>U-verse – Cesar 305-608-7464 <br />Comcast     1-800-266-2278</b><br /><br />
+                                  <h4 style="color:black;font-style:italic;color:#4d738a;">❖ Renter’s Insurance. Resident Shield</h4>
+                                  <b>
+                                      https://www.residentshield.com<br /><br />
+                                      Berkshire Coral Gables cannot accommodate an 18 wheeler moving truck inside the moving dock or streets surrounding the building.
+                                  </b><br />
+                                  <br /><b>Maximum 2 pets per apartment home.</b><br /><br />
+                                  <h4 style="color:black;font-style:italic;color:#4d738a;"> Community Directory</h4>
+                                  <b>Leasing Center 305-442-1335 <br />Leasing Fax 305-442-1336</b><br /><br />
+                              </div>
+
+                            </div>
+                         </td>
+                        <td>
+                          
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+
+
+        <tr>
+            <td colspan="2" align="center"><div align="center" class="img-container center autowidth fullwidth" style="padding-right: 0px;padding-left: 0px;">
+    <img align="center" alt="Image" border="0" class="center autowidth fullwidth" src="http://52.4.251.162:8086/content/assets/img/Sanctuary_footer_v2.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; border: 0; height: auto; width: 100%; max-width: 720px; display: block;" title="Image" width="600" />
+</div></td>
+        </tr>
+    </table>
+    <p>&nbsp;</p>
+  
+</body>
+</html>

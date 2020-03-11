@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+   
     getPropertyList();
 });
 
@@ -42,7 +43,7 @@ var getPropertyUnitList = function () {
     var bed = $("#ddlBedroom").val();
     var midate = $("#txtMoveInDate").val();
     var rent = "10000";
-    var model = { Bedroom: bed, MoveInDate: midate, MaxRent: rent };
+    var model = { Bedroom: bed, MoveInDate: midate, MaxRent: rent, LeaseTerm: $("#ddlLease").val() };
 
     $.ajax({
         url: "/Property/SetSearchFromHome/",

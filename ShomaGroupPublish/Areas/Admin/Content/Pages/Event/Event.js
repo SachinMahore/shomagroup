@@ -8,15 +8,27 @@ var SaveUpdateEvent = function () {
     var propertyId = $("#ddlProperty").val();
     var eventDate = $("#txtEventDate").val();
     var description = $("#txtDescription").val();
+    var eventType = $("#ddlEventType").val();
+    var eventTime = $("#txtEventTime").val();
+    var eventFees = $("#txtEventFees").val();
 
-    if (eventName == "") {
-        msg += "Please Fill The Event Name </br>";
-    }
     if (propertyId == "0") {
         msg += "Please Select The Property </br>";
     }
+    if (eventName == "") {
+        msg += "Please Fill The Event Name </br>";
+    }
     if (eventDate == "") {
         msg += "Please Fill The Event Date </br>";
+    }
+    if (eventTime == "") {
+        msg += "Please Fill The Event Time </br>";
+    }
+    if (eventFees == "") {
+        msg += "Please Fill The Event Fees </br>";
+    }
+    if (eventType == "0") {
+        msg += "Please Fill The Event Type </br>";
     }
     if (msg != "") {
         $.alert({
@@ -34,23 +46,28 @@ var SaveUpdateEvent = function () {
     $formData.append('PropertyID', propertyId);
     $formData.append('EventDate', eventDate);
     $formData.append('Description', description);
+    $formData.append('Type', eventType);
+    $formData.append('EventTimeString', eventTime);
+    $formData.append('Fees', eventFees);
     var photo = document.getElementById('wizard-picture');
-
-    for (var i = 0; i < photo.files.length; i++) {
-        $formData.append('file-' + i, photo.files[i]);
-        console.log(photo.files[i]);
+    if (photo.files.length > 0) {
+        for (var i = 0; i < photo.files.length; i++) {
+            $formData.append('file-' + i, photo.files[i]);
+            console.log(photo.files[i]);
+        }
     }
+    
     $.ajax({
         url: '/Admin/Event/SaveUpdateEvent',
         type: 'post',
         data: $formData,
+        dataType: 'json',
         contentType: false,
         processData: false,
-        dataType: 'json',
         success: function (response) {
             $.alert({
                 title: 'Alert!',
-                content: response.msg,
+                content: response.models,
                 type: 'blue'
             });
             setInterval(function () {
@@ -94,4 +111,6 @@ var EventList = function () {
         }
     });
 };
+
+
 

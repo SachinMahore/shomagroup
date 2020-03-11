@@ -11,6 +11,7 @@
 <input type="hidden" id="hndStateID" value="0" />
 <input type="hidden" id="hdnSearchType" value="1" />
 <input type="hidden" id="hdnCurrentPage" value="1" />
+<input type="hidden" id="hndPageNo" value="0" />
 <div class="register-area" style="background-color: rgb(249, 249, 249);">
     <div class="container" style="width:100% !important">
         <div class="breadcrumb">
@@ -26,7 +27,7 @@
                         <input type="text" id="txtCriteriaState" name="Criteria" class="form-control form-control-small" />
                     </div>
                     <div class="form-group col-md-2 padding-5">
-                        <button id="btnSearchState" class="btn btn-primary" style="margin-left:5px;" onclick="buildPaganationStateList(1)"><i class="fa fa-search"></i> SEARCH</button>
+                        <button id="btnSearchState" class="btn btn-primary" style="margin-left:-10px; height:34px" onclick="buildPaganationStateList(1)"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
                         <button id="btnGoToState" class="btn btn-success pull-right hidden" style="margin-right:15px;" onclick="goToState()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-arrow-circle-o-right"></i> Go to</button>
                     </div>
                     <div class="form-group col-md-2 padding-5 text-right">
@@ -45,7 +46,7 @@
                     <table id="tblState" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="pds-cityname" style="background-color: #c7cdd566;color:#3d3939;width:45%">State Name</th>
+                                <th class="pds-cityname" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer;width:45%" title="Sort" onclick="sortTable('stateName')">State Name <i id="sortStateIcon" class=""></i></th>
                                 <th class="pds-cityname" style="background-color: #c7cdd566;color:#3d3939;width:25%">Abbreviation</th>
                                 <th class="pds-cityname" style="background-color: #c7cdd566;color:#3d3939;width:30%">Action</th>
                             </tr>
@@ -56,9 +57,9 @@
             </div>
             <div class="col-md-5">
                 <div class="col-md-12 padding-5">
-                    <div class="form-group pull-right clearfix" style="padding-top:5px;">
+                    <div class="form-group pull-right clearfix" >
                         <button type="button" class="btn btn-primary" id="btnNewCity" onclick="clearStateData()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> NEW</button>
-                        <button type="button" class="btn btn-success" id="btnSaveUpdateCity" onclick="saveUpdateState()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">SAVE</span></button>
+                        <button type="button" class="btn btn-primary" id="btnSaveUpdateCity" onclick="saveUpdateState()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">SAVE</span></button>
                     </div>
                 </div>
                 <div class="form-group clearfix padding-5">

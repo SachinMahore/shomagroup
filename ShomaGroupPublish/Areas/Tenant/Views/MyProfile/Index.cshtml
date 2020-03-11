@@ -1,0 +1,932 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Content/fileUpload.css" rel="stylesheet" />
+
+<script src="~/Areas/Tenant/Content/Pages/MyProfile/Myrofile.js"></script>
+<input type="hidden" id="hndTenantID" value="@ViewBag.TenantID" />
+@*value="@ViewBag.TenantID "*@
+<input type="hidden" id="hndUserId" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID" /> @*value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID"*@
+
+
+
+
+
+<div class="col-lg-12">
+    <!---MY PROfile Section start-->
+    <div class="col-lg-12"><a href="javascript:void(0)" data-toggle="modal" data-target="#popChangePsw" id="btnpopChangePsw" onclick="clearForgetPasswordField()" class=" pull-right changepssw Change_Password">Change Password</a></div>
+
+    <div class="profile-picherbox">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="myprofilebox">
+                    <img class="" id="imgTenantProfilePicture" data-value="" src="~/Content/assets/img/circle.png">
+                    <i class="fa fa-plus add"></i>
+                    <input class="file-upload hidden" name="ProfilePic" id="ProfilePic" type="file" accept="image/*" />
+                    <input type="hidden" id="hndProfilePic" value="0" />
+                    <input type="hidden" id="hndOriginalProfilePic" value="0" />
+                </div>
+                <div class="nameprofile"><h3 id="FirstName"></h3><br> <h4 id="lblUnitUnitAccess"></h4></div>
+                @*<div class="nameprofile"><h3><span id="FirstName"></span></h3><br><h5><span id="lblUnitUnitAccess"></span></h5></div>*@
+            </div>
+        </div>
+    </div>
+    <!-----profile top section--End-->
+    <!-----Contact Information top section--->
+    <div class="col-lg-12 margin-top">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 ">
+                <div class="headding-sub-text col-lg-12" data-toggle="modal" data-target="#popContactInfo" id="btnContactInfo">Contact Information <img width="30" height="30" class="m-l10" src="/Content/assets/img/icon/pencilMax.png"> </div>
+                <div class="row margin-box margin-to-bot col-lg-12">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 mobile-wrapper myprofile-subtext">Name:</div>
+                    <div id="FirstName1" class="col-lg-8 col-md-8 col-sm-8 col-xs-12 mobile-wrapper myprofile-subtext" style="font-weight:bold"></div>
+                </div>
+
+                <div class="row margin-box margin-to-bot col-lg-12">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 mobile-wrapper myprofile-subtext">Mobile No.</div>
+                    <div id="Mobile1" class="col-lg-8 col-md-8 col-sm-8 col-xs-12 mobile-wrapper myprofile-subtext" style="font-weight:bold"></div>
+                </div>
+
+                <div class="row margin-box margin-to-bot col-lg-12">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 mobile-wrapper myprofile-subtext">Email:</div>
+                    <div id="Email1" class="col-lg-8 col-md-8 col-sm-8 col-xs-12 mobile-wrapper myprofile-subtext" style="font-weight:bold"></div>
+                </div>
+                @*<div class="col-sm-12  padding-5">*@
+                @*<div class="col-sm-8">
+                    <button class="edit m-t30 m-r15" data-toggle="modal" data-target="#popContactInfo" id="btnContactInfo"><i class="fa fa-edit"></i><b> Edit</b> </button>
+                </div>*@
+
+                @*</div>*@
+            </div>
+            <!-----Contact Information section-End-->
+            <!-----Vehicles section------->
+
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 ">
+                <div class="headding-sub-text col-lg-12" style="margin-bottom: 30px;">Vehicles <a href="javascript:void(0)" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus"></i></a></div>
+                <div class="row margin-box margin-to-bot col-md-12">
+                    <div class="panel-body search-widget" style="    padding-top: 0;">
+                        <div class="col-md-12 clear">
+                            <table id="tblVehicle" class="borderlessTable" style="margin-bottom:10px" width="100%">
+
+                                <tbody></tbody>
+                            </table>
+                           
+
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+
+    <!-----Contact Information top section-End-->
+    <!-----Career-section--->
+
+    <div class="col-lg-12 margin-top" style="margin-top: 5%;">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 ">
+                <div class="headding-sub-text col-lg-12" data-toggle="modal" data-target="#popWorkInfo" id="btnWorkInfo">Career<img class="m-l10" src="/Content/assets/img/icon/pencilMax.png"> </div>
+                <div class="row margin-box margin-to-bot col-lg-12">
+                    <div class="col-lg-4 col-sm-4 col-xs-12 mobile-wrapper myprofile-subtext">Job Title:</div>
+                    <div id="JobTitle" class="col-lg-8 col-sm-8 col-xs-12 mobile-wrapper myprofile-subtext" style="font-weight:bold"></div>
+                </div>
+
+                <div class="row margin-box margin-to-bot col-lg-12">
+                    <div class="col-lg-4 col-sm-4 mobile-wrapper myprofile-subtext">Employer Name:</div>
+                    <div id="EmployerName" class="col-lg-8 col-sm-8 mobile-wrapper myprofile-subtext" style="font-weight:bold"></div>
+                </div>
+
+                <div class="row margin-box margin-to-bot col-lg-12">
+                    <div class="col-lg-4 col-sm-4 col-xs-12 mobile-wrapper myprofile-subtext">Job Type:</div>
+                    <div id="JobType" class="col-lg-8 col-sm-8 col-xs-12 mobile-wrapper myprofile-subtext" style="font-weight:bold"></div>
+                </div>
+
+
+
+
+            </div>
+
+            <!-----Pets--section--->
+
+            @*<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 ">
+                <div class="headding-sub-text col-lg-12">Pets <img class="m-l10" src="/Content/assets/img/icon/pencil.png"> </div>
+                <div class="row margin-box margin-to-bot col-lg-12">
+                    <table id="tblPet" class="borderlessTable tbale-box" width="100%">
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+            </div>*@
+
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 ">
+                <div class="headding-sub-text col-lg-12" style="margin-bottom: 30px;">
+                    Pets  <a href="javascript:void(0)" data-toggle="modal" data-target="#popPet" id="btnAddPet"><i class="fa fa-plus"></i></a>
+                </div>
+                <div class="row margin-box margin-to-bot col-md-12">
+                    <div class="panel-body search-widget" style="    padding-top: 0;">
+                        <div class="col-md-12 clear">
+                            <table id="tblPet" class="borderlessTable" style="margin-bottom:10px" width="100%">
+
+                                <tbody></tbody>
+                            </table>
+                          
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-lg-12 margin-top" style="margin-top: 5%;">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 ">
+                <div class="headding-sub-text col-lg-12"  data-toggle="modal" data-target="#popEmergencyContact" id="btnEmergencyContact">Emergency Contact <img class="m-l10" src="/Content/assets/img/icon/pencilMax.png"> </div>
+                <div class="row margin-box margin-to-bot col-lg-12">
+                    <div class="col-lg-4 col-xs-12 mobile-wrapper myprofile-subtext">Name:</div>
+                    <div id="EmFirstName" class="col-lg-8 col-xs-12 mobile-wrapper myprofile-subtext" style="font-weight:bold"></div>
+                </div>
+
+                <div class="row margin-box margin-to-bot col-lg-12">
+                    <div class="col-lg-4 col-xs-12 mobile-wrapper myprofile-subtext">Relationship:</div>
+                    <div id="EmRelationship" class="col-lg-8 col-xs-12 mobile-wrapper myprofile-subtext" style="font-weight:bold"></div>
+                </div>
+                <div class="row margin-box margin-to-bot col-lg-12">
+                    <div class="col-lg-4 col-xs-12 mobile-wrapper myprofile-subtext">Address:</div>
+                    <div id="EmAddress" class="col-lg-4 col-xs-12 mobile-wrapper myprofile-subtext" style="font-weight:bold"></div>
+                </div>
+                <div class="row margin-box margin-to-bot col-lg-12">
+                    <div class="col-lg-4 col-xs-12 mobile-wrapper myprofile-subtext">Mobile Number:</div>
+                    <div id="EmMobile" class="col-lg-8 col-xs-12 mobile-wrapper myprofile-subtext" style="font-weight:bold"></div>
+                </div>
+                <div class="row margin-box margin-to-bot col-lg-12">
+                    <div class="col-lg-4 col-xs-12 mobile-wrapper myprofile-subtext">Work Phone:</div>
+                    <div id="EmWorkPhone" class="col-lg-8 col-xs-12 mobile-wrapper myprofile-subtext" style="font-weight:bold"></div>
+                </div>
+                <div class="row margin-box margin-to-bot col-lg-12">
+                    <div class="col-lg-4 col-xs-12 mobile-wrapper myprofile-subtext">Email:</div>
+                    <div id="EmEmail" class="col-lg-8 col-xs-12 mobile-wrapper myprofile-subtext" style="font-weight:bold"></div>
+                </div>
+             
+            </div>
+
+        </div>
+    </div>
+
+
+    <!---MY PROfile Section end-->
+</div>
+<div class="modal" id="popVehicle">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:732px; height:605px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <!-- Modal Header -->
+            <div class="modal-header" style="width: 100%; ">
+                <h5 class="modal-title">Edit Vehicle</h5>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input type="hidden" id="hndVehicleID" value="0" />
+                <div class="col-sm-7">
+                    <div class="form-group">
+                        <label class="">Owner Name</label>
+                        <input id="txtVehicleOwnerName" type="text" class="form-control" maxlength="20" placeholder="Owner Name" value="">
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label class="star">Upload Vehicle Registration</label>
+                        <br />
+                        <input type="file" name="fileUploadVehicleRegistation" id="fileUploadVehicleRegistation" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                        <label for="fileUploadVehicleRegistation"><i class="fa fa-upload fa-2x"></i> <span id="VehicleRegistationShow">Choose a file&hellip;</span></label>
+                        <input type="hidden" id="hndVehicleRegistation" value="0" />
+                        <input type="hidden" id="hndOriginalVehicleRegistation" value="0" />
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">Year</label>
+                        <select id="ddlVehicleyear" class="form-control form-control-small">
+                            <option value="0" selected="selected">Select Year</option>
+                            @for (int i = DateTime.Now.AddYears(-10).Year; i <= DateTime.Now.Year; i++)
+                            {
+
+                                <option value="@i">@i</option>
+
+                            }
+                        </select>
+
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">Make</label>
+                        <input id="txtVehicleMake" type="text" class="form-control" maxlength="20" placeholder="Vehicle Make" value="">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Model</label>
+                        <input id="txtVehicleModel" type="text" class="form-control" maxlength="20" placeholder="Vehicle Model" value="">
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Color</label>
+                        <input id="txtVehicleColor" type="text" class="form-control" maxlength="20" placeholder="Vehicle Color" value="">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">License Plate</label>
+                        <input id="txtVehicleLicence" type="text" class="form-control" maxlength="20" placeholder="Vehicle license" value="">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="ddlVState" class="star">State</label>
+                        <select id="ddlVState" class="form-control form-control-small"></select>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label class="">Notes</label>
+                        <textarea id="txtVehicleNote" class="form-control" maxlength="20"></textarea>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <p>Note: There is a $15 one-time charge for each vehicle registration which entitles you to easy access decal</p>
+                </div>
+                <div class="col-sm-12 text-center">
+                    <button type="submit" class="btn btn-primary" onclick="saveupdateVehiclepop()"><i class="fa fa-envelope-o"></i> Update</button>
+                    <button type="submit" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer-custom">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal" id="popContactInfo">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:732px; height:350px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <!-- Modal Header -->
+            <div class="modal-header" style="width: 100%; ">
+                <h5 class="modal-title">Edit Contact Information</h5>
+
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input type="hidden" id="hndTeanantId" value="0" />
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">First Name</label>
+                        <input id="txtFirstName" type="text" class="form-control" placeholder="First Name" value="">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="">Middle Name</label>
+                        <input id="txtMiddleName" type="text" maxlength="1" class="form-control" placeholder="Middle Name" value="">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">Last Name</label>
+                        <input id="txtLastName" type="text" class="form-control" placeholder="Last Name" value="">
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">Mobile Number</label>
+                        <input id="txtMobile" type="text" class="form-control" maxlength="10" onkeypress="return isOnlyNumber(event);" placeholder="Mobile Number" value="">
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">Email</label>
+                        <input id="txtEmail" type="text" class="form-control" maxlength="200" placeholder="Email" value="">
+                    </div>
+                </div>
+                <div class="col-sm-12 text-center">
+                    <button type="submit" class="btn btn-primary" onclick="UpdateContactInfo()"><i class="fa fa-envelope-o"></i> Update</button>
+                    <button type="submit" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer-custom">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal" id="popWorkInfo">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:732px; height:350px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <!-- Modal Header -->
+            <div class="modal-header" style="width: 100%; ">
+                <h5 class="modal-title">Edit Work Information</h5>
+
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input type="hidden" id="hndTeanantId" value="0" />
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">Employer Name</label>
+                        <input id="txtEmployerName" type="text" class="form-control" placeholder="Employer Name" value="">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="">Job Title</label>
+                        <input id="txtJobTitle" type="text" class="form-control" placeholder="Job Title" value="">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="">Job Type</label>
+                        <select id="ddlJobType" class="form-control form-control-small">
+                            <option value="0">Select</option>
+                            <option value="1">Permanent</option>
+                            <option value="2">Contract Basis</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-12 text-center">
+                    <button type="submit" class="btn btn-primary" onclick="UpdateWorkInfo()"><i class="fa fa-envelope-o"></i> Update</button>
+                    <button type="submit" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer-custom">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal" id="popEmergencyContact">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:732px; height:400px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <!-- Modal Header -->
+            <div class="modal-header" style="width: 100%;">
+                <h5 class="modal-title">Edit Emergency Contact Information</h5>
+
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input type="hidden" id="hndTeanantId" value="0" />
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star"> First Name</label>
+                        <input id="txtEmFirstName" type="text" class="form-control" placeholder="First Name" value="">
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">Last Name</label>
+                        <input id="txtEmLastName" type="text" class="form-control" placeholder="Last Name" value="">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">Relationship</label>
+                        <input id="txtEmRelationship" class="form-control form-control-small" placeholder="Relationship" type="text" />
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Address Line 1</label>
+                        <input id="txtEmergencyAddress1" type="text" class="form-control form-control-small" maxlength="300" placeholder="Address Line 1" />
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Address Line 2</label>
+                        <input id="txtEmergencyAddress2" type="text" class="form-control form-control-small" maxlength="300" placeholder="Address Line 2" />
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star"> Mobile Number</label>
+                        <input id="txtEmMobile" type="text" class="form-control" maxlength="10" onkeypress="return isOnlyNumber(event);" placeholder="Mobile Number" value="">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Home Phone</label>
+                        <input id="txtEmHomePhone" type="text" class="form-control" maxlength="10" onkeypress="return isOnlyNumber(event);" placeholder="Home Phone" value="">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="">Work Phone</label>
+                        <input id="txtEmWorkPhone" type="text" class="form-control" maxlength="10" onkeypress="return isOnlyNumber(event);" placeholder="Work Phone" value="">
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">Email</label>
+                        <input id="txtEmEmail" type="text" class="form-control" maxlength="20" placeholder="Email" value="">
+                    </div>
+                </div>
+
+                <div class="col-sm-12 text-center">
+                    <button type="submit" class="btn btn-primary" onclick="UpdateEmContactInfo()"><i class="fa fa-envelope-o"></i>Update</button>
+                    <button type="submit" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+                </div>
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer-custom">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal" id="popChangePsw">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:350px; height:450px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -24px; margin-right: -16px;">&times;</button>
+            <!-- Modal Header -->
+            <div class="modal-header" style="width: 100%; ">
+                <h5 class="modal-title">Chnage My Password</h5>
+
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input type="hidden" id="hndTeanantId" value="0" />
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="star">Old Password</label>
+                        <input id="txtOldPassword" type="password" class="form-control" placeholder="Old Password" value="">
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="star">New Password</label>
+                        <input id="txtNewPassword" type="password" class="form-control" placeholder="New Password" value="">
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="star">Confirm New Password</label>
+                        <input id="txtConfirmNewPassword" type="password" class="form-control" placeholder="Confirm New Password" value="">
+                    </div>
+                </div>
+                <div class="col-sm-12 text-center">
+                    <button type="submit" class="btn btn-primary" onclick="UpdatePasswordUser()"><i class="fa fa-envelope-o"></i> Update</button>
+                    <button type="submit" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer-custom">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal" id="popApplicant">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 100%; height:500px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <!-- Modal Header -->
+            <div class="modal-header" style="width: 100%;">
+                <h5 class="modal-title">Add Applicant</h5>
+
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input type="hidden" id="hndApplicantID" value="0" />
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="star"> First Name</label>
+                        <input id="txtApplicantFirstName" type="text" class="form-control" maxlength="100" placeholder="First Name" value="">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="star">Last Name</label>
+                        <input id="txtApplicantLastName" type="text" class="form-control" maxlength="100" placeholder="Last Name" value="">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Relationship</label>
+                        <select id="ddlARelationship" class="  form-control">
+                            <option value='0'>Select Relationship</option>
+                            <option value='1'>Spouse</option>
+                            <option value='2'>Partner</option>
+                            <option value='3'>Adult Child</option>
+                            <option value='5'>Friend/Roommate</option>
+                        </select>
+                    </div>
+                </div>
+                @*<div class="col-sm-6" id="appphone">
+                        <div class="form-group">
+                            <label>Phone No.</label>
+                            <input id="txtApplicantPhone" type="text" class="form-control" maxlength="10" placeholder="Phone" value="" onkeypress="return isOnlyNumber(event)">
+                        </div>
+                    </div>
+                    <div class="col-sm-6" id="appemail">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input id="txtApplicantEmail" type="text" class="form-control" maxlength="200" placeholder="Email" value="">
+                        </div>
+                    </div>*@
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="dob">Date of Birth</label>
+                        <input id="txtHDateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" />
+                        <input id="txtADateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" />
+                        <input id="txtMDateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" />
+                        <input id="txtGDateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select id="ddlApplicantGender" class="form-control">
+                            <option value='0'>Select Type</option>
+                            <option value='1'>Male</option>
+                            <option value='2'>Female</option>
+                            <option value='3'>Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6" id="appGenderOther">
+                    <div class="form-group">
+                        <label class="star">Other Gender</label>
+                        <input id="txtApplicantOtherGender" type="text" class="form-control" maxlength="200" placeholder="Other Gender" value="">
+                    </div>
+                </div>
+
+                <div class="col-sm-4 hidden">
+                    <div class="form-group">
+                        <label id="">Type</label>
+                        <label class="form-control form-control-small" id="ddlApplicantType"></label>
+                    </div>
+                </div>
+                <div class="col-sm-12 text-center">
+                    <button type="submit" class="btn btn-primary" onclick="saveupdateApplicant()">Save</button>
+                    <button type="submit" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+                </div>
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer-custom">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal" id="popPet">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 100%; height:432px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <!-- Modal Header -->
+            <div class="modal-header" style="width: 100%;">
+                <h5 class="modal-title">Add Pet</h5>
+
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+
+                <input type="hidden" id="hndPetID" value="0" />
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="">What is your Pet's Name?</label>
+                        <input id="txtpetName" type="text" class="form-control" maxlength="20" placeholder="Pet Name" value="">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="star">Breed</label>
+                        <input id="txtpetBreed" type="text" class="form-control" maxlength="20" placeholder="Breed" value="">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Weight</label>
+                        <input id="txtpetWeight" type="text" class="form-control" maxlength="20" placeholder="Weight" value="">
+                    </div>
+                </div>
+                @*<div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Age</label>
+                            <input id="txtpetAge" type="text" class="form-control" maxlength="20" placeholder="Age" value="">
+                        </div>
+                    </div>*@
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Vet's Name</label>
+                        <input id="txtpetVetsName" type="text" class="form-control" placeholder="Vet's Name'" value="">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="">Upload Photo</label>
+                        <br />
+                        <input type="file" name="pet-picture" id="pet-picture" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                        <label for="pet-picture"><i class="fa fa-upload fa-2x"></i> <span id="filePetPictireShow">Choose a file&hellip;</span></label>
+                        <input type="hidden" id="hndPetPicture" value="0" />
+                        <input type="hidden" id="hndOriginalPetPicture" value="0" />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="star">Upload pet vaccination certificate</label>
+                        <br />
+                        <input type="file" name="filePetVaccinationCertificate" id="filePetVaccinationCertificate" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                        <label for="filePetVaccinationCertificate"><i class="fa fa-upload fa-2x"></i> <span id="filePetVaccinationCertificateShow">Choose a file&hellip;</span></label>
+                        <input type="hidden" id="hndPetVaccinationCertificate" value="0" />
+                        <input type="hidden" id="hndOriginalPetVaccinationCertificate" value="0" />
+                    </div>
+                </div>
+
+                <div class="col-sm-12 text-center">
+
+                    <div class="pull-right text-center">
+                        <button type="submit" class="btn btn-primary" onclick="saveupdatePet()"><i class="fa fa-envelope-o"></i> Save</button>
+                        <button type="submit" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer-custom">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal" id="popPaymentBreakdown">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 47%; height:560px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <div class="modal-header center">
+                <h3 class="modal-title">Payment Details</h3>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body table-bordered">
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Monthly Charges :</label>
+                            <label id="lblMonthlyChargesBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Additional Parking :</label>
+                            <label id="lblAdditionalParkingBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Storage Charges :</label>
+                            <label id="lblStorageChargesBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Pet Rent :</label>
+                            <label id="lblPetRentBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Trash/Recycle :</label>
+                            <label id="lblTrashRecycleBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Pest Control :</label>
+                            <label id="lblPestControlBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Convergent Billing :</label>
+                            <label id="lblConvergentBillingBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label style="color:green;font-weight:bold">Total Monthly Charges :</label>
+                            <label id="lblTotalMonthlyChargesBreakdown" style="color:green;font-weight:bold;text-decoration:underline;"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(function () {
+
+        $("#txtDateOfBirth").datepicker();
+        $("#txtADateOfBirth").datepicker();
+        $("#txtFromDate").datepicker();
+        $("#txtToDate").datepicker();
+        $("#txtTransFromDate").datepicker();
+        $("#txtTransToDate").datepicker();
+
+        $("#txtChargeDate").datepicker();
+        $("#txtGuestVistStartDate").datepicker();
+        $("#txtGuestVistEndDate").datepicker();
+        $("#ddlTransactionType").val(0);
+        $("#ddlTransactionType").trigger('change');
+
+        setTimeout(function () {
+            $("#ddlChargeType").val(2);
+            $("#ddlChargeType").trigger('change');
+        }, 3000);
+
+    });
+
+
+</script>
+@*<style>
+        .btn-blue {
+            background-color: #4d738a;
+            color: #fff;
+        }
+
+            .btn-blue:hover {
+                background-color: #B7B0A7;
+                color: #fff;
+            }
+
+        .close {
+            color: #fff;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            opacity: 1;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+                opacity: 1;
+            }
+    </style>*@
+@*<style>
+        body {
+            background-color: #efefef;
+        }
+
+        .profile-pic {
+            max-width: 200px;
+            max-height: 200px;
+            display: block;
+        }
+
+        .file-upload {
+            display: none;
+        }
+
+        .circle {
+            border-radius: 1000px !important;
+            overflow: hidden;
+            width: 150px;
+            height: 150px;
+            border: 8px solid rgba(255, 255, 255, 0.7);
+            /*position: absolute;*/
+            top: 72px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .p-image {
+            position: absolute;
+            top: 133px;
+            right: 77px;
+            color: #666666;
+            transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+        }
+
+            .p-image:hover {
+                transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+            }
+
+        .upload-button {
+            font-size: 1.2em;
+        }
+
+            .upload-button:hover {
+                transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+                color: #999;
+            }
+
+        a.disabled {
+            pointer-events: none;
+            cursor: default;
+            color: #B4ADA5;
+        }
+
+        .affix {
+            position: fixed !important;
+            background-color: white !important;
+            z-index: 777 !important;
+            padding-right: 30px !important;
+        }
+    </style>*@
+<script>
+    $(document).ready(function () {
+
+        var readURL = function (input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('.myprofilebox').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+        $(".file-upload").on('change', function () {
+            readURL(this);
+        });
+
+        $(".add").on('click', function () {
+            $(".file-upload").click();
+        });
+    });
+</script>
+

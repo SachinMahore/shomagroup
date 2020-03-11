@@ -9,6 +9,11 @@
 <input type="hidden" id="hndPID" value="0" />
 <input type="hidden" id="hndIDNumber" value="" />
 <input type="hidden" id="hndSSNNumber" value="" />
+<input type="hidden" id="hndHasPOI" value="0" />
+<input type="hidden" id="hndPOI" value="0" />
+<input type="hidden" id="hndOriginalPOI" value="0" />
+<input type="hidden" id="hndPOE" value="0" />
+<input type="hidden" id="hndOriginalPOE" value="0" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container" style="width:100%!important">
@@ -25,25 +30,39 @@
                             <a href="javascript:void(0)" class="btn-success" style="padding:5px" onclick="gotoList()"> Prospect List</a>
 
                         </div>
-                        <span class="pull-right hidden" style="color:red;font-size: 15px;margin-right: 10px;" id="getting-startedTimeRemainingClock"></span>
 
                     </div>
 
                     <ul style="line-height: 14px;" class="nav nav-tabs wizard">
                         @*<li class="active" style="padding-right:2px" id="li1"><a href="javascript:void(0);" onclick="goToStep(1,1)"> 1. Floor Plan </a></li>
-                            <li id="li2"><a href="javascript:void(0);" id="as2" onclick="goToStep(2,0)">2. Select Units</a></li>*@
+            <li id="li2"><a href="javascript:void(0);" id="as2" onclick="goToStep(2,0)">2. Select Units</a></li>*@
                         <li id="li3"><a href="javascript:void(0);" id="as3" onclick="goToStep(3,3)">1. Registration</a></li>
-                        <li id="li4"><a href="javascript:void(0);" id="as4" onclick="goToStep(5,5)">2. Quotation</a></li>
+                        <li id="li18"><a href="javascript:void(0);" id="as18" onclick="goToStep(4,4)">2. Unit Details</a></li>
+                        <li id="li4"><a href="javascript:void(0);" id="as4" onclick="goToStep(5,5)">3. Quotation</a></li>
                         @*<li id="li5"><a href="javascript:void(0);" id="as5" onclick="goToStep(6,6)">3. Policies & Conditions </a></li>*@
-                        <li id="li6"><a href="javascript:void(0);" id="as6" onclick="goToStep(7,7)">3. Application</a></li>
-                        <li id="li7"><a href="javascript:void(0);" id="as7" onclick="goToStep(17,17)">4. Convert To Tenant</a></li>
+                        <li id="li6"><a href="javascript:void(0);" id="as6" onclick="goToStep(7,7)">4. Application</a></li>
+                        <li id="li17"><a href="javascript:void(0);" id="as7" onclick="goToStep(17,17)">5. Screening Status</a></li>
+                        <li id="li18"><a href="javascript:void(0);" id="as8" onclick="goToStep(18,18)">6. Move In Checklist</a></li>
                     </ul>
+                    <div class="text-center">
+                        <ul class="nav nav-tabs hidden text-center" style="margin-top:-14px !important;background-color:#4d738a !important;height:29px !important" id="subMenu">
+                            <li class="active" id="li7"><a style="padding: 3px 15px!important;margin-left:4px !important" onclick="goToStep(7,7)" href="javascript:void(0);">a. Applicants</a></li>
+                            <li id="li8"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(8,8)">b. Responsibility</a></li>
+                            <li id="li9"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(9,9)">c. Personal Info</a></li>
+                            <li id="li10"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(10,10)">d. Residence History</a></li>
+                            <li id="li11"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(11,11)">e. Employment and Income</a></li>
+                            <li id="li12"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(12,12)">f. Emergency Contacts </a></li>
+                            <li id="li13"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(13,13)">g. Vehicle Info</a></li>
+                            <li id="li14"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(14,14)">h. Pet Info</a></li>
+                            <li id="li15"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(15,15)">i. Lease</a></li>
+                            <li id="li16"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(16,16)">j. Payment </a></li>
+                        </ul>
+                    </div>
                     <div class="tab-content">
                         <div class="" id="step1">
                             <div class="row p-b-15  ">
                                 <div class="col-sm-12">
                                     <p>
-
                                         <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                             <div class="panel-heading">
                                                 <h3 class="panel-title">Select Floor Plan</h3>
@@ -70,15 +89,15 @@
                                             </select>
                                         </div>
                                         @*<label class="col-sm-2">Max Rent:</label>
-                                            <div class="col-xs-2  form-group-sm">
+                            <div class="col-xs-2  form-group-sm">
 
-                                                <input type="text" id="txtMaxRent" class="form-control" value="@Model.MaxRent" placeholder="Max Rent" />
-                                            </div>*@
+                                <input type="text" id="txtMaxRent" class="form-control" value="@Model.MaxRent" placeholder="Max Rent" />
+                            </div>*@
                                         <input type="hidden" id="hndbuilding" value="1" />
                                         <input type="hidden" id="txtMaxRent" class="form-control" value="@Model.MaxRent" placeholder="Max Rent" />
                                         @*<div class="col-xs-1">
-                                                <button class="btn-primary hollow btn" style="padding: 7px 7px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
-                                            </div>*@
+                                <button class="btn-primary hollow btn" style="padding: 7px 7px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
+                            </div>*@
                                         <h5 class="col-sm-1">Sort</h5>
                                         <div class="col-xs-2">
                                             @*<div class="col-xs-12">*@
@@ -191,8 +210,6 @@
                                                 <div class="col-sm-6 hidden">
                                                     <span id="">&nbsp;</span>
                                                 </div>
-
-
                                             </div>
                                         </div>
                                     </div>
@@ -203,7 +220,6 @@
                                             <thead>
                                                 <tr><th><b>Apartment</b></th><th><b>Price/Mo</b></th><th><b>Premium</b></th><th><b>Availability</b></th></tr>
                                             </thead>
-
                                         </table>
                                     </div>
                                     <div style="width:100%;height:350px;overflow-y:scroll;">
@@ -300,52 +316,34 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="txtFirstName" class="star">First Name</label>
-                                    <input type="text" class="form-control" id="txtFirstName" value="@Model.FirstName" placeholder="First Name" disabled="disabled">
+                                    <label for="txtFirstName">First Name</label> :
+                                    <label id="txtFirstName" style="text-decoration:underline">@Model.FirstName</label>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="txtLastName" class="star">Last Name</label>
-                                    <input type="text" class="form-control" id="txtLastName" value="@Model.LastName" placeholder="Last Name" disabled="disabled">
+                                    <label for="txtLastName">Last Name</label> :
+                                    <label id="txtLastName" style="text-decoration:underline">@Model.LastName</label>
                                 </div>
                             </div>
-
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="txtPhone" class="star">Mobile</label>
-                                    <input type="text" class="form-control" id="txtPhoneNumber" maxlength="10" value="@Model.Phone" onkeypress="return isOnlyNumber(event)" placeholder="Phone Number" disabled="disabled">
+                                    <label for="txtPhone">Mobile</label> :
+                                    <label id="txtPhoneNumber" style="text-decoration:underline"></label>
                                 </div>
                             </div>
-
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="txtEmail" class="star">Email</label>
-                                    <input type="text" class="form-control" id="txtEmail" value="@Model.Email" placeholder="Email" disabled="disabled">
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="txtPassword" class="star">Password</label>
-                                    <input type="password" class="form-control" id="txtPassword" value="@Model.Password" placeholder="Password" disabled="disabled">
+                                    <label for="txtEmail">Email</label> :
+                                    <label id="txtEmail" style="text-decoration:underline">@Model.Email</label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="txtPassword" class="star">Confirm Password</label>
-                                    <input type="password" class="form-control" id="txtConfPassword" value="@Model.Password" placeholder="Confirm Password" disabled="disabled">
+                                    <label for="email">Market Source</label> :
+                                    <label id="ddlMarketSource" style="text-decoration:underline">@Model.MarketsourceString</label>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="email">Market Source</label>
-                                    <select id="ddlMarketSource" class="form-control" disabled="disabled"></select>
-                                </div>
-                            </div>
-
-
-
                             <div class="col-sm-12 hidden" id="divstep3save">
                                 <div class="pull-left text-center hidden">
                                     <div class="checkbox">
@@ -395,7 +393,7 @@
 
                                                 <span class="property-info-entry">
                                                     <span class="property-info-label">Lease</span>
-                                                    <span class="property-info-value"><span id="lblLease"></span> Mo</span>
+                                                    <span class="property-info-value"><span id="lblLease">@Model.LeaseTerm</span> Mo</span>
                                                 </span>
                                             </div>
                                             <div class="col-xs-6 col-sm-6 col-md-6 p-b-15">
@@ -425,7 +423,7 @@
 
                                                 <span class="property-info-entry">
                                                     <span class="property-info-label">Rent</span>
-                                                    <span class="property-info-value"><span id="lblRent"></span></span>
+                                                    $<span class="property-info-value"><span id="lblRent"></span></span>
                                                 </span>
                                             </div>
 
@@ -525,7 +523,7 @@
                                         <span id="">Lease Term: </span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span id="lblLease2"></span> Mo
+                                        <span id="lblLease2">@Model.LeaseTerm</span> Mo
                                     </div>
 
                                     <div class="col-sm-6">
@@ -645,7 +643,7 @@
                                     <div class="col-sm-4">
                                         <b>Total Estimated monthly payment *</b>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4" style="color:green;">
                                         <b>$<span id="lbltotalAmount"></span></b>
                                     </div>
                                 </div>
@@ -654,7 +652,7 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="col-sm-12">
-                                        <p><i class="star"></i> Excluding the utility reimbursement for water & sewer which is  billed monthly based on actual consumption</p>
+                                        <p><i></i> Excluding the utility reimbursement for water & sewer which is  billed monthly based on actual consumption</p>
                                     </div>
 
                                 </div>
@@ -750,7 +748,7 @@
                                                 <span>PHONE: </span>
                                             </div>
                                             <div class="col-sm-9">
-                                                <span id="lblFNLPhone" style="text-decoration:underline;font-weight:bold;">@Model.Phone</span>
+                                                <span id="lblFNLPhone" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
@@ -776,7 +774,7 @@
                                                 <span>TERM: </span>
                                             </div>
                                             <div class="col-sm-9">
-                                                <span id="lblFNLTerm" style="text-decoration:underline;font-weight:bold;"></span>
+                                                <span id="lblFNLTerm" style="text-decoration:underline;font-weight:bold;">@Model.LeaseTerm</span>
                                             </div>
                                         </div>
                                     </div>
@@ -907,7 +905,7 @@
                                                 <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
                                             </div>
                                             <div class="col-sm-3">
-                                                $<span style="text-decoration:underline;font-weight:bold;">@((Model.TrashAmt ?? 0).ToString("0.00"))</span>
+                                                $<span style="text-decoration:underline;font-weight:bold;" id="lblMonthly_TrashRecycle">@((Model.TrashAmt ?? 0).ToString("0.00"))</span>
                                             </div>
                                             <div class="col-sm-3">
                                                 $ <span id="lblProrated_TrashAmt" style="text-decoration:underline;font-weight:bold;"></span>
@@ -922,7 +920,7 @@
                                                 <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
                                             </div>
                                             <div class="col-sm-3">
-                                                $<span style="text-decoration:underline;font-weight:bold;">@((Model.PestAmt ?? 0).ToString("0.00"))</span>
+                                                $<span style="text-decoration:underline;font-weight:bold;" id="lblMonthly_PestControl">@((Model.PestAmt ?? 0).ToString("0.00"))</span>
                                             </div>
                                             <div class="col-sm-3">
                                                 $ <span id="lblProrated_PestAmt" style="text-decoration:underline;font-weight:bold;"></span>
@@ -937,7 +935,7 @@
                                                 <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
                                             </div>
                                             <div class="col-sm-3">
-                                                $<span style="text-decoration:underline;font-weight:bold;">@((Model.ConvergentAmt ?? 0).ToString("0.00"))</span>
+                                                $<span style="text-decoration:underline;font-weight:bold;" id="lblMonthly_ConvergentBillingCharges">@((Model.ConvergentAmt ?? 0).ToString("0.00"))</span>
                                             </div>
                                             <div class="col-sm-3">
                                                 $ <span id="lblProrated_ConvergentAmt" style="text-decoration:underline;font-weight:bold;"></span>
@@ -957,10 +955,10 @@
                                             <div class="col-sm-1">
                                                 <span style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-3" style="color:green;">
                                                 $<span id="lblMonthly_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-3" style="color:green;">
                                                 $ <span id="lblProrated_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                         </div>
@@ -1043,7 +1041,7 @@
                                                 <span style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                             <div class="col-sm-2">
-                                                $<span id="lblProratedRent" style="text-decoration:underline;font-weight:bold;"></span>
+                                                $<span id="lblProratedRent" style="text-decoration:underline;font-weight:bold;">@((Model.Prorated_Rent ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
 
@@ -1054,8 +1052,8 @@
                                             <div class="col-sm-3">
                                                 <span style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
-                                            <div class="col-sm-2">
-                                                $<span style="text-decoration:underline;font-weight:bold;" id="ftotal"></span>
+                                            <div class="col-sm-2" style="color:green;">
+                                                $<span style="text-decoration:underline;font-weight:bold;" id="ftotal">@((Model.MoveInCharges ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
                                     </div>
@@ -1184,8 +1182,7 @@
                                     <h3 class="panel-title">FIRST TELL US WHO WILL BE LIVING WITH YOU </h3>
                                 </div>
                                 <div class="col-md-12 clear">
-                                    <div id="tblApplicant" class="proerty-th">
-                                    </div>
+                                    <div id="tblApplicant" class="proerty-th"></div>
                                 </div>
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Minor </h3>
@@ -1291,7 +1288,7 @@
                                             <span>Total Due at Move In</span>
                                         </div>
                                         <div class="col-sm-1"></div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-3" style="color:green;">
                                             $<span style="text-decoration:underline;font-weight:bold;" id="lbtotdueatmov6"></span>
                                         </div>
                                     </div>
@@ -1337,6 +1334,33 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
+                                        <div class="col-sm-8">
+                                            <span>Trash/Recycle </span>
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-3">
+                                            $<span id="lblRFPTrashRecycling" style="text-decoration:underline;font-weight:bold;">@((Model.TrashAmt ?? 0).ToString("0.00"))</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-8">
+                                            <span>Pest Control </span>
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-3">
+                                            $<span id="lblRFPPestControl" style="text-decoration:underline;font-weight:bold;">@((Model.PestAmt ?? 0).ToString("0.00"))</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-8">
+                                            <span>Convergent billing fee </span>
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-3">
+                                            $<span id="lblRFPConvergentbillingfee" style="text-decoration:underline;font-weight:bold;">@((Model.ConvergentAmt ?? 0).ToString("0.00"))</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
                                         <div class="col-sm-8"></div>
 
                                         <div class="col-sm-4"><hr></div>
@@ -1346,7 +1370,7 @@
                                             <span>Total Monthly Payment</span>
                                         </div>
                                         <div class="col-sm-1"></div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-3" style="color:green;">
                                             $<span id="lblRFPTotalMonthlyPayment" style="text-decoration:underline;font-weight:bold;"></span>
                                         </div>
                                     </div>
@@ -1383,21 +1407,7 @@
                         <div class="col-md-12">
                             <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Personal Information </h3>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="col-sm-4">
-                                <label class="star">
-                                    International Applicant ?
-                                </label>
-                                <div class="form-group">
-                                    <select id="ddlIsInter" class="form-control" style="width:100%!important" disabled="disabled">
-                                        <option value="1">Yes</option>
-                                        <option value="0">No</option>
-                                    </select>
+                                    <h3 class="panel-title">Personal Information</h3>
 
                                 </div>
                             </div>
@@ -1405,64 +1415,62 @@
                         <div class="col-sm-12">
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label class="star">First Name</label>
-                                    <input class="form-control form-control-small" id="txtFirstNamePersonal" maxlength="50" value="" disabled="disabled" />
+                                    <label>International Applicant ?</label> :
+                                    <label id="ddlIsInter"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>First Name</label> :
+                                    <label id="txtFirstNamePersonal"></label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="txtMiddleInitial">Middle Initial</label>
-                                    <input id="txtMiddleInitial" class="form-control form-control-small" maxlength="1" type="text" disabled="disabled" />
+                                    <label>Middle Initial</label> :
+                                    <label id="txtMiddleInitial"></label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label class="star">Last Name</label>
-                                    <input class="form-control form-control-small" id="txtLastNamePersonal" maxlength="50" disabled="disabled" />
+                                    <label>Last Name</label> :
+                                    <label id="txtLastNamePersonal"></label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="txtDateOfBirth" class="star">Date of Birth</label>
-                                    <input id="txtDateOfBirth" class="form-control" type="text" disabled="disabled" />
+                                    <label for="txtDateOfBirth">Date of Birth</label> :
+                                    <label id="txtDateOfBirth"></label>
                                 </div>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="ddlGender" class="star">Gender</label>
-                                    <select id="ddlGender" class=" form-control" style="width:100%!important" disabled="disabled">
-                                        <option value="0">-Status-</option>
-                                        <option value="1">Male</option>
-                                        <option value="2">Female</option>
-                                        <option value="3">Other</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label>&nbsp;</label>
-                                    <input id="txtOtherGender" class="form-control" type="text" disabled="disabled" />
+                                    <label for="ddlGender">Gender</label> :
+                                    <label id="ddlGender"></label>
+                                    <label id="txtOtherGender"></label>
                                 </div>
                             </div>
                             <div class="col-sm-4" id="divSSNNumber">
                                 <div class="form-group">
-                                    <label id="lblSSNNumber" for="txtSSNNumber" class="star">SSN Number</label>
-                                    <input class="form-control form-control-small" id="txtSSNNumber" value="" maxlength="9" disabled="disabled" />
+                                    <label id="lblSSNNumber" for="txtSSNNumber">SSN Number</label> :
+                                    <label id="txtSSNNumber"></label>
                                 </div>
                             </div>
 
                         </div>
                         <div class="col-sm-12">
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="txtEmailNew" class="star">Email</label>
-                                    <input id="txtEmailNew" class="form-control form-control-small" type="text" disabled="disabled" />
+                                    <label for="txtEmailNew">Email</label> :
+                                    <label id="txtEmailNew"></label>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="txtMobileNumber" class="star">Mobile Number</label>
-                                    <input id="txtMobileNumber" class="form-control form-control-small" maxlength="10" type="text" onkeypress="return isOnlyNumber(event)" disabled="disabled" />
+                                    <label for="txtMobileNumber">Mobile Number</label> :
+                                    <label id="txtMobileNumber"></label>
                                 </div>
                             </div>
                         </div>
@@ -1471,47 +1479,45 @@
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">Passport Information </h3>
-
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <label for="txtPassportNum" class="star">Passport Number</label>
-                                        <input id="txtPassportNum" class="form-control form-control-small" type="text" disabled="disabled" />
+                                        <label for="txtPassportNum">Passport Number</label> :
+                                        <label id="txtPassportNum"></label>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <label for="txtCOI" class="star">Country Of Issuance</label>
-                                        <input id="txtCOI" class="form-control form-control-small" maxlength="30" type="text" disabled="disabled" />
+                                        <label for="txtCOI">Country Of Issuance</label> :
+                                        <label id="txtCOI"></label>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <label for="txtDateOfIssuance" class="star">Date of Issuance</label>
-                                        <input id="txtDateOfIssuance" class="form-control form-control-small" type="text" disabled="disabled" />
+                                        <label for="txtDateOfIssuance">Date of Issuance</label> :
+                                        <label id="txtDateOfIssuance"></label>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <label for="txtDateOfExpiration" class="star">Date of Expiration</label>
-                                        <input id="txtDateOfExpiration" class="form-control form-control-small" type="text" disabled="disabled" />
+                                        <label for="txtDateOfExpiration">Date of Expiration</label> :
+                                        <label id="txtDateOfExpiration"></label>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group hidden">
-                                        <label class="star">Download Passport</label><br />
+                                        <label>Download Passport</label><br />
                                         <input type="file" name="fileUploadPassport" id="fileUploadPassport" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
                                         <label for="fileUploadPassport"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadPassportShow">Choose a file&hellip;</span></label>
                                         <input type="hidden" id="hndHasPassportFile" value="0" />
-                                        @*<input type="hidden" id="hndPassportUploadName" value="0" />*@
                                         <input type="hidden" id="hndOriginalPassportUploadName" value="0" />
                                     </div>
                                     <div class="form-group">
-                                        <label class="star">Download Passport</label><br />
-                                        <span class=" btn-primary"><i class="fa fa-download fa-2x"></i><a href="#" class=" btn-primary" target='_blank' download="" id="hndPassportUploadName"></a></span>
+                                        <label>Download Passport</label><br />
+                                        <span class=" btn-primary"><i class="fa fa-download fa-2x"></i><a href="#" class=" btn-primary" target='_parent' download="" id="hndPassportUploadName"></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -1520,47 +1526,38 @@
                             <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Identification </h3>
-
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="ddlDocumentType" class="star">ID Type</label>
-                                    <select id="ddlDocumentTypePersonal" class="form-control " style="width:100%!important" disabled="disabled">
-                                        <option value="0">Select</option>
-                                        <option value="1">Driver's License</option>
-                                        <option value="2">Military ID</option>
-                                        <option value="4">State Issued ID</option>
-                                        <option value="3">Passport</option>
-                                    </select>
+                                    <label for="ddlDocumentType">ID Type</label> :
+                                    <label id="ddlDocumentTypePersonal"></label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label id="lblStatePersonal"> State :</label>
-                                    <select id="ddlStatePersonal" class="form-control" disabled="disabled"></select>
+                                    <label id="lblStatePersonal">State</label> :
+                                    <label id="ddlStatePersonal"></label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label id="lblIDNumber" for="txtIDNumber" class="star">ID Number</label>
-                                    <input class="form-control form-control-small" id="txtIDNumber" value="" disabled="disabled" />
+                                    <label id="lblIDNumber" for="txtIDNumber">ID Number</label> :
+                                    <label id="txtIDNumber"></label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group hidden">
-
                                     <input type="file" name="fileUploadIdentity" id="fileUploadIdentity" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
                                     <label for="fileUploadIdentity"><i class="fa fa-download fa-2x"></i> <span id="fileUploadIdentityShow">Choose a file&hellip;</span></label>
                                     <input type="hidden" id="hndHasIdentityFile" value="0" />
-
                                     <input type="hidden" id="hndOriginalIdentityUploadName" value="0" />
                                 </div>
                                 <div class="form-group">
-                                    <label class="star">Download <span id="lblUploadIdentity"></span></label><br />
-                                    <span class=" btn-primary"><i class="fa fa-download fa-2x"></i><a href="#" class=" btn-primary" target='_blank' id="hndIdentityUploadName"></a></span>
+                                    <label>Download <span id="lblUploadIdentity"></span></label><br />
+                                    <a href="javascript:void(0);" class="btn btn-primary" target='_parent' id="hndIdentityUploadName"><i class="fa fa-download fa-2x"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -1586,93 +1583,82 @@
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <p>*Need at least 3 years of history</p>
+                            <p>3 Year's of History</p>
                         </div>
                         <div class="col-sm-12">
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="txtCountry" class="star">Country</label>
-                                    @*<input id="txtCountry" type="text" class="form-control form-control-small" maxlength="300" />*@
-                                    <select id="txtCountry" class="form-control" disabled="disabled"></select>
+                                    <label for="txtCountry">Country</label> :
+                                    <label id="txtCountry"></label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="txtAddress1" class="star">Address Line 1</label>
-                                    <input id="txtAddress1" type="text" class="form-control form-control-small" maxlength="300" disabled="disabled" />
+                                    <label for="txtAddress1">Address Line 1</label> :
+                                    <label id="txtAddress1"></label>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="txtAddress2">Address Line 2</label>
-                                    <input id="txtAddress2" type="text" class="form-control form-control-small" maxlength="300" disabled="disabled" />
+                                    <label for="txtAddress2">Address Line 2</label> :
+                                    <label id="txtAddress2"></label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12">
-
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label class="star"> State :</label>
-                                    <select id="ddlStateHome" class="form-control" disabled="disabled"></select>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label class="star"> City :</label>
-                                    @*<select id="ddlCityHome" class="form-control"></select>*@
-                                    <input id="ddlCityHome" type="text" class="form-control form-control-small" maxlength="100" disabled="disabled" />
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="txtZip" class="star">Zip</label>
-                                    <input class="form-control form-control-small" id="txtZip" maxlength="7" disabled="disabled" />
+                                    <label>State</label> :
+                                    <label id="ddlStateHome"></label>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label for="ddlRentOwn"> Do you rent or own </label>
-                                    <select id="ddlRentOwn" class="form-control form-control-small" disabled="disabled">
-                                        <option value="0">Select</option>
-                                        <option value="1">Rent</option>
-                                        <option value="2">Own</option>
-                                    </select>
+                                    <label>City</label> :
+                                    <label id="ddlCityHome"></label>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label for="txtMoveInDate" class="star"> Move In Date</label>
-                                    <input id="txtMoveInDateFrom" type="text" class="form-control form-control-small" value="" disabled="disabled" />
+                                    <label for="txtZip">Zip</label> :
+                                    <label id="txtZip"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="ddlRentOwn">Do you rent or own?</label> :
+                                    <label id="ddlRentOwn"></label>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label for="txtMoveInDate"> Move Out Date</label>
-                                    <input id="txtMoveInDateTo" type="text" class="form-control form-control-small" value="" disabled="disabled" />
+                                    <label for="txtMoveInDate">Move In Date</label> :
+                                    <label id="txtMoveInDateFrom"></label>
                                 </div>
                             </div>
                             <div class="col-sm-3">
-                                <label for="txtMonthlyPayment" class="star"> Monthly Payment </label>
-                                <div class="input-group">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
-                                    </span>
-                                    <input id="txtMonthlyPayment" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" disabled="disabled" />
+                                <div class="form-group">
+                                    <label for="txtMoveInDate">Move Out Date</label> :
+                                    <label id="txtMoveInDateTo"></label>
                                 </div>
                             </div>
-
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="txtMonthlyPayment">Monthly Payment</label> :
+                                    <label id="txtMonthlyPayment"></label>
+                                </div>
+                            </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label for="txtReasonforleaving"> Reason for leaving </label>
-                                    <input id="txtReasonforleaving" type="text" class="form-control" disabled="disabled" />
+                                    <label for="txtReasonforleaving">Reason for leaving</label> :
+                                    <label id="txtReasonforleaving"></label>
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="col-sm-12">
                             <div class="col-sm-6">
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated  pull-left">
@@ -1681,10 +1667,6 @@
 
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-6 ">
-                                <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#popApplicantHistory" id="btnAddAHR"><i class="fa fa-plus-circle"></i> Add</button>
-                                <input id="hdnAHRId" type="hidden" value="0" />
                             </div>
                         </div>
                         <div class="col-sm-12 ">&nbsp;</div>
@@ -1736,68 +1718,58 @@
                         <div class="col-sm-12">
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="txtEmployerName" class="star">Employer Name</label>
-                                    <input id="txtEmployerName" class="form-control form-control-small" type="text" disabled="disabled" />
+                                    <label for="txtEmployerName">Employer Name</label> :
+                                    <label id="txtEmployerName"></label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="txtJobTitle">Job Title</label>
-                                    <input id="txtJobTitle" class="form-control form-control-small" type="text" disabled="disabled" />
+                                    <label for="txtJobTitle">Job Title</label> :
+                                    <label id="txtJobTitle"></label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label> Job Type </label>
-                                    <select id="ddlJobType" class="form-control form-control-small" disabled="disabled">
-                                        <option value="0">Select</option>
-                                        <option value="1">Permanent</option>
-                                        <option value="2">Contract Basis</option>
-                                    </select>
+                                    <label>Job Type</label> :
+                                    <label id="ddlJobType"></label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label class="star">Start Date</label>
-                                    <input id="txtStartDate" class="form-control form-control-small" type="text" disabled="disabled" />
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <label for="txtAnnualIncome" class="star"> Annual Income </label>
-                                <div class="input-group">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
-                                    </span>
-                                    <input id="txtAnnualIncome" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" disabled="disabled" />
+                                    <label>Start Date</label> :
+                                    <label id="txtStartDate"></label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="txtAddAnnualIncome"> Additional Annual Income</label>
-                                    <div class="input-group">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
-                                        </span>
-                                        <input id="txtAddAnnualIncome" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" disabled="disabled" />
+                                    <label for="txtAnnualIncome">Annual Income</label> :
+                                    <label id="txtAnnualIncome"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label for="txtAddAnnualIncome">Additional Annual Income</label> :
+                                        <label id="txtAddAnnualIncome"></label>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>Supervisor Name</label>
-                                    <input id="txtSupervisiorName" class="form-control form-control-small" type="text" disabled="disabled" />
+                                    <label>Supervisor Name</label> :
+                                    <label id="txtSupervisiorName"></label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>Supervisor Phone</label>
-                                    <input id="txtSupervisiorPhone" class="form-control form-control-small" type="text" onkeypress="return isOnlyNumber(event)" maxlength="10" disabled="disabled" />
+                                    <label>Supervisor Phone</label> :
+                                    <label id="txtSupervisiorPhone"></label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>Supervisor Email</label>
-                                    <input id="txtSupervisiorEmail" class="form-control form-control-small" type="text" disabled="disabled" />
+                                    <label>Supervisor Email</label> :
+                                    <label id="txtSupervisiorEmail"></label>
                                 </div>
                             </div>
                         </div>
@@ -1808,12 +1780,17 @@
                         <div class="col-sm-12">
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <input id="rbtnPaystub" class="form-control form-control-small" type="radio" name="tax" />
+                                    <input id="rbtnPaystub" class="form-control form-control-small" type="radio" name="tax" disabled="disabled" />
                                     <label for="rbtnPaystub">Paystub</label>
-                                    <input id="rbtnFedralTax" class="form-control form-control-small" type="radio" name="tax" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <input id="rbtnFedralTax" class="form-control form-control-small" type="radio" name="tax" disabled="disabled" />
                                     <label for="rbtnFedralTax">Fedral Tax Return</label>
                                 </div>
                             </div>
+                            <div class="col-sm-4">&nbsp;</div>
                         </div>
                         <div class="col-sm-12">
                             <div class="col-sm-4">
@@ -1826,8 +1803,8 @@
                                     <input type="hidden" id="hndOriginalFileUploadName1" value="0" />
                                 </div>
                                 <div class="form-group">
-                                    <label class="star" id="lblUpload1">Download 1</label><br />
-                                    <span class=" btn-primary"><i class="fa fa-download fa-2x"></i><a href="#" class=" btn-primary" target='_blank' download="" id="hndFileUploadName1"></a></span>
+                                    <label id="lblUpload1">Download 1</label><br />
+                                    <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="hndFileUploadName1"><i class="fa fa-download fa-lg"></i></a>
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -1840,8 +1817,8 @@
                                     <input type="hidden" id="hndOriginalFileUploadName2" value="0" />
                                 </div>
                                 <div class="form-group">
-                                    <label class="star" id="lblUpload2">Download 2</label><br />
-                                    <span class=" btn-primary"><i class="fa fa-download fa-2x"></i><a href="#" class=" btn-primary" target='_blank' download="" id="hndFileUploadName2"></a></span>
+                                    <label id="lblUpload2">Download 2</label><br />
+                                    <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="hndFileUploadName2"><i class="fa fa-download fa-lg"></i></a>
                                 </div>
                             </div>
                             <div class="col-sm-4" id="divUpload3">
@@ -1854,53 +1831,49 @@
                                     <input type="hidden" id="hndOriginalFileUploadName3" value="0" />
                                 </div>
                                 <div class="form-group">
-                                    <label class="star" id="lblUpload3">Download 3</label><br />
-                                    <span class=" btn-primary"><i class="fa fa-download fa-2x"></i><a href="#" class=" btn-primary" target='_blank' download="" id="hndFileUploadName3"></a></span>
+                                    <label id="lblUpload3">Download 3</label><br />
+                                    <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="hndFileUploadName3"><i class="fa fa-download fa-lg"></i></a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="txtCountryOffice" class="star">Country</label>
-                                    @*<input id="txtCountryOffice" type="text" class="form-control form-control-small" maxlength="300" />*@
-                                    <select id="txtCountryOffice" class="form-control" disabled="disabled"></select>
+                                    <label for="txtCountryOffice">Country</label> :
+                                    <label id="txtCountryOffice"></label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="txtofficeAddress1" class="star">Address Line 1</label>
-                                    <input id="txtofficeAddress1" type="text" class="form-control form-control-small" maxlength="300" disabled="disabled" />
+                                    <label for="txtofficeAddress1">Address Line 1</label> :
+                                    <label id="txtofficeAddress1"></label>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="txtofficeAddress2">Address Line 2</label>
-                                    <input id="txtofficeAddress2" type="text" class="form-control form-control-small" maxlength="300" disabled="disabled" />
-                                </div>
-                            </div>
-
-
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label class="star"> State :</label>
-                                    <select id="ddlStateEmployee" class="form-control" disabled="disabled"></select>
+                                    <label for="txtofficeAddress2">Address Line 2</label> :
+                                    <label id="txtofficeAddress2"></label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label class="star"> City :</label>
-                                    @*<select id="ddlCityEmployee" class="form-control"></select>*@
-                                    <input id="ddlCityEmployee" type="text" class="form-control form-control-small" maxlength="100" disabled="disabled" />
+                                    <label>State</label> :
+                                    <label id="ddlStateEmployee"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>City</label> :
+                                    <label id="ddlCityEmployee"></label>
                                 </div>
                             </div>
 
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="txtZip" class="star">Zip</label>
-                                    <input class="form-control form-control-small" id="txtZipOffice" maxlength="7" disabled="disabled" />
+                                    <label for="txtZip">Zip</label> :
+                                    <label id="txtZipOffice"></label>
                                 </div>
                             </div>
                         </div>
@@ -1927,91 +1900,94 @@
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label class="star">Relationship</label>
-                                    <input id="txtRelationship" class="form-control form-control-small" type="text" disabled="disabled" />
+                                    <label>Relationship</label> :
+                                    <label id="txtRelationship"></label>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label for="txtFirstName" class="star">First Name</label>
-                                    <input class="form-control form-control-small" id="txtEmergencyFirstName" maxlength="50" value="" disabled="disabled" />
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="txtLastName" class="star">Last Name</label>
-                                    <input class="form-control form-control-small" id="txtEmergencyLastName" maxlength="50" disabled="disabled" />
+                                    <label for="txtFirstName">First Name</label> :
+                                    <label id="txtEmergencyFirstName"></label>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label class="star"> Mobile Number</label>
-                                    <input id="txtEmergencyMobile" type="text" class="form-control form-control-small" maxlength="10" onkeypress="return isOnlyNumber(event)" disabled="disabled" />
+                                    <label for="txtLastName">Last Name</label> :
+                                    <label id="txtEmergencyLastName"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Mobile Number</label> :
+                                    <label id="txtEmergencyMobile"></label>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label class=""> Home Phone Number</label>
-                                    <input id="txtEmergencyHomePhone" type="text" class="form-control form-control-small" maxlength="10" onkeypress="return isOnlyNumber(event)" disabled="disabled" />
+                                    <label>Home Phone Number</label> :
+                                    <label id="txtEmergencyHomePhone"></label>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label class=""> Work Phone Number</label>
-                                    <input id="txtEmergencyWorkPhone" type="text" class="form-control form-control-small" maxlength="10" onkeypress="return isOnlyNumber(event)" disabled="disabled" />
+                                    <label>Work Phone Number</label> :
+                                    <label id="txtEmergencyWorkPhone"></label>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label class="star">Email</label>
-                                    <input id="txtEmergencyEmail" type="text" class="form-control form-control-small" maxlength="300" disabled="disabled" />
+                                    <label>Email</label> :
+                                    <label id="txtEmergencyEmail"></label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="txtCountry">Country</label>
-                                    @*<input id="txtEmergencyCountry" type="text" class="form-control form-control-small" maxlength="300" />*@
-                                    <select id="txtEmergencyCountry" class="form-control" disabled="disabled"></select>
+                                    <label>Country</label> :
+                                    <label id="txtEmergencyCountry"></label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <div class="col-sm-6">
+                            <div class="col-sm-5">
                                 <div class="form-group">
-                                    <label>Address Line 1</label>
-                                    <input id="txtEmergencyAddress1" type="text" class="form-control form-control-small" maxlength="300" disabled="disabled" />
+                                    <label>Address Line 1</label> :
+                                    <label id="txtEmergencyAddress1"></label>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-5">
                                 <div class="form-group">
-                                    <label>Address Line 2</label>
-                                    <input id="txtEmergencyAddress2" type="text" class="form-control form-control-small" maxlength="300" disabled="disabled" />
+                                    <label>Address Line 2</label> :
+                                    <label id="txtEmergencyAddress2"></label>
                                 </div>
                             </div>
-
-                            <div class="col-sm-4">
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label> State :</label>
-                                    <select id="ddlStateContact" class="form-control" disabled="disabled"></select>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label> City :</label>
-                                    @*<select id="ddlCityContact" class="form-control"></select>*@
-                                    <input id="ddlCityContact" type="text" class="form-control form-control-small" maxlength="100" disabled="disabled" />
+                                    <label>State</label> :
+                                    <label id="ddlStateContact"></label>
                                 </div>
                             </div>
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label for="txtZip">Zip</label>
-                                    <input class="form-control form-control-small" id="txtEmergencyZip" maxlength="7" disabled="disabled" />
+                                    <label>City</label> :
+                                    <label id="ddlCityContact"></label>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Zip</label>
+                                    <label id="txtEmergencyZip"></label>
                                 </div>
                             </div>
                         </div>
@@ -2033,13 +2009,6 @@
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Vehicle Information </h3>
                                     <button type="button" class="btn btn-default pull-right hidden" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle"></i> Add</button>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <input type="checkbox" id="chkDontHaveVehicle" />  I don't have a vehicle.
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="row">
 
@@ -2083,13 +2052,6 @@
                                     <h3 class="panel-title">Pet Information</h3>
                                     <button type="button" class="btn btn-default pull-right hidden" data-toggle="modal" data-target="#popPet" id="btnAddPet"><i class="fa fa-plus-circle"></i> Add</button>
                                     <input type="hidden" id="hndPetPlaceCount" value="0" />
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group" id="chkDontHavePetDiv">
-                                            <input type="checkbox" id="chkDontHavePet" />  I don't have a pet.
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="col-md-12 hidden">
                                     <p>
@@ -2151,7 +2113,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="ddlDocumentType" class="star">Document Type</label>
+                                    <label for="ddlDocumentType">Document Type</label>
                                     <select id="ddlDocumentType" class="form-control">
                                         <option value="0">Select</option>
                                         <option value="1">Driver's License</option>
@@ -2163,7 +2125,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="txtBVIDNumber" class="star">ID Number</label>
+                                    <label for="txtBVIDNumber">ID Number</label>
                                     <input type="text" class="form-control" id="txtBVIDNumber" value="">
                                 </div>
                             </div>
@@ -2202,29 +2164,12 @@
                             <div class="col-sm-11">
                                 <div class="form-group">
                                     <div class="">
-                                        @*<a href="javascript:void(0)" id="btnDownloadLeaseDocument" class="btn btn-primary" onclick="saveLeaseDoc()">Review and Sign Your Online Leasing Application</a>*@
-                                        <label class="info-text pull-left hidden" style="color:#4d738a" id="lblsignin">Your Lease Agreement Signing has been successfull. Please click on continue button.</label>
-
-                                        <input type="submit" class="btn btn-primary" width="300" style="width: 300px;" id="btnleaseDownl" onclick="getDocuDoc('@Model.EnvelopeID')" value="Download Leasing Application" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-1 hidden">
-                                <div class="form-group">
-                                    <div class="">
-                                        <h4 class="info-text pull-left" style="color:#4d738a">Download Signed Lease Agreement</h4>
-                                        <a href="javascript:void(0)" id="btnUploadLeaseDocument"> <input type="file" id="upleasedoc" value="" class="btn btn-primary"></a>
-
+                                        <a class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="downloadLeaseDocumentPV()">Download Leasing Application</a>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-sm-12 form-inline hidden">
-                                <div style="margin-top:30px"></div>
-                                <div class="text-center">
-                                    <button type="button" class="btn btn-primary" id="btnSave" onclick="SaveLeaseDocumentVerification()"><span id="spanSaveUpdate">Save</span></button>
-                                </div>
-                            </div>
+
                         </div>
                         <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsgFinal"></b></p></div>
                         <div class="col-sm-12">
@@ -2291,37 +2236,31 @@
                                     <div class="dot-hr"></div>
                                     <br />
                                 </div>
-                                <div class="col-sm-3">
-                                    <input type="button" class='btn  btn-primary' id="chkBank" onclick="clearBank()" value="Bank Account">
-                                </div>
-                                <div class="col-sm-3">
-                                    <input type="button" class='btn btn-primary active' id="chkACH" onclick="clearCard()" value="Credit Card">
-                                </div>
 
                                 <div class="col-sm-12">
                                     <br />
                                     <div class="dot-hr"></div>
                                 </div>
                                 <div class="col-sm-12">
-                                    <label id="lblPaymentDet">Enter Credit Card Details.</label>
+                                    <label id="lblPaymentDet" style="text-decoration:underline"><b>Credit Card Details.</b></label>
 
                                 </div>
                                 <div class="col-sm-12 hidden" id="divBank">
                                     <div class="col-sm-3">
                                         <div class="form-group">
-                                            <label class="star">Bank Name</label>
+                                            <label>Bank Name</label>
                                             <input id="txtBankName" type="text" class="form-control" placeholder="Bank Name" value="" disabled="disabled">
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
-                                            <label id="lblAccCardname" class="star">Account Name</label>
+                                            <label id="lblAccCardname">Account Name</label>
                                             <input id="txtAccountName" type="text" class="form-control" placeholder="Account Name" value="" disabled="disabled">
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
-                                            <label id="lblAccCardnum" class="star">Account Number</label>
+                                            <label id="lblAccCardnum">Account Number</label>
                                             <input id="txtAccountNumber" type="text" class="form-control" placeholder="Account Number" onkeypress="return isOnlyNumber(event)" maxlength="29" value="" disabled="disabled">
                                         </div>
                                     </div>
@@ -2334,45 +2273,22 @@
                                 </div>
                                 <div class="col-sm-12" id="divCard">
                                     <div class="form-group col-sm-3">
-                                        <label for="name">Name on Card</label>
-                                        <input type="text" class="form-control" id="txtNameonCard" placeholder="Name on Card" value="@Model.Name_On_Card" disabled="disabled">
+                                        <label>Name on Card</label> :
+                                        <label id="txtNameonCard">@Model.Name_On_Card</label>
                                     </div>
                                     <div class="form-group col-sm-3">
-                                        <label for="cardnumber" class="star">Card Number</label>
-                                        <input type="text" class="form-control" id="txtCardNumber" placeholder="Card Number" onkeypress="return isOnlyNumber(event)" maxlength="14" value="@Model.CardNumber" disabled="disabled">
+                                        <label>Card Number</label> :
+                                        <label id="txtCardNumber"></label>
                                     </div>
                                     <div class="form-group col-sm-2">
-                                        <label for="cardmonth">Card Month</label>
-                                        <select id="ddlcardmonth" class="form-control form-control-small" disabled="disabled">
-                                            @for (int i = 1; i <= 12; i++)
-                                            {
-                                                <option value="@i">@i</option>
-
-                                            }
-                                        </select>
+                                        <label>Card Month</label> :
+                                        <label id="ddlcardmonth">@Model.CardMonth</label>
                                     </div>
                                     <div class="form-group col-sm-2">
-                                        <label for="cardyear">Card Year</label>
-                                        <select id="ddlcardyear" class="form-control form-control-small" disabled="disabled">
-                                            @for (int i = DateTime.Now.Year; i <= DateTime.Now.AddYears(5).Year; i++)
-                                            {
-                                                <option value="@i">@i</option>
-
-                                            }
-                                        </select>
+                                        <label for="cardyear">Card Year</label> :
+                                        <label id="ddlcardyear">@Model.CardYear</label>
                                     </div>
-                                    <div class="form-group col-sm-2">
-                                        <label for="txtCcvNumber" class="star">CVV Number</label>
-                                        <input type="password" class="form-control" id="txtCCVNumber" placeholder="CVV Number" onkeypress="return isOnlyNumber(event)" maxlength="3" value="@Model.CCVNumber" disabled="disabled">
-                                    </div>
-
                                 </div>
-                                <div class="col-sm-2">
-                                    <button type="submit" class="btn btn-primary" onclick="savePayment()">Pay Now</button>
-                                </div>
-
-
-
                             </div>
 
                             <div class="col-sm-12">
@@ -2387,7 +2303,8 @@
                                                 <th style="background-color: #c7cdd5;color:#3d3939">Sr. No.</th>
                                                 @*<th style="background-color: #c7cdd5;color:#3d3939">Tenant Name</th>*@
                                                 <th style="background-color: #c7cdd5;color:#3d3939">Trans Date</th>
-                                                <th style="background-color: #c7cdd5;color:#3d3939">Amount</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">Charge</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">Credit</th>
                                                 <th style="background-color: #c7cdd5;color:#3d3939">Trans Type</th>
                                                 <th style="background-color: #c7cdd5;color:#3d3939">Charge Type</th>
                                                 <th style="background-color: #c7cdd5;color:#3d3939">Description</th>
@@ -2403,7 +2320,7 @@
                                         <button type="submit" class="btn btn-primary" onclick="goToStep(15,15)"> Back</button>
                                     </div>
                                     <div class="pull-right text-center">
-                                        <button type="submit" class="btn btn-primary payNext" id="btnnext" onclick="goToStep(17,17)"> Continue</button>
+                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(17,17)"> Continue</button>
                                     </div>
                                 </div>
                             </div>
@@ -2411,62 +2328,207 @@
                     </div>
                 </div>
                 <div class="hidden" id="step17">
+                    <div class="row">
+                        <div class="col-md-12 clear">
+                            <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Screening Status</h3>
 
-                    <div class="row p-b-15">
-
-                        <div class="col-sm-12">
-                            <p><center><b>CONGRATULATIONS!!</b> You have completed your Online Application.</center></p>
-                            <h5> <center> What Next?</center></h5>
-                            <p>
-                                Your Application has been saved waiting for Co-Applicant(s) to complete their application. Once all adult
-                                tenants and guarantor (if applicable) have completed the application, the application is ready to be submitted.
-                                Once we receive the completed application, we will notify you within 24 to 48 hours of the result. Once approved,
-                                you will be directed to finalize your online lease and be given Move in procedures.
-                            </p>
-                            <div class="col-md-12 clear">
-                                <div id="tblApplicantFinal" class="proerty-th">
                                 </div>
                             </div>
-                            <h5> <center> Now?</center></h5>
-                            <p>
-                                <center>Do you want to email the Application to your Co-Applicant(s)?</center>
-                            </p>
                         </div>
-                        <div class="col-sm-12 table-bordered">
-                            <div>
+                        <div class="col-md-12">
 
-                                <table width="100%" id="tblEmailCoapplicant">
-                                    <thead>
-                                        <tr>
-                                            <th>Co-Applicant Name</th>
-                                            <th>Email ID</th>
-                                            <th>Send Email</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Select Status</label>
+                                    <select id="ddlStatus" class="form-control">
+                                        <option value="0" @(Model.Status == "0" ? "selected='selected'" : "")>Select</option>
+                                        <option value="Approved" @(Model.Status == "Approved" ? "selected='selected'" : "")>Approved</option>
+                                        <option value="Denied" @(Model.Status == "Denied" ? "selected='selected'" : "")>Denied</option>
+                                        <option value="Conditional" @(Model.Status == "Conditional" ? "selected='selected'" : "")>Conditional</option>
+                                    </select>
+                                </div>
                             </div>
-                            <center><button type="submit" class="btn btn-primary" onclick="sendCoappEmail(15,15)"> Send Email</button></center>
+
+                            <div class="col-sm-4 form-inline">
+                                <div style="margin-top:30px"></div>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-primary" id="btnSave" onclick="SaveScreeningStatus()"><span id="spanSaveUpdate">Save</span></button>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(15,15)"> Back</button>
+                                <button type="submit" class="btn btn-primary" onclick="goToStep(16,16)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" id="btnC2Tenant" class="btn btn-primary" onclick="onlinePToTenant()">Convert To Tenant</button>
+                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(18,18)"> Continue</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="hidden" id="step18">
+                    <div class="row">
+                        <div class="col-md-12 clear">
+                            <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">MOVE-IN CHECKLIST</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
 
+                            <div class="col-sm-12 ">
+                                <div class="col-sm-12" style="margin-bottom:10px !important"><h4 style="color:#4d738a;">Move-In Charges</h4></div>
+
+                                <div class="col-sm-12">
+                                    <table id="tblTransaction" class="table-bordered" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">Trans Date</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">Charge</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">Credit</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">Trans Type</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table><br /><br />
+                                </div><hr />
+                            </div>
+
+                            <div class="divChecklist" id="divChecklist">
+
+                                <div class="col-sm-12">
+
+                                    <div class="col-sm-12" style="margin-bottom:10px !important"><h4 style="color:#4d738a;">Move-In-CheckList</h4></div>
+                                    <hr />
+                                    <div class="col-sm-12">
+
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <div class="col-sm-3" style="margin-left: -20px;">
+                                                    <label>
+                                                        <input type="checkbox" id="chkPay" checked="@(Model.MoveInCharges != 0 ? true : false)" disabled="@(Model.MoveInCharges != 0 ? "disabled" : "disabled")"><span style="margin-left: 10px;">
+                                                            Pay your Move-in charges
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-3" style="margin-left: -80px;">
+                                                    <div class="input-group" style="margin-left: 57px;">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                        </span>
+                                                        <input id="txtPayment" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@(Model.MoveInCharges.Value.ToString("0.00"))" disabled />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <div class="col-sm-3" style="margin-left: -20px;">
+                                                    <label>
+                                                        <input type="checkbox" id="chkMovein" checked="@(Model.MoveInDateTxt != null ? true : false)" disabled /><span style="margin-left: 10px;">
+                                                            Schedule a move-in date and time
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-3" style="margin-left: -80px;">
+                                                    <div class="input-group" style="margin-left: 57px;">
+                                                        <input id="txtMoveInDate" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@Model.MoveInDateTxt" disabled />
+                                                        <span class="input-group-btn" style="width:0% !important">
+                                                            <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="input-group" style="margin-left: -70px;">
+                                                        <input id="txtMoveInTime" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@Model.MoveInTime" disabled />
+                                                        <span class="input-group-btn" style="width:0% !important">
+                                                            <button class="btn btn-primary search" type="button"><i class="fa-clock-o  fa"></i></button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <label style="margin-left: -5px;">
+                                                    <input type="checkbox" id="chkIns" checked="@(string.IsNullOrWhiteSpace(Model.InsuranceDoc) == false ? true : false)" disabled><span style="margin-left: 10px;">
+                                                        Make sure you have Renter’s insurance.  If you have not purchased it and would like to use our partner, login or call Serrod Insurance 	Agency at (305) 445-6441
+                                                        <br />
+                                                        <b>Download Proof of Insurance&nbsp;&nbsp;&nbsp;</b>
+                                                        <a id="dwnldPOI" href="javascript:void(0)" class="btn btn-primary" target="_parent"><i class="fa fa-download"></i></a>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <label style="margin-left: -5px;">
+                                                    <input type="checkbox" id="chkPo" checked="@(Model.IsCheckPO == 1 ? true : false)" disabled><span style="margin-left: 10px;">
+                                                        Complete the Post Office change of address by logging into <a href="https://movingonlineservice.com" target="_blank">https://movingonlineservice.com</a>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12" style="margin-bottom:10px !important"><h4 style="color:#4d738a;">Utilities</h4></div>
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <label style="margin-left: -5px;">
+                                                    <input type="checkbox" id="chkEle" checked="@(string.IsNullOrWhiteSpace(Model.ElectricityDoc) == false ? true : false)" disabled><span style="margin-left: 10px;">
+                                                        Electricity- log in to <a href="https://fpl.com" target="_blank">https://fpl.com</a> to start service or call 1-800-226-3545.
+                                                        <br />
+                                                        <b>Download Proof of Electricity&nbsp;&nbsp;&nbsp;</b>
+                                                        <a id="dwnldPOE" href="javascript:void(0)" class="btn btn-primary" target="_parent"><i class="fa fa-download"></i></a>
+
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <label style="margin-left: -5px;">
+                                                    <input type="checkbox" id="chkAt" checked="@(Model.IsCheckATT == 1 ? true : false)" disabled /><span style="margin-left: 10px;">
+                                                        AT&T- Call to establish your internet service and/or enhance your cable plan.
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <label style="margin-left: -5px;">
+                                                    <input type="checkbox" id="chkWater" checked="@(Model.IsCheckWater == 1 ? true : false)" disabled /><span style="margin-left: 10px;">
+                                                        If needed, contact Miami Dade Water and Sewer Department to stop service at your previous address. Login to <a href="http://www.miamidade.gov/global/water/home.page" target="_blank">www.miamidade.gov/global/water/home.page</a>
+                                                        or call (305) 665-7488.  Your water will be set up automatically upon move-in and will be billed directly the following month.
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="pull-left text-center">
+                                <button type="submit" class="btn btn-primary" onclick="goToStep(17,17)"> Back</button>
+                            </div>
+                            <div class="pull-right text-center">
+                                <button type="submit" id="btnC2Tenant" class="btn btn-primary" onclick="onlinePToTenant()" disabled>Convert To Tenant</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
         </div>
 
     </div>
-</div>
-
 
 </div>
 </div>
@@ -2680,13 +2742,13 @@
 
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="star"> First Name</label>
+                        <label> First Name</label>
                         <input id="txtApplicantFirstName" type="text" class="form-control" maxlength="100" placeholder="First Name" value="" disabled="disabled">
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="star">Last Name</label>
+                        <label>Last Name</label>
                         <input id="txtApplicantLastName" type="text" class="form-control" maxlength="100" placeholder="Last Name" value="" disabled="disabled">
                     </div>
                 </div>
@@ -2718,10 +2780,10 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="dob">Date of Birth</label>
-                        <input id="txtHDateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text"  disabled="disabled"/>
-                        <input id="txtADateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text"  disabled="disabled"/>
-                        <input id="txtMDateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text"  disabled="disabled"/>
-                        <input id="txtGDateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text"  disabled="disabled"/>
+                        <input id="txtHDateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" disabled="disabled" />
+                        <input id="txtADateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" disabled="disabled" />
+                        <input id="txtMDateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" disabled="disabled" />
+                        <input id="txtGDateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" disabled="disabled" />
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -2737,7 +2799,7 @@
                 </div>
                 <div class="col-sm-6" id="appGenderOther">
                     <div class="form-group">
-                        <label class="star">Other Gender</label>
+                        <label>Other Gender</label>
                         <input id="txtApplicantOtherGender" type="text" class="form-control" maxlength="200" placeholder="Other Gender" value="" disabled="disabled">
                     </div>
                 </div>
@@ -2765,11 +2827,11 @@
 
 <div class="modal" id="popVehicle">
     <div class="modal-dialog">
-        <div class="modal-content" style="width:732px; height:605px;">
+        <div class="modal-content" style="width:732px; height:360px;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
-                <h5 class="modal-title">Add Vehicle</h5>
+                <h5 class="modal-title">Vehicle Information</h5>
 
             </div>
 
@@ -2778,94 +2840,72 @@
                 <input type="hidden" id="hndVehicleID" value="0" />
                 <div class="col-sm-7">
                     <div class="form-group">
-                        <label class="">Owner Name</label>
-                        <input id="txtVehicleOwnerName" type="text" class="form-control" maxlength="20" placeholder="Owner Name" value="">
+                        <label class="">Owner Name</label> :
+                        <label id="txtVehicleOwnerName"></label>
                     </div>
                 </div>
+                @*<div class="col-sm-5">
+                        <div class="form-group">
+                            <label>Download Vehicle Registration</label><br />
+                            <input type="file" name="fileUploadVehicleRegistation" id="fileUploadVehicleRegistation" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                            <label for="fileUploadVehicleRegistation"><i class="fa fa-upload fa-2x"></i> <span id="VehicleRegistationShow">Choose a file&hellip;</span></label>
+                            <input type="hidden" id="hndVehicleRegistation" value="0" />
+                            <input type="hidden" id="hndOriginalVehicleRegistation" value="0" />
+                        </div>
+                    </div>*@
                 <div class="col-sm-5">
                     <div class="form-group">
-                        <label class="star">Download Vehicle Registration</label><br />
-                        <input type="file" name="fileUploadVehicleRegistation" id="fileUploadVehicleRegistation" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                        <label for="fileUploadVehicleRegistation"><i class="fa fa-upload fa-2x"></i> <span id="VehicleRegistationShow">Choose a file&hellip;</span></label>
+                        <label>Download Vehicle Registration</label><br />
+                        <a id="dwnldVehicleRegistration" href="" class="btn btn-primary" target="_parent"><i class="fa fa-upload fa-2x"></i></a>
                         <input type="hidden" id="hndVehicleRegistation" value="0" />
                         <input type="hidden" id="hndOriginalVehicleRegistation" value="0" />
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label class="star">Vehicle Type :</label>
-                        <select id="ddlVehicleType" class="  form-control">
-                            <option value='0'>Select Type</option>
-                            <option value='1'>Car</option>
-                            <option value='2'>Motorcycle</option>
-                            <option value='3'>Boat</option>
-                            <option value='4'>Truck</option>
-                            <option value='5'>SUV</option>
-                            <option value='6'>Recreational</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label class="star">Year</label>
-                        <select id="ddlVehicleyear" class="form-control form-control-small">
-                            <option value="0" selected="selected">Select Year</option>
-                            @for (int i = DateTime.Now.AddYears(-10).Year; i <= DateTime.Now.Year; i++)
-                            {
-
-                                <option value="@i">@i</option>
-
-                            }
-                        </select>
+                        <label>Year</label> :
+                        <label id="ddlVehicleyear"></label>
 
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label class="star">Make</label>
-                        <input id="txtVehicleMake" type="text" class="form-control" maxlength="20" placeholder="Vehicle Make" value="">
+                        <label>Make</label> :
+                        <label id="txtVehicleMake"></label>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label>Model</label>
-                        <input id="txtVehicleModel" type="text" class="form-control" maxlength="20" placeholder="Vehicle Model" value="">
+                        <label>Model</label> :
+                        <label id="txtVehicleModel"></label>
                     </div>
                 </div>
 
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label>Color</label>
-                        <input id="txtVehicleColor" type="text" class="form-control" maxlength="20" placeholder="Vehicle Color" value="">
+                        <label>Color</label> :
+                        <label id="txtVehicleColor"></label>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label class="star">License Plate</label>
-                        <input id="txtVehicleLicence" type="text" class="form-control" maxlength="20" placeholder="Vehicle license" value="">
+                        <label>License Plate</label> :
+                        <label id="txtVehicleLicence"></label>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label for="ddlVState" class="star">State</label>
-                        <select id="ddlVState" class="form-control form-control-small"></select>
+                        <label>State</label> :
+                        <label id="ddlVState"></label>
                     </div>
                 </div>
 
                 <div class="col-sm-8">
                     <div class="form-group">
-                        <label class="">Notes</label>
-                        <textarea id="txtVehicleNote" class="form-control" maxlength="20"></textarea>
+                        <label>Notes</label> :
+                        <label id="txtVehicleNote"></label>
                     </div>
                 </div>
-                <div class="col-sm-12">
-                    <p>Note: There is a $15 one-time charge for each vehicle registration which entitles you to easy access decal</p>
-                </div>
-                <div class="col-sm-12 text-center">
-                    <button type="submit" class="btn btn-primary" onclick="saveupdateVehicle()"><i class="fa fa-envelope-o"></i> Save</button>
-                </div>
-
-
             </div>
 
             <!-- Modal footer -->
@@ -2879,85 +2919,57 @@
 
 <div class="modal" id="popPet">
     <div class="modal-dialog">
-        <div class="modal-content" style="width: 100%; height:432px;">
+        <div class="modal-content" style="width: 100%; height:300px;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
-                <h5 class="modal-title">Add Pet</h5>
+                <h5 class="modal-title">Pet Information</h5>
 
             </div>
 
             <!-- Modal body -->
             <div class="modal-body">
-
                 <input type="hidden" id="hndPetID" value="0" />
-                @*<div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="star">Pet Type :</label>
-                            <select id="ddlpetType" class="  form-control">
-                                <option value='0'>Select Type</option>
-                                <option value='1'>Cat</option>
-                                <option value='2'>Dog</option>
-                            </select>
-                        </div>
-                    </div>*@
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="">What is your Pet's Name?</label>
-                        <input id="txtpetName" type="text" class="form-control" maxlength="20" placeholder="Pet Name" value="">
+                        <label>Pet Name?</label> :
+                        <label id="txtpetName"></label>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="star">Breed</label>
-                        <input id="txtpetBreed" type="text" class="form-control" maxlength="20" placeholder="Breed" value="">
+                        <label>Breed</label> :
+                        <label id="txtpetBreed"></label>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>Weight</label>
-                        <input id="txtpetWeight" type="text" class="form-control" maxlength="20" placeholder="Weight" value="">
-                    </div>
-                </div>
-                @*<div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Age</label>
-                            <input id="txtpetAge" type="text" class="form-control" maxlength="20" placeholder="Age" value="">
-                        </div>
-                    </div>*@
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label>Vet's Name</label>
-                        <input id="txtpetVetsName" type="text" class="form-control" placeholder="Vet's Name'" value="">
+                        <label>Weight</label> :
+                        <label id="txtpetWeight"></label>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="">Download Photo</label><br />
-                        <input type="file" name="pet-picture" id="pet-picture" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                        <label for="pet-picture"><i class="fa fa-upload fa-2x"></i> <span id="filePetPictireShow">Choose a file&hellip;</span></label>
+                        <label>Vet's Name</label> :
+                        <label id="txtpetVetsName"></label>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Download Photo</label><br />
+                        <a id="dwnldPetPhoto" href="" class="btn btn-primary" target="_parent"><i class="fa fa-upload fa-2x"></i></a>
                         <input type="hidden" id="hndPetPicture" value="0" />
                         <input type="hidden" id="hndOriginalPetPicture" value="0" />
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="star">Download pet vaccination certificate</label><br />
-                        <input type="file" name="filePetVaccinationCertificate" id="filePetVaccinationCertificate" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                        <label for="filePetVaccinationCertificate"><i class="fa fa-upload fa-2x"></i> <span id="filePetVaccinationCertificateShow">Choose a file&hellip;</span></label>
+                        <label>Download pet vaccination certificate</label><br />
+                        <a id="dwnldVaccinationCertificate" href="" class="btn btn-primary" target="_parent"><i class="fa fa-upload fa-2x"></i></a>
                         <input type="hidden" id="hndPetVaccinationCertificate" value="0" />
                         <input type="hidden" id="hndOriginalPetVaccinationCertificate" value="0" />
                     </div>
                 </div>
-
-                <div class="col-sm-12 text-center">
-
-                    <div class="pull-right text-center">
-                        <button type="submit" class="btn btn-primary" onclick="saveupdatePet()"><i class="fa fa-envelope-o"></i> Save</button>
-                    </div>
-
-                </div>
-
             </div>
 
             <!-- Modal footer -->
@@ -3015,102 +3027,95 @@
 
 <div class="modal" id="popApplicantHistory">
     <div class="modal-dialog">
-        <div class="modal-content" style="width:732px; height:605px;">
+        <div class="modal-content" style="width:732px; height:400px;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
-                <h5 class="modal-title">Add Applicant History</h5>
+                <h5 class="modal-title">Applicant History</h5>
 
             </div>
 
             <!-- Modal body -->
             <div class="modal-body">
                 <input id="hdnAHRId" type="hidden" value="0" />
-
                 <div class="col-sm-12">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="txtCountry">Country</label>
-                            @*<input id="txtCountry" type="text" class="form-control form-control-small" maxlength="300" />*@
-                            <select id="txtCountry2" class="form-control"></select>
+                            <label for="txtCountry">Country</label> :
+                            <label id="txtCountry2"></label>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-12">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="txtAddress1">Address Line 1</label>
-                            <input id="txtAddress12" type="text" class="form-control form-control-small" maxlength="300" />
+                            <label for="txtAddress1">Address Line 1</label> :
+                            <label id="txtAddress12"></label>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="txtAddress2">Address Line 2</label>
-                            <input id="txtAddress22" type="text" class="form-control form-control-small" maxlength="300" />
+                            <label for="txtAddress2">Address Line 2</label> :
+                            <label id="txtAddress22"></label>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-12">
-
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label> State :</label>
-                            <select id="ddlStateHome2" class="form-control"></select>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label> City :</label>
-                            @*<select id="ddlCityHome" class="form-control"></select>*@
-                            <input id="ddlCityHome2" type="text" class="form-control form-control-small" maxlength="100" />
+                            <label>State</label> :
+                            <label id="ddlStateHome2"></label>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="txtZip">Zip</label>
-                            <input class="form-control form-control-small" id="txtZip2" maxlength="7" />
+                            <label>City</label> :
+                            <label id="ddlCityHome2"></label>
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="ddlRentOwn"> Do you rent or own </label>
-                            <select id="ddlRentOwn2" class="form-control form-control-small">
-                                <option value="0">Select</option>
-                                <option value="1">Rent</option>
-                                <option value="2">Own</option>
-                            </select>
+                            <label for="txtZip">Zip</label> :
+                            <label id="txtZip2"></label>
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-5">
                         <div class="form-group">
-                            <label for="txtMoveInDate"> Move In Date</label>
-                            <input id="txtMoveInDateFrom2" type="text" class="form-control form-control-small" @*value="@Model.MoveInDateFrom2Txt"*@ />
+                            <label for="ddlRentOwn"> Do you rent or own </label> :
+                            <label id="ddlRentOwn2"></label>
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-5">
                         <div class="form-group">
-                            <label for="txtMoveInDate"> Move Out Date</label>
-                            <input id="txtMoveInDateTo2" type="text" class="form-control form-control-small" @*value="@Model.MoveInDateTo2Txt"*@ />
+                            <label for="txtMoveInDate">Move In Date</label> :
+                            <label id="txtMoveInDateFrom2"></label>
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-5">
                         <div class="form-group">
-                            <label for="txtMonthlyPayment"> Monthly Payment </label>
-                            <input id="txtMonthlyPayment2" type="text" class="form-control form-control-small" onkeypress="return isNumber(event)" />
+                            <label for="txtMoveInDate">Move Out Date</label> :
+                            <label id="txtMoveInDateTo2"></label>
                         </div>
                     </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label for="txtMonthlyPayment">Monthly Payment</label> :
+                            <label id="txtMonthlyPayment2"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label for="txtReasonforleaving"> Reason for leaving </label>
-                            <input id="txtReasonforleaving2" type="text" class="form-control" />
+                            <label for="txtReasonforleaving"> Reason for leaving </label> :
+                            <label id="txtReasonforleaving2"></label>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-12 text-center">
-                    <button type="button" class="btn btn-default" onclick="saveupdateApplicantHistory()"><i class="fa fa-save"></i> Save</button>
-                </div>
-
             </div>
 
             <!-- Modal footer -->
@@ -3241,7 +3246,7 @@
                                             <span id="">LEASE TERM: </span>
                                         </div>
                                         <div class="col-sm-5">
-                                            <span><span id="lblLease4"></span> Mo</span>
+                                            <span><span id="lblLease4">@Model.LeaseTerm</span> Mo</span>
                                         </div>
 
                                     </div>
@@ -3452,6 +3457,84 @@
         </div>
     </div>
 </div>
+
+<style>
+    /* The container */
+    input.disabled {
+        pointer-events: none;
+        cursor: default;
+        color: #B4ADA5;
+    }
+
+    .containerLabel {
+        display: block;
+        position: relative;
+        padding-left: 35px !important;
+        margin-bottom: 12px;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+        /* Hide the browser's default checkbox */
+        .containerLabel input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 24px;
+        width: 24px;
+        /*background-color: #4D738A !important;*/
+        border: 2px solid #4D738A !important;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .containerLabel:hover input ~ .checkmark {
+        background-color: #fff !important;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .containerLabel input:checked ~ .checkmark {
+        background-color: #4D738A !important;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .containerLabel input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .containerLabel .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+</style>
+
+
 <script>
     function printFloorPlanDetails(divName) {
         let printContents, popupWin;
@@ -3495,6 +3578,20 @@
 
 </script>
 <style>
+    .submenu-padding {
+        padding: 3px 5.5px !important;
+    }
+
+    .nav-tabs > li > a {
+        margin-right: 2px;
+        line-height: 1.42857143;
+        /*border: 0px;
+        border-style: none !important;*/
+        border: 1px solid #4d738a !important;
+        border-radius: 0;
+        color: #fff;
+    }
+
     /* The Modal (background) */
     .modal {
         display: none; /* Hidden by default */
@@ -3581,9 +3678,23 @@
         padding: 35px;
         text-align: right;
     }
-</style>
 
-<style>
+    .wizard-card .disabled {
+        display: inherit !important;
+    }
+
+    .icheckbox_square-yellow.checked.disabled {
+        background-position: -48px 0 !important;
+    }
+
+    .iradio_square-yellow.checked.disabled {
+        background-position: -168px 0 !important;
+    }
+
+    .iradio_square-yellow.disabled {
+        background-position: -120px 0 !important;
+    }
+
     .nav-tabs.wizard {
         background-color: transparent;
         padding: 0;
@@ -3659,7 +3770,7 @@
             position: relative;
             padding: 0;
             /*margin: 4px 4px 4px 0;*/
-            width: 19.6%;
+            width: 16.6%;
             float: left;
             text-align: center;
         }
@@ -3748,6 +3859,23 @@
         .select-unit a {
             color: #fff !important;
         }
+
+    .tab-content ul li {
+        margin-right: 14px;
+        overflow: hidden;
+        width: 100% !important;
+        padding: 10px;
+        text-align: left !important;
+        margin-bottom: 10px;
+    }
+
+    .wizard-card .disabled {
+        display: inherit !important;
+    }
+
+    .icheckbox_square-yellow.checked.disabled {
+        background-position: -48px 0 !important;
+    }
 </style>
 <script type="text/javascript">
 
@@ -3761,60 +3889,39 @@
 
         var dt = new Date();
         dt.setFullYear(new Date().getFullYear() - 18);
-
-        $('#txtDateOfBirth').datepicker({ viewMode: "years", endDate: dt, autoclose: true });
         $("#txtDate").datepicker();
         $("#txtDateOfExpiration").datepicker();
 
 
 
 
-        $("#txtDateOfIssuance,#txtStartDate,#txtMoveInDateFrom,#txtMoveInDateTo,#txtMoveInDateFrom2,#txtMoveInDateTo2").datepicker({
-            endDate: "+0d",
-            autoclose: true,
-            startDate: '-100y'
-        });
+        //$("#txtDateOfIssuance,#txtStartDate,#txtMoveInDateFrom,#txtMoveInDateTo,#txtMoveInDateFrom2,#txtMoveInDateTo2").datepicker({
+        //    endDate: "+0d",
+        //    autoclose: true,
+        //    startDate: '-100y'
+        //});
 
         $('#txtDOB').datepicker({ viewMode: "years", endDate: dt, autoclose: true });
         $('#txtHDateOfBirth').datepicker({ viewMode: "years", endDate: dt, autoclose: true });
-
-        $("#txtPhoneNumber").val(formatPhoneFax('@Model.Phone'));
+        $("#txtPhoneNumber").text(formatPhoneFax("@Model.Phone"));
+        $("#txtPhoneNumber").text(formatPhoneFax("@Model.Phone"));
+        $("#lblFNLPhone").text(formatPhoneFax("@Model.Phone"));
     });
-</script>
-<script type="text/javascript">
+
     $(document).ready(function () {
 
         $("#apartimg_2").maphilight();
-        $("#ddlRoom").val(@Model.Bedroom);
-           $("#ddlRoom").trigger('change');
-           getPropertyModelUnitList(1, 8);
-           $("#ddlGender").on("change", function () {
-            if ($(this).val() == 3) {
-                $("#txtOtherGender").attr("disabled", false);
-            }
-            else {
-                $("#txtOtherGender").attr("disabled", true);
-            }
-        });
-        fillMarketSourceDDL();
-               if (@Model.ProspectId != 0) {
-            $("#logintext").text("Logout");
 
-            $("#ddlcardmonth").val(@Model.CardMonth);
-            $("#ddlcardmonth").trigger('change');
-            $("#ddlcardyear").val(@Model.CardYear);
-            $("#ddlcardyear").trigger('change');
-            setTimeout(function () {
-            $("#ddlMarketSource").val('@Model.Marketsource');
-            $("#ddlMarketSource").trigger('change');
-            }, 2000);
+        if (@Model.ProspectId != 0) {
+
+
+              goToStep(3, 3);
+
+            $("#logintext").text("Logout");
 
             getPropertyUnitDetails(@Model.PropertyId);
             $("#hndUID").val(@Model.PropertyId);
-            $("#li2").addClass("active");
-            $("#li3").addClass("active");
-            $("#li4").addClass("active");
-            $("#li5").addClass("active");
+
 
             if (@Model.IsRentalPolicy=="1") {
                 $("#chkRentalPolicy").iCheck('check');
@@ -3825,25 +3932,71 @@
             }
 
 
-             $("#as2").removeAttr("onclick")
+                $("#as2").removeAttr("onclick")
                 $("#as2").attr("onclick", "goToStep(2,2)");
                 $("#as3").removeAttr("onclick")
                 $("#as3").attr("onclick", "goToStep(3,3)");
                 $("#as4").removeAttr("onclick")
-                $("#as4").attr("onclick", "goToStep(4,4)");
-
-              goToStep(3, 3);
+                $("#as4").attr("onclick", "goToStep(5,5)");
 
 
             $("#getting-startedTimeRemainingClock").removeClass("hidden");
             $("#divstep3save").addClass("hidden");
             $("#divstep3").removeClass("hidden");
-            getTransationLists(@Model.ID);
+            //getTransationLists(@Model.ID);
+            if ('@Model.CardNumber' != "") {
+                $("#txtCardNumber").text(("*".repeat('@Model.CardNumber'.length - 4) + '@Model.CardNumber'.substr('@Model.CardNumber'.length - 4, 4)));
+            }
+            else {
+                $("#txtCardNumber").text('@Model.CardNumber');
+            }
 
 
-            //$("#carddetails").addClass("hidden");
+            setTimeout(function () {
+            $("#ddlMarketSource").val('@Model.Marketsource');
+            $("#ddlMarketSource").trigger('change');
+            }, 2000);
         }
+
+
+         var fileExistInsurenceDoc = doesFileExist('/../Content/assets/img/ChecklistDocument/' + '@Model.InsuranceDoc');
+        if (fileExistInsurenceDoc) {
+            $("#dwnldPOI").attr('href', '/../Content/assets/img/ChecklistDocument/' + '@Model.InsuranceDoc');
+            $("#dwnldPOI").attr('download','@Model.InsuranceDoc');
+            $("#dwnldPOI").attr('target', '_parent');
+            $("#dwnldPOI").html('<i class="fa fa-download"></i>' + ' ' + '@Model.InsuranceDoc');
+        }
+        else {
+            $("#dwnldPOI").attr('href', 'javascript:void(0)');
+            $("#dwnldPOI").attr('onclick', 'fileNotFound()');
+            $("#dwnldPOI").html('<i class="fa fa-download"></i>' + ' ' + '@Model.InsuranceDoc');
+        }
+
+        var fileExistElectricityDoc = doesFileExist('/../Content/assets/img/ChecklistDocument/' + '@Model.ElectricityDoc');
+        if (fileExistElectricityDoc) {
+            $("#dwnldPOE").attr('href', '/../Content/assets/img/ChecklistDocument/' + '@Model.ElectricityDoc');
+            $("#dwnldPOE").attr('download','@Model.ElectricityDoc');
+            $("#dwnldPOE").attr('target', '_parent');
+            $("#dwnldPOE").html('<i class="fa fa-download"></i>' + ' ' + '@Model.ElectricityDoc');
+        }
+        else {
+            $("#dwnldPOE").attr('href', 'javascript:void(0)');
+            $("#dwnldPOE").attr('onclick', 'fileNotFound()');
+            $("#dwnldPOE").html('<i class="fa fa-download"></i>' + ' ' + '@Model.ElectricityDoc');
+        }
+        $("#lblProrated_AditionalParking").text(parseFloat(parseFloat($("#lblMonthly_AditionalParking").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+        $("#lblProrated_Storage").text(parseFloat(parseFloat($("#lblMonthly_Storage").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+        $("#lblProrated_PetRent").text(parseFloat(parseFloat($("#lblMonthly_PetRent").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
     });
+
+    var fileNotFound = function () {
+        $.alert({
+            title: "",
+            content: "File Not Found.",
+            type: 'blue'
+        });
+    };
+
     $(function () {
         $('area').click(function () {
             $("#hndSelectedFloor").val($(this).attr("id"));
@@ -3923,15 +4076,7 @@
                 $("#" + cont).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: color, strokeColor: color }).trigger('alwaysOn.maphilight');
             }
         });
-        //$('.Uarea').addClass('active_unavil').data('maphilight', { alwaysOn: true, fillColor: 'FF0000', strokeColor: 'FF0000', }).trigger('alwaysOn.maphilight');
-        //$('.UAarea').addClass('active_unavil').data('maphilight', { alwaysOn: true, fillColor: '006400', strokeColor: '006400',}).trigger('alwaysOn.maphilight');
-        //$('.UYarea').addClass('active_unavil').data('maphilight', { alwaysOn: true, fillColor: 'ffff00', strokeColor: 'ffff00', }).trigger('alwaysOn.maphilight');
     });
-
-
-</script>
-
-<script>
 
     var modalPetPolicy = document.getElementById("modalPetPolicy");
 
@@ -3955,5 +4100,45 @@
         }
     }
 
+    var downloadLeaseDocumentPV = function () {
+        if ($("#hndLeaseId").val() != "" || $("#hndEsignatureId").val() != "") {
+            $("#divLoader").show();
+            var param = { LeaseId: $("#hndLeaseId").val(), EsignatureId: $("#hndEsignatureId").val() };
+            $.ajax({
+                url: "/ProspectVerification/GetLeaseDocBlumoonAdm",
+                method: "post",
+                data: JSON.stringify(param),
+                contentType: "application/json; charset=utf-8", // content type sent to server
+                dataType: "json", //Expected data format from server
+                success: function (response) {
+                    $("#divLoader").hide();
+                    var hyperlink = document.createElement('a');
+                    hyperlink.href = "/Content/assets/img/Document/LeaseDocument_" + response.LeaseId + ".pdf";
+                    hyperlink.target = '_blank';
+                    hyperlink.download = "LeaseDocument_" + response.LeaseId + ".pdf";
 
+                    (document.body || document.documentElement).appendChild(hyperlink);
+                    hyperlink.onclick = function () {
+                        (document.body || document.documentElement).removeChild(hyperlink);
+                    };
+                    var mouseEvent = new MouseEvent('click', {
+                        view: window,
+                        bubbles: true,
+                        cancelable: true
+                    });
+                    hyperlink.dispatchEvent(mouseEvent);
+                    if (!navigator.mozGetUserMedia) {
+                        window.URL.revokeObjectURL(hyperlink.href);
+                    }
+                }
+            });
+        }
+        else {
+            $.alert({
+                title: "",
+                content: "Document Not Yet Signed.",
+                type: 'red'
+            });
+        }
+    };
 </script>

@@ -1,10 +1,14 @@
 ﻿
 @{
     ViewBag.Title = "Prospect Verification";
+    DateTime now = DateTime.Now;
+    var startDate = new DateTime(now.Year, now.Month, 1);
+    var endDate = startDate.AddMonths(1).AddDays(-1);
 }
 
 <script src="~/Areas/Admin/Content/Pages/ProspectVerification/ProspectVerificationList.js"></script>
 <!-- property area -->
+<input type="hidden" id="hndPageNo" value="0" />
 <div class="register-area" style="background-color: rgb(249, 249, 249);">
     <div class="container"  style="width:100%!important">
         <div class="row">
@@ -16,21 +20,44 @@
                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                     <div class="panel-heading">
                         <div class="col-sm-3">
+                            <h3 class="panel-title input-group">From Date</h3>
+                            <div class="input-group">
+                                <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
+                                <span class="input-group-btn">
+                                    <button id="iconFromDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <h3 class="panel-title input-group">To Date</h3>
+                            <div class="input-group">
+                                <input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="@endDate.ToString("MM/dd/yyyy")" />
+                                <span class="input-group-btn">
+                                    <button id="iconToDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        @*<div class="col-sm-3">
                             <div class="form-group">
                                 <h3 class="panel-title">From Date</h3>
-                                <input id="txtFromDate" type="text" class="form-control" value="@DateTime.Now.AddDays(-30).ToString("MM/dd/yyyy")">
+                                <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
+                                <span class="input-group-btn" style="width:0% !important">
+                                    <button class="btn btn-primary search" type="button" id="iconFromDate" style="margin-top: -60px;margin-left: 290px;"><i class="fa-calendar fa"></i></button>
+                                </span>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <h3 class="panel-title">To Date</h3>
-                                <input id="txtToDate" type="text" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")">
+                                <input id="txtToDate" type="text" class="form-control" value="@endDate.ToString("MM/dd/yyyy")">
+                                <span class="input-group-btn" style="width:0% !important">
+                                    <button class="btn btn-primary search" type="button" id="iconToDate" style="margin-top: -60px;margin-left: 290px;"><i class="fa-calendar fa"></i></button>
+                                </span>
                             </div>
-                        </div>
+                        </div>*@
                         <div class="col-sm-3">
-                            <div class="form-group">
-                                <h3 class="panel-title" style="border-bottom: #fff !important;">&nbsp;</h3>
-                                <input type='button' class='btn btn-next btn-primary' name='Search' value='Search' onclick="getProspectVerificationList()" />
+                            <div class="form-group padding-top-25">
+                                <button type='button' class='btn btn-next btn-primary' name='Search' value='Search' onclick="buildPaganationProspectVerifyList(1)"><i class="fa fa-search"></i> SEARCH</button>
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -56,12 +83,12 @@
                             <table id="tblProspectVerify" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th style="background-color: #c7cdd5;color:#3d3939;padding:10px;">First Name</th>
-                                        <th style="background-color: #c7cdd5;color:#3d3939;padding:10px;">Last Name</th>
-                                        <th style="background-color: #c7cdd5;color:#3d3939;padding:10px;">Phone No</th>
-                                        <th style="background-color: #c7cdd5;color:#3d3939;padding:10px;">Email Address</th>
-                                        <th style="background-color: #c7cdd5;color:#3d3939;padding:10px;" onclick="sortTable('CreatedDate')">Apply Date <span></span></th>
-                                        <th style="background-color: #c7cdd5;color:#3d3939;padding:10px;" onclick="sortTable('PropertyId')">Unit No <span></span></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('FirstName')">First Name <i id="sortFirstNameIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('LastName')">Last Name <i id="sortLastNameIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('PhoneNo')">Phone No <i id="sortPhoneNoIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('EmailAddress')">Email Address <i id="sortEmailAddressIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('ApplyDate')">Apply Date <i id="sortApplyDateIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('UnitNo')">Unit No <i id="sortUnitNoIcon" class=""></i></th>
                                         @*<th style="background-color: #c7cdd5;color:#3d3939;padding:10px;">Action</th>*@
                                     </tr>
                                 </thead>
@@ -78,6 +105,12 @@
 <script>
     $(function () {
         $("#txtFromDate").datepicker();
+        $("#iconFromDate").click(function () {
+            $("#txtFromDate").focus();
+        });
         $("#txtToDate").datepicker();
+        $("#iconToDate").click(function () {
+            $("#txtToDate").focus();
+        });
     });
 </script>

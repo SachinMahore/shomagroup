@@ -14,14 +14,15 @@
         <div class="col-sm-12">
             <h4 class="info-text pull-left"> Let's start with the Unit information</h4>
             <div class="pull-left"  style="margin-left:80px">
-                <input type='button' class='btn btn-default' value='Unit List' onclick="goToStep(5)" />
+
+                <button type='button' class='btn btn-success' style="width:120px;" onclick="goToStep(5)"><i class="glyphicon glyphicon-list"></i> Unit List</button>
             </div>
             <div class="pull-right">
-                <button type='button' class='btn btn-default' style="width:120px;" id="prevm" onclick="goToStep(6,@Model.PreviousID)"><i class="glyphicon glyphicon-arrow-left"></i> Previous</button>
-                <button type='button' class='btn btn-default' style="width:90px;"  onclick="SaveUpdatePropertyUnit()"><i class="glyphicon glyphicon-floppy-save"></i> Save</button>
+                <button type='button' class='btn btn-success ' style="width:120px;" id="prevm" onclick="goToStep(6,@Model.PreviousID)"><i class="glyphicon glyphicon-arrow-left"></i> Previous</button>
+                <button type='button' class='btn btn-success ' style="width:90px;"  onclick="SaveUpdatePropertyUnit()"><i class="glyphicon glyphicon-floppy-save"></i> Save</button>
                 <button type="button" class="btn btn-success " id="btnSaveUpdate" onclick="clearUnit()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">NEW</span></button>
-                <button type='button' class='btn btn-default' style="width:100px;" onclick="delUnit(@Model.UID)"><i class="glyphicon glyphicon-trash"></i> Delete</button>
-                <button type='button' class='btn btn-default' style="width:100px;" id="nextm"  onclick="goToStep(6,@Model.NextID)">Next <i class="glyphicon glyphicon-arrow-right"></i></button>
+                <button type='button' class='btn btn-success ' style="width:100px;" onclick="delUnit(@Model.UID)"><i class="glyphicon glyphicon-trash"></i> Delete</button>
+                <button type='button' class='btn btn-success ' style="width:100px;" id="nextm"  onclick="goToStep(6,@Model.NextID)">Next <i class="glyphicon glyphicon-arrow-right"></i></button>
             </div>
             
            
@@ -59,7 +60,7 @@
                         <label class="star">Interior SF</label>
                         <div class="input-group">
                             <input id="txtInteriorArea" type="text" onkeypress="return isNumber(event)" placeholder="Interior SF" class="form-control"  style="text-align:right;width:80px" onkeyup="areaAddition()">
-                            <span class="input-group-btn">
+                            <span class="input-group-btn" style=" padding-top: 10px !important;">
                                 <button class="btn btn-primary search SqFtCustome" type="button" style="text-transform:unset">SF</button>
                             </span>
                         </div>
@@ -70,7 +71,7 @@
                         <label class="star">Balcony SF</label>
                         <div class="input-group">
                             <input id="txtBalconyArea" type="text" onkeypress="return isNumber(event)" placeholder="Balcony SF" class="form-control"  style="text-align:right;width:80px" onkeyup="areaAddition()">
-                            <span class="input-group-btn">
+                            <span class="input-group-btn" style=" padding-top: 10px !important;">
                                 <button class="btn btn-primary search SqFtCustome" type="button" style="text-transform:unset">SF</button>
                             </span>
                         </div>
@@ -83,7 +84,7 @@
                         <label class="star">Total SF</label>
                         <div class="input-group">
                             <input name="area" id="txtArea" type="text" onkeypress="return isNumber(event)" placeholder="0" class="form-control" style="text-align:right;width:80px" readonly="readonly">
-                            <span class="input-group-btn">
+                            <span class="input-group-btn" style=" padding-top: 10px !important;">
                                 <button class="btn btn-primary search SqFtCustome" type="button" style="text-transform:unset">SF</button>
                             </span>
                         </div>
@@ -399,19 +400,15 @@
                     <textarea class="form-control" id="txtunitcord">@Model.Coordinates</textarea>
                 </div>
                 <div class="pull-left">
-                    <input type='button' class='btn btn-default' value='Reset' onclick="resetunitcords()" />
+                  
+                    <button type='button' class='btn btn-success' style="width:120px;" onclick="resetunitcords()"><i class="glyphicon glyphicon-refresh"></i> Reset</button>
                 </div>
                 <div class="pull-right">
-                    <input type='button' class='btn btn-default' value='Check' onclick="checkUnitCords()" />
+
+                    <button type='button' class='btn btn-success' style="width:120px;" onclick="checkUnitCords()"><i class="glyphicon glyphicon-check"></i> Check</button>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-sm-12">
-        <div class="pull-left text-center">
-            <button type="submit" class="btn btn-primary" onclick="goToStep(5,5)"> Back</button>
-        </div>
-       
     </div>
 </div>
 <script src="~/Content/assets/js/jquery.maphilight.js"></script>
@@ -428,11 +425,15 @@
         setTimeout(function () {
             $("#ddlPremium").val('@Model.Premium');
             $("#ddlPremium").trigger('change');
-            $("#ddlFloorNo").val(@Model.FloorNo);
-            $("#ddlFloorNo").trigger('change');
+         
             $("#ddlModel").val('@Model.Building');
             $("#ddlModel").trigger('change');
         }, 900);
+
+        setTimeout(function () {
+            $("#ddlFloorNo").find("option[value='" + @Model.FloorNo + "']").attr('selected', 'selected');
+            showFloorPlan(@Model.FloorNo);
+        }, 1100);
 
          if (@Model.PreviousID==0)
         {

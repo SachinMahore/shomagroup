@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    onFocus();
+    onFocusTenant();
     $("#ddlGender").on("change", function () {
         if ($(this).val() == 3) {
             $("#txtOtherGender").attr("disabled", false);
@@ -180,6 +180,9 @@
             $("#passportDiv").addClass("hidden");
         }
     });
+    getApplicantHistoryList();
+    
+    
 });
 var getTenantData = function (tenantID) {
     //alert(userID);
@@ -616,45 +619,120 @@ var goToStep = function (stepid, id) {
         $("#li2").removeClass("active");
         $("#li3").removeClass("active");
         $("#li4").removeClass("active");
+        $("#li5").removeClass("active");
+        $("#li6").removeClass("active");
+        $("#li7").removeClass("active");
         $("#step2").addClass("hidden");
         $("#step3").addClass("hidden");
         $("#step4").addClass("hidden");
+        $("#step5").addClass("hidden");
+        $("#step6").addClass("hidden");
+        $("#step7").addClass("hidden");
         $("#step1").removeClass("hidden");
     }
     if (stepid == "2") {
-        $.get("../../LeaseManagement/Edit/?id=" + id, function (data) {
-            $("#step2").html(data);
-        });
+        getApplicantHistoryList();
         $("#li2").addClass("active");
         $("#li1").removeClass("active");
         $("#li3").removeClass("active");
         $("#li4").removeClass("active");
+        $("#li5").removeClass("active");
+        $("#li6").removeClass("active");
+        $("#li7").removeClass("active");
         $("#step1").addClass("hidden");
         $("#step3").addClass("hidden");
         $("#step4").addClass("hidden");
+        $("#step5").addClass("hidden");
+        $("#step6").addClass("hidden");
+        $("#step7").addClass("hidden");
         $("#step2").removeClass("hidden");
     }
     if (stepid == "3") {
+        getVehicleLists();
         $("#li3").addClass("active");
-        $("#li2").removeClass("active");
         $("#li1").removeClass("active");
+        $("#li2").removeClass("active");
         $("#li4").removeClass("active");
-        $("#step2").addClass("hidden");
+        $("#li5").removeClass("active");
+        $("#li6").removeClass("active");
+        $("#li7").removeClass("active");
         $("#step1").addClass("hidden");
+        $("#step2").addClass("hidden");
         $("#step4").addClass("hidden");
+        $("#step5").addClass("hidden");
+        $("#step6").addClass("hidden");
+        $("#step7").addClass("hidden");
         $("#step3").removeClass("hidden");
     }
     if (stepid == "4") {
-
-        getNoticeLists();
+        getPetLists();
         $("#li4").addClass("active");
+        $("#li1").removeClass("active");
         $("#li2").removeClass("active");
         $("#li3").removeClass("active");
-        $("#li1").removeClass("active");
-        $("#step2").addClass("hidden");
+        $("#li5").removeClass("active");
+        $("#li6").removeClass("active");
+        $("#li7").removeClass("active");
         $("#step1").addClass("hidden");
+        $("#step2").addClass("hidden");
         $("#step3").addClass("hidden");
+        $("#step5").addClass("hidden");
+        $("#step6").addClass("hidden");
+        $("#step7").addClass("hidden");
         $("#step4").removeClass("hidden");
+    }
+    if (stepid == "5") {
+        $.get("../../LeaseManagement/Edit/?id=" + id, function (data) {
+            $("#step5").html(data);
+        });
+        $("#li5").addClass("active");
+        $("#li1").removeClass("active");
+        $("#li2").removeClass("active");
+        $("#li3").removeClass("active");
+        $("#li4").removeClass("active");
+        $("#li6").removeClass("active");
+        $("#li7").removeClass("active");
+        $("#step1").addClass("hidden");
+        $("#step2").addClass("hidden");
+        $("#step3").addClass("hidden");
+        $("#step4").addClass("hidden");
+        $("#step6").addClass("hidden");
+        $("#step7").addClass("hidden");
+        $("#step5").removeClass("hidden");
+    }
+    if (stepid == "6") {
+        $("#li6").addClass("active");
+        $("#li1").removeClass("active");
+        $("#li2").removeClass("active");
+        $("#li3").removeClass("active");
+        $("#li4").removeClass("active");
+        $("#li5").removeClass("active");
+        $("#li7").removeClass("active");
+        $("#step1").addClass("hidden");
+        $("#step2").addClass("hidden");
+        $("#step3").addClass("hidden");
+        $("#step4").addClass("hidden");
+        $("#step5").addClass("hidden");
+        $("#step7").addClass("hidden");
+        $("#step6").removeClass("hidden");
+    }
+    if (stepid == "7") {
+
+        getNoticeLists();
+        $("#li7").addClass("active");
+        $("#li1").removeClass("active");
+        $("#li2").removeClass("active");
+        $("#li3").removeClass("active");
+        $("#li4").removeClass("active");
+        $("#li5").removeClass("active");
+        $("#li6").removeClass("active");
+        $("#step1").addClass("hidden");
+        $("#step2").addClass("hidden");
+        $("#step3").addClass("hidden");
+        $("#step4").addClass("hidden");
+        $("#step5").addClass("hidden");
+        $("#step6").addClass("hidden");
+        $("#step7").removeClass("hidden");
     }
 }
 
@@ -876,6 +954,7 @@ var getTenantOnlineData = function (id) {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
+            document.getElementById('hndProspectID').value = response.model.ProspectID;
             $("#ddlIsInter").val(response.model.IsInternational).change();
             $("#txtFirstNamePersonal").val(response.model.FirstName);
             $("#txtMiddleInitial").val(response.model.MiddleInitial);
@@ -958,27 +1037,100 @@ var getTenantOnlineData = function (id) {
             }, 1500);
             $("#ddlCityContact").val(response.model.EmergencyCityHome);
             $("#txtEmergencyZip").val(response.model.EmergencyZipHome);
-            $("#downPassport").empty();
-            var dowPass = "<a id='downPassport' href='../../../Content/assets/img/PersonalInformation/" + response.model.PassportDocument + "' download='" + response.model.UploadOriginalPassportName + "' class='btn btn-default' target='_blank'><i class='fa fa-download fa-2x'></i>" + " " + response.model.UploadOriginalPassportName + "</a>";
-            $("#downPassport").append(dowPass);
-            $("#downIdentity").empty();
-            var dowId = "<a id='downIdentity' href='../../../Content/assets/img/PersonalInformation/" + response.model.IdentityDocument + "' download='" + response.model.UploadOriginalIdentityName + "' class='btn btn-default' target='_blank'><i class='fa fa-download fa-2x'></i>" + " " + response.model.UploadOriginalIdentityName + "</a>";
-            $("#downIdentity").append(dowId);
-            $("#downUpload1").empty();
-            var dowUp1 = "<a id='downUpload1' href='../../../Content/assets/img/PersonalInformation/" + response.model.TaxReturn + "' download='" + response.model.UploadOriginalFileName1 + "' class='btn btn-default' target='_blank'><i class='fa fa-download fa-2x'></i>" + " " + response.model.UploadOriginalFileName1 + "</a>";
-            $("#downUpload1").append(dowUp1);
-            $("#downUpload2").empty();
-            var dowUp2 = "<a href='../../../Content/assets/img/PersonalInformation/" + response.model.TaxReturn2 + "' download='" + response.model.UploadOriginalFileName2 + "' target='_blank' class='btn btn-default'><i class='fa fa-download fa-2x'></i>" + " " + response.model.UploadOriginalFileName2 + "</a>";
-            $("#downUpload2").append(dowUp2);
-            $("#downUpload3").empty();
-            var dowUp3 = "<a id='downUpload3' href='../../../Content/assets/img/PersonalInformation/" + response.model.TaxReturn3 + "' download='" + response.model.UploadOriginalFileName3 + "' class='btn btn-default' target='_blank'><i class='fa fa-download fa-2x'></i>" + " " + response.model.UploadOriginalFileName3 + "</a>";
-            $("#downUpload3").append(dowUp3);
+            //$("#downPassport").empty();
+            //var dowPass = "<a id='downPassport' href='../../../Content/assets/img/PersonalInformation/" + response.model.PassportDocument + "' download='" + response.model.UploadOriginalPassportName + "' class='btn btn-default' target='_blank'><i class='fa fa-download fa-1x'></i>" + " " + response.model.UploadOriginalPassportName + "</a>";
+            //$("#downPassport").append(dowPass);
+            //$("#downIdentity").empty();
+            //var dowId = "<a id='downIdentity' href='../../../Content/assets/img/PersonalInformation/" + response.model.IdentityDocument + "' download='" + response.model.UploadOriginalIdentityName + "' class='btn btn-default' target='_blank'><i class='fa fa-download fa-1x'></i>" + " " + response.model.UploadOriginalIdentityName + "</a>";
+            //$("#downIdentity").append(dowId);
+            //$("#downUpload1").empty();
+            //var dowUp1 = "<a id='downUpload1' href='../../../Content/assets/img/PersonalInformation/" + response.model.TaxReturn + "' download='" + response.model.UploadOriginalFileName1 + "' class='btn btn-default' target='_blank'><i class='fa fa-download fa-1x'></i>" + " " + response.model.UploadOriginalFileName1 + "</a>";
+            //$("#downUpload1").append(dowUp1);
+            //$("#downUpload2").empty();
+            //var dowUp2 = "<a href='../../../Content/assets/img/PersonalInformation/" + response.model.TaxReturn2 + "' download='" + response.model.UploadOriginalFileName2 + "' target='_blank' class='btn btn-default'><i class='fa fa-download fa-1x'></i>" + " " + response.model.UploadOriginalFileName2 + "</a>";
+            //$("#downUpload2").append(dowUp2);
+            //$("#downUpload3").empty();
+            //var dowUp3 = "<a id='downUpload3' href='../../../Content/assets/img/PersonalInformation/" + response.model.TaxReturn3 + "' download='" + response.model.UploadOriginalFileName3 + "' class='btn btn-default' target='_blank'><i class='fa fa-download fa-1x'></i>" + " " + response.model.UploadOriginalFileName3 + "</a>";
+            //$("#downUpload3").append(dowUp3);
             if (response.model.IsPaystub == true) {
 
                 $("#rbtnPaystub").iCheck('check');
             }
             else {
                 $("#rbtnFedralTax").iCheck('check');
+            }
+            $("#hndDontHaveVehicle").val(response.model.HaveVehicleString);
+            $("#hndDontHavePet").val(response.model.HavePetString);
+            if ($("#hndDontHaveVehicle").val() == 'true') {
+                $("#chkDontHaveVehicle").iCheck('check');
+            }
+            else {
+                $("#chkDontHaveVehicle").iCheck('uncheck');
+            }
+            if ($("#hndDontHavePet").val() == 'true') {
+                $("#chkDontHavePet").iCheck('check');
+            }
+            else {
+                $("#chkDontHavePet").iCheck('uncheck');
+            }
+            var resultPassport = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.PassportDocument);
+
+            if (resultPassport == true) {
+                $('#downPassport').attr('href', '/Content/assets/img/PersonalInformation/' + response.model.PassportDocument);
+                $('#downPassport').attr('download', response.model.UploadOriginalPassportName);
+                $('#downPassport').html("<i class='fa fa-download'></i> " + response.model.UploadOriginalPassportName);
+            } else {
+                $('#downPassport').html("<i class='fa fa-download'></i> " + response.model.UploadOriginalPassportName);
+                $('#downPassport').attr('href', 'JavaScript:Void(0)');
+                $('#downPassport').attr('onclick', 'fileNotExist()');
+            }
+
+            var resultIdentity = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.IdentityDocument);
+
+            if (resultIdentity == true) {
+                $('#downIdentity').attr('href', '/Content/assets/img/PersonalInformation/' + response.model.IdentityDocument);
+                $('#downIdentity').attr('download', response.model.UploadOriginalIdentityName);
+                $('#downIdentity').html("<i class='fa fa-download'></i> " + response.model.UploadOriginalIdentityName);
+            } else {
+                $('#downIdentity').html("<i class='fa fa-download'></i> " + response.model.UploadOriginalIdentityName);
+                $('#downIdentity').attr('href', 'JavaScript:Void(0)');
+                $('#downIdentity').attr('onclick', 'fileNotExist()');
+            }
+
+            var resultTaxReturn = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn);
+
+            if (resultTaxReturn == true) {
+                $('#downUpload1').attr('href', '/Content/assets/img/PersonalInformation/' + response.model.TaxReturn);
+                $('#downUpload1').attr('download', response.model.UploadOriginalFileName1);
+                $('#downUpload1').html("<i class='fa fa-download'></i> " + response.model.UploadOriginalFileName1);
+            } else {
+                $('#downUpload1').html("<i class='fa fa-download'></i> " + response.model.UploadOriginalFileName1);
+                $('#downUpload1').attr('href', 'JavaScript:Void(0)');
+                $('#downUpload1').attr('onclick', 'fileNotExist()');
+            }
+
+            var resultTaxReturn2 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn2);
+
+            if (resultTaxReturn2 == true) {
+                $('#downUpload2').attr('href', '/Content/assets/img/PersonalInformation/' + response.model.TaxReturn2);
+                $('#downUpload2').attr('download', response.model.UploadOriginalFileName2);
+                $('#downUpload2').html("<i class='fa fa-download'></i> " + response.model.UploadOriginalFileName2);
+            } else {
+                $('#downUpload2').html("<i class='fa fa-download'></i> " + response.model.UploadOriginalFileName2);
+                $('#downUpload2').attr('href', 'JavaScript:Void(0)');
+                $('#downUpload2').attr('onclick', 'fileNotExist()');
+            }
+
+            var resultTaxReturn3 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn3);
+
+            if (resultTaxReturn3 == true) {
+                $('#downUpload3').attr('href', '/Content/assets/img/PersonalInformation/' + response.model.TaxReturn3);
+                $('#downUpload3').attr('download', response.model.UploadOriginalFileName3);
+                $('#downUpload3').html("<i class='fa fa-download'></i> " + response.model.UploadOriginalFileName3);
+            } else {
+                $('#downUpload3').html("<i class='fa fa-download'></i> " + response.model.UploadOriginalFileName3);
+                $('#downUpload3').attr('href', 'JavaScript:Void(0)');
+                $('#downUpload3').attr('onclick', 'fileNotExist()');
             }
         }
     });
@@ -1114,7 +1266,7 @@ var fillCountryDropDownList = function () {
     });
 }
 
-var onFocus = function () {
+var onFocusTenant = function () {
 
     $("#txtApplicantPhone").focusout(function () { $("#txtApplicantPhone").val(formatPhoneFax($("#txtApplicantPhone").val())); })
         .focus(function () {
@@ -1218,4 +1370,247 @@ $(function () {
 
 });
 
+var getApplicantHistoryList = function () {
 
+    var model = {
+        TenantID: $("#hndProspectID").val()
+        //TenantID: '65'
+    };
+    $.ajax({
+        url: "/ApplyNow/GetApplicantHistoryList",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            //console.log(JSON.stringify(response))
+            $("#tblAHR>tbody").empty();
+            $.each(response.model, function (elementType, elementValue) {
+                var html = "<tr id='tr_" + elementValue.AHID + "' data-value='" + elementValue.AHID + "'>";
+                html += "<td>" + elementValue.Country + "</td>";
+                html += "<td>" + elementValue.HomeAddress1 + "</td>";
+                html += "<td>" + elementValue.HomeAddress2 + "</td>";
+                html += "<td>" + elementValue.StateHomeTxt + "</td>";
+                html += "<td>" + elementValue.CityHome + "</td>";
+                html += "<td>" + elementValue.ZipHome + "</td>";
+
+                html += "<td>" + elementValue.MoveInDateFromTxt + "</td>";
+                html += "<td>" + elementValue.MoveInDateToTxt + "</td>";
+                html += "<td>" + elementValue.MonthlyPayment + "</td>";
+
+                html += "<td class='text-center'>";
+                html += "<button style='background: transparent;' id='updateAHRInfo' onclick='getApplicantHistoryInfo(" + elementValue.AHID + ")'><span class='fa fa-eye' ></span></button>";
+                html += "</tr>";
+                $("#tblAHR>tbody").append(html);
+            });
+        }
+    });
+};
+
+var getVehicleLists = function () {
+    var model = {
+
+        TenantID: $("#hndProspectID").val(),
+        //TenantID:'105'
+    }
+    $.ajax({
+        url: "/Tenant/Vehicle/GetVehicleList",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+
+            $("#tblVehicle>tbody").empty();
+            $.each(response.model, function (elementType, elementValue) {
+                var html = "<tr id='tr_" + elementValue.Vehicle_ID + "' data-value='" + elementValue.Vehicle_ID + "'>";
+                html += "<td>" + elementValue.OwnerName + "</td>";
+                html += "<td>" + elementValue.Make + "</td>";
+                html += "<td>" + elementValue.VModel + "</td>";
+                html += "<td>" + elementValue.Year + "</td>";
+                html += "<td>" + elementValue.Color + "</td>";
+                html += "<td>" + elementValue.License + "</td>";
+                html += "<td class='text-center'><button style='background: transparent;' onclick='getVehicleInfo(" + elementValue.Vehicle_ID + ")'><span class='fa fa-eye'></span></button>";
+
+                html += "</tr>";
+                $("#tblVehicle>tbody").append(html);
+            });
+
+        }
+    });
+}
+
+var getPetLists = function () {
+    var model = {
+        TenantID: $("#hndProspectID").val()
+        //TenantID:'105'
+    };
+    $.ajax({
+        url: "/Tenant/Pet/GetPetList",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#tblPet>tbody").empty();
+            $.each(response.model, function (elementType, elementValue) {
+                var html = "<tr id='tr_" + elementValue.PetID + "' data-value='" + elementValue.PetID + "'>";
+                html += "<td align='center'><img src='/content/assets/img/pet/" + elementValue.Photo + "' class='picture-src' title='' style='height:70px;width:70px;'/></td>";
+                html += "<td>" + elementValue.PetName + "</td>";
+                html += "<td>" + elementValue.Breed + "</td>";
+                html += "<td>" + elementValue.Weight + "</td>";
+                html += "<td>" + elementValue.VetsName + "</td>";
+                html += "<td class='text-center'>";
+                html += "<button style='background: transparent;' id='updatePetInfo' onclick='getPetInfo(" + elementValue.PetID + ")'><span class='fa fa-eye'></span></button>";
+                html += "</td >";
+                html += "</tr>";
+                $("#tblPet>tbody").append(html);
+            });
+        }
+    });
+};
+
+var getApplicantHistoryInfo = function (id) {
+    var model = {
+        AHID: id
+    };
+    $.ajax({
+        url: '/ApplyNow/GetApplicantHistoryDetails/',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#popApplicantHistory").modal("show");
+            $("#hdnAHRId").val(response.model.AHID);
+            $("#txtCountry2").find("option[value='" + response.model.Country2 + "']").attr('selected', 'selected');
+
+            $("#txtAddress12").val(response.model.HomeAddress1);
+            $("#txtAddress22").val(response.model.HomeAddress2);
+            $("#ddlStateHome2").find("option[value='" + response.model.StateHome + "']").attr('selected', 'selected');
+            $("#ddlCityHome2").val(response.model.CityHome);
+            $("#txtZip2").val(response.model.ZipHome);
+            $("#ddlRentOwn2").val(response.model.RentOwn);
+            $("#txtMoveInDateFrom2").val(response.model.MoveInDateFromTxt);
+            $("#txtMoveInDateTo2").val(response.model.MoveInDateToTxt);
+            $("#txtMonthlyPayment2").val(response.model.MonthlyPayment);
+            $("#txtReasonforleaving2").val(response.model.Reason);
+        }
+    });
+};
+
+var getPetInfo = function (id) {
+    $("#popPet").modal("show");
+    var model = {
+        id: id
+    };
+    $.ajax({
+        url: '/Tenant/Pet/GetPetDetails/',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#hndPetID").val(response.model.PetID);
+            $("#txtpetName").val(response.model.PetName);
+            $("#txtpetVetsName").val(response.model.VetsName);
+            $("#ddlpetType").val(response.model.PetType);
+            $("#txtpetBreed").val(response.model.Breed);
+            $("#txtpetWeight").val(response.model.Weight);
+            $("#txtpetAge").val(response.model.Age);
+            $("#hndPetPicture").val(response.model.Photo);
+            $("#hndOriginalPetPicture").val(response.model.OriginalPetNameFile);
+            $("#hndPetVaccinationCertificate").val(response.model.PetVaccinationCertificate);
+            $("#hndOriginalPetVaccinationCertificate").val(response.model.OriginalPetVaccinationCertificateFile);
+            if (response.model.OriginalPetVaccinationCertificateFile != '') {
+                $("#filePetPictireShow").text(response.model.OriginalPetNameFile);
+            }
+            if (response.model.OriginalPetVaccinationCertificateFile != '') {
+                $("#filePetVaccinationCertificateShow").text(response.model.OriginalPetVaccinationCertificateFile);
+            }
+            //$('#dwnldPetPhoto').attr('href', '/Content/assets/img/pet/' + response.model.Photo);
+            //$('#dwnldPetPhoto').attr('download', response.model.OriginalPetNameFile);
+            //$('#dwnldPetPhoto').html("<i class='fa fa-download'></i> " + response.model.OriginalPetNameFile);
+            //$('#dwnldVaccinationCertificate').attr('href', '/Content/assets/img/pet/' + response.model.PetVaccinationCertificate);
+            //$('#dwnldVaccinationCertificate').attr('download', response.model.OriginalPetVaccinationCertificateFile);
+            //$('#dwnldVaccinationCertificate').html("<i class='fa fa-download'></i> " + response.model.OriginalPetVaccinationCertificateFile);
+
+            var result = doesFileExist('/Content/assets/img/pet/' + response.model.Photo);
+
+            if (result == true) {
+                $('#dwnldPetPhoto').attr('href', '/Content/assets/img/pet/' + response.model.Photo);
+                $('#dwnldPetPhoto').attr('download', response.model.OriginalPetNameFile);
+                $('#dwnldPetPhoto').html("<i class='fa fa-download'></i> " + response.model.OriginalPetNameFile);
+            } else {
+                $('#dwnldPetPhoto').html("<i class='fa fa-download'></i> " + response.model.OriginalPetNameFile);
+                $('#dwnldPetPhoto').attr('href', 'JavaScript:Void(0)');
+                $('#dwnldPetPhoto').attr('onclick', 'fileNotExist()');
+            }
+
+            var result1 = doesFileExist('/Content/assets/img/pet/' + response.model.PetVaccinationCertificate);
+
+            if (result1 == true) {
+                $('#dwnldVaccinationCertificate').attr('href', '/Content/assets/img/pet/' + response.model.PetVaccinationCertificate);
+                $('#dwnldVaccinationCertificate').attr('download', response.model.OriginalPetVaccinationCertificateFile);
+                $('#dwnldVaccinationCertificate').html("<i class='fa fa-download'></i> " + response.model.OriginalPetVaccinationCertificateFile);
+            } else {
+                $('#dwnldVaccinationCertificate').html("<i class='fa fa-download'></i> " + response.model.OriginalPetVaccinationCertificateFile);
+                $('#dwnldVaccinationCertificate').attr('href', 'JavaScript:Void(0)');
+                $('#dwnldVaccinationCertificate').attr('onclick', 'fileNotExist()');
+            }
+        }
+    });
+};
+
+var getVehicleInfo = function (id) {
+    $("#popVehicle").modal("show");
+    var model = {
+        VehicleId: id
+    };
+    $.ajax({
+        url: '/Tenant/Vehicle/GetVehicleInfo/',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#hndVehicleID").val(response.model.Vehicle_ID);
+            $("#txtVehicleOwnerName").val(response.model.OwnerName);
+            $("#txtVehicleMake").val(response.model.Make);
+            $("#txtVehicleModel").val(response.model.VModel);
+            $("#txtVehicleColor").val(response.model.Color);
+            $("#txtVehicleLicence").val(response.model.License);
+            $("#txtVehicleNote").val(response.model.Notes);
+            setTimeout(function () {
+                $("#ddlVehicleyear").find("option[value='" + response.model.Year + "']").attr('selected', 'selected');
+            }, 1500);
+            setTimeout(function () {
+                $("#ddlVState").find("option[value='" + response.model.State + "']").attr('selected', 'selected');
+            }, 1500);
+
+            var result = doesFileExist('/Content/assets/img/VehicleRegistration/' + response.model.VehicleRegistration);
+
+            if (result == true) {
+                $('#dwnldVehicleRegistration').attr('href', '/Content/assets/img/VehicleRegistration/' + response.model.VehicleRegistration);
+                $('#dwnldVehicleRegistration').attr('download', response.model.OriginalVehicleRegistation);
+                $('#dwnldVehicleRegistration').html("<i class='fa fa-download'></i> " + response.model.OriginalVehicleRegistation);
+            } else {
+                $('#dwnldVehicleRegistration').html("<i class='fa fa-download'></i> " + response.model.OriginalVehicleRegistation);
+                $('#dwnldVehicleRegistration').attr('href', 'JavaScript:Void(0)');
+                $('#dwnldVehicleRegistration').attr('onclick', 'fileNotExist()');
+            }
+
+            //$('#dwnldVehicleRegistration').attr('href', '/Content/assets/img/VehicleRegistration/' + response.model.VehicleRegistration);
+            //$('#dwnldVehicleRegistration').attr('download', response.model.OriginalVehicleRegistation);
+            //$('#dwnldVehicleRegistration').html("<i class='fa fa-download'></i> " + response.model.OriginalVehicleRegistation);
+        }
+    });
+};
+
+var fileNotExist = function () {
+    $.alert({
+        title: "Alert!",
+        content: 'File Not Found',
+        type: 'red'
+    })
+}

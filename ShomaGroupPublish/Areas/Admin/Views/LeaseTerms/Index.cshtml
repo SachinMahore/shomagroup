@@ -16,7 +16,7 @@
             <div class="col-md-12 padding-5">
                 <div class="form-group pull-right clearfix" style="padding-top:5px;">
                     <button type="button" class="btn btn-primary" id="btnLeaseTerms" style="text-transform:uppercase!important" onclick="clearLeaseTerms()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-plus"></i> New</button>
-                    <button type="button" class="btn btn-success" id="btnSaveLeaseTerms" style="text-transform:uppercase!important" onclick="saveUpdateLeaseTerms()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">Save</span></button>
+                    <button type="button" class="btn btn-primary" id="btnSaveLeaseTerms" style="text-transform:uppercase!important" onclick="saveUpdateLeaseTerms()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">Save</span></button>
                 </div>
             </div>
             <div class="col-md-7">
@@ -26,9 +26,9 @@
                     <table id="tblLeaseTerms" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:35%!important;">Lease Terms</th>
-                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:35%!important;">Offer Terms</th>
-                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:15%!important;">Agent</th>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:35%!important;cursor:pointer;" title="Sort" onclick="sortTableLeaseTerms('LeaseTerms')">Lease Terms <i id="sortLeaseTermsIcon" class=""></i></th>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:35%!important;cursor:pointer;" title="Sort" onclick="sortTableLeaseTerms('OfferTerms')">Offer Terms <i id="sortOfferTermsIcon" class=""></i></th>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:15%!important;cursor:pointer;" title="Sort" onclick="sortTableLeaseTerms('Agent')">Agent <i id="sortAgentIcon" class=""></i></th>
                                 <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:15%!important;">Action</th>
                             </tr>
                         </thead>

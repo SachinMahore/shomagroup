@@ -11,14 +11,16 @@
         nextText: '&raquo;',
         onInit: function () {
             console.log("Pagination_Init");
-            buildPaganationMSList(1);
+            buildPaganationMSList(1,"Advertiser", "ASC");
         },
         onPageClick: function (page, evt) {
             $("#hdnCurrentPage").val(page);
-            fillMSSearchGrid(page);
+            var sortByValuem = localStorage.getItem("SortByValuem");
+            var OrderByValuem = localStorage.getItem("OrderByValuem");
+            fillMSSearchGrid(page, sortByValuem, OrderByValuem);
         }
     });
-    TableClickEvent();
+    //TableClickEvent();
     btnSaveUpdate();
 });
 
@@ -40,11 +42,19 @@ var fillRPP_MS = function () {
         buildPaganationMSList($("#hdnCurrentPage").val());
     });
 };
-var buildPaganationMSList = function (pagenumber) {
+var buildPaganationMSList = function (pagenumber, sortbym, orderbym) {
+    if (!sortbym) {
+        sortbym = "Advertiser";
+    }
+    if (!orderbym) {
+        orderbym = "ASC";
+    }
     var model = {
         Criteria: $("#txtCriteriaMarketSource").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_MS").val()
+        NumberOfRows: $("#ddlRPP_MS").val(),
+        SortBy: sortbym,
+        OrderBy: orderbym
     };
     $.ajax({
         url: '/MarketSource/BuildPaganationMSList',
@@ -62,11 +72,19 @@ var buildPaganationMSList = function (pagenumber) {
         }
     });
 };
-var fillMSSearchGrid = function (pagenumber) {
+var fillMSSearchGrid = function (pagenumber, sortbym, orderbym) {
+    if (!sortbym) {
+        sortbym = "Advertiser";
+    }
+    if (!orderbym) {
+        orderbym = "ASC";
+    }
     var model = {
         Criteria: $("#txtCriteriaMarketSource").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_MS").val()
+        NumberOfRows: $("#ddlRPP_MS").val(),
+        SortBy: sortbym,
+        OrderBy: orderbym
     };
     $.ajax({
         url: '/MarketSource/FillMSSearchGrid',
@@ -280,4 +298,29 @@ var delMarketSource = function (ADId) {
             }
         }
     });
+};
+
+var count = 0;
+var sortTable = function (sortbym) {
+    var orderbym = "";
+    var pagenumber = $("#hndPageNo").val();
+    if (!pagenumber) {
+        pagenumber = 1;
+    }
+
+    if (count % 2 == 1) {
+        orderbym = "ASC";
+        $("#SortIcon").removeClass('fa fa-sort-down');
+        $("#SortIcon").addClass('fa fa-sort-up fa-lg');
+    }
+    else {
+        orderbym = "DESC";
+        $("#SortIcon").removeClass('fa fa-sort-up');
+        $("#SortIcon").addClass('fa fa-sort-down fa-lg');
+    }
+    localStorage.setItem("SortByValuem", sortbym);
+    localStorage.setItem("OrderByValuem", orderbym);
+    count++;
+    buildPaganationMSList(pagenumber, sortbym, orderbym);
+    FillMSSearchGrid(pagenumber, sortbym, orderbym);
 };

@@ -1,12 +1,12 @@
 ﻿$(document).ready(function () {
-    onFocus();
+    onFocusProperty();
     fillModelDDL();
     getPropertyList();
     getAmenityList();
     getModelsList();
     
     TableClickModels();
-    fillRPP_PUList();
+    //fillRPP_PUList();
     fillStateDDL();
     fillStateDDL1();
     getPremiumTypeList();
@@ -17,9 +17,10 @@
         }
     });
 
-
-
-
+    $("#ddlRPP_PUList").on('change', function (evt, params) {
+        var selected = $(this).val();
+        buildPaganationPUList($("#hdnCurrentPage_PU").val());
+    });
     $('#ulPagination_PUList').pagination({
         items: 0,
         currentPage: 1,
@@ -76,12 +77,12 @@ var getPropertyDetails = function (pid) {
 //---------------------------------Property Units----------------------------------------//
 
 var fillRPP_PUList = function () {
-    $("#ddlRPP_PUList").empty();
-    $("#ddlRPP_PUList").append("<option value='10'>10</option>");
-    $("#ddlRPP_PUList").append("<option value='25' selected>25</option>");
-    $("#ddlRPP_PUList").append("<option value='50'>50</option>");
-    $("#ddlRPP_PUList").append("<option value='75'>75</option>");
-    $("#ddlRPP_PUList").append("<option value='100'>100</option>");
+    //$("#ddlRPP_PUList").empty();
+    //$("#ddlRPP_PUList").append("<option value='10'>10</option>");
+    //$("#ddlRPP_PUList").append("<option value='25' selected>25</option>");
+    //$("#ddlRPP_PUList").append("<option value='50'>50</option>");
+    //$("#ddlRPP_PUList").append("<option value='75'>75</option>");
+    //$("#ddlRPP_PUList").append("<option value='100'>100</option>");
     $("#ddlRPP_PUList").on('change', function (evt, params) {
         var selected = $(this).val();
         buildPaganationPUList($("#hdnCurrentPage_PU").val());
@@ -1249,7 +1250,7 @@ function formatMoney(number) {
     return symbol + negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "");
 }
 
-var onFocus = function () {
+var onFocusProperty = function () {
 
     $("#txtApplicationFees").focusout(function () { $("#txtApplicationFees").val(formatMoney($("#txtApplicationFees").val())); })
         .focus(function () {
