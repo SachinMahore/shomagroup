@@ -73,7 +73,7 @@ function doesFileExist(urlToFile) {
 
 function restrictFileUpload(uploaderId) {
     var ext = uploaderId.split('.').pop().toLowerCase();
-    if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+    if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd']) == -1) {
         return false;
     }
     else {

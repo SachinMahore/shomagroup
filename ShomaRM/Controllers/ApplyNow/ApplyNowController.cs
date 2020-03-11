@@ -581,5 +581,17 @@ namespace ShomaRM.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult DeleteVehicleListOnCheck(long TenantId)
+        {
+            try
+            {
+                return Json(new { model = new VehicleModel().DeleteVehicleListOnCheck(TenantId) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
