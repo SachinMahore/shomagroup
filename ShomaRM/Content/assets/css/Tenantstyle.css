@@ -1540,6 +1540,7 @@ textarea {
     margin-bottom: 20px;
     font-weight: 400;
     font-family: Futura Medium;
+    width:100%;
 }
 
 .Activity-box {
@@ -2348,7 +2349,7 @@ button:hover {
 .Access-text {
     font-size: 20px;
     color: #000;
-    margin-left: 30px;
+    /*margin-left: 30px;*/
 }
 
 .Access-text1 {
@@ -2468,6 +2469,12 @@ i.fa.fa-print {
     font-family: HelveticaNeue;
     font-size: 20px;
 }
+.tableboxscroll {
+    float: left;
+    width: 100%;
+    overflow-x: auto;
+}
+
 @media only screen and (max-width: 1980px) and (min-width: 1820px) {
     .img-box {
         max-width: 5% !important;
@@ -2731,7 +2738,8 @@ i.fa.fa-print {
     }
 
     .submenu {
-        padding: 0px;
+        padding: 0px 10px;
+        height: 33px;
     }
 
     .submenupayment li.active > a {
@@ -2831,7 +2839,7 @@ i.fa.fa-print {
     }
 
     .logout-but {
-        padding: 3px 10px;
+        padding: 5px 10px 10px;
     }
 
     table {
@@ -2860,13 +2868,12 @@ i.fa.fa-print {
 
         .select-selected:after {
             top: 15px;
-        }
-
+   }
 
 
     .submenu {
-        padding: 0px 1px;
-        height: 34px;
+        padding: 1px 1px;
+        height: 36px;
         /* float: left; */
     }
 
@@ -2894,6 +2901,7 @@ i.fa.fa-print {
     .flot-box1 {
         float: left;
     }
+
 }
 
 @media only screen and (max-width: 1019px) {
@@ -2953,6 +2961,7 @@ i.fa.fa-print {
         color: #fcfcfc;
         padding: 9px 13px 9px 13px;
     }
+
 }
 
 @media only screen and (max-width: 940px) {
@@ -3052,7 +3061,7 @@ i.fa.fa-print {
       }*/
     .submenu li > a {
         padding: 9px 5px 9px 13px;
-        font-size: 10px;
+        font-size: 14px;
     }
 
     .submenupayment li.active > a {
@@ -3068,7 +3077,13 @@ i.fa.fa-print {
 }
 
 @media only screen and (max-width: 800px) {
-
+    .menubox-float {
+        float: left;
+        width: 100%;
+    }
+    .Wraper-left-box {
+        float: left;
+    }
     .top-menu-mobile {
         list-style: none;
         margin: 0 auto;
@@ -3095,7 +3110,7 @@ i.fa.fa-print {
         font-size: 22px;
         text-align: center;
         margin-top: 20px;
-        float: left;
+        /*float: left;*/
     }
 
     .payment-box {
@@ -3104,7 +3119,7 @@ i.fa.fa-print {
     }
 
     .margin2 {
-        margin-bottom: 10px;
+        margin-bottom: 30px;
     }
 
     /*.nav > li > a {
@@ -3139,8 +3154,8 @@ i.fa.fa-print {
     }
 
     .submenu {
-        padding: 0px 1px;
-        height: 34px;
+        padding: 1px 1px;
+        height: 36px;
         /* float: left; */
     }
 
@@ -3157,6 +3172,7 @@ i.fa.fa-print {
 
     .Activity-box {
         float: left;
+        width:100%;
     }
 }
 
@@ -3169,7 +3185,7 @@ i.fa.fa-print {
         position: relative;
         display: block;
         /*padding: 10px 4px 10px 4px;*/
-        font-size: 10px;
+        font-size: 16px;
     }
 
     .submenupayment > li {
@@ -3179,7 +3195,7 @@ i.fa.fa-print {
     }
 
     .submenupayment li.active > a {
-        padding: 10px 5px 10px 5px;
+        padding: 10px 30px 10px 30px;
     }
 
     .margin-box {
@@ -3200,13 +3216,24 @@ i.fa.fa-print {
     }
 
     .submenu {
-        padding: 0px 1px;
-        height: 34px;
+        padding: 1px 1px;
+        height: 36px;
         /* float: left; */
     }
 
     .cvv-box {
         width: 100% !important;
+    }
+
+    .container-box {
+        display: block;
+    }
+    .modal-header {
+        display: none;
+    }
+    .panel-bodybox{
+        float:left;
+
     }
 }
 
@@ -3338,6 +3365,9 @@ i.fa.fa-print {
     .amount {
         margin-right: 0px;
     }
+    .margin3 {
+        margin-bottom: 25px;
+    }
 }
 
 @media only screen and (max-width: 750px) {
@@ -3348,6 +3378,7 @@ i.fa.fa-print {
     .cvv-box {
         width: 100% !important;
     }
+
 }
 
 @media only screen and (max-width: 730px) {
@@ -3423,6 +3454,7 @@ i.fa.fa-print {
 
     .cvv-box {
         width: 100% !important;
+        border: 1px solid;
     }
 }
 
@@ -3474,9 +3506,12 @@ i.fa.fa-print {
     }
 
     .myprofilebox {
-        width: 100%;
+        width: auto;
         height: 100%;
         background-repeat: no-repeat;
+        margin-top: 20px !important;
+        display: table;
+        margin: 0 auto;
     }
 
     .profile-picherbox {
@@ -3527,8 +3562,8 @@ i.fa.fa-print {
     }
 
     .pading-box {
-        padding-right: 0px;
-        padding-left: 0px;
+        padding-right: 0px !important;
+        padding-left: 0px !important;
     }
 
     .fa-icon {
@@ -3634,6 +3669,12 @@ i.fa.fa-print {
 }
 
 @media only screen and (max-width: 430px) {
+
+    .pading-box {
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+    }
+
     .dashboard-img {
         width: 28px;
     }
@@ -3826,4 +3867,8 @@ td.logo-width {
 
 .ratinggood {
     background-color: green;
+}
+.box-left {
+    float: left;
+    width: 100%;
 }

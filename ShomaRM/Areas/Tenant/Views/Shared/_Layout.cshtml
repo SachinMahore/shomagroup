@@ -100,7 +100,7 @@
 
     <header class="desktop-logo">
         <div class="row">
-            <div class="col-md-5 col-sm-7 col-xs-12">
+            <div class="col-md-5 col-sm-5 col-xs-12">
                 <ul class="top-menu top-menu-mobile ">
                     <li class="wow fadeInDown  animated @(ViewBag.ActiveMenu == "dashboard"?"active":"")">
                         <a href="/Tenant/Dashboard/Index" class="center topmenu-font "><i class="fa fa-tachometer fa-icon"></i><br> Dashboard</a>
@@ -116,11 +116,11 @@
                 </ul>
             </div>
             <!------Logo--Section------>
-            <div class="col-md-3 col-sm-6 col-xs-12 logo-img center-logo desktop-logo">
+            <div class="col-md-3 col-sm-4 col-xs-12 logo-img center-logo desktop-logo">
                 <a href="#"><img src="~/content/assets/img/IMG/logoTenant.png" alt="logo" class="responsive"></a>
             </div>
             <!------Profile--Section------>
-            <div class="col-md-4 col-sm-5 col-xs-12">
+            <div class="col-md-4 col-sm-3 col-xs-12">
                 <button class="logout-but wow  animated bounceInRight" onclick="gotoLogin()">Logout</button>
                 <ul class="top-menu">
                     <li class="wow fadeInDown animated Profile-button @(ViewBag.ActiveMenu == "myprofile"?"active":"")" data-wow-delay="0.1s">
@@ -142,7 +142,7 @@
     <!-----Right section---->
     <div class="container container-box">
         <div class="row">
-            <div class="col-lg-9 col-md-8 col-sm-12 border-box margin">
+            <div class="col-lg-9 col-md-8 col-sm-12 border-box margin menubox-float">
                 @RenderBody()
             </div>
             <div class="col-lg-3 col-md-4 col-sm-12 box-padding-mobile">
