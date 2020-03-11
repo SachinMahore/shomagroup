@@ -152,6 +152,13 @@
             $("#lblDes").text("Co-Applicant Online Application Fees ");
             charge_Type = 1;
         }
+        if (@Model.Type=="5")
+        {
+            $("#step1").addClass("hidden");
+            $("#lblDes").text("You Already paid Co-Applicant Online Application Fees ");
+        } else {
+            $("#step1").removeClass("hidden");
+        }
     });
     var clearBank = function () {
         $("#hndTransMethod").val("1");

@@ -1030,122 +1030,7 @@ var SaveCheckPolicy = function () {
         }
     });
 }
-function savePayment() {
-    $("#divLoader").show();
-    var msg = "";
-    if ($("#hndTransMethod").val() == "0") {
-        $("#divLoader").hide();
-        $.alert({
-            title: "",
-            content: "Please Select Payment Method</br>",
-            type: 'red'
-        });
-        return;
 
-    }
-    if ($("#hndTransMethod").val() == 2) {
-        var paymentMethod = 2;
-        var propertyId = $("#hndUID").val();
-        var nameonCard = $("#txtNameonCard").val();
-        var cardNumber = $("#txtCardNumber").val();
-        var cardMonth = $("#ddlcardmonth").val();
-        var cardYear = $("#ddlcardyear").val();
-        var ccvNumber = $("#txtCCVNumber").val();
-        var prospectID = $("#hdnOPId").val();
-        var amounttoPay = "275";
-        var description = "Online Application Non Refundable fees";
-        var glTrans_Description = $("#payDes").text(); 0
-        var routingNumber = $("#txtRoutingNumber").val();
-        var bankName = $("#txtBankName").val();
-
-        if (!nameonCard) {
-            msg += "Please Enter Name on Card</br>";
-        }
-        if (cardNumber == "" || cardNumber.length != 14) {
-            msg += "Please enter your 14 digit Card Number</br>";
-        }
-        if (cardMonth == "0") {
-            msg += "Please enter Card Month</br>";
-        }
-        if (cardYear == "0") {
-            msg += "Please enter Card Year</br>";
-        }
-
-        if (msg != "") {
-            $("#divLoader").hide();
-            $.alert({
-                title: "",
-                content: msg,
-                type: 'red'
-            });
-            return;
-        }
-    } else {
-        var paymentMethod = 1;
-        var propertyId = $("#hndUID").val();
-        var nameonCard = $("#txtAccountName").val();
-        var cardNumber = $("#txtAccountNumber").val();
-        var cardMonth = 0;
-        var cardYear = 0;
-        var ccvNumber = 0;
-        var routingNumber = $("#txtRoutingNumber").val();
-        var bankName = $("#txtBankName").val();
-        var prospectID = $("#hdnOPId").val();
-        var amounttoPay = $("#lbltotalpayment").text();
-        var description = $("#payDes").text();
-        var glTrans_Description = $("#payDes").text();
-        if (nameonCard == "") {
-            msg += "Please Enter Account Name</br>";
-        }
-        if (cardNumber == "") {
-            msg += "Please Enter Account Number</br>";
-        }
-
-        if (msg != "") {
-            $("#divLoader").hide();
-            $.alert({
-                title: "",
-                content: msg,
-                type: 'red'
-            });
-            return;
-        }
-    }
-
-
-    var model = {
-        PID: propertyId,
-        Name_On_Card: nameonCard,
-        CardNumber: cardNumber,
-        CardMonth: cardMonth,
-        CardYear: cardYear,
-        CCVNumber: ccvNumber,
-        Charge_Amount: amounttoPay,
-        ProspectID: prospectID,
-        Description: description,
-        GL_Trans_Description: glTrans_Description,
-        RoutingNumber: routingNumber,
-        BankName: bankName,
-        PaymentMethod: paymentMethod,
-    };
-
-    $.ajax({
-        url: "/ApplyNow/SavePaymentDetails/",
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            $("#divLoader").hide();
-            if (response.Msg == "Transaction Successfull") {
-                // $("#carddetails").addClass("hidden");
-                $(".payNext").removeAttr("disabled");
-                $("#ResponseMsg").html(response.Msg);
-                getTransationLists($("#hdnUserId").val());
-            }
-        }
-    });
-}
 var getApplyNowList = function (id) {
     var model = {
         id: id
@@ -1770,6 +1655,7 @@ var SaveLeaseDocumentVerification = function () {
         });
     }
 }
+var totPaid = 0;
 var getTransationLists = function (userid) {
     var model = {
 
@@ -1784,8 +1670,9 @@ var getTransationLists = function (userid) {
         success: function (response) {
 
             $("#tblTransaction>tbody").empty();
-
+       
             $.each(response.model, function (elementType, elementValue) {
+                totPaid = totPaid+parseFloat(elementValue.Credit_Amount);
                 var html = "<tr data-value=" + elementValue.TransID + ">";
               
                 //html += "<td>" + elementValue.TenantIDString + "</td>";
@@ -1799,8 +1686,8 @@ var getTransationLists = function (userid) {
                 html += "</tr>";
                 $("#tblTransaction>tbody").append(html);
             });
-           
-            if (response.model.length >= 2)
+     
+            if (formatMoney(totPaid) >= formatMoney(parseFloat($("#txtPayment").val()) + parseFloat(totalFinalFees)) )
             {
                 $("#btnC2Tenant").removeAttr("disabled");
             }
@@ -2397,6 +2284,7 @@ var saveupdateApplicant = function () {
     });
 
 }
+var totalFinalFees = 0;
 var getApplicantLists = function () {
     var model = {
 
@@ -2417,7 +2305,7 @@ var getApplicantLists = function () {
             $("#tblResponsibilityPay>tbody").empty();
             $("#tblPayment>tbody").empty();
             $("#tblEmailCoapplicant>tbody").empty();
-            var totalFinalFees = 0;
+       
             $.each(response.model, function (elementType, elementValue) {
                 var html = '';
                 var prhtml = '';
@@ -2481,6 +2369,7 @@ var getApplicantLists = function () {
                         "</div>";
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
+                   
                     //Amit's work 17-10
                     //prhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + "<br /><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b></td><td style='width:30%; padding:6px;'><input type='text' id='txtpayper" + elementValue.ApplicantID + "' style='width:40% !important; border: 1px solid; padding-left: 5px;' value='" + elementValue.MoveInPercentage + "'/>(%)<input type='text' id='txtpayamt" + elementValue.ApplicantID + "' style='width: 40% !important; border: 1px solid; padding-left: 5px;' value='" + elementValue.MoveInCharge + "'/>($)</td><td style='width:30%; padding:6px;'><input type='text' id='txtpayperMo" + elementValue.ApplicantID + "' style='width: 40% !important; border: 1px solid; padding-left: 5px;' value='" + elementValue.MonthlyPercentage + "'/>(%)<input type='text' id='txtpayamtMo" + elementValue.ApplicantID + "' style='width: 40% !important; border: 1px solid; padding-left: 5px;' value='" + elementValue.MonthlyPayment + "'/>($)</td></tr>";
                     prhtml += "<tr data-id='" + elementValue.ApplicantID + "'>" +

@@ -1746,7 +1746,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-6 ">
-                                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popApplicantHistory" id="btnAddAHR"><i class="fa fa-plus-circle"></i> Add</button>
+                                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popApplicantHistory" id="btnAddAHR"><i class="fa fa-plus-circle"></i> Add New</button>
                                     <input id="hdnAHRId" type="hidden" value="0" />
                                 </div>
                             </div>
@@ -3986,7 +3986,7 @@
             $("#divstep3save").addClass("hidden");
             $("#divstep3").removeClass("hidden");
             getTransationLists(@Model.ID);
-
+            getApplicantLists();
 
             //$("#carddetails").addClass("hidden");
         }

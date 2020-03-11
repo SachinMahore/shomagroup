@@ -371,7 +371,7 @@ namespace ShomaRM.Areas.Admin.Models
                         {
                             if (app.MoveInPercentage >= 0)
                             {
-                                string payid = new EncryptDecrypt().EncryptText(app.ApplicantID.ToString() + ",3," + (((GetTenantDet.MoveInCharges * app.MoveInPercentage) / 100).Value.ToString("0.00")));
+                                string payid = new EncryptDecrypt().EncryptText(app.ApplicantID.ToString() + ",2," + (((GetTenantDet.MoveInCharges * app.MoveInPercentage) / 100).Value.ToString("0.00")));
 
                                 reportHTMLCoapp = reportHTMLCoapp.Replace("[%Status%]", "Congratulations ! Your Application is Approved");
                                 reportHTMLCoapp = reportHTMLCoapp.Replace("[%EmailHeader%]", app.MoveInPercentage + "% Move In charges Payment Link");

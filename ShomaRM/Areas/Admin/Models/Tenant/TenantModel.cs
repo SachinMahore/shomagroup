@@ -1079,6 +1079,22 @@ namespace ShomaRM.Areas.Admin.Models
                 db.SaveChanges();
                 model.TenantID = getAppldata.TenantID;
 
+                var prospectDet = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectID).FirstOrDefault();
+                if (prospectDet != null)
+                {
+                    prospectDet.IsApplyNow = 3;
+
+                }
+                db.SaveChanges();
+                var loginDet = db.tbl_Login.Where(p => p.UserID == prospectDet.UserId).FirstOrDefault();
+                if (loginDet != null)
+                {
+                    loginDet.UserType = 4;
+                    loginDet.TenantID = model.TenantID;
+
+                }
+                db.SaveChanges();
+
                 var coapplicantList = db.tbl_Applicant.Where(p => p.TenantID == model.ProspectID && p.Type != "Primary Applicant" && p.Type != "Guarantor").ToList();
                 if (coapplicantList != null)
                 {
@@ -1130,6 +1146,62 @@ namespace ShomaRM.Areas.Admin.Models
                         };
                         db.tbl_Login.Add(createCoApplLogin);
                         db.SaveChanges();
+
+                        var getCoappPayMeth = db.tbl_OnlinePayment.Where(p => p.ProspectId == model.ProspectID).FirstOrDefault();
+                        long coapppaid = 0;
+                        if (getCoappPayMeth.PaymentMethod == 2)
+                        {
+                            var addPaymentMethod = new tbl_PaymentAccounts()
+                            {
+
+                                NameOnCard = getCoappPayMeth.Name_On_Card,
+                                CardNumber = getCoappPayMeth.CardNumber,
+                                CardType = 1,
+                                Month = getCoappPayMeth.CardMonth != null ? getCoappPayMeth.CardMonth.ToString() : "0",
+                                Year = getCoappPayMeth.CardYear != null ? getCoappPayMeth.CardYear.ToString() : "0",
+                                TenantId = createCoappTenant.TenantID,
+                                NickName = getCoappPayMeth.Name_On_Card,
+                                AccountName = getCoappPayMeth.Name_On_Card,
+                                PayMethod = 1,
+                                Default = 1,
+                                BankName = getCoappPayMeth.Name_On_Card
+                            };
+                            db.tbl_PaymentAccounts.Add(addPaymentMethod);
+                            db.SaveChanges();
+                            coapppaid = addPaymentMethod.PAID;
+                        }
+                        else
+                        {
+                            var addPaymentMethod = new tbl_PaymentAccounts()
+                            {
+
+                                NameOnCard = getCoappPayMeth.Name_On_Card,
+                                AccountNumber = getCoappPayMeth.CardNumber,
+                                CardType = 0,
+                                Month = "0",
+                                Year = "0",
+                                TenantId = createCoappTenant.TenantID,
+                                NickName = getCoappPayMeth.Name_On_Card,
+                                AccountName = getCoappPayMeth.Name_On_Card,
+                                PayMethod = 2,
+                                Default = 1,
+                                BankName = getCoappPayMeth.Name_On_Card,
+                                RoutingNumber = getCoappPayMeth.CCVNumber.ToString()
+                            };
+                            db.tbl_PaymentAccounts.Add(addPaymentMethod);
+                            db.SaveChanges();
+                            coapppaid = addPaymentMethod.PAID;
+                        }
+                        var coApptransList = db.tbl_Transaction.Where(p => p.TenantID == loginDet.UserID && p.Batch ==tl.ApplicantID.ToString()).ToList();
+                        if (coApptransList != null)
+                        {
+                            foreach (var coapptl in coApptransList)
+                            {
+                                coapptl.TenantID = createCoappTenant.TenantID;
+                                coapptl.Transaction_Type = coapppaid.ToString();
+                            }
+                        }
+                        db.SaveChanges();
                     }
                 }
 
@@ -1150,6 +1222,7 @@ namespace ShomaRM.Areas.Admin.Models
 
                 var getPayMeth = db.tbl_OnlinePayment.Where(p => p.ProspectId == model.ProspectID).FirstOrDefault();
                 long paid = 0;
+
                 if (getPayMeth.PaymentMethod == 2)
                 {
                     var addPaymentMethod = new tbl_PaymentAccounts()
@@ -1194,26 +1267,7 @@ namespace ShomaRM.Areas.Admin.Models
                     paid = addPaymentMethod.PAID;
                 }
 
-
-
-                var prospectDet = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectID).FirstOrDefault();
-                if (prospectDet != null)
-                {
-                    prospectDet.IsApplyNow = 3;
-
-                }
-                db.SaveChanges();
-
-                var loginDet = db.tbl_Login.Where(p => p.UserID == prospectDet.UserId).FirstOrDefault();
-                if (loginDet != null)
-                {
-                    loginDet.UserType = 4;
-                    loginDet.TenantID = model.TenantID;
-
-                }
-                db.SaveChanges();
-
-                var transList = db.tbl_Transaction.Where(p => p.TenantID == loginDet.UserID).ToList();
+                var transList = db.tbl_Transaction.Where(p => p.TenantID == loginDet.UserID && p.Batch=="1").ToList();
                 if (transList != null)
                 {
                     foreach (var tl in transList)

@@ -495,7 +495,7 @@ var getTenantVehicleList = function () {
 
     var model = {
 
-        TenantID: $("#hndUserId").val(),
+        TenantID: $("#hndTenantID").val(),
     }
     $.ajax({
         url: "/Vehicle/GetProfileVehicleList",
@@ -1079,7 +1079,7 @@ var saveupdatePet = function () {
 };
 var getPetLists = function () {
     var model = {
-        TenantID: $("#hndUserId").val()
+        TenantID: $("#hndTenantID").val()
         //TenantID: 202
     };
     $.ajax({

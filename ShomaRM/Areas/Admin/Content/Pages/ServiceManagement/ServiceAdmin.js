@@ -194,7 +194,7 @@ var goToServiceDetails = function (ServiceID) {
             else {
                 setTimeout(function () {
                     $("#ddlUser").val(response.model.ServicePerson);
-                }, 1000);
+                }, 1200);
 
             }
             $("#txtClosingNotes").val(response.model.ClosingNotes);
@@ -460,7 +460,7 @@ var StatusUpdateForServicePerson = function (id) {
                 type: 'red'
             });
             $("#ddlStatus1").val('0');
-            $("#ddlUser").val('0');
+           // $("#ddlUser").val('0');
 
         }
     });

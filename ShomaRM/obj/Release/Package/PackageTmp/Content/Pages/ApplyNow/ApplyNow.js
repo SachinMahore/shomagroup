@@ -718,6 +718,8 @@ var goToStep = function (stepid, id) {
             $("#li15").removeClass("active");
             $("#li16").removeClass("active");
             $("#li17").removeClass("active");
+
+           
         }
     }
     if (stepid == "8") {
@@ -755,6 +757,12 @@ var goToStep = function (stepid, id) {
             $("#li15").removeClass("active");
             $("#li16").removeClass("active");
             $("#li17").removeClass("active");
+           
+            //if (paidamt == totpaid) {
+            //    $("#carddetails").addClass("hidden");
+            //    goToStep(16, 16);
+            //    $("#getting-startedTimeRemainingClock").addClass("hidden")
+            //}
         }
     }
     if (stepid == "9") {
@@ -1339,6 +1347,7 @@ var goToStep = function (stepid, id) {
                 $("#li10").removeClass("active");
                 $("#li16").removeClass("active");
                 $("#li17").removeClass("active");
+               
                 if (paidamt == totpaid) {
                     $("#carddetails").addClass("hidden");
                     goToStep(16, 16);
@@ -2586,7 +2595,23 @@ var getTransationLists = function (userid) {
                 $("#tblTransaction>tbody").append(html);
                 paidamt += parseFloat(elementValue.Charge_Amount);
             });
-            
+          
+            setTimeout(function () {
+                if (response.model.length >= 1) {
+                    if (paidamt == totpaid) {
+
+                        $("#carddetails").addClass("hidden");
+                        goToStep(16, 16);
+                        $("#getting-startedTimeRemainingClock").addClass("hidden")
+                    } else {
+                        goToStep(16, 16);
+                    }
+
+
+                }
+            }, 1500);
+           
+           
         }
     });
 }

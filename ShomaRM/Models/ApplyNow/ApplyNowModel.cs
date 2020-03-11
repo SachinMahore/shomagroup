@@ -195,21 +195,29 @@ namespace ShomaRM.Models
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
                 // var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId).FirstOrDefault();
                 var GetCoappDet = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();
-                var savePaymentDetails = new tbl_OnlinePayment()
-                {
-                    PID = model.PID,
-                    Name_On_Card = model.Name_On_Card,
-                    CardNumber = model.CardNumber,
-                    CardMonth = model.CardMonth,
-                    CardYear = model.CardYear,
-                    CCVNumber = model.CCVNumber,
-                    ProspectId = model.ProspectId,
-                    PaymentMethod = model.PaymentMethod,
-                };
-                db.tbl_OnlinePayment.Add(savePaymentDetails);
-                db.SaveChanges();
 
+                long paid = 0;
+                var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId && P.CardNumber == model.CardNumber).FirstOrDefault();
+                if (GetPayDetails == null)
+                {
+                    var savePaymentDetails = new tbl_OnlinePayment()
+                    {
+                        PID = model.PID,
+                        Name_On_Card = model.Name_On_Card,
+                        CardNumber = model.CardNumber,
+                        CardMonth = model.CardMonth,
+                        CardYear = model.CardYear,
+                        CCVNumber = model.CCVNumber,
+                        ProspectId = model.ProspectId,
+                        PaymentMethod = model.PaymentMethod,
+                    };
+                    db.tbl_OnlinePayment.Add(savePaymentDetails);
+                    db.SaveChanges();
+                    paid = savePaymentDetails.ID;
+                }
+               
                 string transStatus = "";
+                
                 if (model.PaymentMethod == 2)
                 {
 
@@ -230,7 +238,7 @@ namespace ShomaRM.Models
 
                         TenantID = Convert.ToInt64(GetProspectData.UserId),
                         Revision_Num = 1,
-                        Transaction_Type = savePaymentDetails.ID.ToString(),
+                        Transaction_Type = paid.ToString(),
                         Transaction_Date = DateTime.Now,
                         Run = 1,
                         LeaseID = 0,

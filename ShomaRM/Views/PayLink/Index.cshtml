@@ -128,8 +128,9 @@
                                     <div class="col-sm-2">
                                         <button type="submit" class="btn btn-primary" onclick="saveCoAppPayment()">Pay Now</button>
                                         <br />
-                                        <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium;text-align:center" class="text-center"><b id="ResponseMsg"></b></p></div>
+                                       
                                     </div>
+                                    <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium;text-align:center" class="text-center"><b id="ResponseMsg"></b></p></div>
                                 </div>
                             </div>
                         </div>
@@ -144,13 +145,20 @@
     var charge_Type = 1;
     $(document).ready(function () {
       
-        if (@ViewBag.FromAcc=="3")
+        if (@ViewBag.FromAcc=="2")
         {
             $("#lblDes").text("Co-Applicant Move In Charges ");
             charge_Type = 2;
         } else {
             $("#lblDes").text("Co-Applicant Online Application Fees ");
             charge_Type = 1;
+        }
+        if (@Model.Type=="5")
+        {
+            $("#step1").addClass("hidden");
+            $("#lblDes").text("You Already paid Co-Applicant Online Application Fees ");
+        } else {
+            $("#step1").removeClass("hidden");
         }
     });
     var clearBank = function () {
