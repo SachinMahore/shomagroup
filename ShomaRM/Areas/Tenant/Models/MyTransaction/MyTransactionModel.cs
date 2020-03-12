@@ -509,6 +509,8 @@ namespace ShomaRM.Areas.Tenant.Models
                 mm.AccountNumber = editPaymentAccounts.AccountNumber;
                 mm.RoutingNumber = editPaymentAccounts.RoutingNumber;
                 mm.BankName = editPaymentAccounts.BankName;
+                var GetTenData = db.tbl_TenantOnline.Where(p => p.ID == model.TenantID).FirstOrDefault();
+                mm.Email = GetTenData.Email;
                 if (mm.CardNumber != null)
                 {
                     mm.Name_On_Card = editPaymentAccounts.NameOnCard;
@@ -1185,6 +1187,8 @@ namespace ShomaRM.Areas.Tenant.Models
                 mm.RoutingNumber = editPaymentAccounts.RoutingNumber;
                 mm.BankName = editPaymentAccounts.BankName;
 
+                var GetTenData = db.tbl_TenantOnline.Where(p => p.ID == model.TenantID).FirstOrDefault();
+                mm.Email = GetTenData.Email;
                 if (mm.CardNumber != null)
                 {
                     mm.Name_On_Card = editPaymentAccounts.NameOnCard;
@@ -1345,7 +1349,8 @@ namespace ShomaRM.Areas.Tenant.Models
                 mm.AccountNumber = editPaymentAccounts.AccountNumber;
                 mm.RoutingNumber = editPaymentAccounts.RoutingNumber;
                 mm.BankName = editPaymentAccounts.BankName;
-
+                var GetTenData = db.tbl_TenantOnline.Where(p => p.ID == model.TenantID).FirstOrDefault();
+                mm.Email = GetTenData.Email;
                 if (mm.CardNumber != null)
                 {
                     mm.Name_On_Card = editPaymentAccounts.NameOnCard;

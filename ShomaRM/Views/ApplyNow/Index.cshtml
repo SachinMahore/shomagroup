@@ -590,6 +590,18 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="col-sm-4">
+                                        <span id="">Pet DNA Amt: </span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        $<span id="lblPetDNAAmt">@((Model.PetDNAAmt ?? 0).ToString("0.00"))</span>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <span id="">&nbsp;</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
                                         <span id="">Monthly Charges </span>
                                     </div>
                                     <div class="col-sm-2">
@@ -1046,14 +1058,25 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
-                                        <div class="col-sm-3">
-                                            <span>Pet Fee: </span>
+                                        <div class="col-sm-6">
+                                            <span>Pet Deposit: </span>
                                         </div>
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-4">
                                             <span style="text-decoration:underline;font-weight:bold;"></span>
                                         </div>
                                         <div class="col-sm-2">
                                             $<span style="text-decoration:underline;font-weight:bold;" id="fpetd">@((Model.PetDeposit ?? 0).ToString("0.00"))</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-6">
+                                            <span>Pet DNA Amt: </span>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <span style="text-decoration:underline;font-weight:bold;"></span>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            $<span style="text-decoration:underline;font-weight:bold;" id="fpetdna">@((Model.PetDNAAmt ?? 0).ToString("0.00"))</span>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 hidden">
@@ -1289,11 +1312,20 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-8">
-                                                <span>Pet Fee: </span>
+                                                <span>Pet Deposit: </span>
                                             </div>
                                             <div class="col-sm-1"></div>
                                             <div class="col-sm-3">
                                                 $<span style="text-decoration:underline;font-weight:bold;" id="lbpetd6">@((Model.PetDeposit ?? 0).ToString("0.00"))</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-8">
+                                                <span>Pet DNA Amt: </span>
+                                            </div>
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-3">
+                                                $<span style="text-decoration:underline;font-weight:bold;" id="lbpetdna6">@((Model.PetDNAAmt ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
@@ -2399,11 +2431,11 @@
                                     <div class="col-sm-12" id="divCard">
                                         <div class="form-group col-sm-3">
                                             <label for="name" class="star">Name on Card</label>
-                                            <input type="text" class="form-control" id="txtNameonCard" placeholder="Name on Card" value="@Model.Name_On_Card">
+                                            <input type="text" class="form-control" id="txtNameonCard" placeholder="Name on Card" value="">
                                         </div>
                                         <div class="form-group col-sm-3">
                                             <label for="cardnumber" class="star">Card Number</label>
-                                            <input type="text" class="form-control" id="txtCardNumber" placeholder="Card Number" onkeypress="return isOnlyNumber(event)" maxlength="16" value="@Model.CardNumber">
+                                            <input type="text" class="form-control" id="txtCardNumber" placeholder="Card Number" onkeypress="return isOnlyNumber(event)" maxlength="16" value="">
                                         </div>
                                         <div class="form-group col-sm-2">
                                             <label for="cardmonth">Card Month</label>
