@@ -352,6 +352,19 @@ namespace ShomaRM.Areas.Tenant.Models
 
 
         }
-
+        public string DeleteVehicleListOnCheck(long TenantId)
+        {
+            string msg = string.Empty;
+            ShomaRMEntities db = new ShomaRMEntities();
+            var deleteVehicle = db.tbl_Vehicle.Where(co => co.TenantID == TenantId).ToList();
+            if (deleteVehicle != null)
+            {
+                db.tbl_Vehicle.RemoveRange(deleteVehicle);
+                db.SaveChanges();
+                msg = "Vehicle Removed Successfully";
+            }
+            db.Dispose();
+            return msg;
+        }
     }
 }
