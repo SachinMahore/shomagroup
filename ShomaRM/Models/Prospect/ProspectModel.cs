@@ -44,6 +44,7 @@ namespace ShomaRM.Models
         {
             string MSG = "";
             ShomaRMEntities db = new ShomaRMEntities();
+
             var saveTenant = new tbl_Prospect()
             {
                 FirstName = model.FirstName,
@@ -66,6 +67,19 @@ namespace ShomaRM.Models
             };
             db.tbl_Prospect.Add(saveTenant);
             db.SaveChanges();
+
+           
+            string reportHTML = "";
+            string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+            reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+
+            //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
+            reportHTML = reportHTML.Replace("[%TenantName%]", saveTenant.FirstName + " " + saveTenant.LastName);
+            reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; we will contact you shortly to confirm your appointment. </p>");
+            reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+
+            string body = reportHTML;
+            new EmailSendModel().SendEmail(saveTenant.EmailId, "Your request has been received", body);
             MSG = "Prospect Form Submitted Successfully";
             return MSG;
         }

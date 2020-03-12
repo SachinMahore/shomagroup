@@ -55,6 +55,7 @@ var fillCityList = function (stateid) {
     });
 }
 var saveProspectForm = function () {
+   
     var msg = "";
     var fname = $("#txtFirstName").val();
     var lname = $("#txtLastName").val();

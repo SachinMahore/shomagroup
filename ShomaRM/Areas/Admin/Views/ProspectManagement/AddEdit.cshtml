@@ -18,12 +18,13 @@
                 <div class="col-sm-12">
                     <button type="button" class="btn btn-primary pull-right" id="btnSaveUpdate" onclick="gotoProspList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">Appointment List</span></button>
                 </div>
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                     <div class="form-group">
                         <label for="txtAppointmentDate">Appointment Date :</label>
                         <label id="txtAppointmentDate">@(Model.VisitDateTime != null ? Model.VisitDateTime.Value.ToString("MM/dd/yyyy") : "")</label>
                     </div>
                 </div>
+              
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="txtFirstName">First Name :</label>
@@ -75,6 +76,17 @@
                             <option value="3">Cancelled</option>
                         </select>
                     </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="txtReschtDate">Reschedule Date :</label>
+                        <div class="input-group">
+                            <input id="txtReschduleDate" type="text" class="form-control" width="50%" value="@Model.VisitDateTime.Value.ToString("MM/dd/yyyy")">
+                            <span class="input-group-btn">
+                                <button id="iconFromDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                            </span>
+                        </div>
+                         </div>
                 </div>
                 <div class="col-sm-12 text-center">
                     <button type="submit" class="btn btn-primary" onclick="saveupdateProspect()"> Save</button>
@@ -409,6 +421,10 @@
                 $('#lblAgentsName').html('<i class="fa fa-check fa-lg"></i> ' + " Agent " + ddlValue + " Assign" + '');
                 $('#ddlAppointmentStatus').val('1');
             }
+        });
+        $("#txtReschduleDate").datepicker();
+        $("#iconFromDate").click(function () {
+            $("#txtReschduleDate").focus();
         });
         // fillDdlSalesAgent();
         setTimeout(function () {
