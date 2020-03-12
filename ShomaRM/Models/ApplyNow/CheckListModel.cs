@@ -299,11 +299,11 @@ namespace ShomaRM.Models
                     var TransId = saveTransaction.TransID;
 
                     MyTransactionModel mm = new MyTransactionModel();
-                    mm.CreateTransBill(TransId, Convert.ToDecimal(GetProspectData.Prorated_Rent), "Prorated Rent");
-                    mm.CreateTransBill(TransId, Convert.ToDecimal(GetProspectData.AdministrationFee), "Administration Fee");
-                    mm.CreateTransBill(TransId, Convert.ToDecimal(GetProspectData.Deposit), "Security Deposit");
-                    mm.CreateTransBill(TransId, Convert.ToDecimal(GetProspectData.PetDeposit), "Pet Deposit");
-                    mm.CreateTransBill(TransId, Convert.ToDecimal(GetProspectData.VehicleRegistration), "Vehicle Registration Charges");
+                    mm.CreateTransBill(TransId, Convert.ToDecimal(((GetProspectData.Prorated_Rent)*model.MoveInPercentage)/100), "Prorated Rent");
+                    mm.CreateTransBill(TransId, Convert.ToDecimal(((GetProspectData.AdministrationFee) * model.MoveInPercentage) / 100), "Administration Fee");
+                    mm.CreateTransBill(TransId, Convert.ToDecimal(((GetProspectData.Deposit) * model.MoveInPercentage) / 100), "Security Deposit");
+                    mm.CreateTransBill(TransId, Convert.ToDecimal(((GetProspectData.PetDeposit) * model.MoveInPercentage) / 100), "Pet Deposit");
+                    mm.CreateTransBill(TransId, Convert.ToDecimal(((GetProspectData.VehicleRegistration) * model.MoveInPercentage) / 100), "Vehicle Registration Charges");
 
                     //Save  Data In tbl_MoveInChecklist//
                     CheckListModel modelCheckList = new CheckListModel();
@@ -318,8 +318,8 @@ namespace ShomaRM.Models
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
                     if (model != null)
                     {
-                        reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Completed and Payment Received");
-                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Thank you for signing and submitting your application.  This email confirms that we have received your online application fees payment.  Please save this email for your personal records.  Your application is being processed, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p><p style='font-size: 14px;font-style:italic; line-height: 21px; text-align: justify; margin: 0;'><br/><br/>*Application fees are non-refundable, even if the application is denied, except to the extent otherwise required by applicable law. </p>");
+                        reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Completed and Move In Charges Received");
+                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Application Completed and Move In Charges Received.  This email confirms that we have received your Move In Charges payment.  Please save this email for your personal records.  Your application is being processed, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p><p style='font-size: 14px;font-style:italic; line-height: 21px; text-align: justify; margin: 0;'><br/><br/>*Application fees are non-refundable, even if the application is denied, except to the extent otherwise required by applicable law. </p>");
 
                         reportHTML = reportHTML.Replace("[%TenantName%]", GetProspectData.FirstName + " " + GetProspectData.LastName);
 
@@ -327,7 +327,7 @@ namespace ShomaRM.Models
 
                     }
                     string body = reportHTML;
-                    new EmailSendModel().SendEmail(GetProspectData.Email, "Application Completed and Payment Received", body);
+                    new EmailSendModel().SendEmail(GetProspectData.Email, "Application Completed and Move In Charges Received", body);
                 }
 
                 msg = transStatus.ToString();

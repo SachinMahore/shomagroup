@@ -691,7 +691,6 @@ var goToStep = function (stepid, id) {
             $("#li6").removeClass("active");
             $("#li7").removeClass("active");
 
-
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
             $("#step4").addClass("hidden");
@@ -746,7 +745,6 @@ var goToStep = function (stepid, id) {
             $("#step15").addClass("hidden");
             $("#step16").addClass("hidden");
             $("#step17").addClass("hidden");
-
 
         }
     }
