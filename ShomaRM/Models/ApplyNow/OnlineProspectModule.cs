@@ -92,6 +92,7 @@ namespace ShomaRM.Models
         public List<EmailData> lstemailsend { get; set; }
         public string Building { get; set; }
         public int FloorID { get; set; }
+        public Nullable<decimal> PetDNAAmt { get; set; }
 
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
         string message = "";
@@ -263,6 +264,7 @@ namespace ShomaRM.Models
                     onlineProspectData.Prorated_Rent = model.Prorated_Rent;
                     onlineProspectData.AdministrationFee = model.AdminFees;
                     onlineProspectData.LeaseTerm = model.LeaseTerm;
+                    onlineProspectData.PetDNAAmt = model.PetDNAAmt;
                     db.SaveChanges();
                 }
                 
@@ -384,6 +386,7 @@ namespace ShomaRM.Models
             model.LeaseTerm = 12;
             model.FirstName = "";
             model.LastName = "";
+            model.PetDNAAmt = 0;
             if (Id != 0)
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.UserId == Id).FirstOrDefault();
@@ -424,7 +427,9 @@ namespace ShomaRM.Models
                     model.FOBAmt = 0;
                     model.EnvelopeID = (!string.IsNullOrWhiteSpace(GetProspectData.EnvelopeID) ? GetProspectData.EnvelopeID : "");
                     model.LeaseTerm = Convert.ToInt32(GetProspectData.LeaseTerm);
-                    model.EsignatureID = (!string.IsNullOrWhiteSpace(GetProspectData.EsignatureID) ? GetProspectData.EsignatureID : ""); 
+                    model.EsignatureID = (!string.IsNullOrWhiteSpace(GetProspectData.EsignatureID) ? GetProspectData.EsignatureID : "");
+                    model.PetDNAAmt = GetProspectData.PetDNAAmt;
+
                     DateTime? dateExpire = null;
                     try
                     {

@@ -15,12 +15,12 @@ namespace ShomaRM.Models
             USAePayAPI.USAePay usaepay = new USAePayAPI.USAePay();
             usaepay.SourceKey = "_y8h5x1TGONQjE491cj9mb8bRdA57u32";
             usaepay.Pin = model.CCVNumber.ToString();
-            usaepay.Amount =Convert.ToDecimal(model.Charge_Amount);
+            usaepay.Amount =Convert.ToDecimal(model.Charge_Amount)+ Convert.ToDecimal(3.95);
             usaepay.Description = model.Description;
             usaepay.CardHolder = model.Name_On_Card;
             usaepay.CardNumber =model.CardNumber;
             usaepay.CardExp = model.CardMonth.ToString()+model.CardYear.ToString();
-            usaepay.CustEmail = "vijayramteke@gmail.com";
+            usaepay.CustEmail = model.Email;
             usaepay.UseSandbox = true;
 
             try
@@ -103,14 +103,14 @@ namespace ShomaRM.Models
             USAePayAPI.USAePay usaepay = new USAePayAPI.USAePay();
             usaepay.SourceKey = "_y8h5x1TGONQjE491cj9mb8bRdA57u32";
             usaepay.Pin = model.CCVNumber.ToString();
-            usaepay.Amount = Convert.ToDecimal(model.Charge_Amount);
+            usaepay.Amount = Convert.ToDecimal(model.Charge_Amount) + Convert.ToDecimal(3.95);
             usaepay.Description = model.Description;
             usaepay.CardHolder = model.Name_On_Card;
 
             
             usaepay.CheckAccount = model.AccountNumber;
             usaepay.CheckRouting = model.RoutingNumber;
-            usaepay.CustEmail = "sachinmahore@gmail.com";
+            usaepay.CustEmail = model.Email;
             usaepay.CustReceipt = true;
             usaepay.Command = "check";
 

@@ -210,36 +210,9 @@ namespace ShomaRM.Models
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
                 var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId).FirstOrDefault();
-                if (GetPayDetails != null)
-                {
-                    GetPayDetails.Name_On_Card = model.Name_On_Card;
-                    GetPayDetails.CardNumber = model.CardNumber;
-                    GetPayDetails.CardMonth = model.CardMonth;
-                    GetPayDetails.CardYear = model.CardYear;
-                    GetPayDetails.CCVNumber = model.CCVNumber;
-                    GetPayDetails.ProspectId = model.ProspectId;
-                    GetPayDetails.PaymentMethod = model.PaymentMethod;
-
-                    db.SaveChanges();
-
-                }
-                else
-                {
-                    var savePaymentDetails = new tbl_OnlinePayment()
-                    {
-                        PID = model.PID,
-                        Name_On_Card = model.Name_On_Card,
-                        CardNumber = model.CardNumber,
-                        CardMonth = model.CardMonth,
-                        CardYear = model.CardYear,
-                        CCVNumber = model.CCVNumber,
-                        ProspectId = model.ProspectId,
-                        PaymentMethod = model.PaymentMethod,
-                    };
-                    db.tbl_OnlinePayment.Add(savePaymentDetails);
-                    db.SaveChanges();
-                }
+                
                 string transStatus = "";
+                model.Email = GetProspectData.Email;
                 if (model.PaymentMethod == 2)
                 {
                     transStatus = new UsaePayModel().ChargeCard(model);
@@ -253,6 +226,35 @@ namespace ShomaRM.Models
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 if (strlist[1] != "000000")
                 {
+                    if (GetPayDetails != null)
+                    {
+                        GetPayDetails.Name_On_Card = model.Name_On_Card;
+                        GetPayDetails.CardNumber = model.CardNumber;
+                        GetPayDetails.CardMonth = model.CardMonth;
+                        GetPayDetails.CardYear = model.CardYear;
+                        GetPayDetails.CCVNumber = model.CCVNumber;
+                        GetPayDetails.ProspectId = model.ProspectId;
+                        GetPayDetails.PaymentMethod = model.PaymentMethod;
+
+                        db.SaveChanges();
+
+                    }
+                    else
+                    {
+                        var savePaymentDetails = new tbl_OnlinePayment()
+                        {
+                            PID = model.PID,
+                            Name_On_Card = model.Name_On_Card,
+                            CardNumber = model.CardNumber,
+                            CardMonth = model.CardMonth,
+                            CardYear = model.CardYear,
+                            CCVNumber = model.CCVNumber,
+                            ProspectId = model.ProspectId,
+                            PaymentMethod = model.PaymentMethod,
+                        };
+                        db.tbl_OnlinePayment.Add(savePaymentDetails);
+                        db.SaveChanges();
+                    }
                     var saveTransaction = new tbl_Transaction()
                     {
                         TenantID = Convert.ToInt64(GetProspectData.UserId),
@@ -269,14 +271,10 @@ namespace ShomaRM.Models
                         Charge_Type = 2,
                         Authcode = strlist[1],
                         Charge_Amount = model.Charge_Amount,
-                        Miscellaneous_Amount = 0,
+                        Miscellaneous_Amount = Convert.ToDecimal("3.95"),
                         Accounting_Date = DateTime.Now,
                         Journal = 0,
-                        Accrual_Debit_Acct = "400-5000-10500",
-                        Accrual_Credit_Acct = "400-5000-40030",
-                        Cash_Debit_Account = "400-5100-10011",
-                        Cash_Credit_Account = "400-5100-40085",
-                        Appl_of_Origin = "SRM",
+                       
                         Batch = "1",
                         Batch_Source = "",
                         CreatedBy = Convert.ToInt32(GetProspectData.UserId),
