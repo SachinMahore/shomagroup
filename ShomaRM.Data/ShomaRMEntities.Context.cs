@@ -30,7 +30,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_AmenityPriceRange> tbl_AmenityPriceRange { get; set; }
         public virtual DbSet<tbl_Applicant> tbl_Applicant { get; set; }
         public virtual DbSet<tbl_ApplicantHistory> tbl_ApplicantHistory { get; set; }
-        public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
         public virtual DbSet<tbl_BankAccount> tbl_BankAccount { get; set; }
         public virtual DbSet<tbl_Bill> tbl_Bill { get; set; }
         public virtual DbSet<tbl_CashReceipts> tbl_CashReceipts { get; set; }
@@ -68,7 +67,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_PetPlace> tbl_PetPlace { get; set; }
         public virtual DbSet<tbl_PremiumType> tbl_PremiumType { get; set; }
         public virtual DbSet<tbl_Promotion> tbl_Promotion { get; set; }
-        public virtual DbSet<tbl_Properties> tbl_Properties { get; set; }
         public virtual DbSet<tbl_PropertyFloor> tbl_PropertyFloor { get; set; }
         public virtual DbSet<tbl_PropertyUnits> tbl_PropertyUnits { get; set; }
         public virtual DbSet<tbl_Prospect> tbl_Prospect { get; set; }
@@ -106,5 +104,8 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Estimate> tbl_Estimate { get; set; }
         public virtual DbSet<tbl_Login> tbl_Login { get; set; }
         public virtual DbSet<tbl_TenantInfo> tbl_TenantInfo { get; set; }
+        public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
+        public virtual DbSet<tbl_Properties> tbl_Properties { get; set; }
+        public virtual DbSet<tbl_UnitLeasePrice> tbl_UnitLeasePrice { get; set; }
     }
 }
