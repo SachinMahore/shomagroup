@@ -197,25 +197,7 @@ namespace ShomaRM.Models
                 // var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId).FirstOrDefault();
                 var GetCoappDet = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();
 
-                long paid = 0;
-                var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId && P.CardNumber == model.CardNumber).FirstOrDefault();
-                if (GetPayDetails == null)
-                {
-                    var savePaymentDetails = new tbl_OnlinePayment()
-                    {
-                        PID = model.PID,
-                        Name_On_Card = model.Name_On_Card,
-                        CardNumber = model.CardNumber,
-                        CardMonth = model.CardMonth,
-                        CardYear = model.CardYear,
-                        CCVNumber = model.CCVNumber,
-                        ProspectId = model.ProspectId,
-                        PaymentMethod = model.PaymentMethod,
-                    };
-                    db.tbl_OnlinePayment.Add(savePaymentDetails);
-                    db.SaveChanges();
-                    paid = savePaymentDetails.ID;
-                }
+               
                
                 string transStatus = "";
                 
@@ -226,7 +208,8 @@ namespace ShomaRM.Models
                 }
                 else if (model.PaymentMethod == 1)
                 {
-
+                    model.AccountNumber = model.CardNumber;
+                    model.RoutingNumber = model.CCVNumber.ToString();
                     transStatus = new UsaePayModel().ChargeACH(model);
                 }
 
@@ -234,6 +217,25 @@ namespace ShomaRM.Models
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 if (strlist[1] != "000000")
                 {
+                    long paid = 0;
+                    var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId && P.CardNumber == model.CardNumber).FirstOrDefault();
+                    if (GetPayDetails == null)
+                    {
+                        var savePaymentDetails = new tbl_OnlinePayment()
+                        {
+                            PID = model.PID,
+                            Name_On_Card = model.Name_On_Card,
+                            CardNumber = model.CardNumber,
+                            CardMonth = model.CardMonth,
+                            CardYear = model.CardYear,
+                            CCVNumber = model.CCVNumber,
+                            ProspectId = model.ProspectId,
+                            PaymentMethod = model.PaymentMethod,
+                        };
+                        db.tbl_OnlinePayment.Add(savePaymentDetails);
+                        db.SaveChanges();
+                        paid = savePaymentDetails.ID;
+                    }
                     var saveTransaction = new tbl_Transaction()
                     {
 
