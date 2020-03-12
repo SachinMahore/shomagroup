@@ -1,0 +1,60 @@
+03-02-2020 Monday
+
+1) Create function to check email id already exist or not.
+2) create function for email exist or not in javascript, controller and model.
+3) create function if user click yes on exist email it redirect to login.
+
+------------------------------------------------------------------------------------
+
+04-02-2020 Tuesday
+
+1) In Tenant/Dashboard fix a bug that showing only top one event detail in popup,
+   now it shows correctly each detail.
+2) fix a bug from same when we write more than 500 character in event post area it raise entity error,
+   now it is fix.
+3) fix a bug from same form in event post list when we click on more function the user detail hide some times
+   and also attachment text disappear, now it fixed and show correctly when click on more and less link.
+4) fix bug from same form, attachment now also shows correctly if file exist attachment shown in new tab
+   if the file not found it show file not found popup.
+
+------------------------------------------------------------------------------------------
+
+05-02-2020 Wednesday
+
+1) In Admin/ Online Application in prospect verification form on form date and to date text box add calender icon
+   on clicking on calender icon create function to show calender.
+2) In Online application verification form add format phone function to all mobile numbers to display it correctly.
+3) apply money format function to all price values.
+4) Total label color change to green.
+5) fix bug that total shows incorrect in the same form.
+6) apply two digit decimal format to money label.
+7) redesign and correct the download button from the same form.
+8) checked work flow of same form and fix some minor bug.
+
+---------------------------------------------------------------------------------------------
+
+06-02-2020 Thursday
+
+1) In Apply Now form apply phone format function to all mobile numbers.
+2) apply money format function to all prices.
+3) checked work flow of the apply now form.
+4) In appoinment form apply calender icon to form date to date text box and create function when click on
+   calender icon calender shows.
+5) In admin / Tenant List form apply calender icon to form date to date text box and create function
+   when click on calender icon calender shows.
+-------------------------------------------------------------------------------------------
+
+07-02-2020 Friday
+
+1) In admin / Tenant List form fix a bug when click on advance search button in popup gender dropdown shows over the city dropdown,
+   now its fix both ddl shows correctly.
+2) in the admin tenant list detail form in profile tab apply phone format function to all mobile number,
+3) in transaction tab apply money format function to price in the list to show correctly in money format.
+4) in service request tab create function on service dropdown to show list status-wise.
+5) in lease info tab create function to show pet and vehicle documents in pet and vehicle accordian.
+6) create function to view or download the documents.
+7) create function to show file does not exist if document file not found.
+8) in guest list tab create function to show veiw identity and view vehicle reg documents.
+9) create function if file not found to prevent from error.
+10) create function to warning message before delete.
+11) in community tab create warning function before delete the post.

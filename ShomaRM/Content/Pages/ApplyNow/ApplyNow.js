@@ -61,40 +61,80 @@ $(document).ready(function () {
     });
 
     document.getElementById('fileUploadTaxReturn1').onchange = function () {
-        taxReturnFileUpload1();
+        var fileUploadTaxReturn1Bool = restrictFileUpload($(this).val());
+        if (fileUploadTaxReturn1Bool == true) {
+            taxReturnFileUpload1();
+        }
+        else {
+            document.getElementById('fileUploadTaxReturn1').value = '';
+            $('#fileUploadTaxReturn1Show').html('Choose a file&hellip;');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     document.getElementById('fileUploadTaxReturn2').onchange = function () {
-        taxReturnFileUpload2();
+        var fileUploadTaxReturn2Bool = restrictFileUpload($(this).val());
+        if (fileUploadTaxReturn2Bool == true) {
+            taxReturnFileUpload2();
+        }
+        else {
+            document.getElementById('fileUploadTaxReturn2').value = '';
+            $('#fileUploadTaxReturn2Show').html('Choose a file&hellip;');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     document.getElementById('fileUploadTaxReturn3').onchange = function () {
-        taxReturnFileUpload3();
+        var fileUploadTaxReturn3Bool = restrictFileUpload($(this).val());
+        if (fileUploadTaxReturn3Bool == true) {
+            taxReturnFileUpload3();
+        }
+        else {
+            document.getElementById('fileUploadTaxReturn3').value = '';
+            $('#fileUploadTaxReturn3Show').html('Choose a file&hellip;');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     document.getElementById('fileUploadPassport').onchange = function () {
-        uploadPassport();
+        var fileUploadPassportBool = restrictFileUpload($(this).val());
+        if (fileUploadPassportBool == true) {
+            uploadPassport();
+        }
+        else {
+            document.getElementById('fileUploadPassport').value = '';
+            $('#fileUploadPassportShow').html('Choose a file&hellip;');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     document.getElementById('fileUploadIdentity').onchange = function () {
-        uploadIdentityDocument();
-    };
-    document.getElementById('fileUploadVehicleRegistation').onchange = function () {
-        $.alert({
-            title: "",
-            content: "File uploaded Successfully.",
-            type: 'blue'
-        });
-    };
-    document.getElementById('pet-picture').onchange = function () {
-        $.alert({
-            title: "",
-            content: "File uploaded Successfully.",
-            type: 'blue'
-        });
-    };
-    document.getElementById('filePetVaccinationCertificate').onchange = function () {
-        $.alert({
-            title: "",
-            content: "File uploaded Successfully.",
-            type: 'blue'
-        });
+        var fileUploadIdentityBool = restrictFileUpload($(this).val());
+        if (fileUploadIdentityBool == true) {
+            uploadIdentityDocument();
+        }
+        else {
+            document.getElementById('fileUploadIdentity').value = '';
+            $('#fileUploadIdentityShow').html('Choose a file&hellip;');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
+        
     };
 
     if ($("#chkAgreeTermsPolicy").is(":checked")) {
@@ -148,6 +188,7 @@ $(document).ready(function () {
         if ($("#chkDontHaveVehicle").is(":checked")) {
             $("#btnAddVehicle").attr("disabled", true);
             $("#btnAddVehicle").css("background-color", "#b4ada5");
+            deleteVehiclesListOnCheck();
             haveVehicle();
         }
         else if ($("#chkDontHaveVehicle").is(":not(:checked)")) {
@@ -158,23 +199,23 @@ $(document).ready(function () {
     });
 
     if ($("#chkDontHavePet").is(":checked")) {
-        $("#btnAddPet").attr("disabled", true);
+        $("#btnAddPet").prop("disabled", true);
         $("#btnAddPet").css("background-color", "#b4ada5");
     }
 
     else if ($("#chkDontHavePet").is(":not(:checked)")) {
-        $("#btnAddPet").attr("disabled", false);
+        $("#btnAddPet").prop("disabled", false);
         $("#btnAddPet").removeAttr("style");
     }
 
     $('input[type=checkbox]').on('ifChanged', function (event) {
         if ($("#chkDontHavePet").is(":checked")) {
-            $("#btnAddPet").attr("disabled", true);
+            $("#btnAddPet").prop("disabled", true);
             $("#btnAddPet").css("background-color", "#b4ada5");
             havePet();
         }
         else if ($("#chkDontHavePet").is(":not(:checked)")) {
-            $("#btnAddPet").attr("disabled", false);
+            $("#btnAddPet").prop("disabled", false);
             $("#btnAddPet").removeAttr("style");
             havePet();
         }
@@ -356,15 +397,6 @@ $(document).ready(function () {
         clearVehicle();
         $("#popVehicle").PopupWindow("open");
     });
-    //$("#popVehicle").PopupWindow({
-    //    title: "Add Vehicle",
-    //    modal: false,
-    //    autoOpen: false,
-    //    top: 120,
-    //    left: 400,
-    //    height: 600,
-
-    //});
 
     $("#btnAddPet").on("click", function (event) {
         clearPet();
@@ -434,13 +466,49 @@ $(document).ready(function () {
     remainingday = days;
     numberOfDays = daysInMonth;
     document.getElementById('fileUploadVehicleRegistation').onchange = function () {
-        uploadVehicleCertificate();
+        var fileUploadVehicleRegistationBool = restrictFileUpload($(this).val());
+        if (fileUploadVehicleRegistationBool == true) {
+            uploadVehicleCertificate();
+        }
+        else {
+            document.getElementById('fileUploadVehicleRegistation').value = '';
+            $('#VehicleRegistationShow').html('Choose a file&hellip;');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     document.getElementById('pet-picture').onchange = function () {
-        uploadPetPhoto();
+        var filepetpictureBool = restrictFileUpload($(this).val());
+        if (filepetpictureBool == true) {
+            uploadPetPhoto();
+        }
+        else {
+            document.getElementById('pet-picture').value = '';
+            $('#filePetPictireShow').html('Choose a file&hellip;');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     document.getElementById('filePetVaccinationCertificate').onchange = function () {
-        uploadPetVaccination();
+        var filePetVaccinationCertificateBool = restrictFileUpload($(this).val());
+        if (filePetVaccinationCertificateBool == true) {
+            uploadPetVaccination();
+        }
+        else {
+            document.getElementById('filePetVaccinationCertificate').value = '';
+            $('#filePetVaccinationCertificateShow').html('Choose a file&hellip;');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
 
     dateIconFunctions();
@@ -3018,7 +3086,9 @@ var addApplicant = function (at) {
         var dtApp = new Date();
         dtApp.setFullYear(new Date().getFullYear() - 18);
         $('#txtADateOfBirth').datepicker({ endDate: dtApp, autoclose: true });
-
+        $("#iconCalenderApplicant").click(function () {
+            $("#txtADateOfBirth").focus();
+        });
         $('#txtADateOfBirth').removeClass("hidden");
         $('#txtHDateOfBirth').addClass("hidden");
         $('#txtMDateOfBirth').addClass("hidden");
@@ -3052,7 +3122,9 @@ var addApplicant = function (at) {
         dtMin.setFullYear(new Date().getFullYear() - 18);
         var dtEnd = new Date();
         $('#txtMDateOfBirth').datepicker({ viewMode: "years", startDate: dtMin, endDate: dtEnd, autoclose: true });
-
+        $("#iconCalenderApplicant").click(function () {
+            $("#txtMDateOfBirth").focus();
+        });
         $('#txtApplicantOtherGender').val('');
         //$('#appGenderOther').addClass('hidden');
     }
@@ -3080,7 +3152,9 @@ var addApplicant = function (at) {
         var dtGApp = new Date();
         dtGApp.setFullYear(new Date().getFullYear() - 18);
         $('#txtGDateOfBirth').datepicker({ endDate: dtGApp, autoclose: true });
-
+        $("#iconCalenderApplicant").click(function () {
+            $("#txtGDateOfBirth").focus();
+        });
         $('#txtApplicantOtherGender').val('');
         //$('#appGenderOther').addClass('hidden');
     }
@@ -3481,6 +3555,9 @@ var goToEditApplicant = function (aid) {
                     var dtHApp = new Date();
                     dtHApp.setFullYear(new Date().getFullYear() - 18);
                     $('#txtHDateOfBirth').datepicker({ endDate: dtHApp, autoclose: true });
+                    $("#iconCalenderApplicant").click(function () {
+                        $("#txtHDateOfBirth").focus();
+                    });
                     if (response.model.OtherGender == '3') {
                         $("#txtApplicantOtherGender").val(response.model.OtherGender);
                     }
@@ -3692,13 +3769,6 @@ var saveupdatePet = function () {
 
             //$("#popPet").PopupWindow("close");
             $("#popPet").modal("hide");
-
-            $("#txtpetName").val('');
-            $("#txtpetBreed").val('');
-            $("#txtpetWeight").val('');
-            $("#txtpetVetsName").val('');
-            document.getElementById('filePetPictireShow').value = '';
-            document.getElementById('filePetVaccinationCertificate').value = '';
         }
     });
 };
@@ -3773,11 +3843,18 @@ var getPetInfo = function (id) {
     });
 };
 var clearPet = function () {
-    var petId = $("#hndPetID").val("0");
-    var petType = $("#ddlpetType").val("0");
-    var breed = $("#txtpetBreed").val("");
-    var weight = $("#txtpetWeight").val("");
-    var age = $("#txtpetAge").val("");
+    $("#txtpetName").val('');
+    $("#txtpetBreed").val('');
+    $("#txtpetWeight").val('');
+    $("#txtpetVetsName").val('');
+    document.getElementById('filePetPictireShow').value = '';
+    document.getElementById('filePetVaccinationCertificate').value = '';
+    $("#filePetPictireShow").html('Choose a file&hellip;');
+    $("#filePetVaccinationCertificateShow").html('Choose a file&hellip;');
+    $("#hndPetPicture").val('0');
+    $("#hndOriginalPetPicture").val('');
+    $("#hndPetVaccinationCertificate").val('0');
+    $("#hndOriginalPetVaccinationCertificate").val('');
 };
 var saveupdateVehicle = function () {
 
@@ -3901,12 +3978,19 @@ var getVehicleLists = function () {
 
 var clearVehicle = function () {
     $("#hndVehicleID").val(0);
+    $("#txtVehicleOwnerName").val("");
+    document.getElementById('fileUploadVehicleRegistation').value = '';
+    $("#VehicleRegistationShow").html("Choose a file&hellip;");
+    $("#ddlVehicleType").val("0");
+    $("#ddlVehicleyear").val("0");
     $("#txtVehicleMake").val("");
     $("#txtVehicleModel").val("");
-
     $("#txtVehicleColor").val("");
     $("#txtVehicleLicence").val("");
     $("#ddlVState").val(0);
+    $("#txtVehicleNote").val("");
+    $("#hndVehicleRegistation").val("0");
+    $("#hndOriginalVehicleRegistation").val("0");
 }
 var saveupdateTenantOnline = function () {
     var msg = "";
@@ -4321,9 +4405,11 @@ var getTenantOnlineList = function (id) {
             }
             if (response.model.HavePet == true) {
                 $("#chkDontHavePet").iCheck('check');
+                $("#chkDontHavePet").prop('disabled', 'disabled');
             }
             else {
                 $("#chkDontHavePet").iCheck('uncheck');
+                $("#chkDontHavePet").prop('disabled', 'disabled');
             }
 
             $("#hndPassportUploadName").val(response.model.PassportDocument);
@@ -5719,6 +5805,25 @@ var getMonthsCountFromApplicantHistory = function () {
         success: function (response) {
             
             $("#hndHistory").val(response.model.TotalMonthsApplicantHistory);
+        }
+    });
+};
+
+var deleteVehiclesListOnCheck = function () {
+
+    var ProspectID = $("#hdnOPId").val();
+
+    var model = {
+        TenantId: ProspectID
+    };
+    $.ajax({
+        url: '/ApplyNow/DeleteVehicleListOnCheck',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            
         }
     });
 };
