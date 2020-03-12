@@ -45,6 +45,7 @@ namespace ShomaRM.Models
         public string StorageAmountString { get; set; }
         public string Rent { set; get; }
         public Nullable<long> AID { get; set; }
+        public Nullable<decimal> MoveInPercentage { get; set; }
 
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
