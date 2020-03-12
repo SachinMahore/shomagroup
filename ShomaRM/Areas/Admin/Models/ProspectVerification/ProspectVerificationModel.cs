@@ -427,10 +427,7 @@ namespace ShomaRM.Areas.Admin.Models
             return msg;
 
         }
-
-
-       
-
+        
         public class ProspectVerifySearchModel
         {
             public long ID { get; set; }
@@ -454,8 +451,7 @@ namespace ShomaRM.Areas.Admin.Models
             public string OrderBy { get; set; }
             public string UnitNo { get; set; }
         }
-
-        
+    
         public string GetDocumentType(string DocType)
         {
             string docType = "";
@@ -698,7 +694,7 @@ namespace ShomaRM.Areas.Admin.Models
             return model;
         }
 
-      public void SaveProspectVerification(long DocId, int VerificationStatus, long PID)
+        public void SaveProspectVerification(long DocId, int VerificationStatus, long PID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             var docInfo = db.tbl_DocumentVerification.Where(p => p.DocID == DocId).FirstOrDefault();

@@ -89,6 +89,7 @@ namespace ShomaRM.Models
                     db.SaveChanges();
                 }
                 string transStatus = "";
+
                 if (model.PaymentMethod == 2)
                 {
 
@@ -195,9 +196,7 @@ namespace ShomaRM.Models
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
                 // var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId).FirstOrDefault();
-                var GetCoappDet = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();
-
-               
+                var GetCoappDet = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();              
                
                 string transStatus = "";
                 
@@ -208,8 +207,7 @@ namespace ShomaRM.Models
                 }
                 else if (model.PaymentMethod == 1)
                 {
-                    model.AccountNumber = model.CardNumber;
-                    model.RoutingNumber = model.CCVNumber.ToString();
+                   
                     transStatus = new UsaePayModel().ChargeACH(model);
                 }
 
@@ -228,7 +226,7 @@ namespace ShomaRM.Models
                             CardNumber = model.CardNumber,
                             CardMonth = model.CardMonth,
                             CardYear = model.CardYear,
-                            CCVNumber = model.CCVNumber,
+                            CCVNumber =Convert.ToInt32(model.RoutingNumber),
                             ProspectId = model.ProspectId,
                             PaymentMethod = model.PaymentMethod,
                         };
