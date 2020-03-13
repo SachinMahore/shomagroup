@@ -971,22 +971,22 @@ var goToStep = function (stepid, id) {
                 });
 
 
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").addClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").addClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").removeClass("hidden");
-                $("#step10").addClass("hidden");
-                $("#step11").addClass("hidden");
-                $("#step12").addClass("hidden");
-                $("#step13").addClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").addClass("hidden");
+                ////$("#step2").addClass("hidden");
+                ////$("#step1").addClass("hidden");
+                ////$("#step4").addClass("hidden");
+                ////$("#step3").addClass("hidden");
+                ////$("#step5").addClass("hidden");
+                ////$("#step6").addClass("hidden");
+                ////$("#step7").addClass("hidden");
+                ////$("#step8").addClass("hidden");
+                ////$("#step9").removeClass("hidden");
+                ////$("#step10").addClass("hidden");
+                ////$("#step11").addClass("hidden");
+                ////$("#step12").addClass("hidden");
+                ////$("#step13").addClass("hidden");
+                ////$("#step14").addClass("hidden");
+                ////$("#step15").addClass("hidden");
+                ////$("#step16").addClass("hidden");
                 
                 return;
             }
@@ -1028,7 +1028,87 @@ var goToStep = function (stepid, id) {
             $("#divLoader").show();
            getMonthsCountFromApplicantHistory();
             var msg = '';
-           
+
+            //step10
+
+            if (!$("#txtFirstNamePersonal").val()) {
+                msg += "Please Fill The First Name </br>";
+            }
+            if (!$("#txtLastNamePersonal").val()) {
+                msg += "Please Fill The  Last Name </br>";
+            }
+            if (!$("#txtDateOfBirth").val()) {
+                msg += "Please Fill The  Date Of Birth </br>";
+            }
+            if ($("#ddlGender").val() == "0") {
+                msg += "Please Select The Gender </br>";
+            }
+            else if ($("#ddlGender").val() == "3") {
+                if ($("#txtOtherGender").val() == "") {
+                    msg += "Please Fill The Other Gender </br>";
+                }
+            }
+            if ($("#ddlIsInter").val() == "0") {
+                if (!$("#txtSSNNumber").data('value')) {
+                    msg += "Please Fill The SSN number </br>";
+                }
+                else {
+                    if ($("#txtSSNNumber").data('value').length < 9) {
+                        msg += "SSN number must be 9 digit </br>";
+                    }
+                }
+
+            }
+            if (!$("#txtEmailNew").val()) {
+                msg += "Please Fill The Email </br>";
+            }
+            else {
+                if (!validateEmail($("#txtEmailNew").val())) {
+                    msg += "Please Fill Valid Email </br>";
+                }
+            }
+            if (!unformatText($("#txtMobileNumber").val())) {
+                msg += "Please Fill The Mobile Number </br>";
+            }
+            else {
+                if (!validatePhone(unformatText($("#txtMobileNumber").val()))) {
+                    msg += "Please Fill Valid Mobile Number </br>";
+                }
+            }
+            if ($("#ddlIsInter").val() == "1") {
+                if (!$("#txtPassportNum").val()) {
+                    msg += "Please Fill The Passport number </br>";
+                }
+                if (!$("#txtCOI").val()) {
+                    msg += "Please Fill The Country Of Issuance </br>";
+                }
+                if (!$("#txtDateOfIssuance").val()) {
+                    msg += "Please Fill The Date of Issuance </br>";
+                }
+                if (!$("#txtDateOfExpiration").val()) {
+                    msg += "Please Fill The Date of Expiration </br>";
+                }
+                if ($("#hndHasPassportFile").val() == "0") {
+                    if (document.getElementById('fileUploadPassport').files.length == '0') {
+                        msg += "Please Upload The Passport </br>";
+                    }
+                }
+            }
+            if ($("#ddlDocumentTypePersonal").val() == "0") {
+                msg += "Please Select The Id Type </br>";
+            }
+            if (!$("#txtIDNumber").data('value')) {
+                msg += "Please Fill The  Id Number </br>";
+            }
+            if ($("#hndHasIdentityFile").val() == "0") {
+                if (document.getElementById('fileUploadIdentity').files.length == '0') {
+                    var idType = document.getElementById('lblUploadIdentity').innerHTML;
+                    msg += "Please Upload The " + idType + " </br>";
+                }
+            }
+          //step10
+
+
             if ($("#txtCountry").val() == "0") {
                 msg += "Please Select Country </br>";
             }
@@ -1065,25 +1145,7 @@ var goToStep = function (stepid, id) {
                     type: 'red'
                 });
                 
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").addClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").addClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").addClass("hidden");
-                $("#step10").removeClass("hidden");
-                $("#step11").addClass("hidden");
-                $("#step12").addClass("hidden");
-                $("#step13").addClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").addClass("hidden");
-                $("#step17").addClass("hidden");
-
-                
+              
                 return;
             }
             else {
@@ -1125,6 +1187,108 @@ var goToStep = function (stepid, id) {
     if (stepid == "12") {
         if (id == "12") {
             var msg = '';
+            //step10
+
+            if (!$("#txtFirstNamePersonal").val()) {
+                msg += "Please Fill The First Name </br>";
+            }
+            if (!$("#txtLastNamePersonal").val()) {
+                msg += "Please Fill The  Last Name </br>";
+            }
+            if (!$("#txtDateOfBirth").val()) {
+                msg += "Please Fill The  Date Of Birth </br>";
+            }
+            if ($("#ddlGender").val() == "0") {
+                msg += "Please Select The Gender </br>";
+            }
+            else if ($("#ddlGender").val() == "3") {
+                if ($("#txtOtherGender").val() == "") {
+                    msg += "Please Fill The Other Gender </br>";
+                }
+            }
+            if ($("#ddlIsInter").val() == "0") {
+                if (!$("#txtSSNNumber").data('value')) {
+                    msg += "Please Fill The SSN number </br>";
+                }
+                else {
+                    if ($("#txtSSNNumber").data('value').length < 9) {
+                        msg += "SSN number must be 9 digit </br>";
+                    }
+                }
+
+            }
+            if (!$("#txtEmailNew").val()) {
+                msg += "Please Fill The Email </br>";
+            }
+            else {
+                if (!validateEmail($("#txtEmailNew").val())) {
+                    msg += "Please Fill Valid Email </br>";
+                }
+            }
+            if (!unformatText($("#txtMobileNumber").val())) {
+                msg += "Please Fill The Mobile Number </br>";
+            }
+            else {
+                if (!validatePhone(unformatText($("#txtMobileNumber").val()))) {
+                    msg += "Please Fill Valid Mobile Number </br>";
+                }
+            }
+            if ($("#ddlIsInter").val() == "1") {
+                if (!$("#txtPassportNum").val()) {
+                    msg += "Please Fill The Passport number </br>";
+                }
+                if (!$("#txtCOI").val()) {
+                    msg += "Please Fill The Country Of Issuance </br>";
+                }
+                if (!$("#txtDateOfIssuance").val()) {
+                    msg += "Please Fill The Date of Issuance </br>";
+                }
+                if (!$("#txtDateOfExpiration").val()) {
+                    msg += "Please Fill The Date of Expiration </br>";
+                }
+                if ($("#hndHasPassportFile").val() == "0") {
+                    if (document.getElementById('fileUploadPassport').files.length == '0') {
+                        msg += "Please Upload The Passport </br>";
+                    }
+                }
+            }
+            if ($("#ddlDocumentTypePersonal").val() == "0") {
+                msg += "Please Select The Id Type </br>";
+            }
+            if (!$("#txtIDNumber").data('value')) {
+                msg += "Please Fill The  Id Number </br>";
+            }
+            if ($("#hndHasIdentityFile").val() == "0") {
+                if (document.getElementById('fileUploadIdentity').files.length == '0') {
+                    var idType = document.getElementById('lblUploadIdentity').innerHTML;
+                    msg += "Please Upload The " + idType + " </br>";
+                }
+            }
+          //step10
+            //step11
+            if ($("#txtCountry").val() == "0") {
+                msg += "Please Select Country </br>";
+            }
+            if (!$("#txtAddress1").val()) {
+                msg += "Please Fill Address 1  </br>";
+            }
+            if ($("#ddlStateHome").val() == "0") {
+                msg += "Please Select State </br>";
+            }
+            if (!$("#ddlCityHome").val()) {
+                msg += "Please Fill City </br>";
+            }
+            if (!$("#txtZip").val()) {
+                msg += "Please Fill Zip </br>";
+            }
+            if (!$("#txtMoveInDateFrom").val()) {
+                msg += "Please Fill Move In Date </br>";
+            }
+            if (!$("#txtMoveInDateTo").val()) {
+                msg += "Please Fill Move Out Date </br>";
+            }
+           
+                //step11
 
             if (!$("#txtEmployerName").val()) {
                 msg += "Please Fill The Employer Name </br>";
@@ -1199,22 +1363,22 @@ var goToStep = function (stepid, id) {
                     type: 'red'
                 });
 
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").addClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").addClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").addClass("hidden");
-                $("#step10").addClass("hidden");
-                $("#step11").removeClass("hidden");
-                $("#step12").addClass("hidden");
-                $("#step13").addClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").addClass("hidden");
+                //$("#step2").addClass("hidden");
+                //$("#step1").addClass("hidden");
+                //$("#step4").addClass("hidden");
+                //$("#step3").addClass("hidden");
+                //$("#step5").addClass("hidden");
+                //$("#step6").addClass("hidden");
+                //$("#step7").addClass("hidden");
+                //$("#step8").addClass("hidden");
+                //$("#step9").addClass("hidden");
+                //$("#step10").addClass("hidden");
+                //$("#step11").removeClass("hidden");
+                //$("#step12").addClass("hidden");
+                //$("#step13").addClass("hidden");
+                //$("#step14").addClass("hidden");
+                //$("#step15").addClass("hidden");
+                //$("#step16").addClass("hidden");
                 return;
             }
             else {
@@ -1255,6 +1419,176 @@ var goToStep = function (stepid, id) {
         if (id == "13") {
 
             var msg = '';
+            //step10
+
+            if (!$("#txtFirstNamePersonal").val()) {
+                msg += "Please Fill The First Name </br>";
+            }
+            if (!$("#txtLastNamePersonal").val()) {
+                msg += "Please Fill The  Last Name </br>";
+            }
+            if (!$("#txtDateOfBirth").val()) {
+                msg += "Please Fill The  Date Of Birth </br>";
+            }
+            if ($("#ddlGender").val() == "0") {
+                msg += "Please Select The Gender </br>";
+            }
+            else if ($("#ddlGender").val() == "3") {
+                if ($("#txtOtherGender").val() == "") {
+                    msg += "Please Fill The Other Gender </br>";
+                }
+            }
+            if ($("#ddlIsInter").val() == "0") {
+                if (!$("#txtSSNNumber").data('value')) {
+                    msg += "Please Fill The SSN number </br>";
+                }
+                else {
+                    if ($("#txtSSNNumber").data('value').length < 9) {
+                        msg += "SSN number must be 9 digit </br>";
+                    }
+                }
+
+            }
+            if (!$("#txtEmailNew").val()) {
+                msg += "Please Fill The Email </br>";
+            }
+            else {
+                if (!validateEmail($("#txtEmailNew").val())) {
+                    msg += "Please Fill Valid Email </br>";
+                }
+            }
+            if (!unformatText($("#txtMobileNumber").val())) {
+                msg += "Please Fill The Mobile Number </br>";
+            }
+            else {
+                if (!validatePhone(unformatText($("#txtMobileNumber").val()))) {
+                    msg += "Please Fill Valid Mobile Number </br>";
+                }
+            }
+            if ($("#ddlIsInter").val() == "1") {
+                if (!$("#txtPassportNum").val()) {
+                    msg += "Please Fill The Passport number </br>";
+                }
+                if (!$("#txtCOI").val()) {
+                    msg += "Please Fill The Country Of Issuance </br>";
+                }
+                if (!$("#txtDateOfIssuance").val()) {
+                    msg += "Please Fill The Date of Issuance </br>";
+                }
+                if (!$("#txtDateOfExpiration").val()) {
+                    msg += "Please Fill The Date of Expiration </br>";
+                }
+                if ($("#hndHasPassportFile").val() == "0") {
+                    if (document.getElementById('fileUploadPassport').files.length == '0') {
+                        msg += "Please Upload The Passport </br>";
+                    }
+                }
+            }
+            if ($("#ddlDocumentTypePersonal").val() == "0") {
+                msg += "Please Select The Id Type </br>";
+            }
+            if (!$("#txtIDNumber").data('value')) {
+                msg += "Please Fill The  Id Number </br>";
+            }
+            if ($("#hndHasIdentityFile").val() == "0") {
+                if (document.getElementById('fileUploadIdentity').files.length == '0') {
+                    var idType = document.getElementById('lblUploadIdentity').innerHTML;
+                    msg += "Please Upload The " + idType + " </br>";
+                }
+            }
+            //step10
+            //step11
+            if ($("#txtCountry").val() == "0") {
+                msg += "Please Select Country </br>";
+            }
+            if (!$("#txtAddress1").val()) {
+                msg += "Please Fill Address 1  </br>";
+            }
+            if ($("#ddlStateHome").val() == "0") {
+                msg += "Please Select State </br>";
+            }
+            if (!$("#ddlCityHome").val()) {
+                msg += "Please Fill City </br>";
+            }
+            if (!$("#txtZip").val()) {
+                msg += "Please Fill Zip </br>";
+            }
+            if (!$("#txtMoveInDateFrom").val()) {
+                msg += "Please Fill Move In Date </br>";
+            }
+            if (!$("#txtMoveInDateTo").val()) {
+                msg += "Please Fill Move Out Date </br>";
+            }
+
+            //step11
+
+            if (!$("#txtEmployerName").val()) {
+                msg += "Please Fill The Employer Name </br>";
+            }
+            if (!$("#txtStartDate").val()) {
+                msg += "Please Fill The Start Date </br>";
+            }
+            if (!$("#txtAnnualIncome").val()) {
+                msg += "Please Fill The Annual Income </br>";
+            }
+            if ($("#txtAnnualIncome").val() == '0.00') {
+                msg += "Please Fill The Annual Income </br>";
+            }
+            if ($("#hndHasTaxReturnFile").val() == "0") {
+                if (document.getElementById('fileUploadTaxReturn').files.length == '0') {
+                    msg += "Please Upload last 3 paystubs or if self-employed last 2 year's Federal Tax Returns </br>";
+                }
+            }
+            if ($("#rbtnPaystub").is(":checked")) {
+                if ($("#hndHasTaxReturnFile1").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn1').files.length == '0') {
+                        var upLabel = $('#lblUpload1').text();
+                        msg += "Please Upload " + upLabel + " </br>";
+                    }
+                }
+                if ($("#hndHasTaxReturnFile2").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn2').files.length == '0') {
+                        var upLabel2 = $('#lblUpload2').text();
+                        msg += "Please Upload " + upLabel2 + " </br>";
+                    }
+                }
+                if ($("#hndHasTaxReturnFile3").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn3').files.length == '0') {
+                        var upLabel3 = $('#lblUpload3').text();
+                        msg += "Please Upload " + upLabel3 + " </br>";
+                    }
+                }
+            }
+            if ($("#rbtnFedralTax").is(":checked")) {
+                if ($("#hndHasTaxReturnFile1").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn1').files.length == '0') {
+                        var upLabel4 = $('#lblUpload1').text();
+                        msg += "Please Upload " + upLabel4 + " </br>";
+                    }
+                }
+                if ($("#hndHasTaxReturnFile2").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn2').files.length == '0') {
+                        var upLabel5 = $('#lblUpload2').text();
+                        msg += "Please Upload " + upLabel5 + " </br>";
+                    }
+                }
+            }
+            if ($("#txtCountryOffice").val() == '0') {
+                msg += "Please Select The Country </br>";
+            }
+            if (!$("#txtofficeAddress1").val()) {
+                msg += "Please Fill The Address Line 1 </br>";
+            }
+            if ($("#ddlStateEmployee").val() == '0') {
+                msg += "Please Select The State </br>";
+            }
+            if (!$("#ddlCityEmployee").val()) {
+                msg += "Please Fill The City </br>";
+            }
+            if (!$("#txtZipOffice").val()) {
+                msg += "Please Fill The Zip </br>";
+            }
+            //step12
 
             if (!$("#txtRelationship").val()) {
                 msg += "Please Fill The Relationship </br>";
@@ -1290,22 +1624,22 @@ var goToStep = function (stepid, id) {
                     type: 'red'
                 });
 
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").addClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").addClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").addClass("hidden");
-                $("#step10").addClass("hidden");
-                $("#step11").addClass("hidden");
-                $("#step12").removeClass("hidden");
-                $("#step13").addClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").addClass("hidden");
+                //$("#step2").addClass("hidden");
+                //$("#step1").addClass("hidden");
+                //$("#step4").addClass("hidden");
+                //$("#step3").addClass("hidden");
+                //$("#step5").addClass("hidden");
+                //$("#step6").addClass("hidden");
+                //$("#step7").addClass("hidden");
+                //$("#step8").addClass("hidden");
+                //$("#step9").addClass("hidden");
+                //$("#step10").addClass("hidden");
+                //$("#step11").addClass("hidden");
+                //$("#step12").removeClass("hidden");
+                //$("#step13").addClass("hidden");
+                //$("#step14").addClass("hidden");
+                //$("#step15").addClass("hidden");
+                //$("#step16").addClass("hidden");
                 return;
             }
             else {
@@ -1345,42 +1679,720 @@ var goToStep = function (stepid, id) {
     }
     if (stepid == "14") {
         if (id == "14") {
-            getTenantPetPlaceData();
-            $("#step2").addClass("hidden");
-            $("#step1").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
-            $("#step8").addClass("hidden");
-            $("#step9").addClass("hidden");
-            $("#step10").addClass("hidden");
-            $("#step11").addClass("hidden");
-            $("#step12").addClass("hidden");
-            $("#step13").addClass("hidden");
-            $("#step14").removeClass("hidden");
-            $("#step15").addClass("hidden");
-            $("#step16").addClass("hidden");
-            $("#step17").addClass("hidden");
+            var msg = '';
+            //step10
 
-            $("#li14").addClass("active");
-            $("#li8").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li7").removeClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").removeClass("active");
-            $("#li13").removeClass("active");
-            $("#li10").removeClass("active");
-            $("#li15").removeClass("active");
-            $("#li16").removeClass("active");
-            $("#li17").removeClass("active");
+            if (!$("#txtFirstNamePersonal").val()) {
+                msg += "Please Fill The First Name </br>";
+            }
+            if (!$("#txtLastNamePersonal").val()) {
+                msg += "Please Fill The  Last Name </br>";
+            }
+            if (!$("#txtDateOfBirth").val()) {
+                msg += "Please Fill The  Date Of Birth </br>";
+            }
+            if ($("#ddlGender").val() == "0") {
+                msg += "Please Select The Gender </br>";
+            }
+            else if ($("#ddlGender").val() == "3") {
+                if ($("#txtOtherGender").val() == "") {
+                    msg += "Please Fill The Other Gender </br>";
+                }
+            }
+            if ($("#ddlIsInter").val() == "0") {
+                if (!$("#txtSSNNumber").data('value')) {
+                    msg += "Please Fill The SSN number </br>";
+                }
+                else {
+                    if ($("#txtSSNNumber").data('value').length < 9) {
+                        msg += "SSN number must be 9 digit </br>";
+                    }
+                }
+
+            }
+            if (!$("#txtEmailNew").val()) {
+                msg += "Please Fill The Email </br>";
+            }
+            else {
+                if (!validateEmail($("#txtEmailNew").val())) {
+                    msg += "Please Fill Valid Email </br>";
+                }
+            }
+            if (!unformatText($("#txtMobileNumber").val())) {
+                msg += "Please Fill The Mobile Number </br>";
+            }
+            else {
+                if (!validatePhone(unformatText($("#txtMobileNumber").val()))) {
+                    msg += "Please Fill Valid Mobile Number </br>";
+                }
+            }
+            if ($("#ddlIsInter").val() == "1") {
+                if (!$("#txtPassportNum").val()) {
+                    msg += "Please Fill The Passport number </br>";
+                }
+                if (!$("#txtCOI").val()) {
+                    msg += "Please Fill The Country Of Issuance </br>";
+                }
+                if (!$("#txtDateOfIssuance").val()) {
+                    msg += "Please Fill The Date of Issuance </br>";
+                }
+                if (!$("#txtDateOfExpiration").val()) {
+                    msg += "Please Fill The Date of Expiration </br>";
+                }
+                if ($("#hndHasPassportFile").val() == "0") {
+                    if (document.getElementById('fileUploadPassport').files.length == '0') {
+                        msg += "Please Upload The Passport </br>";
+                    }
+                }
+            }
+            if ($("#ddlDocumentTypePersonal").val() == "0") {
+                msg += "Please Select The Id Type </br>";
+            }
+            if (!$("#txtIDNumber").data('value')) {
+                msg += "Please Fill The  Id Number </br>";
+            }
+            if ($("#hndHasIdentityFile").val() == "0") {
+                if (document.getElementById('fileUploadIdentity').files.length == '0') {
+                    var idType = document.getElementById('lblUploadIdentity').innerHTML;
+                    msg += "Please Upload The " + idType + " </br>";
+                }
+            }
+            //step10
+            //step11
+            if ($("#txtCountry").val() == "0") {
+                msg += "Please Select Country </br>";
+            }
+            if (!$("#txtAddress1").val()) {
+                msg += "Please Fill Address 1  </br>";
+            }
+            if ($("#ddlStateHome").val() == "0") {
+                msg += "Please Select State </br>";
+            }
+            if (!$("#ddlCityHome").val()) {
+                msg += "Please Fill City </br>";
+            }
+            if (!$("#txtZip").val()) {
+                msg += "Please Fill Zip </br>";
+            }
+            if (!$("#txtMoveInDateFrom").val()) {
+                msg += "Please Fill Move In Date </br>";
+            }
+            if (!$("#txtMoveInDateTo").val()) {
+                msg += "Please Fill Move Out Date </br>";
+            }
+
+            //step11
+
+            if (!$("#txtEmployerName").val()) {
+                msg += "Please Fill The Employer Name </br>";
+            }
+            if (!$("#txtStartDate").val()) {
+                msg += "Please Fill The Start Date </br>";
+            }
+            if (!$("#txtAnnualIncome").val()) {
+                msg += "Please Fill The Annual Income </br>";
+            }
+            if ($("#txtAnnualIncome").val() == '0.00') {
+                msg += "Please Fill The Annual Income </br>";
+            }
+            if ($("#hndHasTaxReturnFile").val() == "0") {
+                if (document.getElementById('fileUploadTaxReturn').files.length == '0') {
+                    msg += "Please Upload last 3 paystubs or if self-employed last 2 year's Federal Tax Returns </br>";
+                }
+            }
+            if ($("#rbtnPaystub").is(":checked")) {
+                if ($("#hndHasTaxReturnFile1").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn1').files.length == '0') {
+                        var upLabel = $('#lblUpload1').text();
+                        msg += "Please Upload " + upLabel + " </br>";
+                    }
+                }
+                if ($("#hndHasTaxReturnFile2").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn2').files.length == '0') {
+                        var upLabel2 = $('#lblUpload2').text();
+                        msg += "Please Upload " + upLabel2 + " </br>";
+                    }
+                }
+                if ($("#hndHasTaxReturnFile3").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn3').files.length == '0') {
+                        var upLabel3 = $('#lblUpload3').text();
+                        msg += "Please Upload " + upLabel3 + " </br>";
+                    }
+                }
+            }
+            if ($("#rbtnFedralTax").is(":checked")) {
+                if ($("#hndHasTaxReturnFile1").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn1').files.length == '0') {
+                        var upLabel4 = $('#lblUpload1').text();
+                        msg += "Please Upload " + upLabel4 + " </br>";
+                    }
+                }
+                if ($("#hndHasTaxReturnFile2").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn2').files.length == '0') {
+                        var upLabel5 = $('#lblUpload2').text();
+                        msg += "Please Upload " + upLabel5 + " </br>";
+                    }
+                }
+            }
+            if ($("#txtCountryOffice").val() == '0') {
+                msg += "Please Select The Country </br>";
+            }
+            if (!$("#txtofficeAddress1").val()) {
+                msg += "Please Fill The Address Line 1 </br>";
+            }
+            if ($("#ddlStateEmployee").val() == '0') {
+                msg += "Please Select The State </br>";
+            }
+            if (!$("#ddlCityEmployee").val()) {
+                msg += "Please Fill The City </br>";
+            }
+            if (!$("#txtZipOffice").val()) {
+                msg += "Please Fill The Zip </br>";
+            }
+            //step12
+
+            if (!$("#txtRelationship").val()) {
+                msg += "Please Fill The Relationship </br>";
+            }
+            if (!$("#txtEmergencyFirstName").val()) {
+                msg += "Please Fill The First Name </br>";
+            }
+            if (!$("#txtEmergencyLastName").val()) {
+                msg += "Please Fill The Last Name </br>";
+            }
+            if (!unformatText($("#txtEmergencyMobile").val())) {
+                msg += "Please Fill The Mobile Number </br>";
+            }
+            else {
+                if (!validatePhone(unformatText($("#txtEmergencyMobile").val()))) {
+                    msg += "Please Fill Valid Mobile Number </br>";
+                }
+            }
+
+            if (!$("#txtEmergencyEmail").val()) {
+                msg += "Please Fill The Email </br>";
+            }
+            else {
+                if (!validateEmail($("#txtEmergencyEmail").val())) {
+                    msg += "Please Fill Valid Email </br>";
+                }
+            }
+
+            if (msg != "") {
+                $.alert({
+                    title: "",
+                    content: msg,
+                    type: 'red'
+                });
+
+                return;
+            } else {
+                getTenantPetPlaceData();
+                $("#step2").addClass("hidden");
+                $("#step1").addClass("hidden");
+                $("#step4").addClass("hidden");
+                $("#step3").addClass("hidden");
+                $("#step5").addClass("hidden");
+                $("#step6").addClass("hidden");
+                $("#step7").addClass("hidden");
+                $("#step8").addClass("hidden");
+                $("#step9").addClass("hidden");
+                $("#step10").addClass("hidden");
+                $("#step11").addClass("hidden");
+                $("#step12").addClass("hidden");
+                $("#step13").addClass("hidden");
+                $("#step14").removeClass("hidden");
+                $("#step15").addClass("hidden");
+                $("#step16").addClass("hidden");
+                $("#step17").addClass("hidden");
+
+                $("#li14").addClass("active");
+                $("#li8").removeClass("active");
+                $("#li9").removeClass("active");
+                $("#li7").removeClass("active");
+                $("#li11").removeClass("active");
+                $("#li12").removeClass("active");
+                $("#li13").removeClass("active");
+                $("#li10").removeClass("active");
+                $("#li15").removeClass("active");
+                $("#li16").removeClass("active");
+                $("#li17").removeClass("active");
+            }
         }
     }
     if (stepid == "15") {
         if (id == "15") {
-           
-            if ($("#btnAddPet").is(":disabled")) {
+            var msg = '';
+            //step10
+
+            if (!$("#txtFirstNamePersonal").val()) {
+                msg += "Please Fill The First Name </br>";
+            }
+            if (!$("#txtLastNamePersonal").val()) {
+                msg += "Please Fill The  Last Name </br>";
+            }
+            if (!$("#txtDateOfBirth").val()) {
+                msg += "Please Fill The  Date Of Birth </br>";
+            }
+            if ($("#ddlGender").val() == "0") {
+                msg += "Please Select The Gender </br>";
+            }
+            else if ($("#ddlGender").val() == "3") {
+                if ($("#txtOtherGender").val() == "") {
+                    msg += "Please Fill The Other Gender </br>";
+                }
+            }
+            if ($("#ddlIsInter").val() == "0") {
+                if (!$("#txtSSNNumber").data('value')) {
+                    msg += "Please Fill The SSN number </br>";
+                }
+                else {
+                    if ($("#txtSSNNumber").data('value').length < 9) {
+                        msg += "SSN number must be 9 digit </br>";
+                    }
+                }
+
+            }
+            if (!$("#txtEmailNew").val()) {
+                msg += "Please Fill The Email </br>";
+            }
+            else {
+                if (!validateEmail($("#txtEmailNew").val())) {
+                    msg += "Please Fill Valid Email </br>";
+                }
+            }
+            if (!unformatText($("#txtMobileNumber").val())) {
+                msg += "Please Fill The Mobile Number </br>";
+            }
+            else {
+                if (!validatePhone(unformatText($("#txtMobileNumber").val()))) {
+                    msg += "Please Fill Valid Mobile Number </br>";
+                }
+            }
+            if ($("#ddlIsInter").val() == "1") {
+                if (!$("#txtPassportNum").val()) {
+                    msg += "Please Fill The Passport number </br>";
+                }
+                if (!$("#txtCOI").val()) {
+                    msg += "Please Fill The Country Of Issuance </br>";
+                }
+                if (!$("#txtDateOfIssuance").val()) {
+                    msg += "Please Fill The Date of Issuance </br>";
+                }
+                if (!$("#txtDateOfExpiration").val()) {
+                    msg += "Please Fill The Date of Expiration </br>";
+                }
+                if ($("#hndHasPassportFile").val() == "0") {
+                    if (document.getElementById('fileUploadPassport').files.length == '0') {
+                        msg += "Please Upload The Passport </br>";
+                    }
+                }
+            }
+            if ($("#ddlDocumentTypePersonal").val() == "0") {
+                msg += "Please Select The Id Type </br>";
+            }
+            if (!$("#txtIDNumber").data('value')) {
+                msg += "Please Fill The  Id Number </br>";
+            }
+            if ($("#hndHasIdentityFile").val() == "0") {
+                if (document.getElementById('fileUploadIdentity').files.length == '0') {
+                    var idType = document.getElementById('lblUploadIdentity').innerHTML;
+                    msg += "Please Upload The " + idType + " </br>";
+                }
+            }
+            //step10
+            //step11
+            if ($("#txtCountry").val() == "0") {
+                msg += "Please Select Country </br>";
+            }
+            if (!$("#txtAddress1").val()) {
+                msg += "Please Fill Address 1  </br>";
+            }
+            if ($("#ddlStateHome").val() == "0") {
+                msg += "Please Select State </br>";
+            }
+            if (!$("#ddlCityHome").val()) {
+                msg += "Please Fill City </br>";
+            }
+            if (!$("#txtZip").val()) {
+                msg += "Please Fill Zip </br>";
+            }
+            if (!$("#txtMoveInDateFrom").val()) {
+                msg += "Please Fill Move In Date </br>";
+            }
+            if (!$("#txtMoveInDateTo").val()) {
+                msg += "Please Fill Move Out Date </br>";
+            }
+
+            //step11
+
+            if (!$("#txtEmployerName").val()) {
+                msg += "Please Fill The Employer Name </br>";
+            }
+            if (!$("#txtStartDate").val()) {
+                msg += "Please Fill The Start Date </br>";
+            }
+            if (!$("#txtAnnualIncome").val()) {
+                msg += "Please Fill The Annual Income </br>";
+            }
+            if ($("#txtAnnualIncome").val() == '0.00') {
+                msg += "Please Fill The Annual Income </br>";
+            }
+            if ($("#hndHasTaxReturnFile").val() == "0") {
+                if (document.getElementById('fileUploadTaxReturn').files.length == '0') {
+                    msg += "Please Upload last 3 paystubs or if self-employed last 2 year's Federal Tax Returns </br>";
+                }
+            }
+            if ($("#rbtnPaystub").is(":checked")) {
+                if ($("#hndHasTaxReturnFile1").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn1').files.length == '0') {
+                        var upLabel = $('#lblUpload1').text();
+                        msg += "Please Upload " + upLabel + " </br>";
+                    }
+                }
+                if ($("#hndHasTaxReturnFile2").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn2').files.length == '0') {
+                        var upLabel2 = $('#lblUpload2').text();
+                        msg += "Please Upload " + upLabel2 + " </br>";
+                    }
+                }
+                if ($("#hndHasTaxReturnFile3").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn3').files.length == '0') {
+                        var upLabel3 = $('#lblUpload3').text();
+                        msg += "Please Upload " + upLabel3 + " </br>";
+                    }
+                }
+            }
+            if ($("#rbtnFedralTax").is(":checked")) {
+                if ($("#hndHasTaxReturnFile1").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn1').files.length == '0') {
+                        var upLabel4 = $('#lblUpload1').text();
+                        msg += "Please Upload " + upLabel4 + " </br>";
+                    }
+                }
+                if ($("#hndHasTaxReturnFile2").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn2').files.length == '0') {
+                        var upLabel5 = $('#lblUpload2').text();
+                        msg += "Please Upload " + upLabel5 + " </br>";
+                    }
+                }
+            }
+            if ($("#txtCountryOffice").val() == '0') {
+                msg += "Please Select The Country </br>";
+            }
+            if (!$("#txtofficeAddress1").val()) {
+                msg += "Please Fill The Address Line 1 </br>";
+            }
+            if ($("#ddlStateEmployee").val() == '0') {
+                msg += "Please Select The State </br>";
+            }
+            if (!$("#ddlCityEmployee").val()) {
+                msg += "Please Fill The City </br>";
+            }
+            if (!$("#txtZipOffice").val()) {
+                msg += "Please Fill The Zip </br>";
+            }
+            //step12
+
+            if (!$("#txtRelationship").val()) {
+                msg += "Please Fill The Relationship </br>";
+            }
+            if (!$("#txtEmergencyFirstName").val()) {
+                msg += "Please Fill The First Name </br>";
+            }
+            if (!$("#txtEmergencyLastName").val()) {
+                msg += "Please Fill The Last Name </br>";
+            }
+            if (!unformatText($("#txtEmergencyMobile").val())) {
+                msg += "Please Fill The Mobile Number </br>";
+            }
+            else {
+                if (!validatePhone(unformatText($("#txtEmergencyMobile").val()))) {
+                    msg += "Please Fill Valid Mobile Number </br>";
+                }
+            }
+
+            if (!$("#txtEmergencyEmail").val()) {
+                msg += "Please Fill The Email </br>";
+            }
+            else {
+                if (!validateEmail($("#txtEmergencyEmail").val())) {
+                    msg += "Please Fill Valid Email </br>";
+                }
+            }
+
+            if (msg != "") {
+                $.alert({
+                    title: "",
+                    content: msg,
+                    type: 'red'
+                });
+
+
+                return;
+            } else {
+
+                if ($("#btnAddPet").is(":disabled")) {
+                    $("#step2").addClass("hidden");
+                    $("#step1").addClass("hidden");
+                    $("#step4").addClass("hidden");
+                    $("#step3").addClass("hidden");
+                    $("#step5").addClass("hidden");
+                    $("#step6").addClass("hidden");
+                    $("#step7").addClass("hidden");
+                    $("#step8").addClass("hidden");
+                    $("#step9").addClass("hidden");
+                    $("#step10").addClass("hidden");
+                    $("#step11").addClass("hidden");
+                    $("#step12").addClass("hidden");
+                    $("#step13").addClass("hidden");
+                    $("#step14").addClass("hidden");
+                    $("#step15").removeClass("hidden");
+                    $("#step16").addClass("hidden");
+                    $("#step17").addClass("hidden");
+
+                    $("#li15").addClass("active");
+                    $("#li8").removeClass("active");
+                    $("#li9").removeClass("active");
+                    $("#li7").removeClass("active");
+                    $("#li11").removeClass("active");
+                    $("#li12").removeClass("active");
+                    $("#li13").removeClass("active");
+                    $("#li14").removeClass("active");
+                    $("#li10").removeClass("active");
+                    $("#li16").removeClass("active");
+                    $("#li17").removeClass("active");
+
+                    if (paidamt == totpaid) {
+                        $("#carddetails").addClass("hidden");
+                        goToStep(16, 16);
+                        $("#getting-startedTimeRemainingClock").addClass("hidden")
+                    }
+                }
+                else {
+
+                    $.alert({
+                        title: "",
+                        content: "Please Add Pets",
+                        type: 'red'
+                    });
+                    return;
+                }
+            }
+        }
+    }
+    if (stepid == "16") {
+        if (id == "16") {
+            var msg = '';
+            //step10
+
+            if (!$("#txtFirstNamePersonal").val()) {
+                msg += "Please Fill The First Name </br>";
+            }
+            if (!$("#txtLastNamePersonal").val()) {
+                msg += "Please Fill The  Last Name </br>";
+            }
+            if (!$("#txtDateOfBirth").val()) {
+                msg += "Please Fill The  Date Of Birth </br>";
+            }
+            if ($("#ddlGender").val() == "0") {
+                msg += "Please Select The Gender </br>";
+            }
+            else if ($("#ddlGender").val() == "3") {
+                if ($("#txtOtherGender").val() == "") {
+                    msg += "Please Fill The Other Gender </br>";
+                }
+            }
+            if ($("#ddlIsInter").val() == "0") {
+                if (!$("#txtSSNNumber").data('value')) {
+                    msg += "Please Fill The SSN number </br>";
+                }
+                else {
+                    if ($("#txtSSNNumber").data('value').length < 9) {
+                        msg += "SSN number must be 9 digit </br>";
+                    }
+                }
+
+            }
+            if (!$("#txtEmailNew").val()) {
+                msg += "Please Fill The Email </br>";
+            }
+            else {
+                if (!validateEmail($("#txtEmailNew").val())) {
+                    msg += "Please Fill Valid Email </br>";
+                }
+            }
+            if (!unformatText($("#txtMobileNumber").val())) {
+                msg += "Please Fill The Mobile Number </br>";
+            }
+            else {
+                if (!validatePhone(unformatText($("#txtMobileNumber").val()))) {
+                    msg += "Please Fill Valid Mobile Number </br>";
+                }
+            }
+            if ($("#ddlIsInter").val() == "1") {
+                if (!$("#txtPassportNum").val()) {
+                    msg += "Please Fill The Passport number </br>";
+                }
+                if (!$("#txtCOI").val()) {
+                    msg += "Please Fill The Country Of Issuance </br>";
+                }
+                if (!$("#txtDateOfIssuance").val()) {
+                    msg += "Please Fill The Date of Issuance </br>";
+                }
+                if (!$("#txtDateOfExpiration").val()) {
+                    msg += "Please Fill The Date of Expiration </br>";
+                }
+                if ($("#hndHasPassportFile").val() == "0") {
+                    if (document.getElementById('fileUploadPassport').files.length == '0') {
+                        msg += "Please Upload The Passport </br>";
+                    }
+                }
+            }
+            if ($("#ddlDocumentTypePersonal").val() == "0") {
+                msg += "Please Select The Id Type </br>";
+            }
+            if (!$("#txtIDNumber").data('value')) {
+                msg += "Please Fill The  Id Number </br>";
+            }
+            if ($("#hndHasIdentityFile").val() == "0") {
+                if (document.getElementById('fileUploadIdentity').files.length == '0') {
+                    var idType = document.getElementById('lblUploadIdentity').innerHTML;
+                    msg += "Please Upload The " + idType + " </br>";
+                }
+            }
+            //step10
+            //step11
+            if ($("#txtCountry").val() == "0") {
+                msg += "Please Select Country </br>";
+            }
+            if (!$("#txtAddress1").val()) {
+                msg += "Please Fill Address 1  </br>";
+            }
+            if ($("#ddlStateHome").val() == "0") {
+                msg += "Please Select State </br>";
+            }
+            if (!$("#ddlCityHome").val()) {
+                msg += "Please Fill City </br>";
+            }
+            if (!$("#txtZip").val()) {
+                msg += "Please Fill Zip </br>";
+            }
+            if (!$("#txtMoveInDateFrom").val()) {
+                msg += "Please Fill Move In Date </br>";
+            }
+            if (!$("#txtMoveInDateTo").val()) {
+                msg += "Please Fill Move Out Date </br>";
+            }
+
+            //step11
+
+            if (!$("#txtEmployerName").val()) {
+                msg += "Please Fill The Employer Name </br>";
+            }
+            if (!$("#txtStartDate").val()) {
+                msg += "Please Fill The Start Date </br>";
+            }
+            if (!$("#txtAnnualIncome").val()) {
+                msg += "Please Fill The Annual Income </br>";
+            }
+            if ($("#txtAnnualIncome").val() == '0.00') {
+                msg += "Please Fill The Annual Income </br>";
+            }
+            if ($("#hndHasTaxReturnFile").val() == "0") {
+                if (document.getElementById('fileUploadTaxReturn').files.length == '0') {
+                    msg += "Please Upload last 3 paystubs or if self-employed last 2 year's Federal Tax Returns </br>";
+                }
+            }
+            if ($("#rbtnPaystub").is(":checked")) {
+                if ($("#hndHasTaxReturnFile1").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn1').files.length == '0') {
+                        var upLabel = $('#lblUpload1').text();
+                        msg += "Please Upload " + upLabel + " </br>";
+                    }
+                }
+                if ($("#hndHasTaxReturnFile2").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn2').files.length == '0') {
+                        var upLabel2 = $('#lblUpload2').text();
+                        msg += "Please Upload " + upLabel2 + " </br>";
+                    }
+                }
+                if ($("#hndHasTaxReturnFile3").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn3').files.length == '0') {
+                        var upLabel3 = $('#lblUpload3').text();
+                        msg += "Please Upload " + upLabel3 + " </br>";
+                    }
+                }
+            }
+            if ($("#rbtnFedralTax").is(":checked")) {
+                if ($("#hndHasTaxReturnFile1").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn1').files.length == '0') {
+                        var upLabel4 = $('#lblUpload1').text();
+                        msg += "Please Upload " + upLabel4 + " </br>";
+                    }
+                }
+                if ($("#hndHasTaxReturnFile2").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn2').files.length == '0') {
+                        var upLabel5 = $('#lblUpload2').text();
+                        msg += "Please Upload " + upLabel5 + " </br>";
+                    }
+                }
+            }
+            if ($("#txtCountryOffice").val() == '0') {
+                msg += "Please Select The Country </br>";
+            }
+            if (!$("#txtofficeAddress1").val()) {
+                msg += "Please Fill The Address Line 1 </br>";
+            }
+            if ($("#ddlStateEmployee").val() == '0') {
+                msg += "Please Select The State </br>";
+            }
+            if (!$("#ddlCityEmployee").val()) {
+                msg += "Please Fill The City </br>";
+            }
+            if (!$("#txtZipOffice").val()) {
+                msg += "Please Fill The Zip </br>";
+            }
+            //step12
+
+            if (!$("#txtRelationship").val()) {
+                msg += "Please Fill The Relationship </br>";
+            }
+            if (!$("#txtEmergencyFirstName").val()) {
+                msg += "Please Fill The First Name </br>";
+            }
+            if (!$("#txtEmergencyLastName").val()) {
+                msg += "Please Fill The Last Name </br>";
+            }
+            if (!unformatText($("#txtEmergencyMobile").val())) {
+                msg += "Please Fill The Mobile Number </br>";
+            }
+            else {
+                if (!validatePhone(unformatText($("#txtEmergencyMobile").val()))) {
+                    msg += "Please Fill Valid Mobile Number </br>";
+                }
+            }
+
+            if (!$("#txtEmergencyEmail").val()) {
+                msg += "Please Fill The Email </br>";
+            }
+            else {
+                if (!validateEmail($("#txtEmergencyEmail").val())) {
+                    msg += "Please Fill Valid Email </br>";
+                }
+            }
+
+            if (msg != "") {
+                $.alert({
+                    title: "",
+                    content: msg,
+                    type: 'red'
+                });
+
+
+                return;
+            } else {
+
                 $("#step2").addClass("hidden");
                 $("#step1").addClass("hidden");
                 $("#step4").addClass("hidden");
@@ -1395,11 +2407,11 @@ var goToStep = function (stepid, id) {
                 $("#step12").addClass("hidden");
                 $("#step13").addClass("hidden");
                 $("#step14").addClass("hidden");
-                $("#step15").removeClass("hidden");
-                $("#step16").addClass("hidden");
+                $("#step15").addClass("hidden");
+                $("#step16").removeClass("hidden");
                 $("#step17").addClass("hidden");
 
-                $("#li15").addClass("active");
+                $("#li16").addClass("active");
                 $("#li8").removeClass("active");
                 $("#li9").removeClass("active");
                 $("#li7").removeClass("active");
@@ -1407,60 +2419,10 @@ var goToStep = function (stepid, id) {
                 $("#li12").removeClass("active");
                 $("#li13").removeClass("active");
                 $("#li14").removeClass("active");
+                $("#li15").removeClass("active");
                 $("#li10").removeClass("active");
-                $("#li16").removeClass("active");
                 $("#li17").removeClass("active");
-               
-                if (paidamt == totpaid) {
-                    $("#carddetails").addClass("hidden");
-                    goToStep(16, 16);
-                    $("#getting-startedTimeRemainingClock").addClass("hidden")
-                }
             }
-            else {
-
-                $.alert({
-                    title: "",
-                    content: "Please Add Pets",
-                    type: 'red'
-                });
-                return;
-            }
-
-        }
-    }
-    if (stepid == "16") {
-        if (id == "16") {
-
-            $("#step2").addClass("hidden");
-            $("#step1").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
-            $("#step8").addClass("hidden");
-            $("#step9").addClass("hidden");
-            $("#step10").addClass("hidden");
-            $("#step11").addClass("hidden");
-            $("#step12").addClass("hidden");
-            $("#step13").addClass("hidden");
-            $("#step14").addClass("hidden");
-            $("#step15").addClass("hidden");
-            $("#step16").removeClass("hidden");
-            $("#step17").addClass("hidden");
-
-            $("#li16").addClass("active");
-            $("#li8").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li7").removeClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").removeClass("active");
-            $("#li13").removeClass("active");
-            $("#li14").removeClass("active");
-            $("#li15").removeClass("active");
-            $("#li10").removeClass("active");
-            $("#li17").removeClass("active");
         }
     }
     if (stepid == "17") {
@@ -2681,19 +3643,15 @@ var getTransationLists = function (userid) {
             setTimeout(function () {
                 if (response.model.length >= 1) {
                     if (paidamt == totpaid) {
-
                         $("#carddetails").addClass("hidden");
                         goToStep(16, 16);
                         $("#getting-startedTimeRemainingClock").addClass("hidden")
                     } else {
                         goToStep(16, 16);
                     }
-
-
                 }
             }, 1500);
-           
-           
+                    
         }
     });
 }
