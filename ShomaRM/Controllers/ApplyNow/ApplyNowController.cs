@@ -198,7 +198,9 @@ namespace ShomaRM.Controllers
                     }
                     if (checkExpiry != null)
                     {
-                        if (checkExpiry.CreatedDate < DateTime.Now.AddHours(-72))
+                        DateTime expDate = Convert.ToDateTime(DateTime.Now.AddHours(-72).ToString("MM/dd/yyyy") + " 23:59:59");
+
+                        if (checkExpiry.CreatedDate < expDate)
                         {
                             new ApplyNowController().DeleteApplicantTenantID(checkExpiry.ID, currentUser.UserID);
                             Session["DelDatAll"] = "Del";
