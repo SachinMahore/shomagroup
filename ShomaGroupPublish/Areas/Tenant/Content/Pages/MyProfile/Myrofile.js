@@ -684,15 +684,43 @@ var UpdatePasswordUser = function () {
     if (oldPassword == '') {
         msg += 'Plese Enter Old Password </br>'
     }
-    if (newPassword == '') {
-        msg += 'Plese Enter New Password </br>'
+  
+    if (newPassword != "") {
+        checkPasswsordStrength(newPassword);
+
     }
-    if (confirmNewPassword == '') {
-        msg += 'Plese Enter Confirm New Password </br>'
+    else if (newPassword == "") {
+        msg += 'Plese Enter New Password <br/>'
     }
 
-    if (newPassword != confirmNewPassword) {
+
+    if (confirmNewPassword != "")
+    {
+        if (newPassword != confirmNewPassword)
+        {
         msg += 'Confirm New Password does not Match</br>'
+        }
+    }
+    else if (confirmNewPassword == "") {
+        msg += 'Plese Enter Confirm New Password</br>'
+    }
+
+    //if (confirmNewPassword == '') {
+    //    msg += 'Plese Enter Confirm New Password </br>'
+    //}
+
+    //if (newPassword != confirmNewPassword) {
+    //    msg += 'Confirm New Password does not Match</br>'
+    //}
+
+    function checkPasswsordStrength(password) {
+
+        if (password.length < 8) { msg += " New Password length should be of 8 characters <br/>"; }
+        if (!/\d/.test(password)) { msg += " New Password should contain at least one digit <br/>"; }
+        if (!/[a-z]/.test(password)) { msg += "New Password should contain at least one lower case <br/>"; }
+        if (!/[A-Z]/.test(password)) { msg += "New Password should contain at least one upper case <br/>"; }
+        if (/[^0-9a-zA-Z]/.test(password)) { msg += "New Password should contain at least 8 from the mentioned characters <br/>"; }
+
     }
 
 

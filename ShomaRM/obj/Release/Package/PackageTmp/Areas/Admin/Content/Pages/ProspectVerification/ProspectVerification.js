@@ -1686,8 +1686,7 @@ var getTransationLists = function (userid) {
                 html += "</tr>";
                 $("#tblTransaction>tbody").append(html);
             });
-            alert(totPaid)
-            alert(parseFloat($("#txtPayment").val()) + parseFloat(totalFinalFees))
+          
             if (totPaid >= parseFloat($("#txtPayment").val()) + parseFloat(totalFinalFees))
             {
                 $("#btnC2Tenant").removeAttr("disabled");

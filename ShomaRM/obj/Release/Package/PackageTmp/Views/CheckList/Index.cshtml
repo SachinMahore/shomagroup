@@ -807,9 +807,17 @@
             RoutingNumber: routingNumber,
             BankName: bankName,
             PaymentMethod: paymentMethod,
+            MoveInPercentage:$("#lblPaymentPer").text(),
         };
 
-
+        $.alert({
+            title: "",
+            content: "You have chosen to pay $" + amounttoPay + " plus a $3.95 processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(3.95)).toFixed(2) + ". Do you want to Pay Now?",
+            type: 'blue',
+            buttons: {
+                yes: {
+                    text: 'Yes',
+                    action: function (yes) { 
         $.ajax({
             url: "/CheckList/SaveMoveInPayment/",
             type: "post",
@@ -839,6 +847,16 @@
                     $("#popPayNow").modal("hide");
                 }
 
+            }
+        });
+                    }
+                },
+                no: {
+                    text: 'No',
+                    action: function (no) {
+                        $("#divLoader").hide();
+                    }
+                }
             }
         });
     }

@@ -2918,14 +2918,14 @@ function makeOneTimePaymentSaveUpdate() {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-                cardName = response.model.NameOnCard,
+            cardName = response.model.NameOnCard,
                 cardNumber = response.model.CardNumber,
                 cardMonth = response.model.Month,
                 cardYear = response.model.Year,
                 accountName = response.model.AccountName,
                 bankName = response.model.BankName,
                 accountNumber = response.model.AccountNumber,
-                routingNumber = response.model.RoutingNumber             
+                routingNumber = response.model.RoutingNumber
         }
     });
 
@@ -3009,25 +3009,42 @@ function makeOneTimePaymentSaveUpdate() {
         TMPID: $("#hndRecId").val(),
         UserId: $("#hndUserId").val()
     };
-    $.ajax({
-        url: "/MyTransaction/SaveUpdateTransaction/",
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(models),
-        dataType: "JSON",
-        success: function (response) {
-            $.alert({
-                title: 'Message!',
-                content: response.Msg,
-                type: 'blue',
-            });
-            clearMakePaymentFields();
-            getTransationLists();
-            getUpTransationLists();
-            getAllDues();
+    $.alert({
+        title: "",
+        content: "You have chosen to pay $" + amount + " plus a $3.95 processing fee, your total will be $" + parseFloat(parseFloat(amount) + parseFloat(3.95)).toFixed(2) + ". Do you want to Pay Now?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: "/MyTransaction/SaveUpdateTransaction/",
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(models),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $.alert({
+                                title: 'Message!',
+                                content: response.Msg,
+                                type: 'blue',
+                            });
+                            clearMakePaymentFields();
+                            getTransationLists();
+                            getUpTransationLists();
+                            getAllDues();
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                    $("#divLoader").hide();
+                }
+            }
         }
     });
-
 }
 
 var clearMakePaymentFields = function () {

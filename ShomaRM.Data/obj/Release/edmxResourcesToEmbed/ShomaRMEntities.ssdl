@@ -139,6 +139,7 @@
     <Property Name="LeaseTerm" Type="int" />
     <Property Name="MonthlyCharges" Type="money" />
     <Property Name="EsignatureID" Type="nvarchar" MaxLength="50" />
+    <Property Name="PetDNAAmt" Type="money" />
   </EntityType>
   <EntityType Name="tbl_AuditHistory">
     <Key>
@@ -693,7 +694,7 @@
     <Property Name="TenantId" Type="bigint" />
     <Property Name="NickName" Type="varchar" MaxLength="100" />
     <Property Name="NameOnCard" Type="varchar" MaxLength="50" />
-    <Property Name="CardNumber" Type="varchar" MaxLength="50" />
+    <Property Name="CardNumber" Type="nvarchar" MaxLength="255" />
     <Property Name="Month" Type="varchar" MaxLength="50" />
     <Property Name="Year" Type="varchar" MaxLength="50" />
     <Property Name="CardType" Type="int" />
@@ -769,6 +770,7 @@
     <Property Name="TrashFees" Type="money" />
     <Property Name="ConversionBillFees" Type="money" />
     <Property Name="AdminFees" Type="money" />
+    <Property Name="PetDNAAmt" Type="money" />
   </EntityType>
   <EntityType Name="tbl_PropertyFloor">
     <Key>
@@ -1262,7 +1264,7 @@
     <Property Name="PassportDocument" Type="varchar" MaxLength="500" />
     <Property Name="IdentityDocument" Type="varchar" MaxLength="500" />
     <Property Name="TaxReturn" Type="varchar" MaxLength="500" />
-    <Property Name="SSN" Type="nvarchar" MaxLength="15" />
+    <Property Name="SSN" Type="nvarchar" MaxLength="255" />
     <Property Name="TaxReturn2" Type="varchar" MaxLength="500" />
     <Property Name="TaxReturn3" Type="varchar" MaxLength="500" />
     <Property Name="HaveVehicle" Type="bit" />
@@ -1366,6 +1368,16 @@
     <Property Name="TCardExpirationMonth" Type="nvarchar" MaxLength="29" />
     <Property Name="TCardExpirationYear" Type="nvarchar" MaxLength="29" />
     <Property Name="Authcode" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="tbl_UnitLeasePrice">
+    <Key>
+      <PropertyRef Name="ULPID" />
+    </Key>
+    <Property Name="ULPID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UnitID" Type="bigint" />
+    <Property Name="LeaseID" Type="int" />
+    <Property Name="Price" Type="money" />
+    <Property Name="Deposit" Type="money" />
   </EntityType>
   <EntityType Name="tbl_Utility">
     <Key>
@@ -2476,6 +2488,7 @@
     <EntitySet Name="tbl_TenantPetPlace" EntityType="Self.tbl_TenantPetPlace" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_TenantStorage" EntityType="Self.tbl_TenantStorage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Transaction" EntityType="Self.tbl_Transaction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_UnitLeasePrice" EntityType="Self.tbl_UnitLeasePrice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Utility" EntityType="Self.tbl_Utility" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_UtilityBilling" EntityType="Self.tbl_UtilityBilling" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Vehicle" EntityType="Self.tbl_Vehicle" Schema="dbo" store:Type="Tables" />

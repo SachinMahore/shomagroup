@@ -610,31 +610,48 @@
             IsAmeDepoPay: $("#hndDepoPay").val(),
             ARID: $("#hndARID").val(),
         };
-        $.ajax({
-            url: "/MyTransaction/SaveAmenityTransaction/",
-            type: "post",
-            contentType: "application/json utf-8",
-            data: JSON.stringify(models),
-            dataType: "JSON",
-            success: function (response) {
-                if (response.Msg == "1") {
-                    $.alert({
-                        title: 'Message!',
-                        content: "Amenity Payment successfull",
-                        type: 'blue',
-                    });
-                    goToStep(4, 4)
-                } else {
-                    $.alert({
-                        title: 'Message!',
-                        content: "Amenity Payment Failed",
-                        type: 'red',
-                    });
+        $.alert({
+            title: "",
+            content: "You have chosen to pay $" + chargeAmount + " plus a $3.95 processing fee, your total will be $" + parseFloat(parseFloat(chargeAmount) + parseFloat(3.95)).toFixed(2) + ". Do you want to Pay Now?",
+            type: 'blue',
+            buttons: {
+                yes: {
+                    text: 'Yes',
+                    action: function (yes) {
+                        $.ajax({
+                            url: "/MyTransaction/SaveAmenityTransaction/",
+                            type: "post",
+                            contentType: "application/json utf-8",
+                            data: JSON.stringify(models),
+                            dataType: "JSON",
+                            success: function (response) {
+                                if (response.Msg == "1") {
+                                    $.alert({
+                                        title: 'Message!',
+                                        content: "Amenity Payment successfull",
+                                        type: 'blue',
+                                    });
+                                    goToStep(4, 4)
+                                } else {
+                                    $.alert({
+                                        title: 'Message!',
+                                        content: "Amenity Payment Failed",
+                                        type: 'red',
+                                    });
 
+                                }
+                            }
+                        });
+                    }
+                },
+                no: {
+                    text: 'No',
+                    action: function (no) {
+                        $("#divLoader").hide();
+                    }
                 }
             }
         });
-
     }
     function unformatText(text) {
         if (text == null)

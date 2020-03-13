@@ -61,40 +61,80 @@ $(document).ready(function () {
     });
 
     document.getElementById('fileUploadTaxReturn1').onchange = function () {
-        taxReturnFileUpload1();
+        var fileUploadTaxReturn1Bool = restrictFileUpload($(this).val());
+        if (fileUploadTaxReturn1Bool == true) {
+            taxReturnFileUpload1();
+        }
+        else {
+            document.getElementById('fileUploadTaxReturn1').value = '';
+            $('#fileUploadTaxReturn1Show').html('Choose a file&hellip;');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     document.getElementById('fileUploadTaxReturn2').onchange = function () {
-        taxReturnFileUpload2();
+        var fileUploadTaxReturn2Bool = restrictFileUpload($(this).val());
+        if (fileUploadTaxReturn2Bool == true) {
+            taxReturnFileUpload2();
+        }
+        else {
+            document.getElementById('fileUploadTaxReturn2').value = '';
+            $('#fileUploadTaxReturn2Show').html('Choose a file&hellip;');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     document.getElementById('fileUploadTaxReturn3').onchange = function () {
-        taxReturnFileUpload3();
+        var fileUploadTaxReturn3Bool = restrictFileUpload($(this).val());
+        if (fileUploadTaxReturn3Bool == true) {
+            taxReturnFileUpload3();
+        }
+        else {
+            document.getElementById('fileUploadTaxReturn3').value = '';
+            $('#fileUploadTaxReturn3Show').html('Choose a file&hellip;');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     document.getElementById('fileUploadPassport').onchange = function () {
-        uploadPassport();
+        var fileUploadPassportBool = restrictFileUpload($(this).val());
+        if (fileUploadPassportBool == true) {
+            uploadPassport();
+        }
+        else {
+            document.getElementById('fileUploadPassport').value = '';
+            $('#fileUploadPassportShow').html('Choose a file&hellip;');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     document.getElementById('fileUploadIdentity').onchange = function () {
-        uploadIdentityDocument();
-    };
-    document.getElementById('fileUploadVehicleRegistation').onchange = function () {
-        $.alert({
-            title: "",
-            content: "File uploaded Successfully.",
-            type: 'blue'
-        });
-    };
-    document.getElementById('pet-picture').onchange = function () {
-        $.alert({
-            title: "",
-            content: "File uploaded Successfully.",
-            type: 'blue'
-        });
-    };
-    document.getElementById('filePetVaccinationCertificate').onchange = function () {
-        $.alert({
-            title: "",
-            content: "File uploaded Successfully.",
-            type: 'blue'
-        });
+        var fileUploadIdentityBool = restrictFileUpload($(this).val());
+        if (fileUploadIdentityBool == true) {
+            uploadIdentityDocument();
+        }
+        else {
+            document.getElementById('fileUploadIdentity').value = '';
+            $('#fileUploadIdentityShow').html('Choose a file&hellip;');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
+        
     };
 
     if ($("#chkAgreeTermsPolicy").is(":checked")) {
@@ -148,6 +188,7 @@ $(document).ready(function () {
         if ($("#chkDontHaveVehicle").is(":checked")) {
             $("#btnAddVehicle").attr("disabled", true);
             $("#btnAddVehicle").css("background-color", "#b4ada5");
+            deleteVehiclesListOnCheck();
             haveVehicle();
         }
         else if ($("#chkDontHaveVehicle").is(":not(:checked)")) {
@@ -158,23 +199,23 @@ $(document).ready(function () {
     });
 
     if ($("#chkDontHavePet").is(":checked")) {
-        $("#btnAddPet").attr("disabled", true);
+        $("#btnAddPet").prop("disabled", true);
         $("#btnAddPet").css("background-color", "#b4ada5");
     }
 
     else if ($("#chkDontHavePet").is(":not(:checked)")) {
-        $("#btnAddPet").attr("disabled", false);
+        $("#btnAddPet").prop("disabled", false);
         $("#btnAddPet").removeAttr("style");
     }
 
     $('input[type=checkbox]').on('ifChanged', function (event) {
         if ($("#chkDontHavePet").is(":checked")) {
-            $("#btnAddPet").attr("disabled", true);
+            $("#btnAddPet").prop("disabled", true);
             $("#btnAddPet").css("background-color", "#b4ada5");
             havePet();
         }
         else if ($("#chkDontHavePet").is(":not(:checked)")) {
-            $("#btnAddPet").attr("disabled", false);
+            $("#btnAddPet").prop("disabled", false);
             $("#btnAddPet").removeAttr("style");
             havePet();
         }
@@ -356,15 +397,6 @@ $(document).ready(function () {
         clearVehicle();
         $("#popVehicle").PopupWindow("open");
     });
-    //$("#popVehicle").PopupWindow({
-    //    title: "Add Vehicle",
-    //    modal: false,
-    //    autoOpen: false,
-    //    top: 120,
-    //    left: 400,
-    //    height: 600,
-
-    //});
 
     $("#btnAddPet").on("click", function (event) {
         clearPet();
@@ -434,13 +466,49 @@ $(document).ready(function () {
     remainingday = days;
     numberOfDays = daysInMonth;
     document.getElementById('fileUploadVehicleRegistation').onchange = function () {
-        uploadVehicleCertificate();
+        var fileUploadVehicleRegistationBool = restrictFileUpload($(this).val());
+        if (fileUploadVehicleRegistationBool == true) {
+            uploadVehicleCertificate();
+        }
+        else {
+            document.getElementById('fileUploadVehicleRegistation').value = '';
+            $('#VehicleRegistationShow').html('Choose a file&hellip;');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     document.getElementById('pet-picture').onchange = function () {
-        uploadPetPhoto();
+        var filepetpictureBool = restrictFileUpload($(this).val());
+        if (filepetpictureBool == true) {
+            uploadPetPhoto();
+        }
+        else {
+            document.getElementById('pet-picture').value = '';
+            $('#filePetPictireShow').html('Choose a file&hellip;');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     document.getElementById('filePetVaccinationCertificate').onchange = function () {
-        uploadPetVaccination();
+        var filePetVaccinationCertificateBool = restrictFileUpload($(this).val());
+        if (filePetVaccinationCertificateBool == true) {
+            uploadPetVaccination();
+        }
+        else {
+            document.getElementById('filePetVaccinationCertificate').value = '';
+            $('#filePetVaccinationCertificateShow').html('Choose a file&hellip;');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
 
     dateIconFunctions();
@@ -623,7 +691,6 @@ var goToStep = function (stepid, id) {
             $("#li6").removeClass("active");
             $("#li7").removeClass("active");
 
-
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
             $("#step4").addClass("hidden");
@@ -678,7 +745,6 @@ var goToStep = function (stepid, id) {
             $("#step15").addClass("hidden");
             $("#step16").addClass("hidden");
             $("#step17").addClass("hidden");
-
 
         }
     }
@@ -1581,7 +1647,8 @@ var SaveQuote = function () {
     var vehiclefees = $("#lblVehicleFees1").text();
     var adminfees = $("#lblAdminFees").text();
     var leaseterm = $("#lblLease2").text();
-    
+    var petDNAAmt = unformatText($("#lblPetDNAAmt").text());
+
     var model = {
         ID: ProspectId,
         ParkingAmt: ParkingAmt,
@@ -1600,7 +1667,8 @@ var SaveQuote = function () {
         Prorated_Rent: proratedrent,
         VehicleRegistration: vehiclefees,
         AdminFees: adminfees,
-        LeaseTerm: leaseterm
+        LeaseTerm: leaseterm,
+        PetDNAAmt:petDNAAmt,
     }
 
     $.ajax({
@@ -1773,8 +1841,15 @@ function savePayment() {
         BankName: bankName,
         PaymentMethod: paymentMethod,
     };
-
-    $.ajax({
+    $.alert({
+        title: "",
+        content: "You have chosen to pay $" + amounttoPay + " plus a $3.95 processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(3.95)).toFixed(2) + ". Do you want to Pay Now?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                $.ajax({
         url: "/ApplyNow/SavePaymentDetails/",
         type: "post",
         contentType: "application/json utf-8",
@@ -1798,6 +1873,16 @@ function savePayment() {
                     content: "Payment Failed",
                     type: 'red'
                 });
+            }
+        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                    $("#divLoader").hide();
+                }
             }
         }
     });
@@ -2400,8 +2485,8 @@ var getPropertyUnitDetails = function (uid) {
             var rfpTotalRentCharge = parseFloat(rfpMonthlyCharge, 10) + parseFloat(rfpParkingCharge, 10) + parseFloat(rfpStorageCharge, 10) + parseFloat(rfpPetcharge, 10);
             //alert(calTotalRentChargefpetd
             //$("#lblRFPTotalMonthlyPayment").text((parseFloat($("#lblRFPMonthlyCharges").text())) + (parseFloat($("#lblRFPAdditionalParking").text())) + (parseFloat($("#lblRFPStorageUnit").text())) + (parseFloat($("#lblRFPPetRent").text())));
-            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
-            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
+            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
 
             $("#lblRFPTotalMonthlyPayment").text(formatMoney((parseFloat(unformatText($("#lblRFPMonthlyCharges").text()))) + (parseFloat($("#lblRFPAdditionalParking").text())) + (parseFloat($("#lblRFPStorageUnit").text())) + (parseFloat($("#lblRFPPetRent").text())) + (parseFloat($("#lblRFPTrashRecycling").text())) + (parseFloat($("#lblRFPPestControl").text())) + (parseFloat($("#lblRFPConvergentbillingfee").text()))));
 
@@ -2851,8 +2936,8 @@ var saveupdateParking = function () {
             $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             //$("#ftotal").text((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2));
-            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
-            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
+            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
         }
     });
 }
@@ -2918,9 +3003,12 @@ var saveupdatePetPlace = function () {
             $("#divLoader").hide();
             totalAmt = parseFloat(totalAmt) - parseFloat(unformatText($("#lblPetFee").text()));
             $("#lblPetDeposit").text("0.00");
+            $("#lblPetDNAAmt").text("0.00");
+            $("#lbpetdna6").text("0.00");
+            
             $("#fpetd").text("0.00");
             $("#lbpetd6").text("0.00");
-
+            $("#fpetdna").text("0.00");
             $("#lblPetFee").text(formatMoney(parseFloat(response.totalPetPlaceAmt).toFixed(2)));
             $("#lblMonthly_PetRent").text(parseFloat(response.totalPetPlaceAmt).toFixed(2));
             $("#lblProrated_PetRent").text(parseFloat(parseFloat(response.totalPetPlaceAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
@@ -2928,6 +3016,10 @@ var saveupdatePetPlace = function () {
             $("#lblpetplace").text(addPetPlaceArray.length > 0 ? addPetPlaceArray[0].PetPlaceID : 0);
             if (parseFloat(response.totalPetPlaceAmt).toFixed(2) == "20.00") {
                 $("#lblPetDeposit").text(formatMoney("500.00"));
+                $("#lblPetDNAAmt").text("29.00");
+                $("#lbpetdna6").text("29.00");
+                $("#fpetdna").text("29.00");
+                
                 $("#fpetd").text("500.00");
                 $("#lbpetd6").text("500.00");
                 $("#hndPetPlaceID").val(1);
@@ -2935,6 +3027,9 @@ var saveupdatePetPlace = function () {
 
             } else if (parseFloat(response.totalPetPlaceAmt).toFixed(2) == "40.00") {
                 $("#lblPetDeposit").text(formatMoney("750.00"));
+                $("#lblPetDNAAmt").text("58.00");
+                $("#lbpetdna6").text("58.00");
+                $("#fpetdna").text("58.00");
                 $("#fpetd").text("750.00");
                 $("#lbpetd6").text("750.00");
                 $("#hndPetPlaceID").val(2);
@@ -2953,8 +3048,8 @@ var saveupdatePetPlace = function () {
             $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
-            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
+            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
         }
     });
 }
@@ -3020,7 +3115,9 @@ var addApplicant = function (at) {
         var dtApp = new Date();
         dtApp.setFullYear(new Date().getFullYear() - 18);
         $('#txtADateOfBirth').datepicker({ endDate: dtApp, autoclose: true });
-
+        $("#iconCalenderApplicant").click(function () {
+            $("#txtADateOfBirth").focus();
+        });
         $('#txtADateOfBirth').removeClass("hidden");
         $('#txtHDateOfBirth').addClass("hidden");
         $('#txtMDateOfBirth').addClass("hidden");
@@ -3054,7 +3151,9 @@ var addApplicant = function (at) {
         dtMin.setFullYear(new Date().getFullYear() - 18);
         var dtEnd = new Date();
         $('#txtMDateOfBirth').datepicker({ viewMode: "years", startDate: dtMin, endDate: dtEnd, autoclose: true });
-
+        $("#iconCalenderApplicant").click(function () {
+            $("#txtMDateOfBirth").focus();
+        });
         $('#txtApplicantOtherGender').val('');
         //$('#appGenderOther').addClass('hidden');
     }
@@ -3082,7 +3181,9 @@ var addApplicant = function (at) {
         var dtGApp = new Date();
         dtGApp.setFullYear(new Date().getFullYear() - 18);
         $('#txtGDateOfBirth').datepicker({ endDate: dtGApp, autoclose: true });
-
+        $("#iconCalenderApplicant").click(function () {
+            $("#txtGDateOfBirth").focus();
+        });
         $('#txtApplicantOtherGender').val('');
         //$('#appGenderOther').addClass('hidden');
     }
@@ -3483,6 +3584,9 @@ var goToEditApplicant = function (aid) {
                     var dtHApp = new Date();
                     dtHApp.setFullYear(new Date().getFullYear() - 18);
                     $('#txtHDateOfBirth').datepicker({ endDate: dtHApp, autoclose: true });
+                    $("#iconCalenderApplicant").click(function () {
+                        $("#txtHDateOfBirth").focus();
+                    });
                     if (response.model.OtherGender == '3') {
                         $("#txtApplicantOtherGender").val(response.model.OtherGender);
                     }
@@ -3694,13 +3798,6 @@ var saveupdatePet = function () {
 
             //$("#popPet").PopupWindow("close");
             $("#popPet").modal("hide");
-
-            $("#txtpetName").val('');
-            $("#txtpetBreed").val('');
-            $("#txtpetWeight").val('');
-            $("#txtpetVetsName").val('');
-            document.getElementById('filePetPictireShow').value = '';
-            document.getElementById('filePetVaccinationCertificate').value = '';
         }
     });
 };
@@ -3775,11 +3872,18 @@ var getPetInfo = function (id) {
     });
 };
 var clearPet = function () {
-    var petId = $("#hndPetID").val("0");
-    var petType = $("#ddlpetType").val("0");
-    var breed = $("#txtpetBreed").val("");
-    var weight = $("#txtpetWeight").val("");
-    var age = $("#txtpetAge").val("");
+    $("#txtpetName").val('');
+    $("#txtpetBreed").val('');
+    $("#txtpetWeight").val('');
+    $("#txtpetVetsName").val('');
+    document.getElementById('filePetPictireShow').value = '';
+    document.getElementById('filePetVaccinationCertificate').value = '';
+    $("#filePetPictireShow").html('Choose a file&hellip;');
+    $("#filePetVaccinationCertificateShow").html('Choose a file&hellip;');
+    $("#hndPetPicture").val('0');
+    $("#hndOriginalPetPicture").val('');
+    $("#hndPetVaccinationCertificate").val('0');
+    $("#hndOriginalPetVaccinationCertificate").val('');
 };
 var saveupdateVehicle = function () {
 
@@ -3903,12 +4007,19 @@ var getVehicleLists = function () {
 
 var clearVehicle = function () {
     $("#hndVehicleID").val(0);
+    $("#txtVehicleOwnerName").val("");
+    document.getElementById('fileUploadVehicleRegistation').value = '';
+    $("#VehicleRegistationShow").html("Choose a file&hellip;");
+    $("#ddlVehicleType").val("0");
+    $("#ddlVehicleyear").val("0");
     $("#txtVehicleMake").val("");
     $("#txtVehicleModel").val("");
-
     $("#txtVehicleColor").val("");
     $("#txtVehicleLicence").val("");
     $("#ddlVState").val(0);
+    $("#txtVehicleNote").val("");
+    $("#hndVehicleRegistation").val("0");
+    $("#hndOriginalVehicleRegistation").val("0");
 }
 var saveupdateTenantOnline = function () {
     var msg = "";
@@ -4323,9 +4434,11 @@ var getTenantOnlineList = function (id) {
             }
             if (response.model.HavePet == true) {
                 $("#chkDontHavePet").iCheck('check');
+                $("#chkDontHavePet").prop('disabled', 'disabled');
             }
             else {
                 $("#chkDontHavePet").iCheck('uncheck');
+                $("#chkDontHavePet").prop('disabled', 'disabled');
             }
 
             $("#hndPassportUploadName").val(response.model.PassportDocument);
@@ -5721,6 +5834,25 @@ var getMonthsCountFromApplicantHistory = function () {
         success: function (response) {
             
             $("#hndHistory").val(response.model.TotalMonthsApplicantHistory);
+        }
+    });
+};
+
+var deleteVehiclesListOnCheck = function () {
+
+    var ProspectID = $("#hdnOPId").val();
+
+    var model = {
+        TenantId: ProspectID
+    };
+    $.ajax({
+        url: '/ApplyNow/DeleteVehicleListOnCheck',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            
         }
     });
 };
