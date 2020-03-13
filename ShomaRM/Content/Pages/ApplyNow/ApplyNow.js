@@ -636,7 +636,7 @@ var goToStep = function (stepid, id) {
             } else {
                 $.alert({
                     title: "",
-                    content: "Plase select your Unit",
+                    content: "Please select your Unit",
                     type: 'red'
                 });
             }
@@ -772,7 +772,6 @@ var goToStep = function (stepid, id) {
             $("#step16").addClass("hidden");
             $("#step17").addClass("hidden");
 
-
             $("#li7").addClass("active");
             $("#li8").removeClass("active");
             $("#li9").removeClass("active");
@@ -783,9 +782,7 @@ var goToStep = function (stepid, id) {
             $("#li14").removeClass("active");
             $("#li15").removeClass("active");
             $("#li16").removeClass("active");
-            $("#li17").removeClass("active");
-
-           
+            $("#li17").removeClass("active");          
         }
     }
     if (stepid == "8") {
@@ -1415,7 +1412,7 @@ var goToStep = function (stepid, id) {
                 $("#li17").removeClass("active");
                
                 if (paidamt == totpaid) {
-                    //$("#carddetails").addClass("hidden");
+                    $("#carddetails").addClass("hidden");
                     goToStep(16, 16);
                     $("#getting-startedTimeRemainingClock").addClass("hidden")
                 }
