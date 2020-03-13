@@ -46,7 +46,6 @@ function isOnlyNumber(evt) {
     return true;
 }
 
-
 function formatMoney(number) {
     number = number || 0;
     var places = 2;
@@ -96,4 +95,17 @@ function unformatText(text) {
         text = "";
 
     return text.replace(/[^\d\.]/g, '');
+}
+
+function isDecimal(evt, cont, decplace) {
+    var charCode = (evt.which) ? evt.which : evt.keyCode
+    if (charCode != 45 && charCode != 8 && charCode != 9 && (charCode != 46 || $(cont).val().indexOf('.') != -1) && (charCode < 48 || charCode > 57))
+        return false;
+    if ($(cont).val().indexOf('.') != -1 && charCode != 8) {
+        var contval = $(cont).val();
+        var valsplit = contval.split('.');
+        if (valsplit[1].length + 1 > decplace)
+            return false;
+    }
+    return true;
 }
