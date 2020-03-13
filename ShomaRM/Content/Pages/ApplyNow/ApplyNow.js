@@ -3541,7 +3541,7 @@ var goToEditApplicant = function (aid) {
     if (aid != null) {
 
         $("#hndApplicantID").val(aid);
-        var model = { id: aid };
+        var model = { id: aid,FromAcc:0 };
         $.ajax({
             url: "/Tenant/Applicant/GetApplicantDetails",
             type: "post",
