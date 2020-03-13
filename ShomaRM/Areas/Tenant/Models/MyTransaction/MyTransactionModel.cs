@@ -1187,7 +1187,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 mm.RoutingNumber = editPaymentAccounts.RoutingNumber;
                 mm.BankName = editPaymentAccounts.BankName;
 
-                var GetTenData = db.tbl_TenantOnline.Where(p => p.ID == model.TenantID).FirstOrDefault();
+                var GetTenData = db.tbl_TenantInfo.Where(p => p.TenantID == model.TenantID).FirstOrDefault();
                 mm.Email = GetTenData.Email;
                 if (mm.CardNumber != null)
                 {

@@ -1095,7 +1095,7 @@ namespace ShomaRM.Areas.Admin.Models
 
                 }
                 db.SaveChanges();
-
+                DateTime EMiDate = new DateTime(DateTime.Now.Year, (DateTime.Now.Month), 1);
                 var coapplicantList = db.tbl_Applicant.Where(p => p.TenantID == model.ProspectID && p.Type != "Primary Applicant" && p.Type != "Guarantor").ToList();
                 if (coapplicantList != null)
                 {
@@ -1172,7 +1172,7 @@ namespace ShomaRM.Areas.Admin.Models
                         }
 
 
-                        var getCoappPayMeth = db.tbl_OnlinePayment.Where(p => p.ProspectId == model.ProspectID).FirstOrDefault();
+                        var getCoappPayMeth = db.tbl_OnlinePayment.Where(p => p.ProspectId == model.ProspectID && p.ApplicantID==tl.ApplicantID).FirstOrDefault();
                         long coapppaid = 0;
                         if (getCoappPayMeth.PaymentMethod == 2)
                         {
@@ -1227,6 +1227,27 @@ namespace ShomaRM.Areas.Admin.Models
                             }
                         }
                         db.SaveChanges();
+
+
+                        if (tl.MonthlyPercentage >= 0)
+                        {
+                            for (int i = 1; i < prospectDet.LeaseTerm; i++)
+                            {
+                                var saveMonthlyTransaction = new tbl_TenantMonthlyPayments()
+                                {
+
+                                    TenantID = createCoappTenant.TenantID,
+                                    Revision_Num = i,
+                                    Transaction_Date = Convert.ToDateTime(EMiDate).AddMonths(i),
+
+                                    Description = "Monthly Charges - " + Convert.ToDateTime(EMiDate).AddMonths(i).ToString("MM/dd/yyyy"),
+                                    Charge_Amount = (((prospectDet.MonthlyCharges) * (tl.MonthlyPercentage)) / 100),
+
+                                };
+                                db.tbl_TenantMonthlyPayments.Add(saveMonthlyTransaction);
+                                db.SaveChanges();
+                            }
+                        }
                     }
                 }
 
@@ -1245,7 +1266,7 @@ namespace ShomaRM.Areas.Admin.Models
                 db.tbl_Lease.Add(addLease);
                 db.SaveChanges();
 
-                var getPayMeth = db.tbl_OnlinePayment.Where(p => p.ProspectId == model.ProspectID).FirstOrDefault();
+                var getPayMeth = db.tbl_OnlinePayment.Where(p => p.ProspectId == model.ProspectID && p.ApplicantID==0).FirstOrDefault();
                 long paid = 0;
 
                 if (getPayMeth.PaymentMethod == 2)
@@ -1303,11 +1324,10 @@ namespace ShomaRM.Areas.Admin.Models
                 }
                 db.SaveChanges();
 
-                DateTime EMiDate = new DateTime(DateTime.Now.Year, (DateTime.Now.Month), 1);
-
+                var mainAppPer = db.tbl_Applicant.Where(p => p.TenantID == model.ProspectID && p.Type == "Primary Applicant").FirstOrDefault();
                 for (int i = 1; i < prospectDet.LeaseTerm; i++)
                 {
-                    var saveTransaction = new tbl_TenantMonthlyPayments()
+                    var saveMonthlyTransaction = new tbl_TenantMonthlyPayments()
                     {
 
                         TenantID = model.TenantID,
@@ -1315,15 +1335,12 @@ namespace ShomaRM.Areas.Admin.Models
                         Transaction_Date = Convert.ToDateTime(EMiDate).AddMonths(i),
 
                         Description = "Monthly Charges - " + Convert.ToDateTime(EMiDate).AddMonths(i).ToString("MM/dd/yyyy"),
-                        Charge_Amount = prospectDet.MonthlyCharges,
+                        Charge_Amount = (((prospectDet.MonthlyCharges) * (mainAppPer.MonthlyPercentage)) / 100),
 
                     };
-                    db.tbl_TenantMonthlyPayments.Add(saveTransaction);
+                    db.tbl_TenantMonthlyPayments.Add(saveMonthlyTransaction);
                     db.SaveChanges();
                 }
-
-
-
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == model.UnitID).FirstOrDefault();
                 string reportHTML = "";
                 string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");

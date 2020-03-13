@@ -672,12 +672,13 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PID" Type="bigint" />
           <Property Name="Name_On_Card" Type="nvarchar" MaxLength="29" />
-          <Property Name="CardNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="CardNumber" Type="nvarchar" MaxLength="255" />
           <Property Name="CardMonth" Type="int" />
           <Property Name="CardYear" Type="int" />
           <Property Name="CCVNumber" Type="int" />
           <Property Name="ProspectId" Type="bigint" />
           <Property Name="PaymentMethod" Type="int" />
+          <Property Name="ApplicantID" Type="bigint" />
         </EntityType>
         <EntityType Name="tbl_Parking">
           <Key>
@@ -3384,20 +3385,6 @@
           <NavigationProperty Name="tbl_Tenant" Relationship="Self.FK_tbl_Notice_tbl_Tenant" FromRole="tbl_Notice" ToRole="tbl_Tenant" />
           <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Notice_tbl_Properties" FromRole="tbl_Notice" ToRole="tbl_Properties" />
         </EntityType>
-        <EntityType Name="tbl_OnlinePayment">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PID" Type="Int64" />
-          <Property Name="Name_On_Card" Type="String" MaxLength="29" FixedLength="false" Unicode="true" />
-          <Property Name="CardNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CardMonth" Type="Int32" />
-          <Property Name="CardYear" Type="Int32" />
-          <Property Name="CCVNumber" Type="Int32" />
-          <Property Name="ProspectId" Type="Int64" />
-          <Property Name="PaymentMethod" Type="Int32" />
-        </EntityType>
         <EntityType Name="tbl_Parking">
           <Key>
             <PropertyRef Name="ParkingID" />
@@ -4407,7 +4394,6 @@
           <EntitySet Name="tbl_MoveInPayment" EntityType="Self.tbl_MoveInPayment" />
           <EntitySet Name="tbl_Notes" EntityType="Self.tbl_Notes" />
           <EntitySet Name="tbl_Notice" EntityType="Self.tbl_Notice" />
-          <EntitySet Name="tbl_OnlinePayment" EntityType="Self.tbl_OnlinePayment" />
           <EntitySet Name="tbl_Parking" EntityType="Self.tbl_Parking" />
           <EntitySet Name="tbl_PaymentAccounts" EntityType="Self.tbl_PaymentAccounts" />
           <EntitySet Name="tbl_PetPlace" EntityType="Self.tbl_PetPlace" />
@@ -4765,6 +4751,7 @@
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
             <End Role="tbl_WorkOrder" EntitySet="tbl_WorkOrder" />
           </AssociationSet>
+          <EntitySet Name="tbl_OnlinePayment" EntityType="ShomaRMEntitiesModel.tbl_OnlinePayment" />
 
         </EntityContainer>
         <EntityType Name="tbl_Country">
@@ -5784,6 +5771,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_OnlinePayment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PID" Type="Int64" />
+          <Property Name="Name_On_Card" Type="String" MaxLength="29" FixedLength="false" Unicode="true" />
+          <Property Name="CardNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CardMonth" Type="Int32" />
+          <Property Name="CardYear" Type="Int32" />
+          <Property Name="CCVNumber" Type="Int32" />
+          <Property Name="ProspectId" Type="Int64" />
+          <Property Name="PaymentMethod" Type="Int32" />
+          <Property Name="ApplicantID" Type="Int64" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6348,21 +6350,6 @@
                 <ScalarProperty Name="IntendedMoveOut" ColumnName="IntendedMoveOut" />
                 <ScalarProperty Name="TerminationReason" ColumnName="TerminationReason" />
                 <ScalarProperty Name="CancelNoticeDate" ColumnName="CancelNoticeDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_OnlinePayment">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_OnlinePayment">
-              <MappingFragment StoreEntitySet="tbl_OnlinePayment">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="PID" ColumnName="PID" />
-                <ScalarProperty Name="Name_On_Card" ColumnName="Name_On_Card" />
-                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
-                <ScalarProperty Name="CardMonth" ColumnName="CardMonth" />
-                <ScalarProperty Name="CardYear" ColumnName="CardYear" />
-                <ScalarProperty Name="CCVNumber" ColumnName="CCVNumber" />
-                <ScalarProperty Name="ProspectId" ColumnName="ProspectId" />
-                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7346,6 +7333,22 @@
                 <ScalarProperty Name="LeaseID" ColumnName="LeaseID" />
                 <ScalarProperty Name="UnitID" ColumnName="UnitID" />
                 <ScalarProperty Name="ULPID" ColumnName="ULPID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_OnlinePayment">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_OnlinePayment">
+              <MappingFragment StoreEntitySet="tbl_OnlinePayment">
+                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+                <ScalarProperty Name="ProspectId" ColumnName="ProspectId" />
+                <ScalarProperty Name="CCVNumber" ColumnName="CCVNumber" />
+                <ScalarProperty Name="CardYear" ColumnName="CardYear" />
+                <ScalarProperty Name="CardMonth" ColumnName="CardMonth" />
+                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+                <ScalarProperty Name="Name_On_Card" ColumnName="Name_On_Card" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

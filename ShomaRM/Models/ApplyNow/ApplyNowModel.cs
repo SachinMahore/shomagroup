@@ -87,7 +87,7 @@ namespace ShomaRM.Models
                         GetPayDetails.CCVNumber = model.CCVNumber;
                         GetPayDetails.ProspectId = model.ProspectId;
                         GetPayDetails.PaymentMethod = model.PaymentMethod;
-
+                        GetPayDetails.ApplicantID = 0;
                         db.SaveChanges();
 
                     }
@@ -103,7 +103,8 @@ namespace ShomaRM.Models
                             CCVNumber = model.CCVNumber,
                             ProspectId = model.ProspectId,
                             PaymentMethod = model.PaymentMethod,
-                        };
+                            ApplicantID = 0,
+                    };
                         db.tbl_OnlinePayment.Add(savePaymentDetails);
                         db.SaveChanges();
                     }
@@ -209,7 +210,7 @@ namespace ShomaRM.Models
                 }
                 else if (model.PaymentMethod == 1)
                 {
-                   
+                    model.AccountNumber = model.CardNumber;
                     transStatus = new UsaePayModel().ChargeACH(model);
                 }
 
@@ -218,7 +219,7 @@ namespace ShomaRM.Models
                 if (strlist[1] != "000000")
                 {
                     long paid = 0;
-                    var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId && P.CardNumber == model.CardNumber).FirstOrDefault();
+                    var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId && P.ApplicantID == model.AID).FirstOrDefault();
                     if (GetPayDetails == null)
                     {
                         var savePaymentDetails = new tbl_OnlinePayment()
@@ -231,6 +232,7 @@ namespace ShomaRM.Models
                             CCVNumber =Convert.ToInt32(model.RoutingNumber),
                             ProspectId = model.ProspectId,
                             PaymentMethod = model.PaymentMethod,
+                            ApplicantID = model.AID,
                         };
                         db.tbl_OnlinePayment.Add(savePaymentDetails);
                         db.SaveChanges();

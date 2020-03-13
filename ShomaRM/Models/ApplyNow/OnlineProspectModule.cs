@@ -639,13 +639,12 @@ namespace ShomaRM.Models
             string msg = "";
             string reportHTML = "";
             string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
-            reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect2.html");
+            reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect5.html");
             ShomaRMEntities db = new ShomaRMEntities();
             var phonenumber = "";
             if (model.lstemailsend != null)
             {
-                string encryptedPassword = new EncryptDecrypt().EncryptText(model.Password);
-                string decryptedPassword = new EncryptDecrypt().DecryptText(encryptedPassword);
+                
                 var GetTenantDet = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
 
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == GetTenantDet.PropertyId).FirstOrDefault();
@@ -656,7 +655,7 @@ namespace ShomaRM.Models
                     phonenumber = GetCoappDet.Phone;
                     reportHTML = reportHTML.Replace("[%CoAppType%]", GetCoappDet.Type);
                     reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
-                    reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + GetCoappDet.FirstName + " " + GetCoappDet.LastName + "</b>,<br/>Your Online application submitted successfully. Please login to see status. <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + model.Email + " </br>Password :" + decryptedPassword);
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + GetCoappDet.FirstName + " " + GetCoappDet.LastName + "</b>,<br/>Your Online application submitted successfully by "+ GetTenantDet .FirstName+" "+GetTenantDet.LastName+ ".");
                     reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
                     reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
                     reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
