@@ -166,7 +166,19 @@
                                             </div>
                                           
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="star">DNA Pet Fee</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                    </span>
+                                                    <input id="txtDNAPetFee" class="form-control form-control-small" value="@Model.DNAPetFees" type="text" onkeypress="return isNumber(event)" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="star">Property Address :</label>
                                                 <textarea name="address" id="txtAddress" class="form-control">@Model.Location</textarea>

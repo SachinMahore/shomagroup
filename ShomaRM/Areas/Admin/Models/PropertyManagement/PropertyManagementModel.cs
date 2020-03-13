@@ -42,6 +42,8 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<decimal> TrashFees { get; set; }
         public Nullable<decimal> ConversionBillFees { get; set; }
         public Nullable<decimal> AdminFees { get; set; }
+        public Nullable<decimal> DNAPetFees { get; set; }
+
 
         public string SaveUpdateProperty(HttpPostedFileBase fb, PropertyManagementModel model)
         {
@@ -91,7 +93,8 @@ namespace ShomaRM.Areas.Admin.Models
                     PestControlFees = model.PestControlFees,
                     TrashFees = model.TrashFees,
                     ConversionBillFees = model.ConversionBillFees,
-                    AdminFees = model.AdminFees
+                    AdminFees = model.AdminFees,
+                    PetDNAAmt = model.DNAPetFees
                 };
                 db.tbl_Properties.Add(saveProp);
                 db.SaveChanges();
@@ -136,6 +139,7 @@ namespace ShomaRM.Areas.Admin.Models
                     propUpdate.TrashFees = model.TrashFees;
                     propUpdate.ConversionBillFees = model.ConversionBillFees;
                     propUpdate.AdminFees = model.AdminFees;
+                    propUpdate.PetDNAAmt = model.DNAPetFees;
                 }
                 db.SaveChanges();
                 msg = "Property Details Updated Successfully";
@@ -247,6 +251,7 @@ namespace ShomaRM.Areas.Admin.Models
                 model.TrashFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.TrashFees));
                 model.ConversionBillFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.ConversionBillFees));
                 model.AdminFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.AdminFees));
+                model.DNAPetFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.PetDNAAmt));
 
             }
             var floorlist = db.tbl_PropertyFloor.Where(p => p.PID == id).ToList();
@@ -603,6 +608,7 @@ namespace ShomaRM.Areas.Admin.Models
                 throw ex;
             }
         }
+       
         public class PropertySearch
         {
             public long PID { get; set; }
@@ -617,7 +623,9 @@ namespace ShomaRM.Areas.Admin.Models
             public int NumberOfRows { get; set; }
             public string Location { get; set; }
         }
+       
     }
+   
     public partial class PropertyUnits
     {
         public long UID { get; set; }
@@ -680,7 +688,10 @@ namespace ShomaRM.Areas.Admin.Models
         public string InteriorArea { get; set; }
         public string Notes { get; set; }
         public string PremiumType { get; set; }
-
+        public List<UnitLeasePrice> UnitWiseRent { get; set; }
+        public List<PropertyFloor> Floors { get; set; }
+        public List<ModelsModel> ModelsNumber { get; set; }
+        public string UnitWiseRentData { get; set; }
         public List<PropertyUnits> lstPropertyUnit { get; set; }
         public PropertyUnits GetPropertyUnitDetails(long UID)
         {
@@ -694,6 +705,9 @@ namespace ShomaRM.Areas.Admin.Models
             long previousUID = 0;
 
             GetNextPreviousUnitIDs(UID, ref nextUID, ref previousUID);
+
+            List<UnitLeasePrice> unitWiseRent = GetUnitLeasePrice(UID);
+            model.UnitWiseRent = unitWiseRent.ToList();
 
             if (unitDet != null)
             {
@@ -716,6 +730,11 @@ namespace ShomaRM.Areas.Admin.Models
 
                 }
                 model.PID = unitDet.PID;
+                long? pid = unitDet.PID;
+                List<PropertyFloor> propFloorPlan = GetFloorList(unitDet.PID ?? 0);
+                model.Floors = propFloorPlan;
+                List<ModelsModel> modelsNum = GetModelsListDetail();
+                model.ModelsNumber = modelsNum;
                 model.UID = unitDet.UID;
                 model.UnitNo = unitDet.UnitNo;
                 model.Rooms = unitDet.Rooms;
@@ -884,6 +903,7 @@ namespace ShomaRM.Areas.Admin.Models
                 db.tbl_PropertyUnits.Add(saveProp);
                 db.SaveChanges();
                 model.UID = saveProp.UID;
+
                 msg = "Property Unit Details Saved Successfully";
             }
             else
@@ -945,6 +965,29 @@ namespace ShomaRM.Areas.Admin.Models
                 db.SaveChanges();
                 msg = "Property Unit Details Updated Successfully";
             }
+
+            // Unit Wise Rent //
+            var unitWiseRent = db.tbl_UnitLeasePrice.Where(p => p.UnitID == model.UID).ToList();
+            if(unitWiseRent.Count>0)
+            {
+                db.tbl_UnitLeasePrice.RemoveRange(unitWiseRent);
+            }
+
+            string[] unitWiseRentData = model.UnitWiseRentData.Split('|');
+            foreach(string uwrd in unitWiseRentData)
+            {
+                string[] leaseRent = uwrd.Split(',');
+                var saveUWR = new tbl_UnitLeasePrice() {
+                    UnitID = model.UID,
+                    LeaseID = Convert.ToInt32(leaseRent[0]),
+                    Price=Convert.ToDecimal(leaseRent[1]),
+                    Deposit=0
+                };
+
+                db.tbl_UnitLeasePrice.Add(saveUWR);
+                db.SaveChanges();
+            }
+            // Unit Wise Rent //
 
             return model.UID;
         }
@@ -1056,6 +1099,110 @@ namespace ShomaRM.Areas.Admin.Models
             db.Dispose();
             return msg;
         }
+        public List<UnitLeasePrice> GetUnitLeasePrice(long UID)
+        {
+            List<UnitLeasePrice> unitListPrice = new List<UnitLeasePrice>();
+            ShomaRMEntities db = new ShomaRMEntities();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetUnitLeasewiseRent";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter paramCUID = cmd.CreateParameter();
+                    paramCUID.ParameterName = "UnitId";
+                    paramCUID.Value = UID;
+                    cmd.Parameters.Add(paramCUID);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    UnitLeasePrice pr = new UnitLeasePrice();
+
+                    pr.LTID = Convert.ToInt32(dr["LTID"].ToString());
+                    pr.LeaseTerms = Convert.ToInt32(dr["LeaseTerms"].ToString());
+                    pr.Price = Convert.ToDecimal(dr["Price"].ToString());
+                    pr.Deposit = Convert.ToDecimal(dr["Deposit"].ToString());
+                    unitListPrice.Add(pr);
+                }
+                db.Dispose();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return unitListPrice;
+        }
+        public List<PropertyFloor> GetFloorList(long PID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<PropertyFloor> model = new List<PropertyFloor>();
+            var floorlist = db.tbl_PropertyFloor.Where(p => p.PID == PID).ToList().OrderBy(p => p.FloorNo);
+            if (floorlist != null)
+            {
+                foreach (var fl in floorlist)
+                {
+                    model.Add(new PropertyFloor()
+                    {
+                        FloorNo = fl.FloorNo,
+                        Coordinates = fl.Coordinates,
+                        FloorID = fl.FloorID,
+                    });
+
+                }
+            }
+            return model;
+        }
+        public List<ModelsModel> GetModelsListDetail()
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<ModelsModel> lstpr = new List<ModelsModel>();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetModelsList";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    ModelsModel pr = new ModelsModel();
+                    pr.ModelID = Convert.ToInt32(dr["ModelID"].ToString());
+                    pr.BalconyArea = dr["BalconyArea"].ToString();
+                    pr.InteriorArea = dr["InteriorArea"].ToString();
+                    pr.Area = dr["Area"].ToString();
+                    pr.RentRange = "$" + Convert.ToDecimal(dr["MinRent"].ToString()).ToString("0.00") + "-$" + Convert.ToDecimal(dr["MaxRent"].ToString()).ToString("0.00");
+                    pr.Bedroom = Convert.ToInt32(dr["Bedroom"].ToString());
+                    pr.Bathroom = Convert.ToInt32(dr["Bathroom"].ToString());
+                    pr.FloorPlan = dr["FloorPlan"].ToString();
+                    pr.ModelName = dr["ModelName"].ToString();
+                    pr.BalconyArea = dr["BalconyArea"].ToString() != null ? dr["BalconyArea"].ToString() : "0";
+                    pr.InteriorArea = dr["InteriorArea"].ToString() != null ? dr["InteriorArea"].ToString() : "0";
+                    lstpr.Add(pr);
+                }
+                db.Dispose();
+                return lstpr.ToList();
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
     }
     public partial class PropertyFloor
     {
@@ -1113,26 +1260,7 @@ namespace ShomaRM.Areas.Admin.Models
                 throw new Exception("Floor Updated Successfully.");
             }
         }
-        public List<PropertyFloor> GetFloorList(int PID)
-        {
-            ShomaRMEntities db = new ShomaRMEntities();
-            List<PropertyFloor> model = new List<PropertyFloor>();
-            var floorlist = db.tbl_PropertyFloor.Where(p => p.PID == PID).ToList().OrderBy(p => p.FloorNo);
-            if (floorlist != null)
-            {
-                foreach (var fl in floorlist)
-                {
-                    model.Add(new PropertyFloor()
-                    {
-                        FloorNo = fl.FloorNo,
-                        Coordinates = fl.Coordinates,
-                        FloorID = fl.FloorID,
-                    });
-
-                }
-            }
-            return model;
-        }
+        
         public PropertyFloor GetPropertyFloorDetails(int FloorID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -1154,7 +1282,6 @@ namespace ShomaRM.Areas.Admin.Models
                 {
                     model.lstPropertyUnit.Add(new PropertyUnits()
                     {
-
                         Coordinates = fl.Coordinates,
                         UnitNo = fl.UnitNo,
                         UID = fl.UID,
@@ -1235,54 +1362,7 @@ namespace ShomaRM.Areas.Admin.Models
             return model;
         }
 
-        public List<ModelsModel> GetModelsListDetail()
-        {
-            ShomaRMEntities db = new ShomaRMEntities();
-            List<ModelsModel> lstpr = new List<ModelsModel>();
-            try
-            {
-                DataTable dtTable = new DataTable();
-                using (var cmd = db.Database.Connection.CreateCommand())
-                {
-                    db.Database.Connection.Open();
-                    cmd.CommandText = "usp_GetModelsList";
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    //DbParameter paramTID = cmd.CreateParameter();
-                    //paramTID.ParameterName = "ProspectID";
-                    //paramTID.Value = ProspectID;
-                    //cmd.Parameters.Add(paramTID);
-
-                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
-                    da.SelectCommand = cmd;
-                    da.Fill(dtTable);
-                    db.Database.Connection.Close();
-                }
-                foreach (DataRow dr in dtTable.Rows)
-                {
-                    ModelsModel pr = new ModelsModel();
-                    pr.ModelID = Convert.ToInt32(dr["ModelID"].ToString());
-                    pr.BalconyArea = dr["BalconyArea"].ToString();
-                    pr.InteriorArea = dr["InteriorArea"].ToString();
-                    pr.Area = dr["Area"].ToString();
-                    pr.RentRange ="$"+ Convert.ToDecimal( dr["MinRent"].ToString()).ToString("0.00")+ "-$" + Convert.ToDecimal(dr["MaxRent"].ToString()).ToString("0.00");
-                    pr.Bedroom = Convert.ToInt32(dr["Bedroom"].ToString());
-                    pr.Bathroom = Convert.ToInt32(dr["Bathroom"].ToString());
-                    pr.FloorPlan = dr["FloorPlan"].ToString();
-                    pr.ModelName = dr["ModelName"].ToString();
-                    pr.BalconyArea = dr["BalconyArea"].ToString() != null ? dr["BalconyArea"].ToString() : "0";
-                    pr.InteriorArea = dr["InteriorArea"].ToString() != null ? dr["InteriorArea"].ToString() : "0";
-                    lstpr.Add(pr);
-                }
-                db.Dispose();
-                return lstpr.ToList();
-            }
-            catch (Exception ex)
-            {
-                db.Database.Connection.Close();
-                throw ex;
-            }
-        }
+        
 
         public ModelsModel GetModelsData(int Id)
         {
@@ -1431,5 +1511,13 @@ public ModelsModel UploadModelsFloorPlanDetails(HttpPostedFileBase fb, ModelsMod
 
 
         }
+    }
+
+    public class UnitLeasePrice
+    {
+        public int LTID { get; set; }
+        public int? LeaseTerms { get; set; }
+        public decimal? Price { get; set; }
+        public decimal? Deposit { get; set; }
     }
 }

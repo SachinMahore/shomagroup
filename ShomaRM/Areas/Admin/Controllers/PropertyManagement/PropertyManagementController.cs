@@ -177,17 +177,17 @@ namespace ShomaRM.Areas.Admin.Controllers
             }
             
         }
-        public ActionResult GetFloorList(int PID)
-        {
-            try
-            {
-                return Json((new PropertyFloor()).GetFloorList(PID), JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
-            }
-        }
+        //public ActionResult GetFloorList(int PID)
+        //{
+        //    try
+        //    {
+        //        return Json((new PropertyFloor()).GetFloorList(PID), JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
         public ActionResult GetPropertyFloorDetails(int FloorID)
         {
             try
