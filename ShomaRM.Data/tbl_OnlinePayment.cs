@@ -23,5 +23,6 @@ namespace ShomaRM.Data
         public Nullable<int> CCVNumber { get; set; }
         public Nullable<long> ProspectId { get; set; }
         public Nullable<int> PaymentMethod { get; set; }
+        public Nullable<long> ApplicantID { get; set; }
     }
 }

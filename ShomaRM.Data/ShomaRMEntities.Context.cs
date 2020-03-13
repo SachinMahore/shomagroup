@@ -61,7 +61,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_MoveInPayment> tbl_MoveInPayment { get; set; }
         public virtual DbSet<tbl_Notes> tbl_Notes { get; set; }
         public virtual DbSet<tbl_Notice> tbl_Notice { get; set; }
-        public virtual DbSet<tbl_OnlinePayment> tbl_OnlinePayment { get; set; }
         public virtual DbSet<tbl_Parking> tbl_Parking { get; set; }
         public virtual DbSet<tbl_PaymentAccounts> tbl_PaymentAccounts { get; set; }
         public virtual DbSet<tbl_PetPlace> tbl_PetPlace { get; set; }
@@ -107,5 +106,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
         public virtual DbSet<tbl_Properties> tbl_Properties { get; set; }
         public virtual DbSet<tbl_UnitLeasePrice> tbl_UnitLeasePrice { get; set; }
+        public virtual DbSet<tbl_OnlinePayment> tbl_OnlinePayment { get; set; }
     }
 }

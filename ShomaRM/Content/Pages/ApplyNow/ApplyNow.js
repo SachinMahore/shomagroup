@@ -1415,7 +1415,7 @@ var goToStep = function (stepid, id) {
                 $("#li17").removeClass("active");
                
                 if (paidamt == totpaid) {
-                    $("#carddetails").addClass("hidden");
+                    //$("#carddetails").addClass("hidden");
                     goToStep(16, 16);
                     $("#getting-startedTimeRemainingClock").addClass("hidden")
                 }
