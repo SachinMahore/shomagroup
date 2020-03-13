@@ -548,7 +548,7 @@ namespace ShomaRM.Areas.Admin.Models
                     }
 
                     model.MoveInDateTxt = dateExpire.Value.ToString("MM/dd/yyyy");
-                    model.ExpireDate = Convert.ToDateTime(GetProspectData.CreatedDate).AddHours(72).ToString("MM/dd/yyyy hh:mm tt");
+                    model.ExpireDate = Convert.ToDateTime(GetProspectData.CreatedDate).AddHours(48).ToString("MM/dd/yyyy") + " 23:59:59";
 
 
                     if (GetPaymentProspectData != null)
