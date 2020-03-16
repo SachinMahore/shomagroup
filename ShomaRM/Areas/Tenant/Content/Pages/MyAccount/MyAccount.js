@@ -367,7 +367,18 @@
 
 
     document.getElementById('fileUploadService').onchange = function () {
-        uploadServiceFile();
+        var fileUploadServiceBool = restrictFileUpload($(this).val());
+        if (fileUploadServiceBool == true) {
+            uploadServiceFile();
+        }
+        else {
+            document.getElementById('fileUploadService').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     fillDdlServiceCategory();
     fillDdlLocation();

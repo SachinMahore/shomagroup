@@ -1,5 +1,19 @@
 ﻿$(document).ready(function () {
     getPropertyList();
+    document.getElementById('wizard-picture').onchange = function () {
+        var fileUploadEventBool = restrictFileUpload($(this).val());
+        if (fileUploadEventBool == true) {
+            eventFileUpload();
+        }
+        else {
+            document.getElementById('wizard-picture').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
+    };
 });
 var SaveUpdateEvent = function () {
     var msg = "";
@@ -11,6 +25,7 @@ var SaveUpdateEvent = function () {
     var eventType = $("#ddlEventType").val();
     var eventTime = $("#txtEventTime").val();
     var eventFees = $("#txtEventFees").val();
+    var eventPhoto = $("#hndFileUploadEventPicture").val();
 
     if (propertyId == "0") {
         msg += "Please Select The Property </br>";
@@ -49,13 +64,14 @@ var SaveUpdateEvent = function () {
     $formData.append('Type', eventType);
     $formData.append('EventTimeString', eventTime);
     $formData.append('Fees', eventFees);
-    var photo = document.getElementById('wizard-picture');
-    if (photo.files.length > 0) {
-        for (var i = 0; i < photo.files.length; i++) {
-            $formData.append('file-' + i, photo.files[i]);
-            console.log(photo.files[i]);
-        }
-    }
+    $formData.append('Photo', eventPhoto);
+    //var photo = document.getElementById('wizard-picture');
+    //if (photo.files.length > 0) {
+    //    for (var i = 0; i < photo.files.length; i++) {
+    //        $formData.append('file-' + i, photo.files[i]);
+    //        console.log(photo.files[i]);
+    //    }
+    //}
     
     $.ajax({
         url: '/Admin/Event/SaveUpdateEvent',
@@ -111,6 +127,36 @@ var EventList = function () {
         }
     });
 };
+var eventFileUpload = function () {
+    $("#divLoader").show();
+    $formData = new FormData();
 
+    var eventFile = document.getElementById('wizard-picture');
+
+    for (var i = 0; i < eventFile.files.length; i++) {
+        $formData.append('file-' + i, eventFile.files[i]);
+    }
+
+    $.ajax({
+        url: '/Admin/Event/EventFileUpload',
+        type: 'post',
+        data: $formData,
+        contentType: 'application/json; charset=utf-8',
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (response) {
+            $('#hndFileUploadEventPicture').val(response.model.Photo);
+            $('#hndOriginalFileUploadEventPicture').val(response.model.OriginalPhoto);
+
+            $.alert({
+                title: "",
+                content: "File uploaded Successfully.",
+                type: 'blue'
+            });
+            $("#divLoader").hide();
+        }
+    });
+};
 
 
