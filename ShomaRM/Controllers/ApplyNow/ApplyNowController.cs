@@ -198,7 +198,7 @@ namespace ShomaRM.Controllers
                     }
                     if (checkExpiry != null)
                     {
-                        DateTime expDate = Convert.ToDateTime(DateTime.Now.AddHours(-72).ToString("MM/dd/yyyy") + " 23:59:59");
+                        DateTime expDate = Convert.ToDateTime(DateTime.Now.AddHours(-48).ToString("MM/dd/yyyy") + " 23:59:59");
 
                         if (checkExpiry.CreatedDate < expDate)
                         {

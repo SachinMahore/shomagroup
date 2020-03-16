@@ -360,15 +360,21 @@ namespace ShomaRM.Areas.Admin.Models
 
         public string UpdatePasswordUser(UsersModel model)
         {
+          
+            string encryptedNewPassword = new EncryptDecrypt().EncryptText(model.NewPassword);
+            string encryptedOldPassword = new EncryptDecrypt().EncryptText(model.OldPassword);
             string msg = "";
             long uid = ShomaGroupWebSession.CurrentUser.UserID;
             ShomaRMEntities db = new ShomaRMEntities();
-            var userNameExists = db.tbl_Login.Where(p => p.UserID == uid && p.Password == model.OldPassword).FirstOrDefault();
+           
+            var userNameExists = db.tbl_Login.Where(p => p.UserID == uid && p.Password == encryptedOldPassword).FirstOrDefault();
+           
+
             if (userNameExists != null)
             {
                 tbl_Login userData = new tbl_Login();
 
-                userNameExists.Password = model.NewPassword;
+                userNameExists.Password = encryptedNewPassword;
                 db.SaveChanges();
                 msg = "Password Change Successfully";
 
