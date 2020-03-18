@@ -496,18 +496,25 @@ namespace ShomaRM.Areas.Tenant.Models
             var editPaymentAccounts = db.tbl_PaymentAccounts.Where(co => co.PAID == model.PAID).FirstOrDefault();
             ApplyNowModel mm = new ApplyNowModel();
             string transStatus = "";
+
+            string encrytpedCardNumber = editPaymentAccounts.CardNumber == null ? "" : new EncryptDecrypt().EncryptText(editPaymentAccounts.CardNumber);
+            string encrytpedAccountNumber = editPaymentAccounts.AccountNumber == null ? "" : new EncryptDecrypt().EncryptText(editPaymentAccounts.AccountNumber);
+            string encrytpedCardMonth = new EncryptDecrypt().EncryptText(editPaymentAccounts.Month);
+            string encrytpedCardYear = new EncryptDecrypt().EncryptText(editPaymentAccounts.Year);
+            string encrytpedRoutingNumber = editPaymentAccounts.RoutingNumber == null ? "" : new EncryptDecrypt().EncryptText(editPaymentAccounts.RoutingNumber);
+
             if (editPaymentAccounts != null)
             {
                 mm.Name_On_Card = editPaymentAccounts.NameOnCard;
-                mm.CardNumber = editPaymentAccounts.CardNumber;
-                mm.CardMonth = Convert.ToInt32(editPaymentAccounts.Month);
-                mm.CardYear = Convert.ToInt32(editPaymentAccounts.Year);
-                mm.CCVNumber = model.CCVNumber;
+                mm.CardNumber = encrytpedCardNumber;
+                mm.CardMonth = encrytpedCardMonth;
+                mm.CardYear = encrytpedCardYear;
+                //mm.CCVNumber = model.CCVNumber;
                 mm.ProspectId = model.TenantID;
                 mm.PaymentMethod = 1;
                 mm.Charge_Amount = model.Charge_Amount;
-                mm.AccountNumber = editPaymentAccounts.AccountNumber;
-                mm.RoutingNumber = editPaymentAccounts.RoutingNumber;
+                mm.AccountNumber = encrytpedAccountNumber;
+                mm.RoutingNumber = encrytpedRoutingNumber;
                 mm.BankName = editPaymentAccounts.BankName;
                 var GetTenData = db.tbl_TenantOnline.Where(p => p.ID == model.TenantID).FirstOrDefault();
                 mm.Email = GetTenData.Email;
@@ -553,12 +560,7 @@ namespace ShomaRM.Areas.Tenant.Models
                         CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
                        
                         GL_Trans_Description = transStatus.ToString(),
-                        TAccCardName = model.NameOnCardString,
-                        TAccCardNumber = model.NumberOnCardString,
-                        TCardExpirationMonth = model.ExpirationMonthOnCardString,
-                        TCardExpirationYear = model.ExpirationYearOnCardString,
-                        TBankName = model.BankName,
-                        TRoutingNumber = model.RoutingNumber
+                        
 
                     };
                     db.tbl_Transaction.Add(saveTransaction);
@@ -886,17 +888,24 @@ namespace ShomaRM.Areas.Tenant.Models
                     var tenantData = db.tbl_TenantInfo.Where(p => p.TenantID == TenantID).FirstOrDefault();
                     ApplyNowModel mm = new ApplyNowModel();
                     string transStatus = "";
+
+                    string decryptedCardNumber = accountDet.CardNumber == null ? "" : new EncryptDecrypt().DecryptText(accountDet.CardNumber);
+                    string decryptedAccountNumber = accountDet.AccountNumber == "" ? "" : new EncryptDecrypt().DecryptText(accountDet.AccountNumber);
+                    string decrytpedCardMonth = new EncryptDecrypt().DecryptText(accountDet.Month);
+                    string decrytpedCardYear = new EncryptDecrypt().DecryptText(accountDet.Year);
+                    string decrytpedRoutingNumber = accountDet.RoutingNumber == "" ? "" : new EncryptDecrypt().DecryptText(accountDet.RoutingNumber);
+
                     if (accountDet != null)
                     {
                         mm.Name_On_Card = accountDet.NameOnCard;
-                        mm.CardNumber = accountDet.CardNumber;
-                        mm.CardMonth = Convert.ToInt32(accountDet.Month);
-                        mm.CardYear = Convert.ToInt32(accountDet.Year);
+                        mm.CardNumber = decryptedCardNumber;
+                        mm.CardMonth = decrytpedCardMonth;
+                        mm.CardYear = decrytpedCardYear;
                         mm.ProspectId = TenantID;
                         mm.PaymentMethod = 1;
                         mm.Charge_Amount = transData.Charge_Amount;
-                        mm.AccountNumber = accountDet.AccountNumber;
-                        mm.RoutingNumber = accountDet.RoutingNumber;
+                        mm.AccountNumber = decryptedAccountNumber;
+                        mm.RoutingNumber = decrytpedRoutingNumber;
                         mm.BankName = accountDet.BankName;
                         if (mm.CardNumber != null)
                         {
@@ -1172,13 +1181,18 @@ namespace ShomaRM.Areas.Tenant.Models
             var editPaymentAccounts = db.tbl_PaymentAccounts.Where(co => co.PAID == model.PAID).FirstOrDefault();
             ApplyNowModel mm = new ApplyNowModel();
             string transStatus = "";
+            string encryptedCardNumber = editPaymentAccounts.CardNumber == null ? null :  new EncryptDecrypt().EncryptText(editPaymentAccounts.CardNumber);
+            string encryptedCardMonth = new EncryptDecrypt().EncryptText(editPaymentAccounts.Month);
+            string encryptedCardYear = new EncryptDecrypt().EncryptText(editPaymentAccounts.Year);
+            string encryptedAccountNumber = editPaymentAccounts.AccountNumber == "" ? "" : new EncryptDecrypt().EncryptText(editPaymentAccounts.AccountNumber);
+            string encryptedRoutingNumber = editPaymentAccounts.RoutingNumber == "" ? "" : new EncryptDecrypt().EncryptText(editPaymentAccounts.RoutingNumber);
             if (editPaymentAccounts != null)
             {
 
-                mm.CardNumber = editPaymentAccounts.CardNumber;
-                mm.CardMonth = Convert.ToInt32(editPaymentAccounts.Month);
-                mm.CardYear = Convert.ToInt32(editPaymentAccounts.Year);
-                mm.CCVNumber = model.CCVNumber;
+                mm.CardNumber = encryptedCardNumber;
+                mm.CardMonth = editPaymentAccounts.Month;
+                mm.CardYear = editPaymentAccounts.Year;
+                //mm.CCVNumber = model.CCVNumber;
                 mm.ProspectId = model.TenantID;
                 mm.PaymentMethod = 1;
                 mm.Charge_Amount = model.Charge_Amount;
@@ -1335,19 +1349,26 @@ namespace ShomaRM.Areas.Tenant.Models
             var editPaymentAccounts = db.tbl_PaymentAccounts.Where(co => co.PAID == model.PAID).FirstOrDefault();
             ApplyNowModel mm = new ApplyNowModel();
             string transStatus = "";
+
+            string encryptedCardNumber = editPaymentAccounts.CardNumber == null ? null : new EncryptDecrypt().EncryptText(editPaymentAccounts.CardNumber);
+            string encryptedCardMonth = new EncryptDecrypt().EncryptText(editPaymentAccounts.Month);
+            string encryptedCardYear = new EncryptDecrypt().EncryptText(editPaymentAccounts.Year);
+            string encryptedAccountNumber = editPaymentAccounts.AccountNumber == "" ? "" : new EncryptDecrypt().EncryptText(editPaymentAccounts.AccountNumber);
+            string encryptedRoutingNumber = editPaymentAccounts.RoutingNumber == "" ? "" : new EncryptDecrypt().EncryptText(editPaymentAccounts.RoutingNumber);
+
             if (editPaymentAccounts != null)
             {
 
-                mm.CardNumber = editPaymentAccounts.CardNumber;
-                mm.CardMonth = Convert.ToInt32(editPaymentAccounts.Month);
-                mm.CardYear = Convert.ToInt32(editPaymentAccounts.Year);
-                mm.CCVNumber = model.CCVNumber;
+                mm.CardNumber = encryptedCardNumber;
+                mm.CardMonth = encryptedCardMonth;
+                mm.CardYear = encryptedCardYear;
+                //mm.CCVNumber = model.CCVNumber;
                 mm.ProspectId = model.TenantID;
                 mm.PaymentMethod = 1;
                 mm.Charge_Amount = model.Charge_Amount;
 
-                mm.AccountNumber = editPaymentAccounts.AccountNumber;
-                mm.RoutingNumber = editPaymentAccounts.RoutingNumber;
+                mm.AccountNumber = encryptedAccountNumber;
+                mm.RoutingNumber = encryptedRoutingNumber;
                 mm.BankName = editPaymentAccounts.BankName;
                 var GetTenData = db.tbl_TenantOnline.Where(p => p.ID == model.TenantID).FirstOrDefault();
                 mm.Email = GetTenData.Email;

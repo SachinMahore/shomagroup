@@ -17,9 +17,9 @@ namespace ShomaRM.Models
         public Nullable<long> PID { get; set; }
         public string Name_On_Card { get; set; }
         public string CardNumber { get; set; }
-        public Nullable<int> CardMonth { get; set; }
-        public Nullable<int> CardYear { get; set; }
-        public Nullable<int> CCVNumber { get; set; }
+        public string CardMonth { get; set; }
+        public string CardYear { get; set; }
+        public string CCVNumber { get; set; }
         public Nullable<long> ProspectId { get; set; }
         public Nullable<decimal> Charge_Amount { get; set; }
         public Nullable<decimal> Credit_Amount { get; set; }
@@ -60,7 +60,14 @@ namespace ShomaRM.Models
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
                 var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId).FirstOrDefault();
-               
+
+                string encrytpedCardNumber = new EncryptDecrypt().EncryptText(model.CardNumber);
+                string encrytpedCardMonth = new EncryptDecrypt().EncryptText(model.CardMonth);
+                string encrytpedCardYear = new EncryptDecrypt().EncryptText(model.CardYear);
+                string encrytpedRoutingNumber = new EncryptDecrypt().EncryptText(model.CCVNumber);
+
+                string decryptedPayemntCardNumber = new EncryptDecrypt().DecryptText(encrytpedCardNumber);
+
                 string transStatus = "";
                 model.Email = GetProspectData.Email;
                 if (model.PaymentMethod == 2)
@@ -81,10 +88,10 @@ namespace ShomaRM.Models
                     if (GetPayDetails != null)
                     {
                         GetPayDetails.Name_On_Card = model.Name_On_Card;
-                        GetPayDetails.CardNumber = model.CardNumber;
-                        GetPayDetails.CardMonth = model.CardMonth;
-                        GetPayDetails.CardYear = model.CardYear;
-                        GetPayDetails.CCVNumber = model.CCVNumber;
+                        GetPayDetails.CardNumber = encrytpedCardNumber;
+                        GetPayDetails.CardMonth = encrytpedCardMonth;
+                        GetPayDetails.CardYear = encrytpedCardYear;
+                        GetPayDetails.CCVNumber = encrytpedRoutingNumber;
                         GetPayDetails.ProspectId = model.ProspectId;
                         GetPayDetails.PaymentMethod = model.PaymentMethod;
                         GetPayDetails.ApplicantID = 0;
@@ -132,19 +139,8 @@ namespace ShomaRM.Models
                         Batch = "1",
                         Batch_Source = "",
                         CreatedBy = Convert.ToInt32(GetProspectData.UserId),
-                        GL_Trans_Reference_1 = model.PID.ToString(),
-                        GL_Trans_Reference_2 = GetProspectData.FirstName + " " + GetProspectData.LastName,
-                        GL_Entries_Created = 1,
                         GL_Trans_Description = transStatus.ToString(),
                         ProspectID = 0,
-                        TAccCardName = model.Name_On_Card,
-                        TAccCardNumber = model.CardNumber,
-                        TBankName = model.BankName,
-                        TRoutingNumber = model.RoutingNumber,
-                        TCardExpirationMonth = model.CardMonth.ToString(),
-                        TCardExpirationYear = model.CardYear.ToString(),
-                        TSecurityNumber = model.CCVNumber.ToString(),
-
                     };
                     db.tbl_Transaction.Add(saveTransaction);
                     db.SaveChanges();
@@ -229,7 +225,7 @@ namespace ShomaRM.Models
                             CardNumber = model.CardNumber,
                             CardMonth = model.CardMonth,
                             CardYear = model.CardYear,
-                            CCVNumber =Convert.ToInt32(model.RoutingNumber),
+                            CCVNumber =model.RoutingNumber,
                             ProspectId = model.ProspectId,
                             PaymentMethod = model.PaymentMethod,
                             ApplicantID = model.AID,
@@ -262,18 +258,10 @@ namespace ShomaRM.Models
                         Batch = model.AID.ToString(),
                         Batch_Source = "",
                         CreatedBy = Convert.ToInt32(GetProspectData.UserId),
-                        GL_Trans_Reference_1 = model.PID.ToString(),
-                        GL_Trans_Reference_2 = GetProspectData.FirstName + " " + GetProspectData.LastName,
-                        GL_Entries_Created = 1,
+                     
                         GL_Trans_Description = transStatus.ToString(),
                         ProspectID = 0,
-                        TAccCardName = model.Name_On_Card,
-                        TAccCardNumber = model.CardNumber,
-                        TBankName = model.BankName,
-                        TRoutingNumber = model.RoutingNumber,
-                        TCardExpirationMonth = model.CardMonth.ToString(),
-                        TCardExpirationYear = model.CardYear.ToString(),
-                        TSecurityNumber = model.CCVNumber.ToString(),
+                        
 
                     };
                     db.tbl_Transaction.Add(saveTransaction);

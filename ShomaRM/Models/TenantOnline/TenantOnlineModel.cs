@@ -295,14 +295,17 @@ namespace ShomaRM.Models
                     lstpr.Gender = Convert.ToInt32(dr["Gender"].ToString());
                     lstpr.Email = dr["Email"].ToString();
                     lstpr.Mobile = dr["Mobile"].ToString();
-                    lstpr.PassportNumber = dr["PassportNumber"].ToString();
+                    string decryptedPassportNumber = new EncryptDecrypt().DecryptText(dr["PassportNumber"].ToString());
+                    lstpr.PassportNumber = decryptedPassportNumber;
                     lstpr.CountryIssuance = dr["CountryIssuance"].ToString();
                     lstpr.DateIssuanceTxt = dateIssuance == null ? "" : dateIssuance.Value.ToString("MM/dd/yyy");
                     lstpr.DateExpireTxt = dateExpire == null ? "" : dateExpire.Value.ToString("MM/dd/yyy");
                     lstpr.IDType = Convert.ToInt32(dr["IDType"].ToString());
                     lstpr.State = Convert.ToInt64(dr["State"].ToString());
-                    lstpr.IDNumber = dr["IDNumber"].ToString();
-                    lstpr.SSN = dr["SSN"].ToString();
+                    string decryptedIDNumber = new EncryptDecrypt().DecryptText(dr["IDNumber"].ToString());
+                    lstpr.IDNumber = decryptedIDNumber;
+                    string decryptedSSN = new EncryptDecrypt().DecryptText(dr["SSN"].ToString());
+                    lstpr.SSN = decryptedSSN;
                     lstpr.Country = dr["Country"].ToString();
                     lstpr.HomeAddress1 = dr["HomeAddress1"].ToString();
                     lstpr.HomeAddress2 = dr["HomeAddress2"].ToString();
@@ -493,8 +496,73 @@ namespace ShomaRM.Models
 
         }
 
-        //File Upload1,2,3
+        public string SaveUpdateSSN(TenantOnlineModel model)
+        {
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
 
+            if (model.ProspectID != 0)
+            {
+                string encryptedSSN = new EncryptDecrypt().EncryptText(model.SSN);
+                var getSSNdata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID).FirstOrDefault();
+                if (getSSNdata != null)
+                {
+                    getSSNdata.SSN = encryptedSSN;
+                }
+                db.SaveChanges();
+
+                msg = "SSN Number Updated Successfully";
+            }
+
+
+            db.Dispose();
+            return msg;
+
+        }
+
+        public string SaveUpdateIDNumber(TenantOnlineModel model)
+        {
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            if (model.ProspectID != 0)
+            {
+                string encryptedData = new EncryptDecrypt().EncryptText(model.IDNumber);
+                var getdata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID).FirstOrDefault();
+                if (getdata != null)
+                {
+                    getdata.IDNumber = encryptedData;
+                }
+                db.SaveChanges();
+
+                msg = "IDNumber Number Updated Successfully";
+            }
+            db.Dispose();
+            return msg;
+        }
+
+        public string SaveUpdatePassportNumber(TenantOnlineModel model)
+        {
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            if (model.ProspectID != 0)
+            {
+                string encryptedData = new EncryptDecrypt().EncryptText(model.PassportNumber);
+                var getdata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID).FirstOrDefault();
+                if (getdata != null)
+                {
+                    getdata.PassportNumber = encryptedData;
+                }
+                db.SaveChanges();
+
+                msg = "Passport Number Updated Successfully";
+            }
+            db.Dispose();
+            return msg;
+        }
+
+        //File Upload1,2,3
         public TenantOnlineModel SaveTaxUpload1(HttpPostedFileBase fileBaseUpload1, TenantOnlineModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();

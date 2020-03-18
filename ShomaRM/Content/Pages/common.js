@@ -109,3 +109,24 @@ function isDecimal(evt, cont, decplace) {
     }
     return true;
 }
+
+function checkStrength(password) {
+
+    var validated = true;
+    var msg = "";
+
+    if (password.length < 8) { validated = false; msg += "Password length should be of 8 characters <br/>"; }
+    if (!/\d/.test(password)) { validated = false; msg += "Password should contain at least one digit <br/>"; }
+    if (!/[a-z]/.test(password)) { validated = false; msg += "Password should contain at least one lower case <br/>"; }
+    if (!/[A-Z]/.test(password)) { validated = false; msg += "Password should contain at least one upper case <br/>"; }
+    if (/[^0-9a-zA-Z]/.test(password)) { validated = false; msg += "Password should contain at least 8 from the mentioned characters <br/>"; }
+
+    if (msg != "") {
+        $.alert({
+            title: "",
+            content: msg,
+            type: 'red'
+        });
+        return false;
+    }
+}
