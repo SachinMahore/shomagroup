@@ -103,7 +103,7 @@ namespace ShomaRM.Areas.Admin.Models
         public int LeaseTerm { get; set; }
         public string EsignatureID { get; set; }
         public Nullable<decimal> PetDNAAmt { get; set; }
-
+        public int LeaseTermID { get; set; }
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
 
@@ -496,6 +496,7 @@ namespace ShomaRM.Areas.Admin.Models
             model.EsignatureID = "";
             model.LeaseTerm = 12;
             model.PetDNAAmt = 0;
+            model.LeaseTermID = 0;
             if (Id != 0)
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.UserId == Id).FirstOrDefault();
@@ -537,6 +538,7 @@ namespace ShomaRM.Areas.Admin.Models
                     model.EsignatureID = (!string.IsNullOrWhiteSpace(GetProspectData.EsignatureID) ? GetProspectData.EsignatureID : "");
                     model.LeaseTerm = GetProspectData.LeaseTerm ?? 12;
                     model.PetDNAAmt = GetProspectData.PetDNAAmt;
+                    model.LeaseTermID = Convert.ToInt32(GetProspectData.LeaseTerm);
                     DateTime? dateExpire = null;
                     try
                     {

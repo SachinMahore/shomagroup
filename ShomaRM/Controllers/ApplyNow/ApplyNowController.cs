@@ -48,6 +48,11 @@ namespace ShomaRM.Controllers
                 model.MoveInDate = DateTime.Now.AddDays(30);
                 //model.MaxRent = 0;
                 model.FromHome = 0;
+                if(model.LeaseTermID==0)
+                {
+                    model.LeaseTermID = 22;
+                }
+               
             }
             if (Session["StepNo"] != null)
             {
