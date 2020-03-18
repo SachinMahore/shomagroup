@@ -62,7 +62,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Notes> tbl_Notes { get; set; }
         public virtual DbSet<tbl_Notice> tbl_Notice { get; set; }
         public virtual DbSet<tbl_Parking> tbl_Parking { get; set; }
-        public virtual DbSet<tbl_PaymentAccounts> tbl_PaymentAccounts { get; set; }
         public virtual DbSet<tbl_PetPlace> tbl_PetPlace { get; set; }
         public virtual DbSet<tbl_PremiumType> tbl_PremiumType { get; set; }
         public virtual DbSet<tbl_Promotion> tbl_Promotion { get; set; }
@@ -82,7 +81,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_TenantEventJoin> tbl_TenantEventJoin { get; set; }
         public virtual DbSet<tbl_TenantEventJoinApprove> tbl_TenantEventJoinApprove { get; set; }
         public virtual DbSet<tbl_TenantMonthlyPayments> tbl_TenantMonthlyPayments { get; set; }
-        public virtual DbSet<tbl_TenantOnline> tbl_TenantOnline { get; set; }
         public virtual DbSet<tbl_TenantParking> tbl_TenantParking { get; set; }
         public virtual DbSet<tbl_TenantPet> tbl_TenantPet { get; set; }
         public virtual DbSet<tbl_TenantPetPlace> tbl_TenantPetPlace { get; set; }
@@ -107,5 +105,7 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Properties> tbl_Properties { get; set; }
         public virtual DbSet<tbl_UnitLeasePrice> tbl_UnitLeasePrice { get; set; }
         public virtual DbSet<tbl_OnlinePayment> tbl_OnlinePayment { get; set; }
+        public virtual DbSet<tbl_PaymentAccounts> tbl_PaymentAccounts { get; set; }
+        public virtual DbSet<tbl_TenantOnline> tbl_TenantOnline { get; set; }
     }
 }

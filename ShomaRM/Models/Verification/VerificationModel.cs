@@ -40,9 +40,9 @@ namespace ShomaRM.Models
         public Nullable<long> PID { get; set; }
         public string Name_On_Card { get; set; }
         public string CardNumber { get; set; }
-        public Nullable<int> CardMonth { get; set; }
-        public Nullable<int> CardYear { get; set; }
-        public Nullable<int> CCVNumber { get; set; }
+        public string CardMonth { get; set; }
+        public string CardYear { get; set; }
+        public string CCVNumber { get; set; }
         public Nullable<long> ProspectId { get; set; }
 
         public string SaveLeaseDocumentVerifications(HttpPostedFileBase fb,long ProspectusID)

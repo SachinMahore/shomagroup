@@ -596,5 +596,41 @@ namespace ShomaRM.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult SaveUpdateSSN(TenantOnlineModel model)
+        {
+            try
+            {
+                return Json(new { msg = (new TenantOnlineModel().SaveUpdateSSN(model)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult SaveUpdateIDNumber(TenantOnlineModel model)
+        {
+            try
+            {
+                return Json(new { msg = (new TenantOnlineModel().SaveUpdateIDNumber(model)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult SaveUpdatePassportNumber(TenantOnlineModel model)
+        {
+            try
+            {
+                return Json(new { msg = (new TenantOnlineModel().SaveUpdatePassportNumber(model)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

@@ -355,7 +355,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="txtPassword" class="star">Password</label>
-                                    <input type="password" class="form-control" id="txtPassword" value="@Model.Password" placeholder="Password">
+                                    <input type="password" class="form-control" id="txtPassword" value="@Model.Password" placeholder="Password" onblur="checkStrength($(this).val());">
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -1541,7 +1541,7 @@
                                 <div class="col-sm-4" id="divSSNNumber">
                                     <div class="form-group">
                                         <label id="lblSSNNumber" for="txtSSNNumber" class="star">SSN Number</label>
-                                        <input class="form-control form-control-small" id="txtSSNNumber" value="" maxlength="9" onkeypress="return isOnlyNumber(event)" />
+                                        <input class="form-control form-control-small" id="txtSSNNumber" value="" maxlength="9" onkeypress="return isOnlyNumber(event)" onblur="saveupdateSSN();" />
                                     </div>
                                 </div>
 
@@ -1573,7 +1573,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="txtPassportNum" class="star">Passport Number</label>
-                                            <input id="txtPassportNum" class="form-control form-control-small" type="text" />
+                                            <input id="txtPassportNum" class="form-control form-control-small" type="text" onblur="saveupdatePassportNumber();" />
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
@@ -1636,7 +1636,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label id="lblIDNumber" for="txtIDNumber" class="star">ID Number</label>
-                                        <input class="form-control form-control-small" id="txtIDNumber" value="" />
+                                        <input class="form-control form-control-small" id="txtIDNumber" value="" onblur="saveupdateIDNumber();" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -3954,11 +3954,6 @@
         fillMarketSourceDDL();
         if (@Model.ProspectId != 0) {
             $("#logintext").text("Logout");
-
-            $("#ddlcardmonth").val(@Model.CardMonth);
-            $("#ddlcardmonth").trigger('change');
-            $("#ddlcardyear").val(@Model.CardYear);
-            $("#ddlcardyear").trigger('change');
             setTimeout(function () {
             $("#ddlMarketSource").val(@Model.Marketsource);
             $("#ddlMarketSource").trigger('change');
@@ -4149,7 +4144,7 @@
         modal.style.display = "block";
     }
     function gotoLogOffAN() {
-       
+
         window.location = "/Account/LogOff";
     }
 </script>

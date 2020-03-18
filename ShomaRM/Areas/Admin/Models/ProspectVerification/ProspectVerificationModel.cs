@@ -50,9 +50,9 @@ namespace ShomaRM.Areas.Admin.Models
 
         public string Name_On_Card { get; set; }
         public string CardNumber { get; set; }
-        public Nullable<int> CardMonth { get; set; }
-        public Nullable<int> CardYear { get; set; }
-        public Nullable<int> CCVNumber { get; set; }
+        public string CardMonth { get; set; }
+        public string CardYear { get; set; }
+        public string CCVNumber { get; set; }
         public Nullable<long> ProspectId { get; set; }
         public long SUID { get; set; }
         public int Marketsource { get; set; }
@@ -550,14 +550,18 @@ namespace ShomaRM.Areas.Admin.Models
                     model.MoveInDateTxt = dateExpire.Value.ToString("MM/dd/yyyy");
                     model.ExpireDate = Convert.ToDateTime(GetProspectData.CreatedDate).AddHours(48).ToString("MM/dd/yyyy") + " 23:59:59";
 
+                    string decryptedCardNumber = new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardNumber);
+                    string decryptedCardMonth = new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardMonth);
+                    string decryptedCardYear = new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardYear);
+                    string decryptedCCVNumber = new EncryptDecrypt().DecryptText(GetPaymentProspectData.CCVNumber);
 
                     if (GetPaymentProspectData != null)
                     {
                         model.Name_On_Card = GetPaymentProspectData.Name_On_Card;
-                        model.CardNumber = GetPaymentProspectData.CardNumber;
-                        model.CardMonth = GetPaymentProspectData.CardMonth;
-                        model.CardYear = GetPaymentProspectData.CardYear;
-                        model.CCVNumber = GetPaymentProspectData.CCVNumber;
+                        model.CardNumber = decryptedCardNumber;
+                        model.CardMonth = decryptedCardMonth;
+                        model.CardYear = decryptedCardYear;
+                        model.CCVNumber = decryptedCCVNumber;
                     }
                     if (GetDocumentVerificationData != null)
                     {

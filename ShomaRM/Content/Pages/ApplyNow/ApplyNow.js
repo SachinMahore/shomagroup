@@ -228,11 +228,10 @@ $(document).ready(function () {
         getPropertyModelUnitList();
     });
     $("#txtDate").on("change", function () {
-        if ($("#txtDate").val() == "") {
-        }
-        else {
+        if ($("#txtDate").val() != "") {
             getPropertyModelUnitList();
         }
+        
     });
     tenantOnlineID = $("#hdnOPId").val();
 
@@ -831,7 +830,7 @@ var goToStep = function (stepid, id) {
     if (stepid == "9") {
         var msg = '';
         if (id == "9") {
-            var msg = '';
+           // var msg = '';
             var grandPercentage = localStorage.getItem("percentage");
             var grandPercentageMo = localStorage.getItem("percentageMo");
             if (grandPercentage != 100 || grandPercentageMo != 100) {
@@ -4702,7 +4701,7 @@ var saveupdatePet = function () {
             msg += "Please Upload Pet Vaccination Certificate</br>";
         }
     }
-    if (msg !== "") {
+    if (msg != "") {
         $.alert({
             title: "",
             content: msg,
@@ -5238,7 +5237,7 @@ var getTenantOnlineList = function (id) {
             //    $("#txtSSNNumber").val(countNum + vis);
             //}
             //$("#txtCountry").val(response.model.Country);
-            console.log(response.model.SSN);
+            //console.log(response.model.SSN);
             if (!response.model.SSN) {
                 $("#txtSSNNumber").val('');
                 response.model.SSN = "";
@@ -6810,4 +6809,77 @@ var deleteVehiclesListOnCheck = function () {
             
         }
     });
+};
+
+var saveupdateSSN = function () {
+
+    var prospectID = $("#hdnOPId").val();
+    var sSNNumber = $("#txtSSNNumber").data('value');
+    if (sSNNumber != "") {
+        var model = {
+            ProspectID: prospectID,
+            SSN: sSNNumber
+        };
+
+        $.ajax({
+            url: '/ApplyNow/SaveUpdateSSN',
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+
+            }
+        });
+    }
+
+};
+
+var saveupdateIDNumber = function () {
+    var prospectID = $("#hdnOPId").val();
+    var idNumber = $("#txtIDNumber").data("value");
+
+    if (idNumber != "") {
+        var model = {
+            ProspectID: prospectID,
+            IDNumber: idNumber
+        };
+
+        $.ajax({
+            url: '/ApplyNow/SaveUpdateIDNumber',
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+
+            }
+        });
+    }
+
+};
+
+var saveupdatePassportNumber = function () {
+
+    var prospectID = $("#hdnOPId").val();
+    var passportNumber = $("#txtPassportNum").val();
+
+    if (passportNumber != "") {
+        var model = {
+            ProspectID: prospectID,
+            PassportNumber: passportNumber
+        };
+
+        $.ajax({
+            url: '/ApplyNow/SaveUpdatePassportNumber',
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+
+            }
+        });
+    }
+
 };
