@@ -97,11 +97,11 @@ namespace ShomaRM.Controllers
             }
 
         }
-        public ActionResult GetPropertyModelUnitList(string ModelName, DateTime AvailableDate, decimal Current_Rent, int Bedroom)
+        public ActionResult GetPropertyModelUnitList(string ModelName, DateTime AvailableDate, decimal Current_Rent, int Bedroom, int LeaseTermID)
         {
             try
             {
-                return Json(new { model = (new PropertyModel().GetPropertyModelUnitList(ModelName, AvailableDate, Current_Rent, Bedroom)) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = (new PropertyModel().GetPropertyModelUnitList(ModelName, AvailableDate, Current_Rent, Bedroom, LeaseTermID)) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)
@@ -112,11 +112,11 @@ namespace ShomaRM.Controllers
         }
 
       
-        public ActionResult GetPropertyUnitDetails(long UID)
+        public ActionResult GetPropertyUnitDetails(long UID, int LeaseTermID)
         {
             try
             {
-                return Json(new { model = (new PropertyModel().GetPropertyUnitDetails(UID)) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = (new PropertyModel().GetPropertyUnitDetails(UID,LeaseTermID)) }, JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)
             {
@@ -145,11 +145,11 @@ namespace ShomaRM.Controllers
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult GetPropertyFloorDetails(int FloorID, DateTime AvailableDate, int Bedroom, decimal MaxRent)
+        public ActionResult GetPropertyFloorDetails(int FloorID, DateTime AvailableDate, int Bedroom, decimal MaxRent, int LeaseTermID)
         {
             try
             {
-                return Json(new { model = (new PropertyFloor().GetPropertyFloorDetails(FloorID, AvailableDate, Bedroom, MaxRent)) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = (new PropertyFloor().GetPropertyFloorDetails(FloorID, AvailableDate, Bedroom, MaxRent, LeaseTermID)) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)

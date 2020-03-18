@@ -32,7 +32,10 @@ namespace ShomaRM.Controllers
                 model.Bedroom = Convert.ToInt32(Session["Bedroom"].ToString());
                 model.MoveInDate = Convert.ToDateTime(Session["MoveInDate"].ToString());
                 model.MaxRent = Convert.ToDecimal(Session["MaxRent"].ToString());
-                model.LeaseTerm = Convert.ToInt32(Session["LeaseTerm"].ToString());
+                model.LeaseTermID = Convert.ToInt32(Session["LeaseTerm"].ToString());
+                var leaseDet = new Areas.Admin.Models.LeaseTermsModel().GetLeaseTermsDetails(model.LeaseTermID);
+                model.LeaseTerm =Convert.ToInt32(leaseDet.LeaseTerms);
+                
                 model.FromHome = 1;
                 Session.Remove("Bedroom");
                 Session.Remove("MoveInDate");

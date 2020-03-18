@@ -70,7 +70,7 @@ namespace ShomaRM.Models
         public Nullable<decimal> VehicleRegistration { get; set; }
         public Nullable<decimal> Prorated_Rent { get; set; }
         public int LeaseTerm { get; set; }
-
+        public int LeaseTermID { get; set; }
         public Nullable<decimal> MonthlyCharges { get; set; }
         public Nullable<decimal> MoveInCharges { get; set; }
         public Nullable<decimal> PartialMoveInCharges { get; set; }
@@ -387,6 +387,8 @@ namespace ShomaRM.Models
             model.FirstName = "";
             model.LastName = "";
             model.PetDNAAmt = 0;
+            model.LeaseTermID = 0;
+
             if (Id != 0)
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.UserId == Id).FirstOrDefault();
@@ -426,10 +428,11 @@ namespace ShomaRM.Models
                     model.PetDeposit = GetProspectData.PetDeposit;
                     model.FOBAmt = 0;
                     model.EnvelopeID = (!string.IsNullOrWhiteSpace(GetProspectData.EnvelopeID) ? GetProspectData.EnvelopeID : "");
-                    model.LeaseTerm = Convert.ToInt32(GetProspectData.LeaseTerm);
+                    var leaseDet = db.tbl_LeaseTerms.Where(p => p.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
+                    model.LeaseTerm = Convert.ToInt32(leaseDet.LeaseTerms);
                     model.EsignatureID = (!string.IsNullOrWhiteSpace(GetProspectData.EsignatureID) ? GetProspectData.EsignatureID : "");
                     model.PetDNAAmt = GetProspectData.PetDNAAmt;
-
+                    model.LeaseTermID = Convert.ToInt32(GetProspectData.LeaseTerm);
                     DateTime? dateExpire = null;
                     try
                     {

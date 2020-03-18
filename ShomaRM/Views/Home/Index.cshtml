@@ -111,9 +111,6 @@
                                         </span>
                                         <select id="ddlLease" class="form-control" style="background-color:white;">
                                            
-                                            <option value='7'>7 Months</option>
-                                            <option value='12' selected>12 Months</option>
-                                           
                                         </select>
                                     </div>
                                 </div>
@@ -617,7 +614,7 @@
 <script type="text/javascript">
 
     $(function () {
-
+        getLeaseTermsList();
         //$("#txtMoveInDate").datepicker();
 
         $("#txtMoveInDate").datepicker({
@@ -636,4 +633,39 @@
             $("#txtMoveInDate").focus();
         });
     });
+    var getLeaseTermsList = function (sortby, orderby) {
+        if (!sortby) {
+            sortby = 'LeaseTerms';
+        }
+        if (!orderby) {
+            orderby = 'ASC';
+        }
+        var params = {
+            SortBy: sortby,
+            OrderBy: orderby
+        };
+        $("#divLoader").show();
+        $.ajax({
+            url: '/LeaseTerms/GetLeaseTermsList',
+            method: "post",
+            data: JSON.stringify(params),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                $("#ddlLease").empty();
+         
+                $.each(response.model, function (index, elementValue) {
+                    if (elementValue.LeaseTerms == "12")
+                    {
+                        $("#ddlLease").append("<option value=" + elementValue.LTID + " selected>" + elementValue.LeaseTerms + "</option>");
+                    } else {
+                        $("#ddlLease").append("<option value=" + elementValue.LTID + ">" + elementValue.LeaseTerms + "</option>");
+                    }
+                   
+                });
+                $("#divLoader").hide();
+            }
+        });
+
+    }
 </script>
