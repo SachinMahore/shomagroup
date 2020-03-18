@@ -24,6 +24,7 @@ namespace ShomaRM.Areas.Admin.Models
         public string Waterfront { get; set; }
         public string Amenities { get; set; }
         public string Picture { get; set; }
+        public string OriginalPicture { get; set; }
         public string YouTube { get; set; }
         public Nullable<long> State { get; set; }
         public Nullable<long> City { get; set; }
@@ -45,25 +46,11 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<decimal> DNAPetFees { get; set; }
 
 
-        public string SaveUpdateProperty(HttpPostedFileBase fb, PropertyManagementModel model)
+        public string SaveUpdateProperty(PropertyManagementModel model)
         {
-            string filePath = "";
-            string fileName = "";
-            string sysFileName = "";
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
-            if (fb != null && fb.ContentLength > 0)
-            {
-                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/demo/");
-                fileName = fb.FileName;
-                sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fb.FileName);
-                fb.SaveAs(filePath + "//" + sysFileName);
-                if (!string.IsNullOrWhiteSpace(fb.FileName))
-                {
-                    string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/demo") + "/" + sysFileName;
-
-                }
-            }
+            
             if (model.PID == 0)
             {
                 var saveProp = new tbl_Properties()
@@ -81,7 +68,7 @@ namespace ShomaRM.Areas.Admin.Models
                     State = model.State,
                     City = model.City,
                     AgentID = 1,
-                    Picture = sysFileName,
+                    Picture = model.Picture,
                     Status = model.Status,
                     Amenities = model.Amenities,
                     CreatedBy = 1,
@@ -119,9 +106,9 @@ namespace ShomaRM.Areas.Admin.Models
                     propUpdate.YouTube = model.YouTube;
                     propUpdate.Area = model.Area;
                     propUpdate.AgentID = 1;
-                    if (sysFileName != "")
+                    if (model.Picture != "")
                     {
-                        propUpdate.Picture = sysFileName;
+                        propUpdate.Picture = model.Picture;
                     }
                     propUpdate.Status = model.Status;
                     if (model.Amenities != "0")
@@ -608,7 +595,41 @@ namespace ShomaRM.Areas.Admin.Models
                 throw ex;
             }
         }
-       
+        public PropertyManagementModel PropertyFileUpload(HttpPostedFileBase fileBaseUpload1, PropertyManagementModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            PropertyManagementModel propertyManagementModel = new PropertyManagementModel();
+            string filePath = "";
+            string fileName = "";
+            string sysFileName = "";
+            string Extension = "";
+
+            if (fileBaseUpload1 != null && fileBaseUpload1.ContentLength > 0)
+            {
+                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/demo/");
+                DirectoryInfo di = new DirectoryInfo(filePath);
+                FileInfo _FileInfo = new FileInfo(filePath);
+                if (!di.Exists)
+                {
+                    di.Create();
+                }
+                fileName = fileBaseUpload1.FileName;
+                Extension = Path.GetExtension(fileBaseUpload1.FileName);
+                sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseUpload1.FileName);
+                fileBaseUpload1.SaveAs(filePath + "//" + sysFileName);
+                if (!string.IsNullOrWhiteSpace(fileBaseUpload1.FileName))
+                {
+                    string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/demo/") + "/" + sysFileName;
+
+                }
+                //propertyManagementModel.Picture = sysFileName;
+                //propertyManagementModel.OriginalPicture = fileName;
+                propertyManagementModel.Picture = fileName;
+                propertyManagementModel.OriginalPicture = fileName;
+            }
+            return propertyManagementModel;
+        }
+
         public class PropertySearch
         {
             public long PID { get; set; }

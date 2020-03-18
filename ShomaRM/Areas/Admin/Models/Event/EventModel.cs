@@ -20,6 +20,7 @@ namespace ShomaRM.Areas.Admin.Models
         public string EventDateString { get; set; }
         public string EventDateText { get; set; }
         public string Photo { get; set; }
+        public string OriginalPhoto { get; set; }
         public string Description { get; set; }
         public Nullable<int> CreatedByID { get; set; }
         public Nullable<System.DateTime> CreatedByDate { get; set; }
@@ -31,30 +32,10 @@ namespace ShomaRM.Areas.Admin.Models
         public bool IsFree { get; set; }
         public string FessString { get; set; }
 
-        public string SaveUpdateEvent(HttpPostedFileBase fb, EventModel model)
+        public string SaveUpdateEvent(EventModel model)
         {
-            string filePath = "";
-            string fileName = "";
-            string sysFileName = "";
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
-            if (fb != null && fb.ContentLength > 0)
-            {
-                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Event/");
-                DirectoryInfo di = new DirectoryInfo(filePath);
-                if (!di.Exists)
-                {
-                    di.Create();
-                }
-                fileName = fb.FileName;
-                sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fb.FileName);
-                fb.SaveAs(filePath + "//" + sysFileName);
-                if (!string.IsNullOrWhiteSpace(fb.FileName))
-                {
-                    string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/Event/") + "/" + sysFileName;
-
-                }
-            }
             DateTime dt = DateTime.Parse(model.EventTimeString != null ? model.EventTimeString : "00:00");
             
             TimeSpan time = dt.TimeOfDay;
@@ -65,7 +46,7 @@ namespace ShomaRM.Areas.Admin.Models
                     EventName = model.EventName,
                     PropertyID = model.PropertyID,
                     EventDate = model.EventDate,
-                    Photo = sysFileName,
+                    Photo = model.Photo,
                     Description = model.Description,
                     CreatedByID = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
                     CreatedByDate = DateTime.Now.Date,
@@ -83,9 +64,9 @@ namespace ShomaRM.Areas.Admin.Models
                 string PhotoName = "";
                 var GetEventData = db.tbl_Event.Where(p => p.EventID == model.EventID).FirstOrDefault();
                 PhotoName = GetEventData.Photo;
-                if (PhotoName != sysFileName && sysFileName!="")
+                if (PhotoName != model.Photo && model.Photo != "")
                 {
-                    PhotoName = sysFileName;
+                    PhotoName = model.Photo;
                 }
                 if (GetEventData != null)
                 {
@@ -504,6 +485,39 @@ namespace ShomaRM.Areas.Admin.Models
             }
 
             return _eventModel;
+        }
+
+        public EventModel EventFileUpload(HttpPostedFileBase fileBaseUpload1, EventModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            EventModel eventModel = new EventModel();
+            string filePath = "";
+            string fileName = "";
+            string sysFileName = "";
+            string Extension = "";
+
+            if (fileBaseUpload1 != null && fileBaseUpload1.ContentLength > 0)
+            {
+                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Event/");
+                DirectoryInfo di = new DirectoryInfo(filePath);
+                FileInfo _FileInfo = new FileInfo(filePath);
+                if (!di.Exists)
+                {
+                    di.Create();
+                }
+                fileName = fileBaseUpload1.FileName;
+                Extension = Path.GetExtension(fileBaseUpload1.FileName);
+                sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseUpload1.FileName);
+                fileBaseUpload1.SaveAs(filePath + "//" + sysFileName);
+                if (!string.IsNullOrWhiteSpace(fileBaseUpload1.FileName))
+                {
+                    string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/Event/") + "/" + sysFileName;
+
+                }
+                eventModel.Photo = sysFileName;
+                eventModel.OriginalPhoto = fileName;
+            }
+            return eventModel;
         }
     }
 }
