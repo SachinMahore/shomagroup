@@ -2479,7 +2479,7 @@ var SaveOnlineProspect = function () {
     var marketsource = $("#ddlMarketSource").val();
     var moveInDate = $("#txtDate").val();
     var isAgree = $("#chkAgreeTerms").is(":checked") ? "1" : "0";
-    var leaseterm = $("#lblLease2").text();
+    var leaseterm = $("#hndLeaseTermID").val();
     //if (isAgree == 0) {
     //    msg += "Please agree with Sanctuary's terms and conditions</br>";
     //}
@@ -2605,7 +2605,7 @@ var SaveQuote = function () {
     var proratedrent = unformatText($("#lblProrated_TotalRent").text());
     var vehiclefees = $("#lblVehicleFees1").text();
     var adminfees = $("#lblAdminFees").text();
-    var leaseterm = $("#lblLease2").text();
+    var leaseterm = $("#hndLeaseTermID").val();
     var petDNAAmt = unformatText($("#lblPetDNAAmt").text());
 
     var model = {
@@ -3259,9 +3259,9 @@ var getPropertyUnitList = function (modelname) {
         bedroom = $("#ddlRoom").val();
     }
     var availdate = $("#txtDate").val();
+    var leasetermid = $("#hndLeaseTermID").val();
 
-
-    var model = { ModelName: modelname, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom };
+    var model = { ModelName: modelname, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, LeaseTermID: leasetermid};
 
     $.ajax({
         url: "/Property/GetPropertyModelUnitList/",
@@ -3291,7 +3291,7 @@ var getPropertyUnitList = function (modelname) {
 }
 var getPropertyUnitDetails = function (uid) {
 
-    var model = { UID: uid };
+    var model = { UID: uid, LeaseTermID:$("#hndLeaseTermID").val() };
     $.ajax({
         url: "/Property/GetPropertyUnitDetails/",
         type: "post",
@@ -5583,7 +5583,8 @@ function showFloorPlan(flid) {
         maxrent = $("#txtMaxRent").val();
     }
     var availdate = $("#txtDate").val();
-    var model = { FloorID: flid, AvailableDate: availdate, Bedroom: bedroom, MaxRent: maxrent };
+    var leaseterm = $("#hndLeaseTermID").val();
+    var model = { FloorID: flid, AvailableDate: availdate, Bedroom: bedroom, MaxRent: maxrent, LeaseTermID: leaseterm };
     $.ajax({
         url: "/Property/GetPropertyFloorDetails/",
         type: "post",
@@ -5679,7 +5680,9 @@ function getPropertyUnitListByFloor(flid) {
         maxrent = $("#txtMaxRent").val();
     }
     var availdate = $("#txtDate").val();
-    var model = { FloorID: flid, AvailableDate: availdate, Bedroom: bedroom, MaxRent: maxrent };
+    var leaseterm = $("#hndLeaseTermID").val();
+
+    var model = { FloorID: flid, AvailableDate: availdate, Bedroom: bedroom, MaxRent: maxrent, LeaseTermID: leaseterm };
     $.ajax({
         url: "/Property/GetPropertyFloorDetails/",
         type: "post",
