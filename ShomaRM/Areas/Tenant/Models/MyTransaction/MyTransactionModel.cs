@@ -1181,18 +1181,18 @@ namespace ShomaRM.Areas.Tenant.Models
             var editPaymentAccounts = db.tbl_PaymentAccounts.Where(co => co.PAID == model.PAID).FirstOrDefault();
             ApplyNowModel mm = new ApplyNowModel();
             string transStatus = "";
-            string encryptedCardNumber = editPaymentAccounts.CardNumber == null ? null :  new EncryptDecrypt().EncryptText(editPaymentAccounts.CardNumber);
-            string encryptedCardMonth = new EncryptDecrypt().EncryptText(editPaymentAccounts.Month);
-            string encryptedCardYear = new EncryptDecrypt().EncryptText(editPaymentAccounts.Year);
-            string encryptedAccountNumber = editPaymentAccounts.AccountNumber == "" ? "" : new EncryptDecrypt().EncryptText(editPaymentAccounts.AccountNumber);
-            string encryptedRoutingNumber = editPaymentAccounts.RoutingNumber == "" ? "" : new EncryptDecrypt().EncryptText(editPaymentAccounts.RoutingNumber);
+            //string encryptedCardNumber = editPaymentAccounts.CardNumber == null ? null :  new EncryptDecrypt().EncryptText(editPaymentAccounts.CardNumber);
+            //string encryptedCardMonth = new EncryptDecrypt().EncryptText(editPaymentAccounts.Month);
+            //string encryptedCardYear = new EncryptDecrypt().EncryptText(editPaymentAccounts.Year);
+            //string encryptedAccountNumber = editPaymentAccounts.AccountNumber == "" ? "" : new EncryptDecrypt().EncryptText(editPaymentAccounts.AccountNumber);
+            //string encryptedRoutingNumber = editPaymentAccounts.RoutingNumber == "" ? "" : new EncryptDecrypt().EncryptText(editPaymentAccounts.RoutingNumber);
             if (editPaymentAccounts != null)
             {
 
-                mm.CardNumber = encryptedCardNumber;
+                mm.CardNumber = editPaymentAccounts.CardNumber;
                 mm.CardMonth = editPaymentAccounts.Month;
                 mm.CardYear = editPaymentAccounts.Year;
-                //mm.CCVNumber = model.CCVNumber;
+                mm.CCVNumber = "123";
                 mm.ProspectId = model.TenantID;
                 mm.PaymentMethod = 1;
                 mm.Charge_Amount = model.Charge_Amount;

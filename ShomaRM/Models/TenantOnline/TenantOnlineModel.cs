@@ -310,26 +310,26 @@ namespace ShomaRM.Models
                     lstpr.DateExpireTxt = dateExpire == null ? "" : dateExpire.Value.ToString("MM/dd/yyy");
                     lstpr.IDType = Convert.ToInt32(dr["IDType"].ToString());
                     lstpr.State = Convert.ToInt64(dr["State"].ToString());
-                    //if (!string.IsNullOrWhiteSpace(dr["IDNumber"].ToString()))
-                    //{
-                    //    string decryptedIDNumber = new EncryptDecrypt().DecryptText(dr["IDNumber"].ToString());
-                    //    lstpr.IDNumber = decryptedIDNumber;
-                    //}
-                    //else
-                    //{
-                    //    lstpr.IDNumber = "";
-                    //}
-                    lstpr.IDNumber = dr["IDNumber"].ToString();
-                    //if (!string.IsNullOrWhiteSpace(dr["SSN"].ToString()))
-                    //{
-                    //    string decryptedSSN = new EncryptDecrypt().DecryptText(dr["SSN"].ToString());
-                    //    lstpr.SSN = decryptedSSN;
-                    //}
-                    //else
-                    //{
-                    //    lstpr.SSN = "";
-                    //}
-                    lstpr.SSN = dr["SSN"].ToString();
+                    if (!string.IsNullOrWhiteSpace(dr["IDNumber"].ToString()))
+                    {
+                        string decryptedIDNumber = new EncryptDecrypt().DecryptText(dr["IDNumber"].ToString());
+                        lstpr.IDNumber = decryptedIDNumber;
+                    }
+                    else
+                    {
+                        lstpr.IDNumber = "";
+                    }
+                    //lstpr.IDNumber = dr["IDNumber"].ToString();
+                    if (!string.IsNullOrWhiteSpace(dr["SSN"].ToString()))
+                    {
+                        string decryptedSSN = new EncryptDecrypt().DecryptText(dr["SSN"].ToString());
+                        lstpr.SSN = decryptedSSN;
+                    }
+                    else
+                    {
+                        lstpr.SSN = "";
+                    }
+                   // lstpr.SSN = dr["SSN"].ToString();
                     lstpr.Country = dr["Country"].ToString();
                     lstpr.HomeAddress1 = dr["HomeAddress1"].ToString();
                     lstpr.HomeAddress2 = dr["HomeAddress2"].ToString();

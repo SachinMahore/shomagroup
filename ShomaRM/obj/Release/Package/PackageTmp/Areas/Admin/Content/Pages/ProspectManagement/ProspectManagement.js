@@ -35,6 +35,9 @@ var saveupdateProspect = function () {
     if (appointmentStatus == "0") {
         msg += "Select the appointment status</br>";
     }
+    if (recheduledate == "") {
+        msg += "Select the Date </br>";
+    }
     if (msg != "") {
         $.alert({
             title: '',

@@ -1335,7 +1335,7 @@ var getCompareModelList = function () {
 }
 var getPropertyUnitDetails = function (uid) {
 
-    var model = { UID: uid };
+    var model = { UID: uid, LeaseTermID: $("#hndLeaseTermID").val()};
     $.ajax({
         url: "/Property/GetPropertyUnitDetails/",
         type: "post",

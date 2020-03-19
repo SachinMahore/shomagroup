@@ -6341,15 +6341,15 @@ function formatSSN(ssn) {
 }
 
 $(function () {
-    //$("#txtIDNumber").blur(function () {
-    //    cCardNum = $(this).val();
-    //    $(this).data("value", cCardNum);
-    //    if (cCardNum.length > 4) {
-    //        $(this).val(("*".repeat(cCardNum.length - 4) + cCardNum.substr(cCardNum.length - 4, 4)))
-    //    }
-    //}).focus(function () {
-    //    $(this).val($(this).data("value"));
-    //});
+    $("#txtIDNumber").blur(function () {
+        cCardNum = $(this).val();
+        $(this).data("value", cCardNum);
+        if (cCardNum.length > 4) {
+            $(this).val(("*".repeat(cCardNum.length - 4) + cCardNum.substr(cCardNum.length - 4, 4)))
+        }
+    }).focus(function () {
+        $(this).val($(this).data("value"));
+    });
 
 });
 
