@@ -552,23 +552,23 @@ namespace ShomaRM.Areas.Admin.Models
                     model.MoveInDateTxt = dateExpire.Value.ToString("MM/dd/yyyy");
                     model.ExpireDate = Convert.ToDateTime(GetProspectData.CreatedDate).AddHours(48).ToString("MM/dd/yyyy") + " 23:59:59";
 
-                    string decryptedCardNumber = new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardNumber);
-                    string decryptedCardMonth = new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardMonth);
-                    string decryptedCardYear = new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardYear);
-                    string decryptedCCVNumber = new EncryptDecrypt().DecryptText(GetPaymentProspectData.CCVNumber);
+                    //string decryptedCardNumber = new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardNumber);
+                    //string decryptedCardMonth = new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardMonth);
+                    //string decryptedCardYear = new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardYear);
+                    //string decryptedCCVNumber = new EncryptDecrypt().DecryptText(GetPaymentProspectData.CCVNumber);
 
-                    if (GetPaymentProspectData != null)
-                    {
-                        model.Name_On_Card = GetPaymentProspectData.Name_On_Card;
-                        model.CardNumber = decryptedCardNumber;
-                        model.CardMonth = decryptedCardMonth;
-                        model.CardYear = decryptedCardYear;
-                        model.CCVNumber = decryptedCCVNumber;
-                    }
-                    if (GetDocumentVerificationData != null)
-                    {
-                        model.DocumentName = GetDocumentVerificationData.DocumentName;
-                    }
+                    //if (GetPaymentProspectData != null)
+                    //{
+                    //    model.Name_On_Card = GetPaymentProspectData.Name_On_Card;
+                    //    model.CardNumber = decryptedCardNumber;
+                    //    model.CardMonth = decryptedCardMonth;
+                    //    model.CardYear = decryptedCardYear;
+                    //    model.CCVNumber = decryptedCCVNumber;
+                    //}
+                    //if (GetDocumentVerificationData != null)
+                    //{
+                    //    model.DocumentName = GetDocumentVerificationData.DocumentName;
+                    //}
 
                     var getPetPlace = db.tbl_TenantPetPlace.Where(p => p.TenantID == GetProspectData.ID).FirstOrDefault();
                     if (getPetPlace != null)
