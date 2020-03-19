@@ -291,6 +291,7 @@
     <Compile Include="Areas\Tenant\Models\Club\ClubModel.cs" />
     <Compile Include="Areas\Tenant\Models\Club\CommonClubModel.cs" />
     <Compile Include="Areas\Tenant\Models\CommunityActivity\CommunityActivityModel.cs" />
+    <Compile Include="Areas\Tenant\Models\EmployerHistory\EmployerHistoryModel.cs" />
     <Compile Include="Areas\Tenant\Models\Enum\ClubEnum.cs" />
     <Compile Include="Areas\Tenant\Models\Enum\EnumNameFinder.cs" />
     <Compile Include="Areas\Tenant\Models\EventBooking\EventBookingModel.cs" />

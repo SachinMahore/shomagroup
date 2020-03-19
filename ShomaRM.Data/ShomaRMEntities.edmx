@@ -327,6 +327,36 @@
           <Property Name="DocumentState" Type="varchar" MaxLength="500" />
           <Property Name="DocumentIDNumber" Type="varchar" MaxLength="500" />
         </EntityType>
+        <EntityType Name="tbl_EmployerHistory">
+          <Key>
+            <PropertyRef Name="HEIID" />
+          </Key>
+          <Property Name="HEIID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployerName" Type="varchar" MaxLength="100" />
+          <Property Name="JobTitle" Type="varchar" MaxLength="100" />
+          <Property Name="JobType" Type="int" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="TerminationDate" Type="datetime" />
+          <Property Name="AnnualIncome" Type="money" />
+          <Property Name="AddAnnualIncome" Type="money" />
+          <Property Name="SupervisorName" Type="varchar" MaxLength="100" />
+          <Property Name="SupervisorPhone" Type="varchar" MaxLength="100" />
+          <Property Name="SupervisorEmail" Type="nvarchar" MaxLength="100" />
+          <Property Name="Country" Type="int" />
+          <Property Name="Address1" Type="nvarchar(max)" />
+          <Property Name="Address2" Type="nvarchar(max)" />
+          <Property Name="State" Type="int" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" />
+          <Property Name="Zip" Type="nvarchar" MaxLength="50" />
+          <Property Name="TaxReturn1" Type="nvarchar(max)" />
+          <Property Name="TaxReturn2" Type="nvarchar(max)" />
+          <Property Name="TaxReturn3" Type="nvarchar(max)" />
+          <Property Name="TaxReturn1OrigName" Type="nvarchar(max)" />
+          <Property Name="TaxReturn2OrigName" Type="nvarchar(max)" />
+          <Property Name="TaxReturn3OrigName" Type="nvarchar(max)" />
+          <Property Name="PaystubValue" Type="int" />
+          <Property Name="TenantId" Type="bigint" />
+        </EntityType>
         <EntityType Name="tbl_Estimate">
           <Key>
             <PropertyRef Name="EID" />
@@ -1096,7 +1126,7 @@
           <Property Name="Gender" Type="int" />
           <Property Name="Email" Type="varchar" MaxLength="255" />
           <Property Name="Mobile" Type="varchar" MaxLength="15" />
-          <Property Name="PassportNumber" Type="varchar" MaxLength="50" />
+          <Property Name="PassportNumber" Type="varchar" MaxLength="255" />
           <Property Name="CountryIssuance" Type="varchar" MaxLength="50" />
           <Property Name="DateIssuance" Type="datetime" />
           <Property Name="DateExpire" Type="datetime" />
@@ -1104,7 +1134,7 @@
           <Property Name="State" Type="bigint" />
           <Property Name="PropertyID" Type="bigint" />
           <Property Name="UnitID" Type="bigint" />
-          <Property Name="IDNumber" Type="varchar" MaxLength="50" />
+          <Property Name="IDNumber" Type="varchar" MaxLength="255" />
           <Property Name="Country" Type="varchar" MaxLength="50" />
           <Property Name="HomeAddress1" Type="varchar" MaxLength="300" />
           <Property Name="HomeAddress2" Type="varchar" MaxLength="300" />
@@ -1163,7 +1193,7 @@
           <Property Name="PassportDocument" Type="varchar" MaxLength="500" />
           <Property Name="IdentityDocument" Type="varchar" MaxLength="500" />
           <Property Name="TaxReturn" Type="varchar" MaxLength="500" />
-          <Property Name="SSN" Type="nvarchar" MaxLength="15" />
+          <Property Name="SSN" Type="nvarchar" MaxLength="255" />
           <Property Name="TaxReturn2" Type="varchar" MaxLength="500" />
           <Property Name="TaxReturn3" Type="varchar" MaxLength="500" />
           <Property Name="HaveVehicle" Type="bit" />
@@ -2442,6 +2472,7 @@
           <EntitySet Name="tbl_Country" EntityType="Self.tbl_Country" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Document" EntityType="Self.tbl_Document" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_DocumentVerification" EntityType="Self.tbl_DocumentVerification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_EmployerHistory" EntityType="Self.tbl_EmployerHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Estimate" EntityType="Self.tbl_Estimate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Event" EntityType="Self.tbl_Event" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_EventBooking" EntityType="Self.tbl_EventBooking" Schema="dbo" store:Type="Tables" />
@@ -4642,6 +4673,7 @@
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_TenantOnline" EntitySet="tbl_TenantOnline" />
           </AssociationSet>
+          <EntitySet Name="tbl_EmployerHistory" EntityType="ShomaRMEntitiesModel.tbl_EmployerHistory" />
 
         </EntityContainer>
         <EntityType Name="tbl_Country">
@@ -4827,7 +4859,7 @@
           <Property Name="Gender" Type="Int32" />
           <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="PassportNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PassportNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="CountryIssuance" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DateIssuance" Type="DateTime" Precision="3" />
           <Property Name="DateExpire" Type="DateTime" Precision="3" />
@@ -4835,7 +4867,7 @@
           <Property Name="State" Type="Int64" />
           <Property Name="PropertyID" Type="Int64" />
           <Property Name="UnitID" Type="Int64" />
-          <Property Name="IDNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IDNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="HomeAddress1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="HomeAddress2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
@@ -4894,7 +4926,7 @@
           <Property Name="PassportDocument" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="IdentityDocument" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="TaxReturn" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="SSN" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="SSN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="TaxReturn2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="TaxReturn3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="HaveVehicle" Type="Boolean" />
@@ -5786,6 +5818,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_EmployerHistory">
+          <Key>
+            <PropertyRef Name="HEIID" />
+          </Key>
+          <Property Name="HEIID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="JobTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="JobType" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="TerminationDate" Type="DateTime" Precision="3" />
+          <Property Name="AnnualIncome" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AddAnnualIncome" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SupervisorName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SupervisorPhone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SupervisorEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="Int32" />
+          <Property Name="Address1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturn1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturn2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturn3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturn1OrigName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturn2OrigName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturn3OrigName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PaystubValue" Type="Int32" />
+          <Property Name="TenantId" Type="Int64" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7349,6 +7411,37 @@
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_EmployerHistory">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_EmployerHistory">
+              <MappingFragment StoreEntitySet="tbl_EmployerHistory">
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="PaystubValue" ColumnName="PaystubValue" />
+                <ScalarProperty Name="TaxReturn3OrigName" ColumnName="TaxReturn3OrigName" />
+                <ScalarProperty Name="TaxReturn2OrigName" ColumnName="TaxReturn2OrigName" />
+                <ScalarProperty Name="TaxReturn1OrigName" ColumnName="TaxReturn1OrigName" />
+                <ScalarProperty Name="TaxReturn3" ColumnName="TaxReturn3" />
+                <ScalarProperty Name="TaxReturn2" ColumnName="TaxReturn2" />
+                <ScalarProperty Name="TaxReturn1" ColumnName="TaxReturn1" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="SupervisorEmail" ColumnName="SupervisorEmail" />
+                <ScalarProperty Name="SupervisorPhone" ColumnName="SupervisorPhone" />
+                <ScalarProperty Name="SupervisorName" ColumnName="SupervisorName" />
+                <ScalarProperty Name="AddAnnualIncome" ColumnName="AddAnnualIncome" />
+                <ScalarProperty Name="AnnualIncome" ColumnName="AnnualIncome" />
+                <ScalarProperty Name="TerminationDate" ColumnName="TerminationDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="JobType" ColumnName="JobType" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+                <ScalarProperty Name="HEIID" ColumnName="HEIID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

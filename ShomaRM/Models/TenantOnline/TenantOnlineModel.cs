@@ -450,7 +450,7 @@ namespace ShomaRM.Models
                     if (model.MoveInDateFrom > Convert.ToDateTime("01/01/0001 12:00:00 AM"))
                     {
                         getAppldata.MoveInDateFrom = model.MoveInDateFrom;
-                        getAppldata.MoveInDateTo = model.MoveInDateTo;
+                        //getAppldata.MoveInDateTo = model.MoveInDateTo;
                     }
                     getAppldata.MonthlyPayment = model.MonthlyPayment;
                     getAppldata.Reason = model.Reason;
