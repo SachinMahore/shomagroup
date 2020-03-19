@@ -4987,14 +4987,14 @@ var saveupdateTenantOnline = function () {
     var Gender = $("#ddlGender").val();
     var Email = $("#txtEmailNew").val();
     var Mobile = unformatText($("#txtMobileNumber").val());
-    var PassportNumber = $("#txtPassportNum").val();
+    //var PassportNumber = $("#txtPassportNum").val();
     var CountryIssuance = $("#txtCOI").val();
     var DateIssuance = $("#txtDateOfIssuance").val();
     var DateExpire = $("#txtDateOfExpiration").val();
     var IDType = $("#ddlDocumentTypePersonal").val();
     var State = $("#ddlStatePersonal").val();
-    var IDNumber = $("#txtIDNumber").data("value");
-    var SSNNumber = $("#txtSSNNumber").data("value");
+    //var IDNumber = $("#txtIDNumber").data("value");
+    //var SSNNumber = $("#txtSSNNumber").data("value");
     var Country = $("#txtCountry").val();
     var HomeAddress1 = $("#txtAddress1").val();
     var HomeAddress2 = $("#txtAddress2").val();
@@ -5085,13 +5085,13 @@ var saveupdateTenantOnline = function () {
     $formData.append('Gender', Gender);
     $formData.append('Email', Email);
     $formData.append('Mobile', Mobile);
-    $formData.append('PassportNumber', PassportNumber);
+    //$formData.append('PassportNumber', PassportNumber);
     $formData.append('CountryIssuance', CountryIssuance);
     $formData.append('DateIssuance', DateIssuance);
     $formData.append('DateExpire', DateExpire);
     $formData.append('IDType', IDType);
     $formData.append('State', State);
-    $formData.append('IDNumber', IDNumber);
+    //$formData.append('IDNumber', IDNumber);
     $formData.append('Country', Country);
     $formData.append('HomeAddress1', HomeAddress1);
     $formData.append('HomeAddress2', HomeAddress2);
@@ -5147,7 +5147,7 @@ var saveupdateTenantOnline = function () {
     $formData.append('IsInternational', isInternational);
     $formData.append('IsAdditionalRHistory', isAdditionalRHistory);
     $formData.append('OtherGender', OtherGender);
-    $formData.append('SSN', SSNNumber);
+   // $formData.append('SSN', SSNNumber);
 
     $formData.append('TaxReturn', fileUpload1);
     $formData.append('UploadOriginalFileName1', originalFileUpload1);
