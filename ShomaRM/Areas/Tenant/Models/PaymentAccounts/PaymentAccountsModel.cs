@@ -179,7 +179,6 @@ namespace ShomaRM.Areas.Tenant.Models
             return listPaymentBankAccounts;
         }
 
-
         public PaymentAccountsModel EditPaymentsAccounts(long PAID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
