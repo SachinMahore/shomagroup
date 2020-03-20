@@ -165,12 +165,9 @@
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_PaymentAccounts" Width="1.5" PointX="17.375" PointY="18.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_TenantOnline" Width="1.5" PointX="28.375" PointY="19.5" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" />
-
-        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_EmployerHistory" Width="1.5" PointX="19.375" PointY="0.75" />
-
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_TenantInfo" Width="1.5" PointX="28.375" PointY="63.875" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow" />
-
+        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_EmployerHistory" Width="1.5" PointX="19.375" PointY="0.75" />
 
       </Diagram>
     </edmx:Diagrams>
