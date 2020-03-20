@@ -310,26 +310,26 @@ namespace ShomaRM.Models
                     lstpr.DateExpireTxt = dateExpire == null ? "" : dateExpire.Value.ToString("MM/dd/yyy");
                     lstpr.IDType = Convert.ToInt32(dr["IDType"].ToString());
                     lstpr.State = Convert.ToInt64(dr["State"].ToString());
-                    //if (!string.IsNullOrWhiteSpace(dr["IDNumber"].ToString()))
-                    //{
-                    //    string decryptedIDNumber = new EncryptDecrypt().DecryptText(dr["IDNumber"].ToString());
-                    //    lstpr.IDNumber = decryptedIDNumber;
-                    //}
-                    //else
-                    //{
-                    //    lstpr.IDNumber = "";
-                    //}
-                    lstpr.IDNumber = dr["IDNumber"].ToString();
-                    //if (!string.IsNullOrWhiteSpace(dr["SSN"].ToString()))
-                    //{
-                    //    string decryptedSSN = new EncryptDecrypt().DecryptText(dr["SSN"].ToString());
-                    //    lstpr.SSN = decryptedSSN;
-                    //}
-                    //else
-                    //{
-                    //    lstpr.SSN = "";
-                    //}
-                    lstpr.SSN = dr["SSN"].ToString();
+                    if (!string.IsNullOrWhiteSpace(dr["IDNumber"].ToString()))
+                    {
+                        string decryptedIDNumber = new EncryptDecrypt().DecryptText(dr["IDNumber"].ToString());
+                        lstpr.IDNumber = decryptedIDNumber;
+                    }
+                    else
+                    {
+                        lstpr.IDNumber = "";
+                    }
+                    //lstpr.IDNumber = dr["IDNumber"].ToString();
+                    if (!string.IsNullOrWhiteSpace(dr["SSN"].ToString()))
+                    {
+                        string decryptedSSN = new EncryptDecrypt().DecryptText(dr["SSN"].ToString());
+                        lstpr.SSN = decryptedSSN;
+                    }
+                    else
+                    {
+                        lstpr.SSN = "";
+                    }
+                   // lstpr.SSN = dr["SSN"].ToString();
                     lstpr.Country = dr["Country"].ToString();
                     lstpr.HomeAddress1 = dr["HomeAddress1"].ToString();
                     lstpr.HomeAddress2 = dr["HomeAddress2"].ToString();
@@ -433,13 +433,13 @@ namespace ShomaRM.Models
                     getAppldata.Gender = model.Gender;
                     getAppldata.Email = model.Email;
                     getAppldata.Mobile = model.Mobile;
-                    getAppldata.PassportNumber = model.PassportNumber;
+                    //getAppldata.PassportNumber = model.PassportNumber;
                     getAppldata.CountryIssuance = model.CountryIssuance;
                     getAppldata.DateIssuance = model.DateIssuance;
                     getAppldata.DateExpire = model.DateExpire;
                     getAppldata.IDType = model.IDType;
                     getAppldata.State = model.State;
-                    getAppldata.IDNumber = model.IDNumber;
+                   // getAppldata.IDNumber = model.IDNumber;
                     getAppldata.Country = model.Country;
                     getAppldata.HomeAddress1 = model.HomeAddress1;
                     getAppldata.HomeAddress2 = model.HomeAddress2;
@@ -486,7 +486,7 @@ namespace ShomaRM.Models
                     getAppldata.EmergencyZipHome = model.EmergencyZipHome;
                     getAppldata.CreatedDate = DateTime.Now.Date;
                     getAppldata.OtherGender = model.OtherGender;
-                    getAppldata.SSN = model.SSN;
+                   // getAppldata.SSN = model.SSN;
                     getAppldata.TaxReturn = model.TaxReturn;
                     getAppldata.TaxReturn2 = model.TaxReturn2;
                     getAppldata.TaxReturn3 = model.TaxReturn3;

@@ -428,6 +428,7 @@
         });
         // fillDdlSalesAgent();
         setTimeout(function () {
+             $('#txtReschduleDate').val('@Model.VisitDateTime.Value.ToString("MM/dd/yyyy")');
             $('#ddlAgentAssign').val('@Model.AssignAgentID');
             if (@Model.AssignAgentID == 0) {
                 $('#lblAgentsName').html('');

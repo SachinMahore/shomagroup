@@ -11,7 +11,7 @@
 <input type="hidden" id="hndSSNNumber" value="" />
 <input type="hidden" id="hndAppHisMon" value="0" />
 <input type="hidden" id="hndHistory" value="0" />
-
+<input type="hidden" id="hndLeaseTermID" value="@Model.LeaseTermID" />
 
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
@@ -309,12 +309,9 @@
                             <div class="col-md-12">
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                     <div class="panel-heading">
-
-
                                         <p style="font-size: 12px; padding-top:10px;">We are now ready to select your personalized options. But before we do,<br>let's make sure you are registered so you don't loose all your information.</p>
                                         <p style="font-size: 12px; padding-top:10px;">Enter and register your information and a quote will then be provided to you.</p>
                                         <p style="font-size: 12px; padding-top:10px;">REGISTER BELOW OR <a href="javascript:void(0);" id="btnsignInAppl">SIGN IN</a></p>
-
 
                                     </div>
                                 </div>
@@ -358,7 +355,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="txtPassword" class="star">Password</label>
-                                    <input type="password" class="form-control" id="txtPassword" value="@Model.Password" placeholder="Password">
+                                    <input type="password" class="form-control" id="txtPassword" value="@Model.Password" placeholder="Password" onblur="checkStrength($(this).val());">
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -733,7 +730,7 @@
                                             <h3 class="panel-title">Quotation</h3>
                                         </div>
                                     </div>
-                                <p>Thank you for you interest in Sanctuary Doral. This quote expires within 72 hours at midnight. Please make sure you submit your application within the 72 hours to secure selected units. If you have any questions or need aditional assistance, please call or email us. </p>
+                                <p>Thank you for you interest in Sanctuary Doral. This quote expires at midnight on the 3rd day. Please make sure you submit your application within the  midnight on the 3rd day to secure selected units. If you have any questions or need aditional assistance, please call or email us. </p>
                                 <div class="col-sm-12 clear">
                                     <div class="col-sm-6">
                                         <div class="col-sm-4">
@@ -1544,7 +1541,7 @@
                                 <div class="col-sm-4" id="divSSNNumber">
                                     <div class="form-group">
                                         <label id="lblSSNNumber" for="txtSSNNumber" class="star">SSN Number</label>
-                                        <input class="form-control form-control-small" id="txtSSNNumber" value="" maxlength="9" onkeypress="return isOnlyNumber(event)" />
+                                        <input class="form-control form-control-small" id="txtSSNNumber" value="" maxlength="9" onkeypress="return isOnlyNumber(event)" onblur="saveupdateSSN();" />
                                     </div>
                                 </div>
 
@@ -1576,7 +1573,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="txtPassportNum" class="star">Passport Number</label>
-                                            <input id="txtPassportNum" class="form-control form-control-small" type="text" />
+                                            <input id="txtPassportNum" class="form-control form-control-small" type="text" onblur="saveupdatePassportNumber();" />
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
@@ -1639,7 +1636,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label id="lblIDNumber" for="txtIDNumber" class="star">ID Number</label>
-                                        <input class="form-control form-control-small" id="txtIDNumber" value="" />
+                                        <input class="form-control form-control-small" id="txtIDNumber" value="2222" onblur="saveupdateIDNumber();" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -3344,12 +3341,11 @@
         <div class="modal-content-summary">
             <div class="modal-body" style="padding: -15px;">
                 <button type="button" class="close" data-dismiss="modal" style="margin-top: -60px; margin-right: -52px;">&times;</button>
-                <button type="button" class="btn btn-default" onclick="print('PrintModal')">Print</button>
-                <div id="PrintModal">
+                <button type="button" class="btn btn-default print" >Print</button>
+                <div id="printable" >
                     <table>
                         <tr>
                             <td width="400">
-
                                 <div style="width:320px;">
                                     <img src="" width="320" id="imgFloorPlanSumm">
                                     <div class="panel-heading">
@@ -3957,11 +3953,6 @@
         fillMarketSourceDDL();
         if (@Model.ProspectId != 0) {
             $("#logintext").text("Logout");
-
-            $("#ddlcardmonth").val(@Model.CardMonth);
-            $("#ddlcardmonth").trigger('change');
-            $("#ddlcardyear").val(@Model.CardYear);
-            $("#ddlcardyear").trigger('change');
             setTimeout(function () {
             $("#ddlMarketSource").val(@Model.Marketsource);
             $("#ddlMarketSource").trigger('change');
@@ -4152,7 +4143,7 @@
         modal.style.display = "block";
     }
     function gotoLogOffAN() {
-       
+
         window.location = "/Account/LogOff";
     }
 </script>

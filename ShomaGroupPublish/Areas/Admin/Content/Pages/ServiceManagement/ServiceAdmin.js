@@ -7,11 +7,33 @@ $(document).ready(function () {
     fillEstimate();
     fillAssignmentAuditHistory();
     document.getElementById('fileCompleted').onchange = function () {
-        uploadServiceFile();
+        var fileUploadClosingPictureBool = restrictFileUpload($(this).val());
+        if (fileUploadClosingPictureBool == true) {
+            uploadServiceFile();
+        }
+        else {
+            document.getElementById('fileCompleted').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
 
     document.getElementById('uploadphoto').onchange = function () {
-        OwnerSignature();
+        var fileUploadTenantSignatireBool = restrictFileUpload($(this).val());
+        if (fileUploadTenantSignatireBool == true) {
+            OwnerSignature();
+        }
+        else {
+            document.getElementById('uploadphoto').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     $("#txtClosingDate").datepicker();
     $('#ClosingDate').click(function () {

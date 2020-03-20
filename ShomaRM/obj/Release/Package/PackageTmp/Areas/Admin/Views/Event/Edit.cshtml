@@ -35,6 +35,8 @@
                                         <div class="picture">
                                             <img src="/content/assets/img/Event/@Model.Photo" class="picture-src" id="wizardPicturePreview" title="" />
                                             <input type="file" id="wizard-picture" value="@Model.Photo"/>
+                                            <input type="hidden" id="hndFileUploadEventPicture" value="" />
+                                            <input type="hidden" id="hndOriginalFileUploadEventPicture" value="" />
                                         </div>
                                     </div>
                                 </div>
@@ -56,19 +58,23 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="txtEventDate" class="star">Date</label>
-                                                <input id="txtEventDate" class="form-control form-control-small" value="@(Model.EventDate!=null?Model.EventDate.Value.ToString("MM/dd/yyyy"):"")" />
-                                                <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:167px;">
-                                                    <button class="btn btn-primary search" type="button" id="iconEventDate"><i class="fa-calendar fa"></i></button>
-                                                </span>
+                                                <div class="input-group">
+                                                    <input id="txtEventDate" class="form-control form-control-small" value="@(Model.EventDate!=null?Model.EventDate.Value.ToString("MM/dd/yyyy"):"")" />
+                                                    <span class="input-group-btn">
+                                                        <button id="iconEventDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="txtEventTime" class="star">Time</label>
-                                                <input id="txtEventTime" class="time_element form-control form-control-small" type="text" name="timepicker" value="@(Model.EventTimeString)" />
-                                                <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:167px;">
-                                                    <button class="btn btn-primary search" type="button"><i class="fa-clock-o fa"></i></button>
-                                                </span>
+                                                <div class="input-group">
+                                                    <input id="txtEventTime" class="time_element form-control form-control-small" type="text" name="timepicker" value="@(Model.EventTimeString)" />
+                                                    <span class="input-group-btn">
+                                                        <button id="" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-clock-o fa"></i></button>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-4 hidden">

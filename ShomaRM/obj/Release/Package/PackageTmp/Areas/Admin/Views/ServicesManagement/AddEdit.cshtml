@@ -421,7 +421,7 @@
                                     <div class="input-group">
                                         <input id="txtRequestedDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text">
                                         <span class="input-group-btn">
-                                            <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                            <button id="btnRequestedDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
                                         </span>
                                     </div>
                                 </div>
@@ -925,8 +925,13 @@
 <script>
     $(function () {
         $('#txtClosingDate').datepicker();
+        $("#btnDesiredDate").click(function () {
+            $("#txtClosingDate").focus();
+        });
         $("#txtRequestedDate").datepicker();
-
+        $("#btnRequestedDate").click(function () {
+            $("#txtRequestedDate").focus();
+        });
     });
     var openEstimatepop = function () {
         $("#estimateWarranty").modal('show');

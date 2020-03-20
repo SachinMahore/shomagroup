@@ -397,8 +397,8 @@ namespace ShomaRM.Models
                 {
                     var GetPaymentProspectData = db.tbl_OnlinePayment.Where(p => p.ProspectId == GetProspectData.ID).FirstOrDefault();
                     var GetDocumentVerificationData = db.tbl_DocumentVerification.Where(p => p.ProspectusID == GetProspectData.ID).FirstOrDefault();
-                    string encryptedPassword = new EncryptDecrypt().EncryptText(GetProspectData.Password);
-                    string decryptedPassword = new EncryptDecrypt().DecryptText(encryptedPassword);
+                    //string encryptedPassword = new EncryptDecrypt().EncryptText(GetProspectData.Password);
+                    //string decryptedPassword = new EncryptDecrypt().DecryptText(encryptedPassword);
 
                     model.FirstName = GetProspectData.FirstName;
                     model.LastName = GetProspectData.LastName;
@@ -415,7 +415,7 @@ namespace ShomaRM.Models
                     model.PropertyId = GetProspectData.PropertyId;
                     model.ProspectId = GetProspectData.ID;
                     model.TenantID = Convert.ToInt64(GetProspectData.UserId);
-                    model.Password = decryptedPassword;
+                    model.Password = GetProspectData.Password ;
                     model.Marketsource = Convert.ToInt32(GetProspectData.Marketsource);
                     model.CreatedDate = Convert.ToDateTime(GetProspectData.CreatedDate);
                     model.IsRentalQualification = Convert.ToInt32(GetProspectData.IsRentalQualification);
