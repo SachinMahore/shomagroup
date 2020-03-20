@@ -1686,7 +1686,7 @@
                             <div class="col-sm-12">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="txtAddress1" class="star">Address Line 1</label>
+                                        <label for="txtAddress1" class="star">Current Address</label>
                                         <input id="txtAddress1" type="text" class="form-control form-control-small" maxlength="300" />
                                     </div>
                                 </div>
@@ -1739,7 +1739,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+                                @*<div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="txtMoveInDate" class="star"> Move Out Date</label>
                                         <input id="txtMoveInDateTo" type="text" class="form-control form-control-small" value="" />
@@ -1749,7 +1749,7 @@
                                         </span>
 
                                     </div>
-                                </div>
+                                </div>*@
                                 <div class="col-sm-3">
                                     <label for="txtMonthlyPayment"> Monthly Payment </label>
                                     <div class="input-group">
@@ -1993,7 +1993,41 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    <div class="panel panel-default sidebar-menu wow fadeInRight animated  pull-left">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Additional Employment History</h3>
 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 ">
+                                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popHistoryEmpAndIncome" id="btnAddHEI"><i class="fa fa-plus-circle"></i> Add New</button>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-sm-12 ">&nbsp;</div>
+                            <div id="DivHisEmpIncome">
+                                <div class="col-sm-12">
+                                    <table id="tblHEI" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">Employer</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">Job Title</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">Job Type</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">Start Date</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">Termination Date</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">Country</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">State</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">City</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
                                     <button type="submit" class="btn btn-primary" onclick="goToStep(10,10)"> Back</button>
@@ -3570,6 +3604,216 @@
         </div>
     </div>
 </div>
+<div class="modal" id="popHistoryEmpAndIncome">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:732px; height:900px;">
+            <!-- Modal Header -->
+            <div class="modal-header" style="width: 100%; padding:0px;">
+                <h5 class="modal-title">Employment History</h5>
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px;color:black;">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input type="hidden" id="hdnHEI" value="0" />
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="txtEmployerNameHEI" class="star">Employer Name</label>
+                                <input id="txtEmployerNameHEI" class="form-control form-control-small" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="txtJobTitleHEI">Job Title</label>
+                                <input id="txtJobTitleHEI" class="form-control form-control-small" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label> Job Type </label>
+                                <select id="ddlJobTypeHEI" class="form-control form-control-small">
+                                    <option value="0">Select</option>
+                                    <option value="1">Permanent</option>
+                                    <option value="2">Contract Basis</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="star">Start Date</label>
+                                <input id="txtStartDateHEI" class="form-control form-control-small" type="text" />
+
+                                <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 151px;">
+                                    <button class="btn btn-primary search" id="SPStartDateHEI" type="button"><i class="fa-calendar fa"></i></button>
+                                </span>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="star">Termination Date</label>
+                                <input id="txtTerminationDateHEI" class="form-control form-control-small" type="text" />
+
+                                <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 151px;">
+                                    <button class="btn btn-primary search" id="SPTerminationDateHEI" type="button"><i class="fa-calendar fa"></i></button>
+                                </span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label for="txtAnnualIncomeHEI" class="star"> Annual Income </label>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                </span>
+                                <input id="txtAnnualIncomeHEI" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" style="text-align:right" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="txtAddAnnualIncomeHEI"> Additional Annual Income</label>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                    </span>
+                                    <input id="txtAddAnnualIncomeHEI" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" style="text-align:right" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Supervisor Name</label>
+                                <input id="txtSupervisiorNameHEI" class="form-control form-control-small" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Supervisor Phone</label>
+                                <input id="txtSupervisiorPhoneHEI" class="form-control form-control-small" type="text" onkeypress="return isOnlyNumber(event)" maxlength="10" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Supervisor Email</label>
+                                <input id="txtSupervisiorEmailHEI" class="form-control form-control-small" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <p>Upload last 3 paystubs or if self-employed last 2 year's Fedral Tax Returns</p>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <input id="rbtnPaystubHEI" class="form-control form-control-small" type="radio" name="tax" />
+                            <label for="rbtnPaystubHEI">Paystub</label>
+                            <input id="rbtnFedralTaxHEI" class="form-control form-control-small" type="radio" name="tax" checked="checked" />
+                            <label for="rbtnFedralTaxHEI">Fedral Tax Return</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="star" id="lblUpload1HEI">Upload 1</label><br />
+                            <input type="file" name="fileUploadTaxReturn1HEI" id="fileUploadTaxReturn1HEI" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                            <label for="fileUploadTaxReturn1HEI"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn1HEIShow">Choose a file&hellip;</span></label>
+                            <input type="hidden" id="hndHasTaxReturnFile1HEI" value="0" />
+                            <input type="hidden" id="hndFileUploadName1HEI" value="0" />
+                            <input type="hidden" id="hndOriginalFileUploadName1HEI" value="0" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="star" id="lblUpload2HEI">Upload 2</label><br />
+                            <input type="file" name="fileUploadTaxReturn2HEI" id="fileUploadTaxReturn2HEI" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                            <label for="fileUploadTaxReturn2HEI"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn2HEIShow">Choose a file&hellip;</span></label>
+                            <input type="hidden" id="hndHasTaxReturnFile2HEI" value="0" />
+                            <input type="hidden" id="hndFileUploadName2HEI" value="0" />
+                            <input type="hidden" id="hndOriginalFileUploadName2HEI" value="0" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4" id="divUpload3HEI">
+                        <div class="form-group">
+                            <label class="star" id="lblUpload3HEI">Upload 3</label><br />
+                            <input type="file" name="fileUploadTaxReturn3HEI" id="fileUploadTaxReturn3HEI" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                            <label for="fileUploadTaxReturn3HEI"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn3HEIShow">Choose a file&hellip;</span></label>
+                            <input type="hidden" id="hndHasTaxReturnFile3HEI" value="0" />
+                            <input type="hidden" id="hndFileUploadName3HEI" value="0" />
+                            <input type="hidden" id="hndOriginalFileUploadName3HEI" value="0" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="txtCountryOfficeHEI" class="star">Country</label>
+                            @*<input id="txtCountryOffice" type="text" class="form-control form-control-small" maxlength="300" />*@
+                            <select id="txtCountryOfficeHEI" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="txtofficeAddress1HEI" class="star">Address Line 1</label>
+                            <input id="txtofficeAddress1HEI" type="text" class="form-control form-control-small" maxlength="300" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="txtofficeAddress2HEI">Address Line 2</label>
+                            <input id="txtofficeAddress2HEI" type="text" class="form-control form-control-small" maxlength="300" />
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="star"> State :</label>
+                            <select id="ddlStateEmployeeHEI" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="star"> City :</label>
+                            @*<select id="ddlCityEmployee" class="form-control"></select>*@
+                            <input id="ddlCityEmployeeHEI" type="text" class="form-control form-control-small" maxlength="100" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="txtZipHEI" class="star">Zip</label>
+                            <input class="form-control form-control-small" id="txtZipOfficeHEI" maxlength="7" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="dot-hr"></div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer-custom">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary pull-right" onclick="saveEmployerHistory()" style="margin-right: 10px;">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     function printFloorPlanDetails(divName) {
         let printContents, popupWin;
@@ -3903,7 +4147,14 @@
         });
         $("#txtDateOfExpiration").datepicker();
 
-
+        $('#txtStartDateHEI').datepicker({ viewMode: "years", endDate: dt, autoclose: true });
+        $("#SPStartDateHEI").click(function () {
+            $("#txtStartDateHEI").focus();
+        });
+        $('#txtTerminationDateHEI').datepicker({ viewMode: "years", endDate: dt, autoclose: true });
+        $("#SPTerminationDateHEI").click(function () {
+            $("#txtTerminationDateHEI").focus();
+        });
 
 
         $("#txtDateOfIssuance,#txtStartDate,#txtMoveInDateFrom,#txtMoveInDateTo,#txtMoveInDateFrom2,#txtMoveInDateTo2").datepicker({

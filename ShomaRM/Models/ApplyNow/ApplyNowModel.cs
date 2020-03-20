@@ -348,7 +348,6 @@ namespace ShomaRM.Models
         }
 
 
-
         public string CheckEmailAreadyExist(string EmailId)
         {
             string IsEmailExist = string.Empty;
@@ -374,6 +373,5 @@ namespace ShomaRM.Models
             db.Dispose();
             return IsEmailExist;
         }
-
     }
 }
