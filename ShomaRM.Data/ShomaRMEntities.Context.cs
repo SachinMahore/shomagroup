@@ -106,6 +106,10 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_OnlinePayment> tbl_OnlinePayment { get; set; }
         public virtual DbSet<tbl_PaymentAccounts> tbl_PaymentAccounts { get; set; }
         public virtual DbSet<tbl_TenantOnline> tbl_TenantOnline { get; set; }
+
+        public virtual DbSet<tbl_EmployerHistory> tbl_EmployerHistory { get; set; }
+
         public virtual DbSet<tbl_TenantInfo> tbl_TenantInfo { get; set; }
+
     }
 }
