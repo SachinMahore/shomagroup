@@ -9,7 +9,7 @@
     //fillRPP_PUList();
     fillStateDDL();
     fillStateDDL1();
-    getPremiumTypeList();
+    //getPremiumTypeList();
     $("#ddlState").on('change', function (evt, params) {
         var selected = $(this).val();
         if (selected != null) {
@@ -319,8 +319,17 @@ function selectAddAmenity(id) {
     });
 }
 var getPremiumTypeList = function () {
+    
+        var sortby = 'PremiumType';
+   
+         var orderby = 'ASC';
+    
     $("#divLoader").show();
-    var params = { SearchText: "" };
+    var params = {
+        SearchText: "",
+        SortBy: sortby,
+        OrderBy: orderby
+    };
     $.ajax({
         url: '/PremiumType/GetPremiumTypeList',
         method: "post",

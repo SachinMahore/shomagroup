@@ -52,8 +52,8 @@
                             <li id="li12"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(12,12)">f. Emergency Contacts </a></li>
                             <li id="li13"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(13,13)">g. Vehicle Info</a></li>
                             <li id="li14"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(14,14)">h. Pet Info</a></li>
-                            <li id="li15"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(15,15)">i. Lease</a></li>
-                            <li id="li16"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(16,16)">j. Payment </a></li>
+                            <li id="li15"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(15,15)">i. Payment </a></li>
+                            <li id="li16"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(16,16)">j. Lease </a></li>
                         </ul>
                     </div>
                     <div class="tab-content">
@@ -1540,7 +1540,7 @@
                                 </div>
                                 <div class="col-sm-4" id="divSSNNumber">
                                     <div class="form-group">
-                                        <label id="lblSSNNumber" for="txtSSNNumber" class="star">SSN Number</label>
+                                        <label id="lblSSNNumber" for="txtSSNNumber" class="star">SSN#</label>
                                         <input class="form-control form-control-small" id="txtSSNNumber" value="" maxlength="9" onkeypress="return isOnlyNumber(event)" onblur="saveupdateSSN();" />
                                     </div>
                                 </div>
@@ -2254,116 +2254,8 @@
                             </div>
                         </div>
                     </div>
+                   
                     <div class="hidden" id="step15">
-                        <input type="hidden" id="hndANID" value="0" />
-                        <div class="row p-b-15">
-                            <div class="col-md-12 clear">
-                                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">Accept Agreements</h3>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="backVerProof" class="hidden">
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label> State :</label>
-                                        <select id="ddlState" class="form-control"></select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="ddlDocumentType" class="star">Document Type</label>
-                                        <select id="ddlDocumentType" class="form-control">
-                                            <option value="0">Select</option>
-                                            <option value="1">Driver's License</option>
-                                            <option value="2">Military ID</option>
-                                            <option value="4">State Issued ID</option>
-                                            <option value="3">Passport</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="txtBVIDNumber" class="star">ID Number</label>
-                                        <input type="text" class="form-control" id="txtBVIDNumber" value="">
-                                    </div>
-                                </div>
-                                <div class="col-sm-5">
-                                    <div class="form-group">
-                                        <div class="custom-file">
-                                            <h4 class="info-text pull-left" style="color:green">Upload Proof Document</h4>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <div class="">
-
-                                            <a href="javascript:void(0)"> <input type="file" id="wizard-picture" value="" class="btn btn-primary"></a>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 form-inline">
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-primary" id="btnSave" onclick="SaveUpdateDocumentVerification()"><i class="fa fa-save"></i><span id="spanSaveUpdate">Save</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <div class="">
-                                        <input type="hidden" id="hdnApplyStatus" value="@Model.IsApplyNow" />
-                                        <h4 class="info-text pull-left" style="color:#4d738a">Status: In progress</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="backVer">
-                                <div class="col-sm-11">
-                                    <div class="form-group">
-                                        <div class="">
-                                            @*<a href="javascript:void(0)" id="btnDownloadLeaseDocument" class="btn btn-primary" onclick="saveLeaseDoc()">Review and Sign Your Online Leasing Application</a>*@
-                                            <label class="info-text pull-left hidden" style="color:#4d738a" id="lblsignin">Your Lease Agreement generated successfull at Bluemoon. Please click on continue button. Lease ID: @Model.EnvelopeID</label>
-                                            <br />
-                                            
-                                            <a class="btn btn-primary pull-right" width="400" style="width: 400px;" id="btnDownloadLeaseDocument" onclick="createLeaseDocument()">Process Online Leasing Application</a>
-                                            <a class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="downloadLeaseDocument()" disabled="disabled">Download Leasing Application</a>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-1 hidden">
-                                    <div class="form-group">
-                                        <div class="">
-                                            <h4 class="info-text pull-left" style="color:#4d738a">Upload Signed Lease Agreement</h4>
-                                            <a href="javascript:void(0)" id="btnUploadLeaseDocument"> <input type="file" id="upleasedoc" value="" class="btn btn-primary"></a>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-12 form-inline hidden">
-                                    <div style="margin-top:30px"></div>
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-primary" id="btnSave" onclick="SaveLeaseDocumentVerification()"><span id="spanSaveUpdate">Save</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsgFinal"></b></p></div>
-                            <div class="col-sm-12">
-                                <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(14,14)"> Back</button>
-                                </div>
-                                <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(16,16)"> Continue</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hidden" id="step16">
                         <div class="row">
                             <div class="col-md-12 clear">
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
@@ -2501,10 +2393,24 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-8 hidden">
+                                        <div class="col-sm-1 form-group">
+                                            <input class="form-control" type="checkbox" id="chkAgreeSummarry" style="width: 60px !important;height: 20px !important;">
+                                        </div>
+                                        <div class="col-sm-11" style="text-align: left;">
+                                            <label>
+                                                ACCEPT AGREEMENTS
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="dot-hr"></div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                   
                                         <button type="submit" class="btn btn-primary" onclick="savePayment()">Pay Now</button>
                                     </div>
-
+                           
                                 </div>
 
                                 <div class="col-sm-12 hidden" id="Divtranslist">
@@ -2534,11 +2440,120 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="pull-left text-center">
-                                        <button type="submit" class="btn btn-primary" onclick="goToStep(15,15)"> Back</button>
+                                        <button type="submit" class="btn btn-primary" onclick="goToStep(14,14)"> Back</button>
                                     </div>
                                     <div class="pull-right text-center">
-                                        <button type="submit" class="btn btn-primary payNext" id="btnpaynext" onclick="goToStep(17,17)" disabled> Continue</button>
+                                        <button type="submit" class="btn btn-primary payNext" id="btnpaynext" onclick="goToStep(16,16)" disabled> Continue</button>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden" id="step16">
+                        <input type="hidden" id="hndANID" value="0" />
+                        <div class="row p-b-15">
+                            <div class="col-md-12 clear">
+                                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Accept Agreements</h3>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="backVerProof" class="hidden">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label> State :</label>
+                                        <select id="ddlState" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="ddlDocumentType" class="star">Document Type</label>
+                                        <select id="ddlDocumentType" class="form-control">
+                                            <option value="0">Select</option>
+                                            <option value="1">Driver's License</option>
+                                            <option value="2">Military ID</option>
+                                            <option value="4">State Issued ID</option>
+                                            <option value="3">Passport</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="txtBVIDNumber" class="star">ID Number</label>
+                                        <input type="text" class="form-control" id="txtBVIDNumber" value="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="form-group">
+                                        <div class="custom-file">
+                                            <h4 class="info-text pull-left" style="color:green">Upload Proof Document</h4>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="">
+
+                                            <a href="javascript:void(0)"> <input type="file" id="wizard-picture" value="" class="btn btn-primary"></a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 form-inline">
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-primary" id="btnSave" onclick="SaveUpdateDocumentVerification()"><i class="fa fa-save"></i><span id="spanSaveUpdate">Save</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="">
+                                        <input type="hidden" id="hdnApplyStatus" value="@Model.IsApplyNow" />
+                                        <h4 class="info-text pull-left" style="color:#4d738a">Status: In progress</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="backVer">
+                                <div class="col-sm-11">
+                                    <div class="form-group">
+                                        <div class="">
+                                            @*<a href="javascript:void(0)" id="btnDownloadLeaseDocument" class="btn btn-primary" onclick="saveLeaseDoc()">Review and Sign Your Online Leasing Application</a>*@
+                                            <label class="info-text pull-left hidden" style="color:#4d738a" id="lblsignin">Your Lease Agreement generated successfull at Bluemoon. Please click on continue button. Lease ID: @Model.EnvelopeID</label>
+                                            <br />
+
+                                            <a class="btn btn-primary pull-right" width="400" style="width: 400px;" id="btnDownloadLeaseDocument" onclick="createLeaseDocument()">Process Online Leasing Application</a>
+                                            <a class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="downloadLeaseDocument()" disabled="disabled">Download Leasing Application</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-1 hidden">
+                                    <div class="form-group">
+                                        <div class="">
+                                            <h4 class="info-text pull-left" style="color:#4d738a">Upload Signed Lease Agreement</h4>
+                                            <a href="javascript:void(0)" id="btnUploadLeaseDocument"> <input type="file" id="upleasedoc" value="" class="btn btn-primary"></a>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 form-inline hidden">
+                                    <div style="margin-top:30px"></div>
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-primary" id="btnSave" onclick="SaveLeaseDocumentVerification()"><span id="spanSaveUpdate">Save</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsgFinal"></b></p></div>
+                            <div class="col-sm-12">
+                                <div class="pull-left text-center">
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(15,15)"> Back</button>
+                                </div>
+                                <div class="pull-right text-center">
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(17,17)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -3814,6 +3829,61 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="popApplicantSummary" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content-summary">
+
+            <div class="modal-body" style="padding: -15px;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -44px; margin-right: -34px;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <table width="860" border="0" align="center" cellpadding="0" cellspacing="0" style="margin:auto;padding:0; vertical-align:top;min-height:1180px;">
+                    <tr>
+                        <td colspan="2" align="center" class="BG-White Pen-Black" style="padding-right:20px; line-height:26px;">
+                            <span style="font-size:20px; font-weight:900"><u>APPLICATION SUMMARIZE AS FOLLOWS with the information entered:</u></span><br />
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="BG-Orange" style="height:2px;font-size:1px;">&nbsp;</td>
+                    </tr>
+
+
+                    <tr>
+                        <td colspan="2">
+
+                            <p style="font-size:medium; color:#838383;">“You have completed your online application.  The next step is to submit payment and the application; however, we strongly recommend that you please review your application and ensure all the information is correct before submitting payment and the application.  Once you submit your application, the payment is non-refundable and corrections are no longer available.  Kindly confirm below you have reviewed your application and are ready to submit it.</p>
+                             <p style="font-size:small;">
+                               <table>
+                                   <tr><td><b>APPLICANT:</b></td><td><a href="javascript:void(0);" onclick="editApp()">&nbsp;&nbsp;EDIT</a></td></tr>
+                                   <tr><td>Name</td><td><span id="summName"></span></td></tr>
+                                   <tr><td>Date of Birth</td><td><span id="summDob"></span></td></tr>
+                                   <tr><td>SSN#</td><td><span id="summSSN"></span></td></tr>
+                                   <tr><td>Phone</td><td><span id="summPhone"></span></td></tr>
+                                   <tr><td>Gender</td><td><span id="summGender"></span></td></tr>
+                                   <tr><td>Driver’s License</td><td><span id="summDriverL"></span></td></tr>
+                                   <tr><td><b>RESIDENTIAL HISTORY:</b></td><td><a href="javascript:void(0);" onclick="editApp()">&nbsp;&nbsp;EDIT</a></td></tr>
+                                   <tr><td>Current Address</td><td><span id="summCuAdd"></span></td></tr>
+                                  
+                                   <tr><td colspan="2"><table id="prevadd"><tbody></tbody></table></td></tr>
+                                   <tr><td><b>EMPLOYMENT HISTORY:</b></td><td><a href="javascript:void(0);" onclick="editApp()">&nbsp;&nbsp;EDIT</a></td></tr>
+                                   <tr><td>Current Employer</td><td><span id="summEmployer"></span></td></tr>
+                                   <tr><td>Start Date</td><td><span id="summEstartdate"></span></td></tr>
+                                   <tr><td>Annual Salary</td><td><span id="summSalary"></span></td></tr>
+                                   <tr><td colspan="2"><table id="prevEmphistr"><tbody></tbody></table></td></tr>
+                               </table>
+                            </p>
+                                <p style="font-size:medium; color:#838383;">I CERTIFY THAT I HAVE REVIEWED THE ABOVE INFORMATION, AND IT IS TRUE AND CORRECT.</p>
+                        </td>
+                    </tr>
+
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
 <script>
     function printFloorPlanDetails(divName) {
         let printContents, popupWin;
@@ -4169,7 +4239,94 @@
         $("#txtPhoneNumber").val(formatPhoneFax('@Model.Phone'));
         $("#lblFNLPhone").text(formatPhoneFax('@Model.Phone'));
     });
+    $(function () {
 
+        $("#txtPassportNum").focusin(function () {
+            var passportnum = $("#txtPassportNum").val();
+            if (passportnum != "") {
+                var id = $("#hdnOPId").val();
+                var model = {
+                    id: id
+                };
+                $.ajax({
+                    url: '/ApplyNow/GetTenantOnlineList',
+                    type: "post",
+                    contentType: "application/json utf-8",
+                    data: JSON.stringify(model),
+                    dataType: "JSON",
+                    success: function (response) {
+
+                        if (!response.model.PassportNumber) {
+                            $("#txtPassportNum").val('');
+                            response.model.PassportNumber = "";
+                        }
+                        else {
+                            $("#txtPassportNum").val(response.model.PassportNumber);
+                        }
+                    }
+                });
+            }
+        });
+
+
+        $("#txtSSNNumber").focusin(function () {
+            var ssnnum = $("#txtSSNNumber").val();
+            console.log(ssnnum + " 1");
+            if (ssnnum != "") {
+                var id = $("#hdnOPId").val();
+                var model = {
+                    id: id
+                };
+                $.ajax({
+                    url: '/ApplyNow/GetTenantOnlineList',
+                    type: "post",
+                    contentType: "application/json utf-8",
+                    data: JSON.stringify(model),
+                    dataType: "JSON",
+                    success: function (response) {
+
+                        if (!response.model.SSN) {
+                            $("#txtSSNNumber").val('');
+                            response.model.SSN = "";
+                        }
+                        else {
+                            $("#txtSSNNumber").val(response.model.SSN);
+                        }
+                        $("#txtSSNNumber").data("value", response.model.SSN);
+                    }
+                });
+            }
+        });
+
+
+        $("#txtIDNumber").focusin(function () {
+            var idnum = $("#txtIDNumber").val();
+            if (idnum != "") {
+                var id = $("#hdnOPId").val();
+                var model = {
+                    id: id
+                };
+                $.ajax({
+                    url: '/ApplyNow/GetTenantOnlineList',
+                    type: "post",
+                    contentType: "application/json utf-8",
+                    data: JSON.stringify(model),
+                    dataType: "JSON",
+                    success: function (response) {
+
+                        if (!response.model.IDNumber) {
+                            $("#txtIDNumber").val('');
+                            response.model.IDNumber = "";
+                        }
+                        else {
+                            $("#txtIDNumber").val(response.model.IDNumber);
+                        }
+                    }
+                });
+            }
+        });
+
+    });
     $(document).ready(function () {
            $("#apartimg_2").maphilight();
            $("#ddlRoom").val(@Model.Bedroom);
@@ -4233,7 +4390,7 @@
                 //$("#btnleaseDownl").attr('href', '/Content/assets/img/Document/' + @Model.EnvelopeID+ '.pdf');
                 //$("#btnleaseDownl").attr('download', 'LeaseDocument_' + @Model.EnvelopeID+ '.pdf');
                 //$("#btnleaseDownl").attr('target', '_parent');
-                goToStep(15, 15);
+                goToStep(16, 16);
                 $("#btnDownloadLeaseDocument").css("background-color", "#B4ADA5").attr("disabled", "disabled");
                 //$("#lblsignin").removeClass("hidden");
                 $("#as2").removeAttr("onclick")

@@ -714,6 +714,7 @@ namespace ShomaRM.Areas.Admin.Models
         public List<ModelsModel> ModelsNumber { get; set; }
         public string UnitWiseRentData { get; set; }
         public List<PropertyUnits> lstPropertyUnit { get; set; }
+        public List<PremiumTypeModel> PremiumTypeList { get; set; }
         public PropertyUnits GetPropertyUnitDetails(long UID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -756,6 +757,8 @@ namespace ShomaRM.Areas.Admin.Models
                 model.Floors = propFloorPlan;
                 List<ModelsModel> modelsNum = GetModelsListDetail();
                 model.ModelsNumber = modelsNum;
+                List<PremiumTypeModel> premiumlist = new PremiumTypeModel(). GetPremiumTypeList("", "PremiumType", "ASC");
+                model.PremiumTypeList = premiumlist;
                 model.UID = unitDet.UID;
                 model.UnitNo = unitDet.UnitNo;
                 model.Rooms = unitDet.Rooms;
