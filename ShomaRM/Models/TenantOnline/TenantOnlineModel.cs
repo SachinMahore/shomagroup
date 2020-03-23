@@ -204,6 +204,26 @@ namespace ShomaRM.Models
                     da.Fill(dtTable);
                     db.Database.Connection.Close();
                 }
+                lstpr.IsInternational = 0;
+                lstpr.Gender = 0;
+                lstpr.IDType = 0;
+                lstpr.State = 0;
+                lstpr.Country = "0";
+                lstpr.StateHome = 0;
+                lstpr.RentOwn = 0;
+
+                lstpr.Country2 = "0";
+                lstpr.StateHome2 = 0;
+                lstpr.RentOwn2 = 0;
+
+                lstpr.JobType = 0;
+                lstpr.OfficeCountry = "0";
+                lstpr.OfficeState = 0;
+
+                lstpr.EmergencyCountry = "0";
+                lstpr.EmergencyStateHome = 0;
+
+
                 foreach (DataRow dr in dtTable.Rows)
                 {
                     DateTime? dateOfBirth = null;

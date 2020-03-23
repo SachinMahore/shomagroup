@@ -4967,15 +4967,15 @@ var getTenantOnlineList = function (id) {
         success: function (response) {
 
             $("#ddlIsInter").val(response.model.IsInternational).change();
-            if ($("#ddlIsInter").val() == 1) {
-                $("#passportDiv").removeClass("hidden");
-                $("#divSSNNumber").addClass("col-sm-4 hidden");
-            }
-            else {
-                $("#passportDiv").addClass("hidden");
-                $("#divSSNNumber").removeClass("col-sm-4 hidden");
-                $("#divSSNNumber").addClass("col-sm-4");
-            }
+            //if ($("#ddlIsInter").val() == 1) {
+            //    $("#passportDiv").removeClass("hidden");
+            //    $("#divSSNNumber").addClass("col-sm-4 hidden");
+            //}
+            //else {
+            //    $("#passportDiv").addClass("hidden");
+            //    $("#divSSNNumber").removeClass("col-sm-4 hidden");
+            //    $("#divSSNNumber").addClass("col-sm-4");
+            //}
 
             //$("#ddladdHistory").val(response.model.IsAdditionalRHistory).change();
             $("#txtFirstNamePersonal").val(response.model.FirstName);
