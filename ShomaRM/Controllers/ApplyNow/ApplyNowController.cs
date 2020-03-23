@@ -270,6 +270,19 @@ namespace ShomaRM.Controllers
 
 
         }
+        public ActionResult GetSSNIdNumberPassportNumber(int id, int vid)
+        {
+            try
+            {
+                return Json(new { ssn = new TenantOnlineModel().GetSSNIdNumberPassportNumber(id, vid) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
         //Amit's Work
 
         public ActionResult SaveUpdateApplicantHistory(ApplicantHistoryModel model)

@@ -316,6 +316,7 @@
     <Compile Include="Controllers\ApplyNow\CheckListController.cs" />
     <Compile Include="Controllers\ApplyNow\PayLinkController.cs" />
     <Compile Include="Controllers\ApplyNow\ServiceController.cs" />
+    <Compile Include="Controllers\Appointment\AppointmentController.cs" />
     <Compile Include="Controllers\EmbeddedSigningController.cs" />
     <Compile Include="Controllers\Gallery\GalleryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -898,6 +899,7 @@
     <Content Include="Views\PayLink\PayAmenityCharges.cshtml" />
     <Content Include="Views\PayLink\PayServiceCharges.cshtml" />
     <Content Include="Views\Service\Index.cshtml" />
+    <Content Include="Views\Appointment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -730,7 +730,7 @@
                                             <h3 class="panel-title">Quotation</h3>
                                         </div>
                                     </div>
-                                <p>Thank you for you interest in Sanctuary Doral. This quote expires at midnight on the 3rd day. Please make sure you submit your application within the  midnight on the 3rd day to secure selected units. If you have any questions or need aditional assistance, please call or email us. </p>
+                                <p>Thank you for you interest in Sanctuary Doral. This quote expires on midnight of the 3rd day. Please make sure you submit your application before midnight of the 3rd day to secure selected units. If you have any questions or need additional assistance, please call or email us.</p>
                                 <div class="col-sm-12 clear">
                                     <div class="col-sm-6">
                                         <div class="col-sm-4">
@@ -1541,7 +1541,7 @@
                                 <div class="col-sm-4" id="divSSNNumber">
                                     <div class="form-group">
                                         <label id="lblSSNNumber" for="txtSSNNumber" class="star">SSN#</label>
-                                        <input class="form-control form-control-small" id="txtSSNNumber" value="" maxlength="9" onkeypress="return isOnlyNumber(event)" onblur="saveupdateSSN();" />
+                                        <input class="form-control form-control-small" id="txtSSNNumber" value="" maxlength="9" onkeypress="return isOnlyNumber(event)" />
                                     </div>
                                 </div>
 
@@ -1560,7 +1560,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="passportDiv" class="">
+                            <div id="passportDiv" class="hidden">
                                 <div class="col-md-12">
                                     <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                         <div class="panel-heading">
@@ -1573,7 +1573,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="txtPassportNum" class="star">Passport Number</label>
-                                            <input id="txtPassportNum" class="form-control form-control-small" type="text" onblur="saveupdatePassportNumber();" />
+                                            <input id="txtPassportNum" class="form-control form-control-small" type="text" />
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
@@ -1629,14 +1629,20 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label id="lblStatePersonal"> State :</label>
-                                        <select id="ddlStatePersonal" class="form-control"></select>
+                                        <label id="lblStatePersonal" class="star"> State</label>
+                                        <select id="ddlStatePersonal" class="form-control">
+                                            <option value="0">--Select State--</option>
+                                            @foreach (var state in Model.StateList)
+                                            {
+                                                <option value="@state.ID">@state.StateName</option>
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label id="lblIDNumber" for="txtIDNumber" class="star">ID Number</label>
-                                        <input class="form-control form-control-small" id="txtIDNumber" value="2222" onblur="saveupdateIDNumber();" />
+                                        <input class="form-control form-control-small" id="txtIDNumber" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -1667,26 +1673,35 @@
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">History of Residence </h3>
-
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <p>*Need at least 3 years of history</p>
+                                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Current Address </h3>
+                                    </div>
+                                </div>
+                                
                             </div>
                             <div class="col-sm-12">
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="txtCountry" class="star">Country</label>
-                                        @*<input id="txtCountry" type="text" class="form-control form-control-small" maxlength="300" />*@
-                                        <select id="txtCountry" class="form-control"></select>
+                                        <select id="txtCountry" class="form-control">
+                                            @foreach (var country in Model.CountryList)
+                                            {
+                                                <option value="@country.ID">@country.CountryName</option>
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="txtAddress1" class="star">Current Address</label>
+                                        <label for="txtAddress1" class="star">Address 1</label>
                                         <input id="txtAddress1" type="text" class="form-control form-control-small" maxlength="300" />
                                     </div>
                                 </div>
@@ -1702,7 +1717,13 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label class="star"> State :</label>
-                                        <select id="ddlStateHome" class="form-control"></select>
+                                        <select id="ddlStateHome" class="form-control">
+                                            <option value="0">--Select State--</option>
+                                            @foreach (var state in Model.StateList)
+                                            {
+                                                <option value="@state.ID">@state.StateName</option>
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -1720,7 +1741,7 @@
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <label for="ddlRentOwn"> Do you rent or own </label>
+                                        <label for="ddlRentOwn" class="star"> Do you rent or own </label>
                                         <select id="ddlRentOwn" class="form-control form-control-small">
                                             <option value="0">Select</option>
                                             <option value="1">Rent</option>
@@ -1779,7 +1800,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-6 ">
-                                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popApplicantHistory" id="btnAddAHR"><i class="fa fa-plus-circle"></i> Add New</button>
+                                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popApplicantHistory" id="btnAddAHR"><i class="fa fa-plus-circle"></i> Add Other</button>
                                     <input id="hdnAHRId" type="hidden" value="0" />
                                 </div>
                             </div>
@@ -1952,8 +1973,12 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="txtCountryOffice" class="star">Country</label>
-                                        @*<input id="txtCountryOffice" type="text" class="form-control form-control-small" maxlength="300" />*@
-                                        <select id="txtCountryOffice" class="form-control"></select>
+                                        <select id="txtCountryOffice" class="form-control">
+                                            @foreach (var country in Model.CountryList)
+                                            {
+                                                <option value="@country.ID">@country.CountryName</option>
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -1975,7 +2000,13 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label class="star"> State :</label>
-                                        <select id="ddlStateEmployee" class="form-control"></select>
+                                        <select id="ddlStateEmployee" class="form-control">
+                                            <option value="0">--Select State--</option>
+                                            @foreach (var state in Model.StateList)
+                                            {
+                                                <option value="@state.ID">@state.StateName</option>
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -2003,7 +2034,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-6 ">
-                                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popHistoryEmpAndIncome" id="btnAddHEI"><i class="fa fa-plus-circle"></i> Add New</button>
+                                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popHistoryEmpAndIncome" id="btnAddHEI"><i class="fa fa-plus-circle"></i> Add Other</button>
                                     
                                 </div>
                             </div>
@@ -2097,8 +2128,12 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="txtCountry">Country</label>
-                                        @*<input id="txtEmergencyCountry" type="text" class="form-control form-control-small" maxlength="300" />*@
-                                        <select id="txtEmergencyCountry" class="form-control"></select>
+                                        <select id="txtEmergencyCountry" class="form-control">
+                                            @foreach (var country in Model.CountryList)
+                                            {
+                                                <option value="@country.ID">@country.CountryName</option>
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -2119,7 +2154,13 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label> State :</label>
-                                        <select id="ddlStateContact" class="form-control"></select>
+                                        <select id="ddlStateContact" class="form-control">
+                                            <option value="0">--Select State--</option>
+                                            @foreach (var state in Model.StateList)
+                                            {
+                                                <option value="@state.ID">@state.StateName</option>
+                                            }
+                                        </select>
                                     </div>
                                 </div>
 
@@ -2464,7 +2505,13 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label> State :</label>
-                                        <select id="ddlState" class="form-control"></select>
+                                        <select id="ddlState" class="form-control">
+                                            <option value="0">--Select State--</option>
+                                            @foreach (var state in Model.StateList)
+                                            {
+                                                <option value="@state.ID">@state.StateName</option>
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -2638,7 +2685,7 @@
 <div class="modal " id="popParking" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content" style="width:100%">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;" onclick="hideLoader()">&times;</button>
             <div class="modal-header" style="width:100%">
                 <h5 class="modal-title pull-left" id="ModalLongTitle">Add Parking</h5>
 
@@ -2677,7 +2724,7 @@
 <div class="modal " id="popStorage" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content" style="width:100%">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;" onclick="hideLoader()">&times;</button>
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Add Storage</h5>
             </div>
@@ -2758,7 +2805,7 @@
 <div class="modal" id="popPetPlace">
     <div class="modal-dialog">
         <div class="modal-content" style="width:100%">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;" onclick="hideLoader()">&times;</button>
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Add Pet</h5>
@@ -3000,7 +3047,13 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label for="ddlVState" class="star">State</label>
-                        <select id="ddlVState" class="form-control form-control-small"></select>
+                        <select id="ddlVState" class="form-control form-control-small">
+                            <option value="0">--Select State--</option>
+                            @foreach (var state in Model.StateList)
+                            {
+                                <option value="@state.ID">@state.StateName</option>
+                            }
+                        </select>
                     </div>
                 </div>
 
@@ -3183,8 +3236,12 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="txtCountry" class="star">Country</label>
-                            @*<input id="txtCountry" type="text" class="form-control form-control-small" maxlength="300" />*@
-                            <select id="txtCountry2" class="form-control"></select>
+                            <select id="txtCountry2" class="form-control">
+                                @foreach (var country in Model.CountryList)
+                                {
+                                    <option value="@country.ID">@country.CountryName</option>
+                                }
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -3207,7 +3264,13 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="star">State</label>
-                            <select id="ddlStateHome2" class="form-control"></select>
+                            <select id="ddlStateHome2" class="form-control">
+                                <option value="0">--Select State--</option>
+                                @foreach (var state in Model.StateList)
+                                {
+                                    <option value="@state.ID">@state.StateName</option>
+                                }
+                            </select>
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -3225,7 +3288,7 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label for="ddlRentOwn"> Do you rent or own </label>
+                            <label for="ddlRentOwn" class="star"> Do you rent or own </label>
                             <select id="ddlRentOwn2" class="form-control form-control-small">
                                 <option value="0">Select</option>
                                 <option value="1">Rent</option>
@@ -3773,8 +3836,12 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="txtCountryOfficeHEI" class="star">Country</label>
-                            @*<input id="txtCountryOffice" type="text" class="form-control form-control-small" maxlength="300" />*@
-                            <select id="txtCountryOfficeHEI" class="form-control"></select>
+                            <select id="txtCountryOfficeHEI" class="form-control">
+                                @foreach (var country in Model.CountryList)
+                                {
+                                    <option value="@country.ID">@country.CountryName</option>
+                                }
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -3796,7 +3863,13 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="star"> State :</label>
-                            <select id="ddlStateEmployeeHEI" class="form-control"></select>
+                            <select id="ddlStateEmployeeHEI" class="form-control">
+                                <option value="0">--Select State--</option>
+                                @foreach (var state in Model.StateList)
+                                {
+                                    <option value="@state.ID">@state.StateName</option>
+                                }
+                            </select>
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -4227,7 +4300,37 @@
         });
 
 
-        $("#txtDateOfIssuance,#txtStartDate,#txtMoveInDateFrom,#txtMoveInDateTo,#txtMoveInDateFrom2,#txtMoveInDateTo2").datepicker({
+        $("#txtDateOfIssuance,#txtStartDate,#txtMoveInDateFrom,#txtMoveInDateTo").datepicker({
+            endDate: "+0d",
+            autoclose: true,
+            startDate: '-100y'
+        });
+
+        $("#txtMoveInDateTo2").datepicker({
+            endDate: "+0d",
+            autoclose: true,
+            startDate: '-100y'
+        }).on('change', function (ev) {
+            var movefromdate = $("#txtMoveInDateFrom2").val().split("/");
+            var movetodate = $("#txtMoveInDateTo2").val().split("/");
+
+            console.log(movefromdate);
+            console.log(movetodate);
+
+            movefromdate = new Date(movefromdate[2], movefromdate[0] - 1, movefromdate[1]);
+            movetodate = new Date(movetodate[2], movetodate[0] - 1, movetodate[1]);
+
+            console.log(movefromdate);
+
+            console.log(movetodate);
+
+            if (movefromdate > movetodate) {
+                alert("Move out date should be greater then move in date");
+                $(this).val("");
+            }
+        });
+
+        $("#txtMoveInDateFrom2").datepicker({
             endDate: "+0d",
             autoclose: true,
             startDate: '-100y'
@@ -4239,94 +4342,7 @@
         $("#txtPhoneNumber").val(formatPhoneFax('@Model.Phone'));
         $("#lblFNLPhone").text(formatPhoneFax('@Model.Phone'));
     });
-    $(function () {
-
-        $("#txtPassportNum").focusin(function () {
-            var passportnum = $("#txtPassportNum").val();
-            if (passportnum != "") {
-                var id = $("#hdnOPId").val();
-                var model = {
-                    id: id
-                };
-                $.ajax({
-                    url: '/ApplyNow/GetTenantOnlineList',
-                    type: "post",
-                    contentType: "application/json utf-8",
-                    data: JSON.stringify(model),
-                    dataType: "JSON",
-                    success: function (response) {
-
-                        if (!response.model.PassportNumber) {
-                            $("#txtPassportNum").val('');
-                            response.model.PassportNumber = "";
-                        }
-                        else {
-                            $("#txtPassportNum").val(response.model.PassportNumber);
-                        }
-                    }
-                });
-            }
-        });
-
-
-        $("#txtSSNNumber").focusin(function () {
-            var ssnnum = $("#txtSSNNumber").val();
-            console.log(ssnnum + " 1");
-            if (ssnnum != "") {
-                var id = $("#hdnOPId").val();
-                var model = {
-                    id: id
-                };
-                $.ajax({
-                    url: '/ApplyNow/GetTenantOnlineList',
-                    type: "post",
-                    contentType: "application/json utf-8",
-                    data: JSON.stringify(model),
-                    dataType: "JSON",
-                    success: function (response) {
-
-                        if (!response.model.SSN) {
-                            $("#txtSSNNumber").val('');
-                            response.model.SSN = "";
-                        }
-                        else {
-                            $("#txtSSNNumber").val(response.model.SSN);
-                        }
-                        $("#txtSSNNumber").data("value", response.model.SSN);
-                    }
-                });
-            }
-        });
-
-
-        $("#txtIDNumber").focusin(function () {
-            var idnum = $("#txtIDNumber").val();
-            if (idnum != "") {
-                var id = $("#hdnOPId").val();
-                var model = {
-                    id: id
-                };
-                $.ajax({
-                    url: '/ApplyNow/GetTenantOnlineList',
-                    type: "post",
-                    contentType: "application/json utf-8",
-                    data: JSON.stringify(model),
-                    dataType: "JSON",
-                    success: function (response) {
-
-                        if (!response.model.IDNumber) {
-                            $("#txtIDNumber").val('');
-                            response.model.IDNumber = "";
-                        }
-                        else {
-                            $("#txtIDNumber").val(response.model.IDNumber);
-                        }
-                    }
-                });
-            }
-        });
-
-    });
+    
     $(document).ready(function () {
            $("#apartimg_2").maphilight();
            $("#ddlRoom").val(@Model.Bedroom);
@@ -4553,5 +4569,8 @@
     function gotoLogOffAN() {
 
         window.location = "/Account/LogOff";
+    }
+    function hideLoader() {
+        $("#divLoader").hide();
     }
 </script>

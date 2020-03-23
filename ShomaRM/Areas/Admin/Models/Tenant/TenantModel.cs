@@ -12,6 +12,7 @@ using System.IO;
 using ShomaRM.Areas.Tenant.Models;
 using System.Web.Configuration;
 using ShomaRM.Models.TwilioApi;
+using ShomaRM.Models;
 
 namespace ShomaRM.Areas.Admin.Models
 {
@@ -1182,8 +1183,8 @@ namespace ShomaRM.Areas.Admin.Models
                                 NameOnCard = getCoappPayMeth.Name_On_Card,
                                 CardNumber = getCoappPayMeth.CardNumber,
                                 CardType = 1,
-                                Month = getCoappPayMeth.CardMonth != null ? getCoappPayMeth.CardMonth.ToString() : "0",
-                                Year = getCoappPayMeth.CardYear != null ? getCoappPayMeth.CardYear.ToString() : "0",
+                                Month = getCoappPayMeth.CardMonth,
+                                Year = getCoappPayMeth.CardYear,
                                 TenantId = createCoappTenant.TenantID,
                                 NickName = getCoappPayMeth.Name_On_Card,
                                 AccountName = getCoappPayMeth.Name_On_Card,
@@ -1203,15 +1204,15 @@ namespace ShomaRM.Areas.Admin.Models
                                 NameOnCard = getCoappPayMeth.Name_On_Card,
                                 AccountNumber = getCoappPayMeth.CardNumber,
                                 CardType = 0,
-                                Month = "0",
-                                Year = "0",
+                                Month = "",
+                                Year = "",
                                 TenantId = createCoappTenant.TenantID,
                                 NickName = getCoappPayMeth.Name_On_Card,
                                 AccountName = getCoappPayMeth.Name_On_Card,
                                 PayMethod = 2,
                                 Default = 1,
                                 BankName = getCoappPayMeth.Name_On_Card,
-                                RoutingNumber = getCoappPayMeth.CCVNumber.ToString()
+                                RoutingNumber = getCoappPayMeth.CCVNumber
                             };
                             db.tbl_PaymentAccounts.Add(addPaymentMethod);
                             db.SaveChanges();
@@ -1277,8 +1278,8 @@ namespace ShomaRM.Areas.Admin.Models
                         NameOnCard = getPayMeth.Name_On_Card,
                         CardNumber = getPayMeth.CardNumber,
                         CardType = 1,
-                        Month = getPayMeth.CardMonth != null ? getPayMeth.CardMonth.ToString() : "0",
-                        Year = getPayMeth.CardYear != null ? getPayMeth.CardYear.ToString() : "0",
+                        Month = getPayMeth.CardMonth,
+                        Year = getPayMeth.CardYear ,
                         TenantId = getAppldata.TenantID,
                         NickName = getPayMeth.Name_On_Card,
                         AccountName = getPayMeth.Name_On_Card,
@@ -1298,15 +1299,15 @@ namespace ShomaRM.Areas.Admin.Models
                         NameOnCard = getPayMeth.Name_On_Card,
                         AccountNumber = getPayMeth.CardNumber,
                         CardType = 0,
-                        Month = "0",
-                        Year = "0",
+                        Month = "",
+                        Year = "",
                         TenantId = getAppldata.TenantID,
                         NickName = getPayMeth.Name_On_Card,
                         AccountName = getPayMeth.Name_On_Card,
                         PayMethod = 2,
                         Default = 1,
                         BankName = getPayMeth.Name_On_Card,
-                        RoutingNumber = getPayMeth.CCVNumber.ToString()
+                        RoutingNumber = getPayMeth.CCVNumber
                     };
                     db.tbl_PaymentAccounts.Add(addPaymentMethod);
                     db.SaveChanges();

@@ -294,7 +294,7 @@ namespace ShomaRM.Controllers
             {
                 Email = "info@sanctuarydoral.com",
                 IsOwner = true,
-                Name = " ",
+                Name = "Sanctuary Doral",
                 Phone = "786-437-8658"
             });
 

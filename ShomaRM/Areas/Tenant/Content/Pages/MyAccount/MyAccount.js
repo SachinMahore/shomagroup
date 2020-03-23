@@ -1886,7 +1886,7 @@ var getPaymentAccountsBankAccount = function () {
                 html += "<td>" + elementValue.BankName + "</td>";
                 html += "<td>" + elementValue.AccountName + "</td>";
                 html += "<td>" + MaskCardNumber(elementValue.AccountNumber) + "</td>";
-                html += "<td>" + elementValue.RoutingNumber + "</td>";
+                html += "<td>" + MaskCardNumber(elementValue.RoutingNumber) + "</td>";
 
                
                 html += "<td width='11%'>" + checked + "</td>";

@@ -617,13 +617,13 @@ namespace ShomaRM.Areas.Admin.Models
                     GL_Entries_Created = 1,
                     GL_Trans_Description = model.Description,
                     ProspectID = model.ProspectID,
-                    TAccCardName = model.TAccCardName,
-                    TAccCardNumber = model.TAccCardNumber,
-                    TBankName = model.TBankName,
-                    TRoutingNumber = model.TRoutingNumber,
-                    TCardExpirationMonth = model.TCardExpirationMonth,
-                    TCardExpirationYear = model.TCardExpirationYear,
-                    TSecurityNumber = model.TSecurityNumber,
+                    //TAccCardName = model.TAccCardName,
+                    //TAccCardNumber = model.TAccCardNumber,
+                    //TBankName = model.TBankName,
+                    //TRoutingNumber = model.TRoutingNumber,
+                    //TCardExpirationMonth = model.TCardExpirationMonth,
+                    //TCardExpirationYear = model.TCardExpirationYear,
+                    //TSecurityNumber = model.TSecurityNumber,
 
                 };
                 db.tbl_Transaction.Add(saveTransaction);

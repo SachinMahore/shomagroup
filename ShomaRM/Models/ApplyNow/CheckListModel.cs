@@ -229,10 +229,10 @@ namespace ShomaRM.Models
                     if (GetPayDetails != null)
                     {
                         GetPayDetails.Name_On_Card = model.Name_On_Card;
-                        GetPayDetails.CardNumber = model.CardNumber;
-                        GetPayDetails.CardMonth = model.CardMonth;
-                        GetPayDetails.CardYear = model.CardYear;
-                        GetPayDetails.CCVNumber = model.CCVNumber;
+                        GetPayDetails.CardNumber = !string.IsNullOrWhiteSpace(model.CardNumber) ? new EncryptDecrypt().EncryptText(model.CardNumber) : "";
+                        GetPayDetails.CardMonth = !string.IsNullOrWhiteSpace(model.CardMonth) ? new EncryptDecrypt().EncryptText(model.CardMonth) : "";
+                        GetPayDetails.CardYear = !string.IsNullOrWhiteSpace(model.CardYear) ? new EncryptDecrypt().EncryptText(model.CardYear) : "";
+                        GetPayDetails.CCVNumber = !string.IsNullOrWhiteSpace(model.CCVNumber) ? new EncryptDecrypt().EncryptText(model.CCVNumber) : "";
                         GetPayDetails.ProspectId = model.ProspectId;
                         GetPayDetails.PaymentMethod = model.PaymentMethod;
 
@@ -245,10 +245,10 @@ namespace ShomaRM.Models
                         {
                             PID = model.PID,
                             Name_On_Card = model.Name_On_Card,
-                            CardNumber = model.CardNumber,
-                            CardMonth = model.CardMonth,
-                            CardYear = model.CardYear,
-                            CCVNumber = model.CCVNumber,
+                            CardNumber = !string.IsNullOrWhiteSpace(model.CardNumber) ? new EncryptDecrypt().EncryptText(model.CardNumber) : "",
+                            CardMonth = !string.IsNullOrWhiteSpace(model.CardMonth) ? new EncryptDecrypt().EncryptText(model.CardMonth) : "",
+                            CardYear = !string.IsNullOrWhiteSpace(model.CardYear) ? new EncryptDecrypt().EncryptText(model.CardYear) : "",
+                            CCVNumber = !string.IsNullOrWhiteSpace(model.CCVNumber) ? new EncryptDecrypt().EncryptText(model.CCVNumber) : "",
                             ProspectId = model.ProspectId,
                             PaymentMethod = model.PaymentMethod,
                         };
@@ -283,13 +283,13 @@ namespace ShomaRM.Models
                         GL_Entries_Created = 1,
                         GL_Trans_Description = transStatus.ToString(),
                         ProspectID = 0,
-                        TAccCardName = model.Name_On_Card,
-                        TAccCardNumber = model.CardNumber,
-                        TBankName = model.BankName,
-                        TRoutingNumber = model.RoutingNumber,
-                        TCardExpirationMonth = model.CardMonth.ToString(),
-                        TCardExpirationYear = model.CardYear.ToString(),
-                        TSecurityNumber = model.CCVNumber.ToString(),
+                        //TAccCardName = model.Name_On_Card,
+                        //TAccCardNumber = model.CardNumber,
+                        //TBankName = model.BankName,
+                        //TRoutingNumber = model.RoutingNumber,
+                        //TCardExpirationMonth = model.CardMonth.ToString(),
+                        //TCardExpirationYear = model.CardYear.ToString(),
+                        //TSecurityNumber = model.CCVNumber.ToString(),
 
                     };
                     db.tbl_Transaction.Add(saveTransaction);

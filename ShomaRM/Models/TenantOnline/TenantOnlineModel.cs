@@ -295,10 +295,24 @@ namespace ShomaRM.Models
                     lstpr.Gender = Convert.ToInt32(dr["Gender"].ToString());
                     lstpr.Email = dr["Email"].ToString();
                     lstpr.Mobile = dr["Mobile"].ToString();
+
                     if(!string.IsNullOrWhiteSpace(dr["PassportNumber"].ToString()))
                     {
                         string decryptedPassportNumber = new EncryptDecrypt().DecryptText(dr["PassportNumber"].ToString());
-                        lstpr.PassportNumber = decryptedPassportNumber;
+                        int passportlength = decryptedPassportNumber.Length > 4 ? decryptedPassportNumber.Length - 4 : 0;
+                        string maskidnumber = "";
+                        for (int i = 0; i < passportlength; i++)
+                        {
+                            maskidnumber += "*";
+                        }
+                        if (decryptedPassportNumber.Length > 4)
+                        {
+                            lstpr.PassportNumber = maskidnumber + decryptedPassportNumber.Substring(decryptedPassportNumber.Length - 4, 4);
+                        }
+                        else
+                        {
+                            lstpr.PassportNumber = decryptedPassportNumber;
+                        }
                     }
                     else
                     {
@@ -313,23 +327,42 @@ namespace ShomaRM.Models
                     if (!string.IsNullOrWhiteSpace(dr["IDNumber"].ToString()))
                     {
                         string decryptedIDNumber = new EncryptDecrypt().DecryptText(dr["IDNumber"].ToString());
-                        lstpr.IDNumber = decryptedIDNumber;
+                        int idnumlength = decryptedIDNumber.Length > 4 ? decryptedIDNumber.Length - 4 : 0;
+                        string maskidnumber = "";
+                        for(int i=0;i<idnumlength;i++)
+                        {
+                            maskidnumber += "*";
+                        }
+                        if(decryptedIDNumber.Length>4)
+                        {
+                            lstpr.IDNumber = maskidnumber + decryptedIDNumber.Substring(decryptedIDNumber.Length - 4, 4);
+                        }
+                        else
+                        {
+                            lstpr.IDNumber = decryptedIDNumber;
+                        }
                     }
                     else
                     {
                         lstpr.IDNumber = "";
                     }
-                    //lstpr.IDNumber = dr["IDNumber"].ToString();
+                    
                     if (!string.IsNullOrWhiteSpace(dr["SSN"].ToString()))
                     {
                         string decryptedSSN = new EncryptDecrypt().DecryptText(dr["SSN"].ToString());
-                        lstpr.SSN = decryptedSSN;
+                        if (decryptedSSN.Length > 5)
+                        {
+                            lstpr.SSN = "***-**-" + decryptedSSN.Substring(decryptedSSN.Length - 5, 4);
+                        }
+                        else
+                        {
+                            lstpr.SSN = decryptedSSN;
+                        }
                     }
                     else
                     {
                         lstpr.SSN = "";
                     }
-                   // lstpr.SSN = dr["SSN"].ToString();
                     lstpr.Country = dr["Country"].ToString();
                     lstpr.HomeAddress1 = dr["HomeAddress1"].ToString();
                     lstpr.HomeAddress2 = dr["HomeAddress2"].ToString();
@@ -412,7 +445,28 @@ namespace ShomaRM.Models
                 throw ex;
             }
         }
-
+        public string GetSSNIdNumberPassportNumber(int id, int vid)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string result = "";
+            var appData = db.tbl_TenantOnline.Where(p => p.ProspectID == id).FirstOrDefault();
+            if (appData != null)
+            {
+                if (vid == 1)
+                {
+                    result= !string.IsNullOrWhiteSpace(appData.SSN) ? new EncryptDecrypt().DecryptText(appData.SSN) : "";
+                }
+                else if (vid == 2)
+                {
+                    result= !string.IsNullOrWhiteSpace(appData.PassportNumber) ? new EncryptDecrypt().DecryptText(appData.PassportNumber) : "";
+                }
+                else if (vid == 3)
+                {
+                    result= !string.IsNullOrWhiteSpace(appData.IDNumber) ? new EncryptDecrypt().DecryptText(appData.IDNumber) : "";
+                }
+            }
+            return result;
+        }
         public string SaveTenantOnline(TenantOnlineModel model)
         {
             string msg = "";
