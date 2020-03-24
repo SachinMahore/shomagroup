@@ -1097,7 +1097,7 @@ namespace ShomaRM.Areas.Admin.Models
                 }
                 db.SaveChanges();
                 DateTime EMiDate = new DateTime(DateTime.Now.Year, (DateTime.Now.Month), 1);
-                var coapplicantList = db.tbl_Applicant.Where(p => p.TenantID == model.ProspectID && p.Type != "Primary Applicant" && p.Type != "Guarantor").ToList();
+                var coapplicantList = db.tbl_Applicant.Where(p => p.TenantID == model.ProspectID && p.Type != "Primary Applicant" && p.Type != "Guarantor" && p.Type != "Minor").ToList();
                 if (coapplicantList != null)
                 {
                     foreach (var tl in coapplicantList)
@@ -1124,17 +1124,20 @@ namespace ShomaRM.Areas.Admin.Models
                         string pass = "";
                         string _allowedChars = "0123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ";
                         Random randNum = new Random();
-                        char[] chars = new char[5];
+                        char[] chars = new char[8];
                         int allowedCharCount = _allowedChars.Length;
-                        for (int i = 0; i < 5; i++)
+                        for (int i = 0; i < 8; i++)
                         {
                             chars[i] = _allowedChars[(int)((_allowedChars.Length) * randNum.NextDouble())];
                         }
                         pass = new string(chars);
+
+                        string encpass = new EncryptDecrypt().EncryptText(pass);
+
                         var createCoApplLogin = new tbl_Login()
                         {
                             Username = tl.Email,
-                            Password = pass,
+                            Password = encpass,
                             FirstName = tl.FirstName,
                             LastName = tl.LastName,
                             Email = tl.Email,
