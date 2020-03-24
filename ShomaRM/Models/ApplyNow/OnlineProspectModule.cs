@@ -169,9 +169,11 @@ namespace ShomaRM.Models
                     LastName = model.LastName,
                     Phone = model.Phone,
                     Email = model.Email,
-                    DateOfBirth = model.DateofBirth,
+                    //DateOfBirth = model.DateofBirth,
                     Gender = 0,
+                    Relationship="1",
                     Type = "Primary Applicant",
+                    
 
                 };
                 db.tbl_Applicant.Add(saveApplicant);
@@ -179,7 +181,6 @@ namespace ShomaRM.Models
 
                 var getAppldata = new tbl_TenantOnline()
                 {
-
                     ProspectID = model.ID,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
@@ -188,10 +189,20 @@ namespace ShomaRM.Models
                     Mobile = model.Phone,
                     CreatedDate = DateTime.Now,
                     IsInternational = 0,
+                    Gender = 0,
+                    IDType = 0,
+                    State = 0,
+                    Country = "1",
+                    StateHome = 0,
+                    RentOwn = 0,
+                    JobType = 0,
+                    OfficeCountry = "1",
+                    OfficeState = 0,
+                    EmergencyCountry = "1",
+                    EmergencyStateHome = 0
                 };
                 db.tbl_TenantOnline.Add(getAppldata);
                 db.SaveChanges();
-
 
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == model.PropertyId).FirstOrDefault();
                 string reportHTML = "";

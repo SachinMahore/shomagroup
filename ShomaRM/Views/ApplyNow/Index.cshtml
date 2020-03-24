@@ -12,6 +12,7 @@
 <input type="hidden" id="hndAppHisMon" value="0" />
 <input type="hidden" id="hndHistory" value="0" />
 <input type="hidden" id="hndLeaseTermID" value="@Model.LeaseTermID" />
+<input type="hidden" id="hdnEmployerHistory" value="0" />
 
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
@@ -3684,7 +3685,7 @@
 </div>
 <div class="modal" id="popHistoryEmpAndIncome">
     <div class="modal-dialog">
-        <div class="modal-content" style="width:732px; height:900px;">
+        <div class="modal-content" style="width:732px; height:800px;">
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Employment History</h5>
@@ -3783,52 +3784,6 @@
                                 <label>Supervisor Email</label>
                                 <input id="txtSupervisiorEmailHEI" class="form-control form-control-small" type="text" />
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12">
-                    <p>Upload last 3 paystubs or if self-employed last 2 year's Fedral Tax Returns</p>
-                </div>
-                <div class="col-sm-12">
-                    <div class="col-sm-8">
-                        <div class="form-group">
-                            <input id="rbtnPaystubHEI" class="form-control form-control-small" type="radio" name="tax" />
-                            <label for="rbtnPaystubHEI">Paystub</label>
-                            <input id="rbtnFedralTaxHEI" class="form-control form-control-small" type="radio" name="tax" checked="checked" />
-                            <label for="rbtnFedralTaxHEI">Fedral Tax Return</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="star" id="lblUpload1HEI">Upload 1</label><br />
-                            <input type="file" name="fileUploadTaxReturn1HEI" id="fileUploadTaxReturn1HEI" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                            <label for="fileUploadTaxReturn1HEI"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn1HEIShow">Choose a file&hellip;</span></label>
-                            <input type="hidden" id="hndHasTaxReturnFile1HEI" value="0" />
-                            <input type="hidden" id="hndFileUploadName1HEI" value="0" />
-                            <input type="hidden" id="hndOriginalFileUploadName1HEI" value="0" />
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="star" id="lblUpload2HEI">Upload 2</label><br />
-                            <input type="file" name="fileUploadTaxReturn2HEI" id="fileUploadTaxReturn2HEI" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                            <label for="fileUploadTaxReturn2HEI"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn2HEIShow">Choose a file&hellip;</span></label>
-                            <input type="hidden" id="hndHasTaxReturnFile2HEI" value="0" />
-                            <input type="hidden" id="hndFileUploadName2HEI" value="0" />
-                            <input type="hidden" id="hndOriginalFileUploadName2HEI" value="0" />
-                        </div>
-                    </div>
-                    <div class="col-sm-4" id="divUpload3HEI">
-                        <div class="form-group">
-                            <label class="star" id="lblUpload3HEI">Upload 3</label><br />
-                            <input type="file" name="fileUploadTaxReturn3HEI" id="fileUploadTaxReturn3HEI" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                            <label for="fileUploadTaxReturn3HEI"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn3HEIShow">Choose a file&hellip;</span></label>
-                            <input type="hidden" id="hndHasTaxReturnFile3HEI" value="0" />
-                            <input type="hidden" id="hndFileUploadName3HEI" value="0" />
-                            <input type="hidden" id="hndOriginalFileUploadName3HEI" value="0" />
                         </div>
                     </div>
                 </div>
@@ -4290,17 +4245,24 @@
         });
         $("#txtDateOfExpiration").datepicker();
 
-        $('#txtStartDateHEI').datepicker({ viewMode: "years", endDate: dt, autoclose: true });
+        
         $("#SPStartDateHEI").click(function () {
             $("#txtStartDateHEI").focus();
         });
-        $('#txtTerminationDateHEI').datepicker({ viewMode: "years", endDate: dt, autoclose: true });
+        $("#SPTerminationDateHEI").click(function () {
+            $("#txtTerminationDateHEI").focus();
+        });
+        
+        $("#SPStartDateHEI").click(function () {
+            $("#txtStartDateHEI").focus();
+        });
+        
         $("#SPTerminationDateHEI").click(function () {
             $("#txtTerminationDateHEI").focus();
         });
 
 
-        $("#txtDateOfIssuance,#txtStartDate,#txtMoveInDateFrom,#txtMoveInDateTo").datepicker({
+        $("#txtDateOfIssuance,#txtStartDate,#txtMoveInDateFrom,#txtMoveInDateTo,#txtStartDateHEI,#txtTerminationDateHEI").datepicker({
             endDate: "+0d",
             autoclose: true,
             startDate: '-100y'
