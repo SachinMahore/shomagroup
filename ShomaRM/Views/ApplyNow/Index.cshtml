@@ -2450,7 +2450,7 @@
                                     </div>
                                     <div class="col-sm-8">
                                    
-                                        <button type="submit" class="btn btn-primary" onclick="savePayment()">Pay Now</button>
+                                        <button type="submit" class="btn btn-primary" id="btnpaynow" onclick="savePayment()" disabled>Pay Now</button>
                                     </div>
                            
                                 </div>
@@ -3883,18 +3883,18 @@
                             <p style="font-size:medium; color:#838383;">“You have completed your online application.  The next step is to submit payment and the application; however, we strongly recommend that you please review your application and ensure all the information is correct before submitting payment and the application.  Once you submit your application, the payment is non-refundable and corrections are no longer available.  Kindly confirm below you have reviewed your application and are ready to submit it.</p>
                              <p style="font-size:small;">
                                <table>
-                                   <tr><td><b>APPLICANT:</b></td><td><a href="javascript:void(0);" onclick="editApp()">&nbsp;&nbsp;EDIT</a></td></tr>
+                                   <tr><td><b>APPLICANT:</b></td><td><a href="javascript:void(0);" onclick="goToStep(9,9)">&nbsp;&nbsp;EDIT</a></td></tr>
                                    <tr><td>Name</td><td><span id="summName"></span></td></tr>
                                    <tr><td>Date of Birth</td><td><span id="summDob"></span></td></tr>
                                    <tr><td>SSN#</td><td><span id="summSSN"></span></td></tr>
                                    <tr><td>Phone</td><td><span id="summPhone"></span></td></tr>
                                    <tr><td>Gender</td><td><span id="summGender"></span></td></tr>
                                    <tr><td>Driver’s License</td><td><span id="summDriverL"></span></td></tr>
-                                   <tr><td><b>RESIDENTIAL HISTORY:</b></td><td><a href="javascript:void(0);" onclick="editApp()">&nbsp;&nbsp;EDIT</a></td></tr>
+                                   <tr><td><b>RESIDENTIAL HISTORY:</b></td><td><a href="javascript:void(0);" onclick="goToStep(10,10)">&nbsp;&nbsp;EDIT</a></td></tr>
                                    <tr><td>Current Address</td><td><span id="summCuAdd"></span></td></tr>
                                   
                                    <tr><td colspan="2"><table id="prevadd"><tbody></tbody></table></td></tr>
-                                   <tr><td><b>EMPLOYMENT HISTORY:</b></td><td><a href="javascript:void(0);" onclick="editApp()">&nbsp;&nbsp;EDIT</a></td></tr>
+                                   <tr><td><b>EMPLOYMENT HISTORY:</b></td><td><a href="javascript:void(0);" onclick="goToStep(11,11)">&nbsp;&nbsp;EDIT</a></td></tr>
                                    <tr><td>Current Employer</td><td><span id="summEmployer"></span></td></tr>
                                    <tr><td>Start Date</td><td><span id="summEstartdate"></span></td></tr>
                                    <tr><td>Annual Salary</td><td><span id="summSalary"></span></td></tr>
@@ -4245,18 +4245,18 @@
         });
         $("#txtDateOfExpiration").datepicker();
 
-        
+
         $("#SPStartDateHEI").click(function () {
             $("#txtStartDateHEI").focus();
         });
         $("#SPTerminationDateHEI").click(function () {
             $("#txtTerminationDateHEI").focus();
         });
-        
+
         $("#SPStartDateHEI").click(function () {
             $("#txtStartDateHEI").focus();
         });
-        
+
         $("#SPTerminationDateHEI").click(function () {
             $("#txtTerminationDateHEI").focus();
         });
@@ -4304,7 +4304,7 @@
         $("#txtPhoneNumber").val(formatPhoneFax('@Model.Phone'));
         $("#lblFNLPhone").text(formatPhoneFax('@Model.Phone'));
     });
-    
+
     $(document).ready(function () {
            $("#apartimg_2").maphilight();
            $("#ddlRoom").val(@Model.Bedroom);
@@ -4360,7 +4360,10 @@
                  $("#chkRentalQual").iCheck('check');
 
             }
+             if (@Model.AcceptSummary=="1") {
+                 $("#chkAgreeSummarry").iCheck('check');
 
+            }
 
             if (('@Model.EnvelopeID') !="") {
                 $("#btnAddPet").attr("disabled", true);

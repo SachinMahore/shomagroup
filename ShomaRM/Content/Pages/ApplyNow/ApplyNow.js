@@ -240,6 +240,7 @@ $(document).ready(function () {
 
     $("#chkAgreeSummarry").on('ifChanged', function (event) {
         if ($("#chkAgreeSummarry").is(":checked")) {
+            $("#btnpaynow").removeProp("disabled");
             tenantOnlineID = $("#hdnOPId").val();
 
             getTenantOnlineList(tenantOnlineID);
@@ -931,7 +932,7 @@ var goToStep = function (stepid, id) {
                 msg = "Both Charges Should have 100% to continue";
             }
             else {
-
+                $("#popApplicantSummary").modal("hide");
                 saveupdatePaymentResponsibility();  //Amit's work
                 $("#step2").addClass("hidden");
                 $("#step1").addClass("hidden");
@@ -1086,6 +1087,7 @@ var goToStep = function (stepid, id) {
                 return;
             }
             else {
+                $("#popApplicantSummary").modal("hide");
                 saveupdateTenantOnline();
                 $("#step2").addClass("hidden");
                 $("#step1").addClass("hidden");
@@ -1121,7 +1123,7 @@ var goToStep = function (stepid, id) {
     if (stepid == "11") {
         if (id == "11") {
             $("#divLoader").show();
-           
+            $("#popApplicantSummary").modal("hide");
             var msg = '';
 
             //step10
@@ -2445,6 +2447,7 @@ var SaveCheckPolicy = function () {
 function savePayment() {
     $("#divLoader").show();
     var msg = "";
+    var isSummarychecked = $("#chkAgreeSummarry").is(":checked") ? "1" : "0";
     if ($("#hndTransMethod").val() == "0") {
         $("#divLoader").hide();
         $.alert({
@@ -2454,6 +2457,16 @@ function savePayment() {
         });
         return;
 
+    }
+    if (isSummarychecked != "1")
+    {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: "Please ACCEPT AGREEMENTS </br>",
+            type: 'red'
+        });
+        return;
     }
     if ($("#hndTransMethod").val() == 2) {
         var paymentMethod = 2;
@@ -2558,6 +2571,7 @@ function savePayment() {
         RoutingNumber: routingNumber,
         BankName: bankName,
         PaymentMethod: paymentMethod,
+        AcceptSummary :isSummarychecked,
     };
     $.alert({
         title: "",

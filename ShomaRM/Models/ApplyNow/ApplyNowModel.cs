@@ -47,7 +47,7 @@ namespace ShomaRM.Models
         public Nullable<long> AID { get; set; }
         public Nullable<decimal> MoveInPercentage { get; set; }
         public Nullable<decimal> ProcessingFees { get; set; }
-
+        public int AcceptSummary { get; set; }
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
 
@@ -150,6 +150,7 @@ namespace ShomaRM.Models
                     mm.CreateTransBill(TransId, Convert.ToDecimal(model.Charge_Amount), model.Description);
 
                     GetProspectData.IsApplyNow = 2;
+                    GetProspectData.AcceptSummary = 1;
                     db.SaveChanges();
 
                     string reportHTML = "";
