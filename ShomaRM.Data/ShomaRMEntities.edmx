@@ -145,6 +145,8 @@
           <Property Name="MonthlyCharges" Type="money" />
           <Property Name="EsignatureID" Type="nvarchar" MaxLength="50" />
           <Property Name="PetDNAAmt" Type="money" />
+          <Property Name="StepCompleted" Type="int" />
+          <Property Name="AcceptSummary" Type="int" />
         </EntityType>
         <EntityType Name="tbl_AuditHistory">
           <Key>
@@ -356,6 +358,7 @@
           <Property Name="TaxReturn3OrigName" Type="nvarchar(max)" />
           <Property Name="PaystubValue" Type="int" />
           <Property Name="TenantId" Type="bigint" />
+          <Property Name="TerminationReason" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbl_Estimate">
           <Key>
@@ -5114,6 +5117,8 @@
           <NavigationProperty Name="tbl_Vehicle" Relationship="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Vehicle" />
           <NavigationProperty Name="tbl_TenantOnline" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantOnline" />
           <NavigationProperty Name="tbl_TenantInfo" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantInfo" />
+          <Property Name="StepCompleted" Type="Int32" />
+          <Property Name="AcceptSummary" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_Properties">
           <Key>
@@ -5847,6 +5852,7 @@
           <Property Name="TaxReturn3OrigName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PaystubValue" Type="Int32" />
           <Property Name="TenantId" Type="Int64" />
+          <Property Name="TerminationReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -7100,6 +7106,8 @@
           <EntitySetMapping Name="tbl_ApplyNow">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ApplyNow">
               <MappingFragment StoreEntitySet="tbl_ApplyNow">
+                <ScalarProperty Name="AcceptSummary" ColumnName="AcceptSummary" />
+                <ScalarProperty Name="StepCompleted" ColumnName="StepCompleted" />
                 <ScalarProperty Name="PetDNAAmt" ColumnName="PetDNAAmt" />
                 <ScalarProperty Name="EsignatureID" ColumnName="EsignatureID" />
                 <ScalarProperty Name="MonthlyCharges" ColumnName="MonthlyCharges" />
@@ -7417,6 +7425,7 @@
           <EntitySetMapping Name="tbl_EmployerHistory">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_EmployerHistory">
               <MappingFragment StoreEntitySet="tbl_EmployerHistory">
+                <ScalarProperty Name="TerminationReason" ColumnName="TerminationReason" />
                 <ScalarProperty Name="TenantId" ColumnName="TenantId" />
                 <ScalarProperty Name="PaystubValue" ColumnName="PaystubValue" />
                 <ScalarProperty Name="TaxReturn3OrigName" ColumnName="TaxReturn3OrigName" />

@@ -67,6 +67,8 @@ namespace ShomaRM.Data
         public Nullable<decimal> MonthlyCharges { get; set; }
         public string EsignatureID { get; set; }
         public Nullable<decimal> PetDNAAmt { get; set; }
+        public Nullable<int> StepCompleted { get; set; }
+        public Nullable<int> AcceptSummary { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Applicant> tbl_Applicant { get; set; }

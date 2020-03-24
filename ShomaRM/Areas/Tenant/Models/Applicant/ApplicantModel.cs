@@ -66,7 +66,6 @@ namespace ShomaRM.Areas.Tenant.Models
                         updateTenantOnline.DateOfBirth = model.DateOfBirth;
                         updateTenantOnline.Gender = model.Gender;
                         updateTenantOnline.OtherGender = model.OtherGender;
-
                         db.SaveChanges();
                     }
                 }

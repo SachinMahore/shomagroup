@@ -39,6 +39,8 @@ namespace ShomaRM.Areas.Tenant.Models
         public string StateName { get; set; }
         public string StartDateString { get; set; }
         public string TerminationDateString { get; set; }
+        public string TerminationReason { get; set; }
+        public int TotalMonthsEmployerHistory { get; set; }
 
         public string saveUpdateEmployerHistory(EmployerHistoryModel model)
         {
@@ -65,14 +67,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     State = model.State,
                     City = model.City,
                     Zip = model.Zip,
-                    TaxReturn1 = model.TaxReturn1,
-                    TaxReturn2 = model.TaxReturn2,
-                    TaxReturn3 = model.TaxReturn3,
-                    TaxReturn1OrigName = model.TaxReturn1OrigName,
-                    TaxReturn2OrigName = model.TaxReturn2OrigName,
-                    TaxReturn3OrigName = model.TaxReturn3OrigName,
-                    PaystubValue = model.PaystubValue,
-                    TenantId = model.TenantId
+                    TenantId = model.TenantId,
+                    TerminationReason = model.TerminationReason
                 };
                 db.tbl_EmployerHistory.Add(saveEmployerHistory);
                 db.SaveChanges();
@@ -100,117 +96,14 @@ namespace ShomaRM.Areas.Tenant.Models
                     updateEmployerHistory.State = model.State;
                     updateEmployerHistory.City = model.City;
                     updateEmployerHistory.Zip = model.Zip;
-                    updateEmployerHistory.TaxReturn1 = model.TaxReturn1;
-                    updateEmployerHistory.TaxReturn2 = model.TaxReturn2;
-                    updateEmployerHistory.TaxReturn3 = model.TaxReturn3;
-                    updateEmployerHistory.TaxReturn1OrigName = model.TaxReturn1OrigName;
-                    updateEmployerHistory.TaxReturn2OrigName = model.TaxReturn2OrigName;
-                    updateEmployerHistory.TaxReturn3OrigName = model.TaxReturn3OrigName;
-                    updateEmployerHistory.PaystubValue = model.PaystubValue;
                     updateEmployerHistory.TenantId = model.TenantId;
+                    updateEmployerHistory.TerminationReason = model.TerminationReason;
                     db.SaveChanges();
                     msg = "Progress Updated";
                 }
             }
             db.Dispose();
             return msg;
-        }
-
-        public EmployerHistoryModel SaveTaxUpload1HEI(HttpPostedFileBase fileBaseUpload1, EmployerHistoryModel model)
-        {
-            ShomaRMEntities db = new ShomaRMEntities();
-            EmployerHistoryModel HEImodel1 = new EmployerHistoryModel();
-            string filePath = "";
-            string fileName = "";
-            string sysFileName = "";
-            string Extension = "";
-
-            if (fileBaseUpload1 != null && fileBaseUpload1.ContentLength > 0)
-            {
-                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/");
-                DirectoryInfo di = new DirectoryInfo(filePath);
-                FileInfo _FileInfo = new FileInfo(filePath);
-                if (!di.Exists)
-                {
-                    di.Create();
-                }
-                fileName = fileBaseUpload1.FileName;
-                Extension = Path.GetExtension(fileBaseUpload1.FileName);
-                sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseUpload1.FileName);
-                fileBaseUpload1.SaveAs(filePath + "//" + sysFileName);
-                if (!string.IsNullOrWhiteSpace(fileBaseUpload1.FileName))
-                {
-                    string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/") + "/" + sysFileName;
-
-                }
-                HEImodel1.TaxReturn1 = sysFileName;
-                HEImodel1.TaxReturn1OrigName = fileName;
-            }
-            return HEImodel1;
-        }
-        public EmployerHistoryModel SaveTaxUpload2HEI(HttpPostedFileBase fileBaseUpload2, EmployerHistoryModel model)
-        {
-            ShomaRMEntities db = new ShomaRMEntities();
-            EmployerHistoryModel HEImodel2 = new EmployerHistoryModel();
-            string filePath = "";
-            string fileName = "";
-            string sysFileName = "";
-            string Extension = "";
-
-            if (fileBaseUpload2 != null && fileBaseUpload2.ContentLength > 0)
-            {
-                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/");
-                DirectoryInfo di = new DirectoryInfo(filePath);
-                FileInfo _FileInfo = new FileInfo(filePath);
-                if (!di.Exists)
-                {
-                    di.Create();
-                }
-                fileName = fileBaseUpload2.FileName;
-                Extension = Path.GetExtension(fileBaseUpload2.FileName);
-                sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseUpload2.FileName);
-                fileBaseUpload2.SaveAs(filePath + "//" + sysFileName);
-                if (!string.IsNullOrWhiteSpace(fileBaseUpload2.FileName))
-                {
-                    string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/") + "/" + sysFileName;
-
-                }
-                HEImodel2.TaxReturn2 = sysFileName.ToString();
-                HEImodel2.TaxReturn2OrigName = fileName;
-            }
-            return HEImodel2;
-        }
-        public EmployerHistoryModel SaveTaxUpload3HEI(HttpPostedFileBase fileBaseUpload3, EmployerHistoryModel model)
-        {
-            ShomaRMEntities db = new ShomaRMEntities();
-            EmployerHistoryModel HEImodel3 = new EmployerHistoryModel();
-            string filePath = "";
-            string fileName = "";
-            string sysFileName = "";
-            string Extension = "";
-
-            if (fileBaseUpload3 != null && fileBaseUpload3.ContentLength > 0)
-            {
-                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/");
-                DirectoryInfo di = new DirectoryInfo(filePath);
-                FileInfo _FileInfo = new FileInfo(filePath);
-                if (!di.Exists)
-                {
-                    di.Create();
-                }
-                fileName = fileBaseUpload3.FileName;
-                Extension = Path.GetExtension(fileBaseUpload3.FileName);
-                sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseUpload3.FileName);
-                fileBaseUpload3.SaveAs(filePath + "//" + sysFileName);
-                if (!string.IsNullOrWhiteSpace(fileBaseUpload3.FileName))
-                {
-                    string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/") + "/" + sysFileName;
-
-                }
-                HEImodel3.TaxReturn3 = sysFileName.ToString();
-                HEImodel3.TaxReturn3OrigName = fileName;
-            }
-            return HEImodel3;
         }
 
         public List<EmployerHistoryModel> GetEmployerHistory(long TenantId)
@@ -234,30 +127,24 @@ namespace ShomaRM.Areas.Tenant.Models
                         TerminationDate = item.TerminationDate,
                         AnnualIncome = item.AnnualIncome,
                         AddAnnualIncome = item.AddAnnualIncome,
-                        SupervisorName = !string.IsNullOrWhiteSpace(item.SupervisorName) ? item.SupervisorName : "",
-                        SupervisorPhone = !string.IsNullOrWhiteSpace(item.SupervisorPhone) ? item.SupervisorPhone : "",
-                        SupervisorEmail = !string.IsNullOrWhiteSpace(item.SupervisorEmail) ? item.SupervisorEmail : "",
+                        SupervisorName = item.SupervisorName,
+                        SupervisorPhone = item.SupervisorPhone,
+                        SupervisorEmail = item.SupervisorEmail,
                         Country = item.Country,
                         Address1 = item.Address1,
-                        Address2 = !string.IsNullOrWhiteSpace(item.Address2) ? item.Address2 : "",
+                        Address2 = item.Address2,
                         State = item.State,
                         City = item.City,
                         Zip = item.Zip,
-                        TaxReturn1 = item.TaxReturn1,
-                        TaxReturn2 = item.TaxReturn2,
-                        TaxReturn3 = item.TaxReturn3,
-                        TaxReturn1OrigName = item.TaxReturn1OrigName,
-                        TaxReturn2OrigName = item.TaxReturn2OrigName,
-                        TaxReturn3OrigName = item.TaxReturn3OrigName,
-                        PaystubValue = item.PaystubValue,
                         CountryName = countryName != null ? countryName.CountryName : "",
                         StateName = StateName != null ? StateName.StateName : "",
                         JobTypeName = item.JobType == 1 ? "Permanent" : item.JobType == 2 ? "Contract Basis" : "",
                         StartDateString = item.StartDate != null ? item.StartDate.Value.ToString("MM/dd/yyyy") : "",
                         TerminationDateString = item.TerminationDate != null ? item.TerminationDate.Value.ToString("MM/dd/yyyy") : "",
+                        TerminationReason = !string.IsNullOrWhiteSpace(item.TerminationReason) ? item.TerminationReason : ""
                     });
                 }
-                
+
             }
             return model;
         }
@@ -267,7 +154,7 @@ namespace ShomaRM.Areas.Tenant.Models
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
             var deleteEmployerHistory = db.tbl_EmployerHistory.Where(co => co.HEIID == HEIID).FirstOrDefault();
-            
+
             if (deleteEmployerHistory != null)
             {
                 db.tbl_EmployerHistory.Remove(deleteEmployerHistory);
@@ -278,6 +165,148 @@ namespace ShomaRM.Areas.Tenant.Models
             db.Dispose();
 
             return msg;
+        }
+
+        //public EmployerHistoryModel GetMonthsFromEmployerHistory(long TenantId, string EmpStartDate, string EmpTerminationDate)
+        //{
+        //    ShomaRMEntities db = new ShomaRMEntities();
+        //    EmployerHistoryModel model = new EmployerHistoryModel();
+
+        //    try
+        //    {
+        //        int monthsCount = 0;
+        //        string fromDateDB = string.Empty;
+        //        string toDateDB = string.Empty;
+        //        var startDateEmpHist = db.tbl_EmployerHistory.Where(co => co.TenantId == TenantId).OrderBy(co => co.StartDate).ToList();
+        //        if (startDateEmpHist != null)
+        //        {
+        //            foreach (var item in startDateEmpHist)
+        //            {
+        //                fromDateDB = Convert.ToString(item.StartDate);
+        //                break;
+        //            }
+        //        }
+        //        var terminationDateEmpHist = db.tbl_EmployerHistory.Where(co => co.TenantId == TenantId).OrderByDescending(co => co.TerminationDate).ToList();
+        //        if (terminationDateEmpHist != null)
+        //        {
+        //            foreach (var item in terminationDateEmpHist)
+        //            {
+        //                toDateDB = Convert.ToString(item.TerminationDate);
+        //                break;
+        //            }
+        //        }
+        //        if (fromDateDB != string.Empty && toDateDB != string.Empty)
+        //        {
+        //            DateTime dt1FromDB = Convert.ToDateTime(fromDateDB);
+        //            DateTime dt2ToDB = Convert.ToDateTime(toDateDB);
+        //            if (EmpStartDate != string.Empty && EmpTerminationDate != string.Empty)
+        //            {
+        //                DateTime dt1Form = Convert.ToDateTime(EmpStartDate);
+        //                DateTime dt2Form = Convert.ToDateTime(EmpTerminationDate);
+        //                bool fDate = dt1FromDB < dt1Form;
+        //                bool tDate = dt2ToDB > dt2Form;
+
+        //                DateTime finalDt1 = Convert.ToDateTime(fDate == true ? dt1FromDB : dt1Form);
+        //                DateTime finalDt2 = Convert.ToDateTime(tDate == true ? dt2ToDB : dt2Form);
+
+        //                int givenDate = ((finalDt2.Year - finalDt1.Year) * 12) + finalDt2.Month - finalDt1.Month;
+        //                monthsCount = monthsCount + givenDate;
+        //            }
+        //        }
+        //        else if (EmpStartDate != string.Empty && EmpTerminationDate != string.Empty)
+        //        {
+        //            DateTime dt1 = Convert.ToDateTime(EmpStartDate);
+        //            DateTime dt2 = Convert.ToDateTime(EmpTerminationDate);
+        //            int givenDate = ((dt2.Year - dt1.Year) * 12) + dt2.Month - dt1.Month;
+        //            monthsCount = monthsCount + givenDate;
+        //        }
+        //        model.TotalMonthsEmployerHistory = monthsCount;
+
+        //        db.Dispose();
+        //        return model;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        db.Database.Connection.Close();
+        //        throw ex;
+        //    }
+        //}
+
+        public EmployerHistoryModel EditEmployerHistory(long HEIID)
+        {
+            EmployerHistoryModel model = new EmployerHistoryModel();
+            ShomaRMEntities db = new ShomaRMEntities();
+            var editEmployerHistorydata = db.tbl_EmployerHistory.Where(co => co.HEIID == HEIID).FirstOrDefault();
+            if (editEmployerHistorydata != null)
+            {
+                model.HEIID = editEmployerHistorydata.HEIID;
+                model.EmployerName = editEmployerHistorydata.EmployerName;
+                model.JobTitle = editEmployerHistorydata.JobTitle;
+                model.JobType = editEmployerHistorydata.JobType;
+                model.StartDate = editEmployerHistorydata.StartDate;
+                model.TerminationDate = editEmployerHistorydata.TerminationDate;
+                model.AnnualIncome = editEmployerHistorydata.AnnualIncome;
+                model.AddAnnualIncome = editEmployerHistorydata.AddAnnualIncome;
+                model.SupervisorName = editEmployerHistorydata.SupervisorName;
+                model.SupervisorPhone = editEmployerHistorydata.SupervisorPhone;
+                model.SupervisorEmail = editEmployerHistorydata.SupervisorEmail;
+                model.Country = editEmployerHistorydata.Country;
+                model.Address1 = editEmployerHistorydata.Address1;
+                model.Address2 = editEmployerHistorydata.Address2;
+                model.State = editEmployerHistorydata.State;
+                model.City = editEmployerHistorydata.City;
+                model.Zip = editEmployerHistorydata.Zip;
+                model.StartDateString = editEmployerHistorydata.StartDate != null ? editEmployerHistorydata.StartDate.Value.ToString("MM/dd/yyyy") : "";
+                model.TerminationDateString = editEmployerHistorydata.TerminationDate != null ? editEmployerHistorydata.TerminationDate.Value.ToString("MM/dd/yyyy") : "";
+                model.TerminationReason = editEmployerHistorydata.TerminationReason;
+
+            }
+            return model;
+        }
+
+        public EmployerHistoryModel GetMonthsFromEmployerHistory(long TenantId, string EmpStartDate, string EmpTerminationDate)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            EmployerHistoryModel model = new EmployerHistoryModel();
+
+            try
+            {
+                int monthsCount = 0;
+                string fromDateDB = string.Empty;
+                string toDateDB = string.Empty;
+                var empHist = db.tbl_EmployerHistory.Where(co => co.TenantId == TenantId).ToList();
+                if (empHist != null)
+                {
+                    foreach (var item in empHist)
+                    {
+                        fromDateDB = Convert.ToString(item.StartDate.Value.ToString("MM/dd/yyyy"));
+                        toDateDB = Convert.ToString(item.TerminationDate.Value.ToString("MM/dd/yyyy"));
+
+                        DateTime dtFromDB = Convert.ToDateTime(fromDateDB);
+                        DateTime dtToDB = Convert.ToDateTime(toDateDB);
+                        int givenDate = ((dtToDB.Year - dtFromDB.Year) * 12) + dtToDB.Month - dtFromDB.Month;
+
+                        monthsCount += givenDate;
+                    }
+                }
+
+                DateTime dtCurrentFromDB = Convert.ToDateTime(EmpStartDate);
+                DateTime dtCurrentToDB = Convert.ToDateTime(EmpTerminationDate);
+
+                int givenCurrentDate = ((dtCurrentToDB.Year - dtCurrentFromDB.Year) * 12) + dtCurrentToDB.Month - dtCurrentFromDB.Month;
+                monthsCount += givenCurrentDate;
+
+
+                model.TotalMonthsEmployerHistory = monthsCount;
+
+                db.Dispose();
+                return model;
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
         }
     }
 }

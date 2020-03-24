@@ -666,62 +666,62 @@ namespace ShomaRM.Controllers
             }
         }
 
-        public ActionResult TaxFileUpload1HEI(EmployerHistoryModel model)
-        {
-            try
-            {
-                HttpPostedFileBase fileBaseUpload1 = null;
-                for (int i = 0; i < Request.Files.Count; i++)
-                {
-                    fileBaseUpload1 = Request.Files[i];
+        //public ActionResult TaxFileUpload1HEI(EmployerHistoryModel model)
+        //{
+        //    try
+        //    {
+        //        HttpPostedFileBase fileBaseUpload1 = null;
+        //        for (int i = 0; i < Request.Files.Count; i++)
+        //        {
+        //            fileBaseUpload1 = Request.Files[i];
 
-                }
+        //        }
 
-                return Json(new { model = new EmployerHistoryModel().SaveTaxUpload1HEI(fileBaseUpload1, model) }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception Ex)
-            {
-                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
-            }
-        }
+        //        return Json(new { model = new EmployerHistoryModel().SaveTaxUpload1HEI(fileBaseUpload1, model) }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
 
-        public ActionResult TaxFileUpload2HEI(EmployerHistoryModel model)
-        {
-            try
-            {
-                HttpPostedFileBase fileBaseUpload2 = null;
-                for (int i = 0; i < Request.Files.Count; i++)
-                {
-                    fileBaseUpload2 = Request.Files[i];
+        //public ActionResult TaxFileUpload2HEI(EmployerHistoryModel model)
+        //{
+        //    try
+        //    {
+        //        HttpPostedFileBase fileBaseUpload2 = null;
+        //        for (int i = 0; i < Request.Files.Count; i++)
+        //        {
+        //            fileBaseUpload2 = Request.Files[i];
 
-                }
+        //        }
 
-                return Json(new { model = new EmployerHistoryModel().SaveTaxUpload2HEI(fileBaseUpload2, model) }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception Ex)
-            {
-                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
-            }
-        }
+        //        return Json(new { model = new EmployerHistoryModel().SaveTaxUpload2HEI(fileBaseUpload2, model) }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
 
-        public ActionResult TaxFileUpload3HEI(EmployerHistoryModel model)
-        {
-            try
-            {
-                HttpPostedFileBase fileBaseUpload3 = null;
-                for (int i = 0; i < Request.Files.Count; i++)
-                {
-                    fileBaseUpload3 = Request.Files[i];
+        //public ActionResult TaxFileUpload3HEI(EmployerHistoryModel model)
+        //{
+        //    try
+        //    {
+        //        HttpPostedFileBase fileBaseUpload3 = null;
+        //        for (int i = 0; i < Request.Files.Count; i++)
+        //        {
+        //            fileBaseUpload3 = Request.Files[i];
 
-                }
+        //        }
 
-                return Json(new { model = new EmployerHistoryModel().SaveTaxUpload3HEI(fileBaseUpload3, model) }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception Ex)
-            {
-                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
-            }
-        }
+        //        return Json(new { model = new EmployerHistoryModel().SaveTaxUpload3HEI(fileBaseUpload3, model) }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
 
         public JsonResult GetEmployerHistory(long TenantId)
         {
@@ -740,6 +740,29 @@ namespace ShomaRM.Controllers
             try
             {
                 return Json(new { model = new EmployerHistoryModel().DeleteEmployerHistory(HEIID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetMonthsFromEmployerHistory(long TenantId, string EmpStartDate, string EmpTerminationDate)
+        {
+            try
+            {
+                return Json(new { model = new EmployerHistoryModel().GetMonthsFromEmployerHistory(TenantId, EmpStartDate, EmpTerminationDate) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult EditEmployerHistory(long HEIID)
+        {
+            try
+            {
+                return Json(new { model = new EmployerHistoryModel().EditEmployerHistory(HEIID) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception Ex)
             {
