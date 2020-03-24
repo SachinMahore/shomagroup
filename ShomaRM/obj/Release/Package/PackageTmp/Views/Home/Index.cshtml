@@ -53,7 +53,7 @@
                             IF A SPACIOUS, LUXURIOUS APARTMENT IS WHAT YOUR HEART DESIRES,
                         </h4>
                         <h5 class="sliderSlogans">
-                            come check out our one, two, or three-bedroom floorplans which feature state of the art finishes and caters to your<br />appetite. <a id="btnShowBuilding" href="~/Property/GetPropertyDetails/8"><b><i class="fa fa-building"></i> Click here to see some of our units</b></a><br />
+                            come check out our one, two, or three-bedroom floorplans which feature state of the art finishes and caters to your<br />appetite. <a id="btnShowBuilding" href="~/ApplyNow/Index/0"><b><i class="fa fa-building"></i> Click here to see some of our units</b></a><br />
                         </h5>
                     </div>
                 </div>
@@ -616,12 +616,7 @@
     $(function () {
         getLeaseTermsList();
         //$("#txtMoveInDate").datepicker();
-
-        $("#txtMoveInDate").datepicker({
-
-            autoclose: true,
-
-        });
+        $("#txtMoveInDate").datepicker({ autoclose: true, dateFormat: "MM/dd/yyyy", startDate: new Date() });
        
         if ($('#hndQuoteExp').val() == "Del") {
                 $('#popQuoteExpire').modal('show');

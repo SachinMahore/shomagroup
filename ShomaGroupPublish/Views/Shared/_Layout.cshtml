@@ -623,8 +623,9 @@
 
 
     $(function () {
-        $("#txtMoveDate").datepicker({ autoclose: true });
+  
 
+        $("#txtMoveDate").datepicker({ autoclose: true, dateFormat: "MM/dd/yyyy", startDate: new Date() });
     });
     $(document).ready(function () {
         $("#btnContact").on("click", function (event) {

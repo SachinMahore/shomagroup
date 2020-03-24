@@ -419,6 +419,23 @@ namespace ShomaRM.Models
                     lstpr.UploadOriginalIdentityName = dr["IdentityDocumentOriginalFile"].ToString();
                     lstpr.IsPaystub = Convert.ToBoolean(dr["IsPaystub"].ToString());
 
+                    //var PersonalStateVar = db.tbl_State.Where(co => co.ID == lstpr.State).FirstOrDefault();
+                    //lstpr.StatePersonalString = PersonalStateVar != null ? PersonalStateVar.StateName : "";
+                    //var StateHomeVar = db.tbl_State.Where(co => co.ID == lstpr.StateHome).FirstOrDefault();
+                    //lstpr.StateHomeString = StateHomeVar != null ? StateHomeVar.StateName : "";
+                    //int contryTemp = lstpr.Country != "" ? Convert.ToInt32(lstpr.Country) : 0;
+                    //var CountryVar = db.tbl_Country.Where(co => co.ID == contryTemp).FirstOrDefault();
+                    //lstpr.CountryString = CountryVar != null ? CountryVar.CountryName : "";
+                    //int officeContryTemp = lstpr.OfficeCountry != "" ? Convert.ToInt32(lstpr.OfficeCountry) : 0;
+                    //var OfficeCountryVar = db.tbl_Country.Where(co => co.ID == officeContryTemp).FirstOrDefault();
+                    //lstpr.OfficeCountryString = OfficeCountryVar != null ? OfficeCountryVar.CountryName : "";
+                    //int emergencyContryTemp = lstpr.EmergencyCountry != "" ? Convert.ToInt32(lstpr.EmergencyCountry) : 0;
+                    //var EmergencyCountryVar = db.tbl_Country.Where(co => co.ID == emergencyContryTemp).FirstOrDefault();
+                    //lstpr.EmergencyCountryString = EmergencyCountryVar != null ? EmergencyCountryVar.CountryName : "";
+                    //int emergencyStateHomeTemp = lstpr.EmergencyStateHome != null ? Convert.ToInt32(lstpr.EmergencyStateHome) : 0;
+                    //var EmergencyStateHomeVar = db.tbl_State.Where(co => co.ID == emergencyStateHomeTemp).FirstOrDefault();
+                    //lstpr.EmergencyStateHomeString = EmergencyStateHomeVar != null ? EmergencyStateHomeVar.StateName : "";
+
                     var PersonalStateVar = db.tbl_State.Where(co => co.ID == lstpr.State).FirstOrDefault();
                     lstpr.StatePersonalString = PersonalStateVar != null ? PersonalStateVar.StateName : "";
                     var StateHomeVar = db.tbl_State.Where(co => co.ID == lstpr.StateHome).FirstOrDefault();

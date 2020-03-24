@@ -240,6 +240,9 @@ $(document).ready(function () {
 
     $("#chkAgreeSummarry").on('ifChanged', function (event) {
         if ($("#chkAgreeSummarry").is(":checked")) {
+            tenantOnlineID = $("#hdnOPId").val();
+
+            getTenantOnlineList(tenantOnlineID);
             getApplicantHistoryList();
             getEmployerHistory();
             $("#popApplicantSummary").modal("show");
@@ -2757,8 +2760,8 @@ var fillCountryDropDownList = function () {
                 $("#txtCountryOffice").val(1);
                 $("#txtEmergencyCountry").val(1);
                 $("#txtCountryOfficeHEI").val(1);
-                fillStateDDL_Home(1);
-                fillStateDDL_Office(1);
+                fillStateDDL_Home(1,0);
+                fillStateDDL_Office(1,0);
                 fillStateDDL_EmeContact(1);
                 fillStateDDL_OfficeHEI(1);
                 //setTimeout(function () {

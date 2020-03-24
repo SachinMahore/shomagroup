@@ -1823,6 +1823,7 @@
       <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
       <End Role="tbl_TenantInfo" EntitySet="tbl_TenantInfo" />
     </AssociationSet>
+    <EntitySet Name="tbl_EmployerHistory" EntityType="ShomaRMEntitiesModel.tbl_EmployerHistory" />
   </EntityContainer>
   <EntityType Name="tbl_Country">
     <Key>
@@ -2966,4 +2967,34 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="tbl_EmployerHistory">
+    <Key>
+      <PropertyRef Name="HEIID" />
+    </Key>
+    <Property Name="HEIID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="JobTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="JobType" Type="Int32" />
+    <Property Name="StartDate" Type="DateTime" Precision="3" />
+    <Property Name="TerminationDate" Type="DateTime" Precision="3" />
+    <Property Name="AnnualIncome" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="AddAnnualIncome" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="SupervisorName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="SupervisorPhone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="SupervisorEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="Int32" />
+    <Property Name="Address1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="State" Type="Int32" />
+    <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TaxReturn1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TaxReturn2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TaxReturn3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TaxReturn1OrigName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TaxReturn2OrigName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TaxReturn3OrigName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PaystubValue" Type="Int32" />
+    <Property Name="TenantId" Type="Int64" />
+  </EntityType>
 </Schema>

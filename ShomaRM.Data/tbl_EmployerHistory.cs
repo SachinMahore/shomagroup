@@ -39,5 +39,6 @@ namespace ShomaRM.Data
         public string TaxReturn3OrigName { get; set; }
         public Nullable<int> PaystubValue { get; set; }
         public Nullable<long> TenantId { get; set; }
+        public string TerminationReason { get; set; }
     }
 }

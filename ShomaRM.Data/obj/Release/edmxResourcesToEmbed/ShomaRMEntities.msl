@@ -1561,5 +1561,36 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="tbl_EmployerHistory">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_EmployerHistory">
+        <MappingFragment StoreEntitySet="tbl_EmployerHistory">
+          <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+          <ScalarProperty Name="PaystubValue" ColumnName="PaystubValue" />
+          <ScalarProperty Name="TaxReturn3OrigName" ColumnName="TaxReturn3OrigName" />
+          <ScalarProperty Name="TaxReturn2OrigName" ColumnName="TaxReturn2OrigName" />
+          <ScalarProperty Name="TaxReturn1OrigName" ColumnName="TaxReturn1OrigName" />
+          <ScalarProperty Name="TaxReturn3" ColumnName="TaxReturn3" />
+          <ScalarProperty Name="TaxReturn2" ColumnName="TaxReturn2" />
+          <ScalarProperty Name="TaxReturn1" ColumnName="TaxReturn1" />
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Address2" ColumnName="Address2" />
+          <ScalarProperty Name="Address1" ColumnName="Address1" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="SupervisorEmail" ColumnName="SupervisorEmail" />
+          <ScalarProperty Name="SupervisorPhone" ColumnName="SupervisorPhone" />
+          <ScalarProperty Name="SupervisorName" ColumnName="SupervisorName" />
+          <ScalarProperty Name="AddAnnualIncome" ColumnName="AddAnnualIncome" />
+          <ScalarProperty Name="AnnualIncome" ColumnName="AnnualIncome" />
+          <ScalarProperty Name="TerminationDate" ColumnName="TerminationDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="JobType" ColumnName="JobType" />
+          <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+          <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+          <ScalarProperty Name="HEIID" ColumnName="HEIID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

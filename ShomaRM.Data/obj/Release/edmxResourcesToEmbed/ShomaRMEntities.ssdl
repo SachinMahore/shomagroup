@@ -322,6 +322,36 @@
     <Property Name="DocumentState" Type="varchar" MaxLength="500" />
     <Property Name="DocumentIDNumber" Type="varchar" MaxLength="500" />
   </EntityType>
+  <EntityType Name="tbl_EmployerHistory">
+    <Key>
+      <PropertyRef Name="HEIID" />
+    </Key>
+    <Property Name="HEIID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployerName" Type="varchar" MaxLength="100" />
+    <Property Name="JobTitle" Type="varchar" MaxLength="100" />
+    <Property Name="JobType" Type="int" />
+    <Property Name="StartDate" Type="datetime" />
+    <Property Name="TerminationDate" Type="datetime" />
+    <Property Name="AnnualIncome" Type="money" />
+    <Property Name="AddAnnualIncome" Type="money" />
+    <Property Name="SupervisorName" Type="varchar" MaxLength="100" />
+    <Property Name="SupervisorPhone" Type="varchar" MaxLength="100" />
+    <Property Name="SupervisorEmail" Type="nvarchar" MaxLength="100" />
+    <Property Name="Country" Type="int" />
+    <Property Name="Address1" Type="nvarchar(max)" />
+    <Property Name="Address2" Type="nvarchar(max)" />
+    <Property Name="State" Type="int" />
+    <Property Name="City" Type="nvarchar" MaxLength="100" />
+    <Property Name="Zip" Type="nvarchar" MaxLength="50" />
+    <Property Name="TaxReturn1" Type="nvarchar(max)" />
+    <Property Name="TaxReturn2" Type="nvarchar(max)" />
+    <Property Name="TaxReturn3" Type="nvarchar(max)" />
+    <Property Name="TaxReturn1OrigName" Type="nvarchar(max)" />
+    <Property Name="TaxReturn2OrigName" Type="nvarchar(max)" />
+    <Property Name="TaxReturn3OrigName" Type="nvarchar(max)" />
+    <Property Name="PaystubValue" Type="int" />
+    <Property Name="TenantId" Type="bigint" />
+  </EntityType>
   <EntityType Name="tbl_Estimate">
     <Key>
       <PropertyRef Name="EID" />
@@ -2437,6 +2467,7 @@
     <EntitySet Name="tbl_Country" EntityType="Self.tbl_Country" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Document" EntityType="Self.tbl_Document" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_DocumentVerification" EntityType="Self.tbl_DocumentVerification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_EmployerHistory" EntityType="Self.tbl_EmployerHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Estimate" EntityType="Self.tbl_Estimate" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Event" EntityType="Self.tbl_Event" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_EventBooking" EntityType="Self.tbl_EventBooking" Schema="dbo" store:Type="Tables" />
