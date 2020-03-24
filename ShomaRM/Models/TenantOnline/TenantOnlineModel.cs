@@ -208,7 +208,7 @@ namespace ShomaRM.Models
                 lstpr.Gender = 0;
                 lstpr.IDType = 0;
                 lstpr.State = 0;
-                lstpr.Country = "0";
+                lstpr.Country = "1";
                 lstpr.StateHome = 0;
                 lstpr.RentOwn = 0;
 
@@ -217,12 +217,11 @@ namespace ShomaRM.Models
                 lstpr.RentOwn2 = 0;
 
                 lstpr.JobType = 0;
-                lstpr.OfficeCountry = "0";
+                lstpr.OfficeCountry = "1";
                 lstpr.OfficeState = 0;
 
-                lstpr.EmergencyCountry = "0";
+                lstpr.EmergencyCountry = "1";
                 lstpr.EmergencyStateHome = 0;
-
 
                 foreach (DataRow dr in dtTable.Rows)
                 {
