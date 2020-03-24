@@ -93,6 +93,7 @@ namespace ShomaRM.Models
         public string Building { get; set; }
         public int FloorID { get; set; }
         public Nullable<decimal> PetDNAAmt { get; set; }
+        public int AcceptSummary { get; set; }
 
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
         string message = "";
@@ -402,6 +403,7 @@ namespace ShomaRM.Models
             model.LeaseTermID = 0;
             model.CountryList = FillCountryList();
             model.StateList = FillStateByCountryID(1);
+            model.AcceptSummary = 0;
             if (Id != 0)
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.UserId == Id).FirstOrDefault();
@@ -446,6 +448,7 @@ namespace ShomaRM.Models
                     model.EsignatureID = (!string.IsNullOrWhiteSpace(GetProspectData.EsignatureID) ? GetProspectData.EsignatureID : "");
                     model.PetDNAAmt = GetProspectData.PetDNAAmt;
                     model.LeaseTermID = Convert.ToInt32(GetProspectData.LeaseTerm);
+                    model.AcceptSummary= Convert.ToInt32(GetProspectData.AcceptSummary);
                     DateTime? dateExpire = null;
                     try
                     {
