@@ -609,6 +609,7 @@ var saveUpdateFloor = function () {
     }
 
     if (msg != "") {
+        $("#divLoader").hide();
         $.alert({
             title: 'Alert!',
             content: msg,

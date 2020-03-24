@@ -140,6 +140,8 @@
     <Property Name="MonthlyCharges" Type="money" />
     <Property Name="EsignatureID" Type="nvarchar" MaxLength="50" />
     <Property Name="PetDNAAmt" Type="money" />
+    <Property Name="StepCompleted" Type="int" />
+    <Property Name="AcceptSummary" Type="int" />
   </EntityType>
   <EntityType Name="tbl_AuditHistory">
     <Key>
@@ -351,6 +353,7 @@
     <Property Name="TaxReturn3OrigName" Type="nvarchar(max)" />
     <Property Name="PaystubValue" Type="int" />
     <Property Name="TenantId" Type="bigint" />
+    <Property Name="TerminationReason" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="tbl_Estimate">
     <Key>

@@ -1886,7 +1886,7 @@ var getPaymentAccountsBankAccount = function () {
                 html += "<td>" + elementValue.BankName + "</td>";
                 html += "<td>" + elementValue.AccountName + "</td>";
                 html += "<td>" + MaskCardNumber(elementValue.AccountNumber) + "</td>";
-                html += "<td>" + elementValue.RoutingNumber + "</td>";
+                html += "<td>" + MaskCardNumber(elementValue.RoutingNumber) + "</td>";
 
                
                 html += "<td width='11%'>" + checked + "</td>";
@@ -5175,16 +5175,15 @@ var getRecurringPayLists = function () {
     });
 }
 
-function editRecPayment(transid,amt,cdate,paid)
-{
+function editRecPayment(transid, amt, cdate, paid) {
     $("#recHeader").text("Edit Recurring Payments");
     $("#modiDiv").removeClass("hidden");
     $("#RecStep1").removeClass("hidden");
     $("#RecStep2").addClass("hidden");
-    $("#rcpid").text(transid);
+    $("#rcpid").val(transid);
     $('#rbtnAmountToPayR2').attr('checked', 'checked');
     $("#btnSetUpRecurringPayment").addClass("hidden");
-    
+
     $("#divOtherAmountR").removeClass("hidden");
     $("#divSetRecPay").removeClass("hidden");
     $("#btnSaveRecurringPayment").removeClass("hidden");
@@ -5192,12 +5191,13 @@ function editRecPayment(transid,amt,cdate,paid)
     $("#ddlPaymentMethodR").val(paid);
     $("#txtOtherAmountR").val(amt);
     $("#txtPayDateR").val(cdate);
+    $("#editTermsConditionRecu").html("If you wish to EDIT OR CANCEL Autopay, please <a href='javascript:void(0);' onclick='deleteRecPayment(" + transid + ")'> click here</a>");
 
 }
 function recurringPaymentSaveUpdate() {   
     var msg = "";
-    var transid = $("#rcpid").text();
-
+    //var transid = $("#rcpid").text();
+    var transid = $("#rcpid").val();
     var tenantid = $("#hndTenantID").val();
    
     var transtype = $("#ddlPaymentMethodR").val();
@@ -5395,10 +5395,10 @@ function deleteRecPayment(transid) {
 
     $("#modiDiv").addClass("hidden");
     var tenantid = $("#hndTenantID").val();
-    
+
     var models = {
         TenantID: tenantid,
-        
+
     };
     $.alert({
         title: "",
@@ -5416,6 +5416,11 @@ function deleteRecPayment(transid) {
                         dataType: "JSON",
                         success: function (response) {
                             $("#recHeader").text("Set Up Recurring Payments");
+                            $("#editTermsConditionRecu").html("");
+                            document.getElementById('modalTermConditionR').style.display = "none";
+                            $('#btnSetUpRecurringPayment').removeClass('hidden');
+                            $('#btnSaveRecurringPayment').addClass('hidden');
+                            $('#txtPayDateR').val("");
                             $.alert({
                                 title: 'Message!',
                                 content: response.Msg,
@@ -5423,6 +5428,7 @@ function deleteRecPayment(transid) {
                             });
 
                             getRecurringPayLists();
+
                         }
                     });
                 }
@@ -5434,7 +5440,7 @@ function deleteRecPayment(transid) {
             }
 
         }
-        });
+    });
 }
 
 function recurringPaymentCancel()
