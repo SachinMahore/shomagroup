@@ -205,9 +205,9 @@
         font-size: 12px;
     }
     .tab-content ul li {
-        height: 235px;
-        margin-bottom: 20px;
-        width: 219px;
+        /*height: 235px;*/
+        margin-bottom: 4px;
+        width: 100%;
     }
     .tab-content ul li a img {
         height: 100%;
@@ -666,9 +666,10 @@
         font-size: 12px;
     }
     .tab-content ul li {
-        height: 235px;
+        /* height: 235px; */
         margin-bottom: 20px;
-        width: 219px;
+        width: auto;
+        padding: 12px 25px;
     }
     .tab-content ul li a img {
         height: 100%;
@@ -745,8 +746,8 @@
         height: 540px;
     }
     .tab-content ul li {
-        height: 160px;
-        width: 145px;
+        /*height: 160px;*/
+        /*width: 145px;*/
     }
     .tab-content ul li a img{
         width: 100%;
