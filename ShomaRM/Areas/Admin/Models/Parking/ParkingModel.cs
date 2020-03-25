@@ -49,6 +49,7 @@ namespace ShomaRM.Areas.Admin.Models
                     usm.ParkingName = dr["ParkingName"].ToString();
                     usm.Charges = Convert.ToDecimal(dr["Charges"].ToString());
                     usm.Description = dr["Description"].ToString();
+                    usm.Type = int.Parse(dr["Type"].ToString());
                     model.Add(usm);
                 }
                 db.Dispose();
@@ -84,16 +85,16 @@ namespace ShomaRM.Areas.Admin.Models
             ShomaRMEntities db = new ShomaRMEntities();
             if (model.ParkingID == 0)
             {
-                var ParkingData = new tbl_Parking()
-                {
-                    PropertyID = model.PropertyID,
-                    ParkingName = model.ParkingName,
-                    Charges = model.Charges,
-                    Description = model.Description
-                };
-                db.tbl_Parking.Add(ParkingData);
-                db.SaveChanges();
-                model.ParkingID = ParkingData.ParkingID;
+                //var ParkingData = new tbl_Parking()
+                //{
+                //    PropertyID = model.PropertyID,
+                //    ParkingName = model.ParkingName,
+                //    Charges = model.Charges,
+                //    Description = model.Description
+                //};
+                //db.tbl_Parking.Add(ParkingData);
+                //db.SaveChanges();
+                //model.ParkingID = ParkingData.ParkingID;
             }
             else
             {
