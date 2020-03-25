@@ -28,24 +28,60 @@
        
  
     document.getElementById('fileUploadVehicleRegistation').onchange = function () {
-        uploadVehicleCertificatepop();
+        var fileUploadVehicleRegBool = restrictFileUpload($(this).val());
+        if (fileUploadVehicleRegBool == true) {
+            uploadVehicleCertificatepop();
+        }
+        else {
+            document.getElementById('fileUploadVehicleRegistation').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     document.getElementById('pet-picture').onchange = function () {
-        uploadPetPhoto();
+        var fileUploadPetPictureBool = restrictFileUpload($(this).val());
+        if (fileUploadPetPictureBool == true) {
+            uploadPetPhoto();
+        }
+        else {
+            document.getElementById('pet-picture').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     document.getElementById('filePetVaccinationCertificate').onchange = function () {
-        uploadPetVaccination();
+        var fileUploadPetVaccinationBool = restrictFileUpload($(this).val());
+        if (fileUploadPetVaccinationBool == true) {
+            uploadPetVaccination();
+        }
+        else {
+            document.getElementById('filePetVaccinationCertificate').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
-    
     document.getElementById('ProfilePic').onchange = function () {
-        $.alert({
-            title: "",
-            content: "File uploaded Successfully.",
-            type: 'blue'
-        });
-    };
-    document.getElementById('ProfilePic').onchange = function () {
-        uploadProfilePicture();
+        var fileUploadProfilePicBool = restrictFileUpload($(this).val());
+        if (fileUploadProfilePicBool == true) {
+            uploadProfilePicture();
+        }
+        else {
+            document.getElementById('ProfilePic').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
 
    
@@ -495,7 +531,7 @@ var getTenantVehicleList = function () {
 
     var model = {
 
-        TenantID: $("#hndUserId").val(),
+        TenantID: $("#hndTenantID").val(),
     }
     $.ajax({
         url: "/Vehicle/GetProfileVehicleList",
@@ -684,15 +720,43 @@ var UpdatePasswordUser = function () {
     if (oldPassword == '') {
         msg += 'Plese Enter Old Password </br>'
     }
-    if (newPassword == '') {
-        msg += 'Plese Enter New Password </br>'
+  
+    if (newPassword != "") {
+        checkPasswsordStrength(newPassword);
+
     }
-    if (confirmNewPassword == '') {
-        msg += 'Plese Enter Confirm New Password </br>'
+    else if (newPassword == "") {
+        msg += 'Plese Enter New Password <br/>'
     }
 
-    if (newPassword != confirmNewPassword) {
+
+    if (confirmNewPassword != "")
+    {
+        if (newPassword != confirmNewPassword)
+        {
         msg += 'Confirm New Password does not Match</br>'
+        }
+    }
+    else if (confirmNewPassword == "") {
+        msg += 'Plese Enter Confirm New Password</br>'
+    }
+
+    //if (confirmNewPassword == '') {
+    //    msg += 'Plese Enter Confirm New Password </br>'
+    //}
+
+    //if (newPassword != confirmNewPassword) {
+    //    msg += 'Confirm New Password does not Match</br>'
+    //}
+
+    function checkPasswsordStrength(password) {
+
+        if (password.length < 8) { msg += " New Password length should be of 8 characters <br/>"; }
+        if (!/\d/.test(password)) { msg += " New Password should contain at least one digit <br/>"; }
+        if (!/[a-z]/.test(password)) { msg += "New Password should contain at least one lower case <br/>"; }
+        if (!/[A-Z]/.test(password)) { msg += "New Password should contain at least one upper case <br/>"; }
+        if (/[^0-9a-zA-Z]/.test(password)) { msg += "New Password should contain at least 8 from the mentioned characters <br/>"; }
+
     }
 
 
@@ -1079,7 +1143,7 @@ var saveupdatePet = function () {
 };
 var getPetLists = function () {
     var model = {
-        TenantID: $("#hndUserId").val()
+        TenantID: $("#hndTenantID").val()
         //TenantID: 202
     };
     $.ajax({
@@ -1098,10 +1162,10 @@ var getPetLists = function () {
                 //html += "<td>" + elementValue.Weight + "</td>";
                 //html += "<td>" + elementValue.VetsName + "</td>";
                 // html += "<td>";
-                // html += "<a style='background: transparent; margin-right:10px' href='JavaScript:Void(0);' id='updatePetInfo' onclick='getPetInfo(" + elementValue.PetID + ")'><span class='fa fa-edit' ></span></a>";
+                // html += "<a style='background: transparent; margin-right:10px' href='javascript:void(0);' id='updatePetInfo' onclick='getPetInfo(" + elementValue.PetID + ")'><span class='fa fa-edit' ></span></a>";
                 //html += "<td> <a href='javascript:void(0);' id='updatePetInfo' onclick='getPetInfo(" + elementValue.PetID + ")'><i class='fa fa-edit'></i></a> </td>";
                 //html += "<td> <a href='javascript:void(0);' onclick='delPet(" + elementValue.PetID + ")' > <i class='fa fa-trash'></i></a > </td>";
-                // html += "<a style='background: transparent; margin-right:10px' href='JavaScript:Void(0);' onclick='delPet(" + elementValue.PetID + ")'><span class='fa fa-trash' ></span></a>";
+                // html += "<a style='background: transparent; margin-right:10px' href='javascript:void(0);' onclick='delPet(" + elementValue.PetID + ")'><span class='fa fa-trash' ></span></a>";
                 //  html += "<a href='../../Content/assets/img/pet/" + elementValue.PetVaccinationCertificate + "' download=" + elementValue.PetVaccinationCertificate + " target='_blank'><span class='fa fa-download'></span></a>";
                 html += "</td >";
                 html += "</tr>";

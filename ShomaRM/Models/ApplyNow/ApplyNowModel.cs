@@ -17,9 +17,9 @@ namespace ShomaRM.Models
         public Nullable<long> PID { get; set; }
         public string Name_On_Card { get; set; }
         public string CardNumber { get; set; }
-        public Nullable<int> CardMonth { get; set; }
-        public Nullable<int> CardYear { get; set; }
-        public Nullable<int> CCVNumber { get; set; }
+        public string CardMonth { get; set; }
+        public string CardYear { get; set; }
+        public string CCVNumber { get; set; }
         public Nullable<long> ProspectId { get; set; }
         public Nullable<decimal> Charge_Amount { get; set; }
         public Nullable<decimal> Credit_Amount { get; set; }
@@ -45,7 +45,9 @@ namespace ShomaRM.Models
         public string StorageAmountString { get; set; }
         public string Rent { set; get; }
         public Nullable<long> AID { get; set; }
-
+        public Nullable<decimal> MoveInPercentage { get; set; }
+        public Nullable<decimal> ProcessingFees { get; set; }
+        public int AcceptSummary { get; set; }
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
 
@@ -58,36 +60,16 @@ namespace ShomaRM.Models
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
                 var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId).FirstOrDefault();
-                if (GetPayDetails != null)
-                {
-                    GetPayDetails.Name_On_Card = model.Name_On_Card;
-                    GetPayDetails.CardNumber = model.CardNumber;
-                    GetPayDetails.CardMonth = model.CardMonth;
-                    GetPayDetails.CardYear = model.CardYear;
-                    GetPayDetails.CCVNumber = model.CCVNumber;
-                    GetPayDetails.ProspectId = model.ProspectId;
-                    GetPayDetails.PaymentMethod = model.PaymentMethod;
 
-                    db.SaveChanges();
+                string encrytpedCardNumber = new EncryptDecrypt().EncryptText(model.CardNumber);
+                string encrytpedCardMonth = new EncryptDecrypt().EncryptText(model.CardMonth);
+                string encrytpedCardYear = new EncryptDecrypt().EncryptText(model.CardYear);
+                string encrytpedRoutingNumber = new EncryptDecrypt().EncryptText(model.CCVNumber);
 
-                }
-                else
-                {
-                    var savePaymentDetails = new tbl_OnlinePayment()
-                    {
-                        PID = model.PID,
-                        Name_On_Card = model.Name_On_Card,
-                        CardNumber = model.CardNumber,
-                        CardMonth = model.CardMonth,
-                        CardYear = model.CardYear,
-                        CCVNumber = model.CCVNumber,
-                        ProspectId = model.ProspectId,
-                        PaymentMethod = model.PaymentMethod,
-                    };
-                    db.tbl_OnlinePayment.Add(savePaymentDetails);
-                    db.SaveChanges();
-                }
+                string decryptedPayemntCardNumber = new EncryptDecrypt().DecryptText(encrytpedCardNumber);
+
                 string transStatus = "";
+                model.Email = GetProspectData.Email;
                 if (model.PaymentMethod == 2)
                 {
 
@@ -103,6 +85,36 @@ namespace ShomaRM.Models
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 if (strlist[1] != "000000")
                 {
+                    if (GetPayDetails != null)
+                    {
+                        GetPayDetails.Name_On_Card = model.Name_On_Card;
+                        GetPayDetails.CardNumber = encrytpedCardNumber;
+                        GetPayDetails.CardMonth = encrytpedCardMonth;
+                        GetPayDetails.CardYear = encrytpedCardYear;
+                        GetPayDetails.CCVNumber = encrytpedRoutingNumber;
+                        GetPayDetails.ProspectId = model.ProspectId;
+                        GetPayDetails.PaymentMethod = model.PaymentMethod;
+                        GetPayDetails.ApplicantID = 0;
+                        db.SaveChanges();
+
+                    }
+                    else
+                    {
+                        var savePaymentDetails = new tbl_OnlinePayment()
+                        {
+                            PID = model.PID,
+                            Name_On_Card = model.Name_On_Card,
+                            CardNumber = !string.IsNullOrWhiteSpace(model.CardNumber) ? new EncryptDecrypt().EncryptText(model.CardNumber) : "",
+                            CardMonth = !string.IsNullOrWhiteSpace(model.CardMonth) ? new EncryptDecrypt().EncryptText(model.CardMonth) : "",
+                            CardYear = !string.IsNullOrWhiteSpace(model.CardYear) ? new EncryptDecrypt().EncryptText(model.CardYear) : "",
+                            CCVNumber = !string.IsNullOrWhiteSpace(model.CCVNumber) ? new EncryptDecrypt().EncryptText(model.CCVNumber) : "",
+                            ProspectId = model.ProspectId,
+                            PaymentMethod = model.PaymentMethod,
+                            ApplicantID = 0,
+                    };
+                        db.tbl_OnlinePayment.Add(savePaymentDetails);
+                        db.SaveChanges();
+                    }
                     var saveTransaction = new tbl_Transaction()
                     {
 
@@ -121,25 +133,14 @@ namespace ShomaRM.Models
 
                         Authcode = strlist[1],
                         Charge_Amount = model.Charge_Amount,
-                        Miscellaneous_Amount = 0,
+                        Miscellaneous_Amount =Convert.ToDecimal("3.95"),
                         Accounting_Date = DateTime.Now,
 
                         Batch = "1",
                         Batch_Source = "",
                         CreatedBy = Convert.ToInt32(GetProspectData.UserId),
-                        GL_Trans_Reference_1 = model.PID.ToString(),
-                        GL_Trans_Reference_2 = GetProspectData.FirstName + " " + GetProspectData.LastName,
-                        GL_Entries_Created = 1,
                         GL_Trans_Description = transStatus.ToString(),
                         ProspectID = 0,
-                        TAccCardName = model.Name_On_Card,
-                        TAccCardNumber = model.CardNumber,
-                        TBankName = model.BankName,
-                        TRoutingNumber = model.RoutingNumber,
-                        TCardExpirationMonth = model.CardMonth.ToString(),
-                        TCardExpirationYear = model.CardYear.ToString(),
-                        TSecurityNumber = model.CCVNumber.ToString(),
-
                     };
                     db.tbl_Transaction.Add(saveTransaction);
                     db.SaveChanges();
@@ -149,6 +150,7 @@ namespace ShomaRM.Models
                     mm.CreateTransBill(TransId, Convert.ToDecimal(model.Charge_Amount), model.Description);
 
                     GetProspectData.IsApplyNow = 2;
+                    GetProspectData.AcceptSummary = 1;
                     db.SaveChanges();
 
                     string reportHTML = "";
@@ -194,22 +196,10 @@ namespace ShomaRM.Models
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
                 // var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId).FirstOrDefault();
-                var GetCoappDet = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();
-                var savePaymentDetails = new tbl_OnlinePayment()
-                {
-                    PID = model.PID,
-                    Name_On_Card = model.Name_On_Card,
-                    CardNumber = model.CardNumber,
-                    CardMonth = model.CardMonth,
-                    CardYear = model.CardYear,
-                    CCVNumber = model.CCVNumber,
-                    ProspectId = model.ProspectId,
-                    PaymentMethod = model.PaymentMethod,
-                };
-                db.tbl_OnlinePayment.Add(savePaymentDetails);
-                db.SaveChanges();
-
+                var GetCoappDet = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();              
+               
                 string transStatus = "";
+                model.Email = GetCoappDet.Email;
                 if (model.PaymentMethod == 2)
                 {
 
@@ -217,7 +207,7 @@ namespace ShomaRM.Models
                 }
                 else if (model.PaymentMethod == 1)
                 {
-
+                    model.AccountNumber = model.CardNumber;
                     transStatus = new UsaePayModel().ChargeACH(model);
                 }
 
@@ -225,12 +215,32 @@ namespace ShomaRM.Models
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 if (strlist[1] != "000000")
                 {
+                    long paid = 0;
+                    var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId && P.ApplicantID == model.AID).FirstOrDefault();
+                    if (GetPayDetails == null)
+                    {
+                        var savePaymentDetails = new tbl_OnlinePayment()
+                        {
+                            PID = model.PID,
+                            Name_On_Card = model.Name_On_Card,
+                            CardNumber = !string.IsNullOrWhiteSpace(model.CardNumber) ? new EncryptDecrypt().EncryptText(model.CardNumber) : "",
+                            CardMonth = !string.IsNullOrWhiteSpace(model.CardMonth) ? new EncryptDecrypt().EncryptText(model.CardMonth) : "",
+                            CardYear = !string.IsNullOrWhiteSpace(model.CardYear) ? new EncryptDecrypt().EncryptText(model.CardYear) : "",
+                            CCVNumber = !string.IsNullOrWhiteSpace(model.RoutingNumber) ? new EncryptDecrypt().EncryptText(model.RoutingNumber) : "",
+                            ProspectId = model.ProspectId,
+                            PaymentMethod = model.PaymentMethod,
+                            ApplicantID = model.AID,
+                        };
+                        db.tbl_OnlinePayment.Add(savePaymentDetails);
+                        db.SaveChanges();
+                        paid = savePaymentDetails.ID;
+                    }
                     var saveTransaction = new tbl_Transaction()
                     {
 
                         TenantID = Convert.ToInt64(GetProspectData.UserId),
                         Revision_Num = 1,
-                        Transaction_Type = savePaymentDetails.ID.ToString(),
+                        Transaction_Type = paid.ToString(),
                         Transaction_Date = DateTime.Now,
                         Run = 1,
                         LeaseID = 0,
@@ -243,24 +253,16 @@ namespace ShomaRM.Models
 
                         Authcode = strlist[1],
                         Charge_Amount = model.Charge_Amount,
-                        Miscellaneous_Amount = 0,
+                        Miscellaneous_Amount = Convert.ToDecimal("3.95"),
                         Accounting_Date = DateTime.Now,
 
                         Batch = model.AID.ToString(),
                         Batch_Source = "",
                         CreatedBy = Convert.ToInt32(GetProspectData.UserId),
-                        GL_Trans_Reference_1 = model.PID.ToString(),
-                        GL_Trans_Reference_2 = GetProspectData.FirstName + " " + GetProspectData.LastName,
-                        GL_Entries_Created = 1,
+                     
                         GL_Trans_Description = transStatus.ToString(),
                         ProspectID = 0,
-                        TAccCardName = model.Name_On_Card,
-                        TAccCardNumber = model.CardNumber,
-                        TBankName = model.BankName,
-                        TRoutingNumber = model.RoutingNumber,
-                        TCardExpirationMonth = model.CardMonth.ToString(),
-                        TCardExpirationYear = model.CardYear.ToString(),
-                        TSecurityNumber = model.CCVNumber.ToString(),
+                        
 
                     };
                     db.tbl_Transaction.Add(saveTransaction);
@@ -347,7 +349,6 @@ namespace ShomaRM.Models
         }
 
 
-
         public string CheckEmailAreadyExist(string EmailId)
         {
             string IsEmailExist = string.Empty;
@@ -373,6 +374,5 @@ namespace ShomaRM.Models
             db.Dispose();
             return IsEmailExist;
         }
-
     }
 }

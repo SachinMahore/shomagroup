@@ -10,7 +10,7 @@
 <input type="hidden" id="hdnSearchType_EL" value="1" />
 <input type="hidden" id="hdnCurrentPage_EL" value="1" />
 <div class="register-area" style="background-color: rgb(249, 249, 249);">
-    <div class="container">
+    <div class="container" style="width:100%">
         <div class="row">
             <div class="breadcrumb">
                 <h4 class="">Amenity Slot List</h4>
@@ -20,20 +20,20 @@
                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                     <div class="panel-heading">
                         <div class="col-sm-3">
-                            <div class="form-group">
-                                <h3 class="panel-title">From Date</h3>
+                            <h3 class="panel-title input-group">From Date</h3>
+                            <div class="input-group">
                                 <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
-                                <span class="input-group-btn" style="width:0% !important">
-                                    <button class="btn btn-primary search" type="button" id="iconFromDate" style="margin-top: -60px;margin-left: 219px;"><i class="fa-calendar fa"></i></button>
+                                <span class="input-group-btn">
+                                    <button id="iconFromDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
                                 </span>
                             </div>
                         </div>
                         <div class="col-sm-3">
-                            <div class="form-group">
-                                <h3 class="panel-title">To Date</h3>
-                                <input id="txtToDate" type="text" class="form-control" value="@endDate.ToString("MM/dd/yyyy")">
-                                <span class="input-group-btn" style="width:0% !important">
-                                    <button class="btn btn-primary search" type="button" id="iconToDate" style="margin-top: -60px;margin-left: 220px;"><i class="fa-calendar fa"></i></button>
+                            <h3 class="panel-title input-group">To Date</h3>
+                            <div class="input-group">
+                                <input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="@endDate.ToString("MM/dd/yyyy")" />
+                                <span class="input-group-btn">
+                                    <button id="iconToDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
                                 </span>
                             </div>
                         </div>

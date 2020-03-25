@@ -133,6 +133,9 @@
     <Compile Include="tbl_DocumentVerification.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbl_EmployerHistory.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_Estimate.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
@@ -287,6 +290,9 @@
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Transaction.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_UnitLeasePrice.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_Utility.cs">

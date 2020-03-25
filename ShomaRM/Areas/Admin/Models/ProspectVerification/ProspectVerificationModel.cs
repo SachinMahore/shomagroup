@@ -50,9 +50,9 @@ namespace ShomaRM.Areas.Admin.Models
 
         public string Name_On_Card { get; set; }
         public string CardNumber { get; set; }
-        public Nullable<int> CardMonth { get; set; }
-        public Nullable<int> CardYear { get; set; }
-        public Nullable<int> CCVNumber { get; set; }
+        public string CardMonth { get; set; }
+        public string CardYear { get; set; }
+        public string CCVNumber { get; set; }
         public Nullable<long> ProspectId { get; set; }
         public long SUID { get; set; }
         public int Marketsource { get; set; }
@@ -102,7 +102,8 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<int> IsCheckWater { get; set; }
         public int LeaseTerm { get; set; }
         public string EsignatureID { get; set; }
-
+        public Nullable<decimal> PetDNAAmt { get; set; }
+        public int LeaseTermID { get; set; }
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
 
@@ -371,7 +372,7 @@ namespace ShomaRM.Areas.Admin.Models
                         {
                             if (app.MoveInPercentage >= 0)
                             {
-                                string payid = new EncryptDecrypt().EncryptText(app.ApplicantID.ToString() + ",3," + (((GetTenantDet.MoveInCharges * app.MoveInPercentage) / 100).Value.ToString("0.00")));
+                                string payid = new EncryptDecrypt().EncryptText(app.ApplicantID.ToString() + ",2," + (((GetTenantDet.MoveInCharges * app.MoveInPercentage) / 100).Value.ToString("0.00")));
 
                                 reportHTMLCoapp = reportHTMLCoapp.Replace("[%Status%]", "Congratulations ! Your Application is Approved");
                                 reportHTMLCoapp = reportHTMLCoapp.Replace("[%EmailHeader%]", app.MoveInPercentage + "% Move In charges Payment Link");
@@ -427,10 +428,7 @@ namespace ShomaRM.Areas.Admin.Models
             return msg;
 
         }
-
-
-       
-
+        
         public class ProspectVerifySearchModel
         {
             public long ID { get; set; }
@@ -454,8 +452,7 @@ namespace ShomaRM.Areas.Admin.Models
             public string OrderBy { get; set; }
             public string UnitNo { get; set; }
         }
-
-        
+    
         public string GetDocumentType(string DocType)
         {
             string docType = "";
@@ -498,6 +495,8 @@ namespace ShomaRM.Areas.Admin.Models
             model.EnvelopeID = "";
             model.EsignatureID = "";
             model.LeaseTerm = 12;
+            model.PetDNAAmt = 0;
+            model.LeaseTermID = 0;
             if (Id != 0)
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.UserId == Id).FirstOrDefault();
@@ -538,6 +537,8 @@ namespace ShomaRM.Areas.Admin.Models
                     model.EnvelopeID = (!string.IsNullOrWhiteSpace(GetProspectData.EnvelopeID) ? GetProspectData.EnvelopeID : "");
                     model.EsignatureID = (!string.IsNullOrWhiteSpace(GetProspectData.EsignatureID) ? GetProspectData.EsignatureID : "");
                     model.LeaseTerm = GetProspectData.LeaseTerm ?? 12;
+                    model.PetDNAAmt = GetProspectData.PetDNAAmt;
+                    model.LeaseTermID = Convert.ToInt32(GetProspectData.LeaseTerm);
                     DateTime? dateExpire = null;
                     try
                     {
@@ -549,21 +550,25 @@ namespace ShomaRM.Areas.Admin.Models
                     }
 
                     model.MoveInDateTxt = dateExpire.Value.ToString("MM/dd/yyyy");
-                    model.ExpireDate = Convert.ToDateTime(GetProspectData.CreatedDate).AddHours(72).ToString("MM/dd/yyyy hh:mm tt");
+                    model.ExpireDate = Convert.ToDateTime(GetProspectData.CreatedDate).AddHours(48).ToString("MM/dd/yyyy") + " 23:59:59";
 
+                    //string decryptedCardNumber = new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardNumber);
+                    //string decryptedCardMonth = new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardMonth);
+                    //string decryptedCardYear = new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardYear);
+                    //string decryptedCCVNumber = new EncryptDecrypt().DecryptText(GetPaymentProspectData.CCVNumber);
 
-                    if (GetPaymentProspectData != null)
-                    {
-                        model.Name_On_Card = GetPaymentProspectData.Name_On_Card;
-                        model.CardNumber = GetPaymentProspectData.CardNumber;
-                        model.CardMonth = GetPaymentProspectData.CardMonth;
-                        model.CardYear = GetPaymentProspectData.CardYear;
-                        model.CCVNumber = GetPaymentProspectData.CCVNumber;
-                    }
-                    if (GetDocumentVerificationData != null)
-                    {
-                        model.DocumentName = GetDocumentVerificationData.DocumentName;
-                    }
+                    //if (GetPaymentProspectData != null)
+                    //{
+                    //    model.Name_On_Card = GetPaymentProspectData.Name_On_Card;
+                    //    model.CardNumber = decryptedCardNumber;
+                    //    model.CardMonth = decryptedCardMonth;
+                    //    model.CardYear = decryptedCardYear;
+                    //    model.CCVNumber = decryptedCCVNumber;
+                    //}
+                    //if (GetDocumentVerificationData != null)
+                    //{
+                    //    model.DocumentName = GetDocumentVerificationData.DocumentName;
+                    //}
 
                     var getPetPlace = db.tbl_TenantPetPlace.Where(p => p.TenantID == GetProspectData.ID).FirstOrDefault();
                     if (getPetPlace != null)
@@ -698,7 +703,7 @@ namespace ShomaRM.Areas.Admin.Models
             return model;
         }
 
-      public void SaveProspectVerification(long DocId, int VerificationStatus, long PID)
+        public void SaveProspectVerification(long DocId, int VerificationStatus, long PID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             var docInfo = db.tbl_DocumentVerification.Where(p => p.DocID == DocId).FirstOrDefault();

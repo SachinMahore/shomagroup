@@ -1,15 +1,15 @@
 ﻿$(document).ready(function () {
     onFocusProperty();
-    fillModelDDL();
+    //fillModelDDL();
     getPropertyList();
     getAmenityList();
     getModelsList();
-    
+
     TableClickModels();
     //fillRPP_PUList();
     fillStateDDL();
     fillStateDDL1();
-    getPremiumTypeList();
+    //getPremiumTypeList();
     $("#ddlState").on('change', function (evt, params) {
         var selected = $(this).val();
         if (selected != null) {
@@ -40,8 +40,23 @@
             fillPUList(page, sortByValue, OrderByValue);
         }
     });
+    document.getElementById('wizard-picture').onchange = function () {
+        var fileUploadPropertyPictureBool = restrictFileUpload($(this).val());
+        if (fileUploadPropertyPictureBool == true) {
+            uploadPropertyPicture();
+        }
+        else {
+            document.getElementById('wizard-picture').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
+    };
 });
-var getPropertyList = function () {   
+var getPropertyList = function () {
+    $("#divLoader").show();
     var city = 0;
     if ($("#ddlCity1").val() != null) {
         city = $("#ddlCity1").val();
@@ -59,16 +74,18 @@ var getPropertyList = function () {
                 $("#list-type").empty();
                 $.each(response.model, function (elementType, value) {
                     var html = "<div class='col-sm-6 col-md-3 p0'><div class='box-two proerty-item'>";
-                    html += "<div class='item-thumb'><a href = '#' onclick='getPropertyDetails(" + value.PID +")'> <img src='/content/assets/img/demo/" + value.Picture+"'></a></div> ";
-                    html += " <div class='item-entry overflow'><h5><a href = '#' onclick='getPropertyDetails(" + value.PID +")'> " + value.Title + "</a></h5>  <div class='dot-hr'></div>";
+                    html += "<div class='item-thumb'><a href = '#' onclick='getPropertyDetails(" + value.PID + ")'> <img src='/content/assets/img/demo/" + value.Picture + "'></a></div> ";
+                    html += " <div class='item-entry overflow'><h5><a href = '#' onclick='getPropertyDetails(" + value.PID + ")'> " + value.Title + "</a></h5>  <div class='dot-hr'></div>";
                     html += " <span class='pull-left'><b> Units :</b> " + value.NoOfUnits + "</span>";
                     html += "<span class='proerty-price pull-right'><b> Floors :</b>" + value.NoOfFloors + " </span>";
-                    html += "<p style='display: none;'>" + value.Description +"</p> </div> </div> </div>";
+                    html += "<p style='display: none;'>" + value.Description + "</p> </div> </div> </div>";
                     $("#list-type").append(html);
                 });
             }
+            $("#divLoader").hide();
         }
     });
+    
 }
 var getPropertyDetails = function (pid) {
     // $("#hndPID").val(pid);
@@ -89,6 +106,7 @@ var fillRPP_PUList = function () {
     });
 };
 var buildPaganationPUList = function (pagenumber, sortby, orderby) {
+    $("#divLoader").show();
     if (!sortby) {
         sortby = "UnitNo";
     }
@@ -111,13 +129,14 @@ var buildPaganationPUList = function (pagenumber, sortby, orderby) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            $("#divLoader").hide();
+            
             if ($.trim(response.error) !== "") {
-               
+
             } else {
                 $('#ulPagination_PUList').pagination('updateItems', response.NOP);
                 $('#ulPagination_PUList').pagination('selectPage', 1);
             }
+            $("#divLoader").hide();
         }
     });
 };
@@ -143,7 +162,7 @@ var fillPUList = function (pagenumber, sortby, orderby) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-           
+
             if ($.trim(response.error) !== "") {
                 //this.cancelChanges();
             } else {
@@ -153,18 +172,18 @@ var fillPUList = function (pagenumber, sortby, orderby) {
                     var html = "<tr id='tru_" + value.UID + "'>";
                     html += "<td style='width:5%;'><a href = 'javascript:void(0)' onclick='goToStep(6," + value.UID + ")'> " + value.UnitNo + "</a></td>";
                     html += "<td style='width:4%;'>" + value.Building + "</td>";
-                    
+
                     html += "<td style='width:6%;cursor:pointer!important;' id='avUnitRent_" + value.UID + "' onclick='editUnitRent(" + value.UID + ")' data-udate='" + value.Current_Rent + "'> " + formatMoney(parseFloat(value.Current_Rent).toFixed(2)) + " <i class='fa fa-edit  pull-right' style='margin: 6px;'></i> </td>";
                     html += "<td style='width:2%;'>" + value.Bathroom + "</td>";
                     html += "<td style='width:2%;'>" + value.Bedroom + "</td>";
                     html += "<td style='width:6%;'>" + value.InteriorArea + "</td>";
                     html += "<td style='width:6%;'>" + value.BalconyArea + "</td>";
-                  
+
                     html += "<td style='width:5%;'>" + value.Area + "</td>";
                     html += "<td style='width:8%;cursor:pointer!important;' id='avUnitDate_" + value.UID + "' onclick='editUnitDate(" + value.UID + ")' data-udate='" + value.AvailableDateText + "'> " + value.AvailableDateText + " <i class='fa fa-calendar pull-right' style='margin: 6px;'></i> </td>";
                     html += "<td style='width:8%;cursor:pointer!important;' id='avUnitMoveInDate_" + value.UID + "' onclick='editUnitMoveInDate(" + value.UID + ")' data-udate='" + value.MoveInDateText + "'> " + value.MoveInDateText + " <i class='fa fa-calendar pull-right' style='margin: 6px;'></i> </td>";
                     html += "<td style='width:8%;cursor:pointer!important;' id='avUnitMoveOutDate_" + value.UID + "' onclick='editUnitMoveOutDate(" + value.UID + ")' data-udate='" + value.MoveOutDateText + "'> " + value.MoveOutDateText + " <i class='fa fa-calendar pull-right' style='margin: 6px;'></i> </td>";
-                    html += "<td style='width:20%;'>" + value.PremiumType+ "</td>";
+                    html += "<td style='width:20%;'>" + value.PremiumType + "</td>";
 
                     html += "<td style='padding:20px;cursor:pointer!important;' id='avUnitNotes_" + value.UID + "' onclick='editUnitNotes(" + value.UID + ")' data-udate='" + value.Notes + "'> " + value.Notes + " <i class='fa fa-edit pull-right' style='margin: 6px;'></i> </td>";
                     //html += '<td class="" style="color:#3d3939;width:10%;" ><button class="btn btn-primary ParkingEdit" style="padding: 5px 8px !important;margin-right:7px" onclick="goToStep(6, ' + value.UID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button><button class="btn btn-danger" style="padding: 5px 8px !important;" onclick="delUnit(' + value.UID + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
@@ -173,10 +192,10 @@ var fillPUList = function (pagenumber, sortby, orderby) {
                     $("#listUnit>tbody").append(html);
                     $("#tblPUList>tbody").append(html);
                 });
-                
+
             }
             $("#tru_" + $("#hndUID").val()).addClass("select-unit");
-          
+
             $("#hndPageNo").val(pagenumber);
             $("#divLoader").hide();
         }
@@ -192,7 +211,7 @@ var getModelsList = function () {
         success: function (response) {
             $("#tblModels>tbody").empty();
             $.each(response.model, function (elementType, elementValue) {
-                var html = "<tr id='trm_" + elementValue.ModelID +"' data-value=" + elementValue.ModelID + ">";
+                var html = "<tr id='trm_" + elementValue.ModelID + "' data-value=" + elementValue.ModelID + ">";
 
                 html += "<td style = 'width:10%;'><a href = 'javascript:void(0)' onclick='goToStep(4," + elementValue.ModelID + ")'><img src='/content/assets/img/plan/" + elementValue.FloorPlan + "'Style = 'max-width:60%;'/></a></td>";
                 html += "<td style = 'width:10%;'><a href = 'javascript:void(0)' onclick='goToStep(4," + elementValue.ModelID + ")'> " + elementValue.ModelName + "</a></td>";
@@ -202,7 +221,7 @@ var getModelsList = function () {
                 html += "<td Style = 'width:10%;'>" + elementValue.RentRange + "</td>";
                 html += "<td Style = 'width:10%;'>" + elementValue.Bedroom + "</td>";
                 html += "<td Style = 'width:10%;'>" + elementValue.Bathroom + "</td>";
-      
+
                 html += '<td class="" style="color:#3d3939;width:10%;" ><button class="btn btn-primary ParkingEdit" style="padding: 5px 8px !important;margin-right:7px" onclick="goToStep(4, ' + elementValue.ModelID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button><button class="btn btn-danger" style="padding: 5px 8px !important;" onclick="delModel(' + elementValue.ModelID + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
 
                 html += "</tr>";
@@ -246,12 +265,12 @@ var getPropertyUnitDetails = function (uid) {
             $("#lblUnitNo").text("Floor" + response.model.FloorNo + "- Unit " + response.model.UnitNo);
             $("#lblRent").text("$" + formatMoney(response.model.Current_Rent));
             $("#lblArea").text(response.model.Area);
-            $("#lblBed").text( response.model.Bedroom);
+            $("#lblBed").text(response.model.Bedroom);
             $("#lblBath").text(response.model.Bathroom);
             $("#lblHall").text(response.model.Hall);
             $("#lblDeposit").text("$" + formatMoney(response.model.Deposit));
-            $("#lblLease").text( response.model.Leased);
-           // $("#lblDeposit").text(response.model.Rent);
+            $("#lblLease").text(response.model.Leased);
+            // $("#lblDeposit").text(response.model.Rent);
             $("#imgFloorPlan").attr("src", "/content/assets/img/property-" + response.model.PID + "/" + response.model.FloorPlan + "");
             $("#imgFloorPlan2").attr("src", "/content/assets/img/property-" + response.model.PID + "/" + response.model.FloorPlan + "");
             $("#lblUnitNo1").text("Selected : Floor" + response.model.FloorNo + "- Unit " + response.model.UnitNo + "  ($" + formatMoney(response.model.Current_Rent) + ")");
@@ -264,6 +283,7 @@ function displayImg() {
     $("#popFloorPlan").PopupWindow("open");
 }
 var getAmenityList = function () {
+    $("#divLoader").show();
     var params = { Amenity: "" };
     $.ajax({
         url: '/Admin/Amenities/GetAmenityList',
@@ -277,13 +297,14 @@ var getAmenityList = function () {
             } else {
                 $("#tblAminities").empty();
                 $.each(response, function (index, elementValue) {
-                    
+
                     var html = '';
                     html += "<div class='col-sm-3'><div class='form-group'><div class='checkbox' style='position: unset'><label><input type='checkbox' id='chkAmenity" + elementValue.ID + "' value=" + elementValue.ID + " style='margin-top: 7px' class='addame' onclick='selectAddAmenity(" + elementValue.ID + ")'>";
-                    html += "" + elementValue.Amenity + " </label></div ></div ></div >";                
+                    html += "" + elementValue.Amenity + " </label></div ></div ></div >";
                     $("#tblAminities").append(html);
                 });
             }
+            $("#divLoader").hide();
         }
     });
 }
@@ -298,8 +319,17 @@ function selectAddAmenity(id) {
     });
 }
 var getPremiumTypeList = function () {
-  
-    var params = { SearchText: "" };
+    
+        var sortby = 'PremiumType';
+   
+         var orderby = 'ASC';
+    
+    $("#divLoader").show();
+    var params = {
+        SearchText: "",
+        SortBy: sortby,
+        OrderBy: orderby
+    };
     $.ajax({
         url: '/PremiumType/GetPremiumTypeList',
         method: "post",
@@ -316,7 +346,7 @@ var getPremiumTypeList = function () {
                     $("#ddlPremium").append("<option value=" + elementValue.PTID + ">" + elementValue.PremiumType + "</option>");
                 });
             }
-           
+            $("#divLoader").hide();
         }
     });
 
@@ -345,6 +375,8 @@ function SaveUpdateProperty() {
     var pestControlFess = unformatText($("#txtPestControlFees").val());
     var trashFees = unformatText($("#txtTrashFees").val());
     var conversionFees = unformatText($("#txtConversionBill").val());
+    var dnaPetFees = unformatText($("#txtDNAPetFee").val());
+    var propertyFile = $("#hndFileUploadPropertyPicture").val();
     if (title == "") {
         msg += " Please enter Property Title .<br />";
     }
@@ -369,7 +401,7 @@ function SaveUpdateProperty() {
     if (address == "") {
         msg += " Please enter address .<br />";
     }
-  
+
     if (!applicationFees) {
         msg += " Please enter Application Fees.<br />";
     }
@@ -387,6 +419,9 @@ function SaveUpdateProperty() {
     }
     if (!conversionFees) {
         msg += " Please enter Conversion Fees.<br />";
+    }
+    if (!dnaPetFees) {
+        msg += " Please enter DNA Pet Fees.<br />";
     }
     if (msg != "") {
         $("#divLoader").hide();
@@ -411,7 +446,7 @@ function SaveUpdateProperty() {
     $formData.append('NoOfUnits', units);
     $formData.append('Parking', parking);
     $formData.append('City', 2);
-    $formData.append('State',2);
+    $formData.append('State', 2);
     $formData.append('YouTube', utube);
     $formData.append('Status', status);
     $formData.append('ApplicationFees', applicationFees);
@@ -420,13 +455,8 @@ function SaveUpdateProperty() {
     $formData.append('PestControlFees', pestControlFess);
     $formData.append('TrashFees', trashFees);
     $formData.append('ConversionBillFees', conversionFees);
-
-    var $file = document.getElementById('wizard-picture');
-    if ($file.files.length > 0) {
-        for (var i = 0; i < $file.files.length; i++) {
-            $formData.append('file-' + i, $file.files[i]);
-        }
-    }
+    $formData.append('DNAPetFees', dnaPetFees);
+    $formData.append('Picture', propertyFile);
 
     var addAmenity = "";
     if (addAmenityArray.length > 0) {
@@ -440,7 +470,7 @@ function SaveUpdateProperty() {
     } else {
         addAmenity = "0";
     }
- 
+
     $formData.append('Amenities', addAmenity);
 
     $.ajax({
@@ -451,7 +481,6 @@ function SaveUpdateProperty() {
         contentType: false,
         processData: false,
         success: function (response) {
-            $("#divLoader").show();
             $.alert({
                 title: 'Message!',
                 content: response.Msg,
@@ -459,13 +488,14 @@ function SaveUpdateProperty() {
             });
             $("#btnGoToProp").removeAttr("disabled");
             $("#btnAddUnit").removeAttr("disabled");
+            $("#divLoader").hide();
         }
     });
 
 }
 
 var fillStateDDL = function () {
-
+    $("#divLoader").show();
     $.ajax({
         url: '/City/FillStateDropDownList',
         method: "post",
@@ -482,10 +512,12 @@ var fillStateDDL = function () {
                     $("#ddlState").append("<option value=" + elementValue.ID + ">" + elementValue.StateName + "</option>");
                 });
             }
+            $("#divLoader").hide();
         }
     });
 }
 var fillCityList = function (stateid) {
+    $("#divLoader").show();
     var params = { StateID: stateid };
     $.ajax({
         url: '/City/GetCityListbyState',
@@ -503,11 +535,12 @@ var fillCityList = function (stateid) {
                     $("#ddlCity").append("<option value=" + elementValue.ID + ">" + elementValue.CityName + "</option>");
                 });
             }
+            $("#divLoader").hide();
         }
     });
 }
 var fillStateDDL1 = function () {
-
+    $("#divLoader").show();
     $.ajax({
         url: '/City/FillStateDropDownList',
         method: "post",
@@ -524,10 +557,12 @@ var fillStateDDL1 = function () {
                     $("#ddlState1").append("<option value=" + elementValue.ID + ">" + elementValue.StateName + "</option>");
                 });
             }
+            $("#divLoader").hide();
         }
     });
 }
 var fillCityList1 = function (stateid) {
+    $("#divLoader").show();
     var params = { StateID: stateid };
     $.ajax({
         url: '/City/GetCityListbyState',
@@ -542,10 +577,11 @@ var fillCityList1 = function (stateid) {
                 $("#ddlCity1").empty();
                 $("#ddlCity1").append("<option value='0'>Select City</option>");
                 $.each(response, function (index, elementValue) {
-                    
+
                     $("#ddlCity1").append("<option value=" + elementValue.ID + ">" + elementValue.CityName + "</option>");
                 });
             }
+            $("#divLoader").hide();
         }
     });
 }
@@ -573,6 +609,7 @@ var saveUpdateFloor = function () {
     }
 
     if (msg != "") {
+        $("#divLoader").hide();
         $.alert({
             title: 'Alert!',
             content: msg,
@@ -586,7 +623,7 @@ var saveUpdateFloor = function () {
     $formData.append('PID', pid);
     $formData.append('FloorNo', floorno);
     $formData.append('Coordinates', cord);
-   
+
     var $file = document.getElementById('UnitPlan-picture');
 
     if ($file.files.length > 0) {
@@ -611,16 +648,14 @@ var saveUpdateFloor = function () {
         contentType: false,
         processData: false,
         success: function (response) {
-            $("#divLoader").hide();
             $.alert({
                 title: 'Message!',
                 content: "Floor Added Successfully",
                 type: 'blue',
             });
             resetcords();
+            $("#divLoader").hide();
         }
-
-
     });
 }
 
@@ -644,7 +679,7 @@ var goToStep = function (stepid, id) {
     if (stepid == "2") {
         $("#divLoader").show();
         var noffloor = $("#txtNoOfFloor").val();
-        
+
         $("#ddlFloorList").empty();
         $("#ddlFloorList").append("<option value='0'>Select Floor</option>");
         for (var i = 1; i <= noffloor; i++) {
@@ -656,7 +691,7 @@ var goToStep = function (stepid, id) {
         $("#li1").removeClass("active");
         $("#li3").removeClass("active");
         $("#li4").removeClass("active");
-        $("#step1").addClass("hidden");      
+        $("#step1").addClass("hidden");
         $("#step3").addClass("hidden");
         $("#step4").addClass("hidden");
         $("#step2").removeClass("hidden");
@@ -668,7 +703,7 @@ var goToStep = function (stepid, id) {
         $("#divLoader").show();
         getModelsList();
         //getPropertyUnitList($("#hndPID").val());
-       // buildPaganationPUList($("#hdnCurrentPage_PU").val());
+        // buildPaganationPUList($("#hdnCurrentPage_PU").val());
         $("#li6").removeClass("active");
         $("#li5").removeClass("active");
         $("#li3").addClass("active");
@@ -705,9 +740,9 @@ var goToStep = function (stepid, id) {
         $("#step6").addClass("hidden");
     }
     if (stepid == "5") {
-     
+
         //getPropertyUnitList($("#hndPID").val());
-        buildPaganationPUList($("#hdnCurrentPage_PU").val(),'UnitNo','ASC');
+        buildPaganationPUList($("#hdnCurrentPage_PU").val(), 'UnitNo', 'ASC');
         $("#tru_" + $("#hndUID").val()).addClass("select-unit");
         $("#li3").removeClass("active");
         $("#li2").removeClass("active");
@@ -724,8 +759,8 @@ var goToStep = function (stepid, id) {
     }
     if (stepid == "6") {
         $("#hndUID").val(id);
-        
-       // $("#tru_" + $("#hndUID").val()).removeClass("select-unit");
+
+        // $("#tru_" + $("#hndUID").val()).removeClass("select-unit");
         //$("#tru_" + $("#hndUID").val()).addClass("select-unit");
 
         $("#divLoader").show();
@@ -751,6 +786,7 @@ var goToStep = function (stepid, id) {
 
 // Unit
 function SaveUpdatePropertyUnit() {
+    $("#divLoader").show();
     var msg = "";
     var pID = $("#hndPID").val();
     var uID = $("#hndUID").val();
@@ -780,7 +816,7 @@ function SaveUpdatePropertyUnit() {
     var area = $("#txtArea").val();
     var floorPlanCord = $("#txtunitcord").val();
     //var carpet_Color = $("#txtCarpet_Color").val();
-    var carpet_Color ="Colour";
+    var carpet_Color = "Colour";
     //var wall_Paint_Color = $("#txtWall_Paint_Color").val();
     var wall_Paint_Color = "wall_Paint";
     //var furnished = $("#chkFurnished").is(":checked") ? "1" : "0";
@@ -790,21 +826,21 @@ function SaveUpdatePropertyUnit() {
     //var refrigerator = $("#chkRefrigerator").is(":checked") ? "1" : "0";
     var refrigerator = "0";
     //var drapes = $("#chkTakeOffList").is(":checked") ? "1" : "0";
-    var drapes =  "0";
+    var drapes = "0";
     //var dryer = $("#chkDryer").is(":checked") ? "1" : "0";
-    var dryer ="0";
+    var dryer = "0";
     //var dishwasher = $("#chkDishwasher").is(":checked") ? "1" : "0";
-    var dishwasher =  "0";
+    var dishwasher = "0";
     //var disposal = $("#chkDisposal").is(":checked") ? "1" : "0";
-    var disposal =  "0";
+    var disposal = "0";
     //var elec_Range = $("#chkElec_Range").is(":checked") ? "1" : "0";
-    var elec_Range =  "0";
+    var elec_Range = "0";
     //var Gas_Range = $("#chkGas_Range").is(":checked") ? "1" : "0";
     var Gas_Range = "0";
     //var carpet = $("#chkCarpet").is(":checked") ? "1" : "0";
-    var carpet =  "0";
+    var carpet = "0";
     //var air_Conditioning = $("#chkAir_Conditioning").is(":checked") ? "1" : "0";
-    var air_Conditioning =  "0";
+    var air_Conditioning = "0";
     //var fireplace = $("#chkFireplace").is(":checked") ? "1" : "0";
     var fireplace = "0";
     //var den = $("#chkDen").is(":checked") ? "1" : "0";
@@ -812,8 +848,8 @@ function SaveUpdatePropertyUnit() {
     var availableDate = $("#txtAvailableDate").val();
     var occupancyDate = $("#txtOccupancyDate").val();
     //var pendingMoveIn = $("#chkPendingMoveIn").is(":checked") ? "1" : "0";
-    var pendingMoveIn =  "0";
-   
+    var pendingMoveIn = "0";
+
     var intendedMoveIn_Date = $("#txtIntendedMoveIn_Date").val();
     var intendMoveOutDate = $("#txtIntendMoveOutDate").val();
 
@@ -823,6 +859,7 @@ function SaveUpdatePropertyUnit() {
     var intarea = $("#txtInteriorArea").val();
     var balcarea = $("#txtBalconyArea").val();
     var notes = $("#txtUnitNotes").val();
+
 
     if (unitNo == "") {
         msg += " Please enter Unit Title .<br />";
@@ -855,7 +892,24 @@ function SaveUpdatePropertyUnit() {
     if (floorPlanCord == "") {
         msg += " Please enter Floor Coordinates .<br />";
     }
+    var unitWiseRentData = "";
+    $("tr.leaseunitrent").each(function (index, key) {
+        var ltid = $(this).data("value");
+        var rent = $("#txtLease_" + ltid).val();
+        var ren = unformatText(rent);
+        var leaseTerms = $(this).find('td:eq(1)').html();
+        if (ren == '0.00' || ren == '') {
+            msg += "Please enter " + leaseTerms + " Rent .<br />";
+        }
+        if (unitWiseRentData == "") {
+            unitWiseRentData = ltid + "," + ren;
+        } else {
+            unitWiseRentData += "|" + ltid + "," + ren;
+        }
+    });
+
     if (msg != "") {
+        $("#divLoader").hide();
         $.alert({
             title: 'Alert!',
             content: msg,
@@ -912,6 +966,7 @@ function SaveUpdatePropertyUnit() {
     $formData.append('BalconyArea', balcarea);
     $formData.append('Notes', notes);
 
+    $formData.append('UnitWiseRentData', unitWiseRentData);
     var $file = document.getElementById('unit-picture');
     if ($file.files.length > 0) {
         for (var i = 0; i < $file.files.length; i++) {
@@ -942,12 +997,13 @@ function SaveUpdatePropertyUnit() {
                     type: 'blue',
                 });
             }
-            
+            $("#divLoader").hide();
         }
     });
 
 }
 function getFloorList() {
+    $("#divLoader").show();
     var pid = $("#hndPID").val();
     var model = { PID: pid };
     $.ajax({
@@ -960,7 +1016,7 @@ function getFloorList() {
             if ($.trim(response.error) != "") {
                 //this.cancelChanges();
             } else {
-               
+
 
                 $("#ddlFloorNo").empty();
                 $("#ddlFloorNo").append("<option value='0'>Select Floor</option>");
@@ -968,6 +1024,7 @@ function getFloorList() {
                     $("#ddlFloorNo").append("<option value=" + elementValue.FloorID + ">" + elementValue.FloorNo + "</option>");
                 });
             }
+            $("#divLoader").hide();
         }
     });
 }
@@ -980,6 +1037,7 @@ var getUnitCord = function (e, cont) {
 
 }
 function showFloorPlan(flid) {
+    $("#divLoader").show();
     var model = { FloorID: flid };
     $.ajax({
         url: "/Admin/PropertyManagement/GetPropertyFloorDetails/",
@@ -1020,10 +1078,10 @@ function showFloorPlan(flid) {
                 $(this).addClass('active_mouse').data('maphilight', { alwaysOn: true, fillColor: 'FF6347', strokeColor: 'FF6347', }).trigger('alwaysOn.maphilight');
                 if ($("#hndUID").val()) {
                     var cont = $("#hndUID").val();
-                    $("#ua" + cont).addClass('active_area').data('maphilight', { alwaysOn: true, fillOpacity:1, fillColor: 'f62030', strokeColor: '6f0e0e', }).trigger('alwaysOn.maphilight');
+                    $("#ua" + cont).addClass('active_area').data('maphilight', { alwaysOn: true, fillOpacity: 1, fillColor: 'f62030', strokeColor: '6f0e0e', }).trigger('alwaysOn.maphilight');
                 }
             });
-            
+
             //$('#imgFloorCoordinate').click(function (e) {
 
             //    var offset = $(this).offset();
@@ -1032,6 +1090,7 @@ function showFloorPlan(flid) {
 
             //    $('#txtunitcord').append(X + ',' + Y + ',');
             //});
+            $("#divLoader").hide();
         }
     });
 
@@ -1049,7 +1108,7 @@ var clearUnit = function () {
     $("#txtCurrentRent").val("");
     $("#txtPreviousRent").val("");
     $("#txtMarketRent").val("");
-   // $("#txtWing").val("");
+    // $("#txtWing").val("");
     $("#txtBuilding").val("");
     $("#txtLeased").val("");
     $("#txtPetDetails").val("");
@@ -1090,9 +1149,11 @@ var clearUnit = function () {
     $("#txtUnitNotes").val("");
     $("#ddlModel").val(0);
     $("#ddlModel").trigger('change');
+    $("#tblLeaseWiseRentEdit>tbody").empty();
+
 }
 var fillModelDDL = function () {
-
+    $("#divLoader").show();
     $.ajax({
         url: '/Models/getModelsList',
         method: "post",
@@ -1109,11 +1170,12 @@ var fillModelDDL = function () {
                     $("#ddlModel").append("<option value=" + elementValue.ModelName + ">" + elementValue.ModelName + "</option>");
                 });
             }
+            $("#divLoader").hide();
         }
     });
 }
 var getPropertyModelDetails = function (modelname) {
-
+    $("#divLoader").show();
     var model = { ModelName: modelname };
     $.ajax({
         url: "/Models/GetPropertyModelDetails/",
@@ -1134,11 +1196,12 @@ var getPropertyModelDetails = function (modelname) {
             $("#txtMinfRent").val(formatMoney(parseFloat(response.model.MinRent).toFixed(2)));
             $("#txtMaxfRent").val(formatMoney(parseFloat(response.model.MaxRent).toFixed(2)));
             $("#txtDeposit").val(formatMoney(parseFloat(response.model.Deposit).toFixed(2)));
-}
+            $("#divLoader").hide();
+        }
     })
+    
 }
-var delModel= function (mId) {
-
+var delModel = function (mId) {
     var model = {
         ModelID: mId
     };
@@ -1192,8 +1255,7 @@ var delUnit = function (uId) {
                         data: JSON.stringify(model),
                         dataType: "JSON",
                         success: function (response) {
-                            if (response.model =="Unit Unable to remove")
-                            {
+                            if (response.model == "Unit Unable to remove") {
                                 $.alert({
                                     title: 'Message!',
                                     content: "Unit Unable to remove",
@@ -1207,7 +1269,7 @@ var delUnit = function (uId) {
                                     type: 'blue',
                                 });
                             }
-                           
+
                         }
                     });
                 }
@@ -1421,7 +1483,7 @@ var editUnitRent = function (uid) {
     });
     $("#editURent_" + uid).focus();
 };
-var editUnitNotes = function (uid) {   
+var editUnitNotes = function (uid) {
     $("#avUnitNotes_" + uid).removeAttr("onclick");
     var notes = $("#avUnitNotes_" + uid).attr("data-udate");
     $("#txtNotes").val(notes);
@@ -1524,4 +1586,42 @@ var sortTable = function (sortby) {
     count++;
     buildPaganationPUList(pNumber, sortby, orderby);
     fillPUList(pNumber, sortby, orderby);
+};
+
+var tableControlFocusOut = function (cont) {
+    $(cont).val(formatMoney($(cont).val()));
+}
+var tableControlFocus = function (cont) {
+    $(cont).val(unformatText($(cont).val()));
+}
+var uploadPropertyPicture = function () {
+    $("#divLoader").show();
+    $formData = new FormData();
+
+    var propertyFile = document.getElementById('wizard-picture');
+
+    for (var i = 0; i < propertyFile.files.length; i++) {
+        $formData.append('file-' + i, propertyFile.files[i]);
+    }
+
+    $.ajax({
+        url: '/Admin/PropertyManagement/PropertyFileUpload',
+        type: 'post',
+        data: $formData,
+        contentType: 'application/json; charset=utf-8',
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (response) {
+            $('#hndFileUploadPropertyPicture').val(response.model.Picture);
+            $('#hndOriginalFileUploadPropertyPicture').val(response.model.OriginalPicture);
+
+            $.alert({
+                title: "",
+                content: "File uploaded Successfully.",
+                type: 'blue'
+            });
+            $("#divLoader").hide();
+        }
+    });
 };

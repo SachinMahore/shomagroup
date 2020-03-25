@@ -1,0 +1,115 @@
+﻿
+@{
+    ViewBag.Title = "AmenitiesReservationRequest";
+    DateTime now = DateTime.Now;
+    var startDate = new DateTime(now.Year, now.Month, 1);
+    var endDate = startDate.AddMonths(1).AddDays(-1);
+}
+
+<script src="~/Areas/Admin/Content/Pages/AmenitiesReservationRequest/AmenitiesReservationRequestList.js"></script>
+<input type="hidden" id="hdnSearchType_EL" value="1" />
+<input type="hidden" id="hdnCurrentPage_EL" value="1" />
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container">
+        <div class="row">
+            <div class="breadcrumb">
+                <h4 class="">Amenity ReservationRequest List</h4>
+            </div>
+
+            <div class="col-md-12  pr0  properties-page">
+                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                    <div class="panel-heading">
+                        <div class="col-sm-3">
+                            <h3 class="panel-title input-group">From Date</h3>
+                            <div class="input-group">
+                                <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
+                                <span class="input-group-btn">
+                                    <button id="iconFromDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <h3 class="panel-title input-group">To Date</h3>
+                            <div class="input-group">
+                                <input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="@endDate.ToString("MM/dd/yyyy")" />
+                                <span class="input-group-btn">
+                                    <button id="iconToDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <h3 class="panel-title">Select Unit</h3>
+                                <select id="ddlUnitNoAmeResReq" class="form-control form-control-small"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <h3 class="panel-title">Amenities</h3>
+                                <input id="txtAmenitiesAmeResReq" type="text" class="form-control form-control-small" />
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group  padding-top-25">
+                                <button class='btn btn-next btn-primary' name='Search' value='Search' style="height: 34px;margin-top: 1px;" onclick="buildPaganationReservationRequestList(1)"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group  padding-top-25 hidden">
+                                <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="addNewReservationRequest()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">NEW</span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 form-group" id="divPagination_ReservationRequestList">
+                        <div id="divPgn" class="col-sm-8 pagination">
+                            <ul id="ulPagination_ReservationRequestList"></ul>
+                        </div>
+                        <div class="col-sm-3 padding-0 pull-right" style="margin-top:22px">
+                            <div class="col-sm-6">
+                                <label class="control-label" style="margin-left:52px;">Row/Page</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <select id="ddlRPP_ReservationRequestList" class="form-control form-control-small"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body search-widget">
+                        <div class="col-md-12 clear">
+                            <table id="tblReservationRequest" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th width="10%" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer" onclick="sortTableAminiReg('TenantName')">Tenant Name<i id="SortIconARFN"></i></th>
+                                        <th width="7%" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer" onclick="sortTableAminiReg('UnitNo')">Unit No.<i id="SortIconAUn"></i></th>
+                                        <th width="20%" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer" onclick="sortTableAminiReg('AmenityName')">Amenity<i id="SortIconAmini"></i></th>
+                                        <th width="10%" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer" onclick="sortTableAminiReg('DesiredDate')">Desire Date<i id="SortIconARDR"></i></th>
+                                        <th width="10%" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer" onclick="sortTableAminiReg('DesiredTimeFrom')">From Time<i id="SortIconARFT"></i> </th>
+                                        <th width="10%" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer" onclick="sortTableAminiReg('DesiredTimeTo')">To Time<i id="SortIconARTT"></i></th>
+                                        <th width="10%" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer" onclick="sortTableAminiReg('Duration')">Desire Duration<i id="SortIconARDD"></i></th>
+                                        <th width="5%" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer" onclick="sortTableAminiReg('Guest')">Guest<i id="SortIconARG"></i></th>
+                                        <th width="30%" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer" onclick="sortTableAminiReg('Status')">Status<i id="SortIconARS"></i></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#txtFromDate").datepicker();
+        $("#iconFromDate").click(function () {
+            $("#txtFromDate").focus();
+        });
+        $("#txtToDate").datepicker();
+        $("#iconToDate").click(function () {
+            $("#txtToDate").focus();
+        });
+    });
+</script>
+

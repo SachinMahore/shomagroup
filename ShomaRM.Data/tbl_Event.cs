@@ -32,9 +32,9 @@ namespace ShomaRM.Data
         public Nullable<System.TimeSpan> EventTime { get; set; }
         public Nullable<decimal> Fees { get; set; }
     
-        public virtual tbl_Properties tbl_Properties { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_EventBooking> tbl_EventBooking { get; set; }
         public virtual tbl_Login tbl_Login { get; set; }
+        public virtual tbl_Properties tbl_Properties { get; set; }
     }
 }

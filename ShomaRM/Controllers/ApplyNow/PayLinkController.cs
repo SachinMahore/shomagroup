@@ -24,7 +24,7 @@ namespace ShomaRM.Controllers
             ViewBag.FromAcc = FromAcc;
             ViewBag.AID = AID;
             ViewBag.Amt = Amt;
-            var model = new ApplicantModel().GetApplicantDetails(AID);
+            var model = new ApplicantModel().GetApplicantDetails(AID, FromAcc);
             if (FromAcc != 0)
             {
                 if (ShomaGroupWebSession.CurrentUser != null)

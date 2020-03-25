@@ -139,6 +139,9 @@
     <Property Name="LeaseTerm" Type="int" />
     <Property Name="MonthlyCharges" Type="money" />
     <Property Name="EsignatureID" Type="nvarchar" MaxLength="50" />
+    <Property Name="PetDNAAmt" Type="money" />
+    <Property Name="StepCompleted" Type="int" />
+    <Property Name="AcceptSummary" Type="int" />
   </EntityType>
   <EntityType Name="tbl_AuditHistory">
     <Key>
@@ -320,6 +323,37 @@
     <Property Name="LeaseDocuments" Type="varchar" MaxLength="500" />
     <Property Name="DocumentState" Type="varchar" MaxLength="500" />
     <Property Name="DocumentIDNumber" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="tbl_EmployerHistory">
+    <Key>
+      <PropertyRef Name="HEIID" />
+    </Key>
+    <Property Name="HEIID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployerName" Type="varchar" MaxLength="100" />
+    <Property Name="JobTitle" Type="varchar" MaxLength="100" />
+    <Property Name="JobType" Type="int" />
+    <Property Name="StartDate" Type="datetime" />
+    <Property Name="TerminationDate" Type="datetime" />
+    <Property Name="AnnualIncome" Type="money" />
+    <Property Name="AddAnnualIncome" Type="money" />
+    <Property Name="SupervisorName" Type="varchar" MaxLength="100" />
+    <Property Name="SupervisorPhone" Type="varchar" MaxLength="100" />
+    <Property Name="SupervisorEmail" Type="nvarchar" MaxLength="100" />
+    <Property Name="Country" Type="int" />
+    <Property Name="Address1" Type="nvarchar(max)" />
+    <Property Name="Address2" Type="nvarchar(max)" />
+    <Property Name="State" Type="int" />
+    <Property Name="City" Type="nvarchar" MaxLength="100" />
+    <Property Name="Zip" Type="nvarchar" MaxLength="50" />
+    <Property Name="TaxReturn1" Type="nvarchar(max)" />
+    <Property Name="TaxReturn2" Type="nvarchar(max)" />
+    <Property Name="TaxReturn3" Type="nvarchar(max)" />
+    <Property Name="TaxReturn1OrigName" Type="nvarchar(max)" />
+    <Property Name="TaxReturn2OrigName" Type="nvarchar(max)" />
+    <Property Name="TaxReturn3OrigName" Type="nvarchar(max)" />
+    <Property Name="PaystubValue" Type="int" />
+    <Property Name="TenantId" Type="bigint" />
+    <Property Name="TerminationReason" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="tbl_Estimate">
     <Key>
@@ -666,12 +700,13 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PID" Type="bigint" />
     <Property Name="Name_On_Card" Type="nvarchar" MaxLength="29" />
-    <Property Name="CardNumber" Type="nvarchar" MaxLength="20" />
-    <Property Name="CardMonth" Type="int" />
-    <Property Name="CardYear" Type="int" />
-    <Property Name="CCVNumber" Type="int" />
+    <Property Name="CardNumber" Type="nvarchar" MaxLength="255" />
+    <Property Name="CardMonth" Type="nvarchar" MaxLength="255" />
+    <Property Name="CardYear" Type="nvarchar" MaxLength="255" />
+    <Property Name="CCVNumber" Type="nvarchar" MaxLength="255" />
     <Property Name="ProspectId" Type="bigint" />
     <Property Name="PaymentMethod" Type="int" />
+    <Property Name="ApplicantID" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_Parking">
     <Key>
@@ -693,16 +728,16 @@
     <Property Name="TenantId" Type="bigint" />
     <Property Name="NickName" Type="varchar" MaxLength="100" />
     <Property Name="NameOnCard" Type="varchar" MaxLength="50" />
-    <Property Name="CardNumber" Type="varchar" MaxLength="50" />
-    <Property Name="Month" Type="varchar" MaxLength="50" />
-    <Property Name="Year" Type="varchar" MaxLength="50" />
+    <Property Name="CardNumber" Type="nvarchar" MaxLength="255" />
+    <Property Name="Month" Type="nvarchar" MaxLength="255" />
+    <Property Name="Year" Type="nvarchar" MaxLength="255" />
     <Property Name="CardType" Type="int" />
     <Property Name="Default" Type="int" />
     <Property Name="PayMethod" Type="int" />
     <Property Name="BankName" Type="varchar" MaxLength="60" />
     <Property Name="AccountName" Type="varchar" MaxLength="100" />
-    <Property Name="AccountNumber" Type="varchar" MaxLength="100" />
-    <Property Name="RoutingNumber" Type="varchar" MaxLength="100" />
+    <Property Name="AccountNumber" Type="nvarchar" MaxLength="255" />
+    <Property Name="RoutingNumber" Type="nvarchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="tbl_PetPlace">
     <Key>
@@ -769,6 +804,7 @@
     <Property Name="TrashFees" Type="money" />
     <Property Name="ConversionBillFees" Type="money" />
     <Property Name="AdminFees" Type="money" />
+    <Property Name="PetDNAAmt" Type="money" />
   </EntityType>
   <EntityType Name="tbl_PropertyFloor">
     <Key>
@@ -1088,7 +1124,7 @@
     <Property Name="Gender" Type="int" />
     <Property Name="Email" Type="varchar" MaxLength="255" />
     <Property Name="Mobile" Type="varchar" MaxLength="15" />
-    <Property Name="PassportNumber" Type="varchar" MaxLength="50" />
+    <Property Name="PassportNumber" Type="varchar" MaxLength="255" />
     <Property Name="CountryIssuance" Type="varchar" MaxLength="50" />
     <Property Name="DateIssuance" Type="datetime" />
     <Property Name="DateExpire" Type="datetime" />
@@ -1096,7 +1132,7 @@
     <Property Name="State" Type="bigint" />
     <Property Name="PropertyID" Type="bigint" />
     <Property Name="UnitID" Type="bigint" />
-    <Property Name="IDNumber" Type="varchar" MaxLength="50" />
+    <Property Name="IDNumber" Type="varchar" MaxLength="255" />
     <Property Name="Country" Type="varchar" MaxLength="50" />
     <Property Name="HomeAddress1" Type="varchar" MaxLength="300" />
     <Property Name="HomeAddress2" Type="varchar" MaxLength="300" />
@@ -1155,7 +1191,7 @@
     <Property Name="PassportDocument" Type="varchar" MaxLength="500" />
     <Property Name="IdentityDocument" Type="varchar" MaxLength="500" />
     <Property Name="TaxReturn" Type="varchar" MaxLength="500" />
-    <Property Name="SSN" Type="nvarchar" MaxLength="15" />
+    <Property Name="SSN" Type="nvarchar" MaxLength="255" />
     <Property Name="TaxReturn2" Type="varchar" MaxLength="500" />
     <Property Name="TaxReturn3" Type="varchar" MaxLength="500" />
     <Property Name="HaveVehicle" Type="bit" />
@@ -1197,13 +1233,13 @@
     <Property Name="Gender" Type="int" />
     <Property Name="Email" Type="varchar" MaxLength="255" />
     <Property Name="Mobile" Type="varchar" MaxLength="15" />
-    <Property Name="PassportNumber" Type="varchar" MaxLength="50" />
+    <Property Name="PassportNumber" Type="nvarchar" MaxLength="255" />
     <Property Name="CountryIssuance" Type="varchar" MaxLength="50" />
     <Property Name="DateIssuance" Type="datetime" />
     <Property Name="DateExpire" Type="datetime" />
     <Property Name="IDType" Type="int" />
     <Property Name="State" Type="bigint" />
-    <Property Name="IDNumber" Type="varchar" MaxLength="50" />
+    <Property Name="IDNumber" Type="nvarchar" MaxLength="255" />
     <Property Name="Country" Type="varchar" MaxLength="50" />
     <Property Name="HomeAddress1" Type="varchar" MaxLength="300" />
     <Property Name="HomeAddress2" Type="varchar" MaxLength="300" />
@@ -1262,7 +1298,7 @@
     <Property Name="PassportDocument" Type="varchar" MaxLength="500" />
     <Property Name="IdentityDocument" Type="varchar" MaxLength="500" />
     <Property Name="TaxReturn" Type="varchar" MaxLength="500" />
-    <Property Name="SSN" Type="nvarchar" MaxLength="15" />
+    <Property Name="SSN" Type="nvarchar" MaxLength="255" />
     <Property Name="TaxReturn2" Type="varchar" MaxLength="500" />
     <Property Name="TaxReturn3" Type="varchar" MaxLength="500" />
     <Property Name="HaveVehicle" Type="bit" />
@@ -1366,6 +1402,16 @@
     <Property Name="TCardExpirationMonth" Type="nvarchar" MaxLength="29" />
     <Property Name="TCardExpirationYear" Type="nvarchar" MaxLength="29" />
     <Property Name="Authcode" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="tbl_UnitLeasePrice">
+    <Key>
+      <PropertyRef Name="ULPID" />
+    </Key>
+    <Property Name="ULPID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UnitID" Type="bigint" />
+    <Property Name="LeaseID" Type="int" />
+    <Property Name="Price" Type="money" />
+    <Property Name="Deposit" Type="money" />
   </EntityType>
   <EntityType Name="tbl_Utility">
     <Key>
@@ -2424,6 +2470,7 @@
     <EntitySet Name="tbl_Country" EntityType="Self.tbl_Country" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Document" EntityType="Self.tbl_Document" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_DocumentVerification" EntityType="Self.tbl_DocumentVerification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_EmployerHistory" EntityType="Self.tbl_EmployerHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Estimate" EntityType="Self.tbl_Estimate" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Event" EntityType="Self.tbl_Event" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_EventBooking" EntityType="Self.tbl_EventBooking" Schema="dbo" store:Type="Tables" />
@@ -2476,6 +2523,7 @@
     <EntitySet Name="tbl_TenantPetPlace" EntityType="Self.tbl_TenantPetPlace" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_TenantStorage" EntityType="Self.tbl_TenantStorage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Transaction" EntityType="Self.tbl_Transaction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_UnitLeasePrice" EntityType="Self.tbl_UnitLeasePrice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Utility" EntityType="Self.tbl_Utility" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_UtilityBilling" EntityType="Self.tbl_UtilityBilling" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Vehicle" EntityType="Self.tbl_Vehicle" Schema="dbo" store:Type="Tables" />

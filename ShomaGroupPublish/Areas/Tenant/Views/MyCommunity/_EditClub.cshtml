@@ -1,0 +1,221 @@
+﻿@model ShomaRM.Areas.Tenant.Models.Club.ClubModel
+@using ShomaRM.Areas.Tenant.Models.Enum;
+
+<h3 class="headding-sub-text margin3  col-lg-12">Edit CLub</h3>
+<br />
+<div class="col-md-12">
+    <div class="row mb-15">
+        <div class="col-sm-12">
+
+            <div class="payment-box">
+                <div class="col-lg-12 margin2">
+                    <div class="row margin margin-box">
+                        <input class="hidden" id="txtClubIdEdit" type="text" />
+
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Club Title:</div>
+
+                        <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                            <input id="txtClubTitleEdit" type="text" name="ClubTitle" value="@Model.ClubTitle" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="payment-box">
+        <div class="col-lg-12 margin2">
+            <div class="row margin margin-box">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Activity:</div>
+                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12  border-bottom1 m-l15">
+                    @Html.DropDownListFor(o => o.ActivityId, Enum.GetValues(typeof(ActivityEnum)).Cast<ActivityEnum>
+                       ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "ActivityIdEdit", @class = "div-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="payment-box">
+        <div class="col-lg-12 margin">
+            <div class="row margin margin-box">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="control-label  requiredField text-payment" for="date">
+                        Start Date
+                    </div>
+                </div>
+                <div class='col-sm-6 col-md-6 col-lg-6'>
+                    <div class="div-group">
+                        <div class='input-group date'>
+                            <input id="txtStartDateEdit" type='text' class="div-control" style="width:99%" data-provide="datepicker" value="@Model.StartDate" name="StartDate" maxlength="20" placeholder="MM/dd/yyyy">
+                            <span class="input-group-addon">
+                                <a><span id="btnStartDateEdit" class="fa fa-calendar"></span></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="payment-box">
+        <div class="col-lg-12 margin2">
+            <div class="row margin margin-box">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Venue:</div>
+                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                    <input id="txtVenueEdit" type="text" name="Venue" value="@Model.Venue" class="div-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="payment-box">
+        <div class="col-lg-12 margin2">
+            <div class="row margin margin-box">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                    Meeting Day:
+                </div>
+                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+
+                    @Html.DropDownListFor(o => o.DayId, Enum.GetValues(typeof(DayEnum)).Cast<DayEnum>
+                        ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "DayIdEdit", @class = "div-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="payment-box">
+        <div class="col-lg-12 margin2">
+            <div class="row margin margin-box">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                    Meeting Time:
+
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <div class="div-group">
+                        <div class='input-group date' id='datetimepicker1'>
+                            <div class="time_pick"><input id="txtMeetingTimeEdit" class="time_element div-control div-control-small" type="text" value="@Model.Time" name="timepicker" style="width:99%" maxlength="20" placeholder="HH:mm:ss" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
+
+                            <span class="input-group-addon">
+                                <a><span id="btnStartDateEdit" class="fa fa-clock-o "></span></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="payment-box">
+        <div class="col-lg-12 margin2">
+            <div class="row margin margin-box">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Contact/ Organizer:</div>
+                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                    <input id="txtContactEdit" type="text" name="Contact" value="@Model.Contact" class="div-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="payment-box">
+        <div class="col-lg-12 margin2">
+            <div class="row margin margin-box">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Email:</div>
+                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                    <input id="txtEmailEdit" type="text" name="Email" value="@Model.Email" class="div-control" />
+                </div><span class="Required">(Required)</span>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="payment-box">
+        <div class="col-lg-12 margin2">
+            <div class="row margin margin-box">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Phone:</div>
+                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                    <input id="txtPhoneNumberEdit" type="text" name="PhoneNumber" value="@Model.PhoneNumber" class="div-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="condition-wrapper m-t30 p-b30 ">
+        <div class="m-b10 text-subheding">Best way to contact:</div>
+        <label class="checbox">
+
+            <input id="PhoneCheckEdit" type="radio" name="check" checked="checked" @(Model.PhoneCheck == true ? "Checked='checked'" : "")>
+            Phone
+        </label>
+        <label class="checbox">
+
+            <input id="EmailCheckEdit" type="radio" checked="checked" name="check" @(Model.EmailCheck == true ? "Checked='checked'" : "")>
+            Email
+        </label>
+    </div>
+
+
+    <div class="payment-box">
+        <div class="col-lg-12 margin2">
+            <div class="row margin margin-box">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                    Level:
+                </div>
+                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                    @Html.DropDownListFor(o => o.LevelId, Enum.GetValues(typeof(LevelEnum)).Cast<LevelEnum>
+                         ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "LevelIdEdit", @class = "div-control" })
+                </div>
+            </div>
+            <div class="row margin margin-box m-t30">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+
+                </div>
+                <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 textarea1">
+                    <textarea id="txtSpecialInstructionEdit" rows="3" name="SpecialInstruction" value="@Model.SpecialInstruction" placeholder="Special Instructions/Comments" class="div-control" style="margin-top:4px"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="payment-box">
+        <div class="col-lg-12 margin2">
+            <div class="row margin margin-box">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                    Description:
+                </div>
+                <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 textarea1">
+                    <textarea id="txtDescriptionEdit" name="Description" rows="5" placeholder="What is your club about?" class="div-control mb-5">@Model.Description</textarea>
+                    <br />
+                    <textarea id="txtBriefDescriptionEdit" name="BriefDescription" rows="2" maxlength="40" placeholder="Brief description (limited to 40 characters)" class="div-control mb-5">@Model.BriefDescription</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="condition-wrapper ">
+        <input type="checkbox" name="TermsAndCondition" id="chkTermsConditionsEdit" @(Model.TermsAndCondition == true ? "Checked='checked'" : "")>
+        <span class="chektext ">I agree to the <span class="span1"><a>Terms &amp; Conditions </a></span></span>
+    </div>
+
+    <div class="center">
+        <input type="hidden" id="hndfileCommunityActivityEdit" />
+        <input type="hidden" id="hndfileCommunityActivityOriginalNameEdit" />
+        <button id="ClubSubmitEdit" type="button" class="paynow m-t30" onclick="SubmitClubEdit()">Create Club</button>
+    </div>
+</div>
+<script src="~/Areas/Tenant/Content/Pages/MyCommunity/MyCommunity.js"></script>
+<script>
+    $("#chkTermsConditionsEdit").on('ifChanged', function (event) {
+        if (this.checked == true) {
+            $('#ClubSubmitEdit').removeAttr('disabled');
+        } else {
+            $('#ClubSubmitEdit').attr('disabled', 'disabled');
+        }
+    });
+</script>

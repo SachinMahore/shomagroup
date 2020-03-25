@@ -305,10 +305,12 @@ namespace ShomaRM.Areas.Admin.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             var userNameExists = db.tbl_Login.Where(p => p.UserID != model.UserID && p.Username == model.Username).FirstOrDefault();
+            string encpassword = new EncryptDecrypt().EncryptText(model.Password);
             if (userNameExists == null)
             {
                 if (model.UserID == 0)
                 {
+                    
                     var userData = new tbl_Login()
                     {
                         FirstName = model.FirstName,
@@ -316,9 +318,8 @@ namespace ShomaRM.Areas.Admin.Models
                       
                         CellPhone = model.CellPhone,
                         Email = model.Email,
-                    
                         Username = model.Username,
-                        Password = model.Password,
+                        Password = encpassword,
                         IsActive = model.IsActive,
                         IsSuperUser = 0,
                         UserType = model.UserType
@@ -339,7 +340,7 @@ namespace ShomaRM.Areas.Admin.Models
                         userInfo.Email = model.Email;
                       
                         userInfo.Username = model.Username;
-                        userInfo.Password = model.Password;
+                        userInfo.Password = encpassword;
                         userInfo.IsActive = model.IsActive;
                         userInfo.UserType = model.UserType;
                         db.SaveChanges();
@@ -360,15 +361,21 @@ namespace ShomaRM.Areas.Admin.Models
 
         public string UpdatePasswordUser(UsersModel model)
         {
+          
+            string encryptedNewPassword = new EncryptDecrypt().EncryptText(model.NewPassword);
+            string encryptedOldPassword = new EncryptDecrypt().EncryptText(model.OldPassword);
             string msg = "";
             long uid = ShomaGroupWebSession.CurrentUser.UserID;
             ShomaRMEntities db = new ShomaRMEntities();
-            var userNameExists = db.tbl_Login.Where(p => p.UserID == uid && p.Password == model.OldPassword).FirstOrDefault();
+           
+            var userNameExists = db.tbl_Login.Where(p => p.UserID == uid && p.Password == encryptedOldPassword).FirstOrDefault();
+           
+
             if (userNameExists != null)
             {
                 tbl_Login userData = new tbl_Login();
 
-                userNameExists.Password = model.NewPassword;
+                userNameExists.Password = encryptedNewPassword;
                 db.SaveChanges();
                 msg = "Password Change Successfully";
 

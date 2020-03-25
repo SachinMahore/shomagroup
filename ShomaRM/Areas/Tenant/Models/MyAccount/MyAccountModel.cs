@@ -133,9 +133,11 @@ namespace ShomaRM.Areas.Tenant.Models
                 {
                     model.UnitName = unitname.UnitNo;
                 }
-                var getTenantDet = db.tbl_ApplyNow.Where(p => p.UserId == UserId).FirstOrDefault();
-                model.LeaseTerm = getTenantDet.LeaseTerm;
-                model.MonthlyCharges =Convert.ToDecimal(getTenantDet.MonthlyCharges);
+                //var getTenantDet = db.tbl_ApplyNow.Where(p => p.UserId == UserId).FirstOrDefault();
+                //model.LeaseTerm = getTenantDet.LeaseTerm;
+
+                var  monthlyRent = db.tbl_TenantMonthlyPayments.Where(p => p.TenantID == TenantID).FirstOrDefault();
+                model.MonthlyCharges =Convert.ToDecimal(monthlyRent.Charge_Amount);
             }
             db.Dispose();
             return model;

@@ -12,6 +12,7 @@ using System.IO;
 using ShomaRM.Areas.Tenant.Models;
 using System.Web.Configuration;
 using ShomaRM.Models.TwilioApi;
+using ShomaRM.Models;
 
 namespace ShomaRM.Areas.Admin.Models
 {
@@ -670,6 +671,7 @@ namespace ShomaRM.Areas.Admin.Models
         public int ProNumberOfDays { get; set; }
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
+        string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
 
         public TenantOnlineModel getTenantOnlineData(int id)
         {
@@ -1079,7 +1081,23 @@ namespace ShomaRM.Areas.Admin.Models
                 db.SaveChanges();
                 model.TenantID = getAppldata.TenantID;
 
-                var coapplicantList = db.tbl_Applicant.Where(p => p.TenantID == model.ProspectID && p.Type != "Primary Applicant" && p.Type != "Guarantor").ToList();
+                var prospectDet = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectID).FirstOrDefault();
+                if (prospectDet != null)
+                {
+                    prospectDet.IsApplyNow = 3;
+
+                }
+                db.SaveChanges();
+                var loginDet = db.tbl_Login.Where(p => p.UserID == prospectDet.UserId).FirstOrDefault();
+                if (loginDet != null)
+                {
+                    loginDet.UserType = 4;
+                    loginDet.TenantID = model.TenantID;
+
+                }
+                db.SaveChanges();
+                DateTime EMiDate = new DateTime(DateTime.Now.Year, (DateTime.Now.Month), 1);
+                var coapplicantList = db.tbl_Applicant.Where(p => p.TenantID == model.ProspectID && p.Type != "Primary Applicant" && p.Type != "Guarantor" && p.Type != "Minor").ToList();
                 if (coapplicantList != null)
                 {
                     foreach (var tl in coapplicantList)
@@ -1106,17 +1124,20 @@ namespace ShomaRM.Areas.Admin.Models
                         string pass = "";
                         string _allowedChars = "0123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ";
                         Random randNum = new Random();
-                        char[] chars = new char[5];
+                        char[] chars = new char[8];
                         int allowedCharCount = _allowedChars.Length;
-                        for (int i = 0; i < 5; i++)
+                        for (int i = 0; i < 8; i++)
                         {
                             chars[i] = _allowedChars[(int)((_allowedChars.Length) * randNum.NextDouble())];
                         }
                         pass = new string(chars);
+
+                        string encpass = new EncryptDecrypt().EncryptText(pass);
+
                         var createCoApplLogin = new tbl_Login()
                         {
                             Username = tl.Email,
-                            Password = pass,
+                            Password = encpass,
                             FirstName = tl.FirstName,
                             LastName = tl.LastName,
                             Email = tl.Email,
@@ -1130,6 +1151,107 @@ namespace ShomaRM.Areas.Admin.Models
                         };
                         db.tbl_Login.Add(createCoApplLogin);
                         db.SaveChanges();
+
+                        //Send CoApp Login Email
+                        if (tl.Email != "")
+                        {
+                            string reportCoappHTML = "";
+
+                            string coappfilePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                            reportCoappHTML = System.IO.File.ReadAllText(coappfilePath + "EmailTemplateProspect5.html");
+
+                            reportCoappHTML = reportCoappHTML.Replace("[%CoAppType%]", tl.Type);
+                            reportCoappHTML = reportCoappHTML.Replace("[%EmailHeader%]", "Tenant Account Created Successfully");
+                            reportCoappHTML = reportCoappHTML.Replace("[%EmailBody%]", "Your Tenant Account Created Successfully. Please login to see status. <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + tl.Email + " </br>Password :" + pass);
+                            reportCoappHTML = reportCoappHTML.Replace("[%TenantName%]", tl.FirstName + " " + tl.LastName);
+                            reportCoappHTML = reportCoappHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Login</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+
+                            string coappbody = reportCoappHTML;
+                            new EmailSendModel().SendEmail(tl.Email, "Tenant Account Created Successfully", coappbody);
+
+                            if (SendMessage == "yes")
+                            {
+                                new TwilioService().SMS(tl.Phone, "Tenant Account Created Successfully and credentials has been sent on your email. Please check the email for detail.");
+                            }
+                        }
+
+
+                        var getCoappPayMeth = db.tbl_OnlinePayment.Where(p => p.ProspectId == model.ProspectID && p.ApplicantID==tl.ApplicantID).FirstOrDefault();
+                        long coapppaid = 0;
+                        if (getCoappPayMeth.PaymentMethod == 2)
+                        {
+                            var addPaymentMethod = new tbl_PaymentAccounts()
+                            {
+
+                                NameOnCard = getCoappPayMeth.Name_On_Card,
+                                CardNumber = getCoappPayMeth.CardNumber,
+                                CardType = 1,
+                                Month = getCoappPayMeth.CardMonth,
+                                Year = getCoappPayMeth.CardYear,
+                                TenantId = createCoappTenant.TenantID,
+                                NickName = getCoappPayMeth.Name_On_Card,
+                                AccountName = getCoappPayMeth.Name_On_Card,
+                                PayMethod = 1,
+                                Default = 1,
+                                BankName = getCoappPayMeth.Name_On_Card
+                            };
+                            db.tbl_PaymentAccounts.Add(addPaymentMethod);
+                            db.SaveChanges();
+                            coapppaid = addPaymentMethod.PAID;
+                        }
+                        else
+                        {
+                            var addPaymentMethod = new tbl_PaymentAccounts()
+                            {
+
+                                NameOnCard = getCoappPayMeth.Name_On_Card,
+                                AccountNumber = getCoappPayMeth.CardNumber,
+                                CardType = 0,
+                                Month = "",
+                                Year = "",
+                                TenantId = createCoappTenant.TenantID,
+                                NickName = getCoappPayMeth.Name_On_Card,
+                                AccountName = getCoappPayMeth.Name_On_Card,
+                                PayMethod = 2,
+                                Default = 1,
+                                BankName = getCoappPayMeth.Name_On_Card,
+                                RoutingNumber = getCoappPayMeth.CCVNumber
+                            };
+                            db.tbl_PaymentAccounts.Add(addPaymentMethod);
+                            db.SaveChanges();
+                            coapppaid = addPaymentMethod.PAID;
+                        }
+                        var coApptransList = db.tbl_Transaction.Where(p => p.TenantID == loginDet.UserID && p.Batch ==tl.ApplicantID.ToString()).ToList();
+                        if (coApptransList != null)
+                        {
+                            foreach (var coapptl in coApptransList)
+                            {
+                                coapptl.TenantID = createCoappTenant.TenantID;
+                                coapptl.Transaction_Type = coapppaid.ToString();
+                            }
+                        }
+                        db.SaveChanges();
+
+
+                        if (tl.MonthlyPercentage >= 0)
+                        {
+                            for (int i = 1; i < prospectDet.LeaseTerm; i++)
+                            {
+                                var saveMonthlyTransaction = new tbl_TenantMonthlyPayments()
+                                {
+
+                                    TenantID = createCoappTenant.TenantID,
+                                    Revision_Num = i,
+                                    Transaction_Date = Convert.ToDateTime(EMiDate).AddMonths(i),
+
+                                    Description = "Monthly Charges - " + Convert.ToDateTime(EMiDate).AddMonths(i).ToString("MM/dd/yyyy"),
+                                    Charge_Amount = (((prospectDet.MonthlyCharges) * (tl.MonthlyPercentage)) / 100),
+
+                                };
+                                db.tbl_TenantMonthlyPayments.Add(saveMonthlyTransaction);
+                                db.SaveChanges();
+                            }
+                        }
                     }
                 }
 
@@ -1148,8 +1270,9 @@ namespace ShomaRM.Areas.Admin.Models
                 db.tbl_Lease.Add(addLease);
                 db.SaveChanges();
 
-                var getPayMeth = db.tbl_OnlinePayment.Where(p => p.ProspectId == model.ProspectID).FirstOrDefault();
+                var getPayMeth = db.tbl_OnlinePayment.Where(p => p.ProspectId == model.ProspectID && p.ApplicantID==0).FirstOrDefault();
                 long paid = 0;
+
                 if (getPayMeth.PaymentMethod == 2)
                 {
                     var addPaymentMethod = new tbl_PaymentAccounts()
@@ -1158,8 +1281,8 @@ namespace ShomaRM.Areas.Admin.Models
                         NameOnCard = getPayMeth.Name_On_Card,
                         CardNumber = getPayMeth.CardNumber,
                         CardType = 1,
-                        Month = getPayMeth.CardMonth != null ? getPayMeth.CardMonth.ToString() : "0",
-                        Year = getPayMeth.CardYear != null ? getPayMeth.CardYear.ToString() : "0",
+                        Month = getPayMeth.CardMonth,
+                        Year = getPayMeth.CardYear ,
                         TenantId = getAppldata.TenantID,
                         NickName = getPayMeth.Name_On_Card,
                         AccountName = getPayMeth.Name_On_Card,
@@ -1179,41 +1302,22 @@ namespace ShomaRM.Areas.Admin.Models
                         NameOnCard = getPayMeth.Name_On_Card,
                         AccountNumber = getPayMeth.CardNumber,
                         CardType = 0,
-                        Month = "0",
-                        Year = "0",
+                        Month = "",
+                        Year = "",
                         TenantId = getAppldata.TenantID,
                         NickName = getPayMeth.Name_On_Card,
                         AccountName = getPayMeth.Name_On_Card,
                         PayMethod = 2,
                         Default = 1,
                         BankName = getPayMeth.Name_On_Card,
-                        RoutingNumber = getPayMeth.CCVNumber.ToString()
+                        RoutingNumber = getPayMeth.CCVNumber
                     };
                     db.tbl_PaymentAccounts.Add(addPaymentMethod);
                     db.SaveChanges();
                     paid = addPaymentMethod.PAID;
                 }
 
-
-
-                var prospectDet = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectID).FirstOrDefault();
-                if (prospectDet != null)
-                {
-                    prospectDet.IsApplyNow = 3;
-
-                }
-                db.SaveChanges();
-
-                var loginDet = db.tbl_Login.Where(p => p.UserID == prospectDet.UserId).FirstOrDefault();
-                if (loginDet != null)
-                {
-                    loginDet.UserType = 4;
-                    loginDet.TenantID = model.TenantID;
-
-                }
-                db.SaveChanges();
-
-                var transList = db.tbl_Transaction.Where(p => p.TenantID == loginDet.UserID).ToList();
+                var transList = db.tbl_Transaction.Where(p => p.TenantID == loginDet.UserID && p.Batch=="1").ToList();
                 if (transList != null)
                 {
                     foreach (var tl in transList)
@@ -1224,11 +1328,10 @@ namespace ShomaRM.Areas.Admin.Models
                 }
                 db.SaveChanges();
 
-                DateTime EMiDate = new DateTime(DateTime.Now.Year, (DateTime.Now.Month), 1);
-
+                var mainAppPer = db.tbl_Applicant.Where(p => p.TenantID == model.ProspectID && p.Type == "Primary Applicant").FirstOrDefault();
                 for (int i = 1; i < prospectDet.LeaseTerm; i++)
                 {
-                    var saveTransaction = new tbl_TenantMonthlyPayments()
+                    var saveMonthlyTransaction = new tbl_TenantMonthlyPayments()
                     {
 
                         TenantID = model.TenantID,
@@ -1236,15 +1339,12 @@ namespace ShomaRM.Areas.Admin.Models
                         Transaction_Date = Convert.ToDateTime(EMiDate).AddMonths(i),
 
                         Description = "Monthly Charges - " + Convert.ToDateTime(EMiDate).AddMonths(i).ToString("MM/dd/yyyy"),
-                        Charge_Amount = prospectDet.MonthlyCharges,
+                        Charge_Amount = (((prospectDet.MonthlyCharges) * (mainAppPer.MonthlyPercentage)) / 100),
 
                     };
-                    db.tbl_TenantMonthlyPayments.Add(saveTransaction);
+                    db.tbl_TenantMonthlyPayments.Add(saveMonthlyTransaction);
                     db.SaveChanges();
                 }
-
-
-
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == model.UnitID).FirstOrDefault();
                 string reportHTML = "";
                 string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");

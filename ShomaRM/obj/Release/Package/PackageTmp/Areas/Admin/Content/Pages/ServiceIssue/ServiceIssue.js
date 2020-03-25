@@ -16,7 +16,7 @@
         var selected = $(this).val();
         if (selected != null) {
             if (selected == 0) {
-                $("#ddlProblemCategory").empty();
+                $("#ddlCausingIssue").empty();
             }
             else {
                 fillCausingIssue(selected);

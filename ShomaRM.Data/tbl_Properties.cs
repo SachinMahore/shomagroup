@@ -68,6 +68,7 @@ namespace ShomaRM.Data
         public Nullable<decimal> TrashFees { get; set; }
         public Nullable<decimal> ConversionBillFees { get; set; }
         public Nullable<decimal> AdminFees { get; set; }
+        public Nullable<decimal> PetDNAAmt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_CashReceipts> tbl_CashReceipts { get; set; }
@@ -84,6 +85,8 @@ namespace ShomaRM.Data
         public virtual ICollection<tbl_Gallery> tbl_Gallery { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Lease> tbl_Lease { get; set; }
+        public virtual tbl_Login tbl_Login { get; set; }
+        public virtual tbl_Login tbl_Login1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Notice> tbl_Notice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -115,7 +118,5 @@ namespace ShomaRM.Data
         public virtual ICollection<tbl_Tenant> tbl_Tenant1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_WorkOrder> tbl_WorkOrder { get; set; }
-        public virtual tbl_Login tbl_Login { get; set; }
-        public virtual tbl_Login tbl_Login1 { get; set; }
     }
 }

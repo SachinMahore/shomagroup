@@ -2,8 +2,13 @@
     $("#ddlUserType").empty();
     $("#ddlUserType").append("<option value='0'>Select User Type</option>");
     $("#ddlUserType").append("<option value='1'>Administrator</option>");
-    $("#ddlUserType").append("<option value='2'>User</option>");
-}
+    $("#ddlUserType").append("<option value='2'>Property Manager</option>");
+    $("#ddlUserType").append("<option value='3'>Applicant</option>");
+    $("#ddlUserType").append("<option value='4'>Tenant</option>");
+    $("#ddlUserType").append("<option value='5'>Service Manager</option>");
+    $("#ddlUserType").append("<option value='6'>Sales Agent</option>");
+    $("#ddlUserType").append("<option value='7'>Service Person</option>");
+};
 var getUserData = function (userID) {
     //alert(userID);
     var params = { UserID: userID };
@@ -20,12 +25,18 @@ var getUserData = function (userID) {
             } else {
                 $("#txtFirstName").val(response.FirstName);
                 $("#txtLastName").val(response.LastName);
-                $("#txtCellPhone").val(formatMoney(response.CellPhone));
+                $("#txtCellPhone").val(formatPhoneFax(response.CellPhone));
                 $("#txtEmail").val(response.Email);
                 $("#txtUserName").val(response.Username);
                 $("#txtPassword").val(response.Password);
                 $("#txtConfirmPassword").val(response.Password);
-                $('#chkIsActive').prop('checked', (response.IsActive == 1 ? true : false));
+               // $("#chkIsActive").prop('checked', (response.IsActive == 1 ? true : false));
+                if (response.IsActive == 1) {
+                    $("#chkIsActive").iCheck("check");
+                } else {
+                    $("#chkIsActive").iCheck("uncheck");
+                }
+                $("#ddlUserType").val(response.UserType);
                 if ($("#hndUserID").val() != "0") {
                     $("#spanSaveUpdate").text("Update");
                 }
@@ -37,9 +48,11 @@ var getUserData = function (userID) {
         }
     });
 }
+
 //$("#txtWorkPhone").val(formatPhoneFax(response.WorkPhone));
                 //$("#txtExtension").val(formatPhoneFax(response.Extension));
                 //$("#txtCellPhone").val(formatPhoneFax(response.CellPhone));
+
 var clearUserData = function () {
     $("#txtFirstName").val("");
     $("#txtLastName").val("");
@@ -100,7 +113,8 @@ var saveUpdateUser = function () {
             Email: $("#txtEmail").val(),
             Username: $("#txtUserName").val(),
             Password: $("#txtPassword").val(),
-            IsActive: $("#chkIsActive").is(':checked') ? 1 : 0
+            IsActive: $("#chkIsActive").is(':checked') ? 1 : 0,
+            UserType: $("#ddlUserType").val()
         };
         var saveurl = "";
         if ($("#hndUserID").val() == "0") {
@@ -156,10 +170,10 @@ var searchUser = function () {
 $(document).ready(function () {
     fillUserTypes();
     getUserData($("#hndUserID").val());
-    onFocus();
+    onFocusUsers();
 });
 
-var onFocus = function () {
+var onFocusUsers = function () {
 
     $("#txtCellPhone").focusout(function () { $("#txtCellPhone").val(formatPhoneFax($("#txtCellPhone").val())); })
         .focus(function () {

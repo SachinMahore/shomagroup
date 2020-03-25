@@ -34,11 +34,19 @@ var fillCityList = function (stateID) {
         }
     });
 };
-var fillCitySearchGrid = function (pagenumber) {
+var fillCitySearchGrid = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = 'CityName';
+    }
+    if (!orderby) {
+        orderby = 'ASC';
+    }
     var model = {
         Criteria: $("#txtCriteriaCity").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_City").val()
+        NumberOfRows: $("#ddlRPP_City").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: 'City/GetCityList',
@@ -61,6 +69,7 @@ var fillCitySearchGrid = function (pagenumber) {
                     $("#tblCity>tbody").append(html);
                 });
             }
+            $("#hndPageNo").val(pagenumber);
         }
     });
 };
@@ -76,12 +85,20 @@ var fillRPP_City = function () {
         buildPaganationCityList($("#hdnCurrentPage").val());
     });
 };
-var buildPaganationCityList = function (pagenumber) {
+var buildPaganationCityList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = 'CityName';
+    }
+    if (!orderby) {
+        orderby = 'ASC';
+    }
     var searchtype = $("#hdnSearchType").val();
     var model = {
         Criteria: $("#txtCriteriaCity").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_City").val()
+        NumberOfRows: $("#ddlRPP_City").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: 'City/BuildPaganationCityList',
@@ -241,7 +258,9 @@ $(document).ready(function () {
         },
         onPageClick: function (page, evt) {
             $("#hdnCurrentPage").val(page);
-            fillCitySearchGrid(page);
+            var SortByValueCityManagement = localStorage.getItem("SortByValueCityManagement");
+            var OrderByValueCityManagement = localStorage.getItem("OrderByValueCityManagement");
+            fillCitySearchGrid(page, SortByValueCityManagement, OrderByValueCityManagement);
         }
     });    
     $('#tblCity tbody').on('click', 'tr', function () {
@@ -288,4 +307,30 @@ var delCity = function (cityID) {
             }
         }
     });
+};
+
+var count = 0;
+var sortTableCity = function (sortby) {
+
+    var orderby = "";
+    var pNumber = $("#hndPageNo").val();
+    if (!pNumber) {
+        pNumber = 1;
+    }
+
+    if (count % 2 == 1) {
+        orderby = "ASC";
+        $('#sortCityIcon').removeClass('fa fa-sort-down');
+        $('#sortCityIcon').addClass('fa fa-sort-up fa-lg');
+    }
+    else {
+        orderby = "DESC";
+        $('#sortCityIcon').removeClass('fa fa-sort-up');
+        $('#sortCityIcon').addClass('fa fa-sort-down fa-lg');
+    }
+    localStorage.setItem("SortByValueCityManagement", sortby);
+    localStorage.setItem("OrderByValueCityManagement", orderby);
+    count++;
+    buildPaganationCityList(pNumber, sortby, orderby);
+    fillCitySearchGrid(pNumber, sortby, orderby);
 };

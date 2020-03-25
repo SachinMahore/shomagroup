@@ -51,10 +51,10 @@ namespace ShomaRM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
-
+            string encryptedPassword = new EncryptDecrypt().EncryptText(model.Password);
             if (ModelState.IsValid)
             {
-                var user = db.tbl_Login.Where(p => p.Username == model.UserName && p.Password == model.Password && p.IsActive == 1).FirstOrDefault();
+                var user = db.tbl_Login.Where(p => p.Username == model.UserName && p.Password == encryptedPassword && p.IsActive == 1).FirstOrDefault();
                 if (user != null)
                 {
                     
@@ -106,7 +106,9 @@ namespace ShomaRM.Controllers
                         }
                         if (checkExpiry != null)
                         {
-                            if (checkExpiry.CreatedDate < DateTime.Now.AddHours(-72))
+                            DateTime expDate = Convert.ToDateTime(DateTime.Now.AddHours(-72).ToString("MM/dd/yyyy") + " 23:59:59");
+
+                            if (checkExpiry.CreatedDate < expDate)
                             {
                                 new ApplyNowController().DeleteApplicantTenantID(checkExpiry.ID,currentUser.UserID);
                                 Session["DelDatAll"] = "Del";

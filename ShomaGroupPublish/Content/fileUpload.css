@@ -52,11 +52,11 @@
 
 .inputfile-1 + label {
     color: #f1e5e6;
-    background-color: #B4ADA5;
+    background-color: #4d738a;
 }
 
     .inputfile-1:focus + label,
     .inputfile-1.has-focus + label,
     .inputfile-1 + label:hover {
-        background-color: #4d738a;
+        background-color: #B4ADA5;
     }

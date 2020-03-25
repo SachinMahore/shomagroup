@@ -14,7 +14,9 @@
         },
         onPageClick: function (page, evt) {
             $("#hdnCurrentPage").val(page);
-            fillStorageSearchGrid(page);
+            var SortByValueStorageManagement = localStorage.getItem("SortByValueStorageManagement");
+            var OrderByValueStorageManagement = localStorage.getItem("OrderByValueStorageManagement");
+            fillStorageSearchGrid(page, SortByValueStorageManagement, OrderByValueStorageManagement);
         }
     });
     
@@ -43,11 +45,19 @@ var fillRPP_Storage = function () {
         buildPaganationStorageList($("#hdnCurrentPage").val());
     });
 };
-var buildPaganationStorageList = function (pagenumber) {
+var buildPaganationStorageList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = 'StorageName';
+    }
+    if (!orderby) {
+        orderby = 'ASC';
+    }
     var model = {
         Criteria: $("#txtCriteriaStorage").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_Storage").val()
+        NumberOfRows: $("#ddlRPP_Storage").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: '/Storage/buildPaganationStorageList',
@@ -65,11 +75,19 @@ var buildPaganationStorageList = function (pagenumber) {
         }
     });
 };
-var fillStorageSearchGrid = function (pagenumber) {
+var fillStorageSearchGrid = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = 'StorageName';
+    }
+    if (!orderby) {
+        orderby = 'ASC';
+    }
     var model = {
         Criteria: $("#txtCriteriaStorage").val(),
         PageNumber: pagenumber,
-        NumberOfRows: $("#ddlRPP_Storage").val()
+        NumberOfRows: $("#ddlRPP_Storage").val(),
+        SortBy: sortby,
+        OrderBy: orderby
     };
     $.ajax({
         url: '/Storage/FillStorageSearchGrid',
@@ -88,11 +106,13 @@ var fillStorageSearchGrid = function (pagenumber) {
                     html += '<td class="pds-id hidden" style="color:#3d3939;">' + elementValue.StorageID + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.StorageName + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">$ ' + parseFloat(elementValue.Charges).toFixed(2) + '</td>';
+                    html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.Description + '</td>';
                     html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary" style="padding: 5px 8px !important;margin-right:7px" onclick="goToStorage(' + elementValue.StorageID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button><button class="btn btn-danger" style="padding: 5px 8px !important;" onclick="delStorage(' + elementValue.StorageID + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
                     html += '</tr>';
                     $("#tblStorage>tbody").append(html);
                 });
             }
+            $("#hndPageNo").val(pagenumber);
         }
     });
 };
@@ -291,4 +311,46 @@ var delStorage = function (storageId) {
             }
         }
     });
+};
+
+var count = 0;
+var sortTableStorage = function (sortby) {
+
+    var orderby = "";
+    var pNumber = $("#hndPageNo").val();
+    if (!pNumber) {
+        pNumber = 1;
+    }
+
+    if (count % 2 == 1) {
+        orderby = "ASC";
+        $('#sortStorageIcon').removeClass('fa fa-sort-up');
+        $('#sortStorageIcon').removeClass('fa fa-sort-down');
+        $('#sortChargesIcon').removeClass('fa fa-sort-up');
+        $('#sortChargesIcon').removeClass('fa fa-sort-down');
+        if (sortby == 'StorageName') {
+            $('#sortStorageIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'ChargesName') {
+            $('#sortChargesIcon').addClass('fa fa-sort-up fa-lg');
+        }
+    }
+    else {
+        orderby = "DESC";
+        $('#sortStorageIcon').removeClass('fa fa-sort-up');
+        $('#sortStorageIcon').removeClass('fa fa-sort-down');
+        $('#sortChargesIcon').removeClass('fa fa-sort-up');
+        $('#sortChargesIcon').removeClass('fa fa-sort-down');
+        if (sortby == 'StorageName') {
+            $('#sortStorageIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'ChargesName') {
+            $('#sortChargesIcon').addClass('fa fa-sort-down fa-lg');
+        }
+    }
+    localStorage.setItem("SortByValueStorageManagement", sortby);
+    localStorage.setItem("OrderByValueStorageManagement", orderby);
+    count++;
+    buildPaganationStorageList(pNumber, sortby, orderby);
+    fillStorageSearchGrid(pNumber, sortby, orderby);
 };

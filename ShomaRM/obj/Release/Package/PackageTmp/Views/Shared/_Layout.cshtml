@@ -57,9 +57,10 @@
     <link href="~/Content/fileUpload.css" rel="stylesheet" />
     <link href="~/Content/timepicki.css" rel="stylesheet" />
     <script src="~/Content/timepicki.js"></script>
+    <script src="~/Content/keyboardcontrols.js"></script>
     @RenderSection("scripts", required: false)
 </head>
-<body>
+<body oncontextmenu="return false;">
     @*<div id="preloader">
         <div id="status">&nbsp;</div>
     </div>*@
@@ -73,7 +74,7 @@
             <div class="container">
                 <div class="row grid-container" style="text-align: center;">
                     <div class="col-sm-3">
-                        <h3 class="username"><i class="fa fa-map-marker " style="color: #718fa1 !important;"></i> Location</h3>
+                        <h3 class="username"><i class="fa fa-map-marker " style="color: #4d738a !important;"></i> Location</h3>
                         <p>
                             <a id="btnmapcontact" href="javascript:void(0);" style="font-weight:300;"><i class="pe-7s-map-marker strong"> </i> 9400 NW 41st Street,<br />Doral, FL 33178</a>
                             <br>
@@ -235,7 +236,7 @@
                             <textarea id="txtAddress" class="form-control" maxlength="300"></textarea>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <div class="form-group">
                             <label for="message">Message</label>
                             <textarea id="txtMessage" class="form-control" maxlength="500"></textarea>
@@ -622,8 +623,9 @@
 
 
     $(function () {
-        $("#txtMoveDate").datepicker({ autoclose: true });
+  
 
+        $("#txtMoveDate").datepicker({ autoclose: true, dateFormat: "MM/dd/yyyy", startDate: new Date() });
     });
     $(document).ready(function () {
         $("#btnContact").on("click", function (event) {
@@ -640,7 +642,7 @@
         fillMarketSourceDDL();
     });
     var saveProspectForm = function () {
-
+     
         $("#divLoader").show();
         var msg = "";
         var fname = $("#txtFirstName1").val();

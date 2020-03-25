@@ -367,7 +367,18 @@
 
 
     document.getElementById('fileUploadService').onchange = function () {
-        uploadServiceFile();
+        var fileUploadServiceBool = restrictFileUpload($(this).val());
+        if (fileUploadServiceBool == true) {
+            uploadServiceFile();
+        }
+        else {
+            document.getElementById('fileUploadService').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     fillDdlServiceCategory();
     fillDdlLocation();
@@ -1875,7 +1886,7 @@ var getPaymentAccountsBankAccount = function () {
                 html += "<td>" + elementValue.BankName + "</td>";
                 html += "<td>" + elementValue.AccountName + "</td>";
                 html += "<td>" + MaskCardNumber(elementValue.AccountNumber) + "</td>";
-                html += "<td>" + elementValue.RoutingNumber + "</td>";
+                html += "<td>" + MaskCardNumber(elementValue.RoutingNumber) + "</td>";
 
                
                 html += "<td width='11%'>" + checked + "</td>";
@@ -2918,14 +2929,14 @@ function makeOneTimePaymentSaveUpdate() {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-                cardName = response.model.NameOnCard,
+            cardName = response.model.NameOnCard,
                 cardNumber = response.model.CardNumber,
                 cardMonth = response.model.Month,
                 cardYear = response.model.Year,
                 accountName = response.model.AccountName,
                 bankName = response.model.BankName,
                 accountNumber = response.model.AccountNumber,
-                routingNumber = response.model.RoutingNumber             
+                routingNumber = response.model.RoutingNumber
         }
     });
 
@@ -3009,25 +3020,42 @@ function makeOneTimePaymentSaveUpdate() {
         TMPID: $("#hndRecId").val(),
         UserId: $("#hndUserId").val()
     };
-    $.ajax({
-        url: "/MyTransaction/SaveUpdateTransaction/",
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(models),
-        dataType: "JSON",
-        success: function (response) {
-            $.alert({
-                title: 'Message!',
-                content: response.Msg,
-                type: 'blue',
-            });
-            clearMakePaymentFields();
-            getTransationLists();
-            getUpTransationLists();
-            getAllDues();
+    $.alert({
+        title: "",
+        content: "You have chosen to pay $" + amount + " plus a $3.95 processing fee, your total will be $" + parseFloat(parseFloat(amount) + parseFloat(3.95)).toFixed(2) + ". Do you want to Pay Now?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: "/MyTransaction/SaveUpdateTransaction/",
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(models),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $.alert({
+                                title: 'Message!',
+                                content: response.Msg,
+                                type: 'blue',
+                            });
+                            clearMakePaymentFields();
+                            getTransationLists();
+                            getUpTransationLists();
+                            getAllDues();
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                    $("#divLoader").hide();
+                }
+            }
         }
     });
-
 }
 
 var clearMakePaymentFields = function () {
@@ -5147,16 +5175,15 @@ var getRecurringPayLists = function () {
     });
 }
 
-function editRecPayment(transid,amt,cdate,paid)
-{
+function editRecPayment(transid, amt, cdate, paid) {
     $("#recHeader").text("Edit Recurring Payments");
     $("#modiDiv").removeClass("hidden");
     $("#RecStep1").removeClass("hidden");
     $("#RecStep2").addClass("hidden");
-    $("#rcpid").text(transid);
+    $("#rcpid").val(transid);
     $('#rbtnAmountToPayR2').attr('checked', 'checked');
     $("#btnSetUpRecurringPayment").addClass("hidden");
-    
+
     $("#divOtherAmountR").removeClass("hidden");
     $("#divSetRecPay").removeClass("hidden");
     $("#btnSaveRecurringPayment").removeClass("hidden");
@@ -5164,12 +5191,13 @@ function editRecPayment(transid,amt,cdate,paid)
     $("#ddlPaymentMethodR").val(paid);
     $("#txtOtherAmountR").val(amt);
     $("#txtPayDateR").val(cdate);
+    $("#editTermsConditionRecu").html("If you wish to EDIT OR CANCEL Autopay, please <a href='javascript:void(0);' onclick='deleteRecPayment(" + transid + ")'> click here</a>");
 
 }
 function recurringPaymentSaveUpdate() {   
     var msg = "";
-    var transid = $("#rcpid").text();
-
+    //var transid = $("#rcpid").text();
+    var transid = $("#rcpid").val();
     var tenantid = $("#hndTenantID").val();
    
     var transtype = $("#ddlPaymentMethodR").val();
@@ -5367,10 +5395,10 @@ function deleteRecPayment(transid) {
 
     $("#modiDiv").addClass("hidden");
     var tenantid = $("#hndTenantID").val();
-    
+
     var models = {
         TenantID: tenantid,
-        
+
     };
     $.alert({
         title: "",
@@ -5388,6 +5416,11 @@ function deleteRecPayment(transid) {
                         dataType: "JSON",
                         success: function (response) {
                             $("#recHeader").text("Set Up Recurring Payments");
+                            $("#editTermsConditionRecu").html("");
+                            document.getElementById('modalTermConditionR').style.display = "none";
+                            $('#btnSetUpRecurringPayment').removeClass('hidden');
+                            $('#btnSaveRecurringPayment').addClass('hidden');
+                            $('#txtPayDateR').val("");
                             $.alert({
                                 title: 'Message!',
                                 content: response.Msg,
@@ -5395,6 +5428,7 @@ function deleteRecPayment(transid) {
                             });
 
                             getRecurringPayLists();
+
                         }
                     });
                 }
@@ -5406,7 +5440,7 @@ function deleteRecPayment(transid) {
             }
 
         }
-        });
+    });
 }
 
 function recurringPaymentCancel()

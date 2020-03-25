@@ -11,13 +11,14 @@
         <div class="col-sm-12">
             <h4 class="info-text pull-left">Add Model</h4>
             <div class="pull-left" style="margin-left:200px">
-                <input type='button' class='btn btn-default' value='Model List' onclick="goToStep(3)" />
+  
+                <button type='button' class='btn btn-success' style="width:120px;"  onclick="goToStep(3)"><i class="glyphicon glyphicon-list"></i> Model List</button>
             </div>
             <div class="pull-right" >
-                <button type='button' class='btn btn-default' style="width:120px;" id="prevm" onclick="goToStep(4,@Model.PreviousID)"><i class="glyphicon glyphicon-arrow-left"></i> Previous</button>
-                <button type='button' class='btn btn-default'  style="width:90px;" value='Save' onclick="saveUpdateModels();"><i class="glyphicon glyphicon-floppy-save"></i> Save</button>
+                <button type='button' class='btn btn-success' style="width:120px;" id="prevm" onclick="goToStep(4,@Model.PreviousID)"><i class="glyphicon glyphicon-arrow-left"></i> Previous</button>
+                <button type='button' class='btn btn-success'  style="width:90px;" value='Save' onclick="saveUpdateModels();"><i class="glyphicon glyphicon-floppy-save"></i> Save</button>
                 <button type="button" class="btn btn-success " id="" onclick="goToStep(4,0)"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">NEW</span></button>
-                <button type='button' class='btn btn-default' style="width:100px;" id="nextm" onclick="goToStep(4,@Model.NextID)">Next <i class="glyphicon glyphicon-arrow-right"></i></button>
+                <button type='button' class='btn btn-success' style="width:100px;" id="nextm" onclick="goToStep(4,@Model.NextID)">Next <i class="glyphicon glyphicon-arrow-right"></i></button>
             </div>
            
           
@@ -99,7 +100,7 @@
                         <label class="star">Interior SF</label>
                         <div class="input-group">
                             <input id="txtInteriorArea" type="text" onkeypress="return isNumber(event)" placeholder="Interior Area" class="form-control" value="@Model.InteriorArea" style="text-align:right" onkeyup="areaAddition()">
-                            <span class="input-group-btn">
+                            <span class="input-group-btn" style=" padding-top: 10px !important;">
                                 <button class="btn btn-primary search SqFtCustome" type="button" style="text-transform:unset">SF</button>
                             </span>
                         </div>
@@ -110,7 +111,7 @@
                         <label class="star">Balcony SF</label>
                         <div class="input-group">
                             <input id="txtBalconyArea" type="text" onkeypress="return isNumber(event)" placeholder="Balcony Area" class="form-control" value="@Model.BalconyArea" style="text-align:right" onkeyup="areaAddition()">
-                            <span class="input-group-btn">
+                            <span class="input-group-btn" style=" padding-top: 10px !important;">
                                 <button class="btn btn-primary search SqFtCustome" type="button" style="text-transform:unset">SF</button>
                             </span>
                         </div>
@@ -122,7 +123,7 @@
                         <label class="star">Total SF</label>
                         <div class="input-group">
                             <input name="area" id="txtArea" type="text" onkeypress="return isNumber(event)" placeholder="0" class="form-control" value="@Model.Area" style="text-align:right" readonly="readonly">
-                            <span class="input-group-btn">
+                            <span class="input-group-btn" style=" padding-top: 10px !important;">
                                 <button class="btn btn-primary search SqFtCustome" type="button" style="text-transform:unset">SF</button>
                             </span>
                         </div>
@@ -156,14 +157,6 @@
                         </select>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-sm-12">
-            <div class="pull-left text-center">
-                <button type="submit" class="btn btn-primary" onclick="goToStep(3,3)"> Back</button>
-            </div>
-            <div class="pull-right text-center">
-                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(5,5)"> Next</button>
             </div>
         </div>
     </div>
@@ -232,7 +225,7 @@
                     type: 'red'
                 })
             }
-            onFocus();
+            onFocusEditPropModel();
         };
     });
 

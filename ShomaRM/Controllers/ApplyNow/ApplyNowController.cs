@@ -32,7 +32,10 @@ namespace ShomaRM.Controllers
                 model.Bedroom = Convert.ToInt32(Session["Bedroom"].ToString());
                 model.MoveInDate = Convert.ToDateTime(Session["MoveInDate"].ToString());
                 model.MaxRent = Convert.ToDecimal(Session["MaxRent"].ToString());
-                model.LeaseTerm = Convert.ToInt32(Session["LeaseTerm"].ToString());
+                model.LeaseTermID = Convert.ToInt32(Session["LeaseTerm"].ToString());
+                var leaseDet = new Areas.Admin.Models.LeaseTermsModel().GetLeaseTermsDetails(model.LeaseTermID);
+                model.LeaseTerm =Convert.ToInt32(leaseDet.LeaseTerms);
+                
                 model.FromHome = 1;
                 Session.Remove("Bedroom");
                 Session.Remove("MoveInDate");
@@ -45,6 +48,11 @@ namespace ShomaRM.Controllers
                 model.MoveInDate = DateTime.Now.AddDays(30);
                 //model.MaxRent = 0;
                 model.FromHome = 0;
+                if(model.LeaseTermID==0)
+                {
+                    model.LeaseTermID = 22;
+                }
+               
             }
             if (Session["StepNo"] != null)
             {
@@ -150,9 +158,10 @@ namespace ShomaRM.Controllers
         }
         public ActionResult SignIn(string UserName, string Password)
         {
+            string encryptedPassword = new EncryptDecrypt().EncryptText(Password);
             ShomaRMEntities db = new ShomaRMEntities();
             string userid = "";
-            var user = db.tbl_Login.Where(p => p.Username == UserName && p.Password == Password && p.IsActive == 1).FirstOrDefault();
+            var user = db.tbl_Login.Where(p => p.Username == UserName && p.Password == encryptedPassword && p.IsActive == 1).FirstOrDefault();
             if (user != null)
             {
                 //var currentUser = new CurrentUser();
@@ -197,7 +206,9 @@ namespace ShomaRM.Controllers
                     }
                     if (checkExpiry != null)
                     {
-                        if (checkExpiry.CreatedDate < DateTime.Now.AddHours(-72))
+                        DateTime expDate = Convert.ToDateTime(DateTime.Now.AddHours(-48).ToString("MM/dd/yyyy") + " 23:59:59");
+
+                        if (checkExpiry.CreatedDate < expDate)
                         {
                             new ApplyNowController().DeleteApplicantTenantID(checkExpiry.ID, currentUser.UserID);
                             Session["DelDatAll"] = "Del";
@@ -251,6 +262,19 @@ namespace ShomaRM.Controllers
             try
             {
                 return Json(new { model = new TenantOnlineModel().GetTenantOnlineList(id) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
+        public ActionResult GetSSNIdNumberPassportNumber(int id, int vid)
+        {
+            try
+            {
+                return Json(new { ssn = new TenantOnlineModel().GetSSNIdNumberPassportNumber(id, vid) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -575,6 +599,170 @@ namespace ShomaRM.Controllers
             try
             {
                 return Json(new { model = new ApplicantHistoryModel().GetMonthsFromApplicantHistory(TenantId, FromDateAppHis, ToDateAppHis) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult DeleteVehicleListOnCheck(long TenantId)
+        {
+            try
+            {
+                return Json(new { model = new VehicleModel().DeleteVehicleListOnCheck(TenantId) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult SaveUpdateSSN(TenantOnlineModel model)
+        {
+            try
+            {
+                return Json(new { msg = (new TenantOnlineModel().SaveUpdateSSN(model)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult SaveUpdateIDNumber(TenantOnlineModel model)
+        {
+            try
+            {
+                return Json(new { msg = (new TenantOnlineModel().SaveUpdateIDNumber(model)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult SaveUpdatePassportNumber(TenantOnlineModel model)
+        {
+            try
+            {
+                return Json(new { msg = (new TenantOnlineModel().SaveUpdatePassportNumber(model)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult SaveUpdateEmployerHistory(EmployerHistoryModel model )
+        {
+            try
+            {
+                return Json(new { model = new EmployerHistoryModel().saveUpdateEmployerHistory(model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        //public ActionResult TaxFileUpload1HEI(EmployerHistoryModel model)
+        //{
+        //    try
+        //    {
+        //        HttpPostedFileBase fileBaseUpload1 = null;
+        //        for (int i = 0; i < Request.Files.Count; i++)
+        //        {
+        //            fileBaseUpload1 = Request.Files[i];
+
+        //        }
+
+        //        return Json(new { model = new EmployerHistoryModel().SaveTaxUpload1HEI(fileBaseUpload1, model) }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
+
+        //public ActionResult TaxFileUpload2HEI(EmployerHistoryModel model)
+        //{
+        //    try
+        //    {
+        //        HttpPostedFileBase fileBaseUpload2 = null;
+        //        for (int i = 0; i < Request.Files.Count; i++)
+        //        {
+        //            fileBaseUpload2 = Request.Files[i];
+
+        //        }
+
+        //        return Json(new { model = new EmployerHistoryModel().SaveTaxUpload2HEI(fileBaseUpload2, model) }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
+
+        //public ActionResult TaxFileUpload3HEI(EmployerHistoryModel model)
+        //{
+        //    try
+        //    {
+        //        HttpPostedFileBase fileBaseUpload3 = null;
+        //        for (int i = 0; i < Request.Files.Count; i++)
+        //        {
+        //            fileBaseUpload3 = Request.Files[i];
+
+        //        }
+
+        //        return Json(new { model = new EmployerHistoryModel().SaveTaxUpload3HEI(fileBaseUpload3, model) }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
+
+        public JsonResult GetEmployerHistory(long TenantId)
+        {
+            try
+            {
+                return Json(new { model = new EmployerHistoryModel().GetEmployerHistory(TenantId) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult DeleteEmployerHistory(long HEIID)
+        {
+            try
+            {
+                return Json(new { model = new EmployerHistoryModel().DeleteEmployerHistory(HEIID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetMonthsFromEmployerHistory(long TenantId, string EmpStartDate, string EmpTerminationDate)
+        {
+            try
+            {
+                return Json(new { model = new EmployerHistoryModel().GetMonthsFromEmployerHistory(TenantId, EmpStartDate, EmpTerminationDate) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult EditEmployerHistory(long HEIID)
+        {
+            try
+            {
+                return Json(new { model = new EmployerHistoryModel().EditEmployerHistory(HEIID) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception Ex)
             {

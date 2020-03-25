@@ -1,6 +1,9 @@
 ﻿@{
     ViewBag.Title = "Tenant List";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    DateTime now = DateTime.Now;
+    var startDate = new DateTime(now.Year, now.Month, 1);
+    var endDate = startDate.AddMonths(1).AddDays(-1);
 }
 <script src="~/Areas/Admin/Content/Pages/Tenant/TenantList.js"></script>
 
@@ -15,34 +18,54 @@
         <div class="col-md-12  pr0  properties-page">
             <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                 <div class="panel-heading">
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
+                        <h3 class="panel-title input-group">From Date</h3>
+                        <div class="input-group">
+                            <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
+                            <span class="input-group-btn">
+                                <button id="iconFromDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <h3 class="panel-title input-group">To Date</h3>
+                        <div class="input-group">
+                            <input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="@endDate.ToString("MM/dd/yyyy")" />
+                            <span class="input-group-btn">
+                                <button id="iconToDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <h3 class="panel-title input-group">Filter</h3>
                         <div class="form-group">
-                            <h3 class="panel-title">From Date</h3>
-                            <input id="txtFromDate" type="text" class="form-control" value="@DateTime.Now.AddDays(-30).ToString("MM/dd/yyyy")">
+                            <select id="ddlTenantListFilter" class="form-control form-control-small" onchange="ddlTenantListFilterSelectFunction()">
+                                <option value="0" selected="selected">Select Filter</option>
+                                <option value="1">First Name</option>
+                                <option value="2">Last Name</option>
+                                <option value="3">Unit No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <h3 class="panel-title input-group">Criteria</h3>
+                        <div class="form-group">
+                            <input id="txtTenantListCriteria" class="form-control form-control-small" disabled="disabled" />
                         </div>
                     </div>
                     <div class="col-sm-3">
-                        <div class="form-group">
-                            <h3 class="panel-title">To Date</h3>
-                            <input id="txtToDate" type="text" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")">
-                        </div>
-                    </div>
-                    <div class="col-sm-5">
                         <div class="form-group padding-top-25 col-sm-4">
                             <button class='btn btn-next btn-primary' name='Search' value='Search' style="text-transform:uppercase;" onclick="btnSeachClick()"><i class="glyphicon glyphicon-search"></i> Search</button>
                         </div>
-                        <div class="form-group padding-top-25 col-sm-8">
-                            <button id="btnAdvanceSearch_TL" type="button" value="Advance Search" style="text-transform:uppercase;" class="btn btn-primary" onclick="openAdvSearchPopup_TL()"><i class="glyphicon glyphicon-search"></i> Advance Search</button>
-                        </div>
                     </div>
-                    <div class="col-sm-1">
+                    @*<div class="col-sm-1">
                         <div class="form-group padding-top-25">
-                            <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" style="text-transform:uppercase;" onclick="addNewTenant()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">NEW</span></button>
+                            <button type="button" class="btn btn-primary pull-right" id="btnSaveUpdate" style="text-transform:uppercase;" onclick="addNewTenant()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">NEW</span></button>
                         </div>
-                    </div>
+                    </div>*@
                 </div>
                 <div id="divPaginationControl_TenantList" class="col-sm-12 form-group">
-                    <div id="divPgn" class="col-sm-8 pagination">
+                    <div id="divPgn" class="col-sm-8 pagination" style="margin-top:1px;">
                         <ul id="ulPagination_TenantList"></ul>
                     </div>
                     <div class="col-sm-3 padding-0 pull-right">
@@ -59,10 +82,10 @@
                         <table id="tblTenant" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939">First Name</th>
-                                    <th class="pds-lastname" style="background-color: #c7cdd566;color:#3d3939">Last Name</th>
-                                    <th class="pds-Tenantname" style="background-color: #c7cdd566;color:#3d3939">Property</th>
-                                    <th class="pds-Tenanttype" style="background-color: #c7cdd566;color:#3d3939">Units</th>
+                                    <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableTenant('FirstName')">First Name<i id="SortIconTFN"></i></th>
+                                    <th class="pds-lastname" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableTenant('LastName')">Last Name<i id="SortIconTLN"></i></th>
+                                    <th class="pds-Tenantname" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableTenant('Property')">Property <i id="SortIconTP"></i></th>
+                                    <th class="pds-Tenanttype" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableTenant('UnitNo')">Units <i id="SortIconTunits"></i></th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -99,7 +122,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="ddlGender_TL">Gender</label>
-                                    <select id="ddlGender_TL" class="selectpicker show-tick form-control form-control-small" style="width:100%!important">
+                                    <select id="ddlGender_TL" class="form-control form-control-small" style="width:100%!important">
                                         <option value="0">-Status-</option>
                                         <option value="1">Male</option>
                                         <option value="2">Female</option>
@@ -110,7 +133,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="ddlMaritalStatus_TL">Marital Status</label>
-                                    <select id="ddlMaritalStatus_TL" class="selectpicker show-tick form-control form-control-small" style="width:100%!important">
+                                    <select id="ddlMaritalStatus_TL" class="form-control form-control-small" style="width:100%!important">
                                         <option value="0">-Status-</option>
                                         <option value="1">Single</option>
                                         <option value="2">Married</option>
@@ -187,7 +210,12 @@
 <script>
     $(function () {
         $("#txtFromDate").datepicker();
+        $("#iconFromDate").click(function () {
+            $("#txtFromDate").focus();
+        });
         $("#txtToDate").datepicker();
-
+        $("#iconToDate").click(function () {
+            $("#txtToDate").focus();
+        });
     });
 </script>

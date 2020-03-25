@@ -28,8 +28,8 @@ namespace ShomaRM.Data
         public string Resolution { get; set; }
         public Nullable<long> VendorID { get; set; }
     
-        public virtual tbl_Properties tbl_Properties { get; set; }
         public virtual tbl_Tenant tbl_Tenant { get; set; }
         public virtual tbl_Vendor tbl_Vendor { get; set; }
+        public virtual tbl_Properties tbl_Properties { get; set; }
     }
 }

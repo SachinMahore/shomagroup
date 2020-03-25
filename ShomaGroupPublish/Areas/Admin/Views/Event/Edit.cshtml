@@ -4,6 +4,7 @@
     ViewBag.Title = "Event";
 }
 <script src="~/Areas/Admin/Content/Pages/Event/Event.js"></script>
+<script src="~/Content/timepicki.js"></script>
 <input type="hidden" id="hdnEventId" value="@Model.EventID" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
@@ -26,7 +27,7 @@
                                     <h4 class="info-text pull-left"> Let's start with the basic information</h4>
                                     <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="goEventList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">Event List</span></button>
                                     <div class="pull-right" style="padding-right:2px;">
-                                        <input type='button' class='btn btn-default' value='Save' onclick="SaveUpdateEvent()" />
+                                        <input type='button' class='btn btn-success' value='Save' onclick="SaveUpdateEvent()" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -34,6 +35,8 @@
                                         <div class="picture">
                                             <img src="/content/assets/img/Event/@Model.Photo" class="picture-src" id="wizardPicturePreview" title="" />
                                             <input type="file" id="wizard-picture" value="@Model.Photo"/>
+                                            <input type="hidden" id="hndFileUploadEventPicture" value="" />
+                                            <input type="hidden" id="hndOriginalFileUploadEventPicture" value="" />
                                         </div>
                                     </div>
                                 </div>
@@ -51,13 +54,56 @@
                                                 <input id="txtEventName" class="form-control form-control-small" maxlength="60" value="@Model.EventName" />
                                             </div>
 
-                                        </div><div class="col-sm-4">
+                                        </div>
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="txtEventDate" class="star">Date</label>
-                                                <input id="txtEventDate" class="form-control form-control-small" value="@(Model.EventDate!=null?Model.EventDate.Value.ToString("MM/dd/yyyy"):"")" />
+                                                <div class="input-group">
+                                                    <input id="txtEventDate" class="form-control form-control-small" value="@(Model.EventDate!=null?Model.EventDate.Value.ToString("MM/dd/yyyy"):"")" />
+                                                    <span class="input-group-btn">
+                                                        <button id="iconEventDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="txtEventTime" class="star">Time</label>
+                                                <div class="input-group">
+                                                    <input id="txtEventTime" class="time_element form-control form-control-small" type="text" name="timepicker" value="@(Model.EventTimeString)" />
+                                                    <span class="input-group-btn">
+                                                        <button id="" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-clock-o fa"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 hidden">
+
+                                            <div class="form-group">
+                                                <label for="txtEventFees" class="star">Fees</label>
+                                                <input id="txtEventFees" class="form-control form-control-small" style="text-align:right;" value="@Model.FessString" />
+                                                <span class="input-group-btn pull-left" style="margin-top: -34px;">
+                                                    <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="ddlEventType" class="star">Type</label>
+                                                <select id="ddlEventType" class="form-control form-control-small">
+                                                    <option value="0">--Select--</option>
+                                                    <option value="1">Neighborhood</option>
+                                                    <option value="2">Community</option>
+                                                    <option value="3">Other</option>
+                                                    <option value="4">Multiple</option>
+                                                    <option value="5">Current Date</option>
+                                                </select>
+                                                @*<input id="txtEventType" class="form-control form-control-small" value="@(Model.EventDate!=null?Model.EventDate.Value.ToString("MM/dd/yyyy"):"")" />*@
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">&nbsp;</div>
+                                        <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="txtDescription">Description</label>
                                                 <textarea id="txtDescription" class="form-control form-control-small">@Model.Description</textarea>
@@ -80,10 +126,24 @@
 
 <script>
     $(function () {
-        $("#txtEventDate").datepicker();
+        $("#txtEventDate").datepicker({ autoclose: true, dateFormat: "MM/dd/yyyy", startDate: new Date() });
+        $("#iconEventDate").click(function () {
+            $("#txtEventDate").focus();
+        });
+        $("#txtEventTime").timepicki();
         var photo = document.getElementById('wizard-picture');
+
+        $('#txtEventFees').val(formatMoney("@Model.FessString"));
     });
+        
     $(document).ready(function () {
         setTimeout(function () { $("#ddlProperty").find("option[value='" + @Model.PropertyID + "']").attr('selected', 'selected'); }, 1500);
+        setTimeout(function () { $("#ddlEventType").find("option[value='" + @Model.Type + "']").attr('selected', 'selected'); }, 1600);
+        var onfocusText = function () {
+            $("#txtEventFees").focusout(function () { $("#txtEventFees").val(formatPhoneFax($("#txtEventFees").val())); })
+                .focus(function () {
+                    $("#txtEventFees").val(unformatText($("#txtEventFees").val()));
+                });
+        };
     });
 </script>

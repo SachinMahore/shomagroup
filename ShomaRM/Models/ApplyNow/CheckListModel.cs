@@ -210,36 +210,9 @@ namespace ShomaRM.Models
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
                 var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId).FirstOrDefault();
-                if (GetPayDetails != null)
-                {
-                    GetPayDetails.Name_On_Card = model.Name_On_Card;
-                    GetPayDetails.CardNumber = model.CardNumber;
-                    GetPayDetails.CardMonth = model.CardMonth;
-                    GetPayDetails.CardYear = model.CardYear;
-                    GetPayDetails.CCVNumber = model.CCVNumber;
-                    GetPayDetails.ProspectId = model.ProspectId;
-                    GetPayDetails.PaymentMethod = model.PaymentMethod;
-
-                    db.SaveChanges();
-
-                }
-                else
-                {
-                    var savePaymentDetails = new tbl_OnlinePayment()
-                    {
-                        PID = model.PID,
-                        Name_On_Card = model.Name_On_Card,
-                        CardNumber = model.CardNumber,
-                        CardMonth = model.CardMonth,
-                        CardYear = model.CardYear,
-                        CCVNumber = model.CCVNumber,
-                        ProspectId = model.ProspectId,
-                        PaymentMethod = model.PaymentMethod,
-                    };
-                    db.tbl_OnlinePayment.Add(savePaymentDetails);
-                    db.SaveChanges();
-                }
+                
                 string transStatus = "";
+                model.Email = GetProspectData.Email;
                 if (model.PaymentMethod == 2)
                 {
                     transStatus = new UsaePayModel().ChargeCard(model);
@@ -253,6 +226,35 @@ namespace ShomaRM.Models
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 if (strlist[1] != "000000")
                 {
+                    if (GetPayDetails != null)
+                    {
+                        GetPayDetails.Name_On_Card = model.Name_On_Card;
+                        GetPayDetails.CardNumber = !string.IsNullOrWhiteSpace(model.CardNumber) ? new EncryptDecrypt().EncryptText(model.CardNumber) : "";
+                        GetPayDetails.CardMonth = !string.IsNullOrWhiteSpace(model.CardMonth) ? new EncryptDecrypt().EncryptText(model.CardMonth) : "";
+                        GetPayDetails.CardYear = !string.IsNullOrWhiteSpace(model.CardYear) ? new EncryptDecrypt().EncryptText(model.CardYear) : "";
+                        GetPayDetails.CCVNumber = !string.IsNullOrWhiteSpace(model.CCVNumber) ? new EncryptDecrypt().EncryptText(model.CCVNumber) : "";
+                        GetPayDetails.ProspectId = model.ProspectId;
+                        GetPayDetails.PaymentMethod = model.PaymentMethod;
+
+                        db.SaveChanges();
+
+                    }
+                    else
+                    {
+                        var savePaymentDetails = new tbl_OnlinePayment()
+                        {
+                            PID = model.PID,
+                            Name_On_Card = model.Name_On_Card,
+                            CardNumber = !string.IsNullOrWhiteSpace(model.CardNumber) ? new EncryptDecrypt().EncryptText(model.CardNumber) : "",
+                            CardMonth = !string.IsNullOrWhiteSpace(model.CardMonth) ? new EncryptDecrypt().EncryptText(model.CardMonth) : "",
+                            CardYear = !string.IsNullOrWhiteSpace(model.CardYear) ? new EncryptDecrypt().EncryptText(model.CardYear) : "",
+                            CCVNumber = !string.IsNullOrWhiteSpace(model.CCVNumber) ? new EncryptDecrypt().EncryptText(model.CCVNumber) : "",
+                            ProspectId = model.ProspectId,
+                            PaymentMethod = model.PaymentMethod,
+                        };
+                        db.tbl_OnlinePayment.Add(savePaymentDetails);
+                        db.SaveChanges();
+                    }
                     var saveTransaction = new tbl_Transaction()
                     {
                         TenantID = Convert.ToInt64(GetProspectData.UserId),
@@ -269,14 +271,10 @@ namespace ShomaRM.Models
                         Charge_Type = 2,
                         Authcode = strlist[1],
                         Charge_Amount = model.Charge_Amount,
-                        Miscellaneous_Amount = 0,
+                        Miscellaneous_Amount = Convert.ToDecimal("3.95"),
                         Accounting_Date = DateTime.Now,
                         Journal = 0,
-                        Accrual_Debit_Acct = "400-5000-10500",
-                        Accrual_Credit_Acct = "400-5000-40030",
-                        Cash_Debit_Account = "400-5100-10011",
-                        Cash_Credit_Account = "400-5100-40085",
-                        Appl_of_Origin = "SRM",
+                       
                         Batch = "1",
                         Batch_Source = "",
                         CreatedBy = Convert.ToInt32(GetProspectData.UserId),
@@ -285,13 +283,13 @@ namespace ShomaRM.Models
                         GL_Entries_Created = 1,
                         GL_Trans_Description = transStatus.ToString(),
                         ProspectID = 0,
-                        TAccCardName = model.Name_On_Card,
-                        TAccCardNumber = model.CardNumber,
-                        TBankName = model.BankName,
-                        TRoutingNumber = model.RoutingNumber,
-                        TCardExpirationMonth = model.CardMonth.ToString(),
-                        TCardExpirationYear = model.CardYear.ToString(),
-                        TSecurityNumber = model.CCVNumber.ToString(),
+                        //TAccCardName = model.Name_On_Card,
+                        //TAccCardNumber = model.CardNumber,
+                        //TBankName = model.BankName,
+                        //TRoutingNumber = model.RoutingNumber,
+                        //TCardExpirationMonth = model.CardMonth.ToString(),
+                        //TCardExpirationYear = model.CardYear.ToString(),
+                        //TSecurityNumber = model.CCVNumber.ToString(),
 
                     };
                     db.tbl_Transaction.Add(saveTransaction);
@@ -299,11 +297,11 @@ namespace ShomaRM.Models
                     var TransId = saveTransaction.TransID;
 
                     MyTransactionModel mm = new MyTransactionModel();
-                    mm.CreateTransBill(TransId, Convert.ToDecimal(GetProspectData.Prorated_Rent), "Prorated Rent");
-                    mm.CreateTransBill(TransId, Convert.ToDecimal(GetProspectData.AdministrationFee), "Administration Fee");
-                    mm.CreateTransBill(TransId, Convert.ToDecimal(GetProspectData.Deposit), "Security Deposit");
-                    mm.CreateTransBill(TransId, Convert.ToDecimal(GetProspectData.PetDeposit), "Pet Deposit");
-                    mm.CreateTransBill(TransId, Convert.ToDecimal(GetProspectData.VehicleRegistration), "Vehicle Registration Charges");
+                    mm.CreateTransBill(TransId, Convert.ToDecimal(((GetProspectData.Prorated_Rent)*model.MoveInPercentage)/100), "Prorated Rent");
+                    mm.CreateTransBill(TransId, Convert.ToDecimal(((GetProspectData.AdministrationFee) * model.MoveInPercentage) / 100), "Administration Fee");
+                    mm.CreateTransBill(TransId, Convert.ToDecimal(((GetProspectData.Deposit) * model.MoveInPercentage) / 100), "Security Deposit");
+                    mm.CreateTransBill(TransId, Convert.ToDecimal(((GetProspectData.PetDeposit) * model.MoveInPercentage) / 100), "Pet Deposit");
+                    mm.CreateTransBill(TransId, Convert.ToDecimal(((GetProspectData.VehicleRegistration) * model.MoveInPercentage) / 100), "Vehicle Registration Charges");
 
                     //Save  Data In tbl_MoveInChecklist//
                     CheckListModel modelCheckList = new CheckListModel();
@@ -318,8 +316,8 @@ namespace ShomaRM.Models
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
                     if (model != null)
                     {
-                        reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Completed and Payment Received");
-                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Thank you for signing and submitting your application.  This email confirms that we have received your online application fees payment.  Please save this email for your personal records.  Your application is being processed, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p><p style='font-size: 14px;font-style:italic; line-height: 21px; text-align: justify; margin: 0;'><br/><br/>*Application fees are non-refundable, even if the application is denied, except to the extent otherwise required by applicable law. </p>");
+                        reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Completed and Move In Charges Received");
+                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Application Completed and Move In Charges Received.  This email confirms that we have received your Move In Charges payment.  Please save this email for your personal records.  Your application is being processed, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p><p style='font-size: 14px;font-style:italic; line-height: 21px; text-align: justify; margin: 0;'><br/><br/>*Application fees are non-refundable, even if the application is denied, except to the extent otherwise required by applicable law. </p>");
 
                         reportHTML = reportHTML.Replace("[%TenantName%]", GetProspectData.FirstName + " " + GetProspectData.LastName);
 
@@ -327,7 +325,7 @@ namespace ShomaRM.Models
 
                     }
                     string body = reportHTML;
-                    new EmailSendModel().SendEmail(GetProspectData.Email, "Application Completed and Payment Received", body);
+                    new EmailSendModel().SendEmail(GetProspectData.Email, "Application Completed and Move In Charges Received", body);
                 }
 
                 msg = transStatus.ToString();

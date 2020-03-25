@@ -11,7 +11,8 @@
 <input type="hidden" id="hndSSNNumber" value="" />
 <input type="hidden" id="hndAppHisMon" value="0" />
 <input type="hidden" id="hndHistory" value="0" />
-
+<input type="hidden" id="hndLeaseTermID" value="@Model.LeaseTermID" />
+<input type="hidden" id="hdnEmployerHistory" value="0" />
 
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
@@ -52,8 +53,8 @@
                             <li id="li12"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(12,12)">f. Emergency Contacts </a></li>
                             <li id="li13"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(13,13)">g. Vehicle Info</a></li>
                             <li id="li14"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(14,14)">h. Pet Info</a></li>
-                            <li id="li15"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(15,15)">i. Lease</a></li>
-                            <li id="li16"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(16,16)">j. Payment </a></li>
+                            <li id="li15"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(15,15)">i. Payment </a></li>
+                            <li id="li16"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(16,16)">j. Lease </a></li>
                         </ul>
                     </div>
                     <div class="tab-content">
@@ -70,12 +71,16 @@
                                     <p>View available floor plans. Select more than one to compare or select just one to choose your new apartment.</p>
                                 </div>
                                 <div class="col-xs-12 hidden" id="divMainSearch">
-                                    <div class="col-xs-10 padding-5 form-inline">
+                                    <div class="col-xs-12 padding-5 form-inline">
 
                                         <h5 class="col-xs-2">Desired Move-In </h5>
                                         <div class="col-xs-2">
-
-                                            <input type="text" id="txtDate" data-date-format="mm/dd/yyyy" class="form-control" value="@Model.MoveInDate.ToString("MM/dd/yyyy")" />
+                                            <div class="input-group">
+                                                <input type="text" id="txtDate" data-date-format="mm/dd/yyyy" class="form-control" value="@Model.MoveInDate.ToString("MM/dd/yyyy")" />
+                                                <span class="input-group-btn">
+                                                    <button id="icontxtDate" class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                                                </span>
+                                            </div>
                                         </div>
                                         <h5 class="col-sm-2">Bedrooms</h5>
                                         <div class="col-xs-2 ">
@@ -305,12 +310,9 @@
                             <div class="col-md-12">
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                     <div class="panel-heading">
-
-
                                         <p style="font-size: 12px; padding-top:10px;">We are now ready to select your personalized options. But before we do,<br>let's make sure you are registered so you don't loose all your information.</p>
                                         <p style="font-size: 12px; padding-top:10px;">Enter and register your information and a quote will then be provided to you.</p>
                                         <p style="font-size: 12px; padding-top:10px;">REGISTER BELOW OR <a href="javascript:void(0);" id="btnsignInAppl">SIGN IN</a></p>
-
 
                                     </div>
                                 </div>
@@ -354,7 +356,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="txtPassword" class="star">Password</label>
-                                    <input type="password" class="form-control" id="txtPassword" value="@Model.Password" placeholder="Password">
+                                    <input type="password" class="form-control" id="txtPassword" value="@Model.Password" placeholder="Password" onblur="checkStrength($(this).val());">
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -586,6 +588,18 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="col-sm-4">
+                                        <span id="">Pet DNA Amt: </span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        $<span id="lblPetDNAAmt">@((Model.PetDNAAmt ?? 0).ToString("0.00"))</span>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <span id="">&nbsp;</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
                                         <span id="">Monthly Charges </span>
                                     </div>
                                     <div class="col-sm-2">
@@ -717,7 +731,7 @@
                                             <h3 class="panel-title">Quotation</h3>
                                         </div>
                                     </div>
-                                <p>Thank you for you interest in Sanctuary Doral. This quote expires within 72 hours at midnight. Please make sure you submit your application within the 72 hours to secure selected units. If you have any questions or need aditional assistance, please call or email us. </p>
+                                <p>Thank you for you interest in Sanctuary Doral. This quote expires on midnight of the 3rd day. Please make sure you submit your application before midnight of the 3rd day to secure selected units. If you have any questions or need additional assistance, please call or email us.</p>
                                 <div class="col-sm-12 clear">
                                     <div class="col-sm-6">
                                         <div class="col-sm-4">
@@ -887,7 +901,7 @@
 
                                         </div>
                                         <div class="col-sm-2">
-                                            <span style="text-decoration:underline;font-weight:bold;">Unit#</span>
+                                            <span style="text-decoration:underline;font-weight:bold;" id="parkUnit"></span>
                                         </div>
                                         <div class="col-sm-3">
                                             $<span id="lblMonthly_AditionalParking" style="text-decoration:underline;font-weight:bold;">@((Model.ParkingAmt ?? 0).ToString("0.00"))</span>
@@ -902,7 +916,7 @@
 
                                         </div>
                                         <div class="col-sm-2">
-                                            <span style="text-decoration:underline;font-weight:bold;">Unit#</span>
+                                            <span style="text-decoration:underline;font-weight:bold;" id="storUnit"></span>
                                         </div>
                                         <div class="col-sm-3">
                                             $<span id="lblMonthly_Storage" style="text-decoration:underline;font-weight:bold;">@((Model.StorageAmt ?? 0).ToString("0.00"))</span>
@@ -1042,14 +1056,25 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
-                                        <div class="col-sm-3">
-                                            <span>Pet Fee: </span>
+                                        <div class="col-sm-6">
+                                            <span>Pet Deposit: </span>
                                         </div>
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-4">
                                             <span style="text-decoration:underline;font-weight:bold;"></span>
                                         </div>
                                         <div class="col-sm-2">
                                             $<span style="text-decoration:underline;font-weight:bold;" id="fpetd">@((Model.PetDeposit ?? 0).ToString("0.00"))</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-6">
+                                            <span>Pet DNA Amt: </span>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <span style="text-decoration:underline;font-weight:bold;"></span>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            $<span style="text-decoration:underline;font-weight:bold;" id="fpetdna">@((Model.PetDNAAmt ?? 0).ToString("0.00"))</span>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 hidden">
@@ -1285,11 +1310,20 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-8">
-                                                <span>Pet Fee: </span>
+                                                <span>Pet Deposit: </span>
                                             </div>
                                             <div class="col-sm-1"></div>
                                             <div class="col-sm-3">
                                                 $<span style="text-decoration:underline;font-weight:bold;" id="lbpetd6">@((Model.PetDeposit ?? 0).ToString("0.00"))</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-8">
+                                                <span>Pet DNA Amt: </span>
+                                            </div>
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-3">
+                                                $<span style="text-decoration:underline;font-weight:bold;" id="lbpetdna6">@((Model.PetDNAAmt ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
@@ -1507,7 +1541,7 @@
                                 </div>
                                 <div class="col-sm-4" id="divSSNNumber">
                                     <div class="form-group">
-                                        <label id="lblSSNNumber" for="txtSSNNumber" class="star">SSN Number</label>
+                                        <label id="lblSSNNumber" for="txtSSNNumber" class="star">SSN#</label>
                                         <input class="form-control form-control-small" id="txtSSNNumber" value="" maxlength="9" onkeypress="return isOnlyNumber(event)" />
                                     </div>
                                 </div>
@@ -1527,7 +1561,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="passportDiv" class="">
+                            <div id="passportDiv" class="hidden">
                                 <div class="col-md-12">
                                     <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                         <div class="panel-heading">
@@ -1596,14 +1630,20 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label id="lblStatePersonal"> State :</label>
-                                        <select id="ddlStatePersonal" class="form-control"></select>
+                                        <label id="lblStatePersonal" class="star"> State</label>
+                                        <select id="ddlStatePersonal" class="form-control">
+                                            <option value="0">--Select State--</option>
+                                            @foreach (var state in Model.StateList)
+                                            {
+                                                <option value="@state.ID">@state.StateName</option>
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label id="lblIDNumber" for="txtIDNumber" class="star">ID Number</label>
-                                        <input class="form-control form-control-small" id="txtIDNumber" value="" />
+                                        <input class="form-control form-control-small" id="txtIDNumber" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -1634,26 +1674,35 @@
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">History of Residence </h3>
-
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <p>*Need at least 3 years of history</p>
+                                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Current Address </h3>
+                                    </div>
+                                </div>
+                                
                             </div>
                             <div class="col-sm-12">
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="txtCountry" class="star">Country</label>
-                                        @*<input id="txtCountry" type="text" class="form-control form-control-small" maxlength="300" />*@
-                                        <select id="txtCountry" class="form-control"></select>
+                                        <select id="txtCountry" class="form-control">
+                                            @foreach (var country in Model.CountryList)
+                                            {
+                                                <option value="@country.ID">@country.CountryName</option>
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="txtAddress1" class="star">Address Line 1</label>
+                                        <label for="txtAddress1" class="star">Address 1</label>
                                         <input id="txtAddress1" type="text" class="form-control form-control-small" maxlength="300" />
                                     </div>
                                 </div>
@@ -1669,7 +1718,13 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label class="star"> State :</label>
-                                        <select id="ddlStateHome" class="form-control"></select>
+                                        <select id="ddlStateHome" class="form-control">
+                                            <option value="0">--Select State--</option>
+                                            @foreach (var state in Model.StateList)
+                                            {
+                                                <option value="@state.ID">@state.StateName</option>
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -1687,7 +1742,7 @@
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <label for="ddlRentOwn"> Do you rent or own </label>
+                                        <label for="ddlRentOwn" class="star"> Do you rent or own </label>
                                         <select id="ddlRentOwn" class="form-control form-control-small">
                                             <option value="0">Select</option>
                                             <option value="1">Rent</option>
@@ -1706,7 +1761,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+                                @*<div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="txtMoveInDate" class="star"> Move Out Date</label>
                                         <input id="txtMoveInDateTo" type="text" class="form-control form-control-small" value="" />
@@ -1716,7 +1771,7 @@
                                         </span>
 
                                     </div>
-                                </div>
+                                </div>*@
                                 <div class="col-sm-3">
                                     <label for="txtMonthlyPayment"> Monthly Payment </label>
                                     <div class="input-group">
@@ -1746,7 +1801,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-6 ">
-                                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popApplicantHistory" id="btnAddAHR"><i class="fa fa-plus-circle"></i> Add</button>
+                                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popApplicantHistory" id="btnAddAHR"><i class="fa fa-plus-circle"></i> Add Other</button>
                                     <input id="hdnAHRId" type="hidden" value="0" />
                                 </div>
                             </div>
@@ -1919,8 +1974,12 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="txtCountryOffice" class="star">Country</label>
-                                        @*<input id="txtCountryOffice" type="text" class="form-control form-control-small" maxlength="300" />*@
-                                        <select id="txtCountryOffice" class="form-control"></select>
+                                        <select id="txtCountryOffice" class="form-control">
+                                            @foreach (var country in Model.CountryList)
+                                            {
+                                                <option value="@country.ID">@country.CountryName</option>
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -1942,7 +2001,13 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label class="star"> State :</label>
-                                        <select id="ddlStateEmployee" class="form-control"></select>
+                                        <select id="ddlStateEmployee" class="form-control">
+                                            <option value="0">--Select State--</option>
+                                            @foreach (var state in Model.StateList)
+                                            {
+                                                <option value="@state.ID">@state.StateName</option>
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -1960,7 +2025,41 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    <div class="panel panel-default sidebar-menu wow fadeInRight animated  pull-left">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Additional Employment History</h3>
 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 ">
+                                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popHistoryEmpAndIncome" id="btnAddHEI"><i class="fa fa-plus-circle"></i> Add Other</button>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-sm-12 ">&nbsp;</div>
+                            <div id="DivHisEmpIncome">
+                                <div class="col-sm-12">
+                                    <table id="tblHEI" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">Employer</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">Job Title</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">Job Type</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">Start Date</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">Termination Date</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">Country</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">State</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">City</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
                                     <button type="submit" class="btn btn-primary" onclick="goToStep(10,10)"> Back</button>
@@ -2030,8 +2129,12 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="txtCountry">Country</label>
-                                        @*<input id="txtEmergencyCountry" type="text" class="form-control form-control-small" maxlength="300" />*@
-                                        <select id="txtEmergencyCountry" class="form-control"></select>
+                                        <select id="txtEmergencyCountry" class="form-control">
+                                            @foreach (var country in Model.CountryList)
+                                            {
+                                                <option value="@country.ID">@country.CountryName</option>
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -2052,7 +2155,13 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label> State :</label>
-                                        <select id="ddlStateContact" class="form-control"></select>
+                                        <select id="ddlStateContact" class="form-control">
+                                            <option value="0">--Select State--</option>
+                                            @foreach (var state in Model.StateList)
+                                            {
+                                                <option value="@state.ID">@state.StateName</option>
+                                            }
+                                        </select>
                                     </div>
                                 </div>
 
@@ -2187,116 +2296,8 @@
                             </div>
                         </div>
                     </div>
+                   
                     <div class="hidden" id="step15">
-                        <input type="hidden" id="hndANID" value="0" />
-                        <div class="row p-b-15">
-                            <div class="col-md-12 clear">
-                                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">Accept Agreements</h3>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="backVerProof" class="hidden">
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label> State :</label>
-                                        <select id="ddlState" class="form-control"></select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="ddlDocumentType" class="star">Document Type</label>
-                                        <select id="ddlDocumentType" class="form-control">
-                                            <option value="0">Select</option>
-                                            <option value="1">Driver's License</option>
-                                            <option value="2">Military ID</option>
-                                            <option value="4">State Issued ID</option>
-                                            <option value="3">Passport</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="txtBVIDNumber" class="star">ID Number</label>
-                                        <input type="text" class="form-control" id="txtBVIDNumber" value="">
-                                    </div>
-                                </div>
-                                <div class="col-sm-5">
-                                    <div class="form-group">
-                                        <div class="custom-file">
-                                            <h4 class="info-text pull-left" style="color:green">Upload Proof Document</h4>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <div class="">
-
-                                            <a href="javascript:void(0)"> <input type="file" id="wizard-picture" value="" class="btn btn-primary"></a>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 form-inline">
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-primary" id="btnSave" onclick="SaveUpdateDocumentVerification()"><i class="fa fa-save"></i><span id="spanSaveUpdate">Save</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <div class="">
-                                        <input type="hidden" id="hdnApplyStatus" value="@Model.IsApplyNow" />
-                                        <h4 class="info-text pull-left" style="color:#4d738a">Status: In progress</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="backVer">
-                                <div class="col-sm-11">
-                                    <div class="form-group">
-                                        <div class="">
-                                            @*<a href="javascript:void(0)" id="btnDownloadLeaseDocument" class="btn btn-primary" onclick="saveLeaseDoc()">Review and Sign Your Online Leasing Application</a>*@
-                                            <label class="info-text pull-left hidden" style="color:#4d738a" id="lblsignin">Your Lease Agreement generated successfull at Bluemoon. Please click on continue button. Lease ID: @Model.EnvelopeID</label>
-                                            <br />
-                                            
-                                            <a class="btn btn-primary pull-right" width="400" style="width: 400px;" id="btnDownloadLeaseDocument" onclick="createLeaseDocument()">Process Online Leasing Application</a>
-                                            <a class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="downloadLeaseDocument()" disabled="disabled">Download Leasing Application</a>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-1 hidden">
-                                    <div class="form-group">
-                                        <div class="">
-                                            <h4 class="info-text pull-left" style="color:#4d738a">Upload Signed Lease Agreement</h4>
-                                            <a href="javascript:void(0)" id="btnUploadLeaseDocument"> <input type="file" id="upleasedoc" value="" class="btn btn-primary"></a>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-12 form-inline hidden">
-                                    <div style="margin-top:30px"></div>
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-primary" id="btnSave" onclick="SaveLeaseDocumentVerification()"><span id="spanSaveUpdate">Save</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsgFinal"></b></p></div>
-                            <div class="col-sm-12">
-                                <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(14,14)"> Back</button>
-                                </div>
-                                <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(16,16)"> Continue</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hidden" id="step16">
                         <div class="row">
                             <div class="col-md-12 clear">
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
@@ -2395,11 +2396,11 @@
                                     <div class="col-sm-12" id="divCard">
                                         <div class="form-group col-sm-3">
                                             <label for="name" class="star">Name on Card</label>
-                                            <input type="text" class="form-control" id="txtNameonCard" placeholder="Name on Card" value="@Model.Name_On_Card">
+                                            <input type="text" class="form-control" id="txtNameonCard" placeholder="Name on Card" value="">
                                         </div>
                                         <div class="form-group col-sm-3">
                                             <label for="cardnumber" class="star">Card Number</label>
-                                            <input type="text" class="form-control" id="txtCardNumber" placeholder="Card Number" onkeypress="return isOnlyNumber(event)" maxlength="16" value="@Model.CardNumber">
+                                            <input type="text" class="form-control" id="txtCardNumber" placeholder="Card Number" onkeypress="return isOnlyNumber(event)" maxlength="16" value="">
                                         </div>
                                         <div class="form-group col-sm-2">
                                             <label for="cardmonth">Card Month</label>
@@ -2434,10 +2435,24 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-sm-2">
-                                        <button type="submit" class="btn btn-primary" onclick="savePayment()">Pay Now</button>
+                                    <div class="col-sm-8">
+                                        <div class="col-sm-1 form-group">
+                                            <input class="form-control" type="checkbox" id="chkAgreeSummarry" style="width: 60px !important;height: 20px !important;">
+                                        </div>
+                                        <div class="col-sm-11" style="text-align: left;">
+                                            <label>
+                                                ACCEPT AGREEMENTS
+                                            </label>
+                                        </div>
                                     </div>
-
+                                    <div class="col-sm-12">
+                                        <div class="dot-hr"></div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                   
+                                        <button type="submit" class="btn btn-primary" id="btnpaynow" onclick="savePayment()" disabled>Pay Now</button>
+                                    </div>
+                           
                                 </div>
 
                                 <div class="col-sm-12 hidden" id="Divtranslist">
@@ -2467,11 +2482,126 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="pull-left text-center">
-                                        <button type="submit" class="btn btn-primary" onclick="goToStep(15,15)"> Back</button>
+                                        <button type="submit" class="btn btn-primary" onclick="goToStep(14,14)"> Back</button>
                                     </div>
                                     <div class="pull-right text-center">
-                                        <button type="submit" class="btn btn-primary payNext" id="btnpaynext" onclick="goToStep(17,17)" disabled> Continue</button>
+                                        <button type="submit" class="btn btn-primary payNext" id="btnpaynext" onclick="goToStep(16,16)" disabled> Continue</button>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden" id="step16">
+                        <input type="hidden" id="hndANID" value="0" />
+                        <div class="row p-b-15">
+                            <div class="col-md-12 clear">
+                                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Accept Agreements</h3>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="backVerProof" class="hidden">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label> State :</label>
+                                        <select id="ddlState" class="form-control">
+                                            <option value="0">--Select State--</option>
+                                            @foreach (var state in Model.StateList)
+                                            {
+                                                <option value="@state.ID">@state.StateName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="ddlDocumentType" class="star">Document Type</label>
+                                        <select id="ddlDocumentType" class="form-control">
+                                            <option value="0">Select</option>
+                                            <option value="1">Driver's License</option>
+                                            <option value="2">Military ID</option>
+                                            <option value="4">State Issued ID</option>
+                                            <option value="3">Passport</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="txtBVIDNumber" class="star">ID Number</label>
+                                        <input type="text" class="form-control" id="txtBVIDNumber" value="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="form-group">
+                                        <div class="custom-file">
+                                            <h4 class="info-text pull-left" style="color:green">Upload Proof Document</h4>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="">
+
+                                            <a href="javascript:void(0)"> <input type="file" id="wizard-picture" value="" class="btn btn-primary"></a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 form-inline">
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-primary" id="btnSave" onclick="SaveUpdateDocumentVerification()"><i class="fa fa-save"></i><span id="spanSaveUpdate">Save</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="">
+                                        <input type="hidden" id="hdnApplyStatus" value="@Model.IsApplyNow" />
+                                        <h4 class="info-text pull-left" style="color:#4d738a">Status: In progress</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="backVer">
+                                <div class="col-sm-11">
+                                    <div class="form-group">
+                                        <div class="">
+                                            @*<a href="javascript:void(0)" id="btnDownloadLeaseDocument" class="btn btn-primary" onclick="saveLeaseDoc()">Review and Sign Your Online Leasing Application</a>*@
+                                            <label class="info-text pull-left hidden" style="color:#4d738a" id="lblsignin">Your Lease Agreement generated successfull at Bluemoon. Please click on continue button. Lease ID: @Model.EnvelopeID</label>
+                                            <br />
+
+                                            <a class="btn btn-primary pull-right" width="400" style="width: 400px;" id="btnDownloadLeaseDocument" onclick="createLeaseDocument()">Process Online Leasing Application</a>
+                                            <a class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="downloadLeaseDocument()" disabled="disabled">Download Leasing Application</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-1 hidden">
+                                    <div class="form-group">
+                                        <div class="">
+                                            <h4 class="info-text pull-left" style="color:#4d738a">Upload Signed Lease Agreement</h4>
+                                            <a href="javascript:void(0)" id="btnUploadLeaseDocument"> <input type="file" id="upleasedoc" value="" class="btn btn-primary"></a>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 form-inline hidden">
+                                    <div style="margin-top:30px"></div>
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-primary" id="btnSave" onclick="SaveLeaseDocumentVerification()"><span id="spanSaveUpdate">Save</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsgFinal"></b></p></div>
+                            <div class="col-sm-12">
+                                <div class="pull-left text-center">
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(15,15)"> Back</button>
+                                </div>
+                                <div class="pull-right text-center">
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(17,17)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -2556,7 +2686,7 @@
 <div class="modal " id="popParking" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content" style="width:100%">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;" onclick="hideLoader()">&times;</button>
             <div class="modal-header" style="width:100%">
                 <h5 class="modal-title pull-left" id="ModalLongTitle">Add Parking</h5>
 
@@ -2595,7 +2725,7 @@
 <div class="modal " id="popStorage" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content" style="width:100%">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;" onclick="hideLoader()">&times;</button>
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Add Storage</h5>
             </div>
@@ -2676,7 +2806,7 @@
 <div class="modal" id="popPetPlace">
     <div class="modal-dialog">
         <div class="modal-content" style="width:100%">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;" onclick="hideLoader()">&times;</button>
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Add Pet</h5>
@@ -2789,7 +2919,7 @@
                         <input id="txtGDateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" />
 
                         <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 196px;">
-                            <button class="btn btn-primary search" id="" type="button"><i class="fa-calendar fa"></i></button>
+                            <button class="btn btn-primary search" id="iconCalenderApplicant" type="button"><i class="fa-calendar fa"></i></button>
                         </span>
 
                     </div>
@@ -2918,7 +3048,13 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label for="ddlVState" class="star">State</label>
-                        <select id="ddlVState" class="form-control form-control-small"></select>
+                        <select id="ddlVState" class="form-control form-control-small">
+                            <option value="0">--Select State--</option>
+                            @foreach (var state in Model.StateList)
+                            {
+                                <option value="@state.ID">@state.StateName</option>
+                            }
+                        </select>
                     </div>
                 </div>
 
@@ -3101,8 +3237,12 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="txtCountry" class="star">Country</label>
-                            @*<input id="txtCountry" type="text" class="form-control form-control-small" maxlength="300" />*@
-                            <select id="txtCountry2" class="form-control"></select>
+                            <select id="txtCountry2" class="form-control">
+                                @foreach (var country in Model.CountryList)
+                                {
+                                    <option value="@country.ID">@country.CountryName</option>
+                                }
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -3125,7 +3265,13 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="star">State</label>
-                            <select id="ddlStateHome2" class="form-control"></select>
+                            <select id="ddlStateHome2" class="form-control">
+                                <option value="0">--Select State--</option>
+                                @foreach (var state in Model.StateList)
+                                {
+                                    <option value="@state.ID">@state.StateName</option>
+                                }
+                            </select>
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -3143,7 +3289,7 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label for="ddlRentOwn"> Do you rent or own </label>
+                            <label for="ddlRentOwn" class="star"> Do you rent or own </label>
                             <select id="ddlRentOwn2" class="form-control form-control-small">
                                 <option value="0">Select</option>
                                 <option value="1">Rent</option>
@@ -3308,12 +3454,11 @@
         <div class="modal-content-summary">
             <div class="modal-body" style="padding: -15px;">
                 <button type="button" class="close" data-dismiss="modal" style="margin-top: -60px; margin-right: -52px;">&times;</button>
-                <button type="button" class="btn btn-default" onclick="print('PrintModal')">Print</button>
-                <div id="PrintModal">
+                <button type="button" class="btn btn-default print" >Print</button>
+                <div id="printable" >
                     <table>
                         <tr>
                             <td width="400">
-
                                 <div style="width:320px;">
                                     <img src="" width="320" id="imgFloorPlanSumm">
                                     <div class="panel-heading">
@@ -3533,6 +3678,235 @@
                 </div>
 
 
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal" id="popHistoryEmpAndIncome">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:732px; height:800px;">
+            <!-- Modal Header -->
+            <div class="modal-header" style="width: 100%; padding:0px;">
+                <h5 class="modal-title">Employment History</h5>
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px;color:black;">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input type="hidden" id="hdnHEI" value="0" />
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="txtEmployerNameHEI" class="star">Employer Name</label>
+                                <input id="txtEmployerNameHEI" class="form-control form-control-small" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="txtJobTitleHEI">Job Title</label>
+                                <input id="txtJobTitleHEI" class="form-control form-control-small" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label> Job Type </label>
+                                <select id="ddlJobTypeHEI" class="form-control form-control-small">
+                                    <option value="0">Select</option>
+                                    <option value="1">Permanent</option>
+                                    <option value="2">Contract Basis</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="star">Start Date</label>
+                                <input id="txtStartDateHEI" class="form-control form-control-small" type="text" />
+
+                                <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 151px;">
+                                    <button class="btn btn-primary search" id="SPStartDateHEI" type="button"><i class="fa-calendar fa"></i></button>
+                                </span>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="star">Termination Date</label>
+                                <input id="txtTerminationDateHEI" class="form-control form-control-small" type="text" />
+
+                                <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 151px;">
+                                    <button class="btn btn-primary search" id="SPTerminationDateHEI" type="button"><i class="fa-calendar fa"></i></button>
+                                </span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label for="txtAnnualIncomeHEI" class="star"> Annual Income </label>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                </span>
+                                <input id="txtAnnualIncomeHEI" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" style="text-align:right" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="txtAddAnnualIncomeHEI"> Additional Annual Income</label>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                    </span>
+                                    <input id="txtAddAnnualIncomeHEI" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" style="text-align:right" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Supervisor Name</label>
+                                <input id="txtSupervisiorNameHEI" class="form-control form-control-small" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Supervisor Phone</label>
+                                <input id="txtSupervisiorPhoneHEI" class="form-control form-control-small" type="text" onkeypress="return isOnlyNumber(event)" maxlength="10" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Supervisor Email</label>
+                                <input id="txtSupervisiorEmailHEI" class="form-control form-control-small" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="txtCountryOfficeHEI" class="star">Country</label>
+                            <select id="txtCountryOfficeHEI" class="form-control">
+                                @foreach (var country in Model.CountryList)
+                                {
+                                    <option value="@country.ID">@country.CountryName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="txtofficeAddress1HEI" class="star">Address Line 1</label>
+                            <input id="txtofficeAddress1HEI" type="text" class="form-control form-control-small" maxlength="300" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="txtofficeAddress2HEI">Address Line 2</label>
+                            <input id="txtofficeAddress2HEI" type="text" class="form-control form-control-small" maxlength="300" />
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="star"> State :</label>
+                            <select id="ddlStateEmployeeHEI" class="form-control">
+                                <option value="0">--Select State--</option>
+                                @foreach (var state in Model.StateList)
+                                {
+                                    <option value="@state.ID">@state.StateName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="star"> City :</label>
+                            @*<select id="ddlCityEmployee" class="form-control"></select>*@
+                            <input id="ddlCityEmployeeHEI" type="text" class="form-control form-control-small" maxlength="100" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="txtZipHEI" class="star">Zip</label>
+                            <input class="form-control form-control-small" id="txtZipOfficeHEI" maxlength="7" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="dot-hr"></div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer-custom">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary pull-right" onclick="saveEmployerHistory()" style="margin-right: 10px;">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="popApplicantSummary" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content-summary">
+
+            <div class="modal-body" style="padding: -15px;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -44px; margin-right: -34px;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <table width="860" border="0" align="center" cellpadding="0" cellspacing="0" style="margin:auto;padding:0; vertical-align:top;min-height:1180px;">
+                    <tr>
+                        <td colspan="2" align="center" class="BG-White Pen-Black" style="padding-right:20px; line-height:26px;">
+                            <span style="font-size:20px; font-weight:900"><u>APPLICATION SUMMARIZE AS FOLLOWS with the information entered:</u></span><br />
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="BG-Orange" style="height:2px;font-size:1px;">&nbsp;</td>
+                    </tr>
+
+
+                    <tr>
+                        <td colspan="2">
+
+                            <p style="font-size:medium; color:#838383;">“You have completed your online application.  The next step is to submit payment and the application; however, we strongly recommend that you please review your application and ensure all the information is correct before submitting payment and the application.  Once you submit your application, the payment is non-refundable and corrections are no longer available.  Kindly confirm below you have reviewed your application and are ready to submit it.</p>
+                             <p style="font-size:small;">
+                               <table>
+                                   <tr><td><b>APPLICANT:</b></td><td><a href="javascript:void(0);" onclick="goToStep(9,9)">&nbsp;&nbsp;EDIT</a></td></tr>
+                                   <tr><td>Name</td><td><span id="summName"></span></td></tr>
+                                   <tr><td>Date of Birth</td><td><span id="summDob"></span></td></tr>
+                                   <tr><td>SSN#</td><td><span id="summSSN"></span></td></tr>
+                                   <tr><td>Phone</td><td><span id="summPhone"></span></td></tr>
+                                   <tr><td>Gender</td><td><span id="summGender"></span></td></tr>
+                                   <tr><td>Driver’s License</td><td><span id="summDriverL"></span></td></tr>
+                                   <tr><td><b>RESIDENTIAL HISTORY:</b></td><td><a href="javascript:void(0);" onclick="goToStep(10,10)">&nbsp;&nbsp;EDIT</a></td></tr>
+                                   <tr><td>Current Address</td><td><span id="summCuAdd"></span></td></tr>
+                                  
+                                   <tr><td colspan="2"><table id="prevadd"><tbody></tbody></table></td></tr>
+                                   <tr><td><b>EMPLOYMENT HISTORY:</b></td><td><a href="javascript:void(0);" onclick="goToStep(11,11)">&nbsp;&nbsp;EDIT</a></td></tr>
+                                   <tr><td>Current Employer</td><td><span id="summEmployer"></span></td></tr>
+                                   <tr><td>Start Date</td><td><span id="summEstartdate"></span></td></tr>
+                                   <tr><td>Annual Salary</td><td><span id="summSalary"></span></td></tr>
+                                   <tr><td colspan="2"><table id="prevEmphistr"><tbody></tbody></table></td></tr>
+                               </table>
+                            </p>
+                                <p style="font-size:medium; color:#838383;">I CERTIFY THAT I HAVE REVIEWED THE ABOVE INFORMATION, AND IT IS TRUE AND CORRECT.</p>
+                        </td>
+                    </tr>
+
+
+                </table>
             </div>
 
         </div>
@@ -3866,12 +4240,59 @@
 
         $('#txtDateOfBirth').datepicker({ viewMode: "years", endDate: dt, autoclose: true });
         $("#txtDate").datepicker();
+        $("#icontxtDate").click(function () {
+            $("#txtDate").focus();
+        });
         $("#txtDateOfExpiration").datepicker();
 
 
+        $("#SPStartDateHEI").click(function () {
+            $("#txtStartDateHEI").focus();
+        });
+        $("#SPTerminationDateHEI").click(function () {
+            $("#txtTerminationDateHEI").focus();
+        });
+
+        $("#SPStartDateHEI").click(function () {
+            $("#txtStartDateHEI").focus();
+        });
+
+        $("#SPTerminationDateHEI").click(function () {
+            $("#txtTerminationDateHEI").focus();
+        });
 
 
-        $("#txtDateOfIssuance,#txtStartDate,#txtMoveInDateFrom,#txtMoveInDateTo,#txtMoveInDateFrom2,#txtMoveInDateTo2").datepicker({
+        $("#txtDateOfIssuance,#txtStartDate,#txtMoveInDateFrom,#txtMoveInDateTo,#txtStartDateHEI,#txtTerminationDateHEI").datepicker({
+            endDate: "+0d",
+            autoclose: true,
+            startDate: '-100y'
+        });
+
+        $("#txtMoveInDateTo2").datepicker({
+            endDate: "+0d",
+            autoclose: true,
+            startDate: '-100y'
+        }).on('change', function (ev) {
+            var movefromdate = $("#txtMoveInDateFrom2").val().split("/");
+            var movetodate = $("#txtMoveInDateTo2").val().split("/");
+
+            console.log(movefromdate);
+            console.log(movetodate);
+
+            movefromdate = new Date(movefromdate[2], movefromdate[0] - 1, movefromdate[1]);
+            movetodate = new Date(movetodate[2], movetodate[0] - 1, movetodate[1]);
+
+            console.log(movefromdate);
+
+            console.log(movetodate);
+
+            if (movefromdate > movetodate) {
+                alert("Move out date should be greater then move in date");
+                $(this).val("");
+            }
+        });
+
+        $("#txtMoveInDateFrom2").datepicker({
             endDate: "+0d",
             autoclose: true,
             startDate: '-100y'
@@ -3918,11 +4339,6 @@
         fillMarketSourceDDL();
         if (@Model.ProspectId != 0) {
             $("#logintext").text("Logout");
-
-            $("#ddlcardmonth").val(@Model.CardMonth);
-            $("#ddlcardmonth").trigger('change');
-            $("#ddlcardyear").val(@Model.CardYear);
-            $("#ddlcardyear").trigger('change');
             setTimeout(function () {
             $("#ddlMarketSource").val(@Model.Marketsource);
             $("#ddlMarketSource").trigger('change');
@@ -3944,7 +4360,10 @@
                  $("#chkRentalQual").iCheck('check');
 
             }
+             if (@Model.AcceptSummary=="1") {
+                 $("#chkAgreeSummarry").iCheck('check');
 
+            }
 
             if (('@Model.EnvelopeID') !="") {
                 $("#btnAddPet").attr("disabled", true);
@@ -3952,7 +4371,7 @@
                 //$("#btnleaseDownl").attr('href', '/Content/assets/img/Document/' + @Model.EnvelopeID+ '.pdf');
                 //$("#btnleaseDownl").attr('download', 'LeaseDocument_' + @Model.EnvelopeID+ '.pdf');
                 //$("#btnleaseDownl").attr('target', '_parent');
-                goToStep(15, 15);
+                goToStep(16, 16);
                 $("#btnDownloadLeaseDocument").css("background-color", "#B4ADA5").attr("disabled", "disabled");
                 //$("#lblsignin").removeClass("hidden");
                 $("#as2").removeAttr("onclick")
@@ -3986,7 +4405,7 @@
             $("#divstep3save").addClass("hidden");
             $("#divstep3").removeClass("hidden");
             getTransationLists(@Model.ID);
-
+            getApplicantLists();
 
             //$("#carddetails").addClass("hidden");
         }
@@ -4113,7 +4532,10 @@
         modal.style.display = "block";
     }
     function gotoLogOffAN() {
-       
+
         window.location = "/Account/LogOff";
+    }
+    function hideLoader() {
+        $("#divLoader").hide();
     }
 </script>

@@ -330,7 +330,7 @@ namespace ShomaRM.Models
 
 
         }
-        public List<PropertyUnits> GetPropertyModelUnitList(string ModelName, DateTime AvailableDate, decimal Current_Rent, int Bedroom)
+        public List<PropertyUnits> GetPropertyModelUnitList(string ModelName, DateTime AvailableDate, decimal Current_Rent, int Bedroom,int LeaseTermID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<PropertyUnits> lstUnitProp = new List<PropertyUnits>();
@@ -366,6 +366,10 @@ namespace ShomaRM.Models
                     paramB.Value = Bedroom;
                     cmd.Parameters.Add(paramB);
 
+                    //DbParameter paramL = cmd.CreateParameter();
+                    //paramL.ParameterName = "LeaseTermID";
+                    //paramL.Value = LeaseTermID;
+                    //cmd.Parameters.Add(paramL);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -396,7 +400,16 @@ namespace ShomaRM.Models
                     pr.FloorNoText = dr["FloorNo"].ToString();
                     pr.FloorPlan = dr["FloorPlan"].ToString();
                     pr.AvailableDateText = availableDate.Value.ToString("MM/dd/yyyy");
-                    pr.Current_Rent = Convert.ToDecimal(dr["Current_Rent"].ToString());
+                    var getRent = db.tbl_UnitLeasePrice.Where(p => p.LeaseID == LeaseTermID && p.UnitID == pr.UID).FirstOrDefault();
+                    if(getRent!=null)
+                    {
+                        pr.Current_Rent = Convert.ToDecimal(getRent.Price);
+                    }
+                    else
+                    {
+                        pr.Current_Rent = Convert.ToDecimal("0.00");
+                    }
+                  
                     pr.Premium = dr["Premium"].ToString();
                     lstUnitProp.Add(pr);
                 }
@@ -412,7 +425,7 @@ namespace ShomaRM.Models
 
         }
        
-        public PropertyUnits GetPropertyUnitDetails(long UID)
+        public PropertyUnits GetPropertyUnitDetails(long UID, int LeaseTermID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             PropertyUnits model = new PropertyUnits();
@@ -461,9 +474,19 @@ namespace ShomaRM.Models
                 model.Rooms = unitDet.Rooms;
                 model.Bedroom = unitDet.Bedroom;
                 model.Bathroom = unitDet.Bathroom;
+
                 model.Hall = unitDet.Hall;
                 model.Deposit = Convert.ToDecimal(unitDet.Deposit);
-                model.Current_Rent = unitDet.Current_Rent;
+                var getRent = db.tbl_UnitLeasePrice.Where(p => p.LeaseID == LeaseTermID && p.UnitID == UID).FirstOrDefault();
+                if (getRent != null)
+                {
+                    model.Current_Rent = Convert.ToDecimal(getRent.Price);
+                }
+                else
+                {
+                    model.Current_Rent = Convert.ToDecimal("0.00");
+                }
+               // model.Current_Rent = unitDet.Current_Rent;
                 model.Previous_Rent = unitDet.Previous_Rent;
                 model.Market_Rent = unitDet.Market_Rent;
                 model.Wing = unitDet.Wing;
@@ -649,7 +672,7 @@ namespace ShomaRM.Models
       
             return model.ToList();
         }
-        public PropertyFloor GetPropertyFloorDetails(int FloorID, DateTime AvailableDate,  int Bedroom, decimal MaxRent)
+        public PropertyFloor GetPropertyFloorDetails(int FloorID, DateTime AvailableDate,  int Bedroom, decimal MaxRent, int LeaseTermID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             PropertyFloor model = new PropertyFloor();
@@ -729,7 +752,15 @@ namespace ShomaRM.Models
                     pr.Area = dr["Area"].ToString();
                     pr.Premium = dr["Premium"].ToString();
                     pr.AvailableDateText = availableDate.Value.ToString("MM/dd/yyyy");
-                    pr.Current_Rent = Convert.ToDecimal(dr["Current_Rent"].ToString());
+                    var getRent = db.tbl_UnitLeasePrice.Where(p => p.LeaseID == LeaseTermID && p.UnitID == pr.UID).FirstOrDefault();
+                    if (getRent != null)
+                    {
+                        pr.Current_Rent = Convert.ToDecimal(getRent.Price);
+                    }
+                    else
+                    {
+                        pr.Current_Rent = Convert.ToDecimal("0.00");
+                    }
                     listfloor.Add(pr);
                 }
                 db.Dispose();

@@ -158,8 +158,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     Color = pl.Color,
                     State = State,
                     VehicleRegistration = pl.VehicleRegistration,
-                    OwnerName = pl.OwnerName,
-                    Notes = pl.Notes
+                    OwnerName = !string.IsNullOrWhiteSpace(pl.OwnerName) ? pl.OwnerName : "",
+                    Notes = !string.IsNullOrWhiteSpace(pl.Notes) ? pl.Notes : ""
                 });
 
             }
@@ -254,15 +254,15 @@ namespace ShomaRM.Areas.Tenant.Models
                 return model;
         }
 
-        public List<VehicleModel> GetProfileVehicleList(long UserId)
+        public List<VehicleModel> GetProfileVehicleList(long TenantID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<VehicleModel> lstProp = new List<VehicleModel>();
 
-            var appVehicle = db.tbl_ApplyNow.Where(p => p.UserId == UserId).FirstOrDefault();
+            var appVehicle = db.tbl_TenantInfo.Where(p => p.TenantID == TenantID).FirstOrDefault();
             if (appVehicle != null)
             {
-                var vehList = db.tbl_Vehicle.Where(p => p.TenantID == appVehicle.ID).ToList();
+                var vehList = db.tbl_Vehicle.Where(p => p.TenantID == appVehicle.ProspectID).ToList();
                 if (vehList != null)
                 {
                     foreach (var pl in vehList)
@@ -352,6 +352,19 @@ namespace ShomaRM.Areas.Tenant.Models
 
 
         }
-
+        public string DeleteVehicleListOnCheck(long TenantId)
+        {
+            string msg = string.Empty;
+            ShomaRMEntities db = new ShomaRMEntities();
+            var deleteVehicle = db.tbl_Vehicle.Where(co => co.TenantID == TenantId).ToList();
+            if (deleteVehicle != null)
+            {
+                db.tbl_Vehicle.RemoveRange(deleteVehicle);
+                db.SaveChanges();
+                msg = "Vehicle Removed Successfully";
+            }
+            db.Dispose();
+            return msg;
+        }
     }
 }

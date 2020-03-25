@@ -28,11 +28,15 @@ var saveupdateProspect = function () {
     var appointmentStatus = $("#ddlAppointmentStatus").val();
     var prospectId = $("#hndProspectID").val();
     var appDate = $("#txtAppointmentDate").text();
+    var recheduledate = $("#txtReschduleDate").val();
     if (salesAgent == "0") {
         msg += "Select the sales Agent</br>";
     }
     if (appointmentStatus == "0") {
         msg += "Select the appointment status</br>";
+    }
+    if (recheduledate == "") {
+        msg += "Select the Date </br>";
     }
     if (msg != "") {
         $.alert({
@@ -43,7 +47,7 @@ var saveupdateProspect = function () {
         $("#divLoader").hide();
         return;
     }
-    var model = { AssignAgentID: salesAgent, PID: prospectId, RequiredDateText: appDate, AppointmentStatus: appointmentStatus };
+    var model = { AssignAgentID: salesAgent, PID: prospectId, VisitDateTime: recheduledate, RequiredDateText: appDate, AppointmentStatus: appointmentStatus };
     $.ajax({
         url: "/ProspectManagement/SaveProspectForm/",
         type: "post",

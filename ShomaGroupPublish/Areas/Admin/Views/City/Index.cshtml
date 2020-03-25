@@ -11,6 +11,7 @@
 <input type="hidden" id="hndCityID" value="0" />
 <input type="hidden" id="hdnSearchType" value="1" />
 <input type="hidden" id="hdnCurrentPage" value="1" />
+<input type="hidden" id="hndPageNo" value="0" />
 <div class="register-area" style="background-color: rgb(249, 249, 249);">
     <div class="container" style="width:100% !important">
         <div class="breadcrumb">
@@ -20,13 +21,13 @@
             <div class="col-md-7">
                 <div class="form-inline clearfix panel">
                     <div class="form-group col-md-2 padding-5">
-                        <label class="control-label" style="padding:0px 5px;">Enter Crieria</label>
+                        <label class="control-label" style="padding:0px 5px;">Enter Criteria</label>
                     </div>
                     <div class="form-group col-md-4 padding-5">
                         <input type="text" id="txtCriteriaCity" name="Criteria" class="form-control form-control-small" />
                     </div>
                     <div class="form-group col-md-2 padding-5">
-                        <button id="btnSearchCity" class='btn btn-next btn-primary' name='btnSearchCity' onclick="buildPaganationCityList(1)"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
+                        <button id="btnSearchCity" class='btn btn-next btn-primary' name='btnSearchCity' style="margin-left:-10px; height:34px" onclick="buildPaganationCityList(1)"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
                         <button id="btnGoToCity" class="btn btn-success pull-right hidden" style="margin-right:15px;" onclick="goToCity()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-arrow-right"></i> GO TO</button>
                     </div>
                     <div class="form-group col-md-2 padding-5 text-right">
@@ -36,16 +37,16 @@
                         <select id="ddlRPP_City" class="form-control form-control-small"></select>
                     </div>
                 </div>
-                <div class="form-inline clearfix panel" id="divPagination_City">
+                <div class="form-inline clearfix panel" id="divPagination_City" style="cursor:pointer;">
                     <div id="divPgn" class="col-sm-12 pagination">
-                        <ul id="ulPagination_City"></ul>
+                        <ul id="ulPagination_City" style="cursor:pointer;"></ul>
                     </div>
                 </div>
                 <div class="form-group clearfix">
                     <table id="tblCity" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="pds-cityname" style="background-color: #c7cdd566;color:#3d3939;width:75%">City Name</th>
+                                <th class="pds-cityname" style="background-color: #c7cdd566;color:#3d3939;width:75%;cursor:pointer;" title="Sort" onclick="sortTableCity('CityName')">City Name <i id="sortCityIcon" class=""></i></th>
                                 <th class="pds-cityname" style="background-color: #c7cdd566;color:#3d3939;width:25%">Action</th>
                             </tr>
                         </thead>
@@ -55,9 +56,9 @@
             </div>
             <div class="col-md-5">
                 <div class="col-md-12 padding-5">
-                    <div class="form-group pull-right clearfix" style="padding-top:5px;">
+                    <div class="form-group pull-right clearfix">
                         <button type="button" class="btn btn-primary" id="btnNewCity" onclick="clearCityData()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> NEW</button>
-                        <button type="button" class="btn btn-success" id="btnSaveUpdateCity" onclick="saveUpdateCity()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">SAVE</span></button>
+                        <button type="button" class="btn btn-primary" id="btnSaveUpdateCity" onclick="saveUpdateCity()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">SAVE</span></button>
                     </div>
                 </div>
                 <div class="form-group clearfix padding-5">

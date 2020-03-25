@@ -66,7 +66,6 @@ namespace ShomaRM.Areas.Tenant.Models
                         updateTenantOnline.DateOfBirth = model.DateOfBirth;
                         updateTenantOnline.Gender = model.Gender;
                         updateTenantOnline.OtherGender = model.OtherGender;
-
                         db.SaveChanges();
                     }
                 }
@@ -191,13 +190,15 @@ namespace ShomaRM.Areas.Tenant.Models
             }
             return lstProp;
         }
-        public ApplicantModel GetApplicantDetails(int id)
+        public ApplicantModel GetApplicantDetails(int id,int chargetype)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             ApplicantModel model = new ApplicantModel();
 
             var getApplicantDet = db.tbl_Applicant.Where(p => p.ApplicantID == id).FirstOrDefault();
-            if (getApplicantDet != null)
+            var getTenantDet = db.tbl_ApplyNow.Where(p => p.ID == getApplicantDet.TenantID).FirstOrDefault();
+            var getAppliTransDet = db.tbl_Transaction.Where(p => p.TenantID ==getTenantDet.UserId  && p.Batch==id.ToString() && p.Charge_Type== chargetype).FirstOrDefault();
+            if (getAppliTransDet == null)
             {
                 DateTime? dobDateTime = null;
                 try
@@ -224,6 +225,12 @@ namespace ShomaRM.Areas.Tenant.Models
                 model.MonthlyPayment = getApplicantDet.MonthlyPayment;
                 model.OtherGender = getApplicantDet.OtherGender;
                 model.TenantID = getApplicantDet.TenantID;
+            }
+            else
+            {
+                model.FirstName = getApplicantDet.FirstName;
+                model.LastName = getApplicantDet.LastName;
+                model.Type = "5";
             }
             return model;
         }

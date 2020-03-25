@@ -482,10 +482,32 @@
         }
 
         document.getElementById('fileUploadPOI').onchange = function () {
-            uploadInsurenceDoc();
+            var fileUploadPOIBool = restrictFileUpload($(this).val());
+            if (fileUploadPOIBool == true) {
+                uploadInsurenceDoc();
+            }
+            else {
+                document.getElementById('fileUploadPOI').value = '';
+                $.alert({
+                    title: "",
+                    content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                    type: 'blue'
+                });
+            }
         };
         document.getElementById('fileUploadPOE').onchange = function () {
-            uploadProofOfElectricityDoc();
+            var fileUploadPOEBool = restrictFileUpload($(this).val());
+            if (fileUploadPOEBool == true) {
+                uploadProofOfElectricityDoc();
+            }
+            else {
+                document.getElementById('fileUploadPOE').value = '';
+                $.alert({
+                    title: "",
+                    content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                    type: 'blue'
+                });
+            }
         };
     });
     function gotoLogOffCheck() {
@@ -807,9 +829,17 @@
             RoutingNumber: routingNumber,
             BankName: bankName,
             PaymentMethod: paymentMethod,
+            MoveInPercentage:$("#lblPaymentPer").text(),
         };
 
-
+        $.alert({
+            title: "",
+            content: "You have chosen to pay $" + amounttoPay + " plus a $3.95 processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(3.95)).toFixed(2) + ". Do you want to Pay Now?",
+            type: 'blue',
+            buttons: {
+                yes: {
+                    text: 'Yes',
+                    action: function (yes) { 
         $.ajax({
             url: "/CheckList/SaveMoveInPayment/",
             type: "post",
@@ -839,6 +869,16 @@
                     $("#popPayNow").modal("hide");
                 }
 
+            }
+        });
+                    }
+                },
+                no: {
+                    text: 'No',
+                    action: function (no) {
+                        $("#divLoader").hide();
+                    }
+                }
             }
         });
     }

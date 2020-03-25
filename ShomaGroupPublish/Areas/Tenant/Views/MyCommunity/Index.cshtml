@@ -1,0 +1,805 @@
+﻿@model ShomaRM.Areas.Tenant.Models.Club.ClubModel
+@using ShomaRM.Areas.Tenant.Models.Enum;
+    
+@{
+    ViewBag.Title = "Index";
+}
+
+<script src="~/Content/zabuto_calendar.js"></script>
+@*<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />*@
+<input id="hdnUserId" name="UserId" type="hidden" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID" />
+<input id="hndTenantID" name="TenantID" type="hidden" value="@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID" />
+
+<div class="col-md-12">
+   
+        <div class="tab-content1">
+            <div class="community-nav">
+                <ul class="nav nav1 nav-tabs nav-tabs1">
+                    <li id="li5" class="active"><a data-toggle="tab" id="JoinClubEvent" href="javascript:void(0);" onclick="goToStep(5)">Join a Club</a></li>
+                    <li id="li4"><a data-toggle="tab" href="javascript:void(0);" onclick="goToStep(4)">Start a Club</a></li>
+                    <li id="li6"><a data-toggle="tab" href="javascript:void(0);" onclick="goToStep(7,@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID)">My Clubs</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-12 submenu margin2">
+            </div>
+            <div class="hidden" id="step4">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="panel-body">
+                            @{
+                                ViewBag.Title = "CreateCommunityClubJoin";
+                            }
+                            <h3 class="headding-sub-text margin3  col-lg-12">Club Registration Form</h3>
+
+                            <br />
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+
+
+
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+
+
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Club Title:</div>
+
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                                <input id="txtClubTitle" type="text" name="ClubTitle" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Activity:</div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12  border-bottom1 m-l15">
+                                                @Html.DropDownListFor(o => o.ActivityId, Enum.GetValues(typeof(ActivityEnum)).Cast<ActivityEnum>
+                                           ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "ActivityId", @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                                <div class="control-label  requiredField text-payment" for="date">
+                                                    Start Date
+                                                </div>
+                                            </div>
+                                            <div class='col-sm-6 col-md-6 col-lg-6'>
+
+                                                <div class="form-group">
+                                                    <div class='input-group date' @*id='datetimepicker1'*@>
+                                                        <input id="txtStartDate" type='text' style="width:99%;" class="form-control" data-provide="datepicker" name="StartDate" maxlength="20" placeholder="MM/dd/yyyy">
+                                                        <span class="input-group-addon">
+                                                            <a><span class="fa fa-calendar"></span></a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Venue:</div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                                <input id="txtVenue" type="text" name="Venue" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                                                Meeting Day:
+                                            </div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                                @Html.DropDownListFor(o => o.DayId, Enum.GetValues(typeof(DayEnum)).Cast<DayEnum>
+                                          ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "DayId", @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                                                Meeting Time:
+
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                                <div class="form-group">
+                                                    <div class='input-group date' id='datetimepicker1'>
+                                                        <div class="time_pick"><input id="txtMeetingTime" class="time_element form-control form-control-small" type="text" name="timepicker" style="width:99%" maxlength="20" placeholder="HH:mm:ss" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
+
+                                                        <span class="input-group-addon">
+                                                            <a><span id="btnStartDate" class="fa fa-clock-o "></span></a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Contact/ Organizer:</div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                                <input id="txtContact" type="text" name="Contact" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Email:</div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                                <input id="txtEmail" type="text" name="Email" class="form-control" />
+                                            </div><span class="Required">(Required)</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Phone:</div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                                <input id="txtPhoneNumber" type="text" name="PhoneNumber" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="condition-wrapper m-t30 p-b30 ">
+                                    <div class="m-b10 text-subheding">Best way to contact:</div>
+                                    <label class="checbox">
+
+                                        <input type="radio" id="PhoneCheck" name="check" checked="checked">
+                                        Phone
+                                    </label>
+                                    <label class="checbox">
+
+                                        <input type="radio" checked="checked" id="EmailCheck" name="check">
+                                        Email
+                                    </label>
+                                </div>
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                                                Level:
+                                            </div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                                @Html.DropDownListFor(o => o.LevelId, Enum.GetValues(typeof(LevelEnum)).Cast<LevelEnum>
+                                                     ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "LevelIdEdit", @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="row margin margin-box m-t30">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+
+                                            </div>
+                                            <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 textarea1">
+                                                <textarea id="txtSpecialInstruction" rows="3" style="width:99%" name="SpecialInstruction" placeholder="Special Instructions/Comments" class="form-control" style="margin-top:4px"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                                                Description:
+                                            </div>
+                                            <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 textarea1">
+                                                <textarea id="txtDescriptionEdit" name="Description" rows="5" placeholder="What is your club about?" style="width:100%; height:150px;"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row margin margin-box m-t10">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+
+                                            </div>
+                                            <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 textarea1">
+                                                <textarea id="txtBriefDescription" name="BriefDescription" rows="2" maxlength="40" placeholder="Brief description (limited to 40 characters)" style="width:100%;height:70px;"></textarea>
+                                            </div><span class="Limitto40">(Limit to 40 characters)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="condition-wrapper ">
+                                    <input type="checkbox" name="TermsAndCondition" id="chkTermsConditions">
+                                    <span class="chektext pull-right">I agree to the <span class="span1"><a>Terms &amp; Conditions </a></span></span>
+                                </div>
+
+                                <div class="condition-wrapper ">
+                                    <input type="hidden" id="hndfileCommunityActivity" />
+                                    <input type="hidden" id="hndfileCommunityActivityOriginalName" />
+                                    <button id="ClubSubmit" type="button" onclick="SubmitClubEdit()" class="paynow m-t30">Submit</button>
+                                </div>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            
+            <div class="hidden" id="step5">
+               
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12 center ">
+
+                                    <div class="calender-box-community">
+                                        <div class="row">
+                                            <span id="joinClubEventCalender"></span>
+
+
+                                        </div>
+
+
+                                        <ul class="calendar-menu">
+                                            <li><span class="dot-1"></span>Neighborhood</li>
+                                            <li><span class="dot-2"></span>Community</li>
+                                            <li><span class="dot-3"></span>Service</li>
+                                            <li><span class="dot-4"></span>Other</li>
+                                            <li><span class="dot-5"></span>Current Date</li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <br>
+                            <div id="joinClubPartial">
+                                @{Html.RenderPartial("_JoinClub", Model.GetClubList().Where(a => a.UserId != ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID).ToList());}
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hidden" id="step6">
+                <div class="">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <input type="text" id="JoinClubPopupClubId" hidden="hidden" />
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-4">
+                                            <div class="card" style="border:2px solid #4D738A;">
+                                                <div class="card-body center">
+                                                    <img class="img-avatar" src="../../../content/assets/img/slide2/5.jpg" alt="club img">
+                                                    <h3 class="card-title mb-5">Organizer</h3>
+                                                    <h5 class="card-text mb-15"><label id="ClubOrganization"></label></h5>
+                                                    <h3 class="card-title mb-5">Email</h3>
+                                                    <h5 class="card-text mb-15"><label id="ClubEmail"></label></h5>
+                                                    <button id="btnJoinClub" onclick="JoinUnjoinClub()" type="button" class=" btn btn-primary" style="background-color:#4D738A;border-color:#4D738A;color:#fff;margin-top:5px;font-size:11pt;">Join Club</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <h3><b><label id="ClubTitle"></label></b></h3>
+                                            <p style="font-size:11pt;">
+                                                <label id="Description"></label>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden" id="step7">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel-body">
+
+                            @{Html.RenderPartial("_JoinClub", Model.GetClubList().Where(a => a.UserId == ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID).ToList());}
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+             <div class="hidden" id="step8">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel-body">
+                            @*@{Html.RenderPartial("_EditClub", Model);}*@
+                            <h3 class="headding-sub-text margin3  col-lg-12">Edit CLub</h3>
+                            <br />
+                            <div class="col-md-12">
+                                <div class="row mb-15">
+                                    <div class="col-sm-12">
+
+                                        <div class="payment-box">
+                                            <div class="col-lg-12 margin2">
+                                                <div class="row margin margin-box">
+                                                    <input class="hidden" id="txtClubIdEdit" value="@Model.Id" type="text" />
+
+                                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Club Title:</div>
+
+                                                    <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                                        <input id="txtClubTitleEdit" type="text" name="ClubTitle"  class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Activity:</div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12  border-bottom1 m-l15">
+                                                @Html.DropDownListFor(o => o.ActivityId, Enum.GetValues(typeof(ActivityEnum)).Cast<ActivityEnum>
+                                                   ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "ActivityIdEdit", @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                                <div class="control-label  requiredField text-payment" for="date">
+                                                    Start Date
+                                                </div>
+                                            </div>
+                                            <div class='col-sm-6 col-md-6 col-lg-6'>
+                                                <div class="div-group">
+                                                    <div class='input-group date'>
+                                                        <input id="txtStartDateEdit" type='text' class="form-control" style="width:99%" data-provide="datepicker" value="@Model.StartDate" name="StartDate" maxlength="20" placeholder="MM/dd/yyyy">
+                                                        <span class="input-group-addon">
+                                                            <a><span id="btnStartDateEdit" class="fa fa-calendar"></span></a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Venue:</div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                                <input id="txtVenueEdit" type="text" name="Venue" value="@Model.Venue" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                                                Meeting Day:
+                                            </div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                                @Html.DropDownListFor(o => o.DayId, Enum.GetValues(typeof(DayEnum)).Cast<DayEnum>
+                                                    ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "DayIdEdit", @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                                                Meeting Time:
+
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                                <div class="div-group">
+                                                    <div class='input-group date' id='datetimepicker1'>
+                                                        <div class="time_pick"><input id="txtMeetingTimeEdit" class="time_element form-control form-control-small" type="text"  name="timepicker" style="width:99%" maxlength="20" placeholder="HH:mm:ss" data-timepicki-tim="04" data-timepicki-mini="58" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: none; top: 44px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="prevTime action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="mins"><div class="prevTime action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input"></div><div class="nextTime action-prev"></div></div><div class="meridian"><div class="prevTime action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="nextTime action-prev"></div></div></div></div>
+
+                                                        <span class="input-group-addon">
+                                                            <a><span id="btnStartDateEdit" class="fa fa-clock-o "></span></a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Contact/ Organizer:</div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                                <input id="txtContactEdit" type="text" name="Contact"  class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Email:</div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                                <input id="txtEmailEdit" type="text" name="Email"  class="form-control" />
+                                            </div><span class="Required">(Required)</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Phone:</div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                                <input id="txtPhoneNumberEdit" type="text" name="PhoneNumber"  class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="condition-wrapper m-t30 p-b30 ">
+                                    <div class="m-b10 text-subheding">Best way to contact:</div>
+                                    <label class="checbox">
+
+                                        <input id="PhoneCheckEdit" type="radio" name="check">
+                                        Phone
+                                    </label>
+                                    <label class="checbox">
+
+                                        <input id="EmailCheckEdit" type="radio"  name="check" >
+                                        Email
+                                    </label>
+                                </div>
+
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                                                Level:
+                                            </div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
+                                                @Html.DropDownListFor(o => o.LevelId, Enum.GetValues(typeof(LevelEnum)).Cast<LevelEnum>
+                                                     ().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }), new { @id = "LevelIdEdit", @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="row margin margin-box m-t30">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+
+                                            </div>
+                                            <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 textarea1">
+                                                <textarea id="txtSpecialInstructionEdit" rows="3" name="SpecialInstruction"  placeholder="Special Instructions/Comments" class="form-control" style="margin-top:4px"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="payment-box">
+                                    <div class="col-lg-12 margin2">
+                                        <div class="row margin margin-box">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                                                Description:
+                                            </div>
+                                            <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12 textarea1">
+                                                <textarea id="txtDescriptionEdit" name="Description" rows="5" placeholder="What is your club about?" class="form-control mb-5">@Model.Description</textarea>
+                                                <br />
+                                                <textarea id="txtBriefDescriptionEdit" name="BriefDescription" rows="2" maxlength="40" placeholder="Brief description (limited to 40 characters)" class="form-control mb-5">@Model.BriefDescription</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="condition-wrapper ">
+                                    <input type="checkbox" name="TermsAndCondition" id="chkTermsConditionsEdit">
+                                    <span class="chektext ">I agree to the <span class="span1"><a>Terms &amp; Conditions </a></span></span>
+                                </div>
+
+                                <div class="center">
+                                    <input type="hidden" id="hndfileCommunityActivityEdit" />
+                                    <input type="hidden" id="hndfileCommunityActivityOriginalNameEdit" />
+                                    <button id="ClubSubmitEdit" type="button" class="paynow m-t30" onclick="SubmitClubEdit()">Create Club</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- End submit form -->
+        </div>
+    
+</div>
+
+<div class="modal" id="date-popover" style="padding-right: 370px !important;margin-top: 203px;margin-left: 303px;">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: auto; height:auto;text-align: center;">
+            <button type="button" class="close" id="closeDate" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div id="divEventsCal" class="tab-content1">
+                </div>
+                <p style="text-align:center;margin-top: -2%;cursor:pointer"></p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="popPaymentBreakdown">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 47%; height:560px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <div class="modal-header center">
+                <h3 class="modal-title">Payment Details</h3>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body table-bordered">
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Monthly Charges :</label>
+                            <label id="lblMonthlyChargesBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Additional Parking :</label>
+                            <label id="lblAdditionalParkingBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Storage Charges :</label>
+                            <label id="lblStorageChargesBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Pet Rent :</label>
+                            <label id="lblPetRentBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Trash/Recycle :</label>
+                            <label id="lblTrashRecycleBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Pest Control :</label>
+                            <label id="lblPestControlBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Convergent Billing :</label>
+                            <label id="lblConvergentBillingBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label style="color:green;font-weight:bold">Total Monthly Charges :</label>
+                            <label id="lblTotalMonthlyChargesBreakdown" style="color:green;font-weight:bold;text-decoration:underline;"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="popEventTenantJoin">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 100%; height:560px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <div class="modal-header">
+                <h3 class="modal-title">Event Joining</h3>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input id="hdnEventId" type="hidden" value="0" />
+                <div class="col-sm-12" style="margin-left:20px;">
+                    <div class="form-group">
+                        <label>Event Name :</label>
+                        <label id="lblEventName"></label>
+                    </div>
+                </div>
+                <div class="col-sm-5" style="margin-left:20px;">
+                    <div class="form-group">
+                        <label>Date :</label>
+                        <input id="txtTenantEventDate" type="text" class="form-control form-control-small" />
+                    </div>
+                </div>
+                <div class="col-sm-5" style="margin-left:20px;">
+                    <div class="form-group">
+                        <label>Time :</label>
+                        <input id="txtTenantEventTime" type="text" class="form-control form-control-small" />
+                    </div>
+                </div>
+                <div class="col-sm-5" style="margin-left:20px;">
+                    <div class="form-group">
+                        <input id="chkTenantEventFees" type="checkbox" class="form-control form-control-small" /> Fees
+                    </div>
+                </div>
+                <div class="col-sm-5" style="margin-left:20px;">
+                    <div class="form-group">
+                        <input id="txtTenantEventFees" type="text" class="form-control form-control-small" />
+                    </div>
+                </div>
+                <div class="col-sm-5 hidden" id="DivPaymentMethod" style="margin-left:20px;">
+                    <div class="form-group">
+                        <label>Payment Method :</label>
+                        <select id="ddlPaymentMethod" class="form-control form-control-small"></select>
+                    </div>
+                </div>
+                <div class="col-sm-5 hidden" id="DivCvvNumber" style="margin-left:20px;">
+                    <div class="form-group">
+                        <label>CVV Number :</label>
+                        <input id="txtCVVNumber" type="password" class="form-control form-control-small" maxlength="3" value="" style="width:50% !important" onkeypress="return isOnlyNumber(event);" />
+                    </div>
+                </div>
+                <div class="col-sm-11" style="margin-left:20px;">
+                    <div class="form-group">
+                        <label>Description :</label>
+                        <textarea id="txtTenantEventDescription" class="form-control form-control-small"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary pull-right" id="btnTenantEventJoinSave" onclick="saveTenantEventJoin();" style="margin-right: 5px;">Save</button>
+                    <button type="button" class="btn btn-primary pull-right hidden" id="btnTenantEventJoinPay" onclick="PayMethod();" style="margin-right: 1px;">Pay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<input id="hdnCardName" value="0" />
+    <input id="hdnCardNumber" value="0" />
+    <input id="hdnCardMonth" value="0" />
+    <input id="hdnCardYar" value="0" />
+    <input id="hdnAccountName" value="0" />
+    <input id="hdnBankName" value="0" />
+    <input id="hdnAccountnumber" value="0" />
+    <input id="hdnRoutingNumber" value="0" />*@
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+<script src="~/Content/assets/js/bootstrap-datepicker.js"></script>
+<script src="~/Content/assets/js/bootstrap-datetimepicker.js"></script>
+<script src="~/Areas/Tenant/Content/Pages/MyCommunity/MyCommunity.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#txtMeetingTime").timepicki();
+        goToStep(5);
+    });
+    $("#chkTermsConditions").on('ifChanged', function (event) {
+        if (this.checked == true) {
+            $('#ClubSubmit').removeAttr('disabled');
+        } else {
+            $('#ClubSubmit').attr('disabled', 'disabled');
+        }
+    });
+
+
+
+    var closeDateModel = function () {
+
+        var modalOpDate = document.getElementById("date-popover");
+        var modalClDate = document.getElementById("closeModelDate");
+        modalClDate.onclick = function () { modalOpDate.style.display = "none"; }
+    };
+
+    document.getElementById('txtPhoneNumber').addEventListener('input', function (e) {
+        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#txtMeetingTime").timepicki();
+        goToStep(5);
+        LoadCalendar();
+    });
+    $("#chkTermsConditions").on('ifChanged', function (event) {
+        if (this.checked == true) {
+            $('#ClubSubmit').removeAttr('disabled');
+        } else {
+            $('#ClubSubmit').attr('disabled', 'disabled');
+        }
+    });
+
+
+
+    var closeDateModel = function () {
+
+        var modalOpDate = document.getElementById("date-popover");
+        var modalClDate = document.getElementById("closeModelDate");
+        modalClDate.onclick = function () { modalOpDate.style.display = "none"; }
+    };
+
+    document.getElementById('txtPhoneNumber').addEventListener('input', function (e) {
+        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+    });
+</script>
+
+
+

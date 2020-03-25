@@ -6,6 +6,7 @@
 
 <!-- register-area -->
 <input type="hidden" id="hdnCurrentPage_UL" value="0" />
+<input type="hidden" id="hndPageNo" value="0" />
 <div class="register-area" style="background-color: rgb(249, 249, 249);">
     <div class="container" style="width:100%!important">
         <div class="breadcrumb">
@@ -26,24 +27,24 @@
                     </select>
                 </div>
                 <div class="form-group col-md-1">
-                    <label class="control-label" style="padding:0px 0px;">Crieria</label>
+                    <label class="control-label" style="padding:0px 0px;">Criteria</label>
                 </div>
                 <div class="form-group col-md-2">
                     <input type="text" id="txtCriteria_UL" name="Criteria" class="form-control form-control-small pull-left" />
                 </div>
                 <div class="form-group col-md-6">
-                    <button id="btnSearch" class="btn btn-next btn-primary" onclick="buildPaganationUserList(1)"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
-                    <button id="btnNewSearchUser" class="btn btn-success pull-right" style="margin-right:15px;" onclick="addNewUser()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> NEW</button>
-                    <button id="btnGoUser" class="btn btn-success pull-right" style="margin-right:15px;" onclick="goToEditUser()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-arrow-right"></i> GO TO</button>
+                    <button id="btnSearch" class="btn btn-next btn-primary" onclick="buildPaganationUserList(1)" style="margin-left: -30px;height: 34px;"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
+                    <button id="btnNewSearchUser" class="btn btn-primary pull-right" style="margin-right:15px;" onclick="addNewUser()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> NEW</button>
+                    @*<button id="btnGoUser" class="btn btn-primary pull-right" style="margin-right:15px;" onclick="goToEditUser()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-arrow-right"></i> GO TO</button>*@
                 </div>
             </div>
             <div class="col-sm-12 form-group" id="divPagination_UserList">
                 <div id="divPgn" class="col-sm-8 pagination">
                     <ul id="ulPagination_UserList"></ul>
                 </div>
-                <div class="col-sm-3 padding-0 pull-right">
+                <div class="col-sm-3 padding-0 pull-right" style="margin-top:22px">
                     <div class="col-sm-6">
-                        <label class="control-label">Row/Page</label>
+                        <label class="control-label" style="margin-left:67px;">Row/Page</label>
                     </div>
                     <div class="col-sm-6">
                         <select id="ddlRPP_UserList" class="form-control form-control-small"></select>
@@ -54,10 +55,11 @@
                 <table id="tblUser" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                     <thead>
                         <tr>
-                            <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939">First Name</th>
-                            <th class="pds-lastname" style="background-color: #c7cdd566;color:#3d3939">Last Name</th>
-                            <th class="pds-username" style="background-color: #c7cdd566;color:#3d3939">Username</th>
-                            <th class="pds-usertype" style="background-color: #c7cdd566;color:#3d3939">Status</th>
+                            <th class="pds-firstname" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableUsers('FirstName')">First Name <i id="sortFirstNameIcon" class=""></i></th>
+                            <th class="pds-lastname" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableUsers('LastName')">Last Name <i id="sortLastNameIcon" class=""></i></th>
+                            <th class="pds-username" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableUsers('Username')">Username <i id="sortUsernameIcon" class=""></i></th>
+                            <th class="pds-usertype" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableUsers('UserType')">User Type <i id="sortUserTypeIcon" class=""></i></th>
+                            <th class="pds-userstatus" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableUsers('Status')">Status <i id="sortStatusIcon" class=""></i></th>
                         </tr>
                     </thead>
                     <tbody></tbody>

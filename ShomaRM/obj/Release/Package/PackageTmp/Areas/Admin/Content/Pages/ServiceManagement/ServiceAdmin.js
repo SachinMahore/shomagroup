@@ -7,11 +7,33 @@ $(document).ready(function () {
     fillEstimate();
     fillAssignmentAuditHistory();
     document.getElementById('fileCompleted').onchange = function () {
-        uploadServiceFile();
+        var fileUploadClosingPictureBool = restrictFileUpload($(this).val());
+        if (fileUploadClosingPictureBool == true) {
+            uploadServiceFile();
+        }
+        else {
+            document.getElementById('fileCompleted').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
 
     document.getElementById('uploadphoto').onchange = function () {
-        OwnerSignature();
+        var fileUploadTenantSignatireBool = restrictFileUpload($(this).val());
+        if (fileUploadTenantSignatireBool == true) {
+            OwnerSignature();
+        }
+        else {
+            document.getElementById('uploadphoto').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     $("#txtClosingDate").datepicker();
     $('#ClosingDate').click(function () {
@@ -194,7 +216,7 @@ var goToServiceDetails = function (ServiceID) {
             else {
                 setTimeout(function () {
                     $("#ddlUser").val(response.model.ServicePerson);
-                }, 1000);
+                }, 1200);
 
             }
             $("#txtClosingNotes").val(response.model.ClosingNotes);
@@ -460,7 +482,7 @@ var StatusUpdateForServicePerson = function (id) {
                 type: 'red'
             });
             $("#ddlStatus1").val('0');
-            $("#ddlUser").val('0');
+           // $("#ddlUser").val('0');
 
         }
     });

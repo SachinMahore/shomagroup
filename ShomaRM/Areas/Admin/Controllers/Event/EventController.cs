@@ -25,14 +25,7 @@ namespace ShomaRM.Areas.Admin.Controllers
         {
             try
             {
-                HttpPostedFileBase fb = null;
-                for (int i = 0; i < Request.Files.Count; i++)
-                {
-                    fb = Request.Files[i];
-
-                }
-
-                return Json(new { models = new EventModel().SaveUpdateEvent(fb, model) }, JsonRequestBehavior.AllowGet);
+                return Json(new { models = new EventModel().SaveUpdateEvent(model) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -81,6 +74,24 @@ namespace ShomaRM.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult EventFileUpload(EventModel model)
+        {
+            try
+            {
+                HttpPostedFileBase fileBaseUpload1 = null;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBaseUpload1 = Request.Files[i];
+
+                }
+
+                return Json(new { model = new EventModel().EventFileUpload(fileBaseUpload1, model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
     }

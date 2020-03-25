@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Appointment Status";
+    var apptDate = ViewBag.AppDate;
+
+}
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+
+            <a class="navbar-brand" href="~/Home/Index"><img src="~/content/assets/img/logo.png" width="300" alt=""></a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse yamm" id="navigation">
+            <div class="button navbar-right">
+                @*@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.Username*@
+                @*<button class="navbar-btn nav-button wow bounceInRight login hidden" onclick="goToStep(1)" data-wow-delay="0.4s" id="btnLogout">Logout</button>*@
+
+            </div>
+
+        </div><!-- /.navbar-collapse -->
+
+    </div><!-- /.container-fluid -->
+</nav>
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    <br /><br /><br />
+    <div class="container">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <div>
+                    <div class="wizard-header">
+                        <h3>
+                            <br>
+                            <b>
+                                <span id="txtstatus">@ViewBag.ApptMsg</span>
+                            </b> <br>
+                        </h3>
+                    </div>
+                    <div class="tab-content">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

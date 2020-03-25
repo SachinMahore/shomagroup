@@ -122,14 +122,7 @@ namespace ShomaRM.Areas.Admin.Controllers
 
             try
             {
-                // long AccountID = formData.AccountID;
-                HttpPostedFileBase fb = null;
-                for (int i = 0; i < Request.Files.Count; i++)
-                {
-                    fb = Request.Files[i];
-
-                }
-                string msg = new PropertyManagementModel().SaveUpdateProperty(fb, model);
+                string msg = new PropertyManagementModel().SaveUpdateProperty(model);
                 return Json(new { Msg = msg }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -177,17 +170,17 @@ namespace ShomaRM.Areas.Admin.Controllers
             }
             
         }
-        public ActionResult GetFloorList(int PID)
-        {
-            try
-            {
-                return Json((new PropertyFloor()).GetFloorList(PID), JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
-            }
-        }
+        //public ActionResult GetFloorList(int PID)
+        //{
+        //    try
+        //    {
+        //        return Json((new PropertyFloor()).GetFloorList(PID), JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
         public ActionResult GetPropertyFloorDetails(int FloorID)
         {
             try
@@ -313,6 +306,24 @@ namespace ShomaRM.Areas.Admin.Controllers
             }
 
 
+        }
+        public ActionResult PropertyFileUpload(PropertyManagementModel model)
+        {
+            try
+            {
+                HttpPostedFileBase fileBaseUpload1 = null;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBaseUpload1 = Request.Files[i];
+
+                }
+
+                return Json(new { model = new PropertyManagementModel().PropertyFileUpload(fileBaseUpload1, model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

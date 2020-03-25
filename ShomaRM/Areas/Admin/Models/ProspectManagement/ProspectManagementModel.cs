@@ -301,11 +301,61 @@ namespace ShomaRM.Areas.Admin.Models
                 {
                     prospData.AssignAgentId = model.AssignAgentID;
                     prospData.AppointmentStatus = model.AppointmentStatus;
+                    prospData.VisitDateTime = model.VisitDateTime;
                     db.SaveChanges();
                     msg = "Progress Saved";
-                    if (assignAgeID != model.AssignAgentID)
+
+                    if (model.AppointmentStatus != 3)
+                    {
+                        if (assignAgeID != model.AssignAgentID)
+                        {
+                            var info = db.tbl_Login.Where(p => p.UserID == prospData.AssignAgentId).FirstOrDefault();
+
+                            string reportHTML = "";
+                            string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                            reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+
+                            //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
+                            reportHTML = reportHTML.Replace("[%TenantName%]", prospData.FirstName + " " + prospData.LastName);
+                            reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; This is a confirmation email to your appointment with  <b>" + info.FirstName + " " + info.LastName + " </b> Dated on <b>" + model.RequiredDateText + "</b> at office. If you have queries or require any clarifications or any assistance in finding the location  please do not hesitate to contact me at <i>" + info.CellPhone + "</i>, " + info.Email + ". I genuinely appreciate a prompt confirmation from your side. Looking forward to meeting you there. </p>");
+                            reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+
+                            string body = reportHTML;
+                            new EmailSendModel().SendEmail(prospData.EmailId, "Your Appointment is Confirmed", body);
+
+                            message = "This is a confirmation message for your appointment. Please check the email for detail.";
+                            if (SendMessage == "yes")
+                            {
+                                new TwilioService().SMS(phonenumber, message);
+                            }
+
+                            string reportHTMLAgent = "";
+                            string filePathAg = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                            reportHTMLAgent = System.IO.File.ReadAllText(filePathAg + "EmailTemplateAmenity.html");
+
+                            //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
+                            reportHTMLAgent = reportHTMLAgent.Replace("[%TenantName%]", info.FirstName + " " + info.LastName);
+                            reportHTMLAgent = reportHTMLAgent.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Please be informed that a meeting has been scheduled  with <b> " + prospData.FirstName + " " + prospData.LastName + " </b> Dated on  <b>" + model.RequiredDateText + "</b>.We shall meet at office . Please inform me if you'd like to add anything to list above. All suggestions and questions are highly welcomed.Kindly signal that you received this email and confirm your attendance.Please make sure to be on time as you always do.Looking forward to seeing you there.</p>");
+                            reportHTMLAgent = reportHTMLAgent.Replace("[%LeaseNowButton%]", "");
+
+                            string bodyAg = reportHTMLAgent;
+                            new EmailSendModel().SendEmail(info.Email, "Appointment for " + prospData.FirstName + " " + prospData.LastName + " on " + model.RequiredDateText, bodyAg);
+
+                            string message1 = "Please to be informed that a meeting has been scheduled. Please check the email for detail.";
+                            if (SendMessage == "yes")
+                            {
+                                new TwilioService().SMS(phonenumber, message1);
+                            }
+
+
+                        }
+                      
+
+                    }
+                    else
                     {
                         var info = db.tbl_Login.Where(p => p.UserID == prospData.AssignAgentId).FirstOrDefault();
+
 
                         string reportHTML = "";
                         string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
@@ -313,37 +363,19 @@ namespace ShomaRM.Areas.Admin.Models
 
                         //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
                         reportHTML = reportHTML.Replace("[%TenantName%]", prospData.FirstName + " " + prospData.LastName);
-                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; This is a confirmation email to your appointment with  <b>" + info.FirstName + " " + info.LastName + " </b> Dated on <b>" + model.RequiredDateText + "</b> at office . if you have queries or require any clarifications or any assistance in finding the location  please do not hesitate to contact me on <i>" + info.CellPhone + "</i>, " + info.Email + ". I genuinely appreciate a prompt confirmation from your side. Looking forward to meeting you there. </p>");
+                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; " + info.FirstName + " " + info.LastName + " was unfortunately not able to make the meeting, please contact us back so we can schedule another tour at your earliest convenience. </p>");
                         reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
 
                         string body = reportHTML;
-                        new EmailSendModel().SendEmail(prospData.EmailId, "Your Appointment is Confirmed", body);
+                        new EmailSendModel().SendEmail(prospData.EmailId, "Your Appointment is Cancelled", body);
 
-                        message = "This is a confirmation message for your appointment. Please check the email for detail.";
+                        message = "This is a cancellation message for your shoma appointment. Please check the email for detail.";
                         if (SendMessage == "yes")
                         {
                             new TwilioService().SMS(phonenumber, message);
                         }
-
-                        string reportHTMLAgent = "";
-                        string filePathAg = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
-                        reportHTMLAgent = System.IO.File.ReadAllText(filePathAg + "EmailTemplateAmenity.html");
-
-                        //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
-                        reportHTMLAgent = reportHTMLAgent.Replace("[%TenantName%]", info.FirstName + " " + info.LastName);
-                        reportHTMLAgent = reportHTMLAgent.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Please be informed that a meeting has been scheduled  with <b> " + prospData.FirstName + " " + prospData.LastName + " </b> Dated on  <b>" + model.RequiredDateText + "</b>.We shall meet at office . Please inform me if you'd like to add anything to list above. All suggestions and questions are highly welcomed.Kindly signal that you received this email and confirm your attendance.Please make sure to be on time as you always do.Looking forward to seeing you there.</p>");
-                        reportHTMLAgent = reportHTMLAgent.Replace("[%LeaseNowButton%]", "");
-
-                        string bodyAg = reportHTMLAgent;
-                        new EmailSendModel().SendEmail(info.Email, "Appointment for " + prospData.FirstName + " " + prospData.LastName+" on " + model.RequiredDateText, bodyAg);
-
-                        string message1 = "Please to be informed that a meeting has been scheduled. Please check the email for detail.";
-                        if (SendMessage == "yes")
-                        {
-                            new TwilioService().SMS(phonenumber, message1);
-                        }
                     }
-                    
+
                 };
             }
             return msg;

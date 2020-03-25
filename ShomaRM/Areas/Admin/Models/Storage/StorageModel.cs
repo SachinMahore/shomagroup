@@ -49,6 +49,7 @@ namespace ShomaRM.Areas.Admin.Models
                     usm.StorageName = dr["StorageName"].ToString();
                     usm.Charges = Convert.ToDecimal(dr["Charges"].ToString());
                     usm.Description = dr["Description"].ToString();
+                    usm.Type = int.Parse(dr["Type"].ToString());
                     model.Add(usm);
                 }
                 db.Dispose();
@@ -84,16 +85,16 @@ namespace ShomaRM.Areas.Admin.Models
             ShomaRMEntities db = new ShomaRMEntities();
                 if (model.StorageID == 0)
                 {
-                    var StorageData = new tbl_Storage()
-                    {
-                        PropertyID = model.PropertyID,
-                        StorageName = model.StorageName,
-                        Charges = model.Charges,
-                        Description = model.Description
-                    };
-                    db.tbl_Storage.Add(StorageData);
-                    db.SaveChanges();
-                    model.StorageID = StorageData.StorageID;
+                    //var StorageData = new tbl_Storage()
+                    //{
+                    //    PropertyID = model.PropertyID,
+                    //    StorageName = model.StorageName,
+                    //    Charges = model.Charges,
+                    //    Description = model.Description
+                    //};
+                    //db.tbl_Storage.Add(StorageData);
+                    //db.SaveChanges();
+                    //model.StorageID = StorageData.StorageID;
                 }
                 else
                 {

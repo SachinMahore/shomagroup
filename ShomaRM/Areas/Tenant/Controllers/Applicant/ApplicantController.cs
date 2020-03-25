@@ -38,11 +38,11 @@ namespace ShomaRM.Areas.Tenant.Controllers
 
 
         }
-        public ActionResult GetApplicantDetails(int id)
+        public ActionResult GetApplicantDetails(int id,int FromAcc)
         {
             try
             {
-                return Json(new { model = new ApplicantModel().GetApplicantDetails(id) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = new ApplicantModel().GetApplicantDetails(id,FromAcc) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

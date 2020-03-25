@@ -21,7 +21,7 @@
 <input id="hdnYogaHours" type="hidden" value="0" />
 <input id="hdnClubHours" type="hidden" value="0" />
 <input id="hdnSoccHours" type="hidden" value="0" />
-
+<input id="rcpid" type="hidden" value="0" />
 
 
 
@@ -504,7 +504,7 @@
                         <div class="col-lg-12">
                             <div class="row margin margin-box">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 mobile-margin ">
-                                    See the terms of the <a style="cursor:pointer" id="ShowTermsAndConditionR" href="javascript:void(0);">Chase Automatic Payments Service Agreement</a>
+                                    See the terms of the <a style="cursor:pointer" id="ShowTermsAndConditionR" href="javascript:void(0);">Automatic Payments Service Agreement</a>
                                 </div>
                             </div>
                         </div>
@@ -514,7 +514,7 @@
                             <div class="row margin margin-box">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 mobile-margin ">
                                     <input type="checkbox" id="chkTermsAndConditionR">
-                                    <span class="chektext"> I have read and agree to the terms and conditions of the Chase Automatic Payments Service Agreement at the above link, which govern my use of Automatic Payments.</span>
+                                    <span class="chektext"> I have read and agree to the terms and conditions of the Automatic Payments Service Agreement at the above link, which govern my use of Automatic Payments.</span>
                                 </div>
                             </div>
                         </div>
@@ -808,7 +808,7 @@
                                 <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
                                 <label class="checbox">
                                     <input type="radio" id="rbtnApertmentPermission1" name="rbtnPermissionToEnter" value="1" checked="checked">
-                                    Current
+                                    Any Time
                                 </label>
                             </div>
                         </div>
@@ -817,7 +817,7 @@
                                 <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
                                 <label class="checbox">
                                     <input type="radio" id="rbtnApertmentPermission2" name="rbtnPermissionToEnter" value="2" checked="checked">
-                                    By appointment
+                                    By Appointment
                                 </label>
                             </div>
                             <div class="col-lg-8 hidden" id="PreferredDate">
@@ -1999,7 +1999,7 @@
                     <div style="font-size:medium;text-align:justify;"><b>Warning:  If you have chosen a FIXED AMOUNT which is less than your monthly rent due including all pertinent charges as shown in the AMOUNT DUE box or your statement, and there is no other Autopay set up by another tenant in your unit, you or the other unit residents must make a payment outside of the AutoPay to satisfy the remaining balance prior to the due date to avoid Late Fees and becoming delinquent.  </b></div>
                     <div style="font-size:medium;text-align:justify;"><b>By clicking the Terms and Conditions herein, you confirm that you are authorizing to initiate transfer in the amount shown above from the designated bank account or credit card each month via automatic electronic withdrawal on the designated due date.  </b></div>
 
-                    <div style="font-size:medium;text-align:justify;">If you wish to EDIT OR CANCEL Autopay, please <a href="javascript:void(0);" onclick=" goToRecurringPaymentFromMyHome();"> click here</a>.  Please note that once Autopay has been cancelled, you will remain fully responsible for any amounts due and will be subject to any late fees if the amounts due are not paid by the due date.</div>
+                    <div style="font-size:medium;text-align:justify;">@*If you wish to EDIT OR CANCEL Autopay, please <a href="javascript:void(0);" onclick=" goToRecurringPaymentFromMyHome();"> click here</a>.*@<div id="editTermsConditionRecu"></div>  Please note that once Autopay has been cancelled, you will remain fully responsible for any amounts due and will be subject to any late fees if the amounts due are not paid by the due date.</div>
                     <div style="font-size:medium">If you would like to print this agreement for your records, please <a href="javascript:void(0);" onclick="print('divRecTerm')"> click here</a>.</div>
 
                 </div>

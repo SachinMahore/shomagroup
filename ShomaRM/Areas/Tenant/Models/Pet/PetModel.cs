@@ -99,12 +99,12 @@ namespace ShomaRM.Areas.Tenant.Models
                     TenantID = pl.TenantID,
                     PetType = pl.PetType,
                     Breed = pl.Breed,
-                    Weight = pl.Weight == null ? "" : pl.Weight,
-                    Age = pl.Age == null ? "" : pl.Age,
+                    Weight = string.IsNullOrWhiteSpace(pl.Weight) ? "" : pl.Weight,
+                    Age = string.IsNullOrWhiteSpace(pl.Age) ? "" : pl.Age,
                     Photo = pl.Photo,
                     PetVaccinationCertificate = pl.PetVaccinationCert,
                     PetName = pl.PetName,
-                    VetsName = pl.VetsName
+                    VetsName = !string.IsNullOrWhiteSpace(pl.VetsName) ? pl.VetsName : ""
                 });
 
             }
@@ -224,14 +224,14 @@ namespace ShomaRM.Areas.Tenant.Models
             return petModelPetVaccination;
         }
 
-        public List<PetModel> GetProfilePetList(long UserId)
+        public List<PetModel> GetProfilePetList(long TenantID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<PetModel> lstProp = new List<PetModel>();
-            var appPet = db.tbl_ApplyNow.Where(p => p.UserId == UserId).FirstOrDefault();
+            var appPet = db.tbl_TenantInfo.Where(p => p.TenantID == TenantID).FirstOrDefault();
             if (appPet != null)
             {
-                var petList = db.tbl_TenantPet.Where(p => p.TenantID == appPet.ID).ToList();
+                var petList = db.tbl_TenantPet.Where(p => p.TenantID == appPet.ProspectID).ToList();
                 if (petList != null)
                 {
                     foreach (var pl in petList)

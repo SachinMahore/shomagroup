@@ -1,0 +1,99 @@
+﻿@using ShomaRM.Areas.Admin.Models
+@model AmenitiesSlotModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+<script src="~/Areas/Admin/Content/Pages/AmenitiesSlot/AmenitiesSlot.js"></script>
+<input type="hidden" id="hdnEventId" value="@Model.ID" />
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <form action="" method="">
+                    <div class="wizard-header">
+                        <h3>
+                            <b>Amenity Slot </b>Details<br>
+                        </h3>
+                    </div>
+                    <ul>
+                        <li><a href="#step1" data-toggle="tab"></a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="" id="step1">
+                            <div class="row p-b-15  ">
+                                <div class="col-sm-12">
+                                    <h4 class="info-text pull-left"> Let's start with the basic information</h4>
+                                    <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="goSlotList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">Amenity Slot List</span></button>
+                                    <div class="pull-right" style="padding-right:2px;">
+                                        <input type='button' class='btn btn-success hidden' value='Save' onclick="SaveUpdateSlot()" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="ddlAmenities" class="star">Amenity</label>
+                                                <select id="ddlAmenities" class="form-control form-control-small"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="ddlDuration" class="star">Duration</label>
+                                                <select id="ddlDuration" class="form-control form-control-small"></select>
+                                                @*<input id="txtDuration" class="form-control form-control-small" value="0" />*@
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Deposit Fee</label>
+                                            
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                    </span>
+                                                    <input id="txtDepositFee" type="text" class="form-control form-control-small" style="width:80%" maxlength="10" value="@(Model.Deposit==null?"0.00":Model.Deposit.Value.ToString("0.00"))" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Reservation Fee</label>
+                                               
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                    </span>
+                                                    <input id="txtReservationFee" type="text" class="form-control form-control-small" style="width:80%" maxlength="10" value="@(Model.Fees==null?"0.00":Model.Fees.Value.ToString("0.00"))" disabled>
+                                                </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--  End step 4 -->
+                    </div>
+
+                </form>
+            </div>
+            <!-- End submit form -->
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#txtEventDate").datepicker();
+        var photo = document.getElementById('wizard-picture');
+    });
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#ddlAmenities").find("option[value='" + @Model.AmenityID + "']").attr('selected', 'selected');
+            getDurationSlot( @Model.AmenityID );
+        }, 1500);
+        setTimeout(function () { $("#ddlDuration").find("option[value='" + @Model.DurationID + "']").attr('selected', 'selected'); }, 1600);
+    });
+</script>
