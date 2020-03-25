@@ -4317,7 +4317,7 @@ var addAppFess = function (appFees) {
 var goToEditApplicant = function (aid) {
 
     if (aid != null) {
-
+        //sacxhis
         $("#hndApplicantID").val(aid);
         var model = { id: aid,FromAcc:0 };
         $.ajax({
