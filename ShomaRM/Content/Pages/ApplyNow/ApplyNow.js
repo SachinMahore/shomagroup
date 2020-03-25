@@ -2088,8 +2088,9 @@ var goToStep = function (stepid, id) {
 
                 return;
             } else {
+              
                 $("#subMenu").removeClass("hidden");
-                if ($("#btnAddPet").is(":disabled")) {
+               
                     $("#step2").addClass("hidden");
                     $("#step1").addClass("hidden");
                     $("#step4").addClass("hidden");
@@ -2125,16 +2126,7 @@ var goToStep = function (stepid, id) {
                         goToStep(16, 16);
                         $("#getting-startedTimeRemainingClock").addClass("hidden");
                     }
-                }
-                else {
-
-                    $.alert({
-                        title: "",
-                        content: "Please Add Pets",
-                        type: 'red'
-                    });
-                    return;
-                }
+               
             }
         }
     }
@@ -2590,7 +2582,7 @@ function savePayment() {
         success: function (response) {
             $("#divLoader").hide();
             if (response.Msg == "1") {
-                // $("#carddetails").addClass("hidden");
+                 $("#carddetails").addClass("hidden");
                 $(".payNext").removeAttr("disabled");
                 $("#ResponseMsg").html("Payment Successfull");
                 $.alert({
@@ -4303,7 +4295,10 @@ var getApplicantLists = function () {
             $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
             $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
             $("#tblApplicantGuarantor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(3)'><i class='fa fa-plus-circle'></i> Add Guarantor</a></label></div></div></div></div>");
-
+          
+            if (response.model.length == 1) {
+                $("#divFinalcoappemail").addClass("hidden");
+            }
         }
     });
 }
@@ -5732,6 +5727,7 @@ var getApplicantHistoryList = function () {
                 $("#tblAHR>tbody").append(html);
                 $("#prevadd>tbody").append(summAdd);
             });
+            
         }
     });
 };
