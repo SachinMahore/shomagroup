@@ -1741,7 +1741,7 @@
                                         <input class="form-control form-control-small" id="txtZip" maxlength="7" />
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="ddlRentOwn" class="star"> Do you rent or own </label>
                                         <select id="ddlRentOwn" class="form-control form-control-small">
@@ -1751,12 +1751,12 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="txtMoveInDate" class="star"> Move In Date</label>
                                         <input id="txtMoveInDateFrom" type="text" class="form-control form-control-small" value="" />
 
-                                        <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 211px;">
+                                        <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 303px;">
                                             <button class="btn btn-primary search" id="SPMoveInDateF" type="button"><i class="fa-calendar fa"></i></button>
                                         </span>
 
@@ -1773,7 +1773,7 @@
 
                                     </div>
                                 </div>*@
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <label for="txtMonthlyPayment"> Monthly Payment </label>
                                     <div class="input-group">
                                         <span class="input-group-btn">
@@ -1847,11 +1847,12 @@
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">Employment and Income</h3>
-
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="col-sm-12">
+                                <p>*Need at least 3 years of employment history</p>
+                            </div>
                             <div class="col-sm-12">
                                 <div class="col-sm-4">
                                     <div class="form-group">
@@ -2624,14 +2625,14 @@
                                     <div id="tblApplicantFinal" class="proerty-th">
                                     </div>
                                 </div>
-                                <h5> <center> Now?</center></h5>
-                                <p>
-                                    <center>Do you want to email the Application to your Co-Applicant(s)?</center>
-                                </p>
+                                
                             </div>
-                            <div class="col-sm-12 table-bordered">
+                            <div class="col-sm-12 table-bordered" id="divFinalcoappemail">
                                 <div>
-
+                                    <h5> <center> Now?</center></h5>
+                                    <p>
+                                        <center>Do you want to email the Application to your Co-Applicant(s)?</center>
+                                    </p>
                                     <table width="100%" id="tblEmailCoapplicant" style="text-align:center">
                                         <thead>
                                             <tr>
@@ -3744,8 +3745,6 @@
 
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-4">
                             <label for="txtAnnualIncomeHEI" class="star"> Annual Income </label>
                             <div class="input-group">
@@ -3755,6 +3754,8 @@
                                 <input id="txtAnnualIncomeHEI" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" style="text-align:right" />
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="txtAddAnnualIncomeHEI"> Additional Annual Income</label>
@@ -3764,6 +3765,12 @@
                                     </span>
                                     <input id="txtAddAnnualIncomeHEI" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" style="text-align:right" />
                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label>Reason Of Termination</label>
+                                <input id="txtReasonOfTerminationHEI" class="form-control form-control-small" type="text" />
                             </div>
                         </div>
                     </div>
@@ -3787,65 +3794,61 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="txtCountryOfficeHEI" class="star">Country</label>
-                            <select id="txtCountryOfficeHEI" class="form-control">
-                                @foreach (var country in Model.CountryList)
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="txtCountryOfficeHEI" class="star">Country</label>
+                                <select id="txtCountryOfficeHEI" class="form-control">
+                                    @foreach (var country in Model.CountryList)
                                 {
-                                    <option value="@country.ID">@country.CountryName</option>
+                                <option value="@country.ID">@country.CountryName</option>
                                 }
-                            </select>
+                                </select>
+                            </div>
+                        </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="txtofficeAddress1HEI" class="star">Address Line 1</label>
+                                <input id="txtofficeAddress1HEI" type="text" class="form-control form-control-small" maxlength="300" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="txtofficeAddress2HEI">Address Line 2</label>
+                                <input id="txtofficeAddress2HEI" type="text" class="form-control form-control-small" maxlength="300" />
+                            </div>
+                        </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="star"> State :</label>
+                                <select id="ddlStateEmployeeHEI" class="form-control">
+                                    <option value="0">--Select State--</option>
+                                    @foreach (var state in Model.StateList)
+                                    {
+                                        <option value="@state.ID">@state.StateName</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="star"> City :</label>
+                                @*<select id="ddlCityEmployee" class="form-control"></select>*@
+                                <input id="ddlCityEmployeeHEI" type="text" class="form-control form-control-small" maxlength="100" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="txtZipHEI" class="star">Zip</label>
+                                <input class="form-control form-control-small" id="txtZipOfficeHEI" maxlength="7" />
+                            </div>
+                        </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="txtofficeAddress1HEI" class="star">Address Line 1</label>
-                            <input id="txtofficeAddress1HEI" type="text" class="form-control form-control-small" maxlength="300" />
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="txtofficeAddress2HEI">Address Line 2</label>
-                            <input id="txtofficeAddress2HEI" type="text" class="form-control form-control-small" maxlength="300" />
-                        </div>
-                    </div>
-
-
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="star"> State :</label>
-                            <select id="ddlStateEmployeeHEI" class="form-control">
-                                <option value="0">--Select State--</option>
-                                @foreach (var state in Model.StateList)
-                                {
-                                    <option value="@state.ID">@state.StateName</option>
-                                }
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="star"> City :</label>
-                            @*<select id="ddlCityEmployee" class="form-control"></select>*@
-                            <input id="ddlCityEmployeeHEI" type="text" class="form-control form-control-small" maxlength="100" />
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="txtZipHEI" class="star">Zip</label>
-                            <input class="form-control form-control-small" id="txtZipOfficeHEI" maxlength="7" />
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="dot-hr"></div>
-                </div>
             </div>
 
             <!-- Modal footer -->

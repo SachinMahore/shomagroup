@@ -1543,9 +1543,9 @@ var goToStep = function (stepid, id) {
                 });
                 return;
             } else {
+              
                 $("#subMenu").removeClass("hidden");
-                SaveUpdateStep(15);
-                //if ($("#btnAddPet").is(":disabled")) {
+                if ($("#btnAddPet").is(":disabled")) {
                     $("#step2").addClass("hidden");
                     $("#step1").addClass("hidden");
                     $("#step4").addClass("hidden");
@@ -1581,27 +1581,20 @@ var goToStep = function (stepid, id) {
                         goToStep(16, 16);
                         $("#getting-startedTimeRemainingClock").addClass("hidden");
                     }
-                //}
-                //else {
-                //    $.alert({
-                //        title: "",
-                //        content: "Please Add Pets",
-                //        type: 'red'
-                //    });
-                //    return;
-                //}
+                }
+                else {
+
+                    $.alert({
+                        title: "",
+                        content: "Please Add Pets",
+                        type: 'red'
+                    });
+                    return;
+                }
             }
         }
     }
     if (stepid == "16") {
-       if (parseInt($("#hdnStepCompleted").val()) < 15) {
-            $.alert({
-                title: "",
-                content: "Please complete step 16",
-                type: 'red'
-            });
-            return;
-        }
         if (id == "16") {
             var msg = '';
             if (msg != "") {
@@ -2298,9 +2291,13 @@ var SaveOnlineProspect = function () {
         if (password.length < 8) {
             msg += "Password should have atleast 8 digits long</br>";
         }
+        if (confirmPassword.length < 8) {
+            msg += "Confirm Password should have atleast 8 digits long</br>";
+        }
         if (password != confirmPassword) {
             msg += "Password and Confirm Password must be the same</br>";
         }
+       
     }
 
     if (msg != "") {
@@ -2308,7 +2305,7 @@ var SaveOnlineProspect = function () {
             title: "",
             content: msg,
             type: 'red'
-        })
+        });
         $("#divLoader").hide();
         return;
     }
@@ -2618,32 +2615,32 @@ function savePayment() {
             yes: {
                 text: 'Yes',
                 action: function (yes) {
-                    $.ajax({
-                        url: "/ApplyNow/SavePaymentDetails/",
-                        type: "post",
-                        contentType: "application/json utf-8",
-                        data: JSON.stringify(model),
-                        dataType: "JSON",
-                        success: function (response) {
-                            $("#divLoader").hide();
-                            if (response.Msg == "1") {
-                                // $("#carddetails").addClass("hidden");
-                                $(".payNext").removeAttr("disabled");
-                                $("#ResponseMsg").html("Payment Successfull");
-                                $.alert({
-                                    title: "",
-                                    content: "Payment Successfull",
-                                    type: 'red'
-                                });
-                                getTransationLists($("#hdnUserId").val());
-                            } else {
-                                $.alert({
-                                    title: "",
-                                    content: "Payment Failed",
-                                    type: 'red'
-                                });
-                            }
-                        }
+                $.ajax({
+        url: "/ApplyNow/SavePaymentDetails/",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+            if (response.Msg == "1") {
+                // $("#carddetails").addClass("hidden");
+                $(".payNext").removeAttr("disabled");
+                $("#ResponseMsg").html("Payment Successfull");
+                $.alert({
+                    title: "",
+                    content: "Payment Successfull",
+                    type: 'red'
+                });
+                getTransationLists($("#hdnUserId").val());
+            } else {
+                $.alert({
+                    title: "",
+                    content: "Payment Failed",
+                    type: 'red'
+                });
+            }
+        }
                     });
                 }
             },
@@ -4146,8 +4143,6 @@ var saveupdateApplicant = function () {
 }
 var totpaid = 0;
 var getApplicantLists = function () {
-
-    $("#divLoader").show();
     var model = {
         TenantID: $("#hdnOPId").val(),
     }
@@ -4206,7 +4201,7 @@ var getApplicantLists = function () {
                         "</div >" +
                         "<div class='input-group input-group-btn'>" +
                         "<button class='btn btn-primary search pull-left' type='button'><i class='fa fa-dollar'></i></button>" +
-                        "<input type='text' class='form-control form-control-small' id='txtpayamt" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px; text-align:right;' value='" + parseFloat(elementValue.MoveInCharge).toFixed(2) + "'/>" +
+                        "<input type='text' class='form-control form-control-small' id='txtpayamt" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px; text-align:right;' value='" + parseFloat($("#lbtotdueatmov6").text()).toFixed(2) + "'/>" +
                         "</div ></td>" +
                         "<td style='width:30%;'>" +
                         "<div class='input-group input-group-btn'>" +
@@ -4215,7 +4210,7 @@ var getApplicantLists = function () {
                         "</div >" +
                         "<div class='input-group input-group-btn'>" +
                         "<button class='btn btn-primary search pull-left' type='button'><i class='fa fa-dollar'></i></button>" +
-                        "<input type='text' class='form-control form-control-small' id='txtpayamtMo" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px; text-align:right;' value='" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "'/>" +
+                        "<input type='text' class='form-control form-control-small' id='txtpayamtMo" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px; text-align:right;' value='" + parseFloat($("#lblRFPTotalMonthlyPayment").text()).toFixed(2) + "'/>" +
                         "</div >" +
                         "</td></tr>";
                 }
@@ -4257,10 +4252,11 @@ var getApplicantLists = function () {
 
                 if (elementValue.Type == "Primary Applicant") {
                     //console.log($("#txtpayper" + elementValue.ApplicantID).val());
-                    //console.log($("#txtpayperMo" + elementValue.ApplicantID).val());
+                   // console.log($("#txtpayperMo" + elementValue.ApplicantID).val());
                     if ($("#txtpayper" + elementValue.ApplicantID).val() == 0) {
                         $("#txtpayper" + elementValue.ApplicantID).val(100);
                         checkPercentage();
+                        
                     }
                     if ($("#txtpayperMo" + elementValue.ApplicantID).val() == 0) {
                         $("#txtpayperMo" + elementValue.ApplicantID).val(100);
@@ -4269,12 +4265,14 @@ var getApplicantLists = function () {
                 }
 
                 function checkPercentage() {
+
+                    
                     var chargesPecentage = $("#txtpayper" + elementValue.ApplicantID).val();
 
                     var dueatmovein = unformatText($("#lbtotdueatmov6").text());
-                    //console.log("Hi");
+                   
 
-                    //console.log("DM:" + dueatmovein);
+                   //console.log("DM:" + dueatmovein);
 
                     var perCharges = ((chargesPecentage * parseFloat(dueatmovein)) / 100);
                     $("#txtpayamt" + elementValue.ApplicantID).val(perCharges.toFixed(2));
@@ -4369,6 +4367,13 @@ var getApplicantLists = function () {
             $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
             $("#tblApplicantGuarantor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(3)'><i class='fa fa-plus-circle'></i> Add Guarantor</a></label></div></div></div></div>");
 
+            setTimeout(function () { $("#divLoader").hide(); }, 3000);
+
+          
+            if (response.model.length == 1) {
+                $("#divFinalcoappemail").addClass("hidden");
+            }
+
         }
     });
 }
@@ -4387,7 +4392,7 @@ var addAppFess = function (appFees) {
 var goToEditApplicant = function (aid) {
 
     if (aid != null) {
-
+        //sacxhis
         $("#hndApplicantID").val(aid);
         var model = { id: aid,FromAcc:0 };
         $.ajax({
@@ -5834,6 +5839,7 @@ var getApplicantHistoryList = function () {
                 $("#tblAHR>tbody").append(html);
                 $("#prevadd>tbody").append(summAdd);
             });
+            
         }
     });
 };
