@@ -10,6 +10,7 @@ namespace ShomaRM.Models.Bluemoon
         public LeaseResponseModel()
         {
             leasePdfWithEsignatures = new List<byte[]>();
+            EsigneResidents = new List<KeyModel>();
         }
         public string SessionId { get; set; }
 
@@ -21,6 +22,15 @@ namespace ShomaRM.Models.Bluemoon
         public byte[] leasePdf { get; set; }
 
         public List<byte[]> leasePdfWithEsignatures { get; set; }
+
+        public List<KeyModel> EsigneResidents { get; set; }
+    }
+
+    public class KeyModel
+    {
+        public string Key { get; set; }
+        public string Email { get; set; }
+        public string DateSigned { get; set; }
     }
 
     public class AuthenticationResponseModel
