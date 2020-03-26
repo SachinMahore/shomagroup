@@ -14,7 +14,7 @@
 <input type="hidden" id="hndLeaseTermID" value="@Model.LeaseTermID" />
 <input type="hidden" id="hdnEmployerHistory" value="0" />
 <input type="hidden" id="hdnStepCompleted" value="@(Model.StepCompleted==0?1:Model.StepCompleted)" />
-
+<input type="hidden" id="hndShowTermPolicy" value="1" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container">
@@ -36,12 +36,12 @@
                     </div>
 
                     <ul style="line-height: 14px;" class="nav nav-tabs wizard">
-                        <li class="active" style="padding-right:2px" id="li1"><a href="javascript:void(0);" onclick="goToStep(1,1)"> 1. Floor Plan </a></li>
+                        <li class="active" style="padding-right:2px" id="li1"><a href="javascript:void(0);" onclick="goToStep(1,0)"> 1. Floor Plan </a></li>
                         <li id="li2"><a href="javascript:void(0);" id="as2" onclick="goToStep(2,0)">2. Select Units</a></li>
-                        <li id="li3"><a href="javascript:void(0);" id="as3" onclick="goToStep(3,0)">3. Select Options</a></li>
-                        <li id="li4"><a href="javascript:void(0);" id="as4" onclick="goToStep(5,0)">4. Quotation</a></li>
-                        <li id="li5"><a href="javascript:void(0);" id="as5" onclick="goToStep(6,0)">5. Policies & Conditions </a></li>
-                        <li id="li6"><a href="javascript:void(0);" id="as6" onclick="goToStep(7,0)">6. Complete Application</a></li>
+                        <li id="li3"><a href="javascript:void(0);" id="as3" onclick="goToStep(3,3)">3. Select Options</a></li>
+                        <li id="li4"><a href="javascript:void(0);" id="as4" onclick="goToStep(5,5)">4. Quotation</a></li>
+                        <li id="li5"><a href="javascript:void(0);" id="as5" onclick="goToStep(6,6)">5. Policies & Conditions </a></li>
+                        <li id="li6"><a href="javascript:void(0);" id="as6" onclick="goToStep(7,7)">6. Complete Application</a></li>
 
                     </ul>
                     <div class="text-center">
@@ -1575,7 +1575,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="txtPassportNum" class="star">Passport Number</label>
-                                            <input id="txtPassportNum" class="form-control form-control-small" type="text" />
+                                            <input id="txtPassportNum" class="form-control form-control-small" type="text" maxlength="25" />
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
@@ -1644,7 +1644,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label id="lblIDNumber" for="txtIDNumber" class="star">ID Number</label>
-                                        <input class="form-control form-control-small" id="txtIDNumber" />
+                                        <input class="form-control form-control-small" id="txtIDNumber" maxlength="25" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -4368,6 +4368,16 @@
                  $("#chkAgreeSummarry").iCheck('check');
 
             }
+
+            if (@Model.IsRentalPolicy== "1" && @Model.IsRentalQualification== "1") {
+                showCurrentStep(7, 7);
+                $("#hndShowTermPolicy").val(0);
+                $("#chkAgreeTermsPolicy").iCheck('check');
+            }
+            else {
+                $("#hndShowTermPolicy").val(1);
+                showCurrentStep(3, 3);
+            }
             @*if (('@Model.EnvelopeID') !="") {
                 $("#btnAddPet").attr("disabled", true);
                 $("#btnleaseDownl").removeAttr("disabled");
@@ -4397,6 +4407,7 @@
                      goToStep(4, 4);
                  }
             }*@
+            
             $("#getting-startedTimeRemainingClock").removeClass("hidden");
             $("#divstep3save").addClass("hidden");
             $("#divstep3").removeClass("hidden");

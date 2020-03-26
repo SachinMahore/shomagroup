@@ -107,7 +107,8 @@ var fillParkingSearchGrid = function (pagenumber, sortby, orderby) {
                     html += '<td class="pds-id hidden" style="color:#3d3939;">' + elementValue.ParkingID + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.ParkingName + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">$ ' + formatMoney(parseFloat(elementValue.Charges).toFixed(2)) + '</td>';
-                    html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary ParkingEdit" style="padding: 5px 8px !important;margin-right:7px" onclick="goToParking(' + elementValue.ParkingID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button><button class="btn btn-danger" style="padding: 5px 8px !important;" onclick="delParking(' + elementValue.ParkingID + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
+                    //html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary ParkingEdit" style="padding: 5px 8px !important;margin-right:7px" onclick="goToParking(' + elementValue.ParkingID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button><button class="btn btn-danger" style="padding: 5px 8px !important;" onclick="delParking(' + elementValue.ParkingID + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
+                    html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary ParkingEdit" style="padding: 5px 8px !important;margin-right:7px" onclick="goToParking(' + elementValue.ParkingID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button></td>';
                     html += '</tr>';
                     $("#tblParking>tbody").append(html);
                 });
@@ -153,6 +154,7 @@ var clearParkingData = function () {
     btnSaveUpdate();
 }
 var saveUpdateParking = function () {
+    $("#divLoader").show();
     var msg = "";
     if ($.trim($("#ddlProperty").val()).length == 0) {
         msg = msg + "Property is required.</br>"
@@ -164,6 +166,7 @@ var saveUpdateParking = function () {
         msg = msg + "Charges is required.</br>"
     }
     if (msg != "") {
+        $("#divLoader").hide();
         msg = "Following field(s) is/are required</br>" + msg;
         $.alert({
             title: 'Message!',
@@ -172,49 +175,60 @@ var saveUpdateParking = function () {
         });
     }
     else {
-        var model = {
-            ParkingID: $("#hndParkingID").val(),
-            PropertyID: $("#ddlProperty").val(),
-            ParkingName: $("#txtParkingName").val(),
-            Charges: unformatText($("#txtCharges").val()),
-            Description: $("#txtDescription").val()
-        };
-        $.ajax({
-            url: "/Parking/SaveUpdateParking",
-            method: "post",
-            data: JSON.stringify(model),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            async: false,
-            success: function (response) {
-                //hideProgress('#btnSaveUpdate');
-                if (response.result == "1") {
-                    if ($("#hndParkingID").val() == 0) {
-                        $.alert({
-                            title: 'Message!',
-                            content: "Data Saved Successfully",
-                            type: 'blue',
-                        });
+        if ($("#hndParkingID").val() != 0) {
+            var model = {
+                ParkingID: $("#hndParkingID").val(),
+                PropertyID: $("#ddlProperty").val(),
+                ParkingName: $("#txtParkingName").val(),
+                Charges: unformatText($("#txtCharges").val()),
+                Description: $("#txtDescription").val()
+            };
+            $.ajax({
+                url: "/Parking/SaveUpdateParking",
+                method: "post",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: false,
+                success: function (response) {
+                    $("#divLoader").hide();
+                    //hideProgress('#btnSaveUpdate');
+                    if (response.result == "1") {
+                        if ($("#hndParkingID").val() == 0) {
+                            $.alert({
+                                title: 'Message!',
+                                content: "Data Saved Successfully",
+                                type: 'blue',
+                            });
+                        }
+                        else {
+                            $.alert({
+                                title: 'Message!',
+                                content: "Data Update Successfully",
+                                type: 'blue',
+                            });
+                        }
+                        $("#hndParkingID").val(response.ID);
+                        $("#spanSaveUpdate").text("Save");
+                        fillParkingList();
+                        setInterval(function () {
+                            window.location.replace("/Admin/Parking/Index/" + 0);
+                        }, 1200)
                     }
                     else {
-                        $.alert({
-                            title: 'Message!',
-                            content: "Data Update Successfully",
-                            type: 'blue',
-                        });
+                        //showMessage("Error!", response.error);
                     }
-                    $("#hndParkingID").val(response.ID);
-                    $("#spanSaveUpdate").text("Save");
-                    fillParkingList();
-                    setInterval(function () {
-                        window.location.replace("/Admin/Parking/Index/" + 0);
-                    }, 1200)
                 }
-                else {
-                    //showMessage("Error!", response.error);
-                }
-            }
-        });
+            });
+        }
+        else {
+            $("#divLoader").hide();
+            $.alert({
+                title: 'Message!',
+                content: 'Only Edit Allowed</br>',
+                type: 'red',
+            });
+        }
     }
 }
 var btnSaveUpdate = function () {
