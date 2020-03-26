@@ -2412,11 +2412,13 @@ var SaveOnlineProspect = function () {
             $("#divstep3save").addClass("hidden");
             $("#divstep3").removeClass("hidden");
             $("#hdnStepCompleted").val(4);
+
             //if (typeof (history.pushState) != "undefined") {
             //    var obj = {
             //        Title: "Shoma Group | Residential Manager", Url: "/ApplyNow/Index/" + idmsg[2] };
             //    history.pushState(obj, obj.Title, obj.Url);
             //} else {
+
                 window.location = "/ApplyNow/Index/" + idmsg[2];
             //}  
         }
@@ -2703,6 +2705,7 @@ function savePayment() {
                     type: 'red'
                 });
                 getTransationLists($("#hdnUserId").val());
+                getApplicantLists();
             } else {
                 $.alert({
                     title: "",
@@ -4287,11 +4290,19 @@ var getApplicantLists = function () {
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
                     adminfess = $("#lblFNLAmount").text();
                     totpaid += parseFloat(adminfess);
-                    if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Guarantor") {
-                        totalFinalFees += parseFloat(adminfess);
-                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + adminfess + "</td><td style='width:14%; padding:6px;'><input type='checkbox' id='chkPayAppFees' checked disabled/></td><td></td></tr>";
+                    if (elementValue.Paid == "0") {
+                        if (elementValue.Type == "Primary Applicant") {
+                            totalFinalFees += parseFloat(adminfess);
+                            pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + adminfess + "</td><td style='width:14%; padding:6px;'><input type='checkbox' id='chkPayAppFees' checked disabled/></td><td></td></tr>";
+                        } else if (elementValue.Type == "Guarantor") {
+                            totalFinalFees += parseFloat(150);
+                            pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$150.00</td><td style='width:14%; padding:6px;'><input type='checkbox' id='chkPayAppFees' checked disabled/></td><td></td></tr>";
+                        } else {
+                            pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + adminfess + "</td><td style='width:14%; padding:6px;'><input type='checkbox' class='chkPayAppFees' id='chkPayAppFees1' onclick='addAppFess(" + adminfess + ")'/></td><td><input type='button' id='btnSendPayLink' style='width:150px;' onclick='sendPayLinkEmail(\"" + elementValue.Email + "\")' value='Send Payment Link'/></td></tr>";
+                        }
                     } else {
-                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + adminfess + "</td><td style='width:14%; padding:6px;'><input type='checkbox' class='chkPayAppFees' id='chkPayAppFees1' onclick='addAppFess(" + adminfess + ")'/></td><td><input type='button' id='btnSendPayLink' style='width:150px;' onclick='sendPayLinkEmail(\"" + elementValue.Email + "\")' value='Send Payment Link'/></td></tr>";
+                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + adminfess + "</td><td style='width:14%; padding:6px;text-align: center;'>Paid</td><td></td></tr>";
+
                     }
                 }
                 

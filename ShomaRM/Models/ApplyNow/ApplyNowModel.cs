@@ -85,6 +85,16 @@ namespace ShomaRM.Models
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 if (strlist[1] != "000000")
                 {
+                    var coappliList = db.tbl_Applicant.Where(pp => pp.TenantID == model.ProspectId && pp.Type != "Co-Applicant" ).ToList();
+                    if(coappliList!=null)
+                    {
+                        foreach(var coapp in coappliList)
+                        {
+                            coapp.Paid = 1;
+                            db.SaveChanges();
+                        }
+                    }
+
                     if (GetPayDetails != null)
                     {
                         GetPayDetails.Name_On_Card = model.Name_On_Card;

@@ -28,7 +28,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Advertiser> tbl_Advertiser { get; set; }
         public virtual DbSet<tbl_Amenities> tbl_Amenities { get; set; }
         public virtual DbSet<tbl_AmenityPriceRange> tbl_AmenityPriceRange { get; set; }
-        public virtual DbSet<tbl_Applicant> tbl_Applicant { get; set; }
         public virtual DbSet<tbl_ApplicantHistory> tbl_ApplicantHistory { get; set; }
         public virtual DbSet<tbl_BankAccount> tbl_BankAccount { get; set; }
         public virtual DbSet<tbl_Bill> tbl_Bill { get; set; }
@@ -108,5 +107,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_TenantInfo> tbl_TenantInfo { get; set; }
         public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
         public virtual DbSet<tbl_EmployerHistory> tbl_EmployerHistory { get; set; }
+        public virtual DbSet<tbl_Applicant> tbl_Applicant { get; set; }
     }
 }
