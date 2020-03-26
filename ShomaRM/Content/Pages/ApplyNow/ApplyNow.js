@@ -2685,7 +2685,7 @@ function savePayment() {
         success: function (response) {
             $("#divLoader").hide();
             if (response.Msg == "1") {
-                // $("#carddetails").addClass("hidden");
+                 $("#carddetails").addClass("hidden");
                 $(".payNext").removeAttr("disabled");
                 $("#ResponseMsg").html("Payment Successfull");
                 $.alert({
