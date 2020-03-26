@@ -249,9 +249,9 @@ $(document).ready(function () {
             $("#btnpaynow").removeProp("disabled");
             tenantOnlineID = $("#hdnOPId").val();
 
-            //getTenantOnlineList(tenantOnlineID);
-            //getApplicantHistoryList();
-            //getEmployerHistory();
+            getTenantOnlineList(tenantOnlineID);
+            getApplicantHistoryList();
+            getEmployerHistory();
             $("#popApplicantSummary").modal("show");
         }
         else if ($("#chkAgreeSummarry").is(":not(:checked)")) {
@@ -1559,10 +1559,9 @@ var goToStep = function (stepid, id) {
                 });
                 return;
             } else {
+                SaveUpdateStep(15);
                 $("#subMenu").removeClass("hidden");
-                var numOfPets = $("#hndPetPlaceCount").val();
-                var petAdded = $("#tblPet tbody tr").length; 
-                if (numOfPets == petAdded) {
+                  SaveUpdateStep(15);
                     $("#step2").addClass("hidden");
                     $("#step1").addClass("hidden");
                     $("#step4").addClass("hidden");
@@ -1598,16 +1597,7 @@ var goToStep = function (stepid, id) {
                         goToStep(16, 16);
                         $("#getting-startedTimeRemainingClock").addClass("hidden");
                     }
-                }
-                else {
-
-                    $.alert({
-                        title: "",
-                        content: "Please Add Pets",
-                        type: 'red'
-                    });
-                    return;
-                }
+               
             }
         }
     }
@@ -1623,11 +1613,11 @@ var goToStep = function (stepid, id) {
         }
         if (id == "16") {
             var msg = '';
-            if (parseInt($("#hdnStepCompleted").val()) > 15) {
-                var numOfPets = $("#hndPetPlaceCount").val();
-                var petAdded = $("#tblPet tbody tr").length;
-                msg = 'Please Add Pet';
-            }
+            //if (parseInt($("#hdnStepCompleted").val()) > 15) {
+            //    var numOfPets = $("#hndPetPlaceCount").val();
+            //    var petAdded = $("#tblPet tbody tr").length;
+            //    msg = 'Please Add Pet';
+            //}
             if (msg != "") {
                 $.alert({
                     title: "",
@@ -1682,11 +1672,11 @@ var goToStep = function (stepid, id) {
             return;
         }
         var msg = '';
-        if (parseInt($("#hdnStepCompleted").val()) > 15) {
-            var numOfPets = $("#hndPetPlaceCount").val();
-            var petAdded = $("#tblPet tbody tr").length;
-            msg = 'Please Add Pet';
-        }
+        //if (parseInt($("#hdnStepCompleted").val()) > 15) {
+        //    var numOfPets = $("#hndPetPlaceCount").val();
+        //    var petAdded = $("#tblPet tbody tr").length;
+        //    msg = 'Please Add Pet';
+        //}
         if (msg != "") {
             $.alert({
                 title: "",
@@ -1732,7 +1722,6 @@ var goToStep = function (stepid, id) {
     }
 };
 var getStepCompletedMsg = function (currentstep, clickstep) {
-
     var stepArray = [{ StepID: 3, StepName: "Select Options" }, { StepID: 5, StepName: "Quotation" }, { StepID: 6, StepName: "Policies & Conditions" }, { StepID: 7, StepName: "Applicants" }, { StepID: 8, StepName: "Responsibility" }, { StepID: 9, StepName: "Personal Info" }, { StepID: 10, StepName: "Residence History" }, { StepID: 11, StepName: "Employment and Income" }, { StepID: 12, StepName: "Emergency Contacts" }, { StepID: 13, StepName: "Vehicle Info" }, { StepID: 14, StepName: "Pet Info" }, { StepID: 15, StepName: "Payment" }, { StepID: 16, StepName: "Lease" }];
     var clickstepname = "";
     var remainingstepname = "";
@@ -1750,6 +1739,7 @@ var getStepCompletedMsg = function (currentstep, clickstep) {
     var msg = "To view \"<b>" + clickstepname + "</b>\", you have to complete following step(s)<br/>" + remainingstepname;
     return msg;
 };
+
 var showCurrentStep = function (stepid, id) {
     if (stepid == 1) {
         $("#subMenu").addClass("hidden");
@@ -6670,10 +6660,15 @@ var onFocusApplyNow = function () {
         });
     }).focusout(function () {
         var idnumber = $(this).val();
+        if (idnumber.length < 4) {
+            alert("ID Number should be greater then 4 digit");
+            return;
+        }
         if (idnumber.length > 4) {
             saveupdateIDNumber(idnumber);
             $(this).val(("*".repeat(idnumber.length - 4) + idnumber.substr(idnumber.length - 4, 4)));
         }
+       
         });
 
     $("#txtPassportNum").focusin(function () {

@@ -2171,6 +2171,7 @@ var getServiceInfo = function () {
             $("#lblEmailUnitAccess").text(response.msg.Email);
             $("#lblEmailUnitAccess").text(response.msg.Email);
             $("#spanTenantSignName").text(response.msg.Name);
+            $("#spanTenantSignNameGC").text(response.msg.Name);
         }
     });
 }
@@ -2243,6 +2244,9 @@ var serviceRequestChangeDDL = function () {
 var copyGuestName = function () {
     $('#spanGuestCertGName').text($('#txtGuestFirstName').val() + ' ' + $('#txtGuestLastName').val());
     $('#spanGuestSignName').text($('#txtGuestFirstName').val() + ' ' + $('#txtGuestLastName').val());
+
+    $('#spanGuestCertGNameGC').text($('#txtGuestFirstName').val() + ' ' + $('#txtGuestLastName').val());
+    $('#spanGuestSignNameGC').text($('#txtGuestFirstName').val() + ' ' + $('#txtGuestLastName').val());
 }
 
 var uploadGuestDriverLicence = function () {
@@ -2409,11 +2413,13 @@ var saveUpdateGuestRegistration = function () {
         success: function (response) {
             var msg = response.model.split("|");
             var splitData = msg[1];
+            var showmsg = msg[0] +"<br/>Please monitor your email for guess approval status."
+
             $("#hdnTagGuestId").val(splitData);
             getTagInfo();
             $.alert({
                 title: '',
-                content: msg[0],
+                content: showmsg,
                 type: 'blue'
             });
             clearFieldGuestRegistration();
@@ -5896,7 +5902,9 @@ var getTagInfo = function () {
 
             $("#PspanGuestCertGName").text(response.msg.GuestName);
             $("#PspanTenantSignName").text(response.msg.TenantName);
+            $("#PspanTenantSignNameGC").text(response.msg.TenantName);
             $("#PspanGuestSignName").text(response.msg.GuestName);
+            $("#PspanGuestSignNameGC").text(response.msg.GuestName);
 
         }
     });

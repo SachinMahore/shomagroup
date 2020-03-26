@@ -247,11 +247,10 @@ $(document).ready(function () {
     $("#chkAgreeSummarry").on('ifChanged', function (event) {
         if ($("#chkAgreeSummarry").is(":checked")) {
             $("#btnpaynow").removeProp("disabled");
-            tenantOnlineID = $("#hdnOPId").val();
-
-            getTenantOnlineList(tenantOnlineID);
-            getApplicantHistoryList();
-            getEmployerHistory();
+            //tenantOnlineID = $("#hdnOPId").val();
+            //getTenantOnlineList(tenantOnlineID);
+            //getApplicantHistoryList();
+            //getEmployerHistory();
             $("#popApplicantSummary").modal("show");
         }
         else if ($("#chkAgreeSummarry").is(":not(:checked)")) {
@@ -1124,6 +1123,20 @@ var goToStep = function (stepid, id) {
             }
             else {
                 $("#popApplicantSummary").modal("hide");
+                $("#summName").text($("#txtFirstNamePersonal").val() + " " + ((!$("#txtMiddleInitial").val()) ? "" : $("#txtMiddleInitial").val()+" ") + $("#txtLastNamePersonal").val());
+                $("#summDob").text($("#txtDateOfBirth").val());
+                $("#summSSN").text($("#txtSSNNumber").val());
+                $("#summPhone").text($("#txtMobileNumber").val());
+
+                if ($("#ddlGender").val() == 1) {
+                    $("#summGender").text("Male");
+                } else if ($("#ddlGender").val() == 2) {
+                    $("#summGender").text("Female");
+                }else {
+                    $("#summGender").text($("#txtOtherGender").val());
+                }
+                $("#summDriverL").text($("#txtIDNumber").val());
+
                 saveupdateTenantOnline(10);
                 $("#step2").addClass("hidden");
                 $("#step1").addClass("hidden");
@@ -1173,6 +1186,11 @@ var goToStep = function (stepid, id) {
             if ($("#txtCountry").val() == "0") {
                 msg += "Please Select Country </br>";
             }
+
+            if (!$("#txtAddress1").val()) {
+                msg += "Please Fill Address 1 </br>";
+            }
+
             if ($("#ddlStateHome").val() == "0") {
                 msg += "Please Select State </br>";
             }
@@ -1212,6 +1230,7 @@ var goToStep = function (stepid, id) {
                         if ($("#hndHistory").val() < 36) {
                             alert("Please provide at least 3 years of residence history");
                         } else {
+                            $("#summCuAdd").text($("#txtAddress1").val() + ", " + ((!$("#txtAddress2").val()) ? "" : $("#txtAddress2").val() + ", " +) + $("#ddlCityHome").val() + ", " + $("#ddlStateHome option:selected").text() + " - " + $("#txtZip").val() + ", " + $("#txtCountry option:selected").text());
                             saveupdateTenantOnline(11);
                             $("#step2").addClass("hidden");
                             $("#step1").addClass("hidden");
@@ -1367,6 +1386,9 @@ var goToStep = function (stepid, id) {
                         if ($("#hdnEmployerHistory").val() < 36) {
                             alert("Please provide at least 3 years of employment history");
                         } else {
+                            $("#summEmployer").text($("#txtEmployerName").val() + ", " + $("#txtofficeAddress1").val() + ", " + ((!$("#txtofficeAddress2").val()) ? "" : ", " + $("#txtofficeAddress2").val()) + $("#ddlCityEmployee").val() + ", " + $("#ddlStateEmployee option:selected").text() + " - " + $("#txtZipOffice").val() + ", " + $("#txtCountryOffice option:selected").text());
+                            $("#summEstartdate").text($("#txtStartDate").val());
+                            $("#summSalary").text(formatMoney $("#txtAnnualIncome").val()));
                             saveupdateTenantOnline(12);
                             getTenantPetPlaceData();
                             $("#step2").addClass("hidden");
