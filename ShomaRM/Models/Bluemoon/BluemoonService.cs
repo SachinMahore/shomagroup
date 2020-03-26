@@ -514,7 +514,7 @@ namespace ShomaRM.Models.Bluemoon
         /// <param name="sessionId"></param>
         /// <returns></returns>
 
-        public async Task<LeaseResponseModel> GetEsignatureDetails(string sessionId,string Esignatureid)
+        public async Task<LeaseResponseModel> GetEsignnatureDetails(string sessionId,string Esignatureid)
         {
             LeaseResponseModel esignatureDetailsModel = new LeaseResponseModel();
             var body = CreateXMLDocument(@"<ns1:GetEsignatureData>
