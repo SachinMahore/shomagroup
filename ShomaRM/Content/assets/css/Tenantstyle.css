@@ -2831,9 +2831,14 @@ i.fa.fa-print {
     }
 
     .logout-but {
-        padding: 3px 10px;
+        padding: 8px 10px 10px;
     }
-
+    .logout-but {
+        margin-top: 3px;
+    }
+    .responsive {
+        width: 100%;
+    }
     table {
         border-collapse: collapse;
         width: 100%;
@@ -3157,6 +3162,7 @@ i.fa.fa-print {
 
     .Activity-box {
         float: left;
+        width: 100%;
     }
 }
 
