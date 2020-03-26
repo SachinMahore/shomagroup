@@ -2088,8 +2088,9 @@ var goToStep = function (stepid, id) {
 
                 return;
             } else {
+              
                 $("#subMenu").removeClass("hidden");
-                if ($("#btnAddPet").is(":disabled")) {
+               
                     $("#step2").addClass("hidden");
                     $("#step1").addClass("hidden");
                     $("#step4").addClass("hidden");
@@ -2125,16 +2126,7 @@ var goToStep = function (stepid, id) {
                         goToStep(16, 16);
                         $("#getting-startedTimeRemainingClock").addClass("hidden");
                     }
-                }
-                else {
-
-                    $.alert({
-                        title: "",
-                        content: "Please Add Pets",
-                        type: 'red'
-                    });
-                    return;
-                }
+               
             }
         }
     }
@@ -2594,7 +2586,7 @@ function savePayment() {
         success: function (response) {
             $("#divLoader").hide();
             if (response.Msg == "1") {
-                // $("#carddetails").addClass("hidden");
+                 $("#carddetails").addClass("hidden");
                 $(".payNext").removeAttr("disabled");
                 $("#ResponseMsg").html("Payment Successfull");
                 $.alert({
@@ -3528,7 +3520,6 @@ var fillParkingList = function () {
                                 addParkingArray.push({ PArkingID: elementValue.ParkingID });
                             }
                         }
-
                     }
                     else {
                         html += '<tr data-value="' + elementValue.ParkingID + '">';
@@ -3542,15 +3533,13 @@ var fillParkingList = function () {
                             addParkingArray.push({ PArkingID: elementValue.ParkingID });
                         }
                     }
-
-
                     $("#tblParking>tbody").append(html);
                 });
             }
         }
     });
 }
-var fillFOBList = function () {
+var fillStorageList = function () {
 
     $.ajax({
         url: '/Storage/GetStorageList',
@@ -3562,41 +3551,44 @@ var fillFOBList = function () {
                 //this.cancelChanges();
             } else {
                 addStorageArray = [];
-                $("#tblStorage>tbody").empty();
+                $("#tblStorage1>tbody").empty();
                 $.each(response, function (index, elementValue) {
                     var html = '';
                     html += '<tr data-value="' + elementValue.StorageID + '">';
                     html += '<td class="pds-id hidden" style="color:#3d3939;">' + elementValue.StorageID + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.StorageName + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + parseFloat(elementValue.Charges).toFixed(2) + '</td>';
-                    html += '<td class="pds-firstname" style="color:#3d3939;"><input type="checkbox" id="chkAddStorage"  class="addstorage" value=' + elementValue.StorageID + ' onclick="selectAddStorage(this)" ' + ($("#lblstorageplace").text() == elementValue.StorageID ? "checked='checked'" : "") + '></td>';
+                    html += '<td class="pds-firstname" style="color:#3d3939;"><input type="checkbox" id="chkAddStorage1" data-chargeamt="' + parseFloat(elementValue.Charges).toFixed(2)+'"  class="addstorage1" value="' + elementValue.StorageID + '" ' + (unformatText($("#lblStorageUnit").text()) == parseFloat(elementValue.Charges).toFixed(2) ? "checked='checked'" : "") + '></td>';
                     html += '</tr>';
-                    if ($("#lblstorageplace").text() == elementValue.StorageID) {
-                        addStorageArray.push({ StorageID: elementValue.StorageID });
-                    }
-                    $("#tblStorage>tbody").append(html);
+                    //if (unformatText($("#lblStorageUnit").text()) == "50.00") {
+
+                    //    $("#chkAddStorage1").attr("checked", true);
+                    //}
+                    $("#tblStorage1>tbody").append(html);
                 });
+
+                
             }
         }
     });
 }
-var fillStorageList = function () {
+var fillFOBList = function () {
 
-    $("#tblStorage1>tbody").empty();
-    var html = '';
-    html += '<tr data-value="1">';
-    html += '<td class="pds-id hidden" style="color:#3d3939;">1</td>';
-    html += '<td class="pds-firstname" style="color:#3d3939;">Storage</td>';
-    html += '<td class="pds-firstname" style="color:#3d3939;">$50.00</td>';
-    html += '<td class="pds-firstname" style="color:#3d3939;"><input type="checkbox" id="chkAddStorage1"  class="addstorage1" value="1"></td>';
-    html += '</tr>';
+    //$("#tblStorage>tbody").empty();
+    //var html = '';
+    //html += '<tr data-value="1">';
+    //html += '<td class="pds-id hidden" style="color:#3d3939;">1</td>';
+    //html += '<td class="pds-firstname" style="color:#3d3939;">Storage</td>';
+    //html += '<td class="pds-firstname" style="color:#3d3939;">$50.00</td>';
+    //html += '<td class="pds-firstname" style="color:#3d3939;"><input type="checkbox" id="chkAddStorage"  class="addstorage" value="1"></td>';
+    //html += '</tr>';
 
-    $("#tblStorage1>tbody").append(html);
+    //$("#tblStorage1>tbody").append(html);
 
-    if (unformatText($("#lblStorageUnit").text()) == "50.00") {
+    //if (unformatText($("#lblStorageUnit").text()) == "50.00") {
 
-        $("#chkAddStorage1").attr("checked", true);
-    }
+    //    $("#chkAddStorage1").attr("checked", true);
+    //}
 }
 var fillPetPlaceList = function () {
     $.ajax({
@@ -3766,7 +3758,7 @@ var saveupdatePetPlace = function () {
         }
     }
     var tenantID = $("#hdnOPId").val();
-    var param = { TenantID: tenantID, lstTPetPlace: addPetPlaceArray };
+    var param = { PropertyID: 8, TenantID: tenantID, lstTPetPlace: addPetPlaceArray };
     $.ajax({
         url: "/PetManagement/SaveUpdateTenantPetPlace",
         method: "post",
@@ -3795,22 +3787,25 @@ var saveupdatePetPlace = function () {
             $("#lblProrated_PetRent").text(parseFloat(parseFloat(response.totalPetPlaceAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
 
             $("#lblpetplace").text(addPetPlaceArray.length > 0 ? addPetPlaceArray[0].PetPlaceID : 0);
-            if (parseFloat(response.totalPetPlaceAmt).toFixed(2) == "20.00") {
+
+            if (parseInt(response.numOfPet) == 1) {
                 $("#lblPetDeposit").text(formatMoney("500.00"));
-                $("#lblPetDNAAmt").text("29.00");
-                $("#lbpetdna6").text("29.00");
-                $("#fpetdna").text("29.00");
+                $("#lblPetDNAAmt").text(parseFloat(response.petDNAFees).toFixed(2));
+                $("#lbpetdna6").text(parseFloat(response.petDNAFees).toFixed(2));
+                $("#fpetdna").text(parseFloat(response.petDNAFees).toFixed(2));
                 
                 $("#fpetd").text("500.00");
                 $("#lbpetd6").text("500.00");
                 $("#hndPetPlaceID").val(1);
                 $("#btnAddPet").removeAttr("disabled");
 
-            } else if (parseFloat(response.totalPetPlaceAmt).toFixed(2) == "40.00") {
+            } else if (parseInt(response.numOfPet) == 2) {
                 $("#lblPetDeposit").text(formatMoney("750.00"));
-                $("#lblPetDNAAmt").text("58.00");
-                $("#lbpetdna6").text("58.00");
-                $("#fpetdna").text("58.00");
+
+                $("#lblPetDNAAmt").text((parseFloat(response.petDNAFees) * parseInt(response.numOfPet)).toFixed(2));
+                $("#lbpetdna6").text((parseFloat(response.petDNAFees) * parseInt(response.numOfPet)).toFixed(2));
+                $("#fpetdna").text((parseFloat(response.petDNAFees) * parseInt(response.numOfPet)).toFixed(2));
+
                 $("#fpetd").text("750.00");
                 $("#lbpetd6").text("750.00");
                 $("#hndPetPlaceID").val(2);
@@ -3820,7 +3815,6 @@ var saveupdatePetPlace = function () {
                 $("#hndPetPlaceID").val(0);
                 $("#btnAddPet").css("background-color", "#B4ADA5").attr("disabled", "disabled");
             }
-
 
             // $("#lbltotalAmount").text((parseFloat(response.totalPetPlaceAmt) + parseFloat(totalAmt)).toFixed(2) + parseFloat($("#lblPetDeposit").text()).toFixed(2));
             totalAmt = (parseFloat(response.totalPetPlaceAmt) + parseFloat(totalAmt)).toFixed(2);
@@ -3840,17 +3834,23 @@ var saveupdateStorage = function () {
         title: "",
         content: "Progress Saved.",
         type: 'blue'
-    })
+    });
     $("#popStorage").modal("hide");
     $("#divLoader").hide();
     totalAmt = parseFloat(totalAmt) - unformatText($("#lblStorageUnit").text());
 
-    if ($("#chkAddStorage1").is(":checked")) {
-        $("#lblStorageUnit").text(formatMoney(parseFloat(50.00).toFixed(2)));
-        $("#lblMonthly_Storage").text(parseFloat(50.00).toFixed(2));
-        $("#lblProrated_Storage").text(parseFloat(parseFloat(50.00) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+    
 
-        totalAmt = (parseFloat(50.00) + parseFloat(totalAmt)).toFixed(2);
+
+    if ($("#chkAddStorage1").is(":checked")) {
+
+        var storageAmt = $("#chkAddStorage1").attr('data-chargeamt');
+
+        $("#lblStorageUnit").text(formatMoney(parseFloat(storageAmt).toFixed(2)));
+        $("#lblMonthly_Storage").text(parseFloat(storageAmt).toFixed(2));
+        $("#lblProrated_Storage").text(parseFloat(parseFloat(storageAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+
+        totalAmt = (parseFloat(storageAmt) + parseFloat(totalAmt)).toFixed(2);
 
     } else {
         $("#lblStorageUnit").text(formatMoney(parseFloat(0.00).toFixed(2)));
@@ -4305,6 +4305,12 @@ var getApplicantLists = function () {
             $("#tblApplicantGuarantor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(3)'><i class='fa fa-plus-circle'></i> Add Guarantor</a></label></div></div></div></div>");
 
             setTimeout(function () { $("#divLoader").hide(); }, 3000);
+
+          
+            if (response.model.length == 1) {
+                $("#divFinalcoappemail").addClass("hidden");
+            }
+
         }
     });
 }
@@ -4323,7 +4329,7 @@ var addAppFess = function (appFees) {
 var goToEditApplicant = function (aid) {
 
     if (aid != null) {
-
+        //sacxhis
         $("#hndApplicantID").val(aid);
         var model = { id: aid,FromAcc:0 };
         $.ajax({
@@ -5733,6 +5739,7 @@ var getApplicantHistoryList = function () {
                 $("#tblAHR>tbody").append(html);
                 $("#prevadd>tbody").append(summAdd);
             });
+            
         }
     });
 };
