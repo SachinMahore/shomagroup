@@ -1559,6 +1559,7 @@ var goToStep = function (stepid, id) {
                 });
                 return;
             } else {
+                SaveUpdateStep(15);
                 $("#subMenu").removeClass("hidden");
                   SaveUpdateStep(15);
                     $("#step2").addClass("hidden");
@@ -6659,10 +6660,15 @@ var onFocusApplyNow = function () {
         });
     }).focusout(function () {
         var idnumber = $(this).val();
+        if (idnumber.length < 4) {
+            alert("ID Number should be greater then 4 digit");
+            return;
+        }
         if (idnumber.length > 4) {
             saveupdateIDNumber(idnumber);
             $(this).val(("*".repeat(idnumber.length - 4) + idnumber.substr(idnumber.length - 4, 4)));
         }
+       
         });
 
     $("#txtPassportNum").focusin(function () {

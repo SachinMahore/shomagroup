@@ -30,27 +30,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_Applicant">
-      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Applicant">
-        <MappingFragment StoreEntitySet="tbl_Applicant">
-          <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-          <ScalarProperty Name="Gender" ColumnName="Gender" />
-          <ScalarProperty Name="Phone" ColumnName="Phone" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="Relationship" ColumnName="Relationship" />
-          <ScalarProperty Name="MoveInPercentage" ColumnName="MoveInPercentage" />
-          <ScalarProperty Name="MoveInCharge" ColumnName="MoveInCharge" />
-          <ScalarProperty Name="MonthlyPercentage" ColumnName="MonthlyPercentage" />
-          <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
-          <ScalarProperty Name="OtherGender" ColumnName="OtherGender" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_ApplicantHistory">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ApplicantHistory">
         <MappingFragment StoreEntitySet="tbl_ApplicantHistory">
@@ -1592,6 +1571,28 @@
           <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
           <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
           <ScalarProperty Name="HEIID" ColumnName="HEIID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Applicant">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Applicant">
+        <MappingFragment StoreEntitySet="tbl_Applicant">
+          <ScalarProperty Name="Paid" ColumnName="Paid" />
+          <ScalarProperty Name="OtherGender" ColumnName="OtherGender" />
+          <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
+          <ScalarProperty Name="MonthlyPercentage" ColumnName="MonthlyPercentage" />
+          <ScalarProperty Name="MoveInCharge" ColumnName="MoveInCharge" />
+          <ScalarProperty Name="MoveInPercentage" ColumnName="MoveInPercentage" />
+          <ScalarProperty Name="Relationship" ColumnName="Relationship" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
