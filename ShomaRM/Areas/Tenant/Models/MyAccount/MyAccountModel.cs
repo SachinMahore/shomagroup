@@ -5,6 +5,7 @@ using System.Web;
 using ShomaRM.Models;
 using ShomaRM.Data;
 using System.IO;
+using System.Drawing;
 
 namespace ShomaRM.Areas.Tenant.Models
 {
@@ -496,12 +497,14 @@ namespace ShomaRM.Areas.Tenant.Models
             db.Dispose();
             return msg;
         }
+        
 
+        
         public MyAccountModel UploadProfile(HttpPostedFileBase fileBaseUpload, MyAccountModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             MyAccountModel profilePic = new MyAccountModel();
-
+            
             string filePath = "";
             string fileName = "";
             string sysFileName = "";
