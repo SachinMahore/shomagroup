@@ -77,6 +77,7 @@
     <Property Name="MonthlyPercentage" Type="decimal" Precision="18" Scale="2" />
     <Property Name="MonthlyPayment" Type="money" />
     <Property Name="OtherGender" Type="varchar" MaxLength="100" />
+    <Property Name="Paid" Type="int" />
   </EntityType>
   <EntityType Name="tbl_ApplicantHistory">
     <Key>
