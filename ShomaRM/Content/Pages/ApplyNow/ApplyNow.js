@@ -1388,7 +1388,7 @@ var goToStep = function (stepid, id) {
                         } else {
                             $("#summEmployer").text($("#txtEmployerName").val() + ", " + $("#txtofficeAddress1").val() + ", " + ((!$("#txtofficeAddress2").val()) ? "" : ", " + $("#txtofficeAddress2").val()) + $("#ddlCityEmployee").val() + ", " + $("#ddlStateEmployee option:selected").text() + " - " + $("#txtZipOffice").val() + ", " + $("#txtCountryOffice option:selected").text());
                             $("#summEstartdate").text($("#txtStartDate").val());
-                            $("#summSalary").text(formatMoney $("#txtAnnualIncome").val()));
+                            $("#summSalary").text(formatMoney( $("#txtAnnualIncome").val()));
                             saveupdateTenantOnline(12);
                             getTenantPetPlaceData();
                             $("#step2").addClass("hidden");
