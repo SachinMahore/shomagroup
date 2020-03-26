@@ -249,9 +249,9 @@ $(document).ready(function () {
             $("#btnpaynow").removeProp("disabled");
             tenantOnlineID = $("#hdnOPId").val();
 
-            //getTenantOnlineList(tenantOnlineID);
-            //getApplicantHistoryList();
-            //getEmployerHistory();
+            getTenantOnlineList(tenantOnlineID);
+            getApplicantHistoryList();
+            getEmployerHistory();
             $("#popApplicantSummary").modal("show");
         }
         else if ($("#chkAgreeSummarry").is(":not(:checked)")) {
