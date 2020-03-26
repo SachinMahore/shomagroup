@@ -82,6 +82,7 @@
           <Property Name="MonthlyPercentage" Type="decimal" Precision="18" Scale="2" />
           <Property Name="MonthlyPayment" Type="money" />
           <Property Name="OtherGender" Type="varchar" MaxLength="100" />
+          <Property Name="Paid" Type="int" />
         </EntityType>
         <EntityType Name="tbl_ApplicantHistory">
           <Key>
@@ -2879,27 +2880,6 @@
           <Property Name="Fees" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="DurationID" Type="Int64" />
         </EntityType>
-        <EntityType Name="tbl_Applicant">
-          <Key>
-            <PropertyRef Name="ApplicantID" />
-          </Key>
-          <Property Name="ApplicantID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
-          <Property Name="Gender" Type="Int32" />
-          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="TenantID" Type="Int64" />
-          <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Relationship" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MoveInPercentage" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="MoveInCharge" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="MonthlyPercentage" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="MonthlyPayment" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="OtherGender" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_Applicant" ToRole="tbl_ApplyNow" />
-        </EntityType>
         <EntityType Name="tbl_ApplicantHistory">
           <Key>
             <PropertyRef Name="AHID" />
@@ -4285,7 +4265,6 @@
           <EntitySet Name="tbl_Advertiser" EntityType="Self.tbl_Advertiser" />
           <EntitySet Name="tbl_Amenities" EntityType="Self.tbl_Amenities" />
           <EntitySet Name="tbl_AmenityPriceRange" EntityType="Self.tbl_AmenityPriceRange" />
-          <EntitySet Name="tbl_Applicant" EntityType="Self.tbl_Applicant" />
           <EntitySet Name="tbl_ApplicantHistory" EntityType="Self.tbl_ApplicantHistory" />
           <EntitySet Name="tbl_BankAccount" EntityType="Self.tbl_BankAccount" />
           <EntitySet Name="tbl_Bill" EntityType="Self.tbl_Bill" />
@@ -4645,10 +4624,6 @@
           <EntitySet Name="tbl_TenantInfo" EntityType="ShomaRMEntitiesModel.tbl_TenantInfo" />
           <EntitySet Name="tbl_ApplyNow" EntityType="ShomaRMEntitiesModel.tbl_ApplyNow" />
           <EntitySet Name="tbl_EmployerHistory" EntityType="ShomaRMEntitiesModel.tbl_EmployerHistory" />
-          <AssociationSet Name="FK_tbl_Applicant_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow">
-            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
-            <End Role="tbl_Applicant" EntitySet="tbl_Applicant" />
-          </AssociationSet>
           <AssociationSet Name="FK_tbl_TenantInfo_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow">
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_TenantInfo" EntitySet="tbl_TenantInfo" />
@@ -4676,6 +4651,11 @@
           <AssociationSet Name="FK_tbl_Vehicle_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow">
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_Vehicle" EntitySet="tbl_Vehicle" />
+          </AssociationSet>
+          <EntitySet Name="tbl_Applicant" EntityType="ShomaRMEntitiesModel.tbl_Applicant" />
+          <AssociationSet Name="FK_tbl_Applicant_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow">
+            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
+            <End Role="tbl_Applicant" EntitySet="tbl_Applicant" />
           </AssociationSet>
 
         </EntityContainer>
@@ -5718,7 +5698,6 @@
           <Property Name="PetDNAAmt" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="StepCompleted" Type="Int32" />
           <Property Name="AcceptSummary" Type="Int32" />
-          <NavigationProperty Name="tbl_Applicant" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Applicant" />
           <NavigationProperty Name="tbl_TenantInfo" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantInfo" />
           <NavigationProperty Name="tbl_TenantOnline" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantOnline" />
           <NavigationProperty Name="tbl_TenantParking" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantParking_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantParking" />
@@ -5726,6 +5705,7 @@
           <NavigationProperty Name="tbl_TenantPetPlace" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantPetPlace_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantPetPlace" />
           <NavigationProperty Name="tbl_TenantStorage" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantStorage_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantStorage" />
           <NavigationProperty Name="tbl_Vehicle" Relationship="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Vehicle" />
+          <NavigationProperty Name="tbl_Applicant" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Applicant" />
         </EntityType>
         <EntityType Name="tbl_EmployerHistory">
           <Key>
@@ -5758,18 +5738,6 @@
           <Property Name="TenantId" Type="Int64" />
           <Property Name="TerminationReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="FK_tbl_Applicant_tbl_ApplyNow">
-          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_Applicant" Role="tbl_Applicant" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_ApplyNow">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_Applicant">
-              <PropertyRef Name="TenantID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tbl_TenantInfo_tbl_ApplyNow">
           <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
           <End Type="ShomaRMEntitiesModel.tbl_TenantInfo" Role="tbl_TenantInfo" Multiplicity="*" />
@@ -5854,6 +5822,40 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_Applicant">
+          <Key>
+            <PropertyRef Name="ApplicantID" />
+          </Key>
+          <Property Name="ApplicantID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="Gender" Type="Int32" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TenantID" Type="Int64" />
+          <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Relationship" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoveInPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="MoveInCharge" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MonthlyPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="MonthlyPayment" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="OtherGender" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Paid" Type="Int32" />
+          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_Applicant" ToRole="tbl_ApplyNow" />
+        </EntityType>
+        <Association Name="FK_tbl_Applicant_tbl_ApplyNow">
+          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_Applicant" Role="tbl_Applicant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_Applicant">
+              <PropertyRef Name="TenantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5886,27 +5888,6 @@
                 <ScalarProperty Name="Deposit" ColumnName="Deposit" />
                 <ScalarProperty Name="Fees" ColumnName="Fees" />
                 <ScalarProperty Name="DurationID" ColumnName="DurationID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Applicant">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Applicant">
-              <MappingFragment StoreEntitySet="tbl_Applicant">
-                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Relationship" ColumnName="Relationship" />
-                <ScalarProperty Name="MoveInPercentage" ColumnName="MoveInPercentage" />
-                <ScalarProperty Name="MoveInCharge" ColumnName="MoveInCharge" />
-                <ScalarProperty Name="MonthlyPercentage" ColumnName="MonthlyPercentage" />
-                <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
-                <ScalarProperty Name="OtherGender" ColumnName="OtherGender" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7451,6 +7432,28 @@
                 <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
                 <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
                 <ScalarProperty Name="HEIID" ColumnName="HEIID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Applicant">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Applicant">
+              <MappingFragment StoreEntitySet="tbl_Applicant">
+                <ScalarProperty Name="Paid" ColumnName="Paid" />
+                <ScalarProperty Name="OtherGender" ColumnName="OtherGender" />
+                <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
+                <ScalarProperty Name="MonthlyPercentage" ColumnName="MonthlyPercentage" />
+                <ScalarProperty Name="MoveInCharge" ColumnName="MoveInCharge" />
+                <ScalarProperty Name="MoveInPercentage" ColumnName="MoveInPercentage" />
+                <ScalarProperty Name="Relationship" ColumnName="Relationship" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

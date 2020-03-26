@@ -31,6 +31,7 @@ namespace ShomaRM.Areas.Tenant.Models
         public string GenderString { get; set; }
         public int StepCompleted { get; set; }
         public long ProspectID { get; set; }
+        public Nullable<int> Paid { get; set; }
 
         public string SaveUpdateApplicant(ApplicantModel model)
         {
@@ -58,7 +59,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     Gender = model.Gender,
                     Type = model.Type,
                     Relationship = model.Relationship,
-                    OtherGender = model.OtherGender
+                    OtherGender = model.OtherGender,
+                    Paid=0,
                 };
                 if (model.Type == "Primary Applicant")
                 {
@@ -187,7 +189,9 @@ namespace ShomaRM.Areas.Tenant.Models
                     RelationshipString = Rel,
                     DateOfBirth = ap.DateOfBirth,
                     DateOfBirthTxt = dobDateTime == null ? "" : dobDateTime.Value.ToString("MM/dd/yyyy"),
-                    GenderString = ap.Gender == 1 ? "Male" : ap.Gender == 2 ? "Female" : ap.Gender == 3 ? "Other" : ""
+                    GenderString = ap.Gender == 1 ? "Male" : ap.Gender == 2 ? "Female" : ap.Gender == 3 ? "Other" : "",
+                    Paid=ap.Paid==null?0:ap.Paid
+
                 });
             }
             return lstProp;
