@@ -769,5 +769,18 @@ namespace ShomaRM.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+               
+        public JsonResult SaveUpdateStep(long ID, int StepCompleted)
+        {
+            try
+            {
+                return Json(new { result = new ApplyNowModel().SaveUpdateStep(ID, StepCompleted) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+            
+        }
     }
 }

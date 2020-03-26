@@ -13,6 +13,7 @@
 <input type="hidden" id="hndHistory" value="0" />
 <input type="hidden" id="hndLeaseTermID" value="@Model.LeaseTermID" />
 <input type="hidden" id="hdnEmployerHistory" value="0" />
+<input type="hidden" id="hdnStepCompleted" value="@(Model.StepCompleted==0?1:Model.StepCompleted)" />
 
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
@@ -4364,16 +4365,11 @@
                  $("#chkAgreeSummarry").iCheck('check');
 
             }
-
-            if (('@Model.EnvelopeID') !="") {
+            @*if (('@Model.EnvelopeID') !="") {
                 $("#btnAddPet").attr("disabled", true);
                 $("#btnleaseDownl").removeAttr("disabled");
-                //$("#btnleaseDownl").attr('href', '/Content/assets/img/Document/' + @Model.EnvelopeID+ '.pdf');
-                //$("#btnleaseDownl").attr('download', 'LeaseDocument_' + @Model.EnvelopeID+ '.pdf');
-                //$("#btnleaseDownl").attr('target', '_parent');
                 goToStep(16, 16);
                 $("#btnDownloadLeaseDocument").css("background-color", "#B4ADA5").attr("disabled", "disabled");
-                //$("#lblsignin").removeClass("hidden");
                 $("#as2").removeAttr("onclick")
                 $("#as2").attr("onclick", "goToStep(2,2)");
                 $("#as3").removeAttr("onclick")
@@ -4391,16 +4387,13 @@
                 $("#as4").attr("onclick", "goToStep(5,5)");
                 $("#as5").removeAttr("onclick")
                 $("#as5").attr("onclick", "goToStep(6,6)");
-
                 if (@Model.IsRentalPolicy== "1" && @Model.IsRentalQualification== "1") {
                  goToStep(7, 7);
                  $("#chkAgreeTermsPolicy").iCheck('check');
                  } else {
                      goToStep(4, 4);
                  }
-            }
-
-
+            }*@
             $("#getting-startedTimeRemainingClock").removeClass("hidden");
             $("#divstep3save").addClass("hidden");
             $("#divstep3").removeClass("hidden");
@@ -4503,11 +4496,6 @@
                 $("#" + cont).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: color, strokeColor: color }).trigger('alwaysOn.maphilight');
             }
         });
-        //$('.Uarea').addClass('active_unavil').data('maphilight', { alwaysOn: true, fillColor: 'FF0000', strokeColor: 'FF0000', }).trigger('alwaysOn.maphilight');
-        //$('.UAarea').addClass('active_unavil').data('maphilight', { alwaysOn: true, fillColor: '006400', strokeColor: '006400',}).trigger('alwaysOn.maphilight');
-        //$('.UYarea').addClass('active_unavil').data('maphilight', { alwaysOn: true, fillColor: 'ffff00', strokeColor: 'ffff00', }).trigger('alwaysOn.maphilight');
-        //$('hndsummaryDesireMoveIn').val('');
-
     });
     var modalPetPolicy = document.getElementById("modalPetPolicy");
 

@@ -94,6 +94,7 @@ namespace ShomaRM.Models
         public int FloorID { get; set; }
         public Nullable<decimal> PetDNAAmt { get; set; }
         public int AcceptSummary { get; set; }
+        public int StepCompleted { get; set; }
 
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
         string message = "";
@@ -156,6 +157,7 @@ namespace ShomaRM.Models
                     UserId = Uid,
                     MoveInDate = model.MoveInDate,
                     LeaseTerm = model.LeaseTerm,
+                    StepCompleted=4
                 };
 
                 db.tbl_ApplyNow.Add(saveOnlineProspect);
@@ -259,6 +261,13 @@ namespace ShomaRM.Models
             if (model.ID != 0)
             {
                 var onlineProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ID).FirstOrDefault();
+                int stepcomp = 0;
+                stepcomp = onlineProspectData.StepCompleted ?? 0;
+                if (stepcomp < model.StepCompleted)
+                {
+                    stepcomp = model.StepCompleted;
+                }
+
                 if (onlineProspectData != null)
                 {
                     onlineProspectData.ParkingAmt = model.ParkingAmt;
@@ -279,10 +288,9 @@ namespace ShomaRM.Models
                     onlineProspectData.AdministrationFee = model.AdminFees;
                     onlineProspectData.LeaseTerm = model.LeaseTerm;
                     onlineProspectData.PetDNAAmt = model.PetDNAAmt;
+                    onlineProspectData.StepCompleted = stepcomp;
                     db.SaveChanges();
                 }
-                
-                
             }
             msg = model.ID.ToString() + "|Quote Updated Successfully";
             db.Dispose();
@@ -327,11 +335,20 @@ namespace ShomaRM.Models
                         new TwilioService().SMS(phonenumber, message);
                     }
                 }
+
+                int stepcomp = 0;
+                stepcomp = onlineProspectData.StepCompleted ?? 0;
+                if(stepcomp<model.StepCompleted)
+                {
+                    stepcomp = model.StepCompleted;
+                }
+
+
                 if (onlineProspectData != null)
                 {
                     onlineProspectData.IsRentalPolicy = model.IsRentalPolicy;
                     onlineProspectData.IsRentalQualification = model.IsRentalQualification;
-
+                    onlineProspectData.StepCompleted = stepcomp;
                     db.SaveChanges();
                 }
             }
@@ -946,8 +963,6 @@ namespace ShomaRM.Models
 
                 }
             }
-
-
             if (model.DocID == 0)
             {
                 var saveDocumentVerification = new tbl_DocumentVerification()

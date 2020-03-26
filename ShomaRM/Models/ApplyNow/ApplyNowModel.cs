@@ -374,5 +374,24 @@ namespace ShomaRM.Models
             db.Dispose();
             return IsEmailExist;
         }
+        public string  SaveUpdateStep(long ID, int StepCompleted)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            var onlineProspectData = db.tbl_ApplyNow.Where(p => p.ID == ID).FirstOrDefault();
+            int stepcomp = 0;
+            stepcomp = onlineProspectData.StepCompleted ?? 0;
+            if (stepcomp < StepCompleted)
+            {
+                stepcomp = StepCompleted;
+            }
+
+            if (onlineProspectData != null)
+            {
+                onlineProspectData.StepCompleted = stepcomp;
+                db.SaveChanges();
+            }
+            return "1";
+        }
     }
 }

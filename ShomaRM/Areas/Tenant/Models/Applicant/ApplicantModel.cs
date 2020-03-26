@@ -29,6 +29,8 @@ namespace ShomaRM.Areas.Tenant.Models
         public string OtherGender { get; set; }
         public string RelationshipString { get; set; }
         public string GenderString { get; set; }
+        public int StepCompleted { get; set; }
+        public long ProspectID { get; set; }
 
         public string SaveUpdateApplicant(ApplicantModel model)
         {
@@ -255,14 +257,17 @@ namespace ShomaRM.Areas.Tenant.Models
             return msg;
         }
 
-
-
         public string SaveUpdatePaymentResponsibility(List<ApplicantModel> model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
+
+            long prospectID = 0;
+            int stepcompModel = 0;
             foreach (ApplicantModel item in model)
             {
+                prospectID = item.ProspectID;
+                stepcompModel = item.StepCompleted;
                 if (item.ApplicantID == 0)
                 {
                     var saveResponsibility = new tbl_Applicant()
@@ -283,7 +288,6 @@ namespace ShomaRM.Areas.Tenant.Models
                     var getAppldata = db.tbl_Applicant.Where(p => p.ApplicantID == item.ApplicantID).FirstOrDefault();
                     if (getAppldata != null)
                     {
-
                         getAppldata.MoveInPercentage = item.MoveInPercentage;
                         getAppldata.MoveInCharge = item.MoveInCharge;
                         getAppldata.MonthlyPercentage = item.MonthlyPercentage;
@@ -295,10 +299,21 @@ namespace ShomaRM.Areas.Tenant.Models
                 }
             }
 
+            var applyNow = db.tbl_ApplyNow.Where(p => p.ID == prospectID).FirstOrDefault();
+
+            if(applyNow!=null)
+            {
+                int stepcomp = 0;
+                stepcomp = applyNow.StepCompleted ?? 0;
+                if (stepcomp < stepcompModel)
+                {
+                    stepcomp = stepcompModel;
+                    db.SaveChanges();
+                }
+            }
+
             db.Dispose();
             return msg;
-
-
         }
     }
 }

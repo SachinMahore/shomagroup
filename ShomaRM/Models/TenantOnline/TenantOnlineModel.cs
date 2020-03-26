@@ -126,7 +126,7 @@ namespace ShomaRM.Models
         public string OfficeCountryString { get; set; }
         public string EmergencyCountryString { get; set; }
         public string EmergencyStateHomeString { get; set; }
-
+        public int StepCompleted { get; set; }
         public string SaveHavePet(long id, bool PetValue)
         {
             string msg = "";
@@ -222,7 +222,7 @@ namespace ShomaRM.Models
 
                 lstpr.EmergencyCountry = "1";
                 lstpr.EmergencyStateHome = 0;
-
+                lstpr.StepCompleted = 1;
                 foreach (DataRow dr in dtTable.Rows)
                 {
                     DateTime? dateOfBirth = null;
@@ -471,6 +471,7 @@ namespace ShomaRM.Models
                     int emergencyStateHomeTemp = lstpr.EmergencyStateHome != null ? Convert.ToInt32(lstpr.EmergencyStateHome) : 0;
                     var EmergencyStateHomeVar = db.tbl_State.Where(co => co.ID == emergencyStateHomeTemp).FirstOrDefault();
                     lstpr.EmergencyStateHomeString = EmergencyStateHomeVar != null ? EmergencyStateHomeVar.StateName : "";
+                    lstpr.StepCompleted= Convert.ToInt32(dr["StepCompleted"].ToString());
                 }
                 db.Dispose();
                 return lstpr;
@@ -510,10 +511,10 @@ namespace ShomaRM.Models
 
             if (model.ProspectID != 0)
             {
+                var applyNow= db.tbl_ApplyNow.Where(p => p.ID == model.ProspectID).FirstOrDefault();
                 var getAppldata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID).FirstOrDefault();
                 if (getAppldata != null)
                 {
-
                     getAppldata.IsInternational = model.IsInternational;
                     getAppldata.IsAdditionalRHistory = model.IsAdditionalRHistory;
                     getAppldata.FirstName = model.FirstName;
@@ -529,7 +530,7 @@ namespace ShomaRM.Models
                     getAppldata.DateExpire = model.DateExpire;
                     getAppldata.IDType = model.IDType;
                     getAppldata.State = model.State;
-                   // getAppldata.IDNumber = model.IDNumber;
+                    // getAppldata.IDNumber = model.IDNumber;
                     getAppldata.Country = model.Country;
                     getAppldata.HomeAddress1 = model.HomeAddress1;
                     getAppldata.HomeAddress2 = model.HomeAddress2;
@@ -545,7 +546,7 @@ namespace ShomaRM.Models
                     getAppldata.MonthlyPayment = model.MonthlyPayment;
                     getAppldata.Reason = model.Reason;
 
-                   
+
                     getAppldata.EmployerName = model.EmployerName;
                     getAppldata.JobTitle = model.JobTitle;
                     getAppldata.JobType = model.JobType;
@@ -576,7 +577,7 @@ namespace ShomaRM.Models
                     getAppldata.EmergencyZipHome = model.EmergencyZipHome;
                     getAppldata.CreatedDate = DateTime.Now.Date;
                     getAppldata.OtherGender = model.OtherGender;
-                   // getAppldata.SSN = model.SSN;
+                    // getAppldata.SSN = model.SSN;
                     getAppldata.TaxReturn = model.TaxReturn;
                     getAppldata.TaxReturn2 = model.TaxReturn2;
                     getAppldata.TaxReturn3 = model.TaxReturn3;
@@ -588,8 +589,20 @@ namespace ShomaRM.Models
                     getAppldata.PassportDocumentOriginalFile = model.UploadOriginalPassportName;
                     getAppldata.IdentityDocumentOriginalFile = model.UploadOriginalIdentityName;
                     getAppldata.IsPaystub = model.IsPaystub;
+                    db.SaveChanges();
+
+                    if (applyNow != null)
+                    {
+                        int stepcomp = 0;
+                        stepcomp = applyNow.StepCompleted ?? 0;
+                        if (stepcomp < model.StepCompleted)
+                        {
+                            stepcomp = model.StepCompleted;
+                        }
+                        applyNow.StepCompleted = stepcomp;
+                        db.SaveChanges();
+                    }
                 }
-                db.SaveChanges();
 
                 var saveApplicantGender = db.tbl_Applicant.Where(p => p.Email == model.Email).FirstOrDefault();
                 if (saveApplicantGender != null)
