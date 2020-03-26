@@ -2264,9 +2264,13 @@ var SaveOnlineProspect = function () {
         if (password.length < 8) {
             msg += "Password should have atleast 8 digits long</br>";
         }
+        if (confirmPassword.length < 8) {
+            msg += "Confirm Password should have atleast 8 digits long</br>";
+        }
         if (password != confirmPassword) {
             msg += "Password and Confirm Password must be the same</br>";
         }
+       
     }
 
     if (msg != "") {
@@ -2274,7 +2278,7 @@ var SaveOnlineProspect = function () {
             title: "",
             content: msg,
             type: 'red'
-        })
+        });
         $("#divLoader").hide();
         return;
     }
@@ -4074,6 +4078,7 @@ var saveupdateApplicant = function () {
 }
 var totpaid = 0;
 var getApplicantLists = function () {
+    $("#divLoader").show();
     var model = {
 
         TenantID: $("#hdnOPId").val(),
@@ -4133,7 +4138,7 @@ var getApplicantLists = function () {
                         "</div >" +
                         "<div class='input-group input-group-btn'>" +
                         "<button class='btn btn-primary search pull-left' type='button'><i class='fa fa-dollar'></i></button>" +
-                        "<input type='text' class='form-control form-control-small' id='txtpayamt" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px; text-align:right;' value='" + parseFloat(elementValue.MoveInCharge).toFixed(2) + "'/>" +
+                        "<input type='text' class='form-control form-control-small' id='txtpayamt" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px; text-align:right;' value='" + parseFloat($("#lbtotdueatmov6").text()).toFixed(2) + "'/>" +
                         "</div ></td>" +
                         "<td style='width:30%;'>" +
                         "<div class='input-group input-group-btn'>" +
@@ -4142,7 +4147,7 @@ var getApplicantLists = function () {
                         "</div >" +
                         "<div class='input-group input-group-btn'>" +
                         "<button class='btn btn-primary search pull-left' type='button'><i class='fa fa-dollar'></i></button>" +
-                        "<input type='text' class='form-control form-control-small' id='txtpayamtMo" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px; text-align:right;' value='" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "'/>" +
+                        "<input type='text' class='form-control form-control-small' id='txtpayamtMo" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px; text-align:right;' value='" + parseFloat($("#lblRFPTotalMonthlyPayment").text()).toFixed(2) + "'/>" +
                         "</div >" +
                         "</td></tr>";
                 }
@@ -4184,10 +4189,11 @@ var getApplicantLists = function () {
 
                 if (elementValue.Type == "Primary Applicant") {
                     //console.log($("#txtpayper" + elementValue.ApplicantID).val());
-                    //console.log($("#txtpayperMo" + elementValue.ApplicantID).val());
+                   // console.log($("#txtpayperMo" + elementValue.ApplicantID).val());
                     if ($("#txtpayper" + elementValue.ApplicantID).val() == 0) {
                         $("#txtpayper" + elementValue.ApplicantID).val(100);
                         checkPercentage();
+                        
                     }
                     if ($("#txtpayperMo" + elementValue.ApplicantID).val() == 0) {
                         $("#txtpayperMo" + elementValue.ApplicantID).val(100);
@@ -4196,12 +4202,14 @@ var getApplicantLists = function () {
                 }
 
                 function checkPercentage() {
+
+                    
                     var chargesPecentage = $("#txtpayper" + elementValue.ApplicantID).val();
 
                     var dueatmovein = unformatText($("#lbtotdueatmov6").text());
-                    //console.log("Hi");
+                   
 
-                    //console.log("DM:" + dueatmovein);
+                   //console.log("DM:" + dueatmovein);
 
                     var perCharges = ((chargesPecentage * parseFloat(dueatmovein)) / 100);
                     $("#txtpayamt" + elementValue.ApplicantID).val(perCharges.toFixed(2));
@@ -4295,10 +4303,14 @@ var getApplicantLists = function () {
             $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
             $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
             $("#tblApplicantGuarantor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(3)'><i class='fa fa-plus-circle'></i> Add Guarantor</a></label></div></div></div></div>");
+
+            setTimeout(function () { $("#divLoader").hide(); }, 3000);
+
           
             if (response.model.length == 1) {
                 $("#divFinalcoappemail").addClass("hidden");
             }
+
         }
     });
 }
