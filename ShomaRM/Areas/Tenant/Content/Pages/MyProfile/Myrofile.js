@@ -28,24 +28,60 @@
        
  
     document.getElementById('fileUploadVehicleRegistation').onchange = function () {
-        uploadVehicleCertificatepop();
+        var fileUploadVehicleRegBool = restrictFileUpload($(this).val());
+        if (fileUploadVehicleRegBool == true) {
+            uploadVehicleCertificatepop();
+        }
+        else {
+            document.getElementById('fileUploadVehicleRegistation').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     document.getElementById('pet-picture').onchange = function () {
-        uploadPetPhoto();
+        var fileUploadPetPictureBool = restrictFileUpload($(this).val());
+        if (fileUploadPetPictureBool == true) {
+            uploadPetPhoto();
+        }
+        else {
+            document.getElementById('pet-picture').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     document.getElementById('filePetVaccinationCertificate').onchange = function () {
-        uploadPetVaccination();
+        var fileUploadPetVaccinationBool = restrictFileUpload($(this).val());
+        if (fileUploadPetVaccinationBool == true) {
+            uploadPetVaccination();
+        }
+        else {
+            document.getElementById('filePetVaccinationCertificate').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
-    
     document.getElementById('ProfilePic').onchange = function () {
-        $.alert({
-            title: "",
-            content: "File uploaded Successfully.",
-            type: 'blue'
-        });
-    };
-    document.getElementById('ProfilePic').onchange = function () {
-        uploadProfilePicture();
+        var fileUploadProfilePicBool = restrictFileUpload($(this).val());
+        if (fileUploadProfilePicBool == true) {
+            uploadProfilePicture();
+        }
+        else {
+            document.getElementById('ProfilePic').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
 
    
@@ -1126,10 +1162,10 @@ var getPetLists = function () {
                 //html += "<td>" + elementValue.Weight + "</td>";
                 //html += "<td>" + elementValue.VetsName + "</td>";
                 // html += "<td>";
-                // html += "<a style='background: transparent; margin-right:10px' href='JavaScript:Void(0);' id='updatePetInfo' onclick='getPetInfo(" + elementValue.PetID + ")'><span class='fa fa-edit' ></span></a>";
+                // html += "<a style='background: transparent; margin-right:10px' href='javascript:void(0);' id='updatePetInfo' onclick='getPetInfo(" + elementValue.PetID + ")'><span class='fa fa-edit' ></span></a>";
                 //html += "<td> <a href='javascript:void(0);' id='updatePetInfo' onclick='getPetInfo(" + elementValue.PetID + ")'><i class='fa fa-edit'></i></a> </td>";
                 //html += "<td> <a href='javascript:void(0);' onclick='delPet(" + elementValue.PetID + ")' > <i class='fa fa-trash'></i></a > </td>";
-                // html += "<a style='background: transparent; margin-right:10px' href='JavaScript:Void(0);' onclick='delPet(" + elementValue.PetID + ")'><span class='fa fa-trash' ></span></a>";
+                // html += "<a style='background: transparent; margin-right:10px' href='javascript:void(0);' onclick='delPet(" + elementValue.PetID + ")'><span class='fa fa-trash' ></span></a>";
                 //  html += "<a href='../../Content/assets/img/pet/" + elementValue.PetVaccinationCertificate + "' download=" + elementValue.PetVaccinationCertificate + " target='_blank'><span class='fa fa-download'></span></a>";
                 html += "</td >";
                 html += "</tr>";

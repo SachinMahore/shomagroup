@@ -508,6 +508,55 @@ namespace ShomaRM.Models.Bluemoon
             return null;
         }
 
+        /// <summary>
+        /// Get Esignature Data
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <returns></returns>
+
+        public async Task<LeaseResponseModel> GetEsignnatureDetails(string sessionId,string Esignatureid)
+        {
+            LeaseResponseModel esignatureDetailsModel = new LeaseResponseModel();
+            var body = CreateXMLDocument(@"<ns1:GetEsignatureData>
+                                                        <SessionId>" + sessionId + @"</SessionId>
+                                                        <EsignatureId>" + Esignatureid + @"</EsignatureId>
+                                                     </ns1:GetEsignatureData>");
+
+            var result = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#GetEsignatureData", body);
+            if (result != null)
+            {
+                // for attribute
+                var keys = result
+                 .Descendants("Key")
+                 .ToList();
+
+                var emails = result
+        .Descendants("Email")
+        .ToList();
+
+                var DateSigned = result
+       .Descendants("DateSigned")
+       .ToList();
+
+                esignatureDetailsModel.EsignatureId = Esignatureid;
+                int i = 0;
+                  foreach (var item in keys)
+                {
+                    esignatureDetailsModel.EsigneResidents.Add(new KeyModel
+                    {
+                        Key = item.Value.ToString(), // unique key for user // url will be e.g https://www-new.bluemoonforms.com/esignature/{key}
+                        DateSigned = Convert.ToString(DateSigned[i].Value), // date signed will be blank if resident not signed 
+                        Email = Convert.ToString(emails[i].Value),
+
+                    });
+                    ;
+                    i++;
+                }
+            }
+
+            return esignatureDetailsModel;
+        }
+
 
         public async Task<LeaseResponseModel> RequestEsignature(string sessionId, string leaseId, List<EsignatureParty> esignatureParties)
         {

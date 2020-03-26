@@ -99,12 +99,12 @@ namespace ShomaRM.Areas.Tenant.Models
                     TenantID = pl.TenantID,
                     PetType = pl.PetType,
                     Breed = pl.Breed,
-                    Weight = pl.Weight == null ? "" : pl.Weight,
-                    Age = pl.Age == null ? "" : pl.Age,
+                    Weight = string.IsNullOrWhiteSpace(pl.Weight) ? "" : pl.Weight,
+                    Age = string.IsNullOrWhiteSpace(pl.Age) ? "" : pl.Age,
                     Photo = pl.Photo,
                     PetVaccinationCertificate = pl.PetVaccinationCert,
                     PetName = pl.PetName,
-                    VetsName = pl.VetsName
+                    VetsName = !string.IsNullOrWhiteSpace(pl.VetsName) ? pl.VetsName : ""
                 });
 
             }

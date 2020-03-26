@@ -46,9 +46,9 @@ namespace ShomaRM.Models
         
         public string Name_On_Card { get; set; }
         public string CardNumber { get; set; }
-        public Nullable<int> CardMonth { get; set; }
-        public Nullable<int> CardYear { get; set; }
-        public Nullable<int> CCVNumber { get; set; }
+        public string CardMonth { get; set; }
+        public string CardYear { get; set; }
+        public string CCVNumber { get; set; }
         public Nullable<long> ProspectId { get; set; }
         public long SUID { get; set; }
         public int Marketsource { get; set; }
@@ -70,7 +70,7 @@ namespace ShomaRM.Models
         public Nullable<decimal> VehicleRegistration { get; set; }
         public Nullable<decimal> Prorated_Rent { get; set; }
         public int LeaseTerm { get; set; }
-
+        public int LeaseTermID { get; set; }
         public Nullable<decimal> MonthlyCharges { get; set; }
         public Nullable<decimal> MoveInCharges { get; set; }
         public Nullable<decimal> PartialMoveInCharges { get; set; }
@@ -93,10 +93,15 @@ namespace ShomaRM.Models
         public string Building { get; set; }
         public int FloorID { get; set; }
         public Nullable<decimal> PetDNAAmt { get; set; }
+        public int AcceptSummary { get; set; }
+        public int StepCompleted { get; set; }
 
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
+
+        public List<CountryListData> CountryList { get; set; }
+        public List<StateListData> StateList { get; set; }
 
         public string SaveOnlineProspect(OnlineProspectModule model)
         {
@@ -152,6 +157,7 @@ namespace ShomaRM.Models
                     UserId = Uid,
                     MoveInDate = model.MoveInDate,
                     LeaseTerm = model.LeaseTerm,
+                    StepCompleted=4
                 };
 
                 db.tbl_ApplyNow.Add(saveOnlineProspect);
@@ -166,9 +172,11 @@ namespace ShomaRM.Models
                     LastName = model.LastName,
                     Phone = model.Phone,
                     Email = model.Email,
-                    DateOfBirth = model.DateofBirth,
+                    //DateOfBirth = model.DateofBirth,
                     Gender = 0,
+                    Relationship="1",
                     Type = "Primary Applicant",
+                    
 
                 };
                 db.tbl_Applicant.Add(saveApplicant);
@@ -176,7 +184,6 @@ namespace ShomaRM.Models
 
                 var getAppldata = new tbl_TenantOnline()
                 {
-
                     ProspectID = model.ID,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
@@ -185,10 +192,20 @@ namespace ShomaRM.Models
                     Mobile = model.Phone,
                     CreatedDate = DateTime.Now,
                     IsInternational = 0,
+                    Gender = 0,
+                    IDType = 0,
+                    State = 0,
+                    Country = "1",
+                    StateHome = 0,
+                    RentOwn = 0,
+                    JobType = 0,
+                    OfficeCountry = "1",
+                    OfficeState = 0,
+                    EmergencyCountry = "1",
+                    EmergencyStateHome = 0
                 };
                 db.tbl_TenantOnline.Add(getAppldata);
                 db.SaveChanges();
-
 
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == model.PropertyId).FirstOrDefault();
                 string reportHTML = "";
@@ -231,7 +248,6 @@ namespace ShomaRM.Models
             db.Dispose();
             return msg;
         }
-
         public string UpdateOnlineProspect(OnlineProspectModule model)
         {
             string msg = "";
@@ -245,6 +261,13 @@ namespace ShomaRM.Models
             if (model.ID != 0)
             {
                 var onlineProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ID).FirstOrDefault();
+                int stepcomp = 0;
+                stepcomp = onlineProspectData.StepCompleted ?? 0;
+                if (stepcomp < model.StepCompleted)
+                {
+                    stepcomp = model.StepCompleted;
+                }
+
                 if (onlineProspectData != null)
                 {
                     onlineProspectData.ParkingAmt = model.ParkingAmt;
@@ -265,10 +288,9 @@ namespace ShomaRM.Models
                     onlineProspectData.AdministrationFee = model.AdminFees;
                     onlineProspectData.LeaseTerm = model.LeaseTerm;
                     onlineProspectData.PetDNAAmt = model.PetDNAAmt;
+                    onlineProspectData.StepCompleted = stepcomp;
                     db.SaveChanges();
                 }
-                
-                
             }
             msg = model.ID.ToString() + "|Quote Updated Successfully";
             db.Dispose();
@@ -296,8 +318,8 @@ namespace ShomaRM.Models
                     string phonenumber = onlineProspectData.Phone;
                     if (model != null)
                     {
-                        reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
-                        reportHTML = reportHTML.Replace("[%EmailBody%]", "  <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We noticed you begun your application process.  Please note for your convenience, the application remains active for 48 hours; however, if the application is  not completed and submitted within 48 hours, you will need to start over.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;   If you have any questions or need assistance in completing the application, please do not hesitate to call us.  We are here to assist you!  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;We know you will love your new home and are excited to have you reside here. </p>");
+                        reportHTML = reportHTML.Replace("[%EmailHeader%]", "Open Application");
+                        reportHTML = reportHTML.Replace("[%EmailBody%]", "  <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We noticed you begun your application process.  Please note for your convenience, the application remains ctive until three days after you initially started the application; however, if the application is not completed and submitted before midnight of the third day, you will need to start over.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;   If you have any questions or need assistance in completing the application, please do not hesitate to call us.  We are here to assist you!  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;We know you will love your new home and are excited to have you reside here. </p>");
 
                         reportHTML = reportHTML.Replace("[%TenantName%]", model.FirstName + " " + model.LastName);
 
@@ -307,17 +329,26 @@ namespace ShomaRM.Models
 
                     }
                     string body = reportHTML;
-                    new EmailSendModel().SendEmail(model.Email, "Application Submission", body);
+                    new EmailSendModel().SendEmail(model.Email, "Open Application", body);
                     if (SendMessage == "yes")
                     {
                         new TwilioService().SMS(phonenumber, message);
                     }
                 }
+
+                int stepcomp = 0;
+                stepcomp = onlineProspectData.StepCompleted ?? 0;
+                if(stepcomp<model.StepCompleted)
+                {
+                    stepcomp = model.StepCompleted;
+                }
+
+
                 if (onlineProspectData != null)
                 {
                     onlineProspectData.IsRentalPolicy = model.IsRentalPolicy;
                     onlineProspectData.IsRentalQualification = model.IsRentalQualification;
-
+                    onlineProspectData.StepCompleted = stepcomp;
                     db.SaveChanges();
                 }
             }
@@ -366,7 +397,6 @@ namespace ShomaRM.Models
                 throw ex;
             }
         }
-
         public OnlineProspectModule GetProspectData(long Id)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -387,6 +417,10 @@ namespace ShomaRM.Models
             model.FirstName = "";
             model.LastName = "";
             model.PetDNAAmt = 0;
+            model.LeaseTermID = 0;
+            model.CountryList = FillCountryList();
+            model.StateList = FillStateByCountryID(1);
+            model.AcceptSummary = 0;
             if (Id != 0)
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.UserId == Id).FirstOrDefault();
@@ -395,8 +429,8 @@ namespace ShomaRM.Models
                 {
                     var GetPaymentProspectData = db.tbl_OnlinePayment.Where(p => p.ProspectId == GetProspectData.ID).FirstOrDefault();
                     var GetDocumentVerificationData = db.tbl_DocumentVerification.Where(p => p.ProspectusID == GetProspectData.ID).FirstOrDefault();
-                    string encryptedPassword = new EncryptDecrypt().EncryptText(GetProspectData.Password);
-                    string decryptedPassword = new EncryptDecrypt().DecryptText(encryptedPassword);
+                    //string encryptedPassword = new EncryptDecrypt().EncryptText(GetProspectData.Password);
+                    //string decryptedPassword = new EncryptDecrypt().DecryptText(encryptedPassword);
 
                     model.FirstName = GetProspectData.FirstName;
                     model.LastName = GetProspectData.LastName;
@@ -413,7 +447,7 @@ namespace ShomaRM.Models
                     model.PropertyId = GetProspectData.PropertyId;
                     model.ProspectId = GetProspectData.ID;
                     model.TenantID = Convert.ToInt64(GetProspectData.UserId);
-                    model.Password = decryptedPassword;
+                    model.Password = GetProspectData.Password ;
                     model.Marketsource = Convert.ToInt32(GetProspectData.Marketsource);
                     model.CreatedDate = Convert.ToDateTime(GetProspectData.CreatedDate);
                     model.IsRentalQualification = Convert.ToInt32(GetProspectData.IsRentalQualification);
@@ -426,10 +460,12 @@ namespace ShomaRM.Models
                     model.PetDeposit = GetProspectData.PetDeposit;
                     model.FOBAmt = 0;
                     model.EnvelopeID = (!string.IsNullOrWhiteSpace(GetProspectData.EnvelopeID) ? GetProspectData.EnvelopeID : "");
-                    model.LeaseTerm = Convert.ToInt32(GetProspectData.LeaseTerm);
+                    var leaseDet = db.tbl_LeaseTerms.Where(p => p.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
+                    model.LeaseTerm = Convert.ToInt32(leaseDet.LeaseTerms);
                     model.EsignatureID = (!string.IsNullOrWhiteSpace(GetProspectData.EsignatureID) ? GetProspectData.EsignatureID : "");
                     model.PetDNAAmt = GetProspectData.PetDNAAmt;
-
+                    model.LeaseTermID = Convert.ToInt32(GetProspectData.LeaseTerm);
+                    model.AcceptSummary= Convert.ToInt32(GetProspectData.AcceptSummary);
                     DateTime? dateExpire = null;
                     try
                     {
@@ -445,11 +481,17 @@ namespace ShomaRM.Models
 
                     if (GetPaymentProspectData != null)
                     {
+                        //model.Name_On_Card = GetPaymentProspectData.Name_On_Card;
+                        //model.CardNumber = GetPaymentProspectData.CardNumber;
+                        //model.CardMonth = GetPaymentProspectData.CardMonth;
+                        //model.CardYear = GetPaymentProspectData.CardYear;
+                        //model.CCVNumber = GetPaymentProspectData.CCVNumber;
                         model.Name_On_Card = GetPaymentProspectData.Name_On_Card;
-                        model.CardNumber = GetPaymentProspectData.CardNumber;
-                        model.CardMonth = GetPaymentProspectData.CardMonth;
-                        model.CardYear = GetPaymentProspectData.CardYear;
-                        model.CCVNumber = GetPaymentProspectData.CCVNumber;
+                        model.CardNumber = !string.IsNullOrWhiteSpace( GetPaymentProspectData.CardNumber)?new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardNumber) :"";
+                        model.CardMonth = !string.IsNullOrWhiteSpace(GetPaymentProspectData.CardMonth) ? new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardMonth) : "";
+                        model.CardYear = !string.IsNullOrWhiteSpace(GetPaymentProspectData.CardYear) ? new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardYear) : "";
+                        model.CCVNumber = !string.IsNullOrWhiteSpace(GetPaymentProspectData.CCVNumber) ? new EncryptDecrypt().DecryptText(GetPaymentProspectData.CCVNumber) : "";
+
                     }
                     if (GetDocumentVerificationData != null)
                     {
@@ -814,6 +856,79 @@ namespace ShomaRM.Models
             db.Dispose();
             return msg;
         }
+        public List<CountryListData> FillCountryList()
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<CountryListData> lstData = new List<CountryListData>();
+            System.Data.DataTable dtTable = new System.Data.DataTable();
+            try
+            {
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetCountryList";
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    System.Data.Common.DbDataAdapter da = System.Data.Common.DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (System.Data.DataRow dr in dtTable.Rows)
+                {
+                    CountryListData model = new CountryListData();
+                    model.ID = Convert.ToInt64(dr["ID"].ToString());
+                    model.CountryName = dr["CountryName"].ToString();
+                    lstData.Add(model);
+                }
+                db.Dispose();
+                return lstData.ToList();
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
+        public List<StateListData> FillStateByCountryID(long CID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<StateListData> lstData = new List<StateListData>();
+            DataTable dtTable = new DataTable();
+            try
+            {
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_FillStateDropDownListByCountryID";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter param4 = cmd.CreateParameter();
+                    param4.ParameterName = "CID";
+                    param4.Value = CID;
+                    cmd.Parameters.Add(param4);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (System.Data.DataRow dr in dtTable.Rows)
+                {
+                    StateListData model = new StateListData();
+                    model.ID = Convert.ToInt64(dr["ID"].ToString());
+                    model.StateName = dr["StateName"].ToString();
+                    lstData.Add(model);
+                }
+                db.Dispose();
+                return lstData.ToList();
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
     }
 
     public class DocumentVerificationModule
@@ -848,8 +963,6 @@ namespace ShomaRM.Models
 
                 }
             }
-
-
             if (model.DocID == 0)
             {
                 var saveDocumentVerification = new tbl_DocumentVerification()
@@ -875,5 +988,15 @@ namespace ShomaRM.Models
     public class EmailData
     {
         public string AppEmail { get; set; }
+    }
+    public class StateListData
+    {
+        public long ID { get; set; }
+        public string StateName { get; set; }
+    }
+    public class CountryListData
+    {
+        public long ID { get; set; }
+        public string CountryName { get; set; }
     }
 }

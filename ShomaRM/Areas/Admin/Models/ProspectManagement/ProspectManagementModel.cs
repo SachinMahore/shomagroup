@@ -317,7 +317,7 @@ namespace ShomaRM.Areas.Admin.Models
 
                             //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
                             reportHTML = reportHTML.Replace("[%TenantName%]", prospData.FirstName + " " + prospData.LastName);
-                            reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; This is a confirmation email to your appointment with  <b>" + info.FirstName + " " + info.LastName + " </b> Dated on <b>" + model.RequiredDateText + "</b> at office . if you have queries or require any clarifications or any assistance in finding the location  please do not hesitate to contact me on <i>" + info.CellPhone + "</i>, " + info.Email + ". I genuinely appreciate a prompt confirmation from your side. Looking forward to meeting you there. </p>");
+                            reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; This is a confirmation email to your appointment with  <b>" + info.FirstName + " " + info.LastName + " </b> Dated on <b>" + model.RequiredDateText + "</b> at office. If you have queries or require any clarifications or any assistance in finding the location  please do not hesitate to contact me at <i>" + info.CellPhone + "</i>, " + info.Email + ". I genuinely appreciate a prompt confirmation from your side. Looking forward to meeting you there. </p>");
                             reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
 
                             string body = reportHTML;
@@ -356,19 +356,20 @@ namespace ShomaRM.Areas.Admin.Models
                     {
                         var info = db.tbl_Login.Where(p => p.UserID == prospData.AssignAgentId).FirstOrDefault();
 
+
                         string reportHTML = "";
                         string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
                         reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
 
                         //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
                         reportHTML = reportHTML.Replace("[%TenantName%]", prospData.FirstName + " " + prospData.LastName);
-                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Admin was unfortunately not able to make the meeting, please contact us back so we can schedule another tour at your earliest convenience. </p>");
+                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; " + info.FirstName + " " + info.LastName + " was unfortunately not able to make the meeting, please contact us back so we can schedule another tour at your earliest convenience. </p>");
                         reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
 
                         string body = reportHTML;
                         new EmailSendModel().SendEmail(prospData.EmailId, "Your Appointment is Cancelled", body);
 
-                        message = "This is a Cancellation  message for your  shoma appointment . Please check the email for detail.";
+                        message = "This is a cancellation message for your shoma appointment. Please check the email for detail.";
                         if (SendMessage == "yes")
                         {
                             new TwilioService().SMS(phonenumber, message);

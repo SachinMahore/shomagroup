@@ -291,6 +291,7 @@
     <Compile Include="Areas\Tenant\Models\Club\ClubModel.cs" />
     <Compile Include="Areas\Tenant\Models\Club\CommonClubModel.cs" />
     <Compile Include="Areas\Tenant\Models\CommunityActivity\CommunityActivityModel.cs" />
+    <Compile Include="Areas\Tenant\Models\EmployerHistory\EmployerHistoryModel.cs" />
     <Compile Include="Areas\Tenant\Models\Enum\ClubEnum.cs" />
     <Compile Include="Areas\Tenant\Models\Enum\EnumNameFinder.cs" />
     <Compile Include="Areas\Tenant\Models\EventBooking\EventBookingModel.cs" />
@@ -315,6 +316,7 @@
     <Compile Include="Controllers\ApplyNow\CheckListController.cs" />
     <Compile Include="Controllers\ApplyNow\PayLinkController.cs" />
     <Compile Include="Controllers\ApplyNow\ServiceController.cs" />
+    <Compile Include="Controllers\Appointment\AppointmentController.cs" />
     <Compile Include="Controllers\EmbeddedSigningController.cs" />
     <Compile Include="Controllers\Gallery\GalleryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -670,6 +672,7 @@
     <Content Include="Areas\Admin\Content\Pages\Users\UsersList.js" />
     <Content Include="Content\jquery.countdown.js" />
     <Content Include="Content\jquery.countdown.min.js" />
+    <Content Include="Content\jquery.shorten.1.0.js" />
     <Content Include="Content\keyboardcontrols.js" />
     <Content Include="Content\Pages\ApplyNow\ApplyNow.js" />
     <Content Include="Content\Pages\ApplyNow\DocumentVerification.js" />
@@ -897,6 +900,7 @@
     <Content Include="Views\PayLink\PayAmenityCharges.cshtml" />
     <Content Include="Views\PayLink\PayServiceCharges.cshtml" />
     <Content Include="Views\Service\Index.cshtml" />
+    <Content Include="Views\Appointment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -938,11 +942,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53673</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:53680/</IISUrl>
+          <IISUrl>http://localhost:53678/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

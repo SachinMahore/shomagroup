@@ -29,6 +29,9 @@ namespace ShomaRM.Areas.Tenant.Models
         public string OtherGender { get; set; }
         public string RelationshipString { get; set; }
         public string GenderString { get; set; }
+        public int StepCompleted { get; set; }
+        public long ProspectID { get; set; }
+        public Nullable<int> Paid { get; set; }
 
         public string SaveUpdateApplicant(ApplicantModel model)
         {
@@ -56,7 +59,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     Gender = model.Gender,
                     Type = model.Type,
                     Relationship = model.Relationship,
-                    OtherGender = model.OtherGender
+                    OtherGender = model.OtherGender,
+                    Paid=0,
                 };
                 if (model.Type == "Primary Applicant")
                 {
@@ -66,7 +70,6 @@ namespace ShomaRM.Areas.Tenant.Models
                         updateTenantOnline.DateOfBirth = model.DateOfBirth;
                         updateTenantOnline.Gender = model.Gender;
                         updateTenantOnline.OtherGender = model.OtherGender;
-
                         db.SaveChanges();
                     }
                 }
@@ -186,7 +189,9 @@ namespace ShomaRM.Areas.Tenant.Models
                     RelationshipString = Rel,
                     DateOfBirth = ap.DateOfBirth,
                     DateOfBirthTxt = dobDateTime == null ? "" : dobDateTime.Value.ToString("MM/dd/yyyy"),
-                    GenderString = ap.Gender == 1 ? "Male" : ap.Gender == 2 ? "Female" : ap.Gender == 3 ? "Other" : ""
+                    GenderString = ap.Gender == 1 ? "Male" : ap.Gender == 2 ? "Female" : ap.Gender == 3 ? "Other" : "",
+                    Paid=ap.Paid==null?0:ap.Paid
+
                 });
             }
             return lstProp;
@@ -256,14 +261,17 @@ namespace ShomaRM.Areas.Tenant.Models
             return msg;
         }
 
-
-
         public string SaveUpdatePaymentResponsibility(List<ApplicantModel> model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
+
+            long prospectID = 0;
+            int stepcompModel = 0;
             foreach (ApplicantModel item in model)
             {
+                prospectID = item.ProspectID;
+                stepcompModel = item.StepCompleted;
                 if (item.ApplicantID == 0)
                 {
                     var saveResponsibility = new tbl_Applicant()
@@ -284,7 +292,6 @@ namespace ShomaRM.Areas.Tenant.Models
                     var getAppldata = db.tbl_Applicant.Where(p => p.ApplicantID == item.ApplicantID).FirstOrDefault();
                     if (getAppldata != null)
                     {
-
                         getAppldata.MoveInPercentage = item.MoveInPercentage;
                         getAppldata.MoveInCharge = item.MoveInCharge;
                         getAppldata.MonthlyPercentage = item.MonthlyPercentage;
@@ -296,10 +303,21 @@ namespace ShomaRM.Areas.Tenant.Models
                 }
             }
 
+            var applyNow = db.tbl_ApplyNow.Where(p => p.ID == prospectID).FirstOrDefault();
+
+            if(applyNow!=null)
+            {
+                int stepcomp = 0;
+                stepcomp = applyNow.StepCompleted ?? 0;
+                if (stepcomp < stepcompModel)
+                {
+                    stepcomp = stepcompModel;
+                    db.SaveChanges();
+                }
+            }
+
             db.Dispose();
             return msg;
-
-
         }
     }
 }

@@ -29,6 +29,7 @@ namespace ShomaRM.Data
         public Nullable<decimal> MonthlyPercentage { get; set; }
         public Nullable<decimal> MonthlyPayment { get; set; }
         public string OtherGender { get; set; }
+        public Nullable<int> Paid { get; set; }
     
         public virtual tbl_ApplyNow tbl_ApplyNow { get; set; }
     }

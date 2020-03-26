@@ -144,7 +144,18 @@ var goToSubmitServiceRequest = function () {
 
 var uploadAttachFileCommunityActivity = function () {
     document.getElementById('fileCommunityActivity').onchange = function () {
-        attatchFileUpload();
+        var fileUploadCommunityActivityBool = restrictFileUpload($(this).val());
+        if (fileUploadCommunityActivityBool == true) {
+            attatchFileUpload();
+        }
+        else {
+            document.getElementById('fileCommunityActivity').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
 };
 

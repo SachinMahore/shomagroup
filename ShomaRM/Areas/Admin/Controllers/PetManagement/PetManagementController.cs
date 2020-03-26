@@ -78,7 +78,8 @@ namespace ShomaRM.Areas.Admin.Controllers
         {
             try
             {
-                return Json(new { result = 1, totalPetPlaceAmt = model.SaveUpdateTenantPetPlace(model) }, JsonRequestBehavior.AllowGet);
+                string[] petDetails = model.SaveUpdateTenantPetPlace(model).Split('|');
+                return Json(new { result = 1, numOfPet= petDetails[0], totalPetPlaceAmt = petDetails[1], petDNAFees= petDetails[2] }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -107,7 +108,7 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult DeletePetPlacesDetails(int PetPlaceID = 0)
+        public ActionResult DeletePetPlacesDetails(long PetPlaceID = 0)
         {
             try
             {

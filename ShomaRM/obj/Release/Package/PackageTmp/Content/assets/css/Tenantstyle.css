@@ -1540,6 +1540,7 @@ textarea {
     margin-bottom: 20px;
     font-weight: 400;
     font-family: Futura Medium;
+    width:100%;
 }
 
 .Activity-box {
@@ -2186,62 +2187,62 @@ ul.submenupayment {
     color: #C82828;
 }
 
-.text-redcolor1 {
-    font-size: 18px;
-    color: #C82828;
-    float: left;
-    width: 100%;
-}
+    .text-redcolor1 {
+       font-size: 18px;
+       color: #C82828;
+       float: left;
+       width: 100%;
+    }
 
-.text-redcolor2 {
-    font-size: 16px;
-    color: #C82828;
-    line-height: 38px;
-    padding: 0px;
-}
+    .text-redcolor2 {
+       font-size: 16px;
+       color: #C82828;
+       line-height: 38px;
+       padding: 0px;
+    }
 
-.margin10 {
-    margin-bottom: 10px;
-}
+    .margin10 {
+       margin-bottom: 10px;
+    }
 
-.margin-top {
-    margin-top: 30px;
-}
+    .margin-top {
+       margin-top: 30px;
+    }
 
-.addspan {
-    color: #547288;
-    font-weight: 800;
-    font-size: 20px;
-    font-family: HelveticaNeue;
-}
+    .addspan {
+       color: #547288;
+       font-weight: 800;
+       font-size: 20px;
+       font-family: HelveticaNeue;
+    }
 
-.span1 a {
-    color: #547288;
-    font-weight: 800;
-}
+    .span1 a {
+       color: #547288;
+       font-weight: 800;
+    }
 
-.span1 > a:hover {
-    color: #B3ADA6;
-}
+    .span1 > a:hover {
+       color: #B3ADA6;
+    }
 
 
 /*--community-section--css---*/
 
-.calender-box-community {
-    width: 65%;
-    margin: 0 auto;
-    display: table;
-}
+    .calender-box-community {
+       width: 65%;
+       margin: 0 auto;
+       display: table;
+     }
 
-.community-nav {
-    width: auto;
-    margin: 0 auto;
-    display: table;
-}
+    .community-nav {
+       width: auto;
+       margin: 0 auto;
+       display: table;
+    }
 
-.communityname a {
-    color: #000;
-}
+    .communityname a {
+       color: #000;
+    }
 
     .communityname a:hover {
         color: #B3ADA6;
@@ -2249,19 +2250,19 @@ ul.submenupayment {
 
 
 /*the container must be positioned relative:*/
-.custom-select {
-    position: relative;
-    font-family: Arial;
-}
+    .custom-select {
+       position: relative;
+       font-family: Arial;
+     }
 
     .custom-select select {
         display: none; /*hide original SELECT element:*/
-    }
+     }
 
-.select-selected {
-    background-color: #ffffff;
-    font-size: 16px;
-}
+    .select-selected {
+       background-color: #ffffff;
+       font-size: 16px;
+     }
 
     /*style the arrow inside the select element:*/
     .select-selected:after {
@@ -2273,202 +2274,209 @@ ul.submenupayment {
         height: 0;
         border: 6px solid transparent;
         border-color: #000000 transparent transparent transparent;
-    }
+     }
 
     /*point the arrow upwards when the select box is open (active):*/
     .select-selected.select-arrow-active:after {
         border-color: transparent transparent #000 transparent;
         top: 10px;
-    }
+     }
 
 /*style the items (options), including the selected item:*/
-.select-items div, .select-selected {
-    color: #a7a6a6;
-    padding: 8px 16px;
-    border: 1px solid #B3ADA6;
-    cursor: pointer;
-    user-select: none;
-}
+    .select-items div, .select-selected {
+       color: #a7a6a6;
+       padding: 8px 16px;
+       border: 1px solid #B3ADA6;
+       cursor: pointer;
+       user-select: none;
+     }
 
 
 /*style items (options):*/
-.select-items {
-    position: absolute;
-    background-color: white;
-    z-index: 99;
-    font-size: 16px;
-    width: 100%;
-}
+    .select-items {
+       position: absolute;
+       background-color: white;
+       z-index: 99;
+       font-size: 16px;
+       width: 100%;
+    }
 
 /*hide the items when the select box is closed:*/
-.select-hide {
-    display: none;
-}
+    .select-hide {
+       display: none;
+     }
 
-.select-items div:hover, .same-as-selected {
-    background-color: rgba(0, 0, 0, 0.1);
-}
+    .select-items div:hover, .same-as-selected {
+       background-color: rgba(0, 0, 0, 0.1);
+     }
 
-.custom-select {
-    display: inline-block;
-    width: 100%;
-    height: auto;
-    padding: 0.375rem 1.75rem 0.375rem 0.75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #495057;
-    vertical-align: middle;
-    background: none;
-    border: none;
-    border-radius: 0px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    margin: 0px;
-    padding: 0px;
-}
+    .custom-select {
+       display: inline-block;
+       width: 100%;
+       height: auto;
+       padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+       font-size: 1rem;
+       font-weight: 400;
+       line-height: 1.5;
+       color: #495057;
+       vertical-align: middle;
+       background: none;
+       border: none;
+       border-radius: 0px;
+       -webkit-appearance: none;
+       -moz-appearance: none;
+       margin: 0px;
+       padding: 0px;
+     }
 
-span.Required {
-    margin-left: 10px;
-    line-height: 34px;
-    font-size: 16px;
-    color: #ff0000;
-}
+    span.Required {
+       margin-left: 10px;
+       line-height: 34px;
+       font-size: 16px;
+       color: #ff0000;
+    }
 
-.Limitto40 {
-    line-height: 65px;
-    font-size: 16px;
-    color: #ff0000;
-}
+    .Limitto40 {
+       line-height: 65px;
+       font-size: 16px;
+       color: #ff0000;
+    }
 
-button:hover {
-    background-color: #9a9999;
-}
+    button:hover {
+       background-color: #9a9999;
+    }
 
-.Access-text {
-    font-size: 20px;
-    color: #000;
-    margin-left: 30px;
-}
+    .Access-text {
+       font-size: 20px;
+       color: #000;
+       /*margin-left: 30px;*/
+    }
 
-.Access-text1 {
-    font-size: 20px;
-    color: #000;
-    margin-left: 10px;
-}
+    .Access-text1 {
+       font-size: 20px;
+       color: #000;
+       margin-left: 10px;
+     }
 
-.Access-text2 {
-    font-size: 17px;
-    color: #000;
-    margin-left: 10px;
-    font-weight: 600;
-}
+    .Access-text2 {
+       font-size: 17px;
+       color: #000;
+       margin-left: 10px;
+       font-weight: 600;
+     }
 
-.checkmark-1 {
-    top: 6px;
-}
+    .checkmark-1 {
+       top: 6px;
+     }
 
-.amount {
-    line-height: 34px;
-    font-size: 16px;
-    color: #ff0000;
-    margin-right: 40px;
-}
+    .amount {
+       line-height: 34px;
+       font-size: 16px;
+       color: #ff0000;
+       margin-right: 40px;
+     }
 
-.margin4 {
-    margin-bottom: 40px;
-    margin-top: 40px;
-}
+    .margin4 {
+       margin-bottom: 40px;
+       margin-top: 40px;
+     }
 
-.PoolCabana {
-    font-weight: 600;
-    color: #000;
-}
+    .PoolCabana {
+       font-weight: 600;
+       color: #000;
+     }
 
-.span1p {
-    color: #547288;
-    font-weight: 600;
-}
+    .span1p {
+       color: #547288;
+       font-weight: 600;
+    }
 /*-----Guest Registration Form---------*/
-.Club-text0 {
-    font-size: 16px;
-    color: #000;
-    line-height: 32px;
-}
+    .Club-text0 {
+       font-size: 16px;
+       color: #000;
+       line-height: 32px;
+     }
 
-.Club-text {
-    font-size: 16px;
-    color: #000;
-    line-height: 32px;
-    width: 13%;
-}
+    .Club-text {
+       font-size: 16px;
+       color: #000;
+       line-height: 32px;
+       width: 13%;
+     }
 
-.Club-text1 {
-    font-size: 16px;
-    color: #000;
-    line-height: 32px;
-    width: auto;
-    margin-right: 15px;
-}
+     .Club-text1 {
+       font-size: 16px;
+       color: #000;
+       line-height: 32px;
+       width: auto;
+       margin-right: 15px;
+      }
 
-.text-redcolor3 {
-    font-size: 16px;
-    color: #000;
-    line-height: 38px;
-    padding: 0px;
-}
+    .text-redcolor3 {
+       font-size: 16px;
+       color: #000;
+       line-height: 38px;
+       padding: 0px;
+     }
 
-.checbox1 {
-    float: right;
-    width: 50%;
-    margin-bottom: 14px;
-}
+    .checbox1 {
+       float: right;
+       width: 50%;
+       margin-bottom: 14px;
+    }
 
-.mrgin-box01 {
-    margin-bottom: 120px;
-}
+    .mrgin-box01 {
+       margin-bottom: 120px;
+     }
 
-.mrgin-box02 {
-    margin-top: 120px;
-}
+    .mrgin-box02 {
+       margin-top: 120px;
+    }
 
-.myprofile-subtext {
-    font-size: 20px;
-    color: #000000;
-    font-family: HelveticaNeue;
-}
+    .myprofile-subtext {
+       font-size: 20px;
+       color: #000000;
+       font-family: HelveticaNeue;
+     }
 
-.myprofile-subtext-sub {
-    font-size: 20px;
-    color: #000000;
-    font-family: HelveticaNeue;
-}
+    .myprofile-subtext-sub {
+       font-size: 20px;
+       color: #000000;
+       font-family: HelveticaNeue;
+     }
 
-.myprofile-add-sub {
-    font-size: 20px;
-    line-height: 36px;
-}
+    .myprofile-add-sub {
+       font-size: 20px;
+       line-height: 36px;
+    }
 
-.profile-username {
-    font-family: Futura Medium;
-    font-size: 48px;
-}
+    .profile-username {
+       font-family: Futura Medium;
+       font-size: 48px;
+     }
 
-.profile-username-sub {
-    font-family: Futura Medium;
-    font-size: 32px;
-}
-i.fa.fa-print {
-    margin-right: 5px;
-}
+    .profile-username-sub {
+       font-family: Futura Medium;
+       font-size: 32px;
+     }
+     i.fa.fa-print {
+       margin-right: 5px;
+      }
 
-.Change_Password {
-    color: #4d738a;
-    text-decoration-line: underline;
-    font-family: HelveticaNeue;
-    font-size: 20px;
-}
+     .Change_Password {
+       color: #4d738a;
+       text-decoration-line: underline;
+       font-family: HelveticaNeue;
+       font-size: 20px;
+     }
+     .tableboxscroll {
+        float: left;
+        width: 100%;
+        overflow-x: auto;
+      }
+
 @media only screen and (max-width: 1980px) and (min-width: 1820px) {
+
     .img-box {
         max-width: 5% !important;
     }
@@ -2607,6 +2615,7 @@ i.fa.fa-print {
     .submenupayment li.active > a {
         padding: 10px 38px 11px 15px;
     }
+
     .submenu li > a:hover {
         padding: 10px 38px 11px 15px;
     }
@@ -2731,7 +2740,8 @@ i.fa.fa-print {
     }
 
     .submenu {
-        padding: 0px;
+        padding: 0px 10px;
+        height: 33px;
     }
 
     .submenupayment li.active > a {
@@ -2831,7 +2841,7 @@ i.fa.fa-print {
     }
 
     .logout-but {
-        padding: 3px 10px;
+        padding: 5px 10px 10px;
     }
 
     table {
@@ -2858,15 +2868,13 @@ i.fa.fa-print {
         font-size: 10px;
     }
 
-        .select-selected:after {
-            top: 15px;
-        }
-
-
+    .select-selected:after {
+        top: 15px;
+   }
 
     .submenu {
-        padding: 0px 1px;
-        height: 34px;
+        padding: 1px 1px;
+        height: 36px;
         /* float: left; */
     }
 
@@ -2894,6 +2902,7 @@ i.fa.fa-print {
     .flot-box1 {
         float: left;
     }
+
 }
 
 @media only screen and (max-width: 1019px) {
@@ -2953,6 +2962,7 @@ i.fa.fa-print {
         color: #fcfcfc;
         padding: 9px 13px 9px 13px;
     }
+
 }
 
 @media only screen and (max-width: 940px) {
@@ -3052,7 +3062,7 @@ i.fa.fa-print {
       }*/
     .submenu li > a {
         padding: 9px 5px 9px 13px;
-        font-size: 10px;
+        font-size: 14px;
     }
 
     .submenupayment li.active > a {
@@ -3068,7 +3078,13 @@ i.fa.fa-print {
 }
 
 @media only screen and (max-width: 800px) {
-
+    .menubox-float {
+        float: left;
+        width: 100%;
+    }
+    .Wraper-left-box {
+        float: left;
+    }
     .top-menu-mobile {
         list-style: none;
         margin: 0 auto;
@@ -3095,7 +3111,7 @@ i.fa.fa-print {
         font-size: 22px;
         text-align: center;
         margin-top: 20px;
-        float: left;
+        /*float: left;*/
     }
 
     .payment-box {
@@ -3104,7 +3120,7 @@ i.fa.fa-print {
     }
 
     .margin2 {
-        margin-bottom: 10px;
+        margin-bottom: 30px;
     }
 
     /*.nav > li > a {
@@ -3130,17 +3146,17 @@ i.fa.fa-print {
         font-size: 10px;
     }
 
-        .select-selected:after {
-            top: 15px;
-        }
+    .select-selected:after {
+        top: 15px;
+    }
 
     .box-none {
         display: none;
     }
 
     .submenu {
-        padding: 0px 1px;
-        height: 34px;
+        padding: 1px 1px;
+        height: 36px;
         /* float: left; */
     }
 
@@ -3157,6 +3173,7 @@ i.fa.fa-print {
 
     .Activity-box {
         float: left;
+        width:100%;
     }
 }
 
@@ -3169,7 +3186,7 @@ i.fa.fa-print {
         position: relative;
         display: block;
         /*padding: 10px 4px 10px 4px;*/
-        font-size: 10px;
+        font-size: 16px;
     }
 
     .submenupayment > li {
@@ -3179,7 +3196,7 @@ i.fa.fa-print {
     }
 
     .submenupayment li.active > a {
-        padding: 10px 5px 10px 5px;
+        padding: 10px 30px 10px 30px;
     }
 
     .margin-box {
@@ -3191,22 +3208,33 @@ i.fa.fa-print {
         font-size: 10px;
     }
 
-        .select-selected:after {
-            top: 15px;
-        }
+    .select-selected:after {
+        top: 15px;
+    }
 
     .box-none {
         display: none;
     }
 
     .submenu {
-        padding: 0px 1px;
-        height: 34px;
+        padding: 1px 1px;
+        height: 36px;
         /* float: left; */
     }
 
     .cvv-box {
         width: 100% !important;
+    }
+
+    .container-box {
+        display: block;
+    }
+    .modal-header {
+        display: none;
+    }
+    .panel-bodybox{
+        float:left;
+
     }
 }
 
@@ -3234,7 +3262,6 @@ i.fa.fa-print {
     .dashboard-img {
         width: 28px;
     }
-
 
     .payment-box {
         width: 100%;
@@ -3276,9 +3303,9 @@ i.fa.fa-print {
         padding: 0px;
     }
 
-        .submenu li > a {
-            padding: 0px;
-        }
+    .submenu li > a {
+        padding: 0px;
+    }
 
     .paynow {
         font-size: 15px;
@@ -3293,7 +3320,6 @@ i.fa.fa-print {
     .box-padding-mobile {
         padding: 0px;
     }
-
 
     .desktop-logo {
         display: none;
@@ -3338,6 +3364,9 @@ i.fa.fa-print {
     .amount {
         margin-right: 0px;
     }
+    .margin3 {
+        margin-bottom: 25px;
+    }
 }
 
 @media only screen and (max-width: 750px) {
@@ -3348,6 +3377,7 @@ i.fa.fa-print {
     .cvv-box {
         width: 100% !important;
     }
+
 }
 
 @media only screen and (max-width: 730px) {
@@ -3423,6 +3453,11 @@ i.fa.fa-print {
 
     .cvv-box {
         width: 100% !important;
+        border: 1px solid;
+    }
+    .box-left1 {
+        float: left;
+        width: 100%;
     }
 }
 
@@ -3474,9 +3509,12 @@ i.fa.fa-print {
     }
 
     .myprofilebox {
-        width: 100%;
+        width: auto;
         height: 100%;
         background-repeat: no-repeat;
+        margin-top: 20px !important;
+        display: table;
+        margin: 0 auto;
     }
 
     .profile-picherbox {
@@ -3527,8 +3565,8 @@ i.fa.fa-print {
     }
 
     .pading-box {
-        padding-right: 0px;
-        padding-left: 0px;
+        padding-right: 0px !important;
+        padding-left: 0px !important;
     }
 
     .fa-icon {
@@ -3557,12 +3595,12 @@ i.fa.fa-print {
     }
 
     .select-selected {
-        font-size: 12px;
+       font-size: 12px;
     }
 
-        .select-selected:after {
-            top: 14px;
-        }
+    .select-selected:after {
+       top: 14px;
+    }
 
     .checkmark2 {
         margin: 4px -36px;
@@ -3612,9 +3650,9 @@ i.fa.fa-print {
         padding-top: 15px;
     }
 
-        .sidenav a {
-            font-size: 18px;
-        }
+    .sidenav a {
+        font-size: 18px;
+    }
 
     .cvv-box {
         width: 86%;
@@ -3634,6 +3672,12 @@ i.fa.fa-print {
 }
 
 @media only screen and (max-width: 430px) {
+
+    .pading-box {
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+    }
+
     .dashboard-img {
         width: 28px;
     }
@@ -3663,17 +3707,17 @@ i.fa.fa-print {
         padding-top: 60px;
     }
 
-        .sidenav a:hover {
-            color: #f1f1f1;
-        }
+    .sidenav a:hover {
+       color: #f1f1f1;
+    }
 
-        .sidenav .closebtn {
-            position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
-        }
+   .sidenav .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+   }
 
     textarea::-webkit-input-placeholder {
         font-size: 18px;
@@ -3826,4 +3870,8 @@ td.logo-width {
 
 .ratinggood {
     background-color: green;
+}
+.box-left {
+    float: left;
+    width: 100%;
 }

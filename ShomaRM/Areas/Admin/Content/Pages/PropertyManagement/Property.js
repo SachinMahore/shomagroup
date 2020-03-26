@@ -9,7 +9,7 @@
     //fillRPP_PUList();
     fillStateDDL();
     fillStateDDL1();
-    getPremiumTypeList();
+    //getPremiumTypeList();
     $("#ddlState").on('change', function (evt, params) {
         var selected = $(this).val();
         if (selected != null) {
@@ -40,7 +40,20 @@
             fillPUList(page, sortByValue, OrderByValue);
         }
     });
-
+    document.getElementById('wizard-picture').onchange = function () {
+        var fileUploadPropertyPictureBool = restrictFileUpload($(this).val());
+        if (fileUploadPropertyPictureBool == true) {
+            uploadPropertyPicture();
+        }
+        else {
+            document.getElementById('wizard-picture').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
+    };
 });
 var getPropertyList = function () {
     $("#divLoader").show();
@@ -306,8 +319,17 @@ function selectAddAmenity(id) {
     });
 }
 var getPremiumTypeList = function () {
+    
+        var sortby = 'PremiumType';
+   
+         var orderby = 'ASC';
+    
     $("#divLoader").show();
-    var params = { SearchText: "" };
+    var params = {
+        SearchText: "",
+        SortBy: sortby,
+        OrderBy: orderby
+    };
     $.ajax({
         url: '/PremiumType/GetPremiumTypeList',
         method: "post",
@@ -354,6 +376,7 @@ function SaveUpdateProperty() {
     var trashFees = unformatText($("#txtTrashFees").val());
     var conversionFees = unformatText($("#txtConversionBill").val());
     var dnaPetFees = unformatText($("#txtDNAPetFee").val());
+    var propertyFile = $("#hndFileUploadPropertyPicture").val();
     if (title == "") {
         msg += " Please enter Property Title .<br />";
     }
@@ -433,13 +456,7 @@ function SaveUpdateProperty() {
     $formData.append('TrashFees', trashFees);
     $formData.append('ConversionBillFees', conversionFees);
     $formData.append('DNAPetFees', dnaPetFees);
-
-    var $file = document.getElementById('wizard-picture');
-    if ($file.files.length > 0) {
-        for (var i = 0; i < $file.files.length; i++) {
-            $formData.append('file-' + i, $file.files[i]);
-        }
-    }
+    $formData.append('Picture', propertyFile);
 
     var addAmenity = "";
     if (addAmenityArray.length > 0) {
@@ -592,6 +609,7 @@ var saveUpdateFloor = function () {
     }
 
     if (msg != "") {
+        $("#divLoader").hide();
         $.alert({
             title: 'Alert!',
             content: msg,
@@ -1576,3 +1594,34 @@ var tableControlFocusOut = function (cont) {
 var tableControlFocus = function (cont) {
     $(cont).val(unformatText($(cont).val()));
 }
+var uploadPropertyPicture = function () {
+    $("#divLoader").show();
+    $formData = new FormData();
+
+    var propertyFile = document.getElementById('wizard-picture');
+
+    for (var i = 0; i < propertyFile.files.length; i++) {
+        $formData.append('file-' + i, propertyFile.files[i]);
+    }
+
+    $.ajax({
+        url: '/Admin/PropertyManagement/PropertyFileUpload',
+        type: 'post',
+        data: $formData,
+        contentType: 'application/json; charset=utf-8',
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (response) {
+            $('#hndFileUploadPropertyPicture').val(response.model.Picture);
+            $('#hndOriginalFileUploadPropertyPicture').val(response.model.OriginalPicture);
+
+            $.alert({
+                title: "",
+                content: "File uploaded Successfully.",
+                type: 'blue'
+            });
+            $("#divLoader").hide();
+        }
+    });
+};

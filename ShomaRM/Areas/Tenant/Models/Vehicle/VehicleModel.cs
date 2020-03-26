@@ -158,8 +158,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     Color = pl.Color,
                     State = State,
                     VehicleRegistration = pl.VehicleRegistration,
-                    OwnerName = pl.OwnerName,
-                    Notes = pl.Notes
+                    OwnerName = !string.IsNullOrWhiteSpace(pl.OwnerName) ? pl.OwnerName : "",
+                    Notes = !string.IsNullOrWhiteSpace(pl.Notes) ? pl.Notes : ""
                 });
 
             }

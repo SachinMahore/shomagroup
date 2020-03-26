@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using ShomaRM.Data;
+using ShomaRM.Models;
 
 namespace ShomaRM.Areas.Tenant.Models
 {
@@ -31,22 +32,28 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
-            
+
+            string encrytpedCardNumber = model.CardNumber == null? "" : new EncryptDecrypt().EncryptText(model.CardNumber);
+            string encrytpedAccountNumber = model.AccountNumber== null ? "" : new EncryptDecrypt().EncryptText(model.AccountNumber);
+            string encrytpedCardMonth = new EncryptDecrypt().EncryptText(model.Month);
+            string encrytpedCardYear = new EncryptDecrypt().EncryptText(model.Year);
+            string encrytpedRoutingNumber = model.RoutingNumber == null? "" : new EncryptDecrypt().EncryptText(model.RoutingNumber);
+
             if (model.PAID == 0)
             {
                 var savePaymentAccounts = new tbl_PaymentAccounts()
                 {
                     TenantId = model.TenantId,
                     NameOnCard = model.NameOnCard,
-                    CardNumber = model.CardNumber,
-                    Month = model.Month,
-                    Year = model.Year,
+                    CardNumber = encrytpedCardNumber,
+                    Month = encrytpedCardMonth,
+                    Year = encrytpedCardYear,
                     CardType = model.CardType,
                     PayMethod=model.PayMethod,
                     BankName = model.BankName,
                     AccountName=model.AccountName,
-                    AccountNumber=model.AccountNumber,
-                    RoutingNumber=model.RoutingNumber
+                    AccountNumber= encrytpedAccountNumber,
+                    RoutingNumber= encrytpedRoutingNumber
                 };
                 db.tbl_PaymentAccounts.Add(savePaymentAccounts);
                 db.SaveChanges();
@@ -62,9 +69,9 @@ namespace ShomaRM.Areas.Tenant.Models
                     {
                         updatePaymentAccounts.AccountName = model.AccountName;
                         updatePaymentAccounts.NameOnCard = model.NameOnCard;
-                        updatePaymentAccounts.CardNumber = model.CardNumber;
-                        updatePaymentAccounts.Month = model.Month;
-                        updatePaymentAccounts.Year = model.Year;
+                        updatePaymentAccounts.CardNumber = encrytpedCardNumber;
+                        updatePaymentAccounts.Month = encrytpedCardMonth;
+                        updatePaymentAccounts.Year = encrytpedCardYear;
                         updatePaymentAccounts.CardType = model.CardType;
                         updatePaymentAccounts.PayMethod = model.PayMethod;
 
@@ -76,15 +83,15 @@ namespace ShomaRM.Areas.Tenant.Models
                     {
                         updatePaymentAccounts.NameOnCard = "";
                         updatePaymentAccounts.CardNumber = "";
-                        updatePaymentAccounts.Month = "0";
-                        updatePaymentAccounts.Year = "0";
+                        updatePaymentAccounts.Month = "";
+                        updatePaymentAccounts.Year = "";
                         updatePaymentAccounts.CardType = 0;
 
                         updatePaymentAccounts.PayMethod = model.PayMethod;
                         updatePaymentAccounts.BankName = model.BankName;
                         updatePaymentAccounts.AccountName = model.AccountName;
-                        updatePaymentAccounts.AccountNumber = model.AccountNumber;
-                        updatePaymentAccounts.RoutingNumber = model.RoutingNumber;
+                        updatePaymentAccounts.AccountNumber = encrytpedAccountNumber;
+                        updatePaymentAccounts.RoutingNumber = encrytpedRoutingNumber;
                     }
                     db.SaveChanges();
                 }
@@ -109,15 +116,20 @@ namespace ShomaRM.Areas.Tenant.Models
             {
                 foreach (var item in getPaymentAccounts)
                 {
+                    //string decryptedCardNumber = new EncryptDecrypt().DecryptText(item.CardNumber);
+                    //string decrytpedCardMonth = new EncryptDecrypt().DecryptText(item.Month);
+                    //string decrytpedCardYear = new EncryptDecrypt().DecryptText(item.Year);
+
+
                     listPaymentAccounts.Add(new PaymentAccountsModel()
                     {
                         PAID = item.PAID,
                         TenantId = item.TenantId,
                         AccountName = item.AccountName,
                         NameOnCard = item.NameOnCard,
-                        CardNumber = item.CardNumber,
-                        Month = item.Month,
-                        Year = item.Year,
+                        CardNumber = !string.IsNullOrWhiteSpace(item.CardNumber)?new EncryptDecrypt().DecryptText(item.CardNumber) :"",
+                        Month = !string.IsNullOrWhiteSpace(item.Month) ? new EncryptDecrypt().DecryptText(item.Month) : "",
+                        Year = !string.IsNullOrWhiteSpace(item.Year) ? new EncryptDecrypt().DecryptText(item.Year) : "",
                         CardType = item.CardType,
                         CardTypeString = item.CardType == 1 ? "Visa" : item.CardType == 2 ? "MasterCard" : "",
                         Default = item.Default,
@@ -144,6 +156,10 @@ namespace ShomaRM.Areas.Tenant.Models
             {
                 foreach (var item in getPaymentBankAccounts)
                 {
+                    //string decryptedAccountNumber = new EncryptDecrypt().DecryptText(item.AccountNumber);
+                    //string decrytpedRoutingNumber = new EncryptDecrypt().DecryptText(item.RoutingNumber);
+
+
                     listPaymentBankAccounts.Add(new PaymentAccountsModel()
                     {
                         PAID = item.PAID,
@@ -151,8 +167,8 @@ namespace ShomaRM.Areas.Tenant.Models
                         PayMethod = item.PayMethod,
                         BankName = item.BankName,
                         AccountName = item.AccountName,
-                        AccountNumber = item.AccountNumber,
-                        RoutingNumber = item.RoutingNumber,
+                        AccountNumber = !string.IsNullOrWhiteSpace(item.AccountNumber) ? new EncryptDecrypt().DecryptText(item.AccountNumber) : "",
+                        RoutingNumber = !string.IsNullOrWhiteSpace(item.RoutingNumber) ? new EncryptDecrypt().DecryptText(item.RoutingNumber) : "",
                         Default = item.Default,
                         DefaultString = item.Default == 0 ? "Not a Default" : item.Default == 1 ? "Default" : "",
                         IsLessThanSevenDays = remainingDay <= 7 ? true : false,
@@ -163,12 +179,17 @@ namespace ShomaRM.Areas.Tenant.Models
             return listPaymentBankAccounts;
         }
 
-
         public PaymentAccountsModel EditPaymentsAccounts(long PAID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             PaymentAccountsModel model = new PaymentAccountsModel();
             var editPaymentAccounts = db.tbl_PaymentAccounts.Where(co => co.PAID == PAID).FirstOrDefault();
+
+            string decryptedCardNumber = string.IsNullOrWhiteSpace( editPaymentAccounts.CardNumber) ? "" : new EncryptDecrypt().DecryptText(editPaymentAccounts.CardNumber);
+            string decryptedAccountNumber = string.IsNullOrWhiteSpace(editPaymentAccounts.AccountNumber) ? "" : new EncryptDecrypt().DecryptText(editPaymentAccounts.AccountNumber);
+            string decrytpedCardMonth = string.IsNullOrWhiteSpace(editPaymentAccounts.Month) ? "" : new EncryptDecrypt().DecryptText(editPaymentAccounts.Month);
+            string decrytpedCardYear = string.IsNullOrWhiteSpace(editPaymentAccounts.Year) ? "" : new EncryptDecrypt().DecryptText(editPaymentAccounts.Year);
+            string decrytpedRoutingNumber = string.IsNullOrWhiteSpace(editPaymentAccounts.RoutingNumber)? "" : new EncryptDecrypt().DecryptText(editPaymentAccounts.RoutingNumber);
 
             if (editPaymentAccounts != null)
             {
@@ -176,14 +197,14 @@ namespace ShomaRM.Areas.Tenant.Models
                 model.TenantId = editPaymentAccounts.TenantId;
                 model.AccountName = editPaymentAccounts.AccountName;
                 model.NameOnCard = editPaymentAccounts.NameOnCard;
-                model.CardNumber = editPaymentAccounts.CardNumber;
-                model.Month = editPaymentAccounts.Month;
-                model.Year = editPaymentAccounts.Year;
+                model.CardNumber = decryptedCardNumber;
+                model.Month = decrytpedCardMonth;
+                model.Year = decrytpedCardYear;
                 model.CardType = editPaymentAccounts.CardType;
                 model.PayMethod = editPaymentAccounts.PayMethod;
                 model.BankName = editPaymentAccounts.BankName;
-                model.AccountNumber = editPaymentAccounts.AccountNumber;
-                model.RoutingNumber = editPaymentAccounts.RoutingNumber;
+                model.AccountNumber = decryptedAccountNumber;
+                model.RoutingNumber = decrytpedRoutingNumber;
             }
             return model;
         }
@@ -194,14 +215,20 @@ namespace ShomaRM.Areas.Tenant.Models
             PaymentAccountsModel model = new PaymentAccountsModel();
             var editPaymentAccounts = db.tbl_PaymentAccounts.Where(co => co.PAID == PAID).FirstOrDefault();
 
+            string decryptedCardNumber = string.IsNullOrWhiteSpace(editPaymentAccounts.CardNumber) ? "" : new EncryptDecrypt().DecryptText(editPaymentAccounts.CardNumber);
+            string decryptedAccountNumber = string.IsNullOrWhiteSpace(editPaymentAccounts.AccountNumber) ? "" : new EncryptDecrypt().DecryptText(editPaymentAccounts.AccountNumber);
+            string decrytpedCardMonth = string.IsNullOrWhiteSpace(editPaymentAccounts.Month) ? "" : new EncryptDecrypt().DecryptText(editPaymentAccounts.Month);
+            string decrytpedCardYear = string.IsNullOrWhiteSpace(editPaymentAccounts.Year) ? "" : new EncryptDecrypt().DecryptText(editPaymentAccounts.Year);
+            string decrytpedRoutingNumber = string.IsNullOrWhiteSpace(editPaymentAccounts.RoutingNumber) ? "" : new EncryptDecrypt().DecryptText(editPaymentAccounts.RoutingNumber);
+
             if (editPaymentAccounts != null)
             {
                 model.PAID = editPaymentAccounts.PAID;
                 model.TenantId = editPaymentAccounts.TenantId;
                 model.AccountName = editPaymentAccounts.AccountName;
                 model.BankName = editPaymentAccounts.BankName;
-                model.AccountNumber = editPaymentAccounts.AccountNumber;
-                model.RoutingNumber = editPaymentAccounts.RoutingNumber;
+                model.AccountNumber = decryptedAccountNumber;
+                model.RoutingNumber = decrytpedRoutingNumber;
                 model.PayMethod = editPaymentAccounts.PayMethod;
             }
             return model;

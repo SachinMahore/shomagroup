@@ -296,49 +296,29 @@ namespace ShomaRM.Models
                 int monthsCount = 0;
                 string fromDateDB = string.Empty;
                 string toDateDB = string.Empty;
-                var moveInApplHist = db.tbl_ApplicantHistory.Where(co => co.TenantID == TenantId).OrderBy(co => co.MoveInDateFrom).ToList();
+                var moveInApplHist = db.tbl_ApplicantHistory.Where(co => co.TenantID == TenantId).ToList();
                 if (moveInApplHist != null)
                 {
                     foreach (var item in moveInApplHist)
                     {
-                        fromDateDB = Convert.ToString(item.MoveInDateFrom);
-                        break;
-                    }
-                }
-                var moveOutApplHist = db.tbl_ApplicantHistory.Where(co => co.TenantID == TenantId).OrderByDescending(co => co.MoveInDateTo).ToList();
-                if (moveOutApplHist != null)
-                {
-                    foreach (var item in moveOutApplHist)
-                    {
-                        toDateDB = Convert.ToString(item.MoveInDateTo);
-                        break;
-                    }
-                }
-                if (fromDateDB != string.Empty && toDateDB != string.Empty)
-                {
-                    DateTime dt1FromDB = Convert.ToDateTime(fromDateDB);
-                    DateTime dt2ToDB = Convert.ToDateTime(toDateDB);
-                    if (FromDateAppHis != string.Empty && ToDateAppHis != string.Empty)
-                    {
-                        DateTime dt1Form = Convert.ToDateTime(FromDateAppHis);
-                        DateTime dt2Form = Convert.ToDateTime(ToDateAppHis);
-                        bool fDate = dt1FromDB < dt1Form;
-                        bool tDate = dt2ToDB > dt2Form;
+                        fromDateDB = Convert.ToString(item.MoveInDateFrom.Value.ToString("MM/dd/yyyy"));
+                        toDateDB = Convert.ToString(item.MoveInDateTo.Value.ToString("MM/dd/yyyy"));
 
-                        DateTime finalDt1 = Convert.ToDateTime(fDate == true ? dt1FromDB : dt1Form);
-                        DateTime finalDt2 = Convert.ToDateTime(tDate == true ? dt2ToDB : dt2Form);
+                        DateTime dtFromDB = Convert.ToDateTime(fromDateDB);
+                        DateTime dtToDB = Convert.ToDateTime(toDateDB);
+                        int givenDate = ((dtToDB.Year - dtFromDB.Year) * 12) + dtToDB.Month - dtFromDB.Month;
 
-                        int givenDate = ((finalDt2.Year - finalDt1.Year) * 12) + finalDt2.Month - finalDt1.Month;
-                        monthsCount = monthsCount + givenDate;
+                        monthsCount += givenDate;
                     }
                 }
-                else if (FromDateAppHis != string.Empty && ToDateAppHis != string.Empty)
-                {
-                    DateTime dt1 = Convert.ToDateTime(FromDateAppHis);
-                    DateTime dt2 = Convert.ToDateTime(ToDateAppHis);
-                    int givenDate = ((dt2.Year - dt1.Year) * 12) + dt2.Month - dt1.Month;
-                    monthsCount = monthsCount + givenDate;
-                }
+
+                DateTime dtCurrentFromDB = Convert.ToDateTime(FromDateAppHis);
+                DateTime dtCurrentToDB = Convert.ToDateTime(ToDateAppHis);
+
+                int givenCurrentDate = ((dtCurrentToDB.Year - dtCurrentFromDB.Year) * 12) + dtCurrentToDB.Month - dtCurrentFromDB.Month;
+                monthsCount += givenCurrentDate;
+
+
                 model.TotalMonthsApplicantHistory = monthsCount;
 
                 db.Dispose();

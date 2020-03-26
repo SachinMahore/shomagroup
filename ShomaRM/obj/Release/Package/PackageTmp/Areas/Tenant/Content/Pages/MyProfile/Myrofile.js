@@ -28,24 +28,60 @@
        
  
     document.getElementById('fileUploadVehicleRegistation').onchange = function () {
-        uploadVehicleCertificatepop();
+        var fileUploadVehicleRegBool = restrictFileUpload($(this).val());
+        if (fileUploadVehicleRegBool == true) {
+            uploadVehicleCertificatepop();
+        }
+        else {
+            document.getElementById('fileUploadVehicleRegistation').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     document.getElementById('pet-picture').onchange = function () {
-        uploadPetPhoto();
+        var fileUploadPetPictureBool = restrictFileUpload($(this).val());
+        if (fileUploadPetPictureBool == true) {
+            uploadPetPhoto();
+        }
+        else {
+            document.getElementById('pet-picture').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
     document.getElementById('filePetVaccinationCertificate').onchange = function () {
-        uploadPetVaccination();
+        var fileUploadPetVaccinationBool = restrictFileUpload($(this).val());
+        if (fileUploadPetVaccinationBool == true) {
+            uploadPetVaccination();
+        }
+        else {
+            document.getElementById('filePetVaccinationCertificate').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
-    
     document.getElementById('ProfilePic').onchange = function () {
-        $.alert({
-            title: "",
-            content: "File uploaded Successfully.",
-            type: 'blue'
-        });
-    };
-    document.getElementById('ProfilePic').onchange = function () {
-        uploadProfilePicture();
+        var fileUploadProfilePicBool = restrictFileUpload($(this).val());
+        if (fileUploadProfilePicBool == true) {
+            uploadProfilePicture();
+        }
+        else {
+            document.getElementById('ProfilePic').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
     };
 
    

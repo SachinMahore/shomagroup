@@ -126,7 +126,7 @@ namespace ShomaRM.Models
         public string OfficeCountryString { get; set; }
         public string EmergencyCountryString { get; set; }
         public string EmergencyStateHomeString { get; set; }
-
+        public int StepCompleted { get; set; }
         public string SaveHavePet(long id, bool PetValue)
         {
             string msg = "";
@@ -204,6 +204,25 @@ namespace ShomaRM.Models
                     da.Fill(dtTable);
                     db.Database.Connection.Close();
                 }
+                lstpr.IsInternational = 0;
+                lstpr.Gender = 0;
+                lstpr.IDType = 0;
+                lstpr.State = 0;
+                lstpr.Country = "1";
+                lstpr.StateHome = 0;
+                lstpr.RentOwn = 0;
+
+                lstpr.Country2 = "0";
+                lstpr.StateHome2 = 0;
+                lstpr.RentOwn2 = 0;
+
+                lstpr.JobType = 0;
+                lstpr.OfficeCountry = "1";
+                lstpr.OfficeState = 0;
+
+                lstpr.EmergencyCountry = "1";
+                lstpr.EmergencyStateHome = 0;
+                lstpr.StepCompleted = 1;
                 foreach (DataRow dr in dtTable.Rows)
                 {
                     DateTime? dateOfBirth = null;
@@ -295,14 +314,74 @@ namespace ShomaRM.Models
                     lstpr.Gender = Convert.ToInt32(dr["Gender"].ToString());
                     lstpr.Email = dr["Email"].ToString();
                     lstpr.Mobile = dr["Mobile"].ToString();
-                    lstpr.PassportNumber = dr["PassportNumber"].ToString();
+
+                    if(!string.IsNullOrWhiteSpace(dr["PassportNumber"].ToString()))
+                    {
+                        string decryptedPassportNumber = new EncryptDecrypt().DecryptText(dr["PassportNumber"].ToString());
+                        int passportlength = decryptedPassportNumber.Length > 4 ? decryptedPassportNumber.Length - 4 : 0;
+                        string maskidnumber = "";
+                        for (int i = 0; i < passportlength; i++)
+                        {
+                            maskidnumber += "*";
+                        }
+                        if (decryptedPassportNumber.Length > 4)
+                        {
+                            lstpr.PassportNumber = maskidnumber + decryptedPassportNumber.Substring(decryptedPassportNumber.Length - 4, 4);
+                        }
+                        else
+                        {
+                            lstpr.PassportNumber = decryptedPassportNumber;
+                        }
+                    }
+                    else
+                    {
+                        lstpr.PassportNumber = "";
+                    }
+                  
                     lstpr.CountryIssuance = dr["CountryIssuance"].ToString();
                     lstpr.DateIssuanceTxt = dateIssuance == null ? "" : dateIssuance.Value.ToString("MM/dd/yyy");
                     lstpr.DateExpireTxt = dateExpire == null ? "" : dateExpire.Value.ToString("MM/dd/yyy");
                     lstpr.IDType = Convert.ToInt32(dr["IDType"].ToString());
                     lstpr.State = Convert.ToInt64(dr["State"].ToString());
-                    lstpr.IDNumber = dr["IDNumber"].ToString();
-                    lstpr.SSN = dr["SSN"].ToString();
+                    if (!string.IsNullOrWhiteSpace(dr["IDNumber"].ToString()))
+                    {
+                        string decryptedIDNumber = new EncryptDecrypt().DecryptText(dr["IDNumber"].ToString());
+                        int idnumlength = decryptedIDNumber.Length > 4 ? decryptedIDNumber.Length - 4 : 0;
+                        string maskidnumber = "";
+                        for(int i=0;i<idnumlength;i++)
+                        {
+                            maskidnumber += "*";
+                        }
+                        if(decryptedIDNumber.Length>4)
+                        {
+                            lstpr.IDNumber = maskidnumber + decryptedIDNumber.Substring(decryptedIDNumber.Length - 4, 4);
+                        }
+                        else
+                        {
+                            lstpr.IDNumber = decryptedIDNumber;
+                        }
+                    }
+                    else
+                    {
+                        lstpr.IDNumber = "";
+                    }
+                    
+                    if (!string.IsNullOrWhiteSpace(dr["SSN"].ToString()))
+                    {
+                        string decryptedSSN = new EncryptDecrypt().DecryptText(dr["SSN"].ToString());
+                        if (decryptedSSN.Length > 5)
+                        {
+                            lstpr.SSN = "***-**-" + decryptedSSN.Substring(decryptedSSN.Length - 5, 4);
+                        }
+                        else
+                        {
+                            lstpr.SSN = decryptedSSN;
+                        }
+                    }
+                    else
+                    {
+                        lstpr.SSN = "";
+                    }
                     lstpr.Country = dr["Country"].ToString();
                     lstpr.HomeAddress1 = dr["HomeAddress1"].ToString();
                     lstpr.HomeAddress2 = dr["HomeAddress2"].ToString();
@@ -359,6 +438,23 @@ namespace ShomaRM.Models
                     lstpr.UploadOriginalIdentityName = dr["IdentityDocumentOriginalFile"].ToString();
                     lstpr.IsPaystub = Convert.ToBoolean(dr["IsPaystub"].ToString());
 
+                    //var PersonalStateVar = db.tbl_State.Where(co => co.ID == lstpr.State).FirstOrDefault();
+                    //lstpr.StatePersonalString = PersonalStateVar != null ? PersonalStateVar.StateName : "";
+                    //var StateHomeVar = db.tbl_State.Where(co => co.ID == lstpr.StateHome).FirstOrDefault();
+                    //lstpr.StateHomeString = StateHomeVar != null ? StateHomeVar.StateName : "";
+                    //int contryTemp = lstpr.Country != "" ? Convert.ToInt32(lstpr.Country) : 0;
+                    //var CountryVar = db.tbl_Country.Where(co => co.ID == contryTemp).FirstOrDefault();
+                    //lstpr.CountryString = CountryVar != null ? CountryVar.CountryName : "";
+                    //int officeContryTemp = lstpr.OfficeCountry != "" ? Convert.ToInt32(lstpr.OfficeCountry) : 0;
+                    //var OfficeCountryVar = db.tbl_Country.Where(co => co.ID == officeContryTemp).FirstOrDefault();
+                    //lstpr.OfficeCountryString = OfficeCountryVar != null ? OfficeCountryVar.CountryName : "";
+                    //int emergencyContryTemp = lstpr.EmergencyCountry != "" ? Convert.ToInt32(lstpr.EmergencyCountry) : 0;
+                    //var EmergencyCountryVar = db.tbl_Country.Where(co => co.ID == emergencyContryTemp).FirstOrDefault();
+                    //lstpr.EmergencyCountryString = EmergencyCountryVar != null ? EmergencyCountryVar.CountryName : "";
+                    //int emergencyStateHomeTemp = lstpr.EmergencyStateHome != null ? Convert.ToInt32(lstpr.EmergencyStateHome) : 0;
+                    //var EmergencyStateHomeVar = db.tbl_State.Where(co => co.ID == emergencyStateHomeTemp).FirstOrDefault();
+                    //lstpr.EmergencyStateHomeString = EmergencyStateHomeVar != null ? EmergencyStateHomeVar.StateName : "";
+
                     var PersonalStateVar = db.tbl_State.Where(co => co.ID == lstpr.State).FirstOrDefault();
                     lstpr.StatePersonalString = PersonalStateVar != null ? PersonalStateVar.StateName : "";
                     var StateHomeVar = db.tbl_State.Where(co => co.ID == lstpr.StateHome).FirstOrDefault();
@@ -375,6 +471,7 @@ namespace ShomaRM.Models
                     int emergencyStateHomeTemp = lstpr.EmergencyStateHome != null ? Convert.ToInt32(lstpr.EmergencyStateHome) : 0;
                     var EmergencyStateHomeVar = db.tbl_State.Where(co => co.ID == emergencyStateHomeTemp).FirstOrDefault();
                     lstpr.EmergencyStateHomeString = EmergencyStateHomeVar != null ? EmergencyStateHomeVar.StateName : "";
+                    lstpr.StepCompleted= Convert.ToInt32(dr["StepCompleted"].ToString());
                 }
                 db.Dispose();
                 return lstpr;
@@ -385,7 +482,28 @@ namespace ShomaRM.Models
                 throw ex;
             }
         }
-
+        public string GetSSNIdNumberPassportNumber(int id, int vid)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string result = "";
+            var appData = db.tbl_TenantOnline.Where(p => p.ProspectID == id).FirstOrDefault();
+            if (appData != null)
+            {
+                if (vid == 1)
+                {
+                    result= !string.IsNullOrWhiteSpace(appData.SSN) ? new EncryptDecrypt().DecryptText(appData.SSN) : "";
+                }
+                else if (vid == 2)
+                {
+                    result= !string.IsNullOrWhiteSpace(appData.PassportNumber) ? new EncryptDecrypt().DecryptText(appData.PassportNumber) : "";
+                }
+                else if (vid == 3)
+                {
+                    result= !string.IsNullOrWhiteSpace(appData.IDNumber) ? new EncryptDecrypt().DecryptText(appData.IDNumber) : "";
+                }
+            }
+            return result;
+        }
         public string SaveTenantOnline(TenantOnlineModel model)
         {
             string msg = "";
@@ -393,10 +511,10 @@ namespace ShomaRM.Models
 
             if (model.ProspectID != 0)
             {
+                var applyNow= db.tbl_ApplyNow.Where(p => p.ID == model.ProspectID).FirstOrDefault();
                 var getAppldata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID).FirstOrDefault();
                 if (getAppldata != null)
                 {
-
                     getAppldata.IsInternational = model.IsInternational;
                     getAppldata.IsAdditionalRHistory = model.IsAdditionalRHistory;
                     getAppldata.FirstName = model.FirstName;
@@ -406,13 +524,13 @@ namespace ShomaRM.Models
                     getAppldata.Gender = model.Gender;
                     getAppldata.Email = model.Email;
                     getAppldata.Mobile = model.Mobile;
-                    getAppldata.PassportNumber = model.PassportNumber;
+                    //getAppldata.PassportNumber = model.PassportNumber;
                     getAppldata.CountryIssuance = model.CountryIssuance;
                     getAppldata.DateIssuance = model.DateIssuance;
                     getAppldata.DateExpire = model.DateExpire;
                     getAppldata.IDType = model.IDType;
                     getAppldata.State = model.State;
-                    getAppldata.IDNumber = model.IDNumber;
+                    // getAppldata.IDNumber = model.IDNumber;
                     getAppldata.Country = model.Country;
                     getAppldata.HomeAddress1 = model.HomeAddress1;
                     getAppldata.HomeAddress2 = model.HomeAddress2;
@@ -423,12 +541,12 @@ namespace ShomaRM.Models
                     if (model.MoveInDateFrom > Convert.ToDateTime("01/01/0001 12:00:00 AM"))
                     {
                         getAppldata.MoveInDateFrom = model.MoveInDateFrom;
-                        getAppldata.MoveInDateTo = model.MoveInDateTo;
+                        //getAppldata.MoveInDateTo = model.MoveInDateTo;
                     }
                     getAppldata.MonthlyPayment = model.MonthlyPayment;
                     getAppldata.Reason = model.Reason;
 
-                   
+
                     getAppldata.EmployerName = model.EmployerName;
                     getAppldata.JobTitle = model.JobTitle;
                     getAppldata.JobType = model.JobType;
@@ -459,7 +577,7 @@ namespace ShomaRM.Models
                     getAppldata.EmergencyZipHome = model.EmergencyZipHome;
                     getAppldata.CreatedDate = DateTime.Now.Date;
                     getAppldata.OtherGender = model.OtherGender;
-                    getAppldata.SSN = model.SSN;
+                    // getAppldata.SSN = model.SSN;
                     getAppldata.TaxReturn = model.TaxReturn;
                     getAppldata.TaxReturn2 = model.TaxReturn2;
                     getAppldata.TaxReturn3 = model.TaxReturn3;
@@ -471,8 +589,20 @@ namespace ShomaRM.Models
                     getAppldata.PassportDocumentOriginalFile = model.UploadOriginalPassportName;
                     getAppldata.IdentityDocumentOriginalFile = model.UploadOriginalIdentityName;
                     getAppldata.IsPaystub = model.IsPaystub;
+                    db.SaveChanges();
+
+                    if (applyNow != null)
+                    {
+                        int stepcomp = 0;
+                        stepcomp = applyNow.StepCompleted ?? 0;
+                        if (stepcomp < model.StepCompleted)
+                        {
+                            stepcomp = model.StepCompleted;
+                        }
+                        applyNow.StepCompleted = stepcomp;
+                        db.SaveChanges();
+                    }
                 }
-                db.SaveChanges();
 
                 var saveApplicantGender = db.tbl_Applicant.Where(p => p.Email == model.Email).FirstOrDefault();
                 if (saveApplicantGender != null)
@@ -493,8 +623,73 @@ namespace ShomaRM.Models
 
         }
 
-        //File Upload1,2,3
+        public string SaveUpdateSSN(TenantOnlineModel model)
+        {
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
 
+            if (model.ProspectID != 0)
+            {
+                string encryptedSSN = new EncryptDecrypt().EncryptText(model.SSN);
+                var getSSNdata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID).FirstOrDefault();
+                if (getSSNdata != null)
+                {
+                    getSSNdata.SSN = encryptedSSN;
+                }
+                db.SaveChanges();
+
+                msg = "SSN Number Updated Successfully";
+            }
+
+
+            db.Dispose();
+            return msg;
+
+        }
+
+        public string SaveUpdateIDNumber(TenantOnlineModel model)
+        {
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            if (model.ProspectID != 0)
+            {
+                string encryptedData = new EncryptDecrypt().EncryptText(model.IDNumber);
+                var getdata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID).FirstOrDefault();
+                if (getdata != null)
+                {
+                    getdata.IDNumber = encryptedData;
+                }
+                db.SaveChanges();
+
+                msg = "IDNumber Number Updated Successfully";
+            }
+            db.Dispose();
+            return msg;
+        }
+
+        public string SaveUpdatePassportNumber(TenantOnlineModel model)
+        {
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            if (model.ProspectID != 0)
+            {
+                string encryptedData = new EncryptDecrypt().EncryptText(model.PassportNumber);
+                var getdata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID).FirstOrDefault();
+                if (getdata != null)
+                {
+                    getdata.PassportNumber = encryptedData;
+                }
+                db.SaveChanges();
+
+                msg = "Passport Number Updated Successfully";
+            }
+            db.Dispose();
+            return msg;
+        }
+
+        //File Upload1,2,3
         public TenantOnlineModel SaveTaxUpload1(HttpPostedFileBase fileBaseUpload1, TenantOnlineModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -684,6 +879,7 @@ namespace ShomaRM.Models
         public Nullable<long> TenantID { get; set; }
         public Nullable<decimal> Charges { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public int NumberOfPets { get; set; }
 
         public TenantPetPlace GetTenantPetPlaceData(long Id)
         {
@@ -691,10 +887,12 @@ namespace ShomaRM.Models
             TenantPetPlace model = new TenantPetPlace();
 
             var getTenantPetPlaceData = db.tbl_TenantPetPlace.Where(p => p.TenantID == Id).FirstOrDefault();
-
+            
             if (getTenantPetPlaceData != null)
             {
+                var getPetData = db.tbl_PetPlace.Where(p => p.PetPlaceID == getTenantPetPlaceData.PetPlaceID).FirstOrDefault();
                 model.PetPlaceID = getTenantPetPlaceData.PetPlaceID;
+                model.NumberOfPets = getPetData.Type??0;
             }
             model.TenantID = Id;
             return model;

@@ -250,6 +250,45 @@ namespace ShomaRM.Areas.Tenant.Models.Club
 
         }
 
+        public List<ClubModel> GetClubList()
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            var Clublist = db.tbl_Club.OrderByDescending(co => co.StartDate).ToList();
+
+            if (UserId != 0)
+            {
+                Clublist = Clublist.ToList();
+            }
+            return Clublist.Select(a => new ClubModel()
+            {
+                Id = a.Id,
+                ClubTitle = a.ClubTitle,
+                ActivityId = a.ActivityId,
+                StartDate = a.StartDate.ToLocalTime(),
+                Venue = a.Venue,
+                DayId = a.DayId,
+                Time = a.Time,
+                Contact = a.Contact,
+                Email = a.Email,
+                PhoneNumber = a.PhoneNumber,
+                PhoneCheck = a.PhoneCheck,
+                EmailCheck = a.EmailCheck,
+                LevelId = a.LevelId,
+                SpecialInstruction = a.SpecialInstruction,
+                Description = a.Description,
+                BriefDescription = a.BriefDescription,
+                TermsAndCondition = a.TermsAndCondition,
+                TenantID = a.TenantID,
+                UserId = a.UserId,
+                IsDeleted = a.IsDeleted,
+                Active = a.Active,
+                CreatedDate = a.CreatedDate,
+                LastUpdatedDate = a.LastUpdatedDate
+
+            }).ToList();
+
+        }
+
         public List<ClubModel> GetJoiningClubList(long UserId)
         {
             ShomaRMEntities db = new ShomaRMEntities();

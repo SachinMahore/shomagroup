@@ -40,9 +40,9 @@ namespace ShomaRM.Models
         public Nullable<long> PID { get; set; }
         public string Name_On_Card { get; set; }
         public string CardNumber { get; set; }
-        public Nullable<int> CardMonth { get; set; }
-        public Nullable<int> CardYear { get; set; }
-        public Nullable<int> CCVNumber { get; set; }
+        public string CardMonth { get; set; }
+        public string CardYear { get; set; }
+        public string CCVNumber { get; set; }
         public Nullable<long> ProspectId { get; set; }
 
         public string SaveLeaseDocumentVerifications(HttpPostedFileBase fb,long ProspectusID)
@@ -137,13 +137,13 @@ namespace ShomaRM.Models
                     GL_Entries_Created = 1,
                     GL_Trans_Description = "Online Application Depsosit + First Month Charge",
                     ProspectID = 0,
-                    TAccCardName = model.Name_On_Card,
-                    TAccCardNumber = model.CardNumber,
-                    TBankName = "",
-                    TRoutingNumber = "",
-                    TCardExpirationMonth = model.CardMonth.ToString(),
-                    TCardExpirationYear = model.CardYear.ToString(),
-                    TSecurityNumber = model.CCVNumber.ToString(),
+                    //TAccCardName = model.Name_On_Card,
+                    //TAccCardNumber = model.CardNumber,
+                    //TBankName = "",
+                    //TRoutingNumber = "",
+                    //TCardExpirationMonth = model.CardMonth.ToString(),
+                    //TCardExpirationYear = model.CardYear.ToString(),
+                    //TSecurityNumber = model.CCVNumber.ToString(),
 
                 };
                 db.tbl_Transaction.Add(saveTransaction);
@@ -185,11 +185,16 @@ namespace ShomaRM.Models
                 model.TenantID = Convert.ToInt64(GetProspectData.UserId);
                 if (GetPaymentProspectData != null)
                 {
-                    model.Name_On_Card = GetPaymentProspectData.Name_On_Card;
-                    model.CardNumber = GetPaymentProspectData.CardNumber;
-                    model.CardMonth = GetPaymentProspectData.CardMonth;
-                    model.CardYear = GetPaymentProspectData.CardYear;
-                    model.CCVNumber = GetPaymentProspectData.CCVNumber;
+                    //model.Name_On_Card = GetPaymentProspectData.Name_On_Card;
+                    //model.CardNumber = GetPaymentProspectData.CardNumber;
+                    //model.CardMonth = GetPaymentProspectData.CardMonth;
+                    //model.CardYear = GetPaymentProspectData.CardYear;
+                    //model.CCVNumber = GetPaymentProspectData.CCVNumber;
+                    model.Name_On_Card =GetPaymentProspectData.Name_On_Card;
+                    model.CardNumber = !string.IsNullOrWhiteSpace(GetPaymentProspectData.CardNumber)?new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardNumber) :"";
+                    model.CardMonth = !string.IsNullOrWhiteSpace(GetPaymentProspectData.CardMonth) ? new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardMonth) : "";
+                    model.CardYear = !string.IsNullOrWhiteSpace(GetPaymentProspectData.CardYear) ? new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardYear) : "";
+                    model.CCVNumber = !string.IsNullOrWhiteSpace(GetPaymentProspectData.CCVNumber) ? new EncryptDecrypt().DecryptText(GetPaymentProspectData.CCVNumber) : "";
                 }
                 if (GetDocumentVerificationData != null)
                 {

@@ -159,9 +159,12 @@
                     <div class="form-group">
                         <label class="star">Premium Type</label>
                         <select id="ddlPremium" class="form-control">
-                            <option value="1">Location</option>
-                            <option value="2">Oversized Balcony</option>
-                            <option value="3">Interior features</option>
+                            <option value="0">Select Premium Type</option>
+                            @foreach (var mod in Model.PremiumTypeList)
+                            {
+                                <option value="@mod.PTID">@mod.PremiumType</option>
+                            }
+
                         </select>
                     </div>
                 </div>

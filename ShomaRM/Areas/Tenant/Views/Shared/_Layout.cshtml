@@ -52,6 +52,7 @@
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/Tenantstyle.css")">
     <script src="~/content/timepicki.js"></script>
     <script src="~/Content/keyboardcontrols.js"></script>
+    <script src="~/Content/jquery.shorten.1.0.js"></script>
     @RenderSection("scripts", required: false)
 </head>
 <body oncontextmenu="return false;">
@@ -143,7 +144,7 @@
     <!-----Right section---->
     <div class="container container-box">
         <div class="row">
-            <div class="col-lg-9 col-md-8 col-sm-12 border-box margin">
+            <div class="col-lg-9 col-md-8 col-sm-12 border-box margin menubox-float">
                 @RenderBody()
             </div>
             <div class="col-lg-3 col-md-4 col-sm-12 box-padding-mobile">

@@ -101,7 +101,8 @@ var fillPetPlaceSearchGrid = function (pagenumber, sortby, orderby) {
                     html += '<td class="pds-id hidden" style="color:#3d3939;">' + elementValue.PetPlaceID + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.PetPlace + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">$' + parseFloat(elementValue.Charges).toFixed(2) + '</td>';
-                    html += '<td style="color:#3d3939;"><button class="btn btn-primary" style="padding: 5px 8px !important" onclick="goToPetPlace(' + elementValue.PetPlaceID + ')"><i class="fa fa-edit"></i></button>&nbsp;&nbsp;<button class="btn btn-danger" style="padding: 5px 8px !important" onclick="deletePetPlaces(' + elementValue.PetPlaceID + ')"><i class="fa fa-trash"></i></button></td>';
+                    //html += '<td style="color:#3d3939;"><button class="btn btn-primary" style="padding: 5px 8px !important" onclick="goToPetPlace(' + elementValue.PetPlaceID + ')"><i class="fa fa-edit"></i></button>&nbsp;&nbsp;<button class="btn btn-danger" style="padding: 5px 8px !important" onclick="deletePetPlaces(' + elementValue.PetPlaceID + ')"><i class="fa fa-trash"></i></button></td>';
+                    html += '<td style="color:#3d3939;"><button class="btn btn-primary" style="padding: 5px 8px !important" onclick="goToPetPlace(' + elementValue.PetPlaceID + ')"><i class="fa fa-edit"></i></button></td>';
                     html += '</tr>';
                     $("#tblPetPlace>tbody").append(html);
                 });
@@ -134,7 +135,8 @@ var fillPetPlaceList = function () {
                     html += '<td class="pds-id hidden" style="color:#3d3939;">' + elementValue.PetPlaceID + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.PetPlace + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">$' + parseFloat(elementValue.Charges).toFixed(2) + '</td>';
-                    html += '<td style="color:#3d3939;"><button class="btn btn-primary" style="padding: 5px 8px !important" onclick="goToPetPlace(' + elementValue.PetPlaceID + ')"><i class="fa fa-edit"></i></button>&nbsp;&nbsp;<button class="btn btn-danger" style="padding: 5px 8px !important" onclick="deletePetPlaces(' + elementValue.PetPlaceID + ')"><i class="fa fa-trash"></i></button></td>';
+                    //html += '<td style="color:#3d3939;"><button class="btn btn-primary" style="padding: 5px 8px !important" onclick="goToPetPlace(' + elementValue.PetPlaceID + ')"><i class="fa fa-edit"></i></button>&nbsp;&nbsp;<button class="btn btn-danger" style="padding: 5px 8px !important" onclick="deletePetPlaces(' + elementValue.PetPlaceID + ')"><i class="fa fa-trash"></i></button></td>';
+                    html += '<td style="color:#3d3939;"><button class="btn btn-primary" style="padding: 5px 8px !important" onclick="goToPetPlace(' + elementValue.PetPlaceID + ')"><i class="fa fa-edit"></i></button></td>';
                     html += '</tr>';
                     $("#tblPetPlace>tbody").append(html);
                 });
@@ -172,49 +174,59 @@ var saveUpdatePetPlace = function () {
         });
     }
     else {
-        var model = {
-            PetPlaceID: $("#hndPetPlaceID").val(),
-            PropertyID: $("#ddlProperty").val(),
-            PetPlace: $("#txtPetPlaceName").val(),
-            Charges: $("#txtCharges").val(),
-            Description: $("#txtDescription").val()
-        };
-        $.ajax({
-            url: "/PetManagement/SaveUpdatePetPlace",
-            method: "post",
-            data: JSON.stringify(model),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            async: false,
-            success: function (response) {
-                $("#divLoader").hide();
-                if (response.result == "1") {
-                    if ($("#hndPetPlaceID").val() == 0) {
-                        $.alert({
-                            title: 'Message!',
-                            content: "Data Saved Successfully",
-                            type: 'blue',
-                        });
+        if ($("#hndPetPlaceID").val() != 0) {
+            var model = {
+                PetPlaceID: $("#hndPetPlaceID").val(),
+                PropertyID: $("#ddlProperty").val(),
+                PetPlace: $("#txtPetPlaceName").val(),
+                Charges: $("#txtCharges").val(),
+                Description: $("#txtDescription").val()
+            };
+            $.ajax({
+                url: "/PetManagement/SaveUpdatePetPlace",
+                method: "post",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: false,
+                success: function (response) {
+                    $("#divLoader").hide();
+                    if (response.result == "1") {
+                        if ($("#hndPetPlaceID").val() == 0) {
+                            $.alert({
+                                title: 'Message!',
+                                content: "Data Saved Successfully",
+                                type: 'blue',
+                            });
+                        }
+                        else {
+                            $.alert({
+                                title: 'Message!',
+                                content: "Data Update Successfully",
+                                type: 'blue',
+                            });
+                        }
+                        $("#hndPetPlaceID").val(response.ID);
+                        $("#spanSaveUpdate").text("Save");
+                        fillPetPlaceList();
+                        setInterval(function () {
+                            window.location.replace("/Admin/PetManagement/Index/" + 0);
+                        }, 1200);
                     }
                     else {
-                        $.alert({
-                            title: 'Message!',
-                            content: "Data Update Successfully",
-                            type: 'blue',
-                        });
+                        //showMessage("Error!", response.error);
                     }
-                    $("#hndPetPlaceID").val(response.ID);
-                    $("#spanSaveUpdate").text("Save");
-                    fillPetPlaceList();
-                    setInterval(function () {
-                        window.location.replace("/Admin/PetManagement/Index/" + 0);
-                    }, 1200);
                 }
-                else {
-                    //showMessage("Error!", response.error);
-                }
-            }
-        });
+            });
+        }
+        else {
+            $("#divLoader").hide();
+            $.alert({
+                title: 'Message!',
+                content: 'Only Edit Allowed</br>',
+                type: 'red',
+            });
+        }
     }
 }
 var btnSaveUpdate = function () {
@@ -249,7 +261,8 @@ var fillPetPlaceSearchList = function () {
                     html += '<td class="pds-id hidden" style="color:#3d3939;">' + elementValue.PetPlaceID + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.PetPlace + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">$' + parseFloat(elementValue.Charges).toFixed(2) + '</td>';
-                    html += '<td style="color:#3d3939;"><button class="btn btn-primary" style="padding: 5px 8px !important" onclick="goToPetPlace(' + elementValue.PetPlaceID + ')"><i class="fa fa-edit"></i></button>&nbsp;&nbsp;<button class="btn btn-danger" style="padding: 5px 8px !important" onclick="deletePetPlaces(' + elementValue.PetPlaceID + ')"><i class="fa fa-trash"></i></button></td>';
+                    //html += '<td style="color:#3d3939;"><button class="btn btn-primary" style="padding: 5px 8px !important" onclick="goToPetPlace(' + elementValue.PetPlaceID + ')"><i class="fa fa-edit"></i></button>&nbsp;&nbsp;<button class="btn btn-danger" style="padding: 5px 8px !important" onclick="deletePetPlaces(' + elementValue.PetPlaceID + ')"><i class="fa fa-trash"></i></button></td>';
+                    html += '<td style="color:#3d3939;"><button class="btn btn-primary" style="padding: 5px 8px !important" onclick="goToPetPlace(' + elementValue.PetPlaceID + ')"><i class="fa fa-edit"></i></button></td>';
                     html += '</tr>';
                     $("#tblPetPlace>tbody").append(html);
                 });
@@ -281,7 +294,7 @@ var NewPetPlace = function () {
 var deletePetPlaces = function (ID) {
     if (ID != null) {
         $("#divLoader").show();
-        var model = { Id: ID };
+        var model = { PetPlaceID: ID };
         $.alert({
             title: "",
             content: "Are you sure to remove Pet Detail?",

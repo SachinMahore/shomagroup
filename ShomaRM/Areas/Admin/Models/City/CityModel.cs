@@ -288,9 +288,6 @@ namespace ShomaRM.Areas.Admin.Models
         }
         public List<CountyList> FillCountryDropDownList()
         {
-
-
-
             ShomaRMEntities db = new ShomaRMEntities();
             List<CountyList> lstData = new List<CountyList>();
             System.Data.DataTable dtTable = new System.Data.DataTable();

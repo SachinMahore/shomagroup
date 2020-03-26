@@ -49,6 +49,7 @@ namespace ShomaRM.Areas.Admin.Models
                     usm.PetPlace = dr["PetPlace"].ToString();
                     usm.Charges = Convert.ToDecimal(dr["Charges"].ToString());
                     usm.Description = dr["Description"].ToString();
+                    usm.Type = int.Parse(dr["Type"].ToString());
                     model.Add(usm);
                 }
                 db.Dispose();
@@ -82,39 +83,43 @@ namespace ShomaRM.Areas.Admin.Models
         public long SaveUpdatePetPlace(PetManagementModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
-            
-                if (model.PetPlaceID == 0)
+
+            if (model.PetPlaceID == 0)
+            {
+
+                //var PetPlaceData = new tbl_PetPlace()
+                //{
+                //    PropertyID = model.PropertyID,
+                //    PetPlace = model.PetPlace,
+                //    Charges = model.Charges,
+                //    Description = model.Description
+                //};
+                //db.tbl_PetPlace.Add(PetPlaceData);
+                //db.SaveChanges();
+                //model.PetPlaceID = PetPlaceData.PetPlaceID;
+
+                throw new Exception("Can not add new pets. Only edit allowed");
+
+            }
+            else
+            {
+                var PetPlaceInfo = db.tbl_PetPlace.Where(p => p.PetPlaceID == model.PetPlaceID).FirstOrDefault();
+                if (PetPlaceInfo != null)
                 {
-                    var PetPlaceData = new tbl_PetPlace()
-                    {
-                        PropertyID = model.PropertyID,
-                        PetPlace = model.PetPlace,
-                        Charges = model.Charges,
-                        Description = model.Description
-                    };
-                    db.tbl_PetPlace.Add(PetPlaceData);
+                    PetPlaceInfo.PropertyID = model.PropertyID;
+                    PetPlaceInfo.PetPlace = model.PetPlace;
+                    PetPlaceInfo.Charges = model.Charges;
+                    PetPlaceInfo.Description = model.Description;
                     db.SaveChanges();
-                    model.PetPlaceID = PetPlaceData.PetPlaceID;
                 }
                 else
                 {
-                    var PetPlaceInfo = db.tbl_PetPlace.Where(p => p.PetPlaceID == model.PetPlaceID).FirstOrDefault();
-                    if (PetPlaceInfo != null)
-                    {
-                        PetPlaceInfo.PropertyID = model.PropertyID;
-                        PetPlaceInfo.PetPlace = model.PetPlace;
-                        PetPlaceInfo.Charges = model.Charges;
-                        PetPlaceInfo.Description = model.Description;
-                        db.SaveChanges();
-                    }
-                    else
-                    {
-                        throw new Exception(model.PetPlace + " not exists in the system.");
-                    }
+                    throw new Exception(model.PetPlace + " not exists in the system.");
                 }
+            }
 
-                return model.PetPlaceID;
-            
+            return model.PetPlaceID;
+
         }
         public PetManagementModel GetPetPlaceData(int Id)
         {
@@ -295,10 +300,10 @@ namespace ShomaRM.Areas.Admin.Models
                 throw ex;
             }
         }
-        public void DeletePetPlacesDetails(int ID = 0)
+        public void DeletePetPlacesDetails(long ID = 0)
         {
             ShomaRMEntities db = new ShomaRMEntities();
-            var PetPlaceInfo = db.tbl_PetPlace.Where(p => p.PetPlaceID == PetPlaceID).FirstOrDefault();
+            var PetPlaceInfo = db.tbl_PetPlace.Where(p => p.PetPlaceID == ID).FirstOrDefault();
             if (PetPlaceInfo != null)
             {
                 db.tbl_PetPlace.Remove(PetPlaceInfo);
@@ -332,34 +337,48 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<decimal> Charges { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public List<TenantPetPlaceModel> lstTPetPlace{ get; set; }
+        public long PropertyID { get; set; }
 
         public string SaveUpdateTenantPetPlace(TenantPetPlaceModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             decimal totalPetPlaceAmt = 0;
+            int numOfPet = 0;
+            decimal petDNA = 0;
+
             var TenantStorageData = db.tbl_TenantPetPlace.Where(p => p.TenantID == model.TenantID).ToList();
             db.tbl_TenantPetPlace.RemoveRange(TenantStorageData);
             db.SaveChanges();
+
             if (model.lstTPetPlace != null)
             {
-              
                 foreach (var cd in model.lstTPetPlace)
                 {
-                    var parkingdata = db.tbl_PetPlace.Where(p => p.PetPlaceID == cd.PetPlaceID).FirstOrDefault();
+                    var petdata = db.tbl_PetPlace.Where(p => p.PetPlaceID == cd.PetPlaceID).FirstOrDefault();
+                    var propertydata = db.tbl_Properties.Where(p => p.PID == model.PropertyID).FirstOrDefault();
                     var cdData = new tbl_TenantPetPlace
                     {
                         PetPlaceID = cd.PetPlaceID,
                         TenantID = model.TenantID,
-                        Charges = parkingdata.Charges,
+                        Charges = petdata.Charges,
                         CreatedDate = Convert.ToDateTime(DateTime.Now.ToString("MM/dd/yyyy"))
                     };
                     db.tbl_TenantPetPlace.Add(cdData);
                     db.SaveChanges();
-                    totalPetPlaceAmt = totalPetPlaceAmt + Convert.ToDecimal(parkingdata.Charges);
+
+                    if (petdata != null)
+                    {
+                        totalPetPlaceAmt = totalPetPlaceAmt + Convert.ToDecimal(petdata.Charges ?? 0);
+                        numOfPet = Convert.ToInt32(petdata.Type ?? 0);
+                    }
+                    if (propertydata != null)
+                    {
+                        petDNA = petDNA + Convert.ToDecimal(propertydata.PetDNAAmt ?? 0);
+                    }
                 }
 
             }
-            return totalPetPlaceAmt.ToString();
+            return numOfPet.ToString() + "|"+totalPetPlaceAmt.ToString()+"|"+ petDNA.ToString();
 
         }
         public List<TenantPetPlaceModel> GetTenantPetPlaceList(long TenantId)

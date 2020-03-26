@@ -29,9 +29,9 @@ var saveupdateProspect = function () {
     var prospectId = $("#hndProspectID").val();
     var appDate = $("#txtAppointmentDate").text();
     var recheduledate = $("#txtReschduleDate").val();
-    //if (salesAgent == "0") {
-    //    msg += "Select the sales Agent</br>";
-    //}
+    if (salesAgent == "0") {
+        msg += "Select the sales Agent</br>";
+    }
     if (appointmentStatus == "0") {
         msg += "Select the appointment status</br>";
     }
