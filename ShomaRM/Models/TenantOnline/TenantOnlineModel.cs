@@ -879,6 +879,7 @@ namespace ShomaRM.Models
         public Nullable<long> TenantID { get; set; }
         public Nullable<decimal> Charges { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public int NumberOfPets { get; set; }
 
         public TenantPetPlace GetTenantPetPlaceData(long Id)
         {
@@ -886,10 +887,12 @@ namespace ShomaRM.Models
             TenantPetPlace model = new TenantPetPlace();
 
             var getTenantPetPlaceData = db.tbl_TenantPetPlace.Where(p => p.TenantID == Id).FirstOrDefault();
-
+            
             if (getTenantPetPlaceData != null)
             {
+                var getPetData = db.tbl_PetPlace.Where(p => p.PetPlaceID == getTenantPetPlaceData.PetPlaceID).FirstOrDefault();
                 model.PetPlaceID = getTenantPetPlaceData.PetPlaceID;
+                model.NumberOfPets = getPetData.Type??0;
             }
             model.TenantID = Id;
             return model;

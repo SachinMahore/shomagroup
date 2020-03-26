@@ -65,16 +65,16 @@
                 <div class="col-sm-3">
                 </div>
                 <i class="fa fa-file-txt-o"></i>*@
-        <div id="payStep1" class="col-lg-12 payment-box">
+        <div id="payStep1" class="col-lg-12 payment-box pading-box">
             <input id="hdnTablePaidId" type="hidden" value="" />
             <h3 class="headding-sub-text margin3  col-lg-12">Make a One-Time Payment</h3>
             <div class="payment-box">
                 <div class="col-lg-12 margin2">
                     <div class="row margin margin-box">
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment pading-box">
                             Payment type:
                         </div>
-                        <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6 col-xs-12 pading-box">
                             <div class="">
                                 <select id="ddlPaymentMethod" class="form-control"></select>
                             </div>
@@ -86,8 +86,8 @@
             <div class="payment-box">
                 <div class="col-lg-12">
                     <div class="row margin margin-box">
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mobile-margin text-payment">Amount to Pay:</div>
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-4 col-xl-4 mobile-margin">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mobile-margin text-payment pading-box">Amount to Pay:</div>
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-4 col-xl-4 mobile-margin pading-box">
                             <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
                             <label class="checbox">
                                 <input type="radio" id="rbtnAmountToPay1" name="AmountToPay" checked="checked">
@@ -95,7 +95,7 @@
                             </label>
 
                         </div>
-                        <label id="lblCurrentPrePayAmount" class="col-xs-12 col-sm-3 col-md-3 col-lg-2 mobile-margin text-right checbox">
+                        <label id="lblCurrentPrePayAmount" class="col-xs-12 col-sm-3 col-md-3 col-lg-2 mobile-margin text-right checbox pading-box">
 
                         </label>
                     </div>
@@ -106,7 +106,7 @@
                 <div class="col-lg-12 margin2">
                     <div class="row margin margin-box">
                         <div class="col-lg-3 col-md-2 col-sm-2 col-xl-3 box-none"></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3 pading-box">
                             <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
                             <label class="checbox">
                                 <input type="radio" id="rbtnAmountToPay2" name="AmountToPay">
@@ -146,12 +146,12 @@
                 <div class="col-lg-12 margin">
                     <div class="row margin margin-box">
 
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3 pading-box">
                             <div class="control-label  requiredField text-payment" for="date">
                                 Preferred Date:
                             </div>
                         </div>
-                        <div class='col-sm-6 col-md-6 col-lg-4 col-xl-3'>
+                        <div class='col-sm-6 col-md-6 col-lg-4 col-xl-3 pading-box'>
                             <div class="form-group">
                                 <div class='input-group date'>
                                     <input id="txtPrefarredDate" type="text" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
@@ -170,12 +170,12 @@
             <div class="payment-box">
                 <div class="col-lg-12 margin">
                     <div class="row margin margin-box">
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3 pading-box">
                             <div class="control-label  requiredField text-payment">
                                 Description:
                             </div>
                         </div>
-                        <div class='col-sm-6 col-md-6 col-lg-4 col-xl-3'>
+                        <div class='col-sm-6 col-md-6 col-lg-4 col-xl-3 pading-box'>
                             <textarea id="txtDescriptionText" type="text" class="form-control"></textarea>
                         </div>
 
@@ -186,10 +186,10 @@
             <div class="payment-box" id="DivCVVNumberPayRentOnline">
                 <div class="col-lg-12 margin2">
                     <div class="row margin margin-box">
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3 text-payment ">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xl-3 text-payment pading-box">
                             CVV Number:
                         </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-xl-3">
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-xl-3 pading-box">
                             <input id="txtCVVNumberPayRentOnline" type="password" class="Wraper1 cvv-box" maxlength="3" value="" onkeypress="return isOnlyNumber(event);" />
                         </div>
 
@@ -205,7 +205,7 @@
                             <div class="control-label  requiredField text-payment">
                             </div>
                         </div>
-                        <div class='col-sm-6 col-md-6 col-lg-4 col-xl-3'>
+                        <div class='col-sm-6 col-md-6 col-lg-4 col-xl-3 pading-box'>
                             <input type="checkbox" id="chkTermsAndCondition">
                             <span class="chektext">I agree to the <span class="span1"><a id="ShowTermsAndCondition" href="javascript:void(0);">Terms &amp; Condition </a></span></span>
                         </div>
@@ -222,7 +222,7 @@
 
         </div>
 
-        <div class="col-lg-12 hidden payment-box" id="payStep2">
+        <div class="col-lg-12 hidden payment-box pading-box" id="payStep2">
             @*<div class="panel-heading">
                     <h3 class="headding-sub-text margin1  col-lg-12">Payment History</h3>
                     <div class="col-sm-3 pull-right" style="margin-bottom:20px !important;">
@@ -237,9 +237,12 @@
                 </div>*@
 
 
-            <div class="panel-heading col-md-12">
+            <div class="panel-heading col-md-12 pading-box">
                 <h3 class="headding-sub-text col-md-9">Payment History</h3>
-                <div class="col-sm-3 pull-right">
+            </div>
+
+            <div class="col-lg-12 pading-box">
+                <div class="col-md-3 pull-right pading-box">
                     <select id="ddlPaymentHistory" class="form-control">
                         <option value='1'>Current month</option>
                         <option value='2'>Next month</option>
@@ -248,10 +251,11 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="panel-body search-widget">
-                    <div class="col-md-12 clear">
-                        <table id="tblPaymentHistory" class="borderlessTable tbale-box" width="100%">
+
+            <div class="col-md-12 pading-box ">
+                <div class="panel-body search-widget panel-bodybox tableboxscroll">
+                    <div class="col-md-12 clear tableboxscroll">
+                        <table id="tblPaymentHistory" class="borderlessTable tbale-box">
                             <thead>
                                 <tr>
                                     <th width="10%" scope="row" class="border-box border-box2 text-payment tabletr">Date</th>
@@ -268,16 +272,15 @@
             </div>
 
 
-            <div class="panel-heading">
+            <div class="panel-heading col-lg-12 box-left">
                 <div class="row">
-
-                    <div class="col-lg-9"><h3 class="headding-sub-text">Upcoming Charges</h3></div>
+                    <div class="col-lg-12"><h3 class="headding-sub-text">Upcoming Charges</h3></div>
                 </div>
             </div>
 
-            <div class="col-md-12 m-b50">
-                <div class="panel-body search-widget">
-                    <div class="col-md-12 clear">
+            <div class="col-md-12 m-b50 box-left tableboxscroll">
+                <div class="panel-body search-widget panel-bodybox">
+                    <div class="col-md-12 clear tableboxscroll">
                         <table id="tblUpcomingCharges" class="borderlessTable tbale-box" width="100%">
                             <thead>
                                 <tr>
@@ -304,7 +307,7 @@
             <div class="condition-wrapper">
                 <button id="btnAccountHistoryPrint" onclick="print('payStep2')" class="paynow">Print Statement</button>
             </div>
-            <div class="col-sm-12 hidden" id="DivNote">
+            <div class="col-sm-12 hidden box-left" id="DivNote">
                 <div class="text-center">
                     <p style="font-size:84%;margin-top:4%;color:#B7B0A7;">NOTE: Any payments generated will not be reflected in your account until the next business day!</p>
                     <p style="font-size:84%;margin-top:-1%;color:#B7B0A7">UPCOMING CHARGES: Estimated future charges for next month billing.</p>
@@ -312,11 +315,11 @@
             </div>
         </div>
 
-        <div class="col-lg-12 hidden payment-box" id="payStep4">
-            <div class="col-md-12 clear hidden" id="divRecPayList">
-                <h3 class="headding-sub-text margin1  col-lg-12">Manage Recurring Payments</h3>
-                <div class="panel-body search-widget">
-                    <div class="col-md-12 clear">
+        <div class="col-lg-12 hidden payment-box pading-box" id="payStep4">
+            <div class="col-md-12 clear hidden pading-box" id="divRecPayList">
+                <h3 class="headding-sub-text margin1  col-lg-12 pading-box">Manage Recurring Payments</h3>
+                <div class="panel-body search-widget panel-bodybox tableboxscroll pading-box">
+                    <div class="col-md-12 clear ">
                         <p>Both active and cancelled scheduled payments are listed below. To cancel a scheduled payment. Click the cancel button in the scheduled payment details</p>
                         <table id="tblRecurringPayments" class="borderlessTable tbale-box" width="100%">
 
@@ -546,8 +549,8 @@
                         <option value='2'>Bank Account List</option>
                     </select>
                 </div>*@
-            <div class="panel-heading col-md-12">
-                <h3 class="headding-sub-text col-md-9">Saved Payment Accounts</h3>
+            <div class="panel-heading col-md-12 pading-box">
+                <h3 class="headding-sub-text col-md-9 pading-box">Saved Payment Accounts</h3>
                 <div class="col-sm-3 pull-right">
                     <select id="ddlBankAccountList" class="form-control">
                         <option value='1'>Credit Card List</option>
@@ -556,10 +559,10 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="panel-body search-widget">
-                    <div class="col-md-12 clear m-b30">
-                        <table id="tblPaymentAccountsCreditCard" class="borderlessTable tbale-box" width="100%">
+            <div class="col-md-12 pading-box tableboxscroll">
+                <div class="panel-body search-widget panel-bodybox">
+                    <div class="col-md-12 clear tableboxscroll m-b30">
+                        <table id="tblPaymentAccountsCreditCard" class="borderlessTable tbale-box">
                             <thead>
                                 <tr>
                                     <th width="20%" scope="row" class="border-box border-box2 text-payment tabletr">Bank Name</th>
@@ -619,8 +622,8 @@
 
         <div class="col-lg-12 payment-box active" id="serviceStep1">
 
-            <div class="panel-heading col-md-12">
-                <h3 class="headding-sub-text col-md-9">Current Service Request</h3>
+            <div class="panel-heading col-md-12 pading-box">
+                <h3 class="headding-sub-text col-md-9 pading-box">Current Service Request</h3>
                 <div class="col-sm-3 pull-right">
                     <select id="ddlOpenServiceRequest" class=" form-control">
                         <option value='1'>Open</option>
@@ -630,10 +633,10 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="panel-body search-widget">
-                    <div class="col-md-12 clear">
-                        <table id="tblServiceRequest" class="borderlessTable tbale-box" width="100%">
+            <div class="col-md-12 pading-box pading-box">
+                <div class="panel-body search-widget panel-bodybox tableboxscroll pading-box">
+                    <div class="col-md-12 clear pading-box">
+                        <table id="tblServiceRequest" class="borderlessTable tbale-box">
                             <thead>
                                 <tr>
                                     <th width="35%" scope="row" class="border-box border-box2 text-payment tabletr">Preferred Date</th>
@@ -651,12 +654,12 @@
 
 
         </div>
-        <div id="serviceStep2" class="col-lg-12 payment-box hidden">
+        <div id="serviceStep2" class="col-lg-12 payment-box hidden pading-box">
             <input id="hdnServiceRequest" type="hidden" value="0" />
             <h3 class="headding-sub-text margin3  col-lg-12">Submit Service Request</h3>
 
             <div class="payment-box">
-                <div class="col-lg-12 ">
+                <div class="col-lg-12 pading-box">
                     <div class="row margin margin-box">
                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
                             Service Issue:
@@ -677,7 +680,7 @@
                 </div>
             </div>
             <div class="payment-box">
-                <div class="col-lg-12 ">
+                <div class="col-lg-12 pading-box">
                     <div class="row margin margin-box hidden" id="CausingIssue">
 
                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
@@ -691,7 +694,7 @@
                 </div>
             </div>
             <div class="payment-box">
-                <div class="col-lg-12 ">
+                <div class="col-lg-12 pading-box">
                     <div class="row margin margin-box hidden" id="OtherCausingIssue">
 
                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
@@ -704,7 +707,7 @@
                 </div>
             </div>
             <div class="payment-box">
-                <div class="col-lg-12 ">
+                <div class="col-lg-12 pading-box">
                     <div class="row margin margin-box hidden" id="Issue">
 
                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
@@ -718,7 +721,7 @@
                 </div>
             </div>
             <div class="payment-box">
-                <div class="col-lg-12 ">
+                <div class="col-lg-12 pading-box">
                     <div class="row margin margin-box hidden" id="OtherIssue">
 
                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
@@ -732,7 +735,7 @@
             </div>
 
             <div class="payment-box">
-                <div class="col-lg-12 ">
+                <div class="col-lg-12 pading-box">
                     <div id="MoreDetails" class="row margin margin-box">
 
                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
@@ -746,7 +749,7 @@
                 </div>
             </div>
             <div class="payment-box">
-                <div class="col-lg-12 ">
+                <div class="col-lg-12 pading-box">
                     <div class="row margin margin-box">
 
                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">
@@ -787,132 +790,150 @@
                 </div>
             </div>
 
-            <div class="col-lg-12 margin2" style="float:left;">
+            <div class="col-lg-12 margin2">
                 <div class="row margin margin-box">
 
                     <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mobile-margin text-payment">
                         Unit Access:
                     </div>
-                    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 textarea1">
-                        <div class="comment-text">Name:<span class="Access-text p-l100" id="lblNameUnitAccess"></span></div>
-                        <div class="comment-text">Unit#:<span class="Access-text p-l100" id="lblUnitUnitAccess"></span></div>
-                        <div class="comment-text">Phone:<span class="Access-text p-l90" id="lblPhoneUnitAccess"></span></div>
-                        <div class="comment-text">Emergency Phone:<span class="Access-text" id="lblEmergencyPhoneUnitAccess"></span></div>
-                        <div class="comment-text">Email:<span class="Access-text p-l100" id="lblEmailUnitAccess"></span></div>
-
-                        <div class="m-t50 text-subheding">Do we have permission to enter your apartment?</div>
-
-                        <div class="row m-t10">
-
-                            <div class="col-lg-8 p-l30">
-                                <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
-                                <label class="checbox">
-                                    <input type="radio" id="rbtnApertmentPermission1" name="rbtnPermissionToEnter" value="1" checked="checked">
-                                    Any Time
-                                </label>
-                            </div>
+                    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 textarea1 pading-box">
+                        <div class="col-lg-12 padding-box box-left">
+                            <div class="comment-text col-lg-4 col-md-4 col-sm-6 col-xs-12 padding-box">Name:</div>
+                            <div class="Access-text col-lg-8 col-md-8 col-sm-6 col-xs-12 padding-box" id="lblNameUnitAccess"></div>
                         </div>
-                        <div class="row m-t10">
-                            <div class="col-lg-4 p-l30">
-                                <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
-                                <label class="checbox">
-                                    <input type="radio" id="rbtnApertmentPermission2" name="rbtnPermissionToEnter" value="2" checked="checked">
-                                    By Appointment
-                                </label>
-                            </div>
-                            <div class="col-lg-8 hidden" id="PreferredDate">
-                                <div class="form-group col-md-6">
-                                    <div class="input-group date" id="datetimepicker1">
-                                        <input type="text" class="form-control" placeholder="MM/DD/YYYY" id="txtPreferredDate">
-                                        <span class="input-group-addon" id="Sdate">
-                                            <a><span class="fa fa-calendar"></span></a>
-                                        </span>
 
+                        <div class="col-lg-12 padding-box box-left">
+                            <div class="comment-text col-lg-4 col-md-4 col-sm-6 col-xs-12 padding-box">Unit#:</div>
+                            <div class="Access-text col-lg-8 col-md-8 col-sm-6 col-xs-12 padding-box" id="lblUnitUnitAccess"></div>
+                        </div>
+
+                        <div class="col-lg-12 padding-box box-left">
+                            <div class="comment-text col-lg-4 col-md-4 col-sm-6 col-xs-12 padding-box">Phone:</div>
+                            <span class="Access-text col-lg-8 col-md-8 col-sm-6 col-xs-12 padding-box" id="lblPhoneUnitAccess"></span>
+                        </div>
+                        <div class="col-lg-12 padding-box box-left">
+                            <div class="comment-text col-lg-4 col-md-4 col-sm-6 col-xs-12 padding-box">Emergency Phone:</div>
+                            <div class="Access-text col-lg-8 col-md-8 col-sm-6 col-xs-12 padding-box" id="lblEmergencyPhoneUnitAccess"></div>
+                        </div>
+                        <div class="col-lg-12 padding-box box-left">
+                            <div class="comment-text col-lg-4 col-md-4 col-sm-6 col-xs-12 padding-box">Email:</div>
+                            <div class="Access-text col-lg-8 col-md-8 col-sm-6 col-xs-12 padding-box" id="lblEmailUnitAccess"></div>
+                         </div>
+
+                            <div class="m-t50 text-subheding">Do we have permission to enter your apartment?</div>
+
+                            <div class="row m-t10">
+
+                                <div class="col-lg-8 p-l30">
+                                    <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
+                                    <label class="checbox">
+                                        <input type="radio" id="rbtnApertmentPermission1" name="rbtnPermissionToEnter" value="1" checked="checked">
+                                        Current
+                                    </label>
+                                </div>
+
+                            </div>
+                            <div class="row m-t10">
+                                <div class="col-lg-4 p-l30">
+                                    <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
+                                    <label class="checbox">
+                                        <input type="radio" id="rbtnApertmentPermission2" name="rbtnPermissionToEnter" value="2" checked="checked">
+                                        By appointment
+                                    </label>
+                                </div>
+                                <div class="col-lg-8 hidden" id="PreferredDate">
+                                    <div class="form-group col-md-6">
+                                        <div class="input-group date" id="datetimepicker1">
+                                            <input type="text" class="form-control" placeholder="MM/DD/YYYY" id="txtPreferredDate">
+                                            <span class="input-group-addon" id="Sdate">
+                                                <a><span class="fa fa-calendar"></span></a>
+                                            </span>
+
+                                        </div>
                                     </div>
+                                    <div class="form-group col-md-6">
+                                        <select id="txtPreferredTime" class="form-control">
+                                            <option value="">Select Time</option>
+                                            <option value="9:00-10:00">9:00 AM-10:00 AM</option>
+                                            <option value="10:00-11:00">10:00 AM-11:00 AM</option>
+                                            <option value="11:00-12:00">11:00 AM-12:00 AM</option>
+                                            <option value="12:00-13:00">12:00 PM-13:00 PM</option>
+                                            <option value="13:00-14:00">13:00 PM-14:00 PM</option>
+                                            <option value="14:00-15:00">14:00 PM-15:00 PM</option>
+                                            <option value="15:00-16:00">15:00 PM-16:00 PM</option>
+                                            <option value="16:00-17:00">16:00 PM-17:00 PM</option>
+
+                                        </select>
+                                    </div>
+
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <select id="txtPreferredTime" class="form-control">
-                                        <option value="">Select Time</option>
-                                        <option value="9:00-10:00">9:00 AM-10:00 AM</option>
-                                        <option value="10:00-11:00">10:00 AM-11:00 AM</option>
-                                        <option value="11:00-12:00">11:00 AM-12:00 AM</option>
-                                        <option value="12:00-13:00">12:00 PM-13:00 PM</option>
-                                        <option value="13:00-14:00">13:00 PM-14:00 PM</option>
-                                        <option value="14:00-15:00">14:00 PM-15:00 PM</option>
-                                        <option value="15:00-16:00">15:00 PM-16:00 PM</option>
-                                        <option value="16:00-17:00">16:00 PM-17:00 PM</option>
+                            </div>
 
-                                    </select>
+
+                            <div class="m-t50 text-subheding">Has your pet information changed?</div>
+
+                            <div class="row m-t10">
+                                <div class="col-lg-8 p-l30">
+                                    <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
+                                    <label class="checbox">
+                                        <input type="radio" id="rbtnPetInformation1" name="rbtnPetInformation" value="1">
+                                        Yes
+                                    </label>
+
                                 </div>
-
                             </div>
+
+                            <div class="row m-t10">
+                                <div class="col-lg-8 p-l30">
+                                    <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
+                                    <label class="checbox">
+                                        <input type="radio" id="rbtnPetInformation2" name="rbtnPetInformation" value="2" checked="checked">
+                                        No
+                                    </label>
+
+                                </div>
+                            </div>
+
                         </div>
 
 
-                        <div class="m-t50 text-subheding">Has your pet information changed?</div>
 
-                        <div class="row m-t10">
-                            <div class="col-lg-8 p-l30">
-                                <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
-                                <label class="checbox">
-                                    <input type="radio" id="rbtnPetInformation1" name="rbtnPetInformation" value="1">
-                                    Yes
-                                </label>
 
-                            </div>
-                        </div>
+                        @*<div class="col-sm-12">
+            <div class="col-sm-8 ">
+                <div class="col-sm-3"><label style="color:#4D738A !important;margin-left:-14px; font-size:13pt;" &nbsp;&nbsp;&nbsp;&nbsp;>Unit Access:</label></div>
+                <div class="col-sm-7" style="margin-left:43px;"><label>Name :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblNameUnitAccess"></span></div>
+            </div>
 
-                        <div class="row m-t10">
-                            <div class="col-lg-8 p-l30">
-                                <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
-                                <label class="checbox">
-                                    <input type="radio" id="rbtnPetInformation2" name="rbtnPetInformation" value="2" checked="checked">
-                                    No
-                                </label>
+        </div>
+        <div class="col-sm-12">
+            <div class="col-sm-8 ">
+                <div class="col-sm-3"><label style="color:#4D738A !important;" &nbsp;&nbsp;&nbsp;&nbsp;></label></div>
+                <div class="col-sm-7" style="margin-left: 43px;"><label>Unit# :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblUnitUnitAccess"></span></div>
 
-                            </div>
-                        </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="col-sm-8 ">
+                <div class="col-sm-3"><label style="color:#4D738A !important;" &nbsp;&nbsp;&nbsp;&nbsp;></label></div>
+                <div class="col-sm-7" style="margin-left: 43px;"><label>Phone :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblPhoneUnitAccess"></span></div>
 
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="col-sm-8 ">
+                <div class="col-sm-3"><label style="color:#4D738A !important;" &nbsp;&nbsp;&nbsp;&nbsp;></label></div>
+                <div class="col-sm-7" style="margin-left: 43px;"><label>Emergency Phone :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblEmergencyPhoneUnitAccess"></span></div>
+
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="col-sm-8 ">
+                <div class="col-sm-3"><label style="color:#4D738A !important;" &nbsp;&nbsp;&nbsp;&nbsp;></label></div>
+                <div class="col-sm-7" style="margin-left: 43px;"><label>Email :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblEmailUnitAccess"></span></div>
+            </div>
+        </div>*@
                     </div>
-
-
-
-
-                    @*<div class="col-sm-12">
-                            <div class="col-sm-8 ">
-                                <div class="col-sm-3"><label style="color:#4D738A !important;margin-left:-14px; font-size:13pt;" &nbsp;&nbsp;&nbsp;&nbsp;>Unit Access:</label></div>
-                                <div class="col-sm-7" style="margin-left:43px;"><label>Name :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblNameUnitAccess"></span></div>
-                            </div>
-
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="col-sm-8 ">
-                                <div class="col-sm-3"><label style="color:#4D738A !important;" &nbsp;&nbsp;&nbsp;&nbsp;></label></div>
-                                <div class="col-sm-7" style="margin-left: 43px;"><label>Unit# :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblUnitUnitAccess"></span></div>
-
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="col-sm-8 ">
-                                <div class="col-sm-3"><label style="color:#4D738A !important;" &nbsp;&nbsp;&nbsp;&nbsp;></label></div>
-                                <div class="col-sm-7" style="margin-left: 43px;"><label>Phone :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblPhoneUnitAccess"></span></div>
-
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="col-sm-8 ">
-                                <div class="col-sm-3"><label style="color:#4D738A !important;" &nbsp;&nbsp;&nbsp;&nbsp;></label></div>
-                                <div class="col-sm-7" style="margin-left: 43px;"><label>Emergency Phone :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblEmergencyPhoneUnitAccess"></span></div>
-
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="col-sm-8 ">
-                                <div class="col-sm-3"><label style="color:#4D738A !important;" &nbsp;&nbsp;&nbsp;&nbsp;></label></div>
-                                <div class="col-sm-7" style="margin-left: 43px;"><label>Email :</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;" id="lblEmailUnitAccess"></span></div>
-                            </div>
-                        </div>*@
-                </div>
             </div>
 
             @*<div class="row">
@@ -1028,18 +1049,14 @@
         </div>
 
 
-        <div class="" id="reservationStep1" style="margin-top:10px !important">
-            <h3 class="headding-sub-text margin1  col-lg-12">Recent Reservations</h3>
-            <div class="">
-
-                <div class="col-md-12">
-                    <div class="" id="">
-
-                        <div class="panel-body search-widget">
-                            <div class="col-md-12 clear">
-
-
-
+        <div class="col-lg-12 payment-box pading-box" id="reservationStep1">
+            <div class="panel-heading col-md-12 pading-box"> 
+                <h3 class="headding-sub-text margin1  col-lg-12">Recent Reservations</h3> 
+            </div>
+           
+                <div class="col-md-12 panel-bodybox tableboxscroll pading-box">
+                        <div class="panel-body search-widget panel-bodybox tableboxscroll">
+                            <div class="col-md-12 clear pading-box">
                                 <table id="tblReservationRequest" class="borderlessTable tbale-box" cellspacing="0" style="width:100%">
                                     <thead>
                                         <tr>
@@ -1059,20 +1076,20 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
+
 
                 </div>
 
-            </div>
         </div>
-        <div class="hidden" id="reservationStep2" style="margin-top:10px !important">
-            <h3 class="headding-sub-text margin1  col-lg-12">Reserve an Amenity</h3>
-            <div class="">
-                <div class="col-md-12">
-
+        <div class="hidden col-lg-12 payment-box pading-box" id="reservationStep2">
+            <div class="panel-heading col-md-12 pading-box">
+                <h3 class="headding-sub-text col-md-12">Reserve an Amenity</h3>
+            </div>
+            
+                <div class="col-md-12 pading-box">
                     <div class="col-sm-12">
-                        <div class="col-lg-4 mobile-margin text-payment">Amenity :</div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-4 mobile-margin text-payment pading-box">Amenity :</div>
+                        <div class="col-lg-5 pading-box">
                             <div class="form-group">
                                 <select id="ddlAmenities" class="form-control">
                                     <option value='0'>Select Amenity</option>
@@ -1083,7 +1100,6 @@
                     </div>
 
                 </div>
-            </div>
         </div>
 
     </div>
@@ -1429,28 +1445,28 @@
                     <div class="col-lg-6"><h3 class="headding-sub-text">Pending Request</h3></div>
                 </div>
             </div>*@
-        <div id="PrintGuest" class="col-lg-12 payment-box">
-            <h3 class="headding-sub-text margin1  col-lg-12">Guest Registration Form</h3>
+        <div id="PrintGuest" class="col-lg-12 payment-box pading-box">
+            <h3 class="headding-sub-text margin1 col-lg-12">Guest Registration Form</h3>
 
             <div class="text-redcolor1 center m-t20 m-b40">Registration is only necessary for guests staying overnight.</div>
 
             <div class="payment-box">
                 <div class="col-lg-12 margin3">
                     <div class="row margin margin-box">
-                        <div class="col-lg-3">
-                            <div class="col-lg-12 mobile-margin text-payment">Guest Name:</div>
+                        <div class="col-lg-3 col-xs-12 panel-bodybox pading-box">
+                            <div class="col-lg-12 mobile-margin text-payment padding-box">Guest Name:</div>
                         </div>
 
-                        <div class="col-lg-9">
+                        <div class="col-lg-9 col-xs-12">
                             <div class="row">
-                                <div class="Club-text col-lg-2">First:</div>
-                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
+                                <div class="Club-text col-lg-2 pading-box">First:</div>
+                                <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12 border-bottom1">
                                     <input type="text" id="txtGuestFirstName" class="form-control" onchange="copyGuestName();" />
                                 </div>
                             </div>
                             <div class="row m-t20">
-                                <div class="Club-text col-lg-2 ">Last:</div>
-                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
+                                <div class="Club-text col-lg-2 pading-box">Last:</div>
+                                <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12 border-bottom1">
                                     <input type="text" id="txtGuestLastName" class="form-control" onchange="copyGuestName();" />
                                 </div>
                             </div>
@@ -1462,12 +1478,12 @@
             <div class="payment-box">
                 <div class="col-lg-12 margin2">
                     <div class="row margin margin-box">
-                        <div class="col-lg-3">
-                            <div class="col-lg-12 mobile-margin text-payment">Guest Address:</div>
+                        <div class="col-lg-3 pading-box">
+                            <div class="col-lg-12 mobile-margin text-payment pading-box">Guest Address:</div>
                         </div>
 
-                        <div class="col-lg-8">
-                            <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12 p-r30 p-l0">
+                        <div class="col-lg-8 pading-box">
+                            <div class="col-lg-8 col-md-6 col-sm-12 col-xs-12 p-r30 p-l0 pading-box">
                                 <textarea id="txtGuestAddress" style="width:100%; height:auto;"></textarea>
                             </div>
 
@@ -1479,20 +1495,20 @@
             <div class="payment-box">
                 <div class="col-lg-12 margin2">
                     <div class="row margin margin-box">
-                        <div class="col-lg-3">
-                            <div class="col-lg-12 mobile-margin text-payment">Contact:</div>
+                        <div class="col-lg-3 pading-box">
+                            <div class="col-lg-12 mobile-margin text-payment pading-box">Contact:</div>
                         </div>
 
                         <div class="col-lg-9">
                             <div class="row">
-                                <div class="Club-text col-lg-2">Phone#:</div>
-                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
+                                <div class="Club-text col-lg-2 pading-box">Phone#:</div>
+                                <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12 border-bottom1">
                                     <input type="text" id="txtGuestPhone" class="form-control" maxlength="10" onkeypress="return isOnlyNumber(event);" />
                                 </div>
                             </div>
                             <div class="row m-t20">
-                                <div class="Club-text col-lg-2">Email:</div>
-                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1">
+                                <div class="Club-text col-lg-2 pading-box">Email:</div>
+                                <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12 border-bottom1">
                                     <input type="text" class="form-control" id="txtGuestEmail" />
                                 </div>
                             </div>
@@ -1505,19 +1521,19 @@
             <div class="payment-box">
                 <div class="col-lg-12 margin2">
                     <div class="row margin margin-box">
-                        <div class="col-lg-3">
-                            <div class="col-lg-12 mobile-margin text-payment">Duration:</div>
+                        <div class="col-lg-3 pading-box">
+                            <div class="col-lg-12 mobile-margin text-payment pading-box">Duration:</div>
                         </div>
 
                         <div class="col-lg-9">
                             <div class="row">
-                                <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 text-redcolor2">
+                                <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12 text-redcolor2">
                                     Limited to 10 days.
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="Club-text1 col-lg-2">Visit Start Date:</div>
-                                <div class="col-lg-4 col-md-2 col-sm-6 col-xs-12 border-bottom1 m-r20">
+                                <div class="Club-text1 col-lg-2 pading-box">Visit Start Date:</div>
+                                <div class="col-lg-4 col-md-2 col-sm-12 col-xs-12 border-bottom1 m-r20">
                                     <div class="form-group">
                                         <div class='input-group date'>
                                             <input id="txtGuestVistStartDate" type="text" class="form-control" />
@@ -1530,8 +1546,8 @@
                                 </div>
                             </div>
                             <div class="row m-t20">
-                                <div class="Club-text1 col-lg-2">Visit End Date:</div>
-                                <div class="col-lg-4 col-md-2 col-sm-6 col-xs-12 border-bottom1 m-l10">
+                                <div class="Club-text1 col-lg-2 pading-box">Visit End Date:</div>
+                                <div class="col-lg-4 col-md-2 col-sm-12 col-xs-12 border-bottom1 m-l10">
                                     <div class="form-group">
                                         <div class='input-group date'>
                                             <input id="txtGuestVistEndDate" type="text" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
@@ -1549,7 +1565,7 @@
             </div>
 
             <div class="payment-box">
-                <div class="col-lg-12">
+                <div class="col-lg-12 box-left">
                     <div class="row margin margin-box">
                         <div class="col-lg-3">
                             <div class="col-lg-12 mobile-margin text-payment">Vehicle:</div>
@@ -1675,31 +1691,31 @@
 
 
 
-            <div class="col-lg-12">
+            <div class="col-lg-12 box-left">
                 <div class="condition-wrapper border-bottom1"><h4 class="m-b0">Guest’s Certification</h4></div>
-                <p class="m-l30 m-r-30 m-t10 text-subheding">
+                <p class="m-r-30 m-t10 text-subheding">
                     I,<span id="spanGuestCertGName" style="text-decoration:underline"></span> , hereby certify that I have been informed of the rules and regulations of the community, and I will abide by them. I also certify that I will not use any of the amenities/common areas without the presence of the Tenant.
                 </p>
             </div>
 
-            <div class="col-lg-12">
+            <div class="col-lg-12 box-left">
                 <div class="condition-wrapper border-bottom1"><h4 class="m-b0">Tenant’s Certification</h4></div>
-                <p class="m-l30 m-r-30 m-t10 text-subheding">
+                <p class="m-r-30 m-t10 text-subheding box-left">
                     Tenants are fully responsible for any damage to the unit and/or common areas used by their guests. Tenants will be held financially liable for damages to the property. Tenants are responsible to advise their guests of the community’s rules and regulations and ensure that the guests fully abide by them. Tenants must accompany their guests for the use of all amenities/common areas.
                 </p>
             </div>
 
             <div class="col-lg-12 mrgin-box02">
-                <p class="m-l30 m-r-30 m-t10 text-subheding">
+                <p class="m-r-30 m-t10 text-subheding box-left">
                     I have read and understood my financial responsibility for my guests and agree to advise my guests to abide by the community’s rules and regulations.
                 </p>
             </div>
 
-            <div class="col-lg-12 client-name1 m-t20 m-l30">
+            <div class="col-lg-12 client-name1 m-t20 m-l30 box-left">
                 <span id="spanTenantSignName" style="text-decoration:underline"></span><br />
                 <label>Tenant</label>
             </div>
-            <div class="col-lg-12 client-name1 m-t20 m-l30">
+            <div class="col-lg-12 client-name1 m-t20 m-l30 box-left">
                 <span id="spanGuestSignName" style="text-decoration:underline"></span><br />
                 <label>Guest</label>
             </div>
@@ -2950,7 +2966,7 @@
     </div>
 </div>
 <!--Print Reservation modal popup-->
-<div class="col-sm-12" id="divPrintReservation" style="margin-top:10px !important;height:100% !important;width:100% !important">
+<div class="col-sm-12" id="divPrintReservation">
     <div class="modal-header center"><h2 class="modal-title print-title" style="color:#4D738A !important; "></h2></div>
     <div id="divPrintData"></div>
 </div>

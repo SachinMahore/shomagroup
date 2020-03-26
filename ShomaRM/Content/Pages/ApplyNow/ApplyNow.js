@@ -225,7 +225,12 @@ $(document).ready(function () {
     $("#chkAgreeTermsPolicy").on('ifChanged', function (event) {
         if ($("#chkAgreeTermsPolicy").is(":checked")) {            
             InnerPolicyCheck();
-            $("#popRentalQualification").modal("show");
+            if ($("#hndShowTermPolicy").val() == 1) {
+                $("#popRentalQualification").modal("show");
+            }
+            else {
+                $("#hndShowTermPolicy").val(1);
+            }
         }
         else if ($("#chkAgreeTermsPolicy").is(":not(:checked)")) {
             $("#policyStart").attr("disabled", true);
@@ -731,10 +736,11 @@ var goToStep = function (stepid, id) {
         }
     }
     if (stepid == "4") {
-       if (parseInt($("#hdnStepCompleted").val()) < 3) {
+        if (parseInt($("#hdnStepCompleted").val()) < 3) {
+            var msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 4);
             $.alert({
                 title: "",
-                content: "Please complete step 3",
+                content: msg,
                 type: 'red'
             });
             return;
@@ -771,10 +777,11 @@ var goToStep = function (stepid, id) {
         }
     }
     if (stepid == "5") {
-       if (parseInt($("#hdnStepCompleted").val()) < 4) {
+        if (parseInt($("#hdnStepCompleted").val()) < 4) {
+            var msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 5);
             $.alert({
                 title: "",
-                content: "Please complete step 5",
+                content: msg,
                 type: 'red'
             });
             return;
@@ -814,10 +821,11 @@ var goToStep = function (stepid, id) {
         }
     }
     if (stepid == "6") {
-       if (parseInt($("#hdnStepCompleted").val()) < 5) {
+        if (parseInt($("#hdnStepCompleted").val()) < 5) {
+            var msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 6);
             $.alert({
                 title: "",
-                content: "Please complete step 6",
+                content: msg,
                 type: 'red'
             });
             return;
@@ -859,11 +867,11 @@ var goToStep = function (stepid, id) {
         }
     }
     if (stepid == "7") {
-
         if (parseInt($("#hdnStepCompleted").val()) < 6) {
+            var msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 7);
             $.alert({
                 title: "",
-                content: "Please complete step 7",
+                content: msg,
                 type: 'red'
             });
             return;
@@ -905,10 +913,11 @@ var goToStep = function (stepid, id) {
         }
     }
     if (stepid == "8") {
-       if (parseInt($("#hdnStepCompleted").val()) < 7) {
+        if (parseInt($("#hdnStepCompleted").val()) < 7) {
+            var msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 8);
             $.alert({
                 title: "",
-                content: "Please complete step 8",
+                content: msg,
                 type: 'red'
             });
             return;
@@ -951,15 +960,16 @@ var goToStep = function (stepid, id) {
         }
     }
     if (stepid == "9") {
-       if (parseInt($("#hdnStepCompleted").val()) < 8) {
+        if (parseInt($("#hdnStepCompleted").val()) < 8) {
+            var msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 9);
             $.alert({
                 title: "",
-                content: "Please complete step 9",
+                content: msg,
                 type: 'red'
             });
             return;
         }
-        var msg = '';
+        var msg = "";
         if (id == "9") {
             // var msg = '';
             var grandPercentage = localStorage.getItem("percentage");
@@ -1012,10 +1022,11 @@ var goToStep = function (stepid, id) {
         }
     }
     if (stepid == "10") {
-       if (parseInt($("#hdnStepCompleted").val()) < 9) {
+        if (parseInt($("#hdnStepCompleted").val()) < 9) {
+            var msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 10);
             $.alert({
                 title: "",
-                content: "Please complete step 10",
+                content: msg,
                 type: 'red'
             });
             return;
@@ -1146,10 +1157,11 @@ var goToStep = function (stepid, id) {
         }
     }
     if (stepid == "11") {
-       if (parseInt($("#hdnStepCompleted").val()) < 10) {
+        if (parseInt($("#hdnStepCompleted").val()) < 10) {
+            var msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 11);
             $.alert({
                 title: "",
-                content: "Please complete step 11",
+                content: msg,
                 type: 'red'
             });
             return;
@@ -1246,10 +1258,11 @@ var goToStep = function (stepid, id) {
         }
     }
     if (stepid == "12") {
-       if (parseInt($("#hdnStepCompleted").val()) < 11) {
+        if (parseInt($("#hdnStepCompleted").val()) < 11) {
+            var msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1,12);
             $.alert({
                 title: "",
-                content: "Please complete step 12",
+                content: msg,
                 type: 'red'
             });
             return;
@@ -1393,9 +1406,10 @@ var goToStep = function (stepid, id) {
     }
     if (stepid == "13") {
         if (parseInt($("#hdnStepCompleted").val()) < 12) {
+            var msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 13);
             $.alert({
                 title: "",
-                content: "Please complete step 13",
+                content: msg,
                 type: 'red'
             });
             return;
@@ -1471,10 +1485,11 @@ var goToStep = function (stepid, id) {
         }
     }
     if (stepid == "14") {
-       if (parseInt($("#hdnStepCompleted").val()) < 13) {
+        if (parseInt($("#hdnStepCompleted").val()) < 13) {
+            var msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 14);
             $.alert({
                 title: "",
-                content: "Please complete step 14",
+                content: msg,
                 type: 'red'
             });
             return;
@@ -1525,10 +1540,11 @@ var goToStep = function (stepid, id) {
         }
     }
     if (stepid == "15") {
-       if (parseInt($("#hdnStepCompleted").val()) < 14) {
+        if (parseInt($("#hdnStepCompleted").val()) < 14) {
+            var msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 15);
             $.alert({
                 title: "",
-                content: "Please complete step 15",
+                content: msg,
                 type: 'red'
             });
             return;
@@ -1543,9 +1559,10 @@ var goToStep = function (stepid, id) {
                 });
                 return;
             } else {
-              
                 $("#subMenu").removeClass("hidden");
-                if ($("#btnAddPet").is(":disabled")) {
+                var numOfPets = $("#hndPetPlaceCount").val();
+                var petAdded = $("#tblPet tbody tr").length; 
+                if (numOfPets == petAdded) {
                     $("#step2").addClass("hidden");
                     $("#step1").addClass("hidden");
                     $("#step4").addClass("hidden");
@@ -1595,14 +1612,29 @@ var goToStep = function (stepid, id) {
         }
     }
     if (stepid == "16") {
+        if (parseInt($("#hdnStepCompleted").val()) < 15) {
+            var msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 16);
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
         if (id == "16") {
             var msg = '';
+            if (parseInt($("#hdnStepCompleted").val()) > 15) {
+                var numOfPets = $("#hndPetPlaceCount").val();
+                var petAdded = $("#tblPet tbody tr").length;
+                msg = 'Please Add Pet';
+            }
             if (msg != "") {
                 $.alert({
                     title: "",
                     content: msg,
                     type: 'red'
                 });
+                goToStep(15,15);
                 return;
             } else {
                 SaveUpdateStep(16);
@@ -1640,47 +1672,83 @@ var goToStep = function (stepid, id) {
         }
     }
     if (stepid == "17") {
-       if (parseInt($("#hdnStepCompleted").val()) < 16) {
+        if (parseInt($("#hdnStepCompleted").val()) < 16) {
+            var msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 17);
             $.alert({
                 title: "",
-                content: "Please complete step 17",
+                content: msg,
                 type: 'red'
             });
             return;
         }
-        if (id == "17") {
-            SaveUpdateStep(17);
-            $("#step2").addClass("hidden");
-            $("#step1").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
-            $("#step8").addClass("hidden");
-            $("#step9").addClass("hidden");
-            $("#step10").addClass("hidden");
-            $("#step11").addClass("hidden");
-            $("#step12").addClass("hidden");
-            $("#step13").addClass("hidden");
-            $("#step14").addClass("hidden");
-            $("#step15").addClass("hidden");
-            $("#step16").addClass("hidden");
-            $("#step17").removeClass("hidden");
+        var msg = '';
+        if (parseInt($("#hdnStepCompleted").val()) > 15) {
+            var numOfPets = $("#hndPetPlaceCount").val();
+            var petAdded = $("#tblPet tbody tr").length;
+            msg = 'Please Add Pet';
+        }
+        if (msg != "") {
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            goToStep(15, 15);
+            return;
+        } else {
+            if (id == "17") {
+                SaveUpdateStep(17);
+                $("#step2").addClass("hidden");
+                $("#step1").addClass("hidden");
+                $("#step4").addClass("hidden");
+                $("#step3").addClass("hidden");
+                $("#step5").addClass("hidden");
+                $("#step6").addClass("hidden");
+                $("#step7").addClass("hidden");
+                $("#step8").addClass("hidden");
+                $("#step9").addClass("hidden");
+                $("#step10").addClass("hidden");
+                $("#step11").addClass("hidden");
+                $("#step12").addClass("hidden");
+                $("#step13").addClass("hidden");
+                $("#step14").addClass("hidden");
+                $("#step15").addClass("hidden");
+                $("#step16").addClass("hidden");
+                $("#step17").removeClass("hidden");
 
-            $("#li17").addClass("active");
-            $("#li8").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li7").removeClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").removeClass("active");
-            $("#li13").removeClass("active");
-            $("#li14").removeClass("active");
-            $("#li15").removeClass("active");
-            $("#li16").removeClass("active");
-            $("#li10").removeClass("active");
+                $("#li17").addClass("active");
+                $("#li8").removeClass("active");
+                $("#li9").removeClass("active");
+                $("#li7").removeClass("active");
+                $("#li11").removeClass("active");
+                $("#li12").removeClass("active");
+                $("#li13").removeClass("active");
+                $("#li14").removeClass("active");
+                $("#li15").removeClass("active");
+                $("#li16").removeClass("active");
+                $("#li10").removeClass("active");
+            }
         }
     }
+};
+var getStepCompletedMsg = function (currentstep, clickstep) {
+
+    var stepArray = [{ StepID: 3, StepName: "Select Options" }, { StepID: 5, StepName: "Quotation" }, { StepID: 6, StepName: "Policies & Conditions" }, { StepID: 7, StepName: "Applicants" }, { StepID: 8, StepName: "Responsibility" }, { StepID: 9, StepName: "Personal Info" }, { StepID: 10, StepName: "Residence History" }, { StepID: 11, StepName: "Employment and Income" }, { StepID: 12, StepName: "Emergency Contacts" }, { StepID: 13, StepName: "Vehicle Info" }, { StepID: 14, StepName: "Pet Info" }, { StepID: 15, StepName: "Payment" }, { StepID: 16, StepName: "Lease" }];
+    var clickstepname = "";
+    var remainingstepname = "";
+
+    $.each(stepArray, function (index, elementValue) {
+
+        if (elementValue.StepID == clickstep) {
+            clickstepname = elementValue.StepName;
+        }
+
+        if (elementValue.StepID >= currentstep && elementValue.StepID < clickstep) {
+            remainingstepname += "<b>"+elementValue.StepName + "</b><br/>";
+        }
+    });
+    var msg = "To view \"<b>" + clickstepname + "</b>\", you have to complete following step(s)<br/>" + remainingstepname;
+    return msg;
 };
 var showCurrentStep = function (stepid, id) {
     if (stepid == 1) {
@@ -2341,14 +2409,16 @@ var SaveOnlineProspect = function () {
             getApplyNowList(idmsg[0]);
             getTenantOnlineList(idmsg[0]);
             getApplicantLists(idmsg[0]);
+            $("#divstep3save").addClass("hidden");
+            $("#divstep3").removeClass("hidden");
             $("#hdnStepCompleted").val(4);
-            if (typeof (history.pushState) != "undefined") {
-                var obj = {
-                    Title: "Shoma Group | Residential Manager", Url: "/ApplyNow/Index/" + idmsg[2] };
-                history.pushState(obj, obj.Title, obj.Url);
-            } else {
+            //if (typeof (history.pushState) != "undefined") {
+            //    var obj = {
+            //        Title: "Shoma Group | Residential Manager", Url: "/ApplyNow/Index/" + idmsg[2] };
+            //    history.pushState(obj, obj.Title, obj.Url);
+            //} else {
                 window.location = "/ApplyNow/Index/" + idmsg[2];
-            }  
+            //}  
         }
     });
 }
@@ -3176,9 +3246,7 @@ var getPropertyUnitDetails = function (uid) {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            $("#divLoader").hide();
             $("#ModelCompare").modal("hide");
-
             $("#popUnitDet").addClass("hidden");
             $("#popFloorCoordinate").addClass("hidden");
             $("#lblUnitNo").text("#" + response.model.UnitNo);
@@ -3198,7 +3266,7 @@ var getPropertyUnitDetails = function (uid) {
             $("#lblBath").text(response.model.Bathroom);
             $("#lblHall").text(response.model.Hall);
             $("#lblDeposit").text(formatMoney(response.model.Deposit));
-           // $("#lblLease").text(response.model.Leased);
+            // $("#lblLease").text(response.model.Leased);
 
             $("#lblRent22").text("$" + response.model.Current_Rent);
             $("#lblArea22").text(response.model.Area);
@@ -3333,8 +3401,6 @@ var getPropertyUnitDetails = function (uid) {
             $("#lblProrated_PestAmt").text(parseFloat(parseFloat($("#lblPestControl").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
             $("#lblProrated_ConvergentAmt").text(parseFloat(parseFloat($("#lblConvergentAmt").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
 
-
-
             $("#lblRent2").text(response.model.Current_Rent);
             $("#txtModal").text(response.model.Building);
             $("#lblArea1").text(response.model.Area);
@@ -3354,9 +3420,9 @@ var getPropertyUnitDetails = function (uid) {
             $("#lbltotalAmountSumm").text((parseFloat(response.model.Current_Rent) + parseFloat(26.50)).toFixed(2));
             localStorage.setItem("floorfromplan", response.model.FloorNo);
             showFloorPlan(response.model.FloorNo);
-
+            $("#divLoader").hide();
         }
-    })
+    });
 }
 function displayImg() {
     $("#popFloorPlan").modal("show");
@@ -3862,6 +3928,7 @@ var saveupdatePetPlace = function () {
                 $("#lbpetd6").text("500.00");
                 $("#hndPetPlaceID").val(1);
                 $("#btnAddPet").removeAttr("disabled");
+                $("#hndPetPlaceCount").val(1);
 
             } else if (parseInt(response.numOfPet) == 2) {
                 $("#lblPetDeposit").text(formatMoney("750.00"));
@@ -3874,10 +3941,12 @@ var saveupdatePetPlace = function () {
                 $("#lbpetd6").text("750.00");
                 $("#hndPetPlaceID").val(2);
                 $("#btnAddPet").removeAttr("disabled");
+                $("#hndPetPlaceCount").val(2);
             }
             else {
                 $("#hndPetPlaceID").val(0);
                 $("#btnAddPet").css("background-color", "#B4ADA5").attr("disabled", "disabled");
+                $("#hndPetPlaceCount").val(0);
             }
 
             // $("#lbltotalAmount").text((parseFloat(response.totalPetPlaceAmt) + parseFloat(totalAmt)).toFixed(2) + parseFloat($("#lblPetDeposit").text()).toFixed(2));
@@ -5494,7 +5563,7 @@ function showFloorPlan(flid) {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            $("#divLoader").hide();
+            
             $("#popUnitPlan").empty();
             $("#popFloorCoordinate").removeClass("hidden");
             $("#popUnitDet").addClass("hidden");
@@ -5560,11 +5629,9 @@ function showFloorPlan(flid) {
                 $("#floorunId_" + divID[1]).removeClass("hidden");
                 $("#floorunId_" + divID[1]).css({ top: Y, left: X, position: 'absolute' });
             });
-
-
+            $("#divLoader").hide();
         }
     });
-
 }
 function getPropertyUnitListByFloor(flid) {
     $("#divLoader").show();
@@ -6443,7 +6510,7 @@ var getTenantPetPlaceData = function () {
         dataType: "JSON",
         success: function (response) {
             $("#divLoader").hide();
-            var valueCount = response.model.PetPlaceID;
+            var valueCount = response.model.NumberOfPets;
             var rowCount = $("#tblPet >tbody").children().length;
             $("#hndPetPlaceCount").val(valueCount);
 

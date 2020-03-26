@@ -107,7 +107,8 @@ var fillStorageSearchGrid = function (pagenumber, sortby, orderby) {
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.StorageName + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">$ ' + parseFloat(elementValue.Charges).toFixed(2) + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.Description + '</td>';
-                    html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary" style="padding: 5px 8px !important;margin-right:7px" onclick="goToStorage(' + elementValue.StorageID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button><button class="btn btn-danger" style="padding: 5px 8px !important;" onclick="delStorage(' + elementValue.StorageID + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
+                    //html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary" style="padding: 5px 8px !important;margin-right:7px" onclick="goToStorage(' + elementValue.StorageID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button><button class="btn btn-danger" style="padding: 5px 8px !important;" onclick="delStorage(' + elementValue.StorageID + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
+                    html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary" style="padding: 5px 8px !important;margin-right:7px" onclick="goToStorage(' + elementValue.StorageID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button></td>';
                     html += '</tr>';
                     $("#tblStorage>tbody").append(html);
                 });
@@ -154,6 +155,7 @@ var clearStorageData = function () {
     btnSaveUpdate();
 }
 var saveUpdateStorage = function () {
+    $("#divLoader").show();
     var msg = "";
     if ($.trim($("#ddlProperty").val()).length == 0) {
         msg = msg + "Property is required.</br>"
@@ -165,57 +167,69 @@ var saveUpdateStorage = function () {
         msg = msg + "Charges is required.</br>"
     }
     if (msg != "") {
+        $("#divLoader").hide();
         msg = "Following field(s) is/are required</br>" + msg;
         $.alert({
             title: 'Message!',
             content: msg,
             type: 'red',
         });
+
     }
     else {
-        var model = {
-            StorageID: $("#hndStorageID").val(),
-            PropertyID: $("#ddlProperty").val(),
-            StorageName: $("#txtStorageName").val(),
-            Charges: $("#txtCharges").val(),
-            Description: $("#txtDescription").val()
-        };
-        $.ajax({
-            url: "/Storage/SaveUpdateStorage",
-            method: "post",
-            data: JSON.stringify(model),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            async: false,
-            success: function (response) {
-                //hideProgress('#btnSaveUpdate');
-                if (response.result == "1") {
-                    if ($("#hndStorageID").val() == 0) {
-                        $.alert({
-                            title: 'Message!',
-                            content: "Data Saved Successfully",
-                            type: 'blue',
-                        });
+        if ($("#hndStorageID").val() != 0) {
+            var model = {
+                StorageID: $("#hndStorageID").val(),
+                PropertyID: $("#ddlProperty").val(),
+                StorageName: $("#txtStorageName").val(),
+                Charges: $("#txtCharges").val(),
+                Description: $("#txtDescription").val()
+            };
+            $.ajax({
+                url: "/Storage/SaveUpdateStorage",
+                method: "post",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: false,
+                success: function (response) {
+                    //hideProgress('#btnSaveUpdate');
+                    if (response.result == "1") {
+                        $("#divLoader").hide();
+                        if ($("#hndStorageID").val() == 0) {
+                            $.alert({
+                                title: 'Message!',
+                                content: "Data Saved Successfully",
+                                type: 'blue',
+                            });
+                        }
+                        else {
+                            $.alert({
+                                title: 'Message!',
+                                content: "Data Update Successfully",
+                                type: 'blue',
+                            });
+                        }
+                        $("#hndStorageID").val(response.ID);
+                        $("#spanSaveUpdate").text("Save");
+                        fillStorageList();
+                        setInterval(function () {
+                            window.location.replace("/Admin/Storage/Index/" + 0);
+                        }, 1200)
                     }
                     else {
-                        $.alert({
-                            title: 'Message!',
-                            content: "Data Update Successfully",
-                            type: 'blue',
-                        });
+                        //showMessage("Error!", response.error);
                     }
-                    $("#hndStorageID").val(response.ID);
-                    $("#spanSaveUpdate").text("Save");
-                    fillStorageList();
-                    setInterval(function () {
-                        window.location.replace("/Admin/Storage/Index/" + 0);
-                    }, 1200)
                 }
-                else {
-                    //showMessage("Error!", response.error);
-                }
-            }
-        });
+            });
+        } else {
+            $("#divLoader").hide();
+            $.alert({
+                title: 'Message!',
+                content: 'Only Edit Allowed</br>',
+                type: 'red',
+            });
+        }
     }
 }
 var btnSaveUpdate = function () {
