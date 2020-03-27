@@ -1521,16 +1521,7 @@ var goToStep = function (stepid, id) {
             return;
         }
         if (id == "14") {
-            var msg = '';
-            if (msg != "") {
-                $.alert({
-                    title: "",
-                    content: msg,
-                    type: 'red'
-                });
-
-                return;
-            } else {
+            
                 SaveUpdateStep(14);
                 getTenantPetPlaceData();
                 $("#step2").addClass("hidden");
@@ -1562,7 +1553,7 @@ var goToStep = function (stepid, id) {
                 $("#li15").removeClass("active");
                 $("#li16").removeClass("active");
                 $("#li17").removeClass("active");
-            }
+           
         }
     }
     if (stepid == "15") {
@@ -1576,14 +1567,17 @@ var goToStep = function (stepid, id) {
             return;
         }
         if (id == "15") {
-            var msg = '';
-            if (msg != "") {
+            var numOfPets = $("#hndPetPlaceCount").val();
+            var petAdded = $("#tblPet tbody tr").length;
+
+            if (numOfPets != petAdded) {
                 $.alert({
                     title: "",
-                    content: msg,
+                    content: 'Please Add Pet',
                     type: 'red'
                 });
-                return;
+
+
             } else {
                 $("#subMenu").removeClass("hidden");
                   SaveUpdateStep(15);
@@ -1617,12 +1611,7 @@ var goToStep = function (stepid, id) {
                     $("#li16").removeClass("active");
                     $("#li17").removeClass("active");
 
-                    if (paidamt == totpaid) {
-                        $("#carddetails").addClass("hidden");
-                        goToStep(16, 16);
-                        $("#getting-startedTimeRemainingClock").addClass("hidden");
-                    }
-               
+                   
             }
         }
     }
@@ -1637,16 +1626,21 @@ var goToStep = function (stepid, id) {
             return;
         }
         if (id == "16") {
-            var msg = '';
-            //if (parseInt($("#hdnStepCompleted").val()) > 15) {
-            //    var numOfPets = $("#hndPetPlaceCount").val();
-            //    var petAdded = $("#tblPet tbody tr").length;
-            //    msg = 'Please Add Pet';
-            //}
-            if (msg != "") {
+            var msgmm = '';
+            if (parseInt($("#hdnStepCompleted").val()) > 15) {
+                var numOfPets = $("#hndPetPlaceCount").val();
+                var petAdded = $("#tblPet tbody tr").length;
+                if (numOfPets != petAdded) {
+                    msgmm = 'Please Add Pet';
+                } else
+                {
+                    msgmm = '';
+                }
+            }
+            if (msgmm != "") {
                 $.alert({
                     title: "",
-                    content: msg,
+                    content: msgmm,
                     type: 'red'
                 });
                 goToStep(15,15);
@@ -1696,16 +1690,16 @@ var goToStep = function (stepid, id) {
             });
             return;
         }
-        var msg = '';
-        //if (parseInt($("#hdnStepCompleted").val()) > 15) {
-        //    var numOfPets = $("#hndPetPlaceCount").val();
-        //    var petAdded = $("#tblPet tbody tr").length;
-        //    msg = 'Please Add Pet';
-        //}
-        if (msg != "") {
+        var msgm = '';
+        if (parseInt($("#hdnStepCompleted").val()) > 15) {
+            var numOfPets = $("#hndPetPlaceCount").val();
+            var petAdded = $("#tblPet tbody tr").length;
+            msgm = 'Please Add Pet';
+        }
+        if (msgm != "") {
             $.alert({
                 title: "",
-                content: msg,
+                content: msgm,
                 type: 'red'
             });
             goToStep(15, 15);
