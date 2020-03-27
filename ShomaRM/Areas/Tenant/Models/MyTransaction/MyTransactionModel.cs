@@ -658,8 +658,9 @@ namespace ShomaRM.Areas.Tenant.Models
                     tl.Description = "Monthly Charges - " + Convert.ToDateTime(model.Charge_Date).AddMonths(tl.Revision_Num - 1);
                 }
                 db.SaveChanges();
+                msg = "Recurring Payment Set Up Successfully";
             }
-            msg = "Recurring Payment Set Up Successfully";
+            
             //var editPaymentAccounts = db.tbl_PaymentAccounts.Where(co => co.PAID == model.PAID).FirstOrDefault();
 
             //if (model.TransID == 0)
