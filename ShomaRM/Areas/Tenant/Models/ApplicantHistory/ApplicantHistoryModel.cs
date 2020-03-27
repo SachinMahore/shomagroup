@@ -253,7 +253,7 @@ namespace ShomaRM.Models
                 model.MoveInDateFromTxt = moveInFrom == null ? "" : moveInFrom.Value.ToString("MM/dd/yyy");
                 model.MoveInDateToTxt = moveInTo == null ? "" : moveInTo.Value.ToString("MM/dd/yyy");
                 model.MonthlyPayment = getAHRdata.MonthlyPayment;
-                model.Reason = getAHRdata.Reason;
+                model.Reason = !string.IsNullOrWhiteSpace(getAHRdata.Reason) ? getAHRdata.Reason : "";
                 var stateStr = db.tbl_State.Where(co => co.ID == getAHRdata.StateHome).FirstOrDefault();
                 model.StateString = stateStr.StateName;
                 int ctryString = Convert.ToInt32(model.Country);
