@@ -1631,16 +1631,17 @@ var goToStep = function (stepid, id) {
                 title: "",
                 content: msg,
                 type: 'red'
+
             });
             return;
         }
         if (id == "16") {
             var msg = '';
-            //if (parseInt($("#hdnStepCompleted").val()) > 15) {
-            //    var numOfPets = $("#hndPetPlaceCount").val();
-            //    var petAdded = $("#tblPet tbody tr").length;
-            //    msg = 'Please Add Pet';
-            //}
+            if (parseInt($("#hdnStepCompleted").val()) > 15) {
+                var numOfPets = $("#hndPetPlaceCount").val();
+                var petAdded = $("#tblPet tbody tr").length;
+                msg = 'Please Add Pet';
+            }
             if (msg != "") {
                 $.alert({
                     title: "",
@@ -1695,18 +1696,18 @@ var goToStep = function (stepid, id) {
             return;
         }
         var msg = '';
-        //if (parseInt($("#hdnStepCompleted").val()) > 15) {
-        //    var numOfPets = $("#hndPetPlaceCount").val();
-        //    var petAdded = $("#tblPet tbody tr").length;
-        //    msg = 'Please Add Pet';
-        //}
+        if (parseInt($("#hdnStepCompleted").val()) > 15) {
+            var numOfPets = $("#hndPetPlaceCount").val();
+            var petAdded = $("#tblPet tbody tr").length;
+            msg = 'Please Add Pet';
+        }
         if (msg != "") {
             $.alert({
                 title: "",
                 content: msg,
                 type: 'red'
             });
-            goToStep(15, 15);
+           // goToStep(15, 15);
             return;
         } else {
             if (id == "17") {
@@ -3604,10 +3605,10 @@ var getTransationLists = function (userid) {
                 if (response.model.length >= 1) {
                     if (paidamt == totpaid) {
                         $("#carddetails").addClass("hidden");
-                        goToStep(15, 15);
+                        //goToStep(15, 15);
                         $("#getting-startedTimeRemainingClock").addClass("hidden");
                     } else {
-                        goToStep(15, 15);
+                       // goToStep(15, 15);
                     }
                 }
             }, 1500);
