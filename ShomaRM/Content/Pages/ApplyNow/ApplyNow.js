@@ -1694,6 +1694,7 @@ var goToStep = function (stepid, id) {
         if (parseInt($("#hdnStepCompleted").val()) > 15) {
             var numOfPets = $("#hndPetPlaceCount").val();
             var petAdded = $("#tblPet tbody tr").length;
+            
             msgm = 'Please Add Pet';
         }
         if (msgm != "") {
