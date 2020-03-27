@@ -4,11 +4,11 @@
     getServiceRequestOnAlarm();
     getEventsList();
     getRatings();
-    
+
     $("#ratingButtons button").click(function () {
         saveRatings(this.innerHTML);
     });
-    uploadAttachFileCommunityActivity();
+
     //colorFunction();
     colorNewFunction();
     //setInterval(function () { getCommunityActivityList(); }, 10000);
@@ -20,13 +20,13 @@
         for (var i = 0; i <= value; i++) {
             if (value <= 3) {
                 $("#rtbtn" + i).addClass("ratingpoor");
-            } else if (value>3 && value <= 7) {
+            } else if (value > 3 && value <= 7) {
                 $("#rtbtn" + i).addClass("ratingavg");
             }
-            else if (value> 7) {
+            else if (value > 7) {
                 $("#rtbtn" + i).addClass("ratinggood");
             }
-           
+
         }
 
     });
@@ -51,7 +51,20 @@
         saveUpdatePostDisclaimer(status);
 
     });
-
+    document.getElementById('fileCommunityActivity').onchange = function () {
+        var fileUploadCommunityActivityBool = restrictFileUpload($(this).val());
+        if (fileUploadCommunityActivityBool == true) {
+            attatchFileUpload();
+        }
+        else {
+            document.getElementById('fileCommunityActivity').value = '';
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
+    };
 });
 
 var goToMakeAPayment = function () {
@@ -142,23 +155,6 @@ var goToSubmitServiceRequest = function () {
     });
 };
 
-var uploadAttachFileCommunityActivity = function () {
-    document.getElementById('fileCommunityActivity').onchange = function () {
-        var fileUploadCommunityActivityBool = restrictFileUpload($(this).val());
-        if (fileUploadCommunityActivityBool == true) {
-            attatchFileUpload();
-        }
-        else {
-            document.getElementById('fileCommunityActivity').value = '';
-            $.alert({
-                title: "",
-                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
-                type: 'blue'
-            });
-        }
-    };
-};
-
 var attatchFileUpload = function () {
     $formData = new FormData();
 
@@ -191,10 +187,10 @@ var attatchFileUpload = function () {
 
 var saveUpdateCommunityPost = function () {
 
-   
+
     $("#divLoader").show();
 
-    
+
     var msg = '';
     var model = {
         TenantId: $('#hndTenantID').val(),
@@ -478,29 +474,29 @@ function myDateFunction(id) {
             span += '<ul class="list-group" style="list-style: none;">';
             $.each(response.model, function (elementType, elementValue) {
                 if (elementValue.Type == 1) {
-                    span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #00bfff;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + "    " + '<a href="javascript:void(0)" class="pull-right" onclick="tenantEventsJoin(' + elementValue.EventID +')" style="margin-right:30px;color:#4d738a;">Join Event</a></li>';
+                    span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #00bfff;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + "    " + '<a href="javascript:void(0)" class="pull-right" onclick="tenantEventsJoin(' + elementValue.EventID + ')" style="margin-right:30px;color:#4d738a;">Join Event</a></li>';
                     // span += '<li  id= Event' + elementValue.EventID + '><button class="button-square">' + elementValue.EventDateString + '</button><button class="button-pill">'+ elementValue.EventName + '</button></li>';
 
                 }
                 else if (elementValue.Type == 2) {
-                    span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #a2d900;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + "    " + '<a href="javascript:void(0)" class="pull-right" onclick="tenantEventsJoin(' + elementValue.EventID +')" style="margin-right:30px;color:#4d738a;">Join Event</a></li>';
+                    span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #a2d900;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + "    " + '<a href="javascript:void(0)" class="pull-right" onclick="tenantEventsJoin(' + elementValue.EventID + ')" style="margin-right:30px;color:#4d738a;">Join Event</a></li>';
                     // span += '<li  id= Event' + elementValue.EventID + '><button class="button-square">' + elementValue.EventDateString + '</button><button class="button-pill">' + elementValue.EventName + '</button></li>';
 
                 }
                 else if (elementValue.Type == 3) {
-                    span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #ff6;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + "    " + '<a href="javascript:void(0)" class="pull-right" onclick="tenantEventsJoin(' + elementValue.EventID +')" style="margin-right:30px;color:#4d738a;">Join Event</a></li>';
+                    span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #ff6;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + "    " + '<a href="javascript:void(0)" class="pull-right" onclick="tenantEventsJoin(' + elementValue.EventID + ')" style="margin-right:30px;color:#4d738a;">Join Event</a></li>';
                     //span += '<li  id= Event' + elementValue.EventID + '><button class="button-square">' + elementValue.EventDateString + '</button><button class="button-pill">' + elementValue.EventName + '</button></li>';
 
 
                 }
                 else if (elementValue.Type == 4) {
-                    span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #ff6347;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + "    " + '<a href="javascript:void(0)" class="pull-right" onclick="tenantEventsJoin(' + elementValue.EventID +')" style="margin-right:30px;color:#4d738a;">Join Event</a></li>';
+                    span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #ff6347;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + "    " + '<a href="javascript:void(0)" class="pull-right" onclick="tenantEventsJoin(' + elementValue.EventID + ')" style="margin-right:30px;color:#4d738a;">Join Event</a></li>';
                     // span += '<li  id= Event' + elementValue.EventID + '><button class="button-square">' + elementValue.EventDateString + '</button><button class="button-pill">' + elementValue.EventName + '</button></li>';
 
 
                 }
                 else if (elementValue.Type == 5) {
-                    span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #daf6ff;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + "    " + '<a href="javascript:void(0)" class="pull-right" onclick="tenantEventsJoin(' + elementValue.EventID +')" style="margin-right:30px;color:#4d738a;">Join Event</a></li>';
+                    span += '<li  id= Event' + elementValue.EventID + '><i class="fa fa-square fa-lg" style="color: #daf6ff;"></i> ' + elementValue.EventDateString + "  " + elementValue.EventName + "    " + '<a href="javascript:void(0)" class="pull-right" onclick="tenantEventsJoin(' + elementValue.EventID + ')" style="margin-right:30px;color:#4d738a;">Join Event</a></li>';
                     // span += '<li  id= Event' + elementValue.EventID + '><button class="button-square">' + elementValue.EventDateString + '</button><button class="button-pill">' + elementValue.EventName + '</button></li>';
 
 
@@ -697,7 +693,7 @@ function colorNewFunction() {
                     }
                 }
                 console.log(eventColors + " " + types.length);
-              
+
                 eventData.push({ date: eventDate, badge: false, title: eventName, lineargradient: eventColors });
             });
             console.log(eventData);
@@ -717,7 +713,7 @@ function colorNewFunction() {
                     return myDateFunction(this.id);
                 }
             });
-        
+
             var modalOpenDate = document.getElementById("date-popover");
             var modalCloseDate = document.getElementById("closeDate");
             var modalCloseDate1 = document.getElementById("closeDate1");
@@ -739,14 +735,14 @@ var getServiceRequestOnAlarm = function () {
         success: function (response) {
             $('#divServiceRequestAlarm').empty();
             $.each(response.model, function (elementType, elementValue) {
-                var Html = '<div class="bell-text" id="spanServiceRequestlabelAlarm">' + elementValue.ProblemCategoryName + '</div>';              
-               
+                var Html = '<div class="bell-text" id="spanServiceRequestlabelAlarm">' + elementValue.ProblemCategoryName + '</div>';
+
                 if (elementValue.PermissionComeDateString == 'Any Time') {
                     Html += '<div class="bell-sub-text" id="spanServiceRequestDateTimeAlarm">' + elementValue.PermissionComeDateString + '</div>';
                 }
                 else {
-                    Html += '<div class="bell-sub-text" id="spanServiceRequestDateTimeAlarm">' + elementValue.PermissionComeDateString + ' at ' + elementValue.PermissionComeTime +'</div>';                   
-                }                
+                    Html += '<div class="bell-sub-text" id="spanServiceRequestDateTimeAlarm">' + elementValue.PermissionComeDateString + ' at ' + elementValue.PermissionComeTime + '</div>';
+                }
                 $('#divServiceRequestAlarm').append(Html);
             });
 
@@ -781,7 +777,7 @@ var fileNotFound = function () {
 };
 
 var getIsAgreeDisclaimer = function () {
-    var model = {id: $("#hndTenantID").val()};
+    var model = { id: $("#hndTenantID").val() };
 
     $.ajax({
         url: "/Admin/Tenant/getTenantOnlineData",
@@ -790,14 +786,14 @@ var getIsAgreeDisclaimer = function () {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-           // console.log(response.model.IsAgreePostDisclaimer);
+            // console.log(response.model.IsAgreePostDisclaimer);
 
-            if(response.model.IsAgreePostDisclaimer == 0) {
+            if (response.model.IsAgreePostDisclaimer == 0) {
                 $("#chkDisclaimer").iCheck('uncheck');
                 $("#btnPostCommunity").attr("disabled", true).css('background-color', '#4D738A');
             }
             else {
-                
+
                 $("#chkDisclaimer").iCheck('check');
                 $("#btnPostCommunity").attr("disabled", false);
             }
@@ -808,7 +804,7 @@ var getIsAgreeDisclaimer = function () {
 
 
 var saveUpdatePostDisclaimer = function (status) {
-   // alert($("#hndTenantID").val());
+    // alert($("#hndTenantID").val());
     var model = {
         TenantID: $("#hndTenantID").val(),
         IsAgreePostDisclaimer: status
@@ -825,7 +821,7 @@ var saveUpdatePostDisclaimer = function (status) {
             //getIsAgreeDisclaimer();
         }
     });
-    
+
 };
 
 var openPaymentBreakdown = function () {
@@ -979,7 +975,7 @@ var getEventJoiningStatus = function (id) {
             }
         }
     });
-        $("#divLoader").hide();
+    $("#divLoader").hide();
 };
 
 var saveTenantEventsUnjoin = function () {

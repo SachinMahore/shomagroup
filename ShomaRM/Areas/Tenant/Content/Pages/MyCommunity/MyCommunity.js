@@ -1,9 +1,9 @@
 ﻿$(document).ready(function () {
-    getServiceRequestOnAlarm();
+    getServiceRequestOnAlarmMyComm();
   
-    getEventsList();
-    getAmenitiesList();
-    breakdownPaymentFunction();
+    getEventsListMyComm();
+    getAmenitiesListMyComm();
+    breakdownPaymentFunctionMyComm();
     $('#ClubSubmit').attr('disabled', 'disabled');
     
 });
@@ -505,7 +505,7 @@ function LoadCalendar() {
     });
 }
 
-var getEventsList = function () {
+var getEventsListMyComm = function () {
     $.ajax({
         url: '/Dashboard/GetEventList',
         type: 'post',
@@ -538,7 +538,7 @@ var getEventsList = function () {
     });
 }
 
-var getAmenitiesList = function () {
+var getAmenitiesListMyComm = function () {
     $.ajax({
         url: '/MyCommunity/GetAmenitiesList',
         type: 'post',
@@ -642,7 +642,7 @@ var goToSubmitServiceRequest = function () {
     });
 };
 
-var getServiceRequestOnAlarm = function () {
+var getServiceRequestOnAlarmMyComm = function () {
     var model = { TenantId: $("#hndTenantID").val() };
 
     $.ajax({
@@ -685,7 +685,7 @@ var openPaymentBreakdown = function () {
     $('#popPaymentBreakdown').modal('show');
 };
 
-var breakdownPaymentFunction = function () {
+var breakdownPaymentFunctionMyComm = function () {
     $("#divLoader").show();
     var model = { UserId: $("#hdnUserId").val() };
 
