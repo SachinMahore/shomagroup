@@ -5818,7 +5818,7 @@ var saveupdateApplicantHistory = function () {
         msg += 'Please Select State</br>';
     }
     if ($("#ddlCityHome2").val() == '') {
-        msg += 'Please Fill City</br>'
+        msg += 'Please Fill City</br>';
     }
     if ($("#txtZip2").val() == '') {
         msg += 'Please Fill Zip Code</br>';
