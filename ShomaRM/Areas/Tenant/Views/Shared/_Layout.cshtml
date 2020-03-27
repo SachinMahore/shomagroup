@@ -89,7 +89,7 @@
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="/Tenant/Dashboard/Index"><i class="fa fa-tachometer fa-icon"></i> Dashboard</a>
         <a href="/Tenant/MyAccount/Index/@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID"><i class="fa fa-home fa-icon"></i> My Home</a>
-        <a href="/Tenant/MyCommunity/Index"><i class="fa fa-users fa-icon icon-community"></i> My Community</a>
+        <a href="/Tenant/MyCommunity/Index"><i class="fa fa-users fa-icon"></i> My Community</a>
         <a href="/Tenant/MyProfile/Index/@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID"><i class="fa fa-address-card fa-icon"></i> Profile</a>
 
     </div>
@@ -294,5 +294,8 @@
     });
     $(document).ajaxStart(function () {
         $("#divLoader").show();
-    });
+    });  
+
+ 
 </script>
+<script src="~/Content/Pages/Tenant/Tenant.js"></script>
