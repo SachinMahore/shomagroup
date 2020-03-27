@@ -251,12 +251,15 @@ $(document).ready(function () {
             //getTenantOnlineList(tenantOnlineID);
             //getApplicantHistoryList();
             //getEmployerHistory();
-            $("#popApplicantSummary").modal("show");
+            if ($("#hndShowPaymentPolicy").val() == 1) {
+                $("#popApplicantSummary").modal("show");
+            }
+            else {
+                $("#hndShowPaymentPolicy").val(1);
+            }
         }
         else if ($("#chkAgreeSummarry").is(":not(:checked)")) {
-            
             $("#popApplicantSummary").modal("hide");
-            
         }
     });
 
@@ -820,6 +823,7 @@ var goToStep = function (stepid, id) {
         }
     }
     if (stepid == "6") {
+        getApplicantLists();
         if (parseInt($("#hdnStepCompleted").val()) < 5) {
             var msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 6);
             $.alert({
@@ -1230,7 +1234,7 @@ var goToStep = function (stepid, id) {
                         if ($("#hndHistory").val() < 36) {
                             alert("Please provide at least 3 years of residence history");
                         } else {
-                            $("#summCuAdd").text($("#txtAddress1").val() + ", " + ((!$("#txtAddress2").val()) ? "" : $("#txtAddress2").val() + ", " +) + $("#ddlCityHome").val() + ", " + $("#ddlStateHome option:selected").text() + " - " + $("#txtZip").val() + ", " + $("#txtCountry option:selected").text());
+                            $("#summCuAdd").text($("#txtAddress1").val() + ", " + ((!$("#txtAddress2").val()) ? "" : $("#txtAddress2").val()) + ", " + $("#ddlCityHome").val() + ", " + $("#ddlStateHome option:selected").text() + " - " + $("#txtZip").val() + ", " + $("#txtCountry option:selected").text());
                             saveupdateTenantOnline(11);
                             $("#step2").addClass("hidden");
                             $("#step1").addClass("hidden");
@@ -1517,16 +1521,7 @@ var goToStep = function (stepid, id) {
             return;
         }
         if (id == "14") {
-            var msg = '';
-            if (msg != "") {
-                $.alert({
-                    title: "",
-                    content: msg,
-                    type: 'red'
-                });
-
-                return;
-            } else {
+            
                 SaveUpdateStep(14);
                 getTenantPetPlaceData();
                 $("#step2").addClass("hidden");
@@ -1558,7 +1553,7 @@ var goToStep = function (stepid, id) {
                 $("#li15").removeClass("active");
                 $("#li16").removeClass("active");
                 $("#li17").removeClass("active");
-            }
+           
         }
     }
     if (stepid == "15") {
@@ -1572,16 +1567,18 @@ var goToStep = function (stepid, id) {
             return;
         }
         if (id == "15") {
-            var msg = '';
-            if (msg != "") {
+            var numOfPets = $("#hndPetPlaceCount").val();
+            var petAdded = $("#tblPet tbody tr").length;
+
+            if (numOfPets != petAdded) {
                 $.alert({
                     title: "",
-                    content: msg,
+                    content: 'Please Add Pet',
                     type: 'red'
                 });
-                return;
+
+
             } else {
-                SaveUpdateStep(15);
                 $("#subMenu").removeClass("hidden");
                   SaveUpdateStep(15);
                     $("#step2").addClass("hidden");
@@ -1614,12 +1611,7 @@ var goToStep = function (stepid, id) {
                     $("#li16").removeClass("active");
                     $("#li17").removeClass("active");
 
-                    if (paidamt == totpaid) {
-                        $("#carddetails").addClass("hidden");
-                        goToStep(16, 16);
-                        $("#getting-startedTimeRemainingClock").addClass("hidden");
-                    }
-               
+                   
             }
         }
     }
@@ -1634,16 +1626,21 @@ var goToStep = function (stepid, id) {
             return;
         }
         if (id == "16") {
-            var msg = '';
-            //if (parseInt($("#hdnStepCompleted").val()) > 15) {
-            //    var numOfPets = $("#hndPetPlaceCount").val();
-            //    var petAdded = $("#tblPet tbody tr").length;
-            //    msg = 'Please Add Pet';
-            //}
-            if (msg != "") {
+            var msgmm = '';
+            if (parseInt($("#hdnStepCompleted").val()) > 15) {
+                var numOfPets = $("#hndPetPlaceCount").val();
+                var petAdded = $("#tblPet tbody tr").length;
+                if (numOfPets != petAdded) {
+                    msgmm = 'Please Add Pet';
+                } else
+                {
+                    msgmm = '';
+                }
+            }
+            if (msgmm != "") {
                 $.alert({
                     title: "",
-                    content: msg,
+                    content: msgmm,
                     type: 'red'
                 });
                 goToStep(15,15);
@@ -1693,16 +1690,16 @@ var goToStep = function (stepid, id) {
             });
             return;
         }
-        var msg = '';
-        //if (parseInt($("#hdnStepCompleted").val()) > 15) {
-        //    var numOfPets = $("#hndPetPlaceCount").val();
-        //    var petAdded = $("#tblPet tbody tr").length;
-        //    msg = 'Please Add Pet';
-        //}
-        if (msg != "") {
+        var msgm = '';
+        if (parseInt($("#hdnStepCompleted").val()) > 15) {
+            var numOfPets = $("#hndPetPlaceCount").val();
+            var petAdded = $("#tblPet tbody tr").length;
+            msgm = 'Please Add Pet';
+        }
+        if (msgm != "") {
             $.alert({
                 title: "",
-                content: msg,
+                content: msgm,
                 type: 'red'
             });
             goToStep(15, 15);
@@ -2699,33 +2696,33 @@ function savePayment() {
             yes: {
                 text: 'Yes',
                 action: function (yes) {
-                $.ajax({
-        url: "/ApplyNow/SavePaymentDetails/",
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            $("#divLoader").hide();
-            if (response.Msg == "1") {
-                // $("#carddetails").addClass("hidden");
-                $(".payNext").removeAttr("disabled");
-                $("#ResponseMsg").html("Payment Successfull");
-                $.alert({
-                    title: "",
-                    content: "Payment Successfull",
-                    type: 'red'
-                });
-                getTransationLists($("#hdnUserId").val());
-                getApplicantLists();
-            } else {
-                $.alert({
-                    title: "",
-                    content: "Payment Failed",
-                    type: 'red'
-                });
-            }
-        }
+                    $.ajax({
+                        url: "/ApplyNow/SavePaymentDetails/",
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $("#divLoader").hide();
+                            if (response.Msg == "1") {
+                                $("#carddetails").addClass("hidden");
+                                $(".payNext").removeAttr("disabled");
+                                $("#ResponseMsg").html("Payment Successfull");
+                                $.alert({
+                                    title: "",
+                                    content: "Payment Successfull",
+                                    type: 'red'
+                                });
+                                getTransationLists($("#hdnUserId").val());
+                                getApplicantLists();
+                            } else {
+                                $.alert({
+                                    title: "",
+                                    content: "Payment Failed",
+                                    type: 'red'
+                                });
+                            }
+                        }
                     });
                 }
             },
@@ -3124,7 +3121,7 @@ var addToCompare = function (modelname) {
         addModelArray.push(modelname);
 
         noofcomapre = addModelArray.length;
-        $("#btncompare").text("Compare(" + noofcomapre + ")")
+        $("#btncompare").text("Compare(" + noofcomapre + ")");
         getCompareModelList();
     } else {
         $.alert({
@@ -3599,17 +3596,17 @@ var getTransationLists = function (userid) {
                 paidamt += parseFloat(elementValue.Charge_Amount);
             });
           
-            setTimeout(function () {
-                if (response.model.length >= 1) {
-                    if (paidamt == totpaid) {
-                        $("#carddetails").addClass("hidden");
-                        goToStep(15, 15);
-                        $("#getting-startedTimeRemainingClock").addClass("hidden");
-                    } else {
-                        goToStep(15, 15);
-                    }
-                }
-            }, 1500);
+            //setTimeout(function () {
+            //    if (response.model.length >= 1) {
+            //        if (paidamt == totpaid) {
+            //            $("#carddetails").addClass("hidden");
+            //            //goToStep(15, 15);
+            //            $("#getting-startedTimeRemainingClock").addClass("hidden");
+            //        } else {
+            //            //goToStep(15, 15);
+            //        }
+            //    }
+            //}, 1500);
                     
         }
     });
@@ -3834,7 +3831,7 @@ var saveupdateParking = function () {
             $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(response.totalParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
             $("#lblparkingplace").text(addParkingArray.length > 0 ? addParkingArray[0].PArkingID : 0);
 
-            if (parseFloat(response.totalParkingAmt).toFixed(2) == "75.00") {
+            if (parseFloat(response.totalParkingAmt).toFixed(2) == "77.00") {
                 $("#lblVehicleFees").text("15.00");
                 $("#lblVehicleFees1").text("15.00");
                 $("#hndStorageID").val(1);
@@ -3853,6 +3850,7 @@ var saveupdateParking = function () {
             $("#lblMonthly_TotalRent").text(formatMoney(totalAmt));
             $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             //$("#ftotal").text((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2));
             $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
             $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
@@ -3986,10 +3984,7 @@ var saveupdateStorage = function () {
     $("#popStorage").modal("hide");
     $("#divLoader").hide();
     totalAmt = parseFloat(totalAmt) - unformatText($("#lblStorageUnit").text());
-
-    
-
-
+   
     if ($("#chkAddStorage1").is(":checked")) {
 
         var storageAmt = $("#chkAddStorage1").attr('data-chargeamt');
@@ -4015,6 +4010,9 @@ var saveupdateStorage = function () {
     // $("#ftotal").text((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat(365, 10)).toFixed(2));
     $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
     // $("#lblstorageplace").text(addStorageArray.length > 0 ? addStorageArray[0].StorageID : 0);
+    $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+    $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+
 }
 
 //Sohan
@@ -4226,8 +4224,10 @@ var saveupdateApplicant = function () {
 
 }
 var totpaid = 0;
+
 var getApplicantLists = function () {
     var model = {
+
         TenantID: $("#hdnOPId").val(),
     }
     $.ajax({
@@ -4237,7 +4237,7 @@ var getApplicantLists = function () {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            $("#divLoader").hide();
+
             $("#tblApplicant").empty();
             $("#tblApplicantFinal").empty();
             $("#tblApplicantMinor").empty();
@@ -4285,7 +4285,7 @@ var getApplicantLists = function () {
                         "</div >" +
                         "<div class='input-group input-group-btn'>" +
                         "<button class='btn btn-primary search pull-left' type='button'><i class='fa fa-dollar'></i></button>" +
-                        "<input type='text' class='form-control form-control-small' id='txtpayamt" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px; text-align:right;' value='" + parseFloat($("#lbtotdueatmov6").text()).toFixed(2) + "'/>" +
+                        "<input type='text' class='form-control form-control-small' id='txtpayamt" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px; text-align:right;' value='" + parseFloat(elementValue.MoveInCharge).toFixed(2) + "'/>" +
                         "</div ></td>" +
                         "<td style='width:30%;'>" +
                         "<div class='input-group input-group-btn'>" +
@@ -4294,37 +4294,29 @@ var getApplicantLists = function () {
                         "</div >" +
                         "<div class='input-group input-group-btn'>" +
                         "<button class='btn btn-primary search pull-left' type='button'><i class='fa fa-dollar'></i></button>" +
-                        "<input type='text' class='form-control form-control-small' id='txtpayamtMo" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px; text-align:right;' value='" + parseFloat($("#lblRFPTotalMonthlyPayment").text()).toFixed(2) + "'/>" +
+                        "<input type='text' class='form-control form-control-small' id='txtpayamtMo" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px; text-align:right;' value='" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "'/>" +
                         "</div >" +
                         "</td></tr>";
                 }
-              
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
+                    //Amit's work 17-10
                     adminfess = $("#lblFNLAmount").text();
-                    totpaid += parseFloat(adminfess);
-                    if (elementValue.Paid == "0") {
-                        if (elementValue.Type == "Primary Applicant") {
-                            totalFinalFees += parseFloat(adminfess);
-                            pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + adminfess + "</td><td style='width:14%; padding:6px;'><input type='checkbox' id='chkPayAppFees' checked disabled/></td><td></td></tr>";
-                        } else if (elementValue.Type == "Guarantor") {
-                            totalFinalFees += parseFloat(150);
-                            pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$150.00</td><td style='width:14%; padding:6px;'><input type='checkbox' id='chkPayAppFees' checked disabled/></td><td></td></tr>";
-                        } else {
-                            pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + adminfess + "</td><td style='width:14%; padding:6px;'><input type='checkbox' class='chkPayAppFees' id='chkPayAppFees1' onclick='addAppFess(" + adminfess + ")'/></td><td><input type='button' id='btnSendPayLink' style='width:150px;' onclick='sendPayLinkEmail(\"" + elementValue.Email + "\")' value='Send Payment Link'/></td></tr>";
-                        }
-                    } else {
-                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + adminfess + "</td><td style='width:14%; padding:6px;text-align: center;'>Paid</td><td></td></tr>";
+                    totalFinalFees += parseFloat(adminfess);
+                    if (elementValue.Type == "Primary Applicant") {
 
+                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:30%; padding:6px;'>$" + adminfess + "</td><td></td></tr>";
+                    } else {
+                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:30%; padding:6px;'>$" + adminfess + "</td><td><input type='button' style='width:150px;' onclick='sendPayLinkEmail(\"" + elementValue.Email + "\")' value='Send Payment Link'/></td></tr>";
                     }
                 }
-                
+
                 if (elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
                     //Sachin's work 22-10
                     $("#btnsendemail").removeClass("hidden");
                     if (elementValue.Email != null) {
                         emailhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:18%; padding:6px;'>" + elementValue.Email + " </td><td style='width:30%; padding:6px;'><input type='checkbox' onclick='addEmail(\"" + elementValue.Email + "\")' id='chkEmail" + elementValue.ApplicantID + "' style='width:25%; border:1px solid;' /></td></tr>";
                     }
-                    }
+                }
 
                 if (elementValue.Type == "Minor") {
                     $("#tblApplicantMinor").append(html);
@@ -4336,19 +4328,14 @@ var getApplicantLists = function () {
                     $("#tblApplicant").append(html);
                     $("#tblApplicantFinal").append(html);
                 }
-
                 $("#tblResponsibilityPay>tbody").append(prhtml);
-
                 $("#tblPayment>tbody").append(pprhtml);
                 $("#tblEmailCoapplicant>tbody").append(emailhtml);
 
                 if (elementValue.Type == "Primary Applicant") {
-                    //console.log($("#txtpayper" + elementValue.ApplicantID).val());
-                   // console.log($("#txtpayperMo" + elementValue.ApplicantID).val());
                     if ($("#txtpayper" + elementValue.ApplicantID).val() == 0) {
                         $("#txtpayper" + elementValue.ApplicantID).val(100);
                         checkPercentage();
-                        
                     }
                     if ($("#txtpayperMo" + elementValue.ApplicantID).val() == 0) {
                         $("#txtpayperMo" + elementValue.ApplicantID).val(100);
@@ -4357,16 +4344,8 @@ var getApplicantLists = function () {
                 }
 
                 function checkPercentage() {
-
-                    
                     var chargesPecentage = $("#txtpayper" + elementValue.ApplicantID).val();
-
-                    var dueatmovein = unformatText($("#lbtotdueatmov6").text());
-                   
-
-                   //console.log("DM:" + dueatmovein);
-
-                    var perCharges = ((chargesPecentage * parseFloat(dueatmovein)) / 100);
+                    var perCharges = ((chargesPecentage * parseFloat(unformatText($("#lbtotdueatmov6").text()))) / 100);
                     $("#txtpayamt" + elementValue.ApplicantID).val(perCharges.toFixed(2));
 
 
@@ -4377,19 +4356,13 @@ var getApplicantLists = function () {
                     });
                     localStorage.setItem("percentage", sum);
 
-
                     var chargesAmount = $("#txtpayamt" + elementValue.ApplicantID).val();
-
-
-                    var chargesPer = ((chargesAmount * 100) / parseFloat(dueatmovein));
+                    var chargesPer = ((chargesAmount * 100) / parseFloat(unformatText($("#lbtotdueatmov6").text())));
                     $("#txtpayper" + elementValue.ApplicantID).val(parseFloat(chargesPer).toFixed(2));
 
                     var monthlyPercentage = $("#txtpayperMo" + elementValue.ApplicantID).val();
                     var monthlyPayment = unformatText($("#lblRFPTotalMonthlyPayment").text());
-
-                    //console.log(monthlyPayment);
-
-                    var perMonth = monthlyPercentage * parseFloat(monthlyPayment, 10) / 100.0;
+                    var perMonth = ((monthlyPercentage * parseFloat(monthlyPayment, 10)) / 100);
                     $("#txtpayamtMo" + elementValue.ApplicantID).val(parseFloat(perMonth).toFixed(2));
 
                     var sumMo = parseFloat(0);
@@ -4399,6 +4372,8 @@ var getApplicantLists = function () {
                     });
                     localStorage.setItem("percentageMo", sumMo);
                 }
+
+
 
                 $("#txtpayper" + elementValue.ApplicantID).keyup(function () {
                     var chargesPecentage = $("#txtpayper" + elementValue.ApplicantID).val();
@@ -4440,6 +4415,19 @@ var getApplicantLists = function () {
                     $("#txtpayperMo" + elementValue.ApplicantID).val(monthlyPercentage.toFixed(2));
                 });
 
+                //$(":input").on("keyup", function (e) {
+                //    var id = this.id;
+                //    var totalPercentage = 100;
+                //    if (id == "txtpayper" + elementValue.ApplicantID) {
+                //        if ($(":input").hasClass("payper")) {
+                //            var payperLength = $(this).length;
+                //            if (payperLength == 1) {
+                //                $(id).val(totalPercentage);
+                //            }
+                //        }
+                //    }
+                //});
+
                 var sum = parseFloat(0);
                 $(".payper").each(function () {
                     sum += parseFloat(this.value);
@@ -4459,16 +4447,11 @@ var getApplicantLists = function () {
             $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
             $("#tblApplicantGuarantor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(3)'><i class='fa fa-plus-circle'></i> Add Guarantor</a></label></div></div></div></div>");
 
-            setTimeout(function () { $("#divLoader").hide(); }, 3000);
-
-          
-            if (response.model.length == 1) {
-                $("#divFinalcoappemail").addClass("hidden");
-            }
-
         }
     });
 }
+
+
 var addAppFess = function (appFees) {
     var totfees = unformatText($("#totalFinalFees").text());
     if ($(".chkPayAppFees").is(':checked')) {
@@ -6682,7 +6665,7 @@ var onFocusApplyNow = function () {
         });
     }).focusout(function () {
         var idnumber = $(this).val();
-        if (idnumber.length < 4) {
+        if (idnumber.length < 5) {
             alert("ID Number should be greater then 4 digit");
             return;
         }

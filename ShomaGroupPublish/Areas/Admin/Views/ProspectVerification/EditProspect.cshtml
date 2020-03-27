@@ -1747,7 +1747,9 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="col-sm-12">
+                            <p>3 Year's of Employment History</p>
+                        </div>
                         <div class="col-sm-12">
                             <div class="col-sm-4">
                                 <div class="form-group">
@@ -1910,7 +1912,36 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-6">
+                                <div class="panel panel-default sidebar-menu wow fadeInRight animated  pull-left">
+                                    <div class="panel-heading">
+                                        <a href="javascript:void(0);"><h3 class="panel-title">Additional Employment History</h3></a>
 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 ">&nbsp;</div>
+                        <div class="col-sm-12">
+                            <table id="tblEIHEmpDetailAdm" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="background-color: #c7cdd5;color:#3d3939">Employer</th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939">Job Title</th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939">Job Type</th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939">Start Date</th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939">Termination Date</th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939">Annual Income</th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939">Country</th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939">State</th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939">City</th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
                                 <button type="submit" class="btn btn-primary" onclick="goToStep(10,10)"> Back</button>
@@ -2270,11 +2301,11 @@
                                     <br />
                                 </div>
 
-                                <div class="col-sm-12">
+                                <div class="col-sm-12 hidden">
                                     <br />
                                     <div class="dot-hr"></div>
                                 </div>
-                                <div class="col-sm-12">
+                                <div class="col-sm-12 hidden">
                                     <label id="lblPaymentDet" style="text-decoration:underline"><b>Credit Card Details.</b></label>
 
                                 </div>
@@ -2304,7 +2335,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12" id="divCard">
+                                <div class="col-sm-12 hidden" id="divCard">
                                     <div class="form-group col-sm-3">
                                         <label>Name on Card</label> :
                                         <label id="txtNameonCard">@Model.Name_On_Card</label>
@@ -3490,7 +3521,143 @@
         </div>
     </div>
 </div>
+<div class="modal" id="popHistoryEmpAndIncomeProspVerif">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:732px; height:474px;">
+            <!-- Modal Header -->
+            <div class="modal-header" style="width: 100%; padding:0px;">
+                <h5 class="modal-title">Employment History Details</h5>
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px;color:black;">&times;</button>
+            </div>
 
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Employer Name : </label>
+                                <label id="lblEmployerNameHEI"></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Job Title : </label>
+                                <label id="lblJobTitleHEI"></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Job Type : </label>
+                                <label id="lblJobTypeHEI"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Start Date : </label>
+                                <label id="lblStartDateHEI"></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Termination Date : </label>
+                                <label id="lblTerminationDateHEI"></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>Annual Income : </label>
+                            <label id="lblAnnualIncomeHEI"></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Additional Annual Income : </label>
+                                <label id="lblAddAnnualIncomeHEI"></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label>Reason Of Termination : </label>
+                                <label id="lblReasonOfTerminationHEI"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Supervisor Name : </label>
+                                <label id="lblSupervisiorNameHEI"></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Supervisor Phone : </label>
+                                <label id="lblSupervisiorPhoneHEI"></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Supervisor Email : </label>
+                                <label id="lblSupervisiorEmailHEI"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Country : </label>
+                                <label id="lblCountryOfficeHEI"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Address Line 1 : </label>
+                                <label id="lblofficeAddress1HEI"></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Address Line 2 : </label>
+                                <label id="lblofficeAddress2HEI"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>State : </label>
+                                <label id="lblStateEmployeeHEI"></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>City : </label>
+                                <label id="lblCityEmployeeHEI"></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Zip : </label>
+                                <label id="lblZipOfficeHEI"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer-custom">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <style>
     /* The container */
     input.disabled {
