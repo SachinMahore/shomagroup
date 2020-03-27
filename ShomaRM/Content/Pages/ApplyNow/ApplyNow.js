@@ -3768,7 +3768,7 @@ var fillPetPlaceList = function () {
 }
 var addParkingArray = [];
 function selectAddParking(cont) {
-    var ischeck = $(cont).is(':checked')
+    var ischeck = $(cont).is(':checked');
     $('.addame').removeAttr("checked");
     $(cont).prop("checked", ischeck);
     addParkingArray = [];
@@ -6928,6 +6928,7 @@ var createLeaseDocument = function () {
         success: function (response) {
             $("#divLoader").hide();
             $("#btnDownloadLeaseDocument").attr("disabled", "disabled");
+            $("#btnleaseDownl").removeAttr("disabled");
         }
     });
 }

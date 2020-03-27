@@ -4415,6 +4415,12 @@
                      goToStep(4, 4);
                  }
             }*@
+
+            if (('@Model.EnvelopeID') != "") {
+                $("#btnleaseDownl").removeAttr("disabled");
+                $("#btnDownloadLeaseDocument").css("background-color", "#B4ADA5").attr("disabled", "disabled");
+            } 
+
             
             $("#getting-startedTimeRemainingClock").removeClass("hidden");
             $("#divstep3save").addClass("hidden");
