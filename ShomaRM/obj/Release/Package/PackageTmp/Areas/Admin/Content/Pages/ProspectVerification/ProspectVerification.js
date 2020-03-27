@@ -258,6 +258,7 @@ $(document).ready(function () {
     var days = daysInMonth - dayOfMonth;
     remainingday = days;
     numberOfDays = daysInMonth;
+    getEmpHistoryListPropVari();
 });
 var abcd = function () {
     alert("Hi");
@@ -4335,6 +4336,79 @@ var SaveScreeningStatus = function () {
                 action: function (no) {
                 }
             }
+        }
+    });
+};
+
+var getEmpHistoryListPropVari = function () {
+    $("#divLoader").show();
+    var model = {
+        TenantID: $("#hdnOPId").val()
+    };
+    $.ajax({
+        url: "/ApplyNow/GetEmployerHistory",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            //console.log(JSON.stringify(response))
+            $("#tblEIHEmpDetailAdm>tbody").empty();
+            $.each(response.model, function (elementType, elementValue) {
+                var html = "<tr id='tr_" + elementValue.HEIID + "' data-value='" + elementValue.HEIID + "'>";
+                html += "<td>" + elementValue.EmployerName + "</td>";
+                html += "<td>" + elementValue.JobTitle + "</td>";
+                html += "<td>" + elementValue.JobTypeName + "</td>";
+                html += "<td>" + elementValue.StartDateString + "</td>";
+                html += "<td>" + elementValue.TerminationDateString + "</td>";
+                html += "<td>" + formatMoney(elementValue.AnnualIncome) + "</td>";
+                html += "<td>" + elementValue.CountryName + "</td>";
+                html += "<td>" + elementValue.StateName + "</td>";
+                html += "<td>" + elementValue.City + "</td>";
+                html += "<td class='text-center'>";
+                html += "<button style='background: transparent;' id='updateAHRInfo' onclick='getEmpHistoryInfoProsVerif(" + elementValue.HEIID + ")'><span class='fa fa-eye' ></span></button>";
+                html += "</tr>";
+                $("#tblEIHEmpDetailAdm>tbody").append(html);
+            });
+            $("#divLoader").hide();
+        }
+    });
+};
+
+var getEmpHistoryInfoProsVerif = function (id) {
+    $("#divLoader").show();
+    var model = {
+        HEIID: id
+    };
+    $.ajax({
+        url: "/ApplyNow/EditEmployerHistory",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $('#lblEmployerNameHEI').text(response.model.EmployerName);
+            $('#lblJobTitleHEI').text(response.model.JobTitle);
+            $('#lblJobTypeHEI').text(response.model.JobTypeName);
+            $('#lblStartDateHEI').text(response.model.StartDateString);
+            $('#lblTerminationDateHEI').text(response.model.TerminationDateString);
+            var anuInc = formatMoney(response.model.AnnualIncome);
+            $('#lblAnnualIncomeHEI').text(anuInc);
+            var addAnuInc = formatMoney(response.model.AddAnnualIncome);
+            $('#lblAddAnnualIncomeHEI').text(addAnuInc);
+            $('#lblReasonOfTerminationHEI').text(response.model.TerminationReason);
+            $('#lblSupervisiorNameHEI').text(response.model.SupervisorName);
+            var svPhone = formatPhoneFax(response.model.SupervisorPhone);
+            $('#lblSupervisiorPhoneHEI').text(svPhone);
+            $('#lblSupervisiorEmailHEI').text(response.model.SupervisorEmail);
+            $('#lblCountryOfficeHEI').text(response.model.CountryName);
+            $('#lblofficeAddress1HEI').text(response.model.Address1);
+            $('#lblofficeAddress2HEI').text(response.model.Address2);
+            $('#lblStateEmployeeHEI').text(response.model.StateName);
+            $('#lblCityEmployeeHEI').text(response.model.City);
+            $('#lblZipOfficeHEI').text(response.model.Zip);
+            $('#popHistoryEmpAndIncomeProspVerif').modal('show');
+            $("#divLoader").hide();
         }
     });
 };

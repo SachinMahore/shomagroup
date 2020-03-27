@@ -160,7 +160,7 @@
                                             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mobile-margin text-payment">Email:</div>
                                             <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 border-bottom1 m-l15">
                                                 <input id="txtEmail" type="text" name="Email" class="form-control" />
-                                            </div><span class="Required">(Required)</span>
+                                            </div>@*<span class="Required">(Required)</span>*@
                                         </div>
                                     </div>
                                 </div>
@@ -741,10 +741,10 @@
 <script src="~/Content/assets/js/bootstrap-datetimepicker.js"></script>
 <script src="~/Areas/Tenant/Content/Pages/MyCommunity/MyCommunity.js"></script>
 <script>
-    $(document).ready(function () {
-        $("#txtMeetingTime").timepicki();
-        goToStep(5);
-    });
+    //$(document).ready(function () {
+    //    $("#txtMeetingTime").timepicki();
+    //    goToStep(5);
+    //});
     $("#chkTermsConditions").on('ifChanged', function (event) {
         if (this.checked == true) {
             $('#ClubSubmit').removeAttr('disabled');
@@ -768,9 +768,9 @@
     });
 </script>
 <script type="text/javascript">
-    $(function () {
-        $('#datetimepicker1').datetimepicker();
-    });
+    //$(function () {
+    //    $('#datetimepicker1').datetimepicker();
+    //});
 </script>
 <script>
     $(document).ready(function () {

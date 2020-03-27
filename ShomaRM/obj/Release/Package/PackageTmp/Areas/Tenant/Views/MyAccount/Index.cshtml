@@ -2264,21 +2264,23 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>From Date</label>
-
-                        <input id="txtFromDate" type="text" class="form-control form-control-small" placeholder="MM/dd/yyyy" value="@DateTime.Now.AddDays(-30).ToString("MM/dd/yyyy")" style="width:70% !important" />
-                        <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:162px;">
-                            <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
-                        </span>
+                        <div class="input-group">
+                            <input id="txtFromDate" type="text" class="form-control form-control-small" placeholder="MM/dd/yyyy" value="@DateTime.Now.AddDays(-30).ToString("MM/dd/yyyy")" style="width:70% !important" />
+                            <span class="input-group-btn">
+                                <button id="iconFromDate" class="btn btn-primary search" type="button" style="height:45px!important;margin-left:-68px;background-color:transparent;border:none;"><i class="fa-calendar fa"></i></button>
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>To Date</label>
-                        <input id="txtToDate" type="text" class="form-control form-control-small" placeholder="MM/dd/yyyy" value="@DateTime.Now.ToString("MM/dd/yyyy")" style="width:70% !important" />
-                        <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left:162px;">
-                            <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
-                        </span>
-
+                        <div class="input-group">
+                            <input id="txtToDate" type="text" class="form-control form-control-small" placeholder="MM/dd/yyyy" value="@DateTime.Now.ToString("MM/dd/yyyy")" style="width:70% !important" />
+                            <span class="input-group-btn">
+                                <button id="iconToDate" class="btn btn-primary search" type="button" style="height:45px!important;margin-left:-68px;background-color:transparent;border:none;"><i class="fa-calendar fa"></i></button>
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-12">
@@ -3315,7 +3317,12 @@
         $("#txtTransFromDate").datepicker();
         $("#txtTransToDate").datepicker();
         $("#txtPrefarredDate").datepicker('setStartDate', new Date());
-
+        $("#iconFromDate").click(function () {
+            $("#txtFromDate").focus();
+        });
+        $("#iconToDate").click(function () {
+            $("#txtToDate").focus();
+        });
 
         var currentTime = new Date()
         var minDate = new Date(currentTime.getFullYear(), currentTime.getMonth() + 1, +1); //one day next before month

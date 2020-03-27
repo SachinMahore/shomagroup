@@ -1,8 +1,8 @@
 ﻿$(document).ready(function () {
     focuss();
-    getServiceRequestOnAlarm();
+    getServiceRequestOnAlarmMyAccount();
     onFocusMyAccount();
-    breakdownPaymentFunction();
+    breakdownPaymentFunctionMyAcc();
 
     getPaymentAccountsCreditCard();
     getTransationLists();
@@ -2146,7 +2146,7 @@ var saveUpdateServiceRequest = function () {
             });
             clearServiceRequestField();
             getServiceRequestList();
-            getServiceRequestOnAlarm();
+            getServiceRequestOnAlarmMyAccount();
             $('#rbtnApertmentPermission1').iCheck('check');
             goToServiceStep(1);
         }
@@ -2662,10 +2662,10 @@ var fromDashboardGoToRecurringPayment = function () {
             $("#li7").removeClass("active");
         }
         if ($('#hdnPayStepIdRecurring').val() == "4") {
-            $("#pay1").removeClass("active1");
+            $("#pay1").removeClass("active");
             $("#pay2").removeClass("active1");
             $("#pay3").removeClass("active1");
-            $("#pay4").addClass("active1");
+            $("#pay4").addClass("active");
             $("#pay5").removeClass("active1");
 
             $("#payStep1").addClass("hidden");
@@ -2836,18 +2836,20 @@ var dateRangeAccountHistorySearch = function () {
         dataType: "JSON",
         success: function (response) {
             $('#popDateRangeAccountHistory').modal('hide');
-            bal = 0;
+            var bal = 0;
             $("#tblPaymentHistory>tbody").empty();
-
             $.each(response.model, function (elementType, elementValue) {
-               
                 var html = "<tr data-value=" + elementValue.TransID + ">";
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                html += "<td><a href='javascript:void(0);'  data-toggle='modal' data-target='#popInvoice' onclick='getInvoice(" + elementValue.TransID + ")'>" + elementValue.Description + "</a></td>";
-                html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                if (elementValue.Credit_Amount != "0.00") {
+
+                if (elementValue.Credit_Amount != "0.00" && elementValue.Charge_Amount == "0.00") {
+                    html += "<td>" + elementValue.Description + "<a href='javascript:void(0);' class='pull-right'  data-toggle='modal' data-target='#popPaymentReceipt' onclick='getInvoice(" + elementValue.TransID + ")'><img src='/Content/assets/Assets/rec.jpg' style='height: 20px;'/></td>";
+                    html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
                     html += "<td style='text-align: right;'><b>$" + formatMoney(elementValue.Credit_Amount) + "</b></td>";
                 } else {
+
+                    html += "<td>" + elementValue.Description + "<a href='javascript:void(0);' class='pull-right'  data-toggle='modal' data-target='#popInvoice' onclick='getInvoice(" + elementValue.TransID + ")'><img src='/Content/assets/Assets/inv.png' style='height: 20px;'/></a></td>";
+                    html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
                     html += "<td style='text-align: right;'>$" + formatMoney(elementValue.Credit_Amount) + "</td>";
                 }
 
@@ -4419,7 +4421,7 @@ var fillDropdowns = function () {
 
 }
 
-var getServiceRequestOnAlarm = function () {
+var getServiceRequestOnAlarmMyAccount = function () {
     var model = { TenantId: $("#hndTenantID").val() };
 
     $.ajax({
@@ -4755,7 +4757,7 @@ var openPaymentBreakdown = function () {
     $('#popPaymentBreakdown').modal('show');
 };
 
-var breakdownPaymentFunction = function () {
+var breakdownPaymentFunctionMyAcc = function () {
     $("#divLoader").show();
     var model = { UserId: $("#hndUserId").val() };
 

@@ -21,7 +21,7 @@
         <div class="col-lg-12">
             <div class="row">
                 <div class="myprofilebox">
-                    <img class="" id="imgTenantProfilePicture" data-value="" src="~/Content/assets/img/circle.png">
+                    <img class="circle" id="imgTenantProfilePicture" data-value="" src="~/Content/assets/img/circle.png">
                     <i class="fa fa-plus add"></i>
                     <input class="file-upload hidden" name="ProfilePic" id="ProfilePic" type="file" accept="image/*" />
                     <input type="hidden" id="hndProfilePic" value="0" />
@@ -904,6 +904,17 @@
             padding-right: 30px !important;
         }
     </style>*@
+<style>
+    .circle {
+        border-radius: 1000px !important;
+        overflow: hidden;
+        width: 150px;
+        height: 150px;
+        border: 8px solid rgba(255, 255, 255, 0.7);
+        /*position: absolute;*/
+        top: 72px;
+    }
+</style>
 <script>
     $(document).ready(function () {
 
