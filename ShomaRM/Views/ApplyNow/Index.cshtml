@@ -15,6 +15,7 @@
 <input type="hidden" id="hdnEmployerHistory" value="0" />
 <input type="hidden" id="hdnStepCompleted" value="@(Model.StepCompleted==0?1:Model.StepCompleted)" />
 <input type="hidden" id="hndShowTermPolicy" value="1" />
+<input type="hidden" id="hndShowPaymentPolicy" value="1" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container">
@@ -4369,9 +4370,11 @@
                  $("#chkRentalQual").iCheck('check');
 
             }
-             if (@Model.AcceptSummary=="1") {
-                 $("#chkAgreeSummarry").iCheck('check');
-
+            if (@Model.AcceptSummary== "1") {
+                $("#hndShowPaymentPolicy").val(0);
+                $("#chkAgreeSummarry").iCheck('check');
+            } else {
+                $("#hndShowPaymentPolicy").val(1);
             }
 
             if (@Model.IsRentalPolicy== "1" && @Model.IsRentalQualification== "1") {
