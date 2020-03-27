@@ -1230,7 +1230,7 @@ var goToStep = function (stepid, id) {
                         if ($("#hndHistory").val() < 36) {
                             alert("Please provide at least 3 years of residence history");
                         } else {
-                            $("#summCuAdd").text($("#txtAddress1").val() + ", " + ((!$("#txtAddress2").val()) ? "" : $("#txtAddress2").val() + ", " +) + $("#ddlCityHome").val() + ", " + $("#ddlStateHome option:selected").text() + " - " + $("#txtZip").val() + ", " + $("#txtCountry option:selected").text());
+                           // $("#summCuAdd").text($("#txtAddress1").val() + ", " + ((!$("#txtAddress2").val()) ? "" : $("#txtAddress2").val() + ", " + $("#ddlCityHome").val() + ", " + $("#ddlStateHome option:selected").text() + " - " + $("#txtZip").val() + ", " + $("#txtCountry option:selected").text());
                             saveupdateTenantOnline(11);
                             $("#step2").addClass("hidden");
                             $("#step1").addClass("hidden");
