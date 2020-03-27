@@ -239,27 +239,32 @@ namespace ShomaRM.Areas.Tenant.Models
             var editEmployerHistorydata = db.tbl_EmployerHistory.Where(co => co.HEIID == HEIID).FirstOrDefault();
             if (editEmployerHistorydata != null)
             {
+                var countryName = db.tbl_Country.Where(co => co.ID == editEmployerHistorydata.Country).FirstOrDefault();
+                var StateName = db.tbl_State.Where(co => co.ID == editEmployerHistorydata.State).FirstOrDefault();
+
                 model.HEIID = editEmployerHistorydata.HEIID;
-                model.EmployerName = editEmployerHistorydata.EmployerName;
+                model.EmployerName = !string.IsNullOrWhiteSpace(editEmployerHistorydata.EmployerName) ? editEmployerHistorydata.EmployerName : "";
                 model.JobTitle = editEmployerHistorydata.JobTitle;
                 model.JobType = editEmployerHistorydata.JobType;
                 model.StartDate = editEmployerHistorydata.StartDate;
                 model.TerminationDate = editEmployerHistorydata.TerminationDate;
                 model.AnnualIncome = editEmployerHistorydata.AnnualIncome;
                 model.AddAnnualIncome = editEmployerHistorydata.AddAnnualIncome;
-                model.SupervisorName = editEmployerHistorydata.SupervisorName;
+                model.SupervisorName = !string.IsNullOrWhiteSpace(editEmployerHistorydata.SupervisorName) ? editEmployerHistorydata.SupervisorName : "";
                 model.SupervisorPhone = editEmployerHistorydata.SupervisorPhone;
-                model.SupervisorEmail = editEmployerHistorydata.SupervisorEmail;
+                model.SupervisorEmail = !string.IsNullOrWhiteSpace(editEmployerHistorydata.SupervisorEmail) ? editEmployerHistorydata.SupervisorEmail : "";
                 model.Country = editEmployerHistorydata.Country;
-                model.Address1 = editEmployerHistorydata.Address1;
-                model.Address2 = editEmployerHistorydata.Address2;
+                model.Address1 = !string.IsNullOrWhiteSpace(editEmployerHistorydata.Address1) ? editEmployerHistorydata.Address1 : "";
+                model.Address2 = !string.IsNullOrWhiteSpace(editEmployerHistorydata.Address2) ? editEmployerHistorydata.Address2 : "";
                 model.State = editEmployerHistorydata.State;
-                model.City = editEmployerHistorydata.City;
-                model.Zip = editEmployerHistorydata.Zip;
+                model.City = !string.IsNullOrWhiteSpace(editEmployerHistorydata.City) ? editEmployerHistorydata.City : "";
+                model.Zip = !string.IsNullOrWhiteSpace(editEmployerHistorydata.Zip) ? editEmployerHistorydata.Zip : "";
                 model.StartDateString = editEmployerHistorydata.StartDate != null ? editEmployerHistorydata.StartDate.Value.ToString("MM/dd/yyyy") : "";
                 model.TerminationDateString = editEmployerHistorydata.TerminationDate != null ? editEmployerHistorydata.TerminationDate.Value.ToString("MM/dd/yyyy") : "";
-                model.TerminationReason = editEmployerHistorydata.TerminationReason;
-
+                model.TerminationReason = !string.IsNullOrWhiteSpace(editEmployerHistorydata.TerminationReason) ? editEmployerHistorydata.TerminationReason : "";
+                model.CountryName = countryName != null ? countryName.CountryName : "";
+                model.StateName = StateName != null ? StateName.StateName : "";
+                model.JobTypeName = editEmployerHistorydata.JobType == 1 ? "Permanent" : editEmployerHistorydata.JobType == 2 ? "Contract Basis" : "";
             }
             return model;
         }
