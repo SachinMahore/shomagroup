@@ -251,12 +251,15 @@ $(document).ready(function () {
             //getTenantOnlineList(tenantOnlineID);
             //getApplicantHistoryList();
             //getEmployerHistory();
-            $("#popApplicantSummary").modal("show");
+            if ($("#hndShowPaymentPolicy").val() == 1) {
+                $("#popApplicantSummary").modal("show");
+            }
+            else {
+                $("#hndShowPaymentPolicy").val(1);
+            }
         }
         else if ($("#chkAgreeSummarry").is(":not(:checked)")) {
-            
             $("#popApplicantSummary").modal("hide");
-            
         }
     });
 
@@ -1582,7 +1585,6 @@ var goToStep = function (stepid, id) {
                 });
                 return;
             } else {
-                SaveUpdateStep(15);
                 $("#subMenu").removeClass("hidden");
                   SaveUpdateStep(15);
                     $("#step2").addClass("hidden");
@@ -1631,17 +1633,16 @@ var goToStep = function (stepid, id) {
                 title: "",
                 content: msg,
                 type: 'red'
-
             });
             return;
         }
         if (id == "16") {
             var msg = '';
-            if (parseInt($("#hdnStepCompleted").val()) > 15) {
-                var numOfPets = $("#hndPetPlaceCount").val();
-                var petAdded = $("#tblPet tbody tr").length;
-                msg = 'Please Add Pet';
-            }
+            //if (parseInt($("#hdnStepCompleted").val()) > 15) {
+            //    var numOfPets = $("#hndPetPlaceCount").val();
+            //    var petAdded = $("#tblPet tbody tr").length;
+            //    msg = 'Please Add Pet';
+            //}
             if (msg != "") {
                 $.alert({
                     title: "",
@@ -1696,18 +1697,18 @@ var goToStep = function (stepid, id) {
             return;
         }
         var msg = '';
-        if (parseInt($("#hdnStepCompleted").val()) > 15) {
-            var numOfPets = $("#hndPetPlaceCount").val();
-            var petAdded = $("#tblPet tbody tr").length;
-            msg = 'Please Add Pet';
-        }
+        //if (parseInt($("#hdnStepCompleted").val()) > 15) {
+        //    var numOfPets = $("#hndPetPlaceCount").val();
+        //    var petAdded = $("#tblPet tbody tr").length;
+        //    msg = 'Please Add Pet';
+        //}
         if (msg != "") {
             $.alert({
                 title: "",
                 content: msg,
                 type: 'red'
             });
-           // goToStep(15, 15);
+            goToStep(15, 15);
             return;
         } else {
             if (id == "17") {
@@ -2701,33 +2702,33 @@ function savePayment() {
             yes: {
                 text: 'Yes',
                 action: function (yes) {
-                $.ajax({
-        url: "/ApplyNow/SavePaymentDetails/",
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            $("#divLoader").hide();
-            if (response.Msg == "1") {
-                 $("#carddetails").addClass("hidden");
-                $(".payNext").removeAttr("disabled");
-                $("#ResponseMsg").html("Payment Successfull");
-                $.alert({
-                    title: "",
-                    content: "Payment Successfull",
-                    type: 'red'
-                });
-                getTransationLists($("#hdnUserId").val());
-                getApplicantLists();
-            } else {
-                $.alert({
-                    title: "",
-                    content: "Payment Failed",
-                    type: 'red'
-                });
-            }
-        }
+                    $.ajax({
+                        url: "/ApplyNow/SavePaymentDetails/",
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $("#divLoader").hide();
+                            if (response.Msg == "1") {
+                                $("#carddetails").addClass("hidden");
+                                $(".payNext").removeAttr("disabled");
+                                $("#ResponseMsg").html("Payment Successfull");
+                                $.alert({
+                                    title: "",
+                                    content: "Payment Successfull",
+                                    type: 'red'
+                                });
+                                getTransationLists($("#hdnUserId").val());
+                                getApplicantLists();
+                            } else {
+                                $.alert({
+                                    title: "",
+                                    content: "Payment Failed",
+                                    type: 'red'
+                                });
+                            }
+                        }
                     });
                 }
             },
@@ -3126,7 +3127,7 @@ var addToCompare = function (modelname) {
         addModelArray.push(modelname);
 
         noofcomapre = addModelArray.length;
-        $("#btncompare").text("Compare(" + noofcomapre + ")")
+        $("#btncompare").text("Compare(" + noofcomapre + ")");
         getCompareModelList();
     } else {
         $.alert({
@@ -3601,17 +3602,17 @@ var getTransationLists = function (userid) {
                 paidamt += parseFloat(elementValue.Charge_Amount);
             });
           
-            setTimeout(function () {
-                if (response.model.length >= 1) {
-                    if (paidamt == totpaid) {
-                        $("#carddetails").addClass("hidden");
-                        //goToStep(15, 15);
-                        $("#getting-startedTimeRemainingClock").addClass("hidden");
-                    } else {
-                       // goToStep(15, 15);
-                    }
-                }
-            }, 1500);
+            //setTimeout(function () {
+            //    if (response.model.length >= 1) {
+            //        if (paidamt == totpaid) {
+            //            $("#carddetails").addClass("hidden");
+            //            //goToStep(15, 15);
+            //            $("#getting-startedTimeRemainingClock").addClass("hidden");
+            //        } else {
+            //            //goToStep(15, 15);
+            //        }
+            //    }
+            //}, 1500);
                     
         }
     });
@@ -6671,7 +6672,7 @@ var onFocusApplyNow = function () {
         });
     }).focusout(function () {
         var idnumber = $(this).val();
-        if (idnumber.length < 4) {
+        if (idnumber.length < 5) {
             alert("ID Number should be greater then 4 digit");
             return;
         }
