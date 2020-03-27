@@ -1694,7 +1694,11 @@ var goToStep = function (stepid, id) {
         if (parseInt($("#hdnStepCompleted").val()) > 15) {
             var numOfPets = $("#hndPetPlaceCount").val();
             var petAdded = $("#tblPet tbody tr").length;
-            msgm = 'Please Add Pet';
+            if (numOfPets != petAdded) {
+                msgm = 'Please Add Pet';
+            } else {
+                msgm = '';
+            }
         }
         if (msgm != "") {
             $.alert({
@@ -2351,14 +2355,14 @@ var SaveOnlineProspect = function () {
     }
     else {
         if (!validatePhone(unformatText($("#txtPhoneNumber").val()))) {
-            msg += "Please fill Valid Mobile Number </br>"
+            msg += "Please fill Valid Mobile Number </br>";
         }
     }
     if (!emailId) {
         msg += "Please fill the Email </br>";
     } else {
         if (!validateEmail($("#txtEmail").val())) {
-            msg += "Please fill Valid Email </br>"
+            msg += "Please fill Valid Email </br>";
         }
     }
     
@@ -7131,16 +7135,16 @@ var saveEmployerHistory = function () {
     var terminationReasonHei = $('#txtReasonOfTerminationHEI').val();
     var msg = '';
     if (!empNameHei) {
-        msg += 'Please Fill Employer Name</br>'
+        msg += 'Please Fill Employer Name</br>';
     }
     if (!startDateHei) {
-        msg += 'Please Fill Start Date</br>'
+        msg += 'Please Fill Start Date</br>';
     }
     if (!terminationDateHei) {
-        msg += 'Please Fill Termination Date</br>'
+        msg += 'Please Fill Termination Date</br>';
     }
     if (!annualIncomeHei) {
-        msg += 'Please Fill Annual Income</br>'
+        msg += 'Please Fill Annual Income</br>';
     }
 
     if (supervisorPhoneHei) {
