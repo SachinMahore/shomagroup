@@ -4007,7 +4007,7 @@ var saveupdateStorage = function () {
     totalAmt = parseFloat(totalAmt) - unformatText($("#lblStorageUnit").text());
    
     var storageAmt = unformatText($("#lblStorageUnit").text());
-    alert($("#lblStorageUnit").text())
+    //alert($("#lblStorageUnit").text())
     
     totalAmt = (parseFloat($("#lblStorageUnit").text()) + parseFloat(totalAmt)).toFixed(2);
 
