@@ -3702,12 +3702,13 @@ var fillStorageList = function () {
                     html += '<td class="pds-id hidden" style="color:#3d3939;">' + elementValue.StorageID + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.StorageName + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + parseFloat(elementValue.Charges).toFixed(2) + '</td>';
-                    html += '<td class="pds-firstname" style="color:#3d3939;"><input type="checkbox" id="chkAddStorage1" data-chargeamt="' + parseFloat(elementValue.Charges).toFixed(2)+'"  class="addstorage1" value="' + elementValue.StorageID + '" ' + (unformatText($("#lblStorageUnit").text()) == parseFloat(elementValue.Charges).toFixed(2) ? "checked='checked'" : "") + '></td>';
-                    html += '</tr>';
-                    //if (unformatText($("#lblStorageUnit").text()) == "50.00") {
+                    html += '<td class="pds-firstname" style="color:#3d3939;"><input type="checkbox" name="chkAddStorage1 id="chkAddStorage1"  class="addstorage1" value=' + elementValue.StorageID + ' onclick="selectAddStorage(this)" ' + ($("#lblstorageplace").text() == elementValue.StorageID ? "checked='checked'" : "") + '></td>';
 
-                    //    $("#chkAddStorage1").attr("checked", true);
-                    //}
+                   // html += '<td class="pds-firstname" style="color:#3d3939;"><input type="checkbox" id="chkAddStorage1" data-chargeamt="' + parseFloat(elementValue.Charges).toFixed(2)+'"  class="addstorage1" value="' + elementValue.StorageID + '" ' + (unformatText($("#lblStorageUnit").text()) == parseFloat(elementValue.Charges).toFixed(2) ? "checked='checked'" : "") + '></td>';
+                    html += '</tr>';
+                    if ($("#lblstorageplace").text() == elementValue.StorageID) {
+                        addStorageArray.push({ StorageID: elementValue.StorageID });
+                    }
                     $("#tblStorage1>tbody").append(html);
                 });
 
@@ -3783,17 +3784,18 @@ function selectAddParking(cont) {
 var addStorageArray = [];
 function selectAddStorage(cont) {
     var ischeck = $(cont).is(':checked')
-    $('.addstorage').removeAttr("checked");
+    $('.addstorage1').removeAttr("checked");
     $(cont).prop("checked", ischeck);
 
     addStorageArray = [];
-    $('.addstorage').each(function (i, obj) {
+    $('.addstorage1').each(function (i, obj) {
         if ($(obj).is(':checked')) {
             var pkid = $(obj).attr("value");
             addStorageArray.push({ StorageID: pkid });
         }
     });
-
+  
+    $("#lblstorageplace").text(addStorageArray[0].StorageID);
 }
 var addPetPlaceArray = [];
 function selectAddPetPlace(cont) {
@@ -3980,31 +3982,34 @@ var saveupdatePetPlace = function () {
 }
 var saveupdateStorage = function () {
     $("#divLoader").show();
-    $.alert({
-        title: "",
-        content: "Progress Saved.",
-        type: 'blue'
+    var model = {
+        Id: $("#lblstorageplace").text()
+    };
+    $.ajax({
+        url: '/Admin/Storage/GetStorageData/',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#lblStorageUnit").text(formatMoney(response.Charges));
+        
+            $("#lblMonthly_Storage").text(formatMoney(response.Charges));
+            $("#lblProrated_Storage").text(parseFloat(parseFloat(response.Charges) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+
+
+        }
     });
+
+   
     $("#popStorage").modal("hide");
     $("#divLoader").hide();
     totalAmt = parseFloat(totalAmt) - unformatText($("#lblStorageUnit").text());
    
-    if ($("#chkAddStorage1").is(":checked")) {
-
-        var storageAmt = $("#chkAddStorage1").attr('data-chargeamt');
-
-        $("#lblStorageUnit").text(formatMoney(parseFloat(storageAmt).toFixed(2)));
-        $("#lblMonthly_Storage").text(parseFloat(storageAmt).toFixed(2));
-        $("#lblProrated_Storage").text(parseFloat(parseFloat(storageAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
-
-        totalAmt = (parseFloat(storageAmt) + parseFloat(totalAmt)).toFixed(2);
-
-    } else {
-        $("#lblStorageUnit").text(formatMoney(parseFloat(0.00).toFixed(2)));
-        $("#lblMonthly_Storage").text(parseFloat(0.00).toFixed(2));
-        $("#lblProrated_Storage").text("0.00");
-
-    }
+    var storageAmt = unformatText($("#lblStorageUnit").text());
+    alert($("#lblStorageUnit").text())
+    
+    totalAmt = (parseFloat($("#lblStorageUnit").text()) + parseFloat(totalAmt)).toFixed(2);
 
     $("#lblMonthly_TotalRent").text(formatMoney(parseFloat(totalAmt).toFixed(2)));
     $("#lbltotalAmount").text(formatMoney(parseFloat(totalAmt).toFixed(2)));
@@ -4016,7 +4021,11 @@ var saveupdateStorage = function () {
     // $("#lblstorageplace").text(addStorageArray.length > 0 ? addStorageArray[0].StorageID : 0);
     $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
     $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
-
+    $.alert({
+        title: "",
+        content: "Progress Saved.",
+        type: 'blue'
+    });
 }
 
 //Sohan
