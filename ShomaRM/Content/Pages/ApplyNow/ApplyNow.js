@@ -4259,6 +4259,7 @@ var getApplicantLists = function () {
             $("#tblPayment>tbody").empty();
             $("#tblEmailCoapplicant>tbody").empty();
             var totalFinalFees = 0;
+            var noofapl = 0;
             $.each(response.model, function (elementType, elementValue) {
                 var html = '';
                 var prhtml = '';
@@ -4462,17 +4463,29 @@ var getApplicantLists = function () {
 
                 });
                 localStorage.setItem("percentageMo", sumMo);
-            });
 
+
+              
+                if (elementValue.Type != "Guarantor") {
+                    noofapl += 1;
+                }
+                
+            });
+           
+            var nofbed = $("#lblBed").text();
+            if ((parseInt(nofbed) * 2) <= noofapl) {
+
+            } else {
+             
+                $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
+                $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
+                           }
             $("#totalFinalFees").text("$" + parseFloat(totalFinalFees).toFixed(2));
-            $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
-            $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
             $("#tblApplicantGuarantor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(3)'><i class='fa fa-plus-circle'></i> Add Guarantor</a></label></div></div></div></div>");
 
         }
     });
 }
-
 
 var addAppFess = function (appFees) {
     var totfees = unformatText($("#totalFinalFees").text());
@@ -5549,6 +5562,8 @@ var delApplicant = function (appliId) {
                         success: function (response) {
                             $("#divLoader").hide();
                             $('#div_' + appliId).remove();
+
+                            getApplicantLists();
                         }
                     });
                 }
@@ -6574,7 +6589,6 @@ var getTenantPetPlaceData = function () {
     });
 };
 
-
 var onFocusApplyNow = function () {
 
     $("#txtApplicantPhone").focusout(function () { $("#txtApplicantPhone").val(formatPhoneFax($("#txtApplicantPhone").val())); })
@@ -6754,7 +6768,6 @@ function formatSSN(ssn) {
 
     return ssn.substring(0, 3) + (ssn.length > 3 ? '-' : '') + ssn.substring(3, 5) + (ssn.length > 5 ? '-' : '') + ssn.substring(5);
 }
-
 
 function formatMoney(number) {
     number = number || 0;
