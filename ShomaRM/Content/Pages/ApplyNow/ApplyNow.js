@@ -3790,16 +3790,17 @@ function selectAddStorage(cont) {
     var ischeck = $(cont).is(':checked')
     $('.addstorage1').removeAttr("checked");
     $(cont).prop("checked", ischeck);
-
+    $("#lblstorageplace").text(0);
     addStorageArray = [];
     $('.addstorage1').each(function (i, obj) {
         if ($(obj).is(':checked')) {
             var pkid = $(obj).attr("value");
             addStorageArray.push({ StorageID: pkid });
+            $("#lblstorageplace").text(addStorageArray[0].StorageID);
         }
     });
   
-    $("#lblstorageplace").text(addStorageArray[0].StorageID);
+   
 }
 var addPetPlaceArray = [];
 function selectAddPetPlace(cont) {
