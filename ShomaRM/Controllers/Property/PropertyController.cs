@@ -145,11 +145,11 @@ namespace ShomaRM.Controllers
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult GetPropertyFloorDetails(int FloorID, DateTime AvailableDate, int Bedroom, decimal MaxRent, int LeaseTermID)
+        public ActionResult GetPropertyFloorDetails(int FloorID, DateTime AvailableDate, int Bedroom, decimal MaxRent, int LeaseTermID, string ModelName)
         {
             try
             {
-                return Json(new { model = (new PropertyFloor().GetPropertyFloorDetails(FloorID, AvailableDate, Bedroom, MaxRent, LeaseTermID)) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = (new PropertyFloor().GetPropertyFloorDetails(FloorID, AvailableDate, Bedroom, MaxRent, LeaseTermID, ModelName)) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)

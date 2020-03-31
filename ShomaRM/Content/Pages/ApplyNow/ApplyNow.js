@@ -3262,6 +3262,7 @@ var getPropertyUnitDetails = function (uid) {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
+            $("#hndShowPropertyDetails").val(1);
             $("#ModelCompare").modal("hide");
             $("#popUnitDet").addClass("hidden");
             $("#popFloorCoordinate").addClass("hidden");
@@ -3275,6 +3276,9 @@ var getPropertyUnitDetails = function (uid) {
 
             $("#unitdiv" + $("#hndUID").val()).removeClass("select-unit");
             $("#unitdiv" + uid).addClass("select-unit");
+
+            //$("#unitdiv" + uid)[0].scrollIntoView();
+
 
             $("#lblRent").text(formatMoney(response.model.Current_Rent));
             $("#lblArea").text(response.model.Area);
@@ -3435,7 +3439,7 @@ var getPropertyUnitDetails = function (uid) {
             $("#lblSubtotalsumm").text((parseFloat(response.model.Current_Rent) + parseFloat(26.50)).toFixed(2));
             $("#lbltotalAmountSumm").text((parseFloat(response.model.Current_Rent) + parseFloat(26.50)).toFixed(2));
             localStorage.setItem("floorfromplan", response.model.FloorNo);
-            showFloorPlan(response.model.FloorNo);
+            showFloorPlan(response.model.FloorNo, response.model.Bedroom,response.model.Building);
             $("#divLoader").hide();
         }
     });
@@ -3982,6 +3986,7 @@ var saveupdatePetPlace = function () {
 }
 var saveupdateStorage = function () {
     $("#divLoader").show();
+
     var model = {
         Id: $("#lblstorageplace").text()
     };
@@ -3992,39 +3997,37 @@ var saveupdateStorage = function () {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
+
+            totalAmt = parseFloat(totalAmt) - parseFloat(unformatText($("#lblStorageUnit").text()));
+            if (response.Charges == null) {
+                response.Charges = 0;
+            }
             $("#lblStorageUnit").text(formatMoney(response.Charges));
-        
+
             $("#lblMonthly_Storage").text(formatMoney(response.Charges));
             $("#lblProrated_Storage").text(parseFloat(parseFloat(response.Charges) / parseFloat(numberOfDays) * remainingday).toFixed(2));
 
+            $("#popStorage").modal("hide");
+            $("#divLoader").hide();
 
+            totalAmt = (parseFloat(response.Charges) + parseFloat(totalAmt)).toFixed(2);
+
+            $("#lblMonthly_TotalRent").text(formatMoney(parseFloat(totalAmt)));
+            $("#lbltotalAmount").text(formatMoney(parseFloat(totalAmt)));
+
+            $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            // $("#ftotal").text((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat(365, 10)).toFixed(2));
+            $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            // $("#lblstorageplace").text(addStorageArray.length > 0 ? addStorageArray[0].StorageID : 0);
+            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+            $.alert({
+                title: "",
+                content: "Progress Saved.",
+                type: 'blue'
+            });
         }
-    });
-
-   
-    $("#popStorage").modal("hide");
-    $("#divLoader").hide();
-    totalAmt = parseFloat(totalAmt) - unformatText($("#lblStorageUnit").text());
-   
-    var storageAmt = unformatText($("#lblStorageUnit").text());
-    //alert($("#lblStorageUnit").text())
-    
-    totalAmt = (parseFloat($("#lblStorageUnit").text()) + parseFloat(totalAmt)).toFixed(2);
-
-    $("#lblMonthly_TotalRent").text(formatMoney(parseFloat(totalAmt).toFixed(2)));
-    $("#lbltotalAmount").text(formatMoney(parseFloat(totalAmt).toFixed(2)));
-
-    $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-    $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-    // $("#ftotal").text((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat(365, 10)).toFixed(2));
-    $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-    // $("#lblstorageplace").text(addStorageArray.length > 0 ? addStorageArray[0].StorageID : 0);
-    $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
-    $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
-    $.alert({
-        title: "",
-        content: "Progress Saved.",
-        type: 'blue'
     });
 }
 
@@ -5578,8 +5581,8 @@ var delApplicant = function (appliId) {
 
 }
 
-function showFloorPlan(flid) {
-    $("#divLoader").show();
+function showFloorPlan(flid,numbedroom, modelname) {
+    $("#divLoaderFloorData").show();
     setTimeout(function () { $("#returnButton").removeClass("hidden"); $("#returnButton").html("Return to List View"); }, 1000);
     $("#UnitListDesc").text("Choose any unit in green to see more information including a video and complete layout of your unit. ");
     var bedroom = 0;
@@ -5589,6 +5592,10 @@ function showFloorPlan(flid) {
     else {
         bedroom = $("#ddlRoom").val();
     }
+    if (bedroom != numbedroom) {
+        bedroom = numbedroom;
+    }
+
     var maxrent = 0;
     if ($("#txtMaxRent").val() == "0") {
         maxrent = "10000";
@@ -5598,7 +5605,7 @@ function showFloorPlan(flid) {
     }
     var availdate = $("#txtDate").val();
     var leaseterm = $("#hndLeaseTermID").val();
-    var model = { FloorID: flid, AvailableDate: availdate, Bedroom: bedroom, MaxRent: maxrent, LeaseTermID: leaseterm };
+    var model = { FloorID: flid, AvailableDate: availdate, Bedroom: bedroom, MaxRent: maxrent, LeaseTermID: leaseterm, ModelName : modelname };
     $.ajax({
         url: "/Property/GetPropertyFloorDetails/",
         type: "post",
@@ -5672,7 +5679,7 @@ function showFloorPlan(flid) {
                 $("#floorunId_" + divID[1]).removeClass("hidden");
                 $("#floorunId_" + divID[1]).css({ top: Y, left: X, position: 'absolute' });
             });
-            $("#divLoader").hide();
+            $("#divLoaderFloorData").hide();
         }
     });
 }
@@ -5739,8 +5746,10 @@ function getPropertyUnitListByFloor(flid) {
                     html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'><span>Unit No: " + value.UnitNo + "<br/>" + value.Bedroom + " bd / " + value.Bathroom + " ba</span><span> Available: Yes</span></div>";
                 }
 
-                var ulhtml = " <tr id='unitdiv" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td style='text-align: center;width=100px'>$" + value.Current_Rent + "</td><td style='text-align: center;width=80px'>" + value.Premium + "</td><td style='text-align: center;width=100px'>" + value.AvailableDateText + "</td></tr>";
-                $("#listUnit>tbody").append(ulhtml);
+                if (value.IsAvail != 0) {
+                    var ulhtml = " <tr id='unitdiv" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td style='text-align: center;width=100px'>$" + formatMoney(value.Current_Rent) + "</td><td style='text-align: center;width=80px'>" + value.Premium + "</td><td style='text-align: center;width=100px'>" + value.AvailableDateText + "</td></tr>";
+                    $("#listUnit>tbody").append(ulhtml);
+                }
             });
             html += "</map><br/>";
             $("#popUnitPlan").append(html);
@@ -7410,4 +7419,13 @@ var SaveUpdateStep = function (stepcompleted) {
             }
         }
     });
+}
+var checkHasUnitID=function()
+{
+    if ($("#hndShowPropertyDetails").val() != "0") {
+        $("#PopSummary").modal("show");
+    }
+    else {
+        $("#PopSummary").modal("hide");
+    }
 }
