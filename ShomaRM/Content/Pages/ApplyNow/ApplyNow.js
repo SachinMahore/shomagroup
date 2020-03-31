@@ -3786,16 +3786,17 @@ function selectAddStorage(cont) {
     var ischeck = $(cont).is(':checked')
     $('.addstorage1').removeAttr("checked");
     $(cont).prop("checked", ischeck);
-
+    $("#lblstorageplace").text(0);
     addStorageArray = [];
     $('.addstorage1').each(function (i, obj) {
         if ($(obj).is(':checked')) {
             var pkid = $(obj).attr("value");
             addStorageArray.push({ StorageID: pkid });
+            $("#lblstorageplace").text(addStorageArray[0].StorageID);
         }
     });
   
-    $("#lblstorageplace").text(addStorageArray[0].StorageID);
+   
 }
 var addPetPlaceArray = [];
 function selectAddPetPlace(cont) {
@@ -3982,6 +3983,7 @@ var saveupdatePetPlace = function () {
 }
 var saveupdateStorage = function () {
     $("#divLoader").show();
+ 
     var model = {
         Id: $("#lblstorageplace").text()
     };
@@ -3992,40 +3994,42 @@ var saveupdateStorage = function () {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
+         
+            totalAmt = parseFloat(totalAmt) - parseFloat(unformatText($("#lblStorageUnit").text()));
+            if (response.Charges == null)
+            {
+                response.Charges = 0;
+            }
             $("#lblStorageUnit").text(formatMoney(response.Charges));
-        
+          
             $("#lblMonthly_Storage").text(formatMoney(response.Charges));
             $("#lblProrated_Storage").text(parseFloat(parseFloat(response.Charges) / parseFloat(numberOfDays) * remainingday).toFixed(2));
 
+            $("#popStorage").modal("hide");
+            $("#divLoader").hide();
+            
+            totalAmt = (parseFloat(response.Charges) + parseFloat(totalAmt)).toFixed(2);
 
+            $("#lblMonthly_TotalRent").text(formatMoney(parseFloat(totalAmt)));
+            $("#lbltotalAmount").text(formatMoney(parseFloat(totalAmt)));
+
+            $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            // $("#ftotal").text((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat(365, 10)).toFixed(2));
+            $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            // $("#lblstorageplace").text(addStorageArray.length > 0 ? addStorageArray[0].StorageID : 0);
+            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+            $.alert({
+                title: "",
+                content: "Progress Saved.",
+                type: 'blue'
+            });
         }
     });
 
    
-    $("#popStorage").modal("hide");
-    $("#divLoader").hide();
-    totalAmt = parseFloat(totalAmt) - unformatText($("#lblStorageUnit").text());
-   
-    var storageAmt = unformatText($("#lblStorageUnit").text());
-    //alert($("#lblStorageUnit").text())
-    
-    totalAmt = (parseFloat($("#lblStorageUnit").text()) + parseFloat(totalAmt)).toFixed(2);
-
-    $("#lblMonthly_TotalRent").text(formatMoney(parseFloat(totalAmt).toFixed(2)));
-    $("#lbltotalAmount").text(formatMoney(parseFloat(totalAmt).toFixed(2)));
-
-    $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-    $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-    // $("#ftotal").text((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat(365, 10)).toFixed(2));
-    $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-    // $("#lblstorageplace").text(addStorageArray.length > 0 ? addStorageArray[0].StorageID : 0);
-    $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
-    $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
-    $.alert({
-        title: "",
-        content: "Progress Saved.",
-        type: 'blue'
-    });
+ 
 }
 
 //Sohan
