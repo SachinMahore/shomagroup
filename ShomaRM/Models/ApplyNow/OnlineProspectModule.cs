@@ -207,6 +207,8 @@ namespace ShomaRM.Models
                 db.tbl_TenantOnline.Add(getAppldata);
                 db.SaveChanges();
 
+                
+
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == model.PropertyId).FirstOrDefault();
                 string reportHTML = "";
                 string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
@@ -291,6 +293,15 @@ namespace ShomaRM.Models
                     onlineProspectData.StepCompleted = stepcomp;
                     db.SaveChanges();
                 }
+
+                var updateAppl = db.tbl_Applicant.Where(c => c.Email == onlineProspectData.Email).FirstOrDefault();
+                if (updateAppl != null)
+                {
+                    updateAppl.MoveInCharge = model.MoveInCharges;
+                    updateAppl.MonthlyPayment = model.MonthlyCharges;
+                    db.SaveChanges();
+                }
+
             }
             msg = model.ID.ToString() + "|Quote Updated Successfully";
             db.Dispose();
