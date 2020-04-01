@@ -662,21 +662,21 @@ var goToStep = function (stepid, id) {
         }
         if (id == "2") {
 
-            $("#divLoader").show();
-            var model = { UID: $("#hndUID").val(), LeaseTermID: $("#hndLeaseTermID").val() };
-            $.ajax({
-                url: "/Property/GetPropertyUnitDetails/",
-                type: "post",
-                contentType: "application/json utf-8",
-                data: JSON.stringify(model),
-                dataType: "JSON",
-                success: function (response) {
-                    getPropertyUnitDetails(response.model.UID);
-                    getPropertyUnitList(response.model.Building);
-                    getPropertyUnitListByFloor(response.model.Floor);
-                    $("#divLoader").show();
-                }
-            });
+            //$("#divLoader").show();
+            //var model = { UID: $("#hndUID").val(), LeaseTermID: $("#hndLeaseTermID").val() };
+            //$.ajax({
+            //    url: "/Property/GetPropertyUnitDetails/",
+            //    type: "post",
+            //    contentType: "application/json utf-8",
+            //    data: JSON.stringify(model),
+            //    dataType: "JSON",
+            //    success: function (response) {
+            //        getPropertyUnitDetails(response.model.UID);
+            //        getPropertyUnitList(response.model.Building);
+            //        getPropertyUnitListByFloor(response.model.Floor);
+            //        $("#divLoader").show();
+            //    }
+            //});
 
             $("#subMenu").addClass("hidden");
             $("#as2").removeAttr("onclick");
@@ -3269,17 +3269,18 @@ var getPropertyUnitList = function (modelname) {
 
                     $("#lblOccupancy22").text((parseInt(value.Bedroom) * 2).toString());
                 });
-                if ($("#hndUID").val() != "0") {
-                    $("#unitdiv" + $("#hndUID").val()).addClass("select-unit");
-                }
+
+                //alert($("#hndUID").val());
+                //if ($("#hndUID").val() != "0") {
+                //    $("#unitdiv" + $("#hndUID").val()).addClass("select-unit");
+                //}
             }
-            //goToStep(2, 2);
+            goToStep(2, 2);
         }
     });
 }
 var getPropertyUnitDetails = function (uid) {
     $("#divLoader").show();
-
     var model = { UID: uid, LeaseTermID:$("#hndLeaseTermID").val() };
     $.ajax({
         url: "/Property/GetPropertyUnitDetails/",
@@ -3317,6 +3318,7 @@ var getPropertyUnitDetails = function (uid) {
             $("#lblRent22").text("$" + response.model.Current_Rent);
             $("#lblArea22").text(response.model.Area);
             $("#lblBed22").text(response.model.Bedroom);
+            $("#lblUnitModel").text("Model: #"+response.model.Building);
             $("#lblBath22").text(response.model.Bathroom);
 
             $("#lblOccupancy22").text((parseInt(response.model.Bedroom) * 2).toString());
