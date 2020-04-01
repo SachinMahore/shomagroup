@@ -27,7 +27,7 @@
                         <h3>
                             <b>Online  </b>Application <br>
                         </h3>
-                        <div class="button pull-right">
+                        <div class="button pull-right button-margin-mobile">
 
                             <a href="javascript:void(0)" class="btn-success" style="padding:5px;" onclick="gotoLogOffAN()"> Logout..</a>
 
@@ -37,12 +37,12 @@
                     </div>
 
                     <ul style="line-height: 14px;" class="nav nav-tabs wizard">
-                        <li class="active" style="padding-right:2px" id="li1"><a href="javascript:void(0);" onclick="goToStep(1,0)"> 1. Floor Plan </a></li>
-                        <li id="li2"><a href="javascript:void(0);" id="as2" onclick="goToStep(2,0)">2. Select Units</a></li>
-                        <li id="li3"><a href="javascript:void(0);" id="as3" onclick="goToStep(3,3)">3. Select Options</a></li>
-                        <li id="li4"><a href="javascript:void(0);" id="as4" onclick="goToStep(5,5)">4. Quotation</a></li>
-                        <li id="li5"><a href="javascript:void(0);" id="as5" onclick="goToStep(6,6)">5. Policies & Conditions </a></li>
-                        <li id="li6"><a href="javascript:void(0);" id="as6" onclick="goToStep(7,7)">6. Complete Application</a></li>
+                        <li class="active tab-mobile" style="padding-right:2px" id="li1"><a href="javascript:void(0);" onclick="goToStep(1,0)"> 1. Floor Plan </a></li>
+                        <li id="li2" class="tab-mobile"><a href="javascript:void(0);" id="as2" onclick="goToStep(2,0)">2. Select Units</a></li>
+                        <li id="li3" class="tab-mobile"><a href="javascript:void(0);" id="as3" onclick="goToStep(3,3)">3. Select Options</a></li>
+                        <li id="li4" class="tab-mobile"><a href="javascript:void(0);" id="as4" onclick="goToStep(5,5)">4. Quotation</a></li>
+                        <li id="li5" class="tab-mobile"><a href="javascript:void(0);" id="as5" onclick="goToStep(6,6)">5. Policies & Conditions </a></li>
+                        <li id="li6" class="tab-mobile"><a href="javascript:void(0);" id="as6" onclick="goToStep(7,7)">6. Complete Application</a></li>
 
                     </ul>
                     <div class="text-center">
@@ -75,8 +75,8 @@
                                 <div class="col-xs-12 hidden" id="divMainSearch">
                                     <div class="col-xs-12 padding-5 form-inline">
 
-                                        <h5 class="col-xs-2">Desired Move-In </h5>
-                                        <div class="col-xs-2">
+                                        <h5 class="col-xs-12 col-xl-2 col-md-2 col-sm-4 text-mob-margin">Desired Move-In </h5>
+                                        <div class="col-xs-12 col-xl-2 col-md-2 col-sm-6">
                                             <div class="input-group">
                                                 <input type="text" id="txtDate" data-date-format="mm/dd/yyyy" class="form-control" value="@Model.MoveInDate.ToString("MM/dd/yyyy")" />
                                                 <span class="input-group-btn">
@@ -84,8 +84,8 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <h5 class="col-sm-2">Bedrooms</h5>
-                                        <div class="col-xs-2 ">
+                                        <h5 class="col-xs-12 col-xl-2 col-md-2 col-sm-4 text-mob-margin">Bedrooms</h5>
+                                        <div class="col-xs-12 col-xl-2 col-md-2 col-sm-6">
 
                                             <select id="ddlRoom" class="form-control">
                                                 <option value='0'>All</option>
@@ -98,18 +98,18 @@
                                         <input type="hidden" id="hndbuilding" value="1" />
                                         <input type="hidden" id="txtMaxRent" class="form-control" value="@Model.MaxRent" placeholder="Max Rent" />
 
-                                        <h5 class="col-sm-1">Sort</h5>
-                                        <div class="col-xs-2">
+                                        <h5 class="col-xs-12 col-xl-2 col-md-2 col-sm-4 text-mob-margin">Sort</h5>
+                                        <div class="col-xs-12 col-xl-2 col-md-2 col-sm-6 select-button">
                                             @*<div class="col-xs-12">*@
-                                            <select id="ddlPrice" class="form-control">
+                                            <select id="ddlPrice" class="form-control ">
                                                 <option value='0'>Low To High</option>
                                                 <option value='1'>High To Low</option>
 
                                             </select>
                                             @*</div>*@
                                         </div>
-                                        <div class="col-xs-1">
-                                            <button class="btn-primary hollow btn" style="padding: 7px 7px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
+                                        <div class="col-xs-12 col-xl-2 col-md-2 col-sm-10">
+                                            <button class="btn-primary hollow btn serch-button-mobile" style="padding: 7px 7px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
                                         </div>
                                     </div>
 
@@ -136,7 +136,7 @@
                     </div>
                     <div class="hidden" id="step2">
                         <div class="row p-b-15  ">
-                            <div class="col-xs-7 col-sm-7">
+                            <div class="col-xs-12 col-xl-7 col-md-7 col-sm-12">
                                 <div class="col-sm-12">
 
 
@@ -253,10 +253,11 @@
 
                                 </div>
                             </div>
-                            <div class="col-xs-5 col-sm-5">
+                            <div class="col-xs-12 col-xl-5 col-sm-5">
                                 <div id="divFloor">
 
                                     <img src="/content/assets/img/demo/@Model.Picture" usemap="#apartment_2" id="apartimg_2">
+
                                     <map name="apartment_2" id="floorImgdiv">
                                         @foreach (var lstcord in Model.lstPropertyFloor)
                                         {
@@ -265,6 +266,7 @@
                                         <div id="dfa_@lstcord.FloorID" class="hidden divtooltip">
                                             <span>Floor - @lstcord.FloorID</span>
                                         </div>
+                                     
                                         }
                                     </map>
                                     <input type="hidden" id="hndSelectedFloor" value="" />
@@ -401,7 +403,7 @@
                     <div class="hidden" id="step4">
 
                         <div class="row p-b-15  ">
-                            <div class="col-xs-3 col-sm-3 dealer-face">
+                            <div class="col-xs-12 col-xl-3 col-md-3 col-sm-12 dealer-face">
 
                                 <div id="uDet">
                                     <a href="JavaScript:Void(0)" onclick="displayImg()">
@@ -466,7 +468,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-9">
+                            <div class="col-xs-12 col-xl-9 col-md-9 col-sm-12">
                                 <div class="col-sm-1">
                                     <span>UNIT</span>
                                 </div>
@@ -721,7 +723,7 @@
                     </div>
                     <div class="hidden" id="step5">
                         <div class="row p-b-15  ">
-                            <div class="col-sm-12">
+                            <div class="col-sm-12 print">
                                 <div class="pull-right text-center">
                                     <button id="quotePrint" class="btn btn-primary" onclick="print('printable')"> Print</button>
                                 </div>
@@ -1150,8 +1152,8 @@
                                 </div>
                                 <div class="col-sm-12 ">
                                     <div class="col-sm-4"></div>
-                                    <div class="col-sm-4">
-                                        <h4>Welcome To Online Leasing</h4>
+                                    <div class="col-sm-12 col-md-4">
+                                        <h4 class="welcome-textmobile">Welcome To Online Leasing</h4>
                                     </div>
                                     <div class="col-sm-4"></div>
                                 </div>
@@ -1160,8 +1162,8 @@
                                     <div class="row" style="text-align: center;">
 
                                         <div class="col-sm-12 clear">
-                                            <div class="col-sm-2"></div>
-                                            <div class="col-sm-8">
+                                            <div class="col-sm-2 mobile-displaynone"></div>
+                                            <div class="col-sm-10 col-md-8">
                                                 <p style="text-align: justify;">
                                                     Congratulations! You have selected your new home. Greate choice. We've made your move in process seamless and fun, so lets get started.<br>
                                                     Before we proceed, you need to accept Sanctury's policies and conditions. Please click <a href="javascript:void(0);" id="rentalQualification" data-toggle="modal" data-target="#popRentalQualification"><b style="font-weight:900;">here</b></a>.<br>
@@ -1170,11 +1172,11 @@
                                                     Once our office has received your lease and payment, we will send you a link with your own move in procedures.
                                                     Easy Right?
                                                 </p>
-                                                <div class="col-sm-12">
-                                                    <div class="col-sm-1 form-group">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-1 form-group">
                                                         <input class="form-control" type="checkbox" id="chkAgreeTermsPolicy" style="width: 60px !important;height: 20px !important;">
                                                     </div>
-                                                    <div class="col-sm-11" style="text-align: left;">
+                                                    <div class="col-md-11" style="text-align: left;">
                                                         <label>
                                                             I agree with Sanctuary's terms and conditions.
                                                         </label>
@@ -4112,7 +4114,7 @@
 
         .nav-tabs.wizard > li > a {
             opacity: 1;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .nav-tabs.wizard a:hover {
