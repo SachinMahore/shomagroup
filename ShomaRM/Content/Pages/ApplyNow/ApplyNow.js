@@ -624,7 +624,7 @@ function checkFormstatus() {
     $("#checkForm").toggleClass("hidden");
 }
 var totalAmt = 0;
-var goToStep = function (stepid, id) {
+var goToStep = function (stepid, id, calldataupdate) {
     if (stepid == "1") {
         $("#li1").addClass("active");
         $("#li2").removeClass("active");
@@ -662,25 +662,26 @@ var goToStep = function (stepid, id) {
         }
         if (id == "2") {
 
-            //$("#divLoader").show();
-            //var model = { UID: $("#hndUID").val(), LeaseTermID: $("#hndLeaseTermID").val() };
-            //$.ajax({
-            //    url: "/Property/GetPropertyUnitDetails/",
-            //    type: "post",
-            //    contentType: "application/json utf-8",
-            //    data: JSON.stringify(model),
-            //    dataType: "JSON",
-            //    success: function (response) {
-            //        getPropertyUnitDetails(response.model.UID);
-            //        getPropertyUnitList(response.model.Building);
-            //        getPropertyUnitListByFloor(response.model.Floor);
-            //        $("#divLoader").show();
-            //    }
-            //});
+            if (calldataupdate == 1) {
+                var model = { UID: $("#hndUID").val(), LeaseTermID: $("#hndLeaseTermID").val() };
+                $.ajax({
+                    url: "/Property/GetPropertyUnitDetails/",
+                    type: "post",
+                    contentType: "application/json utf-8",
+                    data: JSON.stringify(model),
+                    dataType: "JSON",
+                    success: function (response) {
+                        getPropertyUnitDetails(response.model.UID);
+                        getPropertyUnitList(response.model.Building);
+                        getPropertyUnitListByFloor(response.model.Floor);
+                        $("#divLoader").show();
+                    }
+                });
+            }
 
             $("#subMenu").addClass("hidden");
             $("#as2").removeAttr("onclick");
-            $("#as2").attr("onclick", "goToStep(2,2)");
+            $("#as2").attr("onclick", "goToStep(2,2,1)");
             $("#li1").addClass("active");
             $("#li2").addClass("active");
 
@@ -712,7 +713,7 @@ var goToStep = function (stepid, id) {
         if (id == "3") {
             if ($("#hndUID").val() != 0) {
                 $("#as3").removeAttr("onclick");
-                $("#as3").attr("onclick", "goToStep(3,3)");
+                $("#as3").attr("onclick", "goToStep(4,4,0)");
                 $("#subMenu").addClass("hidden");
                 SaveQuote(3);
                 var checkReload = localStorage.getItem("CheckReload");
@@ -764,17 +765,15 @@ var goToStep = function (stepid, id) {
             return;
         }
         if (id == "4") {
-
-
-            var result = checkStrength($("#txtPassword").val());
-            if (!result) {
-                return;
-            }
-            savepudateOnlineProspect();
+            //var result = checkStrength($("#txtPassword").val());
+            //if (!result) {
+            //    return;
+            //}
+            //savepudateOnlineProspect();
             SaveUpdateStep(4);
             $("#subMenu").addClass("hidden");
             $("#as4").removeAttr("onclick");
-            $("#as4").attr("onclick", "goToStep(5,5)");
+            $("#as4").attr("onclick", "goToStep(5,5,0)");
             $("#li1").addClass("active");
             $("#li2").addClass("active");
             $("#li3").addClass("active");
@@ -814,7 +813,7 @@ var goToStep = function (stepid, id) {
         if (id == "5") {
             $("#subMenu").addClass("hidden");
             $("#as5").removeAttr("onclick");
-            $("#as5").attr("onclick", "goToStep(6,6)");
+            $("#as5").attr("onclick", "goToStep(6,6,0)");
             SaveQuote(5);
             $("#getting-startedTimeRemainingClock").removeClass("hidden");
             $("#li1").addClass("active");
@@ -906,7 +905,7 @@ var goToStep = function (stepid, id) {
             $("#subMenu").removeClass("hidden");
             SaveCheckPolicy(7);
             $("#as6").removeAttr("onclick");
-            $("#as6").attr("onclick", "goToStep(7,7)");
+            $("#as6").attr("onclick", "goToStep(7,7,0)");
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
             $("#step4").addClass("hidden");
@@ -1666,7 +1665,7 @@ var goToStep = function (stepid, id) {
                     content: msgmm,
                     type: 'red'
                 });
-                goToStep(15,15);
+                goToStep(15, 15, 0);
                 return;
             } else {
                 SaveUpdateStep(16);
@@ -1729,7 +1728,7 @@ var goToStep = function (stepid, id) {
                 content: msgm,
                 type: 'red'
             });
-            goToStep(15, 15);
+            goToStep(15, 15, 0);
             return;
         } else {
             if (id == "17") {
@@ -1819,7 +1818,7 @@ var showCurrentStep = function (stepid, id) {
     if (stepid == "2") {
         $("#subMenu").addClass("hidden");
         $("#as2").removeAttr("onclick");
-        $("#as2").attr("onclick", "goToStep(2,2)");
+        $("#as2").attr("onclick", "goToStep(2,2,1)");
         $("#li1").addClass("active");
         $("#li2").addClass("active");
 
@@ -1850,7 +1849,7 @@ var showCurrentStep = function (stepid, id) {
     if (stepid == "3") {
         $("#subMenu").addClass("hidden");
         $("#as3").removeAttr("onclick");
-        $("#as3").attr("onclick", "goToStep(3,3)");
+        $("#as3").attr("onclick", "goToStep(4,4,0)");
         $("#subMenu").addClass("hidden");
 
         $("#li1").addClass("active");
@@ -1883,7 +1882,7 @@ var showCurrentStep = function (stepid, id) {
 
         $("#subMenu").addClass("hidden");
         $("#as4").removeAttr("onclick");
-        $("#as4").attr("onclick", "goToStep(5,5)");
+        $("#as4").attr("onclick", "goToStep(5,5,0)");
 
         $("#li1").addClass("active");
         $("#li2").addClass("active");
@@ -1915,7 +1914,7 @@ var showCurrentStep = function (stepid, id) {
 
         $("#subMenu").addClass("hidden");
         $("#as5").removeAttr("onclick");
-        $("#as5").attr("onclick", "goToStep(6,6)");
+        $("#as5").attr("onclick", "goToStep(6,6,0)");
 
 
         $("#getting-startedTimeRemainingClock").removeClass("hidden");
@@ -1986,7 +1985,7 @@ var showCurrentStep = function (stepid, id) {
 
         $("#subMenu").removeClass("hidden");
         $("#as6").removeAttr("onclick");
-        $("#as6").attr("onclick", "goToStep(7,7)");
+        $("#as6").attr("onclick", "goToStep(7,7,0)");
         $("#step2").addClass("hidden");
         $("#step1").addClass("hidden");
         $("#step4").addClass("hidden");
@@ -2539,7 +2538,7 @@ var SaveQuote = function (stepcompleted) {
             if (stepcomp < stepcompleted) {
                 $("#hdnStepCompleted").val(stepcompleted);
             }
-            //goToStep(5, 5)
+            //goToStep(5, 5,0)
         }
     });
 }
@@ -3120,7 +3119,7 @@ var getPropertyModelUnitList = function (stype, pid) {
                 $.each(response.model, function (elementType, value) {
                     var html = "<div class='col-sm-4 col-md-4 p0' id='modeldiv" + value.Building + "'><div class='box-two proerty-item'>";
                     //html += " <div class='item-entry overflow'><h5><a href='javascript:void(0);' onclick=getPropertyUnitList(\"" + value.Building + "\")'>" + value.Building + "</a><div class='checkbox pull-right' style='margin-top: -2px;'><label>/*<input type='checkbox' id='chkCompareid" + value.Building + "' class='hidden form-control' style='margin-left: -25px; margin-top: -15px;'>*/<i class='fa fa-check' aria-hidden='true'></i></label></div></h5>  <div class='dot-hr'></div>";
-                    html += " <div class='item-entry overflow'><h5><a style='color:black' href='javascript:void(0);' onclick=getPropertyUnitList(\"" + value.Building + "\")'>" + value.Building + "</a><div class='checkbox pull-right' style='margin-top: -2px;'><label id='chkCompareid" + value.Building + "' class='hidden' ><i class='fa fa-check' aria-hidden='true'style='color: #4d738a;'></i></label></div></h5>  <div class='dot-hr'></div>";
+                    html += " <div class='item-entry overflow'><h5><a style='color:black' href='javascript:void(0);' onclick=getPropertyUnitList(\"" + value.Building + "\",\"\")'>" + value.Building + "</a><div class='checkbox pull-right' style='margin-top: -2px;'><label id='chkCompareid" + value.Building + "' class='hidden' ><i class='fa fa-check' aria-hidden='true'style='color: #4d738a;'></i></label></div></h5>  <div class='dot-hr'></div>";
                     html += "<div class='item-thumb'><a href = '#' onclick='getPropertyUnitList(\"" + value.Building + "\")'> <img src='/content/assets/img/plan/" + value.FloorPlan + "' style='height:250px';></a></div> ";
                     html += "<div class='property-icon'><center>" + value.Bedroom + " Bed | " + value.Bathroom + "Bath ";
                     html += "| " + value.Area + "Sq Ft <br/><center><span class='proerty-price'>" + value.RentRange + " </span></center></center> ";
@@ -3220,7 +3219,7 @@ var getCompareModelList = function () {
         }
     });
 }
-var getPropertyUnitList = function (modelname) {
+var getPropertyUnitList = function (modelname,filldata) {
 
     $("#imgFloorPlan").attr("src", "/content/assets/img/plan/" + modelname + ".jpg");
     $("#imgFloorPlan2").attr("src", "/content/assets/img/plan/" + modelname + "Det.jpg");
@@ -3270,12 +3269,11 @@ var getPropertyUnitList = function (modelname) {
                     $("#lblOccupancy22").text((parseInt(value.Bedroom) * 2).toString());
                 });
 
-                //alert($("#hndUID").val());
                 //if ($("#hndUID").val() != "0") {
                 //    $("#unitdiv" + $("#hndUID").val()).addClass("select-unit");
                 //}
             }
-            goToStep(2, 2);
+            goToStep(2, 2,0);
         }
     });
 }

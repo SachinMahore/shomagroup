@@ -38,26 +38,26 @@
                     </div>
 
                     <ul style="line-height: 14px;" class="nav nav-tabs wizard">
-                        <li class="active" style="padding-right:2px" id="li1"><a href="javascript:void(0);" onclick="goToStep(1,0)"> 1. Floor Plan </a></li>
-                        <li id="li2"><a href="javascript:void(0);" id="as2" onclick="goToStep(2,0)">2. Select Units</a></li>
-                        <li id="li3"><a href="javascript:void(0);" id="as3" onclick="goToStep(3,3)">3. Select Options</a></li>
-                        <li id="li4"><a href="javascript:void(0);" id="as4" onclick="goToStep(5,5)">4. Quotation</a></li>
-                        <li id="li5"><a href="javascript:void(0);" id="as5" onclick="goToStep(6,6)">5. Policies & Conditions </a></li>
-                        <li id="li6"><a href="javascript:void(0);" id="as6" onclick="goToStep(7,7)">6. Complete Application</a></li>
+                        <li class="active" style="padding-right:2px" id="li1"><a href="javascript:void(0);" onclick="goToStep(1,0,0)"> 1. Floor Plan </a></li>
+                        <li id="li2"><a href="javascript:void(0);" id="as2" onclick="goToStep(2,0,1)">2. Select Units</a></li>
+                        <li id="li3"><a href="javascript:void(0);" id="as3" onclick="goToStep(4,4,0)">3. Select Options</a></li>
+                        <li id="li4"><a href="javascript:void(0);" id="as4" onclick="goToStep(5,5,0)">4. Quotation</a></li>
+                        <li id="li5"><a href="javascript:void(0);" id="as5" onclick="goToStep(6,6,0)">5. Policies & Conditions </a></li>
+                        <li id="li6"><a href="javascript:void(0);" id="as6" onclick="goToStep(7,7,0)">6. Complete Application</a></li>
 
                     </ul>
                     <div class="text-center">
                         <ul class="nav nav-tabs hidden text-center" style="margin-top:-14px !important;background-color:#4d738a !important;height:29px !important" id="subMenu">
                             <li class="active" id="li7"><a style="padding: 3px 15px!important;margin-left:4px !important" onclick="goToStep(7,7)" href="javascript:void(0);">a. Applicants</a></li>
-                            <li id="li8"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(8,8)">b. Responsibility</a></li>
-                            <li id="li9"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(9,9)">c. Personal Info</a></li>
-                            <li id="li10"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(10,10)">d. Residence History</a></li>
-                            <li id="li11"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(11,11)">e. Employment and Income</a></li>
-                            <li id="li12"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(12,12)">f. Emergency Contacts </a></li>
-                            <li id="li13"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(13,13)">g. Vehicle Info</a></li>
-                            <li id="li14"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(14,14)">h. Pet Info</a></li>
-                            <li id="li15"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(15,15)">i. Payment </a></li>
-                            <li id="li16"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(16,16)">j. Lease </a></li>
+                            <li id="li8"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(8,8,0)">b. Responsibility</a></li>
+                            <li id="li9"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(9,9,0)">c. Personal Info</a></li>
+                            <li id="li10"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(10,10,0)">d. Residence History</a></li>
+                            <li id="li11"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(11,11,0)">e. Employment and Income</a></li>
+                            <li id="li12"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(12,12,0)">f. Emergency Contacts </a></li>
+                            <li id="li13"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(13,13,0)">g. Vehicle Info</a></li>
+                            <li id="li14"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(14,14,0)">h. Pet Info</a></li>
+                            <li id="li15"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(15,15,0)">i. Payment </a></li>
+                            <li id="li16"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(16,16,0)">j. Lease </a></li>
                         </ul>
                     </div>
                     <div class="tab-content">
@@ -283,10 +283,10 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(1,1)"> Back</button>
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(1,1,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(3,3)"> Continue</button>
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(3,3,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -393,10 +393,10 @@
                             </div>
                             <div class="col-sm-12 hidden" id="divstep3">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(2,2)"> Back</button>
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(2,2,1)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(4,4)"> Continue</button>
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(4,4,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -713,10 +713,10 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(3,3)"> Back</button>
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(3,3,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(5,5)"> Continue</button>
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(5,5,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -1135,10 +1135,10 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(4,4)"> Back</button>
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(4,4,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(6,6)"> Continue</button>
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(6,6,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -1189,7 +1189,7 @@
                                         <div class="col-sm-12 clear">
                                             <div class="col-sm-4"></div>
                                             <div class="col-sm-4">
-                                                <button class="btn btn-primary" id="policyStart" onclick="goToStep(7,7)"> Start</button>
+                                                <button class="btn btn-primary" id="policyStart" onclick="goToStep(7,7,0)"> Start</button>
                                             </div>
                                             <div class="col-sm-4"></div>
                                         </div>
@@ -1227,10 +1227,10 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(5,5)"> Back</button>
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(5,5,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center hidden">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(7,7)" disabled> Continue</button>
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(7,7,0)" disabled> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -1265,10 +1265,10 @@
 
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(6,6)"> Back</button>
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(6,6,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(8,8)"> Continue</button>
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(8,8,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -1464,10 +1464,10 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(7,7)"> Back</button>
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(7,7,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(9,9)"> Continue</button>
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(9,9,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -1665,10 +1665,10 @@
 
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(8,8)"> Back</button>
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(8,8,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(10,10)"> Continue</button>
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(10,10,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -1837,10 +1837,10 @@
 
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(9,9)"> Back</button>
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(9,9,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(11,11)"> Continue</button>
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(11,11,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -2073,10 +2073,10 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(10,10)"> Back</button>
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(10,10,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(12,12)"> Continue</button>
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(12,12,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -2194,10 +2194,10 @@
 
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(11,11)"> Back</button>
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(11,11,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(13,13)"> Continue</button>
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(13,13,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -2243,10 +2243,10 @@
 
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(12,12)"> Back</button>
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(12,12,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(14,14)"> Continue</button>
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(14,14,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -2299,10 +2299,10 @@
 
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(13,13)"> Back</button>
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(13,13,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(15,15)"> Continue</button>
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(15,15,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -2493,10 +2493,10 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="pull-left text-center">
-                                        <button type="submit" class="btn btn-primary" onclick="goToStep(14,14)"> Back</button>
+                                        <button type="submit" class="btn btn-primary" onclick="goToStep(14,14,0)"> Back</button>
                                     </div>
                                     <div class="pull-right text-center">
-                                        <button type="submit" class="btn btn-primary payNext" id="btnpaynext" onclick="goToStep(16,16)" disabled> Continue</button>
+                                        <button type="submit" class="btn btn-primary payNext" id="btnpaynext" onclick="goToStep(16,16,0)" disabled> Continue</button>
                                     </div>
                                 </div>
                             </div>
@@ -2609,10 +2609,10 @@
                             <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsgFinal"></b></p></div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(15,15)"> Back</button>
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(15,15,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(17,17)"> Continue</button>
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(17,17,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -2659,7 +2659,7 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(15,15)"> Back</button>
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(15,15,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
                                     <button type="submit" id="btnC2Tenant" class="btn btn-primary" onclick="cancel()">Submit Application</button>
@@ -3896,18 +3896,18 @@
                             <p style="font-size:medium; color:#838383;">“You have completed your online application.  The next step is to submit payment and the application; however, we strongly recommend that you please review your application and ensure all the information is correct before submitting payment and the application.  Once you submit your application, the payment is non-refundable and corrections are no longer available.  Kindly confirm below you have reviewed your application and are ready to submit it.</p>
                              <p style="font-size:small;">
                                <table>
-                                   <tr><td><b>APPLICANT:</b></td><td><a href="javascript:void(0);" onclick="goToStep(9,9)">&nbsp;&nbsp;EDIT</a></td></tr>
+                                   <tr><td><b>APPLICANT:</b></td><td><a href="javascript:void(0);" onclick="goToStep(9,9,0)">&nbsp;&nbsp;EDIT</a></td></tr>
                                    <tr><td>Name</td><td><span id="summName"></span></td></tr>
                                    <tr><td>Date of Birth</td><td><span id="summDob"></span></td></tr>
                                    <tr><td>SSN#</td><td><span id="summSSN"></span></td></tr>
                                    <tr><td>Phone</td><td><span id="summPhone"></span></td></tr>
                                    <tr><td>Gender</td><td><span id="summGender"></span></td></tr>
                                    <tr><td>Driver’s License</td><td><span id="summDriverL"></span></td></tr>
-                                   <tr><td><b>RESIDENTIAL HISTORY:</b></td><td><a href="javascript:void(0);" onclick="goToStep(10,10)">&nbsp;&nbsp;EDIT</a></td></tr>
+                                   <tr><td><b>RESIDENTIAL HISTORY:</b></td><td><a href="javascript:void(0);" onclick="goToStep(10,10,0)">&nbsp;&nbsp;EDIT</a></td></tr>
                                    <tr><td>Current Address</td><td><span id="summCuAdd"></span></td></tr>
                                   
                                    <tr><td colspan="2"><table id="prevadd"><tbody></tbody></table></td></tr>
-                                   <tr><td><b>EMPLOYMENT HISTORY:</b></td><td><a href="javascript:void(0);" onclick="goToStep(11,11)">&nbsp;&nbsp;EDIT</a></td></tr>
+                                   <tr><td><b>EMPLOYMENT HISTORY:</b></td><td><a href="javascript:void(0);" onclick="goToStep(11,11,0)">&nbsp;&nbsp;EDIT</a></td></tr>
                                    <tr><td>Current Employer</td><td><span id="summEmployer"></span></td></tr>
                                    <tr><td>Start Date</td><td><span id="summEstartdate"></span></td></tr>
                                    <tr><td>Annual Salary</td><td><span id="summSalary"></span></td></tr>
@@ -4437,7 +4437,7 @@
 
         if (@Model.SUID > 0) {
             getPropertyUnitDetails(@Model.SUID);
-            goToStep(1, 1);
+            goToStep(1, 1, 0);
         }
         $('#ddlApplicantGender').on('change', function () {
             if ($(this).val() == '3') {
