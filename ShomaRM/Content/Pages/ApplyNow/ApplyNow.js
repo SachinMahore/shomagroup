@@ -98,7 +98,7 @@ $(document).ready(function () {
         }
         else {
             document.getElementById('fileUploadTaxReturn1').value = '';
-            $('#fileUploadTaxReturn1Show').html('Choose a file&hellip;');
+            $('#fileUploadTaxReturn1Show').html('Choose a file...');
             $.alert({
                 title: "",
                 content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
@@ -113,7 +113,7 @@ $(document).ready(function () {
         }
         else {
             document.getElementById('fileUploadTaxReturn2').value = '';
-            $('#fileUploadTaxReturn2Show').html('Choose a file&hellip;');
+            $('#fileUploadTaxReturn2Show').html('Choose a file...');
             $.alert({
                 title: "",
                 content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
@@ -128,7 +128,7 @@ $(document).ready(function () {
         }
         else {
             document.getElementById('fileUploadTaxReturn3').value = '';
-            $('#fileUploadTaxReturn3Show').html('Choose a file&hellip;');
+            $('#fileUploadTaxReturn3Show').html('Choose a file...');
             $.alert({
                 title: "",
                 content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
@@ -143,7 +143,7 @@ $(document).ready(function () {
         }
         else {
             document.getElementById('fileUploadPassport').value = '';
-            $('#fileUploadPassportShow').html('Choose a file&hellip;');
+            $('#fileUploadPassportShow').html('Choose a file...');
             $.alert({
                 title: "",
                 content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
@@ -158,7 +158,7 @@ $(document).ready(function () {
         }
         else {
             document.getElementById('fileUploadIdentity').value = '';
-            $('#fileUploadIdentityShow').html('Choose a file&hellip;');
+            $('#fileUploadIdentityShow').html('Choose a file...');
             $.alert({
                 title: "",
                 content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
@@ -174,7 +174,7 @@ $(document).ready(function () {
     //    }
     //    else {
     //        document.getElementById('fileUploadTaxReturn1HEI').value = '';
-    //        $('#fileUploadTaxReturn1HEIShow').html('Choose a file&hellip;');
+    //        $('#fileUploadTaxReturn1HEIShow').html('Choose a file...');
     //        $.alert({
     //            title: "",
     //            content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
@@ -189,7 +189,7 @@ $(document).ready(function () {
     //    }
     //    else {
     //        document.getElementById('fileUploadTaxReturn2HEI').value = '';
-    //        $('#fileUploadTaxReturn2HEIShow').html('Choose a file&hellip;');
+    //        $('#fileUploadTaxReturn2HEIShow').html('Choose a file...');
     //        $.alert({
     //            title: "",
     //            content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
@@ -204,7 +204,7 @@ $(document).ready(function () {
     //    }
     //    else {
     //        document.getElementById('fileUploadTaxReturn3HEI').value = '';
-    //        $('#fileUploadTaxReturn3HEIShow').html('Choose a file&hellip;');
+    //        $('#fileUploadTaxReturn3HEIShow').html('Choose a file...');
     //        $.alert({
     //            title: "",
     //            content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
@@ -573,7 +573,7 @@ $(document).ready(function () {
         }
         else {
             document.getElementById('fileUploadVehicleRegistation').value = '';
-            $('#VehicleRegistationShow').html('Choose a file&hellip;');
+            $('#VehicleRegistationShow').html('Choose a file...');
             $.alert({
                 title: "",
                 content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
@@ -588,7 +588,7 @@ $(document).ready(function () {
         }
         else {
             document.getElementById('pet-picture').value = '';
-            $('#filePetPictireShow').html('Choose a file&hellip;');
+            $('#filePetPictireShow').html('Choose a file...');
             $.alert({
                 title: "",
                 content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
@@ -603,7 +603,7 @@ $(document).ready(function () {
         }
         else {
             document.getElementById('filePetVaccinationCertificate').value = '';
-            $('#filePetVaccinationCertificateShow').html('Choose a file&hellip;');
+            $('#filePetVaccinationCertificateShow').html('Choose a file...');
             $.alert({
                 title: "",
                 content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
@@ -4893,8 +4893,8 @@ var clearPet = function () {
     document.getElementById('filePetPictireShow').value = '';
     document.getElementById('pet-picture').value = '';
     document.getElementById('filePetVaccinationCertificate').value = '';
-    $("#filePetPictireShow").html('Choose a file&hellip;');
-    $("#filePetVaccinationCertificateShow").html('Choose a file&hellip;');
+    $("#filePetPictireShow").html('Choose a file...');
+    $("#filePetVaccinationCertificateShow").html('Choose a file...');
     $("#hndPetPicture").val('0');
     $("#hndOriginalPetPicture").val('');
     $("#hndPetVaccinationCertificate").val('0');
@@ -5025,7 +5025,7 @@ var clearVehicle = function () {
     $("#hndVehicleID").val(0);
     $("#txtVehicleOwnerName").val("");
     document.getElementById('fileUploadVehicleRegistation').value = '';
-    $("#VehicleRegistationShow").html("Choose a file&hellip;");
+    $("#VehicleRegistationShow").html("Choose a file...");
     $("#ddlVehicleType").val("0");
     $("#ddlVehicleyear").val("0");
     $("#txtVehicleMake").val("");
