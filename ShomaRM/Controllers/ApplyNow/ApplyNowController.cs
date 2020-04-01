@@ -782,5 +782,16 @@ namespace ShomaRM.Controllers
             }
             
         }
+        public ActionResult SaveUpdateOnlineProspect(OnlineProspectModule model)
+        {
+            try
+            {
+                return Json(new { msg = (new OnlineProspectModule().SaveUpdateOnlineProspect(model)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

@@ -102,6 +102,7 @@ namespace ShomaRM.Models
 
         public List<CountryListData> CountryList { get; set; }
         public List<StateListData> StateList { get; set; }
+        public long UserID { get; set; }
 
         public string SaveOnlineProspect(OnlineProspectModule model)
         {
@@ -928,6 +929,62 @@ namespace ShomaRM.Models
                 db.Database.Connection.Close();
                 throw ex;
             }
+        }
+        public string SaveUpdateOnlineProspect(OnlineProspectModule model)
+        {
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+            string encryptedPassword = new EncryptDecrypt().EncryptText(model.Password);
+            string decryptedPassword = new EncryptDecrypt().DecryptText(encryptedPassword);
+            if (model.UserID != 0)
+            {
+                var loginDet = db.tbl_Login.Where(p => p.UserID == model.UserID).FirstOrDefault();
+                if (loginDet != null)
+                {
+                    loginDet.Username = model.Email;
+                    loginDet.Password = encryptedPassword;
+                    loginDet.FirstName = model.FirstName;
+                    loginDet.LastName = model.LastName;
+                    loginDet.Email = model.Email;
+                    db.SaveChanges();
+                }
+
+                var applynowData = db.tbl_ApplyNow.Where(p => p.UserId == model.UserID).FirstOrDefault();
+                if (applynowData != null)
+                {
+                    applynowData.FirstName = model.FirstName;
+                    applynowData.LastName = model.LastName;
+                    applynowData.Email = model.Email;
+                    applynowData.Phone = model.Phone;
+                    applynowData.Password = encryptedPassword;
+                    applynowData.Marketsource = model.Marketsource;
+                    db.SaveChanges();
+                }
+
+
+                var aplicantData = db.tbl_Applicant.Where(p => p.TenantID == applynowData.ID).FirstOrDefault();
+                if (aplicantData != null)
+                {
+                    aplicantData.FirstName = model.FirstName;
+                    aplicantData.LastName = model.LastName;
+                    aplicantData.Phone = model.Phone;
+                    aplicantData.Email = model.Email;
+                    db.SaveChanges();
+                }
+
+
+                var tenantOnlineData = db.tbl_TenantOnline.Where(p => p.ProspectID == applynowData.ID).FirstOrDefault();
+                if (tenantOnlineData != null)
+                {
+                    tenantOnlineData.FirstName = model.FirstName;
+                    tenantOnlineData.LastName = model.LastName;
+                    tenantOnlineData.Email = model.Email;
+                    tenantOnlineData.Mobile = model.Phone;
+                }
+            }
+            msg = "Data updated successfully";
+            db.Dispose();
+            return msg;
         }
     }
 
