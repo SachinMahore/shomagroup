@@ -4565,7 +4565,6 @@
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_Applicant" EntitySet="tbl_Applicant" />
           </AssociationSet>
-          <EntitySet Name="tbl_ESignatureKeys" EntityType="ShomaRMEntitiesModel.tbl_ESignatureKeys" />
           <EntitySet Name="tbl_Properties" EntityType="ShomaRMEntitiesModel.tbl_Properties" />
           <AssociationSet Name="FK_tbl_CashReceipts_tbl_Properties" Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Properties">
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
@@ -4671,8 +4670,8 @@
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
             <End Role="tbl_WorkOrder" EntitySet="tbl_WorkOrder" />
           </AssociationSet>
-
-        </EntityContainer>
+          <EntitySet Name="tbl_ESignatureKeys" EntityType="ShomaRMEntitiesModel.tbl_ESignatureKeys" />
+          </EntityContainer>
         <EntityType Name="tbl_Country">
           <Key>
             <PropertyRef Name="ID" />
@@ -5495,17 +5494,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tbl_ESignatureKeys">
-          <Key>
-            <PropertyRef Name="ESID" />
-          </Key>
-          <Property Name="ESID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenantID" Type="Int64" />
-          <Property Name="ApplicantID" Type="Int64" />
-          <Property Name="Key" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="EsignatureId" Type="Int64" />
-          <Property Name="DateSigned" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="tbl_Properties">
           <Key>
             <PropertyRef Name="PID" />
@@ -5882,7 +5870,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <EntityType Name="tbl_ESignatureKeys">
+          <Key>
+            <PropertyRef Name="ESID" />
+          </Key>
+          <Property Name="ESID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantID" Type="Int64" />
+          <Property Name="ApplicantID" Type="Int64" />
+          <Property Name="Key" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EsignatureId" Type="Int64" />
+          <Property Name="DateSigned" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -7447,18 +7446,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_ESignatureKeys">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ESignatureKeys">
-              <MappingFragment StoreEntitySet="tbl_ESignatureKeys">
-                <ScalarProperty Name="DateSigned" ColumnName="DateSigned" />
-                <ScalarProperty Name="EsignatureId" ColumnName="EsignatureId" />
-                <ScalarProperty Name="Key" ColumnName="Key" />
-                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
-                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-                <ScalarProperty Name="ESID" ColumnName="ESID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_Properties">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Properties">
               <MappingFragment StoreEntitySet="tbl_Properties">
@@ -7493,6 +7480,18 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="PID" ColumnName="PID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ESignatureKeys">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ESignatureKeys">
+              <MappingFragment StoreEntitySet="tbl_ESignatureKeys">
+                <ScalarProperty Name="DateSigned" ColumnName="DateSigned" />
+                <ScalarProperty Name="EsignatureId" ColumnName="EsignatureId" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="ESID" ColumnName="ESID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
