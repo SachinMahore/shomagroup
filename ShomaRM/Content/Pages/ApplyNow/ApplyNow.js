@@ -766,11 +766,11 @@ var goToStep = function (stepid, id) {
         if (id == "4") {
 
 
-            var result = checkStrength($("#txtPassword").val());
-            if (!result) {
-                return;
-            }
-            savepudateOnlineProspect();
+            //var result = checkStrength($("#txtPassword").val());
+            //if (!result) {
+            //    return;
+            //}
+            //savepudateOnlineProspect();
             SaveUpdateStep(4);
             $("#subMenu").addClass("hidden");
             $("#as4").removeAttr("onclick");
