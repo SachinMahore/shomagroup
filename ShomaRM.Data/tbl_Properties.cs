@@ -69,6 +69,7 @@ namespace ShomaRM.Data
         public Nullable<decimal> ConversionBillFees { get; set; }
         public Nullable<decimal> AdminFees { get; set; }
         public Nullable<decimal> PetDNAAmt { get; set; }
+        public Nullable<decimal> ProcessingFees { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_CashReceipts> tbl_CashReceipts { get; set; }
