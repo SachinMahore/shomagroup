@@ -26,7 +26,11 @@
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true, "", new { @class = "text-red" })
-                      
+                        if (ViewBag.Error == 1)
+                        {
+                            <span style="float: right;"><a href="~/Home/Index">Click here for Registation</a></span>
+                        }
+
                         <form action="" method="post">
                             <div class="form-group">
                                 <label for="email" class="username">Email ID</label>
@@ -38,7 +42,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="controls pull-right">
-                                    <span class="username"><input  type="checkbox" id="chkRemeber"/> Remember Me?</span>
+                                    <span class="username"><input type="checkbox" id="chkRemeber" /> Remember Me?</span>
                                 </div>
                             </div>
                             <div class="text-center">
@@ -51,7 +55,7 @@
                     }
                     <br>
 
-                    
+
                 </div>
 
             </div>

@@ -6,6 +6,7 @@
 <script src="~/Areas/Admin/Content/Pages/PropertyManagement/Property.js?v=@AdminCommonModel.ScriptVersion()"></script>
 <input type="hidden" id="hndPID" value="@Model.PID" />
 <input type="hidden" id="hdnCurrentPage_PU" value="1" />
+<input type="hidden" id="hdnFloorPlan" value="" />
 
 <!-- property area -->
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
@@ -154,7 +155,7 @@
                                                     <input id="txtTrashFees" class="form-control form-control-small" value="@Model.TrashFees" type="text" onkeypress="return isNumber(event)" />
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group">
@@ -166,7 +167,7 @@
                                                     <input id="txtConversionBill" class="form-control form-control-small" value="@Model.ConversionBillFees" type="text" onkeypress="return isNumber(event)" />
                                                 </div>
                                             </div>
-                                          
+
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group">
@@ -178,7 +179,17 @@
                                                     <input id="txtDNAPetFee" class="form-control form-control-small" value="@Model.DNAPetFees" type="text" onkeypress="return isNumber(event)" />
                                                 </div>
                                             </div>
-
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="star">Processing Fee</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                    </span>
+                                                    <input id="txtProcessingFee" class="form-control form-control-small" value="@Model.ProcessingFees" type="text" onkeypress="return isNumber(event)" />
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
@@ -272,7 +283,7 @@
                                             <map name="apartment_2" id="floorImgdiv">
                                                 @foreach (var lstcord in Model.lstPropertyFloor)
                                                 {
-                                                    <area id="fa_@lstcord.FloorNo" shape="poly" class="tooltip" title="Floor-@lstcord.FloorNo" href="javascript:void(0);" coords="@lstcord.Coordinates">
+                                                    <area id="fa_@lstcord.FloorNo" shape="poly" class="tooltip" title="Floor-@lstcord.FloorNo" href="javascript:void(0);" coords="@lstcord.Coordinates" data-floorid="@lstcord.FloorID" data-floorplan="@lstcord.FloorPlan">
                                                     <span class="tooltip-text" style="display: none">@lstcord.FloorNo</span>
                                                 }
                                             </map>
@@ -502,10 +513,31 @@
     });
 
     $("area").mouseover(function () {
-        $(this).addClass('active_mouse').data('maphilight', { alwaysOn: true, fillColor: 'FF6347', strokeColor: 'FF6347', }).trigger('alwaysOn.maphilight');
-        if ($("#hndSelectedFloor").val()) {
-            var cont = $("#hndSelectedFloor").val();
-            $("#" + cont).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: '0af11c', strokeColor: '0af11c', }).trigger('alwaysOn.maphilight');
+        var noffloor = $("#txtNoOfFloor").val();
+        $("#hdnFloorPlan").val("");
+        $("#txtcord").remove();
+        var cordd = "  <textarea class='form-control'id='txtcord'></textarea>";
+        $("#divCord").append(cordd);
+        $("#fileUploadFloorDetailsShow1").html("Choose a file &hellip");
+        if ($("#ddlFloorList").val() != 0) {
+            for (var i = 1; i <= noffloor; i++) {
+                if ($("#fa_" + i).length) {
+                    {
+                        $("#fa_" + i).removeClass('active_mouse').data('maphilight', { alwaysOn: false }).trigger('alwaysOn.maphilight');
+                    }
+                }
+            }
+            var cont = $("#ddlFloorList").val();
+            if ($("#fa_" + cont).length) {
+                $("#fa_" + cont).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: 'FF6347', strokeColor: 'FF6347', }).trigger('alwaysOn.maphilight');
+                $("#txtcord").text($("#fa_" + cont).attr("coords"));
+            }
+            $("#hdnFloorPlan").val($("#fa_" + cont).data("floorplan"));
+            $("#fileUploadFloorDetailsShow1").text($("#fa_" + cont).data("floorplan"));
+
+        }
+        else {
+            $(this).addClass('active_mouse').data('maphilight', { alwaysOn: true, fillColor: 'FF6347', strokeColor: 'FF6347', }).trigger('alwaysOn.maphilight');
         }
     });
     var resetcords = function () {
@@ -521,8 +553,6 @@
         $("#txtcord").remove();
         var cordd = "  <textarea class='form-control'id='txtcord'></textarea>";
         $("#divCord").append(cordd);
-
-       // $('#txtcord').html('');
         $("#fa_" + $("#ddlFloorList").val()).attr("coords", "");
 
     }

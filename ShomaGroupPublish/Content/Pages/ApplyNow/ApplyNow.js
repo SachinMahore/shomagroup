@@ -661,7 +661,23 @@ var goToStep = function (stepid, id) {
             $('#lblLeaseStartDate').text($('#txtAvailableDate').text());
         }
         if (id == "2") {
-            
+
+            $("#divLoader").show();
+            var model = { UID: $("#hndUID").val(), LeaseTermID: $("#hndLeaseTermID").val() };
+            $.ajax({
+                url: "/Property/GetPropertyUnitDetails/",
+                type: "post",
+                contentType: "application/json utf-8",
+                data: JSON.stringify(model),
+                dataType: "JSON",
+                success: function (response) {
+                    getPropertyUnitDetails(response.model.UID);
+                    getPropertyUnitList(response.model.Building);
+                    getPropertyUnitListByFloor(response.model.Floor);
+                    $("#divLoader").show();
+                }
+            });
+
             $("#subMenu").addClass("hidden");
             $("#as2").removeAttr("onclick");
             $("#as2").attr("onclick", "goToStep(2,2)");
@@ -748,6 +764,13 @@ var goToStep = function (stepid, id) {
             return;
         }
         if (id == "4") {
+
+
+            var result = checkStrength($("#txtPassword").val());
+            if (!result) {
+                return;
+            }
+            savepudateOnlineProspect();
             SaveUpdateStep(4);
             $("#subMenu").addClass("hidden");
             $("#as4").removeAttr("onclick");
@@ -3246,8 +3269,11 @@ var getPropertyUnitList = function (modelname) {
 
                     $("#lblOccupancy22").text((parseInt(value.Bedroom) * 2).toString());
                 });
+                if ($("#hndUID").val() != "0") {
+                    $("#unitdiv" + $("#hndUID").val()).addClass("select-unit");
+                }
             }
-            goToStep(2, 2);
+            //goToStep(2, 2);
         }
     });
 }
@@ -7429,4 +7455,36 @@ var checkHasUnitID=function()
     else {
         $("#PopSummary").modal("hide");
     }
+}
+var savepudateOnlineProspect = function () {
+    $("#divLoader").show();
+    var userID = $("#hdnUserId").val();
+    var firstName = $("#txtFirstName").val();
+    var lastName = $("#txtLastName").val();
+    var phoneNumber = unformatText($("#txtPhoneNumber").val());
+    var emailId = $("#txtEmail").val();
+    var password = $("#txtPassword").val();
+    var confirmPassword = $("#txtConfPassword").val();
+    var marketsource = $("#ddlMarketSource").val();
+
+    var model = {
+        UserID: userID,
+        FirstName: firstName,
+        LastName: lastName,
+        Email: emailId,
+        Phone: phoneNumber,
+        Password: password,
+        Marketsource: marketsource
+    };
+
+    $.ajax({
+        url: '/ApplyNow/SaveUpdateOnlineProspect',
+        type: 'post',
+        data: JSON.stringify(model),
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function (response) {
+            $("#divLoader").hide();
+        }
+    });
 }

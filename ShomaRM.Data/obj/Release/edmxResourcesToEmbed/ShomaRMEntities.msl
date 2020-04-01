@@ -1223,42 +1223,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_Properties">
-      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Properties">
-        <MappingFragment StoreEntitySet="tbl_Properties">
-          <ScalarProperty Name="PetDNAAmt" ColumnName="PetDNAAmt" />
-          <ScalarProperty Name="AdminFees" ColumnName="AdminFees" />
-          <ScalarProperty Name="ConversionBillFees" ColumnName="ConversionBillFees" />
-          <ScalarProperty Name="TrashFees" ColumnName="TrashFees" />
-          <ScalarProperty Name="PestControlFees" ColumnName="PestControlFees" />
-          <ScalarProperty Name="GuarantorFees" ColumnName="GuarantorFees" />
-          <ScalarProperty Name="ApplicationFees" ColumnName="ApplicationFees" />
-          <ScalarProperty Name="City" ColumnName="City" />
-          <ScalarProperty Name="State" ColumnName="State" />
-          <ScalarProperty Name="YouTube" ColumnName="YouTube" />
-          <ScalarProperty Name="Picture" ColumnName="Picture" />
-          <ScalarProperty Name="LastModifiedeDate" ColumnName="LastModifiedeDate" />
-          <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="AgentID" ColumnName="AgentID" />
-          <ScalarProperty Name="NoOfFloors" ColumnName="NoOfFloors" />
-          <ScalarProperty Name="NoOfUnits" ColumnName="NoOfUnits" />
-          <ScalarProperty Name="Amenities" ColumnName="Amenities" />
-          <ScalarProperty Name="Waterfront" ColumnName="Waterfront" />
-          <ScalarProperty Name="Parking" ColumnName="Parking" />
-          <ScalarProperty Name="BuiltIn" ColumnName="BuiltIn" />
-          <ScalarProperty Name="Garages" ColumnName="Garages" />
-          <ScalarProperty Name="LocationGoogle" ColumnName="LocationGoogle" />
-          <ScalarProperty Name="Location" ColumnName="Location" />
-          <ScalarProperty Name="Area" ColumnName="Area" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Title" ColumnName="Title" />
-          <ScalarProperty Name="PID" ColumnName="PID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_UnitLeasePrice">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_UnitLeasePrice">
         <MappingFragment StoreEntitySet="tbl_UnitLeasePrice">
@@ -1593,6 +1557,55 @@
           <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Properties">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Properties">
+        <MappingFragment StoreEntitySet="tbl_Properties">
+          <ScalarProperty Name="ProcessingFees" ColumnName="ProcessingFees" />
+          <ScalarProperty Name="PetDNAAmt" ColumnName="PetDNAAmt" />
+          <ScalarProperty Name="AdminFees" ColumnName="AdminFees" />
+          <ScalarProperty Name="ConversionBillFees" ColumnName="ConversionBillFees" />
+          <ScalarProperty Name="TrashFees" ColumnName="TrashFees" />
+          <ScalarProperty Name="PestControlFees" ColumnName="PestControlFees" />
+          <ScalarProperty Name="GuarantorFees" ColumnName="GuarantorFees" />
+          <ScalarProperty Name="ApplicationFees" ColumnName="ApplicationFees" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="YouTube" ColumnName="YouTube" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+          <ScalarProperty Name="LastModifiedeDate" ColumnName="LastModifiedeDate" />
+          <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="AgentID" ColumnName="AgentID" />
+          <ScalarProperty Name="NoOfFloors" ColumnName="NoOfFloors" />
+          <ScalarProperty Name="NoOfUnits" ColumnName="NoOfUnits" />
+          <ScalarProperty Name="Amenities" ColumnName="Amenities" />
+          <ScalarProperty Name="Waterfront" ColumnName="Waterfront" />
+          <ScalarProperty Name="Parking" ColumnName="Parking" />
+          <ScalarProperty Name="BuiltIn" ColumnName="BuiltIn" />
+          <ScalarProperty Name="Garages" ColumnName="Garages" />
+          <ScalarProperty Name="LocationGoogle" ColumnName="LocationGoogle" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="PID" ColumnName="PID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ESignatureKeys">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ESignatureKeys">
+        <MappingFragment StoreEntitySet="tbl_ESignatureKeys">
+          <ScalarProperty Name="DateSigned" ColumnName="DateSigned" />
+          <ScalarProperty Name="EsignatureId" ColumnName="EsignatureId" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+          <ScalarProperty Name="ESID" ColumnName="ESID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
