@@ -129,12 +129,8 @@ namespace ShomaRM.Controllers
                     user = db.tbl_Login.Where(p => p.Username == model.UserName).FirstOrDefault();
                     if (user == null)
                     {
-                        ModelState.AddModelError("", "Invalid User Name OR Your quote has expired please register again.");
+                        ModelState.AddModelError("", "Invalid User Name OR Password OR Your quote has expired please register again.");
                         ViewBag.Error = 1;
-                    }
-                    else if (user == null)
-                    {
-                        ModelState.AddModelError("", "Invalid user name or password.");
                     }
                     else
                     {
