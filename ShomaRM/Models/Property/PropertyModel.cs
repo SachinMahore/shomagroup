@@ -672,7 +672,7 @@ namespace ShomaRM.Models
       
             return model.ToList();
         }
-        public PropertyFloor GetPropertyFloorDetails(int FloorID, DateTime AvailableDate,  int Bedroom, decimal MaxRent, int LeaseTermID)
+        public PropertyFloor GetPropertyFloorDetails(int FloorID, DateTime AvailableDate,  int Bedroom, decimal MaxRent, int LeaseTermID, string ModelName)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             PropertyFloor model = new PropertyFloor();
@@ -721,6 +721,11 @@ namespace ShomaRM.Models
                     paramM.ParameterName = "MaxRent";
                     paramM.Value = MaxRent;
                     cmd.Parameters.Add(paramM);
+
+                    DbParameter paramMN = cmd.CreateParameter();
+                    paramMN.ParameterName = "ModelName";
+                    paramMN.Value = ModelName;
+                    cmd.Parameters.Add(paramMN);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;

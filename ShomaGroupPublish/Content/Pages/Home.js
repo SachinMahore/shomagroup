@@ -54,7 +54,7 @@ var getPropertyUnitList = function () {
         success: function (response) {
 
             window.location.href = "/ApplyNow/Index/0";
-            $("#divLoader").hide();
+            //$("#divLoader").hide();
         }
     });
 

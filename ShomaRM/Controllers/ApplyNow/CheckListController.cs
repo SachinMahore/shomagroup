@@ -121,13 +121,14 @@ namespace ShomaRM.Controllers
                 {
                     System.IO.File.WriteAllBytes(Server.MapPath("/Content/assets/img/Document/LeaseDocument_" + data.LeaseId + ".pdf"), data.leasePdf);
                 }
-                return Json(new { LeaseId = data.LeaseId }, JsonRequestBehavior.AllowGet);
+                return Json(new { LeaseId = data.LeaseId, EsignatureId = data.EsignatureId, EsignatureKey = data.EsignatureKey }, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return Json(new { LeaseId = "0" }, JsonRequestBehavior.AllowGet);
+                return Json(new { LeaseId = "0", EsignatureId = "0", EsignatureKey = "" }, JsonRequestBehavior.AllowGet);
             }
-           
+            //https://www-new.bluemoonforms.com/esignature/
+
             //return File(data.leasePdf, "application/pdf", "LeaseDocument_" + data.LeaseId + ".pdf");
         }
 
@@ -167,7 +168,7 @@ namespace ShomaRM.Controllers
             }
 
             var tenantdata = db.tbl_TenantOnline.Where(p => p.ProspectID == tid).FirstOrDefault();
-            var GetCoappDet = db.tbl_Applicant.Where(c => c.TenantID == appData.ID && c.Type!= "Guarantor").ToList();
+            var GetCoappDet = db.tbl_Applicant.Where(c => c.TenantID == appData.ID && c.Type != "Guarantor").ToList();
             var GetVehicleList = db.tbl_Vehicle.Where(c => c.TenantID == appData.ID).ToList();
             var GetPetList = db.tbl_TenantPet.Where(c => c.TenantID == appData.ID).ToList();
 
@@ -266,19 +267,21 @@ namespace ShomaRM.Controllers
 
 
             string leaseid = "";
-            if(!string.IsNullOrWhiteSpace(appData.EnvelopeID))
+            string esignatureid = "";
+            string esignaturekey = "";
+            if (!string.IsNullOrWhiteSpace(appData.EnvelopeID))
             {
                 leaseid = appData.EnvelopeID;
             }
 
-            if (leaseid=="")
+            if (leaseid == "")
             {
                 LeaseResponseModel leaseCreateResponse = await bmservice.CreateLease(leaseRequestModel: leaseRequestModel, PropertyId: "112154", sessionId: authenticateData.SessionId);
                 var onlineProspectData = db.tbl_ApplyNow.Where(p => p.ID == tid).FirstOrDefault();
-               
-                    onlineProspectData.EnvelopeID = leaseCreateResponse.LeaseId;
-                    db.SaveChanges();
-              
+
+                onlineProspectData.EnvelopeID = leaseCreateResponse.LeaseId;
+                db.SaveChanges();
+
                 leaseid = leaseCreateResponse.LeaseId;
             }
             else
@@ -304,13 +307,13 @@ namespace ShomaRM.Controllers
 
             if (GetCoappDet.Count == 1)
             {
-              esignatureParties.Add(new EsignatureParty()
+                esignatureParties.Add(new EsignatureParty()
                 {
-                    Email = GetCoappDet[0].Email ,
+                    Email = GetCoappDet[0].Email,
                     IsOwner = false,
                     Name = GetCoappDet[0].FirstName + " " + GetCoappDet[0].LastName,
                     Phone = GetCoappDet[0].Phone,
-              });
+                });
             }
             if (GetCoappDet.Count == 2)
             {
@@ -364,13 +367,41 @@ namespace ShomaRM.Controllers
 
             if (leaseid != "")
             {
+                esignatureid = EsignatureResponse.EsignatureId;
                 var onlineProspectData = db.tbl_ApplyNow.Where(p => p.ID == tid).FirstOrDefault();
                 onlineProspectData.EsignatureID = EsignatureResponse.EsignatureId;
-                db.SaveChanges();               
+                db.SaveChanges();
+
+                LeaseResponseModel leaseKeys = await bmservice.GetEsignnatureDetails(SessionId: authenticateData.SessionId, EsignatureId: EsignatureResponse.EsignatureId);
+
+                foreach (var apptdata in GetCoappDet)
+                {
+                    var keydata = leaseKeys.EsigneResidents.Where(p => p.Email == apptdata.Email).FirstOrDefault();
+                    if (keydata != null)
+                    {
+                        if (apptdata.Type == "Primary Applicant")
+                        {
+                            esignaturekey = keydata.Key;
+                        }
+                        var EsignatureData = new tbl_ESignatureKeys()
+                        {
+                            TenantID = tid,
+                            ApplicantID = apptdata.ApplicantID,
+                            Key = keydata.Key,
+                            EsignatureId = Convert.ToInt64(EsignatureResponse.EsignatureId),
+                            DateSigned = keydata.DateSigned
+                        };
+                        db.tbl_ESignatureKeys.Add(EsignatureData);
+                        db.SaveChanges();
+                    }
+                    db.Dispose();
+                }
             }
             //LeaseResponseModel leasePdfResponse = await bmservice.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: leaseid);
             await bmservice.CloseSession(sessionId: authenticateData.SessionId);
             leaseDocumentWithEsignature.LeaseId = leaseid;
+            leaseDocumentWithEsignature.EsignatureId = esignatureid;
+            leaseDocumentWithEsignature.EsignatureKey = esignaturekey;
             return leaseDocumentWithEsignature;
         }
         public async System.Threading.Tasks.Task<LeaseResponseModel> LeaseDocumentAsync()

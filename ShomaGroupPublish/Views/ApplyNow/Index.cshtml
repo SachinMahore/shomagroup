@@ -16,6 +16,7 @@
 <input type="hidden" id="hdnStepCompleted" value="@(Model.StepCompleted==0?1:Model.StepCompleted)" />
 <input type="hidden" id="hndShowTermPolicy" value="1" />
 <input type="hidden" id="hndShowPaymentPolicy" value="1" />
+<input type="hidden" id="hndShowPropertyDetails" value="0" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container">
@@ -247,8 +248,7 @@
                                 <div class="col-md-12 clear">
 
                                     <div class="col-sm-12">
-                                        <a data-toggle="modal" data-target="#PopSummary" href="javascript:void(0);"><b> Click here to view/Print a summary of monthly Charges for your selected Unit.</b></a>
-
+                                        <a href="javascript:void(0);" onclick="checkHasUnitID()"><b> Click here to view/Print a summary of monthly Charges for your selected Unit.</b></a>
                                     </div>
 
                                 </div>
@@ -3480,7 +3480,7 @@
                                             <span id="">LEASE TERM: </span>
                                         </div>
                                         <div class="col-sm-5">
-                                            <span><span id="lblLease4"></span> Mo</span>
+                                            <span><span id="lblLease4">@Model.LeaseTerm</span> Mo</span>
                                         </div>
 
                                     </div>
@@ -4415,6 +4415,12 @@
                      goToStep(4, 4);
                  }
             }*@
+
+            if (('@Model.EnvelopeID') != "") {
+                $("#btnleaseDownl").removeAttr("disabled");
+                $("#btnDownloadLeaseDocument").css("background-color", "#B4ADA5").attr("disabled", "disabled");
+            } 
+
             
             $("#getting-startedTimeRemainingClock").removeClass("hidden");
             $("#divstep3save").addClass("hidden");

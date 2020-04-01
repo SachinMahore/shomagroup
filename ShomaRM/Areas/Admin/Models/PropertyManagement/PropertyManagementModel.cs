@@ -44,6 +44,7 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<decimal> ConversionBillFees { get; set; }
         public Nullable<decimal> AdminFees { get; set; }
         public Nullable<decimal> DNAPetFees { get; set; }
+        public Nullable<decimal> ProcessingFees { get; set; }
 
 
         public string SaveUpdateProperty(PropertyManagementModel model)
@@ -81,7 +82,8 @@ namespace ShomaRM.Areas.Admin.Models
                     TrashFees = model.TrashFees,
                     ConversionBillFees = model.ConversionBillFees,
                     AdminFees = model.AdminFees,
-                    PetDNAAmt = model.DNAPetFees
+                    PetDNAAmt = model.DNAPetFees,
+                    ProcessingFees = model.ProcessingFees
                 };
                 db.tbl_Properties.Add(saveProp);
                 db.SaveChanges();
@@ -106,7 +108,7 @@ namespace ShomaRM.Areas.Admin.Models
                     propUpdate.YouTube = model.YouTube;
                     propUpdate.Area = model.Area;
                     propUpdate.AgentID = 1;
-                    if (model.Picture != "")
+                    if (!string.IsNullOrWhiteSpace( model.Picture))
                     {
                         propUpdate.Picture = model.Picture;
                     }
@@ -127,6 +129,7 @@ namespace ShomaRM.Areas.Admin.Models
                     propUpdate.ConversionBillFees = model.ConversionBillFees;
                     propUpdate.AdminFees = model.AdminFees;
                     propUpdate.PetDNAAmt = model.DNAPetFees;
+                    propUpdate.ProcessingFees = model.ProcessingFees;
                 }
                 db.SaveChanges();
                 msg = "Property Details Updated Successfully";
@@ -239,6 +242,7 @@ namespace ShomaRM.Areas.Admin.Models
                 model.ConversionBillFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.ConversionBillFees));
                 model.AdminFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.AdminFees));
                 model.DNAPetFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.PetDNAAmt));
+                model.ProcessingFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.ProcessingFees));
 
             }
             var floorlist = db.tbl_PropertyFloor.Where(p => p.PID == id).ToList();
@@ -251,6 +255,7 @@ namespace ShomaRM.Areas.Admin.Models
                         FloorNo = fl.FloorNo,
                         Coordinates = fl.Coordinates,
                         FloorID = fl.FloorID,
+                        FloorPlan=fl.FloorPlan
                     });
 
 
@@ -617,6 +622,7 @@ namespace ShomaRM.Areas.Admin.Models
                 Extension = Path.GetExtension(fileBaseUpload1.FileName);
                 sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseUpload1.FileName);
                 fileBaseUpload1.SaveAs(filePath + "//" + sysFileName);
+                fileBaseUpload1.SaveAs(filePath + "//" + fileName);
                 if (!string.IsNullOrWhiteSpace(fileBaseUpload1.FileName))
                 {
                     string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/demo/") + "/" + sysFileName;
@@ -1237,6 +1243,7 @@ namespace ShomaRM.Areas.Admin.Models
         public string FloorPlan { get; set; }
         public int IsAvail { get; set; }
         public List<PropertyUnits> lstPropertyUnit { get; set; }
+        public string FileName { get; set; }
 
         public string SaveUpdateFloor(HttpPostedFileBase fb, PropertyFloor model)
         {
@@ -1251,6 +1258,7 @@ namespace ShomaRM.Areas.Admin.Models
                 fileName = fb.FileName;
                 sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fb.FileName);
                 fb.SaveAs(filePath + "//" + sysFileName);
+
                 if (!string.IsNullOrWhiteSpace(fb.FileName))
                 {
                     string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/plan/") + "/" + sysFileName;
@@ -1276,10 +1284,11 @@ namespace ShomaRM.Areas.Admin.Models
             }
             else
             {
-
                 utilityExists.Coordinates = model.Coordinates;
-                utilityExists.FloorPlan = sysFileName;
-
+                if (sysFileName != "")
+                {
+                    utilityExists.FloorPlan = sysFileName;
+                }
                 db.SaveChanges();
                 throw new Exception("Floor Updated Successfully.");
             }
@@ -1479,8 +1488,50 @@ namespace ShomaRM.Areas.Admin.Models
             return model;
         }
 
+        public List<ModelsModel> GetModelsListDetail()
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<ModelsModel> lstpr = new List<ModelsModel>();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetModelsList";
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-public ModelsModel UploadModelsFloorPlanDetails(HttpPostedFileBase fb, ModelsModel model)
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    ModelsModel pr = new ModelsModel();
+                    pr.ModelID = Convert.ToInt32(dr["ModelID"].ToString());
+                    pr.BalconyArea = dr["BalconyArea"].ToString();
+                    pr.InteriorArea = dr["InteriorArea"].ToString();
+                    pr.Area = dr["Area"].ToString();
+                    pr.RentRange = "$" + Convert.ToDecimal(dr["MinRent"].ToString()).ToString("0.00") + "-$" + Convert.ToDecimal(dr["MaxRent"].ToString()).ToString("0.00");
+                    pr.Bedroom = Convert.ToInt32(dr["Bedroom"].ToString());
+                    pr.Bathroom = Convert.ToInt32(dr["Bathroom"].ToString());
+                    pr.FloorPlan = dr["FloorPlan"].ToString();
+                    pr.ModelName = dr["ModelName"].ToString();
+                    pr.BalconyArea = dr["BalconyArea"].ToString() != null ? dr["BalconyArea"].ToString() : "0";
+                    pr.InteriorArea = dr["InteriorArea"].ToString() != null ? dr["InteriorArea"].ToString() : "0";
+                    lstpr.Add(pr);
+                }
+                db.Dispose();
+                return lstpr.ToList();
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
+        public ModelsModel UploadModelsFloorPlanDetails(HttpPostedFileBase fb, ModelsModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
 
