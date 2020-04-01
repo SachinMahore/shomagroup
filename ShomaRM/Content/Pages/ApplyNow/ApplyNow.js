@@ -662,22 +662,22 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
         if (id == "2") {
 
-            if (calldataupdate == 1) {
-                var model = { UID: $("#hndUID").val(), LeaseTermID: $("#hndLeaseTermID").val() };
-                $.ajax({
-                    url: "/Property/GetPropertyUnitDetails/",
-                    type: "post",
-                    contentType: "application/json utf-8",
-                    data: JSON.stringify(model),
-                    dataType: "JSON",
-                    success: function (response) {
-                        getPropertyUnitDetails(response.model.UID);
-                        getPropertyUnitList(response.model.Building);
-                        getPropertyUnitListByFloor(response.model.Floor);
-                        $("#divLoader").show();
-                    }
-                });
-            }
+            //if (calldataupdate == 1) {
+            //    var model = { UID: $("#hndUID").val(), LeaseTermID: $("#hndLeaseTermID").val() };
+            //    $.ajax({
+            //        url: "/Property/GetPropertyUnitDetails/",
+            //        type: "post",
+            //        contentType: "application/json utf-8",
+            //        data: JSON.stringify(model),
+            //        dataType: "JSON",
+            //        success: function (response) {
+            //            getPropertyUnitDetails(response.model.UID);
+            //            getPropertyUnitList(response.model.Building);
+            //            getPropertyUnitListByFloor(response.model.Floor);
+            //            $("#divLoader").show();
+            //        }
+            //    });
+            //}
 
             $("#subMenu").addClass("hidden");
             $("#as2").removeAttr("onclick");
