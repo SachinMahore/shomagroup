@@ -65,8 +65,6 @@ namespace ShomaRM.Areas.Tenant.Controllers
             {
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
-
-
         }
 
         public ActionResult GetProfilePetList(long TenantID)

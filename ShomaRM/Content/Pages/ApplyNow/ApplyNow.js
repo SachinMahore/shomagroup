@@ -3956,6 +3956,12 @@ var saveupdatePetPlace = function () {
                 $("#btnAddPet").removeAttr("disabled");
                 $("#hndPetPlaceCount").val(1);
 
+                if (petIdd != 0)
+                {
+                    delPet(petIdd);
+                }
+                
+
             } else if (parseInt(response.numOfPet) == 2) {
                 $("#lblPetDeposit").text(formatMoney("750.00"));
 
@@ -4770,7 +4776,7 @@ var saveupdatePet = function () {
         }
     });
 };
-
+var petIdd = 0;
 var getPetLists = function () {
     $("#divLoader").show();
     var model = {
@@ -4800,6 +4806,13 @@ var getPetLists = function () {
                 html += "</td >";
                 html += "</tr>";
                 $("#tblPet>tbody").append(html);
+                if (response.model.length == 2)
+                {
+                    petIdd = elementValue.PetID;
+                } else{
+                    petIdd = 0;
+                }
+                
             });
 
             getTenantPetPlaceData();
