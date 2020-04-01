@@ -3959,6 +3959,7 @@ var saveupdatePetPlace = function () {
                 if (petIdd != 0)
                 {
                     delPet(petIdd);
+                    //delPet(petIdd);
                 }
                 
 
