@@ -136,6 +136,9 @@
     <Compile Include="tbl_EmployerHistory.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbl_ESignatureKeys.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_Estimate.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>

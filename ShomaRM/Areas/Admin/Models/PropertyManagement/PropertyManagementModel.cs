@@ -617,6 +617,7 @@ namespace ShomaRM.Areas.Admin.Models
                 Extension = Path.GetExtension(fileBaseUpload1.FileName);
                 sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseUpload1.FileName);
                 fileBaseUpload1.SaveAs(filePath + "//" + sysFileName);
+                fileBaseUpload1.SaveAs(filePath + "//" + fileName);
                 if (!string.IsNullOrWhiteSpace(fileBaseUpload1.FileName))
                 {
                     string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/demo/") + "/" + sysFileName;

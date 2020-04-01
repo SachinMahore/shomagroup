@@ -16,7 +16,7 @@ namespace ShomaRM.Models.Bluemoon
 
         public string EsignatureId { get; set; }
         public string LeaseId { get; set; }
-
+        public string EsignatureKey { get; set; }
         public bool Success { get; set; }
 
         public byte[] leasePdf { get; set; }

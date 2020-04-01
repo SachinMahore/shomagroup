@@ -168,6 +168,7 @@
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Applicant" Width="1.5" PointX="28" PointY="41" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" />
+        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_ESignatureKeys" Width="1.5" PointX="5.375" PointY="19.75" />
 
       </Diagram>
     </edmx:Diagrams>

@@ -108,5 +108,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
         public virtual DbSet<tbl_EmployerHistory> tbl_EmployerHistory { get; set; }
         public virtual DbSet<tbl_Applicant> tbl_Applicant { get; set; }
+        public virtual DbSet<tbl_ESignatureKeys> tbl_ESignatureKeys { get; set; }
     }
 }

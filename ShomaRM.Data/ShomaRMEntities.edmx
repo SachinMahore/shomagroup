@@ -361,6 +361,17 @@
           <Property Name="TenantId" Type="bigint" />
           <Property Name="TerminationReason" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="tbl_ESignatureKeys">
+          <Key>
+            <PropertyRef Name="ESID" />
+          </Key>
+          <Property Name="ESID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenantID" Type="bigint" />
+          <Property Name="ApplicantID" Type="bigint" />
+          <Property Name="Key" Type="varchar(max)" />
+          <Property Name="EsignatureId" Type="bigint" />
+          <Property Name="DateSigned" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="tbl_Estimate">
           <Key>
             <PropertyRef Name="EID" />
@@ -2477,6 +2488,7 @@
           <EntitySet Name="tbl_Document" EntityType="Self.tbl_Document" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_DocumentVerification" EntityType="Self.tbl_DocumentVerification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_EmployerHistory" EntityType="Self.tbl_EmployerHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ESignatureKeys" EntityType="Self.tbl_ESignatureKeys" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Estimate" EntityType="Self.tbl_Estimate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Event" EntityType="Self.tbl_Event" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_EventBooking" EntityType="Self.tbl_EventBooking" Schema="dbo" store:Type="Tables" />
@@ -4657,6 +4669,7 @@
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_Applicant" EntitySet="tbl_Applicant" />
           </AssociationSet>
+          <EntitySet Name="tbl_ESignatureKeys" EntityType="ShomaRMEntitiesModel.tbl_ESignatureKeys" />
 
         </EntityContainer>
         <EntityType Name="tbl_Country">
@@ -5856,6 +5869,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_ESignatureKeys">
+          <Key>
+            <PropertyRef Name="ESID" />
+          </Key>
+          <Property Name="ESID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantID" Type="Int64" />
+          <Property Name="ApplicantID" Type="Int64" />
+          <Property Name="Key" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EsignatureId" Type="Int64" />
+          <Property Name="DateSigned" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7454,6 +7478,18 @@
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ESignatureKeys">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ESignatureKeys">
+              <MappingFragment StoreEntitySet="tbl_ESignatureKeys">
+                <ScalarProperty Name="DateSigned" ColumnName="DateSigned" />
+                <ScalarProperty Name="EsignatureId" ColumnName="EsignatureId" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="ESID" ColumnName="ESID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
