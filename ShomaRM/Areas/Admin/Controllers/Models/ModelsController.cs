@@ -35,17 +35,17 @@ namespace ShomaRM.Areas.Admin.Controllers
             }
         }
 
-        //public ActionResult getModelsList()
-        //{
-        //    try
-        //    {
-        //        return Json(new { model =new ModelsModel().GetModelsListDetail()},JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
-        //    }
-        //}
+        public ActionResult GetModelsList()
+        {
+            try
+            {
+                return Json(new { model = new ModelsModel().GetModelsListDetail() }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         public ActionResult GetPropertyModelDetails(string ModelName)
         {

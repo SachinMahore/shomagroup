@@ -1479,8 +1479,50 @@ namespace ShomaRM.Areas.Admin.Models
             return model;
         }
 
+        public List<ModelsModel> GetModelsListDetail()
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<ModelsModel> lstpr = new List<ModelsModel>();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetModelsList";
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-public ModelsModel UploadModelsFloorPlanDetails(HttpPostedFileBase fb, ModelsModel model)
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    ModelsModel pr = new ModelsModel();
+                    pr.ModelID = Convert.ToInt32(dr["ModelID"].ToString());
+                    pr.BalconyArea = dr["BalconyArea"].ToString();
+                    pr.InteriorArea = dr["InteriorArea"].ToString();
+                    pr.Area = dr["Area"].ToString();
+                    pr.RentRange = "$" + Convert.ToDecimal(dr["MinRent"].ToString()).ToString("0.00") + "-$" + Convert.ToDecimal(dr["MaxRent"].ToString()).ToString("0.00");
+                    pr.Bedroom = Convert.ToInt32(dr["Bedroom"].ToString());
+                    pr.Bathroom = Convert.ToInt32(dr["Bathroom"].ToString());
+                    pr.FloorPlan = dr["FloorPlan"].ToString();
+                    pr.ModelName = dr["ModelName"].ToString();
+                    pr.BalconyArea = dr["BalconyArea"].ToString() != null ? dr["BalconyArea"].ToString() : "0";
+                    pr.InteriorArea = dr["InteriorArea"].ToString() != null ? dr["InteriorArea"].ToString() : "0";
+                    lstpr.Add(pr);
+                }
+                db.Dispose();
+                return lstpr.ToList();
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
+        public ModelsModel UploadModelsFloorPlanDetails(HttpPostedFileBase fb, ModelsModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
 
