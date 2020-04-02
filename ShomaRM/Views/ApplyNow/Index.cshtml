@@ -18,6 +18,9 @@
 <input type="hidden" id="hndShowPaymentPolicy" value="1" />
 <input type="hidden" id="hndShowPropertyDetails" value="0" />
 <input type="hidden" id="hndIsModelSelected" value="@((Model.StepCompleted==0 ||Model.StepCompleted==1 )?0:1)" />
+<input type="hidden" id="hndFloorNo" value="@(Model.FloorID)" />
+<input type="hidden" id="hndBedRoom" value="@(Model.Bedroom)" />
+<input type="hidden" id="hndBuilding" value="@(Model.Building)" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container">
@@ -103,7 +106,7 @@
                                         <h5 class="col-sm-1">Sort</h5>
                                         <div class="col-xs-2">
                                             @*<div class="col-xs-12">*@
-                                            <select id="ddlPrice" class="form-control">
+                                            <select id="ddlSortOrder" class="form-control">
                                                 <option value='0'>Low To High</option>
                                                 <option value='1'>High To Low</option>
 
@@ -2921,7 +2924,7 @@
                 </div>
                 <div class="col-sm-6" id="appemail">
                     <div class="form-group">
-                        <label>Email</label>
+                        <label class="star">Email</label>
                         <input id="txtApplicantEmail" type="text" class="form-control" maxlength="200" placeholder="Email" value="">
                     </div>
                 </div>
@@ -4252,7 +4255,7 @@
         dt.setFullYear(new Date().getFullYear() - 18);
 
         $('#txtDateOfBirth').datepicker({ viewMode: "years", endDate: dt, autoclose: true });
-        $("#txtDate").datepicker();
+        $("#txtDate").datepicker({ autoclose: true, dateFormat: "MM/dd/yyyy", startDate: new Date() });
         $("#icontxtDate").click(function () {
             $("#txtDate").focus();
         });

@@ -58,7 +58,7 @@ var buildPaganationUserList = function (pagenumber, sortbyL, orderbyL) {
         dataType: "json",
         success: function (response) {
             if ($.trim(response.error) !== "") {
-                alert(response.error);
+               var erro=response.error;
             } else {
                 if (response.NOP == 0) {
                     $('#divPagination_UserList').addClass("hidden");
@@ -86,9 +86,9 @@ var fillUserList = function (pagenumber, sortbyL, orderbyL) {
     var selectedValue = $("#ddlCriteria").find(":selected").data("value");
     var selected = $("#ddlCriteria").find(":Selected").val();
     if (selected == 1) {
-        var criteria = $("#txtCriteria").val()
+        var criteria = $("#txtCriteria").val();
     } else {
-        var criteria = 'Unit' + ' ' + $("#txtCriteria").val()
+        var criteria = 'Unit' + ' ' + $("#txtCriteria").val();
     }
     
     var model = {
@@ -110,8 +110,10 @@ var fillUserList = function (pagenumber, sortbyL, orderbyL) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
+            $("#divLoader").hide();
+            $("#tblServiceRequest>tbody").empty();
             if ($.trim(response.error) !== "") {
-               
+                var error = response.error;
             } else {
                 $("#tblServiceRequest>tbody").empty();
                 $.each(response.model, function (elementType, elementValue) {
@@ -130,11 +132,7 @@ var fillUserList = function (pagenumber, sortbyL, orderbyL) {
                     html += '</tr>';
                     $("#tblServiceRequest>tbody").append(html);
                 });
-               
-                if (response.model.length == 0) {
-                    $("#tblServiceRequest>tbody").empty();
-                }
-            } $("#divLoader").hide();
+            }
         }
     });
 };

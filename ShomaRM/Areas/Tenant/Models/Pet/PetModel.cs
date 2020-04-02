@@ -335,5 +335,22 @@ namespace ShomaRM.Areas.Tenant.Models
             }
             return model;
         }
+        public void CheckAndDeletePet(long ProspectID, int NoOfPet)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            var petData = db.tbl_TenantPet.Where(co => co.TenantID == ProspectID).ToList().OrderByDescending(p=>p.PetID);
+            var petDataCount = petData.Count();
+            if (NoOfPet == 3)
+            {
+                db.tbl_TenantPet.RemoveRange(petData);
+                db.SaveChanges();
+            }
+            else if (petDataCount > NoOfPet)
+            {
+                var petDelete = petData.FirstOrDefault();
+                db.tbl_TenantPet.Remove(petDelete);
+                db.SaveChanges();
+            }
+        }
     }
 }
