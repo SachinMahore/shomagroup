@@ -23,7 +23,7 @@ namespace ShomaRM.Controllers
             }
             else
             {
-                return Redirect("/Property");
+                return Redirect("/Home");
             }
 
             var model = new OnlineProspectModule().GetProspectData(Convert.ToInt64(id));

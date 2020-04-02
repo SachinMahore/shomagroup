@@ -654,6 +654,15 @@ var goToStep = function (stepid, id, calldataupdate) {
         $("#subMenu").addClass("hidden");
     }
     if (stepid == "2") {
+        if (parseInt($("#hndIsModelSelected").val()) ==0) {
+            var msg = "Please select floor plan to choose your new apartment";
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
         if ($('#txtAvailableDate').text() == '') {
             $('#lblLeaseStartDate').text($('#txtDate').val());
         }
@@ -661,7 +670,6 @@ var goToStep = function (stepid, id, calldataupdate) {
             $('#lblLeaseStartDate').text($('#txtAvailableDate').text());
         }
         if (id == "2") {
-
             //if (calldataupdate == 1) {
             //    var model = { UID: $("#hndUID").val(), LeaseTermID: $("#hndLeaseTermID").val() };
             //    $.ajax({
@@ -678,6 +686,10 @@ var goToStep = function (stepid, id, calldataupdate) {
             //        }
             //    });
             //}
+
+            if ($("#hndUID").val() == 0) {
+                //showFloorPlan(response.model.FloorNo, response.model.Bedroom, response.model.Building);
+            }
 
             $("#subMenu").addClass("hidden");
             $("#as2").removeAttr("onclick");
@@ -710,6 +722,17 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
     }
     if (stepid == "3") {
+        if ($("#hndUID").val() == 0) {
+            if (parseInt($("#hdnStepCompleted").val()) < 2) {
+                var msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 3);
+                $.alert({
+                    title: "",
+                    content: msg,
+                    type: 'red'
+                });
+                return;
+            }
+        }
         if (id == "3") {
             if ($("#hndUID").val() != 0) {
                 $("#as3").removeAttr("onclick");
@@ -755,6 +778,19 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
     }
     if (stepid == "4") {
+        if ($("#hdnUserId").val() == 0 && $("#hndUID").val() != 0) {
+            var msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 2, 4);
+
+            if (msg.indexOf("Complete Registration") == -1) {
+                msg += "<b>Complete Registration</b>";
+            }
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
         if (parseInt($("#hdnStepCompleted").val()) < 3) {
             var msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 4);
             $.alert({
@@ -1002,7 +1038,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             var grandPercentage = localStorage.getItem("percentage");
             var grandPercentageMo = localStorage.getItem("percentageMo");
             if (grandPercentage != 100 || grandPercentageMo != 100) {
-                msg = "Both Charges Should have 100% to continue";
+                msg = "For Move In Charges and Monthly Payment the total must equal 100% in order to continue.";
             }
             else {
                 $("#popApplicantSummary").modal("hide");
@@ -1769,7 +1805,7 @@ var goToStep = function (stepid, id, calldataupdate) {
     }
 };
 var getStepCompletedMsg = function (currentstep, clickstep) {
-    var stepArray = [{ StepID: 3, StepName: "Select Options" }, { StepID: 5, StepName: "Quotation" }, { StepID: 6, StepName: "Policies & Conditions" }, { StepID: 7, StepName: "Applicants" }, { StepID: 8, StepName: "Responsibility" }, { StepID: 9, StepName: "Personal Info" }, { StepID: 10, StepName: "Residence History" }, { StepID: 11, StepName: "Employment and Income" }, { StepID: 12, StepName: "Emergency Contacts" }, { StepID: 13, StepName: "Vehicle Info" }, { StepID: 14, StepName: "Pet Info" }, { StepID: 15, StepName: "Payment" }, { StepID: 16, StepName: "Lease" }];
+    var stepArray = [{ StepID: 2, StepName: "Select Unit" },{ StepID: 3, StepName: "Complete Registration" },{ StepID: 4, StepName: "Select Options" }, { StepID: 5, StepName: "Quotation" }, { StepID: 6, StepName: "Policies & Conditions" }, { StepID: 7, StepName: "Applicants" }, { StepID: 8, StepName: "Responsibility" }, { StepID: 9, StepName: "Personal Info" }, { StepID: 10, StepName: "Residence History" }, { StepID: 11, StepName: "Employment and Income" }, { StepID: 12, StepName: "Emergency Contacts" }, { StepID: 13, StepName: "Vehicle Info" }, { StepID: 14, StepName: "Pet Info" }, { StepID: 15, StepName: "Payment" }, { StepID: 16, StepName: "Lease" }];
     var clickstepname = "";
     var remainingstepname = "";
 
@@ -2394,11 +2430,11 @@ var SaveOnlineProspect = function () {
         msg += "Please fill the Password </br>";
     } else {
         if (password.length < 8) {
-            msg += "Password should have atleast 8 digits long</br>";
+            msg += "The Password should have a minimum of 8 characters.</br>";
         }
-        if (confirmPassword.length < 8) {
-            msg += "Confirm Password should have atleast 8 digits long</br>";
-        }
+        //if (confirmPassword.length < 8) {
+        //    msg += "Confirm Password should have atleast 8 digits long</br>";
+        //}
         if (password != confirmPassword) {
             msg += "Password and Confirm Password must be the same</br>";
         }
@@ -3222,7 +3258,7 @@ var getCompareModelList = function () {
     });
 }
 var getPropertyUnitList = function (modelname,filldata) {
-
+    $("#hndIsModelSelected").val(1);
     $("#imgFloorPlan").attr("src", "/content/assets/img/plan/" + modelname + ".jpg");
     $("#imgFloorPlan2").attr("src", "/content/assets/img/plan/" + modelname + "Det.jpg");
     $("#lblUnitNo").text("Model: #" + modelname);
@@ -3280,6 +3316,7 @@ var getPropertyUnitList = function (modelname,filldata) {
     });
 }
 var getPropertyUnitDetails = function (uid) {
+    
     $("#divLoader").show();
     var model = { UID: uid, LeaseTermID:$("#hndLeaseTermID").val() };
     $.ajax({
@@ -3359,58 +3396,58 @@ var getPropertyUnitDetails = function (uid) {
 
             $("#lblFMRent").text(formatMoney(parseFloat(response.model.Current_Rent).toFixed(2)));
 
-            if (response.model.Furnished == 0) {
-                $("#chkFurnished").css("text-decoration", "line-through");
-                $("#chkFurnished").css("text-decoration-color", "red");
-            }
-            if (response.model.Washer == 0) {
-                $("#chkWasher").css("text-decoration", "line-through");
-                $("#chkWasher").css("text-decoration-color", "red");
-            }
-            if (response.model.Refrigerator == 0) {
-                $("#chkRefrigerator").css("text-decoration", "line-through");
-                $("#chkRefrigerator").css("text-decoration-color", "red");
-            }
-            if (response.model.Drapes == 0) {
-                $("#chkDrapes").css("text-decoration", "line-through");
-                $("#chkDrapes").css("text-decoration-color", "red");
-            }
-            if (response.model.Dryer == 0) {
-                $("#chkDryer").css("text-decoration", "line-through");
-                $("#chkDryer").css("text-decoration-color", "red");
-            }
-            if (response.model.Dishwasher == 0) {
-                $("#chkDishwasher").css("text-decoration", "line-through");
-                $("#chkDishwasher").css("text-decoration-color", "red");
-            }
-            if (response.model.Disposal == 0) {
-                $("#chkDisposal").css("text-decoration", "line-through");
-                $("#chkDisposal").css("text-decoration-color", "red");
-            }
-            if (response.model.Elec_Range == 0) {
-                $("#chkElec_Range").css("text-decoration", "line-through");
-                $("#chkElec_Range").css("text-decoration-color", "red");
-            }
-            if (response.model.Gas_Range == 0) {
-                $("#chkGas_Range").css("text-decoration", "line-through");
-                $("#chkGas_Range").css("text-decoration-color", "red");
-            }
-            if (response.model.Air_Conditioning == 0) {
-                $("#chkAir_Conditioning").css("text-decoration", "line-through");
-                $("#chkAir_Conditioning").css("text-decoration-color", "red");
-            }
-            if (response.model.Fireplace == 0) {
-                $("#chkFireplace").css("text-decoration", "line-through");
-                $("#chkFireplace").css("text-decoration-color", "red");
-            }
-            if (response.model.Den == 0) {
-                $("#chkDen").css("text-decoration", "line-through");
-                $("#chkDen").css("text-decoration-color", "red");
-            }
-            if (response.model.Carpet == 0) {
-                $("#chkCarpet").css("text-decoration", "line-through");
-                $("#chkCarpet").css("text-decoration-color", "red");
-            }
+            //if (response.model.Furnished == 0) {
+            //    $("#chkFurnished").css("text-decoration", "line-through");
+            //    $("#chkFurnished").css("text-decoration-color", "red");
+            //}
+            //if (response.model.Washer == 0) {
+            //    $("#chkWasher").css("text-decoration", "line-through");
+            //    $("#chkWasher").css("text-decoration-color", "red");
+            //}
+            //if (response.model.Refrigerator == 0) {
+            //    $("#chkRefrigerator").css("text-decoration", "line-through");
+            //    $("#chkRefrigerator").css("text-decoration-color", "red");
+            //}
+            //if (response.model.Drapes == 0) {
+            //    $("#chkDrapes").css("text-decoration", "line-through");
+            //    $("#chkDrapes").css("text-decoration-color", "red");
+            //}
+            //if (response.model.Dryer == 0) {
+            //    $("#chkDryer").css("text-decoration", "line-through");
+            //    $("#chkDryer").css("text-decoration-color", "red");
+            //}
+            //if (response.model.Dishwasher == 0) {
+            //    $("#chkDishwasher").css("text-decoration", "line-through");
+            //    $("#chkDishwasher").css("text-decoration-color", "red");
+            //}
+            //if (response.model.Disposal == 0) {
+            //    $("#chkDisposal").css("text-decoration", "line-through");
+            //    $("#chkDisposal").css("text-decoration-color", "red");
+            //}
+            //if (response.model.Elec_Range == 0) {
+            //    $("#chkElec_Range").css("text-decoration", "line-through");
+            //    $("#chkElec_Range").css("text-decoration-color", "red");
+            //}
+            //if (response.model.Gas_Range == 0) {
+            //    $("#chkGas_Range").css("text-decoration", "line-through");
+            //    $("#chkGas_Range").css("text-decoration-color", "red");
+            //}
+            //if (response.model.Air_Conditioning == 0) {
+            //    $("#chkAir_Conditioning").css("text-decoration", "line-through");
+            //    $("#chkAir_Conditioning").css("text-decoration-color", "red");
+            //}
+            //if (response.model.Fireplace == 0) {
+            //    $("#chkFireplace").css("text-decoration", "line-through");
+            //    $("#chkFireplace").css("text-decoration-color", "red");
+            //}
+            //if (response.model.Den == 0) {
+            //    $("#chkDen").css("text-decoration", "line-through");
+            //    $("#chkDen").css("text-decoration-color", "red");
+            //}
+            //if (response.model.Carpet == 0) {
+            //    $("#chkCarpet").css("text-decoration", "line-through");
+            //    $("#chkCarpet").css("text-decoration-color", "red");
+            //}
 
             totalAmt = (parseFloat(response.model.Current_Rent) + parseFloat(unformatText($("#lblAdditionalParking").text())) + parseFloat(unformatText($("#lblStorageUnit").text())) + parseFloat(unformatText($("#lblTrashAmt").text())) + parseFloat($("#lblPestAmt").text()) + parseFloat($("#lblConvergentAmt").text()) + parseFloat(unformatText($("#lblPetFee").text()))).toFixed(2);
             $("#lbltotalAmount").text(formatMoney(totalAmt));
@@ -5625,7 +5662,7 @@ var delApplicant = function (appliId) {
 
 }
 
-function showFloorPlan(flid,numbedroom, modelname) {
+function showFloorPlan(flid, numbedroom, modelname) {
     $("#divLoaderFloorData").show();
     setTimeout(function () { $("#returnButton").removeClass("hidden"); $("#returnButton").html("Return to List View"); }, 1000);
     $("#UnitListDesc").text("Choose any unit in green to see more information including a video and complete layout of your unit. ");

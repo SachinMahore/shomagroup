@@ -95,6 +95,7 @@ namespace ShomaRM.Models
         public Nullable<decimal> PetDNAAmt { get; set; }
         public int AcceptSummary { get; set; }
         public int StepCompleted { get; set; }
+        public decimal ProcessingFees { get; set; }
 
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
         string message = "";
@@ -103,6 +104,7 @@ namespace ShomaRM.Models
         public List<CountryListData> CountryList { get; set; }
         public List<StateListData> StateList { get; set; }
         public long UserID { get; set; }
+        public int HasPropertyList { get; set; }
 
         public string SaveOnlineProspect(OnlineProspectModule model)
         {
@@ -413,6 +415,8 @@ namespace ShomaRM.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             OnlineProspectModule model = new OnlineProspectModule();
+            string dtMoveInDate = DateTime.Now.ToString("MM/dd/yyyy");
+
             model.ProspectId = 0;
             model.IsApplyNow = 1;
             model.IsApplyNowStatus = "New";
@@ -433,6 +437,22 @@ namespace ShomaRM.Models
             model.CountryList = FillCountryList();
             model.StateList = FillStateByCountryID(1);
             model.AcceptSummary = 0;
+            model.StepCompleted = 1;
+            model.HasPropertyList = 0;
+            var propDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+            if (propDet != null)
+            {
+                model.Picture = propDet.Picture;
+                model.ConvergentAmt = propDet.ConversionBillFees ?? 0;
+                model.PestAmt = propDet.PestControlFees ?? 0;
+                model.TrashAmt = propDet.TrashFees ?? 0;
+                model.AdminFees = propDet.AdminFees ?? 0;
+                model.ApplicationFees = propDet.ApplicationFees ?? 0;
+                model.GuarantorFees = propDet.GuarantorFees ?? 0;
+                model.ProcessingFees = propDet.ProcessingFees ?? 0;
+            }
+
+
             if (Id != 0)
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.UserId == Id).FirstOrDefault();
@@ -441,8 +461,11 @@ namespace ShomaRM.Models
                 {
                     var GetPaymentProspectData = db.tbl_OnlinePayment.Where(p => p.ProspectId == GetProspectData.ID).FirstOrDefault();
                     var GetDocumentVerificationData = db.tbl_DocumentVerification.Where(p => p.ProspectusID == GetProspectData.ID).FirstOrDefault();
+
+                    var unitData = db.tbl_PropertyUnits.Where(p => p.UID == GetProspectData.PropertyId).FirstOrDefault();
+
                     //string encryptedPassword = new EncryptDecrypt().EncryptText(GetProspectData.Password);
-                    //string decryptedPassword = new EncryptDecrypt().DecryptText(encryptedPassword);
+                    string decryptedPassword = (!string.IsNullOrWhiteSpace(GetProspectData.Password) ? new EncryptDecrypt().DecryptText(GetProspectData.Password) : "");
 
                     model.FirstName = GetProspectData.FirstName;
                     model.LastName = GetProspectData.LastName;
@@ -459,7 +482,7 @@ namespace ShomaRM.Models
                     model.PropertyId = GetProspectData.PropertyId;
                     model.ProspectId = GetProspectData.ID;
                     model.TenantID = Convert.ToInt64(GetProspectData.UserId);
-                    model.Password = GetProspectData.Password ;
+                    model.Password = decryptedPassword;
                     model.Marketsource = Convert.ToInt32(GetProspectData.Marketsource);
                     model.CreatedDate = Convert.ToDateTime(GetProspectData.CreatedDate);
                     model.IsRentalQualification = Convert.ToInt32(GetProspectData.IsRentalQualification);
@@ -487,17 +510,15 @@ namespace ShomaRM.Models
                     {
                     }
 
-                    model.MoveInDateTxt = GetProspectData.MoveInDate.Value.ToString("MM/dd/yyyy");
-                    model.ExpireDate = Convert.ToDateTime(GetProspectData.CreatedDate).AddHours(48).ToString("MM/dd/yyyy") + " 23:59:59";
+                    model.MoveInDateTxt = GetProspectData.MoveInDate.HasValue ? GetProspectData.MoveInDate.Value.ToString("MM/dd/yyyy") : "";
 
+                    dtMoveInDate = GetProspectData.MoveInDate.HasValue ? GetProspectData.MoveInDate.Value.ToString("MM/dd/yyyy") : DateTime.Now.ToString("MM/dd/yyyy");
+
+                    model.ExpireDate = Convert.ToDateTime(GetProspectData.CreatedDate).AddHours(48).ToString("MM/dd/yyyy") + " 23:59:59";
+                    model.StepCompleted = GetProspectData.StepCompleted ?? 1;
 
                     if (GetPaymentProspectData != null)
                     {
-                        //model.Name_On_Card = GetPaymentProspectData.Name_On_Card;
-                        //model.CardNumber = GetPaymentProspectData.CardNumber;
-                        //model.CardMonth = GetPaymentProspectData.CardMonth;
-                        //model.CardYear = GetPaymentProspectData.CardYear;
-                        //model.CCVNumber = GetPaymentProspectData.CCVNumber;
                         model.Name_On_Card = GetPaymentProspectData.Name_On_Card;
                         model.CardNumber = !string.IsNullOrWhiteSpace( GetPaymentProspectData.CardNumber)?new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardNumber) :"";
                         model.CardMonth = !string.IsNullOrWhiteSpace(GetPaymentProspectData.CardMonth) ? new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardMonth) : "";
@@ -539,80 +560,13 @@ namespace ShomaRM.Models
                         model.PartialMoveInCharges = ((model.MoveInCharges * getApplicantDet.MoveInPercentage) / 100);
                         model.MoveInPercentage = getApplicantDet.MoveInPercentage;
                     }
+                    model.HasPropertyList = 1;
+                    model.lstPropertyUnit = new PropertyModel().GetPropertyModelUnitList(unitData.Building, Convert.ToDateTime(dtMoveInDate), 10000, 0, model.LeaseTermID);
                 }
             }
-
-            List<PropertyFloor> listfloor = new List<PropertyFloor>();
-            model.lstPropertyFloor = listfloor;
-            var propDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
-            if (propDet != null)
-            {
-                
-                model.Picture = propDet.Picture;
-                model.ConvergentAmt = propDet.ConversionBillFees;
-                model.PestAmt = propDet.PestControlFees;
-                model.TrashAmt = propDet.TrashFees;
-                model.AdminFees = propDet.AdminFees;
-                model.ApplicationFees = propDet.ApplicationFees;
-
-                model.GuarantorFees = propDet.GuarantorFees;
-            }
-            try
-            {
-                DataTable dtTable = new DataTable();
-                using (var cmd = db.Database.Connection.CreateCommand())
-                {
-                    db.Database.Connection.Open();
-                    cmd.CommandText = "usp_GetPropertyFloorCord";
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    DbParameter paramPID = cmd.CreateParameter();
-                    paramPID.ParameterName = "PID";
-                    paramPID.Value = 8;
-                    cmd.Parameters.Add(paramPID);
-
-
-                    DbParameter paramF = cmd.CreateParameter();
-                    paramF.ParameterName = "AvailableDate";
-                    paramF.Value = DateTime.Now;
-                    cmd.Parameters.Add(paramF);
-
-                    DbParameter paramB = cmd.CreateParameter();
-                    paramB.ParameterName = "Bedroom";
-                    paramB.Value = 0;
-                    cmd.Parameters.Add(paramB);
-
-                    DbParameter paramC = cmd.CreateParameter();
-                    paramC.ParameterName = "MaxRent";
-                    paramC.Value = 10000;
-                    cmd.Parameters.Add(paramC);
-
-                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
-                    da.SelectCommand = cmd;
-                    da.Fill(dtTable);
-                    db.Database.Connection.Close();
-                }
-                foreach (DataRow dr in dtTable.Rows)
-                {
-                    PropertyFloor pr = new PropertyFloor();
-
-                    pr.FloorID = Convert.ToInt32(dr["FloorID"].ToString());
-                    //pr.FloorNo = dr["FloorNo"].ToString();
-                    pr.Coordinates = dr["Coordinates"].ToString();
-
-                    pr.IsAvail = Convert.ToInt32(dr["IsAvail"].ToString());
-
-                    model.lstPropertyFloor.Add(pr);
-                }
-                db.Dispose();
-                //return lstUnitProp.ToList();
-            }
-            catch (Exception ex)
-            {
-                db.Database.Connection.Close();
-                throw ex;
-            }
+            model.lstPropertyFloor = new PropertyFloor().GetFloorList(8, Convert.ToDateTime(dtMoveInDate), 0, 10000);
             model.ID = Id;
+
             return model;
         }
         public string ScheduleEmail()
