@@ -275,6 +275,7 @@ namespace ShomaRM.Models
 
                 if (onlineProspectData != null)
                 {
+                    onlineProspectData.PropertyId = model.PropertyId;
                     onlineProspectData.ParkingAmt = model.ParkingAmt;
                     onlineProspectData.StorageAmt = model.StorageAmt;
                     onlineProspectData.PetPlaceAmt = model.PetPlaceAmt;
@@ -439,6 +440,9 @@ namespace ShomaRM.Models
             model.AcceptSummary = 0;
             model.StepCompleted = 1;
             model.HasPropertyList = 0;
+            model.Building = "";
+            model.FloorID = 0;
+            model.Bedroom = 0;
             var propDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
             if (propDet != null)
             {
@@ -553,6 +557,7 @@ namespace ShomaRM.Models
                     {
                         model.Building = getUnitDet.Building;
                         model.FloorID = Convert.ToInt32(getUnitDet.FloorNo);
+                        model.Bedroom = getUnitDet.Bedroom ?? 0;
                     }
                     var getApplicantDet = db.tbl_Applicant.Where(p => p.TenantID == GetProspectData.ID && p.Type == "Primary Applicant").FirstOrDefault();
                     if (getApplicantDet != null)

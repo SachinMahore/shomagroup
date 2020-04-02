@@ -97,7 +97,7 @@ function unformatText(text) {
     return text.replace(/[^\d\.]/g, '');
 }
 
-function isDecimal(evt, cont, decplace) {
+function isDecimalWithPlace(evt, cont, decplace) {
     var charCode = (evt.which) ? evt.which : evt.keyCode
     if (charCode != 45 && charCode != 8 && charCode != 9 && (charCode != 46 || $(cont).val().indexOf('.') != -1) && (charCode < 48 || charCode > 57))
         return false;
@@ -107,6 +107,21 @@ function isDecimal(evt, cont, decplace) {
         if (valsplit[1].length + 1 > decplace)
             return false;
     }
+    return true;
+}
+
+function isDecimalAll(evt, cont) {
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode != 45 && charCode != 8 && charCode != 9 && (charCode != 46 || $(cont).val().indexOf('.') != -1) && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+
+function nonNegDecimal(evt, cont) {
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode != 8 && charCode != 9 && (charCode != 46 || $(cont).val().indexOf('.') != -1) && (charCode < 48 || charCode > 57))
+        return false;
+
     return true;
 }
 
@@ -127,6 +142,7 @@ function checkStrength(password) {
             content: msg,
             type: 'red'
         });
-        return false;
+        validated= false;
     }
+    return validated;
 }
