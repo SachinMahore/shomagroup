@@ -57,7 +57,7 @@ namespace ShomaRM.Controllers
                 var user = db.tbl_Login.Where(p => p.Username == model.UserName && p.Password == encryptedPassword && p.IsActive == 1).FirstOrDefault();
                 if (user != null)
                 {
-                    
+
                     SignIn(model.UserName, model.RememberMe);
                     // Set Current User
                     var currentUser = new CurrentUser();
@@ -69,7 +69,7 @@ namespace ShomaRM.Controllers
                     currentUser.EmailAddress = user.Email;
                     currentUser.UserType = Convert.ToInt32(user.UserType == null ? 0 : user.UserType);
                     currentUser.LoggedInUser = user.FirstName;
-                    currentUser.TenantID = user.TenantID==0?0: Convert.ToInt64(user.TenantID);
+                    currentUser.TenantID = user.TenantID == 0 ? 0 : Convert.ToInt64(user.TenantID);
                     currentUser.UserType = Convert.ToInt32((user.UserType).ToString());
 
                     (new ShomaGroupWebSession()).SetWebSession(currentUser);
@@ -86,7 +86,7 @@ namespace ShomaRM.Controllers
                     db.tbl_LoginHistory.Add(loginHistory);
                     db.SaveChanges();
 
-                  if(currentUser.TenantID ==0 && currentUser.UserType!=3)
+                    if (currentUser.TenantID == 0 && currentUser.UserType != 3)
                     {
                         return RedirectToAction("../Admin/AdminHome");
                     }
@@ -100,7 +100,7 @@ namespace ShomaRM.Controllers
 
                         checkExpiry.Status = (!string.IsNullOrWhiteSpace(checkExpiry.Status) ? checkExpiry.Status : "");
 
-                        if(checkExpiry.Status.Trim()=="Approved")
+                        if (checkExpiry.Status.Trim() == "Approved")
                         {
                             return RedirectToAction("../Checklist/");
                         }
@@ -110,7 +110,7 @@ namespace ShomaRM.Controllers
 
                             if (checkExpiry.CreatedDate < expDate)
                             {
-                                new ApplyNowController().DeleteApplicantTenantID(checkExpiry.ID,currentUser.UserID);
+                                new ApplyNowController().DeleteApplicantTenantID(checkExpiry.ID, currentUser.UserID);
                                 Session["DelDatAll"] = "Del";
                                 return RedirectToAction("../Home");
                             }
@@ -122,7 +122,7 @@ namespace ShomaRM.Controllers
 
                         }
                     }
-                   // return RedirectToLocal(returnUrl);
+                    // return RedirectToLocal(returnUrl);
                 }
                 else
                 {
@@ -131,6 +131,10 @@ namespace ShomaRM.Controllers
                     {
                         ModelState.AddModelError("", "Invalid User Name OR Password OR Your quote has expired please register again.");
                         ViewBag.Error = 1;
+                    }
+                    else if (user != null && (user.IsActive??0)==1)
+                    {
+                        ModelState.AddModelError("", "Invalid password");
                     }
                     else
                     {

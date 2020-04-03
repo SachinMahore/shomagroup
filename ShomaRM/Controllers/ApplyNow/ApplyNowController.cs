@@ -15,15 +15,18 @@ namespace ShomaRM.Controllers
         // GET: /ApplyNow/
         public ActionResult Index(string id)
         {
-            ShomaRMEntities db = new ShomaRMEntities();
-
             if (!string.IsNullOrEmpty(id))
             {
                 ViewBag.PID = Convert.ToInt32(id);
             }
             else
             {
+                id = "0";
                 return Redirect("/Home");
+            }
+            if (ShomaGroupWebSession.CurrentUser == null && id!="0")
+            {
+                return Redirect("/Account/Login");
             }
 
             var model = new OnlineProspectModule().GetProspectData(Convert.ToInt64(id));
