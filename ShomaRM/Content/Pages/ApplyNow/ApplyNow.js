@@ -331,7 +331,6 @@ $(document).ready(function () {
         if ($("#txtDate").val() != "") {
             getPropertyModelUnitList();
         }
-        
     });
     tenantOnlineID = $("#hdnOPId").val();
 
@@ -3365,7 +3364,7 @@ var getPropertyUnitDetails = function (uid) {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            $("#hndUID").val(uid);
+            
             $("#hndShowPropertyDetails").val(1);
             $("#ModelCompare").modal("hide");
             $("#popUnitDet").addClass("hidden");
@@ -3380,10 +3379,11 @@ var getPropertyUnitDetails = function (uid) {
 
             $("#unitdiv" + $("#hndUID").val()).removeClass("select-unit");
             $("#unitdiv" + uid).addClass("select-unit");
+            $("#hndUID").val(uid);
 
-            //$("#unitdiv" + uid)[0].scrollIntoView();
-
-            
+            if ($("#unitdiv" + uid).length) {
+                $("#unitdiv" + uid)[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+            }
 
             $("#lblRent").text(formatMoney(response.model.Current_Rent));
             $("#lblArea").text(response.model.Area);

@@ -648,7 +648,7 @@
             dataType: "json",
             success: function (response) {
                 $("#ddlLease").empty();
-         
+                var hasItems = false;
                 $.each(response.model, function (index, elementValue) {
                     if (elementValue.LeaseTerms == "12")
                     {
@@ -656,11 +656,14 @@
                     } else {
                         $("#ddlLease").append("<option value=" + elementValue.LTID + ">" + elementValue.LeaseTerms + "</option>");
                     }
-                   
+                    hasItems = true;
                 });
+                if (hasItems==false) {
+                    $("#ddlLease").append("<option value='0' selected>No Lease Term</option>");
+                }
+
                 $("#divLoader").hide();
             }
         });
-
     }
 </script>

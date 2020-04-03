@@ -338,13 +338,22 @@ namespace ShomaRM.Models
             db.Dispose();
             if (model.Message != "Invalid UserName")
             {
+                string password = "";
+                try
+                {
+                    password = (!string.IsNullOrWhiteSpace(model.Password) ? new EncryptDecrypt().DecryptText(model.Password) : "");
+                }
+                catch
+                {
+                }
+
                 string reportHTML = "";
                 string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "ForgetPassword.html");
 
                 //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
                 reportHTML = reportHTML.Replace("[%TenantName%]", model.FullName);
-                reportHTML = reportHTML.Replace("[%TenantPassword%]", model.Password);
+                reportHTML = reportHTML.Replace("[%TenantPassword%]", password);
 
                 string body = reportHTML;
                 new EmailSendModel().SendEmail(model.Email, "Password", body);

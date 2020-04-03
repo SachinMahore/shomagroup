@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using ShomaRM.Models;
 using ShomaRM.Data;
 using ShomaRM.Areas.Tenant.Models;
+using System.Data;
 
 namespace ShomaRM.Controllers
 {
@@ -51,9 +52,18 @@ namespace ShomaRM.Controllers
                 model.MoveInDate = DateTime.Now.AddDays(30);
                 //model.MaxRent = 0;
                 model.FromHome = 0;
-                if(model.LeaseTermID==0)
+                if (model.LeaseTermID == 0)
                 {
-                    model.LeaseTermID = 22;
+                    ShomaRMEntities db = new ShomaRMEntities();
+                    var leaseDet = db.tbl_LeaseTerms.Where(p => p.LeaseTerms == 12).FirstOrDefault();
+                    if (leaseDet != null)
+                    {
+                        model.LeaseTermID = leaseDet.LTID;
+                    }
+                    else
+                    {
+                        model.LeaseTermID = 0;
+                    }
                 }
                
             }

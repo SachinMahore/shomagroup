@@ -537,7 +537,14 @@ namespace ShomaRM.Models
                     model.FOBAmt = 0;
                     model.EnvelopeID = (!string.IsNullOrWhiteSpace(GetProspectData.EnvelopeID) ? GetProspectData.EnvelopeID : "");
                     var leaseDet = db.tbl_LeaseTerms.Where(p => p.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
-                    model.LeaseTerm = Convert.ToInt32(leaseDet.LeaseTerms);
+                    if (leaseDet != null)
+                    {
+                        model.LeaseTerm = Convert.ToInt32(leaseDet.LeaseTerms);
+                    }
+                    else
+                    {
+                        model.LeaseTerm = 0;
+                    }
                     model.EsignatureID = (!string.IsNullOrWhiteSpace(GetProspectData.EsignatureID) ? GetProspectData.EsignatureID : "");
                     model.PetDNAAmt = GetProspectData.PetDNAAmt;
                     model.LeaseTermID = Convert.ToInt32(GetProspectData.LeaseTerm);

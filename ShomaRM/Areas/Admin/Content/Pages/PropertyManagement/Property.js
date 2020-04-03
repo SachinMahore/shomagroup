@@ -17,6 +17,7 @@
         var cordd = "  <textarea class='form-control'id='txtcord'></textarea>";
         $("#divCord").append(cordd);
         $("#fileUploadFloorDetailsShow1").html("Choose a file...");
+        $("#hdnFloorCords").val("");
         if ($("#ddlFloorList").val() != 0) {
             for (var i = 1; i <= noffloor; i++) {
                 if ($("#fa_" + i).length) {
@@ -29,10 +30,11 @@
             if ($("#fa_" + cont).length) {
                 $("#fa_" + cont).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: 'FF6347', strokeColor: 'FF6347', }).trigger('alwaysOn.maphilight');
                 $("#txtcord").text($("#fa_" + cont).attr("coords"));
+                var cordsdefault = $("#fa_" + cont).attr("coords");
+                $("#hdnFloorCords").val(cordsdefault);
             }
             $("#hdnFloorPlan").val($("#fa_" + cont).data("floorplan"));
             $("#fileUploadFloorDetailsShow1").text($("#fa_" + cont).data("floorplan"));
-            
         }
         else {
             $(this).addClass('active_mouse').data('maphilight', { alwaysOn: true, fillColor: 'FF6347', strokeColor: 'FF6347', }).trigger('alwaysOn.maphilight');
@@ -703,7 +705,7 @@ var saveUpdateFloor = function () {
                     }
                 }
             }
-            //resetcords();
+            $("#hdnFloorCords").val("");
             $("#divLoader").hide();
         }
     });
