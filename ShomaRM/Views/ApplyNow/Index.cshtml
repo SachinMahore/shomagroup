@@ -53,12 +53,12 @@
                             <li id="li8"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(8,8,0)">b. Responsibility</a></li>
                             <li id="li9"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(9,9,0)">c. Personal Info</a></li>
                             <li id="li10"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(10,10,0)">d. Residence History</a></li>
-                            <li id="li11"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(11,11,0)">e. Employment and Income</a></li>
-                            <li id="li12"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(12,12,0)">f. Emergency Contacts </a></li>
+                            <li id="li11"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(11,11,0)">e. Employment & Income</a></li>
+                            <li id="li12"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(12,12,0)">f. Emergency Contact</a></li>
                             <li id="li13"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(13,13,0)">g. Vehicle Info</a></li>
                             <li id="li14"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(14,14,0)">h. Pet Info</a></li>
-                            <li id="li15"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(15,15,0)">i. Payment </a></li>
-                            <li id="li16"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(16,16,0)">j. Lease </a></li>
+                            <li id="li15"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(15,15,0)">i. Summary </a></li>
+                            <li id="li16"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(16,16,0)">j. Payment </a></li>
                         </ul>
                     </div>
                     <div class="tab-content">
@@ -2314,6 +2314,223 @@
                     </div>
                    
                     <div class="hidden" id="step15">
+                        <div class="row p-b-15  ">
+                            <div class="col-md-12">
+                                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Summary of Application</h3>
+
+                                    </div>
+
+                                </div>
+                                    <div class="col-md-12">
+                                        <p>
+                                            <div class="panel-group" id="accordion">
+                                                <div class="panel panel-default accordian-border-group">
+                                                    <div class="panel-heading accordian-border">
+                                                        <h3 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Applicants<i class="fa fa-angle-down pull-right"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapse1" class="panel-collapse collapse">
+                                                        <div class="panel panel-default ">
+                                                            <div class="panel-heading " id="">
+                                                                <table id="tblApplicant15" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Applicant Name</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Type</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Gender</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Email</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Phone</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Date of Birth</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Action</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody></tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default accordian-border-group">
+                                                    <div class="panel-heading accordian-border">
+                                                        <h3 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Responsibility<i class="fa fa-angle-down pull-right"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapse2" class="panel-collapse collapse">
+                                                        <div class="panel panel-default ">
+                                                            <div class="panel-heading " id="">
+                                                                <table id="tblRespo15" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Applicant Name</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Type</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Move In%</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Move In Charges</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Monthly %</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Monthly Charges</th>
+
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody></tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default accordian-border-group">
+                                                    <div class="panel-heading accordian-border">
+                                                        <h3 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Personal Information<i class="fa fa-angle-down pull-right"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapse3" class="panel-collapse collapse">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading" id="">
+                                                                <table class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                                    <tr><td><b>APPLICANT:</b></td><td><a href="javascript:void(0);" onclick="goToStep(9,9,0)">&nbsp;&nbsp;EDIT</a></td></tr>
+                                                                    <tr><td>Name</td><td><span id="summName"></span></td><td>Date of Birth</td><td><span id="summDob"></span></td></tr>
+                                                                  
+                                                                    <tr><td>SSN#</td><td><span id="summSSN"></span></td><td>Driver’s License</td><td><span id="summDriverL"></span></td></tr>
+                                                                    <tr><td>Email ID</td><td><span id="summEmail"></span></td><td>Phone</td><td><span id="summPhone"></span></td></tr>
+                                                                    <tr><td>Gender</td><td><span id="summGender"></span></td></tr>
+                                                                    <tr></tr>
+                                                                   
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default accordian-border-group">
+                                                    <div class="panel-heading accordian-border">
+                                                        <h3 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Residence History<i class="fa fa-angle-down pull-right"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapse4" class="panel-collapse collapse">
+                                                        <div class="panel panel-default ">
+                                                            <div class="panel-heading " id="">
+                                                                <table class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                                    <tbody>
+                                                                        <tr><td style='width: 195px;'><b>RESIDENCE HISTORY:</b></td><td><a href="javascript:void(0);" onclick="goToStep(10,10,0)">&nbsp;&nbsp;EDIT</a></td></tr>
+                                                                        <tr><td style='width: 195px;'>Current Address</td><td><span id="summCuAdd"></span></td></tr>
+                                                                    <tbody></tbody>
+
+</table>
+                                                                <table id="prevadd" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%"><tbody></tbody></table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default accordian-border-group">
+                                                    <div class="panel-heading accordian-border">
+                                                        <h3 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Employment & Income<i class="fa fa-angle-down pull-right"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapse5" class="panel-collapse collapse">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading" id="" style="background-color:transparent">
+                                                                <table class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                                    
+                                                                    <tr><td style='width: 195px;'><b>EMPLOYMENT HISTORY:</b></td><td><a href="javascript:void(0);" onclick="goToStep(11,11,0)">&nbsp;&nbsp;EDIT</a></td></tr>
+                                                                    <tr><td style='width: 195px;'>Current Employer</td><td><span id="summEmployer"></span></td></tr>
+                                                                    <tr><td>Start Date</td><td><span id="summEstartdate"></span></td></tr>
+                                                                    <tr><td>Annual Salary</td><td><span id="summSalary"></span></td></tr>
+                                   
+                                                                </table>
+                                                                <table id="prevEmphistr" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%"><tbody></tbody></table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default accordian-border-group">
+                                                    <div class="panel-heading accordian-border">
+                                                        <h3 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Emergency Contact<i class="fa fa-angle-down pull-right"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapse6" class="panel-collapse collapse">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading" id="" style="background-color:transparent"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default accordian-border-group">
+                                                    <div class="panel-heading accordian-border">
+                                                        <h3 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Vehicle Information<i class="fa fa-angle-down pull-right"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapse7" class="panel-collapse collapse">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading" id="" style="background-color:transparent">
+                                                                <table id="tblVehicle15" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Owner Name</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Vehicle Make</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Model</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Year</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Color</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">License Plate</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Action</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody></tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default accordian-border-group">
+                                                    <div class="panel-heading accordian-border">
+                                                        <h3 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Pet Information<i class="fa fa-angle-down pull-right"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapse8" class="panel-collapse collapse">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading" id="" style="background-color:transparent">
+                                                                <table id="tblPet15" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Photo</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Pet Name</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Breed</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Weight</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Vet's Name</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Action</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody></tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </p>
+                                    </div>
+                                 
+
+                            </div>
+
+
+                            <div class="col-sm-12">
+                                <div class="pull-left text-center">
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(14,14,0)"> Back</button>
+                                </div>
+                                <div class="pull-right text-center">
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(16,16,0)"> Continue</button>
+                                </div>
+                            </div>
+                        </div>
+                      
+                    </div>
+                    <div class="hidden" id="step16">
                         <div class="row">
                             <div class="col-md-12 clear">
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
@@ -2507,7 +2724,59 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hidden" id="step16">
+                  
+                    <div class="hidden" id="step17">
+
+                        <div class="row p-b-15">
+
+                            <div class="col-sm-12">
+                                <p><center><b>CONGRATULATIONS!!</b> You have completed your Online Application.</center></p>
+                                <h5> <center> What Next?</center></h5>
+                                <p>
+                                    Your Application has been saved waiting for Co-Applicant(s) to complete their application. Once all adult
+                                    tenants and guarantor (if applicable) have completed the application, the application is ready to be submitted.
+                                    Once we receive the completed application, we will notify you within 24 to 48 hours of the result. Once approved,
+                                    you will be directed to finalize your online lease and be given Move in procedures.
+                                </p>
+                                <div class="col-md-12 clear">
+                                    <div id="tblApplicantFinal" class="proerty-th">
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="col-sm-12 table-bordered" id="divFinalcoappemail">
+                                <div>
+                                    <h5> <center> Now?</center></h5>
+                                    <p>
+                                        <center>Do you want to email the Application to your Co-Applicant(s)?</center>
+                                    </p>
+                                    <table width="100%" id="tblEmailCoapplicant" style="text-align:center">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align:center">Co-Applicant Name</th>
+                                                <th style="text-align:center">Email ID</th>
+                                                <th style="text-align:center">Send Email</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+
+                                </div>
+                                <center><button type="submit" class="btn btn-primary hidden" id="btnsendemail" onclick="sendCoappEmail(15,15)"> Send Email</button></center>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="pull-left text-center">
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(15,15,0)"> Back</button>
+                                </div>
+                                <div class="pull-right text-center">
+                                    <button type="submit" id="btnC2Tenant" class="btn btn-primary" onclick="cancel()">Submit Application</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hidden" id="step18">
                         <input type="hidden" id="hndANID" value="0" />
                         <div class="row p-b-15">
                             <div class="col-md-12 clear">
@@ -2618,56 +2887,6 @@
                                 </div>
                                 <div class="pull-right text-center">
                                     <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(17,17,0)"> Continue</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hidden" id="step17">
-
-                        <div class="row p-b-15">
-
-                            <div class="col-sm-12">
-                                <p><center><b>CONGRATULATIONS!!</b> You have completed your Online Application.</center></p>
-                                <h5> <center> What Next?</center></h5>
-                                <p>
-                                    Your Application has been saved waiting for Co-Applicant(s) to complete their application. Once all adult
-                                    tenants and guarantor (if applicable) have completed the application, the application is ready to be submitted.
-                                    Once we receive the completed application, we will notify you within 24 to 48 hours of the result. Once approved,
-                                    you will be directed to finalize your online lease and be given Move in procedures.
-                                </p>
-                                <div class="col-md-12 clear">
-                                    <div id="tblApplicantFinal" class="proerty-th">
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            <div class="col-sm-12 table-bordered" id="divFinalcoappemail">
-                                <div>
-                                    <h5> <center> Now?</center></h5>
-                                    <p>
-                                        <center>Do you want to email the Application to your Co-Applicant(s)?</center>
-                                    </p>
-                                    <table width="100%" id="tblEmailCoapplicant" style="text-align:center">
-                                        <thead>
-                                            <tr>
-                                                <th style="text-align:center">Co-Applicant Name</th>
-                                                <th style="text-align:center">Email ID</th>
-                                                <th style="text-align:center">Send Email</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
-
-                                </div>
-                                <center><button type="submit" class="btn btn-primary hidden" id="btnsendemail" onclick="sendCoappEmail(15,15)"> Send Email</button></center>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(15,15,0)"> Back</button>
-                                </div>
-                                <div class="pull-right text-center">
-                                    <button type="submit" id="btnC2Tenant" class="btn btn-primary" onclick="cancel()">Submit Application</button>
                                 </div>
                             </div>
                         </div>
@@ -3900,24 +4119,7 @@
 
                             <p style="font-size:medium; color:#838383;">“You have completed your online application.  The next step is to submit payment and the application; however, we strongly recommend that you please review your application and ensure all the information is correct before submitting payment and the application.  Once you submit your application, the payment is non-refundable and corrections are no longer available.  Kindly confirm below you have reviewed your application and are ready to submit it.</p>
                              <p style="font-size:small;">
-                               <table>
-                                   <tr><td><b>APPLICANT:</b></td><td><a href="javascript:void(0);" onclick="goToStep(9,9,0)">&nbsp;&nbsp;EDIT</a></td></tr>
-                                   <tr><td>Name</td><td><span id="summName"></span></td></tr>
-                                   <tr><td>Date of Birth</td><td><span id="summDob"></span></td></tr>
-                                   <tr><td>SSN#</td><td><span id="summSSN"></span></td></tr>
-                                   <tr><td>Phone</td><td><span id="summPhone"></span></td></tr>
-                                   <tr><td>Gender</td><td><span id="summGender"></span></td></tr>
-                                   <tr><td>Driver’s License</td><td><span id="summDriverL"></span></td></tr>
-                                   <tr><td><b>RESIDENTIAL HISTORY:</b></td><td><a href="javascript:void(0);" onclick="goToStep(10,10,0)">&nbsp;&nbsp;EDIT</a></td></tr>
-                                   <tr><td>Current Address</td><td><span id="summCuAdd"></span></td></tr>
-                                  
-                                   <tr><td colspan="2"><table id="prevadd"><tbody></tbody></table></td></tr>
-                                   <tr><td><b>EMPLOYMENT HISTORY:</b></td><td><a href="javascript:void(0);" onclick="goToStep(11,11,0)">&nbsp;&nbsp;EDIT</a></td></tr>
-                                   <tr><td>Current Employer</td><td><span id="summEmployer"></span></td></tr>
-                                   <tr><td>Start Date</td><td><span id="summEstartdate"></span></td></tr>
-                                   <tr><td>Annual Salary</td><td><span id="summSalary"></span></td></tr>
-                                   <tr><td colspan="2"><table id="prevEmphistr"><tbody></tbody></table></td></tr>
-                               </table>
+                              
                             </p>
                                 <p style="font-size:medium; color:#838383;">I CERTIFY THAT I HAVE REVIEWED THE ABOVE INFORMATION, AND IT IS TRUE AND CORRECT.</p>
                         </td>
