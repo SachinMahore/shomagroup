@@ -4383,6 +4383,8 @@ var getApplicantLists = function () {
         success: function (response) {
 
             $("#tblApplicant").empty();
+            $("#tblApplicant15>tbody").empty();
+            $("#tblRespo15>tbody").empty();
             $("#tblApplicantFinal").empty();
             $("#tblApplicantMinor").empty();
             $("#tblApplicantGuarantor").empty();
@@ -4482,6 +4484,33 @@ var getApplicantLists = function () {
                     $("#tblApplicant").append(html);
                     $("#tblApplicantFinal").append(html);
                 }
+
+                var html15 = "<tr id='tr_" + elementValue.ApplicantID + "' data-value='" + elementValue.ApplicantID + "'>";
+            
+                html15 += "<td>" + elementValue.FirstName + " " + elementValue.LastName + "</td>";
+                html15 += "<td>" + elementValue.Type + "</td>";
+                html15 += "<td>" + elementValue.GenderString + "</td>";
+                html15 += "<td>" + elementValue.Email + "</td>"; 
+                html15 += "<td>" + elementValue.Phone + "</td>";
+                html15 += "<td>" + elementValue.DateOfBirthTxt + "</td>";    
+                html15 += "<td>";
+                html15 += "<a style='background: transparent; margin-right:10px' href='javascript:void(0);' id='' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-edit' ></span></a>";
+                html15 += "<a style='background: transparent; margin-right:10px' href='javascript:void(0);' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a>";            
+                html15 += "</td >";
+                html15 += "</tr>";               
+                $("#tblApplicant15>tbody").append(html15);
+
+                var htmlResp15 = "<tr id='tr_" + elementValue.ApplicantID + "' data-value='" + elementValue.ApplicantID + "'>";
+                htmlResp15 += "<td>" + elementValue.FirstName + " " + elementValue.LastName + "</td>";
+                htmlResp15 += "<td>" + elementValue.Type + "</td>";
+                htmlResp15 += "<td>" + elementValue.MoveInPercentage + "</td>";
+                htmlResp15 += "<td>" + parseFloat(elementValue.MoveInCharge).toFixed(2)+ "</td>";
+                htmlResp15 += "<td>" + elementValue.MonthlyPercentage + "</td>";
+                htmlResp15 += "<td>" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "</td>";              
+                htmlResp15 += "</tr>";
+
+                $("#tblRespo15>tbody").append(htmlResp15);
+
                 $("#tblResponsibilityPay>tbody").append(prhtml);
                 $("#tblPayment>tbody").append(pprhtml);
                 $("#tblEmailCoapplicant>tbody").append(emailhtml);
@@ -4913,6 +4942,7 @@ var getPetLists = function () {
         success: function (response) {
             $("#divLoader").hide();
             $("#tblPet>tbody").empty();
+            $("#tblPet15>tbody").empty();
             $.each(response.model, function (elementType, elementValue) {
                 var html = "<tr id='tr_" + elementValue.PetID + "' data-value='" + elementValue.PetID + "'>";
                 html += "<td align='center'><img src='/content/assets/img/pet/" + elementValue.Photo + "' class='picture-src' title='' style='height:70px;width:70px;'/></td>";
@@ -4928,6 +4958,7 @@ var getPetLists = function () {
                 html += "</td >";
                 html += "</tr>";
                 $("#tblPet>tbody").append(html);
+                $("#tblPet15>tbody").append(html);
                 if (response.model.length == 2)
                 {
                     petIdd = elementValue.PetID;
@@ -5096,6 +5127,7 @@ var getVehicleLists = function () {
         success: function (response) {
             $("#divLoader").hide();
             $("#tblVehicle>tbody").empty();
+            $("#tblVehicle15>tbody").empty();
             $.each(response.model, function (elementType, elementValue) {
                 var html = "<tr id='tr_" + elementValue.Vehicle_ID + "' data-value='" + elementValue.Vehicle_ID + "'>";
                 html += "<td>" + elementValue.OwnerName + "</td>";
@@ -5109,7 +5141,7 @@ var getVehicleLists = function () {
 
                 html += "</tr>";
                 $("#tblVehicle>tbody").append(html);
-
+                $("#tblVehicle15>tbody").append(html);
             });
 
         }
@@ -6101,7 +6133,7 @@ var getApplicantHistoryList = function () {
                 html += "<a style='background: transparent;' href='JavaScript:Void(0)' onclick='delApplicantHistory(" + elementValue.AHID + ")'><span class='fa fa-trash' ></span></a></td>";
                 html += "</tr>";
 
-                var summAdd = "<tr><td style='width: 175px;'>Previous Address </td><td>" + elementValue.HomeAddress1 + ", " + elementValue.HomeAddress2 + ", " + elementValue.CityHome + ", " + elementValue.StateHomeTxt + " -" + elementValue.ZipHome + "</td></tr>";
+                var summAdd = "<tr><td style='width: 195px;'>Previous Address </td><td>" + elementValue.HomeAddress1 + ", " + elementValue.HomeAddress2 + ", " + elementValue.CityHome + ", " + elementValue.StateHomeTxt + " -" + elementValue.ZipHome + "</td></tr>";
                 $("#tblAHR>tbody").append(html);
                 $("#prevadd>tbody").append(summAdd);
             });
@@ -7426,7 +7458,7 @@ var getEmployerHistory = function () {
         success: function (response) {
             $("#divLoader").hide();
             $("#tblHEI>tbody").empty();
-
+            $("#prevEmphistr>tbody").empty();
             $.each(response.model, function (elementType, elementValue) {
                 var html = "<tr data-value=" + elementValue.HEIID + ">";
                 html += "<td>" + elementValue.EmployerName + "</td>";
@@ -7440,6 +7472,10 @@ var getEmployerHistory = function () {
                 html += "<td class='text-center'><a class='fa fa-edit' style='background:transparent; margin-right:10px;' href='javascript:void(0)' onclick='editEmployerHistory(" + elementValue.HEIID + ")'></a><a class='fa fa-trash'  href='javascript:void(0)' onclick='delEmployerHistory(" + elementValue.HEIID + ")'></a></td>";
                 html += "</tr>";
                 $("#tblHEI>tbody").append(html);
+
+                var summAdd = "<tr><td style='width: 195px;'>Previous Employer </td><td>" + elementValue.EmployerName + ", " + elementValue.JobTitle + ", " + elementValue.City + ", " + elementValue.StateName + " -" +  + "</td></tr>";
+              
+                $("#prevEmphistr>tbody").append(summAdd);
             });
         }
     });
