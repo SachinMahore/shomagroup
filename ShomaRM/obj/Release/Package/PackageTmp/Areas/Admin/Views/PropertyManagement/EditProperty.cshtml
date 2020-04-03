@@ -7,7 +7,7 @@
 <input type="hidden" id="hndPID" value="@Model.PID" />
 <input type="hidden" id="hdnCurrentPage_PU" value="1" />
 <input type="hidden" id="hdnFloorPlan" value="" />
-
+<input type="hidden" id="hdnFloorCords" value="" />
 <!-- property area -->
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
@@ -312,6 +312,8 @@
                                         </div>
                                         <div class="pull-left">
                                             <button class='btn btn-danger' onclick="resetcords()">Reset</button>
+                                            <button class='btn btn-success' onclick="viewcords()">View</button>
+                                            <button class='btn btn-success' onclick="restorecords()">Restore</button>
                                         </div>
                                         <div class="pull-right">
                                            
@@ -549,12 +551,37 @@
             });
             return;
         }
-
         $("#txtcord").remove();
         var cordd = "  <textarea class='form-control'id='txtcord'></textarea>";
         $("#divCord").append(cordd);
         $("#fa_" + $("#ddlFloorList").val()).attr("coords", "");
+        $("#fa_" + $("#ddlFloorList").val()).removeClass('active_mouse').data('maphilight', { alwaysOn: false }).trigger('alwaysOn.maphilight');
+    }
 
+    var viewcords = function () {
+        if ($("#txtcord").val()) {
+            $("#fa_" + $("#ddlFloorList").val()).removeClass('active_mouse').data('maphilight', { alwaysOn: false }).trigger('alwaysOn.maphilight');
+            $("#fa_" + $("#ddlFloorList").val()).attr("coords", $("#txtcord").val());
+            $("#fa_" + $("#ddlFloorList").val()).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: 'FF6347', strokeColor: 'FF6347', }).trigger('alwaysOn.maphilight');
+        } else {
+            $.alert({
+                title: 'Alert!',
+                content: "Select co-ordinates to view",
+                type: 'red'
+            });
+            return;
+        }
+    }
+
+    var restorecords = function () {
+        if (($("#hdnFloorCords").val().trim())) {
+            $("#txtcord").remove();
+            var cordd = "  <textarea class='form-control'id='txtcord'></textarea>";
+            $("#divCord").append(cordd);
+            $("#fa_" + $("#ddlFloorList").val()).attr("coords", $("#hdnFloorCords").val());
+            $("#fa_" + $("#ddlFloorList").val()).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: 'FF6347', strokeColor: 'FF6347', }).trigger('alwaysOn.maphilight');
+            $("#txtcord").val($("#hdnFloorCords").val());
+        }
     }
 
     var getCord = function (e, cont) {
