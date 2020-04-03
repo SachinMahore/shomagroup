@@ -4508,12 +4508,12 @@ var getApplicantLists = function () {
                 $("#tblApplicant15p>tbody").append(html15);
 
                 var htmlResp15 = "<tr id='tr_" + elementValue.ApplicantID + "' data-value='" + elementValue.ApplicantID + "'>";
-                htmlResp15 += "<td>" + elementValue.FirstName + " " + elementValue.LastName + "</td>";
-                htmlResp15 += "<td>" + elementValue.Type + "</td>";
-                htmlResp15 += "<td>" + elementValue.MoveInPercentage + "%</td>";
-                htmlResp15 += "<td>" + parseFloat(elementValue.MoveInCharge).toFixed(2)+ "</td>";
-                htmlResp15 += "<td>" + elementValue.MonthlyPercentage + "%</td>";
-                htmlResp15 += "<td>" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "</td>";              
+                htmlResp15 += "<td> " + elementValue.FirstName + " " + elementValue.LastName + "</td>";
+                htmlResp15 += "<td> " + elementValue.Type + "</td>";
+                htmlResp15 += "<td> " + elementValue.MoveInPercentage + "%</td>";
+                htmlResp15 += "<td> $" + formatMoney(elementValue.MoveInCharge)+ "</td>";
+                htmlResp15 += "<td> " + elementValue.MonthlyPercentage + "%</td>";
+                htmlResp15 += "<td> $" + formatMoney(elementValue.MonthlyPayment)+ "</td>";              
                 htmlResp15 += "</tr>";
                 $("#tblRespo15>tbody").append(htmlResp15);
                 $("#tblRespo15p>tbody").append(htmlResp15);
