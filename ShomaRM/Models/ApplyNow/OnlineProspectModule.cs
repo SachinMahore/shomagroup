@@ -139,6 +139,37 @@ namespace ShomaRM.Models
                     Uid = loginDet.UserID;
                 }
 
+
+                var user = db.tbl_Login.Where(p => p.Email == model.Email).FirstOrDefault();
+
+                SignIn(model.Email, false);
+                // Set Current User
+                var currUser = new CurrentUser();
+                currUser.UserID = user.UserID;
+                currUser.Username = user.Username;
+                currUser.FullName = user.FirstName + " " + user.LastName;
+                currUser.EmailAddress = user.Email;
+                currUser.IsAdmin = (user.IsSuperUser.HasValue ? user.IsSuperUser.Value : 0);
+                currUser.EmailAddress = user.Email;
+                currUser.UserType = Convert.ToInt32(user.UserType == null ? 0 : user.UserType);
+                currUser.LoggedInUser = user.FirstName;
+                currUser.TenantID = user.TenantID == 0 ? 0 : Convert.ToInt64(user.TenantID);
+                currUser.UserType = Convert.ToInt32((user.UserType).ToString());
+
+                (new ShomaGroupWebSession()).SetWebSession(currUser);
+                // Store the Log.
+                var loginHistory = new tbl_LoginHistory
+                {
+                    UserID = user.UserID,
+                    IPAddress = HttpContext.Current.Request.UserHostAddress,
+                    PageName = "Home",
+                    LoginDateTime = DateTime.Now,
+                    SessionID = HttpContext.Current.Session.SessionID.ToString()
+                };
+
+                db.tbl_LoginHistory.Add(loginHistory);
+                db.SaveChanges();
+
                 var saveOnlineProspect = new tbl_ApplyNow()
                 {
                     PropertyId = model.PropertyId,
@@ -160,7 +191,7 @@ namespace ShomaRM.Models
                     UserId = Uid,
                     MoveInDate = model.MoveInDate,
                     LeaseTerm = model.LeaseTerm,
-                    StepCompleted=4
+                    StepCompleted = 4
                 };
 
                 db.tbl_ApplyNow.Add(saveOnlineProspect);
@@ -177,9 +208,9 @@ namespace ShomaRM.Models
                     Email = model.Email,
                     //DateOfBirth = model.DateofBirth,
                     Gender = 0,
-                    Relationship="1",
+                    Relationship = "1",
                     Type = "Primary Applicant",
-                    
+
 
                 };
                 db.tbl_Applicant.Add(saveApplicant);
@@ -210,7 +241,7 @@ namespace ShomaRM.Models
                 db.tbl_TenantOnline.Add(getAppldata);
                 db.SaveChanges();
 
-                
+
 
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == model.PropertyId).FirstOrDefault();
                 string reportHTML = "";
@@ -244,6 +275,8 @@ namespace ShomaRM.Models
                     new TwilioService().SMS(phonenumber, message);
                 }
 
+
+
             }
             msg = model.ID.ToString() + "|Online Prospect Save Successfully|" + Uid;
 
@@ -252,6 +285,10 @@ namespace ShomaRM.Models
             (new ShomaGroupWebSession()).SetWebSession(currentUser);
             db.Dispose();
             return msg;
+        }
+        public void SignIn(string userName, bool rememberMe)
+        {
+            System.Web.Security.FormsAuthentication.SetAuthCookie(userName, rememberMe);
         }
         public string UpdateOnlineProspect(OnlineProspectModule model)
         {
