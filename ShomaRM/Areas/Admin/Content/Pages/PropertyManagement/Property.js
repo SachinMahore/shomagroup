@@ -17,6 +17,7 @@
         var cordd = "  <textarea class='form-control'id='txtcord'></textarea>";
         $("#divCord").append(cordd);
         $("#fileUploadFloorDetailsShow1").html("Choose a file...");
+        $("#hdnFloorCords").val("");
         if ($("#ddlFloorList").val() != 0) {
             for (var i = 1; i <= noffloor; i++) {
                 if ($("#fa_" + i).length) {
@@ -29,10 +30,11 @@
             if ($("#fa_" + cont).length) {
                 $("#fa_" + cont).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: 'FF6347', strokeColor: 'FF6347', }).trigger('alwaysOn.maphilight');
                 $("#txtcord").text($("#fa_" + cont).attr("coords"));
+                var cordsdefault = $("#fa_" + cont).attr("coords");
+                $("#hdnFloorCords").val(cordsdefault);
             }
             $("#hdnFloorPlan").val($("#fa_" + cont).data("floorplan"));
             $("#fileUploadFloorDetailsShow1").text($("#fa_" + cont).data("floorplan"));
-            
         }
         else {
             $(this).addClass('active_mouse').data('maphilight', { alwaysOn: true, fillColor: 'FF6347', strokeColor: 'FF6347', }).trigger('alwaysOn.maphilight');
@@ -158,7 +160,8 @@ var buildPaganationPUList = function (pagenumber, sortby, orderby) {
         success: function (response) {
             
             if ($.trim(response.error) !== "") {
-
+                //Do nothing
+                var dn = "1";
             } else {
                 $('#ulPagination_PUList').pagination('updateItems', response.NOP);
                 $('#ulPagination_PUList').pagination('selectPage', 1);
@@ -200,7 +203,7 @@ var fillPUList = function (pagenumber, sortby, orderby) {
                     html += "<td style='width:5%;'><a href = 'javascript:void(0)' onclick='goToStep(6," + value.UID + ")'> " + value.UnitNo + "</a></td>";
                     html += "<td style='width:4%;'>" + value.Building + "</td>";
 
-                    html += "<td style='width:6%;cursor:pointer!important;' id='avUnitRent_" + value.UID + "' onclick='editUnitRent(" + value.UID + ")' data-udate='" + value.Current_Rent + "'> " + formatMoney(parseFloat(value.Current_Rent).toFixed(2)) + " <i class='fa fa-edit  pull-right' style='margin: 6px;'></i> </td>";
+                    html += "<td style='width:6%;cursor:pointer!important;' id='avUnitRent_" + value.UID + "' onclick='editUnitRent(" + value.UID + ")' data-udate='" + value.Current_Rent + "' data-ulrid='" + value.ULRID+"'> " + formatMoney(parseFloat(value.Current_Rent).toFixed(2)) + " <i class='fa fa-edit  pull-right' style='margin: 6px;'></i> </td>";
                     html += "<td style='width:2%;'>" + value.Bathroom + "</td>";
                     html += "<td style='width:2%;'>" + value.Bedroom + "</td>";
                     html += "<td style='width:6%;'>" + value.InteriorArea + "</td>";
@@ -702,7 +705,7 @@ var saveUpdateFloor = function () {
                     }
                 }
             }
-            //resetcords();
+            $("#hdnFloorCords").val("");
             $("#divLoader").hide();
         }
     });
@@ -1511,18 +1514,21 @@ var editUnitRent = function (uid) {
 
     $("#avUnitRent_" + uid).removeAttr("onclick");
     var unitDate = $("#avUnitRent_" + uid).attr("data-udate");
+    var ulrid = $("#avUnitRent_" + uid).attr("data-ulrid");
     $("#avUnitRent_" + uid).empty();
 
-    $("#avUnitRent_" + uid).append("<input class='form-control' type='text' id='editURent_" + uid + "'  value='" + unitDate + "'/>");
+    $("#avUnitRent_" + uid).append("<input class='form-control' type='text' id='editURent_" + uid + "'  value='" + unitDate + "' data-ulrid='" + ulrid+"'/>");
     $("#editURent_" + uid).focusout(function (e) {
-        var availDate = $("#editURent_" + uid).val();
+        var uulrid = $("#editURent_" + uid).attr("data-ulrid");
+        var currentRent = $("#editURent_" + uid).val();
         // alert(availDate);
         var pID = $("#hndPID").val();
 
         var model = {
             PID: pID,
             UID: uid,
-            Current_Rent: availDate
+            Current_Rent: currentRent,
+            ULRID: uulrid
         };
 
         $.ajax({
@@ -1532,8 +1538,9 @@ var editUnitRent = function (uid) {
             data: JSON.stringify(model),
             dataType: "JSON",
             success: function (response) {
-                $("#avUnitRent_" + uid).empty().append(availDate + " <i class='fa fa-edit pull-right' style='margin: 6px;'></i>");
-                $("#avUnitRent_" + uid).attr("data-udate", availDate);
+                $("#avUnitRent_" + uid).empty().append(currentRent + " <i class='fa fa-edit pull-right' style='margin: 6px;'></i>");
+                $("#avUnitRent_" + uid).attr("data-udate", currentRent);
+                $("#avUnitRent_" + uid).attr("data-ulrid", uulrid);
                 $("#avUnitRent_" + uid).attr("onclick", "editUnitRent(" + uid + ")");
             }
         });

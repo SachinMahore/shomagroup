@@ -251,7 +251,7 @@ namespace ShomaRM.Models
 
 
         }
-        public List<PropertyUnits> GetPropertyModelList(long PID, DateTime AvailableDate, decimal Current_Rent, int Bedroom)
+        public List<PropertyUnits> GetPropertyModelList(long PID, DateTime AvailableDate, decimal Current_Rent, int Bedroom, int SortOrder)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<PropertyUnits> lstUnitProp = new List<PropertyUnits>();
@@ -286,6 +286,11 @@ namespace ShomaRM.Models
                     paramB.ParameterName = "Bedroom";
                     paramB.Value = Bedroom;
                     cmd.Parameters.Add(paramB);
+
+                    DbParameter paramSO = cmd.CreateParameter();
+                    paramSO.ParameterName = "SortOrder";
+                    paramSO.Value = SortOrder;
+                    cmd.Parameters.Add(paramSO);
 
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();

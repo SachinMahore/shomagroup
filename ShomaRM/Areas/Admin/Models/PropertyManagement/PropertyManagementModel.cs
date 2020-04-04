@@ -458,6 +458,7 @@ namespace ShomaRM.Areas.Admin.Models
                     searchmodel.UnitNo = dr["UnitNo"].ToString();
                     searchmodel.FloorNoText = dr["FloorNoText"].ToString();
                     searchmodel.Current_Rent = Convert.ToDecimal(dr["Current_Rent"].ToString());
+                    searchmodel.ULRID = Convert.ToInt64(dr["ULRID"].ToString());
                     searchmodel.Bathroom = Convert.ToInt32(dr["Bathroom"].ToString());
                     searchmodel.Bedroom = Convert.ToInt32(dr["Bedroom"].ToString());
                     searchmodel.Building = dr["Building"].ToString();
@@ -663,6 +664,7 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<int> FloorNo { get; set; }
         public string FloorNoText { get; set; }
         public decimal Current_Rent { get; set; }
+        public long ULRID { get; set; }
         public decimal Previous_Rent { get; set; }
         public decimal Market_Rent { get; set; }
         public decimal Deposit { get; set; }
@@ -1071,18 +1073,53 @@ namespace ShomaRM.Areas.Admin.Models
         }
         public long UpdateRent(PropertyUnits model)
         {
+            //string msg = "";
+            //ShomaRMEntities db = new ShomaRMEntities();
+            //if (model.UID != 0)
+            //{
+            //    var propUnitUpdate = db.tbl_PropertyUnits.Where(p => p.UID == model.UID).FirstOrDefault();
+            //    if (propUnitUpdate != null)
+            //    {
+            //        propUnitUpdate.Current_Rent = model.Current_Rent;
+            //    }
+            //    db.SaveChanges();
+            //    msg = "Property Unit Details Updated Successfully";
+            //}
+            //else
+            //{
+
+            //}
+            //return model.UID;
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
-            if (model.UID != 0)
+            if (model.ULRID != 0)
             {
-                var propUnitUpdate = db.tbl_PropertyUnits.Where(p => p.UID == model.UID).FirstOrDefault();
-                if (propUnitUpdate != null)
+                var propUnitLeaseUpdate = db.tbl_UnitLeasePrice.Where(p => p.ULPID == model.ULRID).FirstOrDefault();
+                if (propUnitLeaseUpdate != null)
                 {
-                    propUnitUpdate.Current_Rent = model.Current_Rent;
+                    propUnitLeaseUpdate.Price    = model.Current_Rent;
+                    db.SaveChanges();
+                    msg = "Property Unit Details Updated Successfully";
                 }
-                db.SaveChanges();
-                msg = "Property Unit Details Updated Successfully";
             }
+            else
+            {
+                var leaseTerm = db.tbl_LeaseTerms.ToList();
+                foreach(var lt in leaseTerm)
+                {
+                    var saveULP = new tbl_UnitLeasePrice()
+                    {
+                        LeaseID=lt.LTID,
+                        UnitID=model.UID,
+                        Price=model.Current_Rent,
+                        Deposit=0
+                    };
+                    db.tbl_UnitLeasePrice.Add(saveULP);
+                    db.SaveChanges();
+                }
+
+            }
+            db.Dispose();
             return model.UID;
         }
         public long UpdateUnitNotes(PropertyUnits model)
