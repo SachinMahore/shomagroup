@@ -10,13 +10,42 @@
     fillStateDDL();
     fillStateDDL1();
     //getPremiumTypeList();
-    $("#ddlState").on('change', function (evt, params) {
-        var selected = $(this).val();
-        if (selected != null) {
-            fillCityList(selected);
+    $("#ddlFloorList").on('change', function (evt, params) {
+        var noffloor = $("#txtNoOfFloor").val();
+        $("#hdnFloorPlan").val("");
+        $("#txtcord").remove();
+        var cordd = "  <textarea class='form-control'id='txtcord'></textarea>";
+        $("#divCord").append(cordd);
+        $("#fileUploadFloorDetailsShow1").html("Choose a file...");
+        $("#hdnFloorCords").val("");
+        if ($("#ddlFloorList").val() != 0) {
+            for (var i = 1; i <= noffloor; i++) {
+                if ($("#fa_" + i).length) {
+                    {
+                        $("#fa_" + i).removeClass('active_mouse').data('maphilight', { alwaysOn: false }).trigger('alwaysOn.maphilight');
+                    }
+                }
+            }
+            var cont = $("#ddlFloorList").val();
+            if ($("#fa_" + cont).length) {
+                $("#fa_" + cont).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: 'FF6347', strokeColor: 'FF6347', }).trigger('alwaysOn.maphilight');
+                $("#txtcord").text($("#fa_" + cont).attr("coords"));
+                var cordsdefault = $("#fa_" + cont).attr("coords");
+                $("#hdnFloorCords").val(cordsdefault);
+            }
+            $("#hdnFloorPlan").val($("#fa_" + cont).data("floorplan"));
+            $("#fileUploadFloorDetailsShow1").text($("#fa_" + cont).data("floorplan"));
+        }
+        else {
+            $(this).addClass('active_mouse').data('maphilight', { alwaysOn: true, fillColor: 'FF6347', strokeColor: 'FF6347', }).trigger('alwaysOn.maphilight');
         }
     });
-
+    $("#txtCountry").on('change', function (evt, params) {
+        var selected = $(this).val();
+        if (selected != null) {
+            fillStateDDL_Home(selected, 0);
+        }
+    });
     $("#ddlRPP_PUList").on('change', function (evt, params) {
         var selected = $(this).val();
         buildPaganationPUList($("#hdnCurrentPage_PU").val());
@@ -131,7 +160,8 @@ var buildPaganationPUList = function (pagenumber, sortby, orderby) {
         success: function (response) {
             
             if ($.trim(response.error) !== "") {
-
+                //Do nothing
+                var dn = "1";
             } else {
                 $('#ulPagination_PUList').pagination('updateItems', response.NOP);
                 $('#ulPagination_PUList').pagination('selectPage', 1);
@@ -173,7 +203,7 @@ var fillPUList = function (pagenumber, sortby, orderby) {
                     html += "<td style='width:5%;'><a href = 'javascript:void(0)' onclick='goToStep(6," + value.UID + ")'> " + value.UnitNo + "</a></td>";
                     html += "<td style='width:4%;'>" + value.Building + "</td>";
 
-                    html += "<td style='width:6%;cursor:pointer!important;' id='avUnitRent_" + value.UID + "' onclick='editUnitRent(" + value.UID + ")' data-udate='" + value.Current_Rent + "'> " + formatMoney(parseFloat(value.Current_Rent).toFixed(2)) + " <i class='fa fa-edit  pull-right' style='margin: 6px;'></i> </td>";
+                    html += "<td style='width:6%;cursor:pointer!important;' id='avUnitRent_" + value.UID + "' onclick='editUnitRent(" + value.UID + ")' data-udate='" + value.Current_Rent + "' data-ulrid='" + value.ULRID+"'> " + formatMoney(parseFloat(value.Current_Rent).toFixed(2)) + " <i class='fa fa-edit  pull-right' style='margin: 6px;'></i> </td>";
                     html += "<td style='width:2%;'>" + value.Bathroom + "</td>";
                     html += "<td style='width:2%;'>" + value.Bedroom + "</td>";
                     html += "<td style='width:6%;'>" + value.InteriorArea + "</td>";
@@ -376,6 +406,7 @@ function SaveUpdateProperty() {
     var trashFees = unformatText($("#txtTrashFees").val());
     var conversionFees = unformatText($("#txtConversionBill").val());
     var dnaPetFees = unformatText($("#txtDNAPetFee").val());
+    var processingFees = unformatText($("#txtProcessingFee").val());
     var propertyFile = $("#hndFileUploadPropertyPicture").val();
     if (title == "") {
         msg += " Please enter Property Title .<br />";
@@ -423,6 +454,9 @@ function SaveUpdateProperty() {
     if (!dnaPetFees) {
         msg += " Please enter DNA Pet Fees.<br />";
     }
+    if (!processingFees) {
+        msg += " Please enter Processing Fees.<br />";
+    }
     if (msg != "") {
         $("#divLoader").hide();
         $.alert({
@@ -456,6 +490,7 @@ function SaveUpdateProperty() {
     $formData.append('TrashFees', trashFees);
     $formData.append('ConversionBillFees', conversionFees);
     $formData.append('DNAPetFees', dnaPetFees);
+    $formData.append('ProcessingFees', processingFees);
     $formData.append('Picture', propertyFile);
 
     var addAmenity = "";
@@ -600,7 +635,7 @@ var saveUpdateFloor = function () {
     var pid = $("#hndPID").val();
     var floorno = $("#ddlFloorList").val();
     var cord = $("#txtcord").val();
-
+    var filename = $("#hdnFloorPlan").val();
     if (cord == "") {
         msg += " Please enter cordinates .<br />";
     }
@@ -623,21 +658,25 @@ var saveUpdateFloor = function () {
     $formData.append('PID', pid);
     $formData.append('FloorNo', floorno);
     $formData.append('Coordinates', cord);
-
+    $formData.append('FileName', filename);
     var $file = document.getElementById('UnitPlan-picture');
+
+    
 
     if ($file.files.length > 0) {
         for (var i = 0; i < $file.files.length; i++) {
             $formData.append('file-' + i, $file.files[i]);
         }
     } else {
-        $("#divLoader").hide();
-        $.alert({
-            title: 'Alert!',
-            content: "Upload Floor Plan Image",
-            type: 'red'
-        });
-        return;
+        if (!filename) {
+            $("#divLoader").hide();
+            $.alert({
+                title: 'Alert!',
+                content: "Upload Floor Plan Image",
+                type: 'red'
+            });
+            return;
+        }
     }
 
     $.ajax({
@@ -653,7 +692,20 @@ var saveUpdateFloor = function () {
                 content: "Floor Added Successfully",
                 type: 'blue',
             });
-            resetcords();
+            $("#txtcord").remove();
+            var cordd = "  <textarea class='form-control'id='txtcord'></textarea>";
+            $("#divCord").append(cordd);
+            $("#ddlFloorList").val(0);
+            $("#fileUploadFloorDetailsShow1").html("Choose a file...");
+            var noffloor = $("#txtNoOfFloor").val();
+            for (var i = 1; i <= noffloor; i++) {
+                if ($("#fa_" + i).length) {
+                    {
+                        $("#fa_" + i).removeClass('active_mouse').data('maphilight', { alwaysOn: false }).trigger('alwaysOn.maphilight');
+                    }
+                }
+            }
+            $("#hdnFloorCords").val("");
             $("#divLoader").hide();
         }
     });
@@ -1343,6 +1395,14 @@ var onFocusProperty = function () {
         .focus(function () {
             $("#txtConversionBill").val(unformatText($("#txtConversionBill").val()));
         });
+    $("#txtDNAPetFee").focusout(function () { $("#txtDNAPetFee").val(formatMoney($("#txtDNAPetFee").val())); })
+        .focus(function () {
+            $("#txtDNAPetFee").val(unformatText($("#txtDNAPetFee").val()));
+        });
+    $("#txtProcessingFee").focusout(function () { $("#txtProcessingFee").val(formatMoney($("#txtProcessingFee").val())); })
+        .focus(function () {
+            $("#txtProcessingFee").val(unformatText($("#txtProcessingFee").val()));
+        });
 }
 var editUnitDate = function (uid) {
 
@@ -1454,18 +1514,21 @@ var editUnitRent = function (uid) {
 
     $("#avUnitRent_" + uid).removeAttr("onclick");
     var unitDate = $("#avUnitRent_" + uid).attr("data-udate");
+    var ulrid = $("#avUnitRent_" + uid).attr("data-ulrid");
     $("#avUnitRent_" + uid).empty();
 
-    $("#avUnitRent_" + uid).append("<input class='form-control' type='text' id='editURent_" + uid + "'  value='" + unitDate + "'/>");
+    $("#avUnitRent_" + uid).append("<input class='form-control' type='text' id='editURent_" + uid + "'  value='" + unitDate + "' data-ulrid='" + ulrid+"'/>");
     $("#editURent_" + uid).focusout(function (e) {
-        var availDate = $("#editURent_" + uid).val();
+        var uulrid = $("#editURent_" + uid).attr("data-ulrid");
+        var currentRent = $("#editURent_" + uid).val();
         // alert(availDate);
         var pID = $("#hndPID").val();
 
         var model = {
             PID: pID,
             UID: uid,
-            Current_Rent: availDate
+            Current_Rent: currentRent,
+            ULRID: uulrid
         };
 
         $.ajax({
@@ -1475,8 +1538,9 @@ var editUnitRent = function (uid) {
             data: JSON.stringify(model),
             dataType: "JSON",
             success: function (response) {
-                $("#avUnitRent_" + uid).empty().append(availDate + " <i class='fa fa-edit pull-right' style='margin: 6px;'></i>");
-                $("#avUnitRent_" + uid).attr("data-udate", availDate);
+                $("#avUnitRent_" + uid).empty().append(currentRent + " <i class='fa fa-edit pull-right' style='margin: 6px;'></i>");
+                $("#avUnitRent_" + uid).attr("data-udate", currentRent);
+                $("#avUnitRent_" + uid).attr("data-ulrid", uulrid);
                 $("#avUnitRent_" + uid).attr("onclick", "editUnitRent(" + uid + ")");
             }
         });

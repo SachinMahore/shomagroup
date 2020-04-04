@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using ShomaRM.Models;
 using ShomaRM.Data;
 using ShomaRM.Areas.Tenant.Models;
+using System.Data;
 
 namespace ShomaRM.Controllers
 {
@@ -15,15 +16,18 @@ namespace ShomaRM.Controllers
         // GET: /ApplyNow/
         public ActionResult Index(string id)
         {
-            ShomaRMEntities db = new ShomaRMEntities();
-
             if (!string.IsNullOrEmpty(id))
             {
                 ViewBag.PID = Convert.ToInt32(id);
             }
             else
             {
-                return Redirect("/Property");
+                id = "0";
+                return Redirect("/Home");
+            }
+            if (ShomaGroupWebSession.CurrentUser == null && id!="0")
+            {
+                return Redirect("/Account/Login");
             }
 
             var model = new OnlineProspectModule().GetProspectData(Convert.ToInt64(id));
@@ -48,9 +52,18 @@ namespace ShomaRM.Controllers
                 model.MoveInDate = DateTime.Now.AddDays(30);
                 //model.MaxRent = 0;
                 model.FromHome = 0;
-                if(model.LeaseTermID==0)
+                if (model.LeaseTermID == 0)
                 {
-                    model.LeaseTermID = 22;
+                    ShomaRMEntities db = new ShomaRMEntities();
+                    var leaseDet = db.tbl_LeaseTerms.Where(p => p.LeaseTerms == 12).FirstOrDefault();
+                    if (leaseDet != null)
+                    {
+                        model.LeaseTermID = leaseDet.LTID;
+                    }
+                    else
+                    {
+                        model.LeaseTermID = 0;
+                    }
                 }
                
             }
@@ -781,6 +794,17 @@ namespace ShomaRM.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
             
+        }
+        public ActionResult SaveUpdateOnlineProspect(OnlineProspectModule model)
+        {
+            try
+            {
+                return Json(new { msg = (new OnlineProspectModule().SaveUpdateOnlineProspect(model)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

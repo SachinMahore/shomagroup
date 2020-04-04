@@ -145,11 +145,11 @@ namespace ShomaRM.Controllers
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult GetPropertyFloorDetails(int FloorID, DateTime AvailableDate, int Bedroom, decimal MaxRent, int LeaseTermID)
+        public ActionResult GetPropertyFloorDetails(int FloorID, DateTime AvailableDate, int Bedroom, decimal MaxRent, int LeaseTermID, string ModelName)
         {
             try
             {
-                return Json(new { model = (new PropertyFloor().GetPropertyFloorDetails(FloorID, AvailableDate, Bedroom, MaxRent, LeaseTermID)) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = (new PropertyFloor().GetPropertyFloorDetails(FloorID, AvailableDate, Bedroom, MaxRent, LeaseTermID, ModelName)) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)
@@ -192,11 +192,11 @@ namespace ShomaRM.Controllers
             }
 
         }
-        public ActionResult GetPropertyModelList(long PID, DateTime AvailableDate, decimal Current_Rent, int Bedroom)
+        public ActionResult GetPropertyModelList(long PID, DateTime AvailableDate, decimal Current_Rent, int Bedroom, int SortOrder)
         {
             try
             {
-                return Json(new { model = (new PropertyModel().GetPropertyModelList(PID, AvailableDate, Current_Rent, Bedroom)) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = (new PropertyModel().GetPropertyModelList(PID, AvailableDate, Current_Rent, Bedroom, SortOrder)) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)

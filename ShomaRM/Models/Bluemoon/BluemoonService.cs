@@ -514,12 +514,12 @@ namespace ShomaRM.Models.Bluemoon
         /// <param name="sessionId"></param>
         /// <returns></returns>
 
-        public async Task<LeaseResponseModel> GetEsignnatureDetails(string sessionId,string Esignatureid)
+        public async Task<LeaseResponseModel> GetEsignnatureDetails(string SessionId,string EsignatureId)
         {
             LeaseResponseModel esignatureDetailsModel = new LeaseResponseModel();
             var body = CreateXMLDocument(@"<ns1:GetEsignatureData>
-                                                        <SessionId>" + sessionId + @"</SessionId>
-                                                        <EsignatureId>" + Esignatureid + @"</EsignatureId>
+                                                        <SessionId>" + SessionId + @"</SessionId>
+                                                        <EsignatureId>" + EsignatureId + @"</EsignatureId>
                                                      </ns1:GetEsignatureData>");
 
             var result = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#GetEsignatureData", body);
@@ -538,7 +538,7 @@ namespace ShomaRM.Models.Bluemoon
        .Descendants("DateSigned")
        .ToList();
 
-                esignatureDetailsModel.EsignatureId = Esignatureid;
+                esignatureDetailsModel.EsignatureId = EsignatureId;
                 int i = 0;
                   foreach (var item in keys)
                 {

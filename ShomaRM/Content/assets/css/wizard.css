@@ -417,6 +417,9 @@ margin: 35px auto;
         .mobile-displaynone{
             display:none !important;
         }
+        .print-summerymobile {
+            padding-bottom: 20px !important;
+        }
     }
 
     @media only screen and (max-width: 780px) {
@@ -471,6 +474,9 @@ margin: 35px auto;
         .nav-tabs.wizard li > * {
             padding-bottom: 3px !important;
             padding-top: 5px !important;
+        }
+        .print-summerymobile {
+            padding-bottom: 20px !important;
         }
     }
 

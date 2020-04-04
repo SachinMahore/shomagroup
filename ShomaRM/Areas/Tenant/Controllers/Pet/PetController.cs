@@ -65,8 +65,6 @@ namespace ShomaRM.Areas.Tenant.Controllers
             {
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
-
-
         }
 
         public ActionResult GetProfilePetList(long TenantID)
@@ -100,6 +98,18 @@ namespace ShomaRM.Areas.Tenant.Controllers
             try
             {
                 return Json(new { model = new PetModel().CheckPetRegistration(UserId) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult CheckAndDeletePet(long ProspectID, int NoOfPet)
+        {
+            try
+            {
+                new PetModel().CheckAndDeletePet(ProspectID, NoOfPet);
+                return Json(new { model =  1}, JsonRequestBehavior.AllowGet);
             }
             catch (Exception Ex)
             {

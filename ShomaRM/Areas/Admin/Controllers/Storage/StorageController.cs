@@ -27,6 +27,17 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult GetStorageData(int Id)
+        {
+            try
+            {
+                return Json((new StorageModel()).GetStorageData(Id), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         public ActionResult GetStorageInfo(int StorageID = 0)
         {
             try
