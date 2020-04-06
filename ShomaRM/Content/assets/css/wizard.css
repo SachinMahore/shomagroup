@@ -371,7 +371,9 @@ margin: 35px auto;
 .nav-tabs.wizard li > * {
     padding: 1.3em .8em .8em 1.5em !important;
 }
-
+.nav-tabs > li {
+    margin-bottom: 4px !important;
+}
 @media only screen and (max-width: 1199px) {
 
     .nav-tabs.wizard > li > a {
@@ -420,6 +422,19 @@ margin: 35px auto;
         .print-summerymobile {
             padding-bottom: 20px !important;
         }
+        .Move-In-mobile {
+            margin-bottom: 10px !important;
+            margin-top: 10px !important;
+        }
+
+        .button-serchmobile {
+            margin-bottom: 10px !important;
+            margin-top: 10px !important;
+            margin-left: 0px !important;
+        }
+        .box1 {
+            float: left;
+        }
     }
 
     @media only screen and (max-width: 780px) {
@@ -438,7 +453,9 @@ margin: 35px auto;
             margin-bottom: 10px !important;
             margin-top: 10px !important;
         }
-
+        .user-icon {
+            max-width: 30px !important;
+        }
     }
 
     @media only screen and (max-width: 750px) {
