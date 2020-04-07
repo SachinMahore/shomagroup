@@ -217,7 +217,7 @@ namespace ShomaRM.Areas.Tenant.Models
 
                 }
 
-                model.DateOfBirthTxt = dobDateTime == null ? "" : dobDateTime.Value.ToString("MM/dd/yyyy");
+                model.DateOfBirthTxt = dobDateTime == null ? "" : (dobDateTime.Value.ToString("MM/dd/yyyy")!="01/01/0001"? dobDateTime.Value.ToString("MM/dd/yyyy") : "");
                 model.FirstName = getApplicantDet.FirstName;
                 model.LastName = getApplicantDet.LastName;
                 model.Phone = getApplicantDet.Phone;

@@ -59,6 +59,7 @@
             }
         }
         else {
+            $(".modal-title,.print-title").html("");
             return;
         }
 
@@ -340,7 +341,7 @@
     $('input[name=rbtnPermissionToEnter]').on('ifChanged', function (event) {
         if ($("#rbtnApertmentPermission2").is(":checked")) {
             $("#PreferredDate").removeClass('hidden');
-            $("#txtPreferredDate").val('');
+            $("#txtPreferredDateSR").val('');
             $("#txtPreferredTime").val('');
 
         }
@@ -460,7 +461,7 @@
         $("#txtPayDateR").focus();
     });
     $('#Sdate').click(function () {
-        $("#txtPreferredDate").focus();
+        $("#txtPreferredDateSR").focus();
     });
     $('#btnPreferredTime').click(function () {
         $("#txtPreferredTime").focus();
@@ -2010,7 +2011,7 @@ var goToServiceStep = function (stepid, id) {
         $('#DivNote').addClass('hidden');
     }
     if (stepid == "2") {
-        $('#txtPreferredDate').datepicker();
+       
         $("#service1").removeClass("active");
         $("#service2").addClass("active");
 
@@ -2033,7 +2034,7 @@ var saveUpdateServiceRequest = function () {
     var OtherCausingIssue = $("#txtOtherCausingIssue").val();
     var OtherIssue = $("#txtOtherIssue").val();
     var location = $("#ddlLocation").val();
-    var preferredDate = $("#txtPreferredDate").val();
+    var preferredDate = $("#txtPreferredDateSR").val();
     var priority = $("#ddlPriority").val();
     var serviceFileTemp = $("#hndfileUploadService").val();
     var serviceFileOriginal = $("#hndOriginalfileUploadService").val();
@@ -2191,7 +2192,7 @@ var clearServiceRequestField = function () {
     $("#CausingIssue").addClass('hidden');
     $("#txtOtherIssue").val('');
     $("#txtEntryNote").val('');
-    $("#txtPreferredDate").val('');
+    $("#txtPreferredDateSR").val('');
     $("#txtPreferredTime").val('');
     $("#txtEmergencyMobile").val('');
     document.getElementById('fileUploadServiceShow').value = '';
@@ -2795,7 +2796,8 @@ var fromDashboardGoToSubmitServiceRequest = function () {
             $("#li7").removeClass("active");
         }
         if ($('#hdnServiceStepIdServiceRequest2').val() == "2") {
-            $('#txtPreferredDate').datepicker();
+
+           
             $("#service1").removeClass("active");
             $("#service2").addClass("active");
 
@@ -3133,7 +3135,7 @@ var goToSubmitServiceRequestFromMyHome = function () {
     $("#step7").addClass("hidden");
     $("#li7").removeClass("active");
 
-    $('#txtPreferredDate').datepicker();
+   
     $("#service1").removeClass("active");
     $("#service2").addClass("active");
 
@@ -5120,6 +5122,7 @@ var getReservationRequestList = function () {
     });
 };
 var clearDdlAmenity = function () {
+    $(".modal-title,.print-title").html("");
     $("#ddlAmenities").val(0);
 };
 function getAmenityReservationPay(arid) {

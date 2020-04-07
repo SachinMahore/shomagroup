@@ -593,6 +593,7 @@
     <Content Include="Content\assets\img\top_arr.png" />
     <Content Include="Content\assets\img\welcome-bg.png" />
     <Content Include="Content\assets\js\bootstrap-datepicker.js" />
+    <Content Include="Content\assets\js\bootstrap-datepicker.min.js" />
     <Content Include="Content\assets\js\bootstrap-datetimepicker.js" />
     <Content Include="Content\assets\js\bootstrap-hover-dropdown.js" />
     <Content Include="Content\assets\js\bootstrap-select.min.js" />

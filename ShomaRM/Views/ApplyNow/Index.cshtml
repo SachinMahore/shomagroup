@@ -1054,7 +1054,7 @@
                                             <span style="text-decoration:underline;font-weight:bold;">$15/vehicle</span>
                                         </div>
                                         <div class="col-sm-2">
-                                            $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees">15.00</span>
+                                            $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees">0.00</span>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
@@ -1528,7 +1528,6 @@
                                     <div class="form-group">
                                         <label for="txtDateOfBirth" class="star">Date of Birth</label>
                                         <input id="txtDateOfBirth" class="form-control" type="text" />
-
                                         <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 303px;">
                                             <button class="btn btn-primary search" id="IconDateOfBirth" type="button"><i class="fa-calendar fa"></i></button>
                                         </span>
@@ -1599,13 +1598,23 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="txtDateOfIssuance" class="star">Date of Issuance</label>
-                                            <input id="txtDateOfIssuance" class="form-control form-control-small" type="text" />
+                                            <div class="input-group">
+                                                <input id="txtDateOfIssuance" type="text" placeholder="mm/dd/yyyy" class="form-control" />
+                                                <span class="input-group-btn">
+                                                    <button id="IconDateOfIssuance" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="txtDateOfExpiration" class="star">Date of Expiration</label>
-                                            <input id="txtDateOfExpiration" class="form-control form-control-small" type="text" />
+                                            <div id="divDateOfExpiration" class="input-group">
+                                                <input id="txtDateOfExpiration" placeholder="mm/dd/yyyy" class="form-control form-control-small" type="text"  />
+                                                <span id="spDateOfExpiration" class="input-group-btn">
+                                                    <button id="IconDateOfExpiration" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
@@ -3423,7 +3432,7 @@
 
 <div class="modal" id="popVehicle">
     <div class="modal-dialog">
-        <div class="modal-content" style="width:732px; height:605px;">
+        <div class="modal-content" style="width:750px; height:560px;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
@@ -3543,7 +3552,7 @@
 
 <div class="modal" id="popPet">
     <div class="modal-dialog">
-        <div class="modal-content" style="width: 100%; height:432px;">
+        <div class="modal-content" style="width: 100%; height:400px;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
@@ -3679,7 +3688,7 @@
 
 <div class="modal" id="popApplicantHistory">
     <div class="modal-dialog">
-        <div class="modal-content" style="width:732px; height:605px;">
+        <div class="modal-content" style="width:850px; height:555px;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
@@ -3758,23 +3767,23 @@
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label for="txtMoveInDate" class="star">Move In Date</label>
-                            <input id="txtMoveInDateFrom2" type="text" class="form-control form-control-small" @*value="@Model.MoveInDateFrom2Txt"*@ />
-
-                            <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 90px;">
-                                <button class="btn btn-primary search" id="SPtxtMoveInDateFrom2" type="button"><i class="fa-calendar fa"></i></button>
-                            </span>
-
+                            <div class="input-group">
+                                <input id="txtMoveInDateFrom2" placeholder="mm/dd/yyyy" class="form-control form-control-small" type="text" />
+                                <span  class="input-group-btn">
+                                    <button id="IconMoveInDateFrom2" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label for="txtMoveInDate" class="star"> Move Out Date</label>
-                            <input id="txtMoveInDateTo2" type="text" class="form-control form-control-small" @*value="@Model.MoveInDateTo2Txt"*@ />
-
-                            <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 90px;">
-                                <button class="btn btn-primary search" id="SPtxtMoveInDateTo2" type="button"><i class="fa-calendar fa"></i></button>
-                            </span>
-
+                            <label for="txtMoveInDateTo2" class="star"> Move Out Date</label>
+                            <div id="divMoveInDateTo2" class="input-group">
+                                <input id="txtMoveInDateTo2" placeholder="mm/dd/yyyy" class="form-control form-control-small" type="text" />
+                                <span id="spMoveInDateTo2" class="input-group-btn">
+                                    <button id="IconMoveInDateTo2" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -4143,7 +4152,7 @@
 </div>
 <div class="modal" id="popHistoryEmpAndIncome">
     <div class="modal-dialog">
-        <div class="modal-content" style="width:732px; height:800px;">
+        <div class="modal-content" style="width:750px; height:700px;">
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Employment History</h5>
@@ -4182,23 +4191,23 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label class="star">Start Date</label>
-                                <input id="txtStartDateHEI" class="form-control form-control-small" type="text" />
-
-                                <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 151px;">
-                                    <button class="btn btn-primary search" id="SPStartDateHEI" type="button"><i class="fa-calendar fa"></i></button>
-                                </span>
-
+                                <div class="input-group">
+                                    <input id="txtStartDateHEI" placeholder="mm/dd/yyyy" class="form-control form-control-small" type="text" />
+                                    <span  class="input-group-btn">
+                                        <button id="IconStartDateHEI" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label class="star">Termination Date</label>
-                                <input id="txtTerminationDateHEI" class="form-control form-control-small" type="text" />
-
-                                <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 151px;">
-                                    <button class="btn btn-primary search" id="SPTerminationDateHEI" type="button"><i class="fa-calendar fa"></i></button>
-                                </span>
-
+                                <div id="divTerminationDateHEI" class="input-group">
+                                    <input id="txtTerminationDateHEI" placeholder="mm/dd/yyyy" class="form-control form-control-small" type="text" />
+                                    <span id="spTerminationDateHEI" class="input-group-btn">
+                                        <button id="IconTerminationDateHEI" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -4675,9 +4684,14 @@
 
         var dt = new Date();
         dt.setFullYear(new Date().getFullYear() - 18);
+        var dts = new Date();
+        dts.setFullYear(new Date().getFullYear() - 100);
+        $('#txtDateOfBirth').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: dt, maxViewMode: 2, autoclose: true });
 
-        $('#txtDateOfBirth').datepicker({ viewMode: "years", endDate: dt, autoclose: true });
-        $("#txtDate").datepicker({ autoclose: true, dateFormat: "MM/dd/yyyy", startDate: new Date() });
+        var dtend100 = new Date();
+        dtend100.setFullYear(new Date().getFullYear() + 100);
+        $('#txtDate').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: "+1d", endDate: dtend100, maxViewMode: 2, autoclose: true });
+        
         $("#icontxtDate").click(function () {
             $("#txtDate").focus();
         });
@@ -4699,45 +4713,71 @@
             $("#txtTerminationDateHEI").focus();
         });
 
+        $("#txtStartDate,#txtMoveInDateFrom,#txtMoveInDateTo").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: "+0d", maxViewMode: 2, autoclose: true })
 
-        $("#txtDateOfIssuance,#txtStartDate,#txtMoveInDateFrom,#txtMoveInDateTo,#txtStartDateHEI,#txtTerminationDateHEI").datepicker({
-            endDate: "+0d",
-            autoclose: true,
-            startDate: '-100y'
+        $("#txtTerminationDateHEI").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: "+0d", maxViewMode: 2, autoclose: true });
+
+        $('#txtStartDateHEI').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: "+0d", maxViewMode: 2, autoclose: true }).on('change', function (ev) {
+            $("#txtTerminationDateHEI").val("");
+            var dtstartTD = new Date($("#txtStartDateHEI").val());
+            dtstartTD.setFullYear(dtstartTD.getFullYear() + 0);
+            $("#txtTerminationDateHEI").remove();
+            $("#spTerminationDateHEI").remove();
+            var html = '<input id="txtTerminationDateHEI" placeholder="mm/dd/yyyy" class="form-control form-control-small" type="text" value="" />';
+            html += '<span id="spTerminationDateHEI" class="input-group-btn">';
+            html += '<button id="IconTerminationDateHEI" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>';
+            html += '</span>';
+            $("#divTerminationDateHEI").append(html);
+            $("#txtTerminationDateHEI").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstartTD, endDate: "+0d", maxViewMode: 2, autoclose: true });
         });
 
-        $("#txtMoveInDateTo2").datepicker({
-            endDate: "+0d",
-            autoclose: true,
-            startDate: '-100y'
-        }).on('change', function (ev) {
-            var movefromdate = $("#txtMoveInDateFrom2").val().split("/");
-            var movetodate = $("#txtMoveInDateTo2").val().split("/");
-
-            console.log(movefromdate);
-            console.log(movetodate);
-
-            movefromdate = new Date(movefromdate[2], movefromdate[0] - 1, movefromdate[1]);
-            movetodate = new Date(movetodate[2], movetodate[0] - 1, movetodate[1]);
-
-            console.log(movefromdate);
-
-            console.log(movetodate);
-
-            if (movefromdate > movetodate) {
-                alert("Move out date should be greater then move in date");
-                $(this).val("");
-            }
+        $('#txtDateOfIssuance').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: "+0d", maxViewMode: 2, autoclose: true }).on('change', function (ev) {
+            $("#txtDateOfExpiration").val("");
+            var dtendDOE100 = new Date();
+            dtendDOE100.setFullYear(new Date().getFullYear() + 100);
+            var dtstartDOE = new Date($("#txtDateOfIssuance").val());
+            dtstartDOE.setFullYear(new Date().getFullYear() + 0);
+            $("#txtDateOfExpiration").remove();
+            $("#spDateOfExpiration").remove();
+            var html = '<input id="txtDateOfExpiration" placeholder="mm/dd/yyyy" class="form-control form-control-small" type="text" value="" />';
+            html += '<span id="spDateOfExpiration" class="input-group-btn">';
+            html += '<button id="IconDateOfExpiration" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>';
+            html += '</span>';
+            $("#divDateOfExpiration").append(html);
+            $("#txtDateOfExpiration").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstartDOE, endDate: dtendDOE100, maxViewMode: 2, autoclose: true });
         });
 
-        $("#txtMoveInDateFrom2").datepicker({
-            endDate: "+0d",
-            autoclose: true,
-            startDate: '-100y'
+        $("#IconDateOfIssuance").click(function () {
+            $("#txtDateOfIssuance").focus();
+        });
+        $("#IconDateOfExpiration").click(function () {
+            $("#txtDateOfExpiration").focus();
         });
 
-        $('#txtDOB').datepicker({ viewMode: "years", endDate: dt, autoclose: true });
-        $('#txtHDateOfBirth').datepicker({ viewMode: "years", endDate: dt, autoclose: true });
+        $("#txtMoveInDateTo2").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: "+0d", maxViewMode: 2, autoclose: true });
+
+        $('#txtMoveInDateFrom2').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: "+0d", maxViewMode: 2, autoclose: true }).on('change', function (ev) {
+            $("#txtMoveInDateTo2").val("");
+            var dtstartMID = new Date($("#txtMoveInDateFrom2").val());
+            dtstartMID.setFullYear(dtstartMID.getFullYear() + 0);
+            $("#txtMoveInDateTo2").remove();
+            $("#spMoveInDateTo2").remove();
+            var html = '<input id="txtMoveInDateTo2" placeholder="mm/dd/yyyy" class="form-control form-control-small" type="text" value="" />';
+            html += '<span id="spMoveInDateTo2" class="input-group-btn">';
+            html += '<button id="IconMoveInDateTo2" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>';
+            html += '</span>';
+            $("#divMoveInDateTo2").append(html);
+            $("#txtMoveInDateTo2").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstartMID, endDate: "+0d", maxViewMode: 2, autoclose: true });
+        });
+
+        $('#txtDOB').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: dt, maxViewMode: 2, autoclose: true });
+        $('#txtHDateOfBirth').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: dt, maxViewMode: 2, autoclose: true });
+        $('#txtADateOfBirth').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: dt, maxViewMode: 2, autoclose: true });
+        $('#txtGDateOfBirth').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: dt, maxViewMode: 2, autoclose: true });
+        var dtMinStart = new Date();
+        dtMinStart.setFullYear(new Date().getFullYear() - 18);
+        var dtMinEnd = new Date();
+        $('#txtMDateOfBirth').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtMinStart, endDate: dtMinEnd, maxViewMode: 2, autoclose: true });
 
         $("#txtPhoneNumber").val(formatPhoneFax('@Model.Phone'));
         $("#lblFNLPhone").text(formatPhoneFax('@Model.Phone'));
