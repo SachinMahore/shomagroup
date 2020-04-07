@@ -56,12 +56,12 @@
                             <li id="li8"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(8,8,0)">b. Responsibility</a></li>
                             <li id="li9"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(9,9,0)">c. Personal Info</a></li>
                             <li id="li10"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(10,10,0)">d. Residence History</a></li>
-                            <li id="li11"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(11,11,0)">e. Employment and Income</a></li>
-                            <li id="li12"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(12,12,0)">f. Emergency Contacts </a></li>
+                            <li id="li11"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(11,11,0)">e. Employment & Income</a></li>
+                            <li id="li12"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(12,12,0)">f. Emergency Contact</a></li>
                             <li id="li13"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(13,13,0)">g. Vehicle Info</a></li>
                             <li id="li14"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(14,14,0)">h. Pet Info</a></li>
-                            <li id="li15"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(15,15,0)">i. Payment </a></li>
-                            <li id="li16"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(16,16,0)">j. Lease </a></li>
+                            <li id="li15"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(15,15,0)">i. Summary </a></li>
+                            <li id="li16"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(16,16,0)">j. Payment </a></li>
                         </ul>
                     </div>
                     <div class="tab-content">
@@ -1054,7 +1054,7 @@
                                             <span style="text-decoration:underline;font-weight:bold;">$15/vehicle</span>
                                         </div>
                                         <div class="col-sm-2">
-                                            $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees">15.00</span>
+                                            $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees">0.00</span>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
@@ -1528,7 +1528,6 @@
                                     <div class="form-group">
                                         <label for="txtDateOfBirth" class="star">Date of Birth</label>
                                         <input id="txtDateOfBirth" class="form-control" type="text" />
-
                                         <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 303px;">
                                             <button class="btn btn-primary search" id="IconDateOfBirth" type="button"><i class="fa-calendar fa"></i></button>
                                         </span>
@@ -1599,13 +1598,23 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="txtDateOfIssuance" class="star">Date of Issuance</label>
-                                            <input id="txtDateOfIssuance" class="form-control form-control-small" type="text" />
+                                            <div class="input-group">
+                                                <input id="txtDateOfIssuance" type="text" placeholder="mm/dd/yyyy" class="form-control" />
+                                                <span class="input-group-btn">
+                                                    <button id="IconDateOfIssuance" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="txtDateOfExpiration" class="star">Date of Expiration</label>
-                                            <input id="txtDateOfExpiration" class="form-control form-control-small" type="text" />
+                                            <div id="divDateOfExpiration" class="input-group">
+                                                <input id="txtDateOfExpiration" placeholder="mm/dd/yyyy" class="form-control form-control-small" type="text"  />
+                                                <span id="spDateOfExpiration" class="input-group-btn">
+                                                    <button id="IconDateOfExpiration" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
@@ -2317,6 +2326,452 @@
                     </div>
                    
                     <div class="hidden" id="step15">
+                        <div class="row p-b-15  ">
+                            <div class="col-md-12" id="">
+                                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Summary of Application</h3>
+
+                                    </div>
+
+                                </div>
+                                    <div class="col-md-12">
+                                        <p>
+                                            <div class="panel-group" id="accordion">
+                                                <div class="panel panel-default accordian-border-group">
+                                                    <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
+                                                        <h3 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Applicants <a href="javascript:void(0);" class="pull-right" onclick="goToStep(7,7,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapse1" class="panel-collapse collapse">
+                                                        <div class="panel panel-default ">
+                                                            <div class="panel-heading " id="">
+                                                                <table id="tblApplicant15" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Applicant Name</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Type</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Gender</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Email</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Phone</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Date of Birth</th>
+                                                                          
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody></tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default accordian-border-group">
+                                                    <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
+                                                        <h3 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Responsibility <a href="javascript:void(0);" class="pull-right" onclick="goToStep(8,8,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapse2" class="panel-collapse collapse">
+                                                        <div class="panel panel-default ">
+                                                            <div class="panel-heading " id="">
+                                                                <table id="tblRespo15" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Applicant Name</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Type</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Move In%</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Move In Charges</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Monthly %</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Monthly Charges</th>
+
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody></tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default accordian-border-group">
+                                                    <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
+                                                        <h3 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Personal Information <a href="javascript:void(0);" class="pull-right" onclick="goToStep(9,9,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapse3" class="panel-collapse collapse">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading" id="">
+                                                                <table class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                                   
+                                                                    <tr><td>Name</td><td><span id="summName"></span></td><td>Date of Birth</td><td><span id="summDob"></span></td></tr>
+                                                                  
+                                                                    <tr><td>SSN#</td><td><span id="summSSN"></span></td><td>Driver’s License</td><td><span id="summDriverL"></span></td></tr>
+                                                                    <tr><td>Email ID</td><td><span id="summEmail"></span></td><td>Phone</td><td><span id="summPhone"></span></td></tr>
+                                                                    <tr><td>Gender</td><td><span id="summGender"></span></td></tr>
+                                                                    <tr></tr>
+                                                                   
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default accordian-border-group">
+                                                    <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
+                                                        <h3 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Residence History <a href="javascript:void(0);" class="pull-right" onclick="goToStep(10,10,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapse4" class="panel-collapse collapse">
+                                                        <div class="panel panel-default ">
+                                                            <div class="panel-heading " id="">
+                                                                <table class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                                    <tbody>
+                                                                        
+                                                                        <tr><td style='width: 195px;'>Current Address</td><td><span id="summCuAdd"></span></td></tr>
+                                                                    <tbody></tbody>
+
+                                                                </table>
+                                                                <table id="prevadd" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%"><tbody></tbody></table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default accordian-border-group">
+                                                    <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
+                                                        <h3 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Employment & Income <a href="javascript:void(0);" class="pull-right" onclick="goToStep(11,11,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapse5" class="panel-collapse collapse">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading" id="" style="background-color:transparent">
+                                                                <table class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                                    
+                                                                    <tr><td style='width: 195px;'>Current Employer</td><td><span id="summEmployer"></span></td></tr>
+                                                                    <tr><td>Start Date</td><td><span id="summEstartdate"></span></td></tr>
+                                                                    <tr><td>Annual Salary</td><td><span id="summSalary"></span></td></tr>
+                                   
+                                                                </table>
+                                                                <table id="prevEmphistr" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%"><tbody></tbody></table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default accordian-border-group">
+                                                    <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
+                                                        <h3 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Emergency Contact <a href="javascript:void(0);" class="pull-right" onclick="goToStep(12,12,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapse6" class="panel-collapse collapse">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading" id="" style="background-color:transparent">
+                                                                <table class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+
+                                                                    <tr><td style='width: 195px;'>Name</td><td><span id="summEmergname"></span></td></tr>
+                                                                    <tr><td>Relation</td><td><span id="summEmerrelation"></span></td></tr>
+                                                                    <tr><td>Mobile</td><td><span id="summEmegmobile"></span></td></tr>
+
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default accordian-border-group">
+                                                    <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
+                                                        <h3 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Vehicle Information <a href="javascript:void(0);" class="pull-right" onclick="goToStep(13,13,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapse7" class="panel-collapse collapse">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading" id="" style="background-color:transparent">
+                                                                <table id="tblVehicle15" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Owner Name</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Vehicle Make</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Model</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Year</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Color</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">License Plate</th>
+                                                                            
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody></tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default accordian-border-group">
+                                                    <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
+                                                        <h3 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Pet Information <a href="javascript:void(0);" class="pull-right" onclick="goToStep(14,14,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                    <div id="collapse8" class="panel-collapse collapse">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading" id="" style="background-color:transparent">
+                                                                <table id="tblPet15" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                                    <thead>
+                                                                        <tr>
+                                                                           
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Pet Name</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Breed</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Weight</th>
+                                                                            <th style="background-color: #c7cdd5;color:#3d3939">Vet's Name</th>
+                                                                         
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody></tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </p>
+                                    </div>
+                                 
+
+                            </div>                            
+                            <div class="col-md-12 hidden" id="divsummPrint">
+                                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Summary of Application</h3>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12">
+                                    <p>
+                                        <div class="panel-group" id="accordion">
+                                            <div class="panel panel-default accordian-border-group">
+                                                <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b>Applicants</b><i class="fa fa-angle-down pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse1" class="panel-collapse collapse in">
+                                                    <div class="panel panel-default ">
+                                                        <div class="panel-heading " id="">
+                                                            <table id="tblApplicant15p" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Applicant Name</th>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Type</th>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Gender</th>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Email</th>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Phone</th>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Date of Birth</th>
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default accordian-border-group">
+                                                <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><b>Responsibility</b> <i class="fa fa-angle-down pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse2" class="panel-collapse collapse in">
+                                                    <div class="panel panel-default ">
+                                                        <div class="panel-heading " id="">
+                                                            <table id="tblRespo15p" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Applicant Name</th>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Type</th>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Move In%</th>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Move In Charges</th>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Monthly %</th>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Monthly Charges</th>
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default accordian-border-group">
+                                                <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3"><b>Personal Information </b><i class="fa fa-angle-down pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse3" class="panel-collapse collapse in">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading" id="">
+                                                            <table class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+
+                                                                <tr><td>Name</td><td><span id="summNamep"></span></td><td>Date of Birth</td><td><span id="summDobp"></span></td></tr>
+
+                                                                <tr><td>SSN#</td><td><span id="summSSNp"></span></td><td>Driver’s License</td><td><span id="summDriverLp"></span></td></tr>
+                                                                <tr><td>Email ID</td><td><span id="summEmailp"></span></td><td>Phone</td><td><span id="summPhonep"></span></td></tr>
+                                                                <tr><td>Gender</td><td><span id="summGenderp"></span></td></tr>
+                                                                <tr></tr>
+
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default accordian-border-group">
+                                                <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4"><b>Residence History </b><i class="fa fa-angle-down pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse4" class="panel-collapse collapse in">
+                                                    <div class="panel panel-default ">
+                                                        <div class="panel-heading " id="">
+                                                            <table class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                                <tbody>
+
+                                                                    <tr><td style='width: 195px;'>Current Address</td><td><span id="summCuAddp"></span></td></tr>
+                                                                <tbody></tbody>
+
+                                                            </table>
+                                                            <table id="prevaddp" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%"><tbody></tbody></table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default accordian-border-group">
+                                                <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5"><b>Employment & Income</b> <i class="fa fa-angle-down pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse5" class="panel-collapse collapse in">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading" id="" style="background-color:transparent">
+                                                            <table class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+
+                                                                <tr><td style='width: 195px;'>Current Employer</td><td><span id="summEmployerp"></span></td></tr>
+                                                                <tr><td>Start Date</td><td><span id="summEstartdatep"></span></td></tr>
+                                                                <tr><td>Annual Salary</td><td><span id="summSalaryp"></span></td></tr>
+
+                                                            </table>
+                                                            <table id="prevEmphistrp" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%"><tbody></tbody></table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default accordian-border-group">
+                                                <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse6"><b>Emergency Contact</b> <i class="fa fa-angle-down pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse6" class="panel-collapse collapse in">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading" id="" style="background-color:transparent">
+                                                            <table class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+
+                                                                <tr><td style='width: 195px;'>Name</td><td><span id="summEmergnamep"></span></td></tr>
+                                                                <tr><td>Relation</td><td><span id="summEmerrelationp"></span></td></tr>
+                                                                <tr><td>Mobile</td><td><span id="summEmegmobilep"></span></td></tr>
+
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default accordian-border-group">
+                                                <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7"><b>Vehicle Information</b> <i class="fa fa-angle-down pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse7" class="panel-collapse collapse in">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading" id="" style="background-color:transparent">
+                                                            <table id="tblVehicle15p" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Owner Name</th>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Vehicle Make</th>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Model</th>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Year</th>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Color</th>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">License Plate</th>
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default accordian-border-group">
+                                                <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse8"><b>Pet Information </b><i class="fa fa-angle-down pull-right"></i></a>
+                                                    </h3>
+                                                </div>
+                                                <div id="collapse8" class="panel-collapse collapse in">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading" id="" style="background-color:transparent">
+                                                            <table id="tblPet15p" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                                <thead>
+                                                                    <tr>
+                                                                      
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Pet Name</th>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Breed</th>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Weight</th>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Vet's Name</th>
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </p>
+                                </div>
+                            </div>     
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    <div class="col-sm-1 form-group">
+                                        <input class="form-control" type="checkbox" id="chkAgreeSummarry" style="width: 60px !important;height: 20px !important;">
+                                    </div>
+                                    <div class="col-sm-11" style="text-align: left;">
+                                        <label>
+                                            ACCEPT AGREEMENTS
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="pull-right text-center">
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="printSumm('divsummPrint')"><i class="fa fa-print"></i> Print</button>
+                                </div>
+                            </div>      
+                            <div class="col-sm-12">
+                                
+                                <div class="pull-left text-center">
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(14,14,0)"> Back</button>
+                                </div>
+                                <div class="pull-right text-center">
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(16,16,0)"> Continue</button>
+                                </div>
+                                
+                            </div>
+                        </div>
+                      
+                    </div>
+                    <div class="hidden" id="step16">
                         <div class="row">
                             <div class="col-md-12 clear">
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
@@ -2454,16 +2909,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-sm-8">
-                                        <div class="col-sm-1 form-group">
-                                            <input class="form-control" type="checkbox" id="chkAgreeSummarry" style="width: 60px !important;height: 20px !important;">
-                                        </div>
-                                        <div class="col-sm-11" style="text-align: left;">
-                                            <label>
-                                                ACCEPT AGREEMENTS
-                                            </label>
-                                        </div>
-                                    </div>
+                                   
                                     <div class="col-sm-12">
                                         <div class="dot-hr"></div>
                                     </div>
@@ -2501,16 +2947,68 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="pull-left text-center">
-                                        <button type="submit" class="btn btn-primary" onclick="goToStep(14,14,0)"> Back</button>
+                                        <button type="submit" class="btn btn-primary" onclick="goToStep(15,15,0)"> Back</button>
                                     </div>
                                     <div class="pull-right text-center">
-                                        <button type="submit" class="btn btn-primary payNext" id="btnpaynext" onclick="goToStep(16,16,0)" disabled> Continue</button>
+                                        <button type="submit" class="btn btn-primary payNext" id="btnpaynext" onclick="goToStep(17,17,0)" disabled> Continue</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="hidden" id="step16">
+                  
+                    <div class="hidden" id="step17">
+
+                        <div class="row p-b-15">
+
+                            <div class="col-sm-12">
+                                <p><center><b>CONGRATULATIONS!!</b> You have completed your Online Application.</center></p>
+                                <h5> <center> What Next?</center></h5>
+                                <p>
+                                    Your Application has been saved waiting for Co-Applicant(s) to complete their application. Once all adult
+                                    tenants and guarantor (if applicable) have completed the application, the application is ready to be submitted.
+                                    Once we receive the completed application, we will notify you within 24 to 48 hours of the result. Once approved,
+                                    you will be directed to finalize your online lease and be given Move in procedures.
+                                </p>
+                                <div class="col-md-12 clear">
+                                    <div id="tblApplicantFinal" class="proerty-th">
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="col-sm-12 table-bordered" id="divFinalcoappemail">
+                                <div>
+                                    <h5> <center> Now?</center></h5>
+                                    <p>
+                                        <center>Do you want to email the Application to your Co-Applicant(s)?</center>
+                                    </p>
+                                    <table width="100%" id="tblEmailCoapplicant" style="text-align:center">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align:center">Co-Applicant Name</th>
+                                                <th style="text-align:center">Email ID</th>
+                                                <th style="text-align:center">Send Email</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+
+                                </div>
+                                <center><button type="submit" class="btn btn-primary hidden" id="btnsendemail" onclick="sendCoappEmail(15,15)"> Send Email</button></center>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="pull-left text-center">
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(15,15,0)"> Back</button>
+                                </div>
+                                <div class="pull-right text-center">
+                                    <button type="submit" id="btnC2Tenant" class="btn btn-primary" onclick="cancel()">Submit Application</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hidden" id="step18">
                         <input type="hidden" id="hndANID" value="0" />
                         <div class="row p-b-15">
                             <div class="col-md-12 clear">
@@ -2621,56 +3119,6 @@
                                 </div>
                                 <div class="pull-right text-center">
                                     <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(17,17,0)"> Continue</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hidden" id="step17">
-
-                        <div class="row p-b-15">
-
-                            <div class="col-sm-12">
-                                <p><center><b>CONGRATULATIONS!!</b> You have completed your Online Application.</center></p>
-                                <h5> <center> What Next?</center></h5>
-                                <p>
-                                    Your Application has been saved waiting for Co-Applicant(s) to complete their application. Once all adult
-                                    tenants and guarantor (if applicable) have completed the application, the application is ready to be submitted.
-                                    Once we receive the completed application, we will notify you within 24 to 48 hours of the result. Once approved,
-                                    you will be directed to finalize your online lease and be given Move in procedures.
-                                </p>
-                                <div class="col-md-12 clear">
-                                    <div id="tblApplicantFinal" class="proerty-th">
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            <div class="col-sm-12 table-bordered" id="divFinalcoappemail">
-                                <div>
-                                    <h5> <center> Now?</center></h5>
-                                    <p>
-                                        <center>Do you want to email the Application to your Co-Applicant(s)?</center>
-                                    </p>
-                                    <table width="100%" id="tblEmailCoapplicant" style="text-align:center">
-                                        <thead>
-                                            <tr>
-                                                <th style="text-align:center">Co-Applicant Name</th>
-                                                <th style="text-align:center">Email ID</th>
-                                                <th style="text-align:center">Send Email</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
-
-                                </div>
-                                <center><button type="submit" class="btn btn-primary hidden" id="btnsendemail" onclick="sendCoappEmail(15,15)"> Send Email</button></center>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(15,15,0)"> Back</button>
-                                </div>
-                                <div class="pull-right text-center">
-                                    <button type="submit" id="btnC2Tenant" class="btn btn-primary" onclick="cancel()">Submit Application</button>
                                 </div>
                             </div>
                         </div>
@@ -2984,7 +3432,7 @@
 
 <div class="modal" id="popVehicle">
     <div class="modal-dialog">
-        <div class="modal-content" style="width:732px; height:605px;">
+        <div class="modal-content" style="width:750px; height:560px;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
@@ -3104,7 +3552,7 @@
 
 <div class="modal" id="popPet">
     <div class="modal-dialog">
-        <div class="modal-content" style="width: 100%; height:432px;">
+        <div class="modal-content" style="width: 100%; height:400px;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
@@ -3240,7 +3688,7 @@
 
 <div class="modal" id="popApplicantHistory">
     <div class="modal-dialog">
-        <div class="modal-content" style="width:732px; height:605px;">
+        <div class="modal-content" style="width:850px; height:555px;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
@@ -3319,23 +3767,23 @@
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label for="txtMoveInDate" class="star">Move In Date</label>
-                            <input id="txtMoveInDateFrom2" type="text" class="form-control form-control-small" @*value="@Model.MoveInDateFrom2Txt"*@ />
-
-                            <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 90px;">
-                                <button class="btn btn-primary search" id="SPtxtMoveInDateFrom2" type="button"><i class="fa-calendar fa"></i></button>
-                            </span>
-
+                            <div class="input-group">
+                                <input id="txtMoveInDateFrom2" placeholder="mm/dd/yyyy" class="form-control form-control-small" type="text" />
+                                <span  class="input-group-btn">
+                                    <button id="IconMoveInDateFrom2" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label for="txtMoveInDate" class="star"> Move Out Date</label>
-                            <input id="txtMoveInDateTo2" type="text" class="form-control form-control-small" @*value="@Model.MoveInDateTo2Txt"*@ />
-
-                            <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 90px;">
-                                <button class="btn btn-primary search" id="SPtxtMoveInDateTo2" type="button"><i class="fa-calendar fa"></i></button>
-                            </span>
-
+                            <label for="txtMoveInDateTo2" class="star"> Move Out Date</label>
+                            <div id="divMoveInDateTo2" class="input-group">
+                                <input id="txtMoveInDateTo2" placeholder="mm/dd/yyyy" class="form-control form-control-small" type="text" />
+                                <span id="spMoveInDateTo2" class="input-group-btn">
+                                    <button id="IconMoveInDateTo2" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -3704,7 +4152,7 @@
 </div>
 <div class="modal" id="popHistoryEmpAndIncome">
     <div class="modal-dialog">
-        <div class="modal-content" style="width:732px; height:800px;">
+        <div class="modal-content" style="width:750px; height:700px;">
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Employment History</h5>
@@ -3743,23 +4191,23 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label class="star">Start Date</label>
-                                <input id="txtStartDateHEI" class="form-control form-control-small" type="text" />
-
-                                <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 151px;">
-                                    <button class="btn btn-primary search" id="SPStartDateHEI" type="button"><i class="fa-calendar fa"></i></button>
-                                </span>
-
+                                <div class="input-group">
+                                    <input id="txtStartDateHEI" placeholder="mm/dd/yyyy" class="form-control form-control-small" type="text" />
+                                    <span  class="input-group-btn">
+                                        <button id="IconStartDateHEI" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label class="star">Termination Date</label>
-                                <input id="txtTerminationDateHEI" class="form-control form-control-small" type="text" />
-
-                                <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 151px;">
-                                    <button class="btn btn-primary search" id="SPTerminationDateHEI" type="button"><i class="fa-calendar fa"></i></button>
-                                </span>
-
+                                <div id="divTerminationDateHEI" class="input-group">
+                                    <input id="txtTerminationDateHEI" placeholder="mm/dd/yyyy" class="form-control form-control-small" type="text" />
+                                    <span id="spTerminationDateHEI" class="input-group-btn">
+                                        <button id="IconTerminationDateHEI" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -3903,24 +4351,7 @@
 
                             <p style="font-size:medium; color:#838383;">“You have completed your online application.  The next step is to submit payment and the application; however, we strongly recommend that you please review your application and ensure all the information is correct before submitting payment and the application.  Once you submit your application, the payment is non-refundable and corrections are no longer available.  Kindly confirm below you have reviewed your application and are ready to submit it.</p>
                              <p style="font-size:small;">
-                               <table>
-                                   <tr><td><b>APPLICANT:</b></td><td><a href="javascript:void(0);" onclick="goToStep(9,9,0)">&nbsp;&nbsp;EDIT</a></td></tr>
-                                   <tr><td>Name</td><td><span id="summName"></span></td></tr>
-                                   <tr><td>Date of Birth</td><td><span id="summDob"></span></td></tr>
-                                   <tr><td>SSN#</td><td><span id="summSSN"></span></td></tr>
-                                   <tr><td>Phone</td><td><span id="summPhone"></span></td></tr>
-                                   <tr><td>Gender</td><td><span id="summGender"></span></td></tr>
-                                   <tr><td>Driver’s License</td><td><span id="summDriverL"></span></td></tr>
-                                   <tr><td><b>RESIDENTIAL HISTORY:</b></td><td><a href="javascript:void(0);" onclick="goToStep(10,10,0)">&nbsp;&nbsp;EDIT</a></td></tr>
-                                   <tr><td>Current Address</td><td><span id="summCuAdd"></span></td></tr>
-                                  
-                                   <tr><td colspan="2"><table id="prevadd"><tbody></tbody></table></td></tr>
-                                   <tr><td><b>EMPLOYMENT HISTORY:</b></td><td><a href="javascript:void(0);" onclick="goToStep(11,11,0)">&nbsp;&nbsp;EDIT</a></td></tr>
-                                   <tr><td>Current Employer</td><td><span id="summEmployer"></span></td></tr>
-                                   <tr><td>Start Date</td><td><span id="summEstartdate"></span></td></tr>
-                                   <tr><td>Annual Salary</td><td><span id="summSalary"></span></td></tr>
-                                   <tr><td colspan="2"><table id="prevEmphistr"><tbody></tbody></table></td></tr>
-                               </table>
+                              
                             </p>
                                 <p style="font-size:medium; color:#838383;">I CERTIFY THAT I HAVE REVIEWED THE ABOVE INFORMATION, AND IT IS TRUE AND CORRECT.</p>
                         </td>
@@ -4253,9 +4684,14 @@
 
         var dt = new Date();
         dt.setFullYear(new Date().getFullYear() - 18);
+        var dts = new Date();
+        dts.setFullYear(new Date().getFullYear() - 100);
+        $('#txtDateOfBirth').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: dt, maxViewMode: 2, autoclose: true });
 
-        $('#txtDateOfBirth').datepicker({ viewMode: "years", endDate: dt, autoclose: true });
-        $("#txtDate").datepicker({ autoclose: true, dateFormat: "MM/dd/yyyy", startDate: new Date() });
+        var dtend100 = new Date();
+        dtend100.setFullYear(new Date().getFullYear() + 100);
+        $('#txtDate').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: "+1d", endDate: dtend100, maxViewMode: 2, autoclose: true });
+        
         $("#icontxtDate").click(function () {
             $("#txtDate").focus();
         });
@@ -4277,45 +4713,71 @@
             $("#txtTerminationDateHEI").focus();
         });
 
+        $("#txtStartDate,#txtMoveInDateFrom,#txtMoveInDateTo").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: "+0d", maxViewMode: 2, autoclose: true })
 
-        $("#txtDateOfIssuance,#txtStartDate,#txtMoveInDateFrom,#txtMoveInDateTo,#txtStartDateHEI,#txtTerminationDateHEI").datepicker({
-            endDate: "+0d",
-            autoclose: true,
-            startDate: '-100y'
+        $("#txtTerminationDateHEI").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: "+0d", maxViewMode: 2, autoclose: true });
+
+        $('#txtStartDateHEI').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: "+0d", maxViewMode: 2, autoclose: true }).on('change', function (ev) {
+            $("#txtTerminationDateHEI").val("");
+            var dtstartTD = new Date($("#txtStartDateHEI").val());
+            dtstartTD.setFullYear(dtstartTD.getFullYear() + 0);
+            $("#txtTerminationDateHEI").remove();
+            $("#spTerminationDateHEI").remove();
+            var html = '<input id="txtTerminationDateHEI" placeholder="mm/dd/yyyy" class="form-control form-control-small" type="text" value="" />';
+            html += '<span id="spTerminationDateHEI" class="input-group-btn">';
+            html += '<button id="IconTerminationDateHEI" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>';
+            html += '</span>';
+            $("#divTerminationDateHEI").append(html);
+            $("#txtTerminationDateHEI").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstartTD, endDate: "+0d", maxViewMode: 2, autoclose: true });
         });
 
-        $("#txtMoveInDateTo2").datepicker({
-            endDate: "+0d",
-            autoclose: true,
-            startDate: '-100y'
-        }).on('change', function (ev) {
-            var movefromdate = $("#txtMoveInDateFrom2").val().split("/");
-            var movetodate = $("#txtMoveInDateTo2").val().split("/");
-
-            console.log(movefromdate);
-            console.log(movetodate);
-
-            movefromdate = new Date(movefromdate[2], movefromdate[0] - 1, movefromdate[1]);
-            movetodate = new Date(movetodate[2], movetodate[0] - 1, movetodate[1]);
-
-            console.log(movefromdate);
-
-            console.log(movetodate);
-
-            if (movefromdate > movetodate) {
-                alert("Move out date should be greater then move in date");
-                $(this).val("");
-            }
+        $('#txtDateOfIssuance').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: "+0d", maxViewMode: 2, autoclose: true }).on('change', function (ev) {
+            $("#txtDateOfExpiration").val("");
+            var dtendDOE100 = new Date();
+            dtendDOE100.setFullYear(new Date().getFullYear() + 100);
+            var dtstartDOE = new Date($("#txtDateOfIssuance").val());
+            dtstartDOE.setFullYear(new Date().getFullYear() + 0);
+            $("#txtDateOfExpiration").remove();
+            $("#spDateOfExpiration").remove();
+            var html = '<input id="txtDateOfExpiration" placeholder="mm/dd/yyyy" class="form-control form-control-small" type="text" value="" />';
+            html += '<span id="spDateOfExpiration" class="input-group-btn">';
+            html += '<button id="IconDateOfExpiration" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>';
+            html += '</span>';
+            $("#divDateOfExpiration").append(html);
+            $("#txtDateOfExpiration").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstartDOE, endDate: dtendDOE100, maxViewMode: 2, autoclose: true });
         });
 
-        $("#txtMoveInDateFrom2").datepicker({
-            endDate: "+0d",
-            autoclose: true,
-            startDate: '-100y'
+        $("#IconDateOfIssuance").click(function () {
+            $("#txtDateOfIssuance").focus();
+        });
+        $("#IconDateOfExpiration").click(function () {
+            $("#txtDateOfExpiration").focus();
         });
 
-        $('#txtDOB').datepicker({ viewMode: "years", endDate: dt, autoclose: true });
-        $('#txtHDateOfBirth').datepicker({ viewMode: "years", endDate: dt, autoclose: true });
+        $("#txtMoveInDateTo2").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: "+0d", maxViewMode: 2, autoclose: true });
+
+        $('#txtMoveInDateFrom2').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: "+0d", maxViewMode: 2, autoclose: true }).on('change', function (ev) {
+            $("#txtMoveInDateTo2").val("");
+            var dtstartMID = new Date($("#txtMoveInDateFrom2").val());
+            dtstartMID.setFullYear(dtstartMID.getFullYear() + 0);
+            $("#txtMoveInDateTo2").remove();
+            $("#spMoveInDateTo2").remove();
+            var html = '<input id="txtMoveInDateTo2" placeholder="mm/dd/yyyy" class="form-control form-control-small" type="text" value="" />';
+            html += '<span id="spMoveInDateTo2" class="input-group-btn">';
+            html += '<button id="IconMoveInDateTo2" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>';
+            html += '</span>';
+            $("#divMoveInDateTo2").append(html);
+            $("#txtMoveInDateTo2").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstartMID, endDate: "+0d", maxViewMode: 2, autoclose: true });
+        });
+
+        $('#txtDOB').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: dt, maxViewMode: 2, autoclose: true });
+        $('#txtHDateOfBirth').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: dt, maxViewMode: 2, autoclose: true });
+        $('#txtADateOfBirth').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: dt, maxViewMode: 2, autoclose: true });
+        $('#txtGDateOfBirth').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: dt, maxViewMode: 2, autoclose: true });
+        var dtMinStart = new Date();
+        dtMinStart.setFullYear(new Date().getFullYear() - 18);
+        var dtMinEnd = new Date();
+        $('#txtMDateOfBirth').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtMinStart, endDate: dtMinEnd, maxViewMode: 2, autoclose: true });
 
         $("#txtPhoneNumber").val(formatPhoneFax('@Model.Phone'));
         $("#lblFNLPhone").text(formatPhoneFax('@Model.Phone'));
@@ -4566,5 +5028,37 @@
     }
     function hideLoader() {
         $("#divLoader").hide();
+    }
+
+    function printSumm(divName) {
+        let printContents, popupWin;
+        printContents = document.getElementById(divName).innerHTML;
+        popupWin = window.open('', '', 'width=950,height=800,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes');
+        popupWin.document.open();
+        popupWin.document.write(`
+                                      <html >
+                                        <head>
+                                        <link rel="stylesheet" href="/Content/bootstrap/css/bootstrap.css" >
+                                        <link rel="stylesheet" href="/Content/bootstrap/css/bootstrap.min.css">
+                                        <link rel="stylesheet" href="/Content/assets/css/wizard.css" >
+                                        <link rel="stylesheet" href="/Content/assets/css/style.css">
+                                        <link rel="stylesheet" href="/Content/assets/css/PrintGuest.css">
+                                        </head>
+                                        <style>
+                                hr {
+                                    margin-top: 0px !important;
+                                    margin-bottom: 0px !important;
+                                    border: 0;
+                                    border-top: 1px solid #bebdbd;
+                                }
+                                body { font-size: 12px;line-height: 20px; margin: 0px 10px 0px 0px; }
+                                h3, .h3 { font-size: 18px;margin: 10px 0 5px; }
+                                p { font-size: 14px; line-height: 1.20em;}
+
+                                        </style>
+                                    <body onload="window.print();window.close()">${printContents}</body>
+                                      </html>`
+        );
+        popupWin.document.close();
     }
 </script>

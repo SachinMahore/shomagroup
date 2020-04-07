@@ -1411,9 +1411,14 @@ var editUnitDate = function (uid) {
     $("#avUnitDate_" + uid).empty();
 
     $("#avUnitDate_" + uid).append("<input class='form-control'  style='width:100px' type='text' id='editUDate_" + uid + "'  value='" + unitDate + "'/>");
-    $("#editUDate_" + uid).datepicker({
-        autoclose: true
-    }).on('changeDate', function (e) {
+
+    var dtstart = new Date();
+    dtstart.setFullYear(new Date().getFullYear() - 100);
+
+    var dtend = new Date();
+    dtend.setFullYear(new Date().getFullYear() + 100);
+
+    $("#editUDate_" + uid).datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true }).on('changeDate', function (e) {
         var availDate = $("#editUDate_" + uid).val();
         // alert(availDate);
         var pID = $("#hndPID").val();
@@ -1447,9 +1452,13 @@ var editUnitMoveInDate = function (uid) {
     $("#avUnitMoveInDate_" + uid).empty();
 
     $("#avUnitMoveInDate_" + uid).append("<input class='form-control' style='width:100px'  type='text' id='editUMoveInDate_" + uid + "'  value='" + unitDate + "'/>");
-    $("#editUMoveInDate_" + uid).datepicker({
-        autoclose: true
-    }).on('changeDate', function (e) {
+    var dtstart = new Date();
+    dtstart.setFullYear(new Date().getFullYear() - 100);
+
+    var dtend = new Date();
+    dtend.setFullYear(new Date().getFullYear() + 100);
+
+    $("#editUMoveInDate_" + uid).datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true }).on('changeDate', function (e) {
         var availDate = $("#editUMoveInDate_" + uid).val();
         // alert(availDate);
         var pID = $("#hndPID").val();
@@ -1481,10 +1490,15 @@ var editUnitMoveOutDate = function (uid) {
     var unitDate = $("#avUnitMoveOutDate_" + uid).attr("data-udate");
     $("#avUnitMoveOutDate_" + uid).empty();
 
+
     $("#avUnitMoveOutDate_" + uid).append("<input class='form-control' style='width:100px'  type='text' id='editUMoveOutDate_" + uid + "'  value='" + unitDate + "'/>");
-    $("#editUMoveOutDate_" + uid).datepicker({
-        autoclose: true
-    }).on('changeDate', function (e) {
+    var dtstart = new Date();
+    dtstart.setFullYear(new Date().getFullYear() - 100);
+
+    var dtend = new Date();
+    dtend.setFullYear(new Date().getFullYear() + 100);
+
+    $("#editUMoveOutDate_" + uid).datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true }).on('changeDate', function (e) {
         var availDate = $("#editUMoveOutDate_" + uid).val();
         // alert(availDate);
         var pID = $("#hndPID").val();

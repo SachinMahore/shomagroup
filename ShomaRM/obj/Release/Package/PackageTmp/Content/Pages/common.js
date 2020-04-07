@@ -130,7 +130,7 @@ function checkStrength(password) {
     var validated = true;
     var msg = "";
 
-    if (password.length < 8) { validated = false; msg += "Password length should be of 8 characters <br/>"; }
+    if (password.length < 8) { validated = false; msg += "The Password should have a minimum of 8 characters <br/>"; }
     if (!/\d/.test(password)) { validated = false; msg += "Password should contain at least one digit <br/>"; }
     if (!/[a-z]/.test(password)) { validated = false; msg += "Password should contain at least one lower case <br/>"; }
     if (!/[A-Z]/.test(password)) { validated = false; msg += "Password should contain at least one upper case <br/>"; }

@@ -291,7 +291,7 @@ namespace ShomaRM.Areas.Tenant.Models
                         DateTime dtToDB = Convert.ToDateTime(toDateDB);
                         int givenDate = ((dtToDB.Year - dtFromDB.Year) * 12) + dtToDB.Month - dtFromDB.Month;
 
-                        monthsCount += givenDate;
+                        monthsCount += givenDate+1;
                     }
                 }
 
@@ -299,7 +299,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 DateTime dtCurrentToDB = Convert.ToDateTime(EmpTerminationDate);
 
                 int givenCurrentDate = ((dtCurrentToDB.Year - dtCurrentFromDB.Year) * 12) + dtCurrentToDB.Month - dtCurrentFromDB.Month;
-                monthsCount += givenCurrentDate;
+                monthsCount += givenCurrentDate+1;
 
 
                 model.TotalMonthsEmployerHistory = monthsCount;
