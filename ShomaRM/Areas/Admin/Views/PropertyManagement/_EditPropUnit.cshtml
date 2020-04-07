@@ -565,12 +565,19 @@
             $("#txtBalconyArea").val(@Model.BalconyArea);
             $("#txtInteriorArea").val(@Model.InteriorArea);
         }, 1500);
-        $("#txtAvailableDate").datepicker();
-        $("#txtLeaseEndDate").datepicker();
-        $("#txtOccupancyDate").datepicker();
-        $("#txtActualMoveInDate").datepicker();
-        $("#txtIntendedMoveIn_Date").datepicker();
-        $("#txtActualMoveOutDate").datepicker();
+
+        var dtstart = new Date();
+        dtstart.setFullYear(new Date().getFullYear() - 100);
+
+        var dtend = new Date();
+        dtend.setFullYear(new Date().getFullYear() + 100);
+
+        $("#txtAvailableDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true });
+        $("#txtLeaseEndDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true });
+        $("#txtOccupancyDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true });
+        $("#txtActualMoveInDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true });
+        $("#txtIntendedMoveIn_Date").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true });
+        $("#txtActualMoveOutDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true });
 
         $("#iconAvailableDate").click(function () {
             $("#txtAvailableDate").focus();
