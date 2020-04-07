@@ -88,9 +88,9 @@
     <Property Name="DepositAcctDate" Type="DateTime" Precision="3" />
     <NavigationProperty Name="tbl_Lease" Relationship="Self.FK_tbl_CashReceipts_tbl_Lease" FromRole="tbl_CashReceipts" ToRole="tbl_Lease" />
     <NavigationProperty Name="tbl_Tenant" Relationship="Self.FK_tbl_CashReceipts_tbl_Tenant" FromRole="tbl_CashReceipts" ToRole="tbl_Tenant" />
-    <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login" FromRole="tbl_CashReceipts" ToRole="tbl_Login" />
     <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Properties" FromRole="tbl_CashReceipts" ToRole="tbl_Properties" />
     <NavigationProperty Name="tbl_Properties1" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_PropertyUnits" FromRole="tbl_CashReceipts" ToRole="tbl_Properties" />
+    <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login" FromRole="tbl_CashReceipts" ToRole="tbl_Login" />
   </EntityType>
   <EntityType Name="tbl_CausingIssue">
     <Key>
@@ -226,8 +226,8 @@
     <Property Name="EventTime" Type="Time" Precision="7" />
     <Property Name="Fees" Type="Decimal" Precision="19" Scale="4" />
     <NavigationProperty Name="tbl_EventBooking" Relationship="Self.FK_tbl_EventBooking_tbl_Event" FromRole="tbl_Event" ToRole="tbl_EventBooking" />
-    <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Event_tbl_Login" FromRole="tbl_Event" ToRole="tbl_Login" />
     <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Event_tbl_Properties" FromRole="tbl_Event" ToRole="tbl_Properties" />
+    <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Event_tbl_Login" FromRole="tbl_Event" ToRole="tbl_Login" />
   </EntityType>
   <EntityType Name="tbl_EventBooking">
     <Key>
@@ -257,8 +257,8 @@
     <Property Name="CreatedByID" Type="Int32" />
     <Property Name="CreatedDate" Type="DateTime" Precision="3" />
     <NavigationProperty Name="tbl_FacilityBooking" Relationship="Self.FK_tbl_FacilityBooking_tbl_Facility" FromRole="tbl_Facility" ToRole="tbl_FacilityBooking" />
-    <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Facility_tbl_Login" FromRole="tbl_Facility" ToRole="tbl_Login" />
     <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Facility_tbl_Properties" FromRole="tbl_Facility" ToRole="tbl_Properties" />
+    <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Facility_tbl_Login" FromRole="tbl_Facility" ToRole="tbl_Login" />
   </EntityType>
   <EntityType Name="tbl_FacilityBooking">
     <Key>
@@ -397,8 +397,8 @@
     <NavigationProperty Name="tbl_LeaseTransfer" Relationship="Self.FK_tbl_LeaseTransfer_tbl_Lease" FromRole="tbl_Lease" ToRole="tbl_LeaseTransfer" />
     <NavigationProperty Name="tbl_Notice" Relationship="Self.FK_tbl_Notice_tbl_Lease" FromRole="tbl_Lease" ToRole="tbl_Notice" />
     <NavigationProperty Name="tbl_UtilityBilling" Relationship="Self.FK_tbl_UtilityBilling_tbl_Lease" FromRole="tbl_Lease" ToRole="tbl_UtilityBilling" />
-    <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Lease_tbl_Login" FromRole="tbl_Lease" ToRole="tbl_Login" />
     <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Lease_tbl_Properties" FromRole="tbl_Lease" ToRole="tbl_Properties" />
+    <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Lease_tbl_Login" FromRole="tbl_Lease" ToRole="tbl_Login" />
   </EntityType>
   <EntityType Name="tbl_LeaseRenewal">
     <Key>
@@ -702,9 +702,9 @@
     <NavigationProperty Name="tbl_Visit" Relationship="Self.FK_tbl_Visit_tbl_Prospect" FromRole="tbl_Prospect" ToRole="tbl_Visit" />
     <Property Name="AssignAgentId" Type="Int64" />
     <Property Name="AppointmentStatus" Type="Int32" />
+    <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Properties" FromRole="tbl_Prospect" ToRole="tbl_Properties" />
     <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login" FromRole="tbl_Prospect" ToRole="tbl_Login" />
     <NavigationProperty Name="tbl_Login1" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login1" FromRole="tbl_Prospect" ToRole="tbl_Login" />
-    <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Properties" FromRole="tbl_Prospect" ToRole="tbl_Properties" />
   </EntityType>
   <EntityType Name="tbl_PurchaseOrder">
     <Key>
@@ -724,9 +724,9 @@
     <Property Name="CanceledBy" Type="Int32" />
     <Property Name="CreatedBy" Type="Int32" />
     <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Properties" FromRole="tbl_PurchaseOrder" ToRole="tbl_Properties" />
     <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login" FromRole="tbl_PurchaseOrder" ToRole="tbl_Login" />
     <NavigationProperty Name="tbl_Login1" Relationship="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login1" FromRole="tbl_PurchaseOrder" ToRole="tbl_Login" />
-    <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Properties" FromRole="tbl_PurchaseOrder" ToRole="tbl_Properties" />
   </EntityType>
   <EntityType Name="tbl_Rating">
     <Key>
@@ -900,12 +900,12 @@
     <NavigationProperty Name="tbl_Notice" Relationship="Self.FK_tbl_Notice_tbl_Tenant" FromRole="tbl_Tenant" ToRole="tbl_Notice" />
     <NavigationProperty Name="tbl_UtilityBilling" Relationship="Self.FK_tbl_UtilityBilling_tbl_Tenant" FromRole="tbl_Tenant" ToRole="tbl_UtilityBilling" />
     <NavigationProperty Name="tbl_WorkOrder" Relationship="Self.FK_tbl_WorkOrder_tbl_Tenant" FromRole="tbl_Tenant" ToRole="tbl_WorkOrder" />
+    <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Properties" FromRole="tbl_Tenant" ToRole="tbl_Properties" />
+    <NavigationProperty Name="tbl_Properties1" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Properties1" FromRole="tbl_Tenant" ToRole="tbl_Properties" />
     <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login" FromRole="tbl_Tenant" ToRole="tbl_Login" />
     <NavigationProperty Name="tbl_Login1" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login1" FromRole="tbl_Tenant" ToRole="tbl_Login" />
     <NavigationProperty Name="tbl_Login2" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login2" FromRole="tbl_Tenant" ToRole="tbl_Login" />
     <NavigationProperty Name="tbl_Login3" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login3" FromRole="tbl_Tenant" ToRole="tbl_Login" />
-    <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Properties" FromRole="tbl_Tenant" ToRole="tbl_Properties" />
-    <NavigationProperty Name="tbl_Properties1" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Properties1" FromRole="tbl_Tenant" ToRole="tbl_Properties" />
   </EntityType>
   <EntityType Name="tbl_TenantEventJoin">
     <Key>
@@ -1585,79 +1585,6 @@
       <End Role="tbl_AuditHistory" EntitySet="tbl_AuditHistory" />
       <End Role="tbl_AuditHistoryDetail" EntitySet="tbl_AuditHistoryDetail" />
     </AssociationSet>
-    <EntitySet Name="tbl_Login" EntityType="ShomaRMEntitiesModel.tbl_Login" />
-    <AssociationSet Name="FK_tbl_CashReceipts_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_CashReceipts" EntitySet="tbl_CashReceipts" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_ChargeType_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_ChargeType_tbl_Login">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_ChargeType" EntitySet="tbl_ChargeType" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_DocumentVerification_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_DocumentVerification_tbl_Login">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_DocumentVerification" EntitySet="tbl_DocumentVerification" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_Event_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Event_tbl_Login">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_Event" EntitySet="tbl_Event" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_EventBooking_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_EventBooking_tbl_Login">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_EventBooking" EntitySet="tbl_EventBooking" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_Facility_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Facility_tbl_Login">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_Facility" EntitySet="tbl_Facility" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_FacilityBooking_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_FacilityBooking_tbl_Login">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_FacilityBooking" EntitySet="tbl_FacilityBooking" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_Invoice_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Invoice_tbl_Login">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_Invoice" EntitySet="tbl_Invoice" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_Lease_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Lease_tbl_Login">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_Lease" EntitySet="tbl_Lease" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_Prospect_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_Prospect_tbl_Login1" Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login1">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_PurchaseOrder_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_PurchaseOrder" EntitySet="tbl_PurchaseOrder" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_PurchaseOrder_tbl_Login1" Association="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login1">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_PurchaseOrder" EntitySet="tbl_PurchaseOrder" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_Tenant_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_Tenant" EntitySet="tbl_Tenant" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_Tenant_tbl_Login1" Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login1">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_Tenant" EntitySet="tbl_Tenant" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_Tenant_tbl_Login2" Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login2">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_Tenant" EntitySet="tbl_Tenant" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_Tenant_tbl_Login3" Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login3">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_Tenant" EntitySet="tbl_Tenant" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_Vendor_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Vendor_tbl_Login">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_Vendor" EntitySet="tbl_Vendor" />
-    </AssociationSet>
     <EntitySet Name="tbl_UnitLeasePrice" EntityType="ShomaRMEntitiesModel.tbl_UnitLeasePrice" />
     <EntitySet Name="tbl_OnlinePayment" EntityType="ShomaRMEntitiesModel.tbl_OnlinePayment" />
     <EntitySet Name="tbl_PaymentAccounts" EntityType="ShomaRMEntitiesModel.tbl_PaymentAccounts" />
@@ -1731,14 +1658,6 @@
       <End Role="tbl_Properties" EntitySet="tbl_Properties" />
       <End Role="tbl_Lease" EntitySet="tbl_Lease" />
     </AssociationSet>
-    <AssociationSet Name="FK_tbl_Properties_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_Properties" EntitySet="tbl_Properties" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_Properties_tbl_Login1" Association="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login1">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_Properties" EntitySet="tbl_Properties" />
-    </AssociationSet>
     <AssociationSet Name="FK_tbl_Notice_tbl_Properties" Association="ShomaRMEntitiesModel.FK_tbl_Notice_tbl_Properties">
       <End Role="tbl_Properties" EntitySet="tbl_Properties" />
       <End Role="tbl_Notice" EntitySet="tbl_Notice" />
@@ -1804,6 +1723,87 @@
       <End Role="tbl_WorkOrder" EntitySet="tbl_WorkOrder" />
     </AssociationSet>
     <EntitySet Name="tbl_ESignatureKeys" EntityType="ShomaRMEntitiesModel.tbl_ESignatureKeys" />
+    <EntitySet Name="tbl_Login" EntityType="ShomaRMEntitiesModel.tbl_Login" />
+    <AssociationSet Name="FK_tbl_CashReceipts_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_CashReceipts" EntitySet="tbl_CashReceipts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_ChargeType_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_ChargeType_tbl_Login">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_ChargeType" EntitySet="tbl_ChargeType" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_DocumentVerification_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_DocumentVerification_tbl_Login">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_DocumentVerification" EntitySet="tbl_DocumentVerification" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Event_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Event_tbl_Login">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_Event" EntitySet="tbl_Event" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_EventBooking_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_EventBooking_tbl_Login">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_EventBooking" EntitySet="tbl_EventBooking" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Facility_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Facility_tbl_Login">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_Facility" EntitySet="tbl_Facility" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_FacilityBooking_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_FacilityBooking_tbl_Login">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_FacilityBooking" EntitySet="tbl_FacilityBooking" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Invoice_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Invoice_tbl_Login">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_Invoice" EntitySet="tbl_Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Lease_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Lease_tbl_Login">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_Lease" EntitySet="tbl_Lease" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Properties_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_Properties" EntitySet="tbl_Properties" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Properties_tbl_Login1" Association="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login1">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_Properties" EntitySet="tbl_Properties" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Prospect_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Prospect_tbl_Login1" Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login1">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_PurchaseOrder_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_PurchaseOrder" EntitySet="tbl_PurchaseOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_PurchaseOrder_tbl_Login1" Association="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login1">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_PurchaseOrder" EntitySet="tbl_PurchaseOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Tenant_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_Tenant" EntitySet="tbl_Tenant" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Tenant_tbl_Login1" Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login1">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_Tenant" EntitySet="tbl_Tenant" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Tenant_tbl_Login2" Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login2">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_Tenant" EntitySet="tbl_Tenant" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Tenant_tbl_Login3" Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login3">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_Tenant" EntitySet="tbl_Tenant" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Vendor_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Vendor_tbl_Login">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_Vendor" EntitySet="tbl_Vendor" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="tbl_Country">
     <Key>
@@ -1935,259 +1935,6 @@
       </Principal>
       <Dependent Role="tbl_AuditHistoryDetail">
         <PropertyRef Name="AHID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="tbl_Login">
-    <Key>
-      <PropertyRef Name="UserID" />
-    </Key>
-    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Username" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="Email" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
-    <Property Name="CellPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-    <Property Name="IsActive" Type="Int32" />
-    <Property Name="TenantID" Type="Int64" />
-    <Property Name="IsSuperUser" Type="Int32" />
-    <Property Name="UserType" Type="Int32" />
-    <Property Name="ParentTenantID" Type="Int64" />
-    <NavigationProperty Name="tbl_CashReceipts" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login" FromRole="tbl_Login" ToRole="tbl_CashReceipts" />
-    <NavigationProperty Name="tbl_ChargeType" Relationship="ShomaRMEntitiesModel.FK_tbl_ChargeType_tbl_Login" FromRole="tbl_Login" ToRole="tbl_ChargeType" />
-    <NavigationProperty Name="tbl_DocumentVerification" Relationship="ShomaRMEntitiesModel.FK_tbl_DocumentVerification_tbl_Login" FromRole="tbl_Login" ToRole="tbl_DocumentVerification" />
-    <NavigationProperty Name="tbl_Event" Relationship="ShomaRMEntitiesModel.FK_tbl_Event_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Event" />
-    <NavigationProperty Name="tbl_EventBooking" Relationship="ShomaRMEntitiesModel.FK_tbl_EventBooking_tbl_Login" FromRole="tbl_Login" ToRole="tbl_EventBooking" />
-    <NavigationProperty Name="tbl_Facility" Relationship="ShomaRMEntitiesModel.FK_tbl_Facility_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Facility" />
-    <NavigationProperty Name="tbl_FacilityBooking" Relationship="ShomaRMEntitiesModel.FK_tbl_FacilityBooking_tbl_Login" FromRole="tbl_Login" ToRole="tbl_FacilityBooking" />
-    <NavigationProperty Name="tbl_Invoice" Relationship="ShomaRMEntitiesModel.FK_tbl_Invoice_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Invoice" />
-    <NavigationProperty Name="tbl_Lease" Relationship="ShomaRMEntitiesModel.FK_tbl_Lease_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Lease" />
-    <NavigationProperty Name="tbl_Prospect" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Prospect" />
-    <NavigationProperty Name="tbl_Prospect1" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login1" FromRole="tbl_Login" ToRole="tbl_Prospect" />
-    <NavigationProperty Name="tbl_PurchaseOrder" Relationship="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login" FromRole="tbl_Login" ToRole="tbl_PurchaseOrder" />
-    <NavigationProperty Name="tbl_PurchaseOrder1" Relationship="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login1" FromRole="tbl_Login" ToRole="tbl_PurchaseOrder" />
-    <NavigationProperty Name="tbl_Tenant" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Tenant" />
-    <NavigationProperty Name="tbl_Tenant1" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login1" FromRole="tbl_Login" ToRole="tbl_Tenant" />
-    <NavigationProperty Name="tbl_Tenant2" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login2" FromRole="tbl_Login" ToRole="tbl_Tenant" />
-    <NavigationProperty Name="tbl_Tenant3" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login3" FromRole="tbl_Login" ToRole="tbl_Tenant" />
-    <NavigationProperty Name="tbl_Vendor" Relationship="ShomaRMEntitiesModel.FK_tbl_Vendor_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Vendor" />
-    <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Properties" />
-    <NavigationProperty Name="tbl_Properties1" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login1" FromRole="tbl_Login" ToRole="tbl_Properties" />
-  </EntityType>
-  <Association Name="FK_tbl_CashReceipts_tbl_Login">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_CashReceipts" Role="tbl_CashReceipts" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_CashReceipts">
-        <PropertyRef Name="UserID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_ChargeType_tbl_Login">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="1" />
-    <End Type="ShomaRMEntitiesModel.tbl_ChargeType" Role="tbl_ChargeType" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_ChargeType">
-        <PropertyRef Name="CreatedBy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_DocumentVerification_tbl_Login">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_DocumentVerification" Role="tbl_DocumentVerification" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_DocumentVerification">
-        <PropertyRef Name="CreatedBy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_Event_tbl_Login">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_Event" Role="tbl_Event" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_Event">
-        <PropertyRef Name="CreatedByID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_EventBooking_tbl_Login">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_EventBooking" Role="tbl_EventBooking" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_EventBooking">
-        <PropertyRef Name="CreatedByID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_Facility_tbl_Login">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_Facility" Role="tbl_Facility" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_Facility">
-        <PropertyRef Name="CreatedByID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_FacilityBooking_tbl_Login">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_FacilityBooking" Role="tbl_FacilityBooking" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_FacilityBooking">
-        <PropertyRef Name="CreatedByID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_Invoice_tbl_Login">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_Invoice" Role="tbl_Invoice" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_Invoice">
-        <PropertyRef Name="CreatedBy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_Lease_tbl_Login">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_Lease" Role="tbl_Lease" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_Lease">
-        <PropertyRef Name="CreatedBy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_Prospect_tbl_Login">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_Prospect">
-        <PropertyRef Name="CreatedBy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_Prospect_tbl_Login1">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_Prospect">
-        <PropertyRef Name="LastModifiedBy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_PurchaseOrder_tbl_Login">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_PurchaseOrder" Role="tbl_PurchaseOrder" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_PurchaseOrder">
-        <PropertyRef Name="CreatedBy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_PurchaseOrder_tbl_Login1">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_PurchaseOrder" Role="tbl_PurchaseOrder" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_PurchaseOrder">
-        <PropertyRef Name="CanceledBy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_Tenant_tbl_Login">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_Tenant" Role="tbl_Tenant" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_Tenant">
-        <PropertyRef Name="CreatedBy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_Tenant_tbl_Login1">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_Tenant" Role="tbl_Tenant" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_Tenant">
-        <PropertyRef Name="LastModifiedBy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_Tenant_tbl_Login2">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_Tenant" Role="tbl_Tenant" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_Tenant">
-        <PropertyRef Name="CreatedBy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_Tenant_tbl_Login3">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_Tenant" Role="tbl_Tenant" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_Tenant">
-        <PropertyRef Name="LastModifiedBy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_Vendor_tbl_Login">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_Vendor" Role="tbl_Vendor" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_Vendor">
-        <PropertyRef Name="Created_By" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2670,8 +2417,6 @@
     <NavigationProperty Name="tbl_FOB" Relationship="ShomaRMEntitiesModel.FK_tbl_FOB_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_FOB" />
     <NavigationProperty Name="tbl_Gallery" Relationship="ShomaRMEntitiesModel.FK_tbl_Gallery_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_Gallery" />
     <NavigationProperty Name="tbl_Lease" Relationship="ShomaRMEntitiesModel.FK_tbl_Lease_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_Lease" />
-    <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login" FromRole="tbl_Properties" ToRole="tbl_Login" />
-    <NavigationProperty Name="tbl_Login1" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login1" FromRole="tbl_Properties" ToRole="tbl_Login" />
     <NavigationProperty Name="tbl_Notice" Relationship="ShomaRMEntitiesModel.FK_tbl_Notice_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_Notice" />
     <NavigationProperty Name="tbl_Parking" Relationship="ShomaRMEntitiesModel.FK_tbl_Parking_tbl_Parking" FromRole="tbl_Properties" ToRole="tbl_Parking" />
     <NavigationProperty Name="tbl_PetPlace" Relationship="ShomaRMEntitiesModel.FK_tbl_PetPlace_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_PetPlace" />
@@ -2690,6 +2435,8 @@
     <NavigationProperty Name="tbl_Tenant" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_Tenant" />
     <NavigationProperty Name="tbl_Tenant1" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Properties1" FromRole="tbl_Properties" ToRole="tbl_Tenant" />
     <NavigationProperty Name="tbl_WorkOrder" Relationship="ShomaRMEntitiesModel.FK_tbl_WorkOrder_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_WorkOrder" />
+    <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login" FromRole="tbl_Properties" ToRole="tbl_Login" />
+    <NavigationProperty Name="tbl_Login1" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login1" FromRole="tbl_Properties" ToRole="tbl_Login" />
   </EntityType>
   <Association Name="FK_tbl_CashReceipts_tbl_Properties">
     <End Type="ShomaRMEntitiesModel.tbl_Properties" Role="tbl_Properties" Multiplicity="0..1" />
@@ -2784,30 +2531,6 @@
       </Principal>
       <Dependent Role="tbl_Lease">
         <PropertyRef Name="PID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_Properties_tbl_Login">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_Properties" Role="tbl_Properties" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_Properties">
-        <PropertyRef Name="CreatedBy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_Properties_tbl_Login1">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_Properties" Role="tbl_Properties" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_Properties">
-        <PropertyRef Name="LastModifiedBy" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -3014,4 +2737,283 @@
     <Property Name="EsignatureId" Type="Int64" />
     <Property Name="DateSigned" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
   </EntityType>
+  <EntityType Name="tbl_Login">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
+    <Property Name="CellPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Int32" />
+    <Property Name="TenantID" Type="Int64" />
+    <Property Name="IsSuperUser" Type="Int32" />
+    <Property Name="UserType" Type="Int32" />
+    <Property Name="ParentTenantID" Type="Int64" />
+    <Property Name="IsChangePass" Type="Int32" />
+    <Property Name="ChangeDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="tbl_CashReceipts" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login" FromRole="tbl_Login" ToRole="tbl_CashReceipts" />
+    <NavigationProperty Name="tbl_ChargeType" Relationship="ShomaRMEntitiesModel.FK_tbl_ChargeType_tbl_Login" FromRole="tbl_Login" ToRole="tbl_ChargeType" />
+    <NavigationProperty Name="tbl_DocumentVerification" Relationship="ShomaRMEntitiesModel.FK_tbl_DocumentVerification_tbl_Login" FromRole="tbl_Login" ToRole="tbl_DocumentVerification" />
+    <NavigationProperty Name="tbl_Event" Relationship="ShomaRMEntitiesModel.FK_tbl_Event_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Event" />
+    <NavigationProperty Name="tbl_EventBooking" Relationship="ShomaRMEntitiesModel.FK_tbl_EventBooking_tbl_Login" FromRole="tbl_Login" ToRole="tbl_EventBooking" />
+    <NavigationProperty Name="tbl_Facility" Relationship="ShomaRMEntitiesModel.FK_tbl_Facility_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Facility" />
+    <NavigationProperty Name="tbl_FacilityBooking" Relationship="ShomaRMEntitiesModel.FK_tbl_FacilityBooking_tbl_Login" FromRole="tbl_Login" ToRole="tbl_FacilityBooking" />
+    <NavigationProperty Name="tbl_Invoice" Relationship="ShomaRMEntitiesModel.FK_tbl_Invoice_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Invoice" />
+    <NavigationProperty Name="tbl_Lease" Relationship="ShomaRMEntitiesModel.FK_tbl_Lease_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Lease" />
+    <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Properties" />
+    <NavigationProperty Name="tbl_Properties1" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login1" FromRole="tbl_Login" ToRole="tbl_Properties" />
+    <NavigationProperty Name="tbl_Prospect" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Prospect" />
+    <NavigationProperty Name="tbl_Prospect1" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login1" FromRole="tbl_Login" ToRole="tbl_Prospect" />
+    <NavigationProperty Name="tbl_PurchaseOrder" Relationship="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login" FromRole="tbl_Login" ToRole="tbl_PurchaseOrder" />
+    <NavigationProperty Name="tbl_PurchaseOrder1" Relationship="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login1" FromRole="tbl_Login" ToRole="tbl_PurchaseOrder" />
+    <NavigationProperty Name="tbl_Tenant" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Tenant" />
+    <NavigationProperty Name="tbl_Tenant1" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login1" FromRole="tbl_Login" ToRole="tbl_Tenant" />
+    <NavigationProperty Name="tbl_Tenant2" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login2" FromRole="tbl_Login" ToRole="tbl_Tenant" />
+    <NavigationProperty Name="tbl_Tenant3" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login3" FromRole="tbl_Login" ToRole="tbl_Tenant" />
+    <NavigationProperty Name="tbl_Vendor" Relationship="ShomaRMEntitiesModel.FK_tbl_Vendor_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Vendor" />
+  </EntityType>
+  <Association Name="FK_tbl_CashReceipts_tbl_Login">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_CashReceipts" Role="tbl_CashReceipts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_CashReceipts">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_ChargeType_tbl_Login">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="1" />
+    <End Type="ShomaRMEntitiesModel.tbl_ChargeType" Role="tbl_ChargeType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_ChargeType">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_DocumentVerification_tbl_Login">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_DocumentVerification" Role="tbl_DocumentVerification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_DocumentVerification">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Event_tbl_Login">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_Event" Role="tbl_Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_Event">
+        <PropertyRef Name="CreatedByID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_EventBooking_tbl_Login">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_EventBooking" Role="tbl_EventBooking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_EventBooking">
+        <PropertyRef Name="CreatedByID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Facility_tbl_Login">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_Facility" Role="tbl_Facility" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_Facility">
+        <PropertyRef Name="CreatedByID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_FacilityBooking_tbl_Login">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_FacilityBooking" Role="tbl_FacilityBooking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_FacilityBooking">
+        <PropertyRef Name="CreatedByID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Invoice_tbl_Login">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_Invoice" Role="tbl_Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_Invoice">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Lease_tbl_Login">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_Lease" Role="tbl_Lease" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_Lease">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Properties_tbl_Login">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_Properties" Role="tbl_Properties" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_Properties">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Properties_tbl_Login1">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_Properties" Role="tbl_Properties" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_Properties">
+        <PropertyRef Name="LastModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Prospect_tbl_Login">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_Prospect">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Prospect_tbl_Login1">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_Prospect">
+        <PropertyRef Name="LastModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_PurchaseOrder_tbl_Login">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_PurchaseOrder" Role="tbl_PurchaseOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_PurchaseOrder">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_PurchaseOrder_tbl_Login1">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_PurchaseOrder" Role="tbl_PurchaseOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_PurchaseOrder">
+        <PropertyRef Name="CanceledBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Tenant_tbl_Login">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_Tenant" Role="tbl_Tenant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_Tenant">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Tenant_tbl_Login1">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_Tenant" Role="tbl_Tenant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_Tenant">
+        <PropertyRef Name="LastModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Tenant_tbl_Login2">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_Tenant" Role="tbl_Tenant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_Tenant">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Tenant_tbl_Login3">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_Tenant" Role="tbl_Tenant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_Tenant">
+        <PropertyRef Name="LastModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Vendor_tbl_Login">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_Vendor" Role="tbl_Vendor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_Vendor">
+        <PropertyRef Name="Created_By" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

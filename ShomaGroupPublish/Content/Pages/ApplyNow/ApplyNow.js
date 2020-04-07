@@ -1075,6 +1075,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             // var msg = '';
             var grandPercentage = localStorage.getItem("percentage");
             var grandPercentageMo = localStorage.getItem("percentageMo");
+            
             if (grandPercentage != 100 || grandPercentageMo != 100) {
                 msg = "For Move In Charges and Monthly Payment the total must equal 100% in order to continue.";
             }
@@ -4588,6 +4589,12 @@ var getApplicantLists = function () {
                     var chargesAmount = unformatText($("#txtpayamt" + elementValue.ApplicantID).val());
                     var chargesPer = ((chargesAmount * 100) / parseFloat(unformatText($("#lbtotdueatmov6").text())));
                     $("#txtpayper" + elementValue.ApplicantID).val(chargesPer.toFixed(2));
+                    var sum = parseFloat(0);
+                    $(".payper").each(function () {
+                        sum += parseFloat(this.value);
+                    });
+                    localStorage.setItem("percentage", sum);
+
                 }).keypress(function (event) { return nonNegDecimal(event, $(this)); }).focusout(function () {
                     $("#txtpayamt" + elementValue.ApplicantID).val(formatMoney(unformatText($("#txtpayamt" + elementValue.ApplicantID).val())));
                 });
@@ -4612,6 +4619,13 @@ var getApplicantLists = function () {
                     var monthlyPayment = unformatText($("#lblRFPTotalMonthlyPayment").text());
                     var monthlyPercentage = ((perMonth * 100) / parseFloat(monthlyPayment, 10));
                     $("#txtpayperMo" + elementValue.ApplicantID).val(monthlyPercentage.toFixed(2));
+
+                    var sumMo = parseFloat(0);
+                    $(".payperMo").each(function () {
+                        sumMo += parseFloat(this.value);
+
+                    });
+                    localStorage.setItem("percentageMo", sumMo);
                 }).keypress(function (event) { return nonNegDecimal(event, $(this)); }).focusout(function () {
                     $("#txtpayamtMo" + elementValue.ApplicantID).val(formatMoney(unformatText($("#txtpayamtMo" + elementValue.ApplicantID).val())));
                 });
@@ -7184,7 +7198,7 @@ var dateIconFunctions = function () {
         $("#txtMoveInDateTo2").focus();
     });
     $('#IconStartDateHEI').click(function () {
-        $("#txtStartDate").focus();
+        $("#txtStartDateHEI").focus();
     });
     $('#IconTerminationDateHEI').click(function () {
         $("#txtTerminationDateHEI").focus();

@@ -598,6 +598,8 @@
     <Property Name="IsSuperUser" Type="int" />
     <Property Name="UserType" Type="int" />
     <Property Name="ParentTenantID" Type="bigint" />
+    <Property Name="IsChangePass" Type="int" />
+    <Property Name="ChangeDate" Type="datetime" />
   </EntityType>
   <EntityType Name="tbl_LoginHistory">
     <Key>

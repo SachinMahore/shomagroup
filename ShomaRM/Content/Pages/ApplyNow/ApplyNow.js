@@ -7198,7 +7198,7 @@ var dateIconFunctions = function () {
         $("#txtMoveInDateTo2").focus();
     });
     $('#IconStartDateHEI').click(function () {
-        $("#txtStartDate").focus();
+        $("#txtStartDateHEI").focus();
     });
     $('#IconTerminationDateHEI').click(function () {
         $("#txtTerminationDateHEI").focus();
