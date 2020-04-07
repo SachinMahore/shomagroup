@@ -610,10 +610,11 @@ $(document).ready(function () {
             });
         }
     };
-
+    $("#txtpetWeight").keypress(function (event) { return nonNegDecimal(event, $(this)); });
     dateIconFunctions();
     clearHistoryOfResidence();
     getEmployerHistory();
+
 });
 
 var cancel = function () {
@@ -3952,7 +3953,7 @@ var saveupdateParking = function () {
             $('#popParking').modal('hide');
             $("#divLoader").hide();
             totalAmt = parseFloat(totalAmt) - unformatText($("#lblAdditionalParking").text());
-            $("#lblVehicleFees").text("0.00")
+            $("#lblVehicleFees").text("0.00");
             $("#lblAdditionalParking").text(formatMoney(parseFloat(response.totalParkingAmt).toFixed(2)));
             $("#lblMonthly_AditionalParking").text(parseFloat(response.totalParkingAmt).toFixed(2));
             $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(response.totalParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
@@ -4170,9 +4171,13 @@ var addApplicant = function (at) {
 
         $("#ddlARelationship").append(opt);
         $("#ddlARelationship").val(0).change();
-        var dtApp = new Date();
-        dtApp.setFullYear(new Date().getFullYear() - 18);
-        $('#txtADateOfBirth').datepicker({ endDate: dtApp, autoclose: true });
+        //var dtAppStart = new Date();
+        //dtAppStart.setFullYear(new Date().getFullYear() - 18);
+        //var dtAppEnd = new Date();
+        //dtAppEnd.setFullYear(new Date().getFullYear() - 100);
+
+        //$('#txtADateOfBirth').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtAppStart, endDate: dtAppEnd, maxViewMode: 2, autoclose: true });
+        
         $("#iconCalenderApplicant").click(function () {
             $("#txtADateOfBirth").focus();
         });
@@ -4205,10 +4210,10 @@ var addApplicant = function (at) {
         opt += "<option value='2'>Child</option>";
         $("#ddlARelationship").append(opt);
         $("#ddlARelationship").val(0).change();
-        var dtMin = new Date();
-        dtMin.setFullYear(new Date().getFullYear() - 18);
-        var dtEnd = new Date();
-        $('#txtMDateOfBirth').datepicker({ viewMode: "years", startDate: dtMin, endDate: dtEnd, autoclose: true });
+        //var dtMinStart = new Date();
+        //dtMin.setFullYear(new Date().getFullYear() - 18);
+        //var dtMinEnd = new Date();
+        //$('#txtMDateOfBirth').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtMinStart, endDate: dtMinEnd, maxViewMode: 2, autoclose: true });
         $("#iconCalenderApplicant").click(function () {
             $("#txtMDateOfBirth").focus();
         });
@@ -4236,9 +4241,12 @@ var addApplicant = function (at) {
         opt += "<option value='2'>Friend</option>";
         $("#ddlARelationship").append(opt);
         $("#ddlARelationship").val(0).change();
-        var dtGApp = new Date();
-        dtGApp.setFullYear(new Date().getFullYear() - 18);
-        $('#txtGDateOfBirth').datepicker({ endDate: dtGApp, autoclose: true });
+        //var dtGAppStart = new Date();
+        //dtGAppStart.setFullYear(new Date().getFullYear() - 18);
+        //var dtGAppEnd = new Date();
+        //dtGAppEnd.setFullYear(new Date().getFullYear() - 100);
+        //$('#txtGDateOfBirth').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtGAppStart, endDate: dtGAppEnd, maxViewMode: 2, autoclose: true });
+        
         $("#iconCalenderApplicant").click(function () {
             $("#txtGDateOfBirth").focus();
         });
@@ -4633,9 +4641,6 @@ var getApplicantLists = function () {
 
                 });
                 localStorage.setItem("percentageMo", sumMo);
-
-
-              
                 if (elementValue.Type != "Guarantor") {
                     noofapl += 1;
                 }
@@ -4644,7 +4649,7 @@ var getApplicantLists = function () {
            
             var nofbed = $("#lblBed").text();
             if ((parseInt(nofbed) * 2) <= noofapl) {
-
+                var test = "";
             } else {
              
                 $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
@@ -4715,12 +4720,12 @@ var goToEditApplicant = function (aid) {
                     $("#txtHDateOfBirth").val(response.model.DateOfBirthTxt);
                     $('#txtMDateOfBirth').addClass("hidden");
                     $('#txtGDateOfBirth').addClass('hidden');
-                    var dtHApp = new Date();
-                    dtHApp.setFullYear(new Date().getFullYear() - 18);
-                    $('#txtHDateOfBirth').datepicker({ endDate: dtHApp, autoclose: true });
-                    $("#iconCalenderApplicant").click(function () {
-                        $("#txtHDateOfBirth").focus();
-                    });
+                    //var dtHApp = new Date();
+                    //dtHApp.setFullYear(new Date().getFullYear() - 18);
+                    //$('#txtHDateOfBirth').datepicker({ endDate: dtHApp, autoclose: true });
+                    //$("#iconCalenderApplicant").click(function () {
+                    //    $("#txtHDateOfBirth").focus();
+                    //});
                     if (response.model.OtherGender == '3') {
                         $("#txtApplicantOtherGender").val(response.model.OtherGender);
                     }
@@ -4757,10 +4762,10 @@ var goToEditApplicant = function (aid) {
                     $('#txtHDateOfBirth').addClass("hidden");
                     $('#txtMDateOfBirth').addClass("hidden");
                     $('#txtGDateOfBirth').addClass('hidden');
-                    var dtApp = new Date();
-                    dtApp.setFullYear(new Date().getFullYear() - 18);
-                    $('#txtADateOfBirth').datepicker({ endDate: dtApp, autoclose: true });
-                    $("#txtApplicantOtherGender").val(response.model.OtherGender);
+                    //var dtApp = new Date();
+                    //dtApp.setFullYear(new Date().getFullYear() - 18);
+                    //$('#txtADateOfBirth').datepicker({ endDate: dtApp, autoclose: true });
+                    //$("#txtApplicantOtherGender").val(response.model.OtherGender);
 
                 }
                 else if (response.model.Type == "Minor") {
@@ -4788,10 +4793,10 @@ var goToEditApplicant = function (aid) {
                     $("#ddlARelationship").val(response.model.Relationship).change();
                     //$("#ddlGRelationship").addClass("hidden");
                     // $("#ddlGRelationship").addClass("hidden");
-                    var dtMin = new Date();
-                    dtMin.setFullYear(new Date().getFullYear() - 18);
-                    var dtEnd = new Date();
-                    $('#txtMDateOfBirth').datepicker({ viewMode: "years", startDate: dtMin, endDate: dtEnd, autoclose: true });
+                    //var dtMin = new Date();
+                    //dtMin.setFullYear(new Date().getFullYear() - 18);
+                    //var dtEnd = new Date();
+                    //$('#txtMDateOfBirth').datepicker({ viewMode: "years", startDate: dtMin, endDate: dtEnd, autoclose: true });
                     $("#txtApplicantOtherGender").val(response.model.OtherGender);
 
                 }
@@ -4822,9 +4827,9 @@ var goToEditApplicant = function (aid) {
                     opt += "<option value='2'>Friend</option>";
                     $("#ddlARelationship").append(opt);
                     $("#ddlARelationship").val(response.model.Relationship).change();
-                    var dtGApp = new Date();
-                    dtGApp.setFullYear(new Date().getFullYear() - 18);
-                    $('#txtGDateOfBirth').datepicker({ endDate: dtGApp, autoclose: true });
+                    //var dtGApp = new Date();
+                    //dtGApp.setFullYear(new Date().getFullYear() - 18);
+                    //$('#txtGDateOfBirth').datepicker({ endDate: dtGApp, autoclose: true });
                     $("#txtApplicantOtherGender").val(response.model.OtherGender);
                 }
             }
@@ -7172,14 +7177,17 @@ var dateIconFunctions = function () {
     //$('#SPMoveInDateT').click(function () {
     //    $("#txtMoveInDateTo").focus();
     //});
-    $('#SPtxtMoveInDateFrom2').click(function () {
+    $('#IconMoveInDateFrom2').click(function () {
         $("#txtMoveInDateFrom2").focus();
     });
-    $('#SPtxtMoveInDateTo2').click(function () {
+    $('#IconMoveInDateTo2').click(function () {
         $("#txtMoveInDateTo2").focus();
     });
-    $('#SPStartDate').click(function () {
+    $('#IconStartDateHEI').click(function () {
         $("#txtStartDate").focus();
+    });
+    $('#IconTerminationDateHEI').click(function () {
+        $("#txtTerminationDateHEI").focus();
     });
     $('#IconDateOfBirth').click(function () {
         $("#txtDateOfBirth").focus();
