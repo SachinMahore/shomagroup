@@ -594,7 +594,26 @@ namespace ShomaRM.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-
+        public ActionResult ChangePassword(string uid)
+        {
+            string uidd = new EncryptDecrypt().DecryptText(uid);
+            ViewBag.UID = uidd;
+            var model = new ApplyNowModel().ExpireChangePassword(Convert.ToInt64(uidd));
+            ViewBag.LinkExp = model;
+            return View();
+           
+        }
+        public JsonResult SaveChangePassword(long UserID,string EmailId, string NewPassword)
+        {
+            try
+            {
+                return Json(new { model = new ApplyNowModel().SaveChangePassword(UserID,EmailId, NewPassword) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         public JsonResult CheckEmailAreadyExist(string EmailId)
         {
             try

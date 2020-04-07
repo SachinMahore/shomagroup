@@ -30,7 +30,7 @@ namespace ShomaRM.Data
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_FacilityBooking> tbl_FacilityBooking { get; set; }
-        public virtual tbl_Login tbl_Login { get; set; }
         public virtual tbl_Properties tbl_Properties { get; set; }
+        public virtual tbl_Login tbl_Login { get; set; }
     }
 }

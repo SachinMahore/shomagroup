@@ -50,6 +50,7 @@ namespace ShomaRM.Models
         public int AcceptSummary { get; set; }
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
+        string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
 
         public string SavePaymentDetails(ApplyNowModel model)
         {
@@ -328,8 +329,9 @@ namespace ShomaRM.Models
             string phonenumber = "";
             if (forgetPassword != null)
             {
-                model.Password = forgetPassword.Password;
-                model.FullName = forgetPassword.FirstName + " " + forgetPassword.LastName;
+                forgetPassword.IsChangePass = 1;
+                forgetPassword.ChangeDate = DateTime.Now;
+                db.SaveChanges();
             }
             else
             {
@@ -346,19 +348,19 @@ namespace ShomaRM.Models
                 catch
                 {
                 }
-
+                string uidd = new EncryptDecrypt().EncryptText(forgetPassword.UserID.ToString());
                 string reportHTML = "";
                 string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "ForgetPassword.html");
 
                 //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
                 reportHTML = reportHTML.Replace("[%TenantName%]", model.FullName);
-                reportHTML = reportHTML.Replace("[%TenantPassword%]", password);
+                reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/ApplyNow/ChangePassword/?uid=" + uidd + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/ApplyNow/ChangePassword/?uid=" + uidd + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Change Password</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
 
                 string body = reportHTML;
-                new EmailSendModel().SendEmail(model.Email, "Password", body);
+                new EmailSendModel().SendEmail(model.Email, "Reset Password Link", body);
 
-                message = "Your credentials has been sent to your email. Please check the email for detail.";
+                message = "Your password change link has been sent to your email. Please check the email for detail.";
                 if (SendMessage == "yes")
                 {
                     new TwilioService().SMS(phonenumber, message);
@@ -366,8 +368,41 @@ namespace ShomaRM.Models
             }
             return model;
         }
-
-
+        public string ExpireChangePassword(long UserID)
+        {
+            string IsLinkExpired = string.Empty;
+            ShomaRMEntities db = new ShomaRMEntities();
+            var isUserCorrct = db.tbl_Login.Where(co => co.UserID == UserID).FirstOrDefault();
+            if (isUserCorrct.ChangeDate <= DateTime.Now.AddMinutes(-5))
+            {
+                IsLinkExpired = "Yes";
+            }
+            else
+            {
+                IsLinkExpired = "No";
+            }
+            db.Dispose();
+            return IsLinkExpired;
+        }
+        public string SaveChangePassword(long UserID,string EmailId,string NewPassword)
+        {
+            string IsEmailExist = string.Empty;
+            ShomaRMEntities db = new ShomaRMEntities();
+            string pass = new EncryptDecrypt().EncryptText(NewPassword.ToString());
+            var isUserCorrct= db.tbl_Login.Where(co => co.Email == EmailId && co.UserID==UserID).FirstOrDefault();
+            if (isUserCorrct != null)
+            {
+                isUserCorrct.Password = pass;
+                isUserCorrct.IsChangePass = 0;
+                db.SaveChanges();
+            }
+            else
+            {
+                IsEmailExist = "No";
+            }
+            db.Dispose();
+            return IsEmailExist;
+        }
         public string CheckEmailAreadyExist(string EmailId)
         {
             string IsEmailExist = string.Empty;

@@ -26,6 +26,8 @@ namespace ShomaRM.Data
             this.tbl_FacilityBooking = new HashSet<tbl_FacilityBooking>();
             this.tbl_Invoice = new HashSet<tbl_Invoice>();
             this.tbl_Lease = new HashSet<tbl_Lease>();
+            this.tbl_Properties = new HashSet<tbl_Properties>();
+            this.tbl_Properties1 = new HashSet<tbl_Properties>();
             this.tbl_Prospect = new HashSet<tbl_Prospect>();
             this.tbl_Prospect1 = new HashSet<tbl_Prospect>();
             this.tbl_PurchaseOrder = new HashSet<tbl_PurchaseOrder>();
@@ -35,8 +37,6 @@ namespace ShomaRM.Data
             this.tbl_Tenant2 = new HashSet<tbl_Tenant>();
             this.tbl_Tenant3 = new HashSet<tbl_Tenant>();
             this.tbl_Vendor = new HashSet<tbl_Vendor>();
-            this.tbl_Properties = new HashSet<tbl_Properties>();
-            this.tbl_Properties1 = new HashSet<tbl_Properties>();
         }
     
         public int UserID { get; set; }
@@ -51,6 +51,8 @@ namespace ShomaRM.Data
         public Nullable<int> IsSuperUser { get; set; }
         public Nullable<int> UserType { get; set; }
         public Nullable<long> ParentTenantID { get; set; }
+        public Nullable<int> IsChangePass { get; set; }
+        public Nullable<System.DateTime> ChangeDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_CashReceipts> tbl_CashReceipts { get; set; }
@@ -71,6 +73,10 @@ namespace ShomaRM.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Lease> tbl_Lease { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_Properties> tbl_Properties { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_Properties> tbl_Properties1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Prospect> tbl_Prospect { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Prospect> tbl_Prospect1 { get; set; }
@@ -88,9 +94,5 @@ namespace ShomaRM.Data
         public virtual ICollection<tbl_Tenant> tbl_Tenant3 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Vendor> tbl_Vendor { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_Properties> tbl_Properties { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_Properties> tbl_Properties1 { get; set; }
     }
 }
