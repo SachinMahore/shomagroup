@@ -61,6 +61,14 @@ namespace ShomaRM.Models
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
                 var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId).FirstOrDefault();
+                var GetPropertyDetails = db.tbl_Properties.Where(P => P.PID == 8).FirstOrDefault();
+
+                decimal processingFees = 0;
+
+                if(GetPropertyDetails!=null)
+                {
+                    processingFees = GetPropertyDetails.ProcessingFees ?? 0;
+                }
 
                 string encrytpedCardNumber = new EncryptDecrypt().EncryptText(model.CardNumber);
                 string encrytpedCardMonth = new EncryptDecrypt().EncryptText(model.CardMonth);
@@ -71,6 +79,7 @@ namespace ShomaRM.Models
 
                 string transStatus = "";
                 model.Email = GetProspectData.Email;
+                model.ProcessingFees = processingFees;
                 if (model.PaymentMethod == 2)
                 {
 
@@ -144,7 +153,7 @@ namespace ShomaRM.Models
 
                         Authcode = strlist[1],
                         Charge_Amount = model.Charge_Amount,
-                        Miscellaneous_Amount =Convert.ToDecimal("3.95"),
+                        Miscellaneous_Amount = processingFees,
                         Accounting_Date = DateTime.Now,
 
                         Batch = "1",
@@ -207,10 +216,18 @@ namespace ShomaRM.Models
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
                 // var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId).FirstOrDefault();
-                var GetCoappDet = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();              
-               
+                var GetCoappDet = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();
+                var GePropertyData = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+                decimal processingFees = 0;
+
+                if(GePropertyData!=null)
+                {
+                    processingFees = GePropertyData.ProcessingFees ?? 0;
+                }
+
                 string transStatus = "";
                 model.Email = GetCoappDet.Email;
+                model.ProcessingFees = processingFees;
                 if (model.PaymentMethod == 2)
                 {
 
@@ -264,7 +281,7 @@ namespace ShomaRM.Models
 
                         Authcode = strlist[1],
                         Charge_Amount = model.Charge_Amount,
-                        Miscellaneous_Amount = Convert.ToDecimal("3.95"),
+                        Miscellaneous_Amount = processingFees,
                         Accounting_Date = DateTime.Now,
 
                         Batch = model.AID.ToString(),

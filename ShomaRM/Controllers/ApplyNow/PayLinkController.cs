@@ -24,6 +24,7 @@ namespace ShomaRM.Controllers
             ViewBag.FromAcc = FromAcc;
             ViewBag.AID = AID;
             ViewBag.Amt = Amt;
+            ViewBag.ProcessingFees = new CheckListModel().GetProcessingFees();
             var model = new ApplicantModel().GetApplicantDetails(AID, FromAcc);
             if (FromAcc != 0)
             {
@@ -65,6 +66,7 @@ namespace ShomaRM.Controllers
             ViewBag.UID = "0";
             ViewBag.FromAcc = FromAcc;
             ViewBag.ARID = ARID;
+            ViewBag.ProcessingFees = new CheckListModel().GetProcessingFees();
             var model = new AmenitiesReservationModel().GetRRInfo(ARID);
             if (FromAcc != 0)
             {
@@ -82,7 +84,7 @@ namespace ShomaRM.Controllers
             int FromAcc = Convert.ToInt32(payid[1]);
             ViewBag.UID = "0";
             ViewBag.FromAcc = FromAcc;
-
+            ViewBag.ProcessingFees = new CheckListModel().GetProcessingFees();
             ViewBag.EID = EID;
             var model = new EstimateModel().GetEstimateInvData(EID);
 

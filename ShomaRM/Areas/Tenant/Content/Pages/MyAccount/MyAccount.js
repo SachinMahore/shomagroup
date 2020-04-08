@@ -3032,7 +3032,7 @@ function makeOneTimePaymentSaveUpdate() {
     };
     $.alert({
         title: "",
-        content: "You have chosen to pay $" + amount + " plus a $3.95 processing fee, your total will be $" + parseFloat(parseFloat(amount) + parseFloat(3.95)).toFixed(2) + ". Do you want to Pay Now?",
+        content: "You have chosen to pay $" + amount + " plus a $" + parseFloat(getProcessingFeesMA()).toFixed(2)  + " processing fee, your total will be $" + parseFloat(parseFloat(amount) + parseFloat(getProcessingFeesMA())).toFixed(2) + ". Do you want to Pay Now?",
         type: 'blue',
         buttons: {
             yes: {
@@ -5953,4 +5953,7 @@ var downloadLeaseDocumentTP = function () {
             }
         }
     });
+};
+var getProcessingFeesMA = function () {
+    return $("hndProcessingFees").val();
 };

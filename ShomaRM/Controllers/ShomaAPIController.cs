@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ShomaRM.Areas.Tenant.Models;
+using ShomaRM.Models;
 
 namespace ShomaRM.Controllers
 {
@@ -65,6 +66,20 @@ namespace ShomaRM.Controllers
             try
             {
                 string result = new MyTransactionModel().GenerateLateFee();
+                return Json(new { msg = "Success" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { msg = "Fail" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [AllowCrossJson]
+        public ActionResult ScheduleEmail()
+        {
+            
+            try
+            {
+                string result = new OnlineProspectModule().ScheduleEmail();
                 return Json(new { msg = "Success" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

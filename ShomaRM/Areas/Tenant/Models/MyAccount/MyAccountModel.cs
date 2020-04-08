@@ -275,9 +275,6 @@ namespace ShomaRM.Areas.Tenant.Models
             model.MaritalStatus = 0;
             model.StudentStatus = 0;
         }
-
-
-
         public MyAccountModel GetTenantDetails(long TenantID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -323,7 +320,6 @@ namespace ShomaRM.Areas.Tenant.Models
             db.Dispose();
             return model;
         }
-
         public string UpdateContactInfo(MyAccountModel model , long UserId)
         {
             string msg = "";
@@ -421,7 +417,6 @@ namespace ShomaRM.Areas.Tenant.Models
             db.Dispose();
             return msg;
         }
-
         public string UpdateWorkInfo(MyAccountModel model,long UserID)
         {
             string msg = "";
@@ -456,7 +451,6 @@ namespace ShomaRM.Areas.Tenant.Models
             db.Dispose();
             return msg;
         }
-
         public MyAccountModel CheckTenantPet(long TenantID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -478,7 +472,6 @@ namespace ShomaRM.Areas.Tenant.Models
             db.Dispose();
             return model;
         }
-
         public string SaveProfilePic(MyAccountModel model)
         {
             string msg = "";
@@ -497,9 +490,19 @@ namespace ShomaRM.Areas.Tenant.Models
             db.Dispose();
             return msg;
         }
-        
+        public string GetProcessingFees()
+        {
+            string processingFees = "0.00";
+            ShomaRMEntities db = new ShomaRMEntities();
+            var propertyDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+            if (propertyDet != null)
+            {
+                processingFees = (propertyDet.ProcessingFees ?? 0).ToString("0.00");
 
-        
+            }
+            db.Dispose();
+            return processingFees;
+        }
         public MyAccountModel UploadProfile(HttpPostedFileBase fileBaseUpload, MyAccountModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -534,7 +537,6 @@ namespace ShomaRM.Areas.Tenant.Models
 
             return profilePic;
         }
-
         public MyAccountModel GetAllLeaseDocuments(MyAccountModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -560,7 +562,6 @@ namespace ShomaRM.Areas.Tenant.Models
 
             return model;
         }
-
         public List<MyAccountModel> GetPetLeaseDocuments(MyAccountModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -586,7 +587,6 @@ namespace ShomaRM.Areas.Tenant.Models
 
             return listPetCertificate;
         }
-
         public List<MyAccountModel> GetVehicleLeaseDocuments(MyAccountModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -610,7 +610,6 @@ namespace ShomaRM.Areas.Tenant.Models
 
             return listVehicleCertificate;
         }
-
         public MyAccountModel GetTenantLeaseDocuments(MyAccountModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -637,7 +636,6 @@ namespace ShomaRM.Areas.Tenant.Models
 
             return model;
         }
-
         public List<MyAccountModel> GetTenantPetLeaseDocuments(MyAccountModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -663,7 +661,6 @@ namespace ShomaRM.Areas.Tenant.Models
 
             return listPetCertificate;
         }
-
         public List<MyAccountModel> GetTenantVehicleLeaseDocuments(MyAccountModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -687,7 +684,6 @@ namespace ShomaRM.Areas.Tenant.Models
 
             return listVehicleCertificate;
         }
-
         public List<AmenitiesModel> GetAmenityList()
         {
 
@@ -711,7 +707,6 @@ namespace ShomaRM.Areas.Tenant.Models
             db.Dispose();
             return listAmenity;
         }
-
         public class AmenitiesModel
         {
             public long ID { get; set; }
@@ -720,7 +715,5 @@ namespace ShomaRM.Areas.Tenant.Models
          
 
         }
-
-
     }
 }

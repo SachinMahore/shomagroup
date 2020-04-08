@@ -310,12 +310,12 @@ namespace ShomaRM.Areas.Admin.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             decimal totalParkingAmt = 0;
+            int numOfParking = 0;
             var TenantParkingData = db.tbl_TenantParking.Where(p => p.TenantID == model.TenantID).ToList();
             db.tbl_TenantParking.RemoveRange(TenantParkingData);
             db.SaveChanges();
             if (model.lstTParking != null)
             {
-               
                 foreach (var cd in model.lstTParking)
                 {
                     var parkingdata = db.tbl_Parking.Where(p => p.ParkingID == cd.ParkingID).FirstOrDefault();
@@ -328,13 +328,14 @@ namespace ShomaRM.Areas.Admin.Models
                     };
                     db.tbl_TenantParking.Add(cdData);
                     db.SaveChanges();
+                    numOfParking = numOfParking + parkingdata.Type ?? 0;
                     totalParkingAmt = totalParkingAmt+Convert.ToDecimal(parkingdata.Charges);
                 }
                
             }
-              
 
-            return totalParkingAmt.ToString();
+
+            return numOfParking.ToString() + "|" + totalParkingAmt.ToString();
 
         }
 

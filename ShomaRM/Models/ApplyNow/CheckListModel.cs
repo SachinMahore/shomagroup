@@ -32,7 +32,6 @@ namespace ShomaRM.Models
         public int IsAllChecked { get; set; }
 
         public Nullable<System.DateTime> CreatedDate { get; set; }
-
         public CheckListModel GetMoveInData(long Id)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -84,8 +83,6 @@ namespace ShomaRM.Models
             }
             return model;
         }
-
-
         public string SaveMoveInCheckList(CheckListModel model)
         {
             string msg = "";
@@ -210,9 +207,17 @@ namespace ShomaRM.Models
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
                 var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId).FirstOrDefault();
-                
+                var GetPropertyDetails = db.tbl_Properties.Where(P => P.PID == 8).FirstOrDefault();
+                decimal processingFees = 0;
+
+                if(GetPropertyDetails!=null)
+                {
+                    processingFees = GetPropertyDetails.ProcessingFees ?? 0;
+                }
+
                 string transStatus = "";
                 model.Email = GetProspectData.Email;
+                model.ProcessingFees = processingFees;
                 if (model.PaymentMethod == 2)
                 {
                     transStatus = new UsaePayModel().ChargeCard(model);
@@ -271,7 +276,7 @@ namespace ShomaRM.Models
                         Charge_Type = 2,
                         Authcode = strlist[1],
                         Charge_Amount = model.Charge_Amount,
-                        Miscellaneous_Amount = Convert.ToDecimal("3.95"),
+                        Miscellaneous_Amount = processingFees,
                         Accounting_Date = DateTime.Now,
                         Journal = 0,
                        
@@ -336,6 +341,19 @@ namespace ShomaRM.Models
             }
             db.Dispose();
             return msg;
+        }
+        public string GetProcessingFees()
+        {
+            string processingFees = "0.00";
+            ShomaRMEntities db = new ShomaRMEntities();
+            var propertyDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+            if (propertyDet != null)
+            {
+                processingFees = (propertyDet.ProcessingFees ?? 0).ToString("0.00");
+
+            }
+            db.Dispose();
+            return processingFees;
         }
     }
 }
