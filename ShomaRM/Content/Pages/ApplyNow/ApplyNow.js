@@ -1681,7 +1681,9 @@ var goToStep = function (stepid, id, calldataupdate) {
 
             } else {
                 $("#subMenu").removeClass("hidden");
-                  SaveUpdateStep(15);
+                SaveUpdateStep(15);
+                tenantOnlineID = $("#hdnOPId").val();
+                getTenantOnlineList(tenantOnlineID);
                     $("#step2").addClass("hidden");
                     $("#step1").addClass("hidden");
                     $("#step4").addClass("hidden");
