@@ -15,7 +15,7 @@ namespace ShomaRM.Models
             USAePayAPI.USAePay usaepay = new USAePayAPI.USAePay();
             usaepay.SourceKey = "_y8h5x1TGONQjE491cj9mb8bRdA57u32";
             //usaepay.Pin = model.CCVNumber.ToString();
-            usaepay.Amount =Convert.ToDecimal(model.Charge_Amount)+ Convert.ToDecimal(3.95);
+            usaepay.Amount = Convert.ToDecimal(model.Charge_Amount ?? 0) + Convert.ToDecimal(model.ProcessingFees ?? 0);
             usaepay.Description = model.Description;
             usaepay.CardHolder = model.Name_On_Card;
             usaepay.CardNumber =model.CardNumber;
@@ -96,14 +96,13 @@ namespace ShomaRM.Models
             }
             return transStatus + "|" + usaepay.AuthCode;
         }
-
         public string ChargeACH(ApplyNowModel model)
         {
             string transStatus = "";
             USAePayAPI.USAePay usaepay = new USAePayAPI.USAePay();
             usaepay.SourceKey = "_y8h5x1TGONQjE491cj9mb8bRdA57u32";
             usaepay.Pin = model.CCVNumber==null ? "" : model.CCVNumber.ToString();
-            usaepay.Amount = Convert.ToDecimal(model.Charge_Amount) + Convert.ToDecimal(3.95);
+            usaepay.Amount = Convert.ToDecimal(model.Charge_Amount ?? 0) + Convert.ToDecimal(model.ProcessingFees ?? 0);
             usaepay.Description = model.Description;
             usaepay.CardHolder = model.Name_On_Card;
 

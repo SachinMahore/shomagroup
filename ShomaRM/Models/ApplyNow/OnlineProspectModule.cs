@@ -492,7 +492,17 @@ namespace ShomaRM.Models
                 model.GuarantorFees = propDet.GuarantorFees ?? 0;
                 model.ProcessingFees = propDet.ProcessingFees ?? 0;
             }
-
+            else
+            {
+                model.Picture = "";
+                model.ConvergentAmt =  0;
+                model.PestAmt =  0;
+                model.TrashAmt = 0;
+                model.AdminFees = 0;
+                model.ApplicationFees = 0;
+                model.GuarantorFees =  0;
+                model.ProcessingFees = 0;
+            }
 
             if (Id != 0)
             {

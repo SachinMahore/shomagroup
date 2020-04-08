@@ -8,6 +8,7 @@
 <input type="hidden" id="hndPID" value="0" />
 <input type="hidden" id="hndTransMethod" value="2" />
 <input type="hidden" id="hndAID" value="@ViewBag.AID" />
+<input type="hidden" id="hndProcessingFees" value="@ViewBag.ProcessingFees" />
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -289,7 +290,7 @@
 
      $.alert({
          title: "",
-         content: "You have chosen to pay $" + amounttoPay + " plus a $3.95 processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(3.95)).toFixed(2) + ". Do you want to Pay Now?",
+         content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesPL()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesPL())).toFixed(2) + ". Do you want to Pay Now?",
          type: 'blue',
          buttons: {
              yes: {
@@ -350,4 +351,7 @@
          }
      });
     }
+    var getProcessingFeesPL = function () {
+        return $("hndProcessingFees").val();
+    };
 </script>

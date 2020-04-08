@@ -519,6 +519,7 @@ namespace ShomaRM.Areas.Tenant.Models
             string msg = "";
 
             var editPaymentAccounts = db.tbl_PaymentAccounts.Where(co => co.PAID == model.PAID).FirstOrDefault();
+            var propertyDet = db.tbl_Properties.Where(co => co.PID ==8).FirstOrDefault();
             ApplyNowModel mm = new ApplyNowModel();
             string transStatus = "";
 
@@ -530,6 +531,10 @@ namespace ShomaRM.Areas.Tenant.Models
 
             if (editPaymentAccounts != null)
             {
+                if(propertyDet!=null)
+                {
+                    mm.ProcessingFees = propertyDet.ProcessingFees ?? 0;
+                }
                 mm.Name_On_Card = editPaymentAccounts.NameOnCard;
                 mm.CardNumber = decryptedCardNumber;
                 mm.CardMonth = decrytpedCardMonth;
@@ -912,6 +917,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     var accountDet = db.tbl_PaymentAccounts.Where(p => p.PAID == PAID).FirstOrDefault();
                     var transData = db.tbl_Transaction.Where(p => p.TransID == TransId).FirstOrDefault();
                     var tenantData = db.tbl_TenantInfo.Where(p => p.TenantID == TenantID).FirstOrDefault();
+                    var propertyDet = db.tbl_Properties.Where(co => co.PID == 8).FirstOrDefault();
                     ApplyNowModel mm = new ApplyNowModel();
                     string transStatus = "";
 
@@ -923,6 +929,10 @@ namespace ShomaRM.Areas.Tenant.Models
 
                     if (accountDet != null)
                     {
+                        if (propertyDet != null)
+                        {
+                            mm.ProcessingFees = propertyDet.ProcessingFees ?? 0;
+                        }
                         mm.Name_On_Card = accountDet.NameOnCard;
                         mm.CardNumber = decryptedCardNumber;
                         mm.CardMonth = decrytpedCardMonth;
@@ -1205,6 +1215,7 @@ namespace ShomaRM.Areas.Tenant.Models
             string msg = "";
 
             var editPaymentAccounts = db.tbl_PaymentAccounts.Where(co => co.PAID == model.PAID).FirstOrDefault();
+            var propertyDet = db.tbl_Properties.Where(co => co.PID == 8).FirstOrDefault();
             ApplyNowModel mm = new ApplyNowModel();
             string transStatus = "";
             //string encryptedCardNumber = editPaymentAccounts.CardNumber == null ? null :  new EncryptDecrypt().EncryptText(editPaymentAccounts.CardNumber);
@@ -1214,7 +1225,10 @@ namespace ShomaRM.Areas.Tenant.Models
             //string encryptedRoutingNumber = editPaymentAccounts.RoutingNumber == "" ? "" : new EncryptDecrypt().EncryptText(editPaymentAccounts.RoutingNumber);
             if (editPaymentAccounts != null)
             {
-
+                if (propertyDet != null)
+                {
+                    mm.ProcessingFees = propertyDet.ProcessingFees ?? 0;
+                }
                 mm.CardNumber = !string.IsNullOrWhiteSpace(editPaymentAccounts.CardNumber)?new EncryptDecrypt().DecryptText(editPaymentAccounts.CardNumber) :"";
                 mm.CardMonth = !string.IsNullOrWhiteSpace(editPaymentAccounts.Month) ? new EncryptDecrypt().DecryptText(editPaymentAccounts.Month) : "";
                 mm.CardYear = !string.IsNullOrWhiteSpace(editPaymentAccounts.Year) ? new EncryptDecrypt().DecryptText(editPaymentAccounts.Year) : "";
@@ -1373,6 +1387,7 @@ namespace ShomaRM.Areas.Tenant.Models
             string msg = "";
 
             var editPaymentAccounts = db.tbl_PaymentAccounts.Where(co => co.PAID == model.PAID).FirstOrDefault();
+            var propertyDet = db.tbl_Properties.Where(co => co.PID == 8).FirstOrDefault();
             ApplyNowModel mm = new ApplyNowModel();
             string transStatus = "";
 
@@ -1384,7 +1399,10 @@ namespace ShomaRM.Areas.Tenant.Models
 
             if (editPaymentAccounts != null)
             {
-
+                if (propertyDet != null)
+                {
+                    mm.ProcessingFees = propertyDet.ProcessingFees ?? 0;
+                }
                 mm.CardNumber = decryptedCardNumber;
                 mm.CardMonth = decrytpedCardMonth;
                 mm.CardYear = decrytpedCardYear;

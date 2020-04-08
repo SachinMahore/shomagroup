@@ -17,6 +17,7 @@ namespace ShomaRM.Controllers
         public ActionResult Index()
         {
             ViewBag.UID = "0";
+            ViewBag.ProcessingFees = new CheckListModel().GetProcessingFees();
             if (ShomaGroupWebSession.CurrentUser != null)
             {
                 ViewBag.UID = ShomaGroupWebSession.CurrentUser.UserID.ToString();
