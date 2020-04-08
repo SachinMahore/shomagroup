@@ -2800,7 +2800,7 @@ function savePayment() {
     };
     $.alert({
         title: "",
-        content: "You have chosen to pay $" + amounttoPay + " plus a $3.95 processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(3.95)).toFixed(2) + ". Do you want to Pay Now?",
+        content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFees()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFees())).toFixed(2) + ". Do you want to Pay Now?",
         type: 'blue',
         buttons: {
             yes: {
@@ -3773,7 +3773,7 @@ var fillParkingList = function () {
                 $.each(response, function (index, elementValue) {
                     var html = '';
                     if ($("#lblBed").text() == "1" || $("#lblBed").text() == "2") {
-                        if (elementValue.ParkingID == "1") {
+                        if (elementValue.Type == "1") {
                             html += '<tr data-value="' + elementValue.ParkingID + '">';
                             html += '<td class="pds-id hidden" style="color:#3d3939;">' + elementValue.ParkingID + '</td>';
                             html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.ParkingName + '</td>';
@@ -3955,24 +3955,47 @@ var saveupdateParking = function () {
             $("#divLoader").hide();
             totalAmt = parseFloat(totalAmt) - unformatText($("#lblAdditionalParking").text());
             $("#lblVehicleFees").text("0.00");
+            $("#lblVehicleFees1").text("0.00");
             $("#lblAdditionalParking").text(formatMoney(parseFloat(response.totalParkingAmt).toFixed(2)));
             $("#lblMonthly_AditionalParking").text(parseFloat(response.totalParkingAmt).toFixed(2));
             $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(response.totalParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
             $("#lblparkingplace").text(addParkingArray.length > 0 ? addParkingArray[0].PArkingID : 0);
 
-            if (parseFloat(response.totalParkingAmt).toFixed(2) == "77.00") {
+            if (parseInt(response.numOfParking) == 1) {
                 $("#lblVehicleFees").text("15.00");
                 $("#lblVehicleFees1").text("15.00");
-                $("#hndStorageID").val(1);
-
-            } else if (parseFloat(response.totalParkingAmt).toFixed(2) == "150.00") {
+                $("#hndParkingID").val(0);
+                if ($("#lblBed").text() == "1" || $("#lblBed").text() == "2") {
+                    $("#hndNumberOfParking").val(2);
+                } else if ($("#lblBed").text() == "3") {
+                    $("#hndNumberOfParking").val(3);
+                }
+                else {
+                    $("#hndNumberOfParking").val(1);
+                }
+            } else if (parseInt(response.numOfParking) == 2) {
                 $("#lblVehicleFees").text("30.00");
                 $("#lblVehicleFees1").text("30.00");
-                $("#hndStorageID").val(2);
+                $("#hndParkingID").val(0);
+                if ($("#lblBed").text() == "1" || $("#lblBed").text() == "2") {
+                    $("#hndNumberOfParking").val(2);
+                } else if ($("#lblBed").text() == "3") {
+                    $("#hndNumberOfParking").val(4);
+                }
+                else {
+                    $("#hndNumberOfParking").val(1);
+                }
             }
             else {
-                $("#hndStorageID").val(0);
-
+                $("#hndParkingID").val(0);
+                if ($("#lblBed").text() == "1" || $("#lblBed").text() == "2") {
+                    $("#hndNumberOfParking").val(1);
+                } else if ($("#lblBed").text() == "3") {
+                    $("#hndNumberOfParking").val(2);
+                }
+                else {
+                    $("#hndNumberOfParking").val(1);
+                }
             }
             $("#lbltotalAmount").text(formatMoney((parseFloat(response.totalParkingAmt) + parseFloat(totalAmt)).toFixed(2)))
             totalAmt = (parseFloat(response.totalParkingAmt) + parseFloat(totalAmt)).toFixed(2);
@@ -7738,4 +7761,8 @@ var checkAndDeletePet = function (noofpetdelete) {
             getPetLists();
         }
     });
+};
+
+var getProcessingFees = function () {
+    return $("#hndProcessingFees").val();
 };

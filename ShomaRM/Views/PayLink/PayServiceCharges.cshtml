@@ -8,7 +8,7 @@
 <input type="hidden" id="hndProspectID" value="0" />
 <input type="hidden" id="hndTenantID" value="@Model.TenantID" />
 <input type="hidden" id="hndEID" value="@ViewBag.EID" />
-
+<input type="hidden" id="hndProcessingFees" value="@ViewBag.ProcessingFees" />
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -509,7 +509,7 @@
         };
         $.alert({
             title: "",
-            content: "You have chosen to pay $" + chargeAmount + " plus a $3.95 processing fee, your total will be $" + parseFloat(parseFloat(chargeAmount) + parseFloat(3.95)).toFixed(2) + ". Do you want to Pay Now?",
+            content: "You have chosen to pay $" + chargeAmount + " plus a $" + parseFloat(getProcessingFeesPSC()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(chargeAmount) + parseFloat(getProcessingFeesPSC())).toFixed(2) + ". Do you want to Pay Now?",
             type: 'blue',
             buttons: {
                 yes: {
@@ -572,5 +572,8 @@
                 window.location.href = '/Tenant/MyAccount/Index/' + response.model;
             }
         });
+    };
+    var getProcessingFeesPSC = function () {
+        return $("hndProcessingFees").val();
     };
 </script>

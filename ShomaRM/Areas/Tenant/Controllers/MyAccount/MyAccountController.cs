@@ -15,6 +15,7 @@ namespace ShomaRM.Areas.Tenant.Controllers
         {
             ViewBag.ActiveMenu = "myhome";
             ViewBag.TenantID = ID;
+            ViewBag.ProcessingFees = new MyAccountModel().GetProcessingFees();
             if(Session["ARID"] !=null)
             {
                 ViewBag.ARID = Session["ARID"].ToString();

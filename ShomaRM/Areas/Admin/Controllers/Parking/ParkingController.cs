@@ -78,7 +78,8 @@ namespace ShomaRM.Areas.Admin.Controllers
         {
             try
             {
-                return Json(new { result = 1, totalParkingAmt = model.SaveUpdateTenantParking(model) }, JsonRequestBehavior.AllowGet);
+                string[] parkingDetails = model.SaveUpdateTenantParking(model).Split('|');
+                return Json(new { result = 1, numOfParking= parkingDetails[0], totalParkingAmt = parkingDetails[1] }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
