@@ -17,6 +17,8 @@ $(document).ready(function () {
             modalPetPolicy.style.display = "none";
         }
     });
+    $("#mainApplName").text($("#txtFirstNamePersonal").val() + " " + ((!$("#txtMiddleInitial").val()) ? "" : $("#txtMiddleInitial").val() + " ") + $("#txtLastNamePersonal").val());
+
     $("#listUnit tbody").on("click", "tr", function (e) {
         var floorfromplan = localStorage.getItem("floorfromplan");
         var floorid = $(this).data("floorid");
@@ -889,6 +891,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#as5").removeAttr("onclick");
             $("#as5").attr("onclick", "goToStep(6,6,0)");
             SaveQuote(5);
+    
             $("#getting-startedTimeRemainingClock").removeClass("hidden");
             $("#li1").addClass("active");
             $("#li2").addClass("active");
@@ -1228,7 +1231,10 @@ var goToStep = function (stepid, id, calldataupdate) {
                 $("#popApplicantSummary").modal("hide");
                 $("#summName").text($("#txtFirstNamePersonal").val() + " " + ((!$("#txtMiddleInitial").val()) ? "" : $("#txtMiddleInitial").val()+" ") + $("#txtLastNamePersonal").val());
                 $("#summNamep").text($("#txtFirstNamePersonal").val() + " " + ((!$("#txtMiddleInitial").val()) ? "" : $("#txtMiddleInitial").val() + " ") + $("#txtLastNamePersonal").val());
+                $("#mainApplName").text($("#txtFirstNamePersonal").val() + " " + ((!$("#txtMiddleInitial").val()) ? "" : $("#txtMiddleInitial").val() + " ") + $("#txtLastNamePersonal").val());
 
+
+                
                 $("#summDob").text($("#txtDateOfBirth").val());
                 $("#summSSN").text($("#txtSSNNumber").val());
                 $("#summPhone").text($("#txtMobileNumber").val());
@@ -2002,7 +2008,7 @@ var showCurrentStep = function (stepid, id) {
         $("#as5").removeAttr("onclick");
         $("#as5").attr("onclick", "goToStep(6,6,0)");
 
-
+        $("#mainApplName").removeClass("hidden");
         $("#getting-startedTimeRemainingClock").removeClass("hidden");
         $("#li1").addClass("active");
         $("#li2").addClass("active");
@@ -5482,6 +5488,9 @@ var getTenantOnlineList = function (id) {
             $("#txtLastNamePersonal").val(response.model.LastName);
             $("#summName").text(response.model.FirstName + " " + response.model.MiddleInitial + " " + response.model.LastName);
             $("#summNamep").text(response.model.FirstName + " " + response.model.MiddleInitial + " " + response.model.LastName);
+            if (response.model.FirstName != null) {
+                $("#mainApplName").text(response.model.FirstName + " " + response.model.MiddleInitial + " " + response.model.LastName);
+            }
             $("#txtDateOfBirth").val(response.model.DateOfBirthTxt);
             $("#summDob").text(response.model.DateOfBirthTxt);
             $("#summDobp").text(response.model.DateOfBirthTxt);
@@ -7713,6 +7722,11 @@ var checkHasUnitID=function()
     }
     else {
         $("#PopSummary").modal("hide");
+        $.alert({
+            title: "",
+            content: "Please Select Unit",
+            type: 'blue'
+        });
     }
 }
 var savepudateOnlineProspect = function () {
