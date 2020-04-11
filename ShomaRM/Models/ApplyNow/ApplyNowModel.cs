@@ -464,5 +464,23 @@ namespace ShomaRM.Models
             }
             return "1";
         }
+        public string CheckUnitAvailable(long UnitID, long ProspectID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string isavailable = "1";
+            var applyNowData = db.tbl_ApplyNow.Where(p => p.PropertyId == UnitID &&  p.ID!= ProspectID && p.Status.Trim()!= "Denied").FirstOrDefault();
+            var unitData = db.tbl_PropertyUnits.Where(p => p.UID == UnitID).FirstOrDefault();
+            string unitNumber = unitData.UnitNo;
+            if (applyNowData!=null)
+            {
+                isavailable = "0|"+ unitNumber;
+            }
+            else
+            {
+                isavailable = "1|" + unitNumber;
+            }
+
+            return isavailable;
+        }
     }
 }

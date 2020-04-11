@@ -335,7 +335,7 @@ namespace ShomaRM.Models
 
 
         }
-        public List<PropertyUnits> GetPropertyModelUnitList(string ModelName, DateTime AvailableDate, decimal Current_Rent, int Bedroom,int LeaseTermID)
+        public List<PropertyUnits> GetPropertyModelUnitList(string ModelName, DateTime AvailableDate, decimal Current_Rent, int Bedroom, int LeaseTermID, long ProspectId)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<PropertyUnits> lstUnitProp = new List<PropertyUnits>();
@@ -371,10 +371,10 @@ namespace ShomaRM.Models
                     paramB.Value = Bedroom;
                     cmd.Parameters.Add(paramB);
 
-                    //DbParameter paramL = cmd.CreateParameter();
-                    //paramL.ParameterName = "LeaseTermID";
-                    //paramL.Value = LeaseTermID;
-                    //cmd.Parameters.Add(paramL);
+                    DbParameter paramANID = cmd.CreateParameter();
+                    paramANID.ParameterName = "ProspectId";
+                    paramANID.Value = ProspectId;
+                    cmd.Parameters.Add(paramANID);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -677,7 +677,7 @@ namespace ShomaRM.Models
       
             return model.ToList();
         }
-        public PropertyFloor GetPropertyFloorDetails(int FloorID, DateTime AvailableDate,  int Bedroom, decimal MaxRent, int LeaseTermID, string ModelName)
+        public PropertyFloor GetPropertyFloorDetails(int FloorID, DateTime AvailableDate, int Bedroom, decimal MaxRent, int LeaseTermID, string ModelName, long ProspectId)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             PropertyFloor model = new PropertyFloor();
@@ -731,6 +731,11 @@ namespace ShomaRM.Models
                     paramMN.ParameterName = "ModelName";
                     paramMN.Value = ModelName;
                     cmd.Parameters.Add(paramMN);
+
+                    DbParameter paramANID = cmd.CreateParameter();
+                    paramANID.ParameterName = "ProspectId";
+                    paramANID.Value = ProspectId;
+                    cmd.Parameters.Add(paramANID);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
