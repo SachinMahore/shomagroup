@@ -66,7 +66,6 @@
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_TenantStorage" Width="1.5" PointX="28" PointY="38" IsExpanded="true" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Utility" Width="1.5" PointX="15" PointY="42.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_UtilityBilling" Width="1.5" PointX="17.25" PointY="53.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Vehicle" Width="1.5" PointX="28" PointY="59.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Vendor" Width="1.5" PointX="3" PointY="126.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Visit" Width="1.5" PointX="22.5" PointY="68.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_WorkOrder" Width="1.5" PointX="25.5" PointY="90.875" IsExpanded="true" />
@@ -168,6 +167,7 @@
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantPet_tbl_ApplyNow" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantPetPlace_tbl_ApplyNow" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantStorage_tbl_ApplyNow" />
+        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Vehicle" Width="1.5" PointX="28" PointY="54.5" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" />
 
       </Diagram>

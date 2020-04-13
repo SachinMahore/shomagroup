@@ -85,7 +85,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_TenantStorage> tbl_TenantStorage { get; set; }
         public virtual DbSet<tbl_Utility> tbl_Utility { get; set; }
         public virtual DbSet<tbl_UtilityBilling> tbl_UtilityBilling { get; set; }
-        public virtual DbSet<tbl_Vehicle> tbl_Vehicle { get; set; }
         public virtual DbSet<tbl_Vendor> tbl_Vendor { get; set; }
         public virtual DbSet<tbl_Visit> tbl_Visit { get; set; }
         public virtual DbSet<tbl_WorkOrder> tbl_WorkOrder { get; set; }
@@ -101,7 +100,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_OnlinePayment> tbl_OnlinePayment { get; set; }
         public virtual DbSet<tbl_PaymentAccounts> tbl_PaymentAccounts { get; set; }
         public virtual DbSet<tbl_TenantInfo> tbl_TenantInfo { get; set; }
-        public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
         public virtual DbSet<tbl_EmployerHistory> tbl_EmployerHistory { get; set; }
         public virtual DbSet<tbl_Applicant> tbl_Applicant { get; set; }
         public virtual DbSet<tbl_Properties> tbl_Properties { get; set; }
@@ -109,5 +107,7 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Login> tbl_Login { get; set; }
         public virtual DbSet<tbl_ApplicantHistory> tbl_ApplicantHistory { get; set; }
         public virtual DbSet<tbl_TenantOnline> tbl_TenantOnline { get; set; }
+        public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
+        public virtual DbSet<tbl_Vehicle> tbl_Vehicle { get; set; }
     }
 }

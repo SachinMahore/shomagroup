@@ -3880,27 +3880,6 @@
           <NavigationProperty Name="tbl_Tenant" Relationship="Self.FK_tbl_UtilityBilling_tbl_Tenant" FromRole="tbl_UtilityBilling" ToRole="tbl_Tenant" />
           <NavigationProperty Name="tbl_Utility" Relationship="Self.FK_tbl_UtilityBilling_tbl_Utility" FromRole="tbl_UtilityBilling" ToRole="tbl_Utility" />
         </EntityType>
-        <EntityType Name="tbl_Vehicle">
-          <Key>
-            <PropertyRef Name="Vehicle_ID" />
-          </Key>
-          <Property Name="Vehicle_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenantID" Type="Int64" Nullable="false" />
-          <Property Name="License" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Make" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Model" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Color" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="ProspectID" Type="Int64" />
-          <Property Name="VehicleRegistration" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="OwnerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Notes" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="OriginalVehicleReg" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="State" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="Tag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ParkingID" Type="Int32" />
-          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" FromRole="tbl_Vehicle" ToRole="tbl_ApplyNow" />
-        </EntityType>
         <EntityType Name="tbl_Vendor">
           <Key>
             <PropertyRef Name="Vendor_ID" />
@@ -4326,7 +4305,6 @@
           <EntitySet Name="tbl_TenantStorage" EntityType="Self.tbl_TenantStorage" />
           <EntitySet Name="tbl_Utility" EntityType="Self.tbl_Utility" />
           <EntitySet Name="tbl_UtilityBilling" EntityType="Self.tbl_UtilityBilling" />
-          <EntitySet Name="tbl_Vehicle" EntityType="Self.tbl_Vehicle" />
           <EntitySet Name="tbl_Vendor" EntityType="Self.tbl_Vendor" />
           <EntitySet Name="tbl_Visit" EntityType="Self.tbl_Visit" />
           <EntitySet Name="tbl_WorkOrder" EntityType="Self.tbl_WorkOrder" />
@@ -4658,6 +4636,7 @@
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_TenantStorage" EntitySet="tbl_TenantStorage" />
           </AssociationSet>
+          <EntitySet Name="tbl_Vehicle" EntityType="ShomaRMEntitiesModel.tbl_Vehicle" />
           <AssociationSet Name="FK_tbl_Vehicle_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow">
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_Vehicle" EntitySet="tbl_Vehicle" />
@@ -5899,6 +5878,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_Vehicle">
+          <Key>
+            <PropertyRef Name="Vehicle_ID" />
+          </Key>
+          <Property Name="Vehicle_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantID" Type="Int64" Nullable="false" />
+          <Property Name="License" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Make" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Model" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Color" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ProspectID" Type="Int64" />
+          <Property Name="VehicleRegistration" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OriginalVehicleReg" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Tag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ParkingID" Type="Int32" />
+          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" FromRole="tbl_Vehicle" ToRole="tbl_ApplyNow" />
+        </EntityType>
         <Association Name="FK_tbl_Vehicle_tbl_ApplyNow">
           <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
           <End Type="ShomaRMEntitiesModel.tbl_Vehicle" Role="tbl_Vehicle" Multiplicity="*" />
@@ -6897,27 +6897,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Vehicle">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Vehicle">
-              <MappingFragment StoreEntitySet="tbl_Vehicle">
-                <ScalarProperty Name="ParkingID" ColumnName="ParkingID" />
-                <ScalarProperty Name="Tag" ColumnName="Tag" />
-                <ScalarProperty Name="Vehicle_ID" ColumnName="Vehicle_ID" />
-                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-                <ScalarProperty Name="License" ColumnName="License" />
-                <ScalarProperty Name="Make" ColumnName="Make" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="Color" ColumnName="Color" />
-                <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
-                <ScalarProperty Name="VehicleRegistration" ColumnName="VehicleRegistration" />
-                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="OriginalVehicleReg" ColumnName="OriginalVehicleReg" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="State" ColumnName="State" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_Vendor">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Vendor">
               <MappingFragment StoreEntitySet="tbl_Vendor">
@@ -7545,6 +7524,27 @@
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Vehicle">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Vehicle">
+              <MappingFragment StoreEntitySet="tbl_Vehicle">
+                <ScalarProperty Name="ParkingID" ColumnName="ParkingID" />
+                <ScalarProperty Name="Tag" ColumnName="Tag" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="OriginalVehicleReg" ColumnName="OriginalVehicleReg" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="VehicleRegistration" ColumnName="VehicleRegistration" />
+                <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Make" ColumnName="Make" />
+                <ScalarProperty Name="License" ColumnName="License" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="Vehicle_ID" ColumnName="Vehicle_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
