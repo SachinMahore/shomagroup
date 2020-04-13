@@ -3880,10 +3880,33 @@
           <NavigationProperty Name="tbl_Tenant" Relationship="Self.FK_tbl_UtilityBilling_tbl_Tenant" FromRole="tbl_UtilityBilling" ToRole="tbl_Tenant" />
           <NavigationProperty Name="tbl_Utility" Relationship="Self.FK_tbl_UtilityBilling_tbl_Utility" FromRole="tbl_UtilityBilling" ToRole="tbl_Utility" />
         </EntityType>
+
+        <EntityType Name="tbl_Vehicle">
+          <Key>
+            <PropertyRef Name="Vehicle_ID" />
+          </Key>
+          <Property Name="Vehicle_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantID" Type="Int64" Nullable="false" />
+          <Property Name="License" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Make" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Model" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Color" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ProspectID" Type="Int64" />
+          <Property Name="VehicleRegistration" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OriginalVehicleReg" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Tag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ParkingID" Type="Int32" />
+          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" FromRole="tbl_Vehicle" ToRole="tbl_ApplyNow" />
+        </EntityType>
+
         <EntityType Name="tbl_Vendor">
           <Key>
             <PropertyRef Name="Vendor_ID" />
-          </Key>
+          </Key>zz
           <Property Name="Vendor_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Vendor_Name" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Mobile_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -4424,8 +4447,8 @@
           <EntitySet Name="tbl_OnlinePayment" EntityType="ShomaRMEntitiesModel.tbl_OnlinePayment" />
           <EntitySet Name="tbl_PaymentAccounts" EntityType="ShomaRMEntitiesModel.tbl_PaymentAccounts" />
           <EntitySet Name="tbl_TenantInfo" EntityType="ShomaRMEntitiesModel.tbl_TenantInfo" />
-          <EntitySet Name="tbl_ApplyNow" EntityType="ShomaRMEntitiesModel.tbl_ApplyNow" />
           <EntitySet Name="tbl_EmployerHistory" EntityType="ShomaRMEntitiesModel.tbl_EmployerHistory" />
+
           <AssociationSet Name="FK_tbl_TenantInfo_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow">
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_TenantInfo" EntitySet="tbl_TenantInfo" />
@@ -4446,11 +4469,8 @@
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_TenantStorage" EntitySet="tbl_TenantStorage" />
           </AssociationSet>
+
           <EntitySet Name="tbl_Applicant" EntityType="ShomaRMEntitiesModel.tbl_Applicant" />
-          <AssociationSet Name="FK_tbl_Applicant_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow">
-            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
-            <End Role="tbl_Applicant" EntitySet="tbl_Applicant" />
-          </AssociationSet>
           <EntitySet Name="tbl_Properties" EntityType="ShomaRMEntitiesModel.tbl_Properties" />
           <AssociationSet Name="FK_tbl_CashReceipts_tbl_Properties" Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Properties">
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
@@ -4630,17 +4650,45 @@
             <End Role="tbl_Login" EntitySet="tbl_Login" />
             <End Role="tbl_Vendor" EntitySet="tbl_Vendor" />
           </AssociationSet>
-          <EntitySet Name="tbl_Vehicle" EntityType="ShomaRMEntitiesModel.tbl_Vehicle" />
-          <AssociationSet Name="FK_tbl_Vehicle_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow">
-            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
-            <End Role="tbl_Vehicle" EntitySet="tbl_Vehicle" />
-          </AssociationSet>
+
           <EntitySet Name="tbl_ApplicantHistory" EntityType="ShomaRMEntitiesModel.tbl_ApplicantHistory" />
           <EntitySet Name="tbl_TenantOnline" EntityType="ShomaRMEntitiesModel.tbl_TenantOnline" />
+          <EntitySet Name="tbl_ApplyNow" EntityType="ShomaRMEntitiesModel.tbl_ApplyNow" />
+          <AssociationSet Name="FK_tbl_Applicant_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow">
+            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
+            <End Role="tbl_Applicant" EntitySet="tbl_Applicant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_TenantInfo_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow">
+            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
+            <End Role="tbl_TenantInfo" EntitySet="tbl_TenantInfo" />
+          </AssociationSet>
+
           <AssociationSet Name="FK_tbl_TenantOnline_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow">
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_TenantOnline" EntitySet="tbl_TenantOnline" />
           </AssociationSet>
+
+          <AssociationSet Name="FK_tbl_TenantParking_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantParking_tbl_ApplyNow">
+            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
+            <End Role="tbl_TenantParking" EntitySet="tbl_TenantParking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_TenantPet_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantPet_tbl_ApplyNow">
+            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
+            <End Role="tbl_TenantPet" EntitySet="tbl_TenantPet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_TenantPetPlace_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantPetPlace_tbl_ApplyNow">
+            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
+            <End Role="tbl_TenantPetPlace" EntitySet="tbl_TenantPetPlace" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_TenantStorage_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantStorage_tbl_ApplyNow">
+            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
+            <End Role="tbl_TenantStorage" EntitySet="tbl_TenantStorage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Vehicle_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow">
+            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
+            <End Role="tbl_Vehicle" EntitySet="tbl_Vehicle" />
+          </AssociationSet>
+
           </EntityContainer>
         <EntityType Name="tbl_Country">
           <Key>
@@ -4916,6 +4964,7 @@
           <Property Name="ParentTenantID" Type="Int64" />
           <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow" FromRole="tbl_TenantInfo" ToRole="tbl_ApplyNow" />
         </EntityType>
+
         <EntityType Name="tbl_ApplyNow">
           <Key>
             <PropertyRef Name="ID" />
@@ -4971,6 +5020,7 @@
           <NavigationProperty Name="tbl_Vehicle" Relationship="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Vehicle" />
           <NavigationProperty Name="tbl_TenantOnline" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantOnline" />
         </EntityType>
+
         <EntityType Name="tbl_EmployerHistory">
           <Key>
             <PropertyRef Name="HEIID" />
@@ -5002,6 +5052,7 @@
           <Property Name="TenantId" Type="Int64" />
           <Property Name="TerminationReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+
         <Association Name="FK_tbl_TenantInfo_tbl_ApplyNow">
           <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
           <End Type="ShomaRMEntitiesModel.tbl_TenantInfo" Role="tbl_TenantInfo" Multiplicity="*" />
@@ -5062,6 +5113,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+
         <EntityType Name="tbl_Applicant">
           <Key>
             <PropertyRef Name="ApplicantID" />
@@ -5084,18 +5136,6 @@
           <Property Name="Paid" Type="Int32" />
           <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_Applicant" ToRole="tbl_ApplyNow" />
         </EntityType>
-        <Association Name="FK_tbl_Applicant_tbl_ApplyNow">
-          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_Applicant" Role="tbl_Applicant" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_ApplyNow">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_Applicant">
-              <PropertyRef Name="TenantID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="tbl_Properties">
           <Key>
             <PropertyRef Name="PID" />
@@ -5738,6 +5778,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+
         <EntityType Name="tbl_Vehicle">
           <Key>
             <PropertyRef Name="Vehicle_ID" />
@@ -5771,6 +5812,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+
         <EntityType Name="tbl_ApplicantHistory">
           <Key>
             <PropertyRef Name="AHID" />
@@ -5899,6 +5941,87 @@
           <Property Name="IsProprNoticeLeaseAgreement" Type="Int32" />
           <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" FromRole="tbl_TenantOnline" ToRole="tbl_ApplyNow" />
         </EntityType>
+
+        <EntityType Name="tbl_ApplyNow">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PropertyId" Type="Int64" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsApplyNow" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="DateofBirth" Type="DateTime" Precision="3" />
+          <Property Name="AnnualIncome" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="AddiAnnualIncome" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="Marketsource" Type="Int32" />
+          <Property Name="MoveInDate" Type="DateTime" Precision="3" />
+          <Property Name="ParkingAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="StorageAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PetPlaceAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Deposit" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Rent" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PetDeposit" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TrashAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PestAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ConvergentAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MoveInCharges" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="FOBAmt" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsRentalPolicy" Type="Int32" />
+          <Property Name="IsRentalQualification" Type="Int32" />
+          <Property Name="EnvelopeID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Prorated_Rent" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="VehicleRegistration" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AdministrationFee" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="LeaseTerm" Type="Int32" />
+          <Property Name="MonthlyCharges" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="EsignatureID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PetDNAAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="StepCompleted" Type="Int32" />
+          <Property Name="AcceptSummary" Type="Int32" />
+          <NavigationProperty Name="tbl_Applicant" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Applicant" />
+          <NavigationProperty Name="tbl_TenantInfo" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantInfo" />
+          <NavigationProperty Name="tbl_TenantOnline" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantOnline" />
+          <NavigationProperty Name="tbl_TenantParking" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantParking_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantParking" />
+          <NavigationProperty Name="tbl_TenantPet" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantPet_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantPet" />
+          <NavigationProperty Name="tbl_TenantPetPlace" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantPetPlace_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantPetPlace" />
+          <NavigationProperty Name="tbl_TenantStorage" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantStorage_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantStorage" />
+          <NavigationProperty Name="tbl_Vehicle" Relationship="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Vehicle" />
+        </EntityType>
+        <Association Name="FK_tbl_Applicant_tbl_ApplyNow">
+          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_Applicant" Role="tbl_Applicant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_Applicant">
+              <PropertyRef Name="TenantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_TenantInfo_tbl_ApplyNow">
+          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_TenantInfo" Role="tbl_TenantInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_TenantInfo">
+              <PropertyRef Name="ProspectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+
         <Association Name="FK_tbl_TenantOnline_tbl_ApplyNow">
           <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
           <End Type="ShomaRMEntitiesModel.tbl_TenantOnline" Role="tbl_TenantOnline" Multiplicity="*" />
@@ -5911,6 +6034,68 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+
+        <Association Name="FK_tbl_TenantParking_tbl_ApplyNow">
+          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_TenantParking" Role="tbl_TenantParking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_TenantParking">
+              <PropertyRef Name="TenantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_TenantPet_tbl_ApplyNow">
+          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_TenantPet" Role="tbl_TenantPet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_TenantPet">
+              <PropertyRef Name="TenantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_TenantPetPlace_tbl_ApplyNow">
+          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_TenantPetPlace" Role="tbl_TenantPetPlace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_TenantPetPlace">
+              <PropertyRef Name="TenantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_TenantStorage_tbl_ApplyNow">
+          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_TenantStorage" Role="tbl_TenantStorage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_TenantStorage">
+              <PropertyRef Name="TenantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Vehicle_tbl_ApplyNow">
+          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_Vehicle" Role="tbl_Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_Vehicle">
+              <PropertyRef Name="ProspectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6897,6 +7082,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+
           <EntitySetMapping Name="tbl_Vendor">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Vendor">
               <MappingFragment StoreEntitySet="tbl_Vendor">
@@ -7227,54 +7413,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_ApplyNow">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ApplyNow">
-              <MappingFragment StoreEntitySet="tbl_ApplyNow">
-                <ScalarProperty Name="AcceptSummary" ColumnName="AcceptSummary" />
-                <ScalarProperty Name="StepCompleted" ColumnName="StepCompleted" />
-                <ScalarProperty Name="PetDNAAmt" ColumnName="PetDNAAmt" />
-                <ScalarProperty Name="EsignatureID" ColumnName="EsignatureID" />
-                <ScalarProperty Name="MonthlyCharges" ColumnName="MonthlyCharges" />
-                <ScalarProperty Name="LeaseTerm" ColumnName="LeaseTerm" />
-                <ScalarProperty Name="AdministrationFee" ColumnName="AdministrationFee" />
-                <ScalarProperty Name="VehicleRegistration" ColumnName="VehicleRegistration" />
-                <ScalarProperty Name="Prorated_Rent" ColumnName="Prorated_Rent" />
-                <ScalarProperty Name="EnvelopeID" ColumnName="EnvelopeID" />
-                <ScalarProperty Name="IsRentalQualification" ColumnName="IsRentalQualification" />
-                <ScalarProperty Name="IsRentalPolicy" ColumnName="IsRentalPolicy" />
-                <ScalarProperty Name="FOBAmt" ColumnName="FOBAmt" />
-                <ScalarProperty Name="MoveInCharges" ColumnName="MoveInCharges" />
-                <ScalarProperty Name="ConvergentAmt" ColumnName="ConvergentAmt" />
-                <ScalarProperty Name="PestAmt" ColumnName="PestAmt" />
-                <ScalarProperty Name="TrashAmt" ColumnName="TrashAmt" />
-                <ScalarProperty Name="PetDeposit" ColumnName="PetDeposit" />
-                <ScalarProperty Name="Rent" ColumnName="Rent" />
-                <ScalarProperty Name="Deposit" ColumnName="Deposit" />
-                <ScalarProperty Name="PetPlaceAmt" ColumnName="PetPlaceAmt" />
-                <ScalarProperty Name="StorageAmt" ColumnName="StorageAmt" />
-                <ScalarProperty Name="ParkingAmt" ColumnName="ParkingAmt" />
-                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
-                <ScalarProperty Name="Marketsource" ColumnName="Marketsource" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="AddiAnnualIncome" ColumnName="AddiAnnualIncome" />
-                <ScalarProperty Name="AnnualIncome" ColumnName="AnnualIncome" />
-                <ScalarProperty Name="DateofBirth" ColumnName="DateofBirth" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsApplyNow" ColumnName="IsApplyNow" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_EmployerHistory">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_EmployerHistory">
               <MappingFragment StoreEntitySet="tbl_EmployerHistory">
@@ -7398,27 +7536,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Vehicle">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Vehicle">
-              <MappingFragment StoreEntitySet="tbl_Vehicle">
-                <ScalarProperty Name="ParkingID" ColumnName="ParkingID" />
-                <ScalarProperty Name="Tag" ColumnName="Tag" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="OriginalVehicleReg" ColumnName="OriginalVehicleReg" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
-                <ScalarProperty Name="VehicleRegistration" ColumnName="VehicleRegistration" />
-                <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
-                <ScalarProperty Name="Color" ColumnName="Color" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="Make" ColumnName="Make" />
-                <ScalarProperty Name="License" ColumnName="License" />
-                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-                <ScalarProperty Name="Vehicle_ID" ColumnName="Vehicle_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+
+
           <EntitySetMapping Name="tbl_ApplicantHistory">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ApplicantHistory">
               <MappingFragment StoreEntitySet="tbl_ApplicantHistory">
@@ -7548,6 +7667,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

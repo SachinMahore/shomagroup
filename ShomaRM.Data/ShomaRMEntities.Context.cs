@@ -106,7 +106,9 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Properties> tbl_Properties { get; set; }
         public virtual DbSet<tbl_ESignatureKeys> tbl_ESignatureKeys { get; set; }
         public virtual DbSet<tbl_Login> tbl_Login { get; set; }
+
         public virtual DbSet<tbl_Vehicle> tbl_Vehicle { get; set; }
+
         public virtual DbSet<tbl_ApplicantHistory> tbl_ApplicantHistory { get; set; }
         public virtual DbSet<tbl_TenantOnline> tbl_TenantOnline { get; set; }
     }

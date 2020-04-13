@@ -31,6 +31,7 @@ namespace ShomaRM.Controllers
             }
 
             var model = new OnlineProspectModule().GetProspectData(Convert.ToInt64(id));
+
             if (Session["Bedroom"] != null)
             {
                 model.Bedroom = Convert.ToInt32(Session["Bedroom"].ToString());
@@ -819,6 +820,17 @@ namespace ShomaRM.Controllers
             try
             {
                 return Json(new { msg = (new OnlineProspectModule().SaveUpdateOnlineProspect(model)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult CheckUnitAvailable(long UnitID, long ProspectID)
+        {
+            try
+            {
+                return Json(new { result = (new ApplyNowModel().CheckUnitAvailable(UnitID, ProspectID)) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception Ex)
             {

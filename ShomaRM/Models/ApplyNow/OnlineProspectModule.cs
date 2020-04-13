@@ -109,10 +109,19 @@ namespace ShomaRM.Models
         public string SaveOnlineProspect(OnlineProspectModule model)
         {
             string msg = "";
+
             ShomaRMEntities db = new ShomaRMEntities();
             long Uid = 0;
             string encryptedPassword = new EncryptDecrypt().EncryptText(model.Password);
             string decryptedPassword = new EncryptDecrypt().DecryptText(encryptedPassword);
+
+            string[] result = (new ApplyNowModel().CheckUnitAvailable(model.PropertyId ?? 0, 0)).Split('|');
+            if (result[0] == "0")
+            {
+                msg = "0|" + result[1] + "is not available.<br/>Please select other unit.|0";
+                return msg;
+            }
+
             if (model.ID == 0)
             {
                 var loginDet = db.tbl_Login.Where(p => p.Email == model.Email).FirstOrDefault();
@@ -132,13 +141,11 @@ namespace ShomaRM.Models
                     db.tbl_Login.Add(saveUserNamePassword);
                     db.SaveChanges();
                     Uid = saveUserNamePassword.UserID;
-
                 }
                 else
                 {
                     Uid = loginDet.UserID;
                 }
-
 
                 var user = db.tbl_Login.Where(p => p.Email == model.Email).FirstOrDefault();
 
@@ -169,7 +176,6 @@ namespace ShomaRM.Models
 
                 db.tbl_LoginHistory.Add(loginHistory);
                 db.SaveChanges();
-
                 var saveOnlineProspect = new tbl_ApplyNow()
                 {
                     PropertyId = model.PropertyId,
@@ -200,7 +206,6 @@ namespace ShomaRM.Models
 
                 var saveApplicant = new tbl_Applicant()
                 {
-
                     TenantID = model.ID,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
@@ -210,8 +215,6 @@ namespace ShomaRM.Models
                     Gender = 0,
                     Relationship = "1",
                     Type = "Primary Applicant",
-
-
                 };
                 db.tbl_Applicant.Add(saveApplicant);
                 db.SaveChanges();
@@ -240,8 +243,6 @@ namespace ShomaRM.Models
                 };
                 db.tbl_TenantOnline.Add(getAppldata);
                 db.SaveChanges();
-
-
 
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == model.PropertyId).FirstOrDefault();
                 string reportHTML = "";
@@ -274,9 +275,6 @@ namespace ShomaRM.Models
                 {
                     new TwilioService().SMS(phonenumber, message);
                 }
-
-
-
             }
             msg = model.ID.ToString() + "|Online Prospect Save Successfully|" + Uid;
 
@@ -394,8 +392,6 @@ namespace ShomaRM.Models
                 {
                     stepcomp = model.StepCompleted;
                 }
-
-
                 if (onlineProspectData != null)
                 {
                     onlineProspectData.IsRentalPolicy = model.IsRentalPolicy;
@@ -620,7 +616,7 @@ namespace ShomaRM.Models
                         model.MoveInPercentage = getApplicantDet.MoveInPercentage;
                     }
                     model.HasPropertyList = 1;
-                    model.lstPropertyUnit = new PropertyModel().GetPropertyModelUnitList(unitData.Building, Convert.ToDateTime(dtMoveInDate), 10000, 0, model.LeaseTermID);
+                    model.lstPropertyUnit = new PropertyModel().GetPropertyModelUnitList((unitData!=null? unitData.Building:""), Convert.ToDateTime(dtMoveInDate), 10000, 0, model.LeaseTermID, GetProspectData.ID);
                 }
             }
             model.lstPropertyFloor = new PropertyFloor().GetFloorList(8, Convert.ToDateTime(dtMoveInDate), 0, 10000);

@@ -127,6 +127,23 @@ namespace ShomaRM.Models
         public string EmergencyCountryString { get; set; }
         public string EmergencyStateHomeString { get; set; }
         public int StepCompleted { get; set; }
+        public Nullable<long> CountryOfOrigin { get; set; }
+        public Nullable<int> Evicted { get; set; }
+        public string EvictedDetails { get; set; }
+        public Nullable<int> ConvictedFelony { get; set; }
+        public string ConvictedFelonyDetails { get; set; }
+        public Nullable<int> CriminalChargPen { get; set; }
+        public string CriminalChargPenDetails { get; set; }
+        public Nullable<int> DoYouSmoke { get; set; }
+        public Nullable<int> ReferredResident { get; set; }
+        public string ReferredResidentName { get; set; }
+        public Nullable<int> ReferredBrokerMerchant { get; set; }
+        public string ApartmentCommunity { get; set; }
+        public string ManagementCompany { get; set; }
+        public string ManagementCompanyPhone { get; set; }
+        public Nullable<int> IsProprNoticeLeaseAgreement { get; set; }
+        public string CountryOfOriginString { get; set; }
+
         public string SaveHavePet(long id, bool PetValue)
         {
             string msg = "";
@@ -153,7 +170,6 @@ namespace ShomaRM.Models
             }
             return msg;
         }
-
         public string SaveHaveVehicle(long id, bool vehicleValue)
         {
             string msg = "";
@@ -180,7 +196,6 @@ namespace ShomaRM.Models
             }
             return msg;
         }
-
         public TenantOnlineModel GetTenantOnlineList(int id)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -438,6 +453,26 @@ namespace ShomaRM.Models
                     lstpr.UploadOriginalIdentityName = dr["IdentityDocumentOriginalFile"].ToString();
                     lstpr.IsPaystub = Convert.ToBoolean(dr["IsPaystub"].ToString());
 
+                    lstpr.CountryOfOrigin = Convert.ToInt64(dr["CountryOfOrigin"].ToString());
+                    lstpr.Evicted = Convert.ToInt32(dr["Evicted"].ToString());
+                    lstpr.EvictedDetails = dr["EvictedDetails"].ToString();
+                    lstpr.ConvictedFelony = Convert.ToInt32(dr["ConvictedFelony"].ToString());
+                    lstpr.ConvictedFelonyDetails = dr["ConvictedFelonyDetails"].ToString();
+                    lstpr.CriminalChargPen = Convert.ToInt32(dr["CriminalChargPen"].ToString());
+                    lstpr.CriminalChargPenDetails = dr["CriminalChargPenDetails"].ToString();
+                    lstpr.DoYouSmoke = Convert.ToInt32(dr["DoYouSmoke"].ToString());
+                    lstpr.ReferredResident = Convert.ToInt32(dr["ReferredResident"].ToString());
+                    lstpr.ReferredResidentName = dr["ReferredResidentName"].ToString();
+                    lstpr.ReferredBrokerMerchant = Convert.ToInt32(dr["ReferredBrokerMerchant"].ToString());
+                    lstpr.ApartmentCommunity = dr["ApartmentCommunity"].ToString();
+                    lstpr.ManagementCompany = dr["ManagementCompany"].ToString();
+                    lstpr.ManagementCompanyPhone = dr["ManagementCompanyPhone"].ToString();
+                    lstpr.IsProprNoticeLeaseAgreement = Convert.ToInt32(dr["IsProprNoticeLeaseAgreement"].ToString());
+
+                    int countryOrigintemp = lstpr.CountryOfOrigin.HasValue ? Convert.ToInt32(lstpr.CountryOfOrigin) : 0;
+                    var countryOriginVar = db.tbl_Country.Where(co => co.ID == countryOrigintemp).FirstOrDefault();
+                    lstpr.CountryOfOriginString = countryOriginVar != null ? countryOriginVar.CountryName : "";
+
                     //var PersonalStateVar = db.tbl_State.Where(co => co.ID == lstpr.State).FirstOrDefault();
                     //lstpr.StatePersonalString = PersonalStateVar != null ? PersonalStateVar.StateName : "";
                     //var StateHomeVar = db.tbl_State.Where(co => co.ID == lstpr.StateHome).FirstOrDefault();
@@ -471,7 +506,9 @@ namespace ShomaRM.Models
                     int emergencyStateHomeTemp = lstpr.EmergencyStateHome != null ? Convert.ToInt32(lstpr.EmergencyStateHome) : 0;
                     var EmergencyStateHomeVar = db.tbl_State.Where(co => co.ID == emergencyStateHomeTemp).FirstOrDefault();
                     lstpr.EmergencyStateHomeString = EmergencyStateHomeVar != null ? EmergencyStateHomeVar.StateName : "";
-                    lstpr.StepCompleted= Convert.ToInt32(dr["StepCompleted"].ToString());
+
+                    var stepCompleted= Convert.ToInt32(dr["StepCompleted"].ToString());
+                    lstpr.StepCompleted = stepCompleted;
                 }
                 db.Dispose();
                 return lstpr;
@@ -589,6 +626,22 @@ namespace ShomaRM.Models
                     getAppldata.PassportDocumentOriginalFile = model.UploadOriginalPassportName;
                     getAppldata.IdentityDocumentOriginalFile = model.UploadOriginalIdentityName;
                     getAppldata.IsPaystub = model.IsPaystub;
+                    getAppldata.CountryOfOrigin = model.CountryOfOrigin;
+                    getAppldata.Evicted = model.Evicted;
+                    getAppldata.EvictedDetails = model.EvictedDetails;
+                    getAppldata.ConvictedFelony = model.ConvictedFelony;
+                    getAppldata.ConvictedFelonyDetails = model.ConvictedFelonyDetails;
+                    getAppldata.CriminalChargPen = model.CriminalChargPen;
+                    getAppldata.CriminalChargPenDetails = model.CriminalChargPenDetails;
+                    getAppldata.DoYouSmoke = model.DoYouSmoke;
+                    getAppldata.ReferredResident = model.ReferredResident;
+                    getAppldata.ReferredResidentName = model.ReferredResidentName;
+                    getAppldata.ReferredBrokerMerchant = model.ReferredBrokerMerchant;
+                    getAppldata.ApartmentCommunity = model.ApartmentCommunity;
+                    getAppldata.ManagementCompany = model.ManagementCompany;
+                    getAppldata.ManagementCompanyPhone = model.ManagementCompanyPhone;
+                    getAppldata.IsProprNoticeLeaseAgreement = model.IsProprNoticeLeaseAgreement;
+
                     db.SaveChanges();
 
                     if (applyNow != null)
@@ -622,7 +675,6 @@ namespace ShomaRM.Models
             return msg;
 
         }
-
         public string SaveUpdateSSN(TenantOnlineModel model)
         {
             string msg = "";
@@ -646,7 +698,6 @@ namespace ShomaRM.Models
             return msg;
 
         }
-
         public string SaveUpdateIDNumber(TenantOnlineModel model)
         {
             string msg = "";
@@ -667,7 +718,6 @@ namespace ShomaRM.Models
             db.Dispose();
             return msg;
         }
-
         public string SaveUpdatePassportNumber(TenantOnlineModel model)
         {
             string msg = "";
@@ -688,7 +738,6 @@ namespace ShomaRM.Models
             db.Dispose();
             return msg;
         }
-
         //File Upload1,2,3
         public TenantOnlineModel SaveTaxUpload1(HttpPostedFileBase fileBaseUpload1, TenantOnlineModel model)
         {

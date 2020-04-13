@@ -250,7 +250,7 @@
                                                 {
                                                     foreach (var ul in Model.lstPropertyUnit)
                                                     {
-                                                        <tr class="@(Model.PropertyId==ul.UID?"select-unit":"")" id="unitdiv@ul.UID" data-floorid="@ul.FloorNoText"><td><a href="javascript:void(0);" onclick="getPropertyUnitDetails(@ul.UID)"><h5 style="width: 80px;">#@ul.UnitNo </h5></a> </td><td style="text-align: center;width=100px">$@ul.Current_Rent.ToString("0.00")</td><td style="text-align: center; width:45%">@ul.Premium </td><td style="text-align: center;width:100px">@ul.AvailableDateText</td></tr>
+                                                        <tr class="@(Model.PropertyId==ul.UID?"select-unit":"")" id="unitdiv_@ul.UID" data-floorid="@ul.FloorNoText"><td><a href="javascript:void(0);" onclick="getPropertyUnitDetails(@ul.UID)"><h5 style="width: 80px;">#@ul.UnitNo </h5></a> </td><td style="text-align: center;width=100px">$@ul.Current_Rent.ToString("0.00")</td><td style="text-align: center; width:45%">@ul.Premium </td><td style="text-align: center;width:100px">@ul.AvailableDateText</td></tr>
                                                     }
                                                 }
                                             </tbody>
@@ -1500,14 +1500,25 @@
                             <div class="col-sm-12">
                                 <div class="col-sm-4">
                                     <label class="star">
-                                        International Applicant ?
+                                        are you a US Citizen?
                                     </label>
                                     <div class="form-group">
                                         <select id="ddlIsInter" class="form-control" style="width:100%!important">
-                                            <option value="1">Yes</option>
-                                            <option value="0" selected="selected">No</option>
+                                            <option value="0" selected="selected">Yes</option>
+                                            <option value="1">No</option>
                                         </select>
 
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 hidden" id="divCountryOfOrigin">
+                                    <div class="form-group">
+                                        <label class="star">Country of Origin </label>
+                                        <select id="ddlCountryOfOrigin" class="form-control">
+                                            @foreach (var country in Model.CountryList)
+                                            {
+                                                <option value="@country.ID">@country.CountryName</option>
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -1639,7 +1650,6 @@
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">Identification </h3>
-
                                     </div>
                                 </div>
                             </div>
@@ -1685,7 +1695,107 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">ADDITIONAL QUESTIONS</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="ddlEverBeenEvicted" class="star">Have you ever been evicted?</label>
+                                        <select id="ddlEverBeenEvicted" class="form-control" style="width:100%!important" onchange="ddlEverBeenEvictedFunction();">
+                                            <option value="1" selected="selected">No</option>
+                                            <option value="2">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 hidden" id="divEverBeenConvicted">
+                                    <div class="form-group">
+                                        <label for="ddlEverBeenConvicted" class="star">Have you ever been convicted of a felony?</label>
+                                        <select id="ddlEverBeenConvicted" class="form-control" style="width:100%!important" onchange="ddlEverBeenConvictedFunction();">
+                                            <option value="1" selected="selected">No</option>
+                                            <option value="2">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 hidden" id="divAnyCriminalCharges" style="margin-top: -29px;">
+                                    <div class="form-group">
+                                        <label for="ddlAnyCriminalCharges" class="star">
+                                            Do you have any criminal charges pending, awaiting
+                                            disposition, or looming in any way?
+                                        </label>
+                                        <select id="ddlAnyCriminalCharges" class="form-control" style="width:100%!important" onchange="ddlAnyCriminalChargesFunction();">
+                                            <option value="1" selected="selected">No</option>
+                                            <option value="2">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-4">
+                                    <div class="form-group hidden" id="divEverBeenEvictedDetails">
+                                        <label for="txtEverBeenEvictedDetails" class="star">Details</label>
+                                        <input id="txtEverBeenEvictedDetails" class="form-control form-control-small" type="text" max="500" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group hidden" id="divEverBeenConvictedDetails">
+                                        <label for="txtEverBeenConvictedDetails" class="star">Details</label>
+                                        <input id="txtEverBeenConvictedDetails" class="form-control form-control-small" type="text" max="500" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group hidden" id="divAnyCriminalChargesDetails">
+                                        <label for="txtAnyCriminalChargesDetails" class="star">Details</label>
+                                        <input id="txtAnyCriminalChargesDetails" class="form-control form-control-small" type="text" max="500" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="ddlDoYouSmoke" class="star">Do you or any occupants smoke?</label>
+                                        <select id="ddlDoYouSmoke" class="form-control" style="width:100%!important">
+                                            <option value="1" selected="selected">No</option>
+                                            <option value="2">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="ddlReferredByAnotherResident" class="star">Referred by another Resident?</label>
+                                        <select id="ddlReferredByAnotherResident" class="form-control" style="width:100%!important" onchange="ddlReferredByAnotherResidentFunction();">
+                                            <option value="1" selected="selected">No</option>
+                                            <option value="2">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="ddlBrokerOrMerchantReff" class="star">Broker or Merchant referred</label>
+                                        <select id="ddlBrokerOrMerchantReff" class="form-control" style="width:100%!important">
+                                            <option value="1" selected="selected">No</option>
+                                            <option value="2">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
 
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group hidden" id="divReferredByAnotherResidentName">
+                                        <label for="txtReferredByAnotherResidentName" class="star">Please provide Name</label>
+                                        <input id="txtReferredByAnotherResidentName" class="form-control form-control-small" type="text" max="500" />
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
                                     <button type="submit" class="btn btn-primary" onclick="goToStep(8,8,0)"> Back</button>
@@ -1742,7 +1852,6 @@
                                 </div>
                             </div>
                             <div class="col-sm-12">
-
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label class="star"> State :</label>
@@ -1768,6 +1877,8 @@
                                         <input class="form-control form-control-small" id="txtZip" maxlength="7" />
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-sm-12">
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="ddlRentOwn" class="star"> Do you rent or own </label>
@@ -1809,16 +1920,38 @@
                                         <input id="txtMonthlyPayment" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" style="text-align:right;" />
                                     </div>
                                 </div>
-
-                                <div class="col-sm-12">
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="txtReasonforleaving"> Reason for leaving </label>
-                                        <input id="txtReasonforleaving" type="text" class="form-control" />
+                                        <label for="txtApartmentCommunity" class="star">Apartment Community</label>
+                                        <input class="form-control form-control-small" id="txtApartmentCommunity" max="500" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="txtManagementCompany" class="star">Management Company</label>
+                                        <input class="form-control form-control-small" id="txtManagementCompany" max="500" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="txtManagementCompanyPhone" class="star">Management Company Phone</label>
+                                        <input class="form-control form-control-small" id="txtManagementCompanyPhone" maxlength="10" onkeypress="return isNumber(event)" />
                                     </div>
                                 </div>
                             </div>
-
-
+                            <div class="col-sm-12">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="ddlProperNoticeLeaseAgreement" class="star">Was proper notice given per your lease agreement?</label>
+                                        <select id="ddlProperNoticeLeaseAgreement" class="form-control form-control-small">
+                                            <option value="1">Yes</option>
+                                            <option value="2">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-sm-12">
                                 <div class="col-sm-6">
                                     <div class="panel panel-default sidebar-menu wow fadeInRight animated  pull-left">
@@ -3706,12 +3839,12 @@
 
 <div class="modal" id="popApplicantHistory">
     <div class="modal-dialog">
-        <div class="modal-content" style="width:850px; height:555px;">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+        <div class="modal-content" style="width:850px; height:750px;">
+
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Add Applicant History</h5>
-
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -24px; margin-right: 8px;color:black">&times;</button>
             </div>
 
             <!-- Modal body -->
@@ -3746,7 +3879,6 @@
                     </div>
                 </div>
                 <div class="col-sm-12">
-
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="star">State</label>
@@ -3772,6 +3904,8 @@
                             <input class="form-control form-control-small" id="txtZip2" maxlength="7" />
                         </div>
                     </div>
+                </div>
+                <div class="col-sm-12">
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label for="ddlRentOwn" class="star"> Do you rent or own </label>
@@ -3813,26 +3947,58 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col-sm-12">
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="txtReasonforleaving">Reason for leaving </label>
-                            <input id="txtReasonforleaving2" type="text" class="form-control" />
+                            <label for="txtApartmentCommunity2" class="star">Apartment Community</label>
+                            <input class="form-control form-control-small" id="txtApartmentCommunity2" max="500" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="txtManagementCompany2" class="star">Management Company</label>
+                            <input class="form-control form-control-small" id="txtManagementCompany2" max="500" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="txtManagementCompanyPhone2" class="star">Management Company Phone</label>
+                            <input class="form-control form-control-small" id="txtManagementCompanyPhone2" maxlength="10" onkeypress="return isNumber(event)" />
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-12 text-center">
-                    <button type="button" class="btn btn-primary" onclick="saveupdateApplicantHistory()"><i class="fa fa-save"></i> Save</button>
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="ddlProperNoticeLeaseAgreement2" class="star">Was proper notice given per your lease agreement?</label>
+                            <select id="ddlProperNoticeLeaseAgreement2" class="form-control form-control-small">
+                                <option value="1">Yes</option>
+                                <option value="2">No</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-
+                <div class="col-sm-12">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="txtReasonforleaving">Reason for leaving </label>
+                            <input id="txtReasonforleaving2" type="text" class="form-control" max="500" />
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer-custom">
-
+            <div class="col-sm-12 text-center">
+                <button type="button" class="btn btn-primary" onclick="saveupdateApplicantHistory()"><i class="fa fa-save"></i> Save</button>
             </div>
 
         </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer-custom">
+
+        </div>
+
     </div>
 </div>
 
@@ -3940,7 +4106,7 @@
             <div class="modal-body" style="padding: -15px;">
                 <button type="button" class="close" data-dismiss="modal" style="margin-top: -60px; margin-right: -52px;">&times;</button>
 
-                <button type="button" class="btn btn-default print"  onclick="print('printables')">Print</button>
+                <button type="button" class="btn btn-default print" onclick="print('printables')">Print</button>
                 <div id="printables">
 
                     <table>
@@ -4806,7 +4972,6 @@
     });
 
     $(document).ready(function () {
-
         $("#apartimg_2").maphilight();
         $("#ddlRoom").val(@Model.Bedroom);
         $("#ddlRoom").trigger('change');
@@ -4867,7 +5032,7 @@
             }
             if (@Model.AcceptSummary== "1") {
                 $("#hndShowPaymentPolicy").val(0);
-                $("#chkAgreeSummarry.").iCheck('check');
+                $("#chkAgreeSummarry").iCheck('check');
             } else {
                 $("#hndShowPaymentPolicy").val(1);
             }
