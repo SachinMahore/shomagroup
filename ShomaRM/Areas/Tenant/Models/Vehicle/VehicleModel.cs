@@ -56,7 +56,9 @@ namespace ShomaRM.Areas.Tenant.Models
                 db.tbl_Vehicle.Add(saveVehicle);
                 db.SaveChanges();
 
-
+                var ParkingInfo = db.tbl_Parking.Where(p => p.ParkingID == model.ParkingID).FirstOrDefault();
+                ParkingInfo.Status = 1;
+                db.SaveChanges();
                 msg = "Vehicle Saved Successfully";
             }
             else
@@ -185,6 +187,10 @@ namespace ShomaRM.Areas.Tenant.Models
                 if(vehData!=null)
                 {
                     db.tbl_Vehicle.Remove(vehData);
+                    db.SaveChanges();
+
+                    var ParkingInfo = db.tbl_Parking.Where(p => p.ParkingID == vehData.ParkingID).FirstOrDefault();
+                    ParkingInfo.Status = 0;
                     db.SaveChanges();
                     msg = "Vehicle Removed Successfully";
 
