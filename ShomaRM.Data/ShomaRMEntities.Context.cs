@@ -28,7 +28,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Advertiser> tbl_Advertiser { get; set; }
         public virtual DbSet<tbl_Amenities> tbl_Amenities { get; set; }
         public virtual DbSet<tbl_AmenityPriceRange> tbl_AmenityPriceRange { get; set; }
-        public virtual DbSet<tbl_ApplicantHistory> tbl_ApplicantHistory { get; set; }
         public virtual DbSet<tbl_BankAccount> tbl_BankAccount { get; set; }
         public virtual DbSet<tbl_Bill> tbl_Bill { get; set; }
         public virtual DbSet<tbl_CashReceipts> tbl_CashReceipts { get; set; }
@@ -100,7 +99,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_UnitLeasePrice> tbl_UnitLeasePrice { get; set; }
         public virtual DbSet<tbl_OnlinePayment> tbl_OnlinePayment { get; set; }
         public virtual DbSet<tbl_PaymentAccounts> tbl_PaymentAccounts { get; set; }
-        public virtual DbSet<tbl_TenantOnline> tbl_TenantOnline { get; set; }
         public virtual DbSet<tbl_TenantInfo> tbl_TenantInfo { get; set; }
         public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
         public virtual DbSet<tbl_EmployerHistory> tbl_EmployerHistory { get; set; }
@@ -109,5 +107,7 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_ESignatureKeys> tbl_ESignatureKeys { get; set; }
         public virtual DbSet<tbl_Login> tbl_Login { get; set; }
         public virtual DbSet<tbl_Vehicle> tbl_Vehicle { get; set; }
+        public virtual DbSet<tbl_ApplicantHistory> tbl_ApplicantHistory { get; set; }
+        public virtual DbSet<tbl_TenantOnline> tbl_TenantOnline { get; set; }
     }
 }
