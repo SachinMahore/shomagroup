@@ -36,6 +36,11 @@ namespace ShomaRM.Models
         public int? MonthsApplicantHistory { get; set; }
         public int? TotalMonthsApplicantHistory { get; set; }
 
+        public string ApartmentCommunity { get; set; }
+        public string ManagementCompany { get; set; }
+        public string ManagementCompanyPhone { get; set; }
+        public Nullable<int> IsProprNoticeLeaseAgreement { get; set; }
+
         public string SaveUpdateApplicantHistory(ApplicantHistoryModel model)
         {
             string msg = "";
@@ -56,7 +61,11 @@ namespace ShomaRM.Models
                     MoveInDateTo = model.MoveInDateTo,
                     MonthlyPayment = model.MonthlyPayment,
                     Reason = model.Reason,
-                    TenantID = model.TenantID
+                    TenantID = model.TenantID,
+                    ApartmentCommunity = model.ApartmentCommunity,
+                    ManagementCompany = model.ManagementCompany,
+                    ManagementCompanyPhone = model.ManagementCompanyPhone,
+                    IsProprNoticeLeaseAgreement = model.IsProprNoticeLeaseAgreement
                 };
                 db.tbl_ApplicantHistory.Add(saveApplicantHistory);
                 db.SaveChanges();
@@ -80,6 +89,10 @@ namespace ShomaRM.Models
                     getApplicantHistorydata.MoveInDateTo = model.MoveInDateTo;
                     getApplicantHistorydata.MonthlyPayment = model.MonthlyPayment;
                     getApplicantHistorydata.Reason = model.Reason;
+                    getApplicantHistorydata.ApartmentCommunity = model.ApartmentCommunity;
+                    getApplicantHistorydata.ManagementCompany = model.ManagementCompany;
+                    getApplicantHistorydata.ManagementCompanyPhone = model.ManagementCompanyPhone;
+                    getApplicantHistorydata.IsProprNoticeLeaseAgreement = model.IsProprNoticeLeaseAgreement;
                 }
                 db.SaveChanges();
                 msg = "Applicant History Updated Successfully";
@@ -260,6 +273,10 @@ namespace ShomaRM.Models
                 var countryStr = db.tbl_Country.Where(co => co.ID == ctryString).FirstOrDefault();
                 model.CountryString = countryStr.CountryName;
                 model.RentOwnString = model.RentOwn == 1 ? "Rent" : model.RentOwn == 2 ? "Own" : "";
+                model.ApartmentCommunity = getAHRdata.ApartmentCommunity;
+                model.ManagementCompany = getAHRdata.ManagementCompany;
+                model.ManagementCompanyPhone = getAHRdata.ManagementCompanyPhone;
+                model.IsProprNoticeLeaseAgreement = getAHRdata.IsProprNoticeLeaseAgreement;
             }
             model.AHID = AHID;
 

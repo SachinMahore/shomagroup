@@ -27,5 +27,9 @@ namespace ShomaRM.Data
         public Nullable<System.DateTime> MoveInDateTo { get; set; }
         public string MonthlyPayment { get; set; }
         public string Reason { get; set; }
+        public string ApartmentCommunity { get; set; }
+        public string ManagementCompany { get; set; }
+        public string ManagementCompanyPhone { get; set; }
+        public Nullable<int> IsProprNoticeLeaseAgreement { get; set; }
     }
 }
