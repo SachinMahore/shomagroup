@@ -416,7 +416,7 @@
                         <div class="hidden" id="step6">
 
                         </div>
-                        <div class="hidden" id="step7">
+                        <div class="hidden" id="step7" >
                             <div class="row p-b-15  ">
                                 <div class="col-sm-12">
                                     <h4 class="info-text pull-left">Units Lease Wise Price</h4>
@@ -451,9 +451,7 @@
                                             <tr>
                                                 @foreach (var ulph in Model.lstUnitLeasePriceHeader)
                                                 {
-                                                    <th style="background-color: #c7cdd5;color:#3d3939; width:5%;" class='text-center' onclick="sortUnitLeaseWisePrice('@ulph.SortName')">@ulph.HeaderName <i class="fa fa-sort-numeric-desc"></i></th>
-                                                    <th style="background-color: #c7cdd5;color:#3d3939; width:4%;" onclick="sortUnitLeaseWisePrice('Building')" class='text-center'>Model <i class="fa fa-sort-alpha-desc"></i></th>
-                                                    <th style="background-color: #c7cdd5;color:#3d3939; width:6%;" class='text-center' onclick="sortUnitLeaseWisePrice('Rent')">Rent <i class="fa fa-sort-amount-desc"></i></th>
+                                                    <th style="background-color: #c7cdd5;color:#3d3939; width:@ulph.Width%; @if (ulph.HasSorting == "1") {<text>cursor:pointer!important;</text>}" class='text-center' @if (ulph.HasSorting == "1") {<text>onclick='sortUnitLeaseWisePrice("@ulph.SortName")'</text>} >@ulph.HeaderName <span id="sn_@ulph.SortName" class="sortcolumn" >@if (ulph.DefaultSort == "1") {<text><i class="fa fa-sort-asc"></i></text>}</span></th>
                                                 }
                                             </tr>
                                         </thead>

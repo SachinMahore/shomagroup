@@ -872,6 +872,8 @@ var goToStep = function (stepid, id) {
     }
     if (stepid == "7") {
         $("#divLoader").show();
+        buildPaganationUnitLeaseWisePriceList(1, 'UnitNo', 'ASC');
+        fillUnitLeaseWisePriceList(1, 'UnitNo', 'ASC');
         $("#li1").removeClass("active");
         $("#li2").removeClass("active");
         $("#li3").removeClass("active");
@@ -1767,7 +1769,7 @@ var buildPaganationUnitLeaseWisePriceList = function (pagenumber, sortby, orderb
     };
 
     $.ajax({
-        url: "/PropertyManagement/BuildPaganationPUList",
+        url: "/PropertyManagement/BuildPaganationUnitLeasePrice",
         method: "post",
         data: JSON.stringify(model),
         contentType: "application/json; charset=utf-8",
@@ -1799,7 +1801,7 @@ var fillUnitLeaseWisePriceList = function (pagenumber, sortby, orderby) {
         OrderBy: orderby
     };
     $.ajax({
-        url: "/PropertyManagement/FillPUSearchGrid",
+        url: "/PropertyManagement/GetUnitLeasePrice",
         method: "post",
         data: JSON.stringify(model),
         contentType: "application/json; charset=utf-8",
@@ -1810,27 +1812,41 @@ var fillUnitLeaseWisePriceList = function (pagenumber, sortby, orderby) {
                 //this.cancelChanges();
             } else {
                 $("#tblUnitLeaseWisePriceList>tbody").empty();
+                var uid = 0;
+                var html = "";
+                var putclosing = 0;
+                var rowCount = response.length;
+                var rowProcess = 1;
                 $.each(response, function (elementType, value) {
-                    var html = "<tr id='tru_" + value.UID + "'>";
-                    html += "<td style='width:5%;'><a href = 'javascript:void(0)' onclick='goToStep(6," + value.UID + ")'> " + value.UnitNo + "</a></td>";
-                    html += "<td style='width:4%;'>" + value.Building + "</td>";
+                    if (uid != value.UID) {
+                        if (uid == 0) {
+                            putclosing = 0;
+                        } else {
+                            putclosing = 1;
+                        }
 
-                    html += "<td style='width:6%;cursor:pointer!important;' id='avUnitRent_" + value.UID + "' onclick='editUnitRent(" + value.UID + ")' data-udate='" + value.Current_Rent + "' data-ulrid='" + value.ULRID + "'> " + formatMoney(parseFloat(value.Current_Rent).toFixed(2)) + " <i class='fa fa-edit  pull-right' style='margin: 6px;'></i> </td>";
-                    html += "<td style='width:2%;'>" + value.Bathroom + "</td>";
-                    html += "<td style='width:2%;'>" + value.Bedroom + "</td>";
-                    html += "<td style='width:6%;'>" + value.InteriorArea + "</td>";
-                    html += "<td style='width:6%;'>" + value.BalconyArea + "</td>";
+                        if (putclosing == 1) {
+                            html += "</tr>";
+                            $("#tblUnitLeaseWisePriceList>tbody").append(html);
+                            html = "";
+                            putclosing = 0;
+                        }
 
-                    html += "<td style='width:5%;'>" + value.Area + "</td>";
-                    html += "<td style='width:8%;cursor:pointer!important;' id='avUnitDate_" + value.UID + "' onclick='editUnitDate(" + value.UID + ")' data-udate='" + value.AvailableDateText + "'> " + value.AvailableDateText + " <i class='fa fa-calendar pull-right' style='margin: 6px;'></i> </td>";
-                    html += "<td style='width:8%;cursor:pointer!important;' id='avUnitMoveInDate_" + value.UID + "' onclick='editUnitMoveInDate(" + value.UID + ")' data-udate='" + value.MoveInDateText + "'> " + value.MoveInDateText + " <i class='fa fa-calendar pull-right' style='margin: 6px;'></i> </td>";
-                    html += "<td style='width:8%;cursor:pointer!important;' id='avUnitMoveOutDate_" + value.UID + "' onclick='editUnitMoveOutDate(" + value.UID + ")' data-udate='" + value.MoveOutDateText + "'> " + value.MoveOutDateText + " <i class='fa fa-calendar pull-right' style='margin: 6px;'></i> </td>";
-                    html += "<td style='width:20%;'>" + value.PremiumType + "</td>";
-
-                    html += "<td style='padding:20px;cursor:pointer!important;' id='avUnitNotes_" + value.UID + "' onclick='editUnitNotes(" + value.UID + ")' data-udate='" + value.Notes + "'> " + value.Notes + " <i class='fa fa-edit pull-right' style='margin: 6px;'></i> </td>";
-
-                    html += " </tr>";
-                    $("#tblUnitLeaseWisePriceList>tbody").append(html);
+                        html = "<tr id='tr_" + value.UID + "'>";
+                        uid = value.UID;
+                        html += "<td>" + value.UnitNo + "</td>";
+                        html += "<td>" + value.Building + "</td>";
+                    }
+                    if (uid = value.UID) {
+                        html += "<td id='avUnitLeaseRent_" + value.ULPID + "' onclick='editUnitLeaseRent(" + value.UID + "," + value.ULPID + "," + value.LeaseID + "," + value.Price + ")' style='cursor: pointer!important;' >" + value.Price + "<i class='fa fa-edit pull-right' style='margin: 6px;'></i></td>";
+                    }
+                    if (rowProcess == rowCount) {
+                        html += "</tr>";
+                        $("#tblUnitLeaseWisePriceList>tbody").append(html);
+                        html = "";
+                        putclosing = 0;
+                    }
+                    rowProcess += 1;
                 });
 
             }
@@ -1840,32 +1856,62 @@ var fillUnitLeaseWisePriceList = function (pagenumber, sortby, orderby) {
     });
 };
 var sortUnitLeaseWisePrice = function (sortby) {
-
     var sortByValue = $("#hndULWPSortBy").val();
     var orderByValue = $("#hndULWPOrderBy").val();
-
     var pNumber = $("#hndULWPPageNumber").val();
     if (!pNumber) {
         pNumber = 1;
         $("#hndULWPPageNumber").val(1);
     }
-
-
+    $("span.sortcolumn").empty();
+   
     if (sortByValue != sortby) {
         $("#hndULWPSortBy").val(sortby);
         $("#hndULWPOrderBy").val("ASC");
         orderby = "ASC";
+        $("#sn_" + sortby).html('<i class="fa fa-sort-asc"></i>');
     }
     else {
         if (orderByValue == "ASC") {
             $("#hndULWPOrderBy").val("DESC");
             orderby = "DESC";
+            $("#sn_" + sortby).html('<i class="fa fa-sort-desc"></i>');
         }
         else {
             $("#hndULWPOrderBy").val("ASC");
             orderby = "ASC";
+            $("#sn_" + sortby).html('<i class="fa fa-sort-asc"></i>');
         }
     }
     buildPaganationUnitLeaseWisePriceList(pNumber, sortby, orderby);
     fillUnitLeaseWisePriceList(pNumber, sortby, orderby);
+};
+var editUnitLeaseRent = function (uid, uplid, leaseid, price) {
+
+    $("#avUnitLeaseRent_" + uplid).removeAttr("onclick");
+    $("#avUnitLeaseRent_" + uplid).empty();
+
+    $("#avUnitLeaseRent_" + uplid).append("<input class='form-control' type='text' id='editUnitLeaseRent_" + uplid + "'  value='" + price + "' />");
+    $("#avUnitLeaseRent_" + uplid).focusout(function (e) {
+        var currentRent = $("#editUnitLeaseRent_" + uplid).val();
+       
+        var pID = $("#hndPID").val();
+        var model = {
+            ULPID: uplid,
+            Price: currentRent
+        };
+
+        $.ajax({
+            url: "/Admin/PropertyManagement/UpdateUnitLeasePrice/",
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                $("#avUnitLeaseRent_" + uplid).empty().append(currentRent + " <i class='fa fa-edit pull-right' style='margin: 6px;'></i>");
+                $("#avUnitLeaseRent_" + uplid).attr("onclick", "editUnitLeaseRent(" + uid + "," + uplid + "," + leaseid + "," + price + ")");
+            }
+        });
+    });
+    $("#editUnitLeaseRent_" + uplid).focus();
 };
