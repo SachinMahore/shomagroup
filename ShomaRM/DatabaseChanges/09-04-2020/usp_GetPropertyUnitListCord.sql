@@ -27,7 +27,8 @@ INSERT INTO @UnitsNotAvailable (UnitId)
 SELECT UID FROM tbl_Lease WHERE STATUS=1
 
 INSERT INTO @UnitsNotAvailable (UnitId)
-SELECT PropertyId FROM tbl_ApplyNow WHERE TRIM(ISNULL(Status,''))!='Denied'
+SELECT PropertyId FROM tbl_ApplyNow WHERE LTRIM(RTRIM((ISNULL(Status,''))))!='Denied'
+
 
 DECLARE @UnitID BIGINT =0
 

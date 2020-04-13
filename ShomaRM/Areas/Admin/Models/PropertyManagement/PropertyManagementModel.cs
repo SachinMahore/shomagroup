@@ -46,6 +46,7 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<decimal> DNAPetFees { get; set; }
         public Nullable<decimal> ProcessingFees { get; set; }
 
+        public List<UnitLeasePriceHeader> lstUnitLeasePriceHeader { get; set; }
 
         public string SaveUpdateProperty(PropertyManagementModel model)
         {
@@ -243,8 +244,27 @@ namespace ShomaRM.Areas.Admin.Models
                 model.AdminFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.AdminFees));
                 model.DNAPetFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.PetDNAAmt));
                 model.ProcessingFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.ProcessingFees));
-
             }
+
+            var leaseTerms = db.tbl_LeaseTerms.ToList().OrderBy(p => p.LeaseTerms ?? 0);
+
+            decimal rowCount = leaseTerms.Count();
+            if(rowCount==0)
+            {
+                rowCount = 1;
+            }
+            decimal width = 80 / rowCount;
+
+            List<UnitLeasePriceHeader> ulph = new List<UnitLeasePriceHeader>();
+            ulph.Add(new UnitLeasePriceHeader() { HeaderName="Unit No",SortName="UnitNo", Width="5" });
+            ulph.Add(new UnitLeasePriceHeader() { HeaderName = "Model", SortName = "Building", Width="5"});
+            foreach(var lt in leaseTerms)
+            {
+                ulph.Add(new UnitLeasePriceHeader() { HeaderName = (lt.LeaseTerms ?? 0).ToString() + " Months", SortName = (lt.LeaseTerms ?? 0).ToString() + "Months", Width = width.ToString("0.00") });
+            }
+
+            model.lstUnitLeasePriceHeader = ulph;
+
             var floorlist = db.tbl_PropertyFloor.Where(p => p.PID == id).ToList();
             if (floorlist != null)
             {
@@ -1631,5 +1651,11 @@ namespace ShomaRM.Areas.Admin.Models
         public int? LeaseTerms { get; set; }
         public decimal? Price { get; set; }
         public decimal? Deposit { get; set; }
+    }
+    public class UnitLeasePriceHeader
+    {
+        public string HeaderName { get; set; }
+        public string SortName { get; set; }
+        public string Width { get; set; }
     }
 }
