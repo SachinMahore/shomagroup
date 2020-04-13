@@ -24,7 +24,7 @@ namespace ShomaRM.Data
         public Nullable<int> NoOfGuest { get; set; }
     
         public virtual tbl_Event tbl_Event { get; set; }
-        public virtual tbl_Tenant tbl_Tenant { get; set; }
         public virtual tbl_Login tbl_Login { get; set; }
+        public virtual tbl_Tenant tbl_Tenant { get; set; }
     }
 }

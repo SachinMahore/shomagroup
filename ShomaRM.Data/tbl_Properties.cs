@@ -25,7 +25,6 @@ namespace ShomaRM.Data
             this.tbl_Gallery = new HashSet<tbl_Gallery>();
             this.tbl_Lease = new HashSet<tbl_Lease>();
             this.tbl_Notice = new HashSet<tbl_Notice>();
-            this.tbl_Parking = new HashSet<tbl_Parking>();
             this.tbl_PetPlace = new HashSet<tbl_PetPlace>();
             this.tbl_Promotion = new HashSet<tbl_Promotion>();
             this.tbl_PropertyFloor = new HashSet<tbl_PropertyFloor>();
@@ -86,10 +85,10 @@ namespace ShomaRM.Data
         public virtual ICollection<tbl_Gallery> tbl_Gallery { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Lease> tbl_Lease { get; set; }
+        public virtual tbl_Login tbl_Login { get; set; }
+        public virtual tbl_Login tbl_Login1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Notice> tbl_Notice { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_Parking> tbl_Parking { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_PetPlace> tbl_PetPlace { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -117,7 +116,5 @@ namespace ShomaRM.Data
         public virtual ICollection<tbl_Tenant> tbl_Tenant1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_WorkOrder> tbl_WorkOrder { get; set; }
-        public virtual tbl_Login tbl_Login { get; set; }
-        public virtual tbl_Login tbl_Login1 { get; set; }
     }
 }

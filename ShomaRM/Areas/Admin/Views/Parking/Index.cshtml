@@ -1,132 +1,142 @@
-﻿@using ShomaRM.Areas.Admin.Models
-@model ParkingModel
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
-
-<script src="~/Areas/Admin/Content/Pages/Parking/Parking.js"></script>
+<script src="~/Areas/Admin/Content/Pages/Parking/ParkingList.js"></script>
 <input type="hidden" id="hndParkingID" value="@Model.ParkingID" />
 <input type="hidden" id="hdnSearchType" value="1" />
 <input type="hidden" id="hdnCurrentPage" value="1" />
 <input type="hidden" id="hndPageNo" value="0" />
 <div class="register-area" style="background-color: rgb(249, 249, 249);">
-    <div class="container" style="width:100% !important">
-        <div class="breadcrumb">
-            <h4 class="">Edit Parking  </h4>
-        </div>
-        <div class="form-group clearfix panel">
-            <div class="col-md-7">
-                <div class="form-inline clearfix panel">
-                    <div class="form-group col-md-3 padding-5">
-                        <label class="control-label" style="padding:0px 5px;">Search Parking</label>
-                    </div>
-                    <div class="form-group col-md-3 padding-5">
-                        <input type="text" id="txtCriteriaParking" name="Criteria" class="form-control form-control-small" />
-                    </div>
-                    <div class="form-group col-md-2 padding-5">
-                        <button id="btnSearchParking" class='btn btn-next btn-primary' style="text-transform:uppercase!important;margin-left:-10px; height:34px" name='Search' onclick="buildPaganationParkingList(1)"><i class="fa fa-search"></i> Search</button>
-                        <button id="btnGoAmenities" class="btn btn-success pull-right hidden" style="margin-right:15px;text-transform:uppercase!important;" onclick="goToParking()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-arrow-circle-o-right"></i> Go to</button>
-                        @*fillParkingSearchList*@
-                    </div>
-                  
-                </div>
-                <div class="col-sm-12 form-group" id="divPagination_Parking">
-                    <div id="divPgnParking" class="col-sm-7 pagination">
-                        <ul id="ulPagination_Parking"></ul>
-                    </div>
-                    <div class="col-sm-4 padding-0 pull-right" style="margin-top: 22px;">
-                        <div class="col-sm-5">
-                            <label id="lblRPP_Parking" class="control-label" style="margin-left:6px">Row/Page</label>
-                        </div>
-                        <div class="col-sm-7">
-                            <select id="ddlRPP_Parking" class="form-control form-control-small"></select>
-                        </div>
-                    </div>
-                </div>
-              
-                <div class="form-group clearfix">
-                    <table id="tblParking" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th class="pds-cityname" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('ParkingName')">Parking <i id="SortIconParking"></i></th>
-                                <th class="pds-cityname" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('ChargesName')">Charges <i id="SortIconCharges"></i></th>
-                                <th class="pds-cityname" style="background-color: #c7cdd566;color:#3d3939">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
+    <div class="container" style="width:100%!important">
+        <div class="row">
+            <div class="breadcrumb" style="margin-bottom:0px">
+                <h4 class="">Parking List</h4>
             </div>
-            <div class="col-md-5">
-                <div class="col-md-12 padding-5">
-                    <div class="form-group pull-right clearfix" >
-                        <button class="btn btn-primary" id="btnParking" style="text-transform:uppercase!important" onclick="NewParking()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-plus"></i> Clear</button>
-                        <button class="btn btn-primary" id="btnSaveParking" style="text-transform:uppercase!important" onclick="saveUpdateParking()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">Save</span></button>
-                    </div>
-                </div>
-                <div class="form-group clearfix padding-5">
-                    <div class="row">
-                        <div class="col-sm-12">
+
+            <div class="col-md-12  pr0  properties-page">
+                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                    <div class="panel-heading">
+                        <div class="col-sm-3">
+                            <h3 class="panel-title input-group">Search Parking </h3>
                             <div class="form-group">
-                                <label for="firstname" class="">Property</label>
-                                <select id="ddlProperty" class="form-control form-control-small"></select>
+                                @*<label  class="">Search Parking</label>*@
+                                <select id="ddlCriteria" class="form-control form-control-small">
+                                    <option value="0" selected> Please select</option>
+                                    <option value="1">Space </option>
+                                    <option value="2">Unit </option>
+                                    <option value="3">Vehicle Tag </option>
+                                    <option value="4">Tenant Name</option>
+                                </select>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-3">
+                            <h3 class="panel-title input-group">Search Criteria</h3>
                             <div class="form-group">
-                                <label for="txtParkingName" class="star">Parking</label>
-                                <input class="form-control form-control-small" id="txtParkingName" maxlength="100" type="text" value="@Model.ParkingName" />
+                                <input id="txtCriteria"  class="form-control form-control-small" type="text" value="" />
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="star">Charges</label>
-                                <div class="input-group">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                        @*<div class="col-sm-3">
+                                <div class="form-group">
+                                    <h3 class="panel-title">From Date</h3>
+                                    <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
+                                    <span class="input-group-btn" style="width:0% !important">
+                                        <button class="btn btn-primary search" type="button" id="iconFromDate" style="margin-top: -60px;margin-left: 290px;"><i class="fa-calendar fa"></i></button>
                                     </span>
-                                    <input id="txtCharges" class="form-control form-control-small" value="@(Model.Charges.HasValue?Model.Charges.Value.ToString("N2"):"0.00")" type="text" onkeypress="return isNumber(event)" />
                                 </div>
                             </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <h3 class="panel-title">To Date</h3>
+                                    <input id="txtToDate" type="text" class="form-control" value="@endDate.ToString("MM/dd/yyyy")">
+                                    <span class="input-group-btn" style="width:0% !important">
+                                        <button class="btn btn-primary search" type="button" id="iconToDate" style="margin-top: -60px;margin-left: 290px;"><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>
+                            </div>*@
+                        <div class="col-sm-3">
+                            <div class="form-group padding-top-25">
+                                <button id="btnSearchParking" class='btn btn-next btn-primary' style="text-transform:uppercase!important;margin-left:-10px; height:34px" name='Search' onclick="buildPaganationParkingList(1)"><i class="fa fa-search"></i> Search</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label for="txtDescription">Description</label>
-                                <textarea class="form-control form-control-small" id="txtDescription">@Model.Description</textarea>
+                        <div class="col-sm-3">
+                            <div class="form-group  padding-top-25">
                             </div>
                         </div>
                     </div>
+                    <div class="col-sm-12 form-group" id="divPagination_ParkingList">
+                        <div id="divPgn" class="col-sm-8 pagination">
+                            <ul id="ulPagination_ParkingList"></ul>
+                        </div>
+                        <div class="col-sm-3 padding-0 pull-right">
+                            <div class="col-sm-6">
+                                <label class="control-label">Row/Page</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <select id="ddlRPP_ParkingList" class="form-control form-control-small"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body search-widget">
+                        <div class="col-md-12 clear">
+                            <table id="tblParking" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('Number')">Parking No. <i id="sortNumberIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('Charge')">Parking Charge <i id="sortChargeIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('Available')">Available <i id="sortAvailableIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('Location')">Location <i id="sortLocationIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('Space')">Space No. <i id="sortSpaceIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('UnitNo')">Unit No <i id="sortUnitNoIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('Tag')">Vehicle Tag <i id="sortTagIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('Tenant')">Tenant Name <i id="sortTenantIcon" class=""></i></th>
+                                        @*<th style="background-color: #c7cdd5;color:#3d3939;padding:10px;">Action</th>*@
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
-
-@*<style>
-    .k-button {
-        line-height: 1.5em !important;
-    }
-
-    .gridbtn {
-        background-color: #e0e0e0;
-        font-size: 12px;
-        padding: 3px 4px !important;
-    }
-
-    .btn {
-        border-radius: 3px;
-        padding: 3px 12px;
-        font-size: 12px;
-    }
-</style>*@
 <script>
-    $(document).ready(function () {
-       // setTimeout(function () { $("#ddlProperty").find("option[value='" + @Model.PropertyID + "']").attr('selected', 'selected'); }, 1200);
+    $(function () {
+        $("#iconFromDate").click(function () {
+            $("#txtFromDate").focus();
+        });
+        $("#iconToDate").click(function () {
+            $("#txtToDate").focus();
+        });
+
+        var dtstart = new Date();
+        dtstart.setFullYear(new Date().getFullYear() - 100);
+        var dtend = new Date();
+        dtend.setFullYear(new Date().getFullYear() + 100);
+        var ndt = new Date($("#txtFromDate").val());
+        ndt.setFullYear(new Date().getFullYear() + 100);
+        var sdt = new Date($("#txtFromDate").val());
+        sdt.setFullYear(new Date().getFullYear() + 0);
+        $("#txtToDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: sdt, endDate: ndt, maxViewMode: 2, autoclose: true });
+        $('#txtFromDate').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true }).on('change', function (ev) {
+            changeDate();
+        });
     });
+    var changeDate = function () {
+        $("#txtToDate").val("");
+        var ndt = new Date($("#txtFromDate").val());
+        ndt.setFullYear(new Date().getFullYear() + 100);
+        var sdt = new Date($("#txtFromDate").val());
+        sdt.setFullYear(new Date().getFullYear() + 0);
+        $("#txtToDate").remove();
+        $("#spTodate").remove();
+        var html = '<input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="" />';
+        html += '<span id="spTodate" class="input-group-btn">';
+        html += '<button id="iconToDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>';
+        html += '</span>';
+        $("#divToDate").append(html);
+        $("#txtToDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: sdt, endDate: ndt, maxViewMode: 2, autoclose: true });
+    }
 </script>

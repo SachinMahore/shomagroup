@@ -493,8 +493,11 @@
                                 <div class="col-sm-2">
                                     <span id="txtAvailableDate" style="text-decoration:underline;">@Model.MoveInDateTxt</span>
                                 </div>
-                                <div class="col-sm-4">
-                                    <span id="">&nbsp;</span>
+                                <div class="col-sm-2">
+                                    <span>PARKING SPACE</span>
+                                </div>
+                                <div class="col-sm-3" id="lblParkSpace">
+
                                 </div>
                                 <div class="col-sm-12">
                                     <span>Let’s figure out your monthly rent and expenses: </span>
@@ -3292,7 +3295,7 @@
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;" onclick="hideLoader()">&times;</button>
             <div class="modal-header" style="width:100%">
                 <h5 class="modal-title pull-left" id="ModalLongTitle">Add Parking</h5>
-
+                <span class="modal-title pull-left" id="ModalLongDesc"></span>
             </div>
             <div class="modal-body">
                 <input type="hidden" id="hndParkingID" value="0" />
@@ -3569,7 +3572,7 @@
 
 <div class="modal" id="popVehicle">
     <div class="modal-dialog">
-        <div class="modal-content" style="width:750px; height:560px;">
+        <div class="modal-content" style="width:750px; height:607px;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
@@ -3661,8 +3664,19 @@
                         </select>
                     </div>
                 </div>
-
-                <div class="col-sm-8">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">Tag</label>
+                        <input id="txtVehicleTag" type="text" class="form-control"  value="">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">Parking Space</label>
+                        <select id="ddlParking" class="form-control" ></select>
+                    </div>
+                </div>
+                <div class="col-sm-12">
                     <div class="form-group">
                         <label class="">Notes</label>
                         <textarea id="txtVehicleNote" class="form-control" maxlength="20"></textarea>

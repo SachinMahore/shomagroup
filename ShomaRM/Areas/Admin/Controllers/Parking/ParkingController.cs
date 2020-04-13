@@ -10,12 +10,21 @@ namespace ShomaRM.Areas.Admin.Controllers
     public class ParkingController : Controller
     {
         // GET: Admin/Parking
-        public ActionResult Index(int Id)
+        public ActionResult Index()
+        {
+            ViewBag.ActiveMenu = "admin";
+            int id = 0;
+            var model = new ParkingModel().GetParkingData(id);
+            return View("..\\Parking\\Index", model);
+        }
+        public ActionResult Edit(int Id)
         {
             ViewBag.ActiveMenu = "admin";
             var model = new ParkingModel().GetParkingData(Id);
-            return View("..\\Parking\\Index", model);
+            return View("..\\Parking\\Edit", model);
         }
+
+
         public ActionResult GetParkingList()
         {
             try
@@ -42,11 +51,11 @@ namespace ShomaRM.Areas.Admin.Controllers
         {
             try
             {
-                return Json(new { result = 1, ParkingID = model.SaveUpdateParking(model) }, JsonRequestBehavior.AllowGet);
+                return Json(new { models = new ParkingModel().SaveUpdateParking(model) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new { models = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
         public ActionResult GetParkingSearchList(string SearchText)
@@ -121,6 +130,17 @@ namespace ShomaRM.Areas.Admin.Controllers
             }
 
 
+        }
+        public ActionResult GetUnitParkingList(int UID)
+        {
+            try
+            {
+                return Json((new ParkingModel()).GetUnitParkingList(UID), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

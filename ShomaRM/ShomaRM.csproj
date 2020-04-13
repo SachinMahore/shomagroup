@@ -387,6 +387,7 @@
     <Content Include="Areas\Admin\Content\Pages\Notice\Notice.js" />
     <Content Include="Areas\Admin\Content\Pages\Notice\NoticeList.js" />
     <Content Include="Areas\Admin\Content\Pages\Parking\Parking.js" />
+    <Content Include="Areas\Admin\Content\Pages\Parking\ParkingList.js" />
     <Content Include="Areas\Admin\Content\Pages\PetManagement\PetManagement.js" />
     <Content Include="Areas\Admin\Content\Pages\PremiumType\PremiumType.js" />
     <Content Include="Areas\Admin\Content\Pages\Promotion\Promotion.js" />
@@ -2317,6 +2318,7 @@
     <Content Include="DatabaseChanges\09-04-2020\usp_GetClientModelUnitList.sql" />
     <Content Include="DatabaseChanges\09-04-2020\usp_GetPropertyModelUnitList.sql" />
     <Content Include="DatabaseChanges\09-04-2020\usp_GetPropertyUnitListCord.sql" />
+    <Content Include="DatabaseChanges\10-04-2020\New Columns.sql" />
     <Content Include="DatabaseChanges\11-04-2020\addColumnDatabase.txt" />
     <Content Include="DatabaseChanges\11-04-2020\usp_GetTenantOnlineData.sql" />
     <Content Include="favicon.ico" />
@@ -2538,6 +2540,7 @@
     <Content Include="Content\assets\fontawesome\webfonts\fa-solid-900.ttf" />
     <Content Include="Content\assets\fontawesome\webfonts\fa-solid-900.woff" />
     <Content Include="Content\assets\fontawesome\webfonts\fa-solid-900.woff2" />
+    <Content Include="Areas\Admin\Views\Parking\Edit.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
