@@ -17,6 +17,12 @@ namespace ShomaRM.Areas.Admin.Models
         public string Description { get; set; }
         public Nullable<int> Type { get; set; }
         public Nullable<int> Status { get; set; }
+        public string Available { get; set; }
+        public string UnitNo { get; set; }
+        public string VehicleTag { get; set; }
+        public string OwnerName { get; set; }
+        public string VehicleMake { get; set; }
+        public string VehicleModel { get; set; }
 
         public List<ParkingModel> GetParkingList()
         {
@@ -50,6 +56,12 @@ namespace ShomaRM.Areas.Admin.Models
                     usm.Charges = Convert.ToDecimal(dr["Charges"].ToString());
                     usm.Description = dr["Description"].ToString();
                     usm.Type = int.Parse(dr["Type"].ToString());
+                    usm.Status = int.Parse(dr["Status"].ToString());
+                    usm.Available = dr["Available"].ToString();
+                    usm.UnitNo = dr["UnitNo"].ToString();
+                    usm.VehicleTag = dr["VehicleTag"].ToString();
+                    usm.OwnerName = dr["TenantName"].ToString();
+
                     model.Add(usm);
                 }
                 db.Dispose();
@@ -80,23 +92,12 @@ namespace ShomaRM.Areas.Admin.Models
 
             return model;
         }
-        public long SaveUpdateParking(ParkingModel model)
+        public string SaveUpdateParking(ParkingModel model)
         {
+            string msgtxt= "";
             ShomaRMEntities db = new ShomaRMEntities();
-            if (model.ParkingID == 0)
-            {
-                //var ParkingData = new tbl_Parking()
-                //{
-                //    PropertyID = model.PropertyID,
-                //    ParkingName = model.ParkingName,
-                //    Charges = model.Charges,
-                //    Description = model.Description
-                //};
-                //db.tbl_Parking.Add(ParkingData);
-                //db.SaveChanges();
-                //model.ParkingID = ParkingData.ParkingID;
-            }
-            else
+
+            if (model.ParkingID != 0)
             {
                 var ParkingInfo = db.tbl_Parking.Where(p => p.ParkingID == model.ParkingID).FirstOrDefault();
                 if (ParkingInfo != null)
@@ -106,14 +107,33 @@ namespace ShomaRM.Areas.Admin.Models
                     ParkingInfo.Charges = model.Charges;
                     ParkingInfo.Description = model.Description;
                     db.SaveChanges();
+                     msgtxt += "Parking information updated successfully.</br>";
+                    var VehicleInfo = db.tbl_Vehicle.Where(p => p.ParkingID == model.ParkingID).FirstOrDefault();
+                    if (VehicleInfo != null)
+                    {
+
+                        VehicleInfo.Tag = model.VehicleTag;
+                        VehicleInfo.Make = model.VehicleMake;
+                        VehicleInfo.Model = model.VehicleModel;
+                        db.SaveChanges();
+                        msgtxt += "Vehicle information updated successfully.</br>";
+                    }
+                    else
+                    {
+                        msgtxt = "Vehicle information not updated due to invalid Parking information.";
+
+                    }
                 }
                 else
                 {
-                    throw new Exception(model.ParkingName + " not exists in the system.");
-                }
-            }
+                    msgtxt = "Parking not updated successfully.";
 
-            return model.ParkingID;
+                }
+
+            }
+            
+            db.Dispose();
+            return msgtxt;
 
         }
         public ParkingModel GetParkingData(int Id)
@@ -130,6 +150,22 @@ namespace ShomaRM.Areas.Admin.Models
                 model.ParkingName = GetParkingData.ParkingName;
                 model.Charges = GetParkingData.Charges;
                 model.Description = GetParkingData.Description;
+
+                 var GetUnitData = db.tbl_PropertyUnits.Where(p => p.UID == GetParkingData.PropertyID).FirstOrDefault();
+                if (GetUnitData != null)
+                {
+                    model.UnitNo = GetUnitData.UnitNo;
+                }
+                var GetVehicleData = db.tbl_Vehicle.Where(p => p.ParkingID == GetParkingData.ParkingID).FirstOrDefault();
+                if (GetVehicleData != null)
+                {
+                    model.OwnerName = GetVehicleData.OwnerName;
+                    model.VehicleTag = GetVehicleData.Tag;
+                    model.VehicleMake = GetVehicleData.Make;
+                    model.VehicleModel = GetVehicleData.Model;
+
+                }
+               
             }
             model.ParkingID = Id;
             return model;
@@ -194,6 +230,11 @@ namespace ShomaRM.Areas.Admin.Models
                     paramC.Value = model.Criteria;
                     cmd.Parameters.Add(paramC);
 
+                    DbParameter paramCT = cmd.CreateParameter();
+                    paramCT.ParameterName = "CriteriaByText";
+                    paramCT.Value = model.Criteria;
+                    cmd.Parameters.Add(paramCT);
+
                     DbParameter paramPN = cmd.CreateParameter();
                     paramPN.ParameterName = "PageNumber";
                     paramPN.Value = model.PageNumber;
@@ -203,16 +244,6 @@ namespace ShomaRM.Areas.Admin.Models
                     paramNOR.ParameterName = "NumberOfRows";
                     paramNOR.Value = model.NumberOfRows;
                     cmd.Parameters.Add(paramNOR);
-
-                    DbParameter param5 = cmd.CreateParameter();
-                    param5.ParameterName = "SortBy";
-                    param5.Value = model.SortBy;
-                    cmd.Parameters.Add(param5);
-
-                    DbParameter param6 = cmd.CreateParameter();
-                    param6.ParameterName = "OrderBy";
-                    param6.Value = model.OrderBy;
-                    cmd.Parameters.Add(param6);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -250,6 +281,11 @@ namespace ShomaRM.Areas.Admin.Models
                     paramC.Value = model.Criteria;
                     cmd.Parameters.Add(paramC);
 
+                    DbParameter paramCT = cmd.CreateParameter();
+                    paramCT.ParameterName = "CriteriaByText";
+                    paramCT.Value = model.Criteria;
+                    cmd.Parameters.Add(paramCT);
+
                     DbParameter paramPN = cmd.CreateParameter();
                     paramPN.ParameterName = "PageNumber";
                     paramPN.Value = model.PageNumber;
@@ -260,15 +296,6 @@ namespace ShomaRM.Areas.Admin.Models
                     paramNOR.Value = model.NumberOfRows;
                     cmd.Parameters.Add(paramNOR);
 
-                    DbParameter param5 = cmd.CreateParameter();
-                    param5.ParameterName = "SortBy";
-                    param5.Value = model.SortBy;
-                    cmd.Parameters.Add(param5);
-
-                    DbParameter param6 = cmd.CreateParameter();
-                    param6.ParameterName = "OrderBy";
-                    param6.Value = model.OrderBy;
-                    cmd.Parameters.Add(param6);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -279,10 +306,16 @@ namespace ShomaRM.Areas.Admin.Models
                 {
                     ParkingListModel usm = new ParkingListModel();
                     usm.ParkingID = int.Parse(dr["ParkingID"].ToString());
+                    usm.PropertyID = int.Parse(dr["PropertyID"].ToString());
                     usm.ParkingName = dr["ParkingName"].ToString();
-                    usm.PropertyID = long.Parse(dr["PropertyID"].ToString());
-                    usm.Charges = decimal.Parse(dr["Charges"].ToString());
+                    usm.Charges = Convert.ToDecimal(dr["Charges"].ToString());
                     usm.Description = dr["Description"].ToString();
+                    usm.Type = int.Parse(dr["Type"].ToString());
+                    usm.Status = int.Parse(dr["Status"].ToString());
+                    //usm.Available = dr["Available"].ToString();
+                    usm.UnitNo = dr["UnitID"].ToString();
+                    usm.VehicleTag = dr["VehicleTag"].ToString();
+                    usm.OwnerName = dr["TenantName"].ToString();
                     usm.NumberOfPages = int.Parse(dr["NumberOfPages"].ToString());
                     lstData.Add(usm);
                 }
@@ -413,10 +446,15 @@ namespace ShomaRM.Areas.Admin.Models
         public int Type { get; set; }
         public int Status { get; set; }
         public string Criteria { get; set; }
+        public string CriteriaByText { get; set; }
         public int PageNumber { get; set; }
         public int NumberOfRows { get; set; }
         public int NumberOfPages { get; set; }
         public string SortBy { get; set; }
         public string OrderBy { get; set; }
+        public string Available { get; set; }
+        public string UnitNo { get; set; }
+        public string VehicleTag { get; set; }
+        public string OwnerName { get; set; }
     }
 }

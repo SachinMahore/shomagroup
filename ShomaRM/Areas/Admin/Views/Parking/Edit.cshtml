@@ -1,0 +1,103 @@
+﻿@using ShomaRM.Areas.Admin.Models
+@model ParkingModel
+@{
+    ViewBag.Title = "Parking";
+}
+
+<script src="~/Areas/Admin/Content/Pages/Parking/Parking.js"></script>
+<input type="hidden" id="hndParkingID" value="@Model.ParkingID" />
+<input type="hidden" id="hndPrportyUnit" value="@Model.PropertyID" />
+<input type="hidden" id="hdnSearchType" value="1" />
+<input type="hidden" id="hdnCurrentPage" value="1" />
+<input type="hidden" id="hndPageNo" value="0" />
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container" style="width:100% !important">
+        <div class="breadcrumb">
+            <h4 class="">Edit Parking  </h4>
+        </div>
+        <div class="form-group clearfix panel">
+
+            <div class="col-md-12 padding-5">
+                <div class="form-group pull-right clearfix">
+                    <button class="btn btn-primary" id="btnSaveParking" style="text-transform:uppercase!important; margin-right:10px;" onclick="saveUpdateParking()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">Update</span></button>
+                    <button type="button" class="btn btn-primary pull-right" id="btnReturn" onclick="gotoParkingList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> <span id="spanReturn">Parking List</span></button>
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group clearfix">
+            <div class="col-md-15">
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="firstname" class="">Property</label>
+                            <select id="ddlProperty" class="form-control form-control-small"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescription">Owner Name</label>
+                            <input class="form-control form-control-small" id="txtOwnerName" maxlength="100" type="text" value="@Model.OwnerName" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="star">Charges</label>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                </span>
+                                <input id="txtCharges" class="form-control form-control-small" value="@(Model.Charges.HasValue?Model.Charges.Value.ToString("N2"):"0.00")" type="text" onkeypress="return isNumber(event)" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="txtParkingName" class="star">Location</label>
+                            <input class="form-control form-control-small" id="txtLocation" maxlength="100" type="text" value="@Model.Description" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="txtParkingName" class="star">Space No.</label>
+                            <input class="form-control form-control-small" id="txtParkingName" maxlength="100" type="text" value="@Model.ParkingName" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="txtUnitNo" class="star">Unit No.</label>
+                            <input class="form-control form-control-small" id="txtUnitNo" maxlength="100" type="text" value="@Model.UnitNo" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescription">Vehicle Tag</label>
+                            <input class="form-control form-control-small" id="txtVehicleTag" maxlength="100" type="text" value="@Model.VehicleTag" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescription">Vehicle Make</label>
+                            <input class="form-control form-control-small" id="txtVehicleMake" maxlength="100" type="text" value="@Model.VehicleMake" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescription">Vehicle Model</label>
+                            <input class="form-control form-control-small" id="txtVehicleModel" maxlength="100" type="text" value="@Model.VehicleModel" />
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
