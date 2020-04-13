@@ -1202,6 +1202,9 @@ var goToStep = function (stepid, id, calldataupdate) {
                         msg += "Please Upload The Passport </br>";
                     }
                 }
+                if ($("#ddlCountryOfOrigin").val() == '0') {
+                    msg += "Please select the country of origin</br>";
+                }
             }
             if ($("#ddlDocumentTypePersonal").val() == "0") {
                 msg += "Please Select The Id Type </br>";
@@ -1218,7 +1221,26 @@ var goToStep = function (stepid, id, calldataupdate) {
                     msg += "Please Upload The " + idType + " </br>";
                 }
             }
-
+            if ($("#ddlEverBeenEvicted").val() == "2") {
+                if (!$("#txtEverBeenEvictedDetails").val()) {
+                    msg += "Please Fill The Evicted Details</br>";
+                }
+            }
+            if ($("#ddlEverBeenConvicted").val() == "2") {
+                if (!$("#txtEverBeenConvictedDetails").val()) {
+                    msg += "Please Fill The convicted of a felony Details</br>";
+                }
+            }
+            if ($("#ddlAnyCriminalCharges").val() == "2") {
+                if (!$("#txtAnyCriminalChargesDetails").val()) {
+                    msg += "Please Fill The criminal charges pending, awaiting disposition, or looming in any way Details</br>";
+                }
+            }
+            if ($("#ddlReferredByAnotherResident").val() == "2") {
+                if (!$("#txtReferredByAnotherResidentName").val()) {
+                    msg += "Please Fill The Provide Name</br>";
+                }
+            }
             if (msg != "") {
                 $.alert({
                     title: "",
@@ -1316,6 +1338,20 @@ var goToStep = function (stepid, id, calldataupdate) {
             }
             if (!$("#txtMoveInDateFrom").val()) {
                 msg += "Please Fill Move In Date </br>";
+            }
+            if (!$("#txtApartmentCommunity").val()) {
+                msg += "Please Fill Apartment Community </br>";
+            }
+            if (!$("#txtManagementCompany").val()) {
+                msg += "Please Fill Management Company </br>";
+            }
+            if (!unformatText($("#txtManagementCompanyPhone").val())) {
+                msg += "Please Fill Management Company Phone</br>";
+            }
+            else {
+                if (!validatePhone(unformatText($("#txtManagementCompanyPhone").val()))) {
+                    msg += "Please Fill Valid Management Company Phone </br>";
+                }
             }
             if (msg == "") {
                 var todaysDate = new Date();
@@ -5334,6 +5370,21 @@ var saveupdateTenantOnline = function (stepcompleted) {
     var fileIdentity = $("#hndIdentityUploadName").val();
     var originalFileIdentity = $("#hndOriginalIdentityUploadName").val();
 
+    var countryOfOrigin = $("#ddlCountryOfOrigin").val();
+    var everBeenEvicted = $("#ddlEverBeenEvicted").val();
+    var everBeenConvicted = $("#ddlEverBeenConvicted").val();
+    var anyCriminalCharges = $("#ddlAnyCriminalCharges").val();
+    var everBeenEvictedDetails = $("#txtEverBeenEvictedDetails").val();
+    var everBeenConvictedDetails = $("#txtEverBeenConvictedDetails").val();
+    var anyCriminalChargesDetails = $("#txtAnyCriminalChargesDetails").val();
+    var doYouSmoke = $("#ddlDoYouSmoke").val();
+    var referredByAnotherResident = $("#ddlReferredByAnotherResident").val();
+    var brokerOrMerchantReff = $("#ddlBrokerOrMerchantReff").val();
+    var referredByAnotherResidentName = $("#txtReferredByAnotherResidentName").val();
+    var apartmentCommunity = $("#txtApartmentCommunity").val();
+    var managementCompany = $("#txtManagementCompany").val();
+    var managementCompanyPhone = unformatText($("#txtManagementCompanyPhone").val());
+    var properNoticeLeaseAgreement = $("#ddlProperNoticeLeaseAgreement").val();
 
     if (!OtherGender) {
         OtherGender = $("#txtOtherGender").val(" ");
@@ -5433,6 +5484,22 @@ var saveupdateTenantOnline = function (stepcompleted) {
     $formData.append('IdentityDocument', fileIdentity);
     $formData.append('UploadOriginalIdentityName', originalFileIdentity);
     $formData.append('StepCompleted', stepcompleted);
+
+    $formData.append('CountryOfOrigin', countryOfOrigin);
+    $formData.append('Evicted', everBeenEvicted);
+    $formData.append('ConvictedFelony', everBeenConvicted);
+    $formData.append('CriminalChargPen', anyCriminalCharges);
+    $formData.append('EvictedDetails', everBeenEvictedDetails);
+    $formData.append('ConvictedFelonyDetails', everBeenConvictedDetails);
+    $formData.append('CriminalChargPenDetails', anyCriminalChargesDetails);
+    $formData.append('DoYouSmoke', doYouSmoke);
+    $formData.append('ReferredResident', referredByAnotherResident);
+    $formData.append('ReferredBrokerMerchant', brokerOrMerchantReff);
+    $formData.append('ReferredResidentName', referredByAnotherResidentName);
+    $formData.append('ApartmentCommunity', apartmentCommunity);
+    $formData.append('ManagementCompany', managementCompany);
+    $formData.append('ManagementCompanyPhone', managementCompanyPhone);
+    $formData.append('IsProprNoticeLeaseAgreement', properNoticeLeaseAgreement);
 
     if ($("#rbtnPaystub").is(":checked")) {
         $formData.append('IsPaystub', true);
@@ -5688,6 +5755,25 @@ var getTenantOnlineList = function (id) {
                 $("#chkDontHavePet").iCheck('uncheck');
                 $("#chkDontHavePet").prop('disabled', 'disabled');
             }
+
+            $("#ddlCountryOfOrigin").val(response.model.CountryOfOrigin);
+            $("#ddlEverBeenEvicted").val(response.model.Evicted).change();
+            $("#ddlEverBeenConvicted").val(response.model.ConvictedFelony).change();
+            $("#ddlAnyCriminalCharges").val(response.model.CriminalChargPen).change();
+            $("#txtEverBeenEvictedDetails").val(response.model.EvictedDetails);
+            $("#txtEverBeenConvictedDetails").val(response.model.ConvictedFelonyDetails);
+            $("#txtAnyCriminalChargesDetails").val(response.model.CriminalChargPenDetails);
+
+            $("#ddlDoYouSmoke").val(response.model.DoYouSmoke);
+            $("#ddlReferredByAnotherResident").val(response.model.ReferredResident).change();
+            $("#ddlBrokerOrMerchantReff").val(response.model.ReferredBrokerMerchant);
+            $("#txtReferredByAnotherResidentName").val(response.model.ReferredResidentName);
+
+            $("#txtApartmentCommunity").val(response.model.ApartmentCommunity);
+            $("#txtManagementCompany").val(response.model.ManagementCompany);
+            $("#txtManagementCompanyPhone").val(formatPhoneFax(response.model.ManagementCompanyPhone));
+            $("#ddlProperNoticeLeaseAgreement").val(response.model.IsProprNoticeLeaseAgreement);
+
 
             $("#hndPassportUploadName").val(response.model.PassportDocument);
             $("#hndOriginalPassportUploadName").val(response.model.UploadOriginalPassportName);
@@ -6137,7 +6223,7 @@ var saveupdateApplicantHistory = function () {
     var monthlyPayment2 = $("#txtMonthlyPayment2").val();
     var reason2 = $("#txtReasonforleaving2").val();
     var tenantId = $("#hdnOPId").val();
-
+    var managementCompanyPhone = unformatText($("#txtManagementCompanyPhone2").val());
     if ($("#txtAddress12").val() == '') {
         msg += 'Please Fill Address 1</br>';
     }
@@ -6158,6 +6244,20 @@ var saveupdateApplicantHistory = function () {
     }
     if ($("#txtMoveInDateTo2").val() == '') {
         msg += 'Please Fill Move Out Date</br>';
+    }
+    if (!$("#txtApartmentCommunity2").val()) {
+        msg += "Please Fill Apartment Community </br>";
+    }
+    if (!$("#txtManagementCompany2").val()) {
+        msg += "Please Fill Management Company </br>";
+    }
+    if (!unformatText($("#txtManagementCompanyPhone2").val())) {
+        msg += "Please Fill Management Company Phone</br>";
+    }
+    else {
+        if (!validatePhone(unformatText($("#txtManagementCompanyPhone2").val()))) {
+            msg += "Please Fill Valid Management Company Phone </br>";
+        }
     }
     if (msg != '') {
         $("#divLoader").hide();
@@ -6181,7 +6281,11 @@ var saveupdateApplicantHistory = function () {
         MonthlyPayment: monthlyPayment2,
         Reason: reason2,
         TenantID: tenantId,
-        AHID: ahID
+        AHID: ahID,
+        ApartmentCommunity: $("#txtApartmentCommunity2").val(),
+        ManagementCompany: $("#txtManagementCompany2").val(),
+        ManagementCompanyPhone: managementCompanyPhone,
+        IsProprNoticeLeaseAgreement: $("#ddlProperNoticeLeaseAgreement2").val(),
     };
 
     $.ajax({
@@ -6295,6 +6399,10 @@ var clearApplicantHistory = function () {
     $("#txtMoveInDateTo2").val("");
     $("#txtMonthlyPayment2").val("");
     $("#txtReasonforleaving2").val("");
+    $("#txtApartmentCommunity2").val("");
+    $("#txtManagementCompany2").val("");
+    $("#txtManagementCompanyPhone2").val("");
+    $("#ddlProperNoticeLeaseAgreement2").val("1");
 };
 
 var delApplicantHistory = function (aHRID) {
@@ -7035,6 +7143,14 @@ var onFocusApplyNow = function () {
     $("#txtPhoneNumber").focusout(function () { $("#txtPhoneNumber").val(formatPhoneFax($("#txtPhoneNumber").val())); })
         .focus(function () {
             $("#txtPhoneNumber").val(unformatText($("#txtPhoneNumber").val()));
+        });
+    $("#txtManagementCompanyPhone").focusout(function () { $("#txtManagementCompanyPhone").val(formatPhoneFax($("#txtManagementCompanyPhone").val())); })
+        .focus(function () {
+            $("#txtManagementCompanyPhone").val(unformatText($("#txtManagementCompanyPhone").val()));
+        });
+    $("#txtManagementCompanyPhone2").focusout(function () { $("#txtManagementCompanyPhone2").val(formatPhoneFax($("#txtManagementCompanyPhone2").val())); })
+        .focus(function () {
+            $("#txtManagementCompanyPhone2").val(unformatText($("#txtManagementCompanyPhone2").val()));
         });
 };
 
@@ -7783,4 +7899,63 @@ var checkAndDeletePet = function (noofpetdelete) {
 
 var getProcessingFees = function () {
     return $("#hndProcessingFees").val();
+};
+var ddlEverBeenEvictedFunction = function () {
+    if ($('#ddlEverBeenEvicted').val() == '2') {
+        $('#txtEverBeenEvictedDetails').val("");
+        $('#divEverBeenEvictedDetails').removeClass('hidden');
+        $('#ddlEverBeenConvicted').val("1");
+        $('#divEverBeenConvicted').removeClass('hidden');
+        $('#txtEverBeenConvictedDetails').val("");
+        $('#divEverBeenConvictedDetails').addClass('hidden');
+        $('#ddlAnyCriminalCharges').val("1");
+        $('#divAnyCriminalCharges').removeClass('hidden');
+        $('#txtAnyCriminalChargesDetails').val("");
+        $('#divAnyCriminalChargesDetails').addClass('hidden');
+    }
+    else if ($('#ddlEverBeenEvicted').val() == '1') {
+        $('#txtEverBeenEvictedDetails').val("");
+        $('#divEverBeenEvictedDetails').addClass('hidden');
+        $('#ddlEverBeenConvicted').val("1");
+        $('#divEverBeenConvicted').addClass('hidden');
+        $('#txtEverBeenConvictedDetails').val("");
+        $('#divEverBeenConvictedDetails').addClass('hidden');
+        $('#ddlAnyCriminalCharges').val("1");
+        $('#divAnyCriminalCharges').addClass('hidden');
+        $('#txtAnyCriminalChargesDetails').val("");
+        $('#divAnyCriminalChargesDetails').addClass('hidden');
+    }
+};
+
+var ddlEverBeenConvictedFunction = function () {
+    if ($('#ddlEverBeenConvicted').val() == '2') {
+        $('#txtEverBeenConvictedDetails').val("");
+        $('#divEverBeenConvictedDetails').removeClass('hidden');
+    }
+    else if ($('#ddlEverBeenConvicted').val() == '1') {
+        $('#txtEverBeenConvictedDetails').val("");
+        $('#divEverBeenConvictedDetails').addClass('hidden');
+    }
+};
+
+var ddlAnyCriminalChargesFunction = function () {
+    if ($('#ddlAnyCriminalCharges').val() == '2') {
+        $('#txtAnyCriminalChargesDetails').val("");
+        $('#divAnyCriminalChargesDetails').removeClass('hidden');
+    }
+    else if ($('#ddlAnyCriminalCharges').val() == '1') {
+        $('#txtAnyCriminalChargesDetails').val("");
+        $('#divAnyCriminalChargesDetails').addClass('hidden');
+    }
+};
+
+var ddlReferredByAnotherResidentFunction = function () {
+    if ($('#ddlReferredByAnotherResident').val() == '2') {
+        $('#txtReferredByAnotherResidentName').val("");
+        $('#divReferredByAnotherResidentName').removeClass('hidden');
+    }
+    else if ($('#ddlReferredByAnotherResident').val() == '1') {
+        $('#txtReferredByAnotherResidentName').val("");
+        $('#divReferredByAnotherResidentName').addClass('hidden');
+    }
 };

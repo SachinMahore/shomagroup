@@ -99,6 +99,21 @@ namespace ShomaRM.Data
         public string PassportDocumentOriginalFile { get; set; }
         public string IdentityDocumentOriginalFile { get; set; }
         public Nullable<bool> IsPaystub { get; set; }
+        public Nullable<long> CountryOfOrigin { get; set; }
+        public Nullable<int> Evicted { get; set; }
+        public string EvictedDetails { get; set; }
+        public Nullable<int> ConvictedFelony { get; set; }
+        public string ConvictedFelonyDetails { get; set; }
+        public Nullable<int> CriminalChargPen { get; set; }
+        public string CriminalChargPenDetails { get; set; }
+        public Nullable<int> DoYouSmoke { get; set; }
+        public Nullable<int> ReferredResident { get; set; }
+        public string ReferredResidentName { get; set; }
+        public Nullable<int> ReferredBrokerMerchant { get; set; }
+        public string ApartmentCommunity { get; set; }
+        public string ManagementCompany { get; set; }
+        public string ManagementCompanyPhone { get; set; }
+        public Nullable<int> IsProprNoticeLeaseAgreement { get; set; }
     
         public virtual tbl_ApplyNow tbl_ApplyNow { get; set; }
     }
