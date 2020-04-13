@@ -3870,18 +3870,20 @@ var fillUnitParkingList = function () {
                 $("#lblParkSpace").empty();
                 var dhtml = '';
                 $.each(response, function (index, elementValue) {
-                    dhtml = "<option value='" + elementValue.ParkingID + "' selected='selected' data-value='" + elementValue.ParkingID + "'>" + elementValue.ParkingName + "</option>";
-
+                    
+                    if (elementValue.Status == 0) {
+                        dhtml += "<option value='" + elementValue.ParkingID + "' selected='selected' data-value='" + elementValue.ParkingID + "'>" + elementValue.ParkingName + "</option>";
+                    }
                     var html = "";
                     html += "<span style='text-decoration:underline; font - weight:bold;'>  #" + elementValue.ParkingName + " </span>";
                     $("#lblParkSpace").append(html);
-                    $('#ddlParking').append(dhtml);
+                 
                     if (elementValue.Type == 2) {
                         $("#parkUnit").text("#" + elementValue.ParkingName);
                     }
                     noofpark += 1;
                 });
-               
+                $('#ddlParking').append(dhtml);
             }
         }
     });
@@ -5305,6 +5307,7 @@ var saveupdateVehicle = function () {
             getVehicleLists();
             //$("#popVehicle").PopupWindow("close");
             $("#popVehicle").modal("hide");
+            fillUnitParkingList();
         }
     });
 
@@ -6000,7 +6003,7 @@ var delVehicle = function (vehId) {
                         success: function (response) {
                             $("#divLoader").hide();
                             $('#tr_' + vehId).remove();
-
+                            fillUnitParkingList();
                             $("#btnAddVehicle").removeClass("hidden");
                         }
                     });

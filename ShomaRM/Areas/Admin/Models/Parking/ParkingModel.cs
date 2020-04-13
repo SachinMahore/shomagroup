@@ -112,6 +112,7 @@ namespace ShomaRM.Areas.Admin.Models
                     usm.Charges = Convert.ToDecimal(dr["Charges"].ToString());
                     usm.Description = dr["Description"].ToString();
                     usm.Type = int.Parse(dr["Type"].ToString());
+                    usm.Status = int.Parse(dr["Status"].ToString());
                     model.Add(usm);
                 }
                 db.Dispose();
