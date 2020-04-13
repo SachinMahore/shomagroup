@@ -2314,6 +2314,11 @@
     <Content Include="Content\timepicki.css" />
     <Content Include="Content\timepicki.js" />
     <Content Include="Content\zabuto_calendar.js" />
+    <Content Include="DatabaseChanges\09-04-2020\usp_GetClientModelUnitList.sql" />
+    <Content Include="DatabaseChanges\09-04-2020\usp_GetPropertyModelUnitList.sql" />
+    <Content Include="DatabaseChanges\09-04-2020\usp_GetPropertyUnitListCord.sql" />
+    <Content Include="DatabaseChanges\11-04-2020\addColumnDatabase.txt" />
+    <Content Include="DatabaseChanges\11-04-2020\usp_GetTenantOnlineData.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

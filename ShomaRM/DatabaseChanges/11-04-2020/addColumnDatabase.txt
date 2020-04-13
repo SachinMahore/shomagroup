@@ -1,0 +1,59 @@
+ -------  tbl_TenantOnline  -------
+ alter table [dbo].[tbl_TenantOnline]
+ add CountryOfOrigin bigint null;
+
+ alter table [dbo].[tbl_TenantOnline]
+ add Evicted int null;
+
+ alter table [dbo].[tbl_TenantOnline]
+ add EvictedDetails varchar(500) null;
+
+ alter table [dbo].[tbl_TenantOnline]
+ add ConvictedFelony int null;
+
+ alter table [dbo].[tbl_TenantOnline]
+ add ConvictedFelonyDetails varchar(500) null;
+
+ alter table [dbo].[tbl_TenantOnline]
+ add CriminalChargPen int null;
+
+ alter table [dbo].[tbl_TenantOnline]
+ add CriminalChargPenDetails varchar(500) null;
+
+ alter table [dbo].[tbl_TenantOnline]
+ add DoYouSmoke int null;
+
+ alter table [dbo].[tbl_TenantOnline]
+ add ReferredResident int null;
+
+ alter table [dbo].[tbl_TenantOnline]
+ add ReferredResidentName varchar(200) null;
+
+ alter table [dbo].[tbl_TenantOnline]
+ add ReferredBrokerMerchant int null;
+
+ alter table [dbo].[tbl_TenantOnline]
+ add ApartmentCommunity varchar(500) null;
+
+ alter table [dbo].[tbl_TenantOnline]
+ add ManagementCompany varchar(500) null;
+
+ alter table [dbo].[tbl_TenantOnline]
+ add ManagementCompanyPhone varchar(20) null;
+
+ alter table [dbo].[tbl_TenantOnline]
+ add IsProprNoticeLeaseAgreement int null;
+
+ --------- tbl_ApplicantHistory ---------
+
+ alter table [dbo].[tbl_ApplicantHistory]
+ add ApartmentCommunity varchar(500) null;
+
+ alter table [dbo].[tbl_ApplicantHistory]
+ add ManagementCompany varchar(500) null;
+
+ alter table [dbo].[tbl_ApplicantHistory]
+ add ManagementCompanyPhone varchar(20) null;
+
+ alter table [dbo].[tbl_ApplicantHistory]
+ add IsProprNoticeLeaseAgreement int null;
