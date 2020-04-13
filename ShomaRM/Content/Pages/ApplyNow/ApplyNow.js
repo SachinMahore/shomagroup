@@ -2602,23 +2602,37 @@ var SaveOnlineProspect = function () {
         success: function (response) {
             $("#divLoader").hide();
             var idmsg = response.msg.split('|');
-            $("#hdnOPId").val(idmsg[0]);
-            $("#lblQuoteID").text("#" + idmsg[0]);
-            getApplyNowList(idmsg[0]);
-            getTenantOnlineList(idmsg[0]);
-            getApplicantLists(idmsg[0]);
-            $("#divstep3save").addClass("hidden");
-            $("#divstep3").removeClass("hidden");
-            $("#hdnStepCompleted").val(4);
-
-            //if (typeof (history.pushState) != "undefined") {
-            //    var obj = {
-            //        Title: "Shoma Group | Residential Manager", Url: "/ApplyNow/Index/" + idmsg[2] };
-            //    history.pushState(obj, obj.Title, obj.Url);
-            //} else {
-
+            if (idmsg[0] != 0) {
+                $("#hdnOPId").val(idmsg[0]);
+                $("#lblQuoteID").text("#" + idmsg[0]);
+                getApplyNowList(idmsg[0]);
+                getTenantOnlineList(idmsg[0]);
+                getApplicantLists(idmsg[0]);
+                $("#divstep3save").addClass("hidden");
+                $("#divstep3").removeClass("hidden");
+                $("#hdnStepCompleted").val(4);
                 window.location = "/ApplyNow/Index/" + idmsg[2];
-            //}  
+            } else {
+                $("#hdnStepCompleted").val(2);
+                $("#hdnOPId").val(0);
+                $("#hndUID").val(0);
+                showCurrentStep(2, 2);
+                var floorNoSearch = $("#hndFloorNo").val();
+                var bedRoomSearch = $("#hndBedRoom").val();
+                var buildingSearch = $("#hndBuilding").val();
+                var ubitIdSearch = 0;
+
+                if (ubitIdSearch != 0 && buildingSearch != "" && floorNoSearch > 0) {
+                    showFloorPlan(floorNoSearch, bedRoomSearch, buildingSearch);
+                }
+                getPropertyUnitList(buildingSearch);
+                $("#popUnitPlan").empty();
+                $.alert({
+                    title: "",
+                    content: idmsg[1],
+                    type: 'red'
+                });
+            }
         }
     });
 }
@@ -5652,7 +5666,7 @@ var getTenantOnlineList = function (id) {
             $("#ddlDocumentTypePersonal").val(response.model.IDType).change();
             //setTimeout(function () {
             $("#ddlStatePersonal").val(response.model.State).change();
-                //$("#ddlStatePersonal").find("option[value='" + response.model.State + "']").attr('selected', 'selected');
+            //$("#ddlStatePersonal").find("option[value='" + response.model.State + "']").attr('selected', 'selected');
             //}, 1500);
 
             $("#txtSSNNumber").val(response.model.SSN);
@@ -5676,7 +5690,7 @@ var getTenantOnlineList = function (id) {
 
             //fillCityListHome(response.model.StateHome);
             //setTimeout(function () {
-           
+
             $("#txtZip").val(response.model.ZipHome);
             $("#ddlRentOwn").val(response.model.RentOwn);
             //$("#txtMoveInDate").val(response.model.MoveInDateTxt);
@@ -5702,9 +5716,9 @@ var getTenantOnlineList = function (id) {
             $("#txtofficeAddress1").val(response.model.OfficeAddress1);
             $("#txtofficeAddress2").val(response.model.OfficeAddress2);
             //fillCityListEmployee(response.model.OfficeState);
-           
+
             //setTimeout(function () {
-                //$("#ddlStateEmployee").find("option[value='" + response.model.OfficeState + "']").attr('selected', 'selected');
+            //$("#ddlStateEmployee").find("option[value='" + response.model.OfficeState + "']").attr('selected', 'selected');
 
             //}, 1500);
             $("#txtZipOffice").val(response.model.OfficeZip);
@@ -5726,7 +5740,7 @@ var getTenantOnlineList = function (id) {
             $("#summEmegmobilep").text(formatPhoneFax(response.model.EmergencyMobile));
             $("#summEmerrelationp").text(response.model.Relationship);
             //setTimeout(function () {
-                //$("#ddlStateContact").find("option[value='" + response.model.EmergencyStateHome + "']").attr('selected', 'selected');
+            //$("#ddlStateContact").find("option[value='" + response.model.EmergencyStateHome + "']").attr('selected', 'selected');
             //}, 1500);
 
             $("#txtEmergencyZip").val(response.model.EmergencyZipHome);
@@ -5754,8 +5768,8 @@ var getTenantOnlineList = function (id) {
 
             //$("#txtCountry2").val(response.model.Country2).change();
             //setTimeout(function () {
-                //$("#txtCountry").find("option[value='" + response.model.Country + "']").attr('selected', 'selected');
-                //$("#txtCountry2").find("option[value='" + response.model.Country2 + "']").attr('selected', 'selected');
+            //$("#txtCountry").find("option[value='" + response.model.Country + "']").attr('selected', 'selected');
+            //$("#txtCountry2").find("option[value='" + response.model.Country2 + "']").attr('selected', 'selected');
             //}, 2000);
             $("#txtCountryOffice").val(response.model.OfficeCountry);
             //$("#ddlStateEmployee").val(response.model.OfficeState).change();
@@ -5763,13 +5777,13 @@ var getTenantOnlineList = function (id) {
 
 
             //setTimeout(function () {
-                //$("#txtCountryOffice").find("option[value='" + response.model.OfficeCountry + "']").attr('selected', 'selected');
+            //$("#txtCountryOffice").find("option[value='" + response.model.OfficeCountry + "']").attr('selected', 'selected');
             //}, 2000);
             $("#txtEmergencyCountry").val(response.model.EmergencyCountry);
             //$("#ddlStateContact").val(response.model.EmergencyStateHome).change();
             fillStateDDL_EmeContact(response.model.EmergencyCountry, response.model.EmergencyStateHome);
             //setTimeout(function () {
-                //$("#txtEmergencyCountry").find("option[value='" + response.model.EmergencyCountry + "']").attr('selected', 'selected');
+            //$("#txtEmergencyCountry").find("option[value='" + response.model.EmergencyCountry + "']").attr('selected', 'selected');
             //}, 2000);
             //17082019 - end
 

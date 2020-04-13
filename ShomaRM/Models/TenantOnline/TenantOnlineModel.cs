@@ -506,7 +506,9 @@ namespace ShomaRM.Models
                     int emergencyStateHomeTemp = lstpr.EmergencyStateHome != null ? Convert.ToInt32(lstpr.EmergencyStateHome) : 0;
                     var EmergencyStateHomeVar = db.tbl_State.Where(co => co.ID == emergencyStateHomeTemp).FirstOrDefault();
                     lstpr.EmergencyStateHomeString = EmergencyStateHomeVar != null ? EmergencyStateHomeVar.StateName : "";
-                    lstpr.StepCompleted= Convert.ToInt32(dr["StepCompleted"].ToString());
+
+                    var stepCompleted= Convert.ToInt32(dr["StepCompleted"].ToString());
+                    lstpr.StepCompleted = stepCompleted;
                 }
                 db.Dispose();
                 return lstpr;

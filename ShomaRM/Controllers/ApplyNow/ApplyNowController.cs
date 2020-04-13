@@ -31,6 +31,7 @@ namespace ShomaRM.Controllers
             }
 
             var model = new OnlineProspectModule().GetProspectData(Convert.ToInt64(id));
+
             if (Session["Bedroom"] != null)
             {
                 model.Bedroom = Convert.ToInt32(Session["Bedroom"].ToString());
