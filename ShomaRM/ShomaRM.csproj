@@ -387,6 +387,7 @@
     <Content Include="Areas\Admin\Content\Pages\Notice\Notice.js" />
     <Content Include="Areas\Admin\Content\Pages\Notice\NoticeList.js" />
     <Content Include="Areas\Admin\Content\Pages\Parking\Parking.js" />
+    <Content Include="Areas\Admin\Content\Pages\Parking\ParkingList.js" />
     <Content Include="Areas\Admin\Content\Pages\PetManagement\PetManagement.js" />
     <Content Include="Areas\Admin\Content\Pages\PremiumType\PremiumType.js" />
     <Content Include="Areas\Admin\Content\Pages\Promotion\Promotion.js" />
@@ -2539,6 +2540,7 @@
     <Content Include="Content\assets\fontawesome\webfonts\fa-solid-900.ttf" />
     <Content Include="Content\assets\fontawesome\webfonts\fa-solid-900.woff" />
     <Content Include="Content\assets\fontawesome\webfonts\fa-solid-900.woff2" />
+    <Content Include="Areas\Admin\Views\Parking\Edit.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

@@ -1,7 +1,158 @@
-﻿$(document).ready(function () { getPropertyList(); });
-var gotoParkingList = function () {
-    window.location = "/Admin/Parking/Index";
+﻿$(document).ready(function () {
+    //fillParkingList();
+    onFocusParking();
+    fillRPP_Parking();
+    $('#ulPagination_Parking').pagination({
+        items: 0,
+        currentPage: 1,
+        displayedPages: 10,
+        cssStyle: '',
+        useAnchors: false,
+        prevText: '&laquo;',
+        nextText: '&raquo;',
+        onInit: function () {
+            buildPaganationParkingList(1);
+        },
+        onPageClick: function (page, evt) {
+            $("#hdnCurrentPage").val(page);
+            var SortByValueParking = localStorage.getItem("SortByValueParking");
+            var OrderByValueParking = localStorage.getItem("OrderByValueParking");
+            fillParkingSearchGrid(page, SortByValueParking, OrderByValueParking);
+        }
+    });
+   
+    btnSaveUpdate();
+    getPropertyList();
+
+  
+});
+
+
+var goToParking = function (id) {
+    var ID = id;
+    if (ID != null) {
+        $("#hndParkingID").val(ID);
+        window.location.replace("/Admin/Parking/Index/" + ID);
+    }
+}
+var fillRPP_Parking = function () {
+    $("#ddlRPP_Parking").empty();
+    $("#ddlRPP_Parking").append("<option value='25'>25</option>");
+    $("#ddlRPP_Parking").append("<option value='50'>50</option>");
+    $("#ddlRPP_Parking").append("<option value='75'>75</option>");
+    $("#ddlRPP_Parking").append("<option value='100'>100</option>");
+    $("#ddlRPP_Parking").on('change', function (evt, params) {
+        var selected = $(this).val();
+        buildPaganationParkingList($("#hdnCurrentPage").val());
+    });
 };
+var buildPaganationParkingList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = "ParkingName";
+    }
+    if (!orderby) {
+        orderby = "ASC";
+    }
+    var model = {
+        Criteria: $("#txtCriteriaParking").val(),
+        PageNumber: pagenumber,
+        NumberOfRows: $("#ddlRPP_Parking").val(),
+        SortBy: sortby,
+        OrderBy: orderby
+    };
+    $.ajax({
+        url: '/Parking/buildPaganationParkingList',
+        method: "post",
+        data: JSON.stringify(model),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if ($.trim(response.error) !== "") {
+                alert(response.error);
+            } else {
+                $('#ulPagination_Parking').pagination('updateItems', response.NOP);
+                $('#ulPagination_Parking').pagination('selectPage', 1);
+            }
+        }
+    });
+};
+var fillParkingSearchGrid = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = "ParkingName";
+    }
+    if (!orderby) {
+        orderby = "ASC";
+    }
+    var model = {
+        Criteria: $("#txtCriteriaParking").val(),
+        PageNumber: pagenumber,
+        NumberOfRows: $("#ddlRPP_Parking").val(),
+        SortBy: sortby,
+        OrderBy: orderby
+    };
+    $.ajax({
+        url: '/Parking/FillParkingSearchGrid',
+        method: "post",
+        data: JSON.stringify(model),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if ($.trim(response.error) !== "") {
+                this.cancelChanges();
+            } else {
+                $("#tblParking>tbody").empty();
+                $.each(response, function (index, elementValue) {
+                    var html = '';
+                    html += '<tr data-value="' + elementValue.ParkingID + '" id="tr_' + elementValue.ParkingID +'">';
+                    html += '<td class="pds-id hidden" style="color:#3d3939;">' + elementValue.ParkingID + '</td>';
+                    html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.ParkingName + '</td>';
+                    html += '<td class="pds-firstname" style="color:#3d3939;">$ ' + formatMoney(parseFloat(elementValue.Charges).toFixed(2)) + '</td>';
+                    //html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary ParkingEdit" style="padding: 5px 8px !important;margin-right:7px" onclick="goToParking(' + elementValue.ParkingID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button><button class="btn btn-danger" style="padding: 5px 8px !important;" onclick="delParking(' + elementValue.ParkingID + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
+                    html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary ParkingEdit" style="padding: 5px 8px !important;margin-right:7px" onclick="goToParking(' + elementValue.ParkingID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button></td>';
+                    html += '</tr>';
+                    $("#tblParking>tbody").append(html);
+                });
+            }
+            $("#hndPageNo").val(pagenumber);
+        }
+    });
+};
+$(document).keypress(function (e) {
+    if (e.which === 13) {
+        buildPaganationParkingList(1);
+    }
+});
+var fillParkingList = function () {
+    $.ajax({
+        url: '/Parking/GetParkingList',
+        method: "post",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if ($.trim(response.error) != "") {
+                //this.cancelChanges();
+            } else {
+                $("#tblParking>tbody").empty();
+                $.each(response, function (index, elementValue) {
+                    var html = '';
+                    html += '<tr data-value="' + elementValue.ParkingID + '">';
+                    html += '<td class="pds-id hidden" style="color:#3d3939;">' + elementValue.ParkingID + '</td>';
+                    html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.ParkingName + '</td>';
+                    html += '<td class="pds-firstname" style="color:#3d3939;">' + formatMoney(elementValue.Charges) + '</td>';
+                    html += '</tr>';
+                    $("#tblParking>tbody").append(html);
+                });
+            }
+        }
+    });
+}
+//-----------------------------------------------------Add/Edit------------------------------------------//
+
+var clearParkingData = function () {
+    $("#hndParkingID").val("0");
+    $("#txtParkingName").val("");
+    btnSaveUpdate();
+}
 var saveUpdateParking = function () {
     $("#divLoader").show();
     var msg = "";
@@ -27,15 +178,10 @@ var saveUpdateParking = function () {
         if ($("#hndParkingID").val() != 0) {
             var model = {
                 ParkingID: $("#hndParkingID").val(),
-                PropertyID: $("#hndPrportyUnit").val(),
+                PropertyID: $("#ddlProperty").val(),
                 ParkingName: $("#txtParkingName").val(),
                 Charges: unformatText($("#txtCharges").val()),
-                Description: $("#txtLocation").val(),
-                OwnerName: $("#txtOwnerName").val(),
-                UnitNo: $("#txtUnitNo").val(),
-                VehicleTag: $("#txtVehicleTag").val(),
-                VehicleMake: $("#txtVehicleMake").val(),
-                VehicleModel: $("#txtVehicleModel").val()
+                Description: $("#txtDescription").val()
             };
             $.ajax({
                 url: "/Parking/SaveUpdateParking",
@@ -46,11 +192,6 @@ var saveUpdateParking = function () {
                 async: false,
                 success: function (response) {
                     $("#divLoader").hide();
-                    $.alert({
-                        title: 'Message!',
-                        content: response.models,
-                        type: 'blue',
-                    });
                     //hideProgress('#btnSaveUpdate');
                     if (response.result == "1") {
                         if ($("#hndParkingID").val() == 0) {
@@ -111,10 +252,8 @@ var fillParkingSearchList = function () {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            console.log(response.error);
             if ($.trim(response.error) != "") {
                 //this.cancelChanges();
-                
             } else {
                 $("#tblParking>tbody").empty();
                 $.each(response, function (index, elementValue) {
@@ -127,12 +266,7 @@ var fillParkingSearchList = function () {
                     $("#tblParking>tbody").append(html);
                 });
             }
-        },
-        error: function (response)
-        {
-            alert("test");
         }
-        
     });
 
 }

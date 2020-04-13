@@ -3881,6 +3881,7 @@
           <NavigationProperty Name="tbl_Utility" Relationship="Self.FK_tbl_UtilityBilling_tbl_Utility" FromRole="tbl_UtilityBilling" ToRole="tbl_Utility" />
         </EntityType>
 
+
         <EntityType Name="tbl_Vehicle">
           <Key>
             <PropertyRef Name="Vehicle_ID" />
@@ -4652,6 +4653,7 @@
             <End Role="tbl_Vendor" EntitySet="tbl_Vendor" />
           </AssociationSet>
 
+
           <EntitySet Name="tbl_ApplicantHistory" EntityType="ShomaRMEntitiesModel.tbl_ApplicantHistory" />
           <EntitySet Name="tbl_TenantOnline" EntityType="ShomaRMEntitiesModel.tbl_TenantOnline" />
           <EntitySet Name="tbl_ApplyNow" EntityType="ShomaRMEntitiesModel.tbl_ApplyNow" />
@@ -4685,6 +4687,7 @@
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_TenantStorage" EntitySet="tbl_TenantStorage" />
           </AssociationSet>
+
           <EntitySet Name="tbl_Vehicle" EntityType="ShomaRMEntitiesModel.tbl_Vehicle" />
           <AssociationSet Name="FK_tbl_Vehicle_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow">
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
@@ -5020,7 +5023,9 @@
           <NavigationProperty Name="tbl_TenantStorage" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantStorage_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantStorage" />
           <NavigationProperty Name="tbl_Applicant" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Applicant" />
           <NavigationProperty Name="tbl_Vehicle" Relationship="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Vehicle" />
+
           <NavigationProperty Name="tbl_TenantOnline" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantOnline" />
+
         </EntityType>
 
         <EntityType Name="tbl_EmployerHistory">
@@ -6119,6 +6124,7 @@
           </ReferentialConstraint>
         </Association>
 
+
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6151,6 +6157,27 @@
                 <ScalarProperty Name="Deposit" ColumnName="Deposit" />
                 <ScalarProperty Name="Fees" ColumnName="Fees" />
                 <ScalarProperty Name="DurationID" ColumnName="DurationID" />
+
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ApplicantHistory">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ApplicantHistory">
+              <MappingFragment StoreEntitySet="tbl_ApplicantHistory">
+                <ScalarProperty Name="AHID" ColumnName="AHID" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="HomeAddress1" ColumnName="HomeAddress1" />
+                <ScalarProperty Name="HomeAddress2" ColumnName="HomeAddress2" />
+                <ScalarProperty Name="StateHome" ColumnName="StateHome" />
+                <ScalarProperty Name="CityHome" ColumnName="CityHome" />
+                <ScalarProperty Name="ZipHome" ColumnName="ZipHome" />
+                <ScalarProperty Name="RentOwn" ColumnName="RentOwn" />
+                <ScalarProperty Name="MoveInDateFrom" ColumnName="MoveInDateFrom" />
+                <ScalarProperty Name="MoveInDateTo" ColumnName="MoveInDateTo" />
+                <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7561,6 +7588,7 @@
           </EntitySetMapping>
 
 
+
           <EntitySetMapping Name="tbl_ApplicantHistory">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ApplicantHistory">
               <MappingFragment StoreEntitySet="tbl_ApplicantHistory">
@@ -7690,6 +7718,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+
 
         </EntityContainerMapping>
       </Mapping>
