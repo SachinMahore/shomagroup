@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
 
-      <Diagram DiagramId="f6dba52eba0b4cc7826a40d5770027ff" Name="Diagram1" ZoomLevel="66">
+      <Diagram DiagramId="f6dba52eba0b4cc7826a40d5770027ff" Name="Diagram1" ZoomLevel="55">
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_AcutraqScrenning" Width="1.5" PointX="0.75" PointY="4.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Advertiser" Width="1.5" PointX="2.75" PointY="4.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Amenities" Width="1.5" PointX="4.75" PointY="4.75" />

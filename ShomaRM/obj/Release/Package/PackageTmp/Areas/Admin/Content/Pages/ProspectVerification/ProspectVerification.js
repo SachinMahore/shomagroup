@@ -3425,6 +3425,64 @@ var getTenantOnlineList = function (id) {
             else {
                 $("#rbtnFedralTax").iCheck('check');
             }
+            $("#ddlIsInter").text(response.model.IsInternational == '0' ? 'Yes' : 'No');
+
+            if ($("#ddlIsInter").text() == 'No') {
+                $("#divCountryOfOrigin").removeClass('hidden');
+                $("#divSSNNumber").addClass('hidden');
+                $("#passportDiv").removeClass('hidden');
+            }
+            else {
+                $("#divCountryOfOrigin").addClass('hidden');
+                $("#divSSNNumber").removeClass('hidden');
+                $("#passportDiv").addClass('hidden');
+            }
+            $("#txtCountryOfOrigin").text(response.model.CountryOfOriginString);
+
+            $("#ddlEverBeenEvicted").text(response.model.Evicted == '2' ? 'Yes' : 'No');
+            if ($("#ddlEverBeenEvicted").text() == 'Yes') {
+                $("#divEverBeenEvictedDetails").removeClass('hidden');
+                $("#divEverBeenConvicted").removeClass('hidden');
+                $("#divAnyCriminalCharges").removeClass('hidden');
+            }
+            else {
+                $("#divEverBeenEvictedDetails").addClass('hidden');
+                $("#divEverBeenConvicted").addClass('hidden');
+                $("#divAnyCriminalCharges").addClass('hidden');
+            }
+            $("#txtEverBeenEvictedDetails").text(response.model.EvictedDetails);
+            $("#ddlEverBeenConvicted").text(response.model.ConvictedFelony == '2' ? 'Yes' : 'No');
+            if ($("#ddlEverBeenConvicted").text() == 'Yes') {
+                $("#divEverBeenConvictedDetails").removeClass('hidden');
+            }
+            else {
+                $("#divEverBeenConvictedDetails").addClass('hidden');
+            }
+            $("#txtEverBeenConvictedDetails").text(response.model.ConvictedFelonyDetails);
+            $("#ddlAnyCriminalCharges").text(response.model.CriminalChargPen == '2' ? 'Yes' : 'No');
+            if ($("#ddlAnyCriminalCharges").text() == 'Yes') {
+                $("#divAnyCriminalChargesDetails").removeClass('hidden');
+            }
+            else {
+                $("#divAnyCriminalChargesDetails").addClass('hidden');
+            }
+            $("#txtAnyCriminalChargesDetails").text(response.model.CriminalChargPenDetails);
+            $("#ddlDoYouSmoke").text(response.model.DoYouSmoke == '2' ? 'Yes' : 'No');
+            $("#ddlReferredByAnotherResident").text(response.model.ReferredResident == '2' ? 'Yes' : 'No');
+            if ($("#ddlReferredByAnotherResident").text() == 'Yes') {
+                $("#divReferredByAnotherResidentName").removeClass('hidden');
+            }
+            else {
+                $("#divReferredByAnotherResidentName").addClass('hidden');
+            }
+            $("#txtReferredByAnotherResidentName").text(response.model.ReferredResidentName);
+            $("#ddlBrokerOrMerchantReff").text(response.model.ReferredBrokerMerchant == '2' ? 'Yes' : 'No');
+
+            //History of Residence
+            $("#txtApartmentCommunity").text(response.model.ApartmentCommunity);
+            $("#txtManagementCompany").text(response.model.ManagementCompany);
+            $("#txtManagementCompanyPhone").text(formatPhoneFax(response.model.ManagementCompanyPhone));
+            $("#ddlProperNoticeLeaseAgreement").text(response.model.IsProprNoticeLeaseAgreement == '1' ? 'Yes' : 'No');
         }
     });
 };
@@ -3708,6 +3766,11 @@ var getApplicantHistoryInfo = function (id) {
             $("#txtMoveInDateTo2").text(response.model.MoveInDateToTxt);
             $("#txtMonthlyPayment2").text(response.model.MonthlyPayment);
             $("#txtReasonforleaving2").text(response.model.Reason);
+            $("#txtApartmentCommunity2").text(response.model.ApartmentCommunity);
+            $("#txtManagementCompany2").text(response.model.ManagementCompany);
+            $("#txtManagementCompanyPhone2").text(response.model.ManagementCompanyPhone);
+            $("#ddlProperNoticeLeaseAgreement2").text(response.model.IsProprNoticeLeaseAgreement == '2' ? 'Yes' : 'No');
+
         }
     });
 };
