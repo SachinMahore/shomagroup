@@ -27,7 +27,7 @@ namespace ShomaRM.Data
         public string Photo { get; set; }
     
         public virtual tbl_City tbl_City { get; set; }
-        public virtual tbl_State tbl_State { get; set; }
         public virtual tbl_Properties tbl_Properties { get; set; }
+        public virtual tbl_State tbl_State { get; set; }
     }
 }
