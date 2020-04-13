@@ -122,5 +122,16 @@ namespace ShomaRM.Areas.Admin.Controllers
 
 
         }
+        public ActionResult GetUnitParkingList(int UID)
+        {
+            try
+            {
+                return Json((new ParkingModel()).GetUnitParkingList(UID), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

@@ -109,6 +109,13 @@
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_PaymentAccounts" Width="1.5" PointX="17.375" PointY="18.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_TenantInfo" Width="1.5" PointX="28.375" PointY="63.875" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_EmployerHistory" Width="1.5" PointX="19.375" PointY="0.75" />
+
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantParking_tbl_ApplyNow" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantPet_tbl_ApplyNow" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantPetPlace_tbl_ApplyNow" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantStorage_tbl_ApplyNow" />
+
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Applicant" Width="1.5" PointX="28" PointY="41" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Properties" Width="1.5" PointX="12" PointY="74.375" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Properties" />
@@ -157,6 +164,7 @@
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login2" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login3" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Vendor_tbl_Login" />
+
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_ApplicantHistory" Width="1.5" PointX="19.375" PointY="7.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_TenantOnline" Width="1.5" PointX="28" PointY="84" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_ApplyNow" Width="1.5" PointX="25.75" PointY="51.25" />
@@ -169,6 +177,7 @@
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantStorage_tbl_ApplyNow" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Vehicle" Width="1.5" PointX="28" PointY="54.5" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" />
+
 
       </Diagram>
     </edmx:Diagrams>
