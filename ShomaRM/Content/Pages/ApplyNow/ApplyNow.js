@@ -3905,7 +3905,7 @@ var fillParkingList = function () {
                     var html = '';
                     if ($("#lblBed").text() == "1" || $("#lblBed").text() == "2") {
                         $("#ModalLongDesc").text(" “Your Lease includes one assigned parking space.  You can purchase one additional parking space for a monthly charge of $100 by clicking the “Add Item”.  Additional parking spaces are limited and available on a first-come, first-serve basis.");
-                        if (elementValue.Type == "1") {
+                        if (elementValue.Type == "2") {
                             html += '<tr data-value="' + elementValue.ParkingID + '">';
                             html += '<td class="pds-id hidden" style="color:#3d3939;">' + elementValue.ParkingID + '</td>';
                             html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.ParkingName + '</td>';

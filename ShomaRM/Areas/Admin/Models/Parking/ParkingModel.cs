@@ -49,6 +49,18 @@ namespace ShomaRM.Areas.Admin.Models
                 }
                 foreach (DataRow dr in dtTable.Rows)
                 {
+                    //ParkingModel usm = new ParkingModel();
+                    //usm.ParkingID = int.Parse(dr["ParkingID"].ToString());
+                    //usm.PropertyID = int.Parse(dr["PropertyID"].ToString());
+                    //usm.ParkingName = dr["ParkingName"].ToString();
+                    //usm.Charges = Convert.ToDecimal(dr["Charges"].ToString());
+                    //usm.Description = dr["Description"].ToString();
+                    //usm.Type = int.Parse(dr["Type"].ToString());
+                    //usm.Status = int.Parse(dr["Status"].ToString());
+                    //usm.Available = dr["Available"].ToString();
+                    //usm.UnitNo = dr["UnitNo"].ToString();
+                    //usm.VehicleTag = dr["VehicleTag"].ToString();
+                    //usm.OwnerName = dr["TenantName"].ToString();
                     ParkingModel usm = new ParkingModel();
                     usm.ParkingID = int.Parse(dr["ParkingID"].ToString());
                     usm.PropertyID = int.Parse(dr["PropertyID"].ToString());
@@ -56,13 +68,8 @@ namespace ShomaRM.Areas.Admin.Models
                     usm.Charges = Convert.ToDecimal(dr["Charges"].ToString());
                     usm.Description = dr["Description"].ToString();
                     usm.Type = int.Parse(dr["Type"].ToString());
-                    usm.Status = int.Parse(dr["Status"].ToString());
-                    usm.Available = dr["Available"].ToString();
-                    usm.UnitNo = dr["UnitNo"].ToString();
-                    usm.VehicleTag = dr["VehicleTag"].ToString();
-                    usm.OwnerName = dr["TenantName"].ToString();
-
                     model.Add(usm);
+              
                 }
                 db.Dispose();
                 return model.ToList();
