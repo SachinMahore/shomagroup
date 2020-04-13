@@ -302,6 +302,8 @@ namespace ShomaRM.Areas.Admin.Models
             ShomaRM.Models.TenantOnlineModel model = new ShomaRM.Models.TenantOnlineModel();
 
             var tenantData = model.GetTenantOnlineList(Convert.ToInt32(ProspectId));
+            var GetTenantDet = db.tbl_ApplyNow.Where(p => p.ID == ProspectId).FirstOrDefault();
+
             model.FirstName = tenantData.FirstName;
             model.MiddleInitial = tenantData.MiddleInitial;
             model.LastName = tenantData.LastName;
@@ -325,9 +327,15 @@ namespace ShomaRM.Areas.Admin.Models
             model.StartDateTxt = tenantData.StartDateTxt;
             model.ProspectID = tenantData.ProspectID;
 
-            var test = new AcutraqRequest();
-            var acuResult = test.PostAqutraqRequest(model);
 
+            if(GetTenantDet!=null)
+            {
+                if ((GetTenantDet.IsApplyNow ?? 0) == 2)
+                {
+                    var test = new AcutraqRequest();
+                    var acuResult = test.PostAqutraqRequest(model);
+                }
+            }
 
             string msg = "";
             string reportHTML = "";
@@ -340,7 +348,7 @@ namespace ShomaRM.Areas.Admin.Models
 
             if (Email != null)
             {
-                var GetTenantDet = db.tbl_ApplyNow.Where(p => p.ID == ProspectId).FirstOrDefault();
+                
                 if (GetTenantDet != null)
                 {
                     GetTenantDet.IsApplyNow = 5;
@@ -383,7 +391,7 @@ namespace ShomaRM.Areas.Admin.Models
                                 new EmailSendModel().SendEmail(app.Email, "Move In charges Payment Link", bodyCoapp);
                                 if (SendMessage == "yes")
                                 {
-                                    new TwilioService().SMS(app.Phone, "Congratulations ! Your Application is Approved with Condition. Please check the email for Move In charges Payment Link.");
+                                    new TwilioService().SMS(app.Phone, "Congratulations ! Your Application is Approved. Please check the email for Move In charges Payment Link.");
                                 }
                             }
                         }

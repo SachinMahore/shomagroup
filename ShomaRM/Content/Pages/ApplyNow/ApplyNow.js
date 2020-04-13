@@ -725,39 +725,79 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
         if (id == "3") {
             if ($("#hndUID").val() != 0) {
-                $("#as3").removeAttr("onclick");
-                $("#as3").attr("onclick", "goToStep(4,4,0)");
-                $("#subMenu").addClass("hidden");
-                SaveQuote(3);
-                var checkReload = localStorage.getItem("CheckReload");
-                if (checkReload == "Done") {
-                    window.location.reload();
-                }
-                $("#li1").addClass("active");
-                $("#li2").addClass("active");
-                $("#li3").addClass("active");
+                var prospectID = $("#hdnOPId").val();
+                var unitID = $("#hndUID").val();
+                var model = {
+                    UnitID: unitID,
+                    ProspectID: prospectID
+                };
 
-                $("#li4").removeClass("active");
-                $("#li5").removeClass("active");
-                $("#li6").removeClass("active");
-                $("#li7").removeClass("active");
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").removeClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").addClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").addClass("hidden");
-                $("#step10").addClass("hidden");
-                $("#step11").addClass("hidden");
-                $("#step12").addClass("hidden");
-                $("#step13").addClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").addClass("hidden");
-                $("#step17").addClass("hidden");
+                $("#divLoader").show();
+                $.ajax({
+                    url: "/ApplyNow/CheckUnitAvailable",
+                    type: "post",
+                    contentType: "application/json utf-8",
+                    data: JSON.stringify(model),
+                    dataType: "JSON",
+                    success: function (response) {
+                        var result = response.result.split('|');
+                        $("#divLoader").hide();
+                        if (result[0] == 0) {
+                            $.alert({
+                                title: "",
+                                content: result[1] + " is not available.<br/>Please select other unit.",
+                                type: 'red'
+                            });
+                            $("#hndUID").val(0);
+                            var floorNoSearch = $("#hndFloorNo").val();
+                            var bedRoomSearch = $("#hndBedRoom").val();
+                            var buildingSearch = $("#hndBuilding").val();
+                            var ubitIdSearch = 0;
+
+                            if (ubitIdSearch != 0 && buildingSearch != "" && floorNoSearch > 0) {
+                                showFloorPlan(floorNoSearch, bedRoomSearch, buildingSearch);
+                            }
+                            getPropertyUnitList(buildingSearch);
+                            $("#popUnitPlan").empty();
+                        }
+                        else {
+                            $("#as3").removeAttr("onclick");
+                            $("#as3").attr("onclick", "goToStep(4,4,0)");
+                            $("#subMenu").addClass("hidden");
+                            SaveQuote(3);
+                            var checkReload = localStorage.getItem("CheckReload");
+                            if (checkReload == "Done") {
+                                window.location.reload();
+                            }
+                            $("#li1").addClass("active");
+                            $("#li2").addClass("active");
+                            $("#li3").addClass("active");
+
+                            $("#li4").removeClass("active");
+                            $("#li5").removeClass("active");
+                            $("#li6").removeClass("active");
+                            $("#li7").removeClass("active");
+                            $("#step2").addClass("hidden");
+                            $("#step1").addClass("hidden");
+                            $("#step4").addClass("hidden");
+                            $("#step3").removeClass("hidden");
+                            $("#step5").addClass("hidden");
+                            $("#step6").addClass("hidden");
+                            $("#step7").addClass("hidden");
+                            $("#step8").addClass("hidden");
+                            $("#step9").addClass("hidden");
+                            $("#step10").addClass("hidden");
+                            $("#step11").addClass("hidden");
+                            $("#step12").addClass("hidden");
+                            $("#step13").addClass("hidden");
+                            $("#step14").addClass("hidden");
+                            $("#step15").addClass("hidden");
+                            $("#step16").addClass("hidden");
+                            $("#step17").addClass("hidden");
+                        }
+                    }
+                });
+
             } else {
                 $.alert({
                     title: "",
@@ -1719,44 +1759,40 @@ var goToStep = function (stepid, id, calldataupdate) {
                     content: 'Please Add Pet',
                     type: 'red'
                 });
-
-
             } else {
                 $("#subMenu").removeClass("hidden");
                 SaveUpdateStep(15);
                 tenantOnlineID = $("#hdnOPId").val();
-                getTenantOnlineList(tenantOnlineID);
-                    $("#step2").addClass("hidden");
-                    $("#step1").addClass("hidden");
-                    $("#step4").addClass("hidden");
-                    $("#step3").addClass("hidden");
-                    $("#step5").addClass("hidden");
-                    $("#step6").addClass("hidden");
-                    $("#step7").addClass("hidden");
-                    $("#step8").addClass("hidden");
-                    $("#step9").addClass("hidden");
-                    $("#step10").addClass("hidden");
-                    $("#step11").addClass("hidden");
-                    $("#step12").addClass("hidden");
-                    $("#step13").addClass("hidden");
-                    $("#step14").addClass("hidden");
-                    $("#step15").removeClass("hidden");
-                    $("#step16").addClass("hidden");
-                    $("#step17").addClass("hidden");
+                getFillSummary(tenantOnlineID);
+                $("#step2").addClass("hidden");
+                $("#step1").addClass("hidden");
+                $("#step4").addClass("hidden");
+                $("#step3").addClass("hidden");
+                $("#step5").addClass("hidden");
+                $("#step6").addClass("hidden");
+                $("#step7").addClass("hidden");
+                $("#step8").addClass("hidden");
+                $("#step9").addClass("hidden");
+                $("#step10").addClass("hidden");
+                $("#step11").addClass("hidden");
+                $("#step12").addClass("hidden");
+                $("#step13").addClass("hidden");
+                $("#step14").addClass("hidden");
+                $("#step15").removeClass("hidden");
+                $("#step16").addClass("hidden");
+                $("#step17").addClass("hidden");
 
-                    $("#li15").addClass("active");
-                    $("#li8").removeClass("active");
-                    $("#li9").removeClass("active");
-                    $("#li7").removeClass("active");
-                    $("#li11").removeClass("active");
-                    $("#li12").removeClass("active");
-                    $("#li13").removeClass("active");
-                    $("#li14").removeClass("active");
-                    $("#li10").removeClass("active");
-                    $("#li16").removeClass("active");
-                    $("#li17").removeClass("active");
-
-                   
+                $("#li15").addClass("active");
+                $("#li8").removeClass("active");
+                $("#li9").removeClass("active");
+                $("#li7").removeClass("active");
+                $("#li11").removeClass("active");
+                $("#li12").removeClass("active");
+                $("#li13").removeClass("active");
+                $("#li14").removeClass("active");
+                $("#li10").removeClass("active");
+                $("#li16").removeClass("active");
+                $("#li17").removeClass("active");
             }
         }
     }
@@ -3376,7 +3412,9 @@ var getPropertyUnitList = function (modelname,filldata) {
     var availdate = $("#txtDate").val();
     var leasetermid = $("#hndLeaseTermID").val();
 
-    var model = { ModelName: modelname, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, LeaseTermID: leasetermid};
+    var prospectid = $("#hdnOPId").val();
+
+    var model = { ModelName: modelname, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, LeaseTermID: leasetermid, ProspectId: prospectid };
 
     $.ajax({
         url: "/Property/GetPropertyModelUnitList/",
@@ -3390,7 +3428,7 @@ var getPropertyUnitList = function (modelname,filldata) {
                 $("#listUnit>tbody").empty();
 
                 $.each(response.model, function (elementType, value) {
-                    var html = " <tr id='unitdiv" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td style='text-align: center;width=100px'>$" + formatMoney(value.Current_Rent) + "</td><td style='text-align: center; width:45%'>" + value.Premium + "</td><td style='text-align: center;width=100px'>" + value.AvailableDateText + "</td></tr>";
+                    var html = " <tr id='unitdiv_" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td style='text-align: center;width=100px'>$" + formatMoney(value.Current_Rent) + "</td><td style='text-align: center; width:45%'>" + value.Premium + "</td><td style='text-align: center;width=100px'>" + value.AvailableDateText + "</td></tr>";
                     $("#listUnit>tbody").append(html);
 
                     $("#lblArea22").text(value.Area);
@@ -3401,7 +3439,7 @@ var getPropertyUnitList = function (modelname,filldata) {
                 });
 
                 //if ($("#hndUID").val() != "0") {
-                //    $("#unitdiv" + $("#hndUID").val()).addClass("select-unit");
+                //    $("#unitdiv_" + $("#hndUID").val()).addClass("select-unit");
                 //}
             }
             goToStep(2, 2,0);
@@ -3419,7 +3457,6 @@ var getPropertyUnitDetails = function (uid) {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            
             $("#hndShowPropertyDetails").val(1);
             $("#ModelCompare").modal("hide");
             $("#popUnitDet").addClass("hidden");
@@ -3432,12 +3469,12 @@ var getPropertyUnitDetails = function (uid) {
             $("#storUnit").text("#" + response.model.UnitNo);
             $("#txtAvailableDate").val(response.model.AvailableDateText);
 
-            $("#unitdiv" + $("#hndUID").val()).removeClass("select-unit");
-            $("#unitdiv" + uid).addClass("select-unit");
+            $("#unitdiv_" + $("#hndUID").val()).removeClass("select-unit");
+            $("#unitdiv_" + uid).addClass("select-unit");
             $("#hndUID").val(uid);
 
-            if ($("#unitdiv" + uid).length) {
-                $("#unitdiv" + uid)[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+            if ($("#unitdiv_" + uid).length) {
+                $("#unitdiv_" + uid)[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
             }
 
             $("#lblRent").text(formatMoney(response.model.Current_Rent));
@@ -3752,13 +3789,13 @@ var getTransationLists = function (userid) {
 
             $.each(response.model, function (elementType, elementValue) {
                 $("#Divtranslist").removeClass("hidden");
-              
+
                 $("#btnpaynext").removeProp("disabled");
                 var html = "<tr data-value=" + elementValue.TransID + ">";
                 //html += "<td>" + elementValue.TransID + "</td>";
                 //html += "<td>" + elementValue.TenantIDString + "</td>";
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
-                html += "<td>$" + parseFloat(elementValue.Charge_Amount).toFixed(2)+ "</td>";
+                html += "<td>$" + parseFloat(elementValue.Charge_Amount).toFixed(2) + "</td>";
                 html += "<td>" + elementValue.Transaction_Type + "</td>";
                 //html += "<td>" + elementValue.Charge_Type + "</td>";
                 html += "<td>" + elementValue.Description + "</td>";
@@ -3767,19 +3804,13 @@ var getTransationLists = function (userid) {
                 $("#tblTransaction>tbody").append(html);
                 paidamt += parseFloat(elementValue.Charge_Amount);
             });
-          
-            //setTimeout(function () {
-            //    if (response.model.length >= 1) {
-            //        if (paidamt == totpaid) {
-            //            $("#carddetails").addClass("hidden");
-            //            //goToStep(15, 15);
-            //            $("#getting-startedTimeRemainingClock").addClass("hidden");
-            //        } else {
-            //            //goToStep(15, 15);
-            //        }
-            //    }
-            //}, 1500);
-                    
+
+            setTimeout(function () {
+                if (paidamt == totpaid) {
+                    $("#carddetails").addClass("hidden");
+                    $("#getting-startedTimeRemainingClock").addClass("hidden");
+                }
+            }, 1500);
         }
     });
 }
@@ -4392,10 +4423,6 @@ var saveupdateApplicant = function () {
             msg += "Enter The Other Gender </br>";
         }
     }
-
-
-
-
     if (type == 'Primary Applicant') {
         $('#txtDateOfBirth').val(dob);
         $('#ddlGender').val(agender);
@@ -5525,6 +5552,56 @@ var saveupdateTenantOnline = function (stepcompleted) {
         }
     });
 };
+var getFillSummary = function (id) {
+    $("#divLoaderFullData").show();
+    var model = {
+        id: id
+    };
+    $.ajax({
+        url: '/ApplyNow/GetTenantOnlineList',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#summName").text(response.model.FirstName + " " + response.model.MiddleInitial + " " + response.model.LastName);
+            $("#summNamep").text(response.model.FirstName + " " + response.model.MiddleInitial + " " + response.model.LastName);
+            $("#summDob").text(response.model.DateOfBirthTxt);
+            $("#summDobp").text(response.model.DateOfBirthTxt);
+            $("#summEmail").text(response.model.Email);
+            $("#summEmailp").text(response.model.Email);
+            $("#summPhone").text(formatPhoneFax(response.model.Mobile));
+            $("#summPhonep").text(formatPhoneFax(response.model.Mobile));
+            $("#summSSN").text(response.model.SSN);
+            $("#summSSNp").text(response.model.SSN);
+            if (response.model.Gender == 1) {
+                $("#summGender").text("Male");
+                $("#summGenderp").text("Male");
+            } else {
+                $("#summGender").text("Female");
+                $("#summGenderp").text("Female");
+            }
+
+            $("#summDriverL").text(response.model.IDNumber);
+            $("#summDriverLp").text(response.model.IDNumber);
+            $("#summCuAdd").text(response.model.HomeAddress1 + " " + response.model.HomeAddress2 + ", " + response.model.CityHome + ", " + response.model.StateHomeString + "- " + response.model.ZipHome);
+            $("#summCuAddp").text(response.model.HomeAddress1 + " " + response.model.HomeAddress2 + ", " + response.model.CityHome + ", " + response.model.StateHomeString + "- " + response.model.ZipHome);
+            $("#summEmployer").text(response.model.EmployerName + ", " + response.model.OfficeAddress1 + ", " + response.model.OfficeCity + " (" + response.model.JobTitle + ") ");
+            $("#summEmployerp").text(response.model.EmployerName + ", " + response.model.OfficeAddress1 + ", " + response.model.OfficeCity + " (" + response.model.JobTitle + ") ");
+            $("#summEstartdate").text(response.model.StartDateTxt);
+            $("#summEstartdatep").text(response.model.StartDateTxt);
+            $("#summSalary").text(formatMoney(response.model.Income));
+            $("#summSalaryp").text(formatMoney(response.model.Income));
+            $("#summEmergname").text(response.model.EmergencyFirstName + " " + response.model.EmergencyLastName);
+            $("#summEmegmobile").text(formatPhoneFax(response.model.EmergencyMobile));
+            $("#summEmerrelation").text(response.model.Relationship);
+            $("#summEmergnamep").text(response.model.EmergencyFirstName + " " + response.model.EmergencyLastName);
+            $("#summEmegmobilep").text(formatPhoneFax(response.model.EmergencyMobile));
+            $("#summEmerrelationp").text(response.model.Relationship);
+            $("#divLoaderFullData").hide();
+        }
+    });
+};
 var getTenantOnlineList = function (id) {
     $("#divLoaderFullData").show();
     var model = {
@@ -5968,7 +6045,8 @@ function showFloorPlan(flid, numbedroom, modelname) {
     }
     var availdate = $("#txtDate").val();
     var leaseterm = $("#hndLeaseTermID").val();
-    var model = { FloorID: flid, AvailableDate: availdate, Bedroom: bedroom, MaxRent: maxrent, LeaseTermID: leaseterm, ModelName : modelname };
+    var prospectid = $("#hdnOPId").val();
+    var model = { FloorID: flid, AvailableDate: availdate, Bedroom: bedroom, MaxRent: maxrent, LeaseTermID: leaseterm, ModelName: modelname, ProspectId: prospectid };
     $.ajax({
         url: "/Property/GetPropertyFloorDetails/",
         type: "post",
@@ -6069,7 +6147,9 @@ function getPropertyUnitListByFloor(flid) {
     var availdate = $("#txtDate").val();
     var leaseterm = $("#hndLeaseTermID").val();
 
-    var model = { FloorID: flid, AvailableDate: availdate, Bedroom: bedroom, MaxRent: maxrent, LeaseTermID: leaseterm };
+    var prospectid = $("#hdnOPId").val();
+
+    var model = { FloorID: flid, AvailableDate: availdate, Bedroom: bedroom, MaxRent: maxrent, LeaseTermID: leaseterm, ProspectId: prospectid };
     $.ajax({
         url: "/Property/GetPropertyFloorDetails/",
         type: "post",
@@ -6118,7 +6198,7 @@ function getPropertyUnitListByFloor(flid) {
                 }
 
                 if (value.IsAvail != 0) {
-                    var ulhtml = " <tr id='unitdiv" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td style='text-align: center;width=100px'>$" + formatMoney(value.Current_Rent) + "</td><td style='text-align: center;width=80px'>" + value.Premium + "</td><td style='text-align: center;width=100px'>" + value.AvailableDateText + "</td></tr>";
+                    var ulhtml = " <tr id='unitdiv_" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td style='text-align: center;width=100px'>$" + formatMoney(value.Current_Rent) + "</td><td style='text-align: center;width=80px'>" + value.Premium + "</td><td style='text-align: center;width=100px'>" + value.AvailableDateText + "</td></tr>";
                     $("#listUnit>tbody").append(ulhtml);
                 }
             });
@@ -7813,7 +7893,7 @@ var SaveUpdateStep = function (stepcompleted) {
     var ProspectId = $("#hdnOPId").val();
     var model = {
         ID: ProspectId,
-            StepCompleted: stepcompleted
+        StepCompleted: stepcompleted
     };
 
     $.ajax({

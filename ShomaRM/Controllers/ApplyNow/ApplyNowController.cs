@@ -825,5 +825,16 @@ namespace ShomaRM.Controllers
                 return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult CheckUnitAvailable(long UnitID, long ProspectID)
+        {
+            try
+            {
+                return Json(new { result = (new ApplyNowModel().CheckUnitAvailable(UnitID, ProspectID)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

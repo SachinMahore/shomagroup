@@ -97,11 +97,11 @@ namespace ShomaRM.Controllers
             }
 
         }
-        public ActionResult GetPropertyModelUnitList(string ModelName, DateTime AvailableDate, decimal Current_Rent, int Bedroom, int LeaseTermID)
+        public ActionResult GetPropertyModelUnitList(string ModelName, DateTime AvailableDate, decimal Current_Rent, int Bedroom, int LeaseTermID, long ProspectId)
         {
             try
             {
-                return Json(new { model = (new PropertyModel().GetPropertyModelUnitList(ModelName, AvailableDate, Current_Rent, Bedroom, LeaseTermID)) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = (new PropertyModel().GetPropertyModelUnitList(ModelName, AvailableDate, Current_Rent, Bedroom, LeaseTermID, ProspectId)) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)
@@ -145,11 +145,11 @@ namespace ShomaRM.Controllers
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult GetPropertyFloorDetails(int FloorID, DateTime AvailableDate, int Bedroom, decimal MaxRent, int LeaseTermID, string ModelName)
+        public ActionResult GetPropertyFloorDetails(int FloorID, DateTime AvailableDate, int Bedroom, decimal MaxRent, int LeaseTermID, string ModelName, long ProspectId)
         {
             try
             {
-                return Json(new { model = (new PropertyFloor().GetPropertyFloorDetails(FloorID, AvailableDate, Bedroom, MaxRent, LeaseTermID, ModelName)) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = (new PropertyFloor().GetPropertyFloorDetails(FloorID, AvailableDate, Bedroom, MaxRent, LeaseTermID, ModelName, ProspectId)) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)

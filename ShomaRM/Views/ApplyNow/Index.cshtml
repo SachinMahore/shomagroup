@@ -250,7 +250,7 @@
                                                 {
                                                     foreach (var ul in Model.lstPropertyUnit)
                                                     {
-                                                        <tr class="@(Model.PropertyId==ul.UID?"select-unit":"")" id="unitdiv@ul.UID" data-floorid="@ul.FloorNoText"><td><a href="javascript:void(0);" onclick="getPropertyUnitDetails(@ul.UID)"><h5 style="width: 80px;">#@ul.UnitNo </h5></a> </td><td style="text-align: center;width=100px">$@ul.Current_Rent.ToString("0.00")</td><td style="text-align: center; width:45%">@ul.Premium </td><td style="text-align: center;width:100px">@ul.AvailableDateText</td></tr>
+                                                        <tr class="@(Model.PropertyId==ul.UID?"select-unit":"")" id="unitdiv_@ul.UID" data-floorid="@ul.FloorNoText"><td><a href="javascript:void(0);" onclick="getPropertyUnitDetails(@ul.UID)"><h5 style="width: 80px;">#@ul.UnitNo </h5></a> </td><td style="text-align: center;width=100px">$@ul.Current_Rent.ToString("0.00")</td><td style="text-align: center; width:45%">@ul.Premium </td><td style="text-align: center;width:100px">@ul.AvailableDateText</td></tr>
                                                     }
                                                 }
                                             </tbody>

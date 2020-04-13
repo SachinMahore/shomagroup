@@ -620,7 +620,7 @@ namespace ShomaRM.Models
                         model.MoveInPercentage = getApplicantDet.MoveInPercentage;
                     }
                     model.HasPropertyList = 1;
-                    model.lstPropertyUnit = new PropertyModel().GetPropertyModelUnitList(unitData.Building, Convert.ToDateTime(dtMoveInDate), 10000, 0, model.LeaseTermID);
+                    model.lstPropertyUnit = new PropertyModel().GetPropertyModelUnitList(unitData.Building, Convert.ToDateTime(dtMoveInDate), 10000, 0, model.LeaseTermID, GetProspectData.ID);
                 }
             }
             model.lstPropertyFloor = new PropertyFloor().GetFloorList(8, Convert.ToDateTime(dtMoveInDate), 0, 10000);
