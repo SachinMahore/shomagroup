@@ -17,16 +17,20 @@ namespace ShomaRM.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbl_ApplyNow()
         {
+            this.tbl_Applicant = new HashSet<tbl_Applicant>();
             this.tbl_TenantInfo = new HashSet<tbl_TenantInfo>();
+            this.tbl_TenantOnline = new HashSet<tbl_TenantOnline>();
             this.tbl_TenantParking = new HashSet<tbl_TenantParking>();
             this.tbl_TenantPet = new HashSet<tbl_TenantPet>();
             this.tbl_TenantPetPlace = new HashSet<tbl_TenantPetPlace>();
             this.tbl_TenantStorage = new HashSet<tbl_TenantStorage>();
+
             this.tbl_Applicant = new HashSet<tbl_Applicant>();
 
             this.tbl_Vehicle = new HashSet<tbl_Vehicle>();
 
             this.tbl_TenantOnline = new HashSet<tbl_TenantOnline>();
+
         }
     
         public long ID { get; set; }
@@ -73,7 +77,11 @@ namespace ShomaRM.Data
         public Nullable<int> AcceptSummary { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_Applicant> tbl_Applicant { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_TenantInfo> tbl_TenantInfo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_TenantOnline> tbl_TenantOnline { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_TenantParking> tbl_TenantParking { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -86,11 +94,13 @@ namespace ShomaRM.Data
         public virtual ICollection<tbl_Applicant> tbl_Applicant { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Vehicle> tbl_Vehicle { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
         public virtual ICollection<tbl_Applicant> tbl_Applicant { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
         public virtual ICollection<tbl_TenantOnline> tbl_TenantOnline { get; set; }
+
     }
 }
