@@ -26,6 +26,9 @@ namespace ShomaRM.Areas.Tenant.Models
         public string TempVehicleRegistation { get; set; }
         public string OriginalVehicleRegistation { get; set; }
         public string StateString { get; set; }
+        public string Tag { get; set; }
+        public int ParkingID { get; set; }
+
         public string SaveUpdateVehicle(VehicleModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -45,7 +48,9 @@ namespace ShomaRM.Areas.Tenant.Models
                     License = model.License,
                     State = model.State,
                     OwnerName = model.OwnerName,
-                    Notes = model.Notes
+                    Notes = model.Notes,
+                    Tag=model.Tag,
+                    ParkingID=model.ParkingID,
 
                 };
                 db.tbl_Vehicle.Add(saveVehicle);
@@ -71,6 +76,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     getVehdata.State = model.State;
                     getVehdata.OwnerName = model.OwnerName;
                     getVehdata.Notes = model.Notes;
+                   // getVehdata.Tag = model.Tag;
+                    getVehdata.ParkingID = model.ParkingID;
 
                 }
                 db.SaveChanges();
