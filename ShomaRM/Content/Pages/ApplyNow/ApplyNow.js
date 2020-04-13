@@ -3885,7 +3885,6 @@ var fillUnitParkingList = function () {
                 });
                 $('#ddlParking').append(dhtml);
 
-                //$('#ddlParkingkk').append(dhtml);
             }
         }
     });
