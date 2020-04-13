@@ -154,7 +154,7 @@ namespace ShomaRM.Areas.Admin.Models
                     var VehicleInfo = db.tbl_Vehicle.Where(p => p.ParkingID == model.ParkingID).FirstOrDefault();
                     if (VehicleInfo != null)
                     {
-
+                        VehicleInfo.OwnerName = model.OwnerName;
                         VehicleInfo.Tag = model.VehicleTag;
                         VehicleInfo.Make = model.VehicleMake;
                         VehicleInfo.Model = model.VehicleModel;
@@ -275,7 +275,7 @@ namespace ShomaRM.Areas.Admin.Models
 
                     DbParameter paramCT = cmd.CreateParameter();
                     paramCT.ParameterName = "CriteriaByText";
-                    paramCT.Value = model.Criteria;
+                    paramCT.Value = model.CriteriaByText;
                     cmd.Parameters.Add(paramCT);
 
                     DbParameter paramPN = cmd.CreateParameter();
@@ -326,7 +326,7 @@ namespace ShomaRM.Areas.Admin.Models
 
                     DbParameter paramCT = cmd.CreateParameter();
                     paramCT.ParameterName = "CriteriaByText";
-                    paramCT.Value = model.Criteria;
+                    paramCT.Value = model.CriteriaByText;
                     cmd.Parameters.Add(paramCT);
 
                     DbParameter paramPN = cmd.CreateParameter();
