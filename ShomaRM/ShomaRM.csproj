@@ -2317,6 +2317,7 @@
     <Content Include="DatabaseChanges\09-04-2020\usp_GetClientModelUnitList.sql" />
     <Content Include="DatabaseChanges\09-04-2020\usp_GetPropertyModelUnitList.sql" />
     <Content Include="DatabaseChanges\09-04-2020\usp_GetPropertyUnitListCord.sql" />
+    <Content Include="DatabaseChanges\10-04-2020\New Columns.sql" />
     <Content Include="DatabaseChanges\11-04-2020\addColumnDatabase.txt" />
     <Content Include="DatabaseChanges\11-04-2020\usp_GetTenantOnlineData.sql" />
     <Content Include="favicon.ico" />
