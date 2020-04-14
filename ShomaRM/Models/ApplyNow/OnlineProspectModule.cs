@@ -118,7 +118,7 @@ namespace ShomaRM.Models
             string[] result = (new ApplyNowModel().CheckUnitAvailable(model.PropertyId ?? 0, 0)).Split('|');
             if (result[0] == "0")
             {
-                msg = "0|" + result[1] + "is not available.<br/>Please select other unit.|0";
+                msg = "0|" + result[1] + " is not available.<br/>Please select other unit.|0";
                 return msg;
             }
 

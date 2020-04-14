@@ -40,6 +40,7 @@ namespace ShomaRM.Models
         public string ManagementCompany { get; set; }
         public string ManagementCompanyPhone { get; set; }
         public Nullable<int> IsProprNoticeLeaseAgreement { get; set; }
+        public string stringIsProprNoticeLeaseAgreement { get; set; }
 
         public string SaveUpdateApplicantHistory(ApplicantHistoryModel model)
         {
@@ -347,6 +348,59 @@ namespace ShomaRM.Models
                 throw ex;
             }
         }
+        public ApplicantHistoryModel GetPreviousAddressInfo(int id)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            ApplicantHistoryModel model = new ApplicantHistoryModel();
+            var getAHRdata = db.tbl_ApplicantHistory.Where(p => p.TenantID == id).OrderByDescending(s => s.AHID).FirstOrDefault();
+            if (getAHRdata != null)
+            {
+                DateTime? moveInFrom = null;
+                try
+                {
 
+                    moveInFrom = Convert.ToDateTime(getAHRdata.MoveInDateFrom);
+                }
+                catch
+                {
+
+                }
+                DateTime? moveInTo = null;
+                try
+                {
+
+                    moveInTo = Convert.ToDateTime(getAHRdata.MoveInDateTo);
+                }
+                catch
+                {
+
+                }
+                model.Country = getAHRdata.Country;
+                model.HomeAddress1 = getAHRdata.HomeAddress1;
+                model.HomeAddress2 = getAHRdata.HomeAddress2;
+                model.StateHome = getAHRdata.StateHome;
+                model.CityHome = getAHRdata.CityHome;
+                model.ZipHome = getAHRdata.ZipHome;
+                model.RentOwn = getAHRdata.RentOwn;
+                model.MoveInDateFromTxt = moveInFrom == null ? "" : moveInFrom.Value.ToString("MM/dd/yyy");
+                model.MoveInDateToTxt = moveInTo == null ? "" : moveInTo.Value.ToString("MM/dd/yyy");
+                model.MonthlyPayment = !string.IsNullOrWhiteSpace(getAHRdata.MonthlyPayment) ? getAHRdata.MonthlyPayment : "";
+                model.Reason = !string.IsNullOrWhiteSpace(getAHRdata.Reason) ? getAHRdata.Reason : "";
+                var stateStr = db.tbl_State.Where(co => co.ID == getAHRdata.StateHome).FirstOrDefault();
+                model.StateString = stateStr.StateName;
+                int ctryString = Convert.ToInt32(model.Country);
+                var countryStr = db.tbl_Country.Where(co => co.ID == ctryString).FirstOrDefault();
+                model.CountryString = countryStr.CountryName;
+                model.RentOwnString = model.RentOwn == 1 ? "Rent" : model.RentOwn == 2 ? "Own" : "";
+                model.ApartmentCommunity = !string.IsNullOrWhiteSpace(getAHRdata.ApartmentCommunity) ? getAHRdata.ApartmentCommunity : "";
+                model.ManagementCompany = !string.IsNullOrWhiteSpace(getAHRdata.ManagementCompany) ? getAHRdata.ManagementCompany : "";
+                model.ManagementCompanyPhone = !string.IsNullOrWhiteSpace(getAHRdata.ManagementCompanyPhone) ? getAHRdata.ManagementCompanyPhone : "";
+                model.IsProprNoticeLeaseAgreement = getAHRdata.IsProprNoticeLeaseAgreement;
+                model.stringIsProprNoticeLeaseAgreement = model.IsProprNoticeLeaseAgreement == 1 ? "Yes" : "No";
+            }
+            model.AHID = AHID;
+
+            return model;
+        }
     }
 }
