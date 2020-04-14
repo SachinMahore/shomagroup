@@ -3502,8 +3502,8 @@ var getPropertyUnitDetails = function (uid) {
             $("#hndUID").val(uid);
 
             fillUnitParkingList();
-            if ($("#unitdiv" + uid).length) {
-                $("#unitdiv" + uid)[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+            if ($("#unitdiv_" + uid).length) {
+                $("#unitdiv_" + uid)[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
 
             }
 
