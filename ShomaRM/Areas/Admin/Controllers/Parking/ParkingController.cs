@@ -25,11 +25,11 @@ namespace ShomaRM.Areas.Admin.Controllers
         }
 
 
-        public ActionResult GetParkingList()
+        public ActionResult GetParkingList(long TenantID)
         {
             try
             {
-                return Json((new ParkingModel()).GetParkingList(), JsonRequestBehavior.AllowGet);
+                return Json((new ParkingModel()).GetParkingList(TenantID), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -88,7 +88,7 @@ namespace ShomaRM.Areas.Admin.Controllers
             try
             {
                 string[] parkingDetails = model.SaveUpdateTenantParking(model).Split('|');
-                return Json(new { result = 1, numOfParking= parkingDetails[0], totalParkingAmt = parkingDetails[1] }, JsonRequestBehavior.AllowGet);
+                return Json(new { result = parkingDetails[0], mas = parkingDetails[1], numOfParking = parkingDetails[2], totalParkingAmt = parkingDetails[3] }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
