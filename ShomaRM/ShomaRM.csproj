@@ -2325,6 +2325,8 @@
     <Content Include="DatabaseChanges\13-04-2020\ParkingPaginationAndSearchData.sql" />
     <Content Include="DatabaseChanges\13-04-2020\usp_changes.sql" />
     <Content Include="DatabaseChanges\13-04-2020\usp_GetUnitLeasePrice.sql" />
+    <Content Include="DatabaseChanges\14-04-2020\sms_table.sql" />
+    <Content Include="DatabaseChanges\14-04-2020\usp_changes.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

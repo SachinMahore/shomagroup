@@ -837,5 +837,28 @@ namespace ShomaRM.Controllers
                 return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public JsonResult getPreviousEmployementInfo(int id)
+        {
+            try
+            {
+                return Json(new { model = new EmployerHistoryModel().GetPriousEmploymentInfo(id) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult getPreviousAddressInfo(int id)
+        {
+            try
+            {
+                return Json(new { model = new ApplicantHistoryModel().GetPreviousAddressInfo(id) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

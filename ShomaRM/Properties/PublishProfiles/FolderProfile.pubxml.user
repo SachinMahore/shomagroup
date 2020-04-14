@@ -757,10 +757,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/13/2020 20:34:50</publishTime>
     </File>
     <File Include="bin/ShomaRM.dll">
-      <publishTime>04/13/2020 20:34:53</publishTime>
+      <publishTime>04/14/2020 20:38:29</publishTime>
     </File>
     <File Include="bin/ShomaRM.pdb">
-      <publishTime>04/13/2020 20:34:53</publishTime>
+      <publishTime>04/14/2020 20:38:29</publishTime>
     </File>
     <File Include="bin/System.IdentityModel.Tokens.Jwt.dll">
       <publishTime>01/30/2020 13:12:00</publishTime>
@@ -6829,7 +6829,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/23/2019 17:16:58</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/ApplyNow.js">
-      <publishTime>04/13/2020 20:11:32</publishTime>
+      <publishTime>04/14/2020 20:31:38</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/DocumentVerification.js">
       <publishTime>01/30/2020 13:11:54</publishTime>
@@ -6891,8 +6891,20 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="DatabaseChanges/13-04-2020/Parking Data.sql">
       <publishTime>04/13/2020 20:27:59</publishTime>
     </File>
+    <File Include="DatabaseChanges/13-04-2020/ParkingPaginationAndSearchData.sql">
+      <publishTime>04/14/2020 13:08:17</publishTime>
+    </File>
     <File Include="DatabaseChanges/13-04-2020/usp_changes.sql">
       <publishTime>04/13/2020 20:20:52</publishTime>
+    </File>
+    <File Include="DatabaseChanges/13-04-2020/usp_GetUnitLeasePrice.sql">
+      <publishTime>04/13/2020 20:45:45</publishTime>
+    </File>
+    <File Include="DatabaseChanges/14-04-2020/sms_table.sql">
+      <publishTime>04/14/2020 20:24:00</publishTime>
+    </File>
+    <File Include="DatabaseChanges/14-04-2020/usp_changes.sql">
+      <publishTime>04/14/2020 20:23:31</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>01/30/2020 13:12:00</publishTime>
@@ -6973,7 +6985,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/07/2020 19:17:37</publishTime>
     </File>
     <File Include="Views/ApplyNow/Index.cshtml">
-      <publishTime>04/13/2020 20:11:32</publishTime>
+      <publishTime>04/14/2020 19:46:24</publishTime>
     </File>
     <File Include="Views/ApplyNow/PrintSummary.cshtml">
       <publishTime>01/30/2020 13:11:58</publishTime>
