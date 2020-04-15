@@ -22,7 +22,7 @@
 <input type="hidden" id="hndBedRoom" value="@(Model.Bedroom)" />
 <input type="hidden" id="hndBuilding" value="@(Model.Building)" />
 <input type="hidden" id="hndProcessingFees" value="@(Model.ProcessingFees)" />
-
+<input type="hidden" id="hndAdditionalParking" value="@(Model.AdditionalParking)" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container">
@@ -659,7 +659,7 @@
                                         <span id="">&nbsp;</span>
                                     </div>
                                     <div class="col-sm-4 hidden">
-                                        <span id="">Additional FOBs </span><span class="hidden" id="lblFOBs">@Model.PetPlaceID</span>
+                                        <span id="">Additional FOBs </span><span class="hidden" id="lblFOBs">0</span>
                                     </div>
                                     <div class="col-sm-2 hidden">
                                         $<span id="lblFobFee">@((Model.FOBAmt ?? 0).ToString("0.00"))</span>
@@ -924,7 +924,7 @@
                                                     <span>Vehicle Registration: </span>
                                                 </div>
                                                 <div class="col-sm-7">
-                                                    $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees">0.00</span>
+                                                    $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees">@((Model.VehicleRegistration ?? 0).ToString("0.00"))</span>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
@@ -1301,7 +1301,7 @@
                                             </div>
                                             <div class="col-sm-1"></div>
                                             <div class="col-sm-3">
-                                                $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees1">0.00</span>
+                                                $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees1">@((Model.VehicleRegistration ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
@@ -4066,29 +4066,23 @@
                 <input type="hidden" id="hndParkingID" value="0" />
                 <input type="hidden" id="hndNumberOfParking" value="0" />
                 <div class="form-group clearfix">
-                    <div>
-                        <table class="" cellspacing="0" style="width:100%;">
-                            <thead>
-                                <tr>
-                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:64%;text-align:center;">Parking</th>
-                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:18%;text-align:center;">Charges</th>
-                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:18%;text-align:center;">Add</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                    <div style="width:100%;height:350px;overflow-y:scroll;">
-                        <table id="tblParking" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%;height:50px;">
-                            <tbody style="width:100%;height:100%;"></tbody>
-                        </table>
-                    </div>
+                    <table id="tblParking" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939">Parking </th>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939">Charges</th>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939">Add</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
                 <div class="col-sm-12">
 
                 </div>
-                <div class="col-sm-9 text-left">
+                <div class="col-sm-9 text-left" style="padding-left:0px;">
                     Notes: Check and save <br />
-                    Complimentary 1 parking space for 1- and 2-bedroom apartments and 2 spaces for 3-bedroom apartments.
+                    Complimentary 1 parking space for 1- and 2-bedroom apartments <br />and 2 parking spaces for 3-bedroom apartments.
                 </div>
                 <div class="col-sm-3 text-right">
                     <button type="submit" class="btn btn-primary" onclick="saveupdateParking()"><i class="fa fa-check-square"></i> SAVE</button>

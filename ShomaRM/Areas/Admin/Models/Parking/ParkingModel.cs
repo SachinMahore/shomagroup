@@ -68,6 +68,25 @@ namespace ShomaRM.Areas.Admin.Models
                 throw ex;
             }
         }
+        public List<ParkingModel> GetParkingListByBedRoom(long TenantID, int BedRoom)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<ParkingModel> model = new List<ParkingModel>();
+            try
+            {
+                model.Add(new ParkingModel() {ParkingID=1, ParkingName="1 Vehicle",Charges=100,Description="", Type=1 });
+                if (BedRoom > 2)
+                {
+                    model.Add(new ParkingModel() { ParkingID = 2, ParkingName = "2 Vehicle", Charges = 200, Description = "", Type = 1 });
+                }
+                return model.ToList();
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
         public List<ParkingModel> GetUnitParkingList(int UID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -379,87 +398,172 @@ namespace ShomaRM.Areas.Admin.Models
         public List<TenantParkingModel> lstTParking { get; set; }
         public long UID { get; set; }
 
-        public string  SaveUpdateTenantParking(TenantParkingModel model)
+        //public string  SaveUpdateTenantParking(TenantParkingModel model)
+        //{
+        //    ShomaRMEntities db = new ShomaRMEntities();
+        //    decimal totalParkingAmt = 0;
+        //    int numOfParking = 0;
+        //    string result = "";
+        //    long addParking = 0;
+        //    long deleteParking = 0;
+        //    if (model.lstTParking != null)
+        //    {
+        //        long parkingNumber = model.lstTParking[0].ParkingID ?? 0;
+        //        // check storage available //
+        //        var tenantParkingData = db.tbl_TenantParking.Where(p => p.TenantID == model.TenantID).ToList();
+        //        if (tenantParkingData.Count >0)
+        //        {
+        //            if (tenantParkingData.Count != parkingNumber)
+        //            {
+        //                long parkingDiff = tenantParkingData.Count - parkingNumber;
+        //                if(parkingDiff<0)
+        //                {
+        //                    addParking = -1 * parkingDiff;
+        //                }else
+        //                {
+        //                    deleteParking = parkingDiff;
+        //                }
+
+        //                foreach (var tpd in tenantParkingData)
+        //                {
+        //                    var remparkingdata = db.tbl_Parking.Where(p => p.PropertyID == model.UID && p.Type == 2 && p.ParkingID == tpd.ParkingID).FirstOrDefault();
+        //                    if (remparkingdata != null)
+        //                    {
+        //                        remparkingdata.PropertyID = 0;
+        //                        db.SaveChanges();
+        //                    }
+        //                }
+        //                db.tbl_TenantParking.RemoveRange(tenantParkingData);
+        //                db.SaveChanges();
+        //            }
+        //        }
+        //        else
+        //        {
+        //            addParking = parkingNumber;
+        //        }
+
+
+        //        var parkingdata = db.tbl_Parking.Where(p => p.ParkingID == parkingid).FirstOrDefault();
+        //        var isParkingAvailable = db.tbl_TenantParking.Where(p => p.ParkingID == parkingid && TenantID != model.TenantID).FirstOrDefault();
+        //        if (isParkingAvailable != null)
+        //        {
+        //            result = "0|" + parkingdata.ParkingName + " - " + parkingdata.Description + " is not available.<br/>Please select other parking unit.|0|0.00";
+        //        }
+        //        // check storage available //
+        //        else
+        //        {
+        //            var tenantParkingData = db.tbl_TenantParking.Where(p => p.TenantID == model.TenantID).ToList();
+
+        //            if (tenantParkingData != null)
+        //            {
+        //                foreach (var tpd in tenantParkingData)
+        //                {
+        //                    var remparkingdata = db.tbl_Parking.Where(p => p.PropertyID == model.UID && p.Type == 2 && p.ParkingID == tpd.ParkingID).FirstOrDefault();
+        //                    if (remparkingdata != null)
+        //                    {
+        //                        remparkingdata.PropertyID = 0;
+        //                        db.SaveChanges();
+        //                    }
+        //                }
+        //                db.tbl_TenantParking.RemoveRange(tenantParkingData);
+        //                db.SaveChanges();
+        //            }
+
+        //            foreach (var cd in model.lstTParking)
+        //            {
+        //                var cdData = new tbl_TenantParking
+        //                {
+        //                    ParkingID = cd.ParkingID,
+        //                    TenantID = model.TenantID,
+        //                    Charges = parkingdata.Charges,
+        //                    CreatedDate = Convert.ToDateTime(DateTime.Now.ToString("MM/dd/yyyy"))
+        //                };
+        //                db.tbl_TenantParking.Add(cdData);
+        //                db.SaveChanges();
+        //                numOfParking = numOfParking + parkingdata.Type ?? 0;
+        //                totalParkingAmt = totalParkingAmt + Convert.ToDecimal(parkingdata.Charges);
+        //                parkingdata.PropertyID = model.UID;
+        //                db.SaveChanges();
+        //            }
+        //            result = "1|Progress saved|"+ numOfParking + "|"+ totalParkingAmt.ToString();
+        //        }
+
+        //    }
+        //    else
+        //    {
+        //        var tenantParkingData = db.tbl_TenantParking.Where(p => p.TenantID == model.TenantID).ToList();
+        //        if (tenantParkingData != null)
+        //        {
+        //            foreach (var tpd in tenantParkingData)
+        //            {
+        //                var remparkingdata = db.tbl_Parking.Where(p => p.PropertyID == model.UID && p.Type == 2 && p.ParkingID == tpd.ParkingID).FirstOrDefault();
+        //                if (remparkingdata != null)
+        //                {
+        //                    remparkingdata.PropertyID = 0;
+        //                    db.SaveChanges();
+        //                }
+        //            }
+        //            db.tbl_TenantParking.RemoveRange(tenantParkingData);
+        //            db.SaveChanges();
+        //        }
+        //        result = "1|Progress saved|0|0.00";
+        //    }
+        //    return result;
+        //}
+
+        public string SaveUpdateTenantParking(TenantParkingModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
-            decimal totalParkingAmt = 0;
-            int numOfParking = 0;
-
-            string result = "";
-            
+            long numOfParking = 0;
+            long unitID = model.UID;
+            long tenantID = model.TenantID ?? 0;
             if (model.lstTParking != null)
             {
-                // check storage available //
-                long parkingid = model.lstTParking[0].ParkingID ?? 0;
-                var parkingdata = db.tbl_Parking.Where(p => p.ParkingID == parkingid).FirstOrDefault();
-                var isParkingAvailable = db.tbl_TenantParking.Where(p => p.ParkingID == parkingid && TenantID != model.TenantID).FirstOrDefault();
-                if (isParkingAvailable != null)
+                if (model.lstTParking.Count > 0)
                 {
-                    result = "0|" + parkingdata.ParkingName + " - " + parkingdata.Description + " is not available.<br/>Please select other parking unit.|0|0.00";
+                    numOfParking = model.lstTParking[0].ParkingID ?? 0;
                 }
-                // check storage available //
-                else
-                {
-                    var tenantParkingData = db.tbl_TenantParking.Where(p => p.TenantID == model.TenantID).ToList();
+            }
+            string result = "";
+            DataTable dtTable = new DataTable();
+            using (var cmd = db.Database.Connection.CreateCommand())
+            {
+                db.Database.Connection.Open();
+                cmd.CommandText = "usp_SaveUpdateTenantParking";
+                cmd.CommandType = CommandType.StoredProcedure;
+               
+                DbParameter paramNOP = cmd.CreateParameter();
+                paramNOP.ParameterName = "NumberOfParking";
+                paramNOP.Value = numOfParking;
+                cmd.Parameters.Add(paramNOP);
 
-                    if (tenantParkingData != null)
-                    {
-                        foreach (var tpd in tenantParkingData)
-                        {
-                            var remparkingdata = db.tbl_Parking.Where(p => p.PropertyID == model.UID && p.Type == 2 && p.ParkingID == tpd.ParkingID).FirstOrDefault();
-                            if (remparkingdata != null)
-                            {
-                                remparkingdata.PropertyID = 0;
-                                db.SaveChanges();
-                            }
-                        }
-                        db.tbl_TenantParking.RemoveRange(tenantParkingData);
-                        db.SaveChanges();
-                    }
+                DbParameter paramUID = cmd.CreateParameter();
+                paramUID.ParameterName = "UnitID";
+                paramUID.Value = unitID;
+                cmd.Parameters.Add(paramUID);
 
-                    foreach (var cd in model.lstTParking)
-                    {
-                        var cdData = new tbl_TenantParking
-                        {
-                            ParkingID = cd.ParkingID,
-                            TenantID = model.TenantID,
-                            Charges = parkingdata.Charges,
-                            CreatedDate = Convert.ToDateTime(DateTime.Now.ToString("MM/dd/yyyy"))
-                        };
-                        db.tbl_TenantParking.Add(cdData);
-                        db.SaveChanges();
-                        numOfParking = numOfParking + parkingdata.Type ?? 0;
-                        totalParkingAmt = totalParkingAmt + Convert.ToDecimal(parkingdata.Charges);
-                        parkingdata.PropertyID = model.UID;
-                        db.SaveChanges();
-                    }
-                    result = "1|Progress saved|"+ numOfParking + "|"+ totalParkingAmt.ToString();
-                }
+                DbParameter paramTID = cmd.CreateParameter();
+                paramTID.ParameterName = "TenantID";
+                paramTID.Value = tenantID;
+                cmd.Parameters.Add(paramTID);
 
+                DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                da.SelectCommand = cmd;
+                da.Fill(dtTable);
+                db.Database.Connection.Close();
+            }
+            if(dtTable.Rows.Count>0)
+            {
+                result = dtTable.Rows[0][0].ToString();
             }
             else
             {
-                var tenantParkingData = db.tbl_TenantParking.Where(p => p.TenantID == model.TenantID).ToList();
-                if (tenantParkingData != null)
-                {
-                    foreach (var tpd in tenantParkingData)
-                    {
-                        var remparkingdata = db.tbl_Parking.Where(p => p.PropertyID == model.UID && p.Type == 2 && p.ParkingID == tpd.ParkingID).FirstOrDefault();
-                        if (remparkingdata != null)
-                        {
-                            remparkingdata.PropertyID = 0;
-                            db.SaveChanges();
-                        }
-                    }
-                    db.tbl_TenantParking.RemoveRange(tenantParkingData);
-                    db.SaveChanges();
-                }
-                result = "1|Progress saved|0|0.00";
+                result = "1|Error Occured. Please try again.d|0|0.00";
             }
+            db.Dispose();
+            
             return result;
         }
-
-
         public List<TenantParkingModel> GetTenantParkingList(long TenantId)
         {
             ShomaRMEntities db = new ShomaRMEntities();

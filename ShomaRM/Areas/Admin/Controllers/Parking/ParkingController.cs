@@ -36,6 +36,19 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult GetParkingListByBedRoom(long TenantID, int BedRoom)
+        {
+            try
+            {
+                return Json((new ParkingModel()).GetParkingListByBedRoom(TenantID, BedRoom), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public ActionResult GetParkingInfo(int ParkingID = 0)
         {
             try

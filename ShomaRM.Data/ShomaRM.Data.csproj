@@ -256,6 +256,9 @@
     <Compile Include="tbl_ServiceRequest.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbl_SMSMessages.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_State.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
