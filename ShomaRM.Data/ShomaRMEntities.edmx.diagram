@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
 
-
       <Diagram DiagramId="f6dba52eba0b4cc7826a40d5770027ff" Name="Diagram1" ZoomLevel="55">
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_AcutraqScrenning" Width="1.5" PointX="0.75" PointY="4.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Advertiser" Width="1.5" PointX="2.75" PointY="4.75" />
@@ -14,6 +13,7 @@
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_AmenityReservation" Width="1.5" PointX="2.75" PointY="7.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Applicant" Width="1.5" PointX="23" PointY="33.875" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_ApplicantHistory" Width="1.5" PointX="4.75" PointY="7.75" />
+        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_ApplyNow" Width="1.5" PointX="20.75" PointY="30" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_AuditHistory" Width="1.5" PointX="2.75" PointY="1" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_AuditHistoryDetail" Width="1.5" PointX="5" PointY="1" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_BankAccount" Width="1.5" PointX="7.75" PointY="0.75" />
@@ -90,6 +90,14 @@
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Visit" Width="1.5" PointX="18.5" PointY="64.875" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_WorkOrder" Width="1.5" PointX="15.5" PointY="82.625" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_ZipCodes" Width="1.5" PointX="8" PointY="48.75" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantParking_tbl_ApplyNow" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantPet_tbl_ApplyNow" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantPetPlace_tbl_ApplyNow" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantStorage_tbl_ApplyNow" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_syAuditHistDetail_syAuditHist" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Lease" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login" />
@@ -159,17 +167,7 @@
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantEventJoin_tbl_TenantEventJoin" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_UtilityBilling_tbl_Utility" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_WorkOrder_tbl_Vendor" />
-        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_ApplyNow" Width="1.5" PointX="20.75" PointY="30" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_SMSMessages" Width="1.5" PointX="5.375" PointY="18.75" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantParking_tbl_ApplyNow" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantPet_tbl_ApplyNow" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantPetPlace_tbl_ApplyNow" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantStorage_tbl_ApplyNow" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" />
-
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

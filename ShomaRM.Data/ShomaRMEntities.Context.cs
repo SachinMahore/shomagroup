@@ -25,7 +25,6 @@ namespace ShomaRM.Data
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<tbl_AcutraqScrenning> tbl_AcutraqScrenning { get; set; }
         public virtual DbSet<tbl_Advertiser> tbl_Advertiser { get; set; }
         public virtual DbSet<tbl_Amenities> tbl_Amenities { get; set; }
@@ -33,6 +32,7 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_AmenityReservation> tbl_AmenityReservation { get; set; }
         public virtual DbSet<tbl_Applicant> tbl_Applicant { get; set; }
         public virtual DbSet<tbl_ApplicantHistory> tbl_ApplicantHistory { get; set; }
+        public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
         public virtual DbSet<tbl_AuditHistory> tbl_AuditHistory { get; set; }
         public virtual DbSet<tbl_AuditHistoryDetail> tbl_AuditHistoryDetail { get; set; }
         public virtual DbSet<tbl_BankAccount> tbl_BankAccount { get; set; }
@@ -88,7 +88,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_ServiceIssue> tbl_ServiceIssue { get; set; }
         public virtual DbSet<tbl_ServiceLocation> tbl_ServiceLocation { get; set; }
         public virtual DbSet<tbl_ServiceRequest> tbl_ServiceRequest { get; set; }
-        public virtual DbSet<tbl_SMSMessages> tbl_SMSMessages { get; set; }
         public virtual DbSet<tbl_State> tbl_State { get; set; }
         public virtual DbSet<tbl_Storage> tbl_Storage { get; set; }
         public virtual DbSet<tbl_Tenant> tbl_Tenant { get; set; }
@@ -110,7 +109,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Visit> tbl_Visit { get; set; }
         public virtual DbSet<tbl_WorkOrder> tbl_WorkOrder { get; set; }
         public virtual DbSet<tbl_ZipCodes> tbl_ZipCodes { get; set; }
-        public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
         public virtual DbSet<tbl_SMSMessages> tbl_SMSMessages { get; set; }
     }
 }

@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ShomaRMEntitiesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'ShomaRMDev.dbo.CountryState' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="CountryState">
+          <Property Name="ID" Type="varchar" MaxLength="500" />
+          <Property Name="CountryName" Type="varchar" MaxLength="500" />
+          <Property Name="StateID" Type="varchar" MaxLength="500" />
+          <Property Name="CountryID" Type="varchar" MaxLength="500" />
+          <Property Name="StateName" Type="varchar" MaxLength="500" />
+        </EntityType>-->
   <EntityType Name="tbl_AcutraqScrenning">
     <Key>
       <PropertyRef Name="Id" />
@@ -147,7 +156,6 @@
     <Property Name="PetDNAAmt" Type="money" />
     <Property Name="StepCompleted" Type="int" />
     <Property Name="AcceptSummary" Type="int" />
-    <Property Name="AdditionalParking" Type="int" />
   </EntityType>
   <EntityType Name="tbl_AuditHistory">
     <Key>
@@ -1042,15 +1050,6 @@
     <Property Name="CreatedDate" Type="datetime" />
     <Property Name="ModifiedBy" Type="bigint" />
     <Property Name="ModifiedDate" Type="datetime" />
-  </EntityType>
-  <EntityType Name="tbl_SMSMessages">
-    <Key>
-      <PropertyRef Name="MsgID" />
-    </Key>
-    <Property Name="MsgID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="PhoneNumber" Type="varchar" MaxLength="15" />
-    <Property Name="Message" Type="varchar" MaxLength="1000" />
-    <Property Name="ReceivedDate" Type="datetime" />
   </EntityType>
   <EntityType Name="tbl_State">
     <Key>
@@ -2545,7 +2544,6 @@
     <EntitySet Name="tbl_ServiceIssue" EntityType="Self.tbl_ServiceIssue" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_ServiceLocation" EntityType="Self.tbl_ServiceLocation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_ServiceRequest" EntityType="Self.tbl_ServiceRequest" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="tbl_SMSMessages" EntityType="Self.tbl_SMSMessages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_State" EntityType="Self.tbl_State" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Storage" EntityType="Self.tbl_Storage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Tenant" EntityType="Self.tbl_Tenant" Schema="dbo" store:Type="Tables" />
