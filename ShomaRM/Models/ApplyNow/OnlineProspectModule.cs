@@ -105,6 +105,8 @@ namespace ShomaRM.Models
         public List<StateListData> StateList { get; set; }
         public long UserID { get; set; }
         public int HasPropertyList { get; set; }
+        public int AdditionalParking { get; set; }
+
 
         public string SaveOnlineProspect(OnlineProspectModule model)
         {
@@ -197,7 +199,8 @@ namespace ShomaRM.Models
                     UserId = Uid,
                     MoveInDate = model.MoveInDate,
                     LeaseTerm = model.LeaseTerm,
-                    StepCompleted = 4
+                    StepCompleted = 4,
+                    AdditionalParking = 0
                 };
 
                 db.tbl_ApplyNow.Add(saveOnlineProspect);
@@ -239,10 +242,17 @@ namespace ShomaRM.Models
                     OfficeCountry = "1",
                     OfficeState = 0,
                     EmergencyCountry = "1",
-                    EmergencyStateHome = 0
+                    EmergencyStateHome = 0,
                 };
                 db.tbl_TenantOnline.Add(getAppldata);
                 db.SaveChanges();
+
+                var defaultParking = db.tbl_Parking.Where(p => p.PropertyID == model.PropertyId && p.Type == 1).ToList();
+
+                foreach(var dp in defaultParking)
+                {
+                    var addTenantParking = new tbl_TenantParking() { ParkingID= dp.ParkingID, Charges=0, TenantID= model.ID, CreatedDate=DateTime.Now };
+                }
 
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == model.PropertyId).FirstOrDefault();
                 string reportHTML = "";
@@ -291,6 +301,7 @@ namespace ShomaRM.Models
         public string UpdateOnlineProspect(OnlineProspectModule model)
         {
             string msg = "";
+            string hasChangeUnit = "0";
             ShomaRMEntities db = new ShomaRMEntities();
             long Uid = 0;
             DateTime? moveindate = null;
@@ -310,8 +321,39 @@ namespace ShomaRM.Models
 
                 if (onlineProspectData != null)
                 {
-                    onlineProspectData.PropertyId = model.PropertyId;
-                    onlineProspectData.ParkingAmt = model.ParkingAmt;
+                    if (onlineProspectData.PropertyId != model.PropertyId)
+                    {
+                        hasChangeUnit = "1";
+                        var tenantParking = db.tbl_TenantParking.Where(p => p.TenantID == model.ID).ToList();
+                        foreach(var tpd in tenantParking)
+                        {
+                            var parkingData = db.tbl_Parking.Where(p => p.ParkingID == tpd.ParkingID && p.Type==2).ToList();
+                            foreach(var pd in parkingData)
+                            {
+                                pd.PropertyID = 0;
+                                db.SaveChanges();
+                            }
+                        }
+                        db.tbl_TenantParking.RemoveRange(tenantParking);
+                        db.SaveChanges();
+
+                        var defaultParking = db.tbl_Parking.Where(p => p.PropertyID == model.PropertyId && p.Type == 1).ToList();
+                        foreach (var dp in defaultParking)
+                        {
+                            var addTenantParking = new tbl_TenantParking() { ParkingID = dp.ParkingID, Charges = 0, TenantID = model.ID, CreatedDate = DateTime.Now };
+                            db.tbl_TenantParking.Add(addTenantParking);
+                            db.SaveChanges();
+                        }
+                        onlineProspectData.PropertyId = model.PropertyId;
+                        onlineProspectData.AdditionalParking = 0;
+                        onlineProspectData.ParkingAmt = 0;
+                    }
+                    else
+                    {
+                        onlineProspectData.ParkingAmt = model.AdditionalParking;
+                        onlineProspectData.ParkingAmt = model.ParkingAmt;
+                    }
+                    
                     onlineProspectData.StorageAmt = model.StorageAmt;
                     onlineProspectData.PetPlaceAmt = model.PetPlaceAmt;
                     onlineProspectData.PestAmt = model.PestAmt;
@@ -330,6 +372,7 @@ namespace ShomaRM.Models
                     onlineProspectData.LeaseTerm = model.LeaseTerm;
                     onlineProspectData.PetDNAAmt = model.PetDNAAmt;
                     onlineProspectData.StepCompleted = stepcomp;
+                    onlineProspectData.AdditionalParking = model.AdditionalParking;
                     db.SaveChanges();
                 }
 
@@ -342,7 +385,7 @@ namespace ShomaRM.Models
                 }
 
             }
-            msg = model.ID.ToString() + "|Quote Updated Successfully";
+            msg = model.ID.ToString() + "|" + hasChangeUnit;
             db.Dispose();
             return msg;
         }

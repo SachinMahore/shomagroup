@@ -33,7 +33,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_AmenityReservation> tbl_AmenityReservation { get; set; }
         public virtual DbSet<tbl_Applicant> tbl_Applicant { get; set; }
         public virtual DbSet<tbl_ApplicantHistory> tbl_ApplicantHistory { get; set; }
-        public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
         public virtual DbSet<tbl_AuditHistory> tbl_AuditHistory { get; set; }
         public virtual DbSet<tbl_AuditHistoryDetail> tbl_AuditHistoryDetail { get; set; }
         public virtual DbSet<tbl_BankAccount> tbl_BankAccount { get; set; }
@@ -111,5 +110,7 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Visit> tbl_Visit { get; set; }
         public virtual DbSet<tbl_WorkOrder> tbl_WorkOrder { get; set; }
         public virtual DbSet<tbl_ZipCodes> tbl_ZipCodes { get; set; }
+        public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
+        public virtual DbSet<tbl_SMSMessages> tbl_SMSMessages { get; set; }
     }
 }

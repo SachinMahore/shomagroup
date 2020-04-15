@@ -748,19 +748,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/30/2020 11:53:22</publishTime>
     </File>
     <File Include="bin/ShomaRM.Data.dll">
-      <publishTime>04/13/2020 20:34:50</publishTime>
+      <publishTime>04/15/2020 21:07:08</publishTime>
     </File>
     <File Include="bin/ShomaRM.Data.dll.config">
-      <publishTime>04/13/2020 20:11:31</publishTime>
+      <publishTime>04/15/2020 14:48:57</publishTime>
     </File>
     <File Include="bin/ShomaRM.Data.pdb">
-      <publishTime>04/13/2020 20:34:50</publishTime>
+      <publishTime>04/15/2020 21:07:08</publishTime>
     </File>
     <File Include="bin/ShomaRM.dll">
-      <publishTime>04/14/2020 20:38:29</publishTime>
+      <publishTime>04/15/2020 21:07:10</publishTime>
     </File>
     <File Include="bin/ShomaRM.pdb">
-      <publishTime>04/14/2020 20:38:29</publishTime>
+      <publishTime>04/15/2020 21:07:10</publishTime>
     </File>
     <File Include="bin/System.IdentityModel.Tokens.Jwt.dll">
       <publishTime>01/30/2020 13:12:00</publishTime>
@@ -6829,7 +6829,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/23/2019 17:16:58</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/ApplyNow.js">
-      <publishTime>04/14/2020 20:31:38</publishTime>
+      <publishTime>04/15/2020 20:50:55</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/DocumentVerification.js">
       <publishTime>01/30/2020 13:11:54</publishTime>
@@ -6892,19 +6892,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/13/2020 20:27:59</publishTime>
     </File>
     <File Include="DatabaseChanges/13-04-2020/ParkingPaginationAndSearchData.sql">
-      <publishTime>04/14/2020 13:08:17</publishTime>
+      <publishTime>04/14/2020 20:48:06</publishTime>
     </File>
     <File Include="DatabaseChanges/13-04-2020/usp_changes.sql">
       <publishTime>04/13/2020 20:20:52</publishTime>
     </File>
     <File Include="DatabaseChanges/13-04-2020/usp_GetUnitLeasePrice.sql">
-      <publishTime>04/13/2020 20:45:45</publishTime>
+      <publishTime>04/14/2020 20:48:06</publishTime>
     </File>
     <File Include="DatabaseChanges/14-04-2020/sms_table.sql">
-      <publishTime>04/14/2020 20:24:00</publishTime>
+      <publishTime>04/14/2020 20:48:06</publishTime>
     </File>
     <File Include="DatabaseChanges/14-04-2020/usp_changes.sql">
-      <publishTime>04/14/2020 20:23:31</publishTime>
+      <publishTime>04/14/2020 20:48:06</publishTime>
+    </File>
+    <File Include="DatabaseChanges/15-04-2020/ApplyTable_ColumnAdd.sql">
+      <publishTime>04/15/2020 21:05:49</publishTime>
+    </File>
+    <File Include="DatabaseChanges/15-04-2020/usp_SaveUpdateTenantParking.sql">
+      <publishTime>04/15/2020 21:06:25</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>01/30/2020 13:12:00</publishTime>
@@ -6985,7 +6991,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/07/2020 19:17:37</publishTime>
     </File>
     <File Include="Views/ApplyNow/Index.cshtml">
-      <publishTime>04/14/2020 19:46:24</publishTime>
+      <publishTime>04/15/2020 15:48:01</publishTime>
     </File>
     <File Include="Views/ApplyNow/PrintSummary.cshtml">
       <publishTime>01/30/2020 13:11:58</publishTime>
@@ -7018,10 +7024,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/30/2020 13:11:58</publishTime>
     </File>
     <File Include="Views/PayLink/Index.cshtml">
-      <publishTime>04/13/2020 06:53:11</publishTime>
+      <publishTime>04/15/2020 12:02:15</publishTime>
     </File>
     <File Include="Views/PayLink/LeaseNow.cshtml">
       <publishTime>02/26/2020 13:32:28</publishTime>
+    </File>
+    <File Include="Views/PayLink/PayAdmFees.cshtml">
+      <publishTime>04/15/2020 12:02:15</publishTime>
     </File>
     <File Include="Views/PayLink/PayAmenityCharges.cshtml">
       <publishTime>04/13/2020 06:53:11</publishTime>
