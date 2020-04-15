@@ -393,6 +393,7 @@
       <End Role="tbl_Vendor" EntitySet="tbl_Vendor" />
       <End Role="tbl_WorkOrder" EntitySet="tbl_WorkOrder" />
     </AssociationSet>
+    <EntitySet Name="tbl_SMSMessages" EntityType="ShomaRMEntitiesModel.tbl_SMSMessages" />
   </EntityContainer>
   <EntityType Name="tbl_AcutraqScrenning">
     <Key>
@@ -550,6 +551,7 @@
     <NavigationProperty Name="tbl_TenantPetPlace" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantPetPlace_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantPetPlace" />
     <NavigationProperty Name="tbl_TenantStorage" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantStorage_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantStorage" />
     <NavigationProperty Name="tbl_Vehicle" Relationship="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Vehicle" />
+    <Property Name="AdditionalParking" Type="Int32" />
   </EntityType>
   <EntityType Name="tbl_AuditHistory">
     <Key>
@@ -3019,4 +3021,13 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="tbl_SMSMessages">
+    <Key>
+      <PropertyRef Name="MsgID" />
+    </Key>
+    <Property Name="MsgID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Message" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="ReceivedDate" Type="DateTime" Precision="3" />
+  </EntityType>
 </Schema>
