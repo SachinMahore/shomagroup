@@ -324,6 +324,7 @@
     <Compile Include="Controllers\Prospect\ProspectController.cs" />
     <Compile Include="Controllers\ShomaAPIController.cs" />
     <Compile Include="Controllers\ShomaGroupWebAuthorizationController.cs" />
+    <Compile Include="Controllers\TwilioSMSController.cs" />
     <Compile Include="Controllers\Verification\VerificationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -355,6 +356,7 @@
     <Compile Include="Models\ShomaGroupWebSession.cs" />
     <Compile Include="Models\TenantOnline\TenantOnlineModel.cs" />
     <Compile Include="Models\Transaction\UsaePayModel.cs" />
+    <Compile Include="Models\TwilioApi\SMSMessageModel.cs" />
     <Compile Include="Models\TwilioApi\TwilioService.cs" />
     <Compile Include="Models\Verification\VerificationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2610,6 +2612,7 @@
     <Folder Include="Areas\Tenant\Views\ServiceRequest\" />
     <Folder Include="Content\assets\img\property-1\" />
     <Folder Include="Content\assets\img\slide1\" />
+    <Folder Include="Views\TwilioSMS\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
