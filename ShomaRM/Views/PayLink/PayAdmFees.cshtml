@@ -8,7 +8,6 @@
 <input type="hidden" id="hndPID" value="0" />
 <input type="hidden" id="hndTransMethod" value="2" />
 <input type="hidden" id="hndAID" value="@ViewBag.AID" />
-<input type="hidden" id="hndFromAcc" value="@ViewBag.FromAcc" />
 <input type="hidden" id="hndProcessingFees" value="@ViewBag.ProcessingFees" />
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -82,7 +81,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label id="lblAccCardnum" class="star">Account Number</label>
-                                                <input id="txtAccountNumber" type="text" class="form-control" placeholder="Account Number"  onkeypress="return isOnlyNumber(event)" maxlength="12" value="">
+                                                <input id="txtAccountNumber" type="text" class="form-control" placeholder="Account Number" onkeypress="return isOnlyNumber(event)" maxlength="12" value="">
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
@@ -130,7 +129,7 @@
                                     <div class="col-sm-2">
                                         <button type="submit" class="btn btn-primary" onclick="saveCoAppPayment()">Pay Now</button>
                                         <br />
-                                       
+
                                     </div>
                                     <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium;text-align:center" class="text-center"><b id="ResponseMsg"></b></p></div>
                                 </div>
@@ -144,6 +143,7 @@
 </div>
 
 <script>
+
     var charge_Type = 1;
     $(document).ready(function () {
 
@@ -151,12 +151,9 @@
         {
             $("#lblDes").text("Co-Applicant Move In Charges ");
             charge_Type = 2;
-        }else if (@ViewBag.FromAcc=="1") {
+        } else {
             $("#lblDes").text("Co-Applicant Online Application Fees ");
             charge_Type = 1;
-        } else {
-            $("#lblDes").text("Applicant Administration Fees ");
-            charge_Type = 3;
         }
         if ("@Model.Type"=="5")
         {
@@ -290,8 +287,6 @@
             BankName: bankName,
             PaymentMethod: paymentMethod,
             AID: $("#hndAID").val(),
-            FromAcc: $("#hndFromAcc").val(),
-            
         };
 
      $.alert({
