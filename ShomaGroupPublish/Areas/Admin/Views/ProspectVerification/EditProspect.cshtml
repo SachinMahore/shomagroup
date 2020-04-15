@@ -36,7 +36,7 @@
 
                     <ul style="line-height: 14px;" class="nav nav-tabs wizard">
                         @*<li class="active" style="padding-right:2px" id="li1"><a href="javascript:void(0);" onclick="goToStep(1,1)"> 1. Floor Plan </a></li>
-            <li id="li2"><a href="javascript:void(0);" id="as2" onclick="goToStep(2,0)">2. Select Units</a></li>*@
+                <li id="li2"><a href="javascript:void(0);" id="as2" onclick="goToStep(2,0)">2. Select Units</a></li>*@
                         <li id="li3"><a href="javascript:void(0);" id="as3" onclick="goToStep(3,3)">1. Registration</a></li>
                         <li id="li18"><a href="javascript:void(0);" id="as18" onclick="goToStep(4,4)">2. Unit Details</a></li>
                         <li id="li4"><a href="javascript:void(0);" id="as4" onclick="goToStep(5,5)">3. Quotation</a></li>
@@ -90,15 +90,15 @@
                                             </select>
                                         </div>
                                         @*<label class="col-sm-2">Max Rent:</label>
-                            <div class="col-xs-2  form-group-sm">
+                                <div class="col-xs-2  form-group-sm">
 
-                                <input type="text" id="txtMaxRent" class="form-control" value="@Model.MaxRent" placeholder="Max Rent" />
-                            </div>*@
+                                    <input type="text" id="txtMaxRent" class="form-control" value="@Model.MaxRent" placeholder="Max Rent" />
+                                </div>*@
                                         <input type="hidden" id="hndbuilding" value="1" />
                                         <input type="hidden" id="txtMaxRent" class="form-control" value="@Model.MaxRent" placeholder="Max Rent" />
                                         @*<div class="col-xs-1">
-                                <button class="btn-primary hollow btn" style="padding: 7px 7px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
-                            </div>*@
+                                    <button class="btn-primary hollow btn" style="padding: 7px 7px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
+                                </div>*@
                                         <h5 class="col-sm-1">Sort</h5>
                                         <div class="col-xs-2">
                                             @*<div class="col-xs-12">*@
@@ -1448,8 +1448,14 @@
                         <div class="col-sm-12">
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>International Applicant ?</label> :
+                                    <label>are you a US Citizen?</label> :
                                     <label id="ddlIsInter"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4" id="divCountryOfOrigin">
+                                <div class="form-group">
+                                    <label>Country of Origin </label> :
+                                    <label id="txtCountryOfOrigin"></label>
                                 </div>
                             </div>
                         </div>
@@ -1550,7 +1556,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Download Passport</label><br />
-                                        <span class=" btn-primary"><i class="fa fa-download fa-2x"></i><a href="#" class=" btn-primary" target='_parent' download="" id="hndPassportUploadName"></a></span>
+                                        <a href="javascript:void(0);" class="btn btn-primary" target='_parent' id="hndPassportUploadName"><i class="fa fa-download fa-2x"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -1594,7 +1600,89 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">ADDITIONAL QUESTIONS</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Have you ever been evicted?</label> :
+                                    <label id="ddlEverBeenEvicted"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 hidden" id="divEverBeenConvicted">
+                                <div class="form-group">
+                                    <label>Have you ever been convicted of a felony?</label> :
+                                    <label id="ddlEverBeenConvicted"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 hidden" id="divAnyCriminalCharges" style="margin-top: -29px;">
+                                <div class="form-group">
+                                    <label>
+                                        Do you have any criminal charges pending, awaiting
+                                        disposition, or looming in any way?
+                                    </label> :
+                                    <label id="ddlAnyCriminalCharges"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-4">
+                                <div class="form-group hidden" id="divEverBeenEvictedDetails">
+                                    <label>Details</label> :
+                                    <label id="txtEverBeenEvictedDetails"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group hidden" id="divEverBeenConvictedDetails">
+                                    <label>Details</label> :
+                                    <label id="txtEverBeenConvictedDetails"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group hidden" id="divAnyCriminalChargesDetails">
+                                    <label>Details</label> :
+                                    <label id="txtAnyCriminalChargesDetails"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Do you or any occupants smoke?</label> :
+                                    <label id="ddlDoYouSmoke"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Referred by another Resident?</label> :
+                                    <label id="ddlReferredByAnotherResident"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Broker or Merchant referred</label> :
+                                    <label id="ddlBrokerOrMerchantReff"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-4">
+                                <div class="form-group">
 
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group hidden" id="divReferredByAnotherResidentName">
+                                    <label>Another Resident Name</label> :
+                                    <label id="txtReferredByAnotherResidentName"></label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
                                 <button type="submit" class="btn btn-primary" onclick="goToStep(8,8)"> Back</button>
@@ -1616,7 +1704,16 @@
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <p>3 Year's of History</p>
+                            <div class="col-sm-12">
+                                <p>3 Year's of History</p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">CURRENT ADDRESS</h3>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="col-sm-4">
@@ -1673,7 +1770,7 @@
                                     <label id="txtMoveInDateFrom"></label>
                                 </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-3 hidden">
                                 <div class="form-group">
                                     <label for="txtMoveInDate">Move Out Date</label> :
                                     <label id="txtMoveInDateTo"></label>
@@ -1685,20 +1782,37 @@
                                     <label id="txtMonthlyPayment"></label>
                                 </div>
                             </div>
-                            <div class="col-sm-12">
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label for="txtReasonforleaving">Reason for leaving</label> :
-                                    <label id="txtReasonforleaving"></label>
+                                    <label>Apartment Community</label> :
+                                    <label id="txtApartmentCommunity"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Management Company</label> :
+                                    <label id="txtManagementCompany"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Management Company Phone</label> :
+                                    <label id="txtManagementCompanyPhone"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Was proper notice given per your lease agreement?</label> :
+                                    <label id="ddlProperNoticeLeaseAgreement"></label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <div class="col-sm-6">
-                                <div class="panel panel-default sidebar-menu wow fadeInRight animated  pull-left">
-                                    <div class="panel-heading">
-                                        <a href="javascript:void(0);"><h3 class="panel-title">Additional History of Residence </h3></a>
-
-                                    </div>
+                            <div class="panel panel-default sidebar-menu wow fadeInRight animated  pull-left">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Additional History of Residence </h3>
                                 </div>
                             </div>
                         </div>
@@ -1743,12 +1857,20 @@
                             <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Employment and Income</h3>
-
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <p>3 Year's of Employment History</p>
+                            <div class="col-sm-12">
+                                <p>3 Year's of Employment History</p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">CURRENT EMPLOYMENT</h3>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="col-sm-4">
@@ -1916,8 +2038,7 @@
                             <div class="col-sm-6">
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated  pull-left">
                                     <div class="panel-heading">
-                                        <a href="javascript:void(0);"><h3 class="panel-title">Additional Employment History</h3></a>
-
+                                        <h3 class="panel-title">Additional Employment History</h3>
                                     </div>
                                 </div>
                             </div>
@@ -1953,6 +2074,7 @@
                     </div>
 
                 </div>
+
                 <div class="hidden" id="step12">
                     <div class="row p-b-15  ">
                         <div class="col-md-12">
@@ -3091,12 +3213,11 @@
 
 <div class="modal" id="popApplicantHistory">
     <div class="modal-dialog">
-        <div class="modal-content" style="width:732px; height:400px;">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+        <div class="modal-content" style="width:732px; height:510px;">
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Applicant History</h5>
-
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -29px;color:black">&times;</button>
             </div>
 
             <!-- Modal body -->
@@ -3145,13 +3266,13 @@
                     </div>
                 </div>
                 <div class="col-sm-12">
-                    <div class="col-sm-5">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label for="ddlRentOwn"> Do you rent or own </label> :
                             <label id="ddlRentOwn2"></label>
                         </div>
                     </div>
-                    <div class="col-sm-5">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label for="txtMoveInDate">Move In Date</label> :
                             <label id="txtMoveInDateFrom2"></label>
@@ -3159,16 +3280,44 @@
                     </div>
                 </div>
                 <div class="col-sm-12">
-                    <div class="col-sm-5">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label for="txtMoveInDate">Move Out Date</label> :
                             <label id="txtMoveInDateTo2"></label>
                         </div>
                     </div>
-                    <div class="col-sm-5">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label for="txtMonthlyPayment">Monthly Payment</label> :
                             <label id="txtMonthlyPayment2"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Apartment Community</label> :
+                            <label id="txtApartmentCommunity2"></label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Management Company</label> :
+                            <label id="txtManagementCompany2"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Management Company Phone</label> :
+                            <label id="txtManagementCompanyPhone2"></label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Was proper notice given per your lease agreement?</label> :
+                            <label id="ddlProperNoticeLeaseAgreement2"></label>
                         </div>
                     </div>
                 </div>
