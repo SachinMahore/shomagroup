@@ -2691,6 +2691,7 @@ var SaveQuote = function (stepcompleted) {
     var leaseterm = $("#hndLeaseTermID").val();
     var petDNAAmt = unformatText($("#lblPetDNAAmt").text());
     var propertyId = $("#hndUID").val();
+    var additionalParking = $("#hndAdditionalParking").val();
     var model = {
         ID: ProspectId,
         PropertyId: propertyId,
@@ -2712,7 +2713,8 @@ var SaveQuote = function (stepcompleted) {
         AdminFees: adminfees,
         LeaseTerm: leaseterm,
         PetDNAAmt: petDNAAmt,
-        StepCompleted: stepcompleted
+        StepCompleted: stepcompleted,
+        AdditionalParking: additionalParking
     };
 
     $.ajax({
@@ -2724,14 +2726,25 @@ var SaveQuote = function (stepcompleted) {
         success: function (response) {
             $("#divLoader").hide();
             var idmsg = response.msg.split('|');
+            var hasUnitChange = idmsg[1];
+            if (hasUnitChange == 1) {
+                updateCalculation();
+            }
             $("#lblFNLQuote").text(idmsg[0]);
             var stepcomp = parseInt($("#hdnStepCompleted").val());
             if (stepcomp < stepcompleted) {
                 $("#hdnStepCompleted").val(stepcompleted);
             }
-            //goToStep(5, 5,0)
         }
     });
+}
+var updateCalculation = function () {
+    addParkingArray = [];
+    $("#hndAdditionalParking").val(0);
+    //lbltotalAmount
+    $("#lblAdditionalParking").text("0.00");
+    var totalAmount = (parseFloat(unformatText($("#lblFMRent").text())) +  parseFloat(unformatText($("#lblStorageUnit").text())) + parseFloat(unformatText($("#lblTrashAmt").text())) + parseFloat($("#lblPestAmt").text()) + parseFloat($("#lblConvergentAmt").text()) + parseFloat(unformatText($("#lblPetFee").text()))).toFixed(2);
+    $("#lbltotalAmount").text(formatMoney(totalAmount));
 }
 var SaveCheckPolicy = function (stepcompleted) {
     $("#divLoader").show();
@@ -3502,8 +3515,8 @@ var getPropertyUnitDetails = function (uid) {
             $("#hndUID").val(uid);
 
             fillUnitParkingList();
-            if ($("#unitdiv" + uid).length) {
-                $("#unitdiv" + uid)[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+            if ($("#unitdiv_" + uid).length) {
+                $("#unitdiv_" + uid)[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
 
             }
 
@@ -3640,6 +3653,7 @@ var getPropertyUnitDetails = function (uid) {
             var rfpTotalRentCharge = parseFloat(rfpMonthlyCharge, 10) + parseFloat(rfpParkingCharge, 10) + parseFloat(rfpStorageCharge, 10) + parseFloat(rfpPetcharge, 10);
             //alert(calTotalRentChargefpetd
             //$("#lblRFPTotalMonthlyPayment").text((parseFloat($("#lblRFPMonthlyCharges").text())) + (parseFloat($("#lblRFPAdditionalParking").text())) + (parseFloat($("#lblRFPStorageUnit").text())) + (parseFloat($("#lblRFPPetRent").text())));
+
             $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10)  + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
             $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10)  + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
 
@@ -3874,7 +3888,7 @@ var clearCard = function () {
 var noofpark = 0;
 var fillUnitParkingList = function () {
     $("#divLoader").show();
-    var model = { UID: $("#hndUID").val(),PType:2}
+    var model = { UID: $("#hndUID").val(), PType: 2 };
     $.ajax({
         url: '/Parking/GetUnitParkingList',
         method: "post",
@@ -3887,24 +3901,21 @@ var fillUnitParkingList = function () {
                 //this.cancelChanges();
             } else {
                 $('#ddlParking').empty();
-                $("#lblParkSpace").empty();
+                $("#lblParkSpace").text("");
                 var dhtml = '';
                 $.each(response, function (index, elementValue) {
-                    
                     if (elementValue.Status == 0) {
                         dhtml += "<option value='" + elementValue.ParkingID + "' selected='selected' data-value='" + elementValue.ParkingID + "'>" + elementValue.ParkingName + "</option>";
                     }
                     var html = "";
                     html += "<span style='text-decoration:underline; font - weight:bold;'>  #" + elementValue.ParkingName + " </span>";
                     $("#lblParkSpace").append(html);
-                 
                     if (elementValue.Type == 2) {
                         $("#parkUnit").text("#" + elementValue.ParkingName);
                     }
                     noofpark += 1;
                 });
                 $('#ddlParking').append(dhtml);
-
             }
         }
     });
@@ -3913,9 +3924,11 @@ var fillUnitParkingList = function () {
 var fillParkingList = function () {
     $("#divLoader").show();
     var tenantID = $("#hdnOPId").val();
-    var param = { TenantID: tenantID };
+    var bedRoom = $("#hndBedRoom").val();
+    var param = { TenantID: tenantID, BedRoom: bedRoom };
+    //url: '/Parking/GetParkingList',
     $.ajax({
-        url: '/Parking/GetParkingList',
+        url: '/Parking/GetParkingListByBedRoom',
         method: "post",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(param),
@@ -3930,33 +3943,19 @@ var fillParkingList = function () {
                 $.each(response, function (index, elementValue) {
                     var html = '';
                     if ($("#lblBed").text() == "1" || $("#lblBed").text() == "2") {
-                        $("#ModalLongDesc").text(" “Your Lease includes one assigned parking space.  You can purchase one additional parking space for a monthly charge of $100 by clicking the “Add Item”.  Additional parking spaces are limited and available on a first-come, first-serve basis.");
-                        if (elementValue.Type == "2") {
-                            html += '<tr data-value="' + elementValue.ParkingID + '">';
-                            html += '<td class="pds-id hidden" style="color:#3d3939;width:0%;">' + elementValue.ParkingID + '</td>';
-                            html += '<td class="pds-firstname" style="color:#3d3939;width:66%;">' + elementValue.ParkingName + '</td>';
-                            html += '<td class="pds-firstname" style="color:#3d3939;width:20%;text-align:center;">$' + parseFloat(elementValue.Charges).toFixed(2) + '</td>';
-
-                            html += '<td class="pds-firstname" style="color:#3d3939;width:18%;text-align:center;"><input type="checkbox" id="chkAddParking"  class="addame" value=' + elementValue.ParkingID + ' onclick="selectAddParking(this)" ' + ($("#lblparkingplace").text() == elementValue.ParkingID ? "checked='checked'" : "") + ' ></td>';
-                            html += '</tr>';
-                            if ($("#lblparkingplace").text() == elementValue.ParkingID) {
-                                addParkingArray.push({ PArkingID: elementValue.ParkingID });
-                            }
-                        }
-                    
+                        $("#ModalLongDesc").text("Your Lease includes one assigned parking space. You can purchase one additional parking space for a monthly charge of $100 by clicking the “Add Item”. Additional parking spaces are limited and available on a first-come, first-serve basis.");
                     }
                     else {
-                        $("#ModalLongDesc").text(" “Your Lease includes two assigned parking spaces.  You can purchase one additional parking space for a monthly charge of $100 by clicking the “Add Item”.  Additional parking spaces are limited and available on a first-come, first-serve basis.");
-                        html += '<tr data-value="' + elementValue.ParkingID + '">';
-                        html += '<td class="pds-id hidden" style="color:#3d3939;">' + elementValue.ParkingID + '</td>';
-                        html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.ParkingName + '</td>';
-                        html += '<td class="pds-firstname" style="color:#3d3939;">$' + parseFloat(elementValue.Charges).toFixed(2) + '</td>';
-
-                        html += '<td class="pds-firstname" style="color:#3d3939;"><input type="checkbox" id="chkAddParking"  class="addame" value=' + elementValue.ParkingID + ' onclick="selectAddParking(this)" ' + ($("#lblparkingplace").text() == elementValue.ParkingID ? "checked='checked'" : "") + ' ></td>';
-                        html += '</tr>';
-                        if ($("#lblparkingplace").text() == elementValue.ParkingID) {
-                            addParkingArray.push({ PArkingID: elementValue.ParkingID });
-                        }
+                        $("#ModalLongDesc").text("Your Lease includes two assigned parking spaces. You can purchase two additional parking space for a monthly charge of $100 by clicking the “Add Item”. Additional parking spaces are limited and available on a first-come, first-serve basis.");
+                    }
+                    html += '<tr data-value="' + elementValue.ParkingID + '">';
+                    html += '<td class="pds-id hidden" style="color:#3d3939;">' + elementValue.ParkingID + '</td>';
+                    html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.ParkingName + '</td>';
+                    html += '<td class="pds-firstname" style="color:#3d3939;">$' + parseFloat(elementValue.Charges).toFixed(2) + '</td>';
+                    html += '<td class="pds-firstname" style="color:#3d3939;"><input type="checkbox" id="chkAddParking"  class="addame" value=' + elementValue.ParkingID + ' onclick="selectAddParking(this)" ' + ($("#lblparkingplace").text() == elementValue.ParkingID ? "checked='checked'" : "") + ' ></td>';
+                    html += '</tr>';
+                    if ($("#lblparkingplace").text() == elementValue.ParkingID) {
+                        addParkingArray.push({ ParkingID: elementValue.ParkingID });
                     }
                     $("#tblParking>tbody").append(html);
                 });
@@ -4057,10 +4056,12 @@ function selectAddParking(cont) {
     $('.addame').removeAttr("checked");
     $(cont).prop("checked", ischeck);
     addParkingArray = [];
+    $("#hndAdditionalParking").val(0);
     $('.addame').each(function (i, obj) {
         if ($(obj).is(':checked')) {
             var pkid = $(obj).attr("value");
-            addParkingArray.push({ PArkingID: pkid });
+            addParkingArray.push({ ParkingID: pkid });
+            $("#hndAdditionalParking").val(pkid);
         }
     });
 
@@ -4120,7 +4121,7 @@ var saveupdateParking = function () {
             $("#lblAdditionalParking").text(formatMoney(parseFloat(response.totalParkingAmt).toFixed(2)));
             $("#lblMonthly_AditionalParking").text(parseFloat(response.totalParkingAmt).toFixed(2));
             $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(response.totalParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
-            $("#lblparkingplace").text(addParkingArray.length > 0 ? addParkingArray[0].PArkingID : 0);
+            $("#lblparkingplace").text(addParkingArray.length > 0 ? addParkingArray[0].ParkingID : 0);
             fillUnitParkingList();
             if (parseInt(response.numOfParking) == 1) {
                 $("#lblVehicleFees").text("15.00");
@@ -4164,9 +4165,12 @@ var saveupdateParking = function () {
             $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+
             //$("#ftotal").text((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2));
+
             $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10)  + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
             $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+
         }
     });
 }
@@ -4293,6 +4297,16 @@ var saveupdatePetPlace = function () {
                 $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10)  + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
                 $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10)  + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
             }
+
+            totalAmt = (parseFloat(response.totalPetPlaceAmt) + parseFloat(totalAmt)).toFixed(2);
+            $("#lbltotalAmount").text(formatMoney(totalAmt));
+            $("#lblMonthly_TotalRent").text(formatMoney(totalAmt));
+            $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10)  + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+
         }
     });
 }
@@ -4328,6 +4342,7 @@ var saveupdateStorage = function () {
                 $("#lblMonthly_TotalRent").text(formatMoney(parseFloat(totalAmt)));
                 $("#lbltotalAmount").text(formatMoney(parseFloat(totalAmt)));
 
+
                 $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
                 $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
                 // $("#ftotal").text((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat(365, 10)).toFixed(2));
@@ -4341,6 +4356,7 @@ var saveupdateStorage = function () {
                     type: 'blue'
                 });
             }
+
         }
     });
 };
