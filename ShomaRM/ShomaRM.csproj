@@ -215,6 +215,7 @@
     <Compile Include="Areas\Admin\Controllers\TenantEventJoinApprove\TenantEventJoinApproveController.cs" />
     <Compile Include="Areas\Admin\Controllers\Tenant\TenantController.cs" />
     <Compile Include="Areas\Admin\Controllers\Transaction\TransactionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TwilioSMS\TwilioReceivedSMSController.cs" />
     <Compile Include="Areas\Admin\Controllers\Users\UsersController.cs" />
     <Compile Include="Areas\Admin\Controllers\Utility\UtilityController.cs" />
     <Compile Include="Areas\Admin\Controllers\Vendor\VendorController.cs" />
@@ -356,6 +357,7 @@
     <Compile Include="Models\ShomaGroupWebSession.cs" />
     <Compile Include="Models\TenantOnline\TenantOnlineModel.cs" />
     <Compile Include="Models\Transaction\UsaePayModel.cs" />
+    <Compile Include="Models\TwilioApi\SMSListViewModel.cs" />
     <Compile Include="Models\TwilioApi\SMSMessageModel.cs" />
     <Compile Include="Models\TwilioApi\TwilioService.cs" />
     <Compile Include="Models\Verification\VerificationModel.cs" />
@@ -2549,6 +2551,7 @@
     <Content Include="Content\assets\fontawesome\webfonts\fa-solid-900.woff" />
     <Content Include="Content\assets\fontawesome\webfonts\fa-solid-900.woff2" />
     <Content Include="Areas\Admin\Views\Parking\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\TwilioReceivedSMS\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -2605,6 +2608,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\CommunityManagment\" />
+    <Folder Include="Areas\Admin\Views\TwilioSMS\" />
     <Folder Include="Areas\Tenant\Views\Applicant\" />
     <Folder Include="Areas\Tenant\Views\CommunityActivity\" />
     <Folder Include="Areas\Tenant\Views\MyTransaction\" />
