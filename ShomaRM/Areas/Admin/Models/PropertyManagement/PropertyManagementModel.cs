@@ -1571,6 +1571,10 @@ namespace ShomaRM.Areas.Admin.Models
 
                 if (UpdateModels != null)
                 {
+                    string oldmodelName = UpdateModels.ModelName;
+                    decimal olddeposit = UpdateModels.Deposit??0;
+
+
                     UpdateModels.Area = model.Area;
                     UpdateModels.Rent = model.Rent;
                     UpdateModels.Bedroom = model.Bedroom;
@@ -1583,14 +1587,42 @@ namespace ShomaRM.Areas.Admin.Models
                     UpdateModels.BalconyArea = model.BalconyArea;
                     UpdateModels.InteriorArea = model.InteriorArea;
                     db.SaveChanges();
+
+                    if (oldmodelName != model.ModelName || olddeposit != (model.Deposit ?? 0))
+                    {
+                        DataTable dtTable = new DataTable();
+                        using (var cmd = db.Database.Connection.CreateCommand())
+                        {
+                            db.Database.Connection.Open();
+                            cmd.CommandText = "usp_UpdateUnitDepostiteAndModelName";
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                            DbParameter paramOMN = cmd.CreateParameter();
+                            paramOMN.ParameterName = "OldModelName";
+                            paramOMN.Value = oldmodelName;
+                            cmd.Parameters.Add(paramOMN);
+
+                            DbParameter paramNMN = cmd.CreateParameter();
+                            paramNMN.ParameterName = "NewModelName";
+                            paramNMN.Value = model.ModelName;
+                            cmd.Parameters.Add(paramNMN);
+
+                            DbParameter paramDA = cmd.CreateParameter();
+                            paramDA.ParameterName = "Deposit";
+                            paramDA.Value = model.Deposit ?? 0;
+                            cmd.Parameters.Add(paramDA);
+
+                            DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                            da.SelectCommand = cmd;
+                            da.Fill(dtTable);
+                            db.Database.Connection.Close();
+                        }
+
+                    }
                 }
             }
-
-
             return model;
         }
-
-        
 
         public ModelsModel GetModelsData(int Id)
         {

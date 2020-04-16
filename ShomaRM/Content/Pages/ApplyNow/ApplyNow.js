@@ -3902,6 +3902,7 @@ var fillUnitParkingList = function () {
             } else {
                 $('#ddlParking').empty();
                 $("#lblParkSpace").text("");
+                $("#lblAssginPakingSpace").text("");
                 var dhtml = '';
                 $.each(response, function (index, elementValue) {
                     if (elementValue.Status == 0) {
@@ -3910,6 +3911,7 @@ var fillUnitParkingList = function () {
                     var html = "";
                     html += "<span style='text-decoration:underline; font - weight:bold;'>  #" + elementValue.ParkingName + " </span>";
                     $("#lblParkSpace").append(html);
+                    $("#lblAssginPakingSpace").append(html);
                     if (elementValue.Type == 2) {
                         $("#parkUnit").text("#" + elementValue.ParkingName);
                     }
@@ -7566,8 +7568,8 @@ var checkEmailAreadyExist = function () {
                                 localStorage.setItem("userName", $('#txtEmail').val());
                                 $('#txtEmail').val('');
                                 window.location.replace("/Account/Login");
-                                $('#UserName').val(localStorage.getItem("userName"));
-                                $('#password').focus();
+                                $('#UserEmail').val(localStorage.getItem("userName"));
+                                $('#UserPassword').focus();
                             }
                         },
                         no: {
@@ -7591,9 +7593,9 @@ var checkEmailAreadyExist = function () {
                             action: function (yes) {
                                 var modals = document.getElementById("popSignIn");
                                 modals.style.display = "block";
-                                $('#UserName').val($('#txtEmail').val());
+                                $('#UserEmail').val($('#txtEmail').val());
                                 $('#txtEmail').val('');
-                                $('#password').focus();
+                                $('#UserPassword').focus();
                             }
                         },
                         no: {
