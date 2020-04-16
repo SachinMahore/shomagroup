@@ -736,7 +736,8 @@
                     </div>
                     <div class="hidden" id="step5">
                         <span class="hidden" id="ftotal"></span>
-                       <span class="hidden" id="lblAdminFees">@((Model.AdminFees ?? 0).ToString("0.00"))</span>
+                        <span class="hidden" id="lblApplicationFees">@((Model.ApplicationFees ?? 0).ToString("0.00"))</span>
+                        <span id="lblGuarantorFees" class="hidden">@((Model.GuarantorFees ?? 0).ToString("0.00"))</span>
                         <div class="row p-b-15  ">
                             @*<div class="col-sm-12">
                 <div class="pull-right text-center">
