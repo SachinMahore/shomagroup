@@ -1228,12 +1228,12 @@ var goToStep = function (stepid, id, calldataupdate) {
                 if (!validateEmail($("#txtEmailNew").val())) {
                     msg += "Please Fill Valid Email </br>";
                 }
-            }
+            } 
             if (!unformatText($("#txtMobileNumber").val())) {
                 msg += "Please Fill The Mobile Number </br>";
             }
             else {
-                if ((unformatText($("#txtMobileNumber").val()).length<10) {
+                if ((unformatText($("#txtMobileNumber").val())).length<10) {
                     msg += "Please Fill Valid Mobile Number </br>";
                 }
             }
