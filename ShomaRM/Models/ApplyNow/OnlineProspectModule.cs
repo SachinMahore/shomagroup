@@ -325,10 +325,10 @@ namespace ShomaRM.Models
                     {
                         hasChangeUnit = "1";
                         var tenantParking = db.tbl_TenantParking.Where(p => p.TenantID == model.ID).ToList();
-                        foreach(var tpd in tenantParking)
+                        foreach (var tpd in tenantParking)
                         {
-                            var parkingData = db.tbl_Parking.Where(p => p.ParkingID == tpd.ParkingID && p.Type==2).ToList();
-                            foreach(var pd in parkingData)
+                            var parkingData = db.tbl_Parking.Where(p => p.ParkingID == tpd.ParkingID && p.Type == 2).ToList();
+                            foreach (var pd in parkingData)
                             {
                                 pd.PropertyID = 0;
                                 db.SaveChanges();
@@ -353,7 +353,7 @@ namespace ShomaRM.Models
                         onlineProspectData.ParkingAmt = model.AdditionalParking;
                         onlineProspectData.ParkingAmt = model.ParkingAmt;
                     }
-                    
+
                     onlineProspectData.StorageAmt = model.StorageAmt;
                     onlineProspectData.PetPlaceAmt = model.PetPlaceAmt;
                     onlineProspectData.PestAmt = model.PestAmt;
@@ -374,15 +374,42 @@ namespace ShomaRM.Models
                     onlineProspectData.StepCompleted = stepcomp;
                     onlineProspectData.AdditionalParking = model.AdditionalParking;
                     db.SaveChanges();
+
+                    decimal monthlyAmount = model.MonthlyCharges ?? 0;
+                    decimal moveInAmount = model.MoveInCharges ?? 0;
+                    var updateApplicantData = db.tbl_Applicant.Where(c => c.TenantID == model.ID).ToList();
+                    foreach (var uad in updateApplicantData)
+                    {
+                        decimal monthlyPer = uad.MonthlyPercentage ?? 0;
+                        decimal moveInPer = uad.MoveInPercentage ?? 0;
+                        decimal monthlyPerAmount = 0;
+                        decimal moveInPerAmount = 0;
+
+                        if (monthlyPer>0)
+                        {
+                            monthlyPerAmount = (monthlyPer * monthlyAmount) / 100;
+                        }
+                        if (moveInPer > 0)
+                        {
+                            moveInPerAmount = (moveInPer * moveInAmount) / 100;
+                        }
+
+                        uad.MonthlyPayment = monthlyPerAmount;
+                        uad.MoveInCharge = moveInPerAmount;
+                        db.SaveChanges();
+                    }
                 }
 
-                var updateAppl = db.tbl_Applicant.Where(c => c.Email == onlineProspectData.Email).FirstOrDefault();
-                if (updateAppl != null)
-                {
-                    updateAppl.MoveInCharge = model.MoveInCharges;
-                    updateAppl.MonthlyPayment = model.MonthlyCharges;
-                    db.SaveChanges();
-                }
+                //var updateAppl = db.tbl_Applicant.Where(c => c.Email == onlineProspectData.Email).FirstOrDefault();
+                //if (updateAppl != null)
+                //{
+                //    updateAppl.MoveInCharge = model.MoveInCharges;
+                //    updateAppl.MonthlyPayment = model.MonthlyCharges;
+                //    db.SaveChanges();
+                //}
+
+                
+
 
             }
             msg = model.ID.ToString() + "|" + hasChangeUnit;
@@ -519,6 +546,7 @@ namespace ShomaRM.Models
             model.Building = "";
             model.FloorID = 0;
             model.Bedroom = 0;
+            model.AdditionalParking = 0;
             var propDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
             if (propDet != null)
             {
@@ -584,6 +612,7 @@ namespace ShomaRM.Models
                     model.MonthlyCharges = GetProspectData.MonthlyCharges;
                     model.PetDeposit = GetProspectData.PetDeposit;
                     model.FOBAmt = 0;
+                    model.AdditionalParking = GetProspectData.AdditionalParking ?? 0;
                     model.EnvelopeID = (!string.IsNullOrWhiteSpace(GetProspectData.EnvelopeID) ? GetProspectData.EnvelopeID : "");
                     var leaseDet = db.tbl_LeaseTerms.Where(p => p.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
                     if (leaseDet != null)

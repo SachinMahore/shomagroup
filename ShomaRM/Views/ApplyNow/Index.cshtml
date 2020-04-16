@@ -369,7 +369,7 @@
 
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="txtPassword" class="star">Password</label>
+                                    <label for="txtPassword" class="star">Password</label>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-info-circle" style="cursor: pointer;" onclick="passwordInfo()"></i>
                                     <input type="password" class="form-control" id="txtPassword" value="@Model.Password" placeholder="Password" onblur="checkStrength($(this).val());">
                                 </div>
                             </div>
@@ -386,30 +386,28 @@
                                 </div>
                             </div>
 
-
-
-                            <div class="col-sm-12" id="divstep3save">
-                                <div class="pull-left text-center hidden">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" id="chkAgreeTerms"> I agree with Sanctuary's terms and conditions.
-                                        </label>
+                                <div class="col-sm-12" id="divstep3save">
+                                    <div class="pull-left text-center hidden">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" id="chkAgreeTerms"> I agree with Sanctuary's terms and conditions.
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right text-center">
+                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="SaveOnlineProspect()"> Save</button>
                                     </div>
                                 </div>
-                                <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="SaveOnlineProspect()"> Save</button>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 hidden" id="divstep3">
-                                <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(2,2,1)"> Back</button>
-                                </div>
-                                <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(4,4,0)"> Continue</button>
+                                <div class="col-sm-12 hidden" id="divstep3">
+                                    <div class="pull-left text-center">
+                                        <button type="submit" class="btn btn-primary" onclick="goToStep(2,2,1)"> Back</button>
+                                    </div>
+                                    <div class="pull-right text-center">
+                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(4,4,0)"> Continue</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     <div class="hidden" id="step4">
 
                         <div class="row p-b-15  ">
@@ -632,7 +630,7 @@
                                         <b>MONTHLY OPTIONS</b>
                                     </div>
                                     <div class="col-sm-4">
-                                        <span id="">Additional parking </span><span class="hidden" id="lblparkingplace">@Model.ParkingSpaceID</span>
+                                        <span id="">Additional parking </span><span class="hidden" id="lblparkingplace">@Model.AdditionalParking</span>
                                     </div>
                                     <div class="col-sm-2">
                                         $<span id="lblAdditionalParking">@((Model.ParkingAmt ?? 0).ToString("0.00"))</span>
@@ -715,13 +713,10 @@
                                     <div class="col-sm-12">
                                         <p><i class="star"></i> Excluding the utility reimbursement for water & sewer, which is  billed monthly based on actual consumption</p>
                                     </div>
-
                                 </div>
                                 <div class="col-sm-12 clearfix">
                                     <br />
                                 </div>
-
-
                             </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
@@ -735,15 +730,11 @@
 
                     </div>
                     <div class="hidden" id="step5">
-                        <span class="hidden" id="ftotal"></span>
+                        <span class="hidden" id="ftotal">0.00</span>
+                        <span class="hidden" id="lblAdminFees">@((Model.AdminFees ?? 0).ToString("0.00"))</span>
                         <span class="hidden" id="lblApplicationFees">@((Model.ApplicationFees ?? 0).ToString("0.00"))</span>
                         <span id="lblGuarantorFees" class="hidden">@((Model.GuarantorFees ?? 0).ToString("0.00"))</span>
                         <div class="row p-b-15  ">
-                            @*<div class="col-sm-12">
-                <div class="pull-right text-center">
-                    <button id="quotePrint" class="btn btn-primary" onclick="print('printable')"> Print</button>
-                </div>
-            </div>*@
                             <div class="col-sm-12" id="printable" style="overflow: hidden !important;">
                                 <p>Thank you for your interest in Sanctuary Doral. This quote expires on midnight of the 3rd day. Please make sure you submit your application before midnight of the third day to secure your selected unit. If you have any questions or need assistance, please feel free to contact us.</p>
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
@@ -1287,15 +1278,6 @@
                                         <div class="col-md-8"></div>
                                         <div class="col-md-1"></div>
                                         <div class="col-md-3"></div>
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-8">
-                                                <span>Administration Fee: </span>
-                                            </div>
-                                            <div class="col-sm-1"></div>
-                                            <div class="col-sm-3">
-                                                $<span style="text-decoration:underline;font-weight:bold;">350.00</span>
-                                            </div>
-                                        </div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-8">
                                                 <span>Vehicle Registration: </span>
@@ -6021,7 +6003,19 @@
     function hideLoader() {
         $("#divLoader").hide();
     }
-
+    function passwordInfo() {
+        var msg = "";
+        msg += "1. The Password should have a minimum of 8 characters<br/>";
+        msg += "2. Password should contain at least one digit<br/>";
+        msg += "3. Password should contain at least one lower case<br/>";
+        msg += "4. Password should contain at least one upper case<br/>";
+        msg += "5. Password should contain at least one special symbols in the list!@@#$ %^&*<br/>";
+        $.alert({
+            title: "",
+            content: msg,
+            type: 'red'
+        });
+    }
     function printSumm(divName) {
         let printContents, popupWin;
         printContents = document.getElementById(divName).innerHTML;
