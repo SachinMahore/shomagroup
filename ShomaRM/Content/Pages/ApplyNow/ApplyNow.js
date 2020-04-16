@@ -864,6 +864,9 @@ var goToStep = function (stepid, id, calldataupdate) {
                     if (!validatePhone(unformatText($("#txtPhoneNumber").val()))) {
                         message += "Please fill Valid Mobile Number </br>";
                     }
+                    if (phoneNumber.length < 10) {
+                        message += "Please fill Valid Mobile Number </br>";
+                    }
                 }
                 if (!emailId) {
                     message += "Please fill the Email </br>";
@@ -1230,7 +1233,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                 msg += "Please Fill The Mobile Number </br>";
             }
             else {
-                if (!validatePhone(unformatText($("#txtMobileNumber").val()))) {
+                if ((unformatText($("#txtMobileNumber").val()).length<10) {
                     msg += "Please Fill Valid Mobile Number </br>";
                 }
             }
@@ -1399,7 +1402,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                 msg += "Please Fill Management Company Phone</br>";
             }
             else {
-                if (!validatePhone(unformatText($("#txtManagementCompanyPhone").val()))) {
+                if (unformatText($("#txtManagementCompanyPhone").val()).length < 10) {
                     msg += "Please Fill Valid Management Company Phone </br>";
                 }
             }
@@ -2745,6 +2748,7 @@ var updateCalculation = function () {
     $("#lblAdditionalParking").text("0.00");
     var totalAmount = (parseFloat(unformatText($("#lblFMRent").text())) +  parseFloat(unformatText($("#lblStorageUnit").text())) + parseFloat(unformatText($("#lblTrashAmt").text())) + parseFloat($("#lblPestAmt").text()) + parseFloat($("#lblConvergentAmt").text()) + parseFloat(unformatText($("#lblPetFee").text()))).toFixed(2);
     $("#lbltotalAmount").text(formatMoney(totalAmount));
+    getApplicantLists();
 }
 var SaveCheckPolicy = function (stepcompleted) {
     $("#divLoader").show();
@@ -3654,8 +3658,8 @@ var getPropertyUnitDetails = function (uid) {
             //alert(calTotalRentChargefpetd
             //$("#lblRFPTotalMonthlyPayment").text((parseFloat($("#lblRFPMonthlyCharges").text())) + (parseFloat($("#lblRFPAdditionalParking").text())) + (parseFloat($("#lblRFPStorageUnit").text())) + (parseFloat($("#lblRFPPetRent").text())));
 
-            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10)  + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
-            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10)  + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10)  + parseFloat($("#lblVehicleFees").text(), 10) + + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10)  + parseFloat($("#lblVehicleFees").text(), 10)  + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
 
             $("#lblRFPTotalMonthlyPayment").text(formatMoney((parseFloat(unformatText($("#lblRFPMonthlyCharges").text()))) + (parseFloat($("#lblRFPAdditionalParking").text())) + (parseFloat($("#lblRFPStorageUnit").text())) + (parseFloat($("#lblRFPPetRent").text())) + (parseFloat($("#lblRFPTrashRecycling").text())) + (parseFloat($("#lblRFPPestControl").text())) + (parseFloat($("#lblRFPConvergentbillingfee").text()))));
 
@@ -3678,8 +3682,8 @@ var getPropertyUnitDetails = function (uid) {
             $("#lblUnitTitle3").text("#" + response.model.UnitNo);
             //$("#lblLeaseStartDate").text(response.model.AvailableDateText);
             //$("#lblLeaseStartDate").text($("#hndsummaryDesireMoveIn").val());
-            $("#lblSubtotalsumm").text((parseFloat(response.model.Current_Rent) + parseFloat(26.50)).toFixed(2));
-            $("#lbltotalAmountSumm").text((parseFloat(response.model.Current_Rent) + parseFloat(26.50)).toFixed(2));
+            $("#lblSubtotalsumm").text((parseFloat(response.model.Current_Rent) + parseFloat(unformatText($("#lblTrashAmt").text())) + parseFloat(unformatText($("#lblPestAmt").text())) + parseFloat(unformatText($("#lblConvergentAmt").text()))).toFixed(2));
+            $("#lbltotalAmountSumm").text((parseFloat(response.model.Current_Rent) + parseFloat(unformatText($("#lblTrashAmt").text())) + parseFloat(unformatText($("#lblPestAmt").text())) + parseFloat(unformatText($("#lblConvergentAmt").text()))).toFixed(2));
             localStorage.setItem("floorfromplan", response.model.FloorNo);
             $("#hndFloorNo").val(response.model.FloorNo);
             $("#hndBedRoom").val(response.model.Bedroom);
@@ -3956,6 +3960,7 @@ var fillParkingList = function () {
                     html += '<td class="pds-firstname" style="color:#3d3939;">$' + parseFloat(elementValue.Charges).toFixed(2) + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;"><input type="checkbox" id="chkAddParking"  class="addame" value=' + elementValue.ParkingID + ' onclick="selectAddParking(this)" ' + ($("#lblparkingplace").text() == elementValue.ParkingID ? "checked='checked'" : "") + ' ></td>';
                     html += '</tr>';
+
                     if ($("#lblparkingplace").text() == elementValue.ParkingID) {
                         addParkingArray.push({ ParkingID: elementValue.ParkingID });
                     }
@@ -4161,50 +4166,48 @@ var saveupdateParking = function () {
                     $("#hndNumberOfParking").val(1);
                 }
             }
-            $("#lbltotalAmount").text(formatMoney((parseFloat(response.totalParkingAmt) + parseFloat(totalAmt)).toFixed(2)))
+            $("#lbltotalAmount").text(formatMoney((parseFloat(response.totalParkingAmt) + parseFloat(totalAmt)).toFixed(2)));
             totalAmt = (parseFloat(response.totalParkingAmt) + parseFloat(totalAmt)).toFixed(2);
             $("#lblMonthly_TotalRent").text(formatMoney(totalAmt));
             $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
 
-            //$("#ftotal").text((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2));
-
-            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10)  + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
-            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10)  + parseFloat($("#lblVehicleFees").text(), 10) +  parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) +  parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
 
         }
     });
 }
 var saveupdateFOB = function () {
-    $("#divLoader").show();
-    var tenantID = $("#hdnOPId").val();
-    var param = { TenantID: tenantID, lstTStorage: addStorageArray };
-    $.ajax({
-        url: "/Storage/SaveUpdateTenantStorage",
-        method: "post",
-        data: JSON.stringify(param),
-        contentType: "application/json; charset=utf-8", // content type sent to server
-        dataType: "json", //Expected data format from server
-        success: function (response) {
-            $.alert({
-                title: "",
-                content: "Progress Saved.",
-                type: 'blue'
-            })
-            $("#popFobs").modal("hide");
-            $("#divLoader").hide();
-            //totalAmt = parseFloat(totalAmt) - $("#lblFobFee").text();
-            $("#lblFobFee").text(parseFloat(response.totalStorageAmt).toFixed(2));
-            $("#ffob").text(parseFloat(response.totalStorageAmt).toFixed(2));
-            $("#keyfobsamt").text(parseFloat(response.totalStorageAmt).toFixed(2));
+    //$("#divLoader").show();
+    //var tenantID = $("#hdnOPId").val();
+    //var param = { TenantID: tenantID, lstTStorage: addStorageArray };
+    //$.ajax({
+    //    url: "/Storage/SaveUpdateTenantStorage",
+    //    method: "post",
+    //    data: JSON.stringify(param),
+    //    contentType: "application/json; charset=utf-8", // content type sent to server
+    //    dataType: "json", //Expected data format from server
+    //    success: function (response) {
+    //        $.alert({
+    //            title: "",
+    //            content: "Progress Saved.",
+    //            type: 'blue'
+    //        })
+    //        $("#popFobs").modal("hide");
+    //        $("#divLoader").hide();
+    //        //totalAmt = parseFloat(totalAmt) - $("#lblFobFee").text();
+    //        $("#lblFobFee").text(parseFloat(response.totalStorageAmt).toFixed(2));
+    //        $("#ffob").text(parseFloat(response.totalStorageAmt).toFixed(2));
+    //        $("#keyfobsamt").text(parseFloat(response.totalStorageAmt).toFixed(2));
 
-            //$("#lbltotalAmount").text((parseFloat(response.totalStorageAmt) + parseFloat(totalAmt)).toFixed(2))
-            // totalAmt = (parseFloat(response.totalStorageAmt) + parseFloat(totalAmt)).toFixed(2);
+    //        //$("#lbltotalAmount").text((parseFloat(response.totalStorageAmt) + parseFloat(totalAmt)).toFixed(2))
+    //        // totalAmt = (parseFloat(response.totalStorageAmt) + parseFloat(totalAmt)).toFixed(2);
 
-            $("#lblstorageplace").text(addStorageArray.length > 0 ? addStorageArray[0].StorageID : 0);
-        }
-    });
+    //        $("#lblstorageplace").text(addStorageArray.length > 0 ? addStorageArray[0].StorageID : 0);
+    //    }
+    //});
 }
 var saveupdatePetPlace = function () {
     $("#divLoader").show();
@@ -4235,8 +4238,8 @@ var saveupdatePetPlace = function () {
                     type: 'red'
                 });
                 addStorageArray = [];
-                $("#lblstorageplace").text(0);
-                fillStorageList();
+                $("#lblpetplace").text(0);
+                fillPetPlaceList();
             } else {
                 $.alert({
                     title: "",
@@ -4296,18 +4299,18 @@ var saveupdatePetPlace = function () {
                 $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
                 $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
                 $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-                $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10)  + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
-                $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10)  + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+                $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10)  + parseFloat($("#lblVehicleFees").text(), 10) +  parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+                $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10)  + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
             }
-
-            totalAmt = (parseFloat(response.totalPetPlaceAmt) + parseFloat(totalAmt)).toFixed(2);
-            $("#lbltotalAmount").text(formatMoney(totalAmt));
-            $("#lblMonthly_TotalRent").text(formatMoney(totalAmt));
-            $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-            $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-            $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10)  + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
-            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+            
+            //totalAmt = (parseFloat(response.totalPetPlaceAmt) + parseFloat(totalAmt)).toFixed(2);
+            //$("#lbltotalAmount").text(formatMoney(totalAmt));
+            //$("#lblMonthly_TotalRent").text(formatMoney(totalAmt));
+            //$("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            //$("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            //$("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            //$("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) +  parseFloat($("#lblVehicleFees").text(), 10)  + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+            //$("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) +  parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
 
         }
     });
@@ -4350,8 +4353,8 @@ var saveupdateStorage = function () {
                 // $("#ftotal").text((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(30) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat(365, 10)).toFixed(2));
                 $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
                 // $("#lblstorageplace").text(addStorageArray.length > 0 ? addStorageArray[0].StorageID : 0);
-                $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10)  + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
-                $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+                $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10)  + parseFloat($("#lblVehicleFees").text(), 10)  + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+                $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
                 $.alert({
                     title: "",
                     content: "Progress Saved.",
@@ -6546,7 +6549,7 @@ var saveupdateApplicantHistory = function () {
         msg += "Please Fill Management Company Phone</br>";
     }
     else {
-        if (!validatePhone(unformatText($("#txtManagementCompanyPhone2").val()))) {
+        if (unformatText($("#txtManagementCompanyPhone2").val()).length < 10) {
             msg += "Please Fill Valid Management Company Phone </br>";
         }
     }
@@ -7286,32 +7289,80 @@ var getTenantPetPlaceData = function () {
 
 var onFocusApplyNow = function () {
 
-    $("#txtApplicantPhone").focusout(function () { $("#txtApplicantPhone").val(formatPhoneFax($("#txtApplicantPhone").val())); })
+    $("#txtApplicantPhone").focusout(function () {
+        var phoneNum = $("#txtApplicantPhone").val();
+        if (phoneNum.length < 10) {
+            alert("Please fill valid phone number");
+            $("#txtApplicantPhone").focus();
+            return;
+        }
+        $("#txtApplicantPhone").val(formatPhoneFax($("#txtApplicantPhone").val()));
+    })
         .focus(function () {
             $("#txtApplicantPhone").val(unformatText($("#txtApplicantPhone").val()));
         });
 
-    $("#txtMobileNumber").focusout(function () { $("#txtMobileNumber").val(formatPhoneFax($("#txtMobileNumber").val())); })
+    $("#txtMobileNumber").focusout(function () {
+        var phoneNum = $("#txtMobileNumber").val();
+        if (phoneNum.length < 10) {
+            alert("Please fill valid phone number");
+            $("#txtMobileNumber").focus();
+            return;
+        }
+        $("#txtMobileNumber").val(formatPhoneFax($("#txtMobileNumber").val()));
+    })
         .focus(function () {
             $("#txtMobileNumber").val(unformatText($("#txtMobileNumber").val()));
         });
 
-    $("#txtSupervisiorPhone").focusout(function () { $("#txtSupervisiorPhone").val(formatPhoneFax($("#txtSupervisiorPhone").val())); })
+    $("#txtSupervisiorPhone").focusout(function () {
+        var phoneNum = $("#txtSupervisiorPhone").val();
+        if (phoneNum.length < 10) {
+            alert("Please fill valid phone number");
+            $("#txtMobileNumber").focus();
+            return;
+        }
+        $("#txtSupervisiorPhone").val(formatPhoneFax($("#txtSupervisiorPhone").val()));
+    })
         .focus(function () {
             $("#txtSupervisiorPhone").val(unformatText($("#txtSupervisiorPhone").val()));
         });
 
-    $("#txtEmergencyMobile").focusout(function () { $("#txtEmergencyMobile").val(formatPhoneFax($("#txtEmergencyMobile").val())); })
+    $("#txtEmergencyMobile").focusout(function () {
+        var phoneNum = $("#txtEmergencyMobile").val();
+        if (phoneNum.length < 10) {
+            alert("Please fill valid phone number");
+            $("#txtMobileNumber").focus();
+            return;
+        }
+        $("#txtEmergencyMobile").val(formatPhoneFax($("#txtEmergencyMobile").val()));
+    })
         .focus(function () {
             $("#txtEmergencyMobile").val(unformatText($("#txtEmergencyMobile").val()));
         });
 
-    $("#txtEmergencyHomePhone").focusout(function () { $("#txtEmergencyHomePhone").val(formatPhoneFax($("#txtEmergencyHomePhone").val())); })
+    $("#txtEmergencyHomePhone").focusout(function () {
+        var phoneNum = $("#txtEmergencyHomePhone").val();
+        if (phoneNum.length < 10) {
+            alert("Please fill valid phone number");
+            $("#txtMobileNumber").focus();
+            return;
+        }
+        $("#txtEmergencyHomePhone").val(formatPhoneFax($("#txtEmergencyHomePhone").val()));
+    })
         .focus(function () {
             $("#txtEmergencyHomePhone").val(unformatText($("#txtEmergencyHomePhone").val()));
         });
 
-    $("#txtEmergencyWorkPhone").focusout(function () { $("#txtEmergencyWorkPhone").val(formatPhoneFax($("#txtEmergencyWorkPhone").val())); })
+    $("#txtEmergencyWorkPhone").focusout(function () {
+        var phoneNum = $("#txtEmergencyWorkPhone").val();
+        if (phoneNum.length < 10) {
+            alert("Please fill valid phone number");
+            $("#txtMobileNumber").focus();
+            return;
+        }
+        $("#txtEmergencyWorkPhone").val(formatPhoneFax($("#txtEmergencyWorkPhone").val()));
+    })
         .focus(function () {
             $("#txtEmergencyWorkPhone").val(unformatText($("#txtEmergencyWorkPhone").val()));
         });
@@ -7431,15 +7482,39 @@ var onFocusApplyNow = function () {
         }
     });
 
-    $("#txtPhoneNumber").focusout(function () { $("#txtPhoneNumber").val(formatPhoneFax($("#txtPhoneNumber").val())); })
-        .focus(function () {
+    $("#txtPhoneNumber").focusout(function () {
+        var phoneNum = $("#txtPhoneNumber").val();
+        if (phoneNum.length < 10) {
+            alert("Please fill valid mobile number");
+            $("#txtPhoneNumber").focus();
+            return;
+        }
+        $("#txtPhoneNumber").val(formatPhoneFax($("#txtPhoneNumber").val()));
+    })
+    .focus(function () {
             $("#txtPhoneNumber").val(unformatText($("#txtPhoneNumber").val()));
         });
-    $("#txtManagementCompanyPhone").focusout(function () { $("#txtManagementCompanyPhone").val(formatPhoneFax($("#txtManagementCompanyPhone").val())); })
+    $("#txtManagementCompanyPhone").focusout(function () {
+        var phoneNum = $("#txtManagementCompanyPhone").val();
+        if (phoneNum.length < 10) {
+            alert("Please fill valid management company phone number");
+            $("#txtManagementCompanyPhone").focus();
+            return;
+        }
+        $("#txtManagementCompanyPhone").val(formatPhoneFax($("#txtManagementCompanyPhone").val()));
+    })
         .focus(function () {
             $("#txtManagementCompanyPhone").val(unformatText($("#txtManagementCompanyPhone").val()));
         });
-    $("#txtManagementCompanyPhone2").focusout(function () { $("#txtManagementCompanyPhone2").val(formatPhoneFax($("#txtManagementCompanyPhone2").val())); })
+    $("#txtManagementCompanyPhone2").focusout(function () {
+        var phoneNum = $("#txtManagementCompanyPhone2").val();
+        if (phoneNum.length < 10) {
+            alert("Please fill valid management company phone number");
+            $("#txtManagementCompanyPhone2").focus();
+            return;
+        }
+        $("#txtManagementCompanyPhone2").val(formatPhoneFax($("#txtManagementCompanyPhone2").val()));
+    })
         .focus(function () {
             $("#txtManagementCompanyPhone2").val(unformatText($("#txtManagementCompanyPhone2").val()));
         });
@@ -8146,7 +8221,10 @@ var savepudateOnlineProspect = function () {
     var password = $("#txtPassword").val();
     var confirmPassword = $("#txtConfPassword").val();
     var marketsource = $("#ddlMarketSource").val();
-
+    if (phoneNumber.length < 10) {
+        alert("Please enter 10 digit mobile number.");
+        return;
+    }
     var model = {
         UserID: userID,
         FirstName: firstName,

@@ -130,14 +130,14 @@ function checkStrength(password) {
     if (password) {
         var msg = "";
         var msgcount = 1;
-        if (password.length < 8) { validated = false; msg += msgcount + ". have a minimum of 8 characters <br/>"; msgcount += 1; };
-        if (!/\d/.test(password)) { validated = false; msg += msgcount + ". contain at least one digit <br/>"; msgcount += 1 };
-        if (!/[a-z]/.test(password)) { validated = false; msg += msgcount + ". contain at least one lower case <br/>"; msgcount += 1 };
-        if (!/[A-Z]/.test(password)) { validated = false; msg += msgcount + ". contain at least one upper case <br/>"; msgcount += 1 };
-        if (!/[!@#$%^&*]/.test(password)) { validated = false; msg += msgcount + ". contain at least one special symbols in the list !@#$%^&*<br/>"; };
+        if (password.length < 8) { validated = false; msg += "The Password should have a minimum of 8 characters <br/>"; msgcount += 1; };
+        if (!/\d/.test(password)) { validated = false; msg += "Password should contain at least one digit <br/>"; msgcount += 1 };
+        if (!/[a-z]/.test(password)) { validated = false; msg += "Password should contain at least one lower case <br/>"; msgcount += 1 };
+        if (!/[A-Z]/.test(password)) { validated = false; msg += "Password should contain at least one upper case <br/>"; msgcount += 1 };
+        if (!/[!@#$%^&*]/.test(password)) { validated = false; msg += "Password should contain at least one special symbols in the list !@#$%^&*<br/>"; };
 
         if (msg != "") {
-            msg = "Password should<br/>" + msg;
+            //msg = "Password should<br/>" + msg;
             $.alert({
                 title: "",
                 content: msg,
