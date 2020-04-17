@@ -37,7 +37,7 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="txtDescription">Owner Name</label>
-                            <input class="form-control form-control-small" id="txtOwnerName" maxlength="100" type="text" value="@Model.OwnerName" />
+                            <input class="form-control form-control-small" id="txtOwnerName" maxlength="100" type="text" value="@Model.OwnerName" disabled />
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -47,7 +47,7 @@
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
                                 </span>
-                                <input id="txtCharges" class="form-control form-control-small" value="@(Model.Charges.HasValue?Model.Charges.Value.ToString("N2"):"0.00")" type="text" onkeypress="return isNumber(event)" />
+                                <input id="txtCharges" class="form-control form-control-small" value="@(Model.Charges.HasValue?Model.Charges.Value.ToString("N2"):"0.00")" type="text" onkeypress="return isNumber(event)" disabled />
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,16 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="txtParkingName" class="star">Location</label>
-                            <input class="form-control form-control-small" id="txtLocation" maxlength="100" type="text" value="@Model.Description" />
+                            @*<input class="form-control form-control-small" id="txtLocation" maxlength="100" type="text" value="@Model.Description" />*@
+                            <select id="ddlLocation" class="form-control form-control-small">
+                                <option value="0">Please Select</option>
+                                <option value="1" data-search="E-3">E-3</option>
+                                <option value="2" data-search="E-4">E-4</option>
+                                <option value="3" data-search="E-5">E-5</option>
+                                <option value="4" data-search="W-3">W-3</option>
+                                <option value="5" data-search="W-4">W-4</option>
+                                <option value="6" data-search="W-5">W-5</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -68,8 +77,8 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="txtUnitNo" class="star">Unit No.</label>
-                            <input class="form-control form-control-small" id="txtUnitNo" maxlength="100" type="text" value="@Model.UnitNo" />
+                            <label for="txtUnitNo">Unit No.</label>
+                            <input class="form-control form-control-small" id="txtUnitNo" maxlength="100" type="text" value="@Model.UnitNo" disabled />
                         </div>
                     </div>
 
@@ -78,26 +87,49 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="txtDescription">Vehicle Tag</label>
-                            <input class="form-control form-control-small" id="txtVehicleTag" maxlength="100" type="text" value="@Model.VehicleTag" />
+                            <input class="form-control form-control-small" id="txtVehicleTag" maxlength="100" type="text" value="@Model.VehicleTag" disabled />
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="txtDescription">Vehicle Make</label>
-                            <input class="form-control form-control-small" id="txtVehicleMake" maxlength="100" type="text" value="@Model.VehicleMake" />
+                            <input class="form-control form-control-small" id="txtVehicleMake" maxlength="100" type="text" value="@Model.VehicleMake" disabled />
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="txtDescription">Vehicle Model</label>
-                            <input class="form-control form-control-small" id="txtVehicleModel" maxlength="100" type="text" value="@Model.VehicleModel" />
+                            <input class="form-control form-control-small" id="txtVehicleModel" maxlength="100" type="text" value="@Model.VehicleModel" disabled />
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
-
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $("#ddlLocation option").each(function () {
+         if ('@Model.Description' == $(this).data('search')) {
+                $(this).prop("selected", true);
+            }
+            else {
+                $(this).prop("selected", false);
+            }
+
+            //console.log($(this).data('search'));
+        });
+
+        @*setTimeout(function () { $("#ddlLocation option").each(function () {
+            if ('@Model.Description' == $(this).data('search')) {
+                $(this).prop("selected", true);
+            }
+            else {
+                $(this).prop("selected", false);
+            }
+
+            //console.log($(this).data('search'));
+        });
+        }, 1500);*@
+    });
+</script>

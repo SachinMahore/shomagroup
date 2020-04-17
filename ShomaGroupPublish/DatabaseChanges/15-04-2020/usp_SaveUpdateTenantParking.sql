@@ -18,7 +18,7 @@ BEGIN
 	DECLARE @ParkingID BIGINT=0
 
 	INSERT INTO @TenantParking (ParkingID, ParkingType, Charges)
-	SELECT P.ParkingID, P.Type, TP.Charges FROM tbl_TenantParking TP INNER JOIN tbl_Parking P ON TP.ParkingID=P.ParkingID
+	SELECT P.ParkingID, P.Type, TP.Charges FROM tbl_TenantParking TP INNER JOIN tbl_Parking P ON TP.ParkingID=P.ParkingID WHERE TP.TenantID=@TenantID
 
 	SET @AdditionalParking=ISNULL((SELECT COUNT(*) FROM @TenantParking WHERE ParkingType=2),0)
 

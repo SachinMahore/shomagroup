@@ -2,26 +2,36 @@
 var gotoParkingList = function () {
     window.location = "/Admin/Parking/Index";
 };
+
 var saveUpdateParking = function () {
+
     $("#divLoader").show();
     var msg = "";
-    if ($.trim($("#ddlProperty").val()).length == 0) {
-        msg = msg + "Property is required.</br>"
+    if ($("#ddlProperty").val().length == 0) {
+        msg += "Property is required.</br>";
+    }
+    if ($("#ddlLocation").val() == 0) {
+        msg += "Location is required.</br>";
     }
     if ($.trim($("#txtParkingName").val()).length <= 0) {
-        msg = msg + "Parking Name is required.</br>"
+        msg += "Parking Name is required.</br>";
     }
     if ($.trim($("#txtCharges").val()).length <= 0) {
-        msg = msg + "Charges is required.</br>"
+        msg += "Charges is required.</br>";
     }
+    if ($.trim($("#txtParkingName").val()).length <= 0) {
+        msg += msg + "Space No. is required.</br>";
+    }
+
     if (msg != "") {
         $("#divLoader").hide();
         msg = "Following field(s) is/are required</br>" + msg;
         $.alert({
             title: 'Message!',
             content: msg,
-            type: 'red',
+            type: 'red'
         });
+        return;
     }
     else {
         if ($("#hndParkingID").val() != 0) {
@@ -30,7 +40,7 @@ var saveUpdateParking = function () {
                 PropertyID: $("#hndPrportyUnit").val(),
                 ParkingName: $("#txtParkingName").val(),
                 Charges: unformatText($("#txtCharges").val()),
-                Description: $("#txtLocation").val(),
+                Description: $("#ddlLocation").find(':selected').data("search"),
                 OwnerName: $("#txtOwnerName").val(),
                 UnitNo: $("#txtUnitNo").val(),
                 VehicleTag: $("#txtVehicleTag").val(),
@@ -90,6 +100,7 @@ var saveUpdateParking = function () {
         }
     }
 }
+
 var btnSaveUpdate = function () {
 
     if ($("#hndParkingID").val() == 0) {
@@ -102,40 +113,6 @@ var btnSaveUpdate = function () {
     }
 }
 
-var fillParkingSearchList = function () {
-    var params = { SearchText: $("#txtCriteriaParking").val() };
-    $.ajax({
-        url: '/Parking/GetParkingSearchList',
-        method: "post",
-        data: JSON.stringify(params),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (response) {
-            console.log(response.error);
-            if ($.trim(response.error) != "") {
-                //this.cancelChanges();
-                
-            } else {
-                $("#tblParking>tbody").empty();
-                $.each(response, function (index, elementValue) {
-                    var html = '';
-                    html += '<tr data-value="' + elementValue.ParkingID + '">';
-                    html += '<td class="pds-id hidden" style="color:#3d3939;">' + elementValue.ParkingID + '</td>';
-                    html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.ParkingName + '</td>';
-                    html += '<td class="pds-firstname" style="color:#3d3939;">' + formatMoney(elementValue.Charges) + '</td>';
-                    html += '</tr>';
-                    $("#tblParking>tbody").append(html);
-                });
-            }
-        },
-        error: function (response)
-        {
-            alert("test");
-        }
-        
-    });
-
-}
 var getPropertyList = function () {
     $.ajax({
         url: "/WorkOrder/GetPropertyList/",
@@ -147,13 +124,30 @@ var getPropertyList = function () {
             $.each(response.model, function (elementType, elementValue) {
                 var option = "<option value=" + elementValue.PID + ">" + elementValue.Title + "</option>";
                 $("#ddlProperty").append(option);
-
             });
-
         }
     });
-
 };
+
+var getParkingList = function () {
+    $.ajax({
+        url: "/Parking/GetParkingNewList",
+        type: "post",
+        contentType: "application/json utf-8",
+        dataType: "JSON",
+        success: function (response) {
+            // console.log(JSON.stringify(response));
+            $("#ddlLocation").empty();
+            $.each(response, function (elementType, elementValue) {
+                var option = "<option value=" + elementValue.ParkingID + " data-search=" + elementValue.Description + ">" + elementValue.Description + "</option>";
+                $("#ddlLocation").append(option);
+            });
+        }
+    });
+};
+
+
+
 var NewParking = function () {
     window.location.replace("/Admin/Parking/Index/" + 0);
 };
@@ -221,41 +215,69 @@ function formatMoney(number) {
 
 var count = 0;
 var sortTableParking = function (sortby) {
-    var orderby = "";
-    var pagenumber = $("#hndPageNo").val();
-    if (!pagenumber) {
-        pagenumber = 1;
-    }
 
+    var orderby = "";
+    var pNumber = $("#hndPageNo").val();
+    if (!pNumber) {
+        pNumber = 1;
+    }
+    $('#sortFirstNameIcon').removeClass('fa fa-sort-up');
+    $('#sortFirstNameIcon').removeClass('fa fa-sort-down');
+    $('#sortLastNameIcon').removeClass('fa fa-sort-up');
+    $('#sortLastNameIcon').removeClass('fa fa-sort-down');
+    $('#sortPhoneNoIcon').removeClass('fa fa-sort-up');
+    $('#sortPhoneNoIcon').removeClass('fa fa-sort-down');
+    $('#sortEmailAddressIcon').removeClass('fa fa-sort-up');
+    $('#sortEmailAddressIcon').removeClass('fa fa-sort-down');
+    $('#sortApplyDateIcon').removeClass('fa fa-sort-up');
+    $('#sortApplyDateIcon').removeClass('fa fa-sort-down');
+    $('#sortUnitNoIcon').removeClass('fa fa-sort-up');
+    $('#sortUnitNoIcon').removeClass('fa fa-sort-down');
     if (count % 2 == 1) {
         orderby = "ASC";
-        $("#SortIconParking").removeClass('fa fa-sort-up');
-        $("#SortIconParking").removeClass('fa fa-sort-down');
-        $("#SortIconCharges").removeClass('fa fa-sort-up');
-        $("#SortIconCharges").removeClass('fa fa-sort-down');
-        if (sortby == 'ParkingName') {
-            $("#SortIconParking").addClass('fa fa-sort-up fa-lg');
+        if (sortby == 'FirstName') {
+            $('#sortFirstNameIcon').addClass('fa fa-sort-up fa-lg');
         }
-        else if (sortby == 'ChargesName') {
-            $("#SortIconCharges").addClass('fa fa-sort-up fa-lg');
+        else if (sortby == 'LastName') {
+            $('#sortLastNameIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'PhoneNo') {
+            $('#sortPhoneNoIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'EmailAddress') {
+            $('#sortEmailAddressIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'ApplyDate') {
+            $('#sortApplyDateIcon').addClass('fa fa-sort-up fa-lg');
+        }
+        else if (sortby == 'UnitNo') {
+            $('#sortUnitNoIcon').addClass('fa fa-sort-up fa-lg');
         }
     }
     else {
         orderby = "DESC";
-        $("#SortIconParking").removeClass('fa fa-sort-up');
-        $("#SortIconParking").removeClass('fa fa-sort-down');
-        $("#SortIconCharges").removeClass('fa fa-sort-up');
-        $("#SortIconCharges").removeClass('fa fa-sort-down');
-        if (sortby == 'ParkingName') {
-            $("#SortIconParking").addClass('fa fa-sort-down fa-lg');
+        if (sortby == 'FirstName') {
+            $('#sortFirstNameIcon').addClass('fa fa-sort-down fa-lg');
         }
-        else if (sortby == 'ChargesName') {
-            $("#SortIconCharges").addClass('fa fa-sort-down fa-lg');
+        else if (sortby == 'LastName') {
+            $('#sortLastNameIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'PhoneNo') {
+            $('#sortPhoneNoIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'EmailAddress') {
+            $('#sortEmailAddressIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'ApplyDate') {
+            $('#sortApplyDateIcon').addClass('fa fa-sort-down fa-lg');
+        }
+        else if (sortby == 'UnitNo') {
+            $('#sortUnitNoIcon').addClass('fa fa-sort-down fa-lg');
         }
     }
-    localStorage.setItem("SortByValueParking", sortby);
-    localStorage.setItem("OrderByValueParking", orderby);
+    localStorage.setItem("SortByValueProsVerification", sortby);
+    localStorage.setItem("OrderByValueProsVerification", orderby);
     count++;
-    buildPaganationParkingList(pagenumber, sortby, orderby);
-    fillParkingSearchGrid(pagenumber, sortby, orderby);
+    buildPaganationProspectVerifyList(pNumber, sortby, orderby);
+    fillProspectVerifyList(pNumber, sortby, orderby);
 };
