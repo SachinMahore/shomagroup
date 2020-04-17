@@ -5,6 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using ShomaRM.Areas.Tenant.Models;
 using ShomaRM.Areas.Admin.Models;
+using System.Net.Http;
+using ShomaRM.ApiService;
+using Newtonsoft.Json;
+using ShomaRM.Areas.Tenant.Models.Calender;
 
 namespace ShomaRM.Areas.Tenant.Controllers
 {
@@ -14,8 +18,49 @@ namespace ShomaRM.Areas.Tenant.Controllers
         public ActionResult Index()
         {
             ViewBag.ActiveMenu = "dashboard";
-
+            
             return View();
+        }
+
+        public async System.Threading.Tasks.Task<JsonResult> GetCalenderEventAsync()
+        {
+            List<EventModel> listEvent = new List<EventModel>();
+            Service _Services = new Service();
+            DateTime now = DateTime.Now;
+            var startDate = new DateTime(now.Year, now.Month, 1);
+            var endDate = startDate.AddMonths(1).AddDays(-1);
+            List<CalenderEvents> Items = new List<CalenderEvents>();
+            var details = await _Services.CrmRequest(HttpMethod.Get, "https://graph.microsoft.com/v1.0/me/calendarview?startdatetime="+ startDate.ToString("yyyy-MM-dd")+ "&enddatetime="+ endDate.ToString("yyyy-MM-dd") + "", null);
+            if (details.IsSuccessStatusCode == true)
+            {
+                try
+                {
+                    string contactsJson = await details.Content.ReadAsStringAsync();
+                    var odataresponse = JsonConvert.DeserializeObject<RootObject>(contactsJson);
+                    Items = JsonConvert.DeserializeObject<List<CalenderEvents>>(JsonConvert.SerializeObject(odataresponse.Value));
+
+                    foreach (var item in Items)
+                    {
+                        listEvent.Add(new EventModel()
+                        {
+                            EventID = 0,
+                            EventDate = item.start.dateTime,
+                            EventName = item.subject,
+                            EventDateString = item.start.dateTime.ToString("dd"),
+                            Type = 1
+                        });
+                    }
+                }
+                catch(Exception ex)
+                {
+                    
+                }
+                return Json(new { model = listEvent }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public JsonResult SetSessionMakePayments(int StepId, int PayStepId)
