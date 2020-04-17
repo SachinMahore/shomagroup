@@ -446,12 +446,17 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12 clear" id="UnitLeaseWiseListPrint">
+                                    <input type="hidden" id="hndLockUnlock" value="1" />
+                                    <button id="btnLockUnLock" class="btn btn-primary pull-right" onclick="setlockunlock()"><span id="spanLockUnLock"><i class="fa fa-lock"></i> Unlock</span></button>
+                                </div>
+                                <div class="col-md-12 clear" id="UnitLeaseWiseListPrint">
                                     <table id="tblUnitLeaseWisePriceList" class="table-bordered" width="100%" style="text-align:center">
                                         <thead>
                                             <tr>
                                                 @foreach (var ulph in Model.lstUnitLeasePriceHeader)
                                                 {
-                                                    <th style="background-color: #c7cdd5;color:#3d3939; width:@ulph.Width%; @if (ulph.HasSorting == "1") {<text>cursor:pointer!important;</text>}" class='text-center' @if (ulph.HasSorting == "1") {<text>onclick='sortUnitLeaseWisePrice("@ulph.SortName")'</text>} >@ulph.HeaderName <span id="sn_@ulph.SortName" class="sortcolumn" >@if (ulph.DefaultSort == "1") {<text><i class="fa fa-sort-asc"></i></text>}</span></th>
+                                                    <th style="background-color: #c7cdd5;color:#3d3939; width:@ulph.Width%; @if (ulph.HasSorting == "1") {<text>cursor:pointer!important;</text>}" class='text-center' @if (ulph.HasSorting == "1") { <text> onclick='sortUnitLeaseWisePrice("@ulph.SortName")' </text> }>@ulph.HeaderName <span id="sn_@ulph.SortName" class="sortcolumn">@if (ulph.DefaultSort == "1")
+                                                    {<text><i class="fa fa-sort-asc"></i></text>}</span></th>
                                                 }
                                             </tr>
                                         </thead>
