@@ -2334,6 +2334,8 @@
     <Content Include="DatabaseChanges\15-04-2020\ApplyTable_ColumnAdd.sql" />
     <Content Include="DatabaseChanges\15-04-2020\UpdateUnitDepositAndModelName.sql" />
     <Content Include="DatabaseChanges\15-04-2020\usp_SaveUpdateTenantParking.sql" />
+    <Content Include="DatabaseChanges\17-04-2020\usp_GetParkingPaginationAndSearchData.sql" />
+    <Content Include="DatabaseChanges\17-04-2020\usp_GetProspectVerifyPaginationAndSearchData.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -2619,7 +2621,6 @@
     <Folder Include="Areas\Tenant\Views\ServiceRequest\" />
     <Folder Include="Content\assets\img\property-1\" />
     <Folder Include="Content\assets\img\slide1\" />
-    <Folder Include="DatabaseChanges\17-04-2020\" />
     <Folder Include="Views\TwilioSMS\" />
   </ItemGroup>
   <ItemGroup>
