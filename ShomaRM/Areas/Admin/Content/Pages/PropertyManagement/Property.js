@@ -1847,7 +1847,8 @@ var fillUnitLeaseWisePriceList = function (pagenumber, sortby, orderby) {
                         html += "<td>" + value.Building + "</td>";
                     }
                     if (uid = value.UID) {
-                        html += "<td id='avUnitLeaseRent_" + value.ULPID + "' onclick='editUnitLeaseRent(" + value.UID + "," + value.ULPID + "," + value.LeaseID + "," + value.Price + ")' style='cursor: pointer!important;' >" + value.Price + "<i class='fa fa-edit pull-right' style='margin: 6px;'></i></td>";
+                        //html += "<td id='avUnitLeaseRent_" + value.ULPID + "' onclick='editUnitLeaseRent(" + value.UID + "," + value.ULPID + "," + value.LeaseID + "," + value.Price + ")' style='cursor: pointer!important;' >" + value.Price + "<i class='fa fa-edit pull-right' style='margin: 6px;'></i></td>";
+                        html += "<td><input style='border: 0px !important;' disabled data-ulpid=" + value.ULPID + " id='txtPrice_" + value.ULPID + "' onfocus='focusincontrol(" + value.ULPID + ")' onfocusout='focusoutcontrol(" + value.ULPID +")'  type='text' class='form-control text-right lockunlock' value='$" + formatMoney(parseFloat(value.Price).toFixed(2)) + "'/></td>";
                     }
                     if (rowProcess == rowCount) {
                         html += "</tr>";
@@ -1864,6 +1865,44 @@ var fillUnitLeaseWisePriceList = function (pagenumber, sortby, orderby) {
         }
     });
 };
+var focusincontrol = function (ulpid) {
+    $("#txtPrice_" + ulpid).val(unformatText($("#txtPrice_" + ulpid).val()));
+};
+var focusoutcontrol = function (ulpid) {
+    var currentRent = $("#txtPrice_" + ulpid).val();
+    var pID = $("#hndPID").val();
+    var model = {
+        ULPID: ulpid,
+        Price: currentRent
+    };
+    $("#divLoader").show();
+    $.ajax({
+        url: "/Admin/PropertyManagement/UpdateUnitLeasePrice/",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+            $("#txtPrice_" + ulpid).val("$" + formatMoney($("#txtPrice_" + ulpid).val()));
+        }
+    });
+};
+var setlockunlock = function () {
+    if ($("#hndLockUnlock").val() == "1") {
+        //unlock
+        $(".lockunlock").removeAttr("disabled");
+        $("#spanLockUnLock").html("");
+        $("#spanLockUnLock").html('<i class="fa fa-unlock"></i> lock');
+        $("#hndLockUnlock").val(0);
+    } else {
+        //lock
+        $(".lockunlock").attr("disabled",true);
+        $("#spanLockUnLock").html("");
+        $("#spanLockUnLock").html('<i class="fa fa-lock"></i> Unlock');
+        $("#hndLockUnlock").val(1);
+    }
+}
 var sortUnitLeaseWisePrice = function (sortby) {
     var sortByValue = $("#hndULWPSortBy").val();
     var orderByValue = $("#hndULWPOrderBy").val();
