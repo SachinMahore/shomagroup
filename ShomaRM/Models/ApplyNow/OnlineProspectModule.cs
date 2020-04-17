@@ -252,6 +252,8 @@ namespace ShomaRM.Models
                 foreach(var dp in defaultParking)
                 {
                     var addTenantParking = new tbl_TenantParking() { ParkingID= dp.ParkingID, Charges=0, TenantID= model.ID, CreatedDate=DateTime.Now };
+                    db.tbl_TenantParking.Add(addTenantParking);
+                    db.SaveChanges();
                 }
 
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == model.PropertyId).FirstOrDefault();

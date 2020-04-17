@@ -1228,12 +1228,12 @@ var goToStep = function (stepid, id, calldataupdate) {
                 if (!validateEmail($("#txtEmailNew").val())) {
                     msg += "Please Fill Valid Email </br>";
                 }
-            }
+            } 
             if (!unformatText($("#txtMobileNumber").val())) {
                 msg += "Please Fill The Mobile Number </br>";
             }
             else {
-                if ((unformatText($("#txtMobileNumber").val()).length<10) {
+                if ((unformatText($("#txtMobileNumber").val())).length<10) {
                     msg += "Please Fill Valid Mobile Number </br>";
                 }
             }
@@ -2543,6 +2543,8 @@ var SaveOnlineProspect = function () {
     var moveInDate = $("#txtDate").val();
     var isAgree = $("#chkAgreeTerms").is(":checked") ? "1" : "0";
     var leaseterm = $("#hndLeaseTermID").val();
+
+
     //if (isAgree == 0) {
     //    msg += "Please agree with Sanctuary's terms and conditions</br>";
     //}
@@ -2571,12 +2573,12 @@ var SaveOnlineProspect = function () {
     if (!password) {
         msg += "Please fill the Password </br>";
     } else {
-        if (password.length < 8) {
-            msg += "The Password should have a minimum of 8 characters.</br>";
+
+        var result = checkStrength($("#txtPassword").val());
+        if (!result) {
+            return;
         }
-        //if (confirmPassword.length < 8) {
-        //    msg += "Confirm Password should have atleast 8 digits long</br>";
-        //}
+
         if (password != confirmPassword) {
             msg += "Password and Confirm Password must be the same</br>";
         }
@@ -2591,6 +2593,8 @@ var SaveOnlineProspect = function () {
         $("#divLoader").hide();
         return;
     }
+
+   
 
     var model = {
         ID: onlineProspectId,
