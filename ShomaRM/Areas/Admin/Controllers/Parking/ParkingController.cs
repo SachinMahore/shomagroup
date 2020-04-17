@@ -25,17 +25,30 @@ namespace ShomaRM.Areas.Admin.Controllers
         }
 
 
-        public ActionResult GetParkingList()
+        public ActionResult GetParkingList(long TenantID)
         {
             try
             {
-                return Json((new ParkingModel()).GetParkingList(), JsonRequestBehavior.AllowGet);
+                return Json((new ParkingModel()).GetParkingList(TenantID), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult GetParkingListByBedRoom(long TenantID, int BedRoom)
+        {
+            try
+            {
+                return Json((new ParkingModel()).GetParkingListByBedRoom(TenantID, BedRoom), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public ActionResult GetParkingInfo(int ParkingID = 0)
         {
             try
@@ -88,7 +101,7 @@ namespace ShomaRM.Areas.Admin.Controllers
             try
             {
                 string[] parkingDetails = model.SaveUpdateTenantParking(model).Split('|');
-                return Json(new { result = 1, numOfParking= parkingDetails[0], totalParkingAmt = parkingDetails[1] }, JsonRequestBehavior.AllowGet);
+                return Json(new { result = parkingDetails[0], mas = parkingDetails[1], numOfParking = parkingDetails[2], totalParkingAmt = parkingDetails[3] }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -136,6 +149,17 @@ namespace ShomaRM.Areas.Admin.Controllers
             try
             {
                 return Json((new ParkingModel()).GetUnitParkingList(UID), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetParkingNewList()
+        {
+            try
+            {
+                return Json((new ParkingModel()).GetParkingNewList(), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

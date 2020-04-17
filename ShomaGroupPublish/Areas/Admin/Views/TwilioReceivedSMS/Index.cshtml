@@ -1,0 +1,40 @@
+﻿@model ShomaRM.Models.TwilioApi.SMSListViewModel
+@{
+    ViewBag.Title = "Index";
+}
+    <div class="container " style="padding-top:50px;"  >
+        <div class="col-md-12 ">
+            <div class="Activity-box p-l5 p-r0">
+                <div class="Activity-box-inner myBox">
+                    <div style="overflow-y: scroll;">
+                        @foreach (var item in Model.SMSMessagesModel)
+                        {
+                            <div class="col-md-12 " style="border-bottom-style: solid; border-width: thin;">
+
+                                <div class="row">
+                                    <div class="col-lg-1 col-md-2 col-sm-1 col-xs-4 flot-box">
+                                        <img src="/Content/assets/img/circle.png" class="img-circle" height="50" width="50">
+                                    </div>
+                                    <div class="col-md-8 col-sm-7 col-xs-8 date-spacing p-l0 flot-box">
+                                        <span class="client-name">@item.PhoneNumber</span><br>
+                                        <span class="span">@item.ReceivedDate</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 padding-box comment-text p-lr0" style="margin-bottom: 18px">
+                                   @item.Message
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+   
+
+
+
+
+

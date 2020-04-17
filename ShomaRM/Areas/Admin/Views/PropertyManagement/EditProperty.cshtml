@@ -1,4 +1,4 @@
-﻿@using ShomaRM.Areas.Admin.Models
+@using ShomaRM.Areas.Admin.Models
 @model PropertyManagementModel
 @{
     ViewBag.Title = "Submit new property ";
@@ -26,7 +26,7 @@
                         <li id="li3"><a href="javascript:void(0);"  onclick="goToStep(3)">Models </a></li>
                         @*<li id="li4"><a href="javascript:void(0);"  onclick="goToStep(4,0)">ADD Model </a></li>*@
                         <li id="li5"><a href="javascript:void(0);" onclick="goToStep(5)">Units </a></li>
-                        <li id="li6"><a href="javascript:void(0);" onclick="goToStep(7,0)">Unit Lease Price</a></li>
+                        <li id="li7"><a href="javascript:void(0);" onclick="goToStep(7)">Unit Lease Wise Price </a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="" id="step1">
@@ -385,6 +385,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12 clear" id="UnitListPrint">
+
                                     <table id="tblPUList" class="table-bordered" width="100%" style="text-align:center">
                                         <thead>
                                             <tr>
@@ -403,48 +404,61 @@
                                                 <th style="background-color: #c7cdd5;color:#3d3939;  width:8%;" class='text-center'>Move Out Date</th>
                                                 <th style="background-color: #c7cdd5;color:#3d3939;  width:20%;" class='text-center'>Premium Type</th>
                                                 <th style="background-color: #c7cdd5;color:#3d3939;  width:20%;" class='text-center'>Notes</th>
+
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
                                     </table>
                                 </div>
                             </div>
+
                         </div>
                         <div class="hidden" id="step6">
 
                         </div>
-                        <div class="hidden" id="step7">
+                        <div class="hidden" id="step7" >
                             <div class="row p-b-15  ">
                                 <div class="col-sm-12">
-                                    <h4 class="info-text pull-left">Unit Lease Wise Price</h4>
-                                    <input type="hidden" id="hndOrderByULP" value="UnitNo" />
-                                    <input type="hidden" id="hndSortByULP" value="ASC" />
-                                    <input type="hidden" id="hndCurrentPageULP" value="ASC" />
-                                    <button type="button" class="btn btn-primary pull-right" id="printUnitLeasePriceList" style="margin-bottom:10px !important;margin-left:10px !important;" onclick="printUnitLeasePriceList('tblUnitLeasePriceList')">Print</button>
+                                    <h4 class="info-text pull-left">Units Lease Wise Price</h4>
+                                    <input type="hidden" id="hndULWPPageNumber" value="1" />
+                                    <input type="hidden" id="hndULWPSortBy" value="UnitNo" />
+                                    <input type="hidden" id="hndULWPOrderBy" value="ASC" />
+                                    <button type="button" class="btn btn-primary pull-right" id="btnULWPPrint" style="margin-bottom:10px !important;margin-left:10px !important;" onclick="printUnitLeaseWisePriceList('UnitLeaseWiseListPrint')">Print</button>
                                 </div>
                                 <div class="col-sm-12 form-group">
                                     <div id="divPgn" class="col-sm-8 pagination">
-                                        <ul id="ulPagination_UnitLeasePriceList"></ul>
+                                        <ul id="ulPagination_ULWPList"></ul>
                                     </div>
                                     <div class="col-sm-3 padding-0 pull-right">
                                         <div class="col-sm-6">
                                             <label class="control-label">Row/Page</label>
                                         </div>
                                         <div class="col-sm-6">
-                                            <select id="ddlRPP_ULPList" class="form-control form-control-small">
-                                                <option value="10" @(Session["ULPNOR"] == null ? "" : Session["ULPNOR"].ToString() == "10" ? "selected" : "")>10</option>
-                                                <option value="25" @(Session["ULPNOR"] == null ? "" : Session["ULPNOR"].ToString() == "25" ? "selected" : "")>25</option>
-                                                <option value="50" @(Session["ULPNOR"] == null ? "" : Session["ULPNOR"].ToString() == "50" ? "selected" : "")>50</option>
-                                                <option value="75" @(Session["ULPNOR"] == null ? "" : Session["ULPNOR"].ToString() == "75" ? "selected" : "")>75</option>
-                                                <option value="100" @(Session["ULPNOR"] == null ? "" : Session["ULPNOR"].ToString() == "100" ? "selected" : "")>100</option>
-                                                <option value="1000000" @(Session["ULPNOR"] == null ? "" : Session["ULPNOR"].ToString() == "1000000" ? "selected" : "")>ALL</option>
+                                            <select id="ddlRPP_ULWPList" class="form-control form-control-small">
+                                                <option value="10" selected>10</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                                <option value="75">75</option>
+                                                <option value="100">100</option>
+                                                <option value="100000">ALL</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12 clear" id="UnitLeasePricePrint">
-                                    <table id="tblUnitLeasePriceList" class="table-bordered" width="100%" style="text-align:center">
+                                <div class="col-md-12 clear" id="UnitLeaseWiseListPrint">
+                                    <input type="hidden" id="hndLockUnlock" value="1" />
+                                    <button id="btnLockUnLock" class="btn btn-primary pull-right" onclick="setlockunlock()"><span id="spanLockUnLock"><i class="fa fa-lock"></i> Unlock</span></button>
+                                </div>
+                                <div class="col-md-12 clear" id="UnitLeaseWiseListPrint">
+                                    <table id="tblUnitLeaseWisePriceList" class="table-bordered" width="100%" style="text-align:center">
                                         <thead>
+                                            <tr>
+                                                @foreach (var ulph in Model.lstUnitLeasePriceHeader)
+                                                {
+                                                    <th style="background-color: #c7cdd5;color:#3d3939; width:@ulph.Width%; @if (ulph.HasSorting == "1") {<text>cursor:pointer!important;</text>}" class='text-center' @if (ulph.HasSorting == "1") { <text> onclick='sortUnitLeaseWisePrice("@ulph.SortName")' </text> }>@ulph.HeaderName <span id="sn_@ulph.SortName" class="sortcolumn">@if (ulph.DefaultSort == "1")
+                                                    {<text><i class="fa fa-sort-asc"></i></text>}</span></th>
+                                                }
+                                            </tr>
                                         </thead>
                                         <tbody></tbody>
                                     </table>
@@ -526,6 +540,15 @@
 
 <script type="text/javascript">
     function printUnitList(divName) {
+        let printContents, popupWin;
+        printContents = document.getElementById(divName).innerHTML;
+        popupWin = window.open('', '', 'width=950,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes');
+        popupWin.document.open();
+        popupWin.document.write(printContents);
+        popupWin.window.print();
+        popupWin.document.close();
+    }
+    function printUnitLeaseWisePriceList(divName) {
         let printContents, popupWin;
         printContents = document.getElementById(divName).innerHTML;
         popupWin = window.open('', '', 'width=950,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes');

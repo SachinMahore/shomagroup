@@ -22,7 +22,7 @@
 <input type="hidden" id="hndBedRoom" value="@(Model.Bedroom)" />
 <input type="hidden" id="hndBuilding" value="@(Model.Building)" />
 <input type="hidden" id="hndProcessingFees" value="@(Model.ProcessingFees)" />
-
+<input type="hidden" id="hndAdditionalParking" value="@(Model.AdditionalParking)" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container">
@@ -35,11 +35,12 @@
                             <b>Online  </b>Application <br>
                         </h3>
                         <div class="button pull-right">
-
+                            @if (ShomaGroupWebSession.CurrentUser != null) {
                             <a href="javascript:void(0)" class="btn-success" style="padding:5px;" onclick="gotoLogOffAN()"> Logout..</a>
-
+                            }
                         </div>
-                        <span class="pull-right hidden" style="color:red;font-size: 15px;margin-right: 10px;" id="getting-startedTimeRemainingClock"></span>
+                        <span class="pull-right" style="color:black;font-size: 15px;margin-right: 10px; font-weight:bold;" id="mainApplName"></span>
+                        <span class="pull-left hidden" style="color:red;font-size: 15px;margin-right: 10px;" id="getting-startedTimeRemainingClock"></span>
 
                     </div>
 
@@ -249,14 +250,12 @@
                                                 {
                                                     foreach (var ul in Model.lstPropertyUnit)
                                                     {
-                                                        <tr class="@(Model.PropertyId==ul.UID?"select-unit":"")" id="unitdiv@ul.UID" data-floorid="@ul.FloorNoText"><td><a href="javascript:void(0);" onclick="getPropertyUnitDetails(@ul.UID)"><h5 style="width: 80px;">#@ul.UnitNo </h5></a> </td><td style="text-align: center;width=100px">$@ul.Current_Rent.ToString("0.00")</td><td style="text-align: center; width:45%">@ul.Premium </td><td style="text-align: center;width:100px">@ul.AvailableDateText</td></tr>
+                                                        <tr class="@(Model.PropertyId==ul.UID?"select-unit":"")" id="unitdiv_@ul.UID" data-floorid="@ul.FloorNoText"><td><a href="javascript:void(0);" onclick="getPropertyUnitDetails(@ul.UID)"><h5 style="width: 80px;">#@ul.UnitNo </h5></a> </td><td style="text-align: center;width=100px">$@ul.Current_Rent.ToString("0.00")</td><td style="text-align: center; width:45%">@ul.Premium </td><td style="text-align: center;width:100px">@ul.AvailableDateText</td></tr>
                                                     }
                                                 }
                                             </tbody>
                                         </table>
                                     </div>
-
-
                                 </div>
                                 <div class="col-md-12 clear">
 
@@ -370,7 +369,7 @@
 
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="txtPassword" class="star">Password</label>
+                                    <label for="txtPassword" class="star">Password</label>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-info-circle" style="cursor: pointer;" onclick="passwordInfo()"></i>
                                     <input type="password" class="form-control" id="txtPassword" value="@Model.Password" placeholder="Password" onblur="checkStrength($(this).val());">
                                 </div>
                             </div>
@@ -387,30 +386,28 @@
                                 </div>
                             </div>
 
-
-
-                            <div class="col-sm-12" id="divstep3save">
-                                <div class="pull-left text-center hidden">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" id="chkAgreeTerms"> I agree with Sanctuary's terms and conditions.
-                                        </label>
+                                <div class="col-sm-12" id="divstep3save">
+                                    <div class="pull-left text-center hidden">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" id="chkAgreeTerms"> I agree with Sanctuary's terms and conditions.
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right text-center">
+                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="SaveOnlineProspect()"> Save</button>
                                     </div>
                                 </div>
-                                <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="SaveOnlineProspect()"> Save</button>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 hidden" id="divstep3">
-                                <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(2,2,1)"> Back</button>
-                                </div>
-                                <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(4,4,0)"> Continue</button>
+                                <div class="col-sm-12 hidden" id="divstep3">
+                                    <div class="pull-left text-center">
+                                        <button type="submit" class="btn btn-primary" onclick="goToStep(2,2,1)"> Back</button>
+                                    </div>
+                                    <div class="pull-right text-center">
+                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(4,4,0)"> Continue</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     <div class="hidden" id="step4">
 
                         <div class="row p-b-15  ">
@@ -492,8 +489,11 @@
                                 <div class="col-sm-2">
                                     <span id="txtAvailableDate" style="text-decoration:underline;">@Model.MoveInDateTxt</span>
                                 </div>
-                                <div class="col-sm-4">
-                                    <span id="">&nbsp;</span>
+                                <div class="col-sm-2">
+                                    <span>PARKING SPACE</span>
+                                </div>
+                                <div class="col-sm-3" id="lblParkSpace">
+
                                 </div>
                                 <div class="col-sm-12">
                                     <span>Let’s figure out your monthly rent and expenses: </span>
@@ -630,7 +630,7 @@
                                         <b>MONTHLY OPTIONS</b>
                                     </div>
                                     <div class="col-sm-4">
-                                        <span id="">Additional parking </span><span class="hidden" id="lblparkingplace">@Model.ParkingSpaceID</span>
+                                        <span id="">Additional parking </span><span class="hidden" id="lblparkingplace">@Model.AdditionalParking</span>
                                     </div>
                                     <div class="col-sm-2">
                                         $<span id="lblAdditionalParking">@((Model.ParkingAmt ?? 0).ToString("0.00"))</span>
@@ -657,7 +657,7 @@
                                         <span id="">&nbsp;</span>
                                     </div>
                                     <div class="col-sm-4 hidden">
-                                        <span id="">Additional FOBs </span><span class="hidden" id="lblFOBs">@Model.PetPlaceID</span>
+                                        <span id="">Additional FOBs </span><span class="hidden" id="lblFOBs">0</span>
                                     </div>
                                     <div class="col-sm-2 hidden">
                                         $<span id="lblFobFee">@((Model.FOBAmt ?? 0).ToString("0.00"))</span>
@@ -713,13 +713,10 @@
                                     <div class="col-sm-12">
                                         <p><i class="star"></i> Excluding the utility reimbursement for water & sewer, which is  billed monthly based on actual consumption</p>
                                     </div>
-
                                 </div>
                                 <div class="col-sm-12 clearfix">
                                     <br />
                                 </div>
-
-
                             </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
@@ -733,118 +730,110 @@
 
                     </div>
                     <div class="hidden" id="step5">
+                        <span class="hidden" id="ftotal">0.00</span>
+                        <span class="hidden" id="lblAdminFees">@((Model.AdminFees ?? 0).ToString("0.00"))</span>
+                        <span class="hidden" id="lblApplicationFees">@((Model.ApplicationFees ?? 0).ToString("0.00"))</span>
+                        <span id="lblGuarantorFees" class="hidden">@((Model.GuarantorFees ?? 0).ToString("0.00"))</span>
                         <div class="row p-b-15  ">
-                            <div class="col-sm-12">
-                                <div class="pull-right text-center">
-                                    <button id="quotePrint" class="btn btn-primary" onclick="print('printable')"> Print</button>
-                                </div>
-                            </div>
                             <div class="col-sm-12" id="printable" style="overflow: hidden !important;">
-                                <p>
-                                    <div class="panel panel-default sidebar-menu wow fadeInRight animated">
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title">Quotation</h3>
-                                        </div>
-                                    </div>
-                                <p>Thank you for you interest in Sanctuary Doral. This quote expires on midnight of the 3rd day. Please make sure you submit your application before midnight of the 3rd day to secure selected units. If you have any questions or need additional assistance, please call or email us.</p>
-                                <div class="col-sm-12 clear">
-                                    <div class="col-sm-6">
-                                        <div class="col-sm-4">
-                                            <span>QUOTE# </span>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <span id="lblFNLQuote" style="text-decoration:underline;font-weight:bold;"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="col-sm-4">
-                                            <span>PREPARED FOR: </span>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <span id="lblFNLPreparedFor" style="text-decoration:underline;font-weight:bold;"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 clear">
-                                    <div class="col-sm-6">
-                                        <div class="col-sm-4">
-                                            <span>QUOTE DATE: </span>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <span id="lblFNLQuoteDate" style="text-decoration:underline;font-weight:bold;">@Model.CreatedDate.ToString("MM/dd/yyyy hh:mm tt")</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="col-sm-4">
-                                            <span>QUOTE EXPIRES: </span>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <span id="lblFNLQuoteExpires" style="text-decoration:underline;font-weight:bold;">@Model.ExpireDate</span>
-                                        </div>
+                                <p>Thank you for your interest in Sanctuary Doral. This quote expires on midnight of the 3rd day. Please make sure you submit your application before midnight of the third day to secure your selected unit. If you have any questions or need assistance, please feel free to contact us.</p>
+                                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                    <div class="panel-heading center">
+                                        <h3 class="panel-title">Quotation</h3>
                                     </div>
                                 </div>
 
                                 <div class="col-sm-12 clear">
-                                    <div class="col-sm-8">
-                                        <div class="col-sm-3">
-                                            <span>RESIDENT NAME: </span>
+                                    <div class="col-sm-5">
+                                        <div class="col-sm-6">
+                                            <span>QUOTE DATE : </span>
                                         </div>
-                                        <div class="col-sm-9">
-                                            <span id="lblFNLResidentName" style="text-decoration:underline;font-weight:bold;">@Model.FirstName @Model.LastName</span>
+                                        <div class="col-sm-6">
+                                            <span id="lblFNLQuoteDate" style="text-decoration:underline;font-weight:bold;">@Model.CreatedDate.ToString("MM/dd/yyyy hh:mm tt")</span>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="col-sm-3">
-                                            <span>UNIT#: </span>
+                                    <div class="col-sm-7">
+                                        <div class="col-sm-6">
+                                            <span>PREPARED FOR (RESIDENT NAME) : </span>
                                         </div>
-                                        <div class="col-sm-9">
-                                            <span id="lblFNLUnit" style="text-decoration:underline;font-weight:bold;"></span>
+                                        <div class="col-sm-6 margin-RN">
+                                            <span id="lblFNLResidentName1" style="text-decoration:underline;font-weight:bold;">@Model.FirstName @Model.LastName</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 clear">
-                                    <div class="col-sm-8">
-                                        <div class="col-sm-3">
-                                            <span>PHONE: </span>
+                                    <div class="col-sm-5">
+                                        <div class="col-sm-6">
+                                            <span>QUOTE EXPIRES : </span>
                                         </div>
-                                        <div class="col-sm-9">
-                                            <span id="lblFNLPhone" style="text-decoration:underline;font-weight:bold;"></span>
+                                        <div class="col-sm-6">
+                                            <span id="lblFNLQuoteExpires" style="text-decoration:underline;font-weight:bold;">@Model.ExpireDate</span>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="col-sm-3">
-                                            <span>MODEL: </span>
+                                    <div class="col-sm-7">
+                                        <div class="col-sm-2">
+                                            <span>PHONE : </span>
                                         </div>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-3 margin-left-0">
+                                            <span id="lblFNLPhone" style="text-decoration:underline;font-weight:bold;"></span>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <span>EMAIL : </span>
+                                        </div>
+                                        <div class="col-sm-6 margin-left-0">
+                                            <span id="lblFNLEmail" style="text-decoration:underline;font-weight:bold;">@Model.Email</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 clear">
+                                    <div class="col-sm-5">
+                                        <div class="col-sm-6">
+                                            <span>DESIRED MOVE IN : </span>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <span id="lblFNLDesiredMoveIn" style="text-decoration:underline;font-weight:bold;">@Model.MoveInDateTxt</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <div class="col-sm-2">
+                                            <span>UNIT# : </span>
+                                        </div>
+                                        <div class="col-sm-3 margin-left-0">
+                                            <span id="lblFNLUnit" style="text-decoration:underline;font-weight:bold;"></span>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <span>MODEL : </span>
+                                        </div>
+                                        <div class="col-sm-6 margin-left-0">
                                             <span id="lblFNLModel" style="text-decoration:underline;font-weight:bold;"></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 clear">
-                                    <div class="col-sm-8">
-                                        <div class="col-sm-3">
-                                            <span>EMAIL: </span>
+                                    <div class="col-sm-5">
+                                        <div class="col-sm-6">
+                                            <span>LEASE TERM : </span>
                                         </div>
-                                        <div class="col-sm-9">
-                                            <span id="lblFNLEmail" style="text-decoration:underline;font-weight:bold;">@Model.Email</span>
+                                        <div class="col-sm-6">
+                                            <span id="lblFNLTerm" style="text-decoration:underline;font-weight:bold;">@Model.LeaseTerm</span>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="col-sm-3">
-                                            <span>TERM: </span>
+                                    <div class="col-sm-7">
+                                        <div class="col-sm-5">
+                                            <span>ASSIGNED PARKING SPACE :  </span>
                                         </div>
-                                        <div class="col-sm-9">
-                                            <span id="lblFNLTerm" style="text-decoration:underline;font-weight:bold;">@Model.LeaseTerm</span>
+                                        <div class="col-sm-7 margin-left-0">
+                                            <span id="lblAssginPakingSpace" style="text-decoration:underline;font-weight:bold;"></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 clear">
                                     <div class="col-sm-8">
                                         <div class="col-sm-3">
-                                            <span>DESIRED MOVE IN: </span>
+
                                         </div>
                                         <div class="col-sm-9">
-                                            <span id="lblFNLDesiredMoveIn" style="text-decoration:underline;font-weight:bold;">@Model.MoveInDateTxt</span>
+
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
@@ -852,41 +841,101 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12 clear">&nbsp;</div>
-
-                                <div class="col-sm-8">
+                                <div class="col-sm-12 clear">
                                     <div class="col-sm-6">
-                                        <span style="text-decoration:underline;font-weight:bold;">Initial Fees and Costs</span>
-                                    </div>
-                                    <div class="col-sm-3">
+                                        <div class="col-sm-5">
+                                            <span style="text-decoration:underline;font-weight:bold;">INITIAL FEES :</span>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <span style="text-decoration:underline;font-weight:bold;">Amount</span>
+                                        </div>
 
-                                        <span style="text-decoration:underline;font-weight:bold;">Amount</span>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span>APPLICATION FEE : </span>
+
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    $<span id="lblFNLApplicationFee" style="text-decoration:underline;font-weight:bold;">@((Model.ApplicationFees ?? 0).ToString("0.00"))/per applicant</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    &nbsp;
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="" style="text-decoration:underline;font-weight:bold;">$150.00/Guarantor (if needed)</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span>ADMINISTRATION FEE: </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span style="text-decoration:underline;font-weight:bold;">$@((Model.AdminFees ?? 0).ToString("0.00"))/unit</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-3">
-                                            <span>Application Fee: </span>
+                                    <div class="col-sm-6">
+                                        <div class="col-sm-5">
+                                            <span style="text-decoration:underline;font-weight:bold;">MOVE-IN FEES:</span>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <span style="text-decoration:underline;font-weight:bold;">Amount</span>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span>Security Deposit: </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    $<span style="text-decoration:underline;font-weight:bold;" id="fdepo">@((Model.Deposit ?? 0).ToString("0.00"))</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span> Pet Non-Refundable Deposit: </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    $<span style="text-decoration:underline;font-weight:bold;" id="fpetd">@((Model.PetDeposit ?? 0).ToString("0.00"))</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span>Pet DNA Fee: </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    $<span style="text-decoration:underline;font-weight:bold;" id="fpetdna">@((Model.PetDNAAmt ?? 0).ToString("0.00"))</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span>Vehicle Registration: </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees">@((Model.VehicleRegistration ?? 0).ToString("0.00"))</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span>Insurance*** </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                </div>
+                                            </div>
 
                                         </div>
-                                        <div class="col-sm-3">
-                                            <span id="lblFNLApplicationFee" style="text-decoration:underline;font-weight:bold;">@((Model.ApplicationFees ?? 0).ToString("0.00"))/Adult</span>
-                                        </div>
-                                        <div class="col-sm-3" style="color:green">
-                                            $<span id="lblFNLAmount" style="text-decoration:underline;font-weight:bold;">@((Model.ApplicationFees ?? 0).ToString("0.00"))</span>
-                                        </div>
                                     </div>
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-3">
-                                            <span>Renter's Insurance*: </span>
+                                </div>
+                                <div class="col-sm-8">
 
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <a href="javascript:void(0);" id="lblFNLRentersInsurance" style="text-decoration:underline;">www.erenterplan.com</a>
-                                        </div>
+                                    <div class="col-sm-4">
+                                        <span style="text-decoration:underline;font-weight:bold;">MONTHLY CHARGES:</span>
                                     </div>
-
-                                    <div class="col-sm-3">
-                                        <span style="text-decoration:underline;font-weight:bold;">Monthly Payment</span>
-                                    </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-1">
 
                                     </div>
                                     <div class="col-sm-3">
@@ -899,9 +948,10 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="col-sm-3">
-                                            <span> Monthly Charge </span>
+                                            <span> Monthly Rent </span>
 
                                         </div>
+
                                         <div class="col-sm-2">&nbsp;</div>
                                         <div class="col-sm-3">
                                             $<span id="lblMonthly_MonthlyCharge" style="text-decoration:underline;font-weight:bold;"></span>
@@ -912,50 +962,9 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="col-sm-3">
-                                            <span> Aditional Parking </span>
-
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <span style="text-decoration:underline;font-weight:bold;" id="parkUnit"></span>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            $<span id="lblMonthly_AditionalParking" style="text-decoration:underline;font-weight:bold;">@((Model.ParkingAmt ?? 0).ToString("0.00"))</span>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            $ <span id="lblProrated_AditionalParking" style="text-decoration:underline;font-weight:bold;"></span>
+                                            <span><i> Additional Services </i></span>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-3">
-                                            <span> Storage </span>
-
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <span style="text-decoration:underline;font-weight:bold;" id="storUnit"></span>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            $<span id="lblMonthly_Storage" style="text-decoration:underline;font-weight:bold;">@((Model.StorageAmt ?? 0).ToString("0.00"))</span>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            $ <span id="lblProrated_Storage" style="text-decoration:underline;font-weight:bold;"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-3">
-                                            <span> Pet Rent </span>
-
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            $<span id="lblMonthly_PetRent" style="text-decoration:underline;font-weight:bold;">@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            $ <span id="lblProrated_PetRent" style="text-decoration:underline;font-weight:bold;"></span>
-                                        </div>
-                                    </div>
-
                                     <div class="col-sm-12">
                                         <div class="col-sm-3">
                                             <span> Trash/Recycle </span>
@@ -1001,6 +1010,56 @@
                                             $ <span id="lblProrated_ConvergentAmt" style="text-decoration:underline;font-weight:bold;"></span>
                                         </div>
                                     </div>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-3">
+                                            <span><i> Selected Options </i></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-3">
+                                            <span> Aditional Parking </span>
+
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <span style="text-decoration:underline;font-weight:bold;" id="parkUnit"></span>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            $<span id="lblMonthly_AditionalParking" style="text-decoration:underline;font-weight:bold;">@((Model.ParkingAmt ?? 0).ToString("0.00"))</span>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            $ <span id="lblProrated_AditionalParking" style="text-decoration:underline;font-weight:bold;"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-3">
+                                            <span> Storage </span>
+
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <span style="text-decoration:underline;font-weight:bold;" id="storUnit"></span>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            $<span id="lblMonthly_Storage" style="text-decoration:underline;font-weight:bold;">@((Model.StorageAmt ?? 0).ToString("0.00"))</span>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            $ <span id="lblProrated_Storage" style="text-decoration:underline;font-weight:bold;"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-3">
+                                            <span> Pet Fee </span>
+
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            $<span id="lblMonthly_PetRent" style="text-decoration:underline;font-weight:bold;">@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            $ <span id="lblProrated_PetRent" style="text-decoration:underline;font-weight:bold;"></span>
+                                        </div>
+                                    </div>
 
                                     <div class="col-sm-12">
                                         <div class="col-sm-4"></div>
@@ -1010,7 +1069,7 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="col-sm-4">
-                                            <span> Total Monthly Payment** </span>
+                                            <span> Estimated Monthly Charges </span>
                                         </div>
                                         <div class="col-sm-1">
                                             <span style="text-decoration:underline;font-weight:bold;"></span>
@@ -1030,114 +1089,32 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class="col-sm-7">
-                                        <span style="text-decoration:underline;font-weight:bold;">Move In Fees & Deposits</span>
-                                    </div>
-                                    <div class="col-sm-3"></div>
-                                    <div class="col-sm-2">
-                                        <span style="text-decoration:underline;font-weight:bold;">Amount</span>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-6">
-                                            <span>Administration Fee: </span>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <span style="text-decoration:underline;font-weight:bold;">$@((Model.AdminFees ?? 0).ToString("0.00"))/unit</span>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            $<span style="text-decoration:underline;font-weight:bold;" id="lblAdminFees">@((Model.AdminFees ?? 0).ToString("0.00"))</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-6">
-                                            <span>Vehicle Registration: </span>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <span style="text-decoration:underline;font-weight:bold;">$15/vehicle</span>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees">0.00</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-6">
-                                            <span>Security Deposit: </span>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <span style="text-decoration:underline;font-weight:bold;"></span>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            $<span style="text-decoration:underline;font-weight:bold;" id="fdepo">@((Model.Deposit ?? 0).ToString("0.00"))</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-6">
-                                            <span>Pet Deposit: </span>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <span style="text-decoration:underline;font-weight:bold;"></span>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            $<span style="text-decoration:underline;font-weight:bold;" id="fpetd">@((Model.PetDeposit ?? 0).ToString("0.00"))</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-6">
-                                            <span>Pet DNA Amt: </span>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <span style="text-decoration:underline;font-weight:bold;"></span>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            $<span style="text-decoration:underline;font-weight:bold;" id="fpetdna">@((Model.PetDNAAmt ?? 0).ToString("0.00"))</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 hidden">
-                                        <div class="col-sm-6">
-                                            <span>Additional FOB: </span>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <span style="text-decoration:underline;font-weight:bold;">$15/FOB</span>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            $<span style="text-decoration:underline;font-weight:bold;" id="ffob">@((Model.FOBAmt ?? 0).ToString("0.00"))</span>
-                                        </div>
-                                    </div>
+                                    <div class="move"> Move-in fees and pro-rated rent is due at or before move-in.</div>
 
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-6">
-                                            <span>Prorated Rent: </span>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <span style="text-decoration:underline;font-weight:bold;"></span>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            $<span id="lblProratedRent" style="text-decoration:underline;font-weight:bold;"></span>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-7">
-                                            <span>Total Due at Move-In</span>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <span style="text-decoration:underline;font-weight:bold;"></span>
-                                        </div>
-                                        <div class="col-sm-2" style="color:green">
-                                            $<span style="text-decoration:underline;font-weight:bold;" id="ftotal"></span>
-                                        </div>
-                                    </div>
                                 </div>
+
+
                                 <div class="col-sm-12">&nbsp;</div>
                                 <div class="col-sm-12">
-                                    <p>Note: The amounts herein are subject to change without notice and not final until lease is executed. Actual fees/deposits and amounts may vary based upon policies and rates in effect at the time they are charged. If you make changes to the desired move in date, lease term, or any of the options, the amounts may be adjusted. An Additional security deposit may be required depending on creditworthiness. </p>
                                     <p>
-                                        *Renter's insurance with a minimum of $100K of Liability is required.<br />**Total monthly payment does not include water & sewer charges based upon actual consumption.
-                                        <br /><b>Total due at Move in must be paid online prior to move in</b>
+                                        <i>
+                                            *The Administration fee is due to reserve your apartment for a maximum of 30 days, once approved, and may be applied towards your Initial Payment.
+                                            <br />**The Security Deposit may be bonded with a third-party company.  Please contact by phone (866) 312-3090 or e-mail SelectDeposit@Assurant.com. The Client Support Team is available Monday – Friday 9am – 6pm ET to assist you.
+                                        </i>
+                                    </p>
+                                    <p>
+                                        <i>
+                                            ***General liability insurance with a minimum limit of $100,000 is required. Proof of coverage will be required prior to move-in.
+                                            <br />****Excludes the Utility reimbursement for water & sewer which is billed monthly based on actual consumption.
+                                        </i>
+                                    </p>
+                                    <p>
+                                        <i>
+                                            The amounts herein are estimates based upon policies and rates in effect at the time.  The amounts are subject to change without notice and not final until lease is executed. If you make changes to the desired move-in date, lease term, or any other options, the amounts herein may vary.
+
+                                        </i>
                                     </p>
                                 </div>
-
-                                </p>
                             </div>
 
                             <div class="col-sm-12 clearfix">
@@ -1147,9 +1124,14 @@
                                 <div class="pull-left text-center">
                                     <button type="submit" class="btn btn-primary" onclick="goToStep(4,4,0)"> Back</button>
                                 </div>
-                                <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(6,6,0)"> Continue</button>
+
+                                <div class="text-center">
+                                    <button id="quotePrint" class="btn btn-primary" onclick="print('printable')"> Print</button>
+                                    <div class="pull-right">
+                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(6,6,0)"> Continue</button>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -1298,20 +1280,11 @@
                                         <div class="col-md-3"></div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-8">
-                                                <span>Administration Fee: </span>
-                                            </div>
-                                            <div class="col-sm-1"></div>
-                                            <div class="col-sm-3">
-                                                $<span style="text-decoration:underline;font-weight:bold;">350.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-8">
                                                 <span>Vehicle Registration: </span>
                                             </div>
                                             <div class="col-sm-1"></div>
                                             <div class="col-sm-3">
-                                                $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees1">15.00</span>
+                                                $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees1">@((Model.VehicleRegistration ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
@@ -1496,14 +1469,25 @@
                             <div class="col-sm-12">
                                 <div class="col-sm-4">
                                     <label class="star">
-                                        International Applicant ?
+                                        Are you a US Citizen?
                                     </label>
                                     <div class="form-group">
                                         <select id="ddlIsInter" class="form-control" style="width:100%!important">
-                                            <option value="1">Yes</option>
-                                            <option value="0" selected="selected">No</option>
+                                            <option value="0" selected="selected">Yes</option>
+                                            <option value="1">No</option>
                                         </select>
 
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 hidden" id="divCountryOfOrigin">
+                                    <div class="form-group">
+                                        <label class="star">Country of Origin </label>
+                                        <select id="ddlCountryOfOrigin" class="form-control">
+                                            @foreach (var country in Model.CountryList)
+                                            {
+                                                <option value="@country.ID">@country.CountryName</option>
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -1635,7 +1619,6 @@
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">Identification </h3>
-
                                     </div>
                                 </div>
                             </div>
@@ -1681,7 +1664,107 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">ADDITIONAL QUESTIONS</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="ddlEverBeenEvicted" class="star">Have you ever been evicted?</label>
+                                        <select id="ddlEverBeenEvicted" class="form-control" style="width:100%!important" onchange="ddlEverBeenEvictedFunction();">
+                                            <option value="1" selected="selected">No</option>
+                                            <option value="2">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 hidden" id="divEverBeenConvicted">
+                                    <div class="form-group">
+                                        <label for="ddlEverBeenConvicted" class="star">Have you ever been convicted of a felony?</label>
+                                        <select id="ddlEverBeenConvicted" class="form-control" style="width:100%!important" onchange="ddlEverBeenConvictedFunction();">
+                                            <option value="1" selected="selected">No</option>
+                                            <option value="2">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 hidden" id="divAnyCriminalCharges" style="margin-top: -29px;">
+                                    <div class="form-group">
+                                        <label for="ddlAnyCriminalCharges" class="star">
+                                            Do you have any criminal charges pending, awaiting
+                                            disposition, or looming in any way?
+                                        </label>
+                                        <select id="ddlAnyCriminalCharges" class="form-control" style="width:100%!important" onchange="ddlAnyCriminalChargesFunction();">
+                                            <option value="1" selected="selected">No</option>
+                                            <option value="2">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-4">
+                                    <div class="form-group hidden" id="divEverBeenEvictedDetails">
+                                        <label for="txtEverBeenEvictedDetails" class="star">Details</label>
+                                        <input id="txtEverBeenEvictedDetails" class="form-control form-control-small" type="text" max="500" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group hidden" id="divEverBeenConvictedDetails">
+                                        <label for="txtEverBeenConvictedDetails" class="star">Details</label>
+                                        <input id="txtEverBeenConvictedDetails" class="form-control form-control-small" type="text" max="500" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group hidden" id="divAnyCriminalChargesDetails">
+                                        <label for="txtAnyCriminalChargesDetails" class="star">Details</label>
+                                        <input id="txtAnyCriminalChargesDetails" class="form-control form-control-small" type="text" max="500" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="ddlDoYouSmoke" class="star">Do you or any occupants smoke?</label>
+                                        <select id="ddlDoYouSmoke" class="form-control" style="width:100%!important">
+                                            <option value="1" selected="selected">No</option>
+                                            <option value="2">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="ddlReferredByAnotherResident" class="star">Referred by another Resident?</label>
+                                        <select id="ddlReferredByAnotherResident" class="form-control" style="width:100%!important" onchange="ddlReferredByAnotherResidentFunction();">
+                                            <option value="1" selected="selected">No</option>
+                                            <option value="2">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="ddlBrokerOrMerchantReff" class="star">Broker or Merchant referred</label>
+                                        <select id="ddlBrokerOrMerchantReff" class="form-control" style="width:100%!important">
+                                            <option value="1" selected="selected">No</option>
+                                            <option value="2">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
 
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group hidden" id="divReferredByAnotherResidentName">
+                                        <label for="txtReferredByAnotherResidentName" class="star">Please provide Name</label>
+                                        <input id="txtReferredByAnotherResidentName" class="form-control form-control-small" type="text" max="500" />
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
                                     <button type="submit" class="btn btn-primary" onclick="goToStep(8,8,0)"> Back</button>
@@ -1738,7 +1821,6 @@
                                 </div>
                             </div>
                             <div class="col-sm-12">
-
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label class="star"> State :</label>
@@ -1764,6 +1846,8 @@
                                         <input class="form-control form-control-small" id="txtZip" maxlength="7" />
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-sm-12">
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="ddlRentOwn" class="star"> Do you rent or own </label>
@@ -1805,16 +1889,38 @@
                                         <input id="txtMonthlyPayment" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)" style="text-align:right;" />
                                     </div>
                                 </div>
-
-                                <div class="col-sm-12">
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="txtReasonforleaving"> Reason for leaving </label>
-                                        <input id="txtReasonforleaving" type="text" class="form-control" />
+                                        <label for="txtApartmentCommunity" class="star">Apartment Community</label>
+                                        <input class="form-control form-control-small" id="txtApartmentCommunity" max="500" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="txtManagementCompany" class="star">Management Company</label>
+                                        <input class="form-control form-control-small" id="txtManagementCompany" max="500" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="txtManagementCompanyPhone" class="star">Management Company Phone</label>
+                                        <input class="form-control form-control-small" id="txtManagementCompanyPhone" maxlength="10" onkeypress="return isNumber(event)" />
                                     </div>
                                 </div>
                             </div>
-
-
+                            <div class="col-sm-12">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="ddlProperNoticeLeaseAgreement" class="star">Was proper notice given per your lease agreement?</label>
+                                        <select id="ddlProperNoticeLeaseAgreement" class="form-control form-control-small">
+                                            <option value="1">Yes</option>
+                                            <option value="2">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-sm-12">
                                 <div class="col-sm-6">
                                     <div class="panel panel-default sidebar-menu wow fadeInRight animated  pull-left">
@@ -2343,7 +2449,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Applicants <a href="javascript:void(0);" class="pull-right" onclick="goToStep(7,7,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Applicants <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(7,7,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse1" class="panel-collapse collapse">
@@ -2370,7 +2476,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Responsibility <a href="javascript:void(0);" class="pull-right" onclick="goToStep(8,8,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Responsibility <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(8,8,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse2" class="panel-collapse collapse">
@@ -2397,7 +2503,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Personal Information <a href="javascript:void(0);" class="pull-right" onclick="goToStep(9,9,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Personal Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(9,9,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse3" class="panel-collapse collapse">
@@ -2420,7 +2526,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Residence History <a href="javascript:void(0);" class="pull-right" onclick="goToStep(10,10,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Residence History <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(10,10,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse4" class="panel-collapse collapse">
@@ -2441,7 +2547,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Employment & Income <a href="javascript:void(0);" class="pull-right" onclick="goToStep(11,11,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(11,11,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse5" class="panel-collapse collapse">
@@ -2462,7 +2568,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Emergency Contact <a href="javascript:void(0);" class="pull-right" onclick="goToStep(12,12,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Emergency Contact <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(12,12,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse6" class="panel-collapse collapse">
@@ -2482,7 +2588,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Vehicle Information <a href="javascript:void(0);" class="pull-right" onclick="goToStep(13,13,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Vehicle Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(13,13,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse7" class="panel-collapse collapse">
@@ -2509,7 +2615,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Pet Information <a href="javascript:void(0);" class="pull-right" onclick="goToStep(14,14,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Pet Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(14,14,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse8" class="panel-collapse collapse">
@@ -2539,210 +2645,989 @@
 
                             </div>
                             <div class="col-md-12 hidden" id="divsummPrint">
-                                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">Summary of Application</h3>
-
-                                    </div>
-
+                                <div style="padding: 10px 15px;text-align:center;">
+                                    <h3 class="panel-title">
+                                        <b><u>Summary of Application</u></b>
+                                    </h3>
                                 </div>
-                                <div class="col-md-12">
-                                    <p>
-                                        <div class="panel-group" id="accordion">
-                                            <div class="panel panel-default accordian-border-group">
-                                                <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
-                                                    <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b>Applicants</b><i class="fa fa-angle-down pull-right"></i></a>
-                                                    </h3>
-                                                </div>
-                                                <div id="collapse1" class="panel-collapse collapse in">
-                                                    <div class="panel panel-default ">
-                                                        <div class="panel-heading " id="">
-                                                            <table id="tblApplicant15p" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Applicant Name</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Type</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Gender</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Email</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Phone</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Date of Birth</th>
 
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody></tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
+
+                                <div class="col-md-12 ">
+                                    <div class="" style=" border: 1px solid #000;">
+                                        <div class="row">
+                                            <div class="col-sm-4 ">
+                                                <div class="pd" style="padding: 40px 0px 19px 35px;min-height: 115px;border-right: 1px solid #000;"> <img src="~/content/assets/img/logo1.png" alt=""></div>
                                             </div>
-                                            <div class="panel panel-default accordian-border-group">
-                                                <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
-                                                    <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><b>Responsibility</b> <i class="fa fa-angle-down pull-right"></i></a>
-                                                    </h3>
-                                                </div>
-                                                <div id="collapse2" class="panel-collapse collapse in">
-                                                    <div class="panel panel-default ">
-                                                        <div class="panel-heading " id="">
-                                                            <table id="tblRespo15p" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Applicant Name</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Type</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Move In%</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Move In Charges</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Monthly %</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Monthly Charges</th>
-
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody></tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="panel panel-default accordian-border-group">
-                                                <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
-                                                    <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3"><b>Personal Information </b><i class="fa fa-angle-down pull-right"></i></a>
-                                                    </h3>
-                                                </div>
-                                                <div id="collapse3" class="panel-collapse collapse in">
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading" id="">
-                                                            <table class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
-
-                                                                <tr><td>Name</td><td><span id="summNamep"></span></td><td>Date of Birth</td><td><span id="summDobp"></span></td></tr>
-
-                                                                <tr><td>SSN#</td><td><span id="summSSNp"></span></td><td>Driver’s License</td><td><span id="summDriverLp"></span></td></tr>
-                                                                <tr><td>Email ID</td><td><span id="summEmailp"></span></td><td>Phone</td><td><span id="summPhonep"></span></td></tr>
-                                                                <tr><td>Gender</td><td><span id="summGenderp"></span></td></tr>
-                                                                <tr></tr>
-
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="panel panel-default accordian-border-group">
-                                                <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
-                                                    <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4"><b>Residence History </b><i class="fa fa-angle-down pull-right"></i></a>
-                                                    </h3>
-                                                </div>
-                                                <div id="collapse4" class="panel-collapse collapse in">
-                                                    <div class="panel panel-default ">
-                                                        <div class="panel-heading " id="">
-                                                            <table class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
-                                                                <tbody>
-
-                                                                    <tr><td style='width: 195px;'>Current Address</td><td><span id="summCuAddp"></span></td></tr>
-                                                                <tbody></tbody>
-
-                                                            </table>
-                                                            <table id="prevaddp" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%"><tbody></tbody></table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="panel panel-default accordian-border-group">
-                                                <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
-                                                    <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5"><b>Employment & Income</b> <i class="fa fa-angle-down pull-right"></i></a>
-                                                    </h3>
-                                                </div>
-                                                <div id="collapse5" class="panel-collapse collapse in">
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading" id="" style="background-color:transparent">
-                                                            <table class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
-
-                                                                <tr><td style='width: 195px;'>Current Employer</td><td><span id="summEmployerp"></span></td></tr>
-                                                                <tr><td>Start Date</td><td><span id="summEstartdatep"></span></td></tr>
-                                                                <tr><td>Annual Salary</td><td><span id="summSalaryp"></span></td></tr>
-
-                                                            </table>
-                                                            <table id="prevEmphistrp" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%"><tbody></tbody></table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="panel panel-default accordian-border-group">
-                                                <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
-                                                    <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse6"><b>Emergency Contact</b> <i class="fa fa-angle-down pull-right"></i></a>
-                                                    </h3>
-                                                </div>
-                                                <div id="collapse6" class="panel-collapse collapse in">
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading" id="" style="background-color:transparent">
-                                                            <table class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
-
-                                                                <tr><td style='width: 195px;'>Name</td><td><span id="summEmergnamep"></span></td></tr>
-                                                                <tr><td>Relation</td><td><span id="summEmerrelationp"></span></td></tr>
-                                                                <tr><td>Mobile</td><td><span id="summEmegmobilep"></span></td></tr>
-
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="panel panel-default accordian-border-group">
-                                                <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
-                                                    <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7"><b>Vehicle Information</b> <i class="fa fa-angle-down pull-right"></i></a>
-                                                    </h3>
-                                                </div>
-                                                <div id="collapse7" class="panel-collapse collapse in">
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading" id="" style="background-color:transparent">
-                                                            <table id="tblVehicle15p" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Owner Name</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Vehicle Make</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Model</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Year</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Color</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">License Plate</th>
-
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody></tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="panel panel-default accordian-border-group">
-                                                <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
-                                                    <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse8"><b>Pet Information </b><i class="fa fa-angle-down pull-right"></i></a>
-                                                    </h3>
-                                                </div>
-                                                <div id="collapse8" class="panel-collapse collapse in">
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading" id="" style="background-color:transparent">
-                                                            <table id="tblPet15p" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
-                                                                <thead>
-                                                                    <tr>
-
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Pet Name</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Breed</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Weight</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Vet's Name</th>
-
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody></tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
+                                            <div class="col-sm-8 ">
+                                                <div class="SOP">
+                                                    <h5>
+                                                        Application for “Sanctuary at Doral”
+                                                    </h5>
+                                                    <p>
+                                                        9400 NW 41 St, </br> Doral, </br> Fl 33178
+                                                        </br> Phone No: (786) 437-8658
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
-                                    </p>
+
+                                    </div>
+                                    <div class="row p">
+                                        <div class="col-sm-12">
+                                            <div class="">
+                                                <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 10px 15px;text-align:center;">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b>Appartments Information</b></a>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Apartment : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="lblAp32"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Flor Plan : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="lblUnitModel3"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Bed : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="lblBed32"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Bath : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="lblBath32"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Area : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="lblArea32"></span>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-6 p">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Move in Date : </span>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <span id="sdd">@Model.MoveInDateTxt</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Lease Term: </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="lblFNLTermSp">@Model.LeaseTerm</span>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Deposit : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="lblDeposit3"></span>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Rent : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="lblMonthly_TotalRentSp"></span>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row p">
+                                        <div class="col-sm-12">
+                                            <div class="">
+                                                <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 10px 15px;text-align:center;">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b>Applicants Information</b></a>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Name : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="summNamep"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Gender : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="summGenderp"></span>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Email : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="summEmailp"></span>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Cell Phone : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="summPhonep"></span>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-sm-6 p">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Date Of Birth : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="summDobp"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Do you have social security number ? </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="UScitzen"></span>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">SSN Number : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="summSSNp"></span>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Government Issued Id (Driving licence, Passport ,Visa ,Military id,Gov): </span>
+                                                </div>
+                                                <div class="col-sm-4 hidden" id="SumPass">
+                                                    <span id="summPassportNumber"></span>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <span id="summDriverLp"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Government Issuing Entity : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="summCountryIssuance"></span>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Licence Country : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="SCountryOfOriginStringtext"></span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row p">
+                                        <div class="col-sm-12">
+                                            <div class="">
+                                                <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 10px 15px;text-align:center;">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b>Current Residence</b></a>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Residency From: </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="summCredateF"></span>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Monthly Rent/Monthly mortgage payments : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="summMrent"></span>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Reason for Moving: </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="summReson"></span>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Apartment Community : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="suACuminty"></span>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Management Company : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="sumAManagementCompany"></span>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Management Company Phone:</span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="sumAManagementCompanyPhone"></span>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-6 p">
+
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Address : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="summCRE"></span>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Country : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="summreCou"></span>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Was 30 days notice given ? : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="sumAIsProprNoticeLeaseAgreement"></span>
+                                                </div>
+
+
+                                            </div>
+                                            @*<div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <span id="">Landlord Name : </span>
+                        </div>
+                        <div class="col-sm-8">
+                            <span id="sdd">211212</span>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <span id="">Landlord Phone : </span>
+                        </div>
+                        <div class="col-sm-8">
+                            <span id="sdd">211212</span>
+                        </div>
+
+
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <span id="">Landlord Email : </span>
+                        </div>
+                        <div class="col-sm-2">
+                            <span id="sdd">211212</span>
+                        </div>
+
+
+                    </div>*@
+                                        </div>
+                                    </div>
+
+                                    <div class="row p">
+                                        <div class="col-sm-12">
+                                            <div class="">
+                                                <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 10px 15px;text-align:center;">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b>Previous Address Information</b></a>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Address : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="SumPriAddAddress"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Monthly rent paid : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="SumPriAddMonthlyPayment"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Apartment Community : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="SuApartmentCommunity"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Management Company : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="SuManagementCompany"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Management Company Phone:</span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="SuManagementCompanyPhone"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-6 p">
+
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Residency From: : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="SumPriAddMoveInDateFromTxt"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Reason for Moving: </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="SumPriAddReason"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Was 30 days notice given ? : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="SuIsProprNoticeLeaseAgreement"></span>
+                                                </div>
+                                            </div>
+                                            @*<div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <span id="">Landlord Name : </span>
+                        </div>
+                        <div class="col-sm-2">
+                            <span id="sdd">211212</span>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <span id="">&nbsp;</span>
+                        </div>
+                    </div>*@
+                                            @*<div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <span id="">Landlord Phone : </span>
+                        </div>
+                        <div class="col-sm-2">
+                            <span id="sdd">211212</span>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <span id="">&nbsp;</span>
+                        </div>
+                    </div>*@
+                                            @*<div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <span id="">Landlord Email : </span>
+                        </div>
+                        <div class="col-sm-2">
+                            <span id="sdd">211212</span>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <span id="">&nbsp;</span>
+                        </div>
+                    </div>*@
+                                        </div>
+                                    </div>
+
+                                    <div class="row p">
+                                        <div class="col-sm-12">
+                                            <div class="">
+                                                <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 10px 15px;text-align:center;">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b>Employment Information</b></a>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Country : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="summECountry"></span>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Employment Status : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="sdd">Employed</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Employer : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="summEmployerName"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Supervisor Name : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="summSupNa"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Address : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="summEAddre1"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-6 p">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Job Title : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="summJobTitle"></span>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Employed Since : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="summEstartdatep"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Gross Anual Income : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="summSalaryp"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Gross  Additional Income : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="summAdditionalI"></span>
+                                                </div>
+                                            </div>
+                                            @*<div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <span id="">Gross Monthly Additional Income Source : </span>
+                        </div>
+                        <div class="col-sm-2">
+                            <span id="sdd">211212</span>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <span id="">&nbsp;</span>
+                        </div>
+                    </div>*@
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Employer Phone : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="summSupMob"></span>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row p">
+                                        <div class="col-sm-12">
+                                            <div class="">
+                                                <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 10px 15px;text-align:center;">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b>Previous Employment Information</b></a>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Employer : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="SumPriEmp"></span>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Supervisor Name : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="SumPriSupervisorName"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Address : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="SumPriAddress"></span>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-sm-6 p">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Job Title : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="SumPriJobTi"></span>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Previous Employer Start Date : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="SumPriStatD"></span>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Previous Employer End Date  : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="SumPriTerDate"></span>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Annual Income : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="SumPriAnnualIncome"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id=""> Additional Income  : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="SumPriAddAnnualIncome"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">Employer Phone : </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="SumPriSupervisorPhone"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row p">
+                                        <div class="col-sm-12">
+                                            <div class="">
+                                                <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 10px 15px;text-align:center;">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b>Emergency Information</b></a>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Name : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="summEmerN"></span>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Relationship : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="summEmerRela"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Phone : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="summEmerMob"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Country : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="summEmerCountry"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Address : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="summEmerAddd"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row p">
+                                        <div class="col-sm-12">
+                                            <div class="">
+                                                <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 10px 15px;text-align:center;">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b>Vehicle Information</b></a>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <table id="tblVehicle15p" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Owner Name</th>
+                                                        <th>Vehicle Make</th>
+                                                        <th>Model</th>
+                                                        <th>Year</th>
+                                                        <th>Color</th>
+                                                        <th>License Plate</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                    <div class="row p">
+                                        <div class="col-sm-12">
+                                            <div class="">
+                                                <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 10px 15px;text-align:center;">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b>Pets Information</b></a>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <table id="tblPet15p" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Pet Name</th>
+                                                        <th>Breed</th>
+                                                        <th>Weight</th>
+                                                        <th>Vet's Name</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="row p">
+                                        <div class="col-sm-12">
+                                            <div class="">
+                                                <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 10px 15px;text-align:center;">
+                                                    <h3 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b>Additional Question</b></a>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-9 p">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Have You ever been evicted ? If yes, Details : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="AQEvictedDetails"></span>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Do you or any occupants smoke ? : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="summEmerRela"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Referred by another Resident ?  </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id=""></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id=""> If yes please provide Name : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="AQReferredResidentName"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">Broker or Merchant referred ? : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id=""></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id=""> After Have You ever been evicted ? : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id=""></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id=""> After Have you ever been convicted of a felony? : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id=""></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id=""> If yes ,explain : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="AQConvictedFelonyDetails"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-12">
+                                                    <span id=""> Do you have any criminal charges pending, awaiting disposition, or looming in any way?  : </span>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="">  If yes ,explain   : </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <span id="AQCriminalChargPenDetails"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3 p">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id=""></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id=""></span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="sumAQStringEvicted"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id=""></span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="AQStringDoYouSmoke"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id=""> </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="AQStringReferredResident"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">&nbsp;</span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="">&nbsp; </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id=""> </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="AQStringReferredBrokerMerchant"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id=""> </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="AQStringEvicted"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id=""> </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="AQStringConvictedFelony"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id="">&nbsp; </span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="">&nbsp;</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4">
+                                                    <span id=""></span>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <span id="AQStringCriminalChargPen"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="col-sm-12">
@@ -3158,7 +4043,7 @@
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;" onclick="hideLoader()">&times;</button>
             <div class="modal-header" style="width:100%">
                 <h5 class="modal-title pull-left" id="ModalLongTitle">Add Parking</h5>
-
+                <span class="modal-title pull-left" id="ModalLongDesc"></span>
             </div>
             <div class="modal-body">
                 <input type="hidden" id="hndParkingID" value="0" />
@@ -3167,7 +4052,7 @@
                     <table id="tblParking" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939">Parking</th>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939">Parking </th>
                                 <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939">Charges</th>
                                 <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939">Add</th>
                             </tr>
@@ -3178,9 +4063,8 @@
                 <div class="col-sm-12">
 
                 </div>
-                <div class="col-sm-9 text-left">
-                    Notes: Check and save <br />
-                    Complimentary 1 parking space for 1- and 2-bedroom apartments and 2 spaces for 3-bedroom apartments.
+                <div class="col-sm-9 text-left" style="padding-left:0px;">
+                    Notes: Check and save
                 </div>
                 <div class="col-sm-3 text-right">
                     <button type="submit" class="btn btn-primary" onclick="saveupdateParking()"><i class="fa fa-check-square"></i> SAVE</button>
@@ -3202,17 +4086,25 @@
             <div class="modal-body">
                 <input type="hidden" id="hndStorageID" value="0" />
                 <div class="form-group clearfix">
-                    <table id="tblStorage1" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939">Storage</th>
-                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939">Charges</th>
-                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939">Add</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-
-                    </table>
+                    <div>
+                        <table class="" cellspacing="0" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:18%;text-align:center;">Storage</th>
+                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:48%;text-align:center;">Description</th>
+                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:16%;text-align:center;">Charges</th>
+                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:18%;text-align:center;">Add</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div style="width:100%;height:350px;overflow-y:scroll;">
+                        <table id="tblStorage1" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%;height:50px;">
+                            <tbody style="width:100%;height:100%;">
+                              
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="col-sm-8 text-left">
                     Note: Check and save
@@ -3435,7 +4327,7 @@
 
 <div class="modal" id="popVehicle">
     <div class="modal-dialog">
-        <div class="modal-content" style="width:750px; height:560px;">
+        <div class="modal-content" style="width:750px; height:607px;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
@@ -3527,8 +4419,19 @@
                         </select>
                     </div>
                 </div>
-
-                <div class="col-sm-8">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">Tag</label>
+                        <input id="txtVehicleTag" type="text" class="form-control"  value="">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="star">Parking Space</label>
+                        <select id="ddlParking" class="form-control" ></select>
+                    </div>
+                </div>
+                <div class="col-sm-12">
                     <div class="form-group">
                         <label class="">Notes</label>
                         <textarea id="txtVehicleNote" class="form-control" maxlength="20"></textarea>
@@ -3691,12 +4594,12 @@
 
 <div class="modal" id="popApplicantHistory">
     <div class="modal-dialog">
-        <div class="modal-content" style="width:850px; height:555px;">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+        <div class="modal-content" style="width:850px; height:750px;">
+
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Add Applicant History</h5>
-
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -24px; margin-right: 8px;color:black">&times;</button>
             </div>
 
             <!-- Modal body -->
@@ -3731,7 +4634,6 @@
                     </div>
                 </div>
                 <div class="col-sm-12">
-
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="star">State</label>
@@ -3757,6 +4659,8 @@
                             <input class="form-control form-control-small" id="txtZip2" maxlength="7" />
                         </div>
                     </div>
+                </div>
+                <div class="col-sm-12">
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label for="ddlRentOwn" class="star"> Do you rent or own </label>
@@ -3798,26 +4702,58 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col-sm-12">
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="txtReasonforleaving">Reason for leaving </label>
-                            <input id="txtReasonforleaving2" type="text" class="form-control" />
+                            <label for="txtApartmentCommunity2" class="star">Apartment Community</label>
+                            <input class="form-control form-control-small" id="txtApartmentCommunity2" max="500" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="txtManagementCompany2" class="star">Management Company</label>
+                            <input class="form-control form-control-small" id="txtManagementCompany2" max="500" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="txtManagementCompanyPhone2" class="star">Management Company Phone</label>
+                            <input class="form-control form-control-small" id="txtManagementCompanyPhone2" maxlength="10" onkeypress="return isNumber(event)" />
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-12 text-center">
-                    <button type="button" class="btn btn-primary" onclick="saveupdateApplicantHistory()"><i class="fa fa-save"></i> Save</button>
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="ddlProperNoticeLeaseAgreement2" class="star">Was proper notice given per your lease agreement?</label>
+                            <select id="ddlProperNoticeLeaseAgreement2" class="form-control form-control-small">
+                                <option value="1">Yes</option>
+                                <option value="2">No</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-
+                <div class="col-sm-12">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="txtReasonforleaving">Reason for leaving </label>
+                            <input id="txtReasonforleaving2" type="text" class="form-control" max="500" />
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer-custom">
-
+            <div class="col-sm-12 text-center">
+                <button type="button" class="btn btn-primary" onclick="saveupdateApplicantHistory()"><i class="fa fa-save"></i> Save</button>
             </div>
 
         </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer-custom">
+
+        </div>
+
     </div>
 </div>
 
@@ -3925,7 +4861,7 @@
             <div class="modal-body" style="padding: -15px;">
                 <button type="button" class="close" data-dismiss="modal" style="margin-top: -60px; margin-right: -52px;">&times;</button>
 
-                <button type="button" class="btn btn-default print"  onclick="print('printables')">Print</button>
+                <button type="button" class="btn btn-default print" onclick="print('printables')">Print</button>
                 <div id="printables">
 
                     <table>
@@ -4036,7 +4972,7 @@
                                                     <span id="">Deposit: </span>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <span id="lblDeposit1"></span>
+                                                    $<span id="lblDeposit1"></span>
                                                 </div>
 
 
@@ -4641,6 +5577,37 @@
         .select-unit a {
             color: #fff !important;
         }
+
+    .SOP h5 {
+        margin-bottom: 10px;
+    }
+
+    .SOP {
+        padding-top: 11px;
+        min-height: 95px;
+    }
+
+    .p {
+        padding: 10px;
+    }
+
+    .move {
+        margin-top: 7px;
+        margin-left: -167px;
+        border: 1px solid #000;
+        padding: 15px 11px;
+        min-width: 210px;
+        max-width: 365px;
+        padding: 0px 15px;
+    }
+
+    .margin-left-0 {
+        margin-left: -39px;
+    }
+
+    .margin-RN {
+        margin-left: -60px;
+    }
 </style>
 <script>
     function printFloorPlanDetails(divName) {
@@ -4791,7 +5758,6 @@
     });
 
     $(document).ready(function () {
-
         $("#apartimg_2").maphilight();
         $("#ddlRoom").val(@Model.Bedroom);
         $("#ddlRoom").trigger('change');
@@ -4852,7 +5818,7 @@
             }
             if (@Model.AcceptSummary== "1") {
                 $("#hndShowPaymentPolicy").val(0);
-                $("#chkAgreeSummarry.").iCheck('check');
+                $("#chkAgreeSummarry").iCheck('check');
             } else {
                 $("#hndShowPaymentPolicy").val(1);
             }
@@ -5036,7 +6002,19 @@
     function hideLoader() {
         $("#divLoader").hide();
     }
-
+    function passwordInfo() {
+        var msg = "";
+        msg += "1. The Password should have a minimum of 8 characters<br/>";
+        msg += "2. Password should contain at least one digit<br/>";
+        msg += "3. Password should contain at least one lower case<br/>";
+        msg += "4. Password should contain at least one upper case<br/>";
+        msg += "5. Password should contain at least one special symbols in the list!@@#$ %^&*<br/>";
+        $.alert({
+            title: "",
+            content: msg,
+            type: 'red'
+        });
+    }
     function printSumm(divName) {
         let printContents, popupWin;
         printContents = document.getElementById(divName).innerHTML;

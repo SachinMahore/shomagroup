@@ -5955,5 +5955,5 @@ var downloadLeaseDocumentTP = function () {
     });
 };
 var getProcessingFeesMA = function () {
-    return $("hndProcessingFees").val();
+    return $("#hndProcessingFees").val();
 };

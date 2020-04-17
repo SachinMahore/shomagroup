@@ -262,6 +262,7 @@
     <Compile Include="Areas\Admin\Controllers\TenantEventJoinApprove\TenantEventJoinApproveController.cs" />
     <Compile Include="Areas\Admin\Controllers\Tenant\TenantController.cs" />
     <Compile Include="Areas\Admin\Controllers\Transaction\TransactionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TwilioSMS\TwilioReceivedSMSController.cs" />
     <Compile Include="Areas\Admin\Controllers\Users\UsersController.cs" />
     <Compile Include="Areas\Admin\Controllers\Utility\UtilityController.cs" />
     <Compile Include="Areas\Admin\Controllers\Vendor\VendorController.cs" />
@@ -372,6 +373,7 @@
     <Compile Include="Controllers\Prospect\ProspectController.cs" />
     <Compile Include="Controllers\ShomaAPIController.cs" />
     <Compile Include="Controllers\ShomaGroupWebAuthorizationController.cs" />
+    <Compile Include="Controllers\TwilioSMSController.cs" />
     <Compile Include="Controllers\Verification\VerificationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -403,6 +405,8 @@
     <Compile Include="Models\ShomaGroupWebSession.cs" />
     <Compile Include="Models\TenantOnline\TenantOnlineModel.cs" />
     <Compile Include="Models\Transaction\UsaePayModel.cs" />
+    <Compile Include="Models\TwilioApi\SMSListViewModel.cs" />
+    <Compile Include="Models\TwilioApi\SMSMessageModel.cs" />
     <Compile Include="Models\TwilioApi\TwilioService.cs" />
     <Compile Include="Models\Verification\VerificationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2369,6 +2373,17 @@
     <Content Include="DatabaseChanges\10-04-2020\New Columns.sql" />
     <Content Include="DatabaseChanges\11-04-2020\addColumnDatabase.txt" />
     <Content Include="DatabaseChanges\11-04-2020\usp_GetTenantOnlineData.sql" />
+    <Content Include="DatabaseChanges\13-04-2020\Parking Data.sql" />
+    <Content Include="DatabaseChanges\13-04-2020\ParkingPaginationAndSearchData.sql" />
+    <Content Include="DatabaseChanges\13-04-2020\usp_changes.sql" />
+    <Content Include="DatabaseChanges\13-04-2020\usp_GetUnitLeasePrice.sql" />
+    <Content Include="DatabaseChanges\14-04-2020\sms_table.sql" />
+    <Content Include="DatabaseChanges\14-04-2020\usp_changes.sql" />
+    <Content Include="DatabaseChanges\15-04-2020\ApplyTable_ColumnAdd.sql" />
+    <Content Include="DatabaseChanges\15-04-2020\UpdateUnitDepositAndModelName.sql" />
+    <Content Include="DatabaseChanges\15-04-2020\usp_SaveUpdateTenantParking.sql" />
+    <Content Include="DatabaseChanges\17-04-2020\usp_GetParkingPaginationAndSearchData.sql" />
+    <Content Include="DatabaseChanges\17-04-2020\usp_GetProspectVerifyPaginationAndSearchData.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -2589,6 +2604,7 @@
     <Content Include="Content\assets\fontawesome\webfonts\fa-solid-900.woff" />
     <Content Include="Content\assets\fontawesome\webfonts\fa-solid-900.woff2" />
     <Content Include="Areas\Admin\Views\Parking\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\TwilioReceivedSMS\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -2640,10 +2656,12 @@
     <Content Include="Views\Appointment\Index.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\ApplyNow\ChangePassword.cshtml" />
+    <Content Include="Views\PayLink\PayAdmFees.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\CommunityManagment\" />
+    <Folder Include="Areas\Admin\Views\TwilioSMS\" />
     <Folder Include="Areas\Tenant\Views\Applicant\" />
     <Folder Include="Areas\Tenant\Views\CommunityActivity\" />
     <Folder Include="Areas\Tenant\Views\MyTransaction\" />
@@ -2651,6 +2669,7 @@
     <Folder Include="Areas\Tenant\Views\ServiceRequest\" />
     <Folder Include="Content\assets\img\property-1\" />
     <Folder Include="Content\assets\img\slide1\" />
+    <Folder Include="Views\TwilioSMS\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

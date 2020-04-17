@@ -8,6 +8,7 @@
 <input type="hidden" id="hndPID" value="0" />
 <input type="hidden" id="hndTransMethod" value="2" />
 <input type="hidden" id="hndAID" value="@ViewBag.AID" />
+<input type="hidden" id="hndFromAcc" value="@ViewBag.FromAcc" />
 <input type="hidden" id="hndProcessingFees" value="@ViewBag.ProcessingFees" />
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -142,17 +143,20 @@
     </div>
 </div>
 
-<script>  
+<script>
     var charge_Type = 1;
     $(document).ready(function () {
-      
+
         if (@ViewBag.FromAcc=="2")
         {
             $("#lblDes").text("Co-Applicant Move In Charges ");
             charge_Type = 2;
-        } else {
+        }else if (@ViewBag.FromAcc=="1") {
             $("#lblDes").text("Co-Applicant Online Application Fees ");
             charge_Type = 1;
+        } else {
+            $("#lblDes").text("Applicant Administration Fees ");
+            charge_Type = 3;
         }
         if ("@Model.Type"=="5")
         {
@@ -192,7 +196,7 @@
             });
             return;
         }
-        
+
         if ($("#hndTransMethod").val() == "2") {
             var paymentMethod = 2;
             var propertyId = $("#hndPID").val();
@@ -286,6 +290,8 @@
             BankName: bankName,
             PaymentMethod: paymentMethod,
             AID: $("#hndAID").val(),
+            FromAcc: $("#hndFromAcc").val(),
+            
         };
 
      $.alert({
@@ -295,7 +301,7 @@
          buttons: {
              yes: {
                  text: 'Yes',
-                 action: function (yes) {   
+                 action: function (yes) {
         $.ajax({
             url: "/ApplyNow/saveCoAppPayment/",
             type: "post",
@@ -329,13 +335,13 @@
                             }
                         });
 
-                       
 
-                       
+
+
                     } else {
                         $("#ResponseMsg").html("Payment failed");
                     }
-                  
+
                     //getTransationLists($("#hdnUserId").val());
                 }
             }

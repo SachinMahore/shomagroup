@@ -144,6 +144,14 @@ namespace ShomaRM.Models
         public Nullable<int> IsProprNoticeLeaseAgreement { get; set; }
         public string CountryOfOriginString { get; set; }
 
+        public string StringEvicted { get; set; }
+        public String StringConvictedFelony { get; set; }
+        public String StringCriminalChargPen { get; set; }
+        public string StringDoYouSmoke { get; set; }
+        public String StringReferredResident { get; set; }
+        public String StringReferredBrokerMerchant { get; set; }
+        public string stringIsProprNoticeLeaseAgreement { get; set; }
+
         public string SaveHavePet(long id, bool PetValue)
         {
             string msg = "";
@@ -506,6 +514,14 @@ namespace ShomaRM.Models
                     int emergencyStateHomeTemp = lstpr.EmergencyStateHome != null ? Convert.ToInt32(lstpr.EmergencyStateHome) : 0;
                     var EmergencyStateHomeVar = db.tbl_State.Where(co => co.ID == emergencyStateHomeTemp).FirstOrDefault();
                     lstpr.EmergencyStateHomeString = EmergencyStateHomeVar != null ? EmergencyStateHomeVar.StateName : "";
+
+                    lstpr.StringEvicted = Convert.ToInt32(dr["Evicted"]) == 1 ? "No" : "Yes";
+                    lstpr.StringConvictedFelony = Convert.ToInt32(dr["ConvictedFelony"]) == 1 ? "No" : "Yes";
+                    lstpr.StringCriminalChargPen = Convert.ToInt32(dr["CriminalChargPen"]) == 1 ? "No" : "Yes";
+                    lstpr.StringDoYouSmoke = Convert.ToInt32(dr["DoYouSmoke"]) == 1 ? "No" : "Yes";
+                    lstpr.StringReferredResident = Convert.ToInt32(dr["ReferredResident"]) == 1 ? "No" : "Yes";
+                    lstpr.StringReferredBrokerMerchant = Convert.ToInt32(dr["ReferredBrokerMerchant"]) == 1 ? "No" : "Yes";
+                    lstpr.stringIsProprNoticeLeaseAgreement = Convert.ToInt32(dr["IsProprNoticeLeaseAgreement"]) == 1 ? "Yes" : "No";
 
                     var stepCompleted= Convert.ToInt32(dr["StepCompleted"].ToString());
                     lstpr.StepCompleted = stepCompleted;
