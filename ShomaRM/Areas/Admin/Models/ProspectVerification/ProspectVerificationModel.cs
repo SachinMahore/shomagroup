@@ -104,6 +104,8 @@ namespace ShomaRM.Areas.Admin.Models
         public string EsignatureID { get; set; }
         public Nullable<decimal> PetDNAAmt { get; set; }
         public int LeaseTermID { get; set; }
+    
+
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
 
@@ -192,6 +194,17 @@ namespace ShomaRM.Areas.Admin.Models
                     paramNOR.Value = model.NumberOfRows;
                     cmd.Parameters.Add(paramNOR);
 
+                    DbParameter paramUn = cmd.CreateParameter();
+                    paramUn.ParameterName = "UnitNo";
+                    paramUn.Value = model.UnitNo == null ? model.UnitNo : "Unit " + model.UnitNo;
+                    cmd.Parameters.Add(paramUn);
+
+
+                    DbParameter paramAs = cmd.CreateParameter();
+                    paramAs.ParameterName = "Astatus";
+                    paramAs.Value = model.ApplicationStatus;
+                    cmd.Parameters.Add(paramAs);
+
                     DbParameter param5 = cmd.CreateParameter();
                     param5.ParameterName = "SortBy";
                     param5.Value = model.SortBy;
@@ -253,6 +266,17 @@ namespace ShomaRM.Areas.Admin.Models
                     paramNOR.Value = model.NumberOfRows;
                     cmd.Parameters.Add(paramNOR);
 
+                    DbParameter paramUn = cmd.CreateParameter();
+                    paramUn.ParameterName = "UnitNo";
+                    paramUn.Value = model.UnitNo == null ? model.UnitNo : "Unit " + model.UnitNo;
+                    cmd.Parameters.Add(paramUn);
+
+
+                    DbParameter paramAs = cmd.CreateParameter();
+                    paramAs.ParameterName = "Astatus";
+                    paramAs.Value = model.ApplicationStatus;
+                    cmd.Parameters.Add(paramAs);
+
                     DbParameter param5 = cmd.CreateParameter();
                     param5.ParameterName = "SortBy";
                     param5.Value = model.SortBy;
@@ -284,6 +308,7 @@ namespace ShomaRM.Areas.Admin.Models
                     searchmodel.CreatedDate = dr["CreatedDate"].ToString();
                     searchmodel.PropertyId = Convert.ToInt64(dr["PropertyId"].ToString());
                     searchmodel.UnitNo = dr["UnitNo"].ToString();
+                    searchmodel.ApplicationStatus = dr["ApplicationStatus"].ToString();
                     lstProspectVerify.Add(searchmodel);
                 }
                 db.Dispose();
@@ -438,7 +463,13 @@ namespace ShomaRM.Areas.Admin.Models
             return msg;
 
         }
-        
+        public void SaveScreeningStatusList(string Email, long UserId, string Status)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            var GetTenantDet = db.tbl_ApplyNow.Where(p => p.UserId == UserId).FirstOrDefault();
+            string result = SaveScreeningStatus(Email, GetTenantDet.ID, Status);
+            db.Dispose();
+        }
         public class ProspectVerifySearchModel
         {
             public long ID { get; set; }
@@ -461,6 +492,7 @@ namespace ShomaRM.Areas.Admin.Models
             public string SortBy { get; set; }
             public string OrderBy { get; set; }
             public string UnitNo { get; set; }
+            public string ApplicationStatus { get; set; }
         }
     
         public string GetDocumentType(string DocType)

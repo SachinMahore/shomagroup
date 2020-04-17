@@ -209,7 +209,7 @@ namespace ShomaRM.Areas.Admin.Models
                 model.Charges = GetParkingData.Charges;
                 model.Description = GetParkingData.Description;
 
-                 var GetUnitData = db.tbl_PropertyUnits.Where(p => p.UID == GetParkingData.PropertyID).FirstOrDefault();
+                var GetUnitData = db.tbl_PropertyUnits.Where(p => p.UID == GetParkingData.PropertyID).FirstOrDefault();
                 if (GetUnitData != null)
                 {
                     model.UnitNo = GetUnitData.UnitNo;
@@ -223,11 +223,12 @@ namespace ShomaRM.Areas.Admin.Models
                     model.VehicleModel = GetVehicleData.Model;
 
                 }
-               
+
             }
             model.ParkingID = Id;
             return model;
         }
+
         public List<ParkingModel> GetParkingSearchList(string SearchText)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -303,6 +304,16 @@ namespace ShomaRM.Areas.Admin.Models
                     paramNOR.Value = model.NumberOfRows;
                     cmd.Parameters.Add(paramNOR);
 
+                    DbParameter param5 = cmd.CreateParameter();
+                    param5.ParameterName = "SortBy";
+                    param5.Value = model.SortBy;
+                    cmd.Parameters.Add(param5);
+
+                    DbParameter param6 = cmd.CreateParameter();
+                    param6.ParameterName = "OrderBy";
+                    param6.Value = model.OrderBy;
+                    cmd.Parameters.Add(param6);
+
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
                     da.Fill(dtTable);
@@ -354,6 +365,16 @@ namespace ShomaRM.Areas.Admin.Models
                     paramNOR.Value = model.NumberOfRows;
                     cmd.Parameters.Add(paramNOR);
 
+                    DbParameter param5 = cmd.CreateParameter();
+                    param5.ParameterName = "SortBy";
+                    param5.Value = model.SortBy;
+                    cmd.Parameters.Add(param5);
+
+                    DbParameter param6 = cmd.CreateParameter();
+                    param6.ParameterName = "OrderBy";
+                    param6.Value = model.OrderBy;
+                    cmd.Parameters.Add(param6);
+
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -379,6 +400,46 @@ namespace ShomaRM.Areas.Admin.Models
                 }
                 db.Dispose();
                 return lstData.ToList();
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
+        public List<ParkingModel> GetParkingNewList()
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<ParkingModel> model = new List<ParkingModel>();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_Get_Parking";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    ParkingModel usm = new ParkingModel();
+                    usm.ParkingID = int.Parse(dr["ParkingID"].ToString());
+                    usm.PropertyID = int.Parse(dr["PropertyID"].ToString());
+                    usm.ParkingName = dr["ParkingName"].ToString();
+                    usm.Charges = Convert.ToDecimal(dr["Charges"].ToString());
+                    usm.Description = dr["Description"].ToString();
+                    usm.Type = int.Parse(dr["Type"].ToString());
+                    model.Add(usm);
+
+                }
+                db.Dispose();
+                return model.ToList();
             }
             catch (Exception ex)
             {
