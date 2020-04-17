@@ -863,6 +863,15 @@ namespace ShomaRM.Areas.Admin.Models
         public string UnitWiseRentData { get; set; }
         public List<PropertyUnits> lstPropertyUnit { get; set; }
         public List<PremiumTypeModel> PremiumTypeList { get; set; }
+
+        public long ParkingID { get; set; }
+        public string ParkingName { get; set; }
+        public string Charges { get; set; }
+        public string Description { get; set; }
+        public string ParkingDescription { get; set; }
+        public List<ParkingModel> LocationList { get; set; }
+        public int Type { get; set; }
+
         public PropertyUnits GetPropertyUnitDetails(long UID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -958,7 +967,34 @@ namespace ShomaRM.Areas.Admin.Models
                 model.InteriorArea = unitDet.InteriorArea == null?"0":unitDet.InteriorArea;
                 model.BalconyArea = unitDet.BalconyArea == null ? "0" : unitDet.BalconyArea;
                 model.Notes = unitDet.Notes;
-                
+
+                var ParkingInfo = db.tbl_Parking.Where(p => p.PropertyID == unitDet.UID).FirstOrDefault();
+                if (ParkingInfo != null)
+                {
+                    if (ParkingInfo.Type == 1)
+                    {
+                        model.ParkingID = ParkingInfo.ParkingID;
+                        model.ParkingName = ParkingInfo.ParkingName;
+                        model.Charges = Convert.ToDecimal(ParkingInfo.Charges).ToString();
+                        model.Description = ParkingInfo.Description;
+                    }
+
+                }
+                var ParkingInfoList = db.tbl_Parking.ToList();
+                if (ParkingInfoList != null)
+                {
+                    List<ParkingModel> lst = new List<ParkingModel>();
+                    foreach (var item in ParkingInfoList)
+                    {
+                        lst.Add(new ParkingModel()
+                        {
+                            ParkingID = item.ParkingID,
+                            PropertyID = item.PropertyID,
+                            Description = item.Description
+                        });
+                    }
+                    model.LocationList = lst;
+                }
             }
 
             return model;
@@ -1137,7 +1173,34 @@ namespace ShomaRM.Areas.Admin.Models
                 db.SaveChanges();
                 msg = "Property Unit Details Updated Successfully";
             }
+            if (model.ParkingID == 0)
+            {
+                var saveParking = new tbl_Parking()
+                {
+                    //ParkingID = model.ParkingID,
+                    ParkingName = model.ParkingName,
+                    Charges = Convert.ToDecimal(model.Charges),
+                    Description = model.ParkingDescription,
+                    Type = model.Type
+                };
+                db.tbl_Parking.Add(saveParking);
+                db.SaveChanges();
+            }
+            else
+            {
+                var parkingUpdate = db.tbl_Parking.Where(p => p.ParkingID == model.ParkingID).FirstOrDefault();
+                if (parkingUpdate != null)
+                {
+                    if (parkingUpdate.Type == 1)
+                    {
+                        parkingUpdate.ParkingName = model.ParkingName;
+                        parkingUpdate.Charges = Convert.ToDecimal(model.Charges);
+                        parkingUpdate.Description = model.Description;
+                        db.SaveChanges();
+                    }
 
+                }
+            }
             // Unit Wise Rent //
             var unitWiseRent = db.tbl_UnitLeasePrice.Where(p => p.UnitID == model.UID).ToList();
             if(unitWiseRent.Count>0)

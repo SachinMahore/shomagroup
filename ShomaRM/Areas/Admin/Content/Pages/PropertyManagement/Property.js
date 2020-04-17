@@ -968,6 +968,11 @@ function SaveUpdatePropertyUnit() {
     var balcarea = $("#txtBalconyArea").val();
     var notes = $("#txtUnitNotes").val();
 
+    var parkingNo = $("#txtParkingNo").val();
+    var charges = 0.00;
+    var type = 1;
+    var ddlLocation = $("#ddlLocation").find(':selected').data("list");
+    var spaceNo = $("#txtSpaceNo").val();
 
     if (unitNo == "") {
         msg += " Please enter Unit Title .<br />";
@@ -1073,7 +1078,11 @@ function SaveUpdatePropertyUnit() {
     $formData.append('InteriorArea', intarea);
     $formData.append('BalconyArea', balcarea);
     $formData.append('Notes', notes);
-
+    $formData.append('ParkingID', parkingNo);
+    $formData.append('Charges', charges);
+    $formData.append('Type', type);
+    $formData.append('Description', ddlLocation);
+    $formData.append('ParkingName', spaceNo);
     $formData.append('UnitWiseRentData', unitWiseRentData);
     var $file = document.getElementById('unit-picture');
     if ($file.files.length > 0) {
