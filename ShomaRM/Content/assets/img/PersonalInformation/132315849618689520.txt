@@ -1,0 +1,38 @@
+746
+747
+753
+782
+787
+788
+789
+
+803 Prospect Portal: Vehicle Charges Appears and Disappears on back and forth navigating - 30 March 4hr
+827
+828
+830
+831
+832 Prospect Portal - Print Preview - Lease Term - 30 March 30min
+835 Prospect Portal - Print Summary of Floor Plan - 30 March 30min
+
+806 Prospect Portal: The number of Applicants and Co-Applicants has to be in propotion to the size of the Unit 
+              -31 March 4hr
+
+845 Prospect Portal: Payment Page Pricing issue  - 31 March 4hr
+846 Prospect Portal - Pet Fees  - 1 apr 4hr
+847 Prospect Portal - Responsibility Pricing  - 1 apr 4hr
+
+-----------Summary tab /Remove Lease /Change Payment tab
+Summary Step Design and function to display data (Applicant, Responsibility, Personal info, Residence history with list)- 2Apr 8hr
+Summary Step Design and function to display data  (Employment history  with list Emegency, Vehicle list, pet list)- 3Apr 4hr
+Design print div for summary - 3 Apr 5hr
+
+807
+802
+803
+807
+
+864 865 866   07Apr
+872 873 874   08 Apr
+Fix summary data issue when new created 
+875 
+Dispaly applicant name in Prospect 

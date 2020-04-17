@@ -2,6 +2,8 @@
 using ShomaRM.Data;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -355,5 +357,76 @@ namespace ShomaRM.Models
             db.Dispose();
             return processingFees;
         }
+        public List<ESignatureKeysModel> GetSignedList(long TenantID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<ESignatureKeysModel> lstpr = new List<ESignatureKeysModel>();
+            List<ESignatureKeysModel> lstTransaction = new List<ESignatureKeysModel>();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetSignedList";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                
+
+                    DbParameter paramTID = cmd.CreateParameter();
+                    paramTID.ParameterName = "TenantID";
+                    paramTID.Value = TenantID;
+                    cmd.Parameters.Add(paramTID);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    ESignatureKeysModel pr = new ESignatureKeysModel();
+
+                    
+                    DateTime? createdDateString = null;
+                    try
+                    {
+                        createdDateString = Convert.ToDateTime(dr["DateSigned"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    
+                    pr.ESID = Convert.ToInt32(dr["ESID"].ToString());
+
+                
+                    pr.DateSigned = createdDateString == null ? "" : createdDateString.ToString();
+                    pr.ApplicantName = dr["ApplicantName"].ToString();
+                    pr.Email = dr["Email"].ToString();
+                    pr.Key = dr["Key"].ToString();
+                   
+                    lstpr.Add(pr);
+                }
+                db.Dispose();
+                return lstpr.ToList();
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
+    }
+    public partial class ESignatureKeysModel
+    {
+        public long ESID { get; set; }
+        public Nullable<long> TenantID { get; set; }
+        public Nullable<long> ApplicantID { get; set; }
+        public string Key { get; set; }
+        public Nullable<long> EsignatureId { get; set; }
+        public string DateSigned { get; set; }
+        public string ApplicantName { get; set; }
+        public string Email { get; set; }
     }
 }

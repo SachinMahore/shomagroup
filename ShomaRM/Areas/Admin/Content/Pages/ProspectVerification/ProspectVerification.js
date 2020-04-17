@@ -795,6 +795,8 @@ var goToStep = function (stepid, id) {
     }
     if (stepid == "17") {
         if (id == "17") {
+            getTransationLists($("#hdnUserId").val());
+            getSignedLists($("#hdnOPId").val());
             $("#subMenu").addClass("hidden");
             $("#li7").addClass("active");
             $("#li17").addClass("active");
@@ -825,7 +827,7 @@ var goToStep = function (stepid, id) {
     if (stepid == "18") {
         if (id == "18") {
             $("#subMenu").addClass("hidden");
-            getTransationLists($("#hdnUserId").val());
+           
            
             $("#li7").addClass("active");
             $("#li6").addClass("active");
@@ -1671,7 +1673,7 @@ var getTransationLists = function (userid) {
         success: function (response) {
 
             $("#tblTransaction>tbody").empty();
-       
+            $("#tblAdminFee>tbody").empty();
             $.each(response.model, function (elementType, elementValue) {
                 totPaid = totPaid+parseFloat(elementValue.Credit_Amount);
                 var html = "<tr data-value=" + elementValue.TransID + ">";
@@ -1685,6 +1687,20 @@ var getTransationLists = function (userid) {
                 html += "<td>" + elementValue.Description + "</td>";
                 //html += "<td>" + elementValue.CreatedDateString + "</td>";
                 html += "</tr>";
+                if (elementValue.Transaction_Type == "Administrative Fee")
+                {
+                    var adhtml = "<tr data-value=" + elementValue.TransID + ">";
+                    adhtml += "<td>" + elementValue.Transaction_DateString + "</td>";
+                    adhtml += "<td>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
+                    adhtml += "<td>" + elementValue.Description + "</td>";
+                    adhtml += "</tr>";
+                    $("#tblAdminFee>tbody").append(adhtml);
+                    $("#btnSendRemtr").attr("disabled", "disabled");
+                    $("#btnSendRemSign").removeAttr("disabled");
+                    $("#btnleaseDownl").removeAttr("disabled");
+                    $("#btnupSignSts").removeAttr("disabled");
+                }
+                
                 $("#tblTransaction>tbody").append(html);
             });
           
@@ -4476,3 +4492,147 @@ var getEmpHistoryInfoProsVerif = function (id) {
     });
 };
 
+var downloadLeaseDocument = function () {
+    $("#divLoader").show();
+    var param = { uid: $("#hdnUserId").val() };
+    $.ajax({
+        url: "/CheckList/DownloadLeaseDocBlumoon",
+        method: "post",
+        data: JSON.stringify(param),
+        contentType: "application/json; charset=utf-8", // content type sent to server
+        dataType: "json", //Expected data format from server
+        success: function (response) {
+            $("#divLoader").hide();
+            var hyperlink = document.createElement('a');
+            hyperlink.href = "/Content/assets/img/Document/LeaseDocument_" + response.LeaseId + ".pdf";
+            hyperlink.target = '_blank';
+            hyperlink.download = "LeaseDocument_" + response.LeaseId + ".pdf";
+
+            (document.body || document.documentElement).appendChild(hyperlink);
+            hyperlink.onclick = function () {
+                (document.body || document.documentElement).removeChild(hyperlink);
+            };
+            var mouseEvent = new MouseEvent('click', {
+                view: window,
+                bubbles: true,
+                cancelable: true
+            });
+            hyperlink.dispatchEvent(mouseEvent);
+            if (!navigator.mozGetUserMedia) {
+                window.URL.revokeObjectURL(hyperlink.href);
+            }
+
+        }
+    });
+}
+var SaveSignedStatus = function () {
+    var emil = $("#txtEmail").text();
+    var model = {
+        Email: emil, ProspectId: $("#hdnOPId").val(), Status:"Signed"
+    };
+
+    $.alert({
+        title: "",
+        content: "Are you sure to send Confirmation?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: "/ProspectVerification/SaveScreeningStatus",
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $.alert({
+                                title: "",
+                                content: "Confirmation Saved and Email Send Successfully",
+                                type: 'blue',
+                            });
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                }
+            }
+        }
+    });
+};
+var getSignedLists = function (userid) {
+    var model = {
+
+        TenantID: userid,
+    }
+    $.ajax({
+        url: "/CheckList/GetSignedList",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+
+            $("#tblLeasedSign>tbody").empty();
+       
+            $.each(response.model, function (elementType, elementValue) {
+              
+                var html = "<tr data-value=" + elementValue.ESID + ">";
+
+                html += "<td>" + elementValue.ApplicantName + "</td>";
+                html += "<td>" + elementValue.Email + "</td>";
+                html += "<td>" + elementValue.Key + "</td>";
+                html += "<td>" + elementValue.DateSigned + "</td>";
+            
+                html += "</tr>";
+              
+                $("#tblLeasedSign>tbody").append(html);
+            });
+
+           
+        }
+    });
+}
+var SendReminderEmail = function (remtype) {
+
+    var model = {
+        ProspectId: $("#hdnOPId").val(), RemType: remtype
+    };
+
+    $.alert({
+        title: "",
+        content: "Are you sure to send Reminder Email?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $("#divLoader").show();
+                    $.ajax({
+                        url: "/ProspectVerification/SendReminderEmail",
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $("#divLoader").hide();
+                            $.alert({
+                                title: "",
+                                content: "Reminder Email Sent Successfully",
+                                type: 'blue',
+                            });
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                }
+            }
+        }
+    });
+};
