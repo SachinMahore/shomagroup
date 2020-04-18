@@ -100,7 +100,7 @@ namespace ShomaRM.Controllers
 
                         checkExpiry.Status = (!string.IsNullOrWhiteSpace(checkExpiry.Status) ? checkExpiry.Status : "");
 
-                        if (checkExpiry.Status.Trim() == "Approved")
+                        if (checkExpiry.Status.Trim() == "Signed")
                         {
                             return RedirectToAction("../Checklist/");
                         }
