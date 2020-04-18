@@ -7301,11 +7301,11 @@ var onFocusApplyNow = function () {
 
     $("#txtApplicantPhone").focusout(function () {
         var phoneNum = $("#txtApplicantPhone").val();
-        if (phoneNum.length < 10) {
-            alert("Please fill valid phone number");
-            $("#txtApplicantPhone").focus();
-            return;
-        }
+        //if (phoneNum.length < 10) {
+        //    alert("Please fill valid phone number");
+        //    $("#txtApplicantPhone").focus();
+        //    return;
+        //}
         $("#txtApplicantPhone").val(formatPhoneFax($("#txtApplicantPhone").val()));
     })
         .focus(function () {
@@ -7314,11 +7314,11 @@ var onFocusApplyNow = function () {
 
     $("#txtMobileNumber").focusout(function () {
         var phoneNum = $("#txtMobileNumber").val();
-        if (phoneNum.length < 10) {
-            alert("Please fill valid phone number");
-            $("#txtMobileNumber").focus();
-            return;
-        }
+        //if (phoneNum.length < 10) {
+        //    alert("Please fill valid phone number");
+        //    $("#txtMobileNumber").focus();
+        //    return;
+        //}
         $("#txtMobileNumber").val(formatPhoneFax($("#txtMobileNumber").val()));
     })
         .focus(function () {
@@ -7327,11 +7327,11 @@ var onFocusApplyNow = function () {
 
     $("#txtSupervisiorPhone").focusout(function () {
         var phoneNum = $("#txtSupervisiorPhone").val();
-        if (phoneNum.length < 10) {
-            alert("Please fill valid phone number");
-            $("#txtMobileNumber").focus();
-            return;
-        }
+        //if (phoneNum.length < 10) {
+        //    alert("Please fill valid phone number");
+        //    $("#txtMobileNumber").focus();
+        //    return;
+        //}
         $("#txtSupervisiorPhone").val(formatPhoneFax($("#txtSupervisiorPhone").val()));
     })
         .focus(function () {
@@ -7340,11 +7340,11 @@ var onFocusApplyNow = function () {
 
     $("#txtEmergencyMobile").focusout(function () {
         var phoneNum = $("#txtEmergencyMobile").val();
-        if (phoneNum.length < 10) {
-            alert("Please fill valid phone number");
-            $("#txtMobileNumber").focus();
-            return;
-        }
+        //if (phoneNum.length < 10) {
+        //    alert("Please fill valid phone number");
+        //    $("#txtMobileNumber").focus();
+        //    return;
+        //}
         $("#txtEmergencyMobile").val(formatPhoneFax($("#txtEmergencyMobile").val()));
     })
         .focus(function () {
@@ -7353,11 +7353,11 @@ var onFocusApplyNow = function () {
 
     $("#txtEmergencyHomePhone").focusout(function () {
         var phoneNum = $("#txtEmergencyHomePhone").val();
-        if (phoneNum.length < 10) {
-            alert("Please fill valid phone number");
-            $("#txtMobileNumber").focus();
-            return;
-        }
+        //if (phoneNum.length < 10) {
+        //    alert("Please fill valid phone number");
+        //    $("#txtMobileNumber").focus();
+        //    return;
+        //}
         $("#txtEmergencyHomePhone").val(formatPhoneFax($("#txtEmergencyHomePhone").val()));
     })
         .focus(function () {
@@ -7366,11 +7366,11 @@ var onFocusApplyNow = function () {
 
     $("#txtEmergencyWorkPhone").focusout(function () {
         var phoneNum = $("#txtEmergencyWorkPhone").val();
-        if (phoneNum.length < 10) {
-            alert("Please fill valid phone number");
-            $("#txtMobileNumber").focus();
-            return;
-        }
+        //if (phoneNum.length < 10) {
+        //    alert("Please fill valid phone number");
+        //    $("#txtMobileNumber").focus();
+        //    return;
+        //}
         $("#txtEmergencyWorkPhone").val(formatPhoneFax($("#txtEmergencyWorkPhone").val()));
     })
         .focus(function () {
@@ -7494,11 +7494,11 @@ var onFocusApplyNow = function () {
 
     $("#txtPhoneNumber").focusout(function () {
         var phoneNum = $("#txtPhoneNumber").val();
-        if (phoneNum.length < 10) {
-            alert("Please fill valid mobile number");
-            $("#txtPhoneNumber").focus();
-            return;
-        }
+        //if (phoneNum.length < 10) {
+        //    alert("Please fill valid mobile number");
+        //    $("#txtPhoneNumber").focus();
+        //    return;
+        //}
         $("#txtPhoneNumber").val(formatPhoneFax($("#txtPhoneNumber").val()));
     })
     .focus(function () {
@@ -7506,11 +7506,11 @@ var onFocusApplyNow = function () {
         });
     $("#txtManagementCompanyPhone").focusout(function () {
         var phoneNum = $("#txtManagementCompanyPhone").val();
-        if (phoneNum.length < 10) {
-            alert("Please fill valid management company phone number");
-            $("#txtManagementCompanyPhone").focus();
-            return;
-        }
+        //if (phoneNum.length < 10) {
+        //    alert("Please fill valid management company phone number");
+        //    $("#txtManagementCompanyPhone").focus();
+        //    return;
+        //}
         $("#txtManagementCompanyPhone").val(formatPhoneFax($("#txtManagementCompanyPhone").val()));
     })
         .focus(function () {
@@ -7518,11 +7518,11 @@ var onFocusApplyNow = function () {
         });
     $("#txtManagementCompanyPhone2").focusout(function () {
         var phoneNum = $("#txtManagementCompanyPhone2").val();
-        if (phoneNum.length < 10) {
-            alert("Please fill valid management company phone number");
-            $("#txtManagementCompanyPhone2").focus();
-            return;
-        }
+        //if (phoneNum.length < 10) {
+        //    alert("Please fill valid management company phone number");
+        //    $("#txtManagementCompanyPhone2").focus();
+        //    return;
+        //}
         $("#txtManagementCompanyPhone2").val(formatPhoneFax($("#txtManagementCompanyPhone2").val()));
     })
         .focus(function () {

@@ -21,7 +21,7 @@
         <div class="collapse navbar-collapse yamm" id="navigation">
             <div class="button navbar-right">
                 @*@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.Username*@
-                <button class="navbar-btn nav-button wow bounceInRight login" id="btnLogoff" onclick="gotoLogOffCheck()" data-wow-delay="0.4s">Logout</button>
+                <span id="txtname"></span>  <button class="navbar-btn nav-button wow bounceInRight login" id="btnLogoff" onclick="gotoLogOffCheck()" data-wow-delay="0.4s">Logout</button>
 
             </div>
 
@@ -35,11 +35,7 @@
         <div class="wizard-container">
             <div class="wizard-card ct-wizard-orange" id="wizardProperty">
                 <div>
-                    <div class="wizard-header">
-                        <h3>
-                            <b><span id="txtname"></span>  Lease Now  </b> <br>
-                        </h3>
-                    </div>
+                    
                     <div class="tab-content">
                         <div class="" id="step1">
                             <div class="row p-b-15">
@@ -86,12 +82,7 @@
                                     <div class="col-sm-11">
                                         <div class="form-group">
                                             <div class="">
-                                                @*<a href="javascript:void(0)" id="btnDownloadLeaseDocument" class="btn btn-primary" onclick="saveLeaseDoc()">Review and Sign Your Online Leasing Application</a>*@
-                                                 @*<span class="hidden" style="color:#4d738a" id="lblLeaseStatus"> Your Lease Agreement already Generated and processed at Bluemoon. Lease ID:</span> <span  style="color:#4d738a" id="lblLeaseNo"></span>
-                                                <br /><br />
-                                                onclick="location.href='@Url.Action("LeaseBlumoon","CheckList")'"
-                                                onclick="location.href='@Url.Action("GetLeaseDocBlumoon","CheckList")'"
-                                                *@
+                                             
                                                 <a class="btn btn-primary pull-right" width="400" style="width: 400px;" id="btnDownloadLeaseDocument" onclick="createLeaseDocument()"   disabled="disabled">Process Online Leasing Application</a>
                                                 <a class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="downloadLeaseDocument()"  disabled="disabled">Download Leasing Application</a>
                                             </div>
@@ -136,48 +127,7 @@
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" id="chkPayCL">    <span style="margin-left: 25px;">Pay your <b><span id="lblPaymentPer"></span>%</b> Move-in charges </span> 
-                                                </label>
-                                            </div>
-                                            <div class="input-group" style="margin-left: 70px;">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
-                                                </span>
-                                                <input id="txtPaymentCL" class="form-control form-control-small" readonly="readonly" style="width: 140px;color:#000" type="text" onkeypress="return isNumber(event)" />
-                                                <input id="btnPayNowCheckLink" type="button" class="btn-success" data-toggle="modal" data-target="#popPayNow" style="width:90px;height: 34px;" value="Pay Now" />
-                                            </div>
-                                        </div>
-                                        <div class="pull-left col-sm-12">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" id="chkMoveinCL">    <span style="margin-left: 25px;"> Schedule a move-in date and time</span>
-                                                </label>
-                                            </div>
-                                            <div class="input-group" style="margin-left: 70px;">
-
-                                                <input id="txtMoveInDateCL" class="form-control form-control-small" style="width: 140px;" type="text" />
-                                                <span class="input-group-btn pull-left">
-                                                    <button class="btn btn-primary search" type="button" id="iconMoveInDateChecklist"><i class="fa-calendar fa"></i></button>
-                                                </span>
-                                                @* <input id="txtMoveInTime" class="form-control form-control-small" style="width: 140px;" type="text" />*@
-                                                <select id="ddlMoveInTimeCL" class="form-control" style="width: 140px;margin-left: 54px;">
-                                                    <option value="">Select a time</option>
-                                                    <option value="9:00-10:00">9:00-10:00</option>
-                                                    <option value="10:00-11:00">10:00-11:00</option>
-                                                    <option value="11:00-12:00">11:00-12:00</option>
-                                                    <option value="12:00-13:00">12:00-13:00</option>
-                                                    <option value="13:00-14:00">13:00-14:00</option>
-                                                    <option value="14:00-15:00">14:00-15:00</option>
-                                                    <option value="15:00-16:00">15:00-16:00</option>
-                                                    <option value="16:00-17:00">16:00-17:00</option>
-                                                </select>
-
-                                            </div>
-                                        </div>
-                                        <div class="pull-left col-sm-12">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" id="chkInsCL"><span style="margin-left: 25px;"> Make sure you have Renter’s insurance.  If you have not purchased it and would like to use our partner, login or call Serrod Insurance 	Agency at (305) 445-6441 </span>
+                                                    <input type="checkbox" id="chkInsCL"><span style="margin-left: 25px;"> Bind your insurance coverage. Make sure you bring proof of insurance to your Pre-move-in appointment. If you do not have an agent to assist you in this matter, visit www.insuredbystef.com, email stefanie@insur4edbystel.com, or text/call 954-388-7833. </span>
 
                                                 </label>
                                             </div>
@@ -187,20 +137,11 @@
                                             <input type="hidden" id="hndPOI" value="0" />
                                             <input type="hidden" id="hndOriginalPOI" value="0" />
                                         </div>
-
+                                        <h5 style="color:#4d738a;">Set up Utilities</h5>
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" id="chkPoCL">    <span style="margin-left: 25px;"> Complete the Post Office change of address by logging into <a href="https://movingonlineservice.com" target="_blank">https://movingonlineservice.com</a></span>
-                                                </label>
-                                            </div>
-
-                                        </div>
-                                        <h4 style="color:#4d738a;">Utilities</h4>
-                                        <div class="pull-left col-sm-12">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" id="chkEleCL">    <span style="margin-left: 25px;">Electricity- log in to <a href="https://fpl.com" target="_blank">https://fpl.com</a> to start service or call 1-800-226-3545 .  </span>
+                                                    <input type="checkbox" id="chkEleCL">    <span style="margin-left: 25px;">Electricity- log in to <a href="https://fpl.com" target="_blank">https://fpl.com</a> to start service or call 1-800-226-3545 . <b>You must show proof of new account at move-in.</b> </span>
 
                                                 </label>
                                             </div>
@@ -228,6 +169,66 @@
                                             </div>
                                             <br />
                                         </div>
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="chkSDP">    <span style="margin-left: 25px;"> If you would like to participate in the SureDeposit Program which may assist you in bonding your deposit requirement for a fee, please contact Assurant at <a href="http://www.assurantresidentsolutions.com" target="_blank">assurantresidentsolutions.com</a>.  They will be able to assist you in this procedure.  Once you complete the process, forward to us the documentation provided by Assurant, which will notify us of the amount of your deposit.  We will adjust your Deposit amount and your Move-in charges accordingly, so you can process your payment correctly.</span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="chkPayCL">    <span style="margin-left: 25px;">Pay your <b><span id="lblPaymentPer"></span>%</b> Move-in charges </span> 
+                                                </label>
+                                            </div>
+                                            <div class="input-group" style="margin-left: 70px;">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                </span>
+                                                <input id="txtPaymentCL" class="form-control form-control-small" readonly="readonly" style="width: 140px;color:#000" type="text" onkeypress="return isNumber(event)" />
+                                                <input id="btnPayNowCheckLink" type="button" class="btn-success" data-toggle="modal" data-target="#popPayNow" style="width:90px;height: 34px;" value="Pay Now" />
+                                            </div>
+                                        </div>
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="chkMoveinCL">    <span style="margin-left: 25px;"> Schedule a Pre-move-in date appointment.  It is important that at least three 	days before your desired move-in date, you schedule an appointment to 	establish your biometrics authentication, obtain your vehicle decals, and 	complete your pet(s) DNA testing. Please make sure to bring proof of your 	insurance as well as your FPL account. Please note we are unable to schedule your move-in date without proof of insurance and electric account set-up</span>
+                                                </label>
+                                            </div>
+                                            <div class="input-group" style="margin-left: 70px;">
+
+                                                <input id="txtMoveInDateCL" class="form-control form-control-small" style="width: 140px;" type="text" />
+                                                <span class="input-group-btn pull-left">
+                                                    <button class="btn btn-primary search" type="button" id="iconMoveInDateChecklist"><i class="fa-calendar fa"></i></button>
+                                                </span>
+                                                @* <input id="txtMoveInTime" class="form-control form-control-small" style="width: 140px;" type="text" />*@
+                                                <select id="ddlMoveInTimeCL" class="form-control" style="width: 140px;margin-left: 54px;">
+                                                    <option value="">Select a time</option>
+                                                    <option value="9:00-10:00">9:00-10:00</option>
+                                                    <option value="10:00-11:00">10:00-11:00</option>
+                                                    <option value="11:00-12:00">11:00-12:00</option>
+                                                    <option value="12:00-13:00">12:00-13:00</option>
+                                                    <option value="13:00-14:00">13:00-14:00</option>
+                                                    <option value="14:00-15:00">14:00-15:00</option>
+                                                    <option value="15:00-16:00">15:00-16:00</option>
+                                                    <option value="16:00-17:00">16:00-17:00</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                       
+
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="chkPoCL">    <span style="margin-left: 25px;"> Complete the Post Office change of address by logging into <a href="https://movingonlineservice.com" target="_blank">https://movingonlineservice.com</a></span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                       
                                         <div class="text-center">
 
                                             <button  type="submit" class="btn btn-primary" id="btnSaveCheckList" onclick="saveMoveInCheckList()"> Save</button>
@@ -476,7 +477,7 @@
         getTenantInfoCL(@ViewBag.UID);
         $("#txtScheduleMoveIn").datepicker();
         if ($("#hndUID").val() != "0") {
-            goToStepCL(2, 2);
+            goToStepCL(3, 3);
         }
         else {
 

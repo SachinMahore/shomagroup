@@ -1140,6 +1140,20 @@
     <Property Name="Status" Type="int" />
     <Property Name="Date" Type="date" />
   </EntityType>
+  <EntityType Name="tbl_TenantFob">
+    <Key>
+      <PropertyRef Name="TFobID" />
+    </Key>
+    <Property Name="TFobID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenantID" Type="bigint" />
+    <Property Name="FobID" Type="nvarchar" MaxLength="500" />
+    <Property Name="ApplicantID" Type="bigint" />
+    <Property Name="Status" Type="int" />
+    <Property Name="OtherFirstName" Type="varchar" MaxLength="50" />
+    <Property Name="OtherLastName" Type="varchar" MaxLength="50" />
+    <Property Name="OtherRelationship" Type="varchar" MaxLength="50" />
+    <Property Name="OtherId" Type="bigint" />
+  </EntityType>
   <EntityType Name="tbl_TenantInfo">
     <Key>
       <PropertyRef Name="TenantID" />
@@ -2551,6 +2565,7 @@
     <EntitySet Name="tbl_Tenant" EntityType="Self.tbl_Tenant" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_TenantEventJoin" EntityType="Self.tbl_TenantEventJoin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_TenantEventJoinApprove" EntityType="Self.tbl_TenantEventJoinApprove" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_TenantFob" EntityType="Self.tbl_TenantFob" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_TenantInfo" EntityType="Self.tbl_TenantInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_TenantMonthlyPayments" EntityType="Self.tbl_TenantMonthlyPayments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_TenantOnline" EntityType="Self.tbl_TenantOnline" Schema="dbo" store:Type="Tables" />

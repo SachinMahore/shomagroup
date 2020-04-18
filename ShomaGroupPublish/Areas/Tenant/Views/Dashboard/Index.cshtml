@@ -12,338 +12,310 @@
 @*<div class="row">*@
 <!-----Left section---->
 
-    <div class="row">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="col-md-12 center"><h3 class="welcome-text">WELCOME HOME</h3></div>
         <div class="col-lg-12">
-            <div class="col-md-12 center"><h3 class="welcome-text">WELCOME HOME</h3></div>
-            <div class="col-lg-12">
-                <textarea id="txtCommunityActivity" style="width:100%;" maxlength="500" placeholder="Share something with your neighbors..."></textarea>
-            </div>
-            <div class="row">
-                <div class="col-md-12 m-t10">
-                    <div class="col-lg-3 col-md-4 col-sm-3 col-xs-2 pull-right box-padding box-width">
-                        <div class="pull-right">
-                            <label for="fileCommunityActivity" class=" btn btn-primary"><i class="fa fa-paperclip"></i></label>
-                            <input type="file" name="fileCommunityActivity" id="fileCommunityActivity" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                            <input type="hidden" id="hndfileCommunityActivity" />
-                            <input type="hidden" id="hndfileCommunityActivityOriginalName" />
-                            <button type="button" id="btnPostCommunity" class=" btn btn-primary" onclick="saveUpdateCommunityPost();">Post</button>
-                        </div>
+            <textarea id="txtCommunityActivity" style="width:100%;" maxlength="500" placeholder="Share something with your neighbors..."></textarea>
+        </div>
+        <div class="row">
+            <div class="col-md-12 m-t10">
+                <div class="col-lg-3 col-md-4 col-sm-3 col-xs-2 pull-right box-padding box-width">
+                    <div class="pull-right">
+                        <label for="fileCommunityActivity" class=" btn btn-primary"><i class="fa fa-paperclip"></i></label>
+                        <input type="file" name="fileCommunityActivity" id="fileCommunityActivity" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                        <input type="hidden" id="hndfileCommunityActivity" />
+                        <input type="hidden" id="hndfileCommunityActivityOriginalName" />
+                        <button type="button" id="btnPostCommunity" class=" btn btn-primary" onclick="saveUpdateCommunityPost();">Post</button>
                     </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 pull-right box-padding1 box-width" id="disclaimerCommunity">
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 pull-right box-padding1 box-width" id="disclaimerCommunity">
 
-                        <div class="pull-right">
-                            <input id="chkDisclaimer" type="checkbox" class="form-control" style="font-size:11pt;" /> <span class="agree-text" style="margin-left:2px;">I agree to the</span>   <a style="cursor:pointer" id="ShowDisclaimer" href="javascript:void(0);" class="condition-text">Terms & Conditions</a>
-                        </div>
-
+                    <div class="pull-right">
+                        <input id="chkDisclaimer" type="checkbox" class="form-control" style="font-size:11pt;" /> <span class="agree-text" style="margin-left:2px;">I agree to the</span>   <a style="cursor:pointer" id="ShowDisclaimer" href="javascript:void(0);" class="condition-text">Terms & Conditions</a>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
-    <!-----Community Activity section---->
-    <div class="row margin">
+</div>
+<!-----Community Activity section---->
+<div class="row margin">
+    <div class="col-md-12">
         <div class="col-md-12">
-            <div class="col-md-12">
             <h3 class="headding-sub-text">Community Activity</h3>
-            </div>
-
-            <!-----Community-image-and -name-box---->
-
-            <div class="col-md-12" >
-                <div class="Activity-box p-l5 p-r0">
-                    <div class="Activity-box-inner myBox" style="overflow:scroll;">
-                        <div id="DivCommunityActivityList">
-
-                        </div>
-                    </div>
-                </div>
-               
-            </div>
         </div>
 
-        <!-----Community Activity section---->
+        <!-----Community-image-and -name-box---->
 
         <div class="col-md-12">
-            <!-----Community-image-and -name-box---->
-            <div class="col-md-12 ">
-                <div class="calender-box  p-a0">
-                    <div class="row">
-                        <!-----calendar section---->
+            <div class="Activity-box p-l5 p-r0">
+                <div class="Activity-box-inner myBox" style="overflow:scroll;">
+                    <div id="DivCommunityActivityList">
 
-                        <div class="col-lg-8 col-md-12 col-sm-12 padding-box margin">
-                            <h3 class="headding-sub-text">Community Calendar</h3>
-                            <span id="spanEventCalender"></span>
-
-
-                            <ul class="calendar-menu">
-                                <li><span class="dot-1"></span>Neighborhood</li>
-                                <li><span class="dot-2"></span>Community</li>
-                                <li><span class="dot-3"></span>Service</li>
-                                <li><span class="dot-4"></span>Other</li>
-                                <li><span class="dot-5"></span>Current Date</li>
-                            </ul>
-
-
-                        </div>
-
-                        <!-----calendar section-end--->
-                        <!-----Upcoming Events--->
-                        <div class="col-lg-4 col-md-12 col-sm-12 padding-box box-left1">
-                            <h3 class="headding-sub-text">Upcoming Events</h3>
-
-                            <div class="m-b10 ">
-                                <div id="divEvents">
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-----Upcoming Events-End-->
-
-                    </div>
-                </div>
-               
-            </div>
-        </div>
-        <!-----Community Activity section-End--->
-    </div>
-    <!-----Left section--End-->
-    @*</div>*@
-    @*</div>*@
-    <div class="modal" id="popRateOpinion" style="padding-right: 370px !important;">
-        <div class="modal-dialog">
-            <div class="modal-content text-center" >
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" style="margin-top: -15px; margin-right: -10px;">&times;</button>
-                </div>
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <p>
-                        We want your opinion! Would you take a moment to tell us how we are doing?<br />
-                        Would you recommend us to a friend?
-                    </p>
-                    <p class="text-center" style="cursor:pointer">
-                        <div id="ratingButtons" class="text-center" style="margin-bottom:15px;">
-                            <button id="rtbtn0" class="btn btn-add-on">0</button>
-                            <button id="rtbtn1" class="btn btn-add-on">1</button>
-                            <button id="rtbtn2" class="btn btn-add-on">2</button>
-                            <button id="rtbtn3" class="btn btn-add-on">3</button>
-                            <button id="rtbtn4" class="btn btn-add-on">4</button>
-                            <button id="rtbtn5" class="btn btn-add-on">5</button>
-                            <button id="rtbtn6" class="btn btn-add-on">6</button>
-                            <button id="rtbtn7" class="btn btn-add-on">7</button>
-                            <button id="rtbtn8" class="btn btn-add-on">8</button>
-                            <button id="rtbtn9" class="btn btn-add-on">9</button>
-                            <button id="rtbtn10" class="btn btn-add-on" style="margin-right:0px !important">10</button>
-                        </div>
-                    </p>
-                    <span class="pull-left" style="margin-left:1%;">Not at all</span>
-                    <span class="pull-right" style="margin-right:1%;">Most Likely</span>
-                    <button class="btn btn-default" data-dismiss="modal" id="btnskip">Skip</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div id="modalDisclaimer" class="modal" style="width:100% !important">
-        <div class="modal-header">
-            <span class="close" id="TermDisclaimer" style="margin-top: -10px !important;margin-right: 480px !important;font-size:30px !important;">&times;</span>
-        </div>
-        <!-- Modal content -->
-        <div class="modal-content" style="width:66% !important">
-            <div class="text-center">
-                <div><iframe src="~/Content/assets/img/Document/Disclaimer.pdf" width="950" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
-            </div>
-        </div>
-    </div>
-    <div class="modal" id="popPaymentBreakdown">
-        <div class="modal-dialog">
-            <div class="modal-content" style="width: 47%; height:560px;">
-                <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
-                <div class="modal-header center">
-                    <h3 class="modal-title">Payment Details</h3>
-                </div>
-                <!-- Modal body -->
-                <div class="modal-body table-bordered">
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label>Monthly Charges :</label>
-                                <label id="lblMonthlyChargesBreakdown" style="font-weight:bold;"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label>Additional Parking :</label>
-                                <label id="lblAdditionalParkingBreakdown" style="font-weight:bold;"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label>Storage Charges :</label>
-                                <label id="lblStorageChargesBreakdown" style="font-weight:bold;"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label>Pet Rent :</label>
-                                <label id="lblPetRentBreakdown" style="font-weight:bold;"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label>Trash/Recycle :</label>
-                                <label id="lblTrashRecycleBreakdown" style="font-weight:bold;"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label>Pest Control :</label>
-                                <label id="lblPestControlBreakdown" style="font-weight:bold;"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label>Convergent Billing :</label>
-                                <label id="lblConvergentBillingBreakdown" style="font-weight:bold;"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label style="color:green;font-weight:bold">Total Monthly Charges :</label>
-                                <label id="lblTotalMonthlyChargesBreakdown" style="color:green;font-weight:bold;text-decoration:underline;"></label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="col-sm-12 text-center">
-                        <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
-    <div class="modal" id="popEventDetails">
-        <div class="modal-dialog">
-            <div class="modal-content" style="width: 100%;">
 
-                <div class="modal-header center">
-                    <h3 class="modal-title">Event Detail</h3>
-                    <button type="button" class="close pull-right" data-dismiss="modal" style="margin-top: -30px;">&times;</button>
+    <!-----Community Activity section---->
+
+    <div class="col-md-12">
+        <!-----Community-image-and -name-box---->
+        <div class="col-md-12 ">
+            <div class="calender-box  p-a0">
+                <div class="row">
+                    <!-----calendar section---->
+
+                    <div class="col-lg-8 col-md-12 col-sm-12 padding-box margin">
+                        <h3 class="headding-sub-text">Community Calendar</h3>
+                        <span id="spanEventCalender"></span>
+
+
+                        <ul class="calendar-menu">
+                            <li><span class="dot-1"></span>Neighborhood</li>
+                            <li><span class="dot-2"></span>Community</li>
+                            <li><span class="dot-3"></span>Service</li>
+                            <li><span class="dot-4"></span>Other</li>
+                            <li><span class="dot-5"></span>Current Date</li>
+                        </ul>
+
+
+                    </div>
+
+                    <!-----calendar section-end--->
+                    <!-----Upcoming Events--->
+                    <div class="col-lg-4 col-md-12 col-sm-12 padding-box box-left1">
+                        <h3 class="headding-sub-text">Upcoming Events</h3>
+
+                        <div class="m-b10 ">
+                            <div id="divEvents">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-----Upcoming Events-End-->
+
                 </div>
-                <!-- Modal body -->
-                <div class="modal-body table-bordered">
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label id="lblEventName" style="font-size:25px;text-decoration:underline"></label>
-                            </div>
-                        </div>
+            </div>
+
+        </div>
+    </div>
+    <!-----Community Activity section-End--->
+</div>
+<!-----Left section--End-->
+@*</div>*@
+@*</div>*@
+<div class="modal" id="popRateOpinion" style="padding-right: 370px !important;">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -15px; margin-right: -10px;">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <p>
+                    We want your opinion! Would you take a moment to tell us how we are doing?<br />
+                    Would you recommend us to a friend?
+                </p>
+                <p class="text-center" style="cursor:pointer">
+                    <div id="ratingButtons" class="text-center" style="margin-bottom:15px;">
+                        <button id="rtbtn0" class="btn btn-add-on">0</button>
+                        <button id="rtbtn1" class="btn btn-add-on">1</button>
+                        <button id="rtbtn2" class="btn btn-add-on">2</button>
+                        <button id="rtbtn3" class="btn btn-add-on">3</button>
+                        <button id="rtbtn4" class="btn btn-add-on">4</button>
+                        <button id="rtbtn5" class="btn btn-add-on">5</button>
+                        <button id="rtbtn6" class="btn btn-add-on">6</button>
+                        <button id="rtbtn7" class="btn btn-add-on">7</button>
+                        <button id="rtbtn8" class="btn btn-add-on">8</button>
+                        <button id="rtbtn9" class="btn btn-add-on">9</button>
+                        <button id="rtbtn10" class="btn btn-add-on" style="margin-right:0px !important">10</button>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="col-sm-5" style="margin-left:4px;">
-                                <div class="form-group">
-                                    <label style="font-weight:bold;">Date :</label>
-                                    <label id="lblEventDate" style="font-weight:bold;"></label>
-                                </div>
-                            </div>
-                            <div class="col-sm-5 pull-right">
-                                <div class="form-group" style="margin-left: 104px;">
-                                    <label style="font-weight:bold;">Time :</label>
-                                    <label id="lblEventTime" style="font-weight:bold;"></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
-                            <div class="form-group">
-                                <label id="lblEventDetail" style="margin-right: 35px;text-align: justify;"></label>
-                            </div>
+                </p>
+                <span class="pull-left" style="margin-left:1%;">Not at all</span>
+                <span class="pull-right" style="margin-right:1%;">Most Likely</span>
+                <button class="btn btn-default" data-dismiss="modal" id="btnskip">Skip</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="modalDisclaimer" class="modal" style="width:100% !important">
+    <div class="modal-header">
+        <span class="close" id="TermDisclaimer" style="margin-top: -10px !important;margin-right: 480px !important;font-size:30px !important;">&times;</span>
+    </div>
+    <!-- Modal content -->
+    <div class="modal-content" style="width:66% !important">
+        <div class="text-center">
+            <div><iframe src="~/Content/assets/img/Document/Disclaimer.pdf" width="950" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="popPaymentBreakdown">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 47%; height:560px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -16px;">&times;</button>
+            <div class="modal-header center">
+                <h3 class="modal-title">Payment Details</h3>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body table-bordered">
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Monthly Charges :</label>
+                            <label id="lblMonthlyChargesBreakdown" style="font-weight:bold;"></label>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <div class="col-sm-12 text-center">
-                        <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
-                        <button type="button" id="requestToJoin" class="btn btn-primary pull-right hidden" style="margin-right: 10px;" onclick="saveTenantEventsJoin()">Join Event</button>
-                        <button type="button" id="requestToUnjoin" class="btn btn-primary pull-right hidden" style="margin-right: 10px;" onclick="saveTenantEventsUnjoin()">Un-join Event</button>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Additional Parking :</label>
+                            <label id="lblAdditionalParkingBreakdown" style="font-weight:bold;"></label>
+                        </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Storage Charges :</label>
+                            <label id="lblStorageChargesBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Pet Rent :</label>
+                            <label id="lblPetRentBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Trash/Recycle :</label>
+                            <label id="lblTrashRecycleBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Pest Control :</label>
+                            <label id="lblPestControlBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label>Convergent Billing :</label>
+                            <label id="lblConvergentBillingBreakdown" style="font-weight:bold;"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label style="color:green;font-weight:bold">Total Monthly Charges :</label>
+                            <label id="lblTotalMonthlyChargesBreakdown" style="color:green;font-weight:bold;text-decoration:underline;"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal" id="date-popover">
-        <div class="modal-dialog">
-            <div class="modal-content" style="width: 80%;">
-                <div class="modal-header center">
-                    <h3 class="modal-title">Event's</h3>
-                    <button type="button" class="close pull-right" id="closeDate" data-dismiss="modal" style="margin-top: -30px;">&times;</button>
+</div>
+<div class="modal" id="popEventDetails">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 100%;">
+
+            <div class="modal-header center">
+                <h3 class="modal-title">Event Detail</h3>
+                <button type="button" class="close pull-right" data-dismiss="modal" style="margin-top: -30px;">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body table-bordered">
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label id="lblEventName" style="font-size:25px;text-decoration:underline"></label>
+                        </div>
+                    </div>
                 </div>
-                <!-- Modal body -->
-                <div class="modal-body table-bordered">
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-left:20px;">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-5" style="margin-left:4px;">
                             <div class="form-group">
-                                <div id="divEventsCal" class="tab-content1"></div>
+                                <label style="font-weight:bold;">Date :</label>
+                                <label id="lblEventDate" style="font-weight:bold;"></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 pull-right">
+                            <div class="form-group" style="margin-left: 104px;">
+                                <label style="font-weight:bold;">Time :</label>
+                                <label id="lblEventTime" style="font-weight:bold;"></label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <div class="col-sm-12 text-center">
-                        <button type="button" class="btn btn-primary pull-right" id="closeDate1" data-dismiss="modal">Close</button>
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <label id="lblEventDetail" style="margin-right: 35px;text-align: justify;"></label>
+                        </div>
                     </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                    <button type="button" id="requestToJoin" class="btn btn-primary pull-right hidden" style="margin-right: 10px;" onclick="saveTenantEventsJoin()">Join Event</button>
+                    <button type="button" id="requestToUnjoin" class="btn btn-primary pull-right hidden" style="margin-right: 10px;" onclick="saveTenantEventsUnjoin()">Un-join Event</button>
                 </div>
             </div>
         </div>
     </div>
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
+<div class="modal" id="date-popover">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 80%;">
+            <div class="modal-header center">
+                <h3 class="modal-title">Event's</h3>
+                <button type="button" class="close pull-right" id="closeDate" data-dismiss="modal" style="margin-top: -30px;">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body table-bordered">
+                <div class="row">
+                    <div class="col-sm-12" style="margin-left:20px;">
+                        <div class="form-group">
+                            <div id="divEventsCal" class="tab-content1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-primary pull-right" id="closeDate1" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -353,45 +325,82 @@
 
 
 
-        <script>
-            //$(document).ready(function () {
-            //    $("#DivCommunityActivityList").slimScroll({
-            //        width: '100%',
-            //        height: '351px',
-            //        size: '10px',
-            //        color: '#4D738A',
-            //        alwaysVisible: true,
-            //        distance: '1px',
-            //        railVisible: true,
-            //        railColor: '#6C6E72',
-            //        railOpacity: 0.2,
-            //        wheelStep: 1,
-            //        allowPageScroll: false,
-            //        disableFadeOut: false
-            //    });
 
 
-            //});
-
-            var modalTermcondition = document.getElementById("modalDisclaimer");
-
-            var ShowTermcondition = document.getElementById("ShowDisclaimer");
-
-            var spanTermcondition = document.getElementById("TermDisclaimer");
-
-            ShowTermcondition.onclick = function () {
-                modalTermcondition.style.display = "block";
-            }
 
 
-            spanTermcondition.onclick = function () {
-                modalTermcondition.style.display = "none";
-            }
 
 
-            window.onclick = function (event) {
-                if (event.target == modalTermcondition) {
-                    modalTermcondition.style.display = "none";
-                }
-            }
-        </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="~/Content/jquery.shorten.1.0.js"></script>
+
+<script>
+    //$(document).ready(function () {
+
+    //    $.ajax({
+    //        url: "/Dashboard/GetCalenderEventAsync",
+    //        type: "Get",
+    //        contentType: "application/json utf-8",
+            
+    //        dataType: "JSON",
+    //        success: function (response) {
+    //            if (response != null) {
+    //                debugger
+    //                for (var i = 0; i < response.length; i++) {
+    //                    var detail = response[i].start;
+    //                    var date = new Date(detail.dateTime);
+    //                    var datetime = date.toLocaleDateString("fr-ca");
+    //                    $("#zabuto_calendar_1oxj_" + datetime + "_day").append("<span class='dot-today'></span>");
+    //                    debugger
+    //                }
+
+    //            }
+    //        }
+    //    });
+
+
+
+    
+    //});
+
+    var modalTermcondition = document.getElementById("modalDisclaimer");
+
+    var ShowTermcondition = document.getElementById("ShowDisclaimer");
+
+    var spanTermcondition = document.getElementById("TermDisclaimer");
+
+    ShowTermcondition.onclick = function () {
+        modalTermcondition.style.display = "block";
+    }
+
+
+    spanTermcondition.onclick = function () {
+        modalTermcondition.style.display = "none";
+    }
+
+
+    window.onclick = function (event) {
+        if (event.target == modalTermcondition) {
+            modalTermcondition.style.display = "none";
+        }
+    }
+</script>

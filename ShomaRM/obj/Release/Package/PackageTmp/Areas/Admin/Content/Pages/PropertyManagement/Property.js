@@ -872,6 +872,12 @@ var goToStep = function (stepid, id) {
     }
     if (stepid == "7") {
         $("#divLoader").show();
+        $("#hndLockUnlock").val(1);
+        $(".lockunlock").attr("disabled", true);
+        $("#spanLockUnLock").html("");
+        $("#spanLockUnLock").html('<i class="fa fa-lock"></i> Unlock');
+        $("#hndLockUnlock").val(1);
+
         buildPaganationUnitLeaseWisePriceList(1, 'UnitNo', 'ASC');
         fillUnitLeaseWisePriceList(1, 'UnitNo', 'ASC');
         $("#li1").removeClass("active");
@@ -1762,6 +1768,11 @@ var uploadPropertyPicture = function () {
 };
 
 var buildPaganationUnitLeaseWisePriceList = function (pagenumber, sortby, orderby) {
+    $("#hndLockUnlock").val(1);
+    $(".lockunlock").attr("disabled", true);
+    $("#spanLockUnLock").html("");
+    $("#spanLockUnLock").html('<i class="fa fa-lock"></i> Unlock');
+    $("#hndLockUnlock").val(1);
     if (!sortby) {
         sortby = "UnitNo";
     }
@@ -1795,6 +1806,11 @@ var buildPaganationUnitLeaseWisePriceList = function (pagenumber, sortby, orderb
     });
 };
 var fillUnitLeaseWisePriceList = function (pagenumber, sortby, orderby) {
+    $("#hndLockUnlock").val(1);
+    $(".lockunlock").attr("disabled", true);
+    $("#spanLockUnLock").html("");
+    $("#spanLockUnLock").html('<i class="fa fa-lock"></i> Unlock');
+    $("#hndLockUnlock").val(1);
     $("#divLoader").show();
     if (!sortby) {
         sortby = "UnitNo";
@@ -1848,7 +1864,7 @@ var fillUnitLeaseWisePriceList = function (pagenumber, sortby, orderby) {
                     }
                     if (uid = value.UID) {
                         //html += "<td id='avUnitLeaseRent_" + value.ULPID + "' onclick='editUnitLeaseRent(" + value.UID + "," + value.ULPID + "," + value.LeaseID + "," + value.Price + ")' style='cursor: pointer!important;' >" + value.Price + "<i class='fa fa-edit pull-right' style='margin: 6px;'></i></td>";
-                        html += "<td><input style='border: 0px !important;' disabled data-ulpid=" + value.ULPID + " id='txtPrice_" + value.ULPID + "' onfocus='focusincontrol(" + value.ULPID + ")' onfocusout='focusoutcontrol(" + value.ULPID +")'  type='text' class='form-control text-right lockunlock' value='$" + formatMoney(parseFloat(value.Price).toFixed(2)) + "'/></td>";
+                        html += "<td><input style='border: 0px !important;' disabled data-ulpid=" + value.ULPID + " id='txtPrice_" + value.ULPID + "' onfocus='focusincontrol(" + value.ULPID + ")' onfocusout='focusoutcontrol(" + value.ULPID + ")' type='text' class='form-control text-right lockunlock' value='$" + formatMoney(parseFloat(value.Price).toFixed(2)) + "'/></td>";
                     }
                     if (rowProcess == rowCount) {
                         html += "</tr>";
@@ -1868,6 +1884,7 @@ var fillUnitLeaseWisePriceList = function (pagenumber, sortby, orderby) {
 var focusincontrol = function (ulpid) {
     $("#txtPrice_" + ulpid).val(unformatText($("#txtPrice_" + ulpid).val()));
 };
+
 var focusoutcontrol = function (ulpid) {
     var currentRent = $("#txtPrice_" + ulpid).val();
     var pID = $("#hndPID").val();

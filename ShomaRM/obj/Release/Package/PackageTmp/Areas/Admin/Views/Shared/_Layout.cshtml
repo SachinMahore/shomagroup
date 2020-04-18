@@ -70,7 +70,7 @@
     <!-- Body content -->
 
     <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
+        <div class="container" style="width:100%!important;">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
@@ -224,6 +224,7 @@
         </li>*@
                     <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "prospectverification" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 ? "" : "style=display:none")><a class="" href="~/Admin/ProspectVerification">Online Application</a></li>
                     <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "TwilioSMS" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 ? "" : "style=display:none")><a class="" href="~/Admin/TwilioReceivedSMS">View Received SMS</a></li>
+                    <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "fobmanagement" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 ? "" : "style=display:none")><a class="" href="~/Admin/FobManagement">Pre Moving</a></li>
                     <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "prospect" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "" : "style=display:none")>
                         <a href="/Admin/ProspectManagement/">Appointment</a>
                         @*<a href="/Admin/ProspectManagement/" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="200" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "":"style=display:none")>Appointment <b class="caret"></b></a>

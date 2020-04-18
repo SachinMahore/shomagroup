@@ -795,6 +795,9 @@ var goToStep = function (stepid, id) {
     }
     if (stepid == "17") {
         if (id == "17") {
+            refreshStatuses();
+            //getTransationLists($("#hdnUserId").val());
+            //getSignedLists($("#hdnOPId").val());
             $("#subMenu").addClass("hidden");
             $("#li7").addClass("active");
             $("#li17").addClass("active");
@@ -825,7 +828,7 @@ var goToStep = function (stepid, id) {
     if (stepid == "18") {
         if (id == "18") {
             $("#subMenu").addClass("hidden");
-            getTransationLists($("#hdnUserId").val());
+           
            
             $("#li7").addClass("active");
             $("#li6").addClass("active");
@@ -1497,7 +1500,7 @@ var getPropertyUnitDetails = function (uid) {
             //alert(calTotalRentChargefpetd
             $("#lblRFPTotalMonthlyPayment").text(formatMoney(rfpTotalRentCharge.toFixed(2)));
             //$("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
-            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
+            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) ).toFixed(2)));
 
 
             $("#lblProrated_TrashAmt").text(parseFloat(parseFloat($("#lblTrash").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
@@ -1671,7 +1674,8 @@ var getTransationLists = function (userid) {
         success: function (response) {
 
             $("#tblTransaction>tbody").empty();
-       
+            $("#tblAdminFee>tbody").empty();
+            var adminFeesPaid = 0;
             $.each(response.model, function (elementType, elementValue) {
                 totPaid = totPaid+parseFloat(elementValue.Credit_Amount);
                 var html = "<tr data-value=" + elementValue.TransID + ">";
@@ -1685,9 +1689,30 @@ var getTransationLists = function (userid) {
                 html += "<td>" + elementValue.Description + "</td>";
                 //html += "<td>" + elementValue.CreatedDateString + "</td>";
                 html += "</tr>";
+                if (elementValue.Transaction_Type == "Administrative Fee") {
+                    adminFeesPaid = 1;
+                    var adhtml = "<tr data-value=" + elementValue.TransID + ">";
+                    adhtml += "<td>" + $("#hndPriAppFullName").val() + "</td>";
+                    adhtml += "<td>" + elementValue.Description + "</td>";
+                    adhtml += "<td style='text-align: center;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
+                    adhtml += "<td style='text-align: center;'>" + elementValue.Transaction_DateString + "</td>";
+                    adhtml += "<td><button type='button' class='btn btn-primary' id='btnSendRemtr' onclick='SendReminderEmail(1,0)' disabled='disabled'><span>Send Reminder to Pay Administration Fees </span></button></td>";
+                    $("#tblAdminFee>tbody").append(adhtml);
+
+                    $("#btnSendRemSign").removeAttr("disabled");
+                    
+                }
                 $("#tblTransaction>tbody").append(html);
             });
-          
+            if (adminFeesPaid == 0) {
+                var adhtml = "<tr data-value='0'>";
+                adhtml += "<td>" + $("#hndPriAppFullName").val() + "</td>";
+                adhtml += "<td>Admin Fees</td>";
+                adhtml += "<td style='text-align: center;'>$" + formatMoney($("#lblAdminFees").text()) + "</td>";
+                adhtml += "<td style='text-align: center;'></td>";
+                adhtml += "<td><button type='button' class='btn btn-primary' id='btnSendRemtr' onclick='SendReminderEmail(1,0)'><span>Send Reminder to Pay Administration Fees </span></button></td>";
+                $("#tblAdminFee>tbody").append(adhtml);
+            }
             if (totPaid >= parseFloat($("#txtPayment").val()) + parseFloat(totalFinalFees))
             {
                 $("#btnC2Tenant").removeAttr("disabled");
@@ -1930,7 +1955,7 @@ var saveupdateParking = function () {
             $("#lblMonthly_TotalRent").text(formatMoney(totalAmt));
             $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
+            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10)).toFixed(2)));
 
 
 
@@ -2034,7 +2059,7 @@ var saveupdatePetPlace = function () {
             $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
+            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) ).toFixed(2)));
         }
     });
 }
@@ -2299,7 +2324,7 @@ var getApplicantLists = function () {
         dataType: "JSON",
         success: function (response) {
 
-            //$("#tblApplicant").empty();
+            $("#tblApplicant").empty();
             $("#tblApplicantFinal").empty();
             $("#tblApplicantMinor").empty();
             $("#tblApplicantGuarantor").empty();
@@ -2312,6 +2337,11 @@ var getApplicantLists = function () {
                 var prhtml = '';
                 var pprhtml = '';
                 var emailhtml = '';
+
+                if (elementValue.Type == "Primary Applicant") {
+                    $("#hndPriAppFullName").val(elementValue.FirstName + " " + elementValue.LastName + "(Primary Applicant)");
+                }
+
                 if (elementValue.Type != "Primary Applicant") {
 
                     if (elementValue.Type == "Co-Applicant") {
@@ -4032,7 +4062,7 @@ $(function () {
         cCardNum = $(this).val();
         $(this).data("value", cCardNum);
         if (cCardNum.length > 4) {
-            $(this).val(("*".repeat(cCardNum.length - 4) + cCardNum.substr(cCardNum.length - 4, 4)))
+            $(this).val(("*".repeat(cCardNum.length - 4) + cCardNum.substr(cCardNum.length - 4, 4)));
         }
     }).focus(function () {
         $(this).val($(this).data("value"));
@@ -4476,3 +4506,169 @@ var getEmpHistoryInfoProsVerif = function (id) {
     });
 };
 
+var downloadLeaseDocument = function () {
+    $("#divLoader").show();
+    var param = { uid: $("#hdnUserId").val() };
+    $.ajax({
+        url: "/CheckList/DownloadLeaseDocBlumoon",
+        method: "post",
+        data: JSON.stringify(param),
+        contentType: "application/json; charset=utf-8", // content type sent to server
+        dataType: "json", //Expected data format from server
+        success: function (response) {
+            $("#divLoader").hide();
+            var hyperlink = document.createElement('a');
+            hyperlink.href = "/Content/assets/img/Document/LeaseDocument_" + response.LeaseId + ".pdf";
+            hyperlink.target = '_blank';
+            hyperlink.download = "LeaseDocument_" + response.LeaseId + ".pdf";
+
+            (document.body || document.documentElement).appendChild(hyperlink);
+            hyperlink.onclick = function () {
+                (document.body || document.documentElement).removeChild(hyperlink);
+            };
+            var mouseEvent = new MouseEvent('click', {
+                view: window,
+                bubbles: true,
+                cancelable: true
+            });
+            hyperlink.dispatchEvent(mouseEvent);
+            if (!navigator.mozGetUserMedia) {
+                window.URL.revokeObjectURL(hyperlink.href);
+            }
+
+        }
+    });
+}
+var SaveSignedStatus = function () {
+    var emil = $("#txtEmail").text();
+    var model = {
+        Email: emil, ProspectId: $("#hdnOPId").val(), Status:"Signed"
+    };
+
+    $.alert({
+        title: "",
+        content: "Are you sure to send Confirmation?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: "/ProspectVerification/SaveScreeningStatus",
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $.alert({
+                                title: "",
+                                content: "Confirmation Saved and Email Send Successfully",
+                                type: 'blue',
+                            });
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                }
+            }
+        }
+    });
+};
+var getSignedLists = function (userid) {
+    var model = {
+        TenantID: userid
+    };
+    $.ajax({
+        url: "/CheckList/GetSignedList",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#tblLeasedSign>tbody").empty();
+            var isSignedAll = 0;
+            if (response.model.length > 0) {
+                $.each(response.model, function (elementType, elementValue) {
+                    var html = "<tr data-value=" + elementValue.ESID + ">";
+                    html += "<td>" + elementValue.ApplicantName + "</td>";
+                    html += "<td>" + elementValue.Email + "</td>";
+                    html += "<td>" + elementValue.DateSigned + "</td>";
+                    html += "<td><button type='button' class='btn btn-primary' onclick='SendReminderEmail(2, " + elementValue.ApplicantID + ")' " + (elementValue.IsSigned == 1 ? "disabled='disabled'" : "") + ">Send Reminder to Sign Lease Document</button></td>";
+                    html += "</tr>";
+                    isSignedAll = elementValue.IsSignedAll;
+                    $("#tblLeasedSign>tbody").append(html);
+                });
+                if (isSignedAll == 1) {
+                    $("#btnleaseDownl").removeAttr("disabled");
+                }
+            }
+            else {
+                var html = "<tr><td colspan='4'><h3 class='panel-title'>Application Feed Not Paid</h3></td></tr>    ";
+                $("#tblLeasedSign>tbody").append(html);
+            }
+        }
+    });
+}
+var SendReminderEmail = function (remtype, applicantID) {
+
+    var model = {
+        ProspectId: $("#hdnOPId").val(), RemType: remtype, ApplicantID: applicantID
+
+    };
+
+    $.alert({
+        title: "",
+        content: "Are you sure to send Reminder Email?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $("#divLoader").show();
+                    $.ajax({
+                        url: "/ProspectVerification/SendReminderEmail",
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $("#divLoader").hide();
+                            $.alert({
+                                title: "",
+                                content: "Reminder Email Sent Successfully",
+                                type: 'blue',
+                            });
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                }
+            }
+        }
+    });
+};
+
+var refreshStatuses = function () {
+    var model = {
+        ProspectId: $("#hdnOPId").val()
+    };
+    $("#divLoader").show();
+    $.ajax({
+        url: "/ProspectVerification/RefreshStatuses",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+            getTransationLists($("#hdnOPId").val());
+            getSignedLists($("#hdnOPId").val());
+        }
+    });
+};

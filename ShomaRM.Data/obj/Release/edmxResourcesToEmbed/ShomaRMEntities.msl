@@ -1643,5 +1643,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="tbl_TenantFob">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantFob">
+        <MappingFragment StoreEntitySet="tbl_TenantFob">
+          <ScalarProperty Name="OtherId" ColumnName="OtherId" />
+          <ScalarProperty Name="OtherRelationship" ColumnName="OtherRelationship" />
+          <ScalarProperty Name="OtherLastName" ColumnName="OtherLastName" />
+          <ScalarProperty Name="OtherFirstName" ColumnName="OtherFirstName" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+          <ScalarProperty Name="FobID" ColumnName="FobID" />
+          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+          <ScalarProperty Name="TFobID" ColumnName="TFobID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
