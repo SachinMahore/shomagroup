@@ -147,5 +147,18 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return leasePdfResponse;
             }
         }
+        public ActionResult SendReminderEmail(long ProspectId, int RemType)
+        {
+            try
+            {
+                return Json(new { model = new ProspectVerificationModel().SendReminderEmail(ProspectId, RemType) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
     }
 }

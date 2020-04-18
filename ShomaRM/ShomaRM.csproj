@@ -2657,6 +2657,7 @@
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\ApplyNow\ChangePassword.cshtml" />
     <Content Include="Views\PayLink\PayAdmFees.cshtml" />
+    <Content Include="Views\CheckList\SignLease.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
