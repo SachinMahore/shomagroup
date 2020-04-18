@@ -5,6 +5,25 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ShomaRMEntitiesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="CountryState">
+          <Property Name="ID" Type="varchar" MaxLength="500" />
+          <Property Name="CountryName" Type="varchar" MaxLength="500" />
+          <Property Name="StateID" Type="varchar" MaxLength="500" />
+          <Property Name="CountryID" Type="varchar" MaxLength="500" />
+          <Property Name="StateName" Type="varchar" MaxLength="500" />
+        </EntityType>-->
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="tbl_AcutraqScrenning">
           <Key>
             <PropertyRef Name="Id" />
@@ -935,6 +954,7 @@
           <Property Name="PropertyID" Type="bigint" />
           <Property Name="AssignAgentId" Type="bigint" />
           <Property Name="AppointmentStatus" Type="int" />
+          <Property Name="OutlookID" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="tbl_PurchaseOrder">
           <Key>
@@ -1144,6 +1164,20 @@
           <Property Name="TenantID" Type="bigint" />
           <Property Name="Status" Type="int" />
           <Property Name="Date" Type="date" />
+        </EntityType>
+        <EntityType Name="tbl_TenantFob">
+          <Key>
+            <PropertyRef Name="TFobID" />
+          </Key>
+          <Property Name="TFobID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenantID" Type="bigint" />
+          <Property Name="FobID" Type="nvarchar" MaxLength="500" />
+          <Property Name="ApplicantID" Type="bigint" />
+          <Property Name="Status" Type="int" />
+          <Property Name="OtherFirstName" Type="varchar" MaxLength="50" />
+          <Property Name="OtherLastName" Type="varchar" MaxLength="50" />
+          <Property Name="OtherRelationship" Type="varchar" MaxLength="50" />
+          <Property Name="OtherId" Type="bigint" />
         </EntityType>
         <EntityType Name="tbl_TenantInfo">
           <Key>
@@ -2487,6 +2521,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ShomaRMEntitiesModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_AcutraqScrenning" EntityType="Self.tbl_AcutraqScrenning" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Advertiser" EntityType="Self.tbl_Advertiser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Amenities" EntityType="Self.tbl_Amenities" Schema="dbo" store:Type="Tables" />
@@ -2556,6 +2591,7 @@
           <EntitySet Name="tbl_Tenant" EntityType="Self.tbl_Tenant" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantEventJoin" EntityType="Self.tbl_TenantEventJoin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantEventJoinApprove" EntityType="Self.tbl_TenantEventJoinApprove" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_TenantFob" EntityType="Self.tbl_TenantFob" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantInfo" EntityType="Self.tbl_TenantInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantMonthlyPayments" EntityType="Self.tbl_TenantMonthlyPayments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantOnline" EntityType="Self.tbl_TenantOnline" Schema="dbo" store:Type="Tables" />
@@ -3279,6 +3315,8 @@
             <End Role="tbl_WorkOrder" EntitySet="tbl_WorkOrder" />
           </AssociationSet>
           <EntitySet Name="tbl_SMSMessages" EntityType="ShomaRMEntitiesModel.tbl_SMSMessages" />
+          <EntitySet Name="sysdiagrams" EntityType="ShomaRMEntitiesModel.sysdiagram" />
+          <EntitySet Name="tbl_TenantFob" EntityType="ShomaRMEntitiesModel.tbl_TenantFob" />
         </EntityContainer>
         <EntityType Name="tbl_AcutraqScrenning">
           <Key>
@@ -4319,6 +4357,7 @@
           <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Properties" FromRole="tbl_Prospect" ToRole="tbl_Properties" />
           <NavigationProperty Name="tbl_State" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_State" FromRole="tbl_Prospect" ToRole="tbl_State" />
           <NavigationProperty Name="tbl_Visit" Relationship="ShomaRMEntitiesModel.FK_tbl_Visit_tbl_Prospect" FromRole="tbl_Prospect" ToRole="tbl_Visit" />
+          <Property Name="OutlookID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_PurchaseOrder">
           <Key>
@@ -5915,6 +5954,30 @@
           <Property Name="Message" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="ReceivedDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tbl_TenantFob">
+          <Key>
+            <PropertyRef Name="TFobID" />
+          </Key>
+          <Property Name="TFobID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantID" Type="Int64" />
+          <Property Name="FobID" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicantID" Type="Int64" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="OtherFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OtherLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OtherRelationship" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OtherId" Type="Int64" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6872,6 +6935,7 @@
           <EntitySetMapping Name="tbl_Prospect">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Prospect">
               <MappingFragment StoreEntitySet="tbl_Prospect">
+                <ScalarProperty Name="OutlookID" ColumnName="OutlookID" />
                 <ScalarProperty Name="AppointmentStatus" ColumnName="AppointmentStatus" />
                 <ScalarProperty Name="AssignAgentId" ColumnName="AssignAgentId" />
                 <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
@@ -7560,6 +7624,32 @@
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="MsgID" ColumnName="MsgID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_TenantFob">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantFob">
+              <MappingFragment StoreEntitySet="tbl_TenantFob">
+                <ScalarProperty Name="OtherId" ColumnName="OtherId" />
+                <ScalarProperty Name="OtherRelationship" ColumnName="OtherRelationship" />
+                <ScalarProperty Name="OtherLastName" ColumnName="OtherLastName" />
+                <ScalarProperty Name="OtherFirstName" ColumnName="OtherFirstName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+                <ScalarProperty Name="FobID" ColumnName="FobID" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="TFobID" ColumnName="TFobID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

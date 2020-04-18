@@ -39,6 +39,7 @@ namespace ShomaRM.Models
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> LastModifiedBy { get; set; }
         public Nullable<System.DateTime> LastModifiedeDate { get; set; }
+        public string OutlookID { get; set; }
 
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
 
@@ -65,7 +66,9 @@ namespace ShomaRM.Models
                 VisitDateTime=model.VisitDateTime,
                 Status=0,
                 MarketSource=model.MarketSource,
-                AssignAgentId = 0
+                AssignAgentId = 0,
+                OutlookID=model.OutlookID
+                
             };
             db.tbl_Prospect.Add(saveTenant);
             db.SaveChanges();

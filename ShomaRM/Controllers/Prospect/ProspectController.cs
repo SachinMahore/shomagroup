@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Microsoft.Graph;
 using Microsoft.Graph.Auth;
 using Microsoft.Identity.Client;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ShomaRM.ApiService;
 using ShomaRM.Models;
@@ -31,11 +32,14 @@ namespace ShomaRM.Controllers
 
                 Service _Services = new Service();
 
-                string body= "{'subject': '" + model.FirstName + " " + model.LastName + "','body': { 'contentType': 'HTML', 'content': 'Call link: https://aka.ms/mmkv1b Submit a question: https://aka.ms/ybuw2i' }, 'start': { 'dateTime': '" + Convert.ToDateTime(model.VisitDateTime).ToString("yyyy-MM-dd") + "T" + currenttime.Replace(".",":") + "','timeZone': 'Pacific Standard Time'  },  'end': { 'dateTime': '" + Convert.ToDateTime(model.VisitDateTime).ToString("yyyy-MM-dd") + "T" + addtime.Replace(".",":") + "', 'timeZone': 'Pacific Standard Time' }, 'location': {'displayName': '" + model.FirstName + " " + model.LastName + "'},'recurrence': {'pattern': {'type': 'relativeMonthly','interval': 1,'daysOfWeek': ['Tuesday'],'index': 'first'},'range': {'type': 'noEnd', 'startDate': '2017-08-29' }}}";
+                string body= "{'subject': '" + model.FirstName + " " + model.LastName + "','body': { 'contentType': 'HTML', 'content': 'Call link: https://aka.ms/mmkv1b Submit a question: https://aka.ms/ybuw2i' }, 'start': { 'dateTime': '" + Convert.ToDateTime(model.VisitDateTime).ToString("yyyy-MM-dd") + "T" + currenttime.Replace(".",":") + "','timeZone': 'Pacific Standard Time'  },  'end': { 'dateTime': '" + Convert.ToDateTime(model.VisitDateTime).ToString("yyyy-MM-dd") + "T" + addtime.Replace(".",":") + "', 'timeZone': 'Pacific Standard Time' }, 'location': {'displayName': '" + model.FirstName + " " + model.LastName + "'},'recurrence': {'pattern': {'type': 'relativeMonthly','interval': 1,'daysOfWeek': ['Tuesday'],'index': 'first'},'range': {'type': 'noEnd', 'startDate': '" + Convert.ToDateTime(model.VisitDateTime).ToString("yyyy-MM-dd") + "' }}}";
               
                 var details= await _Services.CrmRequest(HttpMethod.Post, "https://graph.microsoft.com/v1.0/me/events", body);
                 if (details.IsSuccessStatusCode == true)
                 {
+                    string contactsJson = await details.Content.ReadAsStringAsync();
+                    var odataresponse = JsonConvert.DeserializeObject<RootObject>(contactsJson);
+                    model.OutlookID = odataresponse.id.ToString();
                     return Json(new { model = new ProspectModel().SaveProspectForm(model) }, JsonRequestBehavior.AllowGet);
                 }
                 else

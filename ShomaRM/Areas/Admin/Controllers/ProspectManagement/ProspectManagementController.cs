@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
+using ShomaRM.ApiService;
 using ShomaRM.Areas.Admin.Models;
 
 namespace ShomaRM.Areas.Admin.Controllers
@@ -40,11 +43,31 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult SaveProspectForm(ProspectManagementModel model)
+        public async System.Threading.Tasks.Task<ActionResult> SaveProspectFormAsync(ProspectManagementModel model)
         {
+            var ProspectModel = new ProspectManagementModel().GetProspectDetails(Convert.ToInt32(model.PID));
             try
             {
-                return Json(new { model = new ProspectManagementModel().SaveProspectForm(model) }, JsonRequestBehavior.AllowGet);
+
+                var currenttime = DateTime.Now.ToString("hh:mm:ss");
+                var addtime = DateTime.Now.AddHours(1).ToString("HH:mm:ss");
+
+                Service _Services = new Service();
+
+                string body = "{'subject': '" + ProspectModel.FirstName + " " + ProspectModel.LastName + "','body': { 'contentType': 'HTML', 'content': 'Call link: https://aka.ms/mmkv1b Submit a question: https://aka.ms/ybuw2i' }, 'start': { 'dateTime': '" + Convert.ToDateTime(model.VisitDateTime).ToString("yyyy-MM-dd") + "T" + currenttime.Replace(".", ":") + "','timeZone': 'Pacific Standard Time'  },  'end': { 'dateTime': '" + Convert.ToDateTime(model.VisitDateTime).ToString("yyyy-MM-dd") + "T" + addtime.Replace(".", ":") + "', 'timeZone': 'Pacific Standard Time' }, 'location': {'displayName': '" + ProspectModel.FirstName + " " + ProspectModel.LastName + "'},'recurrence': {'pattern': {'type': 'relativeMonthly','interval': 1,'daysOfWeek': ['Tuesday'],'index': 'first'},'range': {'type': 'noEnd', 'startDate': '" + Convert.ToDateTime(model.VisitDateTime).ToString("yyyy-MM-dd") +"' }}}";
+
+                var details = await _Services.CrmRequest(new HttpMethod("PATCH"), "https://graph.microsoft.com/v1.0/me/events/"+ ProspectModel.OutlookID, body);
+                if (details.IsSuccessStatusCode == true)
+                {
+                    string contactsJson = await details.Content.ReadAsStringAsync();
+                    var odataresponse = JsonConvert.DeserializeObject<RootObject>(contactsJson);
+                    model.OutlookID = odataresponse.id.ToString();
+                    return Json(new { model = new ProspectManagementModel().SaveProspectForm(model) }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { msg = "Outlook Event is not update.." }, JsonRequestBehavior.AllowGet);
+                }
             }
             catch (Exception ex)
             {
