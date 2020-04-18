@@ -949,45 +949,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_Prospect">
-      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Prospect">
-        <MappingFragment StoreEntitySet="tbl_Prospect">
-          <ScalarProperty Name="AppointmentStatus" ColumnName="AppointmentStatus" />
-          <ScalarProperty Name="AssignAgentId" ColumnName="AssignAgentId" />
-          <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="LastModifiedeDate" ColumnName="LastModifiedeDate" />
-          <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="MarketSource" ColumnName="MarketSource" />
-          <ScalarProperty Name="LeasingAgent" ColumnName="LeasingAgent" />
-          <ScalarProperty Name="VisitDateTime" ColumnName="VisitDateTime" />
-          <ScalarProperty Name="ReasonForMovingIn" ColumnName="ReasonForMovingIn" />
-          <ScalarProperty Name="Term" ColumnName="Term" />
-          <ScalarProperty Name="RequiredDate" ColumnName="RequiredDate" />
-          <ScalarProperty Name="UnitID" ColumnName="UnitID" />
-          <ScalarProperty Name="MaxRent" ColumnName="MaxRent" />
-          <ScalarProperty Name="MaxBathroom" ColumnName="MaxBathroom" />
-          <ScalarProperty Name="MaxBedroom" ColumnName="MaxBedroom" />
-          <ScalarProperty Name="MinRent" ColumnName="MinRent" />
-          <ScalarProperty Name="MinBathroom" ColumnName="MinBathroom" />
-          <ScalarProperty Name="MinBedroom" ColumnName="MinBedroom" />
-          <ScalarProperty Name="VehicleDetails" ColumnName="VehicleDetails" />
-          <ScalarProperty Name="PetsDetails" ColumnName="PetsDetails" />
-          <ScalarProperty Name="HavingPets" ColumnName="HavingPets" />
-          <ScalarProperty Name="Message" ColumnName="Message" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="City" ColumnName="City" />
-          <ScalarProperty Name="State" ColumnName="State" />
-          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-          <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="PID" ColumnName="PID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_PurchaseOrder">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_PurchaseOrder">
         <MappingFragment StoreEntitySet="tbl_PurchaseOrder">
@@ -1655,6 +1616,46 @@
           <ScalarProperty Name="FobID" ColumnName="FobID" />
           <ScalarProperty Name="TenantID" ColumnName="TenantID" />
           <ScalarProperty Name="TFobID" ColumnName="TFobID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Prospect">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Prospect">
+        <MappingFragment StoreEntitySet="tbl_Prospect">
+          <ScalarProperty Name="OutlookID" ColumnName="OutlookID" />
+          <ScalarProperty Name="AppointmentStatus" ColumnName="AppointmentStatus" />
+          <ScalarProperty Name="AssignAgentId" ColumnName="AssignAgentId" />
+          <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="LastModifiedeDate" ColumnName="LastModifiedeDate" />
+          <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="MarketSource" ColumnName="MarketSource" />
+          <ScalarProperty Name="LeasingAgent" ColumnName="LeasingAgent" />
+          <ScalarProperty Name="VisitDateTime" ColumnName="VisitDateTime" />
+          <ScalarProperty Name="ReasonForMovingIn" ColumnName="ReasonForMovingIn" />
+          <ScalarProperty Name="Term" ColumnName="Term" />
+          <ScalarProperty Name="RequiredDate" ColumnName="RequiredDate" />
+          <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+          <ScalarProperty Name="MaxRent" ColumnName="MaxRent" />
+          <ScalarProperty Name="MaxBathroom" ColumnName="MaxBathroom" />
+          <ScalarProperty Name="MaxBedroom" ColumnName="MaxBedroom" />
+          <ScalarProperty Name="MinRent" ColumnName="MinRent" />
+          <ScalarProperty Name="MinBathroom" ColumnName="MinBathroom" />
+          <ScalarProperty Name="MinBedroom" ColumnName="MinBedroom" />
+          <ScalarProperty Name="VehicleDetails" ColumnName="VehicleDetails" />
+          <ScalarProperty Name="PetsDetails" ColumnName="PetsDetails" />
+          <ScalarProperty Name="HavingPets" ColumnName="HavingPets" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="PID" ColumnName="PID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

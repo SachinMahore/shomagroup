@@ -56,7 +56,6 @@
     <EntitySet Name="tbl_Properties" EntityType="ShomaRMEntitiesModel.tbl_Properties" />
     <EntitySet Name="tbl_PropertyFloor" EntityType="ShomaRMEntitiesModel.tbl_PropertyFloor" />
     <EntitySet Name="tbl_PropertyUnits" EntityType="ShomaRMEntitiesModel.tbl_PropertyUnits" />
-    <EntitySet Name="tbl_Prospect" EntityType="ShomaRMEntitiesModel.tbl_Prospect" />
     <EntitySet Name="tbl_PurchaseOrder" EntityType="ShomaRMEntitiesModel.tbl_PurchaseOrder" />
     <EntitySet Name="tbl_Rating" EntityType="ShomaRMEntitiesModel.tbl_Rating" />
     <EntitySet Name="tbl_RequestOffer" EntityType="ShomaRMEntitiesModel.tbl_RequestOffer" />
@@ -153,10 +152,6 @@
       <End Role="tbl_City" EntitySet="tbl_City" />
       <End Role="tbl_Properties" EntitySet="tbl_Properties" />
     </AssociationSet>
-    <AssociationSet Name="FK_tbl_Prospect_tbl_City" Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_City">
-      <End Role="tbl_City" EntitySet="tbl_City" />
-      <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
-    </AssociationSet>
     <AssociationSet Name="FK_tbl_SalesAgent_tbl_City" Association="ShomaRMEntitiesModel.FK_tbl_SalesAgent_tbl_City">
       <End Role="tbl_City" EntitySet="tbl_City" />
       <End Role="tbl_SalesAgent" EntitySet="tbl_SalesAgent" />
@@ -164,10 +159,6 @@
     <AssociationSet Name="FK_tbl_ZipCodes_tbl_City" Association="ShomaRMEntitiesModel.FK_tbl_ZipCodes_tbl_City">
       <End Role="tbl_City" EntitySet="tbl_City" />
       <End Role="tbl_ZipCodes" EntitySet="tbl_ZipCodes" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_Document_tbl_Prospect" Association="ShomaRMEntitiesModel.FK_tbl_Document_tbl_Prospect">
-      <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
-      <End Role="tbl_Document" EntitySet="tbl_Document" />
     </AssociationSet>
     <AssociationSet Name="FK_tbl_DocumentVerification_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_DocumentVerification_tbl_Login">
       <End Role="tbl_Login" EntitySet="tbl_Login" />
@@ -257,14 +248,6 @@
       <End Role="tbl_Login" EntitySet="tbl_Login" />
       <End Role="tbl_Properties" EntitySet="tbl_Properties" />
     </AssociationSet>
-    <AssociationSet Name="FK_tbl_Prospect_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_Prospect_tbl_Login1" Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login1">
-      <End Role="tbl_Login" EntitySet="tbl_Login" />
-      <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
-    </AssociationSet>
     <AssociationSet Name="FK_tbl_PurchaseOrder_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login">
       <End Role="tbl_Login" EntitySet="tbl_Login" />
       <End Role="tbl_PurchaseOrder" EntitySet="tbl_PurchaseOrder" />
@@ -329,10 +312,6 @@
       <End Role="tbl_Properties" EntitySet="tbl_Properties" />
       <End Role="tbl_PropertyUnits" EntitySet="tbl_PropertyUnits" />
     </AssociationSet>
-    <AssociationSet Name="FK_tbl_Prospect_tbl_Properties" Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Properties">
-      <End Role="tbl_Properties" EntitySet="tbl_Properties" />
-      <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
-    </AssociationSet>
     <AssociationSet Name="FK_tbl_PurchaseOrder_tbl_Properties" Association="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Properties">
       <End Role="tbl_Properties" EntitySet="tbl_Properties" />
       <End Role="tbl_PurchaseOrder" EntitySet="tbl_PurchaseOrder" />
@@ -356,14 +335,6 @@
     <AssociationSet Name="FK_tbl_WorkOrder_tbl_Properties" Association="ShomaRMEntitiesModel.FK_tbl_WorkOrder_tbl_Properties">
       <End Role="tbl_Properties" EntitySet="tbl_Properties" />
       <End Role="tbl_WorkOrder" EntitySet="tbl_WorkOrder" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_Prospect_tbl_State" Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_State">
-      <End Role="tbl_State" EntitySet="tbl_State" />
-      <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_Visit_tbl_Prospect" Association="ShomaRMEntitiesModel.FK_tbl_Visit_tbl_Prospect">
-      <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
-      <End Role="tbl_Visit" EntitySet="tbl_Visit" />
     </AssociationSet>
     <AssociationSet Name="FK_tbl_SalesAgent_tbl_State" Association="ShomaRMEntitiesModel.FK_tbl_SalesAgent_tbl_State">
       <End Role="tbl_State" EntitySet="tbl_State" />
@@ -395,6 +366,35 @@
     </AssociationSet>
     <EntitySet Name="tbl_SMSMessages" EntityType="ShomaRMEntitiesModel.tbl_SMSMessages" />
     <EntitySet Name="tbl_TenantFob" EntityType="ShomaRMEntitiesModel.tbl_TenantFob" />
+    <EntitySet Name="tbl_Prospect" EntityType="ShomaRMEntitiesModel.tbl_Prospect" />
+    <AssociationSet Name="FK_tbl_Prospect_tbl_City" Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_City">
+      <End Role="tbl_City" EntitySet="tbl_City" />
+      <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Document_tbl_Prospect" Association="ShomaRMEntitiesModel.FK_tbl_Document_tbl_Prospect">
+      <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
+      <End Role="tbl_Document" EntitySet="tbl_Document" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Prospect_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Prospect_tbl_Login1" Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login1">
+      <End Role="tbl_Login" EntitySet="tbl_Login" />
+      <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Prospect_tbl_Properties" Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Properties">
+      <End Role="tbl_Properties" EntitySet="tbl_Properties" />
+      <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Prospect_tbl_State" Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_State">
+      <End Role="tbl_State" EntitySet="tbl_State" />
+      <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Visit_tbl_Prospect" Association="ShomaRMEntitiesModel.FK_tbl_Visit_tbl_Prospect">
+      <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
+      <End Role="tbl_Visit" EntitySet="tbl_Visit" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="tbl_AcutraqScrenning">
     <Key>
@@ -662,9 +662,9 @@
     <Property Name="StateID" Type="Int64" />
     <NavigationProperty Name="tbl_State" Relationship="ShomaRMEntitiesModel.FK_tbl_City_tbl_State" FromRole="tbl_City" ToRole="tbl_State" />
     <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_City" FromRole="tbl_City" ToRole="tbl_Properties" />
-    <NavigationProperty Name="tbl_Prospect" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_City" FromRole="tbl_City" ToRole="tbl_Prospect" />
     <NavigationProperty Name="tbl_SalesAgent" Relationship="ShomaRMEntitiesModel.FK_tbl_SalesAgent_tbl_City" FromRole="tbl_City" ToRole="tbl_SalesAgent" />
     <NavigationProperty Name="tbl_ZipCodes" Relationship="ShomaRMEntitiesModel.FK_tbl_ZipCodes_tbl_City" FromRole="tbl_City" ToRole="tbl_ZipCodes" />
+    <NavigationProperty Name="tbl_Prospect" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_City" FromRole="tbl_City" ToRole="tbl_Prospect" />
   </EntityType>
   <EntityType Name="tbl_Club">
     <Key>
@@ -1060,8 +1060,6 @@
     <NavigationProperty Name="tbl_Lease" Relationship="ShomaRMEntitiesModel.FK_tbl_Lease_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Lease" />
     <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Properties" />
     <NavigationProperty Name="tbl_Properties1" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login1" FromRole="tbl_Login" ToRole="tbl_Properties" />
-    <NavigationProperty Name="tbl_Prospect" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Prospect" />
-    <NavigationProperty Name="tbl_Prospect1" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login1" FromRole="tbl_Login" ToRole="tbl_Prospect" />
     <NavigationProperty Name="tbl_PurchaseOrder" Relationship="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login" FromRole="tbl_Login" ToRole="tbl_PurchaseOrder" />
     <NavigationProperty Name="tbl_PurchaseOrder1" Relationship="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login1" FromRole="tbl_Login" ToRole="tbl_PurchaseOrder" />
     <NavigationProperty Name="tbl_Tenant" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Tenant" />
@@ -1069,6 +1067,8 @@
     <NavigationProperty Name="tbl_Tenant2" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login2" FromRole="tbl_Login" ToRole="tbl_Tenant" />
     <NavigationProperty Name="tbl_Tenant3" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login3" FromRole="tbl_Login" ToRole="tbl_Tenant" />
     <NavigationProperty Name="tbl_Vendor" Relationship="ShomaRMEntitiesModel.FK_tbl_Vendor_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Vendor" />
+    <NavigationProperty Name="tbl_Prospect" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Prospect" />
+    <NavigationProperty Name="tbl_Prospect1" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login1" FromRole="tbl_Login" ToRole="tbl_Prospect" />
   </EntityType>
   <EntityType Name="tbl_LoginHistory">
     <Key>
@@ -1314,13 +1314,13 @@
     <NavigationProperty Name="tbl_State" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_State" FromRole="tbl_Properties" ToRole="tbl_State" />
     <NavigationProperty Name="tbl_PropertyFloor" Relationship="ShomaRMEntitiesModel.FK_tbl_PropertyFloor_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_PropertyFloor" />
     <NavigationProperty Name="tbl_PropertyUnits" Relationship="ShomaRMEntitiesModel.FK_tbl_PropertyUnits_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_PropertyUnits" />
-    <NavigationProperty Name="tbl_Prospect" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_Prospect" />
     <NavigationProperty Name="tbl_PurchaseOrder" Relationship="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_PurchaseOrder" />
     <NavigationProperty Name="tbl_SalesAgent" Relationship="ShomaRMEntitiesModel.FK_tbl_SalesAgent_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_SalesAgent" />
     <NavigationProperty Name="tbl_Storage" Relationship="ShomaRMEntitiesModel.FK_tbl_Storage_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_Storage" />
     <NavigationProperty Name="tbl_Tenant" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_Tenant" />
     <NavigationProperty Name="tbl_Tenant1" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Properties1" FromRole="tbl_Properties" ToRole="tbl_Tenant" />
     <NavigationProperty Name="tbl_WorkOrder" Relationship="ShomaRMEntitiesModel.FK_tbl_WorkOrder_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_WorkOrder" />
+    <NavigationProperty Name="tbl_Prospect" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_Prospect" />
   </EntityType>
   <EntityType Name="tbl_PropertyFloor">
     <Key>
@@ -1390,51 +1390,6 @@
     <Property Name="InteriorArea" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="Notes" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_PropertyUnits_tbl_Properties" FromRole="tbl_PropertyUnits" ToRole="tbl_Properties" />
-  </EntityType>
-  <EntityType Name="tbl_Prospect">
-    <Key>
-      <PropertyRef Name="PID" />
-    </Key>
-    <Property Name="PID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="PhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="State" Type="Int64" />
-    <Property Name="City" Type="Int64" />
-    <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="HavingPets" Type="Int32" />
-    <Property Name="PetsDetails" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="VehicleDetails" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="MinBedroom" Type="Int32" />
-    <Property Name="MinBathroom" Type="Int32" />
-    <Property Name="MinRent" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="MaxBedroom" Type="Int32" />
-    <Property Name="MaxBathroom" Type="Int32" />
-    <Property Name="MaxRent" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="UnitID" Type="Int64" />
-    <Property Name="RequiredDate" Type="DateTime" Precision="3" />
-    <Property Name="Term" Type="Int32" />
-    <Property Name="ReasonForMovingIn" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="VisitDateTime" Type="DateTime" Precision="0" />
-    <Property Name="LeasingAgent" Type="Int32" />
-    <Property Name="MarketSource" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="CreatedBy" Type="Int32" />
-    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-    <Property Name="LastModifiedBy" Type="Int32" />
-    <Property Name="LastModifiedeDate" Type="DateTime" Precision="3" />
-    <Property Name="Status" Type="Int32" />
-    <Property Name="PropertyID" Type="Int64" />
-    <Property Name="AssignAgentId" Type="Int64" />
-    <Property Name="AppointmentStatus" Type="Int32" />
-    <NavigationProperty Name="tbl_City" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_City" FromRole="tbl_Prospect" ToRole="tbl_City" />
-    <NavigationProperty Name="tbl_Document" Relationship="ShomaRMEntitiesModel.FK_tbl_Document_tbl_Prospect" FromRole="tbl_Prospect" ToRole="tbl_Document" />
-    <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login" FromRole="tbl_Prospect" ToRole="tbl_Login" />
-    <NavigationProperty Name="tbl_Login1" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login1" FromRole="tbl_Prospect" ToRole="tbl_Login" />
-    <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Properties" FromRole="tbl_Prospect" ToRole="tbl_Properties" />
-    <NavigationProperty Name="tbl_State" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_State" FromRole="tbl_Prospect" ToRole="tbl_State" />
-    <NavigationProperty Name="tbl_Visit" Relationship="ShomaRMEntitiesModel.FK_tbl_Visit_tbl_Prospect" FromRole="tbl_Prospect" ToRole="tbl_Visit" />
   </EntityType>
   <EntityType Name="tbl_PurchaseOrder">
     <Key>
@@ -1564,9 +1519,9 @@
     <Property Name="CountryID" Type="Int64" />
     <NavigationProperty Name="tbl_City" Relationship="ShomaRMEntitiesModel.FK_tbl_City_tbl_State" FromRole="tbl_State" ToRole="tbl_City" />
     <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_State" FromRole="tbl_State" ToRole="tbl_Properties" />
-    <NavigationProperty Name="tbl_Prospect" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_State" FromRole="tbl_State" ToRole="tbl_Prospect" />
     <NavigationProperty Name="tbl_SalesAgent" Relationship="ShomaRMEntitiesModel.FK_tbl_SalesAgent_tbl_State" FromRole="tbl_State" ToRole="tbl_SalesAgent" />
     <NavigationProperty Name="tbl_ZipCodes" Relationship="ShomaRMEntitiesModel.FK_tbl_ZipCodes_tbl_State" FromRole="tbl_State" ToRole="tbl_ZipCodes" />
+    <NavigationProperty Name="tbl_Prospect" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_State" FromRole="tbl_State" ToRole="tbl_Prospect" />
   </EntityType>
   <EntityType Name="tbl_Storage">
     <Key>
@@ -2302,18 +2257,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_tbl_Prospect_tbl_City">
-    <End Type="ShomaRMEntitiesModel.tbl_City" Role="tbl_City" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_City">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="tbl_Prospect">
-        <PropertyRef Name="City" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_tbl_SalesAgent_tbl_City">
     <End Type="ShomaRMEntitiesModel.tbl_City" Role="tbl_City" Multiplicity="0..1" />
     <End Type="ShomaRMEntitiesModel.tbl_SalesAgent" Role="tbl_SalesAgent" Multiplicity="*" />
@@ -2335,18 +2278,6 @@
       </Principal>
       <Dependent Role="tbl_ZipCodes">
         <PropertyRef Name="City" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_Document_tbl_Prospect">
-    <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_Document" Role="tbl_Document" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Prospect">
-        <PropertyRef Name="PID" />
-      </Principal>
-      <Dependent Role="tbl_Document">
-        <PropertyRef Name="TenantID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2614,30 +2545,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_tbl_Prospect_tbl_Login">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_Prospect">
-        <PropertyRef Name="CreatedBy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_Prospect_tbl_Login1">
-    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Login">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="tbl_Prospect">
-        <PropertyRef Name="LastModifiedBy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_tbl_PurchaseOrder_tbl_Login">
     <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
     <End Type="ShomaRMEntitiesModel.tbl_PurchaseOrder" Role="tbl_PurchaseOrder" Multiplicity="*" />
@@ -2830,18 +2737,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_tbl_Prospect_tbl_Properties">
-    <End Type="ShomaRMEntitiesModel.tbl_Properties" Role="tbl_Properties" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Properties">
-        <PropertyRef Name="PID" />
-      </Principal>
-      <Dependent Role="tbl_Prospect">
-        <PropertyRef Name="PropertyID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_tbl_PurchaseOrder_tbl_Properties">
     <End Type="ShomaRMEntitiesModel.tbl_Properties" Role="tbl_Properties" Multiplicity="0..1" />
     <End Type="ShomaRMEntitiesModel.tbl_PurchaseOrder" Role="tbl_PurchaseOrder" Multiplicity="*" />
@@ -2911,30 +2806,6 @@
       </Principal>
       <Dependent Role="tbl_WorkOrder">
         <PropertyRef Name="PropertyID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_Prospect_tbl_State">
-    <End Type="ShomaRMEntitiesModel.tbl_State" Role="tbl_State" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_State">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="tbl_Prospect">
-        <PropertyRef Name="State" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_Visit_tbl_Prospect">
-    <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="0..1" />
-    <End Type="ShomaRMEntitiesModel.tbl_Visit" Role="tbl_Visit" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Prospect">
-        <PropertyRef Name="PID" />
-      </Principal>
-      <Dependent Role="tbl_Visit">
-        <PropertyRef Name="ProspectID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -3045,4 +2916,134 @@
     <Property Name="OtherRelationship" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="OtherId" Type="Int64" />
   </EntityType>
+  <EntityType Name="tbl_Prospect">
+    <Key>
+      <PropertyRef Name="PID" />
+    </Key>
+    <Property Name="PID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="State" Type="Int64" />
+    <Property Name="City" Type="Int64" />
+    <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="HavingPets" Type="Int32" />
+    <Property Name="PetsDetails" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="VehicleDetails" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="MinBedroom" Type="Int32" />
+    <Property Name="MinBathroom" Type="Int32" />
+    <Property Name="MinRent" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="MaxBedroom" Type="Int32" />
+    <Property Name="MaxBathroom" Type="Int32" />
+    <Property Name="MaxRent" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="UnitID" Type="Int64" />
+    <Property Name="RequiredDate" Type="DateTime" Precision="3" />
+    <Property Name="Term" Type="Int32" />
+    <Property Name="ReasonForMovingIn" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="VisitDateTime" Type="DateTime" Precision="0" />
+    <Property Name="LeasingAgent" Type="Int32" />
+    <Property Name="MarketSource" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="LastModifiedBy" Type="Int32" />
+    <Property Name="LastModifiedeDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="PropertyID" Type="Int64" />
+    <Property Name="AssignAgentId" Type="Int64" />
+    <Property Name="AppointmentStatus" Type="Int32" />
+    <Property Name="OutlookID" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_City" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_City" FromRole="tbl_Prospect" ToRole="tbl_City" />
+    <NavigationProperty Name="tbl_Document" Relationship="ShomaRMEntitiesModel.FK_tbl_Document_tbl_Prospect" FromRole="tbl_Prospect" ToRole="tbl_Document" />
+    <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login" FromRole="tbl_Prospect" ToRole="tbl_Login" />
+    <NavigationProperty Name="tbl_Login1" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login1" FromRole="tbl_Prospect" ToRole="tbl_Login" />
+    <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Properties" FromRole="tbl_Prospect" ToRole="tbl_Properties" />
+    <NavigationProperty Name="tbl_State" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_State" FromRole="tbl_Prospect" ToRole="tbl_State" />
+    <NavigationProperty Name="tbl_Visit" Relationship="ShomaRMEntitiesModel.FK_tbl_Visit_tbl_Prospect" FromRole="tbl_Prospect" ToRole="tbl_Visit" />
+  </EntityType>
+  <Association Name="FK_tbl_Prospect_tbl_City">
+    <End Type="ShomaRMEntitiesModel.tbl_City" Role="tbl_City" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_City">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tbl_Prospect">
+        <PropertyRef Name="City" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Document_tbl_Prospect">
+    <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_Document" Role="tbl_Document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Prospect">
+        <PropertyRef Name="PID" />
+      </Principal>
+      <Dependent Role="tbl_Document">
+        <PropertyRef Name="TenantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Prospect_tbl_Login">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_Prospect">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Prospect_tbl_Login1">
+    <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Login">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="tbl_Prospect">
+        <PropertyRef Name="LastModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Prospect_tbl_Properties">
+    <End Type="ShomaRMEntitiesModel.tbl_Properties" Role="tbl_Properties" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Properties">
+        <PropertyRef Name="PID" />
+      </Principal>
+      <Dependent Role="tbl_Prospect">
+        <PropertyRef Name="PropertyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Prospect_tbl_State">
+    <End Type="ShomaRMEntitiesModel.tbl_State" Role="tbl_State" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_State">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tbl_Prospect">
+        <PropertyRef Name="State" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Visit_tbl_Prospect">
+    <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="0..1" />
+    <End Type="ShomaRMEntitiesModel.tbl_Visit" Role="tbl_Visit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Prospect">
+        <PropertyRef Name="PID" />
+      </Principal>
+      <Dependent Role="tbl_Visit">
+        <PropertyRef Name="ProspectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

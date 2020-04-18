@@ -930,6 +930,7 @@
     <Property Name="PropertyID" Type="bigint" />
     <Property Name="AssignAgentId" Type="bigint" />
     <Property Name="AppointmentStatus" Type="int" />
+    <Property Name="OutlookID" Type="varchar" MaxLength="1000" />
   </EntityType>
   <EntityType Name="tbl_PurchaseOrder">
     <Key>

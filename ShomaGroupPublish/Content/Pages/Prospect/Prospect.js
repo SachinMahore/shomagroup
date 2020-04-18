@@ -103,7 +103,7 @@ var saveProspectForm = function () {
     }
     var model = { FirstName: fname, LastName: lname, PhoneNo: phone, EmailId: email, Address: address, Message: message, HavingPets: pets, UnitID: unit, State: state, City: city, VisitDateTime: visittime };
     $.ajax({
-        url: "/Prospect/SaveProspectForm/",
+        url: "/Prospect/SaveProspectFormAsync/",
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
