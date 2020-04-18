@@ -53,7 +53,7 @@ namespace ShomaRM.Areas.Admin.Models
         public long AssignAgentID { get; set; }
         public string AssignAgentName { get; set; }
         public int AppointmentStatus { get; set; }
-
+        public string OutlookID { get; set; }
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
         public List<ProspectManagementModel> GetProspectList(DateTime FromDate, DateTime ToDate)
@@ -408,6 +408,7 @@ namespace ShomaRM.Areas.Admin.Models
                 model.PetsDetails = prospectData.PetsDetails;
                 model.AssignAgentID = prospectData.AssignAgentId != null ? prospectData.AssignAgentId.Value : 0;
                 model.AppointmentStatus = prospectData.AppointmentStatus != null ? prospectData.AppointmentStatus.Value : 0;
+                model.OutlookID = prospectData.OutlookID;
             }
 
             return model;

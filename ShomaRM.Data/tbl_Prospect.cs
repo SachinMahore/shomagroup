@@ -54,6 +54,7 @@ namespace ShomaRM.Data
         public Nullable<long> PropertyID { get; set; }
         public Nullable<long> AssignAgentId { get; set; }
         public Nullable<int> AppointmentStatus { get; set; }
+        public string OutlookID { get; set; }
     
         public virtual tbl_City tbl_City { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
