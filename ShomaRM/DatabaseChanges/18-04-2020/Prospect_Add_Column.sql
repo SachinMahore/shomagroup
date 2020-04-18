@@ -1,1 +1,1 @@
-ALTER TABLE tbl_Prospect ADD  OutlookID VARCHAR(1000)
+ALTER TABLE tbl_Prospect ADD  OutlookID VARCHAR(MAX)

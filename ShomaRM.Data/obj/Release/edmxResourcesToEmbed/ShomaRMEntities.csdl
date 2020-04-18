@@ -2953,7 +2953,7 @@
     <Property Name="PropertyID" Type="Int64" />
     <Property Name="AssignAgentId" Type="Int64" />
     <Property Name="AppointmentStatus" Type="Int32" />
-    <Property Name="OutlookID" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="OutlookID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="tbl_City" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_City" FromRole="tbl_Prospect" ToRole="tbl_City" />
     <NavigationProperty Name="tbl_Document" Relationship="ShomaRMEntitiesModel.FK_tbl_Document_tbl_Prospect" FromRole="tbl_Prospect" ToRole="tbl_Document" />
     <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login" FromRole="tbl_Prospect" ToRole="tbl_Login" />

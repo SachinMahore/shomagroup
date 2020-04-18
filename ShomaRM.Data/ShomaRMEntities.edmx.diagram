@@ -169,7 +169,7 @@
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Properties" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_State" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Visit_tbl_Prospect" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
