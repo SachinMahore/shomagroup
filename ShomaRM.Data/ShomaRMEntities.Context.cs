@@ -109,5 +109,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Visit> tbl_Visit { get; set; }
         public virtual DbSet<tbl_WorkOrder> tbl_WorkOrder { get; set; }
         public virtual DbSet<tbl_ZipCodes> tbl_ZipCodes { get; set; }
+        public virtual DbSet<tbl_SMSMessages> tbl_SMSMessages { get; set; }
     }
 }

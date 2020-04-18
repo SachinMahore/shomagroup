@@ -361,7 +361,7 @@ var getCommunityActivityList = function () {
 
 var getEventsList = function () {
     $.ajax({
-        url: '/Dashboard/GetEventList',
+        url: '/Dashboard/GetCalenderEventAsync',
         type: 'post',
         dataType: 'json',
         contentType: 'application/json;charset=utf-8',

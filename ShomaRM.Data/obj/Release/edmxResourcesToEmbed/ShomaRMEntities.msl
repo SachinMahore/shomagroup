@@ -112,6 +112,7 @@
     <EntitySetMapping Name="tbl_ApplyNow">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ApplyNow">
         <MappingFragment StoreEntitySet="tbl_ApplyNow">
+          <ScalarProperty Name="AdditionalParking" ColumnName="AdditionalParking" />
           <ScalarProperty Name="AcceptSummary" ColumnName="AcceptSummary" />
           <ScalarProperty Name="StepCompleted" ColumnName="StepCompleted" />
           <ScalarProperty Name="PetDNAAmt" ColumnName="PetDNAAmt" />
@@ -1629,6 +1630,16 @@
           <ScalarProperty Name="Zip" ColumnName="Zip" />
           <ScalarProperty Name="State" ColumnName="State" />
           <ScalarProperty Name="City" ColumnName="City" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_SMSMessages">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_SMSMessages">
+        <MappingFragment StoreEntitySet="tbl_SMSMessages">
+          <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="MsgID" ColumnName="MsgID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

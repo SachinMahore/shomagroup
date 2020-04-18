@@ -22,7 +22,7 @@
 <input type="hidden" id="hndBedRoom" value="@(Model.Bedroom)" />
 <input type="hidden" id="hndBuilding" value="@(Model.Building)" />
 <input type="hidden" id="hndProcessingFees" value="@(Model.ProcessingFees)" />
-
+<input type="hidden" id="hndAdditionalParking" value="@(Model.AdditionalParking)" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container">
@@ -35,9 +35,9 @@
                             <b>Online  </b>Application <br>
                         </h3>
                         <div class="button pull-right">
-
+                            @if (ShomaGroupWebSession.CurrentUser != null) {
                             <a href="javascript:void(0)" class="btn-success" style="padding:5px;" onclick="gotoLogOffAN()"> Logout..</a>
-
+                            }
                         </div>
                         <span class="pull-right" style="color:black;font-size: 15px;margin-right: 10px; font-weight:bold;" id="mainApplName"></span>
                         <span class="pull-left hidden" style="color:red;font-size: 15px;margin-right: 10px;" id="getting-startedTimeRemainingClock"></span>
@@ -369,7 +369,7 @@
 
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="txtPassword" class="star">Password</label>
+                                    <label for="txtPassword" class="star">Password</label>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-info-circle" style="cursor: pointer;" onclick="passwordInfo()"></i>
                                     <input type="password" class="form-control" id="txtPassword" value="@Model.Password" placeholder="Password" onblur="checkStrength($(this).val());">
                                 </div>
                             </div>
@@ -386,30 +386,28 @@
                                 </div>
                             </div>
 
-
-
-                            <div class="col-sm-12" id="divstep3save">
-                                <div class="pull-left text-center hidden">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" id="chkAgreeTerms"> I agree with Sanctuary's terms and conditions.
-                                        </label>
+                                <div class="col-sm-12" id="divstep3save">
+                                    <div class="pull-left text-center hidden">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" id="chkAgreeTerms"> I agree with Sanctuary's terms and conditions.
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right text-center">
+                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="SaveOnlineProspect()"> Save</button>
                                     </div>
                                 </div>
-                                <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="SaveOnlineProspect()"> Save</button>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 hidden" id="divstep3">
-                                <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(2,2,1)"> Back</button>
-                                </div>
-                                <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(4,4,0)"> Continue</button>
+                                <div class="col-sm-12 hidden" id="divstep3">
+                                    <div class="pull-left text-center">
+                                        <button type="submit" class="btn btn-primary" onclick="goToStep(2,2,1)"> Back</button>
+                                    </div>
+                                    <div class="pull-right text-center">
+                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(4,4,0)"> Continue</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     <div class="hidden" id="step4">
 
                         <div class="row p-b-15  ">
@@ -632,7 +630,7 @@
                                         <b>MONTHLY OPTIONS</b>
                                     </div>
                                     <div class="col-sm-4">
-                                        <span id="">Additional parking </span><span class="hidden" id="lblparkingplace">@Model.ParkingSpaceID</span>
+                                        <span id="">Additional parking </span><span class="hidden" id="lblparkingplace">@Model.AdditionalParking</span>
                                     </div>
                                     <div class="col-sm-2">
                                         $<span id="lblAdditionalParking">@((Model.ParkingAmt ?? 0).ToString("0.00"))</span>
@@ -659,7 +657,7 @@
                                         <span id="">&nbsp;</span>
                                     </div>
                                     <div class="col-sm-4 hidden">
-                                        <span id="">Additional FOBs </span><span class="hidden" id="lblFOBs">@Model.PetPlaceID</span>
+                                        <span id="">Additional FOBs </span><span class="hidden" id="lblFOBs">0</span>
                                     </div>
                                     <div class="col-sm-2 hidden">
                                         $<span id="lblFobFee">@((Model.FOBAmt ?? 0).ToString("0.00"))</span>
@@ -715,13 +713,10 @@
                                     <div class="col-sm-12">
                                         <p><i class="star"></i> Excluding the utility reimbursement for water & sewer, which is  billed monthly based on actual consumption</p>
                                     </div>
-
                                 </div>
                                 <div class="col-sm-12 clearfix">
                                     <br />
                                 </div>
-
-
                             </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
@@ -735,14 +730,11 @@
 
                     </div>
                     <div class="hidden" id="step5">
-                        <span class="hidden" id="ftotal"></span>
-                       <span class="hidden" id="lblAdminFees">@((Model.AdminFees ?? 0).ToString("0.00"))</span>
+                        <span class="hidden" id="ftotal">0.00</span>
+                        <span class="hidden" id="lblAdminFees">@((Model.AdminFees ?? 0).ToString("0.00"))</span>
+                        <span class="hidden" id="lblApplicationFees">@((Model.ApplicationFees ?? 0).ToString("0.00"))</span>
+                        <span id="lblGuarantorFees" class="hidden">@((Model.GuarantorFees ?? 0).ToString("0.00"))</span>
                         <div class="row p-b-15  ">
-                            @*<div class="col-sm-12">
-                <div class="pull-right text-center">
-                    <button id="quotePrint" class="btn btn-primary" onclick="print('printable')"> Print</button>
-                </div>
-            </div>*@
                             <div class="col-sm-12" id="printable" style="overflow: hidden !important;">
                                 <p>Thank you for your interest in Sanctuary Doral. This quote expires on midnight of the 3rd day. Please make sure you submit your application before midnight of the third day to secure your selected unit. If you have any questions or need assistance, please feel free to contact us.</p>
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
@@ -924,7 +916,7 @@
                                                     <span>Vehicle Registration: </span>
                                                 </div>
                                                 <div class="col-sm-7">
-                                                    $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees">0.00</span>
+                                                    $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees">@((Model.VehicleRegistration ?? 0).ToString("0.00"))</span>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
@@ -1288,20 +1280,11 @@
                                         <div class="col-md-3"></div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-8">
-                                                <span>Administration Fee: </span>
-                                            </div>
-                                            <div class="col-sm-1"></div>
-                                            <div class="col-sm-3">
-                                                $<span style="text-decoration:underline;font-weight:bold;">350.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-8">
                                                 <span>Vehicle Registration: </span>
                                             </div>
                                             <div class="col-sm-1"></div>
                                             <div class="col-sm-3">
-                                                $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees1">0.00</span>
+                                                $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees1">@((Model.VehicleRegistration ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
@@ -2466,7 +2449,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Applicants <a href="javascript:void(0);" class="pull-right" onclick="goToStep(7,7,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Applicants <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(7,7,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse1" class="panel-collapse collapse">
@@ -2493,7 +2476,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Responsibility <a href="javascript:void(0);" class="pull-right" onclick="goToStep(8,8,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Responsibility <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(8,8,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse2" class="panel-collapse collapse">
@@ -2520,7 +2503,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Personal Information <a href="javascript:void(0);" class="pull-right" onclick="goToStep(9,9,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Personal Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(9,9,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse3" class="panel-collapse collapse">
@@ -2543,7 +2526,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Residence History <a href="javascript:void(0);" class="pull-right" onclick="goToStep(10,10,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Residence History <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(10,10,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse4" class="panel-collapse collapse">
@@ -2564,7 +2547,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Employment & Income <a href="javascript:void(0);" class="pull-right" onclick="goToStep(11,11,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(11,11,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse5" class="panel-collapse collapse">
@@ -2585,7 +2568,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Emergency Contact <a href="javascript:void(0);" class="pull-right" onclick="goToStep(12,12,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Emergency Contact <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(12,12,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse6" class="panel-collapse collapse">
@@ -2605,7 +2588,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Vehicle Information <a href="javascript:void(0);" class="pull-right" onclick="goToStep(13,13,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Vehicle Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(13,13,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse7" class="panel-collapse collapse">
@@ -2632,7 +2615,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Pet Information <a href="javascript:void(0);" class="pull-right" onclick="goToStep(14,14,0)">&nbsp;&nbsp;Edit</a><i class="fa fa-angle-down pull-right"></i></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Pet Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(14,14,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse8" class="panel-collapse collapse">
@@ -4066,29 +4049,22 @@
                 <input type="hidden" id="hndParkingID" value="0" />
                 <input type="hidden" id="hndNumberOfParking" value="0" />
                 <div class="form-group clearfix">
-                    <div>
-                        <table class="" cellspacing="0" style="width:100%;">
-                            <thead>
-                                <tr>
-                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:64%;text-align:center;">Parking</th>
-                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:18%;text-align:center;">Charges</th>
-                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:18%;text-align:center;">Add</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                    <div style="width:100%;height:350px;overflow-y:scroll;">
-                        <table id="tblParking" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%;height:50px;">
-                            <tbody style="width:100%;height:100%;"></tbody>
-                        </table>
-                    </div>
+                    <table id="tblParking" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939">Parking </th>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939">Charges</th>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939">Add</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
                 <div class="col-sm-12">
 
                 </div>
-                <div class="col-sm-9 text-left">
-                    Notes: Check and save <br />
-                    Complimentary 1 parking space for 1- and 2-bedroom apartments and 2 spaces for 3-bedroom apartments.
+                <div class="col-sm-9 text-left" style="padding-left:0px;">
+                    Notes: Check and save
                 </div>
                 <div class="col-sm-3 text-right">
                     <button type="submit" class="btn btn-primary" onclick="saveupdateParking()"><i class="fa fa-check-square"></i> SAVE</button>
@@ -6026,7 +6002,19 @@
     function hideLoader() {
         $("#divLoader").hide();
     }
-
+    function passwordInfo() {
+        var msg = "";
+        msg += "1. The Password should have a minimum of 8 characters<br/>";
+        msg += "2. Password should contain at least one digit<br/>";
+        msg += "3. Password should contain at least one lower case<br/>";
+        msg += "4. Password should contain at least one upper case<br/>";
+        msg += "5. Password should contain at least one special symbols in the list!@@#$ %^&*<br/>";
+        $.alert({
+            title: "",
+            content: msg,
+            type: 'red'
+        });
+    }
     function printSumm(divName) {
         let printContents, popupWin;
         printContents = document.getElementById(divName).innerHTML;

@@ -91,15 +91,26 @@ namespace ShomaRM.Areas.Admin.Controllers
         {
             try
             {
-                return Json(new { model = new ProspectVerificationModel().SaveScreeningStatus(Email,ProspectId, Status) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = new ProspectVerificationModel().SaveScreeningStatus(Email, ProspectId, Status) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
-
-
         }
+        public ActionResult SaveScreeningStatusList(string Email, long UserId, string Status)
+        {
+            try
+            {
+                new ProspectVerificationModel().SaveScreeningStatusList(Email, UserId, Status);
+                return Json(new { model = 1 }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public async System.Threading.Tasks.Task<ActionResult> GetLeaseDocBlumoonAdm(string LeaseId, string EsignatureId)
         {
             try

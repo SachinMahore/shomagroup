@@ -118,5 +118,12 @@ namespace ShomaRM.Controllers
 
 
         }
+
+        #region Create Calender Event
+        public ActionResult CreateCalenderEvent()
+        {
+            return Json("");
+        }
+        #endregion
     }
 }

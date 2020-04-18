@@ -59,6 +59,21 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Graph, Version=1.21.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Graph.1.21.0\lib\net45\Microsoft.Graph.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Graph.Auth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Graph.Auth.1.0.0-preview.4\lib\net45\Microsoft.Graph.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Graph.Core, Version=1.20.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Graph.Core.1.20.0\lib\net45\Microsoft.Graph.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Identity.Client, Version=4.10.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Client.4.10.0\lib\net45\Microsoft.Identity.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.5.2.7\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.5.4.0\lib\net451\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
     </Reference>
@@ -84,18 +99,48 @@
       <HintPath>..\packages\SendGrid.SmtpApi.1.3.5\lib\portable40-net40+sl5+win8+wp8+wpa81\SendGrid.SmtpApi.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.6.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.4.0\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard1.1\System.Memory.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net46\System.Security.Cryptography.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net46\System.Security.Cryptography.X509Certificates.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -104,6 +149,7 @@
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -111,8 +157,6 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http">
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
     </Reference>
@@ -172,6 +216,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiService\RootObject.cs" />
+    <Compile Include="ApiService\Service.cs" />
+    <Compile Include="ApiService\Token.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -215,6 +262,7 @@
     <Compile Include="Areas\Admin\Controllers\TenantEventJoinApprove\TenantEventJoinApproveController.cs" />
     <Compile Include="Areas\Admin\Controllers\Tenant\TenantController.cs" />
     <Compile Include="Areas\Admin\Controllers\Transaction\TransactionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TwilioSMS\TwilioReceivedSMSController.cs" />
     <Compile Include="Areas\Admin\Controllers\Users\UsersController.cs" />
     <Compile Include="Areas\Admin\Controllers\Utility\UtilityController.cs" />
     <Compile Include="Areas\Admin\Controllers\Vendor\VendorController.cs" />
@@ -287,6 +335,7 @@
     <Compile Include="Areas\Tenant\Models\AmenitiesRR\AmenitiesRRModel.cs" />
     <Compile Include="Areas\Tenant\Models\ApplicantHistory\ApplicantHistoryModel.cs" />
     <Compile Include="Areas\Tenant\Models\Applicant\ApplicantModel.cs" />
+    <Compile Include="Areas\Tenant\Models\Calender\CalenderEvents.cs" />
     <Compile Include="Areas\Tenant\Models\Club\ClubMappingModel.cs" />
     <Compile Include="Areas\Tenant\Models\Club\ClubModel.cs" />
     <Compile Include="Areas\Tenant\Models\Club\CommonClubModel.cs" />
@@ -324,6 +373,7 @@
     <Compile Include="Controllers\Prospect\ProspectController.cs" />
     <Compile Include="Controllers\ShomaAPIController.cs" />
     <Compile Include="Controllers\ShomaGroupWebAuthorizationController.cs" />
+    <Compile Include="Controllers\TwilioSMSController.cs" />
     <Compile Include="Controllers\Verification\VerificationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -355,6 +405,8 @@
     <Compile Include="Models\ShomaGroupWebSession.cs" />
     <Compile Include="Models\TenantOnline\TenantOnlineModel.cs" />
     <Compile Include="Models\Transaction\UsaePayModel.cs" />
+    <Compile Include="Models\TwilioApi\SMSListViewModel.cs" />
+    <Compile Include="Models\TwilioApi\SMSMessageModel.cs" />
     <Compile Include="Models\TwilioApi\TwilioService.cs" />
     <Compile Include="Models\Verification\VerificationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2327,6 +2379,11 @@
     <Content Include="DatabaseChanges\13-04-2020\usp_GetUnitLeasePrice.sql" />
     <Content Include="DatabaseChanges\14-04-2020\sms_table.sql" />
     <Content Include="DatabaseChanges\14-04-2020\usp_changes.sql" />
+    <Content Include="DatabaseChanges\15-04-2020\ApplyTable_ColumnAdd.sql" />
+    <Content Include="DatabaseChanges\15-04-2020\UpdateUnitDepositAndModelName.sql" />
+    <Content Include="DatabaseChanges\15-04-2020\usp_SaveUpdateTenantParking.sql" />
+    <Content Include="DatabaseChanges\17-04-2020\usp_GetParkingPaginationAndSearchData.sql" />
+    <Content Include="DatabaseChanges\17-04-2020\usp_GetProspectVerifyPaginationAndSearchData.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -2547,6 +2604,7 @@
     <Content Include="Content\assets\fontawesome\webfonts\fa-solid-900.woff" />
     <Content Include="Content\assets\fontawesome\webfonts\fa-solid-900.woff2" />
     <Content Include="Areas\Admin\Views\Parking\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\TwilioReceivedSMS\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -2604,6 +2662,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\CommunityManagment\" />
+    <Folder Include="Areas\Admin\Views\TwilioSMS\" />
     <Folder Include="Areas\Tenant\Views\Applicant\" />
     <Folder Include="Areas\Tenant\Views\CommunityActivity\" />
     <Folder Include="Areas\Tenant\Views\MyTransaction\" />
@@ -2611,6 +2670,7 @@
     <Folder Include="Areas\Tenant\Views\ServiceRequest\" />
     <Folder Include="Content\assets\img\property-1\" />
     <Folder Include="Content\assets\img\slide1\" />
+    <Folder Include="Views\TwilioSMS\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

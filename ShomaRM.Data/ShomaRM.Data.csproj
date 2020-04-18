@@ -256,6 +256,9 @@
     <Compile Include="tbl_ServiceRequest.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbl_SMSMessages.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_State.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
@@ -321,7 +324,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <EntityDeploy Include="ShomaRMEntities.edmx">

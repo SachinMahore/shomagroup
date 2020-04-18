@@ -5,15 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ShomaRMEntitiesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'ShomaRMDev.dbo.CountryState' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="CountryState">
-          <Property Name="ID" Type="varchar" MaxLength="500" />
-          <Property Name="CountryName" Type="varchar" MaxLength="500" />
-          <Property Name="StateID" Type="varchar" MaxLength="500" />
-          <Property Name="CountryID" Type="varchar" MaxLength="500" />
-          <Property Name="StateName" Type="varchar" MaxLength="500" />
-        </EntityType>-->
         <EntityType Name="tbl_AcutraqScrenning">
           <Key>
             <PropertyRef Name="Id" />
@@ -161,6 +152,7 @@ warning 6013: The table/view 'ShomaRMDev.dbo.CountryState' does not have a prima
           <Property Name="PetDNAAmt" Type="money" />
           <Property Name="StepCompleted" Type="int" />
           <Property Name="AcceptSummary" Type="int" />
+          <Property Name="AdditionalParking" Type="int" />
         </EntityType>
         <EntityType Name="tbl_AuditHistory">
           <Key>
@@ -1055,6 +1047,15 @@ warning 6013: The table/view 'ShomaRMDev.dbo.CountryState' does not have a prima
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="bigint" />
           <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_SMSMessages">
+          <Key>
+            <PropertyRef Name="MsgID" />
+          </Key>
+          <Property Name="MsgID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="15" />
+          <Property Name="Message" Type="varchar" MaxLength="1000" />
+          <Property Name="ReceivedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="tbl_State">
           <Key>
@@ -2549,6 +2550,7 @@ warning 6013: The table/view 'ShomaRMDev.dbo.CountryState' does not have a prima
           <EntitySet Name="tbl_ServiceIssue" EntityType="Self.tbl_ServiceIssue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ServiceLocation" EntityType="Self.tbl_ServiceLocation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ServiceRequest" EntityType="Self.tbl_ServiceRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_SMSMessages" EntityType="Self.tbl_SMSMessages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_State" EntityType="Self.tbl_State" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Storage" EntityType="Self.tbl_Storage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Tenant" EntityType="Self.tbl_Tenant" Schema="dbo" store:Type="Tables" />
@@ -3276,6 +3278,7 @@ warning 6013: The table/view 'ShomaRMDev.dbo.CountryState' does not have a prima
             <End Role="tbl_Vendor" EntitySet="tbl_Vendor" />
             <End Role="tbl_WorkOrder" EntitySet="tbl_WorkOrder" />
           </AssociationSet>
+          <EntitySet Name="tbl_SMSMessages" EntityType="ShomaRMEntitiesModel.tbl_SMSMessages" />
         </EntityContainer>
         <EntityType Name="tbl_AcutraqScrenning">
           <Key>
@@ -3433,6 +3436,7 @@ warning 6013: The table/view 'ShomaRMDev.dbo.CountryState' does not have a prima
           <NavigationProperty Name="tbl_TenantPetPlace" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantPetPlace_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantPetPlace" />
           <NavigationProperty Name="tbl_TenantStorage" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantStorage_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantStorage" />
           <NavigationProperty Name="tbl_Vehicle" Relationship="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Vehicle" />
+          <Property Name="AdditionalParking" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_AuditHistory">
           <Key>
@@ -5902,6 +5906,15 @@ warning 6013: The table/view 'ShomaRMDev.dbo.CountryState' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_SMSMessages">
+          <Key>
+            <PropertyRef Name="MsgID" />
+          </Key>
+          <Property Name="MsgID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ReceivedDate" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6019,6 +6032,7 @@ warning 6013: The table/view 'ShomaRMDev.dbo.CountryState' does not have a prima
           <EntitySetMapping Name="tbl_ApplyNow">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ApplyNow">
               <MappingFragment StoreEntitySet="tbl_ApplyNow">
+                <ScalarProperty Name="AdditionalParking" ColumnName="AdditionalParking" />
                 <ScalarProperty Name="AcceptSummary" ColumnName="AcceptSummary" />
                 <ScalarProperty Name="StepCompleted" ColumnName="StepCompleted" />
                 <ScalarProperty Name="PetDNAAmt" ColumnName="PetDNAAmt" />
@@ -7536,6 +7550,16 @@ warning 6013: The table/view 'ShomaRMDev.dbo.CountryState' does not have a prima
                 <ScalarProperty Name="Zip" ColumnName="Zip" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SMSMessages">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_SMSMessages">
+              <MappingFragment StoreEntitySet="tbl_SMSMessages">
+                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="MsgID" ColumnName="MsgID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

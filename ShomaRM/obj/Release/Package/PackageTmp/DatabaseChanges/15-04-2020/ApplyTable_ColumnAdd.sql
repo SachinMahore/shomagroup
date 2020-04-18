@@ -1,0 +1,1 @@
+ALTER TABLE tbl_ApplyNow ADD AdditionalParking INT

@@ -21,18 +21,21 @@
                             <div class="form-group">
                                 @*<label  class="">Search Parking</label>*@
                                 <select id="ddlCriteria" class="form-control form-control-small">
-                                    <option value="0" selected> Please select</option>
-                                    <option value="1">Space </option>
-                                    <option value="2">Unit </option>
-                                    <option value="3">Vehicle Tag </option>
-                                    <option value="4">Tenant Name</option>
+                                    <option value="0" selected>All</option>
+                                    <option value="1">Available</option>
+                                    <option value="2">Space No. </option>
+                                    <option value="3">Unit No. </option>
+                                    <option value="4">Vehicle Tag </option>
+                                    <option value="5">Tenant Name</option>
+                                    <option value="6">Unit Parking</option>
+                                    <option value="7">Additional Parking</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <h3 class="panel-title input-group">Search Criteria</h3>
-                            <div class="form-group">
-                                <input id="txtCriteria"  class="form-control form-control-small" type="text" value="" />
+                            <div class="form-group" id="divCriteriatxt">
+                                <input id="txtCriteria" class="form-control form-control-small" type="text" value="" />
                             </div>
                         </div>
                         @*<div class="col-sm-3">
@@ -81,14 +84,14 @@
                             <table id="tblParking" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('Number')">Parking No. <i id="sortNumberIcon" class=""></i></th>
-                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('Charge')">Parking Charge <i id="sortChargeIcon" class=""></i></th>
-                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('Available')">Available <i id="sortAvailableIcon" class=""></i></th>
-                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('Location')">Location <i id="sortLocationIcon" class=""></i></th>
-                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('Space')">Space No. <i id="sortSpaceIcon" class=""></i></th>
-                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('UnitNo')">Unit No <i id="sortUnitNoIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('ParkingID')">Parking No. <i id="sortParkingIDIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('Charges')">Parking Charge <i id="sortChargeIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('Type')">Available <i id="sortTypeIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('Description')">Location <i id="sortDescriptionIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('ParkingName')">Space No. <i id="sortParkingNameIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('PropertyID')">Unit No <i id="sortPropertyIDIcon" class=""></i></th>
                                         <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('Tag')">Vehicle Tag <i id="sortTagIcon" class=""></i></th>
-                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('Tenant')">Tenant Name <i id="sortTenantIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableParking('OwnerName')">Tenant Name <i id="sortOwnerNameIcon" class=""></i></th>
                                         @*<th style="background-color: #c7cdd5;color:#3d3939;padding:10px;">Action</th>*@
                                     </tr>
                                 </thead>
