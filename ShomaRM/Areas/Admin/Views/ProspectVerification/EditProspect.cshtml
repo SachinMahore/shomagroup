@@ -15,6 +15,7 @@
 <input type="hidden" id="hndPOE" value="0" />
 <input type="hidden" id="hndOriginalPOE" value="0" />
 <input type="hidden" id="hndLeaseTermID" value="@Model.LeaseTermID" />
+<input type="hidden" id="hndPriAppFullName" value="" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container" style="width:100%!important">
@@ -2531,9 +2532,10 @@
                                 <div style="margin-top:30px"></div>
                                 <div class="text-center">
                                     <button type="button" class="btn btn-primary" id="btnSave" onclick="SaveScreeningStatus()"><span id="spanSaveUpdate">Save Screening Status</span></button>
+                                    <button type="button" class="btn btn-primary" id="btnSave" onclick="refreshStatuses()">Refresh</button>
                                 </div>
                             </div>
-                            
+
                             <div class="col-md-12 clear">
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                     <div class="panel-heading">
@@ -2542,26 +2544,19 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-8 form-inline">
-                               
-                                <div>
-                                    <table id="tblAdminFee" class="table-bordered" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th style="background-color: #c7cdd5;color:#3d3939">Trans Date</th>
-                                                <th style="background-color: #c7cdd5;color:#3d3939">Administrative Fees</th>
-                                                <th style="background-color: #c7cdd5;color:#3d3939">Description</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="col-sm-4 form-inline">
-                                
-                                <div class="text-center">
-                                    <button type="button" class="btn btn-primary" id="btnSendRemtr" onclick="SendReminderEmail(1)"   disabled="disabled"><span id="">Send Reminder to Pay Administration Fees </span></button>
-                                </div>
+                            <div class="col-sm-12 ">
+                                <table id="tblAdminFee" class="table-bordered" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;width:30%;text-align:center;">Name</th>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;width:30%;text-align:center;">Description</th>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;width:10%;text-align:center;">Administrative Fees</th>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;width:10%;text-align:center;">Trans Date</th>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;width:20%;text-align:center;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
                             </div>
                             <div class="col-md-12 clear">
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
@@ -2571,40 +2566,46 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-8 form-inline">
+                            <div class="col-sm-12 ">
+                                <table id="tblLeasedSign" class="table-bordered" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;width:35%;text-align:center;">Applicant Name</th>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;width:35%;text-align:center;">Applicant Email</th>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;width:10%;text-align:center;">Signed Date</th>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;width:20%;text-align:center;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                                
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-12 clear">
+                               &nbsp;
+                            </div>
+                            <div class="col-sm-12 form-inline">
+                                <div class="col-sm-3 form-inline">
+                                    <div class="text-center">
+                                      &nbsp;
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 form-inline">
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-primary" id="btnSendRemSign" onclick="SendReminderEmail(2,0)" disabled="disabled">Send Reminder to Sign Lease Document (All)</button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 form-inline">
 
-                                <div>
-                                    <table id="tblLeasedSign" class="table-bordered" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th style="background-color: #c7cdd5;color:#3d3939">Applicant Name</th>
-                                                <th style="background-color: #c7cdd5;color:#3d3939">Applicant Email Id</th>
-                                                <th style="background-color: #c7cdd5;color:#3d3939">Key</th>
-                                                <th style="background-color: #c7cdd5;color:#3d3939">Signed Date</th>
+                                    <div class="text-center">
+                                        <a class="btn btn-primary " id="btnleaseDownl" onclick="downloadLeaseDocument()" disabled="disabled">Download Leasing Application</a>
 
-                                            </tr>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-4 form-inline">
-                                
-                                <div class="text-center">
-                                    <button type="button" class="btn btn-primary" id="btnSendRemSign" onclick="SendReminderEmail(2)"  disabled="disabled">Send Reminder to Sign Lease Document</button>
-                                </div>
-                            </div>
-                            <div class="col-sm-4 form-inline">
-                                
-                                <div class="text-center">
-                                    <a class="btn btn-primary " id="btnleaseDownl" onclick="downloadLeaseDocument()" disabled="disabled">Download Leasing Application</a>
-                               
-                                </div>
-                            </div>
-                            <div class="col-sm-4 form-inline">
-                              
-                                <div class="text-center">
-                                    <button type="button" class="btn btn-primary" id="btnupSignSts" onclick="SaveSignedStatus()"  disabled="disabled">Update Status to Document Signed </button>
+                                <div class="col-sm-3 form-inline hidden">
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-primary" id="btnupSignSts" onclick="SaveSignedStatus()" disabled="disabled">Update Status to Document Signed </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -4323,9 +4324,9 @@
     });
 
     $(document).ready(function () {
-        if ('@Model.EnvelopeID' != "") {
+        @*if ('@Model.EnvelopeID' != "") {
             $("#btnleaseDownl").removeAttr("disabled");
-        }
+        }*@
         
         if ('@Model.Status' == "Approved")
         {

@@ -371,8 +371,6 @@ namespace ShomaRM.Models
                     cmd.CommandText = "usp_GetSignedList";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                
-
                     DbParameter paramTID = cmd.CreateParameter();
                     paramTID.ParameterName = "TenantID";
                     paramTID.Value = TenantID;
@@ -386,8 +384,6 @@ namespace ShomaRM.Models
                 foreach (DataRow dr in dtTable.Rows)
                 {
                     ESignatureKeysModel pr = new ESignatureKeysModel();
-
-                    
                     DateTime? createdDateString = null;
                     try
                     {
@@ -397,15 +393,14 @@ namespace ShomaRM.Models
                     {
 
                     }
-                    
                     pr.ESID = Convert.ToInt32(dr["ESID"].ToString());
-
-                
                     pr.DateSigned = createdDateString == null ? "" : createdDateString.ToString();
                     pr.ApplicantName = dr["ApplicantName"].ToString();
                     pr.Email = dr["Email"].ToString();
                     pr.Key = dr["Key"].ToString();
-                   
+                    pr.ApplicantID = Convert.ToInt64(dr["ApplicantID"].ToString());
+                    pr.IsSigned = createdDateString == null ? 0 : 1;
+                    pr.IsSignedAll = Convert.ToInt32(dr["IsSignedAll"].ToString());
                     lstpr.Add(pr);
                 }
                 db.Dispose();
@@ -428,5 +423,7 @@ namespace ShomaRM.Models
         public string DateSigned { get; set; }
         public string ApplicantName { get; set; }
         public string Email { get; set; }
+        public int IsSigned { get; set; }
+        public int IsSignedAll { get; set; }
     }
 }

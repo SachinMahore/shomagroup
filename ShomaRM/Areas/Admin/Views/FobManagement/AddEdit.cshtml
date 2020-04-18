@@ -1,0 +1,481 @@
+﻿@using ShomaRM.Areas.Admin.Models
+@model  FobManagementModel
+@{
+    ViewBag.Title = "AddEdit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<input id="hdnTenantId" type="hidden" value="@ViewBag.TenantID" />
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    &nbsp;
+    <div class="container" style="width:100%">
+        <div class="wizard-container">
+            <div class="" id="wizardProperty">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-md-12 clear">
+                            <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Pre Moving Management</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-margin-minu-20">
+                            <div class="panel-group" id="accordion2">
+                                <div class="panel panel-default" style="border:0.1px solid;border-color:#ddd;margin: 0px!important;">
+                                    <div class="panel-heading" style="background-color:transparent;border-bottom: 0.1px solid;border-color: #ddd;">
+                                        <h3 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion2" href="#collapseaccordion2" class="collapsed" aria-expanded="false">Applicant Information<i class="fa fa-angle-down pull-right"></i></a>
+                                        </h3>
+                                    </div>
+                                    <div id="collapseaccordion2" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                        <div class="panel panel-body">
+                                            <div class="col-sm-12">
+                                                <div class="proerty-th">
+                                                    @foreach (var item in Model.AllApplicantList)
+                                                    {
+                                                        <div class="col-sm-4 box-two proerty-item">
+                                                            <div class="table-responsive">
+                                                                <table class="table">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td><b>@(item.FullName)</b></td>
+                                                                            <td><b>(@(item.Type))</b></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>DOB:- @(item.DateOfBirthTxt)</td>
+                                                                            <td>SSN#:- @(item.SSNstring)</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Email:- @(item.Email)</td>
+                                                                            <td>Gender:- @(item.Gender == 1 ? "Male" : item.Gender == 2 ? "Female" : "Other")</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Move In %:- @(item.MoveInPercentage) %</td>
+                                                                            <td>Move In Charges:- $@(item.MoveInCharges)</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Monthly %:- @(item.MonthlyPercentage)%</td>
+                                                                            <td>Monthly Charges:- $@(item.MonthlyCharges)</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" >
+                        <div class="col-md-12 clear">
+                            <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">FOB Management</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12  col-margin-minu-20">
+                            <div class="panel-group" id="accordion3">
+                                <div class="panel panel-default" style="border:0.1px solid;border-color:#ddd;">
+                                    <div class="panel-heading" style="background-color:transparent;border-bottom: 0.1px solid;border-color: #ddd;">
+                                        <h3 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion3" href="#collapseaccordion3" class="collapsed" aria-expanded="false">FOB Infromation<i class="fa fa-angle-down pull-right"></i></a>
+                                        </h3>
+                                    </div>
+                                    <div id="collapseaccordion3" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                        <div class="panel panel-body">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-12 btn-group" style="margin-bottom:10px !important">
+                                                    <h4 style="color:#4d738a;"></h4>
+                                                    <button type="button" id="btnAddNewFob" class="btn btn-primary pull-right" onclick="addNewFOB()">Add New FOB</button>
+                                                </div>
+                                                <table id="tblFobMoveInCheckList" class="table-bordered" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939;text-align:center;">Sr. No.</th>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939;text-align:center;">FOB#</th>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939;text-align:center;">Unit#</th>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939;text-align:center;">Tenant Name</th>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939;text-align:center;">FOB User's Name</th>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939;text-align:center;">Relationship to Tenant</th>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939;text-align:center;">Status</th>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939;text-align:center;">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row" >
+                        <div class="col-md-12 clear">
+                            <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Move in Checklist</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12  col-margin-minu-20">
+                            <div class="panel-group" id="accordion">
+                                @foreach (var item in Model.MoveInDataList)
+                                {
+                                    <div class="panel panel-default" style="border:0.1px solid;border-color:#ddd;">
+                                        <div class="panel-heading" style="background-color:transparent;border-bottom: 0.1px solid;border-color: #ddd;">
+                                            <h3 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(item.ApplicantID)" class="collapsed" aria-expanded="false">@(item.FullName)  (@(item.Type))<i class="fa fa-angle-down pull-right"></i></a>
+                                            </h3>
+                                        </div>
+                                        <div id="collapse@(item.ApplicantID)" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                            <div class="panel panel-body">
+                                                <div class="divChecklist" id="divChecklist">
+                                                    <div class="col-sm-12">
+                                                        <div class="col-sm-12" style="margin-bottom:10px !important"><h4 style="color:#4d738a;">Move-In-CheckList</h4></div>
+                                                        <hr />
+                                                        <div class="col-sm-12">
+
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <div class="pull-left col-sm-12">
+                                                                <div class="checkbox">
+                                                                    <div class="col-sm-3" style="margin-left: -20px;">
+                                                                        <label>
+                                                                            <input type="checkbox" id="chkPay" checked="@(!string.IsNullOrWhiteSpace(item.MoveInCharges) ? true : false)" disabled><span style="margin-left: 10px;">
+                                                                                Pay your Move-in charges
+                                                                            </span>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-sm-3" style="margin-left: -80px;">
+                                                                        <div class="input-group" style="margin-left: 57px;">
+                                                                            <span class="input-group-btn">
+                                                                                <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                                            </span>
+                                                                            <input id="txtPayment" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@(item.MoveInCharges)" disabled />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="pull-left col-sm-12">
+                                                                <div class="checkbox">
+                                                                    <div class="col-sm-3" style="margin-left: -20px;">
+                                                                        <label>
+                                                                            <input type="checkbox" id="chkMovein" checked="@(!string.IsNullOrWhiteSpace(item.MoveInDateString) ? true : false)" disabled="disabled" /><span style="margin-left: 10px;">
+                                                                                Schedule a move-in date and time
+                                                                            </span>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-sm-3" style="margin-left: -80px;">
+                                                                        <div class="input-group" style="margin-left: 57px;">
+                                                                            <input id="txtMoveInDate" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@item.MoveInDateString" disabled />
+                                                                            <span class="input-group-btn" style="width:0% !important">
+                                                                                <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        <div class="input-group" style="margin-left: -70px;">
+                                                                            <input id="txtMoveInTime" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@item.MoveInTime" disabled />
+                                                                            <span class="input-group-btn" style="width:0% !important">
+                                                                                <button class="btn btn-primary search" type="button"><i class="fa-clock-o  fa"></i></button>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="pull-left col-sm-12">
+                                                                <div class="checkbox">
+                                                                    <label style="margin-left: -5px;">
+                                                                        <input type="checkbox" id="chkIns" checked="@(string.IsNullOrWhiteSpace(item.InsuranceDoc) == false ? true : false)" disabled><span style="margin-left: 10px;">
+                                                                            Make sure you have Renter’s insurance.  If you have not purchased it and would like to use our partner, login or call Serrod Insurance 	Agency at (305) 445-6441
+                                                                            <br />
+                                                                            <b>Download Proof of Insurance&nbsp;&nbsp;&nbsp;</b>
+                                                                            <a id="dwnldPOI@(item.ApplicantID)" data-value="@(!string.IsNullOrWhiteSpace(item.InsuranceDoc)? item.InsuranceDoc : "")" href="javascript:void(0)" class="btn btn-primary" onclick="downloadInsuranceDoc(@(item.ApplicantID));"><i class="fa fa-download"></i> @(!string.IsNullOrWhiteSpace(item.InsuranceDoc) ? item.InsuranceDoc : "")</a>
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="pull-left col-sm-12">
+                                                                <div class="checkbox">
+                                                                    <label style="margin-left: -5px;">
+                                                                        <input type="checkbox" id="chkPo" checked="@(item.IsCheckPO == 1 ? true : false)" disabled><span style="margin-left: 10px;">
+                                                                            Complete the Post Office change of address by logging into <a href="https://movingonlineservice.com" target="_blank">https://movingonlineservice.com</a>
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-12" style="margin-bottom:10px !important"><h4 style="color:#4d738a;">Utilities</h4></div>
+                                                            <div class="pull-left col-sm-12">
+                                                                <div class="checkbox">
+                                                                    <label style="margin-left: -5px;">
+                                                                        <input type="checkbox" id="chkEle" checked="@(string.IsNullOrWhiteSpace(item.ElectricityDoc) == false ? true : false)" disabled><span style="margin-left: 10px;">
+                                                                            Electricity- log in to <a href="https://fpl.com" target="_blank">https://fpl.com</a> to start service or call 1-800-226-3545.
+                                                                            <br />
+                                                                            <b>Download Proof of Electricity&nbsp;&nbsp;&nbsp;</b>
+                                                                            <a id="dwnldPOE@(item.ApplicantID)" data-value="@(!string.IsNullOrWhiteSpace(item.ElectricityDoc) ? item.ElectricityDoc : "")" href="javascript:void(0)" class="btn btn-primary" onclick="downloadElectricDoc(@(item.ApplicantID));"><i class="fa fa-download"></i> @(!string.IsNullOrWhiteSpace(item.ElectricityDoc) ? item.ElectricityDoc : "")</a>
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="pull-left col-sm-12">
+                                                                <div class="checkbox">
+                                                                    <label style="margin-left: -5px;">
+                                                                        <input type="checkbox" id="chkAt" checked="@(item.IsCheckATT == 1 ? true : false)" disabled /><span style="margin-left: 10px;">
+                                                                            AT&T- Call to establish your internet service and/or enhance your cable plan.
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="pull-left col-sm-12">
+                                                                <div class="checkbox">
+                                                                    <label style="margin-left: -5px;">
+                                                                        <input type="checkbox" id="chkWater" checked="@(item.IsCheckWater == 1 ? true : false)" disabled /><span style="margin-left: 10px;">
+                                                                            If needed, contact Miami Dade Water and Sewer Department to stop service at your previous address. Login to <a href="http://www.miamidade.gov/global/water/home.page" target="_blank">www.miamidade.gov/global/water/home.page</a>
+                                                                            or call (305) 665-7488.  Your water will be set up automatically upon move-in and will be billed directly the following month.
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row" >
+                        <div class="col-md-12 clear">
+                            <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Lease Information</h3>
+                                </div>
+                            </div>
+                        </div><div class="col-sm-12  col-margin-minu-20">
+                            <div class="panel-group" id="accordion4">
+                                <div class="panel panel-default" style="border:0.1px solid;border-color:#ddd;">
+                                    <div class="panel-heading" style="background-color:transparent;border-bottom: 0.1px solid;border-color: #ddd;">
+                                        <h3 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion4" href="#collapseaccordion4" class="collapsed" aria-expanded="false">Lease Sign Status<i class="fa fa-angle-down pull-right"></i></a>
+                                        </h3>
+                                    </div>
+                                    <div id="collapseaccordion4" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                        <div class="panel panel-body">
+                                            <div class="col-sm-12">
+                                                <table id="tbl_LeaseManagement" class="table-bordered" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939;text-align:center;">Name</th>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939;text-align:center;">Type</th>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939;text-align:center;">Date Signed</th>
+                                                            <th style="background-color: #c7cdd5;color:#3d3939;text-align:center;">Send Link</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in Model.LeaseTermList)
+                                                        {
+                                                            <tr>
+                                                                <td style="text-align:center;">@item.FullName</td>
+                                                                <td style="text-align:center;">@item.Type</td>
+                                                                <td style="text-align:center;">@item.ESignatureStatus</td>
+                                                                <td style="text-align:center;"><button type="button" style="@(item.ESignatureStatus != " Signed" ? "color:#4d738a;cursor:pointer;" : "black" )" disabled="@(item.ESignatureStatus == " Signed" ? "disabled" : "" )">Link</button></td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalAddFob" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="width:732px; height:474px;">
+            <div class="modal-header">
+                <h6>Add Fob</h6>
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px;margin-right: -175px; color:black;">&times;</button>
+            </div>
+            <input type="hidden" id="hndOtherId" />
+            <div class="modal-body-compare">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="star">FOB User Name</label> :
+                                <select id="ddlFobUserNameAddFob" class="form-control" onchange="fobUserNameddlFunction();"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-4 hidden" id="divAddFobFirstName">
+                            <div class="form-group">
+                                <label class="star">First Name</label> :
+                                <input id="txtFirstNameAddFob" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-4 hidden" id="divAddFobLastName">
+                            <div class="form-group">
+                                <label class="star">Last Name</label> :
+                                <input id="txtLastNameAddFob" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Unit No</label> :
+                            <label id="lblUnitNoAddFob"></label>
+                        </div>
+                        <div class="col-md-4 hidden" id="divAddFobRelationship">
+                            <div class="form-group">
+                                <label>Relationship</label> :
+                                <select id="ddlRelationshipAddFobOther" class="form-control">
+                                    <option value="Family Member">Family Member</option>
+                                    <option value="Friend">Friend</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4" id="divAddFobTenantLabel">
+                            <label>Tenant</label> :
+                            <label id="lblTenantAddFob"></label>
+                        </div>
+                        <div class="col-md-4" id="divAddFobRelationshipLabel">
+                            <label>Relationship</label> :
+                            <label id="lblRelationshipAddFob"></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="star">FOB Key</label> :
+                                <input id="txtFobKeyAddFob" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="star">Status</label> :
+                                <select id="ddlActivatedAddFob" class="form-control">
+                                    <option value='0'>Select</option>
+                                    <option value='1'>Activate</option>
+                                    <option value='2'>Deactivate</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary pull-right" id="btnSaveAddFob" style="margin-right:2px;" disabled="disabled" onclick="saveOtherTenantFob();">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalViewApplicantDetails" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="width:732px; height:474px;">
+            <div class="modal-header">
+                <h5>Details</h5>
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -19px;margin-right: 8px; color:black;">&times;</button>
+            </div>
+            <div class="modal-body-compare">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12 clear">
+                            <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Personal Information</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Name</label> :
+                            <label id="lblNameAppDetail"></label>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Date of Birth</label> :
+                            <label id="lblDOBAppDetail"></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>SSN#</label> :
+                            <label id="lblSSNAppDetail"></label>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Email Id</label> :
+                            <label id="lblEmailAppDetail"></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Gender</label> :
+                            <label id="lblGenderAppDetail"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12 clear">
+                            <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Responsibility</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table id="tblAppDetails" class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="background-color: #c7cdd5;color:#3d3939">Applicant Name</th>
+                                    <th style="background-color: #c7cdd5;color:#3d3939">Type</th>
+                                    <th style="background-color: #c7cdd5;color:#3d3939">Move In%</th>
+                                    <th style="background-color: #c7cdd5;color:#3d3939">Move In Charges</th>
+                                    <th style="background-color: #c7cdd5;color:#3d3939">Monthly %</th>
+                                    <th style="background-color: #c7cdd5;color:#3d3939">Monthly Charges</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary pull-right" id="btnSaveAddFob" style="margin-right:2px;">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .panel.sidebar-menu {
+        margin: 0px !important;
+    }
+    .col-margin-minu-20{
+        margin-bottom:-20px!important
+    }
+    
+    .star:after {
+        content: " *";
+        color: red;
+    }
+    .icheckbox_square-yellow.checked.disabled {
+        background-position: -48px 0;
+    }
+</style>
+<script src="~/Areas/Admin/Content/Pages/FobManagement/FobManagement.js"></script>

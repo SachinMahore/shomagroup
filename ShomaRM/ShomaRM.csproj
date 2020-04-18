@@ -236,6 +236,7 @@
     <Compile Include="Areas\Admin\Controllers\Document\DocumentController.cs" />
     <Compile Include="Areas\Admin\Controllers\Event\EventController.cs" />
     <Compile Include="Areas\Admin\Controllers\Facility\FacilityController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FobManagement\FobManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\FOB\FOBController.cs" />
     <Compile Include="Areas\Admin\Controllers\GuestManagement\GuestManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\Invoice\InvoiceController.cs" />
@@ -278,6 +279,7 @@
     <Compile Include="Areas\Admin\Models\Document\DocumentModel.cs" />
     <Compile Include="Areas\Admin\Models\Event\EventModel.cs" />
     <Compile Include="Areas\Admin\Models\Facility\FacilityModel.cs" />
+    <Compile Include="Areas\Admin\Models\FobManagement\FobManagementModel.cs" />
     <Compile Include="Areas\Admin\Models\FOB\FOBModel.cs" />
     <Compile Include="Areas\Admin\Models\Invoice\InvoiceModel.cs" />
     <Compile Include="Areas\Admin\Models\LeaseManagement\LeaseManagementModel.cs" />
@@ -429,6 +431,8 @@
     <Content Include="Areas\Admin\Content\Pages\Event\EventList.js" />
     <Content Include="Areas\Admin\Content\Pages\Facility\Facility.js" />
     <Content Include="Areas\Admin\Content\Pages\Facility\FacilityList.js" />
+    <Content Include="Areas\Admin\Content\Pages\FobManagement\FobManagement.js" />
+    <Content Include="Areas\Admin\Content\Pages\FobManagement\FobManagementList.js" />
     <Content Include="Areas\Admin\Content\Pages\FOB\FOB.js" />
     <Content Include="Areas\Admin\Content\Pages\GuestRegistrationManagement\GuestRegistrationManagement.js" />
     <Content Include="Areas\Admin\Content\Pages\Invoice\Invoice.js" />
@@ -2605,6 +2609,8 @@
     <Content Include="Content\assets\fontawesome\webfonts\fa-solid-900.woff2" />
     <Content Include="Areas\Admin\Views\Parking\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\TwilioReceivedSMS\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\FobManagement\AddEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\FobManagement\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

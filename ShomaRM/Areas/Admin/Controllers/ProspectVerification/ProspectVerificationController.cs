@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ShomaRM.Areas.Admin.Models;
 using ShomaRM.Models.Bluemoon;
+using ShomaRM.Data;
 
 namespace ShomaRM.Areas.Admin.Controllers
 {
@@ -147,18 +148,53 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return leasePdfResponse;
             }
         }
-        public ActionResult SendReminderEmail(long ProspectId, int RemType)
+        public ActionResult SendReminderEmail(long ProspectId, int RemType, long ApplicantID)
         {
             try
             {
-                return Json(new { model = new ProspectVerificationModel().SendReminderEmail(ProspectId, RemType) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = new ProspectVerificationModel().SendReminderEmail(ProspectId, RemType, ApplicantID) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
+        }
 
+        public async System.Threading.Tasks.Task<ActionResult> RefreshStatuses(long ProspectId)
+        {
+            try
+            {
+                string esignatureid = "";
+                ShomaRMEntities db = new ShomaRMEntities();
+                var applyNow = db.tbl_ApplyNow.Where(p => p.ID == ProspectId).FirstOrDefault();
+                if (applyNow != null)
+                {
+                    esignatureid = !string.IsNullOrWhiteSpace(applyNow.EsignatureID) ? applyNow.EsignatureID : "";
+                    if (esignatureid != "")
+                    {
+                        var bmservice = new BluemoonService();
+                        LeaseResponseModel authenticateData = await bmservice.CreateSession();
+                        LeaseResponseModel leaseKeys = await bmservice.GetEsignnatureDetails(SessionId: authenticateData.SessionId, EsignatureId: esignatureid);
+                        
 
+                        foreach(var lks in leaseKeys.EsigneResidents)
+                        {
+                            var esignData = db.tbl_ESignatureKeys.Where(p => p.Key == lks.Key).FirstOrDefault();
+                            if (esignData != null)
+                            {
+                                esignData.DateSigned = lks.DateSigned;
+                                db.SaveChanges();
+                            }
+                        }
+                    }
+                }
+                db.Dispose();
+                return Json(new { result = "1" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { result = "0" }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

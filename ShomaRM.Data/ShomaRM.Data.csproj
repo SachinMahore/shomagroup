@@ -274,6 +274,9 @@
     <Compile Include="tbl_TenantEventJoinApprove.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbl_TenantFob.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_TenantInfo.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>

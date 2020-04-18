@@ -795,8 +795,9 @@ var goToStep = function (stepid, id) {
     }
     if (stepid == "17") {
         if (id == "17") {
-            getTransationLists($("#hdnUserId").val());
-            getSignedLists($("#hdnOPId").val());
+            refreshStatuses();
+            //getTransationLists($("#hdnUserId").val());
+            //getSignedLists($("#hdnOPId").val());
             $("#subMenu").addClass("hidden");
             $("#li7").addClass("active");
             $("#li17").addClass("active");
@@ -1499,7 +1500,7 @@ var getPropertyUnitDetails = function (uid) {
             //alert(calTotalRentChargefpetd
             $("#lblRFPTotalMonthlyPayment").text(formatMoney(rfpTotalRentCharge.toFixed(2)));
             //$("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
-            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
+            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) ).toFixed(2)));
 
 
             $("#lblProrated_TrashAmt").text(parseFloat(parseFloat($("#lblTrash").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
@@ -1674,6 +1675,7 @@ var getTransationLists = function (userid) {
 
             $("#tblTransaction>tbody").empty();
             $("#tblAdminFee>tbody").empty();
+            var adminFeesPaid = 0;
             $.each(response.model, function (elementType, elementValue) {
                 totPaid = totPaid+parseFloat(elementValue.Credit_Amount);
                 var html = "<tr data-value=" + elementValue.TransID + ">";
@@ -1687,23 +1689,30 @@ var getTransationLists = function (userid) {
                 html += "<td>" + elementValue.Description + "</td>";
                 //html += "<td>" + elementValue.CreatedDateString + "</td>";
                 html += "</tr>";
-                if (elementValue.Transaction_Type == "Administrative Fee")
-                {
+                if (elementValue.Transaction_Type == "Administrative Fee") {
+                    adminFeesPaid = 1;
                     var adhtml = "<tr data-value=" + elementValue.TransID + ">";
-                    adhtml += "<td>" + elementValue.Transaction_DateString + "</td>";
-                    adhtml += "<td>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
+                    adhtml += "<td>" + $("#hndPriAppFullName").val() + "</td>";
                     adhtml += "<td>" + elementValue.Description + "</td>";
-                    adhtml += "</tr>";
+                    adhtml += "<td style='text-align: center;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
+                    adhtml += "<td style='text-align: center;'>" + elementValue.Transaction_DateString + "</td>";
+                    adhtml += "<td><button type='button' class='btn btn-primary' id='btnSendRemtr' onclick='SendReminderEmail(1,0)' disabled='disabled'><span>Send Reminder to Pay Administration Fees </span></button></td>";
                     $("#tblAdminFee>tbody").append(adhtml);
-                    $("#btnSendRemtr").attr("disabled", "disabled");
+
                     $("#btnSendRemSign").removeAttr("disabled");
-                    $("#btnleaseDownl").removeAttr("disabled");
-                    $("#btnupSignSts").removeAttr("disabled");
+                    
                 }
-                
                 $("#tblTransaction>tbody").append(html);
             });
-          
+            if (adminFeesPaid == 0) {
+                var adhtml = "<tr data-value='0'>";
+                adhtml += "<td>" + $("#hndPriAppFullName").val() + "</td>";
+                adhtml += "<td>Admin Fees</td>";
+                adhtml += "<td style='text-align: center;'>$" + formatMoney($("#lblAdminFees").text()) + "</td>";
+                adhtml += "<td style='text-align: center;'></td>";
+                adhtml += "<td><button type='button' class='btn btn-primary' id='btnSendRemtr' onclick='SendReminderEmail(1,0)'><span>Send Reminder to Pay Administration Fees </span></button></td>";
+                $("#tblAdminFee>tbody").append(adhtml);
+            }
             if (totPaid >= parseFloat($("#txtPayment").val()) + parseFloat(totalFinalFees))
             {
                 $("#btnC2Tenant").removeAttr("disabled");
@@ -1946,7 +1955,7 @@ var saveupdateParking = function () {
             $("#lblMonthly_TotalRent").text(formatMoney(totalAmt));
             $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
+            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10)).toFixed(2)));
 
 
 
@@ -2050,7 +2059,7 @@ var saveupdatePetPlace = function () {
             $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
+            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) ).toFixed(2)));
         }
     });
 }
@@ -2315,7 +2324,7 @@ var getApplicantLists = function () {
         dataType: "JSON",
         success: function (response) {
 
-            //$("#tblApplicant").empty();
+            $("#tblApplicant").empty();
             $("#tblApplicantFinal").empty();
             $("#tblApplicantMinor").empty();
             $("#tblApplicantGuarantor").empty();
@@ -2328,6 +2337,11 @@ var getApplicantLists = function () {
                 var prhtml = '';
                 var pprhtml = '';
                 var emailhtml = '';
+
+                if (elementValue.Type == "Primary Applicant") {
+                    $("#hndPriAppFullName").val(elementValue.FirstName + " " + elementValue.LastName + "(Primary Applicant)");
+                }
+
                 if (elementValue.Type != "Primary Applicant") {
 
                     if (elementValue.Type == "Co-Applicant") {
@@ -4048,7 +4062,7 @@ $(function () {
         cCardNum = $(this).val();
         $(this).data("value", cCardNum);
         if (cCardNum.length > 4) {
-            $(this).val(("*".repeat(cCardNum.length - 4) + cCardNum.substr(cCardNum.length - 4, 4)))
+            $(this).val(("*".repeat(cCardNum.length - 4) + cCardNum.substr(cCardNum.length - 4, 4)));
         }
     }).focus(function () {
         $(this).val($(this).data("value"));
@@ -4565,9 +4579,8 @@ var SaveSignedStatus = function () {
 };
 var getSignedLists = function (userid) {
     var model = {
-
-        TenantID: userid,
-    }
+        TenantID: userid
+    };
     $.ajax({
         url: "/CheckList/GetSignedList",
         type: "post",
@@ -4575,31 +4588,35 @@ var getSignedLists = function (userid) {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-
             $("#tblLeasedSign>tbody").empty();
-       
-            $.each(response.model, function (elementType, elementValue) {
-              
-                var html = "<tr data-value=" + elementValue.ESID + ">";
-
-                html += "<td>" + elementValue.ApplicantName + "</td>";
-                html += "<td>" + elementValue.Email + "</td>";
-                html += "<td>" + elementValue.Key + "</td>";
-                html += "<td>" + elementValue.DateSigned + "</td>";
-            
-                html += "</tr>";
-              
+            var isSignedAll = 0;
+            if (response.model.length > 0) {
+                $.each(response.model, function (elementType, elementValue) {
+                    var html = "<tr data-value=" + elementValue.ESID + ">";
+                    html += "<td>" + elementValue.ApplicantName + "</td>";
+                    html += "<td>" + elementValue.Email + "</td>";
+                    html += "<td>" + elementValue.DateSigned + "</td>";
+                    html += "<td><button type='button' class='btn btn-primary' onclick='SendReminderEmail(2, " + elementValue.ApplicantID + ")' " + (elementValue.IsSigned == 1 ? "disabled='disabled'" : "") + ">Send Reminder to Sign Lease Document</button></td>";
+                    html += "</tr>";
+                    isSignedAll = elementValue.IsSignedAll;
+                    $("#tblLeasedSign>tbody").append(html);
+                });
+                if (isSignedAll == 1) {
+                    $("#btnleaseDownl").removeAttr("disabled");
+                }
+            }
+            else {
+                var html = "<tr><td colspan='4'><h3 class='panel-title'>Application Feed Not Paid</h3></td></tr>    ";
                 $("#tblLeasedSign>tbody").append(html);
-            });
-
-           
+            }
         }
     });
 }
-var SendReminderEmail = function (remtype) {
+var SendReminderEmail = function (remtype, applicantID) {
 
     var model = {
-        ProspectId: $("#hdnOPId").val(), RemType: remtype
+        ProspectId: $("#hdnOPId").val(), RemType: remtype, ApplicantID: applicantID
+
     };
 
     $.alert({
@@ -4633,6 +4650,25 @@ var SendReminderEmail = function (remtype) {
                 action: function (no) {
                 }
             }
+        }
+    });
+};
+
+var refreshStatuses = function () {
+    var model = {
+        ProspectId: $("#hdnOPId").val()
+    };
+    $("#divLoader").show();
+    $.ajax({
+        url: "/ProspectVerification/RefreshStatuses",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+            getTransationLists($("#hdnOPId").val());
+            getSignedLists($("#hdnOPId").val());
         }
     });
 };

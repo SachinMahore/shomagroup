@@ -1145,6 +1145,20 @@
           <Property Name="Status" Type="int" />
           <Property Name="Date" Type="date" />
         </EntityType>
+        <EntityType Name="tbl_TenantFob">
+          <Key>
+            <PropertyRef Name="TFobID" />
+          </Key>
+          <Property Name="TFobID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenantID" Type="bigint" />
+          <Property Name="FobID" Type="nvarchar" MaxLength="500" />
+          <Property Name="ApplicantID" Type="bigint" />
+          <Property Name="Status" Type="int" />
+          <Property Name="OtherFirstName" Type="varchar" MaxLength="50" />
+          <Property Name="OtherLastName" Type="varchar" MaxLength="50" />
+          <Property Name="OtherRelationship" Type="varchar" MaxLength="50" />
+          <Property Name="OtherId" Type="bigint" />
+        </EntityType>
         <EntityType Name="tbl_TenantInfo">
           <Key>
             <PropertyRef Name="TenantID" />
@@ -2556,6 +2570,7 @@
           <EntitySet Name="tbl_Tenant" EntityType="Self.tbl_Tenant" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantEventJoin" EntityType="Self.tbl_TenantEventJoin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantEventJoinApprove" EntityType="Self.tbl_TenantEventJoinApprove" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_TenantFob" EntityType="Self.tbl_TenantFob" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantInfo" EntityType="Self.tbl_TenantInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantMonthlyPayments" EntityType="Self.tbl_TenantMonthlyPayments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantOnline" EntityType="Self.tbl_TenantOnline" Schema="dbo" store:Type="Tables" />
@@ -3279,6 +3294,7 @@
             <End Role="tbl_WorkOrder" EntitySet="tbl_WorkOrder" />
           </AssociationSet>
           <EntitySet Name="tbl_SMSMessages" EntityType="ShomaRMEntitiesModel.tbl_SMSMessages" />
+          <EntitySet Name="tbl_TenantFob" EntityType="ShomaRMEntitiesModel.tbl_TenantFob" />
         </EntityContainer>
         <EntityType Name="tbl_AcutraqScrenning">
           <Key>
@@ -5915,6 +5931,20 @@
           <Property Name="Message" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="ReceivedDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="tbl_TenantFob">
+          <Key>
+            <PropertyRef Name="TFobID" />
+          </Key>
+          <Property Name="TFobID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantID" Type="Int64" />
+          <Property Name="FobID" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicantID" Type="Int64" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="OtherFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OtherLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OtherRelationship" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OtherId" Type="Int64" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7560,6 +7590,21 @@
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="MsgID" ColumnName="MsgID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_TenantFob">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantFob">
+              <MappingFragment StoreEntitySet="tbl_TenantFob">
+                <ScalarProperty Name="OtherId" ColumnName="OtherId" />
+                <ScalarProperty Name="OtherRelationship" ColumnName="OtherRelationship" />
+                <ScalarProperty Name="OtherLastName" ColumnName="OtherLastName" />
+                <ScalarProperty Name="OtherFirstName" ColumnName="OtherFirstName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+                <ScalarProperty Name="FobID" ColumnName="FobID" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="TFobID" ColumnName="TFobID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

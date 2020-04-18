@@ -91,6 +91,7 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        
         public JsonResult GetAccountHistory(long TenantId)
         {
             try

@@ -61,6 +61,7 @@ namespace ShomaRM.Areas.Admin.Models
         public string TCardExpirationMonth { get; set; }
         public string TCardExpirationYear { get; set; }
         public string TransactionDateString { get; set; }
+
         public int BuildPaganationTransactionList(TransactionSearchModel model)
         {
             int NOP = 0;
@@ -211,28 +212,6 @@ namespace ShomaRM.Areas.Admin.Models
                 throw ex;
             }
         }
-        public class TransactionSearchModel
-        {
-            public long TransID { get; set; }
-            public string TenantIDString { get; set; }
-            public int Revision_Num { get; set; }
-            public string Transaction_Type { get; set; }
-            public string TransactionDate { get; set; }
-            public int Run { get; set; }
-            public int LeaseID { get; set; }
-            public string Reference { get; set; }
-            public string CreatedDate { get; set; }
-            public decimal Credit_Amount { get; set; }
-            public string Description { get; set; }
-            public string ChargeDate { get; set; }
-            public string Charge_Type { get; set; }
-            public decimal Charge_Amount { get; set; }
-            public string CreatedByText { get; set; }
-            public string FromDate { get; set; }
-            public string ToDate { get; set; }
-            public int PageNumber { get; set; }
-            public int NumberOfRows { get; set; }
-        }        
         public List<TransactionModel> GetTenantTransactionList(DateTime FromDate, DateTime ToDate, long TenantID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -520,6 +499,7 @@ namespace ShomaRM.Areas.Admin.Models
                 throw ex;
             }
         }
+        
         public TransactionModel GetTransactionDetails(int id)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -575,8 +555,6 @@ namespace ShomaRM.Areas.Admin.Models
 
             return model;
         }
-
-
         public string SaveUpdateTransaction(TransactionModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -683,7 +661,6 @@ namespace ShomaRM.Areas.Admin.Models
             db.Dispose();
             return msg;
         }
-
         public List<TransactionModel> GetAccountHistory(long TenantId)
         {
             List<TransactionModel> listAccountHistory = new List<TransactionModel>();
@@ -705,6 +682,29 @@ namespace ShomaRM.Areas.Admin.Models
                 }
             }
             return listAccountHistory;
+        }
+
+        public class TransactionSearchModel
+        {
+            public long TransID { get; set; }
+            public string TenantIDString { get; set; }
+            public int Revision_Num { get; set; }
+            public string Transaction_Type { get; set; }
+            public string TransactionDate { get; set; }
+            public int Run { get; set; }
+            public int LeaseID { get; set; }
+            public string Reference { get; set; }
+            public string CreatedDate { get; set; }
+            public decimal Credit_Amount { get; set; }
+            public string Description { get; set; }
+            public string ChargeDate { get; set; }
+            public string Charge_Type { get; set; }
+            public decimal Charge_Amount { get; set; }
+            public string CreatedByText { get; set; }
+            public string FromDate { get; set; }
+            public string ToDate { get; set; }
+            public int PageNumber { get; set; }
+            public int NumberOfRows { get; set; }
         }
     }
 }

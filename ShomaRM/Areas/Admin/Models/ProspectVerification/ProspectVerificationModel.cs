@@ -11,6 +11,7 @@ using ShomaRM.Models;
 using System.Xml.Serialization;
 using System.Web.Configuration;
 using ShomaRM.Models.TwilioApi;
+using ShomaRM.Models.Bluemoon;
 
 namespace ShomaRM.Areas.Admin.Models
 {
@@ -476,22 +477,22 @@ namespace ShomaRM.Areas.Admin.Models
 
         }
 
-        public string SendReminderEmail(long ProspectId,int RemType)
+        public string SendReminderEmail(long ProspectId, int RemType, long ApplicantID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
-         
+
             ShomaRM.Models.TenantOnlineModel model = new ShomaRM.Models.TenantOnlineModel();
 
             var tenantData = model.GetTenantOnlineList(Convert.ToInt32(ProspectId));
             var GetTenantDet = db.tbl_ApplyNow.Where(p => p.ID == ProspectId).FirstOrDefault();
             string msg = "";
             string reportHTML = "";
-      
+
             string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
             reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect3.html");
             string message = "";
             var GetCoappDet = db.tbl_Applicant.Where(c => c.TenantID == ProspectId && c.Type == "Primary Applicant").FirstOrDefault();
-           
+
             string phonenumber = GetTenantDet.Phone;
 
             if (RemType == 1)
@@ -513,20 +514,28 @@ namespace ShomaRM.Areas.Admin.Models
                     new TwilioService().SMS(phonenumber, message);
                 }
             }
-            else if(RemType == 2)
+            else if (RemType == 2)
             {
-                var GetCoappList = db.tbl_ESignatureKeys.Where(c => c.TenantID == ProspectId && c.DateSigned=="").ToList();
+                List<tbl_ESignatureKeys> GetCoappList = new List<tbl_ESignatureKeys>();
+                if (ApplicantID == 0)
+                {
+                    GetCoappList = db.tbl_ESignatureKeys.Where(c => c.TenantID == ProspectId && c.DateSigned == "").ToList();
+                }
+                else
+                {
+                    GetCoappList = db.tbl_ESignatureKeys.Where(c => c.TenantID == ProspectId && c.DateSigned == "" && c.ApplicantID == ApplicantID).ToList();
+                }
                 foreach (var app in GetCoappList)
                 {
-                    var apptdata = db.tbl_Applicant.Where(c => c.ApplicantID ==app.ApplicantID).FirstOrDefault();
-                    string payid = app.Key.ToString();
+                    var apptdata = db.tbl_Applicant.Where(c => c.ApplicantID == app.ApplicantID).FirstOrDefault();
 
+                    string payid = app.Key.ToString();
                     reportHTML = reportHTML.Replace("[%Status%]", "Reminder Review and Sign your application");
                     reportHTML = reportHTML.Replace("[%EmailHeader%]", "Reminder Review and Sign your application");
                     reportHTML = reportHTML.Replace("[%StatusDet%]", "Hi <b>" + apptdata.FirstName + " " + apptdata.LastName + "</b>,<br/>Your Online application is Approved. Please click below to sign the lease </u> ");
                     reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/CheckList/SignLease?key=" + app.Key.ToString() + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/CheckList/SignLease?key=" + app.Key.ToString() + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Review and Sign</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
                     reportHTML = reportHTML.Replace("[%TenantName%]", apptdata.FirstName + " " + apptdata.LastName);
-                   
+
                     string body = reportHTML;
                     new EmailSendModel().SendEmail(apptdata.Email, "Reminder Review and Sign your application", body);
                     if (SendMessage == "yes")
@@ -534,14 +543,11 @@ namespace ShomaRM.Areas.Admin.Models
                         new TwilioService().SMS(phonenumber, message);
                     }
                 }
-                
             }
-           
 
             msg = "Email Send Successfully";
             return msg;
-
-
+        }
         public void SaveScreeningStatusList(string Email, long UserId, string Status)
         {
             ShomaRMEntities db = new ShomaRMEntities();
