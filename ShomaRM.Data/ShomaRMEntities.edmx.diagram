@@ -168,7 +168,8 @@
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_UtilityBilling_tbl_Utility" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_WorkOrder_tbl_Vendor" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_SMSMessages" Width="1.5" PointX="5.375" PointY="18.75" />
-        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_TenantFob" Width="1.5" PointX="17.375" PointY="18.75" />
+        <EntityTypeShape EntityType="ShomaRMEntitiesModel.sysdiagram" Width="1.5" PointX="17.375" PointY="18.75" />
+        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_TenantFob" Width="1.5" PointX="7.375" PointY="19.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
