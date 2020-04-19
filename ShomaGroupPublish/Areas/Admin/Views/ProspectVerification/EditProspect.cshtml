@@ -2674,7 +2674,7 @@
                                                         <span class="input-group-btn">
                                                             <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
                                                         </span>
-                                                        <input id="txtPayment" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@(Model.MoveInCharges.Value.ToString("0.00"))" disabled />
+                                                        <input id="txtPayment" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@((Model.MoveInCharges??0).ToString("0.00"))" disabled />
                                                     </div>
                                                 </div>
                                             </div>

@@ -32,6 +32,7 @@ namespace ShomaRM.Areas.Tenant.Models
         public int StepCompleted { get; set; }
         public long ProspectID { get; set; }
         public Nullable<int> Paid { get; set; }
+        public string FeesPaidType { get; set; }
 
         public string SaveUpdateApplicant(ApplicantModel model)
         {
@@ -236,11 +237,33 @@ namespace ShomaRM.Areas.Tenant.Models
             {
                 model.FirstName = getApplicantDet.FirstName;
                 model.LastName = getApplicantDet.LastName;
+                model.FeesPaidType = GetChargeType(getAppliTransDet.Charge_Type ?? 0);
                 model.Type = "5";
             }
             return model;
         }
+        public string GetChargeType(int chargetype)
+        {
+            string chargeType = "";
+            if (chargetype == 1)
+            {
+                chargeType = "Application Fees";
+            }
+            else if (chargetype == 2)
+            {
+                chargeType = "Move In Charge";
+            }
+            else if (chargetype == 3)
+            {
+                chargeType = "Administrative Fee";
+            }
+            else
+            {
+                chargeType = "General/Miscellaneous Charge";
+            }
+            return chargeType;
 
+        }
         public string DeleteApplicant(long AID)
         {
             ShomaRMEntities db = new ShomaRMEntities();

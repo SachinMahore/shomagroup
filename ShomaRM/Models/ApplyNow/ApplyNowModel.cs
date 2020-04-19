@@ -335,16 +335,10 @@ namespace ShomaRM.Models
 
                             reportHTML = reportHTML.Replace("[%TenantEmail%]", GetCoappDet.Email);
 
-                           
-                              
-                                var currentUser = new CurrentUser();
-                                currentUser.UserID =Convert.ToInt32(GetProspectData.UserId);
-                              
+                            var currentUser = new CurrentUser();
+                            currentUser.UserID = Convert.ToInt32(GetProspectData.UserId);
 
-                                (new ShomaGroupWebSession()).SetWebSession(currentUser);
-                               
-                                
-                            
+                            (new ShomaGroupWebSession()).SetWebSession(currentUser);
                         }
                     }
                     string body = reportHTML;

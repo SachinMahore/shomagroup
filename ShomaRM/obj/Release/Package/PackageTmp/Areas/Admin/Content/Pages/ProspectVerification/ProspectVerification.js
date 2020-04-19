@@ -4667,7 +4667,7 @@ var refreshStatuses = function () {
         dataType: "JSON",
         success: function (response) {
             $("#divLoader").hide();
-            getTransationLists($("#hdnOPId").val());
+            getTransationLists($("#hdnUserId").val());
             getSignedLists($("#hdnOPId").val());
         }
     });

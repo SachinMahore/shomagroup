@@ -161,7 +161,7 @@
         if ("@Model.Type"=="5")
         {
             $("#step1").addClass("hidden");
-            $("#lblDes").text("You Already paid Co-Applicant Online Application Fees ");
+            $("#lblDes").text("You Already Paid @Model.FeesPaidType ");
         } else {
             $("#step1").removeClass("hidden");
         }
@@ -274,7 +274,7 @@
                 return;
             }
         }
-     var model = {
+        var model = {
             PID: propertyId,
             Name_On_Card: nameonCard,
             CardNumber: cardNumber,
@@ -291,87 +291,77 @@
             PaymentMethod: paymentMethod,
             AID: $("#hndAID").val(),
             FromAcc: $("#hndFromAcc").val(),
-            
+
         };
 
-     $.alert({
-         title: "",
-         content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesPL()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesPL())).toFixed(2) + ". Do you want to Pay Now?",
-         type: 'blue',
-         buttons: {
-             yes: {
-                 text: 'Yes',
-                 action: function (yes) {
-        $.ajax({
-            url: "/ApplyNow/saveCoAppPayment/",
-            type: "post",
-            contentType: "application/json utf-8",
-            data: JSON.stringify(model),
-            dataType: "JSON",
-            success: function (response) {
-                
-                if (response.Msg != "") {
-                    if (response.Msg == "1")
-                    {
-                        $("#ResponseMsg").html("Payment successfull");
-                        if ($("#hndFromAcc").val() == 3)
-                        {
-                            $("#divLoader").show();
-                            $.ajax({
-                                url: "/CheckList/LeaseBlumoon",
-                                method: "post",
-                                //data: JSON.stringify(param),
-                                contentType: "application/json; charset=utf-8", // content type sent to server
-                                dataType: "json", //Expected data format from server
-                                success: function (response) {
-                                    $("#divLoader").hide();
-                                    $.alert({
-                                        title: "",
-                                        content: "Lease Document Generated. Check your Email to verify and sign",
-                                        type: 'red'
-                                    });
-                                }
-                            });
-                        } else {
-                            $.alert({
-                                title: "",
-                                content: "You want to go to Sanctuary Doral Web portal?",
-                                type: 'blue',
-                                buttons: {
-                                    yes: {
-                                        text: 'Yes',
-                                        action: function (yes) {
-                                            window.location = "/Home/";
+        $.alert({
+            title: "",
+            content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesPL()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesPL())).toFixed(2) + ". Do you want to Pay Now?",
+            type: 'blue',
+            buttons: {
+                yes: {
+                    text: 'Yes',
+                    action: function (yes) {
+                        $.ajax({
+                            url: "/ApplyNow/saveCoAppPayment/",
+                            type: "post",
+                            contentType: "application/json utf-8",
+                            data: JSON.stringify(model),
+                            dataType: "JSON",
+                            success: function (response) {
+                                if (response.Msg != "") {
+                                    if (response.Msg == "1") {
+                                        $("#ResponseMsg").html("Payment successfull");
+
+                                        if ($("#hndFromAcc").val() == 3) {
+                                            $("#divLoader").show();
+                                            $.ajax({
+                                                url: "/CheckList/LeaseBlumoon",
+                                                method: "post",
+                                                //data: JSON.stringify(param),
+                                                contentType: "application/json; charset=utf-8", // content type sent to server
+                                                dataType: "json", //Expected data format from server
+                                                success: function (response) {
+                                                    $("#divLoader").hide();
+                                                    $.alert({
+                                                        title: "",
+                                                        content: "Lease Document Generated. Check your Email to verify and sign",
+                                                        type: 'red'
+                                                    });
+                                                }
+                                            });
+                                        } else {
+                                            $.alert({
+                                                title: "",
+                                                content: "You want to go to Sanctuary Doral Web portal?",
+                                                type: 'blue',
+                                                buttons: {
+                                                    yes: {
+                                                        text: 'Yes',
+                                                        action: function (yes) {
+                                                            window.location = "/Home/";
+                                                        }
+                                                    }
+                                                }
+                                            });
                                         }
-                                    },
-                                    no: {
-                                        text: 'No',
-                                        action: function (no) {
-                                        }
+
+                                    } else {
+                                        $("#ResponseMsg").html("Payment failed");
                                     }
                                 }
-                            });
-                        }
-                      
-
-                    } else {
-                        $("#ResponseMsg").html("Payment failed");
+                            }
+                        });
                     }
-
-                    //getTransationLists($("#hdnUserId").val());
+                },
+                no: {
+                    text: 'No',
+                    action: function (no) {
+                        $("#divLoader").hide();
+                    }
                 }
             }
-                     });
-                 }
-             },
-             no: {
-                 text: 'No',
-                 action: function (no) {
-                     $("#divLoader").hide();
-                 }
-             }
-         }
-     });
+        });
     }
     var getProcessingFeesPL = function () {
         return $("#hndProcessingFees").val();
