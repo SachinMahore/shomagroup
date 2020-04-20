@@ -245,6 +245,15 @@ namespace ShomaRM.Models
 
                 String[] spearator = { "|" };
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
+                string bat = "";
+                if(model.FromAcc != 3)
+                {
+                    bat = model.AID.ToString();
+                }
+                else
+                {
+                    bat = "1";
+                }
                 if (strlist[1] != "000000")
                 {
                     long paid = 0;
@@ -288,7 +297,7 @@ namespace ShomaRM.Models
                         Miscellaneous_Amount = processingFees,
                         Accounting_Date = DateTime.Now,
 
-                        Batch = model.AID.ToString(),
+                        Batch = bat,
                         Batch_Source = "",
                         CreatedBy = Convert.ToInt32(GetProspectData.UserId),
                      

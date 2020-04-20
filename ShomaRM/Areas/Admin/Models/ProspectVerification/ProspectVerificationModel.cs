@@ -105,7 +105,7 @@ namespace ShomaRM.Areas.Admin.Models
         public string EsignatureID { get; set; }
         public Nullable<decimal> PetDNAAmt { get; set; }
         public int LeaseTermID { get; set; }
-    
+        public Nullable<int> IsCheckSD { get; set; }
 
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
@@ -739,6 +739,7 @@ namespace ShomaRM.Areas.Admin.Models
                     model.IsCheckATT = 0;
                     model.IsCheckPO = 0;
                     model.IsCheckWater = 0;
+                    model.IsCheckSD = 0;
                     model.InsuranceDoc = "";
                     model.ElectricityDoc = "";
                     var MoveInData = db.tbl_MoveInChecklist.Where(co => co.ProspectID == model.ProspectId).FirstOrDefault();
@@ -750,6 +751,7 @@ namespace ShomaRM.Areas.Admin.Models
                         model.IsCheckATT = MoveInData.IsCheckATT ?? 0;
                         model.IsCheckPO = MoveInData.IsCheckPO ?? 0;
                         model.IsCheckWater = MoveInData.IsCheckWater ?? 0;
+                        model.IsCheckSD = MoveInData.IsCheckSD ?? 0;
                         model.InsuranceDoc = MoveInData.InsuranceDoc;
                         model.ElectricityDoc = MoveInData.ElectricityDoc;
                     }
