@@ -347,10 +347,11 @@ namespace ShomaRM.Areas.Admin.Models
             model.JobTitle = tenantData.JobTitle;
             model.Income = tenantData.Income;
             model.SupervisorName = tenantData.SupervisorName;
-            model.SupervisorPhone = tenantData.SupervisorPhone;
+            model.SupervisorPhone = tenantData.SupervisorPhone;            
             model.OfficeCity = tenantData.OfficeCity;
             model.OfficeState = tenantData.OfficeState;
             model.StartDateTxt = tenantData.StartDateTxt;
+            //model.Reason = tenantData.Reason;
             model.ProspectID = ProspectId;
 
 

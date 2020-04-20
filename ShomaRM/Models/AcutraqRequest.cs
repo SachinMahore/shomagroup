@@ -45,10 +45,10 @@ namespace ShomaRM.Models
             CurrentAddress.City = data.CityHome;
             CurrentAddress.State =data.StateHomeString;
             CurrentAddress.Zipcode = data.ZipHome;
-            CurrentAddress.Country = "USA";
+            CurrentAddress.Country = data.Country;
             _objsubject.CurrentAddress = CurrentAddress;
             _objorder.Subject = _objsubject;
-            //_objorder.PackageServiceCode = "CCEE";
+            _objorder.PackageServiceCode = "CCEE";
 
             //employee
             var _objorderdetails = new OrderDetailEMP();
@@ -67,6 +67,7 @@ namespace ShomaRM.Models
             _objEmploymentDates.EndDate = "10/10/2020";
             _objorderdetails.EmploymentDates = _objEmploymentDates;
             _objorderdetails.ReasonForLeaving = "Test";
+            //_objorderdetails.ReasonForLeaving = data.Reason;
             _objorder.OrderDetailEMP = _objorderdetails;
 
             var _objCriminal = new OrderDetailCriminal();
