@@ -670,6 +670,7 @@
     <Property Name="IsCheckATT" Type="int" />
     <Property Name="IsCheckWater" Type="int" />
     <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="IsCheckSD" Type="int" />
   </EntityType>
   <EntityType Name="tbl_MoveInPayment">
     <Key>

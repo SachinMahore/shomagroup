@@ -4603,6 +4603,8 @@ var getSignedLists = function (userid) {
                 });
                 if (isSignedAll == 1) {
                     $("#btnleaseDownl").removeAttr("disabled");
+                    $("#btnupSignSts").removeAttr("disabled");
+                    $("#btnSendRemSign").attr("disabled", "disabled");
                 }
             }
             else {

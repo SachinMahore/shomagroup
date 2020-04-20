@@ -43,7 +43,6 @@
     <EntitySet Name="tbl_LoginHistory" EntityType="ShomaRMEntitiesModel.tbl_LoginHistory" />
     <EntitySet Name="tbl_Models" EntityType="ShomaRMEntitiesModel.tbl_Models" />
     <EntitySet Name="tbl_MonthlyPayment" EntityType="ShomaRMEntitiesModel.tbl_MonthlyPayment" />
-    <EntitySet Name="tbl_MoveInChecklist" EntityType="ShomaRMEntitiesModel.tbl_MoveInChecklist" />
     <EntitySet Name="tbl_MoveInPayment" EntityType="ShomaRMEntitiesModel.tbl_MoveInPayment" />
     <EntitySet Name="tbl_Notes" EntityType="ShomaRMEntitiesModel.tbl_Notes" />
     <EntitySet Name="tbl_Notice" EntityType="ShomaRMEntitiesModel.tbl_Notice" />
@@ -395,6 +394,7 @@
       <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
       <End Role="tbl_Visit" EntitySet="tbl_Visit" />
     </AssociationSet>
+    <EntitySet Name="tbl_MoveInChecklist" EntityType="ShomaRMEntitiesModel.tbl_MoveInChecklist" />
   </EntityContainer>
   <EntityType Name="tbl_AcutraqScrenning">
     <Key>
@@ -1118,22 +1118,6 @@
     <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="LeaseTerm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="tbl_MoveInChecklist">
-    <Key>
-      <PropertyRef Name="MIID" />
-    </Key>
-    <Property Name="MIID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ProspectID" Type="Int64" />
-    <Property Name="MoveInDate" Type="DateTime" Precision="3" />
-    <Property Name="MoveInTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="MoveInCharges" Type="Decimal" Precision="19" Scale="4" />
-    <Property Name="InsuranceDoc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="ElectricityDoc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="IsCheckPO" Type="Int32" />
-    <Property Name="IsCheckATT" Type="Int32" />
-    <Property Name="IsCheckWater" Type="Int32" />
-    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="tbl_MoveInPayment">
     <Key>
@@ -3046,4 +3030,21 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="tbl_MoveInChecklist">
+    <Key>
+      <PropertyRef Name="MIID" />
+    </Key>
+    <Property Name="MIID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProspectID" Type="Int64" />
+    <Property Name="MoveInDate" Type="DateTime" Precision="3" />
+    <Property Name="MoveInTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MoveInCharges" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="InsuranceDoc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ElectricityDoc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsCheckPO" Type="Int32" />
+    <Property Name="IsCheckATT" Type="Int32" />
+    <Property Name="IsCheckWater" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="IsCheckSD" Type="Int32" />
+  </EntityType>
 </Schema>
