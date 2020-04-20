@@ -388,6 +388,7 @@
     <Compile Include="Models\ApplyNow\CheckListModel.cs" />
     <Compile Include="Models\ApplyNow\OnlineProspectModule.cs" />
     <Compile Include="Models\AquatraqHelper.cs" />
+    <Compile Include="Models\BackgroundScreeningModel.cs" />
     <Compile Include="Models\Bluemoon\BluemoonService.cs" />
     <Compile Include="Models\Bluemoon\EsignatureModel.cs" />
     <Compile Include="Models\Bluemoon\IBluemoonService.cs" />

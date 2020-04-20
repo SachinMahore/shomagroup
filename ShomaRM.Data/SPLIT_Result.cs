@@ -11,9 +11,8 @@ namespace ShomaRM.Data
 {
     using System;
     
-    public partial class usp_GetNextPreviousUnitID_Result
+    public partial class SPLIT_Result
     {
-        public Nullable<long> NextUnitID { get; set; }
-        public Nullable<long> PreviousUnitID { get; set; }
+        public string strval { get; set; }
     }
 }

@@ -12,6 +12,8 @@ namespace ShomaRM.Data
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class ShomaRMEntities : DbContext
     {
@@ -25,6 +27,7 @@ namespace ShomaRM.Data
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<tbl_AcutraqScrenning> tbl_AcutraqScrenning { get; set; }
         public virtual DbSet<tbl_Advertiser> tbl_Advertiser { get; set; }
         public virtual DbSet<tbl_Amenities> tbl_Amenities { get; set; }
@@ -35,6 +38,7 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
         public virtual DbSet<tbl_AuditHistory> tbl_AuditHistory { get; set; }
         public virtual DbSet<tbl_AuditHistoryDetail> tbl_AuditHistoryDetail { get; set; }
+        public virtual DbSet<tbl_BackgroundScreening> tbl_BackgroundScreening { get; set; }
         public virtual DbSet<tbl_BankAccount> tbl_BankAccount { get; set; }
         public virtual DbSet<tbl_Bill> tbl_Bill { get; set; }
         public virtual DbSet<tbl_CashReceipts> tbl_CashReceipts { get; set; }
@@ -80,6 +84,7 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Properties> tbl_Properties { get; set; }
         public virtual DbSet<tbl_PropertyFloor> tbl_PropertyFloor { get; set; }
         public virtual DbSet<tbl_PropertyUnits> tbl_PropertyUnits { get; set; }
+        public virtual DbSet<tbl_Prospect> tbl_Prospect { get; set; }
         public virtual DbSet<tbl_PurchaseOrder> tbl_PurchaseOrder { get; set; }
         public virtual DbSet<tbl_Rating> tbl_Rating { get; set; }
         public virtual DbSet<tbl_RequestOffer> tbl_RequestOffer { get; set; }
@@ -87,11 +92,13 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_ServiceIssue> tbl_ServiceIssue { get; set; }
         public virtual DbSet<tbl_ServiceLocation> tbl_ServiceLocation { get; set; }
         public virtual DbSet<tbl_ServiceRequest> tbl_ServiceRequest { get; set; }
+        public virtual DbSet<tbl_SMSMessages> tbl_SMSMessages { get; set; }
         public virtual DbSet<tbl_State> tbl_State { get; set; }
         public virtual DbSet<tbl_Storage> tbl_Storage { get; set; }
         public virtual DbSet<tbl_Tenant> tbl_Tenant { get; set; }
         public virtual DbSet<tbl_TenantEventJoin> tbl_TenantEventJoin { get; set; }
         public virtual DbSet<tbl_TenantEventJoinApprove> tbl_TenantEventJoinApprove { get; set; }
+        public virtual DbSet<tbl_TenantFob> tbl_TenantFob { get; set; }
         public virtual DbSet<tbl_TenantInfo> tbl_TenantInfo { get; set; }
         public virtual DbSet<tbl_TenantMonthlyPayments> tbl_TenantMonthlyPayments { get; set; }
         public virtual DbSet<tbl_TenantOnline> tbl_TenantOnline { get; set; }
@@ -108,8 +115,261 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Visit> tbl_Visit { get; set; }
         public virtual DbSet<tbl_WorkOrder> tbl_WorkOrder { get; set; }
         public virtual DbSet<tbl_ZipCodes> tbl_ZipCodes { get; set; }
-        public virtual DbSet<tbl_SMSMessages> tbl_SMSMessages { get; set; }
-        public virtual DbSet<tbl_TenantFob> tbl_TenantFob { get; set; }
-        public virtual DbSet<tbl_Prospect> tbl_Prospect { get; set; }
+    
+        [DbFunction("ShomaRMEntities", "SPLIT")]
+        public virtual IQueryable<SPLIT_Result> SPLIT(string str_in)
+        {
+            var str_inParameter = str_in != null ?
+                new ObjectParameter("str_in", str_in) :
+                new ObjectParameter("str_in", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<SPLIT_Result>("[ShomaRMEntities].[SPLIT](@str_in)", str_inParameter);
+        }
+    
+        public virtual ObjectResult<GetPropertyModelUnitList_Result> GetPropertyModelUnitList(string modelName, Nullable<System.DateTime> availableDate, Nullable<int> floorNo, Nullable<int> bedroom, Nullable<decimal> current_Rent)
+        {
+            var modelNameParameter = modelName != null ?
+                new ObjectParameter("ModelName", modelName) :
+                new ObjectParameter("ModelName", typeof(string));
+    
+            var availableDateParameter = availableDate.HasValue ?
+                new ObjectParameter("AvailableDate", availableDate) :
+                new ObjectParameter("AvailableDate", typeof(System.DateTime));
+    
+            var floorNoParameter = floorNo.HasValue ?
+                new ObjectParameter("FloorNo", floorNo) :
+                new ObjectParameter("FloorNo", typeof(int));
+    
+            var bedroomParameter = bedroom.HasValue ?
+                new ObjectParameter("Bedroom", bedroom) :
+                new ObjectParameter("Bedroom", typeof(int));
+    
+            var current_RentParameter = current_Rent.HasValue ?
+                new ObjectParameter("Current_Rent", current_Rent) :
+                new ObjectParameter("Current_Rent", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPropertyModelUnitList_Result>("GetPropertyModelUnitList", modelNameParameter, availableDateParameter, floorNoParameter, bedroomParameter, current_RentParameter);
+        }
+    
+        public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_dropdiagram(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetGuestRegistrationList_Result> sp_GetGuestRegistrationList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, string sortBy, string orderBy)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetGuestRegistrationList_Result>("sp_GetGuestRegistrationList", fromDateParameter, toDateParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetTenantEventJoinList_Result> sp_GetTenantEventJoinList(Nullable<int> tenantEventListStatus)
+        {
+            var tenantEventListStatusParameter = tenantEventListStatus.HasValue ?
+                new ObjectParameter("TenantEventListStatus", tenantEventListStatus) :
+                new ObjectParameter("TenantEventListStatus", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetTenantEventJoinList_Result>("sp_GetTenantEventJoinList", tenantEventListStatusParameter);
+        }
+    
+        public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual int sp_Test(Nullable<int> iD, string fKIDs)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var fKIDsParameter = fKIDs != null ?
+                new ObjectParameter("FKIDs", fKIDs) :
+                new ObjectParameter("FKIDs", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Test", iDParameter, fKIDsParameter);
+        }
+    
+        public virtual int sp_TestDelete(Nullable<int> iD, string fKIDs)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var fKIDsParameter = fKIDs != null ?
+                new ObjectParameter("FKIDs", fKIDs) :
+                new ObjectParameter("FKIDs", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_TestDelete", iDParameter, fKIDsParameter);
+        }
+    
+        public virtual int sp_upgraddiagrams()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
+        }
+    
+        public virtual ObjectResult<usp_ApplicantHistoryList_Result> usp_ApplicantHistoryList(Nullable<long> tenantID)
+        {
+            var tenantIDParameter = tenantID.HasValue ?
+                new ObjectParameter("TenantID", tenantID) :
+                new ObjectParameter("TenantID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ApplicantHistoryList_Result>("usp_ApplicantHistoryList", tenantIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_ApplyNowList_Result> usp_ApplyNowList(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ApplyNowList_Result>("usp_ApplyNowList", idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<long>> usp_BuildPagination_TenantList(string fromDate, string toDate, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var fromDateParameter = fromDate != null ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(string));
+    
+            var toDateParameter = toDate != null ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(string));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<long>>("usp_BuildPagination_TenantList", fromDateParameter, toDateParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual int usp_DeleteApplication()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_DeleteApplication");
+        }
+    
+        public virtual int usp_DeleteExpiredApplication()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_DeleteExpiredApplication");
+        }
+    
+        public virtual ObjectResult<usp_FillCausingIssueID_Result> usp_FillCausingIssueID(Nullable<int> serviceIssueID)
+        {
+            var serviceIssueIDParameter = serviceIssueID.HasValue ?
+                new ObjectParameter("ServiceIssueID", serviceIssueID) :
+                new ObjectParameter("ServiceIssueID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_FillCausingIssueID_Result>("usp_FillCausingIssueID", serviceIssueIDParameter);
+        }
     }
 }

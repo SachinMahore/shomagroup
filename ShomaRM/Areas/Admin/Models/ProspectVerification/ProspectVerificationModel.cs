@@ -324,7 +324,7 @@ namespace ShomaRM.Areas.Admin.Models
         public string SaveScreeningStatus(string Email, long ProspectId, string Status)
         {
             ShomaRMEntities db = new ShomaRMEntities();
-            // var tenantData = db.tbl_TenantOnline.Where(p => p.ProspectID == ProspectId).FirstOrDefault();
+            //var tenantData = db.tbl_TenantOnline.Where(p => p.ProspectID == ProspectId).FirstOrDefault();
             ShomaRM.Models.TenantOnlineModel model = new ShomaRM.Models.TenantOnlineModel();
 
             var tenantData = model.GetTenantOnlineList(Convert.ToInt32(ProspectId));
@@ -351,7 +351,7 @@ namespace ShomaRM.Areas.Admin.Models
             model.OfficeCity = tenantData.OfficeCity;
             model.OfficeState = tenantData.OfficeState;
             model.StartDateTxt = tenantData.StartDateTxt;
-            model.ProspectID = tenantData.ProspectID;
+            model.ProspectID = ProspectId;
 
 
             if(GetTenantDet!=null)

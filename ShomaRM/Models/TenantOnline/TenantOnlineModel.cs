@@ -392,14 +392,14 @@ namespace ShomaRM.Models
                     if (!string.IsNullOrWhiteSpace(dr["SSN"].ToString()))
                     {
                         string decryptedSSN = new EncryptDecrypt().DecryptText(dr["SSN"].ToString());
-                        if (decryptedSSN.Length > 5)
-                        {
-                            lstpr.SSN = "***-**-" + decryptedSSN.Substring(decryptedSSN.Length - 5, 4);
-                        }
-                        else
-                        {
+                        //if (decryptedSSN.Length > 5)
+                        //{
+                        //    lstpr.SSN = "***-**-" + decryptedSSN.Substring(decryptedSSN.Length - 5, 4);
+                        //}
+                        //else
+                        //{
                             lstpr.SSN = decryptedSSN;
-                        }
+                        //}
                     }
                     else
                     {

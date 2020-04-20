@@ -11,14 +11,9 @@ namespace ShomaRM.Data
 {
     using System;
     
-    public partial class usp_Get_Parking_SearchList_Result
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public long ParkingID { get; set; }
-        public Nullable<long> PropertyID { get; set; }
-        public string ParkingName { get; set; }
-        public Nullable<decimal> Charges { get; set; }
-        public string Description { get; set; }
-        public Nullable<int> Type { get; set; }
-        public Nullable<int> Status { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

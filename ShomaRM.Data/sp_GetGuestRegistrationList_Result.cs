@@ -11,10 +11,11 @@ namespace ShomaRM.Data
 {
     using System;
     
-    public partial class usp_GetGuestListDashboard_Result
+    public partial class sp_GetGuestRegistrationList_Result
     {
-        public long GuestID { get; set; }
-        public string GuestName { get; set; }
+        public long GuestId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
@@ -23,10 +24,12 @@ namespace ShomaRM.Data
         public string VehicleMake { get; set; }
         public string VehicleModel { get; set; }
         public string Tag { get; set; }
+        public string DriverLicence { get; set; }
+        public string VehicleRegistration { get; set; }
         public Nullable<long> TenantID { get; set; }
-        public Nullable<bool> HaveVehicle { get; set; }
+        public string OriginalDriverLicence { get; set; }
+        public string OriginalVehicleRegistration { get; set; }
+        public string TenantName { get; set; }
         public string Status { get; set; }
-        public Nullable<int> ApprovedBy { get; set; }
-        public string UnitNo { get; set; }
     }
 }

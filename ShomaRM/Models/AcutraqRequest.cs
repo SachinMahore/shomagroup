@@ -1,4 +1,5 @@
-﻿using ShomaRM.Models.Bluemoon;
+﻿using Org.BouncyCastle.Asn1.Ocsp;
+using ShomaRM.Models.Bluemoon;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +20,8 @@ namespace ShomaRM.Models
             _objAcqutraqOrder.Method = "SEND ORDER";
             var Authentication = new Authentication();
 
-            Authentication.Username = "IntegrationUser";
-            Authentication.Password = "Shom@Group2019!!";
+            Authentication.Username = "pward";
+            Authentication.Password = "Password1234!";
             _objAcqutraqOrder.Authentication = Authentication;
             _objAcqutraqOrder.TestMode = "Yes";
             _objAcqutraqOrder.ReturnResultURL = "http://52.4.251.162:8086/";
@@ -37,6 +38,7 @@ namespace ShomaRM.Models
             _objsubject.ApplicantPosition = data.JobTitle;
             _objorder.Subject = _objsubject;
             _objAcqutraqOrder.Order = _objorder;
+
             var CurrentAddress = new CurrentAddress();
             CurrentAddress.StreetAddress = data.HomeAddress1;
             CurrentAddress.City = data.CityHome;
@@ -45,11 +47,11 @@ namespace ShomaRM.Models
             CurrentAddress.Country = "USA";
             _objsubject.CurrentAddress = CurrentAddress;
             _objorder.Subject = _objsubject;
-            _objorder.PackageServiceCode = "CCEE";
+            //_objorder.PackageServiceCode = "CCEE";
 
             //employee
             var _objorderdetails = new OrderDetailEMP();
-            _objorderdetails.ServiceCode = "EMPVR";
+            _objorderdetails.ServiceCode = "EMP";
             _objorderdetails.OrderId = data.ProspectID.ToString();
             _objorderdetails.CompanyName =data.EmployerName;
             _objorderdetails.Position = data.JobTitle;
@@ -57,7 +59,7 @@ namespace ShomaRM.Models
             _objorderdetails.Manager = data.SupervisorName;
             _objorderdetails.Telephone = data.SupervisorPhone;
             _objorderdetails.EmployerCity = data.OfficeCity;
-            _objorderdetails.EmployerState = data.StateHomeString;
+            _objorderdetails.EmployerState = "Nagpur";
              var _objEmploymentDates = new EmploymentDates();
             _objEmploymentDates.StartDate = data.StartDateTxt;
 
@@ -68,13 +70,17 @@ namespace ShomaRM.Models
 
             var _objCriminal = new OrderDetailCriminal();
             _objCriminal.state = data.StateHomeString;
-            _objCriminal.ServiceCode = "MULTISTATEEVICT";
+            _objCriminal.ServiceCode = "MULTISTATE";
             _objCriminal.OrderId = data.ProspectID.ToString();
             _objorder.OrderDetailCriminal = _objCriminal;
 
+            var _objEVISEA = new OrderDetailEVISEA();
+            _objEVISEA.ServiceCode = "EVISEA";
+            _objEVISEA.OrderId = data.ProspectID.ToString();
+            _objorder.OrderDetailEVISEA = _objEVISEA;           
 
             var _objCredit = new OrderDetailCredit();
-            _objCredit.ServiceCode = "CREDITTUVANT";
+            _objCredit.ServiceCode = "TENTCREDIT";
             _objCredit.OrderId = data.ProspectID.ToString();
             _objorder.OrderDetailCredit = _objCredit;
 
@@ -82,15 +88,28 @@ namespace ShomaRM.Models
             Serialisexml = AquatraqHelper.SetAttributeValue(Serialisexml, data.ProspectID.ToString());
             var keyValues = new List<KeyValuePair<string, string>>();
             keyValues.Add(new KeyValuePair<string, string>("request", Serialisexml));
-
-            var result = await AquatraqHelper.PostFormUrlEncoded<List<XElement>>("https://screen.acutraq.com/webservice/default.cfm", keyValues);
-            if (result != null)
+            var result = new List<XElement>();
+            try
             {
+                 result = await AquatraqHelper.PostFormUrlEncoded<List<XElement>>("https://orders.dciresources.com/webservice/default.cfm", keyValues);
+            }
+            catch (Exception e) {
+                var er = e;
+            }
+            if (result.Count() != 0)
+            {
+                
+
                 foreach (var item in result)
                 {
-                    string serviceCode = item.Attribute("EMPVR").Value;
-                    string orderID = item.Attribute("orderID").Value;
-                    string CRAorderID = item.Attribute("CRAorderID").Value;
+                    
+                    var dict = item.Element("serviceCode")
+                                   .Elements()
+                                   .ToDictionary(e => e.Name.LocalName, e => e.Value);
+
+                    //string serviceCode = item.FirstAttribute();
+                    //string orderID = item.Attribute("orderID").Value;
+                    //string CRAorderID = item.Attribute("CRAorderID").Value;
                     
                 }
             }
@@ -208,7 +227,8 @@ namespace ShomaRM.Models
             public OrderDetailEMP OrderDetailEMP { get; set; }
             public OrderDetailCriminal OrderDetailCriminal { get; set; }
             public OrderDetailCredit OrderDetailCredit { get; set; }
-
+            public OrderDetailEVISEA OrderDetailEVISEA { get; set; }
+           
 
             public OrderDetailResponse OrderDetail { get; set; }
         }
@@ -320,6 +340,18 @@ namespace ShomaRM.Models
             public string CRAorderID { get; set; }
 
             public string state { get; set; }
+        }
+        //criminal
+        public class OrderDetailEVISEA
+        {
+            [XmlAttribute("ServiceCode")]
+            public string ServiceCode { get; set; }
+
+            [XmlAttribute("OrderId")]
+
+            public string OrderId { get; set; }
+
+           
         }
     }
 

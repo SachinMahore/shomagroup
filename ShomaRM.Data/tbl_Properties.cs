@@ -29,13 +29,13 @@ namespace ShomaRM.Data
             this.tbl_Promotion = new HashSet<tbl_Promotion>();
             this.tbl_PropertyFloor = new HashSet<tbl_PropertyFloor>();
             this.tbl_PropertyUnits = new HashSet<tbl_PropertyUnits>();
+            this.tbl_Prospect = new HashSet<tbl_Prospect>();
             this.tbl_PurchaseOrder = new HashSet<tbl_PurchaseOrder>();
             this.tbl_SalesAgent = new HashSet<tbl_SalesAgent>();
             this.tbl_Storage = new HashSet<tbl_Storage>();
             this.tbl_Tenant = new HashSet<tbl_Tenant>();
             this.tbl_Tenant1 = new HashSet<tbl_Tenant>();
             this.tbl_WorkOrder = new HashSet<tbl_WorkOrder>();
-            this.tbl_Prospect = new HashSet<tbl_Prospect>();
         }
     
         public long PID { get; set; }
@@ -103,6 +103,8 @@ namespace ShomaRM.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_PropertyUnits> tbl_PropertyUnits { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_Prospect> tbl_Prospect { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_PurchaseOrder> tbl_PurchaseOrder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_SalesAgent> tbl_SalesAgent { get; set; }
@@ -114,7 +116,5 @@ namespace ShomaRM.Data
         public virtual ICollection<tbl_Tenant> tbl_Tenant1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_WorkOrder> tbl_WorkOrder { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_Prospect> tbl_Prospect { get; set; }
     }
 }

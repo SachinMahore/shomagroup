@@ -11,15 +11,18 @@ namespace ShomaRM.Data
 {
     using System;
     
-    public partial class usp_GetMonthlyPayLists_Result
+    public partial class sp_GetTenantEventJoinList_Result
     {
-        public long TMPID { get; set; }
-        public int Revision_Num { get; set; }
-        public System.DateTime Transaction_Date { get; set; }
+        public long TEID { get; set; }
+        public Nullable<long> TenantID { get; set; }
+        public Nullable<long> EventID { get; set; }
+        public Nullable<decimal> Fees { get; set; }
         public string Description { get; set; }
-        public decimal Charge_Amount { get; set; }
-        public long TenantID { get; set; }
-        public int PAID { get; set; }
-        public int UserID { get; set; }
+        public string EventName { get; set; }
+        public string EventDate { get; set; }
+        public string EventTime { get; set; }
+        public string Name { get; set; }
+        public int Status { get; set; }
+        public long TEJAID { get; set; }
     }
 }

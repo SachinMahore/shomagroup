@@ -11,11 +11,12 @@ namespace ShomaRM.Data
 {
     using System;
     
-    public partial class usp_FillIssueID_Result
+    public partial class sp_helpdiagrams_Result
     {
-        public long IssueID { get; set; }
-        public Nullable<long> ServiceIssueID { get; set; }
-        public Nullable<long> CausingIssueID { get; set; }
-        public string Issue { get; set; }
+        public string Database { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

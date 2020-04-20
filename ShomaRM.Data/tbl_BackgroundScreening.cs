@@ -10,11 +10,15 @@
 namespace ShomaRM.Data
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class usp_GetCountryPaginationAndSearchData_Result
+    public partial class tbl_BackgroundScreening
     {
-        public Nullable<long> ID { get; set; }
-        public string CountryName { get; set; }
-        public Nullable<int> NumberOfPages { get; set; }
+        public int Id { get; set; }
+        public int TenantId { get; set; }
+        public string Type { get; set; }
+        public int OrderID { get; set; }
+        public string Status { get; set; }
+        public string PDFUrl { get; set; }
     }
 }
