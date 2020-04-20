@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Web;
@@ -56,7 +57,7 @@ namespace ShomaRM.Areas.Admin.Controllers
 
                 string body = "{'subject': '" + ProspectModel.FirstName + " " + ProspectModel.LastName + "','body': { 'contentType': 'HTML', 'content': 'Call link: https://aka.ms/mmkv1b Submit a question: https://aka.ms/ybuw2i' }, 'start': { 'dateTime': '" + Convert.ToDateTime(model.VisitDateTime).ToString("yyyy-MM-dd") + "T" + currenttime.Replace(".", ":") + "','timeZone': 'Pacific Standard Time'  },  'end': { 'dateTime': '" + Convert.ToDateTime(model.VisitDateTime).ToString("yyyy-MM-dd") + "T" + addtime.Replace(".", ":") + "', 'timeZone': 'Pacific Standard Time' }, 'location': {'displayName': '" + ProspectModel.FirstName + " " + ProspectModel.LastName + "'},'attendees': [ { 'emailAddress': {'address':'" + ProspectModel.EmailId + "','name': '" + ProspectModel.FirstName + " " + ProspectModel.LastName + "'},'type': 'required'}],'recurrence': {'pattern': {'type': 'relativeMonthly','interval': 1,'daysOfWeek': ['Tuesday'],'index': 'first'},'range': {'type': 'noEnd', 'startDate': '" + Convert.ToDateTime(model.VisitDateTime).ToString("yyyy-MM-dd") +"' }}}";
 
-                var details = await _Services.CrmRequest(new HttpMethod("PATCH"), "https://graph.microsoft.com/v1.0/me/events/"+ ProspectModel.OutlookID, body);
+                var details = await _Services.CrmRequest(new HttpMethod("PATCH"), "https://graph.microsoft.com/v1.0/me/calendars/" + ConfigurationManager.AppSettings["CalendarId"] + "/events/" + ProspectModel.OutlookID, body);
                 if (details.IsSuccessStatusCode == true)
                 {
                     string contactsJson = await details.Content.ReadAsStringAsync();

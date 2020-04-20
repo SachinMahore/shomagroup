@@ -86,6 +86,30 @@ namespace ShomaRM.Models
             MSG = "Prospect Form Submitted Successfully";
             return MSG;
         }
+
+        public List<ProspectModel> GetProspectusList()
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            return db.tbl_Prospect.ToList().Select(a=>new ProspectModel {
+                FirstName = a.FirstName,
+                LastName = a.LastName,
+                PhoneNo = a.PhoneNo,
+                EmailId = a.EmailId,
+                State = null,
+                City =Convert.ToInt32( a.City),
+                Address = a.Address,
+                Message = a.Message,
+                HavingPets = a.HavingPets,
+                UnitID = a.UnitID,
+                PropertyID = Convert.ToInt32(a.PropertyID),
+                CreatedBy = 1,
+                CreatedDate =a.CreatedDate,
+                VisitDateTime = a.VisitDateTime,
+                MarketSource = a.MarketSource,
+                OutlookID = a.OutlookID
+            }).ToList();
+        }
     }
     
 }
