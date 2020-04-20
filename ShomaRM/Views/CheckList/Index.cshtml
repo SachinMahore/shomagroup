@@ -620,7 +620,15 @@
                         $("#chkWaterCL").removeProp("disabled");
                         $("#chkWaterCL").parent().removeClass("checked");
                     }
-
+                    if (response.moveindata.IsCheckSD == 1) {
+                        $("#chkSDP").prop("checked", true);
+                        $("#chkSDP").prop("disabled", "disabled");
+                        $("#chkSDP").parent().addClass("checked");
+                    } else {
+                        $("#chkSDP").prop("checked", false);
+                        $("#chkSDP").removeProp("disabled");
+                        $("#chkSDP").parent().removeClass("checked");
+                    }
                     if (response.moveindata.IsAllChecked == 1) {
                         $("#btnSaveCheckList").addClass("hidden");
                     } else {
@@ -941,7 +949,8 @@
         var IsCheckPO = $("#chkPoCL").is(":checked") ? "1" : "0";
         var IsCheckATT = $("#chkAtCL").is(":checked") ? "1" : "0";
         var IsCheckWater = $("#chkWaterCL").is(":checked") ? "1" : "0";
-
+        var IsCheckSD = $("#chkSDP").is(":checked") ? "1" : "0";
+        
         if (paymentDone==0) {
             msg += "Please pay the Move In Charges</br>";
         }
@@ -979,6 +988,7 @@
             IsCheckPO: IsCheckPO,
             IsCheckATT: IsCheckATT,
             IsCheckWater: IsCheckWater,
+            IsCheckSD: IsCheckSD,
             InsuranceDoc: InsuranceDoc,
             ElectricityDoc: ElectricityDoc,
         }

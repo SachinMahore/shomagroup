@@ -67,7 +67,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_LoginHistory> tbl_LoginHistory { get; set; }
         public virtual DbSet<tbl_Models> tbl_Models { get; set; }
         public virtual DbSet<tbl_MonthlyPayment> tbl_MonthlyPayment { get; set; }
-        public virtual DbSet<tbl_MoveInChecklist> tbl_MoveInChecklist { get; set; }
         public virtual DbSet<tbl_MoveInPayment> tbl_MoveInPayment { get; set; }
         public virtual DbSet<tbl_Notes> tbl_Notes { get; set; }
         public virtual DbSet<tbl_Notice> tbl_Notice { get; set; }
@@ -111,5 +110,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_SMSMessages> tbl_SMSMessages { get; set; }
         public virtual DbSet<tbl_TenantFob> tbl_TenantFob { get; set; }
         public virtual DbSet<tbl_Prospect> tbl_Prospect { get; set; }
+        public virtual DbSet<tbl_MoveInChecklist> tbl_MoveInChecklist { get; set; }
     }
 }
