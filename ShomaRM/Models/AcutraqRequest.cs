@@ -1,4 +1,5 @@
 ﻿using Org.BouncyCastle.Asn1.Ocsp;
+using ShomaRM.Data;
 using ShomaRM.Models.Bluemoon;
 using System;
 using System.Collections.Generic;
@@ -59,7 +60,7 @@ namespace ShomaRM.Models
             _objorderdetails.Manager = data.SupervisorName;
             _objorderdetails.Telephone = data.SupervisorPhone;
             _objorderdetails.EmployerCity = data.OfficeCity;
-            _objorderdetails.EmployerState = "Nagpur";
+            _objorderdetails.EmployerState = data.OfficeState.ToString();
              var _objEmploymentDates = new EmploymentDates();
             _objEmploymentDates.StartDate = data.StartDateTxt;
 
@@ -98,19 +99,14 @@ namespace ShomaRM.Models
             }
             if (result.Count() != 0)
             {
-                
-
+                var saveresult = "";
                 foreach (var item in result)
                 {
-                    
-                    var dict = item.Element("serviceCode")
-                                   .Elements()
-                                   .ToDictionary(e => e.Name.LocalName, e => e.Value);
-
-                    //string serviceCode = item.FirstAttribute();
-                    //string orderID = item.Attribute("orderID").Value;
-                    //string CRAorderID = item.Attribute("CRAorderID").Value;
-                    
+                    BackgroundScreeningModel backgroundscreening = new BackgroundScreeningModel();
+                    backgroundscreening.Type = item.FirstAttribute.Value;
+                    backgroundscreening.OrderID = Convert.ToInt32(item.LastAttribute.Value);
+                    backgroundscreening.TenantId = Convert.ToInt32(data.ProspectID);
+                    saveresult = (new BackgroundScreeningModel().SaveBackgroundScreening(backgroundscreening));
                 }
             }
             return null;
