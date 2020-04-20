@@ -48,7 +48,7 @@ namespace ShomaRM.Models
             CurrentAddress.Country = data.Country;
             _objsubject.CurrentAddress = CurrentAddress;
             _objorder.Subject = _objsubject;
-            _objorder.PackageServiceCode = "CCEE";
+            //_objorder.PackageServiceCode = "CCEE";
 
             //employee
             var _objorderdetails = new OrderDetailEMP();
