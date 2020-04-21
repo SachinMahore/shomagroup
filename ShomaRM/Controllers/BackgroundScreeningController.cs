@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ShomaRM.Data;
 using ShomaRM.Models;
 using ShomaRM.Models.Acutraq;
 using System;
@@ -30,6 +31,18 @@ namespace ShomaRM.Controllers
                  .Descendants("Order")
                  .Descendants("OrderDetail")
                  .ToList();
+                ShomaRMEntities db = new ShomaRMEntities();
+                //var reportlink = xDoc.Element("ReportLink").Value;
+                foreach (var xmldata in resultOrderDetail) {
+                    var orderId = Convert.ToInt32(xmldata.LastAttribute.Value);
+                    var bgscrData = db.tbl_BackgroundScreening.Where(a => a.OrderID == orderId).FirstOrDefault();
+                    if (bgscrData != null)
+                    {
+                        bgscrData.Status = xmldata.Element("Status").Value;
+                        //bgscrData.PDFUrl = (reportlink != null)?reportlink:"";
+                        db.SaveChanges();
+                    }
+                }
                
             }
             catch (Exception ex)
