@@ -43,11 +43,12 @@ namespace ShomaRM.Controllers
                     if (bgscrData != null)
                     {
                         bgscrData.Status = xmldata.Element("Status").Value;
-                        //bgscrData.PDFUrl = (reportlink != null)?reportlink:"";
+                        bgscrData.PDFUrl = (ReportURl != null)? ReportURl : "";
                         db.SaveChanges();
                     }
                 }
                
+
             }
             catch (Exception ex)
             {
