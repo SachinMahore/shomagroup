@@ -25,6 +25,10 @@ namespace ShomaRM.Controllers
 
                 var xDoc = XDocument.Parse(result.ToString());
 
+                //Report extraction from CData
+                var reportlink=    xDoc.DescendantNodes().OfType<XCData>().Where(m => m.Parent.Name == "ReportLink").FirstOrDefault();
+              string ReportURl=    reportlink.Value;
+              
                 // for attribute
                 var resultOrderDetail = xDoc
                  .Descendants("OrderXML")
@@ -32,7 +36,7 @@ namespace ShomaRM.Controllers
                  .Descendants("OrderDetail")
                  .ToList();
                 ShomaRMEntities db = new ShomaRMEntities();
-                //var reportlink = xDoc.Element("ReportLink").Value;
+                //
                 foreach (var xmldata in resultOrderDetail) {
                     var orderId = Convert.ToInt32(xmldata.LastAttribute.Value);
                     var bgscrData = db.tbl_BackgroundScreening.Where(a => a.OrderID == orderId).FirstOrDefault();
