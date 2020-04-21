@@ -368,6 +368,7 @@
     <Compile Include="Controllers\ApplyNow\PayLinkController.cs" />
     <Compile Include="Controllers\ApplyNow\ServiceController.cs" />
     <Compile Include="Controllers\Appointment\AppointmentController.cs" />
+    <Compile Include="Controllers\BackgroundScreeningController.cs" />
     <Compile Include="Controllers\EmbeddedSigningController.cs" />
     <Compile Include="Controllers\Gallery\GalleryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -2678,6 +2679,7 @@
     <Folder Include="Content\assets\img\property-1\" />
     <Folder Include="Content\assets\img\slide1\" />
     <Folder Include="DatabaseChanges\18-04-2020\" />
+    <Folder Include="Views\BackgroundScreening\" />
     <Folder Include="Views\TwilioSMS\" />
   </ItemGroup>
   <ItemGroup>
