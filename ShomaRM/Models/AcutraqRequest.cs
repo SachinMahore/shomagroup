@@ -103,6 +103,7 @@ namespace ShomaRM.Models
             if (result.Count() != 0)
             {
                 var saveresult = "";
+                //Saving CRAOrderId and tenant id result in database 
                 foreach (var item in result)
                 {
                     BackgroundScreeningModel backgroundscreening = new BackgroundScreeningModel();

@@ -21,11 +21,12 @@ namespace ShomaRM.Controllers
         {
             try
             {
+                //Get Background screening result
 				var result = Request.Form["request"];
 
                 var xDoc = XDocument.Parse(result.ToString());
 
-                //Report extraction from CData
+                //ReportLink extraction from CData
                 var reportlink=    xDoc.DescendantNodes().OfType<XCData>().Where(m => m.Parent.Name == "ReportLink").FirstOrDefault();
               string ReportURl=    reportlink.Value;
               
@@ -36,9 +37,10 @@ namespace ShomaRM.Controllers
                  .Descendants("OrderDetail")
                  .ToList();
                 ShomaRMEntities db = new ShomaRMEntities();
-                //
+                //updating PDFURL and Status of tenant 
                 foreach (var xmldata in resultOrderDetail) {
                     var orderId = Convert.ToInt32(xmldata.LastAttribute.Value);
+                    //Get Tenent Order ID to update data
                     var bgscrData = db.tbl_BackgroundScreening.Where(a => a.OrderID == orderId).FirstOrDefault();
                     if (bgscrData != null)
                     {

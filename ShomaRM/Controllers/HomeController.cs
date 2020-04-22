@@ -37,12 +37,12 @@ namespace ShomaRM.Controllers
             {
                 ViewBag.DelAData = "";
             }
-            Session["DelDatAll"] = null; 
-            //To get Server url
-            var serverURL = HostingEnvironment.ApplicationVirtualPath;
+            Session["DelDatAll"] = null;
+            //To get Server url            
+            var serverURL = Request.Url;
             //Change key in WebConfig file
             Configuration AppConfigSettings = WebConfigurationManager.OpenWebConfiguration("~");
-            AppConfigSettings.AppSettings.Settings["ServerURL"].Value = serverURL;
+            AppConfigSettings.AppSettings.Settings["ServerURL"].Value = serverURL.ToString();
             AppConfigSettings.Save();
             ViewBag.ActiveMenu = "home";
             return View();
