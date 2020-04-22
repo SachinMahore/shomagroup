@@ -48,7 +48,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Document> tbl_Document { get; set; }
         public virtual DbSet<tbl_DocumentVerification> tbl_DocumentVerification { get; set; }
         public virtual DbSet<tbl_EmployerHistory> tbl_EmployerHistory { get; set; }
-        public virtual DbSet<tbl_ESignatureKeys> tbl_ESignatureKeys { get; set; }
         public virtual DbSet<tbl_Estimate> tbl_Estimate { get; set; }
         public virtual DbSet<tbl_Event> tbl_Event { get; set; }
         public virtual DbSet<tbl_EventBooking> tbl_EventBooking { get; set; }
@@ -111,5 +110,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_TenantFob> tbl_TenantFob { get; set; }
         public virtual DbSet<tbl_Prospect> tbl_Prospect { get; set; }
         public virtual DbSet<tbl_MoveInChecklist> tbl_MoveInChecklist { get; set; }
+        public virtual DbSet<tbl_ESignatureKeys> tbl_ESignatureKeys { get; set; }
     }
 }

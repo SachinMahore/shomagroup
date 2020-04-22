@@ -685,5 +685,188 @@ namespace ShomaRM.Controllers
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public async System.Threading.Tasks.Task<ActionResult> ExecuteLease(string EsignatureId, string SignatureFullText, string SignatureInitials, string SignatureTitle)
+        {
+            try
+            {
+                var bmservice = new BluemoonService();
+                bool isSuccess = false;
+                LeaseResponseModel authenticateData = await bmservice.CreateSession();
+                LeaseResponseModel leaseExecuteResponse = await bmservice.ExecuteLease(SessionId: authenticateData.SessionId, EsignatureId:EsignatureId, SignatureFullText:SignatureFullText, SignatureInitials:SignatureInitials, SignatureTitle:SignatureTitle);
+                await bmservice.CloseSession(sessionId: authenticateData.SessionId);
+                if (leaseExecuteResponse != null)
+                {
+                    isSuccess = leaseExecuteResponse.Success;
+                    if(isSuccess)
+                    {
+                        ShomaRMEntities db = new ShomaRMEntities();
+                        long esignid = 0;
+                        try { esignid = Convert.ToInt64(EsignatureId); } catch { }
+                        var esignkeys = db.tbl_ESignatureKeys.Where(p => p.EsignatureId == esignid).ToList();
+                        foreach(var esk in esignkeys)
+                        {
+                            esk.IsLeaseExecuted = 1;
+                            db.SaveChanges();
+                        }
+                        db.Dispose();
+                    }
+                }
+                return Json(new { result = (isSuccess == true ? "1" : "0") }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { result = "0" }, JsonRequestBehavior.AllowGet);
+            }
+
+            //return File(data.leasePdf, "application/pdf", "LeaseDocument_" + data.LeaseId + ".pdf");
+        }
+        public async System.Threading.Tasks.Task<LeaseResponseModel> ExecuteLeaseAsync(string EsignatureId, string SignatureFullText, string SignatureInitials, string SignatureTitle)
+        {
+            var bmservice = new BluemoonService();
+            LeaseRequestModel leaseRequestModel = new LeaseRequestModel();
+
+            ShomaRMEntities db = new ShomaRMEntities();
+            string uid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID.ToString();
+            long UserID = Convert.ToInt64(uid);
+            var appData = db.tbl_ApplyNow.Where(p => p.UserId == UserID).FirstOrDefault();
+            long tid = 0;
+
+            if (appData != null)
+            {
+                tid = appData.ID;
+            }
+
+            var tenantdata = db.tbl_TenantOnline.Where(p => p.ProspectID == tid).FirstOrDefault();
+            var GetCoappDet = db.tbl_Applicant.Where(c => c.TenantID == appData.ID && c.Type != "Guarantor").ToList();
+            var GetVehicleList = db.tbl_Vehicle.Where(c => c.TenantID == appData.ID).ToList();
+            var GetPetList = db.tbl_TenantPet.Where(c => c.TenantID == appData.ID).ToList();
+
+            leaseRequestModel.UNIT_NUMBER = "Unit-" + appData.PropertyId.ToString();
+            leaseRequestModel.ADDRESS = " 9400 NW 41st Street,Doral, FL 33178, USA";
+            leaseRequestModel.DATE_OF_LEASE = appData.CreatedDate.Value.ToString("MM-dd-yyyy");
+            leaseRequestModel.LEASE_BEGIN_DATE = appData.MoveInDate.Value.ToString("MM-dd-yyyy");
+            leaseRequestModel.LEASE_END_DATE = appData.MoveInDate.Value.AddMonths(Convert.ToInt32(appData.LeaseTerm)).ToString("MM-dd-yyyy");
+            leaseRequestModel.RENT = (float)Convert.ToDecimal(appData.Rent);
+            leaseRequestModel.PRORATED_RENT = (float)Convert.ToDecimal(appData.Prorated_Rent);
+            leaseRequestModel.SECURITY_DEPOSIT = (float)Convert.ToDecimal(appData.Deposit);
+            leaseRequestModel.UTILITY_ADDENDUM_PEST_CONTROL_RATE = (float)Convert.ToDecimal(appData.PestAmt);
+            leaseRequestModel.PARKING_MONTHLY_CHARGE = (float)Convert.ToDecimal(appData.ParkingAmt);
+            leaseRequestModel.PET_ONE_TIME_FEE = (float)Convert.ToDecimal(appData.PetDeposit);
+            leaseRequestModel.UTILITY_ADDENDUM_ADMINISTRATION_FEE = (float)Convert.ToDecimal(appData.AdministrationFee);
+            leaseRequestModel.PARKING_ONE_TIME_FEE = (float)Convert.ToDecimal(appData.VehicleRegistration);
+            leaseRequestModel.RENTERS_INSURANCE_PROVIDER = "";
+
+
+            if (GetCoappDet.Count == 1)
+            {
+                leaseRequestModel.OCCUPANT_1 = GetCoappDet[0].FirstName + " " + GetCoappDet[0].LastName;
+                leaseRequestModel.RESIDENT_1 = GetCoappDet[0].FirstName + " " + GetCoappDet[0].LastName;
+
+            }
+            if (GetCoappDet.Count == 2)
+            {
+                leaseRequestModel.OCCUPANT_1 = GetCoappDet[0].FirstName + " " + GetCoappDet[0].LastName;
+                leaseRequestModel.RESIDENT_1 = GetCoappDet[0].FirstName + " " + GetCoappDet[0].LastName;
+                leaseRequestModel.OCCUPANT_2 = GetCoappDet[1].FirstName + " " + GetCoappDet[1].LastName;
+                leaseRequestModel.RESIDENT_2 = GetCoappDet[1].FirstName + " " + GetCoappDet[1].LastName;
+            }
+            if (GetCoappDet.Count == 3)
+            {
+                leaseRequestModel.OCCUPANT_1 = GetCoappDet[0].FirstName + " " + GetCoappDet[0].LastName;
+                leaseRequestModel.RESIDENT_1 = GetCoappDet[0].FirstName + " " + GetCoappDet[0].LastName;
+                leaseRequestModel.OCCUPANT_2 = GetCoappDet[1].FirstName + " " + GetCoappDet[1].LastName;
+                leaseRequestModel.RESIDENT_2 = GetCoappDet[1].FirstName + " " + GetCoappDet[1].LastName;
+                leaseRequestModel.OCCUPANT_3 = GetCoappDet[2].FirstName + " " + GetCoappDet[2].LastName;
+                leaseRequestModel.RESIDENT_3 = GetCoappDet[2].FirstName + " " + GetCoappDet[2].LastName;
+            }
+            if (GetVehicleList.Count > 0)
+            {
+                long StateId1 = Convert.ToInt64(GetVehicleList[0].State);
+                var vehState1 = db.tbl_State.Where(p => p.ID == StateId1).FirstOrDefault();
+
+                if (GetVehicleList.Count == 1)
+                {
+
+
+                    leaseRequestModel.VEHICLE_MAKE_1 = GetVehicleList[0].Make;
+                    leaseRequestModel.VEHICLE_MODEL_YEAR_1 = GetVehicleList[0].Year;
+                    leaseRequestModel.VEHICLE_LICENSE_NUMBER_1 = GetVehicleList[0].License;
+                    leaseRequestModel.VEHICLE_STATE_1 = vehState1.StateName;
+                }
+                if (GetVehicleList.Count == 2)
+                {
+                    long StateId2 = Convert.ToInt64(GetVehicleList[1].State);
+                    var vehState2 = db.tbl_State.Where(p => p.ID == StateId2).FirstOrDefault();
+
+                    leaseRequestModel.VEHICLE_MAKE_1 = GetVehicleList[0].Make;
+                    leaseRequestModel.VEHICLE_MODEL_YEAR_1 = GetVehicleList[0].Year;
+                    leaseRequestModel.VEHICLE_LICENSE_NUMBER_1 = GetVehicleList[0].License;
+                    leaseRequestModel.VEHICLE_STATE_1 = vehState1.StateName;
+                    leaseRequestModel.VEHICLE_MAKE_2 = GetVehicleList[1].Make;
+                    leaseRequestModel.VEHICLE_MODEL_YEAR_2 = GetVehicleList[1].Year;
+                    leaseRequestModel.VEHICLE_LICENSE_NUMBER_2 = GetVehicleList[1].License;
+                    leaseRequestModel.VEHICLE_STATE_2 = vehState2.StateName;
+                }
+            }
+            if (GetPetList.Count > 0)
+            {
+                if (GetPetList.Count == 1)
+                {
+                    leaseRequestModel.PET_NAME = GetPetList[0].PetName;
+                    leaseRequestModel.PET_TYPE = GetPetList[0].PetType == 1 ? "" : "";
+                    leaseRequestModel.PET_WEIGHT = GetPetList[0].Weight;
+                    leaseRequestModel.PET_DR_NAME = GetPetList[0].VetsName;
+                    leaseRequestModel.PET_BREED = GetPetList[0].Breed;
+                }
+                if (GetPetList.Count == 2)
+                {
+                    leaseRequestModel.PET_NAME = GetPetList[0].PetName;
+                    leaseRequestModel.PET_TYPE = GetPetList[0].PetType == 1 ? "" : "";
+                    leaseRequestModel.PET_WEIGHT = GetPetList[0].Weight;
+                    leaseRequestModel.PET_DR_NAME = GetPetList[0].VetsName;
+                    leaseRequestModel.PET_BREED = GetPetList[0].Breed;
+
+                    leaseRequestModel.PET_2_NAME = GetPetList[1].PetName;
+                    leaseRequestModel.PET_2_TYPE = GetPetList[1].PetType == 1 ? "" : "";
+                    leaseRequestModel.PET_2_WEIGHT = GetPetList[1].Weight;
+                    leaseRequestModel.PET_2_BREED = GetPetList[1].Breed;
+                }
+            }
+            LeaseResponseModel authenticateData = await bmservice.CreateSession();
+
+
+            string leaseid = "";
+            if (!string.IsNullOrWhiteSpace(appData.EnvelopeID))
+            {
+                leaseid = appData.EnvelopeID;
+            }
+
+            if (leaseid == "")
+            {
+                LeaseResponseModel leaseCreateResponse = await bmservice.CreateLease(leaseRequestModel: leaseRequestModel, PropertyId: "112154", sessionId: authenticateData.SessionId);
+                var onlineProspectData = db.tbl_ApplyNow.Where(p => p.ID == tid).FirstOrDefault();
+                onlineProspectData.EnvelopeID = leaseCreateResponse.LeaseId;
+                db.SaveChanges();
+
+                leaseid = leaseCreateResponse.LeaseId;
+            }
+            else
+            {
+                LeaseResponseModel leaseEditResponse = await bmservice.EditLease(leaseRequestModel: leaseRequestModel, leaseId: leaseid, sessionId: authenticateData.SessionId);
+            }
+
+
+            LeaseResponseModel leasePdfResponse = await bmservice.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: leaseid);
+
+            if (leaseid != "")
+            {
+                var onlineProspectData = db.tbl_ApplyNow.Where(p => p.ID == tid).FirstOrDefault();
+                db.SaveChanges();
+            }
+
+            await bmservice.CloseSession(sessionId: authenticateData.SessionId);
+            leasePdfResponse.LeaseId = leaseid;
+            return leasePdfResponse;
+        }
     }
 }

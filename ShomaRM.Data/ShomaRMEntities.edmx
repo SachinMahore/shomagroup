@@ -376,6 +376,7 @@
           <Property Name="Key" Type="varchar(max)" />
           <Property Name="EsignatureId" Type="bigint" />
           <Property Name="DateSigned" Type="varchar" MaxLength="100" />
+          <Property Name="IsLeaseExecuted" Type="int" />
         </EntityType>
         <EntityType Name="tbl_Estimate">
           <Key>
@@ -2926,7 +2927,6 @@
           <EntitySet Name="tbl_Document" EntityType="ShomaRMEntitiesModel.tbl_Document" />
           <EntitySet Name="tbl_DocumentVerification" EntityType="ShomaRMEntitiesModel.tbl_DocumentVerification" />
           <EntitySet Name="tbl_EmployerHistory" EntityType="ShomaRMEntitiesModel.tbl_EmployerHistory" />
-          <EntitySet Name="tbl_ESignatureKeys" EntityType="ShomaRMEntitiesModel.tbl_ESignatureKeys" />
           <EntitySet Name="tbl_Estimate" EntityType="ShomaRMEntitiesModel.tbl_Estimate" />
           <EntitySet Name="tbl_Event" EntityType="ShomaRMEntitiesModel.tbl_Event" />
           <EntitySet Name="tbl_EventBooking" EntityType="ShomaRMEntitiesModel.tbl_EventBooking" />
@@ -3297,6 +3297,7 @@
             <End Role="tbl_Visit" EntitySet="tbl_Visit" />
           </AssociationSet>
           <EntitySet Name="tbl_MoveInChecklist" EntityType="ShomaRMEntitiesModel.tbl_MoveInChecklist" />
+          <EntitySet Name="tbl_ESignatureKeys" EntityType="ShomaRMEntitiesModel.tbl_ESignatureKeys" />
           </EntityContainer>
         <EntityType Name="tbl_AcutraqScrenning">
           <Key>
@@ -3682,17 +3683,6 @@
           <Property Name="PaystubValue" Type="Int32" />
           <Property Name="TenantId" Type="Int64" />
           <Property Name="TerminationReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="tbl_ESignatureKeys">
-          <Key>
-            <PropertyRef Name="ESID" />
-          </Key>
-          <Property Name="ESID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenantID" Type="Int64" />
-          <Property Name="ApplicantID" Type="Int64" />
-          <Property Name="Key" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="EsignatureId" Type="Int64" />
-          <Property Name="DateSigned" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_Estimate">
           <Key>
@@ -5949,6 +5939,18 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="IsCheckSD" Type="Int32" />
         </EntityType>
+        <EntityType Name="tbl_ESignatureKeys">
+          <Key>
+            <PropertyRef Name="ESID" />
+          </Key>
+          <Property Name="ESID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantID" Type="Int64" />
+          <Property Name="ApplicantID" Type="Int64" />
+          <Property Name="Key" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EsignatureId" Type="Int64" />
+          <Property Name="DateSigned" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsLeaseExecuted" Type="Int32" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6336,18 +6338,6 @@
                 <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
                 <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
                 <ScalarProperty Name="HEIID" ColumnName="HEIID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_ESignatureKeys">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ESignatureKeys">
-              <MappingFragment StoreEntitySet="tbl_ESignatureKeys">
-                <ScalarProperty Name="DateSigned" ColumnName="DateSigned" />
-                <ScalarProperty Name="EsignatureId" ColumnName="EsignatureId" />
-                <ScalarProperty Name="Key" ColumnName="Key" />
-                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
-                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-                <ScalarProperty Name="ESID" ColumnName="ESID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7611,6 +7601,19 @@
                 <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
                 <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
                 <ScalarProperty Name="MIID" ColumnName="MIID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ESignatureKeys">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ESignatureKeys">
+              <MappingFragment StoreEntitySet="tbl_ESignatureKeys">
+                <ScalarProperty Name="IsLeaseExecuted" ColumnName="IsLeaseExecuted" />
+                <ScalarProperty Name="DateSigned" ColumnName="DateSigned" />
+                <ScalarProperty Name="EsignatureId" ColumnName="EsignatureId" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="ESID" ColumnName="ESID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
