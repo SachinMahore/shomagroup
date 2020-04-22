@@ -234,6 +234,37 @@ namespace ShomaRM.Areas.Admin.Models
                 throw ex;
             }
         }
+
+        //Get BackgroundScreening data list by userId
+        public List<BackgroundScreeningModel> FillProspectBackgroundScreening(long UserId)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            var GetTenantDet = db.tbl_ApplyNow.Where(p => p.UserId == UserId).FirstOrDefault();
+            var bgscrData = db.tbl_BackgroundScreening.Where(a => a.TenantId == GetTenantDet.ID).ToList();
+
+            List<BackgroundScreeningModel> bgScrLIst = new List<BackgroundScreeningModel>();
+            try
+            {                
+                foreach (var bgscr in bgscrData)
+                {
+                    BackgroundScreeningModel bgScr = new BackgroundScreeningModel();
+                    bgScr.TenantId = bgscr.TenantId;
+                    bgScr.OrderID = bgscr.OrderID;
+                    bgScr.Status = bgscr.Status;
+                    bgScr.PDFUrl = bgscr.PDFUrl;
+                    bgScr.Type = bgscr.Type;
+                    bgScrLIst.Add(bgScr);
+                }
+                db.Dispose();
+                return bgScrLIst;
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
+
         public List<ProspectVerifySearchModel> FillProspectVerifySearchGrid(ProspectVerifySearchModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
