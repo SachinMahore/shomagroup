@@ -29,7 +29,6 @@
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Document" Width="1.5" PointX="18.5" PointY="68.5" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_DocumentVerification" Width="1.5" PointX="3" PointY="107.25" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_EmployerHistory" Width="1.5" PointX="10.75" PointY="9.75" />
-        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_ESignatureKeys" Width="1.5" PointX="11.75" PointY="0.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Estimate" Width="1.5" PointX="0.75" PointY="12.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Event" Width="1.5" PointX="13.25" PointY="59.125" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_EventBooking" Width="1.5" PointX="15.5" PointY="59.375" />
@@ -169,6 +168,7 @@
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_State" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Visit_tbl_Prospect" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_MoveInChecklist" Width="1.5" PointX="7.375" PointY="19.75" />
+        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_ESignatureKeys" Width="1.5" PointX="19.375" PointY="10.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

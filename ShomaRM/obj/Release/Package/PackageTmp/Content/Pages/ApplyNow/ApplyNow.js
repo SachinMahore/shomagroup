@@ -3644,9 +3644,12 @@ var getPropertyUnitDetails = function (uid) {
             //Amit's Work for final Quotation form 15-10
             $("#lblFNLUnit").text("#" + response.model.UnitNo);
             $("#lblFNLModel").text(response.model.Building);
+            $("#lblFNLModel1").text(response.model.Building);
             //$("#lblFNLTerm").text(response.model.Leased);
             $("#lblMonthly_MonthlyCharge").text(formatMoney(response.model.Current_Rent.toFixed(2)));
             $("#lblProrated_MonthlyCharge").text(formatMoney(parseFloat(parseFloat(response.model.Current_Rent) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            $("#lblMonthly_MonthlyCharge1").text(formatMoney(response.model.Current_Rent.toFixed(2)));
+            $("#lblProrated_MonthlyCharge1").text(formatMoney(parseFloat(parseFloat(response.model.Current_Rent) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
 
             $("#lblRFPMonthlyCharges").text(formatMoney(response.model.Current_Rent.toFixed(2)));
 
@@ -3674,10 +3677,13 @@ var getPropertyUnitDetails = function (uid) {
             $("#lblRFPTotalMonthlyPayment").text(formatMoney((parseFloat(unformatText($("#lblRFPMonthlyCharges").text()))) + (parseFloat($("#lblRFPAdditionalParking").text())) + (parseFloat($("#lblRFPStorageUnit").text())) + (parseFloat($("#lblRFPPetRent").text())) + (parseFloat($("#lblRFPTrashRecycling").text())) + (parseFloat($("#lblRFPPestControl").text())) + (parseFloat($("#lblRFPConvergentbillingfee").text()))));
 
             $("#lblProrated_TrashAmt").text(parseFloat(parseFloat($("#lblTrash").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+            $("#lblProrated_TrashAmt1").text(parseFloat(parseFloat($("#lblTrash").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
             $("#lblProrated_PestAmt").text(parseFloat(parseFloat($("#lblPestControl").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+            $("#lblProrated_PestAmt1").text(parseFloat(parseFloat($("#lblPestControl").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
             $("#lblProrated_ConvergentAmt").text(parseFloat(parseFloat($("#lblConvergentAmt").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+            $("#lblProrated_ConvergentAmt1").text(parseFloat(parseFloat($("#lblConvergentAmt").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
 
-            $("#lblRent2").text(response.model.Current_Rent);
+            $("#lblRent2").text((parseFloat(response.model.Current_Rent)).toFixed(2));
             $("#txtModal").text(response.model.Building);
             $("#lblArea1").text(response.model.Area);
             $("#lblBed1").text(response.model.Bedroom);
@@ -3926,6 +3932,7 @@ var fillUnitParkingList = function () {
                     html += "<span style='text-decoration:underline; font - weight:bold;'>  #" + elementValue.ParkingName + " </span>";
                     $("#lblParkSpace").append(html);
                     $("#lblAssginPakingSpace").append(html);
+                    $("#lblAssginPakingSpace1").append(html);
                     if (elementValue.Type == 2) {
                         $("#parkUnit").text("#" + elementValue.ParkingName);
                     }
@@ -4138,6 +4145,7 @@ var saveupdateParking = function () {
             $("#lblAdditionalParking").text(formatMoney(parseFloat(response.totalParkingAmt).toFixed(2)));
             $("#lblMonthly_AditionalParking").text(parseFloat(response.totalParkingAmt).toFixed(2));
             $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(response.totalParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+            $("#lblProrated_AditionalParking_Print").text(parseFloat(parseFloat(response.totalParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
             $("#lblparkingplace").text(addParkingArray.length > 0 ? addParkingArray[0].ParkingID : 0);
             fillUnitParkingList();
             if (parseInt(response.numOfParking) == 1) {
@@ -4179,7 +4187,9 @@ var saveupdateParking = function () {
             $("#lbltotalAmount").text(formatMoney((parseFloat(response.totalParkingAmt) + parseFloat(totalAmt)).toFixed(2)));
             totalAmt = (parseFloat(response.totalParkingAmt) + parseFloat(totalAmt)).toFixed(2);
             $("#lblMonthly_TotalRent").text(formatMoney(totalAmt));
+            $("#lblMonthly_TotalRent_print").text(formatMoney(totalAmt));
             $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            $("#lblProrated_TotalRent_print").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
 
@@ -4273,6 +4283,11 @@ var saveupdatePetPlace = function () {
 
                 $("#lblpetplace").text(addPetPlaceArray.length > 0 ? addPetPlaceArray[0].PetPlaceID : 0);
                 if (parseInt(response.numOfPet) == 1) {
+                    $("#spanPetDNAFee1").text("Pet DNA Fee x 1 Pets:");
+                    $("#spanPetDNAFee2").text("Pet DNA Fee x 1 Pets:");
+                    $("#spanPetDNAFee3").text("Pet DNA Fee x 1 Pets:");
+                    $("#spanPetDNAFee4").text("Pet DNA Fee x 1 Pets:");
+
                     $("#lblPetDeposit").text(formatMoney("500.00"));
                     $("#lblPetDNAAmt").text(parseFloat(response.petDNAFees).toFixed(2));
                     $("#lbpetdna6").text(parseFloat(response.petDNAFees).toFixed(2));
@@ -4285,6 +4300,10 @@ var saveupdatePetPlace = function () {
                     $("#hndPetPlaceCount").val(1);
                     checkAndDeletePet(1);
                 } else if (parseInt(response.numOfPet) == 2) {
+                    $("#spanPetDNAFee1").text("Pet DNA Fee x 2 Pets:");
+                    $("#spanPetDNAFee2").text("Pet DNA Fee x 2 Pets:");
+                    $("#spanPetDNAFee3").text("Pet DNA Fee x 2 Pets:");
+                    $("#spanPetDNAFee4").text("Pet DNA Fee x 2 Pets:");
                     $("#lblPetDeposit").text(formatMoney("750.00"));
 
                     $("#lblPetDNAAmt").text((parseFloat(response.petDNAFees) * parseInt(response.numOfPet)).toFixed(2));
@@ -4298,6 +4317,10 @@ var saveupdatePetPlace = function () {
                     $("#hndPetPlaceCount").val(2);
                 }
                 else {
+                    $("#spanPetDNAFee1").text("Pet DNA Fee:");
+                    $("#spanPetDNAFee2").text("Pet DNA Fee:");
+                    $("#spanPetDNAFee3").text("Pet DNA Fee:");
+                    $("#spanPetDNAFee4").text("Pet DNA Fee:");
                     $("#hndPetPlaceID").val(0);
                     $("#btnAddPet").css("background-color", "#B4ADA5").attr("disabled", "disabled");
                     $("#hndPetPlaceCount").val(0);
@@ -7775,6 +7798,25 @@ var getTenantPetPlaceData = function () {
             var rowCount = $("#tblPet >tbody").children().length;
             $("#hndPetPlaceCount").val(valueCount);
 
+            if (parseInt(response.model.NumberOfPets) == 1) {
+                $("#spanPetDNAFee1").text("Pet DNA Fee x 1 Pets:");
+                $("#spanPetDNAFee2").text("Pet DNA Fee x 1 Pets:");
+                $("#spanPetDNAFee3").text("Pet DNA Fee x 1 Pets:");
+                $("#spanPetDNAFee4").text("Pet DNA Fee x 1 Pets:");
+            } else if (parseInt(response.model.NumberOfPets) == 2) {
+                $("#spanPetDNAFee1").text("Pet DNA Fee x 2 Pets:");
+                $("#spanPetDNAFee2").text("Pet DNA Fee x 2 Pets:");
+                $("#spanPetDNAFee3").text("Pet DNA Fee x 2 Pets:");
+                $("#spanPetDNAFee4").text("Pet DNA Fee x 2 Pets:");
+            }
+            else {
+                $("#spanPetDNAFee1").text("Pet DNA Fee:");
+                $("#spanPetDNAFee2").text("Pet DNA Fee:");
+                $("#spanPetDNAFee3").text("Pet DNA Fee:");
+                $("#spanPetDNAFee4").text("Pet DNA Fee:");
+            }
+
+
             if ($("#chkDontHavePet").is(':checked')) {
                 $("#btnAddPet").attr("disabled", true);
                 $("#btnAddPet").css("background-color", "#b4ada5");
@@ -8912,3 +8954,41 @@ var getPreviousEmployementInfo = function (id) {
         }
     });
 };
+var printSummary=function()
+{
+    $("#divLoader").show();
+    var model = {
+        TenantID: $("#hdnOPId").val()
+    };
+    $.ajax({
+        url: '/ApplyNow/PrintApplicationForm',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+            $("#ifrmAppSummary").attr("src", response.filename);
+            $("#modalApplicationSummary").show();
+            //var hyperlink = document.createElement('a');
+            //hyperlink.href = response.filename;
+            //hyperlink.target = '_blank';
+            //hyperlink.download = "Application Summary.pdf";
+
+            //(document.body || document.documentElement).appendChild(hyperlink);
+            //hyperlink.onclick = function () {
+            //    (document.body || document.documentElement).removeChild(hyperlink);
+            //};
+            //var mouseEvent = new MouseEvent('click', {
+            //    view: window,
+            //    bubbles: true,
+            //    cancelable: true
+            //});
+            //hyperlink.dispatchEvent(mouseEvent);
+            //if (!navigator.mozGetUserMedia) {
+            //    window.URL.revokeObjectURL(hyperlink.href);
+            //}
+            //hyperlink.remove();
+        }
+    });
+}

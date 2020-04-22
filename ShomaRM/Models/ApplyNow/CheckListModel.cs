@@ -405,6 +405,7 @@ namespace ShomaRM.Models
                     pr.ApplicantID = Convert.ToInt64(dr["ApplicantID"].ToString());
                     pr.IsSigned = createdDateString == null ? 0 : 1;
                     pr.IsSignedAll = Convert.ToInt32(dr["IsSignedAll"].ToString());
+                    pr.IsLeaseExecuted = Convert.ToInt32(dr["IsLeaseExecuted"].ToString());
                     lstpr.Add(pr);
                 }
                 db.Dispose();
@@ -429,5 +430,6 @@ namespace ShomaRM.Models
         public string Email { get; set; }
         public int IsSigned { get; set; }
         public int IsSignedAll { get; set; }
+        public int IsLeaseExecuted { get; set; }
     }
 }
