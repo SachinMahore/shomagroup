@@ -8,6 +8,10 @@ using ShomaRM.Data;
 using ShomaRM.Areas.Tenant.Models;
 using System.Data;
 
+using System.IO;
+using System.Text;
+
+
 namespace ShomaRM.Controllers
 {
     public class ApplyNowController : Controller
@@ -78,6 +82,7 @@ namespace ShomaRM.Controllers
                 model.StepNo = 0;
 
             }
+           
             return View(model);
         }
 
@@ -858,6 +863,17 @@ namespace ShomaRM.Controllers
             catch (Exception Ex)
             {
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult PrintApplicationForm(long TenantID)
+        {
+            try
+            {
+                return Json(new { filename =new ApplyNowModel().PrintApplicationForm(TenantID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { filename = "" }, JsonRequestBehavior.AllowGet);
             }
         }
     }
