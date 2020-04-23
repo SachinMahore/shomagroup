@@ -183,9 +183,6 @@ namespace ShomaRM.Controllers
             var user = db.tbl_Login.Where(p => p.Username == UserName && p.Password == encryptedPassword && p.IsActive == 1).FirstOrDefault();
             if (user != null)
             {
-                //var currentUser = new CurrentUser();
-                //currentUser.TenantID = user.TenantID == 0 ? 0 : Convert.ToInt64(user.TenantID);
-                //currentUser.UserID = user.UserID;
                 var currentUser = new CurrentUser();
                 currentUser.UserID = user.UserID;
                 currentUser.Username = user.Username;
@@ -204,39 +201,54 @@ namespace ShomaRM.Controllers
                 if (currentUser.TenantID == 0 && currentUser.UserType != 3)
                 {
                     //admin site 
-                    userid += "|ad";
+                    userid += "|ad|admin";
                     SignInFormAuth(UserName, false);
                 }
                 else if (currentUser.TenantID != 0)
                 {
                     //tenant site
-                    userid += "|te";
+                    userid += "|te|tenant";
                     SignInFormAuth(UserName, false);
                 }
                 else
                 {
                     var checkExpiry = db.tbl_ApplyNow.Where(co => co.UserId == currentUser.UserID).FirstOrDefault();
-
                     checkExpiry.Status = (!string.IsNullOrWhiteSpace(checkExpiry.Status) ? checkExpiry.Status : "");
-
-                    if (checkExpiry.Status.Trim() == "Approved")
+                    if ((checkExpiry.StepCompleted ?? 0) == 18 && checkExpiry.Status.Trim() != "Approved")
                     {
-                        return RedirectToAction("../Checklist/");
+                        userid += "|as|" + (new EncryptDecrypt().EncryptText("In Progress"));
+                        //return RedirectToAction("../ApplicationStatus/" + (new EncryptDecrypt().EncryptText("In Progress")));
                     }
-                    if (checkExpiry != null)
+                    else if (checkExpiry.Status.Trim() == "Approved")
                     {
-                        DateTime expDate = Convert.ToDateTime(DateTime.Now.AddHours(-48).ToString("MM/dd/yyyy") + " 23:59:59");
+                        checkExpiry.StepCompleted = 18;
+                        db.SaveChanges();
+                        userid += "|as|" + (new EncryptDecrypt().EncryptText("Approved"));
+                        //return RedirectToAction("../ApplicationStatus/" + (new EncryptDecrypt().EncryptText("Approved")));
+                    }
+                    else if (checkExpiry.Status.Trim() == "Signed")
+                    {
+                        userid += "|cl|checklist";
+                        //return RedirectToAction("../Checklist/");
+                    }
+                    else
+                    {
+                        checkExpiry.Status = (!string.IsNullOrWhiteSpace(checkExpiry.Status) ? checkExpiry.Status : "");
+                        if (checkExpiry != null)
+                        {
+                            DateTime expDate = Convert.ToDateTime(DateTime.Now.AddHours(-72).ToString("MM/dd/yyyy") + " 23:59:59");
 
-                        if (checkExpiry.CreatedDate < expDate)
-                        {
-                            new ApplyNowController().DeleteApplicantTenantID(checkExpiry.ID, currentUser.UserID);
-                            Session["DelDatAll"] = "Del";
-                            userid = "-1|hp";
-                        }
-                        else
-                        {
-                            Session["DelDatAll"] = null;
-                            userid += "|an";
+                            if (checkExpiry.CreatedDate < expDate)
+                            {
+                                new ApplyNowController().DeleteApplicantTenantID(checkExpiry.ID, currentUser.UserID);
+                                Session["DelDatAll"] = "Del";
+                                userid = "-1|hp|homepage";
+                            }
+                            else
+                            {
+                                Session["DelDatAll"] = null;
+                                userid += "|an|applynow";
+                            }
                         }
                     }
                 }

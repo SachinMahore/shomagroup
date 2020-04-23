@@ -97,29 +97,40 @@ namespace ShomaRM.Controllers
                     else
                     {
                         var checkExpiry = db.tbl_ApplyNow.Where(co => co.UserId == currentUser.UserID).FirstOrDefault();
-
                         checkExpiry.Status = (!string.IsNullOrWhiteSpace(checkExpiry.Status) ? checkExpiry.Status : "");
-
-                        if (checkExpiry.Status.Trim() == "Signed")
+                        if ((checkExpiry.StepCompleted??0)==18 && checkExpiry.Status.Trim()!="Approved")
+                        {
+                            return RedirectToAction("../ApplicationStatus/Index/"+(new EncryptDecrypt().EncryptText("In Progress")));
+                        }
+                        else if (checkExpiry.Status.Trim() == "Approved")
+                        {
+                            checkExpiry.StepCompleted = 18;
+                            db.SaveChanges();
+                            return RedirectToAction("../ApplicationStatus/Index/" + (new EncryptDecrypt().EncryptText("Approved")));
+                        }
+                        else if (checkExpiry.Status.Trim() == "Signed")
                         {
                             return RedirectToAction("../Checklist/");
                         }
-                        if (checkExpiry != null)
+                        else
                         {
-                            DateTime expDate = Convert.ToDateTime(DateTime.Now.AddHours(-72).ToString("MM/dd/yyyy") + " 23:59:59");
-
-                            if (checkExpiry.CreatedDate < expDate)
+                            checkExpiry.Status = (!string.IsNullOrWhiteSpace(checkExpiry.Status) ? checkExpiry.Status : "");
+                            if (checkExpiry != null)
                             {
-                                new ApplyNowController().DeleteApplicantTenantID(checkExpiry.ID, currentUser.UserID);
-                                Session["DelDatAll"] = "Del";
-                                return RedirectToAction("../Home");
-                            }
-                            else
-                            {
-                                Session["DelDatAll"] = null;
-                                return RedirectToAction("../ApplyNow/Index/" + currentUser.UserID);
-                            }
+                                DateTime expDate = Convert.ToDateTime(DateTime.Now.AddHours(-72).ToString("MM/dd/yyyy") + " 23:59:59");
 
+                                if (checkExpiry.CreatedDate < expDate)
+                                {
+                                    new ApplyNowController().DeleteApplicantTenantID(checkExpiry.ID, currentUser.UserID);
+                                    Session["DelDatAll"] = "Del";
+                                    return RedirectToAction("../Home");
+                                }
+                                else
+                                {
+                                    Session["DelDatAll"] = null;
+                                    return RedirectToAction("../ApplyNow/Index/" + currentUser.UserID);
+                                }
+                            }
                         }
                     }
                     // return RedirectToLocal(returnUrl);

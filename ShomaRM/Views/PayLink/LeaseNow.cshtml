@@ -443,9 +443,19 @@
                         window.location = "/Admin/AdminHome";
                     }
                     else if (result[1] == "te") {
-                        $("#hndUID").val(response);
-                        getTenantInfo(response);
+                        $("#hndUID").val(result[0]);
+                        getTenantInfo(result[0]);
                         goToStep(2, 2);
+                        $("#btnLogout").removeClass("hidden");
+                    }
+                    else if (result[1] == "cl") {
+                        window.location = "/Checklist/";
+                    }
+                    else if (result[1] == "as") {
+                        window.location = "/ApplicationStatus/Index/" + result[2];
+                    }
+                    else if (result[1] == "an") {
+                        window.location = "/ApplyNow/Index/" + result[0];
                     }
                     else {
                         window.location = "/Home/";
