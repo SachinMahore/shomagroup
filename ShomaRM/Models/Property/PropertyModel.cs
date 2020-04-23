@@ -605,6 +605,7 @@ namespace ShomaRM.Models
         public int IsAvail { get; set; }
         public int NoAvailable { get; set; }
         public string Premium { get; set; }
+        public string ModelName { get; set; }
     }
     public partial class PropertyFloor
     {
@@ -767,6 +768,7 @@ namespace ShomaRM.Models
                     pr.Area = dr["Area"].ToString();
                     pr.Premium = dr["Premium"].ToString();
                     pr.AvailableDateText = availableDate.Value.ToString("MM/dd/yyyy");
+                    pr.ModelName = dr["ModelName"].ToString();
                     var getRent = db.tbl_UnitLeasePrice.Where(p => p.LeaseID == LeaseTermID && p.UnitID == pr.UID).FirstOrDefault();
                     if (getRent != null)
                     {
