@@ -114,6 +114,7 @@ namespace ShomaRM.Data
         public string ManagementCompany { get; set; }
         public string ManagementCompanyPhone { get; set; }
         public Nullable<int> IsProprNoticeLeaseAgreement { get; set; }
+        public Nullable<long> ParentTOID { get; set; }
     
         public virtual tbl_ApplyNow tbl_ApplyNow { get; set; }
     }

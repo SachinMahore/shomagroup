@@ -29,8 +29,8 @@ namespace ShomaRM.Data
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
     
+        public virtual tbl_Properties tbl_Properties { get; set; }
         public virtual tbl_Login tbl_Login { get; set; }
         public virtual tbl_Login tbl_Login1 { get; set; }
-        public virtual tbl_Properties tbl_Properties { get; set; }
     }
 }

@@ -138,7 +138,8 @@ namespace ShomaRM.Models
                         Email = model.Email,
                         IsActive = 1,
                         TenantID = 0,
-                        UserType = 3
+                        UserType = 3,
+                        
                     };
                     db.tbl_Login.Add(saveUserNamePassword);
                     db.SaveChanges();
@@ -243,6 +244,7 @@ namespace ShomaRM.Models
                     OfficeState = 0,
                     EmergencyCountry = "1",
                     EmergencyStateHome = 0,
+                    ParentTOID=Uid,
                 };
                 db.tbl_TenantOnline.Add(getAppldata);
                 db.SaveChanges();
