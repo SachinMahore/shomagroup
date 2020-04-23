@@ -27,7 +27,7 @@ namespace ShomaRM.Models
             Authentication.Password = "Password1234!";
             _objAcqutraqOrder.Authentication = Authentication;
             _objAcqutraqOrder.TestMode = "Yes";
-            _objAcqutraqOrder.ReturnResultURL = WebConfigurationManager.AppSettings["ServerURL"]+ "BackgroundScreening/ReceiveRequest";
+            _objAcqutraqOrder.ReturnResultURL = WebConfigurationManager.AppSettings["ServerURL"]+ "/BackgroundScreening/ReceiveRequest";
             var _objorder = new Order();
             _objorder.BillingReferenceCode = "000-0000";
             var _objsubject = new Subject();
