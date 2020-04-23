@@ -382,8 +382,9 @@ namespace ShomaRM.Areas.Admin.Models
             model.OfficeCity = tenantData.OfficeCity;
             model.OfficeState = tenantData.OfficeState;
             model.StartDateTxt = tenantData.StartDateTxt;
-            //model.Reason = tenantData.Reason;
+            model.DateExpireTxt = tenantData.DateExpireTxt;
             model.ProspectID = ProspectId;
+            model.ID = ProspectId;
 
 
             if(GetTenantDet!=null)

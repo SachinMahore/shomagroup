@@ -19,6 +19,7 @@ namespace ShomaRM.Models
 
         public async Task<OrderXML>   PostAqutraqRequest(TenantOnlineModel data)
         {
+            var isTest = true;
             var _objAcqutraqOrder = new OrderXML();
             _objAcqutraqOrder.Method = "SEND ORDER";
             var Authentication = new Authentication();
@@ -26,10 +27,13 @@ namespace ShomaRM.Models
             Authentication.Username = "pward";
             Authentication.Password = "Password1234!";
             _objAcqutraqOrder.Authentication = Authentication;
-            _objAcqutraqOrder.TestMode = "Yes";
+            if (isTest)
+            {
+                _objAcqutraqOrder.TestMode = "Yes";
+            }
             _objAcqutraqOrder.ReturnResultURL = WebConfigurationManager.AppSettings["ServerURL"]+ "BackgroundScreening/ReceiveRequest";
             var _objorder = new Order();
-            _objorder.BillingReferenceCode = "000-0000";
+            _objorder.BillingReferenceCode = data.ID.ToString();
             var _objsubject = new Subject();
             _objsubject.FirstName = data.FirstName;
             _objsubject.MiddleName = data.MiddleInitial;
@@ -66,9 +70,9 @@ namespace ShomaRM.Models
              var _objEmploymentDates = new EmploymentDates();
             _objEmploymentDates.StartDate = data.StartDateTxt;
 
-            _objEmploymentDates.EndDate = "10/10/2020";
+            _objEmploymentDates.EndDate = data.DateExpireTxt == "" ? "00/00/0000": data.DateExpireTxt;
             _objorderdetails.EmploymentDates = _objEmploymentDates;
-            _objorderdetails.ReasonForLeaving = "Test";
+            _objorderdetails.ReasonForLeaving = "";
             //_objorderdetails.ReasonForLeaving = data.Reason;
             _objorder.OrderDetailEMP = _objorderdetails;
 
