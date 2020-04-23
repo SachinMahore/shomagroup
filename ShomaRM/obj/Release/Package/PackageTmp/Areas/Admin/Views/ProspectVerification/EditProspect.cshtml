@@ -2258,7 +2258,7 @@
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Photo</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Pet Name</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Breed</th>
-                                                    <th style="background-color: #c7cdd5;color:#3d3939">Weight</th>
+                                                    <th style="background-color: #c7cdd5;color:#3d3939">Weight(lbs)</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Vet's Name</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Action</th>
                                                 </tr>
@@ -3207,7 +3207,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>Weight</label> :
+                        <label>Weight(lbs)</label> :
                         <label id="txtpetWeight"></label>
                     </div>
                 </div>
@@ -4651,24 +4651,13 @@
                 dataType: "json", //Expected data format from server
                 success: function (response) {
                     $("#divLoader").hide();
-                    var hyperlink = document.createElement('a');
-                    hyperlink.href = "/Content/assets/img/Document/LeaseDocument_" + response.LeaseId + ".pdf";
-                    hyperlink.target = '_blank';
-                    hyperlink.download = "LeaseDocument_" + response.LeaseId + ".pdf";
-
-                    (document.body || document.documentElement).appendChild(hyperlink);
-                    hyperlink.onclick = function () {
-                        (document.body || document.documentElement).removeChild(hyperlink);
-                    };
-                    var mouseEvent = new MouseEvent('click', {
-                        view: window,
-                        bubbles: true,
-                        cancelable: true
+                    $("#popExecuteLease").modal("hide");
+                    $.alert({
+                        title: "",
+                        content: "Lease Executed Successfully.",
+                        type: 'red'
                     });
-                    hyperlink.dispatchEvent(mouseEvent);
-                    if (!navigator.mozGetUserMedia) {
-                        window.URL.revokeObjectURL(hyperlink.href);
-                    }
+                    refreshStatuses();
                 }
             });
         }

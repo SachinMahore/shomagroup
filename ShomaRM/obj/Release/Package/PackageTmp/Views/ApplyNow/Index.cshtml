@@ -2408,7 +2408,7 @@
                                                         <th style="background-color: #c7cdd5;color:#3d3939">Photo</th>
                                                         <th style="background-color: #c7cdd5;color:#3d3939">Pet Name</th>
                                                         <th style="background-color: #c7cdd5;color:#3d3939">Breed</th>
-                                                        <th style="background-color: #c7cdd5;color:#3d3939">Weight</th>
+                                                        <th style="background-color: #c7cdd5;color:#3d3939">Weight(lbs)</th>
                                                         <th style="background-color: #c7cdd5;color:#3d3939">Vet's Name</th>
                                                         <th style="background-color: #c7cdd5;color:#3d3939">Action</th>
                                                     </tr>
@@ -2627,7 +2627,7 @@
 
                                                                         <th style="background-color: #c7cdd5;color:#3d3939">Pet Name</th>
                                                                         <th style="background-color: #c7cdd5;color:#3d3939">Breed</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Weight</th>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Weight(lbs)</th>
                                                                         <th style="background-color: #c7cdd5;color:#3d3939">Vet's Name</th>
 
                                                                     </tr>
@@ -3445,7 +3445,7 @@
                                                     <tr>
                                                         <th>Pet Name</th>
                                                         <th>Breed</th>
-                                                        <th>Weight</th>
+                                                        <th>Weight(lbs)</th>
                                                         <th>Vet's Name</th>
                                                     </tr>
                                                 </thead>
@@ -4462,91 +4462,81 @@
 <div class="modal" id="popPet">
     <div class="modal-dialog">
         <div class="modal-content" style="width: 100%; height:400px;">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Add Pet</h5>
-
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px;color:black;">&times;</button>
             </div>
-
             <!-- Modal body -->
             <div class="modal-body">
-
                 <input type="hidden" id="hndPetID" value="0" />
-                @*<div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="star">Pet Type :</label>
-                            <select id="ddlpetType" class="  form-control">
-                                <option value='0'>Select Type</option>
-                                <option value='1'>Cat</option>
-                                <option value='2'>Dog</option>
-                            </select>
-                        </div>
-                    </div>*@
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="star">What is your Pet's Name?</label>
-                        <input id="txtpetName" type="text" class="form-control" maxlength="20" placeholder="Pet Name" value="">
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="star">Breed</label>
-                        <input id="txtpetBreed" type="text" class="form-control" maxlength="20" placeholder="Breed" value="">
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label>Weight</label>
-                        <input id="txtpetWeight" type="text" class="form-control" maxlength="20" placeholder="Weight" value="">
-                    </div>
-                </div>
-                @*<div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Age</label>
-                            <input id="txtpetAge" type="text" class="form-control" maxlength="20" placeholder="Age" value="">
-                        </div>
-                    </div>*@
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label>Vet's Name</label>
-                        <input id="txtpetVetsName" type="text" class="form-control" placeholder="Vet's Name'" value="">
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="star">Upload Photo</label><br />
-                        <input type="file" name="pet-picture" id="pet-picture" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                        <label for="pet-picture"><i class="fa fa-upload fa-2x"></i> <span id="filePetPictireShow">Choose a file&hellip;</span></label>
-                        <input type="hidden" id="hndPetPicture" value="0" />
-                        <input type="hidden" id="hndOriginalPetPicture" value="0" />
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="star">Upload pet vaccination certificate</label><br />
-                        <input type="file" name="filePetVaccinationCertificate" id="filePetVaccinationCertificate" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                        <label for="filePetVaccinationCertificate"><i class="fa fa-upload fa-2x"></i> <span id="filePetVaccinationCertificateShow">Choose a file&hellip;</span></label>
-                        <input type="hidden" id="hndPetVaccinationCertificate" value="0" />
-                        <input type="hidden" id="hndOriginalPetVaccinationCertificate" value="0" />
-                    </div>
-                </div>
 
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="star">What is your Pet's Name?</label>
+                                <input id="txtpetName" type="text" class="form-control" maxlength="20" placeholder="Pet Name" value="">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="star">Breed</label>
+                                <input id="txtpetBreed" type="text" class="form-control" maxlength="20" placeholder="Breed" value="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="star">Weight</label>
+                                <input id="txtpetWeight" type="text" class="form-control" maxlength="20" placeholder="Weight" value="">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary search" type="button" style="margin-top: -60px;margin-left: 191px;">lbs</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Vet's Name</label>
+                                <input id="txtpetVetsName" type="text" class="form-control" placeholder="Vet's Name'" value="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="star">Upload Photo</label><br />
+                                <input type="file" name="pet-picture" id="pet-picture" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                <label for="pet-picture"><i class="fa fa-upload fa-2x"></i> <span id="filePetPictireShow">Choose a file&hellip;</span></label>
+                                <input type="hidden" id="hndPetPicture" value="0" />
+                                <input type="hidden" id="hndOriginalPetPicture" value="0" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="star">Upload pet vaccination certificate</label><br />
+                                <input type="file" name="filePetVaccinationCertificate" id="filePetVaccinationCertificate" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                <label for="filePetVaccinationCertificate"><i class="fa fa-upload fa-2x"></i> <span id="filePetVaccinationCertificateShow">Choose a file&hellip;</span></label>
+                                <input type="hidden" id="hndPetVaccinationCertificate" value="0" />
+                                <input type="hidden" id="hndOriginalPetVaccinationCertificate" value="0" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-sm-12 text-center">
-
                     <div class="pull-right text-center">
                         <button type="submit" class="btn btn-primary" onclick="saveupdatePet()"><i class="fa fa-envelope-o"></i> Save</button>
                     </div>
-
                 </div>
-
             </div>
-
             <!-- Modal footer -->
             <div class="modal-footer-custom">
-
             </div>
-
         </div>
     </div>
 </div>
