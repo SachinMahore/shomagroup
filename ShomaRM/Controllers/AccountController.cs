@@ -86,7 +86,7 @@ namespace ShomaRM.Controllers
                     db.tbl_LoginHistory.Add(loginHistory);
                     db.SaveChanges();
 
-                    if (currentUser.TenantID == 0 && currentUser.UserType != 3)
+                    if (currentUser.TenantID == 0 && currentUser.UserType != 3 && currentUser.UserType != 33)
                     {
                         return RedirectToAction("../Admin/AdminHome");
                     }
@@ -94,7 +94,7 @@ namespace ShomaRM.Controllers
                     {
                         return RedirectToAction("../Tenant/Dashboard");
                     }
-                    else
+                    else if (user.ParentUserID == null)
                     {
                         var checkExpiry = db.tbl_ApplyNow.Where(co => co.UserId == currentUser.UserID).FirstOrDefault();
                         checkExpiry.Status = (!string.IsNullOrWhiteSpace(checkExpiry.Status) ? checkExpiry.Status : "");
@@ -132,6 +132,10 @@ namespace ShomaRM.Controllers
                                 }
                             }
                         }
+                    }
+                    else if (user.ParentUserID != null)
+                    {
+                        return RedirectToAction("../ApplyNow/CoApplicantDet/" + user.ParentUserID+"-" + currentUser.UserID);
                     }
                     // return RedirectToLocal(returnUrl);
                 }

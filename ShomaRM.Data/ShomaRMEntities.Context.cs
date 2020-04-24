@@ -63,6 +63,7 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_LoginHistory> tbl_LoginHistory { get; set; }
         public virtual DbSet<tbl_Models> tbl_Models { get; set; }
         public virtual DbSet<tbl_MonthlyPayment> tbl_MonthlyPayment { get; set; }
+        public virtual DbSet<tbl_MoveInChecklist> tbl_MoveInChecklist { get; set; }
         public virtual DbSet<tbl_MoveInPayment> tbl_MoveInPayment { get; set; }
         public virtual DbSet<tbl_Notes> tbl_Notes { get; set; }
         public virtual DbSet<tbl_Notice> tbl_Notice { get; set; }
@@ -75,6 +76,7 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Properties> tbl_Properties { get; set; }
         public virtual DbSet<tbl_PropertyFloor> tbl_PropertyFloor { get; set; }
         public virtual DbSet<tbl_PropertyUnits> tbl_PropertyUnits { get; set; }
+        public virtual DbSet<tbl_Prospect> tbl_Prospect { get; set; }
         public virtual DbSet<tbl_PurchaseOrder> tbl_PurchaseOrder { get; set; }
         public virtual DbSet<tbl_Rating> tbl_Rating { get; set; }
         public virtual DbSet<tbl_RequestOffer> tbl_RequestOffer { get; set; }
@@ -82,11 +84,13 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_ServiceIssue> tbl_ServiceIssue { get; set; }
         public virtual DbSet<tbl_ServiceLocation> tbl_ServiceLocation { get; set; }
         public virtual DbSet<tbl_ServiceRequest> tbl_ServiceRequest { get; set; }
+        public virtual DbSet<tbl_SMSMessages> tbl_SMSMessages { get; set; }
         public virtual DbSet<tbl_State> tbl_State { get; set; }
         public virtual DbSet<tbl_Storage> tbl_Storage { get; set; }
         public virtual DbSet<tbl_Tenant> tbl_Tenant { get; set; }
         public virtual DbSet<tbl_TenantEventJoin> tbl_TenantEventJoin { get; set; }
         public virtual DbSet<tbl_TenantEventJoinApprove> tbl_TenantEventJoinApprove { get; set; }
+        public virtual DbSet<tbl_TenantFob> tbl_TenantFob { get; set; }
         public virtual DbSet<tbl_TenantInfo> tbl_TenantInfo { get; set; }
         public virtual DbSet<tbl_TenantMonthlyPayments> tbl_TenantMonthlyPayments { get; set; }
         public virtual DbSet<tbl_TenantParking> tbl_TenantParking { get; set; }
@@ -102,6 +106,7 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Visit> tbl_Visit { get; set; }
         public virtual DbSet<tbl_WorkOrder> tbl_WorkOrder { get; set; }
         public virtual DbSet<tbl_ZipCodes> tbl_ZipCodes { get; set; }
+
         public virtual DbSet<tbl_SMSMessages> tbl_SMSMessages { get; set; }
         public virtual DbSet<tbl_TenantFob> tbl_TenantFob { get; set; }
         public virtual DbSet<tbl_Prospect> tbl_Prospect { get; set; }
@@ -111,5 +116,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_EmployerHistory> tbl_EmployerHistory { get; set; }
         public virtual DbSet<tbl_Login> tbl_Login { get; set; }
         public virtual DbSet<tbl_TenantOnline> tbl_TenantOnline { get; set; }
+
     }
 }

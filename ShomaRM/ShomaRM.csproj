@@ -2399,6 +2399,7 @@
     <Content Include="Content\jquery.shorten.1.0.js" />
     <Content Include="Content\keyboardcontrols.js" />
     <Content Include="Content\Pages\ApplyNow\ApplyNow.js" />
+    <Content Include="Content\Pages\ApplyNow\CoApplicantDet.js" />
     <Content Include="Content\Pages\ApplyNow\DocumentVerification.js" />
     <Content Include="Content\Pages\common.js" />
     <Content Include="Content\Pages\Gallery\Gallery.js" />
@@ -2711,7 +2712,11 @@
     <Content Include="Views\ApplyNow\ChangePassword.cshtml" />
     <Content Include="Views\PayLink\PayAdmFees.cshtml" />
     <Content Include="Views\CheckList\SignLease.cshtml" />
+
+    <Content Include="Views\ApplyNow\CoApplicantDet.cshtml" />
+
     <Content Include="Views\ApplicationStatus\Index.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

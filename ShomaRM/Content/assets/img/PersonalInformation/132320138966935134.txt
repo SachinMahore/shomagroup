@@ -1,0 +1,9 @@
+21 Apr - Co-Applicant Online Application Special Model  
+  Database- Add New column in Login, applynow,Tenant online
+  Create function to generate Login, TenantOnline data for Coapplicant when Add Applicant
+  Send Email link to fill applicant details
+  Change login functionality for Co-applicant and all
+  Code changes and procedure change to get Applicant data after login
+  Create new page to fill his details after login
+  a) Step : Display All applicant list
+  b) Step: Display Reposibility
