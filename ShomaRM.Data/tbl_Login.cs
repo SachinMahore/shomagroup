@@ -53,7 +53,7 @@ namespace ShomaRM.Data
         public Nullable<long> ParentTenantID { get; set; }
         public Nullable<int> IsChangePass { get; set; }
         public Nullable<System.DateTime> ChangeDate { get; set; }
-        public Nullable<int> ParentUserID { get; set; }
+        public Nullable<long> ParentUserID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_CashReceipts> tbl_CashReceipts { get; set; }
