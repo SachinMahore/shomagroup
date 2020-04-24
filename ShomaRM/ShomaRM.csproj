@@ -2433,6 +2433,8 @@
     <Content Include="DatabaseChanges\18-04-2020\usp_changes.sql" />
     <Content Include="DatabaseChanges\20-04-2020\MoveInCheck_AddColumn.sql" />
     <Content Include="DatabaseChanges\22-04-2020\AddCoulum_EsignTable_StoreProcedureChanges.sql" />
+    <Content Include="DatabaseChanges\24-04-2020\Add Column To Database.sql" />
+    <Content Include="DatabaseChanges\24-04-2020\Stored Procedure Changes.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
