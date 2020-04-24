@@ -385,18 +385,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_ESignatureKeys">
-      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ESignatureKeys">
-        <MappingFragment StoreEntitySet="tbl_ESignatureKeys">
-          <ScalarProperty Name="DateSigned" ColumnName="DateSigned" />
-          <ScalarProperty Name="EsignatureId" ColumnName="EsignatureId" />
-          <ScalarProperty Name="Key" ColumnName="Key" />
-          <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
-          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-          <ScalarProperty Name="ESID" ColumnName="ESID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_Estimate">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Estimate">
         <MappingFragment StoreEntitySet="tbl_Estimate">
@@ -1657,6 +1645,19 @@
           <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
           <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
           <ScalarProperty Name="MIID" ColumnName="MIID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ESignatureKeys">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ESignatureKeys">
+        <MappingFragment StoreEntitySet="tbl_ESignatureKeys">
+          <ScalarProperty Name="IsLeaseExecuted" ColumnName="IsLeaseExecuted" />
+          <ScalarProperty Name="DateSigned" ColumnName="DateSigned" />
+          <ScalarProperty Name="EsignatureId" ColumnName="EsignatureId" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+          <ScalarProperty Name="ESID" ColumnName="ESID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

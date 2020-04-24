@@ -16,6 +16,8 @@
 <input type="hidden" id="hndOriginalPOE" value="0" />
 <input type="hidden" id="hndLeaseTermID" value="@Model.LeaseTermID" />
 <input type="hidden" id="hndPriAppFullName" value="" />
+<input type="hidden" id="hndIsSignedByAll" value="0" />
+<input type="hidden" id="hndEsignatureId" value="@Model.EsignatureID" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container" style="width:100%!important">
@@ -2256,7 +2258,7 @@
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Photo</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Pet Name</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Breed</th>
-                                                    <th style="background-color: #c7cdd5;color:#3d3939">Weight</th>
+                                                    <th style="background-color: #c7cdd5;color:#3d3939">Weight(lbs)</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Vet's Name</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Action</th>
                                                 </tr>
@@ -2587,24 +2589,23 @@
                             <div class="col-sm-12 form-inline">
                                 <div class="col-sm-3 form-inline">
                                     <div class="text-center">
-                                      &nbsp;
+                                        <button type="button" class="btn btn-primary" id="btnSendRemSign" onclick="SendReminderEmail(2,0)" disabled="disabled">Send Reminder to Sign Lease Document (All)</button>
                                     </div>
                                 </div>
                                 <div class="col-sm-3 form-inline">
                                     <div class="text-center">
-                                        <button type="button" class="btn btn-primary" id="btnSendRemSign" onclick="SendReminderEmail(2,0)" disabled="disabled">Send Reminder to Sign Lease Document (All)</button>
+                                        <a class="btn btn-primary" id="btnExecuteLease" data-toggle="modal" data-target="#popExecuteLease" onclick="cleaseExecuteLease()" disabled="disabled">Execute Lease</a>
                                     </div>
                                 </div>
                                 <div class="col-sm-3 form-inline">
 
                                     <div class="text-center">
                                         <a class="btn btn-primary " id="btnleaseDownl" onclick="downloadLeaseDocument()" disabled="disabled">Download Leasing Application</a>
-
                                     </div>
                                 </div>
                                 <div class="col-sm-3 form-inline">
                                     <div class="text-center">
-                                        <button type="button" class="btn btn-primary" id="btnupSignSts" onclick="SaveSignedStatus()" disabled="disabled">Update Status to Document Signed </button>
+                                        <button type="button" class="btn btn-primary" id="btnupSignSts" onclick="SaveSignedStatus()" disabled="disabled">Send Move In Check List & Pay Link</button>
                                     </div>
                                 </div>
                             </div>
@@ -2794,7 +2795,7 @@
     </div>
 
 </div>
-</div>
+
 
 
 <div class="modal " id="popFloorPlan" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
@@ -3095,7 +3096,6 @@
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Vehicle Information</h5>
-
             </div>
 
             <!-- Modal body -->
@@ -3207,7 +3207,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>Weight</label> :
+                        <label>Weight(lbs)</label> :
                         <label id="txtpetWeight"></label>
                     </div>
                 </div>
@@ -3880,6 +3880,43 @@
                 <div class="col-sm-12 text-center">
                     <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="popExecuteLease">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:500px; height:400px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+            <div class="modal-header" style="width: 100%; padding:0px;">
+                <h5 class="modal-title">Execute Lease</h5>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="star">Signature Full Text</label>
+                        <input id="txtSignatureFullText" type="text" class="form-control" maxlength="20" placeholder="Signature Full Text" value="" />
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="star">Signature Initials</label>
+                        <input id="txtSignatureInitials" type="text" class="form-control" maxlength="20" placeholder="Signature Initials" value="" />
+                    </div>
+                </div>
+                
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="star">Signature Title</label>
+                        <input id="txtSignatureTitle" type="text" class="form-control" maxlength="20" placeholder="Signature Title" value="" />
+                    </div>
+                </div>
+                <div class="col-sm-12 text-center">
+                    <button class="btn btn-primary" onclick="executeLeaseProcess()"><i class="fa fa-file-signature"></i> Execute</button>
+                </div>
+            </div>
+            <div class="modal-footer-custom">
             </div>
         </div>
     </div>
@@ -4570,6 +4607,64 @@
             $.alert({
                 title: "",
                 content: "Document Not Yet Signed.",
+                type: 'red'
+            });
+        }
+    };
+    var cleaseExecuteLease = function () {
+        $("#txtSignatureFullText").val("");
+        $("#txtSignatureInitials").val("");
+        $("#txtSignatureTitle").val("");
+    }
+    var executeLeaseProcess = function () {
+        if ($("#hndEsignatureId").val() != "" && $("#hndIsSignedByAll").val()==1) {
+            $("#divLoader").show();
+
+            var signatureFullText = $("#txtSignatureFullText").val();
+            var signatureInitials = $("#txtSignatureInitials").val();
+            var signatureTitle = $("#txtSignatureTitle").val();
+            var msg = "";
+            if (!signatureFullText) {
+                msg +="Please Enter Signature Full Text <br/>"
+            }
+            if (!signatureInitials) {
+                msg += "Please Enter Signature Initials <br/>"
+            }
+            if (!signatureTitle) {
+                msg += "Please Enter Signature Title <br/>"
+            }
+            if (msg != "") {
+                $.alert({
+                    title: "",
+                    content: msg,
+                    type: 'red'
+                });
+                $("#divLoader").hide();
+                return;
+            }
+            var param = { EsignatureId: $("#hndEsignatureId").val(), SignatureFullText: signatureFullText, SignatureInitials:signatureInitials, SignatureTitle:signatureTitle};
+            $.ajax({
+                url: "/CheckList/ExecuteLease",
+                method: "post",
+                data: JSON.stringify(param),
+                contentType: "application/json; charset=utf-8", // content type sent to server
+                dataType: "json", //Expected data format from server
+                success: function (response) {
+                    $("#divLoader").hide();
+                    $("#popExecuteLease").modal("hide");
+                    $.alert({
+                        title: "",
+                        content: "Lease Executed Successfully.",
+                        type: 'red'
+                    });
+                    refreshStatuses();
+                }
+            });
+        }
+        else {
+            $.alert({
+                title: "",
+                content: "Document Not Yet Signed By All Applicant.",
                 type: 'red'
             });
         }

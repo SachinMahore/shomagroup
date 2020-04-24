@@ -24,7 +24,6 @@
     <EntitySet Name="tbl_Document" EntityType="ShomaRMEntitiesModel.tbl_Document" />
     <EntitySet Name="tbl_DocumentVerification" EntityType="ShomaRMEntitiesModel.tbl_DocumentVerification" />
     <EntitySet Name="tbl_EmployerHistory" EntityType="ShomaRMEntitiesModel.tbl_EmployerHistory" />
-    <EntitySet Name="tbl_ESignatureKeys" EntityType="ShomaRMEntitiesModel.tbl_ESignatureKeys" />
     <EntitySet Name="tbl_Estimate" EntityType="ShomaRMEntitiesModel.tbl_Estimate" />
     <EntitySet Name="tbl_Event" EntityType="ShomaRMEntitiesModel.tbl_Event" />
     <EntitySet Name="tbl_EventBooking" EntityType="ShomaRMEntitiesModel.tbl_EventBooking" />
@@ -395,6 +394,7 @@
       <End Role="tbl_Visit" EntitySet="tbl_Visit" />
     </AssociationSet>
     <EntitySet Name="tbl_MoveInChecklist" EntityType="ShomaRMEntitiesModel.tbl_MoveInChecklist" />
+    <EntitySet Name="tbl_ESignatureKeys" EntityType="ShomaRMEntitiesModel.tbl_ESignatureKeys" />
   </EntityContainer>
   <EntityType Name="tbl_AcutraqScrenning">
     <Key>
@@ -780,17 +780,6 @@
     <Property Name="PaystubValue" Type="Int32" />
     <Property Name="TenantId" Type="Int64" />
     <Property Name="TerminationReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="tbl_ESignatureKeys">
-    <Key>
-      <PropertyRef Name="ESID" />
-    </Key>
-    <Property Name="ESID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="TenantID" Type="Int64" />
-    <Property Name="ApplicantID" Type="Int64" />
-    <Property Name="Key" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="EsignatureId" Type="Int64" />
-    <Property Name="DateSigned" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="tbl_Estimate">
     <Key>
@@ -3046,5 +3035,17 @@
     <Property Name="IsCheckWater" Type="Int32" />
     <Property Name="CreatedDate" Type="DateTime" Precision="3" />
     <Property Name="IsCheckSD" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tbl_ESignatureKeys">
+    <Key>
+      <PropertyRef Name="ESID" />
+    </Key>
+    <Property Name="ESID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenantID" Type="Int64" />
+    <Property Name="ApplicantID" Type="Int64" />
+    <Property Name="Key" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="EsignatureId" Type="Int64" />
+    <Property Name="DateSigned" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="IsLeaseExecuted" Type="Int32" />
   </EntityType>
 </Schema>

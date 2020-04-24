@@ -371,6 +371,7 @@
     <Property Name="Key" Type="varchar(max)" />
     <Property Name="EsignatureId" Type="bigint" />
     <Property Name="DateSigned" Type="varchar" MaxLength="100" />
+    <Property Name="IsLeaseExecuted" Type="int" />
   </EntityType>
   <EntityType Name="tbl_Estimate">
     <Key>

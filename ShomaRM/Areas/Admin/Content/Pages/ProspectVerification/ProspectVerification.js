@@ -259,6 +259,9 @@ $(document).ready(function () {
     remainingday = days;
     numberOfDays = daysInMonth;
     getEmpHistoryListPropVari();
+    setTimeout(function () {
+        fillUnitParkingList();
+    }, 1500);
 });
 var abcd = function () {
     alert("Hi");
@@ -282,7 +285,9 @@ var goToStep = function (stepid, id) {
         $("#li5").removeClass("active");
         $("#li6").removeClass("active");
         $("#li7").removeClass("active");
+        $("#li17").removeClass("active");
         $("#li18").removeClass("active");
+        $("#li19").removeClass("active");
         $("#step1").removeClass("hidden");
         $("#step2").addClass("hidden");
         $("#step3").addClass("hidden");
@@ -314,7 +319,9 @@ var goToStep = function (stepid, id) {
             $("#li5").removeClass("active");
             $("#li6").removeClass("active");
             $("#li7").removeClass("active");
+            $("#li17").removeClass("active");
             $("#li18").removeClass("active");
+            $("#li19").removeClass("active");
             $("#step1").addClass("hidden");
             $("#step3").addClass("hidden");
             $("#step4").addClass("hidden");
@@ -341,34 +348,36 @@ var goToStep = function (stepid, id) {
             $("#subMenu").addClass("hidden");
             $("#as3").removeAttr("onclick")
             $("#as3").attr("onclick", "goToStep(3,3)");
-                $("#li3").addClass("active");
+            $("#li3").addClass("active");
 
-                $("#li4").removeClass("active");
-                $("#li5").removeClass("active");
-                $("#li6").removeClass("active");
-                $("#li7").removeClass("active");
-                $("#li18").removeClass("active");
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").removeClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").addClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").addClass("hidden");
-                $("#step10").addClass("hidden");
-                $("#step11").addClass("hidden");
-                $("#step12").addClass("hidden");
-                $("#step13").addClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").addClass("hidden");
-                $("#step17").addClass("hidden");
-                $("#step18").addClass("hidden");
-            }
-
+            $("#li4").removeClass("active");
+            $("#li5").removeClass("active");
+            $("#li6").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#li17").removeClass("active");
+            $("#li18").removeClass("active");
+            $("#li19").removeClass("active");
+            $("#step2").addClass("hidden");
+            $("#step1").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step3").removeClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+            $("#step13").addClass("hidden");
+            $("#step14").addClass("hidden");
+            $("#step15").addClass("hidden");
+            $("#step16").addClass("hidden");
+            $("#step17").addClass("hidden");
+            $("#step18").addClass("hidden");
         }
+
+    }
     if (stepid == "4") {
         if (id == "4") {
             $("#subMenu").addClass("hidden");
@@ -376,8 +385,8 @@ var goToStep = function (stepid, id) {
             $("#as18").attr("onclick", "goToStep(4,4)");
             $("#li3").addClass("active");
             $("#li18").addClass("active");
-
-            
+            $("#li19").removeClass("active");
+            $("#li17").removeClass("active");
             $("#li4").removeClass("active");
             $("#li5").removeClass("active");
             $("#li6").removeClass("active");
@@ -410,11 +419,11 @@ var goToStep = function (stepid, id) {
             $("#li3").addClass("active");
             $("#li18").addClass("active");
             $("#li4").addClass("active");
-            
+            $("#li17").removeClass("active");
             $("#li5").removeClass("active");
             $("#li6").removeClass("active");
             $("#li7").removeClass("active");
-
+            $("#li19").removeClass("active");
             $("#step5").removeClass("hidden");
             $("#step1").addClass("hidden");
             $("#step2").addClass("hidden");
@@ -447,8 +456,8 @@ var goToStep = function (stepid, id) {
 
             $("#li6").removeClass("active");
             $("#li7").removeClass("active");
-            
-
+            $("#li19").removeClass("active");
+            $("#li17").removeClass("active");
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
             $("#step4").addClass("hidden");
@@ -479,7 +488,7 @@ var goToStep = function (stepid, id) {
             $("#li4").addClass("active");
             $("#li5").addClass("active");
             $("#li6").addClass("active");
-           
+            $("#li17").removeClass("active");
             $("#li7").removeClass("active");
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
@@ -501,7 +510,7 @@ var goToStep = function (stepid, id) {
             $("#step18").addClass("hidden");
 
             $("#li7").addClass("active");
-            $("#li8, #li9, #li10, #li11, #li12, #li13, #li14, #li15, #li16, #li17").removeClass("active");
+            $("#li8, #li9, #li10, #li11, #li12, #li13, #li14, #li15, #li16, #li17, #li19").removeClass("active");
         }
     }
     if (stepid == "8") {
@@ -511,7 +520,7 @@ var goToStep = function (stepid, id) {
             $("#li4").addClass("active");
             $("#li5").addClass("active");
             $("#li6").addClass("active");
-            
+            $("#li17").removeClass("active");
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
             $("#step4").addClass("hidden");
@@ -532,7 +541,7 @@ var goToStep = function (stepid, id) {
             $("#step18").addClass("hidden");
 
             $("#li8").addClass("active");
-            $("#li7, #li9, #li10, #li11, #li12, #li13, #li14, #li15, #li16").removeClass("active");
+            $("#li7, #li9, #li10, #li11, #li12, #li13, #li14, #li15, #li16, #li19").removeClass("active");
 
         }
     }
@@ -544,29 +553,29 @@ var goToStep = function (stepid, id) {
             $("#li4").addClass("active");
             $("#li5").addClass("active");
             $("#li6").addClass("active");
-            
+            $("#li17").removeClass("active");
             $("#li7").removeClass("active");
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").addClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").addClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").removeClass("hidden");
-                $("#step10").addClass("hidden");
-                $("#step11").addClass("hidden");
-                $("#step12").addClass("hidden");
-                $("#step13").addClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").addClass("hidden");
-                $("#step17").addClass("hidden");
+            $("#step2").addClass("hidden");
+            $("#step1").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").removeClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+            $("#step13").addClass("hidden");
+            $("#step14").addClass("hidden");
+            $("#step15").addClass("hidden");
+            $("#step16").addClass("hidden");
+            $("#step17").addClass("hidden");
             $("#step18").addClass("hidden");
 
             $("#li9").addClass("active");
-            $("#li7, #li8, #li10, #li11, #li12, #li13, #li14, #li15, #li16").removeClass("active");
+            $("#li7, #li8, #li10, #li11, #li12, #li13, #li14, #li15, #li16, #li19").removeClass("active");
         }
     }
     if (stepid == "10") {
@@ -576,29 +585,29 @@ var goToStep = function (stepid, id) {
             $("#li18").addClass("active");
             $("#li4").addClass("active");
             $("#li5").addClass("active");
-                $("#li6").addClass("active");
-                
-                $("#li7").removeClass("active");
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").addClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").addClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").addClass("hidden");
-                $("#step10").removeClass("hidden");
-                $("#step11").addClass("hidden");
-                $("#step12").addClass("hidden");
-                $("#step13").addClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").addClass("hidden");
+            $("#li6").addClass("active");
+            $("#li17").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#step2").addClass("hidden");
+            $("#step1").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").removeClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+            $("#step13").addClass("hidden");
+            $("#step14").addClass("hidden");
+            $("#step15").addClass("hidden");
+            $("#step16").addClass("hidden");
             $("#step18").addClass("hidden");
 
             $("#li10").addClass("active");
-            $("#li7, #li8, #li9, #li11, #li12, #li13, #li14, #li15, #li16").removeClass("active");
+            $("#li7, #li8, #li9, #li11, #li12, #li13, #li14, #li15, #li16, #li19").removeClass("active");
         }
     }
     if (stepid == "11") {
@@ -607,30 +616,30 @@ var goToStep = function (stepid, id) {
             $("#li18").addClass("active");
             $("#li4").addClass("active");
             $("#li5").addClass("active");
-                $("#li6").addClass("active");
-                
-                $("#li7").removeClass("active");
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").addClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").addClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").addClass("hidden");
-                $("#step10").addClass("hidden");
-                $("#step11").removeClass("hidden");
-                $("#step12").addClass("hidden");
-                $("#step13").addClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").addClass("hidden");
-                $("#step17").addClass("hidden");
+            $("#li6").addClass("active");
+            $("#li17").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#step2").addClass("hidden");
+            $("#step1").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").removeClass("hidden");
+            $("#step12").addClass("hidden");
+            $("#step13").addClass("hidden");
+            $("#step14").addClass("hidden");
+            $("#step15").addClass("hidden");
+            $("#step16").addClass("hidden");
+            $("#step17").addClass("hidden");
             $("#step18").addClass("hidden");
 
             $("#li11").addClass("active");
-            $("#li7, #li8, #li9, #li10, #li12, #li13, #li14, #li15, #li16").removeClass("active");
+            $("#li7, #li8, #li9, #li10, #li12, #li13, #li14, #li15, #li16, #li19").removeClass("active");
         }
     }
     if (stepid == "12") {
@@ -639,29 +648,29 @@ var goToStep = function (stepid, id) {
             $("#li18").addClass("active");
             $("#li4").addClass("active");
             $("#li5").addClass("active");
-                $("#li6").addClass("active");
-                
-                $("#li7").removeClass("active");
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").addClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").addClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").addClass("hidden");
-                $("#step10").addClass("hidden");
-                $("#step11").addClass("hidden");
-                $("#step12").removeClass("hidden");
-                $("#step13").addClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").addClass("hidden");
+            $("#li6").addClass("active");
+            $("#li17").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#step2").addClass("hidden");
+            $("#step1").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").removeClass("hidden");
+            $("#step13").addClass("hidden");
+            $("#step14").addClass("hidden");
+            $("#step15").addClass("hidden");
+            $("#step16").addClass("hidden");
             $("#step18").addClass("hidden");
 
             $("#li12").addClass("active");
-            $("#li7, #li8, #li9, #li10, #li11, #li13, #li14, #li15, #li16").removeClass("active");
+            $("#li7, #li8, #li9, #li10, #li11, #li13, #li14, #li15, #li16, #li19").removeClass("active");
         }
     }
     if (stepid == "13") {
@@ -670,29 +679,29 @@ var goToStep = function (stepid, id) {
             $("#li18").addClass("active");
             $("#li4").addClass("active");
             $("#li5").addClass("active");
-                $("#li6").addClass("active");
-                
-                $("#li7").removeClass("active");
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").addClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").addClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").addClass("hidden");
-                $("#step10").addClass("hidden");
-                $("#step11").addClass("hidden");
-                $("#step12").addClass("hidden");
-                $("#step13").removeClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").addClass("hidden");
+            $("#li6").addClass("active");
+            $("#li17").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#step2").addClass("hidden");
+            $("#step1").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+            $("#step13").removeClass("hidden");
+            $("#step14").addClass("hidden");
+            $("#step15").addClass("hidden");
+            $("#step16").addClass("hidden");
             $("#step18").addClass("hidden");
 
             $("#li13").addClass("active");
-            $("#li7, #li8, #li9, #li10, #li11, #li12, #li14, #li15, #li16").removeClass("active");
+            $("#li7, #li8, #li9, #li10, #li11, #li12, #li14, #li15, #li16, #li19").removeClass("active");
         }
     }
     if (stepid == "14") {
@@ -702,7 +711,7 @@ var goToStep = function (stepid, id) {
             $("#li4").addClass("active");
             $("#li5").addClass("active");
             $("#li6").addClass("active");
-            
+            $("#li17").removeClass("active");
             $("#li7").removeClass("active");
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
@@ -724,52 +733,21 @@ var goToStep = function (stepid, id) {
             $("#step18").addClass("hidden");
 
             $("#li14").addClass("active");
-            $("#li7, #li8, #li9, #li10, #li11, #li12, #li13, #li15, #li16").removeClass("active");
-        }
-    }
-    if (stepid == "15") {
-        if (id == "15") {
-            $("#li3").addClass("active");
-            $("#li18").addClass("active");
-            $("#li4").addClass("active");
-            $("#li5").addClass("active");
-            $("#li6").addClass("active");
-            
-            $("#li7").removeClass("active");
-            $("#step2").addClass("hidden");
-            $("#step1").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
-            $("#step8").addClass("hidden");
-            $("#step9").addClass("hidden");
-            $("#step10").addClass("hidden");
-            $("#step11").addClass("hidden");
-            $("#step12").addClass("hidden");
-            $("#step13").addClass("hidden");
-            $("#step14").addClass("hidden");
-            $("#step15").removeClass("hidden");
-            $("#step16").addClass("hidden");
-            $("#step17").addClass("hidden");
-            $("#step18").addClass("hidden");
-
-            $("#li15").addClass("active");
-            $("#li7, #li8, #li9, #li10, #li11, #li12, #li13, #li14, #li16").removeClass("active");
+            $("#li7, #li8, #li9, #li10, #li11, #li12, #li13, #li15, #li16, #li19").removeClass("active");
         }
     }
     if (stepid == "16") {
         if (id == "16") {
+            $("#subMenu").removeClass("hidden");
             $("#as7").removeAttr("onclick")
-            $("#as7").attr("onclick", "goToStep(16,16)");
+            $("#as7").attr("onclick", "goToStep(17,17)");
             $("#li7").addClass("active");
             $("#li6").addClass("active");
             $("#li3").addClass("active");
             $("#li18").addClass("active");
             $("#li4").addClass("active");
             $("#li5").addClass("active");
-            
+            $("#li17").removeClass("active");
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
             $("#step4").addClass("hidden");
@@ -790,7 +768,7 @@ var goToStep = function (stepid, id) {
             $("#step18").addClass("hidden");
 
             $("#li16").addClass("active");
-            $("#li7, #li8, #li9, #li10, #li11, #li12, #li13, #li14, #li15").removeClass("active");
+            $("#li7, #li8, #li9, #li10, #li11, #li12, #li13, #li14, #li15, #li19").removeClass("active");
         }
     }
     if (stepid == "17") {
@@ -805,6 +783,7 @@ var goToStep = function (stepid, id) {
             $("#li4").addClass("active");
             $("#li5").addClass("active");
             $("#li18").addClass("active");
+            $("#li19").removeClass("active");
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
             $("#step4").addClass("hidden");
@@ -828,14 +807,15 @@ var goToStep = function (stepid, id) {
     if (stepid == "18") {
         if (id == "18") {
             $("#subMenu").addClass("hidden");
-           
-           
+
+
             $("#li7").addClass("active");
             $("#li6").addClass("active");
             $("#li4").addClass("active");
             $("#li5").addClass("active");
-            $("#li18").addClass("active");
             $("#li17").addClass("active");
+            $("#li18").addClass("active");
+            $("#li19").addClass("active");
 
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
@@ -858,6 +838,592 @@ var goToStep = function (stepid, id) {
         }
     }
 }
+//var goToStep = function (stepid, id) {
+//    if (stepid == "1") {
+//        $("#subMenu").addClass("hidden");
+//        $("#li1").addClass("active");
+//        $("#li2").removeClass("active");
+//        $("#li3").removeClass("active");
+//        $("#li4").removeClass("active");
+//        $("#li5").removeClass("active");
+//        $("#li6").removeClass("active");
+//        $("#li7").removeClass("active");
+//        $("#li18").removeClass("active");
+//        $("#step1").removeClass("hidden");
+//        $("#step2").addClass("hidden");
+//        $("#step3").addClass("hidden");
+//        $("#step4").addClass("hidden");
+//        $("#step5").addClass("hidden");
+//        $("#step6").addClass("hidden");
+//        $("#step7").addClass("hidden");
+//        $("#step8").addClass("hidden");
+//        $("#step9").addClass("hidden");
+//        $("#step10").addClass("hidden");
+//        $("#step11").addClass("hidden");
+//        $("#step12").addClass("hidden");
+//        $("#step13").addClass("hidden");
+//        $("#step14").addClass("hidden");
+//        $("#step15").addClass("hidden");
+//        $("#step16").addClass("hidden");
+//        $("#step17").addClass("hidden");
+//        $("#step18").addClass("hidden");
+//    }
+//    if (stepid == "2") {
+
+//        if (id == "2") {
+//            $("#subMenu").addClass("hidden");
+//            $("#as2").removeAttr("onclick");
+//            $("#as2").attr("onclick", "goToStep(2,2)");
+//            $("#li2").addClass("active");
+//            $("#li3").removeClass("active");
+//            $("#li4").removeClass("active");
+//            $("#li5").removeClass("active");
+//            $("#li6").removeClass("active");
+//            $("#li7").removeClass("active");
+//            $("#li18").removeClass("active");
+//            $("#step1").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step4").addClass("hidden");
+//            $("#step2").removeClass("hidden");
+//            $("#step5").addClass("hidden");
+//            $("#step6").addClass("hidden");
+//            $("#step7").addClass("hidden");
+//            $("#step8").addClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").addClass("hidden");
+//            $("#step15").addClass("hidden");
+//            $("#step16").addClass("hidden");
+//            $("#step17").addClass("hidden");
+//            $("#step18").addClass("hidden");
+//        }
+
+//    }
+//    if (stepid == "3") {
+//        if (id == "3") {
+//            $("#subMenu").addClass("hidden");
+//            $("#as3").removeAttr("onclick")
+//            $("#as3").attr("onclick", "goToStep(3,3)");
+//                $("#li3").addClass("active");
+
+//                $("#li4").removeClass("active");
+//                $("#li5").removeClass("active");
+//                $("#li6").removeClass("active");
+//                $("#li7").removeClass("active");
+//                $("#li18").removeClass("active");
+//                $("#step2").addClass("hidden");
+//                $("#step1").addClass("hidden");
+//                $("#step4").addClass("hidden");
+//                $("#step3").removeClass("hidden");
+//                $("#step5").addClass("hidden");
+//                $("#step6").addClass("hidden");
+//                $("#step7").addClass("hidden");
+//                $("#step8").addClass("hidden");
+//                $("#step9").addClass("hidden");
+//                $("#step10").addClass("hidden");
+//                $("#step11").addClass("hidden");
+//                $("#step12").addClass("hidden");
+//                $("#step13").addClass("hidden");
+//                $("#step14").addClass("hidden");
+//                $("#step15").addClass("hidden");
+//                $("#step16").addClass("hidden");
+//                $("#step17").addClass("hidden");
+//                $("#step18").addClass("hidden");
+//            }
+
+//        }
+//    if (stepid == "4") {
+//        if (id == "4") {
+//            $("#subMenu").addClass("hidden");
+//            $("#as18").removeAttr("onclick");
+//            $("#as18").attr("onclick", "goToStep(4,4)");
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+
+            
+//            $("#li4").removeClass("active");
+//            $("#li5").removeClass("active");
+//            $("#li6").removeClass("active");
+//            $("#li7").removeClass("active");
+//            $("#step4").removeClass("hidden");
+//            $("#step1").addClass("hidden");
+//            $("#step2").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step5").addClass("hidden");
+//            $("#step6").addClass("hidden");
+//            $("#step7").addClass("hidden");
+//            $("#step8").addClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").addClass("hidden");
+//            $("#step15").addClass("hidden");
+//            $("#step16").addClass("hidden");
+//            $("#step17").addClass("hidden");
+//            $("#step18").addClass("hidden");
+//        }
+//    }
+//    if (stepid == "5") {
+//        if (id == "5") {
+//            $("#subMenu").addClass("hidden");
+//            $("#as4").removeAttr("onclick");
+//            $("#as4").attr("onclick", "goToStep(5,5)");
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+            
+//            $("#li5").removeClass("active");
+//            $("#li6").removeClass("active");
+//            $("#li7").removeClass("active");
+
+//            $("#step5").removeClass("hidden");
+//            $("#step1").addClass("hidden");
+//            $("#step2").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step4").addClass("hidden");
+//            $("#step6").addClass("hidden");
+//            $("#step7").addClass("hidden");
+//            $("#step8").addClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").addClass("hidden");
+//            $("#step15").addClass("hidden");
+//            $("#step16").addClass("hidden");
+//            $("#step17").addClass("hidden");
+//            $("#getting-startedTimeRemainingClock").removeClass("hidden");
+//            $("#step18").addClass("hidden");
+//        }
+//    }
+//    if (stepid == "6") {
+
+//        if (id == "6") {
+//            $("#subMenu").addClass("hidden");
+//            $("#li3").addClass("active");
+//            $("#li5").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+
+//            $("#li6").removeClass("active");
+//            $("#li7").removeClass("active");
+            
+
+//            $("#step2").addClass("hidden");
+//            $("#step1").addClass("hidden");
+//            $("#step4").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step5").addClass("hidden");
+//            $("#step6").removeClass("hidden");
+//            $("#step7").addClass("hidden");
+//            $("#step8").addClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").addClass("hidden");
+//            $("#step15").addClass("hidden");
+//            $("#step16").addClass("hidden");
+//            $("#step17").addClass("hidden");
+//            $("#step18").addClass("hidden");
+//        }
+//    }
+//    if (stepid == "7") {
+//        if (id == "7") {
+//            $("#subMenu").removeClass("hidden");
+//            $("#as6").removeAttr("onclick");
+//            $("#as6").attr("onclick", "goToStep(7,7)");
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//            $("#li6").addClass("active");
+           
+//            $("#li7").removeClass("active");
+//            $("#step2").addClass("hidden");
+//            $("#step1").addClass("hidden");
+//            $("#step4").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step5").addClass("hidden");
+//            $("#step6").addClass("hidden");
+//            $("#step7").removeClass("hidden");
+//            $("#step8").addClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").addClass("hidden");
+//            $("#step15").addClass("hidden");
+//            $("#step16").addClass("hidden");
+//            $("#step17").addClass("hidden");
+//            $("#step18").addClass("hidden");
+
+//            $("#li7").addClass("active");
+//            $("#li8, #li9, #li10, #li11, #li12, #li13, #li14, #li15, #li16, #li17").removeClass("active");
+//        }
+//    }
+//    if (stepid == "8") {
+//        if (id == "8") {
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//            $("#li6").addClass("active");
+            
+//            $("#step2").addClass("hidden");
+//            $("#step1").addClass("hidden");
+//            $("#step4").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step5").addClass("hidden");
+//            $("#step6").addClass("hidden");
+//            $("#step7").addClass("hidden");
+//            $("#step8").removeClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").addClass("hidden");
+//            $("#step15").addClass("hidden");
+//            $("#step16").addClass("hidden");
+//            $("#step17").addClass("hidden");
+//            $("#step18").addClass("hidden");
+
+//            $("#li8").addClass("active");
+//            $("#li7, #li9, #li10, #li11, #li12, #li13, #li14, #li15, #li16").removeClass("active");
+
+//        }
+//    }
+//    if (stepid == "9") {
+//        var msg = '';
+//        if (id == "9") {
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//            $("#li6").addClass("active");
+            
+//            $("#li7").removeClass("active");
+//                $("#step2").addClass("hidden");
+//                $("#step1").addClass("hidden");
+//                $("#step4").addClass("hidden");
+//                $("#step3").addClass("hidden");
+//                $("#step5").addClass("hidden");
+//                $("#step6").addClass("hidden");
+//                $("#step7").addClass("hidden");
+//                $("#step8").addClass("hidden");
+//                $("#step9").removeClass("hidden");
+//                $("#step10").addClass("hidden");
+//                $("#step11").addClass("hidden");
+//                $("#step12").addClass("hidden");
+//                $("#step13").addClass("hidden");
+//                $("#step14").addClass("hidden");
+//                $("#step15").addClass("hidden");
+//                $("#step16").addClass("hidden");
+//                $("#step17").addClass("hidden");
+//            $("#step18").addClass("hidden");
+
+//            $("#li9").addClass("active");
+//            $("#li7, #li8, #li10, #li11, #li12, #li13, #li14, #li15, #li16").removeClass("active");
+//        }
+//    }
+//    if (stepid == "10") {
+//        if (id == "10") {
+//            getApplicantHistoryList();
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//                $("#li6").addClass("active");
+                
+//                $("#li7").removeClass("active");
+//                $("#step2").addClass("hidden");
+//                $("#step1").addClass("hidden");
+//                $("#step4").addClass("hidden");
+//                $("#step3").addClass("hidden");
+//                $("#step5").addClass("hidden");
+//                $("#step6").addClass("hidden");
+//                $("#step7").addClass("hidden");
+//                $("#step8").addClass("hidden");
+//                $("#step9").addClass("hidden");
+//                $("#step10").removeClass("hidden");
+//                $("#step11").addClass("hidden");
+//                $("#step12").addClass("hidden");
+//                $("#step13").addClass("hidden");
+//                $("#step14").addClass("hidden");
+//                $("#step15").addClass("hidden");
+//                $("#step16").addClass("hidden");
+//            $("#step18").addClass("hidden");
+
+//            $("#li10").addClass("active");
+//            $("#li7, #li8, #li9, #li11, #li12, #li13, #li14, #li15, #li16").removeClass("active");
+//        }
+//    }
+//    if (stepid == "11") {
+//        if (id == "11") {
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//                $("#li6").addClass("active");
+                
+//                $("#li7").removeClass("active");
+//                $("#step2").addClass("hidden");
+//                $("#step1").addClass("hidden");
+//                $("#step4").addClass("hidden");
+//                $("#step3").addClass("hidden");
+//                $("#step5").addClass("hidden");
+//                $("#step6").addClass("hidden");
+//                $("#step7").addClass("hidden");
+//                $("#step8").addClass("hidden");
+//                $("#step9").addClass("hidden");
+//                $("#step10").addClass("hidden");
+//                $("#step11").removeClass("hidden");
+//                $("#step12").addClass("hidden");
+//                $("#step13").addClass("hidden");
+//                $("#step14").addClass("hidden");
+//                $("#step15").addClass("hidden");
+//                $("#step16").addClass("hidden");
+//                $("#step17").addClass("hidden");
+//            $("#step18").addClass("hidden");
+
+//            $("#li11").addClass("active");
+//            $("#li7, #li8, #li9, #li10, #li12, #li13, #li14, #li15, #li16").removeClass("active");
+//        }
+//    }
+//    if (stepid == "12") {
+//        if (id == "12") {
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//                $("#li6").addClass("active");
+                
+//                $("#li7").removeClass("active");
+//                $("#step2").addClass("hidden");
+//                $("#step1").addClass("hidden");
+//                $("#step4").addClass("hidden");
+//                $("#step3").addClass("hidden");
+//                $("#step5").addClass("hidden");
+//                $("#step6").addClass("hidden");
+//                $("#step7").addClass("hidden");
+//                $("#step8").addClass("hidden");
+//                $("#step9").addClass("hidden");
+//                $("#step10").addClass("hidden");
+//                $("#step11").addClass("hidden");
+//                $("#step12").removeClass("hidden");
+//                $("#step13").addClass("hidden");
+//                $("#step14").addClass("hidden");
+//                $("#step15").addClass("hidden");
+//                $("#step16").addClass("hidden");
+//            $("#step18").addClass("hidden");
+
+//            $("#li12").addClass("active");
+//            $("#li7, #li8, #li9, #li10, #li11, #li13, #li14, #li15, #li16").removeClass("active");
+//        }
+//    }
+//    if (stepid == "13") {
+//        if (id == "13") {
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//                $("#li6").addClass("active");
+                
+//                $("#li7").removeClass("active");
+//                $("#step2").addClass("hidden");
+//                $("#step1").addClass("hidden");
+//                $("#step4").addClass("hidden");
+//                $("#step3").addClass("hidden");
+//                $("#step5").addClass("hidden");
+//                $("#step6").addClass("hidden");
+//                $("#step7").addClass("hidden");
+//                $("#step8").addClass("hidden");
+//                $("#step9").addClass("hidden");
+//                $("#step10").addClass("hidden");
+//                $("#step11").addClass("hidden");
+//                $("#step12").addClass("hidden");
+//                $("#step13").removeClass("hidden");
+//                $("#step14").addClass("hidden");
+//                $("#step15").addClass("hidden");
+//                $("#step16").addClass("hidden");
+//            $("#step18").addClass("hidden");
+
+//            $("#li13").addClass("active");
+//            $("#li7, #li8, #li9, #li10, #li11, #li12, #li14, #li15, #li16").removeClass("active");
+//        }
+//    }
+//    if (stepid == "14") {
+//        if (id == "14") {
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//            $("#li6").addClass("active");
+            
+//            $("#li7").removeClass("active");
+//            $("#step2").addClass("hidden");
+//            $("#step1").addClass("hidden");
+//            $("#step4").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step5").addClass("hidden");
+//            $("#step6").addClass("hidden");
+//            $("#step7").addClass("hidden");
+//            $("#step8").addClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").removeClass("hidden");
+//            $("#step15").addClass("hidden");
+//            $("#step16").addClass("hidden");
+//            $("#step17").addClass("hidden");
+//            $("#step18").addClass("hidden");
+
+//            $("#li14").addClass("active");
+//            $("#li7, #li8, #li9, #li10, #li11, #li12, #li13, #li15, #li16").removeClass("active");
+//        }
+//    }
+//    if (stepid == "15") {
+//        if (id == "15") {
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//            $("#li6").addClass("active");
+            
+//            $("#li7").removeClass("active");
+//            $("#step2").addClass("hidden");
+//            $("#step1").addClass("hidden");
+//            $("#step4").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step5").addClass("hidden");
+//            $("#step6").addClass("hidden");
+//            $("#step7").addClass("hidden");
+//            $("#step8").addClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").addClass("hidden");
+//            $("#step15").removeClass("hidden");
+//            $("#step16").addClass("hidden");
+//            $("#step17").addClass("hidden");
+//            $("#step18").addClass("hidden");
+
+//            $("#li15").addClass("active");
+//            $("#li7, #li8, #li9, #li10, #li11, #li12, #li13, #li14, #li16").removeClass("active");
+//        }
+//    }
+//    if (stepid == "16") {
+//        if (id == "16") {
+//            $("#as7").removeAttr("onclick")
+//            $("#as7").attr("onclick", "goToStep(16,16)");
+//            $("#li7").addClass("active");
+//            $("#li6").addClass("active");
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+            
+//            $("#step2").addClass("hidden");
+//            $("#step1").addClass("hidden");
+//            $("#step4").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step5").addClass("hidden");
+//            $("#step6").addClass("hidden");
+//            $("#step7").addClass("hidden");
+//            $("#step8").addClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").addClass("hidden");
+//            $("#step15").addClass("hidden");
+//            $("#step16").removeClass("hidden");
+//            $("#step17").addClass("hidden");
+//            $("#step18").addClass("hidden");
+
+//            $("#li16").addClass("active");
+//            $("#li7, #li8, #li9, #li10, #li11, #li12, #li13, #li14, #li15").removeClass("active");
+//        }
+//    }
+//    if (stepid == "17") {
+//        if (id == "17") {
+//            refreshStatuses();
+//            //getTransationLists($("#hdnUserId").val());
+//            //getSignedLists($("#hdnOPId").val());
+//            $("#subMenu").addClass("hidden");
+//            $("#li7").addClass("active");
+//            $("#li17").addClass("active");
+//            $("#li6").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#step2").addClass("hidden");
+//            $("#step1").addClass("hidden");
+//            $("#step4").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step5").addClass("hidden");
+//            $("#step6").addClass("hidden");
+//            $("#step7").addClass("hidden");
+//            $("#step8").addClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").addClass("hidden");
+//            $("#step15").addClass("hidden");
+//            $("#step16").addClass("hidden");
+//            $("#step18").addClass("hidden");
+//            $("#step17").removeClass("hidden");
+//        }
+//    }
+//    if (stepid == "18") {
+//        if (id == "18") {
+//            $("#subMenu").addClass("hidden");
+           
+           
+//            $("#li7").addClass("active");
+//            $("#li6").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li17").addClass("active");
+
+//            $("#step2").addClass("hidden");
+//            $("#step1").addClass("hidden");
+//            $("#step4").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step5").addClass("hidden");
+//            $("#step6").addClass("hidden");
+//            $("#step7").addClass("hidden");
+//            $("#step8").addClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").addClass("hidden");
+//            $("#step15").addClass("hidden");
+//            $("#step16").addClass("hidden");
+//            $("#step17").addClass("hidden");
+//            $("#step18").removeClass("hidden");
+//        }
+//    }
+//}
 var SaveOnlineProspect = function () {
     $("#divLoader").show();
     var msg = "";
@@ -4378,7 +4944,8 @@ var getVehicleInfo = function (id) {
             $("#txtVehicleNote").text(response.model.Notes);
             $("#ddlVehicleyear").text(response.model.Year);
             $("#ddlVState").text(response.model.StateString);
-
+            $("#txtVehicleTag").text(response.model.Tag);
+            $("#txtVehicleParkingSpace").text(response.model.ParkingName);
             var result = doesFileExist('/Content/assets/img/VehicleRegistration/' + response.model.VehicleRegistration);
 
             if (result == true) {
@@ -4590,6 +5157,8 @@ var getSignedLists = function (userid) {
         success: function (response) {
             $("#tblLeasedSign>tbody").empty();
             var isSignedAll = 0;
+            var isLeaseExecuted = 0;
+            $("#hndIsSignedByAll").val(0);
             if (response.model.length > 0) {
                 $.each(response.model, function (elementType, elementValue) {
                     var html = "<tr data-value=" + elementValue.ESID + ">";
@@ -4599,11 +5168,22 @@ var getSignedLists = function (userid) {
                     html += "<td><button type='button' class='btn btn-primary' onclick='SendReminderEmail(2, " + elementValue.ApplicantID + ")' " + (elementValue.IsSigned == 1 ? "disabled='disabled'" : "") + ">Send Reminder to Sign Lease Document</button></td>";
                     html += "</tr>";
                     isSignedAll = elementValue.IsSignedAll;
+                    isLeaseExecuted = elementValue.IsLeaseExecuted;
                     $("#tblLeasedSign>tbody").append(html);
                 });
                 if (isSignedAll == 1) {
+                    $("#hndIsSignedByAll").val(1);
+                    if (isLeaseExecuted == 0) {
+                        $("#btnExecuteLease").removeAttr("disabled");
+                        $("#btnupSignSts").attr("disabled", "disabled");
+                        $("#btnExecuteLease").attr("data-target","#popExecuteLease");
+                    }
+                    else {
+                        $("#btnupSignSts").removeAttr("disabled");
+                        $("#btnExecuteLease").attr("disabled", "disabled");
+                        $("#btnExecuteLease").removeAttr("data-target");
+                    }
                     $("#btnleaseDownl").removeAttr("disabled");
-                    $("#btnupSignSts").removeAttr("disabled");
                     $("#btnSendRemSign").attr("disabled", "disabled");
                 }
             }
@@ -4674,3 +5254,27 @@ var refreshStatuses = function () {
         }
     });
 };
+var fillUnitParkingList = function () {
+    $("#divLoader").show();
+    var model = { UID: $("#hndUID").val() };
+    $.ajax({
+        url: '/Parking/GetUnitParkingList',
+        method: "post",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(model),
+        dataType: "json",
+        success: function (response) {
+
+            if ($.trim(response.error) != "") {
+            } else {
+                $("#lblParkSpace").text("");
+                $.each(response, function (index, elementValue) {
+                    var html = "";
+                    html += "<span style='text-decoration:underline; font - weight:bold;'>  #" + elementValue.ParkingName + " </span>";
+                    $("#lblParkSpace").append(html);
+                });
+            }
+            $("#divLoader").hide();
+        }
+    });
+}

@@ -106,6 +106,7 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<decimal> PetDNAAmt { get; set; }
         public int LeaseTermID { get; set; }
         public Nullable<int> IsCheckSD { get; set; }
+        public Nullable<decimal> VehicleRegistration { get; set; } 
 
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
@@ -633,6 +634,7 @@ namespace ShomaRM.Areas.Admin.Models
                 {
                     var GetPaymentProspectData = db.tbl_OnlinePayment.Where(p => p.ProspectId == GetProspectData.ID).FirstOrDefault();
                     var GetDocumentVerificationData = db.tbl_DocumentVerification.Where(p => p.ProspectusID == GetProspectData.ID).FirstOrDefault();
+                    var GetApplyNowData = db.tbl_ApplyNow.Where(p => p.ID == GetProspectData.ID).FirstOrDefault();
 
                     model.FirstName = GetProspectData.FirstName;
                     model.LastName = GetProspectData.LastName;
@@ -664,9 +666,25 @@ namespace ShomaRM.Areas.Admin.Models
                     model.FOBAmt = 0;
                     model.EnvelopeID = (!string.IsNullOrWhiteSpace(GetProspectData.EnvelopeID) ? GetProspectData.EnvelopeID : "");
                     model.EsignatureID = (!string.IsNullOrWhiteSpace(GetProspectData.EsignatureID) ? GetProspectData.EsignatureID : "");
-                    model.LeaseTerm = GetProspectData.LeaseTerm ?? 12;
+
+
+                    //model.LeaseTerm = GetProspectData.LeaseTerm ?? 12;
+
+                    var leaseDet = db.tbl_LeaseTerms.Where(p => p.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
+                    if (leaseDet != null)
+                    {
+                        model.LeaseTerm = Convert.ToInt32(leaseDet.LeaseTerms);
+                    }
+                    else
+                    {
+                        model.LeaseTerm = 12;
+                    }
+
                     model.PetDNAAmt = GetProspectData.PetDNAAmt;
                     model.LeaseTermID = Convert.ToInt32(GetProspectData.LeaseTerm);
+
+                    model.VehicleRegistration = GetApplyNowData != null ? Convert.ToDecimal(GetApplyNowData.VehicleRegistration) : 0;
+
                     DateTime? dateExpire = null;
                     try
                     {

@@ -472,15 +472,6 @@
             data: JSON.stringify(model),
             dataType: "JSON",
             success: function (response) {
-                //if (response != "0") {
-                //    $("#hndUID").val(response);
-                //    getTenantInfo(response);
-                //    goToStep(2, 2);
-                //    $("#btnLogout").removeClass("hidden");
-                //} else {
-                //    alert("Invalid Email ID / password.")
-                //}
-
                 var result = response.UserData.split("|");
 
                 if (result[0] == -1) {
@@ -495,6 +486,15 @@
                         getTenantInfoPaymentLink(result[0]);
                         goToStep(2, 2);
                         $("#btnLogout").removeClass("hidden");
+                    }
+                    else if (result[1] == "cl") {
+                        window.location = "/Checklist/";
+                    }
+                    else if (result[1] == "as") {
+                        window.location = "/ApplicationStatus/Index/" + result[2];
+                    }
+                    else if (result[1] == "an") {
+                        window.location = "/ApplyNow/Index/" + result[0];
                     }
                     else {
                         window.location = "/Home/";

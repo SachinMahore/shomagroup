@@ -29,8 +29,8 @@ namespace ShomaRM.Controllers
             try
             {
                 var GetProspectusList = new ProspectModel().GetProspectusList().Where(a=>a.EmailId!= model.EmailId);
-                var currenttime = DateTime.Now.ToString("hh:mm:ss");
-                var addtime = DateTime.Now.AddHours(1).ToString("HH:mm:ss");
+                var currenttime = DateTime.UtcNow.ToString("hh:mm:ss");
+                var addtime = DateTime.UtcNow.AddHours(1).ToString("HH:mm:ss");
 
                 Service _Services = new Service();
                 string Attendees = "'attendees': [";
@@ -38,11 +38,12 @@ namespace ShomaRM.Controllers
                 {
                     Attendees = Attendees + "{ 'emailAddress': {'address':'" + item.EmailId + "','name': '" + item.FirstName + " " + item.LastName + "'},'type': 'required'},";
                 }
+                
                 Attendees = Attendees + "{ 'emailAddress': {'address':'" + model.EmailId + "','name': '" + model.FirstName + " " + model.LastName + "'},'type': 'required'}";
                 Attendees = Attendees + "]";
 
 
-                string body= "{'subject': '" + model.FirstName + " " + model.LastName + "','body': { 'contentType': 'HTML', 'content': 'Call link: https://aka.ms/mmkv1b Submit a question: https://aka.ms/ybuw2i' }, 'start': { 'dateTime': '" + Convert.ToDateTime(model.VisitDateTime).ToString("yyyy-MM-dd") + "T" + currenttime.Replace(".",":") + "','timeZone': 'Pacific Standard Time'  },  'end': { 'dateTime': '" + Convert.ToDateTime(model.VisitDateTime).ToString("yyyy-MM-dd") + "T" + addtime.Replace(".",":") + "', 'timeZone': 'Pacific Standard Time' }, 'location': {'displayName': '" + model.FirstName + " " + model.LastName + "'},"+ Attendees + ",'recurrence': { 'pattern': {'type': 'relativeMonthly','interval': 1,'daysOfWeek': ['Tuesday'],'index': 'first'},'range': {'type': 'noEnd', 'startDate': '" + Convert.ToDateTime(model.VisitDateTime).ToString("yyyy-MM-dd") + "' }}}";
+                string body= "{'subject': '" + model.FirstName + " " + model.LastName + "','body': { 'contentType': 'HTML', 'content': 'Call link: https://aka.ms/mmkv1b Submit a question: https://aka.ms/ybuw2i' }, 'start': { 'dateTime': '" + Convert.ToDateTime(model.VisitDateTime).ToString("yyyy-MM-dd") + "T" + currenttime.Replace(".",":") + "','timeZone': 'Pacific Standard Time'  },  'end': { 'dateTime': '" + Convert.ToDateTime(model.VisitDateTime).ToString("yyyy-MM-dd") + "T" + addtime.Replace(".",":") + "', 'timeZone': 'Pacific Standard Time' }, 'location': {'displayName': '" + model.Message + "'},"+ Attendees + "}";
               
                 var details= await _Services.CrmRequest(HttpMethod.Post, "https://graph.microsoft.com/v1.0/me/calendars/" + ConfigurationManager.AppSettings["CalendarId"] +"/events", body);
                 if (details.IsSuccessStatusCode == true)
