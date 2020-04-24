@@ -105,6 +105,7 @@
           <Property Name="ManagementCompany" Type="varchar" MaxLength="500" />
           <Property Name="ManagementCompanyPhone" Type="varchar" MaxLength="20" />
           <Property Name="IsProprNoticeLeaseAgreement" Type="int" />
+          <Property Name="ParentTOID" Type="bigint" />
         </EntityType>
         <EntityType Name="tbl_ApplyNow">
           <Key>
@@ -365,6 +366,7 @@
           <Property Name="PaystubValue" Type="int" />
           <Property Name="TenantId" Type="bigint" />
           <Property Name="TerminationReason" Type="nvarchar(max)" />
+          <Property Name="ParentTOID" Type="bigint" />
         </EntityType>
         <EntityType Name="tbl_ESignatureKeys">
           <Key>
@@ -611,6 +613,7 @@
           <Property Name="ParentTenantID" Type="bigint" />
           <Property Name="IsChangePass" Type="int" />
           <Property Name="ChangeDate" Type="datetime" />
+          <Property Name="ParentUserID" Type="bigint" />
         </EntityType>
         <EntityType Name="tbl_LoginHistory">
           <Key>
@@ -1375,6 +1378,7 @@
           <Property Name="ManagementCompany" Type="varchar" MaxLength="500" />
           <Property Name="ManagementCompanyPhone" Type="varchar" MaxLength="20" />
           <Property Name="IsProprNoticeLeaseAgreement" Type="int" />
+          <Property Name="ParentTOID" Type="bigint" />
         </EntityType>
         <EntityType Name="tbl_TenantParking">
           <Key>
@@ -2910,7 +2914,6 @@
           <EntitySet Name="tbl_AmenityPriceRange" EntityType="ShomaRMEntitiesModel.tbl_AmenityPriceRange" />
           <EntitySet Name="tbl_AmenityReservation" EntityType="ShomaRMEntitiesModel.tbl_AmenityReservation" />
           <EntitySet Name="tbl_Applicant" EntityType="ShomaRMEntitiesModel.tbl_Applicant" />
-          <EntitySet Name="tbl_ApplicantHistory" EntityType="ShomaRMEntitiesModel.tbl_ApplicantHistory" />
           <EntitySet Name="tbl_ApplyNow" EntityType="ShomaRMEntitiesModel.tbl_ApplyNow" />
           <EntitySet Name="tbl_AuditHistory" EntityType="ShomaRMEntitiesModel.tbl_AuditHistory" />
           <EntitySet Name="tbl_AuditHistoryDetail" EntityType="ShomaRMEntitiesModel.tbl_AuditHistoryDetail" />
@@ -2926,7 +2929,6 @@
           <EntitySet Name="tbl_Country" EntityType="ShomaRMEntitiesModel.tbl_Country" />
           <EntitySet Name="tbl_Document" EntityType="ShomaRMEntitiesModel.tbl_Document" />
           <EntitySet Name="tbl_DocumentVerification" EntityType="ShomaRMEntitiesModel.tbl_DocumentVerification" />
-          <EntitySet Name="tbl_EmployerHistory" EntityType="ShomaRMEntitiesModel.tbl_EmployerHistory" />
           <EntitySet Name="tbl_Estimate" EntityType="ShomaRMEntitiesModel.tbl_Estimate" />
           <EntitySet Name="tbl_Event" EntityType="ShomaRMEntitiesModel.tbl_Event" />
           <EntitySet Name="tbl_EventBooking" EntityType="ShomaRMEntitiesModel.tbl_EventBooking" />
@@ -2941,7 +2943,6 @@
           <EntitySet Name="tbl_LeaseRenewal" EntityType="ShomaRMEntitiesModel.tbl_LeaseRenewal" />
           <EntitySet Name="tbl_LeaseTerms" EntityType="ShomaRMEntitiesModel.tbl_LeaseTerms" />
           <EntitySet Name="tbl_LeaseTransfer" EntityType="ShomaRMEntitiesModel.tbl_LeaseTransfer" />
-          <EntitySet Name="tbl_Login" EntityType="ShomaRMEntitiesModel.tbl_Login" />
           <EntitySet Name="tbl_LoginHistory" EntityType="ShomaRMEntitiesModel.tbl_LoginHistory" />
           <EntitySet Name="tbl_Models" EntityType="ShomaRMEntitiesModel.tbl_Models" />
           <EntitySet Name="tbl_MonthlyPayment" EntityType="ShomaRMEntitiesModel.tbl_MonthlyPayment" />
@@ -2971,7 +2972,6 @@
           <EntitySet Name="tbl_TenantEventJoinApprove" EntityType="ShomaRMEntitiesModel.tbl_TenantEventJoinApprove" />
           <EntitySet Name="tbl_TenantInfo" EntityType="ShomaRMEntitiesModel.tbl_TenantInfo" />
           <EntitySet Name="tbl_TenantMonthlyPayments" EntityType="ShomaRMEntitiesModel.tbl_TenantMonthlyPayments" />
-          <EntitySet Name="tbl_TenantOnline" EntityType="ShomaRMEntitiesModel.tbl_TenantOnline" />
           <EntitySet Name="tbl_TenantParking" EntityType="ShomaRMEntitiesModel.tbl_TenantParking" />
           <EntitySet Name="tbl_TenantPet" EntityType="ShomaRMEntitiesModel.tbl_TenantPet" />
           <EntitySet Name="tbl_TenantPetPlace" EntityType="ShomaRMEntitiesModel.tbl_TenantPetPlace" />
@@ -2992,10 +2992,6 @@
           <AssociationSet Name="FK_tbl_TenantInfo_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow">
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_TenantInfo" EntitySet="tbl_TenantInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_TenantOnline_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow">
-            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
-            <End Role="tbl_TenantOnline" EntitySet="tbl_TenantOnline" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_TenantParking_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantParking_tbl_ApplyNow">
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
@@ -3025,10 +3021,6 @@
             <End Role="tbl_Lease" EntitySet="tbl_Lease" />
             <End Role="tbl_CashReceipts" EntitySet="tbl_CashReceipts" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_CashReceipts_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login">
-            <End Role="tbl_Login" EntitySet="tbl_Login" />
-            <End Role="tbl_CashReceipts" EntitySet="tbl_CashReceipts" />
-          </AssociationSet>
           <AssociationSet Name="FK_tbl_CashReceipts_tbl_Properties" Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Properties">
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
             <End Role="tbl_CashReceipts" EntitySet="tbl_CashReceipts" />
@@ -3040,10 +3032,6 @@
           <AssociationSet Name="FK_tbl_CashReceipts_tbl_Tenant" Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Tenant">
             <End Role="tbl_Tenant" EntitySet="tbl_Tenant" />
             <End Role="tbl_CashReceipts" EntitySet="tbl_CashReceipts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_ChargeType_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_ChargeType_tbl_Login">
-            <End Role="tbl_Login" EntitySet="tbl_Login" />
-            <End Role="tbl_ChargeType" EntitySet="tbl_ChargeType" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_City_tbl_State" Association="ShomaRMEntitiesModel.FK_tbl_City_tbl_State">
             <End Role="tbl_State" EntitySet="tbl_State" />
@@ -3061,14 +3049,6 @@
             <End Role="tbl_City" EntitySet="tbl_City" />
             <End Role="tbl_ZipCodes" EntitySet="tbl_ZipCodes" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_DocumentVerification_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_DocumentVerification_tbl_Login">
-            <End Role="tbl_Login" EntitySet="tbl_Login" />
-            <End Role="tbl_DocumentVerification" EntitySet="tbl_DocumentVerification" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Event_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Event_tbl_Login">
-            <End Role="tbl_Login" EntitySet="tbl_Login" />
-            <End Role="tbl_Event" EntitySet="tbl_Event" />
-          </AssociationSet>
           <AssociationSet Name="FK_tbl_Event_tbl_Properties" Association="ShomaRMEntitiesModel.FK_tbl_Event_tbl_Properties">
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
             <End Role="tbl_Event" EntitySet="tbl_Event" />
@@ -3077,17 +3057,9 @@
             <End Role="tbl_Event" EntitySet="tbl_Event" />
             <End Role="tbl_EventBooking" EntitySet="tbl_EventBooking" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_EventBooking_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_EventBooking_tbl_Login">
-            <End Role="tbl_Login" EntitySet="tbl_Login" />
-            <End Role="tbl_EventBooking" EntitySet="tbl_EventBooking" />
-          </AssociationSet>
           <AssociationSet Name="FK_tbl_EventBooking_tbl_Tenant" Association="ShomaRMEntitiesModel.FK_tbl_EventBooking_tbl_Tenant">
             <End Role="tbl_Tenant" EntitySet="tbl_Tenant" />
             <End Role="tbl_EventBooking" EntitySet="tbl_EventBooking" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Facility_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Facility_tbl_Login">
-            <End Role="tbl_Login" EntitySet="tbl_Login" />
-            <End Role="tbl_Facility" EntitySet="tbl_Facility" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_Facility_tbl_Properties" Association="ShomaRMEntitiesModel.FK_tbl_Facility_tbl_Properties">
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
@@ -3101,10 +3073,6 @@
             <End Role="tbl_Tenant" EntitySet="tbl_Tenant" />
             <End Role="tbl_FacilityBooking" EntitySet="tbl_FacilityBooking" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_FacilityBooking_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_FacilityBooking_tbl_Login">
-            <End Role="tbl_Login" EntitySet="tbl_Login" />
-            <End Role="tbl_FacilityBooking" EntitySet="tbl_FacilityBooking" />
-          </AssociationSet>
           <AssociationSet Name="FK_tbl_FOB_tbl_Properties" Association="ShomaRMEntitiesModel.FK_tbl_FOB_tbl_Properties">
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
             <End Role="tbl_FOB" EntitySet="tbl_FOB" />
@@ -3112,14 +3080,6 @@
           <AssociationSet Name="FK_tbl_Gallery_tbl_Properties" Association="ShomaRMEntitiesModel.FK_tbl_Gallery_tbl_Properties">
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
             <End Role="tbl_Gallery" EntitySet="tbl_Gallery" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Invoice_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Invoice_tbl_Login">
-            <End Role="tbl_Login" EntitySet="tbl_Login" />
-            <End Role="tbl_Invoice" EntitySet="tbl_Invoice" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Lease_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Lease_tbl_Login">
-            <End Role="tbl_Login" EntitySet="tbl_Login" />
-            <End Role="tbl_Lease" EntitySet="tbl_Lease" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_Lease_tbl_Properties" Association="ShomaRMEntitiesModel.FK_tbl_Lease_tbl_Properties">
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
@@ -3140,42 +3100,6 @@
           <AssociationSet Name="FK_tbl_UtilityBilling_tbl_Lease" Association="ShomaRMEntitiesModel.FK_tbl_UtilityBilling_tbl_Lease">
             <End Role="tbl_Lease" EntitySet="tbl_Lease" />
             <End Role="tbl_UtilityBilling" EntitySet="tbl_UtilityBilling" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Properties_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login">
-            <End Role="tbl_Login" EntitySet="tbl_Login" />
-            <End Role="tbl_Properties" EntitySet="tbl_Properties" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Properties_tbl_Login1" Association="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login1">
-            <End Role="tbl_Login" EntitySet="tbl_Login" />
-            <End Role="tbl_Properties" EntitySet="tbl_Properties" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_PurchaseOrder_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login">
-            <End Role="tbl_Login" EntitySet="tbl_Login" />
-            <End Role="tbl_PurchaseOrder" EntitySet="tbl_PurchaseOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_PurchaseOrder_tbl_Login1" Association="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login1">
-            <End Role="tbl_Login" EntitySet="tbl_Login" />
-            <End Role="tbl_PurchaseOrder" EntitySet="tbl_PurchaseOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Tenant_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login">
-            <End Role="tbl_Login" EntitySet="tbl_Login" />
-            <End Role="tbl_Tenant" EntitySet="tbl_Tenant" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Tenant_tbl_Login1" Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login1">
-            <End Role="tbl_Login" EntitySet="tbl_Login" />
-            <End Role="tbl_Tenant" EntitySet="tbl_Tenant" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Tenant_tbl_Login2" Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login2">
-            <End Role="tbl_Login" EntitySet="tbl_Login" />
-            <End Role="tbl_Tenant" EntitySet="tbl_Tenant" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Tenant_tbl_Login3" Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login3">
-            <End Role="tbl_Login" EntitySet="tbl_Login" />
-            <End Role="tbl_Tenant" EntitySet="tbl_Tenant" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Vendor_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Vendor_tbl_Login">
-            <End Role="tbl_Login" EntitySet="tbl_Login" />
-            <End Role="tbl_Vendor" EntitySet="tbl_Vendor" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_Notice_tbl_Properties" Association="ShomaRMEntitiesModel.FK_tbl_Notice_tbl_Properties">
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
@@ -3276,14 +3200,6 @@
             <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
             <End Role="tbl_Document" EntitySet="tbl_Document" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_Prospect_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login">
-            <End Role="tbl_Login" EntitySet="tbl_Login" />
-            <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Prospect_tbl_Login1" Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login1">
-            <End Role="tbl_Login" EntitySet="tbl_Login" />
-            <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
-          </AssociationSet>
           <AssociationSet Name="FK_tbl_Prospect_tbl_Properties" Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Properties">
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
             <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
@@ -3298,6 +3214,94 @@
           </AssociationSet>
           <EntitySet Name="tbl_MoveInChecklist" EntityType="ShomaRMEntitiesModel.tbl_MoveInChecklist" />
           <EntitySet Name="tbl_ESignatureKeys" EntityType="ShomaRMEntitiesModel.tbl_ESignatureKeys" />
+          <EntitySet Name="tbl_ApplicantHistory" EntityType="ShomaRMEntitiesModel.tbl_ApplicantHistory" />
+          <EntitySet Name="tbl_EmployerHistory" EntityType="ShomaRMEntitiesModel.tbl_EmployerHistory" />
+          <EntitySet Name="tbl_Login" EntityType="ShomaRMEntitiesModel.tbl_Login" />
+          <EntitySet Name="tbl_TenantOnline" EntityType="ShomaRMEntitiesModel.tbl_TenantOnline" />
+          <AssociationSet Name="FK_tbl_TenantOnline_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow">
+            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
+            <End Role="tbl_TenantOnline" EntitySet="tbl_TenantOnline" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_CashReceipts_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login">
+            <End Role="tbl_Login" EntitySet="tbl_Login" />
+            <End Role="tbl_CashReceipts" EntitySet="tbl_CashReceipts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_ChargeType_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_ChargeType_tbl_Login">
+            <End Role="tbl_Login" EntitySet="tbl_Login" />
+            <End Role="tbl_ChargeType" EntitySet="tbl_ChargeType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_DocumentVerification_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_DocumentVerification_tbl_Login">
+            <End Role="tbl_Login" EntitySet="tbl_Login" />
+            <End Role="tbl_DocumentVerification" EntitySet="tbl_DocumentVerification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Event_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Event_tbl_Login">
+            <End Role="tbl_Login" EntitySet="tbl_Login" />
+            <End Role="tbl_Event" EntitySet="tbl_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_EventBooking_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_EventBooking_tbl_Login">
+            <End Role="tbl_Login" EntitySet="tbl_Login" />
+            <End Role="tbl_EventBooking" EntitySet="tbl_EventBooking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Facility_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Facility_tbl_Login">
+            <End Role="tbl_Login" EntitySet="tbl_Login" />
+            <End Role="tbl_Facility" EntitySet="tbl_Facility" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_FacilityBooking_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_FacilityBooking_tbl_Login">
+            <End Role="tbl_Login" EntitySet="tbl_Login" />
+            <End Role="tbl_FacilityBooking" EntitySet="tbl_FacilityBooking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Invoice_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Invoice_tbl_Login">
+            <End Role="tbl_Login" EntitySet="tbl_Login" />
+            <End Role="tbl_Invoice" EntitySet="tbl_Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Lease_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Lease_tbl_Login">
+            <End Role="tbl_Login" EntitySet="tbl_Login" />
+            <End Role="tbl_Lease" EntitySet="tbl_Lease" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Properties_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login">
+            <End Role="tbl_Login" EntitySet="tbl_Login" />
+            <End Role="tbl_Properties" EntitySet="tbl_Properties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Properties_tbl_Login1" Association="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login1">
+            <End Role="tbl_Login" EntitySet="tbl_Login" />
+            <End Role="tbl_Properties" EntitySet="tbl_Properties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Prospect_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login">
+            <End Role="tbl_Login" EntitySet="tbl_Login" />
+            <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Prospect_tbl_Login1" Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login1">
+            <End Role="tbl_Login" EntitySet="tbl_Login" />
+            <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_PurchaseOrder_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login">
+            <End Role="tbl_Login" EntitySet="tbl_Login" />
+            <End Role="tbl_PurchaseOrder" EntitySet="tbl_PurchaseOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_PurchaseOrder_tbl_Login1" Association="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login1">
+            <End Role="tbl_Login" EntitySet="tbl_Login" />
+            <End Role="tbl_PurchaseOrder" EntitySet="tbl_PurchaseOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Tenant_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login">
+            <End Role="tbl_Login" EntitySet="tbl_Login" />
+            <End Role="tbl_Tenant" EntitySet="tbl_Tenant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Tenant_tbl_Login1" Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login1">
+            <End Role="tbl_Login" EntitySet="tbl_Login" />
+            <End Role="tbl_Tenant" EntitySet="tbl_Tenant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Tenant_tbl_Login2" Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login2">
+            <End Role="tbl_Login" EntitySet="tbl_Login" />
+            <End Role="tbl_Tenant" EntitySet="tbl_Tenant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Tenant_tbl_Login3" Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login3">
+            <End Role="tbl_Login" EntitySet="tbl_Login" />
+            <End Role="tbl_Tenant" EntitySet="tbl_Tenant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Vendor_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_Vendor_tbl_Login">
+            <End Role="tbl_Login" EntitySet="tbl_Login" />
+            <End Role="tbl_Vendor" EntitySet="tbl_Vendor" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="tbl_AcutraqScrenning">
           <Key>
@@ -3379,28 +3383,6 @@
           <Property Name="Paid" Type="Int32" />
           <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_Applicant" ToRole="tbl_ApplyNow" />
         </EntityType>
-        <EntityType Name="tbl_ApplicantHistory">
-          <Key>
-            <PropertyRef Name="AHID" />
-          </Key>
-          <Property Name="AHID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenantID" Type="Int64" />
-          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="HomeAddress1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="HomeAddress2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="StateHome" Type="Int64" />
-          <Property Name="CityHome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ZipHome" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
-          <Property Name="RentOwn" Type="Int32" />
-          <Property Name="MoveInDateFrom" Type="DateTime" Precision="3" />
-          <Property Name="MoveInDateTo" Type="DateTime" Precision="3" />
-          <Property Name="MonthlyPayment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Reason" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ApartmentCommunity" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="ManagementCompany" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="ManagementCompanyPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="IsProprNoticeLeaseAgreement" Type="Int32" />
-        </EntityType>
         <EntityType Name="tbl_ApplyNow">
           <Key>
             <PropertyRef Name="ID" />
@@ -3449,13 +3431,13 @@
           <Property Name="AcceptSummary" Type="Int32" />
           <NavigationProperty Name="tbl_Applicant" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Applicant" />
           <NavigationProperty Name="tbl_TenantInfo" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantInfo" />
-          <NavigationProperty Name="tbl_TenantOnline" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantOnline" />
           <NavigationProperty Name="tbl_TenantParking" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantParking_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantParking" />
           <NavigationProperty Name="tbl_TenantPet" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantPet_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantPet" />
           <NavigationProperty Name="tbl_TenantPetPlace" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantPetPlace_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantPetPlace" />
           <NavigationProperty Name="tbl_TenantStorage" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantStorage_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantStorage" />
           <NavigationProperty Name="tbl_Vehicle" Relationship="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Vehicle" />
           <Property Name="AdditionalParking" Type="Int32" />
+          <NavigationProperty Name="tbl_TenantOnline" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantOnline" />
         </EntityType>
         <EntityType Name="tbl_AuditHistory">
           <Key>
@@ -3523,10 +3505,10 @@
           <Property Name="DateStamp" Type="DateTime" Precision="3" />
           <Property Name="DepositAcctDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tbl_Lease" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Lease" FromRole="tbl_CashReceipts" ToRole="tbl_Lease" />
-          <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login" FromRole="tbl_CashReceipts" ToRole="tbl_Login" />
           <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Properties" FromRole="tbl_CashReceipts" ToRole="tbl_Properties" />
           <NavigationProperty Name="tbl_Properties1" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_PropertyUnits" FromRole="tbl_CashReceipts" ToRole="tbl_Properties" />
           <NavigationProperty Name="tbl_Tenant" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Tenant" FromRole="tbl_CashReceipts" ToRole="tbl_Tenant" />
+          <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login" FromRole="tbl_CashReceipts" ToRole="tbl_Login" />
         </EntityType>
         <EntityType Name="tbl_CausingIssue">
           <Key>
@@ -3653,37 +3635,6 @@
           <Property Name="DocumentIDNumber" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_DocumentVerification_tbl_Login" FromRole="tbl_DocumentVerification" ToRole="tbl_Login" />
         </EntityType>
-        <EntityType Name="tbl_EmployerHistory">
-          <Key>
-            <PropertyRef Name="HEIID" />
-          </Key>
-          <Property Name="HEIID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="JobTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="JobType" Type="Int32" />
-          <Property Name="StartDate" Type="DateTime" Precision="3" />
-          <Property Name="TerminationDate" Type="DateTime" Precision="3" />
-          <Property Name="AnnualIncome" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="AddAnnualIncome" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="SupervisorName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="SupervisorPhone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="SupervisorEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Country" Type="Int32" />
-          <Property Name="Address1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="State" Type="Int32" />
-          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TaxReturn1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TaxReturn2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TaxReturn3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TaxReturn1OrigName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TaxReturn2OrigName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TaxReturn3OrigName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PaystubValue" Type="Int32" />
-          <Property Name="TenantId" Type="Int64" />
-          <Property Name="TerminationReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="tbl_Estimate">
           <Key>
             <PropertyRef Name="EID" />
@@ -3712,9 +3663,9 @@
           <Property Name="Type" Type="Int32" />
           <Property Name="EventTime" Type="Time" Precision="7" />
           <Property Name="Fees" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Event_tbl_Login" FromRole="tbl_Event" ToRole="tbl_Login" />
           <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Event_tbl_Properties" FromRole="tbl_Event" ToRole="tbl_Properties" />
           <NavigationProperty Name="tbl_EventBooking" Relationship="ShomaRMEntitiesModel.FK_tbl_EventBooking_tbl_Event" FromRole="tbl_Event" ToRole="tbl_EventBooking" />
+          <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Event_tbl_Login" FromRole="tbl_Event" ToRole="tbl_Login" />
         </EntityType>
         <EntityType Name="tbl_EventBooking">
           <Key>
@@ -3729,8 +3680,8 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="NoOfGuest" Type="Int32" />
           <NavigationProperty Name="tbl_Event" Relationship="ShomaRMEntitiesModel.FK_tbl_EventBooking_tbl_Event" FromRole="tbl_EventBooking" ToRole="tbl_Event" />
-          <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_EventBooking_tbl_Login" FromRole="tbl_EventBooking" ToRole="tbl_Login" />
           <NavigationProperty Name="tbl_Tenant" Relationship="ShomaRMEntitiesModel.FK_tbl_EventBooking_tbl_Tenant" FromRole="tbl_EventBooking" ToRole="tbl_Tenant" />
+          <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_EventBooking_tbl_Login" FromRole="tbl_EventBooking" ToRole="tbl_Login" />
         </EntityType>
         <EntityType Name="tbl_Facility">
           <Key>
@@ -3743,9 +3694,9 @@
           <Property Name="Photo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="CreatedByID" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Facility_tbl_Login" FromRole="tbl_Facility" ToRole="tbl_Login" />
           <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Facility_tbl_Properties" FromRole="tbl_Facility" ToRole="tbl_Properties" />
           <NavigationProperty Name="tbl_FacilityBooking" Relationship="ShomaRMEntitiesModel.FK_tbl_FacilityBooking_tbl_Facility" FromRole="tbl_Facility" ToRole="tbl_FacilityBooking" />
+          <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Facility_tbl_Login" FromRole="tbl_Facility" ToRole="tbl_Login" />
         </EntityType>
         <EntityType Name="tbl_FacilityBooking">
           <Key>
@@ -3880,12 +3831,12 @@
           <Property Name="Reconciled" Type="DateTime" Precision="3" />
           <Property Name="Term" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tbl_CashReceipts" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Lease" FromRole="tbl_Lease" ToRole="tbl_CashReceipts" />
-          <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Lease_tbl_Login" FromRole="tbl_Lease" ToRole="tbl_Login" />
           <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Lease_tbl_Properties" FromRole="tbl_Lease" ToRole="tbl_Properties" />
           <NavigationProperty Name="tbl_LeaseRenewal" Relationship="ShomaRMEntitiesModel.FK_tbl_LeaseRenewal_tbl_Lease" FromRole="tbl_Lease" ToRole="tbl_LeaseRenewal" />
           <NavigationProperty Name="tbl_LeaseTransfer" Relationship="ShomaRMEntitiesModel.FK_tbl_LeaseTransfer_tbl_Lease" FromRole="tbl_Lease" ToRole="tbl_LeaseTransfer" />
           <NavigationProperty Name="tbl_Notice" Relationship="ShomaRMEntitiesModel.FK_tbl_Notice_tbl_Lease" FromRole="tbl_Lease" ToRole="tbl_Notice" />
           <NavigationProperty Name="tbl_UtilityBilling" Relationship="ShomaRMEntitiesModel.FK_tbl_UtilityBilling_tbl_Lease" FromRole="tbl_Lease" ToRole="tbl_UtilityBilling" />
+          <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Lease_tbl_Login" FromRole="tbl_Lease" ToRole="tbl_Login" />
         </EntityType>
         <EntityType Name="tbl_LeaseRenewal">
           <Key>
@@ -3922,45 +3873,6 @@
           <Property Name="MoveIn" Type="DateTime" Precision="3" />
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="tbl_Lease" Relationship="ShomaRMEntitiesModel.FK_tbl_LeaseTransfer_tbl_Lease" FromRole="tbl_LeaseTransfer" ToRole="tbl_Lease" />
-        </EntityType>
-        <EntityType Name="tbl_Login">
-          <Key>
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
-          <Property Name="CellPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="IsActive" Type="Int32" />
-          <Property Name="TenantID" Type="Int64" />
-          <Property Name="IsSuperUser" Type="Int32" />
-          <Property Name="UserType" Type="Int32" />
-          <Property Name="ParentTenantID" Type="Int64" />
-          <Property Name="IsChangePass" Type="Int32" />
-          <Property Name="ChangeDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbl_CashReceipts" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login" FromRole="tbl_Login" ToRole="tbl_CashReceipts" />
-          <NavigationProperty Name="tbl_ChargeType" Relationship="ShomaRMEntitiesModel.FK_tbl_ChargeType_tbl_Login" FromRole="tbl_Login" ToRole="tbl_ChargeType" />
-          <NavigationProperty Name="tbl_DocumentVerification" Relationship="ShomaRMEntitiesModel.FK_tbl_DocumentVerification_tbl_Login" FromRole="tbl_Login" ToRole="tbl_DocumentVerification" />
-          <NavigationProperty Name="tbl_Event" Relationship="ShomaRMEntitiesModel.FK_tbl_Event_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Event" />
-          <NavigationProperty Name="tbl_EventBooking" Relationship="ShomaRMEntitiesModel.FK_tbl_EventBooking_tbl_Login" FromRole="tbl_Login" ToRole="tbl_EventBooking" />
-          <NavigationProperty Name="tbl_Facility" Relationship="ShomaRMEntitiesModel.FK_tbl_Facility_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Facility" />
-          <NavigationProperty Name="tbl_FacilityBooking" Relationship="ShomaRMEntitiesModel.FK_tbl_FacilityBooking_tbl_Login" FromRole="tbl_Login" ToRole="tbl_FacilityBooking" />
-          <NavigationProperty Name="tbl_Invoice" Relationship="ShomaRMEntitiesModel.FK_tbl_Invoice_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Invoice" />
-          <NavigationProperty Name="tbl_Lease" Relationship="ShomaRMEntitiesModel.FK_tbl_Lease_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Lease" />
-          <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Properties" />
-          <NavigationProperty Name="tbl_Properties1" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login1" FromRole="tbl_Login" ToRole="tbl_Properties" />
-          <NavigationProperty Name="tbl_PurchaseOrder" Relationship="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login" FromRole="tbl_Login" ToRole="tbl_PurchaseOrder" />
-          <NavigationProperty Name="tbl_PurchaseOrder1" Relationship="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login1" FromRole="tbl_Login" ToRole="tbl_PurchaseOrder" />
-          <NavigationProperty Name="tbl_Tenant" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Tenant" />
-          <NavigationProperty Name="tbl_Tenant1" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login1" FromRole="tbl_Login" ToRole="tbl_Tenant" />
-          <NavigationProperty Name="tbl_Tenant2" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login2" FromRole="tbl_Login" ToRole="tbl_Tenant" />
-          <NavigationProperty Name="tbl_Tenant3" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login3" FromRole="tbl_Login" ToRole="tbl_Tenant" />
-          <NavigationProperty Name="tbl_Vendor" Relationship="ShomaRMEntitiesModel.FK_tbl_Vendor_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Vendor" />
-          <NavigationProperty Name="tbl_Prospect" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Prospect" />
-          <NavigationProperty Name="tbl_Prospect1" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login1" FromRole="tbl_Login" ToRole="tbl_Prospect" />
         </EntityType>
         <EntityType Name="tbl_LoginHistory">
           <Key>
@@ -4178,8 +4090,6 @@
           <NavigationProperty Name="tbl_FOB" Relationship="ShomaRMEntitiesModel.FK_tbl_FOB_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_FOB" />
           <NavigationProperty Name="tbl_Gallery" Relationship="ShomaRMEntitiesModel.FK_tbl_Gallery_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_Gallery" />
           <NavigationProperty Name="tbl_Lease" Relationship="ShomaRMEntitiesModel.FK_tbl_Lease_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_Lease" />
-          <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login" FromRole="tbl_Properties" ToRole="tbl_Login" />
-          <NavigationProperty Name="tbl_Login1" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login1" FromRole="tbl_Properties" ToRole="tbl_Login" />
           <NavigationProperty Name="tbl_Notice" Relationship="ShomaRMEntitiesModel.FK_tbl_Notice_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_Notice" />
           <NavigationProperty Name="tbl_PetPlace" Relationship="ShomaRMEntitiesModel.FK_tbl_PetPlace_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_PetPlace" />
           <NavigationProperty Name="tbl_Promotion" Relationship="ShomaRMEntitiesModel.FK_tbl_Promotion_tbl_Promotion" FromRole="tbl_Properties" ToRole="tbl_Promotion" />
@@ -4197,6 +4107,8 @@
           <NavigationProperty Name="tbl_Tenant1" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Properties1" FromRole="tbl_Properties" ToRole="tbl_Tenant" />
           <NavigationProperty Name="tbl_WorkOrder" Relationship="ShomaRMEntitiesModel.FK_tbl_WorkOrder_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_WorkOrder" />
           <NavigationProperty Name="tbl_Prospect" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_Prospect" />
+          <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login" FromRole="tbl_Properties" ToRole="tbl_Login" />
+          <NavigationProperty Name="tbl_Login1" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login1" FromRole="tbl_Properties" ToRole="tbl_Login" />
         </EntityType>
         <EntityType Name="tbl_PropertyFloor">
           <Key>
@@ -4285,9 +4197,9 @@
           <Property Name="CanceledBy" Type="Int32" />
           <Property Name="CreatedBy" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Properties" FromRole="tbl_PurchaseOrder" ToRole="tbl_Properties" />
           <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login" FromRole="tbl_PurchaseOrder" ToRole="tbl_Login" />
           <NavigationProperty Name="tbl_Login1" Relationship="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login1" FromRole="tbl_PurchaseOrder" ToRole="tbl_Login" />
-          <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Properties" FromRole="tbl_PurchaseOrder" ToRole="tbl_Properties" />
         </EntityType>
         <EntityType Name="tbl_Rating">
           <Key>
@@ -4458,15 +4370,15 @@
           <NavigationProperty Name="tbl_CashReceipts" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Tenant" FromRole="tbl_Tenant" ToRole="tbl_CashReceipts" />
           <NavigationProperty Name="tbl_EventBooking" Relationship="ShomaRMEntitiesModel.FK_tbl_EventBooking_tbl_Tenant" FromRole="tbl_Tenant" ToRole="tbl_EventBooking" />
           <NavigationProperty Name="tbl_FacilityBooking" Relationship="ShomaRMEntitiesModel.FK_tbl_FacilityBooking_tbl_FacilityBooking" FromRole="tbl_Tenant" ToRole="tbl_FacilityBooking" />
-          <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login" FromRole="tbl_Tenant" ToRole="tbl_Login" />
-          <NavigationProperty Name="tbl_Login1" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login1" FromRole="tbl_Tenant" ToRole="tbl_Login" />
-          <NavigationProperty Name="tbl_Login2" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login2" FromRole="tbl_Tenant" ToRole="tbl_Login" />
-          <NavigationProperty Name="tbl_Login3" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login3" FromRole="tbl_Tenant" ToRole="tbl_Login" />
           <NavigationProperty Name="tbl_Notice" Relationship="ShomaRMEntitiesModel.FK_tbl_Notice_tbl_Tenant" FromRole="tbl_Tenant" ToRole="tbl_Notice" />
           <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Properties" FromRole="tbl_Tenant" ToRole="tbl_Properties" />
           <NavigationProperty Name="tbl_Properties1" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Properties1" FromRole="tbl_Tenant" ToRole="tbl_Properties" />
           <NavigationProperty Name="tbl_UtilityBilling" Relationship="ShomaRMEntitiesModel.FK_tbl_UtilityBilling_tbl_Tenant" FromRole="tbl_Tenant" ToRole="tbl_UtilityBilling" />
           <NavigationProperty Name="tbl_WorkOrder" Relationship="ShomaRMEntitiesModel.FK_tbl_WorkOrder_tbl_Tenant" FromRole="tbl_Tenant" ToRole="tbl_WorkOrder" />
+          <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login" FromRole="tbl_Tenant" ToRole="tbl_Login" />
+          <NavigationProperty Name="tbl_Login1" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login1" FromRole="tbl_Tenant" ToRole="tbl_Login" />
+          <NavigationProperty Name="tbl_Login2" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login2" FromRole="tbl_Tenant" ToRole="tbl_Login" />
+          <NavigationProperty Name="tbl_Login3" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login3" FromRole="tbl_Tenant" ToRole="tbl_Login" />
         </EntityType>
         <EntityType Name="tbl_TenantEventJoin">
           <Key>
@@ -4602,112 +4514,6 @@
           <Property Name="Charge_Amount" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="PAID" Type="Int32" Nullable="false" />
           <Property Name="IsRecurring" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="tbl_TenantOnline">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProspectID" Type="Int64" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="MiddleInitial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
-          <Property Name="Gender" Type="Int32" />
-          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="PassportNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CountryIssuance" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DateIssuance" Type="DateTime" Precision="3" />
-          <Property Name="DateExpire" Type="DateTime" Precision="3" />
-          <Property Name="IDType" Type="Int32" />
-          <Property Name="State" Type="Int64" />
-          <Property Name="IDNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="HomeAddress1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="HomeAddress2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="StateHome" Type="Int64" />
-          <Property Name="CityHome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ZipHome" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
-          <Property Name="RentOwn" Type="Int32" />
-          <Property Name="MoveInDate" Type="DateTime" Precision="3" />
-          <Property Name="MonthlyPayment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Reason" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmployerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="JobType" Type="Int32" />
-          <Property Name="StartDate" Type="DateTime" Precision="3" />
-          <Property Name="Income" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="AdditionalIncome" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="SupervisorName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SupervisorPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="SupervisorEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="OfficeCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="OfficeAddress1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="OfficeAddress2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="OfficeState" Type="Int64" />
-          <Property Name="OfficeCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="OfficeZip" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
-          <Property Name="Relationship" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyMobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyHomePhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyWorkPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyAddress1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyAddress2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyStateHome" Type="Int64" />
-          <Property Name="EmergencyCityHome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyZipHome" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="IsInternational" Type="Int32" />
-          <Property Name="OtherGender" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="MoveInDateFrom" Type="DateTime" Precision="3" />
-          <Property Name="MoveInDateTo" Type="DateTime" Precision="3" />
-          <Property Name="Country2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="HomeAddress12" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="HomeAddress22" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="StateHome2" Type="Int64" />
-          <Property Name="CityHome2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ZipHome2" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
-          <Property Name="RentOwn2" Type="Int32" />
-          <Property Name="MoveInDateFrom2" Type="DateTime" Precision="3" />
-          <Property Name="MoveInDateTo2" Type="DateTime" Precision="3" />
-          <Property Name="MonthlyPayment2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Reason2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IsAdditionalRHistory" Type="Int32" />
-          <Property Name="PassportDocument" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="IdentityDocument" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="TaxReturn" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="SSN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="TaxReturn2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="TaxReturn3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="HaveVehicle" Type="Boolean" />
-          <Property Name="TaxReturnOrginalFile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="TaxReturnOrginalFile2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="TaxReturnOrginalFile3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="HavePet" Type="Boolean" />
-          <Property Name="PassportDocumentOriginalFile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="IdentityDocumentOriginalFile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="IsPaystub" Type="Boolean" />
-          <Property Name="CountryOfOrigin" Type="Int64" />
-          <Property Name="Evicted" Type="Int32" />
-          <Property Name="EvictedDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="ConvictedFelony" Type="Int32" />
-          <Property Name="ConvictedFelonyDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="CriminalChargPen" Type="Int32" />
-          <Property Name="CriminalChargPenDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="DoYouSmoke" Type="Int32" />
-          <Property Name="ReferredResident" Type="Int32" />
-          <Property Name="ReferredResidentName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ReferredBrokerMerchant" Type="Int32" />
-          <Property Name="ApartmentCommunity" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="ManagementCompany" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="ManagementCompanyPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="IsProprNoticeLeaseAgreement" Type="Int32" />
-          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" FromRole="tbl_TenantOnline" ToRole="tbl_ApplyNow" />
         </EntityType>
         <EntityType Name="tbl_TenantParking">
           <Key>
@@ -4878,8 +4684,8 @@
           <Property Name="City" Type="Int32" />
           <Property Name="Created_By" Type="Int32" />
           <Property Name="Created_Date" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Vendor_tbl_Login" FromRole="tbl_Vendor" ToRole="tbl_Login" />
           <NavigationProperty Name="tbl_WorkOrder" Relationship="ShomaRMEntitiesModel.FK_tbl_WorkOrder_tbl_Vendor" FromRole="tbl_Vendor" ToRole="tbl_WorkOrder" />
+          <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Vendor_tbl_Login" FromRole="tbl_Vendor" ToRole="tbl_Login" />
         </EntityType>
         <EntityType Name="tbl_Visit">
           <Key>
@@ -4949,18 +4755,6 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="tbl_TenantInfo">
-              <PropertyRef Name="ProspectID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_TenantOnline_tbl_ApplyNow">
-          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_TenantOnline" Role="tbl_TenantOnline" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_ApplyNow">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_TenantOnline">
               <PropertyRef Name="ProspectID" />
             </Dependent>
           </ReferentialConstraint>
@@ -5049,18 +4843,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbl_CashReceipts_tbl_Login">
-          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_CashReceipts" Role="tbl_CashReceipts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Login">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_CashReceipts">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tbl_CashReceipts_tbl_Properties">
           <End Type="ShomaRMEntitiesModel.tbl_Properties" Role="tbl_Properties" Multiplicity="0..1" />
           <End Type="ShomaRMEntitiesModel.tbl_CashReceipts" Role="tbl_CashReceipts" Multiplicity="*" />
@@ -5094,18 +4876,6 @@
             </Principal>
             <Dependent Role="tbl_CashReceipts">
               <PropertyRef Name="TenantID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_ChargeType_tbl_Login">
-          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="1" />
-          <End Type="ShomaRMEntitiesModel.tbl_ChargeType" Role="tbl_ChargeType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Login">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_ChargeType">
-              <PropertyRef Name="CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5157,30 +4927,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbl_DocumentVerification_tbl_Login">
-          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_DocumentVerification" Role="tbl_DocumentVerification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Login">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_DocumentVerification">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Event_tbl_Login">
-          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_Event" Role="tbl_Event" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Login">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_Event">
-              <PropertyRef Name="CreatedByID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tbl_Event_tbl_Properties">
           <End Type="ShomaRMEntitiesModel.tbl_Properties" Role="tbl_Properties" Multiplicity="0..1" />
           <End Type="ShomaRMEntitiesModel.tbl_Event" Role="tbl_Event" Multiplicity="*" />
@@ -5205,18 +4951,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbl_EventBooking_tbl_Login">
-          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_EventBooking" Role="tbl_EventBooking" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Login">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_EventBooking">
-              <PropertyRef Name="CreatedByID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tbl_EventBooking_tbl_Tenant">
           <End Type="ShomaRMEntitiesModel.tbl_Tenant" Role="tbl_Tenant" Multiplicity="0..1" />
           <End Type="ShomaRMEntitiesModel.tbl_EventBooking" Role="tbl_EventBooking" Multiplicity="*" />
@@ -5226,18 +4960,6 @@
             </Principal>
             <Dependent Role="tbl_EventBooking">
               <PropertyRef Name="TenantID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Facility_tbl_Login">
-          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_Facility" Role="tbl_Facility" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Login">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_Facility">
-              <PropertyRef Name="CreatedByID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5277,18 +4999,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbl_FacilityBooking_tbl_Login">
-          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_FacilityBooking" Role="tbl_FacilityBooking" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Login">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_FacilityBooking">
-              <PropertyRef Name="CreatedByID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tbl_FOB_tbl_Properties">
           <End Type="ShomaRMEntitiesModel.tbl_Properties" Role="tbl_Properties" Multiplicity="0..1" />
           <End Type="ShomaRMEntitiesModel.tbl_FOB" Role="tbl_FOB" Multiplicity="*" />
@@ -5310,30 +5020,6 @@
             </Principal>
             <Dependent Role="tbl_Gallery">
               <PropertyRef Name="PID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Invoice_tbl_Login">
-          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_Invoice" Role="tbl_Invoice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Login">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_Invoice">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Lease_tbl_Login">
-          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_Lease" Role="tbl_Lease" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Login">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_Lease">
-              <PropertyRef Name="CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5394,114 +5080,6 @@
             </Principal>
             <Dependent Role="tbl_UtilityBilling">
               <PropertyRef Name="LeaseID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Properties_tbl_Login">
-          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_Properties" Role="tbl_Properties" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Login">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_Properties">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Properties_tbl_Login1">
-          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_Properties" Role="tbl_Properties" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Login">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_Properties">
-              <PropertyRef Name="LastModifiedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_PurchaseOrder_tbl_Login">
-          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_PurchaseOrder" Role="tbl_PurchaseOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Login">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_PurchaseOrder">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_PurchaseOrder_tbl_Login1">
-          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_PurchaseOrder" Role="tbl_PurchaseOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Login">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_PurchaseOrder">
-              <PropertyRef Name="CanceledBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Tenant_tbl_Login">
-          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_Tenant" Role="tbl_Tenant" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Login">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_Tenant">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Tenant_tbl_Login1">
-          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_Tenant" Role="tbl_Tenant" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Login">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_Tenant">
-              <PropertyRef Name="LastModifiedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Tenant_tbl_Login2">
-          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_Tenant" Role="tbl_Tenant" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Login">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_Tenant">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Tenant_tbl_Login3">
-          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_Tenant" Role="tbl_Tenant" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Login">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_Tenant">
-              <PropertyRef Name="LastModifiedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Vendor_tbl_Login">
-          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_Vendor" Role="tbl_Vendor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Login">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_Vendor">
-              <PropertyRef Name="Created_By" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5832,11 +5410,11 @@
           <Property Name="OutlookID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tbl_City" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_City" FromRole="tbl_Prospect" ToRole="tbl_City" />
           <NavigationProperty Name="tbl_Document" Relationship="ShomaRMEntitiesModel.FK_tbl_Document_tbl_Prospect" FromRole="tbl_Prospect" ToRole="tbl_Document" />
-          <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login" FromRole="tbl_Prospect" ToRole="tbl_Login" />
-          <NavigationProperty Name="tbl_Login1" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login1" FromRole="tbl_Prospect" ToRole="tbl_Login" />
           <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Properties" FromRole="tbl_Prospect" ToRole="tbl_Properties" />
           <NavigationProperty Name="tbl_State" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_State" FromRole="tbl_Prospect" ToRole="tbl_State" />
           <NavigationProperty Name="tbl_Visit" Relationship="ShomaRMEntitiesModel.FK_tbl_Visit_tbl_Prospect" FromRole="tbl_Prospect" ToRole="tbl_Visit" />
+          <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login" FromRole="tbl_Prospect" ToRole="tbl_Login" />
+          <NavigationProperty Name="tbl_Login1" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login1" FromRole="tbl_Prospect" ToRole="tbl_Login" />
         </EntityType>
         <Association Name="FK_tbl_Prospect_tbl_City">
           <End Type="ShomaRMEntitiesModel.tbl_City" Role="tbl_City" Multiplicity="0..1" />
@@ -5859,30 +5437,6 @@
             </Principal>
             <Dependent Role="tbl_Document">
               <PropertyRef Name="TenantID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Prospect_tbl_Login">
-          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Login">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_Prospect">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Prospect_tbl_Login1">
-          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Login">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tbl_Prospect">
-              <PropertyRef Name="LastModifiedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5951,6 +5505,460 @@
           <Property Name="DateSigned" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="IsLeaseExecuted" Type="Int32" />
         </EntityType>
+        <EntityType Name="tbl_ApplicantHistory">
+          <Key>
+            <PropertyRef Name="AHID" />
+          </Key>
+          <Property Name="AHID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantID" Type="Int64" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HomeAddress1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="HomeAddress2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="StateHome" Type="Int64" />
+          <Property Name="CityHome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZipHome" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="RentOwn" Type="Int32" />
+          <Property Name="MoveInDateFrom" Type="DateTime" Precision="3" />
+          <Property Name="MoveInDateTo" Type="DateTime" Precision="3" />
+          <Property Name="MonthlyPayment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Reason" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApartmentCommunity" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ManagementCompany" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ManagementCompanyPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IsProprNoticeLeaseAgreement" Type="Int32" />
+          <Property Name="ParentTOID" Type="Int64" />
+        </EntityType>
+        <EntityType Name="tbl_EmployerHistory">
+          <Key>
+            <PropertyRef Name="HEIID" />
+          </Key>
+          <Property Name="HEIID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="JobTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="JobType" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="TerminationDate" Type="DateTime" Precision="3" />
+          <Property Name="AnnualIncome" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AddAnnualIncome" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SupervisorName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SupervisorPhone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SupervisorEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="Int32" />
+          <Property Name="Address1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturn1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturn2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturn3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturn1OrigName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturn2OrigName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturn3OrigName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PaystubValue" Type="Int32" />
+          <Property Name="TenantId" Type="Int64" />
+          <Property Name="TerminationReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ParentTOID" Type="Int64" />
+        </EntityType>
+        <EntityType Name="tbl_Login">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
+          <Property Name="CellPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Int32" />
+          <Property Name="TenantID" Type="Int64" />
+          <Property Name="IsSuperUser" Type="Int32" />
+          <Property Name="UserType" Type="Int32" />
+          <Property Name="ParentTenantID" Type="Int64" />
+          <Property Name="IsChangePass" Type="Int32" />
+          <Property Name="ChangeDate" Type="DateTime" Precision="3" />
+          <Property Name="ParentUserID" Type="Int64" />
+          <NavigationProperty Name="tbl_CashReceipts" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login" FromRole="tbl_Login" ToRole="tbl_CashReceipts" />
+          <NavigationProperty Name="tbl_ChargeType" Relationship="ShomaRMEntitiesModel.FK_tbl_ChargeType_tbl_Login" FromRole="tbl_Login" ToRole="tbl_ChargeType" />
+          <NavigationProperty Name="tbl_DocumentVerification" Relationship="ShomaRMEntitiesModel.FK_tbl_DocumentVerification_tbl_Login" FromRole="tbl_Login" ToRole="tbl_DocumentVerification" />
+          <NavigationProperty Name="tbl_Event" Relationship="ShomaRMEntitiesModel.FK_tbl_Event_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Event" />
+          <NavigationProperty Name="tbl_EventBooking" Relationship="ShomaRMEntitiesModel.FK_tbl_EventBooking_tbl_Login" FromRole="tbl_Login" ToRole="tbl_EventBooking" />
+          <NavigationProperty Name="tbl_Facility" Relationship="ShomaRMEntitiesModel.FK_tbl_Facility_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Facility" />
+          <NavigationProperty Name="tbl_FacilityBooking" Relationship="ShomaRMEntitiesModel.FK_tbl_FacilityBooking_tbl_Login" FromRole="tbl_Login" ToRole="tbl_FacilityBooking" />
+          <NavigationProperty Name="tbl_Invoice" Relationship="ShomaRMEntitiesModel.FK_tbl_Invoice_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Invoice" />
+          <NavigationProperty Name="tbl_Lease" Relationship="ShomaRMEntitiesModel.FK_tbl_Lease_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Lease" />
+          <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Properties" />
+          <NavigationProperty Name="tbl_Properties1" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login1" FromRole="tbl_Login" ToRole="tbl_Properties" />
+          <NavigationProperty Name="tbl_Prospect" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Prospect" />
+          <NavigationProperty Name="tbl_Prospect1" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login1" FromRole="tbl_Login" ToRole="tbl_Prospect" />
+          <NavigationProperty Name="tbl_PurchaseOrder" Relationship="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login" FromRole="tbl_Login" ToRole="tbl_PurchaseOrder" />
+          <NavigationProperty Name="tbl_PurchaseOrder1" Relationship="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login1" FromRole="tbl_Login" ToRole="tbl_PurchaseOrder" />
+          <NavigationProperty Name="tbl_Tenant" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Tenant" />
+          <NavigationProperty Name="tbl_Tenant1" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login1" FromRole="tbl_Login" ToRole="tbl_Tenant" />
+          <NavigationProperty Name="tbl_Tenant2" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login2" FromRole="tbl_Login" ToRole="tbl_Tenant" />
+          <NavigationProperty Name="tbl_Tenant3" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login3" FromRole="tbl_Login" ToRole="tbl_Tenant" />
+          <NavigationProperty Name="tbl_Vendor" Relationship="ShomaRMEntitiesModel.FK_tbl_Vendor_tbl_Login" FromRole="tbl_Login" ToRole="tbl_Vendor" />
+        </EntityType>
+        <EntityType Name="tbl_TenantOnline">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProspectID" Type="Int64" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleInitial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="Gender" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="PassportNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CountryIssuance" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateIssuance" Type="DateTime" Precision="3" />
+          <Property Name="DateExpire" Type="DateTime" Precision="3" />
+          <Property Name="IDType" Type="Int32" />
+          <Property Name="State" Type="Int64" />
+          <Property Name="IDNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HomeAddress1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="HomeAddress2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="StateHome" Type="Int64" />
+          <Property Name="CityHome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZipHome" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="RentOwn" Type="Int32" />
+          <Property Name="MoveInDate" Type="DateTime" Precision="3" />
+          <Property Name="MonthlyPayment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Reason" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmployerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JobType" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="Income" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AdditionalIncome" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SupervisorName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SupervisorPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SupervisorEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OfficeCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OfficeAddress1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="OfficeAddress2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="OfficeState" Type="Int64" />
+          <Property Name="OfficeCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OfficeZip" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="Relationship" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyMobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyHomePhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyWorkPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyAddress1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyAddress2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyStateHome" Type="Int64" />
+          <Property Name="EmergencyCityHome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyZipHome" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsInternational" Type="Int32" />
+          <Property Name="OtherGender" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MoveInDateFrom" Type="DateTime" Precision="3" />
+          <Property Name="MoveInDateTo" Type="DateTime" Precision="3" />
+          <Property Name="Country2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HomeAddress12" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="HomeAddress22" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="StateHome2" Type="Int64" />
+          <Property Name="CityHome2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZipHome2" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="RentOwn2" Type="Int32" />
+          <Property Name="MoveInDateFrom2" Type="DateTime" Precision="3" />
+          <Property Name="MoveInDateTo2" Type="DateTime" Precision="3" />
+          <Property Name="MonthlyPayment2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Reason2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsAdditionalRHistory" Type="Int32" />
+          <Property Name="PassportDocument" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IdentityDocument" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="TaxReturn" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="SSN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturn2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="TaxReturn3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="HaveVehicle" Type="Boolean" />
+          <Property Name="TaxReturnOrginalFile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="TaxReturnOrginalFile2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="TaxReturnOrginalFile3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="HavePet" Type="Boolean" />
+          <Property Name="PassportDocumentOriginalFile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IdentityDocumentOriginalFile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsPaystub" Type="Boolean" />
+          <Property Name="CountryOfOrigin" Type="Int64" />
+          <Property Name="Evicted" Type="Int32" />
+          <Property Name="EvictedDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ConvictedFelony" Type="Int32" />
+          <Property Name="ConvictedFelonyDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CriminalChargPen" Type="Int32" />
+          <Property Name="CriminalChargPenDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DoYouSmoke" Type="Int32" />
+          <Property Name="ReferredResident" Type="Int32" />
+          <Property Name="ReferredResidentName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ReferredBrokerMerchant" Type="Int32" />
+          <Property Name="ApartmentCommunity" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ManagementCompany" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ManagementCompanyPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IsProprNoticeLeaseAgreement" Type="Int32" />
+          <Property Name="ParentTOID" Type="Int64" />
+          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" FromRole="tbl_TenantOnline" ToRole="tbl_ApplyNow" />
+        </EntityType>
+        <Association Name="FK_tbl_TenantOnline_tbl_ApplyNow">
+          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_TenantOnline" Role="tbl_TenantOnline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_TenantOnline">
+              <PropertyRef Name="ProspectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_CashReceipts_tbl_Login">
+          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_CashReceipts" Role="tbl_CashReceipts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_CashReceipts">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_ChargeType_tbl_Login">
+          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="1" />
+          <End Type="ShomaRMEntitiesModel.tbl_ChargeType" Role="tbl_ChargeType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_ChargeType">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_DocumentVerification_tbl_Login">
+          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_DocumentVerification" Role="tbl_DocumentVerification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_DocumentVerification">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Event_tbl_Login">
+          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_Event" Role="tbl_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Event">
+              <PropertyRef Name="CreatedByID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_EventBooking_tbl_Login">
+          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_EventBooking" Role="tbl_EventBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_EventBooking">
+              <PropertyRef Name="CreatedByID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Facility_tbl_Login">
+          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_Facility" Role="tbl_Facility" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Facility">
+              <PropertyRef Name="CreatedByID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_FacilityBooking_tbl_Login">
+          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_FacilityBooking" Role="tbl_FacilityBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_FacilityBooking">
+              <PropertyRef Name="CreatedByID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Invoice_tbl_Login">
+          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_Invoice" Role="tbl_Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Invoice">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Lease_tbl_Login">
+          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_Lease" Role="tbl_Lease" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Lease">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Properties_tbl_Login">
+          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_Properties" Role="tbl_Properties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Properties">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Properties_tbl_Login1">
+          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_Properties" Role="tbl_Properties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Properties">
+              <PropertyRef Name="LastModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Prospect_tbl_Login">
+          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Prospect">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Prospect_tbl_Login1">
+          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_Prospect" Role="tbl_Prospect" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Prospect">
+              <PropertyRef Name="LastModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_PurchaseOrder_tbl_Login">
+          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_PurchaseOrder" Role="tbl_PurchaseOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_PurchaseOrder">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_PurchaseOrder_tbl_Login1">
+          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_PurchaseOrder" Role="tbl_PurchaseOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_PurchaseOrder">
+              <PropertyRef Name="CanceledBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Tenant_tbl_Login">
+          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_Tenant" Role="tbl_Tenant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Tenant">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Tenant_tbl_Login1">
+          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_Tenant" Role="tbl_Tenant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Tenant">
+              <PropertyRef Name="LastModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Tenant_tbl_Login2">
+          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_Tenant" Role="tbl_Tenant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Tenant">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Tenant_tbl_Login3">
+          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_Tenant" Role="tbl_Tenant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Tenant">
+              <PropertyRef Name="LastModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Vendor_tbl_Login">
+          <End Type="ShomaRMEntitiesModel.tbl_Login" Role="tbl_Login" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_Vendor" Role="tbl_Vendor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Login">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tbl_Vendor">
+              <PropertyRef Name="Created_By" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6039,29 +6047,6 @@
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_ApplicantHistory">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ApplicantHistory">
-              <MappingFragment StoreEntitySet="tbl_ApplicantHistory">
-                <ScalarProperty Name="IsProprNoticeLeaseAgreement" ColumnName="IsProprNoticeLeaseAgreement" />
-                <ScalarProperty Name="ManagementCompanyPhone" ColumnName="ManagementCompanyPhone" />
-                <ScalarProperty Name="ManagementCompany" ColumnName="ManagementCompany" />
-                <ScalarProperty Name="ApartmentCommunity" ColumnName="ApartmentCommunity" />
-                <ScalarProperty Name="Reason" ColumnName="Reason" />
-                <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
-                <ScalarProperty Name="MoveInDateTo" ColumnName="MoveInDateTo" />
-                <ScalarProperty Name="MoveInDateFrom" ColumnName="MoveInDateFrom" />
-                <ScalarProperty Name="RentOwn" ColumnName="RentOwn" />
-                <ScalarProperty Name="ZipHome" ColumnName="ZipHome" />
-                <ScalarProperty Name="CityHome" ColumnName="CityHome" />
-                <ScalarProperty Name="StateHome" ColumnName="StateHome" />
-                <ScalarProperty Name="HomeAddress2" ColumnName="HomeAddress2" />
-                <ScalarProperty Name="HomeAddress1" ColumnName="HomeAddress1" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-                <ScalarProperty Name="AHID" ColumnName="AHID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -6309,38 +6294,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_EmployerHistory">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_EmployerHistory">
-              <MappingFragment StoreEntitySet="tbl_EmployerHistory">
-                <ScalarProperty Name="TerminationReason" ColumnName="TerminationReason" />
-                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
-                <ScalarProperty Name="PaystubValue" ColumnName="PaystubValue" />
-                <ScalarProperty Name="TaxReturn3OrigName" ColumnName="TaxReturn3OrigName" />
-                <ScalarProperty Name="TaxReturn2OrigName" ColumnName="TaxReturn2OrigName" />
-                <ScalarProperty Name="TaxReturn1OrigName" ColumnName="TaxReturn1OrigName" />
-                <ScalarProperty Name="TaxReturn3" ColumnName="TaxReturn3" />
-                <ScalarProperty Name="TaxReturn2" ColumnName="TaxReturn2" />
-                <ScalarProperty Name="TaxReturn1" ColumnName="TaxReturn1" />
-                <ScalarProperty Name="Zip" ColumnName="Zip" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="Address1" ColumnName="Address1" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="SupervisorEmail" ColumnName="SupervisorEmail" />
-                <ScalarProperty Name="SupervisorPhone" ColumnName="SupervisorPhone" />
-                <ScalarProperty Name="SupervisorName" ColumnName="SupervisorName" />
-                <ScalarProperty Name="AddAnnualIncome" ColumnName="AddAnnualIncome" />
-                <ScalarProperty Name="AnnualIncome" ColumnName="AnnualIncome" />
-                <ScalarProperty Name="TerminationDate" ColumnName="TerminationDate" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="JobType" ColumnName="JobType" />
-                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
-                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
-                <ScalarProperty Name="HEIID" ColumnName="HEIID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_Estimate">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Estimate">
               <MappingFragment StoreEntitySet="tbl_Estimate">
@@ -6567,26 +6520,6 @@
                 <ScalarProperty Name="LeaseStart" ColumnName="LeaseStart" />
                 <ScalarProperty Name="Revision_Num" ColumnName="Revision_Num" />
                 <ScalarProperty Name="LID" ColumnName="LID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Login">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Login">
-              <MappingFragment StoreEntitySet="tbl_Login">
-                <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
-                <ScalarProperty Name="IsChangePass" ColumnName="IsChangePass" />
-                <ScalarProperty Name="ParentTenantID" ColumnName="ParentTenantID" />
-                <ScalarProperty Name="UserType" ColumnName="UserType" />
-                <ScalarProperty Name="IsSuperUser" ColumnName="IsSuperUser" />
-                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7199,112 +7132,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_TenantOnline">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantOnline">
-              <MappingFragment StoreEntitySet="tbl_TenantOnline">
-                <ScalarProperty Name="IsProprNoticeLeaseAgreement" ColumnName="IsProprNoticeLeaseAgreement" />
-                <ScalarProperty Name="ManagementCompanyPhone" ColumnName="ManagementCompanyPhone" />
-                <ScalarProperty Name="ManagementCompany" ColumnName="ManagementCompany" />
-                <ScalarProperty Name="ApartmentCommunity" ColumnName="ApartmentCommunity" />
-                <ScalarProperty Name="ReferredBrokerMerchant" ColumnName="ReferredBrokerMerchant" />
-                <ScalarProperty Name="ReferredResidentName" ColumnName="ReferredResidentName" />
-                <ScalarProperty Name="ReferredResident" ColumnName="ReferredResident" />
-                <ScalarProperty Name="DoYouSmoke" ColumnName="DoYouSmoke" />
-                <ScalarProperty Name="CriminalChargPenDetails" ColumnName="CriminalChargPenDetails" />
-                <ScalarProperty Name="CriminalChargPen" ColumnName="CriminalChargPen" />
-                <ScalarProperty Name="ConvictedFelonyDetails" ColumnName="ConvictedFelonyDetails" />
-                <ScalarProperty Name="ConvictedFelony" ColumnName="ConvictedFelony" />
-                <ScalarProperty Name="EvictedDetails" ColumnName="EvictedDetails" />
-                <ScalarProperty Name="Evicted" ColumnName="Evicted" />
-                <ScalarProperty Name="CountryOfOrigin" ColumnName="CountryOfOrigin" />
-                <ScalarProperty Name="IsPaystub" ColumnName="IsPaystub" />
-                <ScalarProperty Name="IdentityDocumentOriginalFile" ColumnName="IdentityDocumentOriginalFile" />
-                <ScalarProperty Name="PassportDocumentOriginalFile" ColumnName="PassportDocumentOriginalFile" />
-                <ScalarProperty Name="HavePet" ColumnName="HavePet" />
-                <ScalarProperty Name="TaxReturnOrginalFile3" ColumnName="TaxReturnOrginalFile3" />
-                <ScalarProperty Name="TaxReturnOrginalFile2" ColumnName="TaxReturnOrginalFile2" />
-                <ScalarProperty Name="TaxReturnOrginalFile" ColumnName="TaxReturnOrginalFile" />
-                <ScalarProperty Name="HaveVehicle" ColumnName="HaveVehicle" />
-                <ScalarProperty Name="TaxReturn3" ColumnName="TaxReturn3" />
-                <ScalarProperty Name="TaxReturn2" ColumnName="TaxReturn2" />
-                <ScalarProperty Name="SSN" ColumnName="SSN" />
-                <ScalarProperty Name="TaxReturn" ColumnName="TaxReturn" />
-                <ScalarProperty Name="IdentityDocument" ColumnName="IdentityDocument" />
-                <ScalarProperty Name="PassportDocument" ColumnName="PassportDocument" />
-                <ScalarProperty Name="IsAdditionalRHistory" ColumnName="IsAdditionalRHistory" />
-                <ScalarProperty Name="Reason2" ColumnName="Reason2" />
-                <ScalarProperty Name="MonthlyPayment2" ColumnName="MonthlyPayment2" />
-                <ScalarProperty Name="MoveInDateTo2" ColumnName="MoveInDateTo2" />
-                <ScalarProperty Name="MoveInDateFrom2" ColumnName="MoveInDateFrom2" />
-                <ScalarProperty Name="RentOwn2" ColumnName="RentOwn2" />
-                <ScalarProperty Name="ZipHome2" ColumnName="ZipHome2" />
-                <ScalarProperty Name="CityHome2" ColumnName="CityHome2" />
-                <ScalarProperty Name="StateHome2" ColumnName="StateHome2" />
-                <ScalarProperty Name="HomeAddress22" ColumnName="HomeAddress22" />
-                <ScalarProperty Name="HomeAddress12" ColumnName="HomeAddress12" />
-                <ScalarProperty Name="Country2" ColumnName="Country2" />
-                <ScalarProperty Name="MoveInDateTo" ColumnName="MoveInDateTo" />
-                <ScalarProperty Name="MoveInDateFrom" ColumnName="MoveInDateFrom" />
-                <ScalarProperty Name="OtherGender" ColumnName="OtherGender" />
-                <ScalarProperty Name="IsInternational" ColumnName="IsInternational" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="EmergencyZipHome" ColumnName="EmergencyZipHome" />
-                <ScalarProperty Name="EmergencyCityHome" ColumnName="EmergencyCityHome" />
-                <ScalarProperty Name="EmergencyStateHome" ColumnName="EmergencyStateHome" />
-                <ScalarProperty Name="EmergencyAddress2" ColumnName="EmergencyAddress2" />
-                <ScalarProperty Name="EmergencyAddress1" ColumnName="EmergencyAddress1" />
-                <ScalarProperty Name="EmergencyCountry" ColumnName="EmergencyCountry" />
-                <ScalarProperty Name="EmergencyEmail" ColumnName="EmergencyEmail" />
-                <ScalarProperty Name="EmergencyWorkPhone" ColumnName="EmergencyWorkPhone" />
-                <ScalarProperty Name="EmergencyHomePhone" ColumnName="EmergencyHomePhone" />
-                <ScalarProperty Name="EmergencyMobile" ColumnName="EmergencyMobile" />
-                <ScalarProperty Name="EmergencyLastName" ColumnName="EmergencyLastName" />
-                <ScalarProperty Name="EmergencyFirstName" ColumnName="EmergencyFirstName" />
-                <ScalarProperty Name="Relationship" ColumnName="Relationship" />
-                <ScalarProperty Name="OfficeZip" ColumnName="OfficeZip" />
-                <ScalarProperty Name="OfficeCity" ColumnName="OfficeCity" />
-                <ScalarProperty Name="OfficeState" ColumnName="OfficeState" />
-                <ScalarProperty Name="OfficeAddress2" ColumnName="OfficeAddress2" />
-                <ScalarProperty Name="OfficeAddress1" ColumnName="OfficeAddress1" />
-                <ScalarProperty Name="OfficeCountry" ColumnName="OfficeCountry" />
-                <ScalarProperty Name="SupervisorEmail" ColumnName="SupervisorEmail" />
-                <ScalarProperty Name="SupervisorPhone" ColumnName="SupervisorPhone" />
-                <ScalarProperty Name="SupervisorName" ColumnName="SupervisorName" />
-                <ScalarProperty Name="AdditionalIncome" ColumnName="AdditionalIncome" />
-                <ScalarProperty Name="Income" ColumnName="Income" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="JobType" ColumnName="JobType" />
-                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
-                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
-                <ScalarProperty Name="Reason" ColumnName="Reason" />
-                <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
-                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
-                <ScalarProperty Name="RentOwn" ColumnName="RentOwn" />
-                <ScalarProperty Name="ZipHome" ColumnName="ZipHome" />
-                <ScalarProperty Name="CityHome" ColumnName="CityHome" />
-                <ScalarProperty Name="StateHome" ColumnName="StateHome" />
-                <ScalarProperty Name="HomeAddress2" ColumnName="HomeAddress2" />
-                <ScalarProperty Name="HomeAddress1" ColumnName="HomeAddress1" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="IDType" ColumnName="IDType" />
-                <ScalarProperty Name="DateExpire" ColumnName="DateExpire" />
-                <ScalarProperty Name="DateIssuance" ColumnName="DateIssuance" />
-                <ScalarProperty Name="CountryIssuance" ColumnName="CountryIssuance" />
-                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="MiddleInitial" ColumnName="MiddleInitial" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_TenantParking">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantParking">
               <MappingFragment StoreEntitySet="tbl_TenantParking">
@@ -7614,6 +7441,191 @@
                 <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
                 <ScalarProperty Name="TenantID" ColumnName="TenantID" />
                 <ScalarProperty Name="ESID" ColumnName="ESID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ApplicantHistory">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ApplicantHistory">
+              <MappingFragment StoreEntitySet="tbl_ApplicantHistory">
+                <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
+                <ScalarProperty Name="IsProprNoticeLeaseAgreement" ColumnName="IsProprNoticeLeaseAgreement" />
+                <ScalarProperty Name="ManagementCompanyPhone" ColumnName="ManagementCompanyPhone" />
+                <ScalarProperty Name="ManagementCompany" ColumnName="ManagementCompany" />
+                <ScalarProperty Name="ApartmentCommunity" ColumnName="ApartmentCommunity" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
+                <ScalarProperty Name="MoveInDateTo" ColumnName="MoveInDateTo" />
+                <ScalarProperty Name="MoveInDateFrom" ColumnName="MoveInDateFrom" />
+                <ScalarProperty Name="RentOwn" ColumnName="RentOwn" />
+                <ScalarProperty Name="ZipHome" ColumnName="ZipHome" />
+                <ScalarProperty Name="CityHome" ColumnName="CityHome" />
+                <ScalarProperty Name="StateHome" ColumnName="StateHome" />
+                <ScalarProperty Name="HomeAddress2" ColumnName="HomeAddress2" />
+                <ScalarProperty Name="HomeAddress1" ColumnName="HomeAddress1" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="AHID" ColumnName="AHID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_EmployerHistory">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_EmployerHistory">
+              <MappingFragment StoreEntitySet="tbl_EmployerHistory">
+                <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
+                <ScalarProperty Name="TerminationReason" ColumnName="TerminationReason" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="PaystubValue" ColumnName="PaystubValue" />
+                <ScalarProperty Name="TaxReturn3OrigName" ColumnName="TaxReturn3OrigName" />
+                <ScalarProperty Name="TaxReturn2OrigName" ColumnName="TaxReturn2OrigName" />
+                <ScalarProperty Name="TaxReturn1OrigName" ColumnName="TaxReturn1OrigName" />
+                <ScalarProperty Name="TaxReturn3" ColumnName="TaxReturn3" />
+                <ScalarProperty Name="TaxReturn2" ColumnName="TaxReturn2" />
+                <ScalarProperty Name="TaxReturn1" ColumnName="TaxReturn1" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="SupervisorEmail" ColumnName="SupervisorEmail" />
+                <ScalarProperty Name="SupervisorPhone" ColumnName="SupervisorPhone" />
+                <ScalarProperty Name="SupervisorName" ColumnName="SupervisorName" />
+                <ScalarProperty Name="AddAnnualIncome" ColumnName="AddAnnualIncome" />
+                <ScalarProperty Name="AnnualIncome" ColumnName="AnnualIncome" />
+                <ScalarProperty Name="TerminationDate" ColumnName="TerminationDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="JobType" ColumnName="JobType" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+                <ScalarProperty Name="HEIID" ColumnName="HEIID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Login">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Login">
+              <MappingFragment StoreEntitySet="tbl_Login">
+                <ScalarProperty Name="ParentUserID" ColumnName="ParentUserID" />
+                <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
+                <ScalarProperty Name="IsChangePass" ColumnName="IsChangePass" />
+                <ScalarProperty Name="ParentTenantID" ColumnName="ParentTenantID" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="IsSuperUser" ColumnName="IsSuperUser" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_TenantOnline">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantOnline">
+              <MappingFragment StoreEntitySet="tbl_TenantOnline">
+                <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
+                <ScalarProperty Name="IsProprNoticeLeaseAgreement" ColumnName="IsProprNoticeLeaseAgreement" />
+                <ScalarProperty Name="ManagementCompanyPhone" ColumnName="ManagementCompanyPhone" />
+                <ScalarProperty Name="ManagementCompany" ColumnName="ManagementCompany" />
+                <ScalarProperty Name="ApartmentCommunity" ColumnName="ApartmentCommunity" />
+                <ScalarProperty Name="ReferredBrokerMerchant" ColumnName="ReferredBrokerMerchant" />
+                <ScalarProperty Name="ReferredResidentName" ColumnName="ReferredResidentName" />
+                <ScalarProperty Name="ReferredResident" ColumnName="ReferredResident" />
+                <ScalarProperty Name="DoYouSmoke" ColumnName="DoYouSmoke" />
+                <ScalarProperty Name="CriminalChargPenDetails" ColumnName="CriminalChargPenDetails" />
+                <ScalarProperty Name="CriminalChargPen" ColumnName="CriminalChargPen" />
+                <ScalarProperty Name="ConvictedFelonyDetails" ColumnName="ConvictedFelonyDetails" />
+                <ScalarProperty Name="ConvictedFelony" ColumnName="ConvictedFelony" />
+                <ScalarProperty Name="EvictedDetails" ColumnName="EvictedDetails" />
+                <ScalarProperty Name="Evicted" ColumnName="Evicted" />
+                <ScalarProperty Name="CountryOfOrigin" ColumnName="CountryOfOrigin" />
+                <ScalarProperty Name="IsPaystub" ColumnName="IsPaystub" />
+                <ScalarProperty Name="IdentityDocumentOriginalFile" ColumnName="IdentityDocumentOriginalFile" />
+                <ScalarProperty Name="PassportDocumentOriginalFile" ColumnName="PassportDocumentOriginalFile" />
+                <ScalarProperty Name="HavePet" ColumnName="HavePet" />
+                <ScalarProperty Name="TaxReturnOrginalFile3" ColumnName="TaxReturnOrginalFile3" />
+                <ScalarProperty Name="TaxReturnOrginalFile2" ColumnName="TaxReturnOrginalFile2" />
+                <ScalarProperty Name="TaxReturnOrginalFile" ColumnName="TaxReturnOrginalFile" />
+                <ScalarProperty Name="HaveVehicle" ColumnName="HaveVehicle" />
+                <ScalarProperty Name="TaxReturn3" ColumnName="TaxReturn3" />
+                <ScalarProperty Name="TaxReturn2" ColumnName="TaxReturn2" />
+                <ScalarProperty Name="SSN" ColumnName="SSN" />
+                <ScalarProperty Name="TaxReturn" ColumnName="TaxReturn" />
+                <ScalarProperty Name="IdentityDocument" ColumnName="IdentityDocument" />
+                <ScalarProperty Name="PassportDocument" ColumnName="PassportDocument" />
+                <ScalarProperty Name="IsAdditionalRHistory" ColumnName="IsAdditionalRHistory" />
+                <ScalarProperty Name="Reason2" ColumnName="Reason2" />
+                <ScalarProperty Name="MonthlyPayment2" ColumnName="MonthlyPayment2" />
+                <ScalarProperty Name="MoveInDateTo2" ColumnName="MoveInDateTo2" />
+                <ScalarProperty Name="MoveInDateFrom2" ColumnName="MoveInDateFrom2" />
+                <ScalarProperty Name="RentOwn2" ColumnName="RentOwn2" />
+                <ScalarProperty Name="ZipHome2" ColumnName="ZipHome2" />
+                <ScalarProperty Name="CityHome2" ColumnName="CityHome2" />
+                <ScalarProperty Name="StateHome2" ColumnName="StateHome2" />
+                <ScalarProperty Name="HomeAddress22" ColumnName="HomeAddress22" />
+                <ScalarProperty Name="HomeAddress12" ColumnName="HomeAddress12" />
+                <ScalarProperty Name="Country2" ColumnName="Country2" />
+                <ScalarProperty Name="MoveInDateTo" ColumnName="MoveInDateTo" />
+                <ScalarProperty Name="MoveInDateFrom" ColumnName="MoveInDateFrom" />
+                <ScalarProperty Name="OtherGender" ColumnName="OtherGender" />
+                <ScalarProperty Name="IsInternational" ColumnName="IsInternational" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="EmergencyZipHome" ColumnName="EmergencyZipHome" />
+                <ScalarProperty Name="EmergencyCityHome" ColumnName="EmergencyCityHome" />
+                <ScalarProperty Name="EmergencyStateHome" ColumnName="EmergencyStateHome" />
+                <ScalarProperty Name="EmergencyAddress2" ColumnName="EmergencyAddress2" />
+                <ScalarProperty Name="EmergencyAddress1" ColumnName="EmergencyAddress1" />
+                <ScalarProperty Name="EmergencyCountry" ColumnName="EmergencyCountry" />
+                <ScalarProperty Name="EmergencyEmail" ColumnName="EmergencyEmail" />
+                <ScalarProperty Name="EmergencyWorkPhone" ColumnName="EmergencyWorkPhone" />
+                <ScalarProperty Name="EmergencyHomePhone" ColumnName="EmergencyHomePhone" />
+                <ScalarProperty Name="EmergencyMobile" ColumnName="EmergencyMobile" />
+                <ScalarProperty Name="EmergencyLastName" ColumnName="EmergencyLastName" />
+                <ScalarProperty Name="EmergencyFirstName" ColumnName="EmergencyFirstName" />
+                <ScalarProperty Name="Relationship" ColumnName="Relationship" />
+                <ScalarProperty Name="OfficeZip" ColumnName="OfficeZip" />
+                <ScalarProperty Name="OfficeCity" ColumnName="OfficeCity" />
+                <ScalarProperty Name="OfficeState" ColumnName="OfficeState" />
+                <ScalarProperty Name="OfficeAddress2" ColumnName="OfficeAddress2" />
+                <ScalarProperty Name="OfficeAddress1" ColumnName="OfficeAddress1" />
+                <ScalarProperty Name="OfficeCountry" ColumnName="OfficeCountry" />
+                <ScalarProperty Name="SupervisorEmail" ColumnName="SupervisorEmail" />
+                <ScalarProperty Name="SupervisorPhone" ColumnName="SupervisorPhone" />
+                <ScalarProperty Name="SupervisorName" ColumnName="SupervisorName" />
+                <ScalarProperty Name="AdditionalIncome" ColumnName="AdditionalIncome" />
+                <ScalarProperty Name="Income" ColumnName="Income" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="JobType" ColumnName="JobType" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
+                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
+                <ScalarProperty Name="RentOwn" ColumnName="RentOwn" />
+                <ScalarProperty Name="ZipHome" ColumnName="ZipHome" />
+                <ScalarProperty Name="CityHome" ColumnName="CityHome" />
+                <ScalarProperty Name="StateHome" ColumnName="StateHome" />
+                <ScalarProperty Name="HomeAddress2" ColumnName="HomeAddress2" />
+                <ScalarProperty Name="HomeAddress1" ColumnName="HomeAddress1" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="IDType" ColumnName="IDType" />
+                <ScalarProperty Name="DateExpire" ColumnName="DateExpire" />
+                <ScalarProperty Name="DateIssuance" ColumnName="DateIssuance" />
+                <ScalarProperty Name="CountryIssuance" ColumnName="CountryIssuance" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleInitial" ColumnName="MiddleInitial" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

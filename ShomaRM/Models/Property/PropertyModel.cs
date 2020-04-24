@@ -5,6 +5,7 @@ using System.Data.Common;
 using System.Linq;
 using System.Web;
 using ShomaRM.Data;
+using System.IO;
 
 namespace ShomaRM.Models
 {
@@ -544,7 +545,42 @@ namespace ShomaRM.Models
             }
             return lstGallary;
         }
+        public string UploadPetPolicyFile(HttpPostedFileBase fileBaseUpload2)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string msg = "";
+            string filePath = "";
+            string fileName = "";
+            string sysFileName = "";
+            string Extension = "";
 
+            if (fileBaseUpload2 != null && fileBaseUpload2.ContentLength > 0)
+            {
+                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                DirectoryInfo di = new DirectoryInfo(filePath);
+                FileInfo _FileInfo = new FileInfo(filePath);
+                if (!di.Exists)
+                {
+                    di.Create();
+                }
+                fileName = fileBaseUpload2.FileName;
+                Extension = Path.GetExtension(fileBaseUpload2.FileName);
+                sysFileName = "Pet_Policies.pdf";
+                string old = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/Pet_Policies.pdf");
+                if (File.Exists(old))
+                {
+                    File.Delete(old);
+                }
+                fileBaseUpload2.SaveAs(filePath + "//" + sysFileName);
+                if (!string.IsNullOrWhiteSpace(fileBaseUpload2.FileName))
+                {
+                    string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/") + "/" + sysFileName;
+
+                }
+                msg = "File Upload Successfully";
+            }
+            return msg;
+        }
     }
     public partial class PropertyUnits
     {

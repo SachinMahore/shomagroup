@@ -1670,6 +1670,16 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
     }
     if (stepid == "13") {
+
+        if ($("#HndAddParkingCount").val() == 0) {
+            $("#divDontHaveVeh").removeClass("hidden");
+            $("#btnAddVehicle").prop("disabled", "disabled").css("background-color", "#b4ada5");
+        }
+        else {
+            $("#divDontHaveVeh").addClass("hidden");
+            $("#btnAddVehicle").prop("disabled", "").removeAttr("style");
+
+        }
         if (parseInt($("#hdnStepCompleted").val()) < 12) {
             var msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 13);
             $.alert({
@@ -1760,13 +1770,52 @@ var goToStep = function (stepid, id, calldataupdate) {
             return;
         }
         if (id == "14") {
-            if ($("#chkDontHaveVehicle").is(':unchecked')) {
-                $.alert({
-                    title: "",
-                    content: 'Please Add Vehicle',
-                    type: 'red'
-                });
+            var countVehicle = $("#tblVehicle tbody tr").length;
+
+            if ($("#HndAddParkingCount").val() != 0) {
+                if (countVehicle == 0) {
+                    $.alert({
+                        title: "",
+                        content: 'Please Add Vehicle',
+                        type: 'red'
+                    });
+                }
+                else {
+
+                    SaveUpdateStep(14);
+                    getTenantPetPlaceData();
+                    $("#step2").addClass("hidden");
+                    $("#step1").addClass("hidden");
+                    $("#step4").addClass("hidden");
+                    $("#step3").addClass("hidden");
+                    $("#step5").addClass("hidden");
+                    $("#step6").addClass("hidden");
+                    $("#step7").addClass("hidden");
+                    $("#step8").addClass("hidden");
+                    $("#step9").addClass("hidden");
+                    $("#step10").addClass("hidden");
+                    $("#step11").addClass("hidden");
+                    $("#step12").addClass("hidden");
+                    $("#step13").addClass("hidden");
+                    $("#step14").removeClass("hidden");
+                    $("#step15").addClass("hidden");
+                    $("#step16").addClass("hidden");
+                    $("#step17").addClass("hidden");
+
+                    $("#li14").addClass("active");
+                    $("#li8").removeClass("active");
+                    $("#li9").removeClass("active");
+                    $("#li7").removeClass("active");
+                    $("#li11").removeClass("active");
+                    $("#li12").removeClass("active");
+                    $("#li13").removeClass("active");
+                    $("#li10").removeClass("active");
+                    $("#li15").removeClass("active");
+                    $("#li16").removeClass("active");
+                    $("#li17").removeClass("active");
+                }
             } else {
+
                 SaveUpdateStep(14);
                 getTenantPetPlaceData();
                 $("#step2").addClass("hidden");
@@ -1799,6 +1848,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                 $("#li16").removeClass("active");
                 $("#li17").removeClass("active");
             }
+
         }
     }
     if (stepid == "15") {
@@ -4193,40 +4243,41 @@ var saveupdateParking = function () {
             $("#lblparkingplace").text(addParkingArray.length > 0 ? addParkingArray[0].ParkingID : 0);
             fillUnitParkingList();
             if (parseInt(response.numOfParking) == 1) {
-                $("#lblVehicleFees").text("15.00");
-                $("#lblVehicleFees1").text("15.00");
                 $("#hndParkingID").val(0);
-                if ($("#lblBed").text() == "1" || $("#lblBed").text() == "2") {
+                if ($("#lblBed").text() == "1") {
                     $("#hndNumberOfParking").val(2);
-                } else if ($("#lblBed").text() == "3") {
-                    $("#hndNumberOfParking").val(3);
+                    $("#lblVehicleFees").text("30.00");
+                    $("#lblVehicleFees1").text("30.00");
+                    $("#HndAddParkingCount").val(1);
                 }
-                else {
-                    $("#hndNumberOfParking").val(1);
+                else if ($("#lblBed").text() == "2") {
+                    $("#hndNumberOfParking").val(2);
+                    $("#lblVehicleFees").text("30.00");
+                    $("#lblVehicleFees1").text("30.00");
+                    $("#HndAddParkingCount").val(1);
+                }
+                else if ($("#lblBed").text() == "3") {
+
+                    $("#hndNumberOfParking").val(3);
+                    $("#lblVehicleFees").text("45.00");
+                    $("#lblVehicleFees1").text("45.00");
+                    $("#HndAddParkingCount").val(1);
                 }
             } else if (parseInt(response.numOfParking) == 2) {
-                $("#lblVehicleFees").text("30.00");
-                $("#lblVehicleFees1").text("30.00");
                 $("#hndParkingID").val(0);
-                if ($("#lblBed").text() == "1" || $("#lblBed").text() == "2") {
-                    $("#hndNumberOfParking").val(2);
-                } else if ($("#lblBed").text() == "3") {
+                if ($("#lblBed").text() == "3") {
                     $("#hndNumberOfParking").val(4);
-                }
-                else {
-                    $("#hndNumberOfParking").val(1);
+                    $("#lblVehicleFees").text("60.00");
+                    $("#lblVehicleFees1").text("60.00");
+                    $("#HndAddParkingCount").val(1);
                 }
             }
             else {
                 $("#hndParkingID").val(0);
-                if ($("#lblBed").text() == "1" || $("#lblBed").text() == "2") {
-                    $("#hndNumberOfParking").val(1);
-                } else if ($("#lblBed").text() == "3") {
-                    $("#hndNumberOfParking").val(2);
-                }
-                else {
-                    $("#hndNumberOfParking").val(1);
-                }
+                $("#hndNumberOfParking").val(0);
+                $("#lblVehicleFees").text("00.00");
+                $("#lblVehicleFees1").text("00.00");
+                $("#HndAddParkingCount").val(0);
             }
             $("#lbltotalAmount").text(formatMoney((parseFloat(response.totalParkingAmt) + parseFloat(totalAmt)).toFixed(2)));
             totalAmt = (parseFloat(response.totalParkingAmt) + parseFloat(totalAmt)).toFixed(2);

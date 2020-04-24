@@ -40,5 +40,6 @@ namespace ShomaRM.Data
         public Nullable<int> PaystubValue { get; set; }
         public Nullable<long> TenantId { get; set; }
         public string TerminationReason { get; set; }
+        public Nullable<long> ParentTOID { get; set; }
     }
 }
