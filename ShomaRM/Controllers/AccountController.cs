@@ -98,7 +98,7 @@ namespace ShomaRM.Controllers
                     {
                         var checkExpiry = db.tbl_ApplyNow.Where(co => co.UserId == currentUser.UserID).FirstOrDefault();
                         checkExpiry.Status = (!string.IsNullOrWhiteSpace(checkExpiry.Status) ? checkExpiry.Status : "");
-                        if ((checkExpiry.StepCompleted??0)==18 && checkExpiry.Status.Trim()!="Approved")
+                        if ((checkExpiry.StepCompleted??0)==18 && checkExpiry.Status.Trim()=="")
                         {
                             return RedirectToAction("../ApplicationStatus/Index/"+(new EncryptDecrypt().EncryptText("In Progress")));
                         }
