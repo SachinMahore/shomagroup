@@ -124,6 +124,7 @@ var fillProspectVerifyList = function (pagenumber, sortby, orderby) {
                     //html += "<option value='Denied' " + (elementValue.ApplicationStatus == 'Denied' ? "selected= 'selected'" : "") + "> Denied</option ><option value='Conditional'" + (elementValue.ApplicationStatus == 'Conditional'? "selected= 'selected'" : "") +" > Conditional</option > </select ></td >";
                     //html += "</tr>";
                     html += "<td>" + k + "</td>"
+                    html += "<td><a onclick=\"GetBackgroundScreening("+ elementValue.UserID +")\"><i class=\"fa fa-eye\"></i></a></td>"
                     html += "</tr>";
                     $("#tblProspectVerify>tbody").append(html);
                 });
@@ -133,6 +134,42 @@ var fillProspectVerifyList = function (pagenumber, sortby, orderby) {
         }
     });
 };
+
+//Get BackgroundScreening Data
+var GetBackgroundScreening = function (Id) {
+    $("#popBackgroundScreening").modal("show");
+    var model = {
+        UserId: Id
+
+    };
+    $.ajax({
+        url: '/ProspectVerification/GetBackgroundScreening',
+        method: "post",
+        data: JSON.stringify(model),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) { 
+            //  console.log(JSON.stringify(response));
+            if ($.trim(response.error) !== "") {
+                //this.cancelChanges();
+            } else {
+                var html = "";
+                $("#bgscrTable>tbody").empty();
+                $.each(response, function (elementType, elementValue) {                   
+
+                    html = "<tr data-value=" + elementValue.TenantId + ">";
+                    html += "<td>" + elementValue.OrderID + "</td>";
+                    html += "<td>" + elementValue.Type + "</td>";
+                    html += "<td>" + elementValue.Status + "</td>";                    
+                    html += "<td>" + elementValue.PDFUrl + "</td>";
+                    html += "</tr>";
+                    $("#bgscrTable>tbody").append(html);
+                });
+            }
+            
+        }
+    }); };
+
 $(document).ready(function () {
     fillRPP_ProspectVerifyList();
     $('#ulPagination_ProspectVerifyList').pagination({

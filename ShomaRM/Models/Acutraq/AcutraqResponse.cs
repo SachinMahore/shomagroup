@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using System.Xml.Serialization;
 using static ShomaRM.Models.AcutraqRequest;
 
@@ -10,11 +11,15 @@ namespace ShomaRM.Models.Acutraq
     public class OrderXML
     {
         public string Method { get; set; }
+        [AllowHtml]
         public Authentication Authentication { get; set; }
+        [AllowHtml]
         public string TestMode { get; set; }
+        [AllowHtml]
         public string ReturnResultURL { get; set; }
+        [AllowHtml]
         public string OrderingUser { get; set; }
-    
+        [AllowHtml]
         public Order Order { get; set; }
 
     }

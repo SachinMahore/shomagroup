@@ -12,6 +12,8 @@ namespace ShomaRM.Data
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class ShomaRMEntities : DbContext
     {
@@ -25,6 +27,7 @@ namespace ShomaRM.Data
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<tbl_AcutraqScrenning> tbl_AcutraqScrenning { get; set; }
         public virtual DbSet<tbl_Advertiser> tbl_Advertiser { get; set; }
         public virtual DbSet<tbl_Amenities> tbl_Amenities { get; set; }
@@ -35,6 +38,7 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
         public virtual DbSet<tbl_AuditHistory> tbl_AuditHistory { get; set; }
         public virtual DbSet<tbl_AuditHistoryDetail> tbl_AuditHistoryDetail { get; set; }
+        public virtual DbSet<tbl_BackgroundScreening> tbl_BackgroundScreening { get; set; }
         public virtual DbSet<tbl_BankAccount> tbl_BankAccount { get; set; }
         public virtual DbSet<tbl_Bill> tbl_Bill { get; set; }
         public virtual DbSet<tbl_CashReceipts> tbl_CashReceipts { get; set; }
@@ -111,5 +115,2427 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Visit> tbl_Visit { get; set; }
         public virtual DbSet<tbl_WorkOrder> tbl_WorkOrder { get; set; }
         public virtual DbSet<tbl_ZipCodes> tbl_ZipCodes { get; set; }
+    
+        [DbFunction("ShomaRMEntities", "SPLIT")]
+        public virtual IQueryable<SPLIT_Result> SPLIT(string str_in)
+        {
+            var str_inParameter = str_in != null ?
+                new ObjectParameter("str_in", str_in) :
+                new ObjectParameter("str_in", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<SPLIT_Result>("[ShomaRMEntities].[SPLIT](@str_in)", str_inParameter);
+        }
+    
+        public virtual ObjectResult<GetPropertyModelUnitList_Result> GetPropertyModelUnitList(string modelName, Nullable<System.DateTime> availableDate, Nullable<int> floorNo, Nullable<int> bedroom, Nullable<decimal> current_Rent)
+        {
+            var modelNameParameter = modelName != null ?
+                new ObjectParameter("ModelName", modelName) :
+                new ObjectParameter("ModelName", typeof(string));
+    
+            var availableDateParameter = availableDate.HasValue ?
+                new ObjectParameter("AvailableDate", availableDate) :
+                new ObjectParameter("AvailableDate", typeof(System.DateTime));
+    
+            var floorNoParameter = floorNo.HasValue ?
+                new ObjectParameter("FloorNo", floorNo) :
+                new ObjectParameter("FloorNo", typeof(int));
+    
+            var bedroomParameter = bedroom.HasValue ?
+                new ObjectParameter("Bedroom", bedroom) :
+                new ObjectParameter("Bedroom", typeof(int));
+    
+            var current_RentParameter = current_Rent.HasValue ?
+                new ObjectParameter("Current_Rent", current_Rent) :
+                new ObjectParameter("Current_Rent", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPropertyModelUnitList_Result>("GetPropertyModelUnitList", modelNameParameter, availableDateParameter, floorNoParameter, bedroomParameter, current_RentParameter);
+        }
+    
+        public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_dropdiagram(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetGuestRegistrationList_Result> sp_GetGuestRegistrationList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, string sortBy, string orderBy)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetGuestRegistrationList_Result>("sp_GetGuestRegistrationList", fromDateParameter, toDateParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetTenantEventJoinList_Result> sp_GetTenantEventJoinList(Nullable<int> tenantEventListStatus)
+        {
+            var tenantEventListStatusParameter = tenantEventListStatus.HasValue ?
+                new ObjectParameter("TenantEventListStatus", tenantEventListStatus) :
+                new ObjectParameter("TenantEventListStatus", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetTenantEventJoinList_Result>("sp_GetTenantEventJoinList", tenantEventListStatusParameter);
+        }
+    
+        public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual int sp_Test(Nullable<int> iD, string fKIDs)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var fKIDsParameter = fKIDs != null ?
+                new ObjectParameter("FKIDs", fKIDs) :
+                new ObjectParameter("FKIDs", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Test", iDParameter, fKIDsParameter);
+        }
+    
+        public virtual int sp_TestDelete(Nullable<int> iD, string fKIDs)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var fKIDsParameter = fKIDs != null ?
+                new ObjectParameter("FKIDs", fKIDs) :
+                new ObjectParameter("FKIDs", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_TestDelete", iDParameter, fKIDsParameter);
+        }
+    
+        public virtual int sp_upgraddiagrams()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
+        }
+    
+        public virtual ObjectResult<usp_ApplicantHistoryList_Result> usp_ApplicantHistoryList(Nullable<long> tenantID)
+        {
+            var tenantIDParameter = tenantID.HasValue ?
+                new ObjectParameter("TenantID", tenantID) :
+                new ObjectParameter("TenantID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ApplicantHistoryList_Result>("usp_ApplicantHistoryList", tenantIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_ApplyNowList_Result> usp_ApplyNowList(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ApplyNowList_Result>("usp_ApplyNowList", idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<long>> usp_BuildPagination_TenantList(string fromDate, string toDate, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var fromDateParameter = fromDate != null ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(string));
+    
+            var toDateParameter = toDate != null ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(string));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<long>>("usp_BuildPagination_TenantList", fromDateParameter, toDateParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual int usp_DeleteApplication()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_DeleteApplication");
+        }
+    
+        public virtual int usp_DeleteExpiredApplication()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_DeleteExpiredApplication");
+        }
+    
+        public virtual ObjectResult<usp_FillCausingIssueID_Result> usp_FillCausingIssueID(Nullable<int> serviceIssueID)
+        {
+            var serviceIssueIDParameter = serviceIssueID.HasValue ?
+                new ObjectParameter("ServiceIssueID", serviceIssueID) :
+                new ObjectParameter("ServiceIssueID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_FillCausingIssueID_Result>("usp_FillCausingIssueID", serviceIssueIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_FillIssueID_Result> usp_FillIssueID(Nullable<int> causingIssueID, Nullable<int> serviceIssueID)
+        {
+            var causingIssueIDParameter = causingIssueID.HasValue ?
+                new ObjectParameter("CausingIssueID", causingIssueID) :
+                new ObjectParameter("CausingIssueID", typeof(int));
+    
+            var serviceIssueIDParameter = serviceIssueID.HasValue ?
+                new ObjectParameter("ServiceIssueID", serviceIssueID) :
+                new ObjectParameter("ServiceIssueID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_FillIssueID_Result>("usp_FillIssueID", causingIssueIDParameter, serviceIssueIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_FillStateDropDownListByCountryID_Result> usp_FillStateDropDownListByCountryID(Nullable<int> cID)
+        {
+            var cIDParameter = cID.HasValue ?
+                new ObjectParameter("CID", cID) :
+                new ObjectParameter("CID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_FillStateDropDownListByCountryID_Result>("usp_FillStateDropDownListByCountryID", cIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_Get_Advertiser_Result> usp_Get_Advertiser()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Get_Advertiser_Result>("usp_Get_Advertiser");
+        }
+    
+        public virtual ObjectResult<usp_Get_Advertiser_SearchList_Result> usp_Get_Advertiser_SearchList(string searchText)
+        {
+            var searchTextParameter = searchText != null ?
+                new ObjectParameter("SearchText", searchText) :
+                new ObjectParameter("SearchText", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Get_Advertiser_SearchList_Result>("usp_Get_Advertiser_SearchList", searchTextParameter);
+        }
+    
+        public virtual ObjectResult<usp_Get_Country_Result> usp_Get_Country()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Get_Country_Result>("usp_Get_Country");
+        }
+    
+        public virtual ObjectResult<usp_Get_Country_SearchList_Result> usp_Get_Country_SearchList(string searchText)
+        {
+            var searchTextParameter = searchText != null ?
+                new ObjectParameter("SearchText", searchText) :
+                new ObjectParameter("SearchText", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Get_Country_SearchList_Result>("usp_Get_Country_SearchList", searchTextParameter);
+        }
+    
+        public virtual ObjectResult<usp_Get_FOB_Result> usp_Get_FOB()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Get_FOB_Result>("usp_Get_FOB");
+        }
+    
+        public virtual ObjectResult<usp_Get_MonthsFromApplicantHistory_Result> usp_Get_MonthsFromApplicantHistory(Nullable<long> tenantId)
+        {
+            var tenantIdParameter = tenantId.HasValue ?
+                new ObjectParameter("TenantId", tenantId) :
+                new ObjectParameter("TenantId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Get_MonthsFromApplicantHistory_Result>("usp_Get_MonthsFromApplicantHistory", tenantIdParameter);
+        }
+    
+        public virtual ObjectResult<usp_Get_Parking_Result> usp_Get_Parking(Nullable<long> tenantID)
+        {
+            var tenantIDParameter = tenantID.HasValue ?
+                new ObjectParameter("TenantID", tenantID) :
+                new ObjectParameter("TenantID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Get_Parking_Result>("usp_Get_Parking", tenantIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_Get_Parking_SearchList_Result> usp_Get_Parking_SearchList(string searchText)
+        {
+            var searchTextParameter = searchText != null ?
+                new ObjectParameter("SearchText", searchText) :
+                new ObjectParameter("SearchText", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Get_Parking_SearchList_Result>("usp_Get_Parking_SearchList", searchTextParameter);
+        }
+    
+        public virtual ObjectResult<usp_Get_PetPlace_Result> usp_Get_PetPlace()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Get_PetPlace_Result>("usp_Get_PetPlace");
+        }
+    
+        public virtual ObjectResult<usp_Get_PetPlace_SearchList_Result> usp_Get_PetPlace_SearchList(string searchText)
+        {
+            var searchTextParameter = searchText != null ?
+                new ObjectParameter("SearchText", searchText) :
+                new ObjectParameter("SearchText", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Get_PetPlace_SearchList_Result>("usp_Get_PetPlace_SearchList", searchTextParameter);
+        }
+    
+        public virtual ObjectResult<usp_Get_ServiceLocation_Result> usp_Get_ServiceLocation()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Get_ServiceLocation_Result>("usp_Get_ServiceLocation");
+        }
+    
+        public virtual ObjectResult<usp_Get_ServiceLocation_SearchList_Result> usp_Get_ServiceLocation_SearchList(string searchText)
+        {
+            var searchTextParameter = searchText != null ?
+                new ObjectParameter("SearchText", searchText) :
+                new ObjectParameter("SearchText", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Get_ServiceLocation_SearchList_Result>("usp_Get_ServiceLocation_SearchList", searchTextParameter);
+        }
+    
+        public virtual ObjectResult<usp_Get_Storage_Result> usp_Get_Storage(Nullable<long> tenantID)
+        {
+            var tenantIDParameter = tenantID.HasValue ?
+                new ObjectParameter("TenantID", tenantID) :
+                new ObjectParameter("TenantID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Get_Storage_Result>("usp_Get_Storage", tenantIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_Get_Storage_SearchList_Result> usp_Get_Storage_SearchList(string searchText)
+        {
+            var searchTextParameter = searchText != null ?
+                new ObjectParameter("SearchText", searchText) :
+                new ObjectParameter("SearchText", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Get_Storage_SearchList_Result>("usp_Get_Storage_SearchList", searchTextParameter);
+        }
+    
+        public virtual ObjectResult<usp_Get_TenantList_Result> usp_Get_TenantList(Nullable<int> pageNumber, Nullable<int> numberOfRows, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, string sortBy, string orderBy, string filterName, string crieteria)
+        {
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            var filterNameParameter = filterName != null ?
+                new ObjectParameter("FilterName", filterName) :
+                new ObjectParameter("FilterName", typeof(string));
+    
+            var crieteriaParameter = crieteria != null ?
+                new ObjectParameter("Crieteria", crieteria) :
+                new ObjectParameter("Crieteria", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Get_TenantList_Result>("usp_Get_TenantList", pageNumberParameter, numberOfRowsParameter, fromDateParameter, toDateParameter, sortByParameter, orderByParameter, filterNameParameter, crieteriaParameter);
+        }
+    
+        public virtual ObjectResult<usp_Get_TenantList_bak_Result> usp_Get_TenantList_bak(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> pageNumber, Nullable<int> numberOfRows)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Get_TenantList_bak_Result>("usp_Get_TenantList_bak", fromDateParameter, toDateParameter, pageNumberParameter, numberOfRowsParameter);
+        }
+    
+        public virtual ObjectResult<usp_Get_TenantList_XML_Result> usp_Get_TenantList_XML(string paramXML)
+        {
+            var paramXMLParameter = paramXML != null ?
+                new ObjectParameter("ParamXML", paramXML) :
+                new ObjectParameter("ParamXML", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Get_TenantList_XML_Result>("usp_Get_TenantList_XML", paramXMLParameter);
+        }
+    
+        public virtual ObjectResult<usp_Get_UnitParking_Result> usp_Get_UnitParking(Nullable<int> uID)
+        {
+            var uIDParameter = uID.HasValue ?
+                new ObjectParameter("UID", uID) :
+                new ObjectParameter("UID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_Get_UnitParking_Result>("usp_Get_UnitParking", uIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetAccountHistoryByDateRange_Result> usp_GetAccountHistoryByDateRange(Nullable<long> tenantId, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var tenantIdParameter = tenantId.HasValue ?
+                new ObjectParameter("TenantId", tenantId) :
+                new ObjectParameter("TenantId", typeof(long));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAccountHistoryByDateRange_Result>("usp_GetAccountHistoryByDateRange", tenantIdParameter, fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetAdvertiserPaginationAndSearchData_Result> usp_GetAdvertiserPaginationAndSearchData(string criteria, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAdvertiserPaginationAndSearchData_Result>("usp_GetAdvertiserPaginationAndSearchData", criteriaParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetAmenitiesReservations_Result> usp_GetAmenitiesReservations(string orderBy, string sortBy, Nullable<int> filter)
+        {
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var filterParameter = filter.HasValue ?
+                new ObjectParameter("Filter", filter) :
+                new ObjectParameter("Filter", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAmenitiesReservations_Result>("usp_GetAmenitiesReservations", orderByParameter, sortByParameter, filterParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetAmenityList_Result> usp_GetAmenityList(string criteria)
+        {
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAmenityList_Result>("usp_GetAmenityList", criteriaParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetAmenityPaginationAndSearchData_Result> usp_GetAmenityPaginationAndSearchData(string criteria, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAmenityPaginationAndSearchData_Result>("usp_GetAmenityPaginationAndSearchData", criteriaParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetAmenitySearchList_Result> usp_GetAmenitySearchList(string criteria, Nullable<int> pageNumber, Nullable<int> numberOfRows)
+        {
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAmenitySearchList_Result>("usp_GetAmenitySearchList", criteriaParameter, pageNumberParameter, numberOfRowsParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetAssigmentAuditList_Result> usp_GetAssigmentAuditList(string serviceID)
+        {
+            var serviceIDParameter = serviceID != null ?
+                new ObjectParameter("ServiceID", serviceID) :
+                new ObjectParameter("ServiceID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAssigmentAuditList_Result>("usp_GetAssigmentAuditList", serviceIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetBankAccountList_Result> usp_GetBankAccountList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetBankAccountList_Result>("usp_GetBankAccountList", fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetBankAccountPaginationAndSearchData_Result> usp_GetBankAccountPaginationAndSearchData(string filter, string criteria, Nullable<int> pageNumber, Nullable<int> numberOfRows)
+        {
+            var filterParameter = filter != null ?
+                new ObjectParameter("Filter", filter) :
+                new ObjectParameter("Filter", typeof(string));
+    
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetBankAccountPaginationAndSearchData_Result>("usp_GetBankAccountPaginationAndSearchData", filterParameter, criteriaParameter, pageNumberParameter, numberOfRowsParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetCalendarEvent_Result> usp_GetCalendarEvent()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetCalendarEvent_Result>("usp_GetCalendarEvent");
+        }
+    
+        public virtual ObjectResult<usp_GetCashReceiptList_Result> usp_GetCashReceiptList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetCashReceiptList_Result>("usp_GetCashReceiptList", fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetCashReceiptPaginationAndSearchData_Result> usp_GetCashReceiptPaginationAndSearchData(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> pageNumber, Nullable<int> numberOfRows)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetCashReceiptPaginationAndSearchData_Result>("usp_GetCashReceiptPaginationAndSearchData", fromDateParameter, toDateParameter, pageNumberParameter, numberOfRowsParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetChargeTypeList_Result> usp_GetChargeTypeList(string criteria)
+        {
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetChargeTypeList_Result>("usp_GetChargeTypeList", criteriaParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetCityList_Result> usp_GetCityList(string criteria, Nullable<int> pageNumber, Nullable<int> numberOfRows)
+        {
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetCityList_Result>("usp_GetCityList", criteriaParameter, pageNumberParameter, numberOfRowsParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetCityListbyState_Result> usp_GetCityListbyState(Nullable<int> stateID)
+        {
+            var stateIDParameter = stateID.HasValue ?
+                new ObjectParameter("StateID", stateID) :
+                new ObjectParameter("StateID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetCityListbyState_Result>("usp_GetCityListbyState", stateIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetCityPaginationAndSearchData_Result> usp_GetCityPaginationAndSearchData(string criteria, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetCityPaginationAndSearchData_Result>("usp_GetCityPaginationAndSearchData", criteriaParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetClientModelUnitList_Result> usp_GetClientModelUnitList(Nullable<long> pID, Nullable<System.DateTime> availableDate, Nullable<int> floorNo, Nullable<int> bedroom, Nullable<decimal> current_Rent, Nullable<int> sortOrder)
+        {
+            var pIDParameter = pID.HasValue ?
+                new ObjectParameter("PID", pID) :
+                new ObjectParameter("PID", typeof(long));
+    
+            var availableDateParameter = availableDate.HasValue ?
+                new ObjectParameter("AvailableDate", availableDate) :
+                new ObjectParameter("AvailableDate", typeof(System.DateTime));
+    
+            var floorNoParameter = floorNo.HasValue ?
+                new ObjectParameter("FloorNo", floorNo) :
+                new ObjectParameter("FloorNo", typeof(int));
+    
+            var bedroomParameter = bedroom.HasValue ?
+                new ObjectParameter("Bedroom", bedroom) :
+                new ObjectParameter("Bedroom", typeof(int));
+    
+            var current_RentParameter = current_Rent.HasValue ?
+                new ObjectParameter("Current_Rent", current_Rent) :
+                new ObjectParameter("Current_Rent", typeof(decimal));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("SortOrder", sortOrder) :
+                new ObjectParameter("SortOrder", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetClientModelUnitList_Result>("usp_GetClientModelUnitList", pIDParameter, availableDateParameter, floorNoParameter, bedroomParameter, current_RentParameter, sortOrderParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetClientUnitList_Result> usp_GetClientUnitList(Nullable<long> pID, Nullable<System.DateTime> availableDate, Nullable<int> floorNo, Nullable<int> bedroom, Nullable<decimal> current_Rent)
+        {
+            var pIDParameter = pID.HasValue ?
+                new ObjectParameter("PID", pID) :
+                new ObjectParameter("PID", typeof(long));
+    
+            var availableDateParameter = availableDate.HasValue ?
+                new ObjectParameter("AvailableDate", availableDate) :
+                new ObjectParameter("AvailableDate", typeof(System.DateTime));
+    
+            var floorNoParameter = floorNo.HasValue ?
+                new ObjectParameter("FloorNo", floorNo) :
+                new ObjectParameter("FloorNo", typeof(int));
+    
+            var bedroomParameter = bedroom.HasValue ?
+                new ObjectParameter("Bedroom", bedroom) :
+                new ObjectParameter("Bedroom", typeof(int));
+    
+            var current_RentParameter = current_Rent.HasValue ?
+                new ObjectParameter("Current_Rent", current_Rent) :
+                new ObjectParameter("Current_Rent", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetClientUnitList_Result>("usp_GetClientUnitList", pIDParameter, availableDateParameter, floorNoParameter, bedroomParameter, current_RentParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetCommunityPaginationAndSearchData_Result> usp_GetCommunityPaginationAndSearchData(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> pageNumber, Nullable<int> numberOfRows)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetCommunityPaginationAndSearchData_Result>("usp_GetCommunityPaginationAndSearchData", fromDateParameter, toDateParameter, pageNumberParameter, numberOfRowsParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetCountryList_Result> usp_GetCountryList()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetCountryList_Result>("usp_GetCountryList");
+        }
+    
+        public virtual ObjectResult<usp_GetCountryPaginationAndSearchData_Result> usp_GetCountryPaginationAndSearchData(string criteria, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetCountryPaginationAndSearchData_Result>("usp_GetCountryPaginationAndSearchData", criteriaParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetDocumentList_Result> usp_GetDocumentList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetDocumentList_Result>("usp_GetDocumentList", fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetEstimateList_Result> usp_GetEstimateList(Nullable<long> serviceID)
+        {
+            var serviceIDParameter = serviceID.HasValue ?
+                new ObjectParameter("ServiceID", serviceID) :
+                new ObjectParameter("ServiceID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetEstimateList_Result>("usp_GetEstimateList", serviceIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetEventBookingList_Result> usp_GetEventBookingList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> userId)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetEventBookingList_Result>("usp_GetEventBookingList", fromDateParameter, toDateParameter, userIdParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetEventList_Result> usp_GetEventList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetEventList_Result>("usp_GetEventList", fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetEventPaginationAndSearchData_Result> usp_GetEventPaginationAndSearchData(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetEventPaginationAndSearchData_Result>("usp_GetEventPaginationAndSearchData", fromDateParameter, toDateParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetFacilityBookingList_Result> usp_GetFacilityBookingList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> userId)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetFacilityBookingList_Result>("usp_GetFacilityBookingList", fromDateParameter, toDateParameter, userIdParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetFacilityList_Result> usp_GetFacilityList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetFacilityList_Result>("usp_GetFacilityList", fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetFacilityPaginationAndSearchData_Result> usp_GetFacilityPaginationAndSearchData(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> pageNumber, Nullable<int> numberOfRows)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetFacilityPaginationAndSearchData_Result>("usp_GetFacilityPaginationAndSearchData", fromDateParameter, toDateParameter, pageNumberParameter, numberOfRowsParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetFOBPaginationAndSearchData_Result> usp_GetFOBPaginationAndSearchData(string criteria, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetFOBPaginationAndSearchData_Result>("usp_GetFOBPaginationAndSearchData", criteriaParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetGuestList_Result> usp_GetGuestList(Nullable<long> tenantID)
+        {
+            var tenantIDParameter = tenantID.HasValue ?
+                new ObjectParameter("TenantID", tenantID) :
+                new ObjectParameter("TenantID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetGuestList_Result>("usp_GetGuestList", tenantIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetGuestListDashboard_Result> usp_GetGuestListDashboard(Nullable<int> status, string sortBy, string orderBy)
+        {
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("Status", status) :
+                new ObjectParameter("Status", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetGuestListDashboard_Result>("usp_GetGuestListDashboard", statusParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetInvoiceList_Result> usp_GetInvoiceList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetInvoiceList_Result>("usp_GetInvoiceList", fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetInvoicePaginationAndSearchData_Result> usp_GetInvoicePaginationAndSearchData(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> pageNumber, Nullable<int> numberOfRows)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetInvoicePaginationAndSearchData_Result>("usp_GetInvoicePaginationAndSearchData", fromDateParameter, toDateParameter, pageNumberParameter, numberOfRowsParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetModelsList_Result> usp_GetModelsList()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetModelsList_Result>("usp_GetModelsList");
+        }
+    
+        public virtual ObjectResult<usp_GetMonthlyPayLists_Result> usp_GetMonthlyPayLists()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetMonthlyPayLists_Result>("usp_GetMonthlyPayLists");
+        }
+    
+        public virtual ObjectResult<usp_GetNextPreviousUnitID_Result> usp_GetNextPreviousUnitID(Nullable<long> currentUnitID)
+        {
+            var currentUnitIDParameter = currentUnitID.HasValue ?
+                new ObjectParameter("CurrentUnitID", currentUnitID) :
+                new ObjectParameter("CurrentUnitID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetNextPreviousUnitID_Result>("usp_GetNextPreviousUnitID", currentUnitIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetNoticeList_Result> usp_GetNoticeList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetNoticeList_Result>("usp_GetNoticeList", fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetNoticePaginationAndSearchData_Result> usp_GetNoticePaginationAndSearchData(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> pageNumber, Nullable<int> numberOfRows)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetNoticePaginationAndSearchData_Result>("usp_GetNoticePaginationAndSearchData", fromDateParameter, toDateParameter, pageNumberParameter, numberOfRowsParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetOnlineTransactionList_Result> usp_GetOnlineTransactionList(Nullable<long> tenantID)
+        {
+            var tenantIDParameter = tenantID.HasValue ?
+                new ObjectParameter("TenantID", tenantID) :
+                new ObjectParameter("TenantID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetOnlineTransactionList_Result>("usp_GetOnlineTransactionList", tenantIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetParkingPaginationAndSearchData_Result> usp_GetParkingPaginationAndSearchData(Nullable<int> criteria, string criteriaByText, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var criteriaParameter = criteria.HasValue ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(int));
+    
+            var criteriaByTextParameter = criteriaByText != null ?
+                new ObjectParameter("CriteriaByText", criteriaByText) :
+                new ObjectParameter("CriteriaByText", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetParkingPaginationAndSearchData_Result>("usp_GetParkingPaginationAndSearchData", criteriaParameter, criteriaByTextParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetPetPlacePaginationAndSearchData_Result> usp_GetPetPlacePaginationAndSearchData(string criteria, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPetPlacePaginationAndSearchData_Result>("usp_GetPetPlacePaginationAndSearchData", criteriaParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetPreMovingPaginationAndSearchData_Result> usp_GetPreMovingPaginationAndSearchData(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPreMovingPaginationAndSearchData_Result>("usp_GetPreMovingPaginationAndSearchData", fromDateParameter, toDateParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetPromotionList_Result> usp_GetPromotionList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPromotionList_Result>("usp_GetPromotionList", fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetPromotionPaginationAndSearchData_Result> usp_GetPromotionPaginationAndSearchData(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> pageNumber, Nullable<int> numberOfRows)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPromotionPaginationAndSearchData_Result>("usp_GetPromotionPaginationAndSearchData", startDateParameter, endDateParameter, pageNumberParameter, numberOfRowsParameter);
+        }
+    
+        public virtual int usp_GetPropertyFloorCord(Nullable<long> pID, Nullable<int> bedroom, Nullable<System.DateTime> availableDate, Nullable<decimal> maxRent)
+        {
+            var pIDParameter = pID.HasValue ?
+                new ObjectParameter("PID", pID) :
+                new ObjectParameter("PID", typeof(long));
+    
+            var bedroomParameter = bedroom.HasValue ?
+                new ObjectParameter("Bedroom", bedroom) :
+                new ObjectParameter("Bedroom", typeof(int));
+    
+            var availableDateParameter = availableDate.HasValue ?
+                new ObjectParameter("AvailableDate", availableDate) :
+                new ObjectParameter("AvailableDate", typeof(System.DateTime));
+    
+            var maxRentParameter = maxRent.HasValue ?
+                new ObjectParameter("MaxRent", maxRent) :
+                new ObjectParameter("MaxRent", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_GetPropertyFloorCord", pIDParameter, bedroomParameter, availableDateParameter, maxRentParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetPropertyList_Result> usp_GetPropertyList(string searchText, Nullable<int> city)
+        {
+            var searchTextParameter = searchText != null ?
+                new ObjectParameter("SearchText", searchText) :
+                new ObjectParameter("SearchText", typeof(string));
+    
+            var cityParameter = city.HasValue ?
+                new ObjectParameter("City", city) :
+                new ObjectParameter("City", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPropertyList_Result>("usp_GetPropertyList", searchTextParameter, cityParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetPropertyModelUnitList_Result> usp_GetPropertyModelUnitList(string modelName, Nullable<System.DateTime> availableDate, Nullable<int> floorNo, Nullable<int> bedroom, Nullable<decimal> current_Rent, Nullable<long> prospectId)
+        {
+            var modelNameParameter = modelName != null ?
+                new ObjectParameter("ModelName", modelName) :
+                new ObjectParameter("ModelName", typeof(string));
+    
+            var availableDateParameter = availableDate.HasValue ?
+                new ObjectParameter("AvailableDate", availableDate) :
+                new ObjectParameter("AvailableDate", typeof(System.DateTime));
+    
+            var floorNoParameter = floorNo.HasValue ?
+                new ObjectParameter("FloorNo", floorNo) :
+                new ObjectParameter("FloorNo", typeof(int));
+    
+            var bedroomParameter = bedroom.HasValue ?
+                new ObjectParameter("Bedroom", bedroom) :
+                new ObjectParameter("Bedroom", typeof(int));
+    
+            var current_RentParameter = current_Rent.HasValue ?
+                new ObjectParameter("Current_Rent", current_Rent) :
+                new ObjectParameter("Current_Rent", typeof(decimal));
+    
+            var prospectIdParameter = prospectId.HasValue ?
+                new ObjectParameter("ProspectId", prospectId) :
+                new ObjectParameter("ProspectId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPropertyModelUnitList_Result>("usp_GetPropertyModelUnitList", modelNameParameter, availableDateParameter, floorNoParameter, bedroomParameter, current_RentParameter, prospectIdParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetPropertyModelUnitListByFloor_Result> usp_GetPropertyModelUnitListByFloor(Nullable<int> floorNo)
+        {
+            var floorNoParameter = floorNo.HasValue ?
+                new ObjectParameter("FloorNo", floorNo) :
+                new ObjectParameter("FloorNo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPropertyModelUnitListByFloor_Result>("usp_GetPropertyModelUnitListByFloor", floorNoParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetPropertyPaginationAndSearchData_Result> usp_GetPropertyPaginationAndSearchData(string searchText, string state, string city, Nullable<int> pageNumber, Nullable<int> numberOfRows)
+        {
+            var searchTextParameter = searchText != null ?
+                new ObjectParameter("SearchText", searchText) :
+                new ObjectParameter("SearchText", typeof(string));
+    
+            var stateParameter = state != null ?
+                new ObjectParameter("State", state) :
+                new ObjectParameter("State", typeof(string));
+    
+            var cityParameter = city != null ?
+                new ObjectParameter("City", city) :
+                new ObjectParameter("City", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPropertyPaginationAndSearchData_Result>("usp_GetPropertyPaginationAndSearchData", searchTextParameter, stateParameter, cityParameter, pageNumberParameter, numberOfRowsParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetPropertySearchList_Result> usp_GetPropertySearchList(string searchText, string state, string city, Nullable<int> pageNumber, Nullable<int> numberOfRows)
+        {
+            var searchTextParameter = searchText != null ?
+                new ObjectParameter("SearchText", searchText) :
+                new ObjectParameter("SearchText", typeof(string));
+    
+            var stateParameter = state != null ?
+                new ObjectParameter("State", state) :
+                new ObjectParameter("State", typeof(string));
+    
+            var cityParameter = city != null ?
+                new ObjectParameter("City", city) :
+                new ObjectParameter("City", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPropertySearchList_Result>("usp_GetPropertySearchList", searchTextParameter, stateParameter, cityParameter, pageNumberParameter, numberOfRowsParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetPropertyUnitDDL_Result> usp_GetPropertyUnitDDL(Nullable<long> pID)
+        {
+            var pIDParameter = pID.HasValue ?
+                new ObjectParameter("PID", pID) :
+                new ObjectParameter("PID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPropertyUnitDDL_Result>("usp_GetPropertyUnitDDL", pIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetPropertyUnitList_Result> usp_GetPropertyUnitList(Nullable<long> pID, Nullable<System.DateTime> availableDate, Nullable<int> floorNo, Nullable<int> bedroom, Nullable<int> type)
+        {
+            var pIDParameter = pID.HasValue ?
+                new ObjectParameter("PID", pID) :
+                new ObjectParameter("PID", typeof(long));
+    
+            var availableDateParameter = availableDate.HasValue ?
+                new ObjectParameter("AvailableDate", availableDate) :
+                new ObjectParameter("AvailableDate", typeof(System.DateTime));
+    
+            var floorNoParameter = floorNo.HasValue ?
+                new ObjectParameter("FloorNo", floorNo) :
+                new ObjectParameter("FloorNo", typeof(int));
+    
+            var bedroomParameter = bedroom.HasValue ?
+                new ObjectParameter("Bedroom", bedroom) :
+                new ObjectParameter("Bedroom", typeof(int));
+    
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPropertyUnitList_Result>("usp_GetPropertyUnitList", pIDParameter, availableDateParameter, floorNoParameter, bedroomParameter, typeParameter);
+        }
+    
+        public virtual int usp_GetPropertyUnitListCord(Nullable<long> pID, Nullable<int> floorNo, Nullable<int> bedroom, Nullable<System.DateTime> availableDate, Nullable<decimal> maxRent, string modelName, Nullable<long> prospectId)
+        {
+            var pIDParameter = pID.HasValue ?
+                new ObjectParameter("PID", pID) :
+                new ObjectParameter("PID", typeof(long));
+    
+            var floorNoParameter = floorNo.HasValue ?
+                new ObjectParameter("FloorNo", floorNo) :
+                new ObjectParameter("FloorNo", typeof(int));
+    
+            var bedroomParameter = bedroom.HasValue ?
+                new ObjectParameter("Bedroom", bedroom) :
+                new ObjectParameter("Bedroom", typeof(int));
+    
+            var availableDateParameter = availableDate.HasValue ?
+                new ObjectParameter("AvailableDate", availableDate) :
+                new ObjectParameter("AvailableDate", typeof(System.DateTime));
+    
+            var maxRentParameter = maxRent.HasValue ?
+                new ObjectParameter("MaxRent", maxRent) :
+                new ObjectParameter("MaxRent", typeof(decimal));
+    
+            var modelNameParameter = modelName != null ?
+                new ObjectParameter("ModelName", modelName) :
+                new ObjectParameter("ModelName", typeof(string));
+    
+            var prospectIdParameter = prospectId.HasValue ?
+                new ObjectParameter("ProspectId", prospectId) :
+                new ObjectParameter("ProspectId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_GetPropertyUnitListCord", pIDParameter, floorNoParameter, bedroomParameter, availableDateParameter, maxRentParameter, modelNameParameter, prospectIdParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetPropertyUnitPaginationAndSearchData_Result> usp_GetPropertyUnitPaginationAndSearchData(Nullable<long> propertyID, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var propertyIDParameter = propertyID.HasValue ?
+                new ObjectParameter("PropertyID", propertyID) :
+                new ObjectParameter("PropertyID", typeof(long));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPropertyUnitPaginationAndSearchData_Result>("usp_GetPropertyUnitPaginationAndSearchData", propertyIDParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetProspectDocumentList_Result> usp_GetProspectDocumentList(Nullable<long> prospectID)
+        {
+            var prospectIDParameter = prospectID.HasValue ?
+                new ObjectParameter("ProspectID", prospectID) :
+                new ObjectParameter("ProspectID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetProspectDocumentList_Result>("usp_GetProspectDocumentList", prospectIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetProspectList_Result> usp_GetProspectList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> pageNumber, Nullable<int> numberOfRows)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetProspectList_Result>("usp_GetProspectList", fromDateParameter, toDateParameter, pageNumberParameter, numberOfRowsParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetProspectPaginationAndSearchData_Result> usp_GetProspectPaginationAndSearchData(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetProspectPaginationAndSearchData_Result>("usp_GetProspectPaginationAndSearchData", fromDateParameter, toDateParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetProspectTransactionList_Result> usp_GetProspectTransactionList(Nullable<long> prospectID)
+        {
+            var prospectIDParameter = prospectID.HasValue ?
+                new ObjectParameter("ProspectID", prospectID) :
+                new ObjectParameter("ProspectID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetProspectTransactionList_Result>("usp_GetProspectTransactionList", prospectIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetProspectVerificationList_Result> usp_GetProspectVerificationList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetProspectVerificationList_Result>("usp_GetProspectVerificationList", fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetProspectVerifyPaginationAndSearchData_Result> usp_GetProspectVerifyPaginationAndSearchData(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> pageNumber, Nullable<int> numberOfRows, string unitNo, string astatus, string sortBy, string orderBy)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var unitNoParameter = unitNo != null ?
+                new ObjectParameter("UnitNo", unitNo) :
+                new ObjectParameter("UnitNo", typeof(string));
+    
+            var astatusParameter = astatus != null ?
+                new ObjectParameter("Astatus", astatus) :
+                new ObjectParameter("Astatus", typeof(string));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetProspectVerifyPaginationAndSearchData_Result>("usp_GetProspectVerifyPaginationAndSearchData", fromDateParameter, toDateParameter, pageNumberParameter, numberOfRowsParameter, unitNoParameter, astatusParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetPurchaseOrderList_Result> usp_GetPurchaseOrderList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPurchaseOrderList_Result>("usp_GetPurchaseOrderList", fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetPurchaseOrderPaginationAndSearchData_Result> usp_GetPurchaseOrderPaginationAndSearchData(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> pageNumber, Nullable<int> numberOfRows)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPurchaseOrderPaginationAndSearchData_Result>("usp_GetPurchaseOrderPaginationAndSearchData", fromDateParameter, toDateParameter, pageNumberParameter, numberOfRowsParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetRecurringPayLists_Result> usp_GetRecurringPayLists(Nullable<long> tenantID)
+        {
+            var tenantIDParameter = tenantID.HasValue ?
+                new ObjectParameter("TenantID", tenantID) :
+                new ObjectParameter("TenantID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetRecurringPayLists_Result>("usp_GetRecurringPayLists", tenantIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetReservationRequestPaginationAndSearchData_Result> usp_GetReservationRequestPaginationAndSearchData(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> pageNumber, Nullable<int> numberOfRows, Nullable<int> unitId, string amenityName, string sortBy, string orderBy)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var unitIdParameter = unitId.HasValue ?
+                new ObjectParameter("UnitId", unitId) :
+                new ObjectParameter("UnitId", typeof(int));
+    
+            var amenityNameParameter = amenityName != null ?
+                new ObjectParameter("AmenityName", amenityName) :
+                new ObjectParameter("AmenityName", typeof(string));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetReservationRequestPaginationAndSearchData_Result>("usp_GetReservationRequestPaginationAndSearchData", fromDateParameter, toDateParameter, pageNumberParameter, numberOfRowsParameter, unitIdParameter, amenityNameParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetSalesAgentList_Result> usp_GetSalesAgentList(string firstName, string lastName, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("FirstName", firstName) :
+                new ObjectParameter("FirstName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("LastName", lastName) :
+                new ObjectParameter("LastName", typeof(string));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetSalesAgentList_Result>("usp_GetSalesAgentList", firstNameParameter, lastNameParameter, fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetScheduleRecurringLists_Result> usp_GetScheduleRecurringLists()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetScheduleRecurringLists_Result>("usp_GetScheduleRecurringLists");
+        }
+    
+        public virtual ObjectResult<usp_GetServiceCatPaginationAndSearchData_Result> usp_GetServiceCatPaginationAndSearchData(string criteria, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetServiceCatPaginationAndSearchData_Result>("usp_GetServiceCatPaginationAndSearchData", criteriaParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetServiceCausingIssuePaginationAndSearchData_Result> usp_GetServiceCausingIssuePaginationAndSearchData(string criteria, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetServiceCausingIssuePaginationAndSearchData_Result>("usp_GetServiceCausingIssuePaginationAndSearchData", criteriaParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetServiceInfo_Result> usp_GetServiceInfo(Nullable<long> serviceID)
+        {
+            var serviceIDParameter = serviceID.HasValue ?
+                new ObjectParameter("ServiceID", serviceID) :
+                new ObjectParameter("ServiceID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetServiceInfo_Result>("usp_GetServiceInfo", serviceIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetServiceIssuePaginationAndSearchData_Result> usp_GetServiceIssuePaginationAndSearchData(string criteria, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetServiceIssuePaginationAndSearchData_Result>("usp_GetServiceIssuePaginationAndSearchData", criteriaParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetServiceLocationPaginationAndSearchData_Result> usp_GetServiceLocationPaginationAndSearchData(string criteria, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetServiceLocationPaginationAndSearchData_Result>("usp_GetServiceLocationPaginationAndSearchData", criteriaParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetServicePaginationAndSearchData_Result> usp_GetServicePaginationAndSearchData(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> piority, Nullable<int> statue, Nullable<int> userID, string criteria, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var piorityParameter = piority.HasValue ?
+                new ObjectParameter("Piority", piority) :
+                new ObjectParameter("Piority", typeof(int));
+    
+            var statueParameter = statue.HasValue ?
+                new ObjectParameter("Statue", statue) :
+                new ObjectParameter("Statue", typeof(int));
+    
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("UserID", userID) :
+                new ObjectParameter("UserID", typeof(int));
+    
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetServicePaginationAndSearchData_Result>("usp_GetServicePaginationAndSearchData", fromDateParameter, toDateParameter, piorityParameter, statueParameter, userIDParameter, criteriaParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetServiceRequestByDate_Result> usp_GetServiceRequestByDate(Nullable<long> tenantId)
+        {
+            var tenantIdParameter = tenantId.HasValue ?
+                new ObjectParameter("TenantId", tenantId) :
+                new ObjectParameter("TenantId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetServiceRequestByDate_Result>("usp_GetServiceRequestByDate", tenantIdParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetServiceRequestListDashboard_Result> usp_GetServiceRequestListDashboard(Nullable<int> status, string sortBy, string orderBy)
+        {
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("Status", status) :
+                new ObjectParameter("Status", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetServiceRequestListDashboard_Result>("usp_GetServiceRequestListDashboard", statusParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetSignedList_Result> usp_GetSignedList(Nullable<long> tenantID)
+        {
+            var tenantIDParameter = tenantID.HasValue ?
+                new ObjectParameter("TenantID", tenantID) :
+                new ObjectParameter("TenantID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetSignedList_Result>("usp_GetSignedList", tenantIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetSlotPaginationAndSearchData_Result> usp_GetSlotPaginationAndSearchData(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetSlotPaginationAndSearchData_Result>("usp_GetSlotPaginationAndSearchData", fromDateParameter, toDateParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetStateList_Result> usp_GetStateList(string criteria, Nullable<int> pageNumber, Nullable<int> numberOfRows)
+        {
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetStateList_Result>("usp_GetStateList", criteriaParameter, pageNumberParameter, numberOfRowsParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetStatePaginationAndSearchData_Result> usp_GetStatePaginationAndSearchData(string criteria, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetStatePaginationAndSearchData_Result>("usp_GetStatePaginationAndSearchData", criteriaParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetStoragePaginationAndSearchData_Result> usp_GetStoragePaginationAndSearchData(string criteria, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetStoragePaginationAndSearchData_Result>("usp_GetStoragePaginationAndSearchData", criteriaParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetTenantBillList_Result> usp_GetTenantBillList(Nullable<long> transID)
+        {
+            var transIDParameter = transID.HasValue ?
+                new ObjectParameter("TransID", transID) :
+                new ObjectParameter("TransID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetTenantBillList_Result>("usp_GetTenantBillList", transIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetTenantInfoData_Result> usp_GetTenantInfoData(Nullable<long> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetTenantInfoData_Result>("usp_GetTenantInfoData", idParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetTenantList_Result> usp_GetTenantList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetTenantList_Result>("usp_GetTenantList", fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetTenantNoticeList_Result> usp_GetTenantNoticeList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<long> tenantID)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var tenantIDParameter = tenantID.HasValue ?
+                new ObjectParameter("TenantID", tenantID) :
+                new ObjectParameter("TenantID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetTenantNoticeList_Result>("usp_GetTenantNoticeList", fromDateParameter, toDateParameter, tenantIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetTenantOnlineData_Result> usp_GetTenantOnlineData(Nullable<long> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetTenantOnlineData_Result>("usp_GetTenantOnlineData", idParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetTenantPaginationAndSearchData_Result> usp_GetTenantPaginationAndSearchData(Nullable<int> pageNumber, Nullable<int> numberOfRows, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, string firstName, string lastName, Nullable<int> gender, Nullable<int> maritalStatus, Nullable<int> state, Nullable<int> city, Nullable<int> propertyID, Nullable<int> unitID, string socialSecurityNum, string occupation, Nullable<int> officeState, Nullable<int> officeCity)
+        {
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("FirstName", firstName) :
+                new ObjectParameter("FirstName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("LastName", lastName) :
+                new ObjectParameter("LastName", typeof(string));
+    
+            var genderParameter = gender.HasValue ?
+                new ObjectParameter("Gender", gender) :
+                new ObjectParameter("Gender", typeof(int));
+    
+            var maritalStatusParameter = maritalStatus.HasValue ?
+                new ObjectParameter("MaritalStatus", maritalStatus) :
+                new ObjectParameter("MaritalStatus", typeof(int));
+    
+            var stateParameter = state.HasValue ?
+                new ObjectParameter("State", state) :
+                new ObjectParameter("State", typeof(int));
+    
+            var cityParameter = city.HasValue ?
+                new ObjectParameter("City", city) :
+                new ObjectParameter("City", typeof(int));
+    
+            var propertyIDParameter = propertyID.HasValue ?
+                new ObjectParameter("PropertyID", propertyID) :
+                new ObjectParameter("PropertyID", typeof(int));
+    
+            var unitIDParameter = unitID.HasValue ?
+                new ObjectParameter("UnitID", unitID) :
+                new ObjectParameter("UnitID", typeof(int));
+    
+            var socialSecurityNumParameter = socialSecurityNum != null ?
+                new ObjectParameter("SocialSecurityNum", socialSecurityNum) :
+                new ObjectParameter("SocialSecurityNum", typeof(string));
+    
+            var occupationParameter = occupation != null ?
+                new ObjectParameter("Occupation", occupation) :
+                new ObjectParameter("Occupation", typeof(string));
+    
+            var officeStateParameter = officeState.HasValue ?
+                new ObjectParameter("OfficeState", officeState) :
+                new ObjectParameter("OfficeState", typeof(int));
+    
+            var officeCityParameter = officeCity.HasValue ?
+                new ObjectParameter("OfficeCity", officeCity) :
+                new ObjectParameter("OfficeCity", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetTenantPaginationAndSearchData_Result>("usp_GetTenantPaginationAndSearchData", pageNumberParameter, numberOfRowsParameter, fromDateParameter, toDateParameter, firstNameParameter, lastNameParameter, genderParameter, maritalStatusParameter, stateParameter, cityParameter, propertyIDParameter, unitIDParameter, socialSecurityNumParameter, occupationParameter, officeStateParameter, officeCityParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetTenantTransactionList_Result> usp_GetTenantTransactionList(Nullable<long> tenantID, Nullable<int> accountDDL)
+        {
+            var tenantIDParameter = tenantID.HasValue ?
+                new ObjectParameter("TenantID", tenantID) :
+                new ObjectParameter("TenantID", typeof(long));
+    
+            var accountDDLParameter = accountDDL.HasValue ?
+                new ObjectParameter("AccountDDL", accountDDL) :
+                new ObjectParameter("AccountDDL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetTenantTransactionList_Result>("usp_GetTenantTransactionList", tenantIDParameter, accountDDLParameter);
+        }
+    
+        public virtual int usp_GetTenantUpTransactionList()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_GetTenantUpTransactionList");
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> usp_GetTotalDue(Nullable<long> tenantID)
+        {
+            var tenantIDParameter = tenantID.HasValue ?
+                new ObjectParameter("TenantID", tenantID) :
+                new ObjectParameter("TenantID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("usp_GetTotalDue", tenantIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetTransactionList_Result> usp_GetTransactionList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetTransactionList_Result>("usp_GetTransactionList", fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetTransactionPaginationAndSearchData_Result> usp_GetTransactionPaginationAndSearchData(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> pageNumber, Nullable<int> numberOfRows)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetTransactionPaginationAndSearchData_Result>("usp_GetTransactionPaginationAndSearchData", fromDateParameter, toDateParameter, pageNumberParameter, numberOfRowsParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetUnitLeasePrice_Result> usp_GetUnitLeasePrice(Nullable<int> propertyId, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var propertyIdParameter = propertyId.HasValue ?
+                new ObjectParameter("PropertyId", propertyId) :
+                new ObjectParameter("PropertyId", typeof(int));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetUnitLeasePrice_Result>("usp_GetUnitLeasePrice", propertyIdParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetUnitLeasewiseRent_Result> usp_GetUnitLeasewiseRent(Nullable<long> unitId)
+        {
+            var unitIdParameter = unitId.HasValue ?
+                new ObjectParameter("UnitId", unitId) :
+                new ObjectParameter("UnitId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetUnitLeasewiseRent_Result>("usp_GetUnitLeasewiseRent", unitIdParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetUpTransationLists_Result> usp_GetUpTransationLists(Nullable<long> tenantID)
+        {
+            var tenantIDParameter = tenantID.HasValue ?
+                new ObjectParameter("TenantID", tenantID) :
+                new ObjectParameter("TenantID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetUpTransationLists_Result>("usp_GetUpTransationLists", tenantIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetUserListByType_Result> usp_GetUserListByType(Nullable<int> userType)
+        {
+            var userTypeParameter = userType.HasValue ?
+                new ObjectParameter("UserType", userType) :
+                new ObjectParameter("UserType", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetUserListByType_Result>("usp_GetUserListByType", userTypeParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetUserPaginationAndSearchData_Result> usp_GetUserPaginationAndSearchData(string filter, string criteria, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var filterParameter = filter != null ?
+                new ObjectParameter("Filter", filter) :
+                new ObjectParameter("Filter", typeof(string));
+    
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetUserPaginationAndSearchData_Result>("usp_GetUserPaginationAndSearchData", filterParameter, criteriaParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetUsersList_Result> usp_GetUsersList(string filter, string criteria)
+        {
+            var filterParameter = filter != null ?
+                new ObjectParameter("Filter", filter) :
+                new ObjectParameter("Filter", typeof(string));
+    
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetUsersList_Result>("usp_GetUsersList", filterParameter, criteriaParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetUtilityBillingList_Result> usp_GetUtilityBillingList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetUtilityBillingList_Result>("usp_GetUtilityBillingList", fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetUtilityList_Result> usp_GetUtilityList(string criteria, Nullable<int> pageNumber, Nullable<int> numberOfRows)
+        {
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetUtilityList_Result>("usp_GetUtilityList", criteriaParameter, pageNumberParameter, numberOfRowsParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetUtilityPaginationAndSearchData_Result> usp_GetUtilityPaginationAndSearchData(string criteria, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetUtilityPaginationAndSearchData_Result>("usp_GetUtilityPaginationAndSearchData", criteriaParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetVendorList_Result> usp_GetVendorList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetVendorList_Result>("usp_GetVendorList", fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetVendorPaginationAndSearchData_Result> usp_GetVendorPaginationAndSearchData(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> pageNumber, Nullable<int> numberOfRows)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetVendorPaginationAndSearchData_Result>("usp_GetVendorPaginationAndSearchData", fromDateParameter, toDateParameter, pageNumberParameter, numberOfRowsParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetVisitList_Result> usp_GetVisitList(Nullable<long> prospectID)
+        {
+            var prospectIDParameter = prospectID.HasValue ?
+                new ObjectParameter("ProspectID", prospectID) :
+                new ObjectParameter("ProspectID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetVisitList_Result>("usp_GetVisitList", prospectIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetWorkOrderList_Result> usp_GetWorkOrderList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetWorkOrderList_Result>("usp_GetWorkOrderList", fromDateParameter, toDateParameter);
+        }
+    
+        public virtual int usp_GetZipCodeInRadius(string zipcode, Nullable<int> radius)
+        {
+            var zipcodeParameter = zipcode != null ?
+                new ObjectParameter("zipcode", zipcode) :
+                new ObjectParameter("zipcode", typeof(string));
+    
+            var radiusParameter = radius.HasValue ?
+                new ObjectParameter("radius", radius) :
+                new ObjectParameter("radius", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_GetZipCodeInRadius", zipcodeParameter, radiusParameter);
+        }
+    
+        public virtual ObjectResult<usp_ReservationRequestList_Result> usp_ReservationRequestList(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_ReservationRequestList_Result>("usp_ReservationRequestList", idParameter);
+        }
+    
+        public virtual ObjectResult<string> usp_SaveUpdateTenantParking(Nullable<int> numberOfParking, Nullable<int> unitID, Nullable<long> tenantID)
+        {
+            var numberOfParkingParameter = numberOfParking.HasValue ?
+                new ObjectParameter("NumberOfParking", numberOfParking) :
+                new ObjectParameter("NumberOfParking", typeof(int));
+    
+            var unitIDParameter = unitID.HasValue ?
+                new ObjectParameter("UnitID", unitID) :
+                new ObjectParameter("UnitID", typeof(int));
+    
+            var tenantIDParameter = tenantID.HasValue ?
+                new ObjectParameter("TenantID", tenantID) :
+                new ObjectParameter("TenantID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("usp_SaveUpdateTenantParking", numberOfParkingParameter, unitIDParameter, tenantIDParameter);
+        }
+    
+        public virtual ObjectResult<usp_SortPropertyList_Result> usp_SortPropertyList(string sortCol, string dir)
+        {
+            var sortColParameter = sortCol != null ?
+                new ObjectParameter("SortCol", sortCol) :
+                new ObjectParameter("SortCol", typeof(string));
+    
+            var dirParameter = dir != null ?
+                new ObjectParameter("dir", dir) :
+                new ObjectParameter("dir", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SortPropertyList_Result>("usp_SortPropertyList", sortColParameter, dirParameter);
+        }
+    
+        public virtual ObjectResult<usp_TestSpSearchData_Result> usp_TestSpSearchData(string criteria, Nullable<int> pageNumber, Nullable<int> numberOfRows, string sortBy, string orderBy)
+        {
+            var criteriaParameter = criteria != null ?
+                new ObjectParameter("Criteria", criteria) :
+                new ObjectParameter("Criteria", typeof(string));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var numberOfRowsParameter = numberOfRows.HasValue ?
+                new ObjectParameter("NumberOfRows", numberOfRows) :
+                new ObjectParameter("NumberOfRows", typeof(int));
+    
+            var sortByParameter = sortBy != null ?
+                new ObjectParameter("SortBy", sortBy) :
+                new ObjectParameter("SortBy", typeof(string));
+    
+            var orderByParameter = orderBy != null ?
+                new ObjectParameter("OrderBy", orderBy) :
+                new ObjectParameter("OrderBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_TestSpSearchData_Result>("usp_TestSpSearchData", criteriaParameter, pageNumberParameter, numberOfRowsParameter, sortByParameter, orderByParameter);
+        }
+    
+        public virtual int usp_UpdateUnitDepostiteAndModelName(string oldModelName, string newModelName, Nullable<decimal> deposit)
+        {
+            var oldModelNameParameter = oldModelName != null ?
+                new ObjectParameter("OldModelName", oldModelName) :
+                new ObjectParameter("OldModelName", typeof(string));
+    
+            var newModelNameParameter = newModelName != null ?
+                new ObjectParameter("NewModelName", newModelName) :
+                new ObjectParameter("NewModelName", typeof(string));
+    
+            var depositParameter = deposit.HasValue ?
+                new ObjectParameter("Deposit", deposit) :
+                new ObjectParameter("Deposit", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_UpdateUnitDepostiteAndModelName", oldModelNameParameter, newModelNameParameter, depositParameter);
+        }
     }
 }

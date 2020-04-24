@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using ShomaRM.Areas.Admin.Models;
 using ShomaRM.Models.Bluemoon;
 using ShomaRM.Data;
+using ShomaRM.Models;
 
 namespace ShomaRM.Areas.Admin.Controllers
 {
@@ -112,6 +113,18 @@ namespace ShomaRM.Areas.Admin.Controllers
             }
         }
 
+        //Get BackgroundScreening List by UserId
+        public ActionResult GetBackgroundScreening(long UserId)
+        {            
+            try
+            {
+                return Json((new ProspectVerificationModel()).FillProspectBackgroundScreening(UserId), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         public async System.Threading.Tasks.Task<ActionResult> GetLeaseDocBlumoonAdm(string LeaseId, string EsignatureId)
         {
             try
