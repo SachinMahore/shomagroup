@@ -27,6 +27,5 @@ namespace ShomaRM.Data
         public string CreatedDate { get; set; }
         public Nullable<long> PropertyId { get; set; }
         public string UnitNo { get; set; }
-        public string ApplicationStatus { get; set; }
     }
 }
