@@ -31,6 +31,7 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_AmenityPriceRange> tbl_AmenityPriceRange { get; set; }
         public virtual DbSet<tbl_AmenityReservation> tbl_AmenityReservation { get; set; }
         public virtual DbSet<tbl_Applicant> tbl_Applicant { get; set; }
+        public virtual DbSet<tbl_ApplicantHistory> tbl_ApplicantHistory { get; set; }
         public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
         public virtual DbSet<tbl_AuditHistory> tbl_AuditHistory { get; set; }
         public virtual DbSet<tbl_AuditHistoryDetail> tbl_AuditHistoryDetail { get; set; }
@@ -46,6 +47,8 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Country> tbl_Country { get; set; }
         public virtual DbSet<tbl_Document> tbl_Document { get; set; }
         public virtual DbSet<tbl_DocumentVerification> tbl_DocumentVerification { get; set; }
+        public virtual DbSet<tbl_EmployerHistory> tbl_EmployerHistory { get; set; }
+        public virtual DbSet<tbl_ESignatureKeys> tbl_ESignatureKeys { get; set; }
         public virtual DbSet<tbl_Estimate> tbl_Estimate { get; set; }
         public virtual DbSet<tbl_Event> tbl_Event { get; set; }
         public virtual DbSet<tbl_EventBooking> tbl_EventBooking { get; set; }
@@ -60,6 +63,7 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_LeaseRenewal> tbl_LeaseRenewal { get; set; }
         public virtual DbSet<tbl_LeaseTerms> tbl_LeaseTerms { get; set; }
         public virtual DbSet<tbl_LeaseTransfer> tbl_LeaseTransfer { get; set; }
+        public virtual DbSet<tbl_Login> tbl_Login { get; set; }
         public virtual DbSet<tbl_LoginHistory> tbl_LoginHistory { get; set; }
         public virtual DbSet<tbl_Models> tbl_Models { get; set; }
         public virtual DbSet<tbl_MonthlyPayment> tbl_MonthlyPayment { get; set; }
@@ -93,6 +97,7 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_TenantFob> tbl_TenantFob { get; set; }
         public virtual DbSet<tbl_TenantInfo> tbl_TenantInfo { get; set; }
         public virtual DbSet<tbl_TenantMonthlyPayments> tbl_TenantMonthlyPayments { get; set; }
+        public virtual DbSet<tbl_TenantOnline> tbl_TenantOnline { get; set; }
         public virtual DbSet<tbl_TenantParking> tbl_TenantParking { get; set; }
         public virtual DbSet<tbl_TenantPet> tbl_TenantPet { get; set; }
         public virtual DbSet<tbl_TenantPetPlace> tbl_TenantPetPlace { get; set; }
@@ -106,16 +111,5 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Visit> tbl_Visit { get; set; }
         public virtual DbSet<tbl_WorkOrder> tbl_WorkOrder { get; set; }
         public virtual DbSet<tbl_ZipCodes> tbl_ZipCodes { get; set; }
-
-        public virtual DbSet<tbl_SMSMessages> tbl_SMSMessages { get; set; }
-        public virtual DbSet<tbl_TenantFob> tbl_TenantFob { get; set; }
-        public virtual DbSet<tbl_Prospect> tbl_Prospect { get; set; }
-        public virtual DbSet<tbl_MoveInChecklist> tbl_MoveInChecklist { get; set; }
-        public virtual DbSet<tbl_ESignatureKeys> tbl_ESignatureKeys { get; set; }
-        public virtual DbSet<tbl_ApplicantHistory> tbl_ApplicantHistory { get; set; }
-        public virtual DbSet<tbl_EmployerHistory> tbl_EmployerHistory { get; set; }
-        public virtual DbSet<tbl_Login> tbl_Login { get; set; }
-        public virtual DbSet<tbl_TenantOnline> tbl_TenantOnline { get; set; }
-
     }
 }

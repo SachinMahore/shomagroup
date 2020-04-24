@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{68CF2378-F894-4DE1-8819-9795A5EF4156}</ProjectGuid>
+    <ProjectGuid>{6FB7D52F-0D76-4463-BBB5-82B2482074A9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ShomaRM.Data</RootNamespace>
@@ -327,9 +327,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.Config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <EntityDeploy Include="ShomaRMEntities.edmx">

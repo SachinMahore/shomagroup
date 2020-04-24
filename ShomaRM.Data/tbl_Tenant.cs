@@ -71,6 +71,10 @@ namespace ShomaRM.Data
         public virtual ICollection<tbl_EventBooking> tbl_EventBooking { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_FacilityBooking> tbl_FacilityBooking { get; set; }
+        public virtual tbl_Login tbl_Login { get; set; }
+        public virtual tbl_Login tbl_Login1 { get; set; }
+        public virtual tbl_Login tbl_Login2 { get; set; }
+        public virtual tbl_Login tbl_Login3 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Notice> tbl_Notice { get; set; }
         public virtual tbl_Properties tbl_Properties { get; set; }
@@ -79,9 +83,5 @@ namespace ShomaRM.Data
         public virtual ICollection<tbl_UtilityBilling> tbl_UtilityBilling { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_WorkOrder> tbl_WorkOrder { get; set; }
-        public virtual tbl_Login tbl_Login { get; set; }
-        public virtual tbl_Login tbl_Login1 { get; set; }
-        public virtual tbl_Login tbl_Login2 { get; set; }
-        public virtual tbl_Login tbl_Login3 { get; set; }
     }
 }

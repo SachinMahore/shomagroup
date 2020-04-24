@@ -828,9 +828,9 @@ namespace ShomaRM.Controllers
             string[] ids = id.Split('-');
             ShomaRMEntities db = new ShomaRMEntities();
             string pid = ids[0].ToString();
-            long uid=Convert.ToInt64(ids[1].ToString());
-            
-            ViewBag.PTOID= uid.ToString();
+            long uid = Convert.ToInt64(ids[1].ToString());
+
+            ViewBag.PTOID = uid.ToString();
             if (ShomaGroupWebSession.CurrentUser == null && pid != "0")
             {
                 return Redirect("/Account/Login");
@@ -861,7 +861,7 @@ namespace ShomaRM.Controllers
                 model.FromHome = 0;
                 if (model.LeaseTermID == 0)
                 {
-                  
+
                     var leaseDet = db.tbl_LeaseTerms.Where(p => p.LeaseTerms == 12).FirstOrDefault();
                     if (leaseDet != null)
                     {
@@ -885,7 +885,7 @@ namespace ShomaRM.Controllers
 
             }
             return View(model);
-
+        }
         public ActionResult PrintApplicationForm(long TenantID)
         {
             try
