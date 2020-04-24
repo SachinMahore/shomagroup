@@ -66,7 +66,7 @@
 
                 </div>
 
-               
+
             </div>
         </div>
     </div>
@@ -93,48 +93,50 @@
                                 <button class="btn btn-primary search" type="button">Desired Move In</button>
                             </div>
                             <div class="col-md-2"></div>
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary search" type="button" id="iconMoveInDate"><i class="fa-calendar fa"></i></button>
-                                        </span>
-                                        <input type="text" id="txtMoveInDate" class="form-control" value="@DateTime.Now.AddDays(30).ToString("MM/dd/yyyy")" style="color:#6c6e72;background-color:white;">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                               
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary search" type="button"><i class="fa-info-circle fa"></i></button>
-                                        </span>
-                                        <select id="ddlLease" class="form-control" style="background-color:white;">
-                                           
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-2"></div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary search" type="button"><i class="fa-bed fa"></i></button>
-                                        </span>
-                                        <select id="ddlBedroom" class="form-control" style="background-color:white;">
-                                            <option value='0'>Beds</option>
-                                            <option value='1'>1</option>
-                                            <option value='2'>2</option>
-                                            <option value='3'>3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <button id="btnsearchpropertyslider" type="submit" value="Search" onclick="getPropertyUnitList()" class="btn nav-button login">Search</button>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary search tooltips" type="button" id="iconMoveInDate"><i class="fa-calendar fa"></i>
+                                                                                                                 <span class="tooltiptexts">Desired Move In Date</span>
+                                        </button>
+                                    </span>
+                                    <input type="text" id="txtMoveInDate" class="form-control" value="@DateTime.Now.AddDays(30).ToString("MM/dd/yyyy")" style="color:#6c6e72;background-color:white;">
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary search tooltips" type="button">
+                                            <i class="fa-info-circle fa"></i>
+                                            <span class="tooltiptexts">Desired Lease Term</span>
+                                        </button>
+                                    </span>
+                                    <select id="ddlLease" class="form-control" style="background-color:white;"></select>
+                                </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary search tooltips" type="button"><i class="fa-bed fa"></i><span class="tooltiptexts">Desired Beds</span></button>
+                                    </span>
+                                    <select id="ddlBedroom" class="form-control" style="background-color:white;">
+                                        <option value='0'>Beds</option>
+                                        <option value='1'>1</option>
+                                        <option value='2'>2</option>
+                                        <option value='3'>3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <button id="btnsearchpropertyslider" type="submit" value="Search" onclick="getPropertyUnitList()" class="btn nav-button login">Search</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -339,7 +341,7 @@
         </div>
     </div>
 </div>
-<input id="hndQuoteExp" type="hidden" value="@(ViewBag.DelAData)"/>
+<input id="hndQuoteExp" type="hidden" value="@(ViewBag.DelAData)" />
 <style>
     /* The Modal (background) */
     .modal {
@@ -479,6 +481,42 @@
             cursor: pointer;
             opacity: 1;
         }
+
+    .tooltips {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted #4D738A;
+    }
+
+    .tooltips .tooltiptexts {
+        visibility: hidden;
+        width: 150px;
+        background-color: #4D738A;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 150%;
+        left: 50%;
+        margin-left: -75px;
+    }
+
+        .tooltips .tooltiptexts::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #4D738A transparent transparent transparent;
+        }
+
+    .tooltips:hover .tooltiptexts {
+        visibility: visible;
+    }
 </style>
 <script type="text/javascript">
     $(function () {
@@ -619,13 +657,13 @@
         dtend.setFullYear(new Date().getFullYear() + 100);
         //$("#txtMoveInDate").datepicker();
         $('#txtMoveInDate').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: "+1d", endDate: dtend, maxViewMode: 2, autoclose: true });
-       
+
         if ($('#hndQuoteExp').val() == "Del") {
-                $('#popQuoteExpire').modal('show');
-            }
-            else {
-                $('#popQuoteExpire').modal('hide');
-            }
+            $('#popQuoteExpire').modal('show');
+        }
+        else {
+            $('#popQuoteExpire').modal('hide');
+        }
         $('#iconMoveInDate').click(function () {
             $("#txtMoveInDate").focus();
         });
@@ -652,15 +690,14 @@
                 $("#ddlLease").empty();
                 var hasItems = false;
                 $.each(response.model, function (index, elementValue) {
-                    if (elementValue.LeaseTerms == "12")
-                    {
+                    if (elementValue.LeaseTerms == "12") {
                         $("#ddlLease").append("<option value=" + elementValue.LTID + " selected>" + elementValue.LeaseTerms + "</option>");
                     } else {
                         $("#ddlLease").append("<option value=" + elementValue.LTID + ">" + elementValue.LeaseTerms + "</option>");
                     }
                     hasItems = true;
                 });
-                if (hasItems==false) {
+                if (hasItems == false) {
                     $("#ddlLease").append("<option value='0' selected>No Lease Term</option>");
                 }
 

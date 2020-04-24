@@ -4590,6 +4590,8 @@ var getSignedLists = function (userid) {
         success: function (response) {
             $("#tblLeasedSign>tbody").empty();
             var isSignedAll = 0;
+            var isLeaseExecuted = 0;
+            $("#hndIsSignedByAll").val(0);
             if (response.model.length > 0) {
                 $.each(response.model, function (elementType, elementValue) {
                     var html = "<tr data-value=" + elementValue.ESID + ">";
@@ -4599,10 +4601,23 @@ var getSignedLists = function (userid) {
                     html += "<td><button type='button' class='btn btn-primary' onclick='SendReminderEmail(2, " + elementValue.ApplicantID + ")' " + (elementValue.IsSigned == 1 ? "disabled='disabled'" : "") + ">Send Reminder to Sign Lease Document</button></td>";
                     html += "</tr>";
                     isSignedAll = elementValue.IsSignedAll;
+                    isLeaseExecuted = elementValue.IsLeaseExecuted;
                     $("#tblLeasedSign>tbody").append(html);
                 });
                 if (isSignedAll == 1) {
+                    $("#hndIsSignedByAll").val(1);
+                    if (isLeaseExecuted == 0) {
+                        $("#btnExecuteLease").removeAttr("disabled");
+                        $("#btnupSignSts").attr("disabled", "disabled");
+                        $("#btnExecuteLease").attr("data-target","#popExecuteLease");
+                    }
+                    else {
+                        $("#btnupSignSts").removeAttr("disabled");
+                        $("#btnExecuteLease").attr("disabled", "disabled");
+                        $("#btnExecuteLease").removeAttr("data-target");
+                    }
                     $("#btnleaseDownl").removeAttr("disabled");
+                    $("#btnSendRemSign").attr("disabled", "disabled");
                 }
             }
             else {

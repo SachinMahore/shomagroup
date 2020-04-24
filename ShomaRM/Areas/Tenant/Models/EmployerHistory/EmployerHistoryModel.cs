@@ -1,4 +1,5 @@
 ﻿using ShomaRM.Data;
+using ShomaRM.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -41,7 +42,8 @@ namespace ShomaRM.Areas.Tenant.Models
         public string TerminationDateString { get; set; }
         public string TerminationReason { get; set; }
         public int TotalMonthsEmployerHistory { get; set; }
-
+        //Sachin Mahore 23 Apr
+        public long ParentTOID { get; set; }
         public string saveUpdateEmployerHistory(EmployerHistoryModel model)
         {
             string msg = "";
@@ -68,7 +70,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     City = model.City,
                     Zip = model.Zip,
                     TenantId = model.TenantId,
-                    TerminationReason = model.TerminationReason
+                    TerminationReason = model.TerminationReason,
+                    ParentTOID=ShomaGroupWebSession.CurrentUser.UserID,
                 };
                 db.tbl_EmployerHistory.Add(saveEmployerHistory);
                 db.SaveChanges();
@@ -110,7 +113,7 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             List<EmployerHistoryModel> model = new List<EmployerHistoryModel>();
             ShomaRMEntities db = new ShomaRMEntities();
-            var getEmployerHistorydata = db.tbl_EmployerHistory.Where(co => co.TenantId == TenantId).ToList();
+            var getEmployerHistorydata = db.tbl_EmployerHistory.Where(co => co.TenantId == TenantId && co.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).ToList();
             if (getEmployerHistorydata != null)
             {
                 foreach (var item in getEmployerHistorydata)
@@ -167,71 +170,7 @@ namespace ShomaRM.Areas.Tenant.Models
             return msg;
         }
 
-        //public EmployerHistoryModel GetMonthsFromEmployerHistory(long TenantId, string EmpStartDate, string EmpTerminationDate)
-        //{
-        //    ShomaRMEntities db = new ShomaRMEntities();
-        //    EmployerHistoryModel model = new EmployerHistoryModel();
-
-        //    try
-        //    {
-        //        int monthsCount = 0;
-        //        string fromDateDB = string.Empty;
-        //        string toDateDB = string.Empty;
-        //        var startDateEmpHist = db.tbl_EmployerHistory.Where(co => co.TenantId == TenantId).OrderBy(co => co.StartDate).ToList();
-        //        if (startDateEmpHist != null)
-        //        {
-        //            foreach (var item in startDateEmpHist)
-        //            {
-        //                fromDateDB = Convert.ToString(item.StartDate);
-        //                break;
-        //            }
-        //        }
-        //        var terminationDateEmpHist = db.tbl_EmployerHistory.Where(co => co.TenantId == TenantId).OrderByDescending(co => co.TerminationDate).ToList();
-        //        if (terminationDateEmpHist != null)
-        //        {
-        //            foreach (var item in terminationDateEmpHist)
-        //            {
-        //                toDateDB = Convert.ToString(item.TerminationDate);
-        //                break;
-        //            }
-        //        }
-        //        if (fromDateDB != string.Empty && toDateDB != string.Empty)
-        //        {
-        //            DateTime dt1FromDB = Convert.ToDateTime(fromDateDB);
-        //            DateTime dt2ToDB = Convert.ToDateTime(toDateDB);
-        //            if (EmpStartDate != string.Empty && EmpTerminationDate != string.Empty)
-        //            {
-        //                DateTime dt1Form = Convert.ToDateTime(EmpStartDate);
-        //                DateTime dt2Form = Convert.ToDateTime(EmpTerminationDate);
-        //                bool fDate = dt1FromDB < dt1Form;
-        //                bool tDate = dt2ToDB > dt2Form;
-
-        //                DateTime finalDt1 = Convert.ToDateTime(fDate == true ? dt1FromDB : dt1Form);
-        //                DateTime finalDt2 = Convert.ToDateTime(tDate == true ? dt2ToDB : dt2Form);
-
-        //                int givenDate = ((finalDt2.Year - finalDt1.Year) * 12) + finalDt2.Month - finalDt1.Month;
-        //                monthsCount = monthsCount + givenDate;
-        //            }
-        //        }
-        //        else if (EmpStartDate != string.Empty && EmpTerminationDate != string.Empty)
-        //        {
-        //            DateTime dt1 = Convert.ToDateTime(EmpStartDate);
-        //            DateTime dt2 = Convert.ToDateTime(EmpTerminationDate);
-        //            int givenDate = ((dt2.Year - dt1.Year) * 12) + dt2.Month - dt1.Month;
-        //            monthsCount = monthsCount + givenDate;
-        //        }
-        //        model.TotalMonthsEmployerHistory = monthsCount;
-
-        //        db.Dispose();
-        //        return model;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        db.Database.Connection.Close();
-        //        throw ex;
-        //    }
-        //}
-
+     
         public EmployerHistoryModel EditEmployerHistory(long HEIID)
         {
             EmployerHistoryModel model = new EmployerHistoryModel();
@@ -279,7 +218,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 int monthsCount = 0;
                 string fromDateDB = string.Empty;
                 string toDateDB = string.Empty;
-                var empHist = db.tbl_EmployerHistory.Where(co => co.TenantId == TenantId).ToList();
+                var empHist = db.tbl_EmployerHistory.Where(co => co.TenantId == TenantId && co.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).ToList();
                 if (empHist != null)
                 {
                     foreach (var item in empHist)
@@ -317,7 +256,7 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             EmployerHistoryModel model = new EmployerHistoryModel();
             ShomaRMEntities db = new ShomaRMEntities();
-            var PriousEmploymentdata = db.tbl_EmployerHistory.Where(co => co.TenantId == id).OrderByDescending(s => s.HEIID).FirstOrDefault();
+            var PriousEmploymentdata = db.tbl_EmployerHistory.Where(co => co.TenantId == id && co.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).OrderByDescending(s => s.HEIID).FirstOrDefault();
 
             if (PriousEmploymentdata != null)
             {

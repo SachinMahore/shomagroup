@@ -16,6 +16,8 @@
 <input type="hidden" id="hndOriginalPOE" value="0" />
 <input type="hidden" id="hndLeaseTermID" value="@Model.LeaseTermID" />
 <input type="hidden" id="hndPriAppFullName" value="" />
+<input type="hidden" id="hndIsSignedByAll" value="0" />
+<input type="hidden" id="hndEsignatureId" value="@Model.EsignatureID" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container" style="width:100%!important">
@@ -1249,7 +1251,7 @@
                                     <div class="col-md-8"></div>
                                     <div class="col-md-1"></div>
                                     <div class="col-md-3"></div>
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-12 hidden">
                                         <div class="col-sm-8">
                                             <span>Administration Fee: </span>
                                         </div>
@@ -2256,7 +2258,7 @@
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Photo</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Pet Name</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Breed</th>
-                                                    <th style="background-color: #c7cdd5;color:#3d3939">Weight</th>
+                                                    <th style="background-color: #c7cdd5;color:#3d3939">Weight(lbs)</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Vet's Name</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Action</th>
                                                 </tr>
@@ -2587,24 +2589,23 @@
                             <div class="col-sm-12 form-inline">
                                 <div class="col-sm-3 form-inline">
                                     <div class="text-center">
-                                      &nbsp;
+                                        <button type="button" class="btn btn-primary" id="btnSendRemSign" onclick="SendReminderEmail(2,0)" disabled="disabled">Send Reminder to Sign Lease Document (All)</button>
                                     </div>
                                 </div>
                                 <div class="col-sm-3 form-inline">
                                     <div class="text-center">
-                                        <button type="button" class="btn btn-primary" id="btnSendRemSign" onclick="SendReminderEmail(2,0)" disabled="disabled">Send Reminder to Sign Lease Document (All)</button>
+                                        <a class="btn btn-primary" id="btnExecuteLease" data-toggle="modal" data-target="#popExecuteLease" onclick="cleaseExecuteLease()" disabled="disabled">Execute Lease</a>
                                     </div>
                                 </div>
                                 <div class="col-sm-3 form-inline">
 
                                     <div class="text-center">
                                         <a class="btn btn-primary " id="btnleaseDownl" onclick="downloadLeaseDocument()" disabled="disabled">Download Leasing Application</a>
-
                                     </div>
                                 </div>
-                                <div class="col-sm-3 form-inline hidden">
+                                <div class="col-sm-3 form-inline">
                                     <div class="text-center">
-                                        <button type="button" class="btn btn-primary" id="btnupSignSts" onclick="SaveSignedStatus()" disabled="disabled">Update Status to Document Signed </button>
+                                        <button type="button" class="btn btn-primary" id="btnupSignSts" onclick="SaveSignedStatus()" disabled="disabled">Send Move In Check List & Pay Link</button>
                                     </div>
                                 </div>
                             </div>
@@ -2659,107 +2660,118 @@
                                     <div class="col-sm-12">
 
                                     </div>
-                                    <div class="col-sm-12">
-                                        <div class="pull-left col-sm-12">
-                                            <div class="checkbox">
-                                                <div class="col-sm-3" style="margin-left: -20px;">
-                                                    <label>
-                                                        <input type="checkbox" id="chkPay" checked="@(Model.MoveInCharges != 0 ? true : false)" disabled="@(Model.MoveInCharges != 0 ? "disabled" : "disabled")"><span style="margin-left: 10px;">
-                                                            Pay your Move-in charges
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                                <div class="col-sm-3" style="margin-left: -80px;">
-                                                    <div class="input-group" style="margin-left: 57px;">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
-                                                        </span>
-                                                        <input id="txtPayment" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@((Model.MoveInCharges??0).ToString("0.00"))" disabled />
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <div class="pull-left col-sm-12">
+                                        <div class="checkbox">
+                                            <label style="margin-left: -5px;">
+                                                <input type="checkbox" id="chkIns" checked="@(string.IsNullOrWhiteSpace(Model.InsuranceDoc) == false ? true : false)" disabled><span style="margin-left: 10px;">
+                                                    Bind your insurance coverage. Make sure you bring proof of insurance to your Pre-move-in appointment. If you do not have an agent to assist you in this matter, visit www.insuredbystef.com, email stefanie@insur4edbystel.com, or text/call 954-388-7833. 
+                                                    <br />
+                                                    <b>Download Proof of Insurance&nbsp;&nbsp;&nbsp;</b>
+                                                    <a id="dwnldPOI" href="javascript:void(0)" class="btn btn-primary" target="_parent"><i class="fa fa-download"></i></a>
+                                                </span>
+                                            </label>
                                         </div>
-                                        <div class="pull-left col-sm-12">
-                                            <div class="checkbox">
-                                                <div class="col-sm-3" style="margin-left: -20px;">
-                                                    <label>
-                                                        <input type="checkbox" id="chkMovein" checked="@(Model.MoveInDateTxt != null ? true : false)" disabled /><span style="margin-left: 10px;">
-                                                            Schedule a move-in date and time
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                                <div class="col-sm-3" style="margin-left: -80px;">
-                                                    <div class="input-group" style="margin-left: 57px;">
-                                                        <input id="txtMoveInDate" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@Model.MoveInDateTxt" disabled />
-                                                        <span class="input-group-btn" style="width:0% !important">
-                                                            <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="input-group" style="margin-left: -70px;">
-                                                        <input id="txtMoveInTime" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@Model.MoveInTime" disabled />
-                                                        <span class="input-group-btn" style="width:0% !important">
-                                                            <button class="btn btn-primary search" type="button"><i class="fa-clock-o  fa"></i></button>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="pull-left col-sm-12">
-                                            <div class="checkbox">
-                                                <label style="margin-left: -5px;">
-                                                    <input type="checkbox" id="chkIns" checked="@(string.IsNullOrWhiteSpace(Model.InsuranceDoc) == false ? true : false)" disabled><span style="margin-left: 10px;">
-                                                        Make sure you have Renter’s insurance.  If you have not purchased it and would like to use our partner, login or call Serrod Insurance 	Agency at (305) 445-6441
-                                                        <br />
-                                                        <b>Download Proof of Insurance&nbsp;&nbsp;&nbsp;</b>
-                                                        <a id="dwnldPOI" href="javascript:void(0)" class="btn btn-primary" target="_parent"><i class="fa fa-download"></i></a>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="pull-left col-sm-12">
-                                            <div class="checkbox">
-                                                <label style="margin-left: -5px;">
-                                                    <input type="checkbox" id="chkPo" checked="@(Model.IsCheckPO == 1 ? true : false)" disabled><span style="margin-left: 10px;">
-                                                        Complete the Post Office change of address by logging into <a href="https://movingonlineservice.com" target="_blank">https://movingonlineservice.com</a>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12" style="margin-bottom:10px !important"><h4 style="color:#4d738a;">Utilities</h4></div>
-                                        <div class="pull-left col-sm-12">
-                                            <div class="checkbox">
-                                                <label style="margin-left: -5px;">
-                                                    <input type="checkbox" id="chkEle" checked="@(string.IsNullOrWhiteSpace(Model.ElectricityDoc) == false ? true : false)" disabled><span style="margin-left: 10px;">
-                                                        Electricity- log in to <a href="https://fpl.com" target="_blank">https://fpl.com</a> to start service or call 1-800-226-3545.
-                                                        <br />
-                                                        <b>Download Proof of Electricity&nbsp;&nbsp;&nbsp;</b>
-                                                        <a id="dwnldPOE" href="javascript:void(0)" class="btn btn-primary" target="_parent"><i class="fa fa-download"></i></a>
+                                    </div>
+                                    <div class="col-sm-12" style="margin-bottom:10px !important"><h4 style="color:#4d738a;">Utilities</h4></div>
+                                    <div class="pull-left col-sm-12">
+                                        <div class="checkbox">
+                                            <label style="margin-left: -5px;">
+                                                <input type="checkbox" id="chkEle" checked="@(string.IsNullOrWhiteSpace(Model.ElectricityDoc) == false ? true : false)" disabled><span style="margin-left: 10px;">
+                                                    Electricity- log in to <a href="https://fpl.com" target="_blank">https://fpl.com</a> to start service or call 1-800-226-3545.
+                                                    <br />
+                                                    <b>Download Proof of Electricity&nbsp;&nbsp;&nbsp;</b>
+                                                    <a id="dwnldPOE" href="javascript:void(0)" class="btn btn-primary" target="_parent"><i class="fa fa-download"></i></a>
 
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="pull-left col-sm-12">
+                                        <div class="checkbox">
+                                            <label style="margin-left: -5px;">
+                                                <input type="checkbox" id="chkAt" checked="@(Model.IsCheckATT == 1 ? true : false)" disabled /><span style="margin-left: 10px;">
+                                                    AT&T- Call to establish your internet service and/or enhance your cable plan.
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="pull-left col-sm-12">
+                                        <div class="checkbox">
+                                            <label style="margin-left: -5px;">
+                                                <input type="checkbox" id="chkWater" checked="@(Model.IsCheckWater == 1 ? true : false)" disabled /><span style="margin-left: 10px;">
+                                                    If needed, contact Miami Dade Water and Sewer Department to stop service at your previous address. Login to <a href="http://www.miamidade.gov/global/water/home.page" target="_blank">www.miamidade.gov/global/water/home.page</a>
+                                                    or call (305) 665-7488.  Your water will be set up automatically upon move-in and will be billed directly the following month.
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="pull-left col-sm-12">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" id="chkSDP" checked="@(Model.IsCheckSD == 1 ? true : false)" disabled >    <span style="margin-left: 25px;"> If you would like to participate in the SureDeposit Program which may assist you in bonding your deposit requirement for a fee, please contact Assurant at <a href="http://www.assurantresidentsolutions.com" target="_blank">assurantresidentsolutions.com</a>.  They will be able to assist you in this procedure.  Once you complete the process, forward to us the documentation provided by Assurant, which will notify us of the amount of your deposit.  We will adjust your Deposit amount and your Move-in charges accordingly, so you can process your payment correctly.</span>
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                    <div class="pull-left col-sm-12">
+                                        <div class="checkbox">
+                                            <div class="col-sm-3" style="margin-left: -20px;">
+                                                <label>
+                                                    <input type="checkbox" id="chkPay" checked="@(Model.MoveInCharges != 0 ? true : false)" disabled="@(Model.MoveInCharges != 0 ? "disabled" : "disabled")"><span style="margin-left: 10px;">
+                                                        Pay your Move-in charges
                                                     </span>
                                                 </label>
                                             </div>
+                                            <div class="col-sm-3" style="margin-left: -80px;">
+                                                <div class="input-group" style="margin-left: 57px;">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                    </span>
+                                                    <input id="txtPayment" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@((Model.MoveInCharges??0).ToString("0.00"))" disabled />
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="pull-left col-sm-12">
-                                            <div class="checkbox">
-                                                <label style="margin-left: -5px;">
-                                                    <input type="checkbox" id="chkAt" checked="@(Model.IsCheckATT == 1 ? true : false)" disabled /><span style="margin-left: 10px;">
-                                                        AT&T- Call to establish your internet service and/or enhance your cable plan.
+                                    </div>
+                                    <div class="pull-left col-sm-12">
+                                        <div class="checkbox">
+                                            <div class="col-sm-3" style="margin-left: -20px;">
+                                                <label>
+                                                    <input type="checkbox" id="chkMovein" checked="@(Model.MoveInDateTxt != null ? true : false)" disabled /><span style="margin-left: 10px;">
+                                                        Schedule a move-in date and time
                                                     </span>
                                                 </label>
                                             </div>
-                                        </div>
-                                        <div class="pull-left col-sm-12">
-                                            <div class="checkbox">
-                                                <label style="margin-left: -5px;">
-                                                    <input type="checkbox" id="chkWater" checked="@(Model.IsCheckWater == 1 ? true : false)" disabled /><span style="margin-left: 10px;">
-                                                        If needed, contact Miami Dade Water and Sewer Department to stop service at your previous address. Login to <a href="http://www.miamidade.gov/global/water/home.page" target="_blank">www.miamidade.gov/global/water/home.page</a>
-                                                        or call (305) 665-7488.  Your water will be set up automatically upon move-in and will be billed directly the following month.
+                                            <div class="col-sm-3" style="margin-left: -80px;">
+                                                <div class="input-group" style="margin-left: 57px;">
+                                                    <input id="txtMoveInDate" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@Model.MoveInDateTxt" disabled />
+                                                    <span class="input-group-btn" style="width:0% !important">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
                                                     </span>
-                                                </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="input-group" style="margin-left: -70px;">
+                                                    <input id="txtMoveInTime" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@Model.MoveInTime" disabled />
+                                                    <span class="input-group-btn" style="width:0% !important">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-clock-o  fa"></i></button>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <div class="pull-left col-sm-12">
+                                        <div class="checkbox">
+                                            <label style="margin-left: -5px;">
+                                                <input type="checkbox" id="chkPo" checked="@(Model.IsCheckPO == 1 ? true : false)" disabled><span style="margin-left: 10px;">
+                                                    Complete the Post Office change of address by logging into <a href="https://movingonlineservice.com" target="_blank">https://movingonlineservice.com</a>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -2783,7 +2795,7 @@
     </div>
 
 </div>
-</div>
+
 
 
 <div class="modal " id="popFloorPlan" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
@@ -3084,7 +3096,6 @@
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Vehicle Information</h5>
-
             </div>
 
             <!-- Modal body -->
@@ -3196,7 +3207,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>Weight</label> :
+                        <label>Weight(lbs)</label> :
                         <label id="txtpetWeight"></label>
                     </div>
                 </div>
@@ -3869,6 +3880,43 @@
                 <div class="col-sm-12 text-center">
                     <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="popExecuteLease">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:500px; height:400px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+            <div class="modal-header" style="width: 100%; padding:0px;">
+                <h5 class="modal-title">Execute Lease</h5>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="star">Signature Full Text</label>
+                        <input id="txtSignatureFullText" type="text" class="form-control" maxlength="20" placeholder="Signature Full Text" value="" />
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="star">Signature Initials</label>
+                        <input id="txtSignatureInitials" type="text" class="form-control" maxlength="20" placeholder="Signature Initials" value="" />
+                    </div>
+                </div>
+                
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="star">Signature Title</label>
+                        <input id="txtSignatureTitle" type="text" class="form-control" maxlength="20" placeholder="Signature Title" value="" />
+                    </div>
+                </div>
+                <div class="col-sm-12 text-center">
+                    <button class="btn btn-primary" onclick="executeLeaseProcess()"><i class="fa fa-file-signature"></i> Execute</button>
+                </div>
+            </div>
+            <div class="modal-footer-custom">
             </div>
         </div>
     </div>
@@ -4559,6 +4607,64 @@
             $.alert({
                 title: "",
                 content: "Document Not Yet Signed.",
+                type: 'red'
+            });
+        }
+    };
+    var cleaseExecuteLease = function () {
+        $("#txtSignatureFullText").val("");
+        $("#txtSignatureInitials").val("");
+        $("#txtSignatureTitle").val("");
+    }
+    var executeLeaseProcess = function () {
+        if ($("#hndEsignatureId").val() != "" && $("#hndIsSignedByAll").val()==1) {
+            $("#divLoader").show();
+
+            var signatureFullText = $("#txtSignatureFullText").val();
+            var signatureInitials = $("#txtSignatureInitials").val();
+            var signatureTitle = $("#txtSignatureTitle").val();
+            var msg = "";
+            if (!signatureFullText) {
+                msg +="Please Enter Signature Full Text <br/>"
+            }
+            if (!signatureInitials) {
+                msg += "Please Enter Signature Initials <br/>"
+            }
+            if (!signatureTitle) {
+                msg += "Please Enter Signature Title <br/>"
+            }
+            if (msg != "") {
+                $.alert({
+                    title: "",
+                    content: msg,
+                    type: 'red'
+                });
+                $("#divLoader").hide();
+                return;
+            }
+            var param = { EsignatureId: $("#hndEsignatureId").val(), SignatureFullText: signatureFullText, SignatureInitials:signatureInitials, SignatureTitle:signatureTitle};
+            $.ajax({
+                url: "/CheckList/ExecuteLease",
+                method: "post",
+                data: JSON.stringify(param),
+                contentType: "application/json; charset=utf-8", // content type sent to server
+                dataType: "json", //Expected data format from server
+                success: function (response) {
+                    $("#divLoader").hide();
+                    $("#popExecuteLease").modal("hide");
+                    $.alert({
+                        title: "",
+                        content: "Lease Executed Successfully.",
+                        type: 'red'
+                    });
+                    refreshStatuses();
+                }
+            });
+        }
+        else {
+            $.alert({
+                title: "",
+                content: "Document Not Yet Signed By All Applicant.",
                 type: 'red'
             });
         }

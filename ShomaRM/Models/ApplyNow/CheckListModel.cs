@@ -30,7 +30,8 @@ namespace ShomaRM.Models
         public Nullable<int> IsCheckPO { get; set; }
         public Nullable<int> IsCheckATT { get; set; }
         public Nullable<int> IsCheckWater { get; set; }
-
+        public Nullable<int> IsCheckSD { get; set; }
+        
         public int IsAllChecked { get; set; }
 
         public Nullable<System.DateTime> CreatedDate { get; set; }
@@ -47,6 +48,7 @@ namespace ShomaRM.Models
             model.IsCheckSch = 0;
             model.IsCheckIns = 0;
             model.IsCheckElc = 0;
+            model.IsCheckSD = 0;
             model.IsAllChecked = 0;
             model.InsuranceDoc = "";
             model.ElectricityDoc = "";
@@ -77,8 +79,8 @@ namespace ShomaRM.Models
                 model.IsCheckATT = MoveInData.IsCheckATT ?? 0;
                 model.IsCheckPO = MoveInData.IsCheckPO ?? 0;
                 model.IsCheckWater = MoveInData.IsCheckWater ?? 0;
-
-                if(model.IsCheckPay == 1 && model.IsCheckSch == 1 && model.IsCheckIns == 1 && model.IsCheckElc == 1 && model.IsCheckATT==1 && model.IsCheckPO==1 && model.IsCheckWater==1)
+                model.IsCheckSD = MoveInData.IsCheckSD ?? 0;
+                if (model.IsCheckPay == 1 && model.IsCheckSch == 1 && model.IsCheckIns == 1 && model.IsCheckElc == 1 && model.IsCheckATT==1 && model.IsCheckPO==1 && model.IsCheckWater==1)
                 {
                     model.IsAllChecked = 1;
                 }
@@ -106,6 +108,7 @@ namespace ShomaRM.Models
                         IsCheckPO = model.IsCheckPO,
                         IsCheckATT = model.IsCheckATT,
                         IsCheckWater = model.IsCheckWater,
+                        IsCheckSD=model.IsCheckSD,
                         CreatedDate = DateTime.Now,
                     };
                     db.tbl_MoveInChecklist.Add(saveMoveInCheckList);
@@ -123,6 +126,7 @@ namespace ShomaRM.Models
                     loginDet.IsCheckPO = model.IsCheckPO;
                     loginDet.IsCheckATT = model.IsCheckATT;
                     loginDet.IsCheckWater = model.IsCheckWater;
+                    loginDet.IsCheckSD = model.IsCheckSD;
                     db.SaveChanges();
                 }
 
@@ -401,6 +405,7 @@ namespace ShomaRM.Models
                     pr.ApplicantID = Convert.ToInt64(dr["ApplicantID"].ToString());
                     pr.IsSigned = createdDateString == null ? 0 : 1;
                     pr.IsSignedAll = Convert.ToInt32(dr["IsSignedAll"].ToString());
+                    pr.IsLeaseExecuted = Convert.ToInt32(dr["IsLeaseExecuted"].ToString());
                     lstpr.Add(pr);
                 }
                 db.Dispose();
@@ -425,5 +430,6 @@ namespace ShomaRM.Models
         public string Email { get; set; }
         public int IsSigned { get; set; }
         public int IsSignedAll { get; set; }
+        public int IsLeaseExecuted { get; set; }
     }
 }

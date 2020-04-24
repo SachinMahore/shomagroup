@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShomaRM", "ShomaRM\ShomaRM.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShomaRM.Tests", "ShomaRM.Tests\ShomaRM.Tests.csproj", "{7724F195-4CD9-415F-9470-07073131920F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShomaRM.Data", "ShomaRM.Data\ShomaRM.Data.csproj", "{68CF2378-F894-4DE1-8819-9795A5EF4156}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShomaRM.Data", "ShomaRM.Data\ShomaRM.Data.csproj", "{6FB7D52F-0D76-4463-BBB5-82B2482074A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{7724F195-4CD9-415F-9470-07073131920F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7724F195-4CD9-415F-9470-07073131920F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7724F195-4CD9-415F-9470-07073131920F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68CF2378-F894-4DE1-8819-9795A5EF4156}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68CF2378-F894-4DE1-8819-9795A5EF4156}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68CF2378-F894-4DE1-8819-9795A5EF4156}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68CF2378-F894-4DE1-8819-9795A5EF4156}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FB7D52F-0D76-4463-BBB5-82B2482074A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FB7D52F-0D76-4463-BBB5-82B2482074A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FB7D52F-0D76-4463-BBB5-82B2482074A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FB7D52F-0D76-4463-BBB5-82B2482074A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

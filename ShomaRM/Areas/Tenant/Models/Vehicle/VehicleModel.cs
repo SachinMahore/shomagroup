@@ -28,6 +28,7 @@ namespace ShomaRM.Areas.Tenant.Models
         public string StateString { get; set; }
         public string Tag { get; set; }
         public int ParkingID { get; set; }
+        public string ParkingName { get; set; }
 
         public string SaveUpdateVehicle(VehicleModel model)
         {
@@ -244,21 +245,24 @@ namespace ShomaRM.Areas.Tenant.Models
                 ShomaRMEntities db = new ShomaRMEntities();
                 var vehicleInfo = db.tbl_Vehicle.Where(co => co.Vehicle_ID == VehicleId).FirstOrDefault();
                 VehicleModel model = new VehicleModel();
-                if (vehicleInfo!=null)
-                {
-                    model.Vehicle_ID = vehicleInfo.Vehicle_ID;
-                    model.TenantID = vehicleInfo.TenantID;
-                    model.License = vehicleInfo.License;
-                    model.State = vehicleInfo.State;
-                    model.Make = vehicleInfo.Make;
-                    model.Color = vehicleInfo.Color;
-                    model.ProspectID = vehicleInfo.ProspectID;
-                    model.Year = vehicleInfo.Year;
-                    model.VehicleRegistration = vehicleInfo.VehicleRegistration;
-                    model.OwnerName = vehicleInfo.OwnerName;
-                    model.Notes = vehicleInfo.Notes;
-                    model.OriginalVehicleRegistation = vehicleInfo.OriginalVehicleReg;
-                    model.VModel = vehicleInfo.Model;
+            if (vehicleInfo != null)
+            {
+                model.Vehicle_ID = vehicleInfo.Vehicle_ID;
+                model.TenantID = vehicleInfo.TenantID;
+                model.License = vehicleInfo.License;
+                model.State = vehicleInfo.State;
+                model.Make = vehicleInfo.Make;
+                model.Color = vehicleInfo.Color;
+                model.ProspectID = vehicleInfo.ProspectID;
+                model.Year = vehicleInfo.Year;
+                model.VehicleRegistration = vehicleInfo.VehicleRegistration;
+                model.OwnerName = vehicleInfo.OwnerName;
+                model.Notes = vehicleInfo.Notes;
+                model.OriginalVehicleRegistation = vehicleInfo.OriginalVehicleReg;
+                model.VModel = vehicleInfo.Model;
+                model.Tag = vehicleInfo.Tag;
+                var getParkingName = db.tbl_Parking.Where(co => co.ParkingID == vehicleInfo.ParkingID).FirstOrDefault();
+                model.ParkingName = getParkingName == null ? "" : !string.IsNullOrWhiteSpace(getParkingName.ParkingName) ? getParkingName.ParkingName : "";
                 long stateS = Convert.ToInt64(model.State);
                 var stateStr = db.tbl_State.Where(co => co.ID == stateS).FirstOrDefault();
                 model.StateString = stateStr.StateName;

@@ -80,7 +80,7 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public async System.Threading.Tasks.Task<ActionResult> SaveUpdateUserAsync(UsersModel model)
+        public ActionResult SaveUpdateUser(UsersModel model)
         {
             try
             {

@@ -620,7 +620,15 @@
                         $("#chkWaterCL").removeProp("disabled");
                         $("#chkWaterCL").parent().removeClass("checked");
                     }
-
+                    if (response.moveindata.IsCheckSD == 1) {
+                        $("#chkSDP").prop("checked", true);
+                        $("#chkSDP").prop("disabled", "disabled");
+                        $("#chkSDP").parent().addClass("checked");
+                    } else {
+                        $("#chkSDP").prop("checked", false);
+                        $("#chkSDP").removeProp("disabled");
+                        $("#chkSDP").parent().removeClass("checked");
+                    }
                     if (response.moveindata.IsAllChecked == 1) {
                         $("#btnSaveCheckList").addClass("hidden");
                     } else {
@@ -680,15 +688,22 @@
                         window.location = "/Admin/AdminHome";
                     }
                     else if (result[1] == "te") {
-                        window.location = "/Tenant/Dashboard";
+                        $("#hndUID").val(result[0]);
+                        getTenantInfo(result[0]);
+                        goToStep(2, 2);
+                        $("#btnLogout").removeClass("hidden");
                     }
-                    else if (result[1] == "an") {
-
+                    else if (result[1] == "cl") {
                         $("#hndUID").val(result[0]);
                         getTenantInfoCL(result[0]);
-
                         goToStepCL(2, 2);
                         $("#btnLogoff").removeClass("hidden");
+                    }
+                    else if (result[1] == "as") {
+                        window.location = "/ApplicationStatus/Index/" + result[2];
+                    }
+                    else if (result[1] == "an") {
+                        window.location = "/ApplyNow/Index/" + result[0];
                     }
                     else {
                         window.location = "/Home/";
@@ -941,7 +956,8 @@
         var IsCheckPO = $("#chkPoCL").is(":checked") ? "1" : "0";
         var IsCheckATT = $("#chkAtCL").is(":checked") ? "1" : "0";
         var IsCheckWater = $("#chkWaterCL").is(":checked") ? "1" : "0";
-
+        var IsCheckSD = $("#chkSDP").is(":checked") ? "1" : "0";
+        
         if (paymentDone==0) {
             msg += "Please pay the Move In Charges</br>";
         }
@@ -979,6 +995,7 @@
             IsCheckPO: IsCheckPO,
             IsCheckATT: IsCheckATT,
             IsCheckWater: IsCheckWater,
+            IsCheckSD: IsCheckSD,
             InsuranceDoc: InsuranceDoc,
             ElectricityDoc: ElectricityDoc,
         }

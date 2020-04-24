@@ -11,6 +11,7 @@ namespace ShomaRM.Models.Bluemoon
 {
     public class BluemoonService
     {
+        public string BaseUrl = "https://www.bluemoonforms.com/services/";
         private XmlDocument CreateXMLDocument(string Body)
         {
             XmlDocument body = new XmlDocument();
@@ -406,7 +407,7 @@ namespace ShomaRM.Models.Bluemoon
 
             var bodyForLease = CreateXMLForLease(leaseRequestModel, PropertyId, sessionId);
 
-            var result = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#CreateLease", bodyForLease);
+            var result = await AquatraqHelper.Post<List<XElement>>(BaseUrl + "lease.php#CreateLease", bodyForLease);
             if (result != null)
             {
                 var resultlease = result
@@ -430,7 +431,7 @@ namespace ShomaRM.Models.Bluemoon
 
             var bodyForLease = EditXMLForLease(leaseRequestModel, leaseId, sessionId);
 
-            var result = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#EditLease", bodyForLease);
+            var result = await AquatraqHelper.Post<List<XElement>>(BaseUrl + "lease.php#EditLease", bodyForLease);
             if (result != null)
             {
                 var resultlease = result
@@ -456,7 +457,7 @@ namespace ShomaRM.Models.Bluemoon
                                                     <Password>$homa123</Password>
                                                 </ns1:AuthenticateUser>");
 
-            var resultAuth = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#AuthenticateUser", bodyForAuth);
+            var resultAuth = await AquatraqHelper.Post<List<XElement>>(BaseUrl + "lease.php#AuthenticateUser", bodyForAuth);
             if (resultAuth != null)
             {
                 // for attribute
@@ -472,7 +473,7 @@ namespace ShomaRM.Models.Bluemoon
                                                                     <Password>$homa123</Password>
                                                                 </ns1:CreateSession>");
 
-                    var resultSession = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#CreateSession", bodyForSession);
+                    var resultSession = await AquatraqHelper.Post<List<XElement>>(BaseUrl + "lease.php#CreateSession", bodyForSession);
                     if (resultSession != null)
                     {
                         // for attribute
@@ -496,7 +497,7 @@ namespace ShomaRM.Models.Bluemoon
                                                         <SessionId>" + sessionId + @"</SessionId>
                                                      </ns1:CloseSession>");
 
-            var resultCloseSession = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#CloseSession", bodyForCloseSession);
+            var resultCloseSession = await AquatraqHelper.Post<List<XElement>>(BaseUrl + "lease.php#CloseSession", bodyForCloseSession);
             if (resultCloseSession != null)
             {
                 // for attribute
@@ -514,7 +515,7 @@ namespace ShomaRM.Models.Bluemoon
         /// <param name="sessionId"></param>
         /// <returns></returns>
 
-        public async Task<LeaseResponseModel> GetEsignnatureDetails(string SessionId,string EsignatureId)
+        public async Task<LeaseResponseModel> GetEsignnatureDetails(string SessionId, string EsignatureId)
         {
             LeaseResponseModel esignatureDetailsModel = new LeaseResponseModel();
             var body = CreateXMLDocument(@"<ns1:GetEsignatureData>
@@ -522,7 +523,7 @@ namespace ShomaRM.Models.Bluemoon
                                                         <EsignatureId>" + EsignatureId + @"</EsignatureId>
                                                      </ns1:GetEsignatureData>");
 
-            var result = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#GetEsignatureData", body);
+            var result = await AquatraqHelper.Post<List<XElement>>(BaseUrl + "lease.php#GetEsignatureData", body);
             if (result != null)
             {
                 // for attribute
@@ -540,7 +541,7 @@ namespace ShomaRM.Models.Bluemoon
 
                 esignatureDetailsModel.EsignatureId = EsignatureId;
                 int i = 0;
-                  foreach (var item in keys)
+                foreach (var item in keys)
                 {
                     esignatureDetailsModel.EsigneResidents.Add(new KeyModel
                     {
@@ -623,7 +624,7 @@ namespace ShomaRM.Models.Bluemoon
             var bodyForCloseSession = CreateXMLDocument(requestEsignStr);
 
 
-            var resultRequestEsign = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#RequestEsignature", bodyForCloseSession);
+            var resultRequestEsign = await AquatraqHelper.Post<List<XElement>>(BaseUrl + "lease.php#RequestEsignature", bodyForCloseSession);
             if (resultRequestEsign != null)
             {
                 // for attribute
@@ -634,13 +635,13 @@ namespace ShomaRM.Models.Bluemoon
 
 
 
-                    var bodyEsignatureData = CreateXMLDocument(@"<ns1:GetEsignatureData>
+                var bodyEsignatureData = CreateXMLDocument(@"<ns1:GetEsignatureData>
                                                         <SessionId>" + sessionId + @"</SessionId>
                                                         <EsignatureId>" + resultCloseSessionDetails[0].Value + @"</EsignatureId>
                                                      </ns1:GetEsignatureData>");
 
 
-                var resultEsignatureData = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#GetEsignatureData", bodyEsignatureData);
+                var resultEsignatureData = await AquatraqHelper.Post<List<XElement>>(BaseUrl + "lease.php#GetEsignatureData", bodyEsignatureData);
                 if (resultEsignatureData != null)
                 {
                     //// for attribute
@@ -666,7 +667,7 @@ namespace ShomaRM.Models.Bluemoon
                                                                         <Email>" + emails[i].Value + @"</Email>
                                                                         </ns1:ResendEsignatureRequest>");
 
-                        var resultEsignatureResendRequestData = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#ResendEsignatureRequest", bodyEsignResendRequest);
+                        var resultEsignatureResendRequestData = await AquatraqHelper.Post<List<XElement>>(BaseUrl + "lease.php#ResendEsignatureRequest", bodyEsignResendRequest);
                         if (resultEsignatureResendRequestData != null)
                         {
                             // for attribute
@@ -675,17 +676,17 @@ namespace ShomaRM.Models.Bluemoon
                              .ToList();
 
                             leaseResponseModel.EsignatureId = resultCloseSessionDetails[0].Value;
-                         
+
                         }
                         i++;
                     }
                 }
             }
-           
+
 
             leaseResponseModel.LeaseId = leaseId;
             leaseResponseModel.SessionId = sessionId;
-           
+
             return leaseResponseModel;
         }
 
@@ -697,7 +698,7 @@ namespace ShomaRM.Models.Bluemoon
                                                                         <EsignatureId>" + EsignatureId + @"</EsignatureId>
                                                                     </ns1:GetEsignaturePDF>");
 
-            var resultEsignaturePdfData = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#GetEsignaturePDF", bodyEsignaturePdfData);
+            var resultEsignaturePdfData = await AquatraqHelper.Post<List<XElement>>(BaseUrl + "lease.php#GetEsignaturePDF", bodyEsignaturePdfData);
             if (resultEsignaturePdfData != null)
             {
                 // for attribute
@@ -711,6 +712,45 @@ namespace ShomaRM.Models.Bluemoon
 
             leaseResponseModel.SessionId = SessionId;
             return leaseResponseModel;
+        }
+
+
+        public async Task<LeaseResponseModel> ExecuteLease(string SessionId, string EsignatureId, string SignatureFullText, string SignatureInitials, string SignatureTitle)
+        {
+            LeaseResponseModel leaseResponseModel = new LeaseResponseModel();
+
+            try
+            {
+                var executeLeaseBoxy = CreateXMLDocument(@"<ns1:ExecuteLease>
+                                                <SessionId>" + SessionId + @"</SessionId>
+                                                <EsignatureId>" + EsignatureId + @"</EsignatureId>
+                                                <OwnerRepSignature>" + SignatureFullText + @"</OwnerRepSignature>
+                                                <OwnerRepInitials>" + SignatureInitials + @"</OwnerRepInitials>
+                                                <OwnerRepTitle>" + SignatureTitle + @"</OwnerRepTitle>
+                                                <OwnerRepClientIP xsi:nil=""true""/>
+                                                </ns1:ExecuteLease>");
+
+                var resultExecuteLease = await AquatraqHelper.Post<List<XElement>>(BaseUrl + "lease.php#ExecuteLease", executeLeaseBoxy);
+                if (resultExecuteLease != null)
+                {
+                    // for attribute
+                    var ExecuteLeaseResult = resultExecuteLease
+                     .Descendants("ExecuteLeaseResult")
+                     .ToList();
+
+                    bool success = Convert.ToBoolean(ExecuteLeaseResult[0].Value);
+                    leaseResponseModel.Success = success;
+                }
+
+                leaseResponseModel.SessionId = SessionId;
+            }
+            catch(Exception ex)
+            {
+                leaseResponseModel.Success = false;
+
+            }
+            return leaseResponseModel;
+
         }
 
 
@@ -751,7 +791,7 @@ namespace ShomaRM.Models.Bluemoon
                                                     <Preview xsi:nil=""true""/>
                                                   </ns1:GetLeasePDF>");
 
-            var resultAuth = await AquatraqHelper.Post<List<XElement>>("https://www.bluemoonforms.com/services/lease.php#GetLeasePDF", bodyForAuth);
+            var resultAuth = await AquatraqHelper.Post<List<XElement>>(BaseUrl + "lease.php#GetLeasePDF", bodyForAuth);
             if (resultAuth != null)
             {
                 // for attribute

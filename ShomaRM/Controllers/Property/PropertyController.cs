@@ -205,6 +205,23 @@ namespace ShomaRM.Controllers
             }
 
         }
-   
+        public ActionResult UploadPetPolicyFile()
+        {
+            try
+            {
+                HttpPostedFileBase fileBaseUpload1 = null;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBaseUpload1 = Request.Files[i];
+
+                }
+
+                return Json(new { model = new PropertyModel().UploadPetPolicyFile(fileBaseUpload1) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

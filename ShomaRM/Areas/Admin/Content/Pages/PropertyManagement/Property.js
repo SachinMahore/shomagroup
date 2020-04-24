@@ -110,6 +110,20 @@ $(document).ready(function () {
             fillUnitLeaseWisePriceList(page, sortByValue, orderByValue);
         }
     });
+    document.getElementById('fileUploadPetPolicy').onchange = function () {
+        var fileUploadPetPolicyBool = restrictFileOnlyPDF($(this).val());
+        if (fileUploadPetPolicyBool == true) {
+            uploadPetPolicyFile();
+        }
+        else {
+            document.getElementById('fileUploadPetPolicy').value = '';
+            $.alert({
+                title: "",
+                content: "Only pdf file allows",
+                type: 'blue'
+            });
+        }
+    };
 });
 var getPropertyList = function () {
     $("#divLoader").show();
@@ -1979,4 +1993,32 @@ var editUnitLeaseRent = function (uid, uplid, leaseid, price) {
         });
     });
     $("#editUnitLeaseRent_" + uplid).focus();
+};
+var uploadPetPolicyFile = function () {
+    $("#divLoader").show();
+    $formData = new FormData();
+
+    var upload1 = document.getElementById('fileUploadPetPolicy');
+
+    for (var i = 0; i < upload1.files.length; i++) {
+        $formData.append('file-' + i, upload1.files[i]);
+    }
+
+    $.ajax({
+        url: '/Property/UploadPetPolicyFile',
+        type: 'post',
+        data: $formData,
+        contentType: 'application/json; charset=utf-8',
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (response) {
+            $("#divLoader").hide();
+            $.alert({
+                title: "",
+                content: response.model,
+                type: 'blue'
+            });
+        }
+    });
 };

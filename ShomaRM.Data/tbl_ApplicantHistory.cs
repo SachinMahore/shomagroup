@@ -31,5 +31,6 @@ namespace ShomaRM.Data
         public string ManagementCompany { get; set; }
         public string ManagementCompanyPhone { get; set; }
         public Nullable<int> IsProprNoticeLeaseAgreement { get; set; }
+        public Nullable<long> ParentTOID { get; set; }
     }
 }
