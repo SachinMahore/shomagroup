@@ -2437,6 +2437,7 @@
     <Content Include="DatabaseChanges\20-04-2020\MoveInCheck_AddColumn.sql" />
     <Content Include="DatabaseChanges\22-04-2020\AddCoulum_EsignTable_StoreProcedureChanges.sql" />
     <Content Include="DatabaseChanges\24-04-2020\Add Column To Database.sql" />
+    <Content Include="DatabaseChanges\24-04-2020\BackgroundScreening_Table.sql" />
     <Content Include="DatabaseChanges\24-04-2020\Stored Procedure Changes.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -2728,7 +2729,6 @@
     <Folder Include="Areas\Tenant\Views\ServiceRequest\" />
     <Folder Include="Content\assets\img\property-1\" />
     <Folder Include="Content\assets\img\slide1\" />
-    <Folder Include="DatabaseChanges\18-04-2020\" />
     <Folder Include="Views\BackgroundScreening\" />
     <Folder Include="Views\TwilioSMS\" />
   </ItemGroup>
