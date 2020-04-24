@@ -405,6 +405,7 @@
     <Compile Include="Controllers\ApplyNow\PayLinkController.cs" />
     <Compile Include="Controllers\ApplyNow\ServiceController.cs" />
     <Compile Include="Controllers\Appointment\AppointmentController.cs" />
+    <Compile Include="Controllers\BackgroundScreeningController.cs" />
     <Compile Include="Controllers\EmbeddedSigningController.cs" />
     <Compile Include="Controllers\Gallery\GalleryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -425,6 +426,7 @@
     <Compile Include="Models\ApplyNow\CheckListModel.cs" />
     <Compile Include="Models\ApplyNow\OnlineProspectModule.cs" />
     <Compile Include="Models\AquatraqHelper.cs" />
+    <Compile Include="Models\BackgroundScreeningModel.cs" />
     <Compile Include="Models\Bluemoon\BluemoonService.cs" />
     <Compile Include="Models\Bluemoon\EsignatureModel.cs" />
     <Compile Include="Models\Bluemoon\IBluemoonService.cs" />
@@ -2726,6 +2728,8 @@
     <Folder Include="Areas\Tenant\Views\ServiceRequest\" />
     <Folder Include="Content\assets\img\property-1\" />
     <Folder Include="Content\assets\img\slide1\" />
+    <Folder Include="DatabaseChanges\18-04-2020\" />
+    <Folder Include="Views\BackgroundScreening\" />
     <Folder Include="Views\TwilioSMS\" />
   </ItemGroup>
   <ItemGroup>

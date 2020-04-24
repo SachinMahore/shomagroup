@@ -3,8 +3,11 @@ using ShomaRM.Models.Bluemoon;
 using ShomaRM.Models.TwilioApi;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Xml;
 using Twilio;
@@ -16,6 +19,7 @@ namespace ShomaRM.Controllers
 {
     public class HomeController : TwilioController
     {
+        
         public ActionResult Index()
         {
             if (Session["DelDatAll"] != null)
@@ -34,8 +38,12 @@ namespace ShomaRM.Controllers
                 ViewBag.DelAData = "";
             }
             Session["DelDatAll"] = null;
-
-
+            //To get Server url            
+            var serverURL = Request.Url;
+            //Change key in WebConfig file
+            Configuration AppConfigSettings = WebConfigurationManager.OpenWebConfiguration("~");
+            AppConfigSettings.AppSettings.Settings["ServerURL"].Value = serverURL.ToString();
+            AppConfigSettings.Save();
             ViewBag.ActiveMenu = "home";
             return View();
         }

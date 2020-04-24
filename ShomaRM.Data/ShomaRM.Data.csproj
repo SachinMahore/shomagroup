@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GetPropertyModelUnitList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShomaRMEntities.Context.cs">
       <AutoGen>True</AutoGen>
@@ -66,6 +69,24 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ShomaRMEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="SPLIT_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetGuestRegistrationList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetTenantEventJoinList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_AcutraqScrenning.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
@@ -95,6 +116,9 @@
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_AuditHistoryDetail.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_BackgroundScreening.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_BankAccount.cs">
@@ -323,6 +347,384 @@
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_ZipCodes.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_ApplicantHistoryList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_ApplyNowList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_FillCausingIssueID_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_FillIssueID_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_FillStateDropDownListByCountryID_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetAccountHistoryByDateRange_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetAdvertiserPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetAmenitiesReservations_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetAmenityList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetAmenityPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetAmenitySearchList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetAssigmentAuditList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetBankAccountList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetBankAccountPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetCalendarEvent_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetCashReceiptList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetCashReceiptPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetChargeTypeList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetCityListbyState_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetCityList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetCityPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetClientModelUnitList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetClientUnitList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetCommunityPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetCountryList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetCountryPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetDocumentList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetEstimateList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetEventBookingList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetEventList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetEventPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetFacilityBookingList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetFacilityList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetFacilityPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetFOBPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetGuestListDashboard_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetGuestList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetInvoiceList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetInvoicePaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetModelsList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetMonthlyPayLists_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetNextPreviousUnitID_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetNoticeList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetNoticePaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetOnlineTransactionList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetParkingPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetPetPlacePaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetPreMovingPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetPromotionList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetPromotionPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetPropertyList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetPropertyModelUnitListByFloor_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetPropertyModelUnitList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetPropertyPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetPropertySearchList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetPropertyUnitDDL_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetPropertyUnitList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetPropertyUnitPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetProspectDocumentList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetProspectList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetProspectPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetProspectTransactionList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetProspectVerificationList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetProspectVerifyPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetPurchaseOrderList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetPurchaseOrderPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetRecurringPayLists_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetReservationRequestPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetSalesAgentList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetScheduleRecurringLists_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetServiceCatPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetServiceCausingIssuePaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetServiceInfo_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetServiceIssuePaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetServiceLocationPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetServicePaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetServiceRequestByDate_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetServiceRequestListDashboard_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetSignedList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetSlotPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetStateList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetStatePaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetStoragePaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetTenantBillList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetTenantInfoData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetTenantList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetTenantNoticeList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetTenantOnlineData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetTenantPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetTenantTransactionList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetTransactionList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetTransactionPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetUnitLeasePrice_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetUnitLeasewiseRent_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetUpTransationLists_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetUserListByType_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetUserPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetUsersList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetUtilityBillingList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetUtilityList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetUtilityPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetVendorList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetVendorPaginationAndSearchData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetVisitList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetWorkOrderList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Get_Advertiser_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Get_Advertiser_SearchList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Get_Country_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Get_Country_SearchList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Get_FOB_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Get_MonthsFromApplicantHistory_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Get_Parking_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Get_Parking_SearchList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Get_PetPlace_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Get_PetPlace_SearchList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Get_ServiceLocation_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Get_ServiceLocation_SearchList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Get_Storage_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Get_Storage_SearchList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Get_TenantList_bak_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Get_TenantList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Get_TenantList_XML_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_Get_UnitParking_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_ReservationRequestList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_SortPropertyList_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_TestSpSearchData_Result.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
   </ItemGroup>

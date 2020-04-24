@@ -235,6 +235,37 @@ namespace ShomaRM.Areas.Admin.Models
                 throw ex;
             }
         }
+
+        //Get BackgroundScreening data list by userId
+        public List<BackgroundScreeningModel> FillProspectBackgroundScreening(long UserId)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            var GetTenantDet = db.tbl_ApplyNow.Where(p => p.UserId == UserId).FirstOrDefault();
+            var bgscrData = db.tbl_BackgroundScreening.Where(a => a.TenantId == GetTenantDet.ID).ToList();
+
+            List<BackgroundScreeningModel> bgScrLIst = new List<BackgroundScreeningModel>();
+            try
+            {                
+                foreach (var bgscr in bgscrData)
+                {
+                    BackgroundScreeningModel bgScr = new BackgroundScreeningModel();
+                    bgScr.TenantId = bgscr.TenantId;
+                    bgScr.OrderID = bgscr.OrderID;
+                    bgScr.Status = bgscr.Status;
+                    bgScr.PDFUrl = bgscr.PDFUrl;
+                    bgScr.Type = bgscr.Type;
+                    bgScrLIst.Add(bgScr);
+                }
+                db.Dispose();
+                return bgScrLIst;
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
+
         public List<ProspectVerifySearchModel> FillProspectVerifySearchGrid(ProspectVerifySearchModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -325,7 +356,7 @@ namespace ShomaRM.Areas.Admin.Models
         public string SaveScreeningStatus(string Email, long ProspectId, string Status)
         {
             ShomaRMEntities db = new ShomaRMEntities();
-            // var tenantData = db.tbl_TenantOnline.Where(p => p.ProspectID == ProspectId).FirstOrDefault();
+            //var tenantData = db.tbl_TenantOnline.Where(p => p.ProspectID == ProspectId).FirstOrDefault();
             ShomaRM.Models.TenantOnlineModel model = new ShomaRM.Models.TenantOnlineModel();
 
             var tenantData = model.GetTenantOnlineList(Convert.ToInt32(ProspectId));
@@ -348,11 +379,13 @@ namespace ShomaRM.Areas.Admin.Models
             model.JobTitle = tenantData.JobTitle;
             model.Income = tenantData.Income;
             model.SupervisorName = tenantData.SupervisorName;
-            model.SupervisorPhone = tenantData.SupervisorPhone;
+            model.SupervisorPhone = tenantData.SupervisorPhone;            
             model.OfficeCity = tenantData.OfficeCity;
             model.OfficeState = tenantData.OfficeState;
             model.StartDateTxt = tenantData.StartDateTxt;
-            model.ProspectID = tenantData.ProspectID;
+            model.DateExpireTxt = tenantData.DateExpireTxt;
+            model.ProspectID = ProspectId;
+            model.ID = ProspectId;
 
 
             if(GetTenantDet!=null)
