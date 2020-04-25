@@ -20,5 +20,6 @@ namespace ShomaRM.Data
         public string Key { get; set; }
         public Nullable<long> ApplicantID { get; set; }
         public int IsSignedAll { get; set; }
+        public int IsLeaseExecuted { get; set; }
     }
 }
