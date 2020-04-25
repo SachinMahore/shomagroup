@@ -4,6 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
+
       <Diagram DiagramId="adae75c840fb4c0e90e2b20073b0c677" Name="Diagram1">
         <EntityTypeShape EntityType="ShomaRMModel.sysdiagram" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ShomaRMModel.tbl_AcutraqScrenning" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
@@ -171,6 +172,7 @@
         <AssociationConnector Association="ShomaRMModel.FK_tbl_UtilityBilling_tbl_Utility" ManuallyRouted="false" />
         <AssociationConnector Association="ShomaRMModel.FK_tbl_WorkOrder_tbl_Vendor" ManuallyRouted="false" />
       </Diagram>
+
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
