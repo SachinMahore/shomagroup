@@ -11,15 +11,14 @@ namespace ShomaRM.Data
 {
     using System;
     
-    public partial class usp_GetSignedList_Result
+    public partial class usp_GetTenantTransactionList_Result
     {
-        public long ESID { get; set; }
-        public string DateSigned { get; set; }
-        public string ApplicantName { get; set; }
-        public string Email { get; set; }
-        public string Key { get; set; }
-        public Nullable<long> ApplicantID { get; set; }
-        public int IsSignedAll { get; set; }
-        public int IsLeaseExecuted { get; set; }
+        public int TransID { get; set; }
+        public System.DateTime Transaction_Date { get; set; }
+        public string Description { get; set; }
+        public decimal Credit_Amount { get; set; }
+        public decimal Charge_Amount { get; set; }
+        public string AccountName { get; set; }
+        public Nullable<decimal> Balance { get; set; }
     }
 }

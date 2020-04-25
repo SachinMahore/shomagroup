@@ -11,15 +11,10 @@ namespace ShomaRM.Data
 {
     using System;
     
-    public partial class usp_GetSignedList_Result
+    public partial class usp_GetAmenityList_Result
     {
-        public long ESID { get; set; }
-        public string DateSigned { get; set; }
-        public string ApplicantName { get; set; }
-        public string Email { get; set; }
-        public string Key { get; set; }
-        public Nullable<long> ApplicantID { get; set; }
-        public int IsSignedAll { get; set; }
-        public int IsLeaseExecuted { get; set; }
+        public int ID { get; set; }
+        public string Amenity { get; set; }
+        public string AmenityDetails { get; set; }
     }
 }

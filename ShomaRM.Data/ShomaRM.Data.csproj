@@ -382,6 +382,9 @@
     <Compile Include="usp_GetAmenitySearchList_Result.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_GetApplicationSummaryData_Result.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_GetAssigmentAuditList_Result.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>

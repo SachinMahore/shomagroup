@@ -11,15 +11,14 @@ namespace ShomaRM.Data
 {
     using System;
     
-    public partial class usp_GetSignedList_Result
+    public partial class usp_GetPromotionList_Result
     {
-        public long ESID { get; set; }
-        public string DateSigned { get; set; }
-        public string ApplicantName { get; set; }
-        public string Email { get; set; }
-        public string Key { get; set; }
-        public Nullable<long> ApplicantID { get; set; }
-        public int IsSignedAll { get; set; }
-        public int IsLeaseExecuted { get; set; }
+        public int PromotionID { get; set; }
+        public string PropertyID { get; set; }
+        public string PromotionTitle { get; set; }
+        public Nullable<System.DateTime> StartDate { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<int> CreatedById { get; set; }
     }
 }

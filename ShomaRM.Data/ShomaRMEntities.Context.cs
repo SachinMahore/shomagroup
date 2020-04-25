@@ -686,6 +686,15 @@ namespace ShomaRM.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAmenitySearchList_Result>("usp_GetAmenitySearchList", criteriaParameter, pageNumberParameter, numberOfRowsParameter);
         }
     
+        public virtual ObjectResult<usp_GetApplicationSummaryData_Result> usp_GetApplicationSummaryData(Nullable<long> tenantID)
+        {
+            var tenantIDParameter = tenantID.HasValue ?
+                new ObjectParameter("TenantID", tenantID) :
+                new ObjectParameter("TenantID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetApplicationSummaryData_Result>("usp_GetApplicationSummaryData", tenantIDParameter);
+        }
+    
         public virtual ObjectResult<usp_GetAssigmentAuditList_Result> usp_GetAssigmentAuditList(string serviceID)
         {
             var serviceIDParameter = serviceID != null ?

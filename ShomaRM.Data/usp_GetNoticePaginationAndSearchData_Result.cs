@@ -11,15 +11,14 @@ namespace ShomaRM.Data
 {
     using System;
     
-    public partial class usp_GetSignedList_Result
+    public partial class usp_GetNoticePaginationAndSearchData_Result
     {
-        public long ESID { get; set; }
-        public string DateSigned { get; set; }
-        public string ApplicantName { get; set; }
-        public string Email { get; set; }
-        public string Key { get; set; }
-        public Nullable<long> ApplicantID { get; set; }
-        public int IsSignedAll { get; set; }
-        public int IsLeaseExecuted { get; set; }
+        public Nullable<long> NoticeID { get; set; }
+        public string PropertyName { get; set; }
+        public string UnitName { get; set; }
+        public string TenantName { get; set; }
+        public string Revision_Num { get; set; }
+        public string NoticeDate { get; set; }
+        public Nullable<int> NumberOfPages { get; set; }
     }
 }

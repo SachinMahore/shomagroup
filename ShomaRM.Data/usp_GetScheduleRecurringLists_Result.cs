@@ -11,15 +11,11 @@ namespace ShomaRM.Data
 {
     using System;
     
-    public partial class usp_GetSignedList_Result
+    public partial class usp_GetScheduleRecurringLists_Result
     {
-        public long ESID { get; set; }
-        public string DateSigned { get; set; }
-        public string ApplicantName { get; set; }
-        public string Email { get; set; }
-        public string Key { get; set; }
-        public Nullable<long> ApplicantID { get; set; }
-        public int IsSignedAll { get; set; }
-        public int IsLeaseExecuted { get; set; }
+        public int TransID { get; set; }
+        public long TenantID { get; set; }
+        public string Transaction_Type { get; set; }
+        public Nullable<decimal> Charge_Amount { get; set; }
     }
 }

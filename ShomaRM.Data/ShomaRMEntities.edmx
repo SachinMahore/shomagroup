@@ -2728,6 +2728,9 @@ warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primar
           <Parameter Name="PageNumber" Type="int" Mode="In" />
           <Parameter Name="NumberOfRows" Type="int" Mode="In" />
         </Function>
+        <Function Name="usp_GetApplicationSummaryData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TenantID" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="usp_GetAssigmentAuditList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ServiceID" Type="varchar" Mode="In" />
         </Function>
@@ -4346,6 +4349,7 @@ warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primar
           <Property Name="ParentTenantID" Type="Int64" />
           <Property Name="IsChangePass" Type="Int32" />
           <Property Name="ChangeDate" Type="DateTime" Precision="3" />
+          <Property Name="ParentUserID" Type="Int64" />
           <NavigationProperty Name="tbl_CashReceipts" Relationship="Self.FK_tbl_CashReceipts_tbl_Login" FromRole="tbl_Login" ToRole="tbl_CashReceipts" />
           <NavigationProperty Name="tbl_ChargeType" Relationship="Self.FK_tbl_ChargeType_tbl_Login" FromRole="tbl_Login" ToRole="tbl_ChargeType" />
           <NavigationProperty Name="tbl_DocumentVerification" Relationship="Self.FK_tbl_DocumentVerification_tbl_Login" FromRole="tbl_Login" ToRole="tbl_DocumentVerification" />
@@ -4734,52 +4738,6 @@ warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primar
           <NavigationProperty Name="tbl_Properties" Relationship="Self.FK_tbl_Prospect_tbl_Properties" FromRole="tbl_Prospect" ToRole="tbl_Properties" />
           <NavigationProperty Name="tbl_State" Relationship="Self.FK_tbl_Prospect_tbl_State" FromRole="tbl_Prospect" ToRole="tbl_State" />
           <NavigationProperty Name="tbl_Visit" Relationship="Self.FK_tbl_Visit_tbl_Prospect" FromRole="tbl_Prospect" ToRole="tbl_Visit" />
-        </EntityType>
-        <EntityType Name="tbl_Prospect">
-          <Key>
-            <PropertyRef Name="PID" />
-          </Key>
-          <Property Name="PID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="State" Type="Int64" />
-          <Property Name="City" Type="Int64" />
-          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="HavingPets" Type="Int32" />
-          <Property Name="PetsDetails" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="VehicleDetails" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="MinBedroom" Type="Int32" />
-          <Property Name="MinBathroom" Type="Int32" />
-          <Property Name="MinRent" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="MaxBedroom" Type="Int32" />
-          <Property Name="MaxBathroom" Type="Int32" />
-          <Property Name="MaxRent" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="UnitID" Type="Int64" />
-          <Property Name="RequiredDate" Type="DateTime" Precision="3" />
-          <Property Name="Term" Type="Int32" />
-          <Property Name="ReasonForMovingIn" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="VisitDateTime" Type="DateTime" Precision="0" />
-          <Property Name="LeasingAgent" Type="Int32" />
-          <Property Name="MarketSource" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="LastModifiedBy" Type="Int32" />
-          <Property Name="LastModifiedeDate" Type="DateTime" Precision="3" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="PropertyID" Type="Int64" />
-          <Property Name="AssignAgentId" Type="Int64" />
-          <Property Name="AppointmentStatus" Type="Int32" />
-          <Property Name="OutlookID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tbl_City" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_City" FromRole="tbl_Prospect" ToRole="tbl_City" />
-          <NavigationProperty Name="tbl_Document" Relationship="ShomaRMEntitiesModel.FK_tbl_Document_tbl_Prospect" FromRole="tbl_Prospect" ToRole="tbl_Document" />
-          <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login" FromRole="tbl_Prospect" ToRole="tbl_Login" />
-          <NavigationProperty Name="tbl_Login1" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login1" FromRole="tbl_Prospect" ToRole="tbl_Login" />
-          <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Properties" FromRole="tbl_Prospect" ToRole="tbl_Properties" />
-          <NavigationProperty Name="tbl_State" Relationship="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_State" FromRole="tbl_Prospect" ToRole="tbl_State" />
-          <NavigationProperty Name="tbl_Visit" Relationship="ShomaRMEntitiesModel.FK_tbl_Visit_tbl_Prospect" FromRole="tbl_Prospect" ToRole="tbl_Visit" />
         </EntityType>
         <EntityType Name="tbl_PurchaseOrder">
           <Key>
@@ -5244,6 +5202,7 @@ warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primar
           <Property Name="ManagementCompany" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="ManagementCompanyPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="IsProprNoticeLeaseAgreement" Type="Int32" />
+          <Property Name="ParentTOID" Type="Int64" />
           <NavigationProperty Name="tbl_ApplyNow" Relationship="Self.FK_tbl_TenantOnline_tbl_ApplyNow" FromRole="tbl_TenantOnline" ToRole="tbl_ApplyNow" />
         </EntityType>
         <EntityType Name="tbl_TenantParking">
@@ -6955,6 +6914,9 @@ warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primar
             <Parameter Name="PageNumber" Mode="In" Type="Int32" />
             <Parameter Name="NumberOfRows" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="usp_GetApplicationSummaryData" ReturnType="Collection(ShomaRMModel.usp_GetApplicationSummaryData_Result)">
+            <Parameter Name="TenantID" Mode="In" Type="Int64" />
+          </FunctionImport>
           <FunctionImport Name="usp_GetAssigmentAuditList" ReturnType="Collection(ShomaRMModel.usp_GetAssigmentAuditList_Result)">
             <Parameter Name="ServiceID" Mode="In" Type="String" />
           </FunctionImport>
@@ -7772,6 +7734,17 @@ warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primar
           <Property Type="String" Name="Amenity" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="AmenityDetails" Nullable="true" MaxLength="500" />
           <Property Type="Int32" Name="NumberOfPages" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_GetApplicationSummaryData_Result">
+          <Property Type="String" Name="UnitNo" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Building" Nullable="false" MaxLength="10" />
+          <Property Type="DateTime" Name="MoveInDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="LeaseTerm" Nullable="false" MaxLength="53" />
+          <Property Type="Int32" Name="Bedroom" Nullable="true" />
+          <Property Type="Int32" Name="Bathroom" Nullable="true" />
+          <Property Type="String" Name="Area" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Deposit" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="MonthlyCharges" Nullable="true" Precision="19" />
         </ComplexType>
         <ComplexType Name="usp_GetAssigmentAuditList_Result">
           <Property Type="Int32" Name="AHID" Nullable="false" />
@@ -8656,6 +8629,7 @@ warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primar
           <Property Type="String" Name="Key" Nullable="true" />
           <Property Type="Int64" Name="ApplicantID" Nullable="true" />
           <Property Type="Int32" Name="IsSignedAll" Nullable="false" />
+          <Property Type="Int32" Name="IsLeaseExecuted" Nullable="false" />
         </ComplexType>
         <ComplexType Name="usp_GetSlotPaginationAndSearchData_Result">
           <Property Type="Int64" Name="ID" Nullable="true" />
@@ -9212,23 +9186,6 @@ warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primar
           <EntitySetMapping Name="tbl_ApplicantHistory">
             <EntityTypeMapping TypeName="ShomaRMModel.tbl_ApplicantHistory">
               <MappingFragment StoreEntitySet="tbl_ApplicantHistory">
-                <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
-                <ScalarProperty Name="IsProprNoticeLeaseAgreement" ColumnName="IsProprNoticeLeaseAgreement" />
-                <ScalarProperty Name="ManagementCompanyPhone" ColumnName="ManagementCompanyPhone" />
-                <ScalarProperty Name="ManagementCompany" ColumnName="ManagementCompany" />
-                <ScalarProperty Name="ApartmentCommunity" ColumnName="ApartmentCommunity" />
-                <ScalarProperty Name="Reason" ColumnName="Reason" />
-                <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
-                <ScalarProperty Name="MoveInDateTo" ColumnName="MoveInDateTo" />
-                <ScalarProperty Name="MoveInDateFrom" ColumnName="MoveInDateFrom" />
-                <ScalarProperty Name="RentOwn" ColumnName="RentOwn" />
-                <ScalarProperty Name="ZipHome" ColumnName="ZipHome" />
-                <ScalarProperty Name="CityHome" ColumnName="CityHome" />
-                <ScalarProperty Name="StateHome" ColumnName="StateHome" />
-                <ScalarProperty Name="HomeAddress2" ColumnName="HomeAddress2" />
-                <ScalarProperty Name="HomeAddress1" ColumnName="HomeAddress1" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
                 <ScalarProperty Name="AHID" ColumnName="AHID" />
                 <ScalarProperty Name="TenantID" ColumnName="TenantID" />
                 <ScalarProperty Name="Country" ColumnName="Country" />
@@ -9246,6 +9203,7 @@ warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primar
                 <ScalarProperty Name="ManagementCompany" ColumnName="ManagementCompany" />
                 <ScalarProperty Name="ManagementCompanyPhone" ColumnName="ManagementCompanyPhone" />
                 <ScalarProperty Name="IsProprNoticeLeaseAgreement" ColumnName="IsProprNoticeLeaseAgreement" />
+                <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -9508,32 +9466,6 @@ warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primar
           <EntitySetMapping Name="tbl_EmployerHistory">
             <EntityTypeMapping TypeName="ShomaRMModel.tbl_EmployerHistory">
               <MappingFragment StoreEntitySet="tbl_EmployerHistory">
-                <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
-                <ScalarProperty Name="TerminationReason" ColumnName="TerminationReason" />
-                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
-                <ScalarProperty Name="PaystubValue" ColumnName="PaystubValue" />
-                <ScalarProperty Name="TaxReturn3OrigName" ColumnName="TaxReturn3OrigName" />
-                <ScalarProperty Name="TaxReturn2OrigName" ColumnName="TaxReturn2OrigName" />
-                <ScalarProperty Name="TaxReturn1OrigName" ColumnName="TaxReturn1OrigName" />
-                <ScalarProperty Name="TaxReturn3" ColumnName="TaxReturn3" />
-                <ScalarProperty Name="TaxReturn2" ColumnName="TaxReturn2" />
-                <ScalarProperty Name="TaxReturn1" ColumnName="TaxReturn1" />
-                <ScalarProperty Name="Zip" ColumnName="Zip" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="Address1" ColumnName="Address1" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="SupervisorEmail" ColumnName="SupervisorEmail" />
-                <ScalarProperty Name="SupervisorPhone" ColumnName="SupervisorPhone" />
-                <ScalarProperty Name="SupervisorName" ColumnName="SupervisorName" />
-                <ScalarProperty Name="AddAnnualIncome" ColumnName="AddAnnualIncome" />
-                <ScalarProperty Name="AnnualIncome" ColumnName="AnnualIncome" />
-                <ScalarProperty Name="TerminationDate" ColumnName="TerminationDate" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="JobType" ColumnName="JobType" />
-                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
-                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
                 <ScalarProperty Name="HEIID" ColumnName="HEIID" />
                 <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
                 <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
@@ -9560,24 +9492,20 @@ warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primar
                 <ScalarProperty Name="PaystubValue" ColumnName="PaystubValue" />
                 <ScalarProperty Name="TenantId" ColumnName="TenantId" />
                 <ScalarProperty Name="TerminationReason" ColumnName="TerminationReason" />
+                <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_ESignatureKeys">
             <EntityTypeMapping TypeName="ShomaRMModel.tbl_ESignatureKeys">
               <MappingFragment StoreEntitySet="tbl_ESignatureKeys">
-                <ScalarProperty Name="IsLeaseExecuted" ColumnName="IsLeaseExecuted" />
-                <ScalarProperty Name="DateSigned" ColumnName="DateSigned" />
-                <ScalarProperty Name="EsignatureId" ColumnName="EsignatureId" />
-                <ScalarProperty Name="Key" ColumnName="Key" />
-                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
-                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
                 <ScalarProperty Name="ESID" ColumnName="ESID" />
                 <ScalarProperty Name="TenantID" ColumnName="TenantID" />
                 <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
                 <ScalarProperty Name="Key" ColumnName="Key" />
                 <ScalarProperty Name="EsignatureId" ColumnName="EsignatureId" />
                 <ScalarProperty Name="DateSigned" ColumnName="DateSigned" />
+                <ScalarProperty Name="IsLeaseExecuted" ColumnName="IsLeaseExecuted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -9813,20 +9741,6 @@ warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primar
           <EntitySetMapping Name="tbl_Login">
             <EntityTypeMapping TypeName="ShomaRMModel.tbl_Login">
               <MappingFragment StoreEntitySet="tbl_Login">
-                <ScalarProperty Name="ParentUserID" ColumnName="ParentUserID" />
-                <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
-                <ScalarProperty Name="IsChangePass" ColumnName="IsChangePass" />
-                <ScalarProperty Name="ParentTenantID" ColumnName="ParentTenantID" />
-                <ScalarProperty Name="UserType" ColumnName="UserType" />
-                <ScalarProperty Name="IsSuperUser" ColumnName="IsSuperUser" />
-                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -9841,6 +9755,7 @@ warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primar
                 <ScalarProperty Name="ParentTenantID" ColumnName="ParentTenantID" />
                 <ScalarProperty Name="IsChangePass" ColumnName="IsChangePass" />
                 <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
+                <ScalarProperty Name="ParentUserID" ColumnName="ParentUserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -9899,17 +9814,6 @@ warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primar
           <EntitySetMapping Name="tbl_MoveInChecklist">
             <EntityTypeMapping TypeName="ShomaRMModel.tbl_MoveInChecklist">
               <MappingFragment StoreEntitySet="tbl_MoveInChecklist">
-                <ScalarProperty Name="IsCheckSD" ColumnName="IsCheckSD" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="IsCheckWater" ColumnName="IsCheckWater" />
-                <ScalarProperty Name="IsCheckATT" ColumnName="IsCheckATT" />
-                <ScalarProperty Name="IsCheckPO" ColumnName="IsCheckPO" />
-                <ScalarProperty Name="ElectricityDoc" ColumnName="ElectricityDoc" />
-                <ScalarProperty Name="InsuranceDoc" ColumnName="InsuranceDoc" />
-                <ScalarProperty Name="MoveInCharges" ColumnName="MoveInCharges" />
-                <ScalarProperty Name="MoveInTime" ColumnName="MoveInTime" />
-                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
-                <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
                 <ScalarProperty Name="MIID" ColumnName="MIID" />
                 <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
                 <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
@@ -9921,6 +9825,7 @@ warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primar
                 <ScalarProperty Name="IsCheckATT" ColumnName="IsCheckATT" />
                 <ScalarProperty Name="IsCheckWater" ColumnName="IsCheckWater" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsCheckSD" ColumnName="IsCheckSD" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -10198,46 +10103,6 @@ warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Prospect">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Prospect">
-              <MappingFragment StoreEntitySet="tbl_Prospect">
-                <ScalarProperty Name="OutlookID" ColumnName="OutlookID" />
-                <ScalarProperty Name="AppointmentStatus" ColumnName="AppointmentStatus" />
-                <ScalarProperty Name="AssignAgentId" ColumnName="AssignAgentId" />
-                <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="LastModifiedeDate" ColumnName="LastModifiedeDate" />
-                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="MarketSource" ColumnName="MarketSource" />
-                <ScalarProperty Name="LeasingAgent" ColumnName="LeasingAgent" />
-                <ScalarProperty Name="VisitDateTime" ColumnName="VisitDateTime" />
-                <ScalarProperty Name="ReasonForMovingIn" ColumnName="ReasonForMovingIn" />
-                <ScalarProperty Name="Term" ColumnName="Term" />
-                <ScalarProperty Name="RequiredDate" ColumnName="RequiredDate" />
-                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
-                <ScalarProperty Name="MaxRent" ColumnName="MaxRent" />
-                <ScalarProperty Name="MaxBathroom" ColumnName="MaxBathroom" />
-                <ScalarProperty Name="MaxBedroom" ColumnName="MaxBedroom" />
-                <ScalarProperty Name="MinRent" ColumnName="MinRent" />
-                <ScalarProperty Name="MinBathroom" ColumnName="MinBathroom" />
-                <ScalarProperty Name="MinBedroom" ColumnName="MinBedroom" />
-                <ScalarProperty Name="VehicleDetails" ColumnName="VehicleDetails" />
-                <ScalarProperty Name="PetsDetails" ColumnName="PetsDetails" />
-                <ScalarProperty Name="HavingPets" ColumnName="HavingPets" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="PID" ColumnName="PID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_PurchaseOrder">
             <EntityTypeMapping TypeName="ShomaRMModel.tbl_PurchaseOrder">
               <MappingFragment StoreEntitySet="tbl_PurchaseOrder">
@@ -10367,16 +10232,6 @@ warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_SMSMessages">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_SMSMessages">
-              <MappingFragment StoreEntitySet="tbl_SMSMessages">
-                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="MsgID" ColumnName="MsgID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_State">
             <EntityTypeMapping TypeName="ShomaRMModel.tbl_State">
               <MappingFragment StoreEntitySet="tbl_State">
@@ -10482,21 +10337,6 @@ warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primar
                 <ScalarProperty Name="OtherLastName" ColumnName="OtherLastName" />
                 <ScalarProperty Name="OtherRelationship" ColumnName="OtherRelationship" />
                 <ScalarProperty Name="OtherId" ColumnName="OtherId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_TenantFob">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantFob">
-              <MappingFragment StoreEntitySet="tbl_TenantFob">
-                <ScalarProperty Name="OtherId" ColumnName="OtherId" />
-                <ScalarProperty Name="OtherRelationship" ColumnName="OtherRelationship" />
-                <ScalarProperty Name="OtherLastName" ColumnName="OtherLastName" />
-                <ScalarProperty Name="OtherFirstName" ColumnName="OtherFirstName" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
-                <ScalarProperty Name="FobID" ColumnName="FobID" />
-                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-                <ScalarProperty Name="TFobID" ColumnName="TFobID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -10714,6 +10554,7 @@ warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primar
                 <ScalarProperty Name="ManagementCompany" ColumnName="ManagementCompany" />
                 <ScalarProperty Name="ManagementCompanyPhone" ColumnName="ManagementCompanyPhone" />
                 <ScalarProperty Name="IsProprNoticeLeaseAgreement" ColumnName="IsProprNoticeLeaseAgreement" />
+                <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -11365,6 +11206,21 @@ warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primar
                 <ScalarProperty Name="Amenity" ColumnName="Amenity" />
                 <ScalarProperty Name="AmenityDetails" ColumnName="AmenityDetails" />
                 <ScalarProperty Name="NumberOfPages" ColumnName="NumberOfPages" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetApplicationSummaryData" FunctionName="ShomaRMModel.Store.usp_GetApplicationSummaryData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ShomaRMModel.usp_GetApplicationSummaryData_Result">
+                <ScalarProperty Name="UnitNo" ColumnName="UnitNo" />
+                <ScalarProperty Name="Building" ColumnName="Building" />
+                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
+                <ScalarProperty Name="LeaseTerm" ColumnName="LeaseTerm" />
+                <ScalarProperty Name="Bedroom" ColumnName="Bedroom" />
+                <ScalarProperty Name="Bathroom" ColumnName="Bathroom" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Deposit" ColumnName="Deposit" />
+                <ScalarProperty Name="MonthlyCharges" ColumnName="MonthlyCharges" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -12523,6 +12379,7 @@ warning 6013: The table/view 'ShomaRMQA.dbo.CountryState' does not have a primar
                 <ScalarProperty Name="Key" ColumnName="Key" />
                 <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
                 <ScalarProperty Name="IsSignedAll" ColumnName="IsSignedAll" />
+                <ScalarProperty Name="IsLeaseExecuted" ColumnName="IsLeaseExecuted" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

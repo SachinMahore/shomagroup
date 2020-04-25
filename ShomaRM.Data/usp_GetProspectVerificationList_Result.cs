@@ -11,15 +11,17 @@ namespace ShomaRM.Data
 {
     using System;
     
-    public partial class usp_GetSignedList_Result
+    public partial class usp_GetProspectVerificationList_Result
     {
-        public long ESID { get; set; }
-        public string DateSigned { get; set; }
-        public string ApplicantName { get; set; }
+        public long ID { get; set; }
+        public Nullable<long> UserID { get; set; }
+        public long DocID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Phone { get; set; }
         public string Email { get; set; }
-        public string Key { get; set; }
-        public Nullable<long> ApplicantID { get; set; }
-        public int IsSignedAll { get; set; }
-        public int IsLeaseExecuted { get; set; }
+        public int DocumentType { get; set; }
+        public string DocumentName { get; set; }
+        public int VerificationStatus { get; set; }
     }
 }
