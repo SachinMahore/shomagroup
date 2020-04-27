@@ -886,6 +886,70 @@ namespace ShomaRM.Controllers
             }
             return View(model);
         }
+        //Sachin Mahore 24 Apr 2020 2:30 PM
+        public ActionResult GuarantorDet(string id)
+        {
+            string[] ids = id.Split('-');
+            ShomaRMEntities db = new ShomaRMEntities();
+            string pid = ids[0].ToString();
+            long uid = Convert.ToInt64(ids[1].ToString());
+
+            ViewBag.PTOID = uid.ToString();
+            if (ShomaGroupWebSession.CurrentUser == null && pid != "0")
+            {
+                return Redirect("/Account/Login");
+            }
+
+            var model = new OnlineProspectModule().GetProspectData(Convert.ToInt64(pid));
+
+            if (Session["Bedroom"] != null)
+            {
+                model.Bedroom = Convert.ToInt32(Session["Bedroom"].ToString());
+                model.MoveInDate = Convert.ToDateTime(Session["MoveInDate"].ToString());
+                model.MaxRent = Convert.ToDecimal(Session["MaxRent"].ToString());
+                model.LeaseTermID = Convert.ToInt32(Session["LeaseTerm"].ToString());
+                var leaseDet = new Areas.Admin.Models.LeaseTermsModel().GetLeaseTermsDetails(model.LeaseTermID);
+                model.LeaseTerm = Convert.ToInt32(leaseDet.LeaseTerms);
+
+                model.FromHome = 1;
+                Session.Remove("Bedroom");
+                Session.Remove("MoveInDate");
+                Session.Remove("MaxRent");
+                Session.Remove("LeaseTerm");
+            }
+            else
+            {
+                model.Bedroom = 0;
+                model.MoveInDate = DateTime.Now.AddDays(30);
+                //model.MaxRent = 0;
+                model.FromHome = 0;
+                if (model.LeaseTermID == 0)
+                {
+
+                    var leaseDet = db.tbl_LeaseTerms.Where(p => p.LeaseTerms == 12).FirstOrDefault();
+                    if (leaseDet != null)
+                    {
+                        model.LeaseTermID = leaseDet.LTID;
+                    }
+                    else
+                    {
+                        model.LeaseTermID = 0;
+                    }
+                }
+
+            }
+            if (Session["StepNo"] != null)
+            {
+                model.StepNo = Convert.ToInt32(Session["StepNo"].ToString());
+                Session.Remove("StepNo");
+            }
+            else
+            {
+                model.StepNo = 0;
+
+            }
+            return View(model);
+        }
         public ActionResult PrintApplicationForm(long TenantID)
         {
             try
