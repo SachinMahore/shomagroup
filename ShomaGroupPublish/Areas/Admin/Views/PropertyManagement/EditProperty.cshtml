@@ -193,6 +193,24 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
+                                                <label>Pet Policy PDF</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Upload Pet Policy</label><br />
+                                                <input type="file" name="fileUploadPetPolicy" id="fileUploadPetPolicy" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                                <label for="fileUploadPetPolicy"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadPetPolicyShow">Choose a file&hellip;</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Download Pet Policy</label><br />
+                                                <a id="fileDownloadPetPolicy" href="~/Content/assets/img/Document/Pet_Policies.pdf" target="_blank" download="Pet_Policies.pdf" class="btn btn-primary"><i class="fa fa-download fa-2x"></i> <span style="text-transform:lowercase">Download a file&hellip;</span></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
                                                 <label class="star">Property Address :</label>
                                                 <textarea name="address" id="txtAddress" class="form-control">@Model.Location</textarea>
                                             </div>
@@ -416,7 +434,7 @@
                         <div class="hidden" id="step6">
 
                         </div>
-                        <div class="hidden" id="step7" >
+                        <div class="hidden" id="step7">
                             <div class="row p-b-15  ">
                                 <div class="col-sm-12">
                                     <h4 class="info-text pull-left">Units Lease Wise Price</h4>
@@ -455,9 +473,13 @@
                                             <tr>
                                                 @foreach (var ulph in Model.lstUnitLeasePriceHeader)
                                                 {
-                                                    <th style="background-color: #c7cdd5;color:#3d3939; width:@ulph.Width%; @if (ulph.HasSorting == "1") {<text>cursor:pointer!important;</text>}" class='text-center' @if (ulph.HasSorting == "1") { <text> onclick='sortUnitLeaseWisePrice("@ulph.SortName")' </text> }>@ulph.HeaderName <span id="sn_@ulph.SortName" class="sortcolumn">@if (ulph.DefaultSort == "1")
-                                                    {<text><i class="fa fa-sort-asc"></i></text>}</span></th>
-                                                }
+                                                    <th style="background-color: #c7cdd5;color:#3d3939; width:@ulph.Width%; @if (ulph.HasSorting == "1") {<text>cursor:pointer!important;</text>}" class='text-center' @if (ulph.HasSorting == "1") { <text> onclick='sortUnitLeaseWisePrice("@ulph.SortName")' </text> }>
+                                                        @ulph.HeaderName <span id="sn_@ulph.SortName" class="sortcolumn">
+                                                        @if (ulph.DefaultSort == "1")
+                                                        {<text><i class="fa fa-sort-asc"></i></text>}
+                                                    </span>
+                                                </th>
+                                            }
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -684,5 +706,13 @@
         width: 50%;
         text-align: justify;
     }
-
+    .move {
+        margin-top: 7px;
+        margin-left: -167px;
+        border: 1px solid #000;
+        padding: 15px 11px;
+        min-width: 210px;
+        max-width: 365px;
+        padding: 0px 15px;
+    }
 </style>

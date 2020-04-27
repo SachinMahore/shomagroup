@@ -3,17 +3,18 @@
 @{
     ViewBag.Title = "Apply Now";
 }
-<script src="/Content/Pages/ApplyNow/ApplyNow.js"></script>
+<script src="~/Content/Pages/ApplyNow/CoApplicantDet.js"></script>
 <script src="~/Content/assets/js/jquery.maphilight.js"></script>
 <script src="~/Content/Pages/ApplyNow/DocumentVerification.js"></script>
 <input type="hidden" id="hndPID" value="0" />
+<input type="hidden" id="hndPTOID" value="@ViewBag.PTOID" />
 <input type="hidden" id="hndIDNumber" value="" />
 <input type="hidden" id="hndSSNNumber" value="" />
 <input type="hidden" id="hndAppHisMon" value="0" />
 <input type="hidden" id="hndHistory" value="0" />
 <input type="hidden" id="hndLeaseTermID" value="@Model.LeaseTermID" />
 <input type="hidden" id="hdnEmployerHistory" value="0" />
-<input type="hidden" id="hdnStepCompleted" value="@(Model.StepCompleted==0?1:Model.StepCompleted)" />
+<input type="hidden" id="hdnStepCompleted" value="7" />
 <input type="hidden" id="hndShowTermPolicy" value="1" />
 <input type="hidden" id="hndShowPaymentPolicy" value="1" />
 <input type="hidden" id="hndShowPropertyDetails" value="0" />
@@ -23,7 +24,7 @@
 <input type="hidden" id="hndBuilding" value="@(Model.Building)" />
 <input type="hidden" id="hndProcessingFees" value="@(Model.ProcessingFees)" />
 <input type="hidden" id="hndAdditionalParking" value="@(Model.AdditionalParking)" />
-<input type="hidden" id="HndAddParkingCount" value="0" />
+@*Sachin Mahore 21 Apr 2020*@
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container">
@@ -33,11 +34,12 @@
                 <div>
                     <div class="wizard-header">
                         <h3>
-                            <b>Online  </b>Application <br>
+                            <b>Co-Applicant Online  </b>Application <br>
                         </h3>
                         <div class="button pull-right">
-                            @if (ShomaGroupWebSession.CurrentUser != null) {
-                            <a href="javascript:void(0)" class="btn-success" style="padding:5px;" onclick="gotoLogOffAN()"> Logout..</a>
+                            @if (ShomaGroupWebSession.CurrentUser != null)
+                            {
+                                <a href="javascript:void(0)" class="btn-success" style="padding:5px;" onclick="gotoLogOffAN()"> Logout..</a>
                             }
                         </div>
                         <span class="pull-right" style="color:black;font-size: 15px;margin-right: 10px; font-weight:bold;" id="mainApplName"></span>
@@ -46,13 +48,7 @@
                     </div>
 
                     <ul style="line-height: 14px;" class="nav nav-tabs wizard">
-                        <li class="active" style="padding-right:2px" id="li1"><a href="javascript:void(0);" onclick="goToStep(1,0,0)"> 1. Floor Plan </a></li>
-                        <li id="li2"><a href="javascript:void(0);" id="as2" onclick="goToStep(2,2,1)">2. Select Units</a></li>
-                        <li id="li3"><a href="javascript:void(0);" id="as3" onclick="goToStep(4,4,0)">3. Select Options</a></li>
-                        <li id="li4"><a href="javascript:void(0);" id="as4" onclick="goToStep(5,5,0)">4. Quotation</a></li>
-                        <li id="li5"><a href="javascript:void(0);" id="as5" onclick="goToStep(6,6,0)">5. Policies & Conditions </a></li>
-                        <li id="li6"><a href="javascript:void(0);" id="as6" onclick="goToStep(7,7,0)">6. Complete Application</a></li>
-
+                       
                     </ul>
                     <div class="text-center">
                         <ul class="nav nav-tabs hidden text-center" style="margin-top:-14px !important;background-color:#4d738a !important;height:29px !important" id="subMenu">
@@ -61,11 +57,11 @@
                             <li id="li9"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(9,9,0)">c. Personal Info</a></li>
                             <li id="li10"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(10,10,0)">d. Residence History</a></li>
                             <li id="li11"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(11,11,0)">e. Employment & Income</a></li>
-                            <li id="li12"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(12,12,0)">f. Emergency Contact</a></li>
-                            <li id="li13"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(13,13,0)">g. Vehicle Info</a></li>
-                            <li id="li14"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(14,14,0)">h. Pet Info</a></li>
-                            <li id="li15"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(15,15,0)">i. Summary </a></li>
-                            <li id="li16"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(16,16,0)">j. Payment </a></li>
+                            <li id="li12" class="hidden"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(12,12,0)">f. Emergency Contact</a></li>
+                            <li id="li13"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(13,13,0)">f. Vehicle Info</a></li>
+                            <li id="li14"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(14,14,0)">g. Pet Info</a></li>
+                            <li id="li15"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(15,15,0)">h. Summary </a></li>
+                            <li id="li16"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(16,16,0)">i. Payment </a></li>
                         </ul>
                     </div>
                     <div class="tab-content">
@@ -109,13 +105,13 @@
 
                                         <h5 class="col-sm-1">Sort</h5>
                                         <div class="col-xs-2">
-                                            @*<div class="col-xs-12">*@
+                                       
                                             <select id="ddlSortOrder" class="form-control">
                                                 <option value='0'>Low To High</option>
                                                 <option value='1'>High To Low</option>
 
                                             </select>
-                                            @*</div>*@
+                                          
                                         </div>
                                         <div class="col-xs-1">
                                             <button class="btn-primary hollow btn" style="padding: 7px 7px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
@@ -130,8 +126,6 @@
                                     <div class="col-xs-5"></div>
                                     <div class="col-xs-1"><button type="submit" class="btn-cancle btn" id="btncompCancel" onclick="getPropertyModelUnitList()"> Cancel</button></div>
                                     <div class="col-xs-1"><a href="javascript:void(0);" data-toggle="modal" data-target="#ModelCompare" style="padding: 5px;" class="btn-success btn" id="btncompare"></a></div>
-
-
                                 </div>
                                 <div class="col-md-12 clear">
                                     <div id="listModelUnit" class="proerty-th">
@@ -147,8 +141,6 @@
                         <div class="row p-b-15  ">
                             <div class="col-xs-7 col-sm-7">
                                 <div class="col-sm-12">
-
-
                                     <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                         <div class="panel-heading">
                                             <h3 class="panel-title">Select Your Unit</h3>
@@ -387,28 +379,28 @@
                                 </div>
                             </div>
 
-                                <div class="col-sm-12" id="divstep3save">
-                                    <div class="pull-left text-center hidden">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" id="chkAgreeTerms"> I agree with Sanctuary's terms and conditions.
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="pull-right text-center">
-                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="SaveOnlineProspect()"> Save</button>
+                            <div class="col-sm-12" id="divstep3save">
+                                <div class="pull-left text-center hidden">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="chkAgreeTerms"> I agree with Sanctuary's terms and conditions.
+                                        </label>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 hidden" id="divstep3">
-                                    <div class="pull-left text-center">
-                                        <button type="submit" class="btn btn-primary" onclick="goToStep(2,2,1)"> Back</button>
-                                    </div>
-                                    <div class="pull-right text-center">
-                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(4,4,0)"> Continue</button>
-                                    </div>
+                                <div class="pull-right text-center">
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="SaveOnlineProspect()"> Save</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 hidden" id="divstep3">
+                                <div class="pull-left text-center">
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(2,2,1)"> Back</button>
+                                </div>
+                                <div class="pull-right text-center">
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(4,4,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     <div class="hidden" id="step4">
 
                         <div class="row p-b-15  ">
@@ -580,7 +572,7 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="col-sm-4">
-                                        <span id="">Security Deposit (Refundable): </span>
+                                        <span id="">Security Deposit: </span>
                                     </div>
                                     <div class="col-sm-2">
                                         $<span id="lbldeposit1"></span>
@@ -604,7 +596,7 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="col-sm-4">
-                                        <span id="spanPetDNAFee1">Pet DNA Fee: </span>
+                                        <span id="">Pet DNA Amt: </span>
                                     </div>
                                     <div class="col-sm-2">
                                         $<span id="lblPetDNAAmt">@((Model.PetDNAAmt ?? 0).ToString("0.00"))</span>
@@ -890,7 +882,7 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="col-sm-5">
-                                                    <span>Security Deposit (Refundable): </span>
+                                                    <span>Security Deposit: </span>
                                                 </div>
                                                 <div class="col-sm-7">
                                                     $<span style="text-decoration:underline;font-weight:bold;" id="fdepo">@((Model.Deposit ?? 0).ToString("0.00"))</span>
@@ -906,7 +898,7 @@
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-5">
-                                                    <span id="spanPetDNAFee2">Pet DNA Fee:</span>
+                                                    <span>Pet DNA Fee: </span>
                                                 </div>
                                                 <div class="col-sm-7">
                                                     $<span style="text-decoration:underline;font-weight:bold;" id="fpetdna">@((Model.PetDNAAmt ?? 0).ToString("0.00"))</span>
@@ -1127,7 +1119,7 @@
                                 </div>
 
                                 <div class="text-center">
-                                    <button id="quotePrint" class="btn btn-primary" onclick="print('divQuotes')"> Print</button>
+                                    <button id="quotePrint" class="btn btn-primary" onclick="print('printable')"> Print</button>
                                     <div class="pull-right">
                                         <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(6,6,0)"> Continue</button>
                                     </div>
@@ -1136,6 +1128,7 @@
                             </div>
                         </div>
                     </div>
+                    @*//Sachin Mahore 23 Apr 2020*@
                     <div class="hidden" id="step6">
                         <div class="row p-b-15  ">
                             <div class="col-sm-12">
@@ -1219,9 +1212,7 @@
                                 <br />
                             </div>
                             <div class="col-sm-12">
-                                <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(5,5,0)"> Back</button>
-                                </div>
+                              
                                 <div class="pull-right text-center hidden">
                                     <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(7,7,0)" disabled> Continue</button>
                                 </div>
@@ -1279,7 +1270,7 @@
                                         <div class="col-md-8"></div>
                                         <div class="col-md-1"></div>
                                         <div class="col-md-3"></div>
-                         <div class="col-sm-12">
+                                        <div class="col-sm-12">
                                             <div class="col-sm-8">
                                                 <span>Vehicle Registration: </span>
                                             </div>
@@ -1290,7 +1281,7 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-8">
-                                                <span>Security Deposit (Refundable): </span>
+                                                <span>Security Deposit: </span>
                                             </div>
                                             <div class="col-sm-1"></div>
                                             <div class="col-sm-3">
@@ -1308,7 +1299,7 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-8">
-                                                <span id="spanPetDNAFee3">Pet DNA Fee: </span>
+                                                <span>Pet DNA Amt: </span>
                                             </div>
                                             <div class="col-sm-1"></div>
                                             <div class="col-sm-3">
@@ -2202,7 +2193,7 @@
                                     <button type="submit" class="btn btn-primary" onclick="goToStep(10,10,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(12,12,0)"> Continue</button>
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(13,13,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -2334,9 +2325,9 @@
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">Vehicle Information </h3>
-                                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle"></i> Add</button>
+                                        <button type="button" class="btn btn-primary pull-right hidden" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle"></i> Add</button>
                                     </div>
-                                    <div class="row">
+                                    <div class="row hidden">
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <input type="checkbox" id="chkDontHaveVehicle" onchange="haveVehicle()" />  I don't have a vehicle.
@@ -2382,11 +2373,11 @@
                             <div class="col-md-12">
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                     <div class="panel-heading">
-                                        <h3 class="panel-title">Add Pet Information</h3>
-                                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popPet" id="btnAddPet"><i class="fa fa-plus-circle"></i> Add</button>
+                                        <h3 class="panel-title"> Pet Information</h3>
+                                        <button type="button" class="btn btn-primary pull-right hidden" data-toggle="modal" data-target="#popPet" id="btnAddPet"><i class="fa fa-plus-circle"></i> Add</button>
                                         <input type="hidden" id="hndPetPlaceCount" value="0" />
                                     </div>
-                                    <div class="row">
+                                    <div class="row hidden">
                                         <div class="col-sm-12">
                                             <div class="form-group" id="chkDontHavePetDiv">
                                                 <input type="checkbox" id="chkDontHavePet" />  I don't have a pet.
@@ -2409,7 +2400,7 @@
                                                         <th style="background-color: #c7cdd5;color:#3d3939">Photo</th>
                                                         <th style="background-color: #c7cdd5;color:#3d3939">Pet Name</th>
                                                         <th style="background-color: #c7cdd5;color:#3d3939">Breed</th>
-                                                        <th style="background-color: #c7cdd5;color:#3d3939">Weight(lbs)</th>
+                                                        <th style="background-color: #c7cdd5;color:#3d3939">Weight</th>
                                                         <th style="background-color: #c7cdd5;color:#3d3939">Vet's Name</th>
                                                         <th style="background-color: #c7cdd5;color:#3d3939">Action</th>
                                                     </tr>
@@ -2450,7 +2441,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Applicants <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(7,7,0)">&nbsp;&nbsp;Edit</a></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Applicants <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(7,7,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse1" class="panel-collapse collapse">
@@ -2477,7 +2468,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Responsibility <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(8,8,0)">&nbsp;&nbsp;Edit</a></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Responsibility <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(8,8,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse2" class="panel-collapse collapse">
@@ -2504,7 +2495,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Personal Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(9,9,0)">&nbsp;&nbsp;Edit</a></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Personal Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(9,9,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse3" class="panel-collapse collapse">
@@ -2527,7 +2518,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Residence History <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(10,10,0)">&nbsp;&nbsp;Edit</a></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Residence History <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(10,10,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse4" class="panel-collapse collapse">
@@ -2548,7 +2539,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(11,11,0)">&nbsp;&nbsp;Edit</a></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(11,11,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse5" class="panel-collapse collapse">
@@ -2566,10 +2557,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="panel panel-default accordian-border-group">
+                                            <div class="panel panel-default accordian-border-group hidden">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Emergency Contact <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(12,12,0)">&nbsp;&nbsp;Edit</a></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Emergency Contact <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(12,12,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse6" class="panel-collapse collapse">
@@ -2589,7 +2580,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Vehicle Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(13,13,0)">&nbsp;&nbsp;Edit</a></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Vehicle Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(13,13,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse7" class="panel-collapse collapse">
@@ -2616,7 +2607,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Pet Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(14,14,0)">&nbsp;&nbsp;Edit</a></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Pet Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(14,14,0)">&nbsp;&nbsp;Edit</a></a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse8" class="panel-collapse collapse">
@@ -2628,7 +2619,7 @@
 
                                                                         <th style="background-color: #c7cdd5;color:#3d3939">Pet Name</th>
                                                                         <th style="background-color: #c7cdd5;color:#3d3939">Breed</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Weight(lbs)</th>
+                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Weight</th>
                                                                         <th style="background-color: #c7cdd5;color:#3d3939">Vet's Name</th>
 
                                                                     </tr>
@@ -2984,34 +2975,34 @@
 
                                             </div>
                                             @*<div class="col-sm-12">
-                        <div class="col-sm-4">
-                            <span id="">Landlord Name : </span>
-                        </div>
-                        <div class="col-sm-8">
-                            <span id="sdd">211212</span>
-                        </div>
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Name : </span>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="col-sm-4">
-                            <span id="">Landlord Phone : </span>
-                        </div>
-                        <div class="col-sm-8">
-                            <span id="sdd">211212</span>
-                        </div>
-
-
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="col-sm-4">
-                            <span id="">Landlord Email : </span>
-                        </div>
-                        <div class="col-sm-2">
-                            <span id="sdd">211212</span>
-                        </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Phone : </span>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
 
-                    </div>*@
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Email : </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
+
+
+                                                </div>*@
                                         </div>
                                     </div>
 
@@ -3097,41 +3088,41 @@
                                                 </div>
                                             </div>
                                             @*<div class="col-sm-12">
-                        <div class="col-sm-4">
-                            <span id="">Landlord Name : </span>
-                        </div>
-                        <div class="col-sm-2">
-                            <span id="sdd">211212</span>
-                        </div>
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Name : </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
-                        <div class="col-sm-6">
-                            <span id="">&nbsp;</span>
-                        </div>
-                    </div>*@
+                                                    <div class="col-sm-6">
+                                                        <span id="">&nbsp;</span>
+                                                    </div>
+                                                </div>*@
                                             @*<div class="col-sm-12">
-                        <div class="col-sm-4">
-                            <span id="">Landlord Phone : </span>
-                        </div>
-                        <div class="col-sm-2">
-                            <span id="sdd">211212</span>
-                        </div>
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Phone : </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
-                        <div class="col-sm-6">
-                            <span id="">&nbsp;</span>
-                        </div>
-                    </div>*@
+                                                    <div class="col-sm-6">
+                                                        <span id="">&nbsp;</span>
+                                                    </div>
+                                                </div>*@
                                             @*<div class="col-sm-12">
-                        <div class="col-sm-4">
-                            <span id="">Landlord Email : </span>
-                        </div>
-                        <div class="col-sm-2">
-                            <span id="sdd">211212</span>
-                        </div>
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Email : </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
-                        <div class="col-sm-6">
-                            <span id="">&nbsp;</span>
-                        </div>
-                    </div>*@
+                                                    <div class="col-sm-6">
+                                                        <span id="">&nbsp;</span>
+                                                    </div>
+                                                </div>*@
                                         </div>
                                     </div>
 
@@ -3225,17 +3216,17 @@
                                                 </div>
                                             </div>
                                             @*<div class="col-sm-12">
-                        <div class="col-sm-4">
-                            <span id="">Gross Monthly Additional Income Source : </span>
-                        </div>
-                        <div class="col-sm-2">
-                            <span id="sdd">211212</span>
-                        </div>
+                                                    <div class="col-sm-4">
+                                                        <span id="">Gross Monthly Additional Income Source : </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
-                        <div class="col-sm-6">
-                            <span id="">&nbsp;</span>
-                        </div>
-                    </div>*@
+                                                    <div class="col-sm-6">
+                                                        <span id="">&nbsp;</span>
+                                                    </div>
+                                                </div>*@
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4">
                                                     <span id="">Employer Phone : </span>
@@ -3346,7 +3337,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row p">
+                                    <div class="row p hidden">
                                         <div class="col-sm-12">
                                             <div class="">
                                                 <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 10px 15px;text-align:center;">
@@ -3446,7 +3437,7 @@
                                                     <tr>
                                                         <th>Pet Name</th>
                                                         <th>Breed</th>
-                                                        <th>Weight(lbs)</th>
+                                                        <th>Weight</th>
                                                         <th>Vet's Name</th>
                                                     </tr>
                                                 </thead>
@@ -3631,8 +3622,8 @@
 
                                 </div>
                             </div>
-                            <div class="col-sm-12">
-                                <div class="col-sm-6">
+                            <div class="col-sm-12 ">
+                                <div class="col-sm-6 hidden">
                                     <div class="col-sm-1 form-group">
                                         <input class="form-control" type="checkbox" id="chkAgreeSummarry" style="width: 60px !important;height: 20px !important;">
                                     </div>
@@ -3643,8 +3634,7 @@
                                     </div>
                                 </div>
                                 <div class="pull-right text-center">
-                                    @*<button type="submit" class="btn btn-primary" id="btnPrintSummary" onclick="printSumm('divsummPrint')"><i class="fa fa-print"></i> Print</button>*@
-                                    <button type="submit" class="btn btn-primary" id="btnPrintSummary" onclick="printSummary()"><i class="fa fa-print"></i> Print</button>
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="printSumm('divsummPrint')"><i class="fa fa-print"></i> Print</button>
                                 </div>
                             </div>
                             <div class="col-sm-12">
@@ -3691,7 +3681,7 @@
                                                         <th></th>
                                                         <th></th>
                                                         <th>Online Application Fee</th>
-                                                        <th style="text-align:center;">Select to Pay</th>
+                                                        <th style="text-align:center;"></th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
@@ -4018,23 +4008,20 @@
 
         </div>
     </div>
+
+
 </div>
 
-<div class="modal" id="popFloorPlan" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
+
+<div class="modal " id="popFloorPlan" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
     <div class="modal-dialog modal-dialog-centered" role="document" style="width:900px !important;">
         <div class="modal-content" style="width:100%">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <div class="modal-header" style="width:100%">
-                <button type="button" class="close" data-dismiss="modal" style="margin-top: -40px; margin-right: -30px;color:black">&times;</button>
                 <button type="button" class="btn btn-primary pull-right" id="printFloorPlanDet" style="margin-bottom:10px !important;" onclick="printFloorPlanDetails('floorPlanDe')">Print</button>
             </div>
-            <div class="modal-body">
-                <table id="floorPlanDe">
-                    <tbody>
-                        <tr>
-                            <td><img src="" id="imgFloorPlan2" class="img-responsive" /></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="modal-body" id="floorPlanDe">
+                <img src="" id="imgFloorPlan2" class="img-responsive">
             </div>
             <div class="modal-footer-custom">
 
@@ -4105,9 +4092,7 @@
                     </div>
                     <div style="width:100%;height:350px;overflow-y:scroll;">
                         <table id="tblStorage1" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%;height:50px;">
-                            <tbody style="width:100%;height:100%;">
-                              
-                            </tbody>
+                            <tbody style="width:100%;height:100%;"></tbody>
                         </table>
                     </div>
                 </div>
@@ -4337,6 +4322,7 @@
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Add Vehicle</h5>
+
             </div>
 
             <!-- Modal body -->
@@ -4426,13 +4412,13 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="star">Tag</label>
-                        <input id="txtVehicleTag" type="text" class="form-control"  value="">
+                        <input id="txtVehicleTag" type="text" class="form-control" value="">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="star">Parking Space</label>
-                        <select id="ddlParking" class="form-control" ></select>
+                        <select id="ddlParking" class="form-control"></select>
                     </div>
                 </div>
                 <div class="col-sm-12">
@@ -4463,81 +4449,91 @@
 <div class="modal" id="popPet">
     <div class="modal-dialog">
         <div class="modal-content" style="width: 100%; height:400px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Add Pet</h5>
-                <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px;color:black;">&times;</button>
+
             </div>
+
             <!-- Modal body -->
             <div class="modal-body">
-                <input type="hidden" id="hndPetID" value="0" />
 
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="star">What is your Pet's Name?</label>
-                                <input id="txtpetName" type="text" class="form-control" maxlength="20" placeholder="Pet Name" value="">
-                            </div>
+                <input type="hidden" id="hndPetID" value="0" />
+                @*<div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="star">Pet Type :</label>
+                            <select id="ddlpetType" class="  form-control">
+                                <option value='0'>Select Type</option>
+                                <option value='1'>Cat</option>
+                                <option value='2'>Dog</option>
+                            </select>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="star">Breed</label>
-                                <input id="txtpetBreed" type="text" class="form-control" maxlength="20" placeholder="Breed" value="">
-                            </div>
-                        </div>
+                    </div>*@
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="star">What is your Pet's Name?</label>
+                        <input id="txtpetName" type="text" class="form-control" maxlength="20" placeholder="Pet Name" value="">
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="star">Weight</label>
-                                <input id="txtpetWeight" type="text" class="form-control" maxlength="20" placeholder="Weight" value="">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-primary search" type="button" style="margin-top: -60px;margin-left: 191px;">lbs</button>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Vet's Name</label>
-                                <input id="txtpetVetsName" type="text" class="form-control" placeholder="Vet's Name'" value="">
-                            </div>
-                        </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="star">Breed</label>
+                        <input id="txtpetBreed" type="text" class="form-control" maxlength="20" placeholder="Breed" value="">
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="star">Upload Photo</label><br />
-                                <input type="file" name="pet-picture" id="pet-picture" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                <label for="pet-picture"><i class="fa fa-upload fa-2x"></i> <span id="filePetPictireShow">Choose a file&hellip;</span></label>
-                                <input type="hidden" id="hndPetPicture" value="0" />
-                                <input type="hidden" id="hndOriginalPetPicture" value="0" />
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="star">Upload pet vaccination certificate</label><br />
-                                <input type="file" name="filePetVaccinationCertificate" id="filePetVaccinationCertificate" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                <label for="filePetVaccinationCertificate"><i class="fa fa-upload fa-2x"></i> <span id="filePetVaccinationCertificateShow">Choose a file&hellip;</span></label>
-                                <input type="hidden" id="hndPetVaccinationCertificate" value="0" />
-                                <input type="hidden" id="hndOriginalPetVaccinationCertificate" value="0" />
-                            </div>
-                        </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Weight</label>
+                        <input id="txtpetWeight" type="text" class="form-control" maxlength="20" placeholder="Weight" value="">
                     </div>
                 </div>
+                @*<div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Age</label>
+                            <input id="txtpetAge" type="text" class="form-control" maxlength="20" placeholder="Age" value="">
+                        </div>
+                    </div>*@
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Vet's Name</label>
+                        <input id="txtpetVetsName" type="text" class="form-control" placeholder="Vet's Name'" value="">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="star">Upload Photo</label><br />
+                        <input type="file" name="pet-picture" id="pet-picture" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                        <label for="pet-picture"><i class="fa fa-upload fa-2x"></i> <span id="filePetPictireShow">Choose a file&hellip;</span></label>
+                        <input type="hidden" id="hndPetPicture" value="0" />
+                        <input type="hidden" id="hndOriginalPetPicture" value="0" />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="star">Upload pet vaccination certificate</label><br />
+                        <input type="file" name="filePetVaccinationCertificate" id="filePetVaccinationCertificate" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                        <label for="filePetVaccinationCertificate"><i class="fa fa-upload fa-2x"></i> <span id="filePetVaccinationCertificateShow">Choose a file&hellip;</span></label>
+                        <input type="hidden" id="hndPetVaccinationCertificate" value="0" />
+                        <input type="hidden" id="hndOriginalPetVaccinationCertificate" value="0" />
+                    </div>
+                </div>
+
                 <div class="col-sm-12 text-center">
+
                     <div class="pull-right text-center">
                         <button type="submit" class="btn btn-primary" onclick="saveupdatePet()"><i class="fa fa-envelope-o"></i> Save</button>
                     </div>
+
                 </div>
+
             </div>
+
             <!-- Modal footer -->
             <div class="modal-footer-custom">
+
             </div>
+
         </div>
     </div>
 </div>
@@ -4546,11 +4542,16 @@
     <div class="modal-header">
         <span class="close" id="closePetP" style="margin-top: -10px !important;margin-right: -350px !important;">&times;</span>
     </div>
+    <!-- Modal content -->
     <div class="modal-content" style="width:90% !important">
+
         <div class="text-center">
             <div><iframe src="~/Content/assets/img/Document/Pet_Policies.pdf" width="950" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+
         </div>
+
     </div>
+
 </div>
 <div class="modal fade" id="ModelCompare" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -4845,79 +4846,238 @@
 </div>
 
 <div class="modal fade" id="PopSummary" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" style="width:45%;">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content-summary">
             <div class="modal-body" style="padding: -15px;">
-                <button type="button" class="close" data-dismiss="modal" style="color:black;">&times;</button>
-                <button type="button" class="btn btn-primary" onclick="print('printables')">Print</button>
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -60px; margin-right: -52px;">&times;</button>
+
+                <button type="button" class="btn btn-default print" onclick="print('printables')">Print</button>
                 <div id="printables">
+
                     <table>
-                        <tbody>
-                            <tr>
-                                <td>
+                        <tr>
+                            <td width="400">
+                                <div style="width:320px;">
                                     <img src="" width="320" id="imgFloorPlanSumm">
-                                    <h3><span id="lblUnitNo"></span></h3><span id="lblRent"></span>
-                                    <span id="">LEASE TERM  : </span><span id="lblLease4">@Model.LeaseTerm</span> Mo
-                                    <br /><span id="">DESIRED MOVE IN  : </span><span id="lblLeaseStartDate"></span>
-                                </td>
-                                <td><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-                                <td width="350px">
-                                    <H5 style="text-decoration:underline;">SUMMARY OF RENTAL CHARGES</H5><br />
-                                    <span style="font-weight:bold;" id="">UNIT  : </span>
-                                    <span style="font-weight:bold;" id="lblUnitTitle3"></span>
-                                    <span id="txtModal" style="font-weight:bold;float: right !important"></span>
-                                    <span style="font-weight:bold;float: right !important" id="">MODEL  : </span><br />
-                                    <div style="border:solid;padding:10px;text-justify:auto;">
-                                        <span>Bedrooms</span>
-                                        <span id="lblBed1" style="float: right !important;"></span><br />
-                                        <span>Bathrooms</span>
-                                        <span id="lblBath1" style="float: right !important;"></span><br />
-                                        <span>Sq. Ft.</span>
-                                        <span id="lblArea1" style="float: right !important;"></span><br />
-                                        <span>Occupancy</span>
-                                        <span id="lblOccupancy" style="float: right !important;"></span><br />
-                                        <span>Deposit</span>
-                                        <span id="lblDeposit1" style="float: right !important;"></span><span style="float: right !important;">$</span>
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title"><span id="lblUnitNo"></span></h3>
+                                        <span class="property-price pull-right"><span id="lblRent"></span></span>
+
                                     </div>
-                                    <br />
-                                    <div style="border:solid;padding:10px;">
-                                        <span style="font-weight:bold;">SUMMARY OF MONTHLY CHARGES</span><br />
-                                        <span>Base Rent</span>
-                                        <span id="lblRent2" style="float: right !important;"></span><span style="float: right !important;">$</span><br />
-                                        <span>Premium</span>
-                                        <span id="lblpremium" style="float: right !important;">0.00</span><span style="float: right !important;">$</span><br />
-                                        <span>Promotion</span>
-                                        <span id="lbPromotion" style="float: right !important;">0.00</span><span style="float: right !important;">$</span><br />
-                                        <span>Subtotal</span>
-                                        <span id="lblSubtotal" style="float: right !important;">0.00</span><span style="float: right !important;">$</span><br /><br />
-                                        <b><span style="text-decoration:underline;">Additional Services </span></b><br />
-                                        <span>Pest Control</span>
-                                        <span id="lblPestControl" style="float: right !important;">@((Model.PestAmt ?? 0).ToString("0.00"))</span><span style="float: right !important;">$</span><br />
-                                        <span>Trash/Recycle</span>
-                                        <span id="lblTrash" style="float: right !important;">@((Model.TrashAmt ?? 0).ToString("0.00"))</span><span style="float: right !important;">$</span><br />
-                                        <span>Convergent billing fee</span>
-                                        <span id="lblConvergentAmt" style="float: right !important;">@((Model.ConvergentAmt ?? 0).ToString("0.00"))</span><span style="float: right !important;">$</span><br />
-                                        <span>Subtotal</span>
-                                        <span id="lblSubtotalsumm" style="float: right !important;"></span><span style="float: right !important;">$</span><br />
-                                        <span>TOTAL MONTHLY CHARGES*</span>
-                                        <b><span id="lbltotalAmountSumm" style="float: right !important;"></span><span style="float: right !important;">$</span></b>
+
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-7">
+                                            <span id="">LEASE TERM: </span>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <span><span id="lblLease4">@Model.LeaseTerm</span> Mo</span>
+                                        </div>
+
                                     </div>
-                                </td>
-                            </tr>
-                        </tbody>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-7">
+                                            <span id="">DESIRED MOVE IN: </span>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <span id="lblLeaseStartDate"></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </td>
+                            <td width="450">
+                                <table>
+                                    <tr>
+                                        <td><H5 style="text-decoration:underline;">SUMMARY OF RENTAL CHARGES</H5></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="col-sm-12">
+                                                <div class="=col-sm-6">
+                                                    <div class="col-sm-2">
+                                                        <span style="font-weight:bold;" id="">UNIT: </span>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <span style="font-weight:bold;" id="lblUnitTitle3"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="=col-sm-6">
+                                                    <div class="col-sm-2">
+                                                        <span style="font-weight:bold;" id="">MODEL: </span>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <span id="txtModal" style="font-weight:bold;"></span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <span id="">&nbsp;</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr style="border:solid;">
+                                        <td>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-9">
+                                                    <span id="">Bedrooms: </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span id="lblBed1"></span>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-9">
+                                                    <span id="">Bathrooms: </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span id="lblBath1"></span>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-9">
+                                                    <span id="">Sq. Ft.: </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span id="lblArea1"></span>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-9">
+                                                    <span id="">Occupancy: </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span id="lblOccupancy"></span>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-9">
+                                                    <span id="">Deposit: </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    $<span id="lblDeposit1"></span>
+                                                </div>
+
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><br /></td>
+                                    </tr>
+                                    <tr style="border:solid;">
+                                        <td>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-12">
+                                                    <span style="font-weight:bold;">SUMMARY OF MONTHLY CHARGES</span>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <span id="">Base Rent</span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    $<span id="lblRent2"></span>
+                                                </div>
+
+                                                <div class="col-sm-9">
+                                                    <span id="">Premium </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    $<span id="lblpremium">0.00</span>
+                                                </div>
+
+                                                <div class="col-sm-9">
+                                                    <span id="">Promotion </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    $<span id="lbPromotion">0.00</span>
+                                                </div>
+
+                                                <div class="col-sm-9">
+                                                    <span id="">Subtotal </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    $<span id="lblSubtotal">0.00</span>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <br />
+                                            </div>
+                                            <div class="col-sm-12">
+
+                                                <div class="col-sm-12">
+                                                    <span id="">Additional Services </span>
+                                                </div>
+
+                                                <div class="col-sm-9">
+                                                    <span id="">Pest Control </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    $<span id="lblPestControl">@((Model.PestAmt ?? 0).ToString("0.00"))</span>
+                                                </div>
+
+                                                <div class="col-sm-9">
+                                                    <span id="">Trash/Recycle </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    $<span id="lblTrash">@((Model.TrashAmt ?? 0).ToString("0.00"))</span>
+                                                </div>
+
+                                                <div class="col-sm-9">
+                                                    <span id="">Convergent billing fee  </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    $<span id="lblConvergentAmt">@((Model.ConvergentAmt ?? 0).ToString("0.00"))</span>
+                                                </div>
+
+                                                <div class="col-sm-9">
+                                                    <span id="">Subtotal</span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    $<span id="lblSubtotalsumm"></span>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-9">
+                                                    <span>TOTAL MONTHLY CHARGES*</span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <b>$<span id="lbltotalAmountSumm"></span></b>
+                                                </div>
+                                            </div>
+                                            <br />
+                                        </td>
+                                    </tr>
+
+                                </table>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-8">
+                                        <i>*Does not include water & sewer charges based on actual monthly consumption.</i>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
                     </table>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <br />
-                                    <i style="margin-left: 70px;">*Does not include water & sewer charges based on actual monthly consumption.</i>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+
                 </div>
+
+
             </div>
+
         </div>
     </div>
 </div>
@@ -5135,244 +5295,7 @@
         </div>
     </div>
 </div>
-<div id="modalApplicationSummary" class="modal" style="width:100% !important">
-    <div class="modal-header">
-        <span class="close" id="closeAppSummary" data-dismiss="modal" style="margin-top: -10px !important;margin-right: -200px !important;">&times;</span>
-    </div>
-    <div class="modal-content" style="width:66% !important">
-        <div class="text-center">
-            <div><iframe id="ifrmAppSummary" width="100%" height="625" frameborder="0" style="border:0" allowfullscreen></iframe></div>
-        </div>
-    </div>
-</div>
-<div class="modal " id="popQuote" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
-    <div class="modal-dialog" style="width:1100px">
-        <div class="modal-content" style="width: 100% !important;">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
-            <div class="modal-body" id="divQuotes">
-                <table style="width:100%; margin:25px 10px 25px 10px;overflow-x:auto;">
-                    <tr>
-                        <td>
-                            <p>Thank you for your interest in Sanctuary Doral. This quote expires on midnight of the 3rd day. Please make sure you submit your application before midnight of the third day to secure your selected unit. If you have any questions or need assistance, please feel free to contact us.</p>
-                        </td>
-                    </tr>
-                    <tr style="text-transform: uppercase;letter-spacing: 0.198em;">
-                        <td style="text-align:center !important;">
-                            <h3 style="font-size: 16px;color: inherit;text-decoration: solid underline">Quotation</h3>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <table style="width:100%;margin-left: 50px;margin-top:20px">
-                                <tr>
-                                    <td>
-                                        <span>QUOTE DATE : </span><span style="margin-left:85px !important;text-decoration:underline;font-weight:bold;">@Model.CreatedDate.ToString("MM/dd/yyyy hh:mm tt")</span>
-                                    </td>
-                                    <td>
-                                        <span>PREPARED FOR (RESIDENT NAME) : </span><span style="margin-left:85px !important;text-decoration:underline;font-weight:bold;">@Model.FirstName @Model.LastName</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span>QUOTE EXPIRES : </span><span style="margin-left:57px !important;text-decoration:underline;font-weight:bold;">@Model.ExpireDate</span>
-                                    </td>
-                                    <td>
-                                        <span>PHONE : </span><span id="lblFNLPhone1" style="margin-left:15px !important;text-decoration:underline;font-weight:bold;"></span>
-                                        <span style="margin-left: 100px !important;">EMAIL : </span><span id="lblFNLEmail" style="margin-left:20px !important;text-decoration:underline;font-weight:bold;">@Model.Email</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span>DESIRED MOVE IN : </span><span style="margin-left:45px !important;text-decoration:underline;font-weight:bold;">@Model.MoveInDateTxt</span>
-                                    </td>
-                                    <td>
-                                        <span>UNIT# : </span><span id="lblFNLUnit1" style="margin-left:15px !important;text-decoration:underline;font-weight:bold;"></span>
-                                        <span style="margin-left: 135px !important;">MODEL : </span><span id="lblFNLModel1" style="margin-left:20px !important;text-decoration:underline;font-weight:bold;"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span>LEASE TERM : </span><span style="margin-left:85px !important;text-decoration:underline;font-weight:bold;">@Model.LeaseTerm</span>
-                                    </td>
-                                    <td>
-                                        <span>ASSIGNED PARKING SPACE : </span><span id="lblAssginPakingSpace1" style="margin-left:85px !important;text-decoration:underline;font-weight:bold;"></span>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table style="width:80%;margin-left: 50px;margin-top:20px">
-                                <thead>
-                                    <tr>
-                                        <th style="text-transform: uppercase;text-decoration:underline;font-weight:bold;">Initial fees : </th>
-                                        <th style="text-decoration:underline;font-weight:bold;">Amount</th>
-                                        <th style="text-transform: uppercase;text-decoration:underline;font-weight:bold;">Move-in Fees : </th>
-                                        <th style="text-decoration:underline;font-weight:bold;">Amount</th>
-                                    </tr>
-                                </thead>
-                                <tr>
-                                    <td>APPLICATION FEE : </td>
-                                    <td>$ <span id="lblFNLApplicationFee" style="text-decoration:underline;font-weight:bold;">@((Model.ApplicationFees ?? 0).ToString("0.00"))/per applicant</span></td>
-                                    <td>Security Deposit (Refundable) </td>
-                                    <td>$ <span style="text-decoration:underline;font-weight:bold;" id="fdepo">@((Model.Deposit ?? 0).ToString("0.00"))</span></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td><span id="" style="text-decoration:underline;font-weight:bold;">$150.00/Guarantor (if needed)</span></td>
-                                    <td>Pet Non-Refundable Deposit: </td>
-                                    <td>$ <span style="text-decoration:underline;font-weight:bold;" id="fpetd">@((Model.PetDeposit ?? 0).ToString("0.00"))</span></td>
-                                </tr>
-                                <tr>
-                                    <td><span>ADMINISTRATION FEE: </span></td>
-                                    <td><span style="text-decoration:underline;font-weight:bold;">$@((Model.AdminFees ?? 0).ToString("0.00"))/unit</span></td>
-                                    <td> <span id="spanPetDNAFee4">Pet DNA Fee:</span></td>
-                                    <td>$ <span style="text-decoration:underline;font-weight:bold;" id="fpetdna">@((Model.PetDNAAmt ?? 0).ToString("0.00"))</span></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td><span>Vehicle Registration: </span></td>
-                                    <td>$ <span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees">@((Model.VehicleRegistration ?? 0).ToString("0.00"))</span></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td><span>Insurance***  </span></td>
-                                    <td></td>
-                                </tr>
 
-                            </table>
-                            <table style="width:80%;margin-left: 50px;margin-top:20px">
-                                <thead>
-                                    <tr>
-                                        <th style="text-transform: uppercase;text-decoration:underline;font-weight:bold;width:20%;">MONTHLY CHARGES : </th>
-                                        <th style="width:15%;"></th>
-                                        <th style="text-decoration:underline;font-weight:bold;width:15%;">Monthly</th>
-                                        <th style="text-decoration:underline;font-weight:bold;width:15%;">Prorated</th>
-                                        <th style="border: solid 1px black">
-                                            <p>
-                                                Move-in fees and pro-rated rent is due at or before move-in.
-                                            </p>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tr>
-                                    <td>
-                                        <span> Monthly Rent </span>
-                                    </td>
-                                    <td></td>
-                                    <td> $ <span id="lblMonthly_MonthlyCharge1" style="text-decoration:underline;font-weight:bold;"></span></td>
-                                    <td> $ <span id="lblProrated_MonthlyCharge1" style="text-decoration:underline;font-weight:bold;"></span></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><span><i> Additional Services </i></span></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><span> Trash/Recycle </span></td>
-                                    <td></td>
-                                    <td>$ <span style="text-decoration:underline;font-weight:bold;">@((Model.TrashAmt ?? 0).ToString("0.00"))</span></td>
-                                    <td>$ <span id="lblProrated_TrashAmt1" style="text-decoration:underline;font-weight:bold;"></span></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><span> Pest Control </span></td>
-                                    <td></td>
-                                    <td>$ <span style="text-decoration:underline;font-weight:bold;">@((Model.PestAmt ?? 0).ToString("0.00"))</span></td>
-                                    <td>$ <span id="lblProrated_PestAmt1" style="text-decoration:underline;font-weight:bold;"></span></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><span> Convergent billing fee </span></td>
-                                    <td></td>
-                                    <td>$ <span style="text-decoration:underline;font-weight:bold;">@((Model.ConvergentAmt ?? 0).ToString("0.00"))</span></td>
-                                    <td>$ <span id="lblProrated_ConvergentAmt1" style="text-decoration:underline;font-weight:bold;"></span></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><span><i> Selected Options </i></span></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><span> Aditional Parking </span></td>
-                                    <td></td>
-                                    <td> $ <span id="lblMonthly_AditionalParking" style="text-decoration:underline;font-weight:bold;">@((Model.ParkingAmt ?? 0).ToString("0.00"))</span></td>
-                                    <td> $ <span id="lblProrated_AditionalParking_print" style="text-decoration:underline;font-weight:bold;"></span></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><span> Storage </span></td>
-                                    <td><span style="text-decoration:underline;font-weight:bold;" id="storUnit1"></span></td>
-                                    <td>$ <span id="lblMonthly_Storage" style="text-decoration:underline;font-weight:bold;">@((Model.StorageAmt ?? 0).ToString("0.00"))</span></td>
-                                    <td> $ <span id="lblProrated_Storage_print" style="text-decoration:underline;font-weight:bold;"></span></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><span> Pet Fee </span></td>
-                                    <td></td>
-                                    <td>$ <span id="lblMonthly_PetRent" style="text-decoration:underline;font-weight:bold;">@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span></td>
-                                    <td>$ <span id="lblProrated_PetRent_print" style="text-decoration:underline;font-weight:bold;"></span></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td><hr /></td>
-                                    <td><hr /></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><span> Estimated Monthly Charges </span></td>
-                                    <td></td>
-                                    <td style="color:green;text-decoration:underline">$ <span id="lblMonthly_TotalRent_print" style="text-decoration:underline;font-weight:bold;"></span></td>
-                                    <td style="color:green">$ <span id="lblProrated_TotalRent_print" style="text-decoration:underline;font-weight:bold;"></span></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td><hr /></td>
-                                    <td><hr /></td>
-                                    <td></td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>
-                                <i>
-                                    *The Administration fee is due to reserve your apartment for a maximum of 30 days, once approved, and may be applied towards your Initial Payment.
-                                    <br />**The Security Deposit may be bonded with a third-party company.  Please contact by phone (866) 312-3090 or e-mail SelectDeposit@Assurant.com. The Client Support Team is available Monday – Friday 9am – 6pm ET to assist you.
-                                </i>
-                            </p>
-                            <p>
-                                <i>
-                                    ***General liability insurance with a minimum limit of $100,000 is required. Proof of coverage will be required prior to move-in.
-                                    <br />****Excludes the Utility reimbursement for water & sewer which is billed monthly based on actual consumption.
-                                </i>
-                            </p>
-                            <p>
-                                <i>
-                                    The amounts herein are estimates based upon policies and rates in effect at the time.  The amounts are subject to change without notice and not final until lease is executed. If you make changes to the desired move-in date, lease term, or any other options, the amounts herein may vary.
-
-                                </i>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="modal-footer-custom">
-                <button id="quotePrint" class="btn btn-primary" onclick="print('divQuotes')"> Print</button>
-            </div>
-        </div>
-    </div>
-</div>
 <style>
     /* The Modal (background) */
     .modal {
@@ -5822,7 +5745,6 @@
 
         $("#txtPhoneNumber").val(formatPhoneFax('@Model.Phone'));
         $("#lblFNLPhone").text(formatPhoneFax('@Model.Phone'));
-        $("#lblFNLPhone1").text(formatPhoneFax('@Model.Phone'));
     });
 
     $(document).ready(function () {
@@ -5839,27 +5761,21 @@
             }
             if ('@Model.ParkingAmt' != '') {
                 $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(@Model.ParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
-                $("#lblProrated_AditionalParking_print").text(parseFloat(parseFloat(@Model.ParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
             }
             else {
                 $("#lblProrated_AditionalParking").text('0.00');
-                $("#lblProrated_AditionalParking_print").text('0.00');
             }
             if ('@Model.StorageAmt' != '') {
                 $("#lblProrated_Storage").text(parseFloat(parseFloat(@Model.StorageAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
-                $("#lblProrated_Storage_print").text(parseFloat(parseFloat(@Model.StorageAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
             }
             else {
                 $("#lblProrated_Storage").text('0.00');
-                $("#lblProrated_Storage_print").text('0.00');
             }
             if ('@Model.PetPlaceAmt' != '') {
                 $("#lblProrated_PetRent").text(parseFloat(parseFloat(@Model.PetPlaceAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
-                $("#lblProrated_PetRent_print").text(parseFloat(parseFloat(@Model.PetPlaceAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
             }
             else {
                 $("#lblProrated_PetRent").text('0.00');
-                $("#lblProrated_PetRent_print").text('0.00');
             }
         });
         fillMarketSourceDDL();
@@ -5896,9 +5812,10 @@
             } else {
                 $("#hndShowPaymentPolicy").val(1);
             }
-
+             //Sachin Mahore 23 Apr 2020
+            showCurrentStep(6, 6);
             if (@Model.IsRentalPolicy== "1" && @Model.IsRentalQualification== "1") {
-                showCurrentStep(7, 7);
+               // showCurrentStep(7, 7);
                 $("#hndShowTermPolicy").val(0);
                 $("#chkAgreeTermsPolicy").iCheck('check');
             }
@@ -5906,35 +5823,7 @@
                 $("#hndShowTermPolicy").val(1);
                 showCurrentStep(3, 3);
             }
-            @*if (('@Model.EnvelopeID') !="") {
-                $("#btnAddPet").attr("disabled", true);
-                $("#btnleaseDownl").removeAttr("disabled");
-                goToStep(16, 16);
-                $("#btnDownloadLeaseDocument").css("background-color", "#B4ADA5").attr("disabled", "disabled");
-                $("#as2").removeAttr("onclick")
-                $("#as2").attr("onclick", "goToStep(2,2)");
-                $("#as3").removeAttr("onclick")
-                $("#as3").attr("onclick", "goToStep(3,3)");
-                $("#as4").removeAttr("onclick")
-                $("#as4").attr("onclick", "goToStep(5,5)");
-                $("#as5").removeAttr("onclick")
-                $("#as5").attr("onclick", "goToStep(6,6)");
-            } else {
-                $("#as2").removeAttr("onclick")
-                $("#as2").attr("onclick", "goToStep(2,2)");
-                $("#as3").removeAttr("onclick")
-                $("#as3").attr("onclick", "goToStep(3,3)");
-                $("#as4").removeAttr("onclick")
-                $("#as4").attr("onclick", "goToStep(5,5)");
-                $("#as5").removeAttr("onclick")
-                $("#as5").attr("onclick", "goToStep(6,6)");
-                if (@Model.IsRentalPolicy== "1" && @Model.IsRentalQualification== "1") {
-                 goToStep(7, 7);
-                 $("#chkAgreeTermsPolicy").iCheck('check');
-                 } else {
-                     goToStep(4, 4);
-                 }
-            }*@
+           
 
             if (('@Model.EnvelopeID') != "") {
                 $("#btnleaseDownl").removeAttr("disabled");
@@ -5967,89 +5856,13 @@
             }
         });
     });
-    $(function () {
-        $('area').click(function () {
-            $("#hndSelectedFloor").val($(this).attr("id"));
-            $("#hndSelectedAval").val($(this).attr("data-aval"));
-            var floorid = $(this).attr("data-floorid");
-            $("#dfa_" + floorid).addClass("hidden");
-            var isAval = $(this).attr("data-aval");
-            var color = "ff6347";
-            if (isAval == 1) {
-                color = "0af11c";
-            }
-            else if (isAval == 2) {
-                color = "ffff00";
-            }
-            $('.active_area').data('maphilight', { alwaysOn: false }).trigger('alwaysOn.maphilight');
-            $(this).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: color, strokeColor: color }).trigger('alwaysOn.maphilight');
-        });
-        $("area").mouseout(function (e) {
-            $(".divtooltip").addClass("hidden");
-        });
-
-        $("area").mouseover(function (e) {
-            var offset = $(this).offset();
-            var X = (e.pageX - offset.left);
-            var Y = (e.pageY - offset.top);
-
-            console.log("X:" + X + ", Y:" + Y);
-
-            if (Y < 0) {
-                Y = Y + 200;
-            }
-            else {
-                Y = Y - 75;
-            }
-
-            var floorid = $(this).attr("data-floorid");
-            $(".divtooltip").addClass("hidden");
-            $("#dfa_" + floorid).removeClass("hidden");
-
-            $("#dfa_" + floorid).css({ top: Y, left: X, position: 'absolute' });
-
-            var isAval = $(this).attr("data-aval");
-            var color = "ff6347";
-            if (isAval == 1) {
-                color = "0af11c";
-            }
-            else if (isAval == 2) {
-                color = "ffff00";
-            }
-            $(this).addClass('active_mouse').data('maphilight', { alwaysOn: true, fillColor: color, strokeColor: color }).trigger('alwaysOn.maphilight');
-            if ($("#hndSelectedFloor").val()) {
-                var cont = $("#hndSelectedFloor").val();
-                var isAvalFill = $("#hndSelectedAval").val();
-                var colorfill = "ff6347";
-                if (isAvalFill == 1) {
-                    colorfill = "0af11c";
-                }
-                else if (isAvalFill == 2) {
-                    colorfill = "ffff00";
-                }
-                $("#" + cont).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: colorfill, strokeColor: colorfill }).trigger('alwaysOn.maphilight');
-            }
-        });
-        $(".buildplan").mouseout(function () {
-            $(".buildplan").removeClass('active_mouse').data('maphilight', { alwaysOn: false }).trigger('alwaysOn.maphilight');
-
-            if ($("#hndSelectedFloor").val()) {
-                var cont = $("#hndSelectedFloor").val();
-                var isAval = $("#hndSelectedAval").val();
-                var color = "ff6347";
-                if (isAval == 1) {
-                    color = "0af11c";
-                }
-                else if (isAval == 2) {
-                    color = "ffff00";
-                }
-                $("#" + cont).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: color, strokeColor: color }).trigger('alwaysOn.maphilight');
-            }
-        });
-    });
+  
     var modalPetPolicy = document.getElementById("modalPetPolicy");
+
     var btnPetPolicy = document.getElementById("btnShowPetPolicy");
+
     var spanPetPolicy = document.getElementById("closePetP");
+
     btnPetPolicy.onclick = function () {
         modalPetPolicy.style.display = "block";
     }
@@ -6061,13 +5874,6 @@
             modalPetPolicy.style.display = "none";
         }
     }
-
-    var modalAppSummary = document.getElementById("modalApplicationSummary");
-    var spanAppSummaryClose = document.getElementById("closeAppSummary");
-    spanAppSummaryClose.onclick = function () {
-        modalAppSummary.style.display = "none";
-    }
-
     var btnApp = document.getElementById("btnsignInAppl");
 
     btnApp.onclick = function () {
@@ -6098,276 +5904,29 @@
         printContents = document.getElementById(divName).innerHTML;
         popupWin = window.open('', '', 'width=950,height=800,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes');
         popupWin.document.open();
-        //popupWin.document.write(`
-        //                              <html >
-        //                                <head>
-        //                                <link rel="stylesheet" href="/Content/bootstrap/css/bootstrap.css" >
-        //                                <link rel="stylesheet" href="/Content/bootstrap/css/bootstrap.min.css">
-        //                                <link rel="stylesheet" href="/Content/assets/css/wizard.css" >
-        //                                <link rel="stylesheet" href="/Content/assets/css/style.css">
-        //                                <link rel="stylesheet" href="/Content/assets/css/PrintGuest.css">
-        //                                </head>
-        //                                <style>
-        //                        hr {
-        //                            margin-top: 0px !important;
-        //                            margin-bottom: 0px !important;
-        //                            border: 0;
-        //                            border-top: 1px solid #bebdbd;
-        //                        }
-        //                        body { font-size: 12px;line-height: 20px; margin: 0px 10px 0px 0px; }
-        //                        h3, .h3 { font-size: 18px;margin: 10px 0 5px; }
-        //                        p { font-size: 14px; line-height: 1.20em;}
-
-        //                                </style>
-        //                            <body onload="window.print();window.close()">${printContents}</body>
-        //                              </html>`
-        //);
         popupWin.document.write(`
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>myriluz</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style type="text/css">
-        body {
-            font-size: 14px;
-            padding: 0px;
-            margin: 0px;
-            font-family: Tahoma;
-            background: #f1f1f1;
-            color: black;
-        }
+                                      <html >
+                                        <head>
+                                        <link rel="stylesheet" href="/Content/bootstrap/css/bootstrap.css" >
+                                        <link rel="stylesheet" href="/Content/bootstrap/css/bootstrap.min.css">
+                                        <link rel="stylesheet" href="/Content/assets/css/wizard.css" >
+                                        <link rel="stylesheet" href="/Content/assets/css/style.css">
+                                        <link rel="stylesheet" href="/Content/assets/css/PrintGuest.css">
+                                        </head>
+                                        <style>
+                                hr {
+                                    margin-top: 0px !important;
+                                    margin-bottom: 0px !important;
+                                    border: 0;
+                                    border-top: 1px solid #bebdbd;
+                                }
+                                body { font-size: 12px;line-height: 20px; margin: 0px 10px 0px 0px; }
+                                h3, .h3 { font-size: 18px;margin: 10px 0 5px; }
+                                p { font-size: 14px; line-height: 1.20em;}
 
-        .layout-section {
-            margin: 0 auto;
-            display: table;
-            height: auto;
-            background: #fff;
-            padding-bottom: 30px;
-        }
-
-        .heder {
-            width:100%;
-            background: #4D738A;
-            height: 100px;
-            border: 1px solid #000;
-            color:#fff;
-        }
-
-        .logo-section {
-            background:#fff;
-            width: 30%;
-            padding-left: 10px;
-            height:100px;
-        }
-
-        .address-section {
-            width: 70%;
-        }
-
-        table, th, td {
-            color: black;
-            border-collapse: collapse;
-            width:100%;
-        }
-
-        th, td {
-            padding: 5px;
-            padding-bottom: 2px;
-            font-family: Tahoma;
-            color: black;
-            text-align: left;
-        }
-
-        .text-white {
-            color: #fff;
-        }
-        .text-white-bold-center{
-            color:#fff;
-            text-align:center;
-            font-size:18px;
-            font-weight:600;
-        }
-        .Item-section {
-            background: #FFF2CC;
-        }
-
-        .Item-list {
-            background: #c6efce;
-        }
-
-        .Dete-section {
-            width: 380px;
-            float: left;
-            padding: 20px;
-        }
-
-        .comman-section {
-            width: 35%;
-            float: left;
-            padding-bottom: 8px;
-            font-size: 15px;
-            font-weight: bold;
-        }
-
-        .Email-section {
-            width: 375px;
-            float: left;
-            padding: 20px;
-        }
-
-        .Emailcomman-section {
-            width: 51%;
-            float: left;
-            padding-bottom: 8px;
-            font-size: 15px;
-            font-weight: bold;
-            text-align: right;
-        }
-
-        .Emailcomman-right {
-            width: 40%;
-            float: left;
-            padding-bottom: 8px;
-            font-size: 15px;
-            font-weight: bold;
-        }
-
-        .assurance {
-            width: 20%;
-            float: left;
-            height: auto;
-            padding-bottom: 20px;
-            font-size: 15px;
-        }
-
-        .benefits-sectionlayout {
-            width: 62%;
-            float: left;
-            height: auto;
-            padding-bottom: 20px;
-            text-align: center;
-        }
-
-        .benefits-section {
-            width: 100%;
-            float: left;
-            height: auto;
-            padding-bottom: 5px;
-            text-align: center;
-            font-size: 18px;
-        }
-
-        .section-one {
-            width: 850px;
-            /*margin: 0 auto;*/
-            padding: 0px;
-            display: table;
-        }
-
-
-
-        .detail-section-table {
-            width: 100%;
-            border: 1px solid white;
-            color:#000;
-        }
-
-        .detail-section-Header {
-            border: 1px solid white;
-            width: 20%;
-            font-weight: bold;
-        }
-
-        .detail-section-Data {
-            width: 30%;
-            border: 1px solid white;
-        }
-
-        .Left-Bottom-remove {
-            border-left: none;
-            border-bottom: none;
-        }
-
-        .Border-remove {
-            border: none;
-        }
-
-
-
-    </style>
-</head>
-<body onload="window.print();window.close()">
-    <div class="layout-section">
-        <table class="heder">
-            <tbody>
-                <tr>
-                    <td class="logo-section"><img src="http://localhost:53678/Content/assets/img/Document/images/logo.png" width="150" height="100" /></td>
-                    <td class="address-section">
-                        <table >
-                            <tbody >
-                                <tr>
-                                    <td class="text-white-bold-center">Application for "Sanctuary at Doral"</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-white">9400 NW 41st Street,</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-white">Doral, FL, 33178</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-white">Phone No: 786.437.8658</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div style="padding:20px;">
-            <table >
-                <tbody style="color:#000;">
-                    <tr>
-                        <td class="detail-section-Header Bold black-text">Date</td>
-                        <td class="detail-section-Data">6/10/2019</td>
-                        <td class="detail-section-Header Bold black-text">Quotation Valid Until:</td>
-                        <td class="detail-section-Data">7/11/2019</td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-Header Bold black-text">Quotation #</td>
-                        <td class="detail-section-Data">3</td>
-                        <td class="detail-section-Header Bold black-text">Prepared By:</td>
-                        <td class="detail-section-Data">Apurva</td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-Header Bold black-text">Customer</td>
-                        <td class="detail-section-Data">peter Incorporate</td>
-                        <td class="detail-section-Header Bold black-text">Contact</td>
-                        <td class="detail-section-Data">07038551722</td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-Header Bold black-text">Quote To</td>
-                        <td class="detail-section-Data">testing</td>
-                        <td class="detail-section-Header Bold black-text">Email</td>
-                        <td class="detail-section-Data">apurvaraut20@gmail.com</td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-Header Bold black-text">Project</td>
-                        <td class="detail-section-Data">Raut</td>
-                        <td class="detail-section-Data">&nbsp;</td>
-                        <td class="detail-section-Data">&nbsp;</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</body>
-</html>`
+                                        </style>
+                                    <body onload="window.print();window.close()">${printContents}</body>
+                                      </html>`
         );
         popupWin.document.close();
     }

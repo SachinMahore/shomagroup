@@ -77,6 +77,8 @@ E:\ShomaRM_GH\Shoma-RM\ShomaRM.Data\bin\Release\EntityFramework.dll
 E:\ShomaRM_GH\Shoma-RM\ShomaRM.Data\bin\Release\EntityFramework.SqlServer.dll
 E:\ShomaRM_GH\Shoma-RM\ShomaRM.Data\bin\Release\EntityFramework.xml
 E:\ShomaRM_GH\Shoma-RM\ShomaRM.Data\bin\Release\EntityFramework.SqlServer.xml
-E:\ShomaRM_GH\Shoma-RM\ShomaRM.Data\obj\Release\ShomaRM.Data.csprojResolveAssemblyReference.cache
 E:\ShomaRM_GH\Shoma-RM\ShomaRM.Data\obj\Release\ShomaRM.Data.dll
 E:\ShomaRM_GH\Shoma-RM\ShomaRM.Data\obj\Release\ShomaRM.Data.pdb
+E:\ShomaRM_GH\Shoma-RM\ShomaRM.Data\obj\Release\ShomaRM.Data.csprojAssemblyReference.cache
+E:\ShomaRM_GH\Shoma-RM\ShomaRM.Data\obj\Release\ShomaRM.Data.csproj.CoreCompileInputs.cache
+E:\ShomaRM_GH\Shoma-RM\ShomaRM.Data\obj\Release\ShomaRM.Data.csproj.CopyComplete

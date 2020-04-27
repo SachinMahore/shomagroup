@@ -1665,5 +1665,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="tbl_BackgroundScreening">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_BackgroundScreening">
+        <MappingFragment StoreEntitySet="tbl_BackgroundScreening">
+          <ScalarProperty Name="PDFUrl" ColumnName="PDFUrl" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

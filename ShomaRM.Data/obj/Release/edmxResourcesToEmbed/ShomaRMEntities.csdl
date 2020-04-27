@@ -395,6 +395,7 @@
       <End Role="tbl_Login" EntitySet="tbl_Login" />
       <End Role="tbl_Vendor" EntitySet="tbl_Vendor" />
     </AssociationSet>
+    <EntitySet Name="tbl_BackgroundScreening" EntityType="ShomaRMEntitiesModel.tbl_BackgroundScreening" />
   </EntityContainer>
   <EntityType Name="tbl_AcutraqScrenning">
     <Key>
@@ -3052,4 +3053,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="tbl_BackgroundScreening">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenantId" Type="Int32" Nullable="false" />
+    <Property Name="Type" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="OrderID" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PDFUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>
