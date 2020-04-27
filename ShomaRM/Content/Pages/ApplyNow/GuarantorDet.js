@@ -910,6 +910,13 @@ var goToStep = function (stepid, id, calldataupdate) {
             if ($("#txtAnnualIncome").val() == '0.00') {
                 msg += "Please Fill The Annual Income </br>";
             }
+            var inc = parseFloat($("#txtAnnualIncome").val())/12;
+            var montpay = parseFloat($("#lblRFPTotalMonthlyPayment").text)*5;
+            if (inc < montpay)
+            {
+                msg += "The Annual Income must 5 times greater than Monthly Rent</br>";
+            }
+
             if ($("#hndHasTaxReturnFile").val() == "0") {
                 if (document.getElementById('fileUploadTaxReturn').files.length == '0') {
                     msg += "Please Upload last 3 paystubs or if self-employed last 2 year's Federal Tax Returns </br>";
