@@ -9,6 +9,8 @@ using System.Net;
 using System.Data;
 using System.Data.Common;
 using System.IO;
+using System.Web.Configuration;
+using ShomaRM.Models.TwilioApi;
 
 namespace ShomaRM.Models
 {
@@ -151,7 +153,9 @@ namespace ShomaRM.Models
         public String StringReferredResident { get; set; }
         public String StringReferredBrokerMerchant { get; set; }
         public string stringIsProprNoticeLeaseAgreement { get; set; }
-
+        string message = "";
+        string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
+        string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
         public string SaveHavePet(long id, bool PetValue)
         {
             string msg = "";
@@ -221,6 +225,11 @@ namespace ShomaRM.Models
                     paramF.ParameterName = "id";
                     paramF.Value = id;
                     cmd.Parameters.Add(paramF);
+                    //Sachin Mahore 21 Apr 2020
+                    DbParameter paramfF = cmd.CreateParameter();
+                    paramfF.ParameterName = "toid";
+                    paramfF.Value = ShomaGroupWebSession.CurrentUser.UserID;
+                    cmd.Parameters.Add(paramfF);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -392,14 +401,14 @@ namespace ShomaRM.Models
                     if (!string.IsNullOrWhiteSpace(dr["SSN"].ToString()))
                     {
                         string decryptedSSN = new EncryptDecrypt().DecryptText(dr["SSN"].ToString());
-                        if (decryptedSSN.Length > 5)
-                        {
-                            lstpr.SSN = "***-**-" + decryptedSSN.Substring(decryptedSSN.Length - 5, 4);
-                        }
-                        else
-                        {
+                        //if (decryptedSSN.Length > 5)
+                        //{
+                        //    lstpr.SSN = "***-**-" + decryptedSSN.Substring(decryptedSSN.Length - 5, 4);
+                        //}
+                        //else
+                        //{
                             lstpr.SSN = decryptedSSN;
-                        }
+                        //}
                     }
                     else
                     {
@@ -537,9 +546,10 @@ namespace ShomaRM.Models
         }
         public string GetSSNIdNumberPassportNumber(int id, int vid)
         {
+            //Sachin Mahore 21 Apr 2020
             ShomaRMEntities db = new ShomaRMEntities();
             string result = "";
-            var appData = db.tbl_TenantOnline.Where(p => p.ProspectID == id).FirstOrDefault();
+            var appData = db.tbl_TenantOnline.Where(p => p.ProspectID == id && p.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
             if (appData != null)
             {
                 if (vid == 1)
@@ -565,7 +575,7 @@ namespace ShomaRM.Models
             if (model.ProspectID != 0)
             {
                 var applyNow= db.tbl_ApplyNow.Where(p => p.ID == model.ProspectID).FirstOrDefault();
-                var getAppldata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID).FirstOrDefault();
+                var getAppldata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID && p.ParentTOID==ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
                 if (getAppldata != null)
                 {
                     getAppldata.IsInternational = model.IsInternational;
@@ -659,7 +669,7 @@ namespace ShomaRM.Models
                     getAppldata.IsProprNoticeLeaseAgreement = model.IsProprNoticeLeaseAgreement;
 
                     db.SaveChanges();
-
+                    //Sachin Mahore 21 Apr 2020
                     if (applyNow != null)
                     {
                         int stepcomp = 0;
@@ -672,7 +682,62 @@ namespace ShomaRM.Models
                         db.SaveChanges();
                     }
                 }
+                if(model.StepCompleted==10)
+                {
+                    string reportHTML = "";
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    string phonenumber = applyNow.Phone;
+                    if (model != null)
+                    {
+                        reportHTML = reportHTML.Replace("[%EmailHeader%]", "Co-applicant ("+model.FirstName+" "+ model.LastName+") has started the application");
+                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Co-applicant (" + model.FirstName + " " + model.LastName + ") has started the application on " + DateTime.Now + "</p>");
 
+                        reportHTML = reportHTML.Replace("[%TenantName%]", applyNow.FirstName + " " + applyNow.LastName);
+                        reportHTML = reportHTML.Replace("[%TenantAddress%]", applyNow.Address);
+                        reportHTML = reportHTML.Replace("[%LeaseStartDate%]", DateTime.Now.ToString());
+                        reportHTML = reportHTML.Replace("[%LeaseEndDate%]", DateTime.Now.AddMonths(13).ToString());
+                        reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
+                    
+                        reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+
+                        message = "Co-applicant (" + model.FirstName + " " + model.LastName + ") has started the application";
+                    }
+                    string body = reportHTML;
+                    new EmailSendModel().SendEmail(applyNow.Email, "Co-applicant (" + model.FirstName + " " + model.LastName + ") has started the application", body);
+                    if (SendMessage == "yes")
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
+                }
+                if (model.StepCompleted == 13)
+                {
+                    string reportHTML = "";
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    string phonenumber = applyNow.Phone;
+                    if (model != null)
+                    {
+                        reportHTML = reportHTML.Replace("[%EmailHeader%]", "Co-applicant (" + model.FirstName + " " + model.LastName + ") has Finished the application");
+                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Co-applicant (" + model.FirstName + " " + model.LastName + ") has finished the application on "+DateTime.Now+"</p>");
+
+                        reportHTML = reportHTML.Replace("[%TenantName%]", applyNow.FirstName + " " + applyNow.LastName);
+                        reportHTML = reportHTML.Replace("[%TenantAddress%]", applyNow.Address);
+                        reportHTML = reportHTML.Replace("[%LeaseStartDate%]", DateTime.Now.ToString());
+                        reportHTML = reportHTML.Replace("[%LeaseEndDate%]", DateTime.Now.AddMonths(13).ToString());
+                        reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
+
+                        reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+
+                        message = "Co-applicant (" + model.FirstName + " " + model.LastName + ") has started the application";
+                    }
+                    string body = reportHTML;
+                    new EmailSendModel().SendEmail(applyNow.Email, "Co-applicant (" + model.FirstName + " " + model.LastName + ") has Finished the application", body);
+                    if (SendMessage == "yes")
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
+                }
                 var saveApplicantGender = db.tbl_Applicant.Where(p => p.Email == model.Email).FirstOrDefault();
                 if (saveApplicantGender != null)
                 {
@@ -693,13 +758,14 @@ namespace ShomaRM.Models
         }
         public string SaveUpdateSSN(TenantOnlineModel model)
         {
+            //Sachin Mahore 22 Apr 2020
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
 
             if (model.ProspectID != 0)
             {
                 string encryptedSSN = new EncryptDecrypt().EncryptText(model.SSN);
-                var getSSNdata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID).FirstOrDefault();
+                var getSSNdata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID && p.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
                 if (getSSNdata != null)
                 {
                     getSSNdata.SSN = encryptedSSN;
@@ -715,14 +781,15 @@ namespace ShomaRM.Models
 
         }
         public string SaveUpdateIDNumber(TenantOnlineModel model)
-        {
+        { 
+            //Sachin Mahore 22 Apr 2020
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
 
             if (model.ProspectID != 0)
             {
                 string encryptedData = new EncryptDecrypt().EncryptText(model.IDNumber);
-                var getdata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID).FirstOrDefault();
+                var getdata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID && p.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
                 if (getdata != null)
                 {
                     getdata.IDNumber = encryptedData;
@@ -735,14 +802,15 @@ namespace ShomaRM.Models
             return msg;
         }
         public string SaveUpdatePassportNumber(TenantOnlineModel model)
-        {
+        { 
+            //Sachin Mahore 22 Apr 2020
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
 
             if (model.ProspectID != 0)
             {
                 string encryptedData = new EncryptDecrypt().EncryptText(model.PassportNumber);
-                var getdata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID).FirstOrDefault();
+                var getdata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID && p.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
                 if (getdata != null)
                 {
                     getdata.PassportNumber = encryptedData;

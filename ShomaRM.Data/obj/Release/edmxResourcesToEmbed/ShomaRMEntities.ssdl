@@ -100,6 +100,7 @@
     <Property Name="ManagementCompany" Type="varchar" MaxLength="500" />
     <Property Name="ManagementCompanyPhone" Type="varchar" MaxLength="20" />
     <Property Name="IsProprNoticeLeaseAgreement" Type="int" />
+    <Property Name="ParentTOID" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_ApplyNow">
     <Key>
@@ -360,6 +361,7 @@
     <Property Name="PaystubValue" Type="int" />
     <Property Name="TenantId" Type="bigint" />
     <Property Name="TerminationReason" Type="nvarchar(max)" />
+    <Property Name="ParentTOID" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_ESignatureKeys">
     <Key>
@@ -606,6 +608,7 @@
     <Property Name="ParentTenantID" Type="bigint" />
     <Property Name="IsChangePass" Type="int" />
     <Property Name="ChangeDate" Type="datetime" />
+    <Property Name="ParentUserID" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_LoginHistory">
     <Key>
@@ -1370,6 +1373,7 @@
     <Property Name="ManagementCompany" Type="varchar" MaxLength="500" />
     <Property Name="ManagementCompanyPhone" Type="varchar" MaxLength="20" />
     <Property Name="IsProprNoticeLeaseAgreement" Type="int" />
+    <Property Name="ParentTOID" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_TenantParking">
     <Key>

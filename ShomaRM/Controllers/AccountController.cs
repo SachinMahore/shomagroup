@@ -86,7 +86,7 @@ namespace ShomaRM.Controllers
                     db.tbl_LoginHistory.Add(loginHistory);
                     db.SaveChanges();
 
-                    if (currentUser.TenantID == 0 && currentUser.UserType != 3)
+                    if (currentUser.TenantID == 0 && currentUser.UserType != 3 && currentUser.UserType != 33 && currentUser.UserType != 34)
                     {
                         return RedirectToAction("../Admin/AdminHome");
                     }
@@ -94,11 +94,11 @@ namespace ShomaRM.Controllers
                     {
                         return RedirectToAction("../Tenant/Dashboard");
                     }
-                    else
+                    else if (user.ParentUserID == null)
                     {
                         var checkExpiry = db.tbl_ApplyNow.Where(co => co.UserId == currentUser.UserID).FirstOrDefault();
                         checkExpiry.Status = (!string.IsNullOrWhiteSpace(checkExpiry.Status) ? checkExpiry.Status : "");
-                        if ((checkExpiry.StepCompleted??0)==18 && checkExpiry.Status.Trim()!="Approved")
+                        if ((checkExpiry.StepCompleted??0)==18 && checkExpiry.Status.Trim()=="")
                         {
                             return RedirectToAction("../ApplicationStatus/Index/"+(new EncryptDecrypt().EncryptText("In Progress")));
                         }
@@ -131,6 +131,17 @@ namespace ShomaRM.Controllers
                                     return RedirectToAction("../ApplyNow/Index/" + currentUser.UserID);
                                 }
                             }
+                        }
+                    }
+                    else if (user.ParentUserID != null)
+                    {
+                        if (currentUser.UserType == 33)
+                        {
+                            return RedirectToAction("../ApplyNow/CoApplicantDet/" + user.ParentUserID + "-" + currentUser.UserID);
+                        }
+                        else if (currentUser.UserType == 34)
+                        {
+                            return RedirectToAction("../ApplyNow/GuarantorDet/" + user.ParentUserID + "-" + currentUser.UserID);
                         }
                     }
                     // return RedirectToLocal(returnUrl);

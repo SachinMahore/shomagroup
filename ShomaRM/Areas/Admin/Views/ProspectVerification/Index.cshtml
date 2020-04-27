@@ -119,7 +119,7 @@
                                         <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('ApplyDate')">Apply Date <i id="sortApplyDateIcon" class=""></i></th>
                                         <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('UnitNo')">Unit No <i id="sortUnitNoIcon" class=""></i></th>
                                         <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort">Status</th>
-                                        @*<th style="background-color: #c7cdd5;color:#3d3939;padding:10px;">Action</th>*@
+                                        <th style="background-color: #c7cdd5;color:#3d3939;padding:10px;">Background Screening</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -129,6 +129,46 @@
                 </div>
 
             </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="popBackgroundScreening" style="background-color: rgb(249, 249, 249);">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:507px; height:450px;">
+            <!-- Modal Header -->
+
+            <div class="modal-header" style="width: 100%; padding:0px;">
+                <h5 class="modal-title">Background Screening </h5>
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px;color:black;">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="register-area">
+                    <div class="container" style="width:100%!important">
+                        <div class="row">
+
+                            <div class="panel-body search-widget" style="overflow-y:scroll;max-height: 300px;">
+                               
+                                    <table id="bgscrTable" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100% ;">
+                                        <thead>
+                                            <tr>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort">Order Id <i id="sortFirstNameIcon" class=""></i></th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort">Type <i id="sortFirstNameIcon" class=""></i></th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort">Status <i id="sortLastNameIcon" class=""></i></th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;">PDF Url <i id="sortPhoneNoIcon" class=""></i></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+           
         </div>
     </div>
 </div>

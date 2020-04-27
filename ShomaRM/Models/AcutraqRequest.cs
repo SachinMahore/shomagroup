@@ -1,9 +1,13 @@
-﻿using ShomaRM.Models.Bluemoon;
+﻿using Org.BouncyCastle.Asn1.Ocsp;
+using ShomaRM.Data;
+using ShomaRM.Models.Bluemoon;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Configuration;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -15,17 +19,21 @@ namespace ShomaRM.Models
 
         public async Task<OrderXML>   PostAqutraqRequest(TenantOnlineModel data)
         {
+            var isTest = true;
             var _objAcqutraqOrder = new OrderXML();
             _objAcqutraqOrder.Method = "SEND ORDER";
             var Authentication = new Authentication();
 
-            Authentication.Username = "IntegrationUser";
-            Authentication.Password = "Shom@Group2019!!";
+            Authentication.Username = "pward";
+            Authentication.Password = "Password1234!";
             _objAcqutraqOrder.Authentication = Authentication;
-            _objAcqutraqOrder.TestMode = "Yes";
-            _objAcqutraqOrder.ReturnResultURL = "http://52.4.251.162:8086/";
+            if (isTest)
+            {
+                _objAcqutraqOrder.TestMode = "Yes";
+            }
+            _objAcqutraqOrder.ReturnResultURL = WebConfigurationManager.AppSettings["ServerURL"]+ "BackgroundScreening/ReceiveRequest";
             var _objorder = new Order();
-            _objorder.BillingReferenceCode = "000-0000";
+            _objorder.BillingReferenceCode = data.ID.ToString();
             var _objsubject = new Subject();
             _objsubject.FirstName = data.FirstName;
             _objsubject.MiddleName = data.MiddleInitial;
@@ -37,19 +45,20 @@ namespace ShomaRM.Models
             _objsubject.ApplicantPosition = data.JobTitle;
             _objorder.Subject = _objsubject;
             _objAcqutraqOrder.Order = _objorder;
+
             var CurrentAddress = new CurrentAddress();
             CurrentAddress.StreetAddress = data.HomeAddress1;
             CurrentAddress.City = data.CityHome;
             CurrentAddress.State =data.StateHomeString;
             CurrentAddress.Zipcode = data.ZipHome;
-            CurrentAddress.Country = "USA";
+            CurrentAddress.Country = data.Country;
             _objsubject.CurrentAddress = CurrentAddress;
             _objorder.Subject = _objsubject;
-            _objorder.PackageServiceCode = "CCEE";
+            //_objorder.PackageServiceCode = "CCEE";
 
             //employee
             var _objorderdetails = new OrderDetailEMP();
-            _objorderdetails.ServiceCode = "EMPVR";
+            _objorderdetails.ServiceCode = "EMP";
             _objorderdetails.OrderId = data.ProspectID.ToString();
             _objorderdetails.CompanyName =data.EmployerName;
             _objorderdetails.Position = data.JobTitle;
@@ -57,24 +66,29 @@ namespace ShomaRM.Models
             _objorderdetails.Manager = data.SupervisorName;
             _objorderdetails.Telephone = data.SupervisorPhone;
             _objorderdetails.EmployerCity = data.OfficeCity;
-            _objorderdetails.EmployerState = data.StateHomeString;
+            _objorderdetails.EmployerState = data.OfficeState.ToString();
              var _objEmploymentDates = new EmploymentDates();
             _objEmploymentDates.StartDate = data.StartDateTxt;
 
-            _objEmploymentDates.EndDate = "10/10/2020";
+            _objEmploymentDates.EndDate = data.DateExpireTxt == "" ? "00/00/0000": data.DateExpireTxt;
             _objorderdetails.EmploymentDates = _objEmploymentDates;
-            _objorderdetails.ReasonForLeaving = "Test";
+            _objorderdetails.ReasonForLeaving = "";
+            //_objorderdetails.ReasonForLeaving = data.Reason;
             _objorder.OrderDetailEMP = _objorderdetails;
 
             var _objCriminal = new OrderDetailCriminal();
             _objCriminal.state = data.StateHomeString;
-            _objCriminal.ServiceCode = "MULTISTATEEVICT";
+            _objCriminal.ServiceCode = "MULTISTATE";
             _objCriminal.OrderId = data.ProspectID.ToString();
             _objorder.OrderDetailCriminal = _objCriminal;
 
+            var _objEVISEA = new OrderDetailEVISEA();
+            _objEVISEA.ServiceCode = "EVISEA";
+            _objEVISEA.OrderId = data.ProspectID.ToString();
+            _objorder.OrderDetailEVISEA = _objEVISEA;           
 
             var _objCredit = new OrderDetailCredit();
-            _objCredit.ServiceCode = "CREDITTUVANT";
+            _objCredit.ServiceCode = "TENTCREDIT";
             _objCredit.OrderId = data.ProspectID.ToString();
             _objorder.OrderDetailCredit = _objCredit;
 
@@ -82,16 +96,25 @@ namespace ShomaRM.Models
             Serialisexml = AquatraqHelper.SetAttributeValue(Serialisexml, data.ProspectID.ToString());
             var keyValues = new List<KeyValuePair<string, string>>();
             keyValues.Add(new KeyValuePair<string, string>("request", Serialisexml));
-
-            var result = await AquatraqHelper.PostFormUrlEncoded<List<XElement>>("https://screen.acutraq.com/webservice/default.cfm", keyValues);
-            if (result != null)
+            var result = new List<XElement>();
+            try
             {
+                 result = await AquatraqHelper.PostFormUrlEncoded<List<XElement>>("https://orders.dciresources.com/webservice/default.cfm", keyValues);
+            }
+            catch (Exception e) {
+                var er = e;
+            }
+            if (result.Count() != 0)
+            {
+                var saveresult = "";
+                //Saving CRAOrderId and tenant id result in database 
                 foreach (var item in result)
                 {
-                    string serviceCode = item.Attribute("EMPVR").Value;
-                    string orderID = item.Attribute("orderID").Value;
-                    string CRAorderID = item.Attribute("CRAorderID").Value;
-                    
+                    BackgroundScreeningModel backgroundscreening = new BackgroundScreeningModel();
+                    backgroundscreening.Type = item.FirstAttribute.Value;
+                    backgroundscreening.OrderID = Convert.ToInt32(item.LastAttribute.Value);
+                    backgroundscreening.TenantId = Convert.ToInt32(data.ProspectID);
+                    saveresult = (new BackgroundScreeningModel().SaveBackgroundScreening(backgroundscreening));
                 }
             }
             return null;
@@ -208,7 +231,8 @@ namespace ShomaRM.Models
             public OrderDetailEMP OrderDetailEMP { get; set; }
             public OrderDetailCriminal OrderDetailCriminal { get; set; }
             public OrderDetailCredit OrderDetailCredit { get; set; }
-
+            public OrderDetailEVISEA OrderDetailEVISEA { get; set; }
+           
 
             public OrderDetailResponse OrderDetail { get; set; }
         }
@@ -320,6 +344,18 @@ namespace ShomaRM.Models
             public string CRAorderID { get; set; }
 
             public string state { get; set; }
+        }
+        //criminal
+        public class OrderDetailEVISEA
+        {
+            [XmlAttribute("ServiceCode")]
+            public string ServiceCode { get; set; }
+
+            [XmlAttribute("OrderId")]
+
+            public string OrderId { get; set; }
+
+           
         }
     }
 

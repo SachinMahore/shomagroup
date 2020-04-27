@@ -176,6 +176,17 @@
           <Property Name="FKColumnValue" Type="varchar" MaxLength="50" />
           <Property Name="AuditDetails" Type="varchar(max)" />
         </EntityType>
+        <EntityType Name="tbl_BackgroundScreening">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenantId" Type="int" Nullable="false" />
+          <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="nvarchar(max)" />
+          <Property Name="PDFUrl" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="tbl_BankAccount">
           <Key>
             <PropertyRef Name="BAID" />
@@ -2518,6 +2529,7 @@
           <EntitySet Name="tbl_ApplyNow" EntityType="Self.tbl_ApplyNow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_AuditHistory" EntityType="Self.tbl_AuditHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_AuditHistoryDetail" EntityType="Self.tbl_AuditHistoryDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_BackgroundScreening" EntityType="Self.tbl_BackgroundScreening" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_BankAccount" EntityType="Self.tbl_BankAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Bill" EntityType="Self.tbl_Bill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_CashReceipts" EntityType="Self.tbl_CashReceipts" Schema="dbo" store:Type="Tables" />
@@ -3302,6 +3314,7 @@
             <End Role="tbl_Login" EntitySet="tbl_Login" />
             <End Role="tbl_Vendor" EntitySet="tbl_Vendor" />
           </AssociationSet>
+          <EntitySet Name="tbl_BackgroundScreening" EntityType="ShomaRMEntitiesModel.tbl_BackgroundScreening" />
           </EntityContainer>
         <EntityType Name="tbl_AcutraqScrenning">
           <Key>
@@ -5959,6 +5972,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_BackgroundScreening">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantId" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PDFUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7626,6 +7650,18 @@
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_BackgroundScreening">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_BackgroundScreening">
+              <MappingFragment StoreEntitySet="tbl_BackgroundScreening">
+                <ScalarProperty Name="PDFUrl" ColumnName="PDFUrl" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

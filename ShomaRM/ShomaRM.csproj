@@ -405,6 +405,7 @@
     <Compile Include="Controllers\ApplyNow\PayLinkController.cs" />
     <Compile Include="Controllers\ApplyNow\ServiceController.cs" />
     <Compile Include="Controllers\Appointment\AppointmentController.cs" />
+    <Compile Include="Controllers\BackgroundScreeningController.cs" />
     <Compile Include="Controllers\EmbeddedSigningController.cs" />
     <Compile Include="Controllers\Gallery\GalleryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -425,6 +426,7 @@
     <Compile Include="Models\ApplyNow\CheckListModel.cs" />
     <Compile Include="Models\ApplyNow\OnlineProspectModule.cs" />
     <Compile Include="Models\AquatraqHelper.cs" />
+    <Compile Include="Models\BackgroundScreeningModel.cs" />
     <Compile Include="Models\Bluemoon\BluemoonService.cs" />
     <Compile Include="Models\Bluemoon\EsignatureModel.cs" />
     <Compile Include="Models\Bluemoon\IBluemoonService.cs" />
@@ -2399,7 +2401,9 @@
     <Content Include="Content\jquery.shorten.1.0.js" />
     <Content Include="Content\keyboardcontrols.js" />
     <Content Include="Content\Pages\ApplyNow\ApplyNow.js" />
+    <Content Include="Content\Pages\ApplyNow\CoApplicantDet.js" />
     <Content Include="Content\Pages\ApplyNow\DocumentVerification.js" />
+    <Content Include="Content\Pages\ApplyNow\GuarantorDet.js" />
     <Content Include="Content\Pages\common.js" />
     <Content Include="Content\Pages\Gallery\Gallery.js" />
     <Content Include="Content\Pages\Home.js" />
@@ -2434,6 +2438,7 @@
     <Content Include="DatabaseChanges\20-04-2020\MoveInCheck_AddColumn.sql" />
     <Content Include="DatabaseChanges\22-04-2020\AddCoulum_EsignTable_StoreProcedureChanges.sql" />
     <Content Include="DatabaseChanges\24-04-2020\Add Column To Database.sql" />
+    <Content Include="DatabaseChanges\24-04-2020\BackgroundScreening_Table.sql" />
     <Content Include="DatabaseChanges\24-04-2020\Stored Procedure Changes.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -2711,7 +2716,9 @@
     <Content Include="Views\ApplyNow\ChangePassword.cshtml" />
     <Content Include="Views\PayLink\PayAdmFees.cshtml" />
     <Content Include="Views\CheckList\SignLease.cshtml" />
+    <Content Include="Views\ApplyNow\CoApplicantDet.cshtml" />
     <Content Include="Views\ApplicationStatus\Index.cshtml" />
+    <Content Include="Views\ApplyNow\GuarantorDet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2724,6 +2731,7 @@
     <Folder Include="Areas\Tenant\Views\ServiceRequest\" />
     <Folder Include="Content\assets\img\property-1\" />
     <Folder Include="Content\assets\img\slide1\" />
+    <Folder Include="Views\BackgroundScreening\" />
     <Folder Include="Views\TwilioSMS\" />
   </ItemGroup>
   <ItemGroup>
@@ -2737,7 +2745,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ShomaRM.Data\ShomaRM.Data.csproj">
-      <Project>{68cf2378-f894-4de1-8819-9795a5ef4156}</Project>
+      <Project>{6fb7d52f-0d76-4463-bbb5-82b2482074a9}</Project>
       <Name>ShomaRM.Data</Name>
     </ProjectReference>
   </ItemGroup>
