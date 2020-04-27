@@ -5275,6 +5275,7 @@ var goToEditApplicant = function (aid) {
                     $("#popApplicant").modal("show");
                     $("#appphone").addClass("hidden");
                     $("#appemail").removeClass("hidden");
+                    $("#txtApplicantEmail").val(response.model.Email);
                     // $("#apprelationship").removeClass("hidden");
                     $('#txtGDateOfBirth').removeClass("hidden");
                     $('#txtMDateOfBirth').addClass("hidden");
