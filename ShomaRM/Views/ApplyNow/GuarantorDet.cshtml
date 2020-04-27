@@ -51,15 +51,15 @@
                     <div class="text-center">
                         <ul class="nav nav-tabs hidden text-center" style="margin-top:-14px !important;background-color:#4d738a !important;height:29px !important" id="subMenu">
                             <li class="active" id="li7"><a style="padding: 3px 15px!important;margin-left:4px !important" onclick="goToStep(7,7)" href="javascript:void(0);">a. Applicants</a></li>
-                            <li id="li8"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(8,8,0)">b. Responsibility</a></li>
-                            <li id="li9"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(9,9,0)">c. Personal Info</a></li>
+                            <li id="li8" class="hidden"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(8,8,0)">b. Responsibility</a></li>
+                            <li id="li9"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(9,9,0)">b. Personal Info</a></li>
                             <li id="li10" class="hidden"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(10,10,0)">d. Residence History</a></li>
-                            <li id="li11"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(11,11,0)">d. Employment & Income</a></li>
+                            <li id="li11"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(11,11,0)">c. Employment & Income</a></li>
                             <li id="li12" class="hidden"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(12,12,0)">f. Emergency Contact</a></li>
-                            <li id="li13"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(13,13,0)">e. Vehicle Info</a></li>
-                            <li id="li14"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(14,14,0)">f. Pet Info</a></li>
-                            <li id="li15"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(15,15,0)">g. Summary </a></li>
-                            <li id="li16"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(16,16,0)">h. Payment </a></li>
+                            <li id="li13" class="hidden"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(13,13,0)">e. Vehicle Info</a></li>
+                            <li id="li14" class="hidden"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(14,14,0)">f. Pet Info</a></li>
+                            <li id="li15"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(15,15,0)">d. Summary </a></li>
+                            <li id="li16"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(16,16,0)">e. Payment </a></li>
                         </ul>
                     </div>
                     <div class="tab-content">
@@ -1250,7 +1250,7 @@
                                     <button type="submit" class="btn btn-primary" onclick="goToStep(6,6,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(8,8,0)"> Continue</button>
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(9,9,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -1757,7 +1757,7 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(8,8,0)"> Back</button>
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(7,7,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
                                     <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(11,11,0)"> Continue</button>
@@ -1952,7 +1952,7 @@
 
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(9,9,0)"> Back</button>
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(8,8,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
                                     <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(11,11,0)"> Continue</button>
@@ -2191,7 +2191,7 @@
                                     <button type="submit" class="btn btn-primary" onclick="goToStep(9,9,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(13,13,0)"> Continue</button>
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(15,15,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -2463,7 +2463,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="panel panel-default accordian-border-group">
+                                            <div class="panel panel-default accordian-border-group hidden">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
                                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Responsibility <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(8,8,0)">&nbsp;&nbsp;Edit</a></a>
@@ -2575,7 +2575,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="panel panel-default accordian-border-group">
+                                            <div class="panel panel-default accordian-border-group hidden">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
                                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Vehicle Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(13,13,0)">&nbsp;&nbsp;Edit</a></a>
@@ -2602,7 +2602,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="panel panel-default accordian-border-group">
+                                            <div class="panel panel-default accordian-border-group hidden">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
                                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Pet Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(14,14,0)">&nbsp;&nbsp;Edit</a></a>
@@ -3391,7 +3391,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="row p">
+                                    <div class="row p hidden">
                                         <div class="col-sm-12">
                                             <div class="">
                                                 <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 10px 15px;text-align:center;">
@@ -3419,7 +3419,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="row p">
+                                    <div class="row p hidden">
                                         <div class="col-sm-12">
                                             <div class="">
                                                 <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 10px 15px;text-align:center;">
@@ -3638,7 +3638,7 @@
                             <div class="col-sm-12">
 
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(14,14,0)"> Back</button>
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(10,10,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
                                     <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(16,16,0)"> Continue</button>

@@ -911,7 +911,8 @@ var goToStep = function (stepid, id, calldataupdate) {
                 msg += "Please Fill The Annual Income </br>";
             }
             var inc = parseFloat($("#txtAnnualIncome").val())/12;
-            var montpay = parseFloat($("#lblRFPTotalMonthlyPayment").text)*5;
+            var montpay = parseFloat($("#lblRFPTotalMonthlyPayment").text) * 5;
+            alert(inc)
             if (inc < montpay)
             {
                 msg += "The Annual Income must 5 times greater than Monthly Rent</br>";
