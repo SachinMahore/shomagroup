@@ -2401,6 +2401,7 @@
     <Content Include="Content\Pages\ApplyNow\ApplyNow.js" />
     <Content Include="Content\Pages\ApplyNow\CoApplicantDet.js" />
     <Content Include="Content\Pages\ApplyNow\DocumentVerification.js" />
+    <Content Include="Content\Pages\ApplyNow\GuarantorDet.js" />
     <Content Include="Content\Pages\common.js" />
     <Content Include="Content\Pages\Gallery\Gallery.js" />
     <Content Include="Content\Pages\Home.js" />
@@ -2714,6 +2715,7 @@
     <Content Include="Views\CheckList\SignLease.cshtml" />
     <Content Include="Views\ApplyNow\CoApplicantDet.cshtml" />
     <Content Include="Views\ApplicationStatus\Index.cshtml" />
+    <Content Include="Views\ApplyNow\GuarantorDet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

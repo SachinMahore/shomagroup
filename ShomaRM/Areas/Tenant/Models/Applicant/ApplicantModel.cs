@@ -94,7 +94,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     IsActive = 1,
                     TenantID = 0,
                     IsSuperUser = 0,
-                    UserType = 33,
+                    UserType = model.Type == "Guarantor" ?34:33,
                     ParentUserID = ShomaGroupWebSession.CurrentUser.UserID,
 
                 };
@@ -126,29 +126,54 @@ namespace ShomaRM.Areas.Tenant.Models
                 };
                 db.tbl_TenantOnline.Add(getAppldata);
                 db.SaveChanges();
-
-                if (model.Email != "")
+                if (model.Type == "Co-Applicant")
                 {
-                    string reportCoappHTML = "";
-
-                    string coappfilePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
-                    reportCoappHTML = System.IO.File.ReadAllText(coappfilePath + "EmailTemplateProspect5.html");
-
-                    reportCoappHTML = reportCoappHTML.Replace("[%CoAppType%]", model.Type);
-                    reportCoappHTML = reportCoappHTML.Replace("[%EmailHeader%]", "Your Application Added. Fill your Details");
-                    reportCoappHTML = reportCoappHTML.Replace("[%EmailBody%]", "Your Online Application Added by "+ mainappdet.FirstName+" "+ mainappdet .LastName+ " for Sanctuary Doral. Fill your Details by clicking below link <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + model.Email + " </br>Password :" + pass);
-                    reportCoappHTML = reportCoappHTML.Replace("[%TenantName%]", model.FirstName + " " + model.LastName);
-                    reportCoappHTML = reportCoappHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Login</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
-
-                    string coappbody = reportCoappHTML;
-                    new EmailSendModel().SendEmail(model.Email, "Your Application Added. Fill your Details", coappbody);
-
-                    if (SendMessage == "yes")
+                    if (model.Email != "")
                     {
-                        new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Your Application Added. Fill your Details. Credentials has been sent on your email. Please check the email for detail.");
+                        string reportCoappHTML = "";
+
+                        string coappfilePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                        reportCoappHTML = System.IO.File.ReadAllText(coappfilePath + "EmailTemplateProspect5.html");
+
+                        reportCoappHTML = reportCoappHTML.Replace("[%CoAppType%]", model.Type);
+                        reportCoappHTML = reportCoappHTML.Replace("[%EmailHeader%]", "Your Application Added. Fill your Details");
+                        reportCoappHTML = reportCoappHTML.Replace("[%EmailBody%]", "Your Online Application Added by " + mainappdet.FirstName + " " + mainappdet.LastName + " for Sanctuary Doral. Fill your Details by clicking below link <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + model.Email + " </br>Password :" + pass);
+                        reportCoappHTML = reportCoappHTML.Replace("[%TenantName%]", model.FirstName + " " + model.LastName);
+                        reportCoappHTML = reportCoappHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Login</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+
+                        string coappbody = reportCoappHTML;
+                        new EmailSendModel().SendEmail(model.Email, "Your Application Added. Fill your Details", coappbody);
+
+                        if (SendMessage == "yes")
+                        {
+                            new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Your Application Added. Fill your Details. Credentials has been sent on your email. Please check the email for detail.");
+                        }
                     }
                 }
+                if (model.Type == "Guarantor")
+                {
+                    if (model.Email != "")
+                    {
+                        string reportCoappHTML = "";
 
+                        string coappfilePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                        reportCoappHTML = System.IO.File.ReadAllText(coappfilePath + "EmailTemplateProspect5.html");
+
+                        reportCoappHTML = reportCoappHTML.Replace("[%CoAppType%]", model.Type);
+                        reportCoappHTML = reportCoappHTML.Replace("[%EmailHeader%]", "Your Application Added as Guarantor. Fill your Details");
+                        reportCoappHTML = reportCoappHTML.Replace("[%EmailBody%]", "Your Online Application Added as Guarantor by " + mainappdet.FirstName + " " + mainappdet.LastName + " for Sanctuary Doral. Fill your Details by clicking below link <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + model.Email + " </br>Password :" + pass);
+                        reportCoappHTML = reportCoappHTML.Replace("[%TenantName%]", model.FirstName + " " + model.LastName);
+                        reportCoappHTML = reportCoappHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Login</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+
+                        string coappbody = reportCoappHTML;
+                        new EmailSendModel().SendEmail(model.Email, "Your Application Added. Fill your Details", coappbody);
+
+                        if (SendMessage == "yes")
+                        {
+                            new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Your Application Added. Fill your Details. Credentials has been sent on your email. Please check the email for detail.");
+                        }
+                    }
+                }
 
                 if (model.Type == "Primary Applicant")
                 {
