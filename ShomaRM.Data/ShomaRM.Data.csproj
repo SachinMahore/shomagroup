@@ -67,6 +67,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ShomaRMEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_AcutraqScrenning.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
@@ -330,9 +333,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.Config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <EntityDeploy Include="ShomaRMEntities.edmx">
