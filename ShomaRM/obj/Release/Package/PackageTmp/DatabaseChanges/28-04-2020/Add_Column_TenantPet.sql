@@ -1,0 +1,3 @@
+ALTER TABLE tbl_TenantPet ADD UniqID VARCHAR(50)
+ALTER TABLE tbl_TenantPet ADD ExpiryDate DATETIME
+
