@@ -2702,7 +2702,7 @@
                                         <div class="checkbox">
                                             <div class="col-sm-3" style="margin-left: -20px;">
                                                 <label>
-                                                    <input type="checkbox" id="chkPay" checked="@(Model.MoveInCharges != 0 ? true : false)" disabled="@(Model.MoveInCharges != 0 ? "disabled" : "disabled")"><span style="margin-left: 10px;">
+                                                    <input type="checkbox" id="chkPay" checked="@(Model.MoveInChargesFMIT != 0 ? true : false)" disabled="@(Model.MoveInChargesFMIT != 0 ? "disabled" : "disabled")"><span style="margin-left: 10px;">
                                                         Pay your Move-in charges
                                                     </span>
                                                 </label>
@@ -2712,7 +2712,7 @@
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
                                                     </span>
-                                                    <input id="txtPayment" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@((Model.MoveInCharges??0).ToString("0.00"))" disabled />
+                                                    <input id="txtPayment" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@(Model.MoveInChargesFMIT.ToString("0.00"))" disabled />
                                                 </div>
                                             </div>
                                         </div>
@@ -2721,7 +2721,7 @@
                                         <div class="checkbox">
                                             <div class="col-sm-3" style="margin-left: -20px;">
                                                 <label>
-                                                    <input type="checkbox" id="chkMovein" checked="@(Model.MoveInDateTxt != null ? true : false)" disabled /><span style="margin-left: 10px;">
+                                                    <input type="checkbox" id="chkMovein" checked="@(!string.IsNullOrWhiteSpace(Model.MoveInDateTxt) && !string.IsNullOrWhiteSpace(Model.MoveInTime) ? true : false)" disabled /><span style="margin-left: 10px;">
                                                         Schedule a move-in date and time
                                                     </span>
                                                 </label>

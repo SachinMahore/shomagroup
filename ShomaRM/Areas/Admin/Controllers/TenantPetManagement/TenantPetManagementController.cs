@@ -19,7 +19,7 @@ namespace ShomaRM.Areas.Admin.Controllers
         {
             try
             {
-                return Json((new PetManagementModel()).FillTenantPetSearchGrid(model), JsonRequestBehavior.AllowGet);
+                return Json((new TenantPetSearchListModel()).FillTenantPetSearchGrid(model), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -30,7 +30,7 @@ namespace ShomaRM.Areas.Admin.Controllers
         {
             try
             {
-                return Json(new { NOP = (new PetManagementModel()).BuildPaganationTenantPetList(model) }, JsonRequestBehavior.AllowGet);
+                return Json(new { NOP = (new TenantPetSearchListModel()).BuildPaganationTenantPetList(model) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
