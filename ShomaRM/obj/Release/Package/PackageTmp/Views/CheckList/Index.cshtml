@@ -10,6 +10,7 @@
 <input type="hidden" id="hndTransMethod" value="2" />
 <input type="hidden" id="hndPaymentDone" value="0" />
 <input type="hidden" id="hndProcessingFees" value="@ViewBag.ProcessingFees" />
+<input type="hidden" id="hndMoveInDate" value="0" />
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -457,16 +458,36 @@
 </style>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#txtMoveInDateCL").datepicker({ startDate: '+1d' }).on('change', function (ev) {
-            var moveindate = $(this).val();
-            if (moveindate) {
-                $("#chkMoveinCL").attr("checked", true);
-                $("#chkMoveinCL").prop("disabled", "disabled");
-                $("#chkMoveinCL").parent().addClass("checked");
-            } else {
+        setTimeout(function () {
+            var moveInDateHidden = $('#hndMoveInDate').val();
+            var preMoveInBefThree = new Date(moveInDateHidden);
+            preMoveInBefThree.setDate(preMoveInBefThree.getDate() - 3);
+            $("#txtMoveInDateCL").datepicker({ startDate: '+1d', endDate: preMoveInBefThree }).on('change', function (ev) {
+                var moveindate = $(this).val();
+                if (moveindate) {
+                    $("#chkMoveinCL").attr("checked", true);
+                    $("#chkMoveinCL").prop("disabled", "disabled");
+                    $("#chkMoveinCL").parent().addClass("checked");
+                } else {
+                    $("#chkMoveinCL").prop("checked", false);
+                    $("#chkMoveinCL").removeProp("disabled");
+                    $("#chkMoveinCL").parent().removeClass("checked");
+                }
+            });
+            $("#iconMoveInDateChecklist").click(function () {
+                $("#txtMoveInDateCL").focus();
+            });
+        }, 1500);
+        $('#ddlMoveInTimeCL').on('change', function () {
+            if (!$(this).val()) {
                 $("#chkMoveinCL").prop("checked", false);
                 $("#chkMoveinCL").removeProp("disabled");
                 $("#chkMoveinCL").parent().removeClass("checked");
+            }
+            else {
+                $("#chkMoveinCL").attr("checked", true);
+                $("#chkMoveinCL").prop("disabled", "disabled");
+                $("#chkMoveinCL").parent().addClass("checked");
             }
         });
 
@@ -529,7 +550,7 @@
                 success: function (response) {
 
                     $("#divLoader").hide();
-                    $("#txtMoveInDateCL").datepicker({ dateformat: "MM/dd/yyyy", startDate: response.model.MoveInDateTxt });
+                    $("#hndMoveInDate").val(response.model.MoveInDateTxt);
                     $("#hndProspectID").val(response.model.ProspectId);
                     if (!response.model.FirstName) {
                         $("#txtname").text("");
@@ -557,7 +578,7 @@
 
                     } else {
                         $("#chkPayCL").prop("checked", false);
-                        $("#chkPayCL").removeProp("disabled");
+                        $("#chkPayCL").prop("disabled", "disabled");
                         $("#chkPayCL").parent().removeClass("checked");
                         $("#btnPayNowCheckLink").removeClass("hidden");
                         $("#hndPaymentDone").val(0);
@@ -570,7 +591,7 @@
                         $("#ddlMoveInTimeCL").val(response.moveindata.MoveInTime);
                     } else {
                         $("#chkMoveinCL").prop("checked", false);
-                        $("#chkMoveinCL").removeProp("disabled");
+                        $("#chkInsCL").prop("disabled", "disabled");
                         $("#chkMoveinCL").parent().removeClass("checked");
                     }
                     if (response.moveindata.IsCheckIns == 1) {
@@ -599,7 +620,7 @@
                         $('#fileUploadPOEShow').text(response.moveindata.ElectricityDoc);
                     } else {
                         $("#chkEleCL").prop("checked", false);
-                        $("#chkEleCL").removeProp("disabled");
+                        $("#chkEleCL").prop("disabled", "disabled");
                         $("#chkEleCL").parent().removeClass("checked");
                     }
                     if (response.moveindata.IsCheckATT == 1) {

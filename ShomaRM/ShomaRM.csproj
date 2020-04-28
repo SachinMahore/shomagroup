@@ -2443,6 +2443,8 @@
     <Content Include="DatabaseChanges\24-04-2020\Add Column To Database.sql" />
     <Content Include="DatabaseChanges\24-04-2020\BackgroundScreening_Table.sql" />
     <Content Include="DatabaseChanges\24-04-2020\Stored Procedure Changes.sql" />
+    <Content Include="DatabaseChanges\28-04-2020\Add_Column_TenantPet.sql" />
+    <Content Include="DatabaseChanges\28-04-2020\usp_GetTenantPetPaginationAndSearchData.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

@@ -1,0 +1,403 @@
+var goToEditPetPlace = function () {
+    var row = $('#tblPetPlace tbody tr.pds-selected-row').closest('tr');
+    var ID = $(row).attr("data-value");
+    if (ID !== null) {
+        window.location.href = "/Admin/TenantPetManagement/Edit/" + ID;
+    }
+
+};
+var addNewPetPlace = function () {
+    window.location.href = "/Admin/TenantPetManagement/Edit/0";
+};
+var fillRPP_PetPlaceList = function () {
+    $("#ddlRPP_PetPlaceList").empty();
+    $("#ddlRPP_PetPlaceList").append("<option value='25'>25</option>");
+    $("#ddlRPP_PetPlaceList").append("<option value='50'>50</option>");
+    $("#ddlRPP_PetPlaceList").append("<option value='75'>75</option>");
+    $("#ddlRPP_PetPlaceList").append("<option value='100'>100</option>");
+    $("#ddlRPP_PetPlaceList").on('change', function (evt, params) {
+        var selected = $(this).val();
+        buildPaganationPetPlaceList($("#hdnCurrentPage").val());
+    });
+};
+var buildPaganationPetPlaceList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = "TenantName";
+    }
+    if (!orderby) {
+        orderby = "ASC";
+    }
+    var model = {
+        Criteria: $("#ddlCriteria").val(),
+        CriteriaByText: $("#txtCriteria").val(),
+        FromDate: $("#txtFromDate").val(),
+        ToDate: $("#txtToDate").val(),
+        PageNumber: pagenumber,
+        NumberOfRows: $("#ddlRPP_PetPlaceList").val(),
+        SortBy: sortby,
+        OrderBy: orderby
+    };
+    $.ajax({
+        url: "/TenantPetManagement/BuildTenantPetPlaceList",
+        method: "post",
+        data: JSON.stringify(model),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if ($.trim(response.error) !== "") {
+                //alert(response.error);
+            } else {
+                if (response.NOP == 0) {
+                    $('#divPagination_PetPlaceList').addClass("hidden");
+                }
+                else {
+                    $('#divPagination_PetPlaceList').removeClass("hidden");
+                    $('#ulPagination_PetPlaceList').pagination('updateItems', response.NOP);
+                    $('#ulPagination_PetPlaceList').pagination('selectPage', 1);
+                }
+            }
+        }
+    });
+};
+var fillPetPlaceList = function (pagenumber, sortby, orderby) {
+    if (!sortby) {
+        sortby = "TenantName";
+    }
+    if (!orderby) {
+        orderby = "ASC";
+    }
+    var model = {
+        Criteria: $("#ddlCriteria").val(),
+        CriteriaByText: $("#txtCriteria").val(),
+        FromDate: $("#txtFromDate").val(),
+        ToDate: $("#txtToDate").val(),
+        PageNumber: pagenumber,
+        NumberOfRows: $("#ddlRPP_PetPlaceList").val(),
+        SortBy: sortby,
+        OrderBy: orderby
+    };
+    $.ajax({
+        url: '/TenantPetManagement/FillTenantPetSearchGrid',
+        method: "post",
+        data: JSON.stringify(model),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if ($.trim(response.error) !== "") {
+                //this.cancelChanges();
+            } else {
+
+                $("#tblPetPlace>tbody").empty();
+                $.each(response, function (elementType, elementValue) {
+                    var expiryDateOld = elementValue.ExpiryDate;
+                    var expiryDateNew = expiryDateOld.split(" ");
+                    var html = '';
+                    html += '<tr data-value="' + elementValue.PetID + '">';
+                    html += '<td class="pds-Number clickable" style="color:#3d3939;">' + elementValue.TenantName + '</td>';
+                    html += '<td class="pds-Charge clickable" style="color:#3d3939;">' + elementValue.UnitNo + '</td>';
+                    html += '<td class="pds-Available clickable" style="color:#3d3939;">' + elementValue.PetName + '</td>';
+                    // html += '<td class="pds-Location clickable" style="color:#3d3939;">' + elementValue.Weight + '</td>';
+
+                    html += "<td><input style='border: 0px!important; ' disabled data-petid=" + elementValue.PetID + " id='txtWeight_" + elementValue.PetID + "' onfocus='focusincontrolWeight(" + elementValue.PetID + ")' onfocusout='focusoutcontrolWeight(" + elementValue.PetID + ")' type='text' class='form-control text-right lockunlock' value='" + elementValue.Weight + "'/></td>";
+
+                    //html += '<td class="pds-Space clickable" style="color:#3d3939;">' + elementValue.UniqID + '</td>';
+                    html += "<td><input style='border: 0px!important; ' disabled data-petid=" + elementValue.PetID + " id='txtUniqID_" + elementValue.PetID + "' onfocus='focusincontrolUniqID(" + elementValue.PetID + ")' onfocusout='focusoutcontrolUniqID(" + elementValue.PetID + ")' type='text' class='form-control text-right lockunlock' value='" + elementValue.UniqID + "'/></td>";
+                    //html += '<td class="pds-Tag clickable" style="color:#3d3939;">' + expiryDateNew[0] + '</td>';
+                    html += "<td style='width: 8 %; cursor: pointer!important;'>";
+                    html += "<div class='input-group'>";
+                    html += "<input style='border:0px !important;' disabled placeholder='MM/DD/YYYY' class='form-control form-control-small lockunlock' type='text' id='txtExpiryDate_" + elementValue.PetID + "' value='" + elementValue.ExpiryDate + "'>";
+                    html += "<span id='spTodate' class='input-group-btn'><button id='iconToDate' class='btn btn-primary search' type='button' style='height: 34px!important'><i class='fa-calendar fa'></i></button></span ></div ></td >";
+
+                    // html += "<td style='width:8%;cursor:pointer!important;' id='txtExpiryDate_" + elementValue.PetID + "' onclick='editExpiryDate(" + elementValue.PetID + ")' data-edate='" + elementValue.ExpiryDate + "'> " + elementValue.ExpiryDate + " <i class='fa fa-calendar pull-right' style='margin: 6px;'></i> </td>";
+                    html += "<td style='color:#3d3939;' id='vaccination_" + elementValue.PetID + "'>" + elementValue.OriginalVaccinationCert + "<button id='" + elementValue.PetID + "' class='btn btn-primary pull-right'  onclick='popVacciCert(\"" + elementValue.PetVaccinationCert + "\")'> View </button></td>";
+                    html += '<td class="pds-Owner text-center" style="color:#3d3939;"><button class="btn btn-primary" onclick="sendRemainder(' + elementValue.PetID + ')">Send</button></td>';
+                    html += "</tr>";
+                    $("#tblPetPlace>tbody").append(html);
+
+                    var dtstart = new Date();
+                    dtstart.setFullYear(new Date().getFullYear() - 100);
+                    var dtend = new Date();
+                    dtend.setFullYear(new Date().getFullYear() + 100);
+                    $("#txtExpiryDate_" + elementValue.PetID).datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true }).on('changeDate', function (e) {
+                        var expiryDate = $("#txtExpiryDate_" + elementValue.PetID).val();
+                        var petID = elementValue.PetID;
+                        var model = {
+                            PetID: petID,
+                            ExpiryDate: expiryDate
+                        };
+                        $("#divLoader").show();
+                        $.ajax({
+                            url: "/Admin/TenantPetManagement/UpdateExpiryDate/",
+                            type: "post",
+                            contentType: "application/json utf-8",
+                            data: JSON.stringify(model),
+                            dataType: "JSON",
+                            success: function (response) {
+                                $("#divLoader").hide();
+                                $("#txtExpiryDate_" + elementValue.PetID).val($("#txtExpiryDate_" + elementValue.PetID).val());
+                            }
+                        });
+                    });
+                });
+            }
+            $("#hdnCurrentPage").val(pagenumber);
+            $("#divLoader").hide();
+        }
+    });
+};
+
+$(document).ready(function () {
+    fillRPP_PetPlaceList();
+
+    $('#ulPagination_PetPlaceList').pagination({
+        items: 0,
+        currentPage: 1,
+        displayedPages: 10,
+        cssStyle: '',
+        useAnchors: false,
+        prevText: '&laquo;',
+        nextText: '&raquo;',
+        onInit: function () {
+            $("#hdnCurrentPage").val(1);
+            buildPaganationPetPlaceList(1);
+        },
+        onPageClick: function (page, evt) {
+            var SortByValueProsVerification = localStorage.getItem("SortByValuePetPlace");
+            var OrderByValueProsVerification = localStorage.getItem("OrderByValuePetPlace");
+            $("#hdnCurrentPage").val(page);
+            fillPetPlaceList(page, SortByValueProsVerification, OrderByValueProsVerification);
+        }
+    });
+    $('#tblPetPlace tbody').on('click', 'tr', function () {
+        $('#tblPetPlace tr').removeClass("pds-selected-row");
+        $(this).addClass("pds-selected-row");
+    });
+    //$('#tblPetPlace tbody').on('dblclick', 'td', function () {
+    //    var rowClicked = $(this);
+    //    var tdClickable = rowClicked.hasClass('clickable');
+    //   // var tdViewVaccination = rowClicked.hasClass('viewVaccination');
+    //    if (tdClickable) {
+    //      goToEditPetPlace();
+    //    }
+    //    else {
+    //        return;
+    //    }
+
+    //});
+    if ($("#ddlCriteria").val() == 0) {
+        $("#txtCriteria").val("");
+        $("#txtCriteria").attr("disabled", "disabled");
+    }
+    else {
+        $("#txtCriteria").removeAttr("disabled", "disabled");
+    }
+    $("#ddlCriteria").on('change', function () {
+        if ($("#ddlCriteria").val() == 0) {
+            $("#txtCriteria").val("");
+            $("#txtCriteria").attr("disabled", "disabled");
+        }
+        else {
+            $("#txtCriteria").removeAttr("disabled", "disabled");
+        }
+    });
+});
+$(document).keypress(function (e) {
+    if (e.which === 13) {
+        buildPaganationPetPlaceList(1);
+    }
+});
+
+var popVacciCert = function (fileName) {
+
+    $("#modalPetVaccination").modal("show");
+    $("#VacciCertiframe").attr("src", "/Content/assets/img/pet/" + fileName);
+};
+
+var sendRemainder = function (petID) {
+    var model = {
+        PetID: petID
+    };
+    $.ajax({
+        url: "/TenantPetManagement/SendRemainder",
+        method: "post",
+        data: JSON.stringify(model),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $.alert({
+                title: 'Message!',
+                content: response.msg,
+                type: 'blue'
+            });
+        }
+    });
+
+};
+
+var setlockunlock = function () {
+    if ($("#hndLockUnlock").val() == "1") {
+        //unlock
+        $(".lockunlock").removeAttr("disabled");
+        $("#spanLockUnLock").html("");
+        $("#spanLockUnLock").html('<i class="fa fa-unlock"></i> lock');
+        $("#hndLockUnlock").val(0);
+    } else {
+        //lock
+        $(".lockunlock").attr("disabled", true);
+        $("#spanLockUnLock").html("");
+        $("#spanLockUnLock").html('<i class="fa fa-lock"></i> Unlock');
+        $("#hndLockUnlock").val(1);
+    }
+}
+
+var focusincontrolWeight = function (petid) {
+    $("#txtWeight_" + petid).val(unformatText($("#txtWeight_" + petid).val()));
+};
+
+var focusoutcontrolWeight = function (petid) {
+    var weight = $("#txtWeight_" + petid).val();
+    var petID = petid;
+
+    var model = {
+        PetID: petID,
+        Weight: weight
+    };
+
+    $("#divLoader").show();
+    $.ajax({
+        url: "/Admin/TenantPetManagement/UpdateWeight/",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+            $("#txtWeight_" + petid).val(unformatText($("#txtWeight_" + petid).val()));
+        }
+    });
+};
+
+var focusincontrolUniqID = function (petid) {
+    $("#txtUniqID_" + petid).val(unformatText($("#txtUniqID_" + petid).val()));
+};
+
+var focusoutcontrolUniqID = function (petid) {
+    var uniqID = $("#txtUniqID_" + petid).val();
+    var petID = petid;
+
+    var model = {
+        PetID: petID,
+        UniqID: uniqID
+    };
+
+    $("#divLoader").show();
+    $.ajax({
+        url: "/Admin/TenantPetManagement/UpdateUniqId/",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+            $("#txtUniqID_" + petid).val(unformatText($("#txtUniqID_" + petid).val()));
+        }
+    });
+};
+
+
+var focusoutcontrolExpiryDate = function (petid) {
+    $("#txtExpiryDate_" + petid).val($("#txtExpiryDate_" + petid).val());
+
+
+};
+
+var editExpiryDate = function (uid) {
+
+    $("#txtExpiryDate_" + uid).removeAttr("onclick");
+    var unitDate = $("#txtExpiryDate_" + uid).attr("data-edate");
+    $("#txtExpiryDate_" + uid).empty();
+
+    $("#txtExpiryDate_" + uid).append("<input class='form-control' style='width:100px'  type='text' id='txtEditExpiryDate_" + uid + "'  value='" + unitDate + "'/>");
+    var dtstart = new Date();
+    dtstart.setFullYear(new Date().getFullYear() - 100);
+
+    var dtend = new Date();
+    dtend.setFullYear(new Date().getFullYear() + 100);
+
+    $("#txtEditExpiryDate_" + uid).datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true }).on('changeDate', function (e) {
+        var availDate = $("#txtEditExpiryDate_" + uid).val();
+
+        var model = {
+            PetID: uid,
+            ExpiryDate: availDate
+        };
+
+
+    });
+    $("#txtEditExpiryDate_" + uid).focus();
+};
+
+
+
+var count = 0;
+var sortTablePetPlace = function (sortby) {
+
+    var orderby = "";
+    var pNumber = $("#hdnCurrentPage").val();
+    if (!pNumber) {
+        pNumber = 1;
+    }
+    $('#sortTenantNameIcon').removeClass('fa fa-sort-up');
+    $('#sortTenantNameIcon').removeClass('fa fa-sort-down');
+    $('#sortUnitNoIcon').removeClass('fa fa-sort-up');
+    $('#sortUnitNoIcon').removeClass('fa fa-sort-down');
+    $('#sortPetNameIcon').removeClass('fa fa-sort-up');
+    $('#sortPetNameIcon').removeClass('fa fa-sort-down');
+    $('#sortWeightIcon').removeClass('fa fa-sort-up');
+    $('#sortWeightIcon').removeClass('fa fa-sort-down');
+    $('#sortUniqIDIcon').removeClass('fa fa-sort-up');
+    $('#sortUniqIDIcon').removeClass('fa fa-sort-down');
+    $('#sortExpiryDateIcon').removeClass('fa fa-sort-up');
+    $('#sortExpiryDateIcon').removeClass('fa fa-sort-down');
+
+    if (count % 2 == 1) {
+        orderby = "ASC";
+        if (sortby == 'TenantName') {
+            $('#sortTenantNameIcon').addClass('fa fa-sort-up fa-lg');
+        } else if (sortby == 'UnitNo') {
+            $('#sortUnitNoIcon').removeClass('fa fa-sort-up');
+        } else if (sortby == 'PetName') {
+            $('#sortPetNameIcon').removeClass('fa fa-sort-up');
+        } else if (sortby == 'Weight') {
+            $('#sortWeightIcon').removeClass('fa fa-sort-up');
+
+        } else if (sortby == 'UniqID') {
+            $('#sortUniqIDIcon').removeClass('fa fa-sort-up');
+
+        } else if (sortby == 'ExpiryDate') {
+            $('#sortExpiryDateIcon').removeClass('fa fa-sort-up');
+
+        }
+    }
+    else {
+        orderby = "DESC";
+        if (sortby == 'TenantName') {
+            $('#sortTenantNameIcon').removeClass('fa fa-sort-down');
+        } else if (sortby == 'UnitNo') {
+            $('#sortUnitNoIcon').removeClass('fa fa-sort-down');
+        } else if (sortby == 'PetName') {
+            $('#sortPetNameIcon').removeClass('fa fa-sort-down');
+        } else if (sortby == 'Weight') {
+            $('#sortWeightIcon').removeClass('fa fa-sort-down');
+        } else if (sortby == 'UniqID') {
+            $('#sortUniqIDIcon').removeClass('fa fa-sort-down');
+        } else if (sortby == 'ExpiryDate') {
+            $('#sortExpiryDateIcon').removeClass('fa fa-sort-down');
+        }
+    }
+    localStorage.setItem("SortByValuePetPlace", sortby);
+    localStorage.setItem("OrderByValuePetPlace", orderby);
+    count++;
+    buildPaganationPetPlaceList(pNumber, sortby, orderby);
+    fillPetPlaceList(pNumber, sortby, orderby);
+};
