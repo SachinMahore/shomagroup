@@ -67,9 +67,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ShomaRMEntities.edmx</DependentUpon>
     </Compile>
-    <Compile Include="sysdiagram.cs">
-      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="tbl_AcutraqScrenning.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>

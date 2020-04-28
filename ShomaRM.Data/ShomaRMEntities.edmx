@@ -1417,6 +1417,8 @@
           <Property Name="VetsName" Type="varchar" MaxLength="500" />
           <Property Name="OriginalPhoto" Type="varchar" MaxLength="500" />
           <Property Name="OriginalVaccinationCert" Type="varchar" MaxLength="500" />
+          <Property Name="UniqID" Type="varchar" MaxLength="50" />
+          <Property Name="ExpiryDate" Type="datetime" />
         </EntityType>
         <EntityType Name="tbl_TenantPetPlace">
           <Key>
@@ -2985,7 +2987,6 @@
           <EntitySet Name="tbl_TenantInfo" EntityType="ShomaRMEntitiesModel.tbl_TenantInfo" />
           <EntitySet Name="tbl_TenantMonthlyPayments" EntityType="ShomaRMEntitiesModel.tbl_TenantMonthlyPayments" />
           <EntitySet Name="tbl_TenantParking" EntityType="ShomaRMEntitiesModel.tbl_TenantParking" />
-          <EntitySet Name="tbl_TenantPet" EntityType="ShomaRMEntitiesModel.tbl_TenantPet" />
           <EntitySet Name="tbl_TenantPetPlace" EntityType="ShomaRMEntitiesModel.tbl_TenantPetPlace" />
           <EntitySet Name="tbl_TenantStorage" EntityType="ShomaRMEntitiesModel.tbl_TenantStorage" />
           <EntitySet Name="tbl_Transaction" EntityType="ShomaRMEntitiesModel.tbl_Transaction" />
@@ -3008,10 +3009,6 @@
           <AssociationSet Name="FK_tbl_TenantParking_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantParking_tbl_ApplyNow">
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_TenantParking" EntitySet="tbl_TenantParking" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_TenantPet_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantPet_tbl_ApplyNow">
-            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
-            <End Role="tbl_TenantPet" EntitySet="tbl_TenantPet" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_TenantPetPlace_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantPetPlace_tbl_ApplyNow">
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
@@ -3315,6 +3312,11 @@
             <End Role="tbl_Vendor" EntitySet="tbl_Vendor" />
           </AssociationSet>
           <EntitySet Name="tbl_BackgroundScreening" EntityType="ShomaRMEntitiesModel.tbl_BackgroundScreening" />
+          <EntitySet Name="tbl_TenantPet" EntityType="ShomaRMEntitiesModel.tbl_TenantPet" />
+          <AssociationSet Name="FK_tbl_TenantPet_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantPet_tbl_ApplyNow">
+            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
+            <End Role="tbl_TenantPet" EntitySet="tbl_TenantPet" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="tbl_AcutraqScrenning">
           <Key>
@@ -3445,12 +3447,12 @@
           <NavigationProperty Name="tbl_Applicant" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Applicant" />
           <NavigationProperty Name="tbl_TenantInfo" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantInfo" />
           <NavigationProperty Name="tbl_TenantParking" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantParking_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantParking" />
-          <NavigationProperty Name="tbl_TenantPet" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantPet_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantPet" />
           <NavigationProperty Name="tbl_TenantPetPlace" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantPetPlace_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantPetPlace" />
           <NavigationProperty Name="tbl_TenantStorage" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantStorage_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantStorage" />
           <NavigationProperty Name="tbl_Vehicle" Relationship="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Vehicle" />
           <Property Name="AdditionalParking" Type="Int32" />
           <NavigationProperty Name="tbl_TenantOnline" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantOnline" />
+          <NavigationProperty Name="tbl_TenantPet" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantPet_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantPet" />
         </EntityType>
         <EntityType Name="tbl_AuditHistory">
           <Key>
@@ -4539,24 +4541,6 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantParking_tbl_ApplyNow" FromRole="tbl_TenantParking" ToRole="tbl_ApplyNow" />
         </EntityType>
-        <EntityType Name="tbl_TenantPet">
-          <Key>
-            <PropertyRef Name="PetID" />
-          </Key>
-          <Property Name="PetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenantID" Type="Int64" />
-          <Property Name="PetType" Type="Int32" />
-          <Property Name="Breed" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Weight" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Age" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Photo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="PetVaccinationCert" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="PetName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="VetsName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="OriginalPhoto" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="OriginalVaccinationCert" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantPet_tbl_ApplyNow" FromRole="tbl_TenantPet" ToRole="tbl_ApplyNow" />
-        </EntityType>
         <EntityType Name="tbl_TenantPetPlace">
           <Key>
             <PropertyRef Name="TPetID" />
@@ -4780,18 +4764,6 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="tbl_TenantParking">
-              <PropertyRef Name="TenantID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_TenantPet_tbl_ApplyNow">
-          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_TenantPet" Role="tbl_TenantPet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_ApplyNow">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_TenantPet">
               <PropertyRef Name="TenantID" />
             </Dependent>
           </ReferentialConstraint>
@@ -5983,6 +5955,38 @@
           <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PDFUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="tbl_TenantPet">
+          <Key>
+            <PropertyRef Name="PetID" />
+          </Key>
+          <Property Name="PetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantID" Type="Int64" />
+          <Property Name="PetType" Type="Int32" />
+          <Property Name="Breed" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Weight" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Age" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Photo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PetVaccinationCert" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="PetName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="VetsName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="OriginalPhoto" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="OriginalVaccinationCert" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="UniqID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantPet_tbl_ApplyNow" FromRole="tbl_TenantPet" ToRole="tbl_ApplyNow" />
+        </EntityType>
+        <Association Name="FK_tbl_TenantPet_tbl_ApplyNow">
+          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_TenantPet" Role="tbl_TenantPet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_TenantPet">
+              <PropertyRef Name="TenantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7167,24 +7171,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_TenantPet">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantPet">
-              <MappingFragment StoreEntitySet="tbl_TenantPet">
-                <ScalarProperty Name="OriginalVaccinationCert" ColumnName="OriginalVaccinationCert" />
-                <ScalarProperty Name="OriginalPhoto" ColumnName="OriginalPhoto" />
-                <ScalarProperty Name="VetsName" ColumnName="VetsName" />
-                <ScalarProperty Name="PetName" ColumnName="PetName" />
-                <ScalarProperty Name="PetVaccinationCert" ColumnName="PetVaccinationCert" />
-                <ScalarProperty Name="Photo" ColumnName="Photo" />
-                <ScalarProperty Name="Age" ColumnName="Age" />
-                <ScalarProperty Name="Weight" ColumnName="Weight" />
-                <ScalarProperty Name="Breed" ColumnName="Breed" />
-                <ScalarProperty Name="PetType" ColumnName="PetType" />
-                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-                <ScalarProperty Name="PetID" ColumnName="PetID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_TenantPetPlace">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantPetPlace">
               <MappingFragment StoreEntitySet="tbl_TenantPetPlace">
@@ -7662,6 +7648,26 @@
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="TenantId" ColumnName="TenantId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_TenantPet">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantPet">
+              <MappingFragment StoreEntitySet="tbl_TenantPet">
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="UniqID" ColumnName="UniqID" />
+                <ScalarProperty Name="OriginalVaccinationCert" ColumnName="OriginalVaccinationCert" />
+                <ScalarProperty Name="OriginalPhoto" ColumnName="OriginalPhoto" />
+                <ScalarProperty Name="VetsName" ColumnName="VetsName" />
+                <ScalarProperty Name="PetName" ColumnName="PetName" />
+                <ScalarProperty Name="PetVaccinationCert" ColumnName="PetVaccinationCert" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Breed" ColumnName="Breed" />
+                <ScalarProperty Name="PetType" ColumnName="PetType" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="PetID" ColumnName="PetID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
