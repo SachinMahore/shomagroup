@@ -90,7 +90,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_TenantInfo> tbl_TenantInfo { get; set; }
         public virtual DbSet<tbl_TenantMonthlyPayments> tbl_TenantMonthlyPayments { get; set; }
         public virtual DbSet<tbl_TenantParking> tbl_TenantParking { get; set; }
-        public virtual DbSet<tbl_TenantPet> tbl_TenantPet { get; set; }
         public virtual DbSet<tbl_TenantPetPlace> tbl_TenantPetPlace { get; set; }
         public virtual DbSet<tbl_TenantStorage> tbl_TenantStorage { get; set; }
         public virtual DbSet<tbl_Transaction> tbl_Transaction { get; set; }
@@ -112,5 +111,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Login> tbl_Login { get; set; }
         public virtual DbSet<tbl_TenantOnline> tbl_TenantOnline { get; set; }
         public virtual DbSet<tbl_BackgroundScreening> tbl_BackgroundScreening { get; set; }
+        public virtual DbSet<tbl_TenantPet> tbl_TenantPet { get; set; }
     }
 }

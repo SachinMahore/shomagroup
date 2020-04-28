@@ -297,6 +297,7 @@
     <Compile Include="Areas\Admin\Controllers\State\StateController.cs" />
     <Compile Include="Areas\Admin\Controllers\Storage\StorageController.cs" />
     <Compile Include="Areas\Admin\Controllers\TenantEventJoinApprove\TenantEventJoinApproveController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TenantPetManagement\TenantPetManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\Tenant\TenantController.cs" />
     <Compile Include="Areas\Admin\Controllers\Transaction\TransactionController.cs" />
     <Compile Include="Areas\Admin\Controllers\TwilioSMS\TwilioReceivedSMSController.cs" />
@@ -344,6 +345,7 @@
     <Compile Include="Areas\Admin\Models\State\StateModel.cs" />
     <Compile Include="Areas\Admin\Models\Storage\StorageModel.cs" />
     <Compile Include="Areas\Admin\Models\TenantEventJoinApprove\TenantEventJoinApproveModel.cs" />
+    <Compile Include="Areas\Admin\Models\TenantPetManagement\TenantPetManagementModel.cs" />
     <Compile Include="Areas\Admin\Models\Tenant\TenantModel.cs" />
     <Compile Include="Areas\Admin\Models\Transaction\TransactionModel.cs" />
     <Compile Include="Areas\Admin\Models\Users\UsersModel.cs" />
@@ -501,6 +503,7 @@
     <Content Include="Areas\Admin\Content\Pages\State\StateList.js" />
     <Content Include="Areas\Admin\Content\Pages\Storage\Storage.js" />
     <Content Include="Areas\Admin\Content\Pages\TenantEventJoinApprove\TenantEventJoinApprove.js" />
+    <Content Include="Areas\Admin\Content\Pages\TenantPetManagement\TenantPetManagementList_js.txt" />
     <Content Include="Areas\Admin\Content\Pages\Tenant\NewTenant.js" />
     <Content Include="Areas\Admin\Content\Pages\Transaction\Transaction.js" />
     <Content Include="Areas\Admin\Content\Pages\Transaction\TransactionList.js" />
@@ -2663,6 +2666,7 @@
     <Content Include="Areas\Admin\Views\TwilioReceivedSMS\Index.cshtml" />
     <Content Include="Areas\Admin\Views\FobManagement\AddEdit.cshtml" />
     <Content Include="Areas\Admin\Views\FobManagement\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\TenantPetManagement\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
