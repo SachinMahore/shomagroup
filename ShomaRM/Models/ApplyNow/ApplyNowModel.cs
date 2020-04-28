@@ -58,7 +58,8 @@ namespace ShomaRM.Models
         public Nullable<decimal> ProcessingFees { get; set; }
         public int AcceptSummary { get; set; }
         public int FromAcc { get; set; }
-
+        // Sachin M added 28 Apr
+        public List<ApplicantModel> lstApp { get; set; }
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
@@ -106,13 +107,15 @@ namespace ShomaRM.Models
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 if (strlist[1] != "000000")
                 {
-                    var coappliList = db.tbl_Applicant.Where(pp => pp.TenantID == model.ProspectId && pp.Type != "Co-Applicant" ).ToList();
-                    if(coappliList!=null)
-                    {
-                        foreach(var coapp in coappliList)
+                    foreach (var coapp in model.lstApp)
+                    { //Added by Sachin M 28 Apr 7:26PM
+                        var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID==coapp.ApplicantID).FirstOrDefault();
+                        if (coappliList != null)
                         {
-                            coapp.Paid = 1;
+
+                            coappliList.Paid = 1;
                             db.SaveChanges();
+
                         }
                     }
 
@@ -149,7 +152,7 @@ namespace ShomaRM.Models
                     var saveTransaction = new tbl_Transaction()
                     {
 
-                        TenantID = Convert.ToInt64(GetProspectData.UserId),
+                        TenantID =ShomaGroupWebSession.CurrentUser.UserID,
                         Revision_Num = 1,
                         Transaction_Type = "1",
                         Transaction_Date = DateTime.Now,
@@ -253,16 +256,26 @@ namespace ShomaRM.Models
                 String[] spearator = { "|" };
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 string bat = "";
-                if(model.FromAcc != 3)
-                {
-                    bat = model.AID.ToString();
-                }
-                else
-                {
-                    bat = "1";
-                }
+               
                 if (strlist[1] != "000000")
                 {
+                    if (model.FromAcc != 3)
+                    {
+                        bat = model.AID.ToString();
+                        //Added by Sachin M 28 Apr 8:28PM
+                        var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID == model.AID).FirstOrDefault();
+                        if (coappliList != null)
+                        {
+
+                            coappliList.Paid = 1;
+                            db.SaveChanges();
+
+                        }
+                    }
+                    else
+                    {
+                        bat = "1";
+                    }
                     long paid = 0;
                     var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId && P.ApplicantID == model.AID).FirstOrDefault();
                     if (GetPayDetails == null)

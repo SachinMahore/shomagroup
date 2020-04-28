@@ -68,6 +68,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     OtherGender = model.OtherGender,
                     Paid=0,
                 };
+                db.tbl_Applicant.Add(saveApplicant);
+                db.SaveChanges();
 
                 var mainappdet = db.tbl_ApplyNow.Where(c => c.ID == model.TenantID).FirstOrDefault();
                 string pass = "";
@@ -187,8 +189,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     }
                 }
 
-                db.tbl_Applicant.Add(saveApplicant);
-                db.SaveChanges();
+               
 
                 msg = "Applicant Saved Successfully";
             }
@@ -388,6 +389,21 @@ namespace ShomaRM.Areas.Tenant.Models
                 if (appliData != null)
                 {
                     db.tbl_Applicant.Remove(appliData);
+                    db.SaveChanges();
+                  
+                }
+
+                var tenData = db.tbl_Applicant.Where(p => p.ApplicantID == AID).FirstOrDefault();
+                if (tenData != null)
+                {
+                    db.tbl_Applicant.Remove(tenData);
+                    db.SaveChanges();
+                   
+                }
+                var logData = db.tbl_Applicant.Where(p => p.ApplicantID == AID).FirstOrDefault();
+                if (logData != null)
+                {
+                    db.tbl_Applicant.Remove(logData);
                     db.SaveChanges();
                     msg = "Applicant Removed Successfully";
                 }

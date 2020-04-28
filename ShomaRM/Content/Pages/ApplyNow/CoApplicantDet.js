@@ -2187,6 +2187,7 @@ function savePayment() {
         BankName: bankName,
         PaymentMethod: paymentMethod,
         AcceptSummary: isSummarychecked,
+        lstApp: addApplicntArray,
     };
     $.alert({
         title: "",
@@ -3129,12 +3130,7 @@ var getTransationLists = function (userid) {
                 paidamt += parseFloat(elementValue.Charge_Amount);
             });
 
-            setTimeout(function () {
-                if (paidamt == totpaid && totpaid > 0) {
-                    $("#carddetails").addClass("hidden");
-                    $("#getting-startedTimeRemainingClock").addClass("hidden");
-                }
-            }, 1500);
+          
         }
     });
 }
@@ -3873,7 +3869,7 @@ var saveupdateApplicant = function () {
 
 }
 var totpaid = 0;
-
+var addApplicntArray = [];
 var getApplicantLists = function () {
     var model = {
 
@@ -3955,7 +3951,7 @@ var getApplicantLists = function () {
                         "</div >" +
                         "</td></tr>";
                 }
-                if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
+                if ( elementValue.Type == "Co-Applicant" ) {
                     if (elementValue.Paid == "0") {
                         if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
                             totpaid += parseFloat(applicantFees);
@@ -3966,18 +3962,15 @@ var getApplicantLists = function () {
                     }
 
                     if (elementValue.Paid == "0") {
-                        if (elementValue.Type == "Co-Applicant") {
-                            totalFinalFees += parseFloat(applicantFees);
+                      
+                        totalFinalFees += parseFloat(applicantFees);
+                            addApplicntArray.push({ ApplicantID: elementValue.ApplicantID });
                             pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + applicantFees + "</td><td style='width:14%; padding:6px;'></td><td></td></tr>";
-                        }
+                       
                     } else {
-                        if (elementValue.Type == "Primary Applicant") {
-                            pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + applicantFees + "</td><td style='width:14%; padding:6px;text-align: center;'>Paid</td><td></td></tr>";
-                        } else if (elementValue.Type == "Guarantor") {
-                            pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + guarantorFees + "</td><td style='width:14%; padding:6px;text-align: center;'>Paid</td><td></td></tr>";
-                        } else {
+                      
                             pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + applicantFees + "</td><td style='width:14%; padding:6px;'>Paid</td><td></td></tr>";
-                        }
+                        
                     }
                 }
                 if (elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
