@@ -2187,7 +2187,7 @@ function savePayment() {
         BankName: bankName,
         PaymentMethod: paymentMethod,
         AcceptSummary: isSummarychecked,
-        lstApp: addApplicntArray,
+        AID: addApplicntArray,
     };
     $.alert({
         title: "",
@@ -2198,7 +2198,7 @@ function savePayment() {
                 text: 'Yes',
                 action: function (yes) {
                     $.ajax({
-                        url: "/ApplyNow/SavePaymentDetails/",
+                        url: "/ApplyNow/SaveCoGuPaymentDetails/",
                         type: "post",
                         contentType: "application/json utf-8",
                         data: JSON.stringify(model),
@@ -3869,7 +3869,7 @@ var saveupdateApplicant = function () {
 
 }
 var totpaid = 0;
-var addApplicntArray = [];
+var addApplicntArray = 0;
 var getApplicantLists = function () {
     var model = {
 
@@ -3964,7 +3964,7 @@ var getApplicantLists = function () {
                     if (elementValue.Paid == "0") {
                       
                         totalFinalFees += parseFloat(applicantFees);
-                            addApplicntArray.push({ ApplicantID: elementValue.ApplicantID });
+                            addApplicntArray = elementValue.ApplicantID ;
                             pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + applicantFees + "</td><td style='width:14%; padding:6px;'></td><td></td></tr>";
                        
                     } else {
@@ -4969,7 +4969,7 @@ var saveupdateTenantOnline = function (stepcompleted) {
     }
 
     $.ajax({
-        url: '/ApplyNow/SaveTenantOnline',
+        url: '/ApplyNow/SaveCoGuTenantOnline',
         type: 'post',
         data: $formData,
         contentType: 'application/json; charset=utf-8',

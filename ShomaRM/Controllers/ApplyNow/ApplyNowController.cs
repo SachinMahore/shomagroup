@@ -151,6 +151,17 @@ namespace ShomaRM.Controllers
                 return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult SaveCoGuPaymentDetails(ApplyNowModel model)
+        {
+            try
+            {
+                return Json(new { Msg = (new ApplyNowModel().SaveCoGuPaymentDetails(model)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         public ActionResult saveCoAppPayment(ApplyNowModel model)
         {
             try
@@ -287,7 +298,17 @@ namespace ShomaRM.Controllers
                 return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-
+        public ActionResult SaveCoGuTenantOnline(TenantOnlineModel model)
+        {
+            try
+            {
+                return Json(new { msg = (new TenantOnlineModel().SaveCoGuTenantOnline(model)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         public ActionResult GetTenantOnlineList(int id)
         {
             try

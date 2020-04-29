@@ -147,8 +147,6 @@
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_ApplicantHistory" Width="1.5" PointX="19.375" PointY="14.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_EmployerHistory" Width="1.5" PointX="9.375" PointY="20.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Login" Width="1.5" PointX="0.75" PointY="82" />
-        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_TenantOnline" Width="1.5" PointX="23" PointY="68.125" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_ChargeType_tbl_Login" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_DocumentVerification_tbl_Login" />
@@ -170,6 +168,8 @@
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login3" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Vendor_tbl_Login" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_BackgroundScreening" Width="1.5" PointX="5.375" PointY="10.75" />
+        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_TenantOnline" Width="1.5" PointX="23" PointY="68" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

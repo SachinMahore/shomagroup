@@ -682,62 +682,7 @@ namespace ShomaRM.Models
                         db.SaveChanges();
                     }
                 }
-                if(model.StepCompleted==10)
-                {
-                    string reportHTML = "";
-                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
-                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
-                    string phonenumber = applyNow.Phone;
-                    if (model != null)
-                    {
-                        reportHTML = reportHTML.Replace("[%EmailHeader%]", "Co-applicant ("+model.FirstName+" "+ model.LastName+") has started the application");
-                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Co-applicant (" + model.FirstName + " " + model.LastName + ") has started the application on " + DateTime.Now + "</p>");
-
-                        reportHTML = reportHTML.Replace("[%TenantName%]", applyNow.FirstName + " " + applyNow.LastName);
-                        reportHTML = reportHTML.Replace("[%TenantAddress%]", applyNow.Address);
-                        reportHTML = reportHTML.Replace("[%LeaseStartDate%]", DateTime.Now.ToString());
-                        reportHTML = reportHTML.Replace("[%LeaseEndDate%]", DateTime.Now.AddMonths(13).ToString());
-                        reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
-                    
-                        reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
-
-                        message = "Co-applicant (" + model.FirstName + " " + model.LastName + ") has started the application";
-                    }
-                    string body = reportHTML;
-                    new EmailSendModel().SendEmail(applyNow.Email, "Co-applicant (" + model.FirstName + " " + model.LastName + ") has started the application", body);
-                    if (SendMessage == "yes")
-                    {
-                        new TwilioService().SMS(phonenumber, message);
-                    }
-                }
-                if (model.StepCompleted == 13)
-                {
-                    string reportHTML = "";
-                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
-                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
-                    string phonenumber = applyNow.Phone;
-                    if (model != null)
-                    {
-                        reportHTML = reportHTML.Replace("[%EmailHeader%]", "Co-applicant (" + model.FirstName + " " + model.LastName + ") has Finished the application");
-                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Co-applicant (" + model.FirstName + " " + model.LastName + ") has finished the application on "+DateTime.Now+"</p>");
-
-                        reportHTML = reportHTML.Replace("[%TenantName%]", applyNow.FirstName + " " + applyNow.LastName);
-                        reportHTML = reportHTML.Replace("[%TenantAddress%]", applyNow.Address);
-                        reportHTML = reportHTML.Replace("[%LeaseStartDate%]", DateTime.Now.ToString());
-                        reportHTML = reportHTML.Replace("[%LeaseEndDate%]", DateTime.Now.AddMonths(13).ToString());
-                        reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
-
-                        reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
-
-                        message = "Co-applicant (" + model.FirstName + " " + model.LastName + ") has started the application";
-                    }
-                    string body = reportHTML;
-                    new EmailSendModel().SendEmail(applyNow.Email, "Co-applicant (" + model.FirstName + " " + model.LastName + ") has Finished the application", body);
-                    if (SendMessage == "yes")
-                    {
-                        new TwilioService().SMS(phonenumber, message);
-                    }
-                }
+             
                 var saveApplicantGender = db.tbl_Applicant.Where(p => p.Email == model.Email).FirstOrDefault();
                 if (saveApplicantGender != null)
                 {
@@ -746,6 +691,208 @@ namespace ShomaRM.Models
                     saveApplicantGender.OtherGender = model.OtherGender;
                     saveApplicantGender.Relationship = "1";
                     db.SaveChanges();
+                }
+
+                msg = "Applicant Updated Successfully";
+            }
+
+
+            db.Dispose();
+            return msg;
+
+        }
+        //Sachin Mahore 28 Apr 2020
+        public string SaveCoGuTenantOnline(TenantOnlineModel model)
+        {
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            if (model.ProspectID != 0)
+            {
+                var applyNow = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectID).FirstOrDefault();
+                var getAppldata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID && p.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
+                if (getAppldata != null)
+                {
+                    getAppldata.IsInternational = model.IsInternational;
+                    getAppldata.IsAdditionalRHistory = model.IsAdditionalRHistory;
+                    getAppldata.FirstName = model.FirstName;
+                    getAppldata.MiddleInitial = model.MiddleInitial;
+                    getAppldata.LastName = model.LastName;
+                    getAppldata.DateOfBirth = model.DateOfBirth;
+                    getAppldata.Gender = model.Gender;
+                    getAppldata.Email = model.Email;
+                    getAppldata.Mobile = model.Mobile;
+                    //getAppldata.PassportNumber = model.PassportNumber;
+                    getAppldata.CountryIssuance = model.CountryIssuance;
+                    getAppldata.DateIssuance = model.DateIssuance;
+                    getAppldata.DateExpire = model.DateExpire;
+                    getAppldata.IDType = model.IDType;
+                    getAppldata.State = model.State;
+                    // getAppldata.IDNumber = model.IDNumber;
+                    getAppldata.Country = model.Country;
+                    getAppldata.HomeAddress1 = model.HomeAddress1;
+                    getAppldata.HomeAddress2 = model.HomeAddress2;
+                    getAppldata.StateHome = model.StateHome;
+                    getAppldata.CityHome = model.CityHome;
+                    getAppldata.ZipHome = model.ZipHome;
+                    getAppldata.RentOwn = model.RentOwn;
+                    if (model.MoveInDateFrom > Convert.ToDateTime("01/01/0001 12:00:00 AM"))
+                    {
+                        getAppldata.MoveInDateFrom = model.MoveInDateFrom;
+                        //getAppldata.MoveInDateTo = model.MoveInDateTo;
+                    }
+                    getAppldata.MonthlyPayment = model.MonthlyPayment;
+                    getAppldata.Reason = model.Reason;
+
+
+                    getAppldata.EmployerName = model.EmployerName;
+                    getAppldata.JobTitle = model.JobTitle;
+                    getAppldata.JobType = model.JobType;
+                    getAppldata.StartDate = model.StartDate;
+                    getAppldata.Income = model.Income;
+                    getAppldata.AdditionalIncome = model.AdditionalIncome;
+                    getAppldata.SupervisorName = model.SupervisorName;
+                    getAppldata.SupervisorPhone = model.SupervisorPhone;
+                    getAppldata.SupervisorEmail = model.SupervisorEmail;
+                    getAppldata.OfficeCountry = model.OfficeCountry;
+                    getAppldata.OfficeAddress1 = model.OfficeAddress1;
+                    getAppldata.OfficeAddress2 = model.OfficeAddress2;
+                    getAppldata.OfficeState = model.OfficeState;
+                    getAppldata.OfficeCity = model.OfficeCity;
+                    getAppldata.OfficeZip = model.OfficeZip;
+                    getAppldata.Relationship = model.Relationship;
+                    getAppldata.EmergencyFirstName = model.EmergencyFirstName;
+                    getAppldata.EmergencyLastName = model.EmergencyLastName;
+                    getAppldata.EmergencyMobile = model.EmergencyMobile;
+                    getAppldata.EmergencyHomePhone = model.EmergencyHomePhone;
+                    getAppldata.EmergencyWorkPhone = model.EmergencyWorkPhone;
+                    getAppldata.EmergencyEmail = model.EmergencyEmail;
+                    getAppldata.EmergencyCountry = model.EmergencyCountry;
+                    getAppldata.EmergencyAddress1 = model.EmergencyAddress1;
+                    getAppldata.EmergencyAddress2 = model.EmergencyAddress2;
+                    getAppldata.EmergencyStateHome = model.EmergencyStateHome;
+                    getAppldata.EmergencyCityHome = model.EmergencyCityHome;
+                    getAppldata.EmergencyZipHome = model.EmergencyZipHome;
+                    getAppldata.CreatedDate = DateTime.Now.Date;
+                    getAppldata.OtherGender = model.OtherGender;
+                    // getAppldata.SSN = model.SSN;
+                    getAppldata.TaxReturn = model.TaxReturn;
+                    getAppldata.TaxReturn2 = model.TaxReturn2;
+                    getAppldata.TaxReturn3 = model.TaxReturn3;
+                    getAppldata.PassportDocument = model.PassportDocument;
+                    getAppldata.IdentityDocument = model.IdentityDocument;
+                    getAppldata.TaxReturnOrginalFile = model.UploadOriginalFileName1;
+                    getAppldata.TaxReturnOrginalFile2 = model.UploadOriginalFileName2;
+                    getAppldata.TaxReturnOrginalFile3 = model.UploadOriginalFileName3;
+                    getAppldata.PassportDocumentOriginalFile = model.UploadOriginalPassportName;
+                    getAppldata.IdentityDocumentOriginalFile = model.UploadOriginalIdentityName;
+                    getAppldata.IsPaystub = model.IsPaystub;
+                    getAppldata.CountryOfOrigin = model.CountryOfOrigin;
+                    getAppldata.Evicted = model.Evicted;
+                    getAppldata.EvictedDetails = model.EvictedDetails;
+                    getAppldata.ConvictedFelony = model.ConvictedFelony;
+                    getAppldata.ConvictedFelonyDetails = model.ConvictedFelonyDetails;
+                    getAppldata.CriminalChargPen = model.CriminalChargPen;
+                    getAppldata.CriminalChargPenDetails = model.CriminalChargPenDetails;
+                    getAppldata.DoYouSmoke = model.DoYouSmoke;
+                    getAppldata.ReferredResident = model.ReferredResident;
+                    getAppldata.ReferredResidentName = model.ReferredResidentName;
+                    getAppldata.ReferredBrokerMerchant = model.ReferredBrokerMerchant;
+                    getAppldata.ApartmentCommunity = model.ApartmentCommunity;
+                    getAppldata.ManagementCompany = model.ManagementCompany;
+                    getAppldata.ManagementCompanyPhone = model.ManagementCompanyPhone;
+                    getAppldata.IsProprNoticeLeaseAgreement = model.IsProprNoticeLeaseAgreement;
+
+
+                    if (model.StepCompleted == 10)
+                    {
+                        if (getAppldata.StepCompleted == null)
+                        {
+                            getAppldata.StepCompleted = 10;
+                            string reportHTML = "";
+                            string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                            reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                            string phonenumber = applyNow.Phone;
+                            if (model != null)
+                            {
+                                reportHTML = reportHTML.Replace("[%EmailHeader%]", "Co-applicant (" + model.FirstName + " " + model.LastName + ") has started the application");
+                                reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Co-applicant (" + model.FirstName + " " + model.LastName + ") has started the application on " + DateTime.Now + "</p>");
+
+                                reportHTML = reportHTML.Replace("[%TenantName%]", applyNow.FirstName + " " + applyNow.LastName);
+                                reportHTML = reportHTML.Replace("[%TenantAddress%]", applyNow.Address);
+                                reportHTML = reportHTML.Replace("[%LeaseStartDate%]", DateTime.Now.ToString());
+                                reportHTML = reportHTML.Replace("[%LeaseEndDate%]", DateTime.Now.AddMonths(13).ToString());
+                                reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
+
+                                reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+
+                                message = "Co-applicant (" + model.FirstName + " " + model.LastName + ") has started the application";
+                            }
+                            string body = reportHTML;
+                            new EmailSendModel().SendEmail(applyNow.Email, "Co-applicant (" + model.FirstName + " " + model.LastName + ") has started the application", body);
+                            if (SendMessage == "yes")
+                            {
+                                new TwilioService().SMS(phonenumber, message);
+                            }
+                        }
+                    }
+                    if (model.StepCompleted == 17)
+                    {
+                        getAppldata.StepCompleted = 17;
+                        string reportHTML = "";
+                        string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                        reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                        string phonenumber = applyNow.Phone;
+                        if (model != null)
+                        {
+                            reportHTML = reportHTML.Replace("[%EmailHeader%]", "Co-applicant (" + model.FirstName + " " + model.LastName + ") has Finished the application");
+                            reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Co-applicant (" + model.FirstName + " " + model.LastName + ") has finished the application on " + DateTime.Now + "</p>");
+
+                            reportHTML = reportHTML.Replace("[%TenantName%]", applyNow.FirstName + " " + applyNow.LastName);
+                            reportHTML = reportHTML.Replace("[%TenantAddress%]", applyNow.Address);
+                            reportHTML = reportHTML.Replace("[%LeaseStartDate%]", DateTime.Now.ToString());
+                            reportHTML = reportHTML.Replace("[%LeaseEndDate%]", DateTime.Now.AddMonths(13).ToString());
+                            reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
+
+                            reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+
+                            message = "Co-applicant (" + model.FirstName + " " + model.LastName + ") has started the application";
+                        }
+                        string body = reportHTML;
+                        new EmailSendModel().SendEmail(applyNow.Email, "Co-applicant (" + model.FirstName + " " + model.LastName + ") has Finished the application", body);
+                        if (SendMessage == "yes")
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
+                    }
+
+
+                    db.SaveChanges();
+                    
+                    //if (applyNow != null)
+                    //{
+                    //    int stepcomp = 0;
+                    //    stepcomp = applyNow.StepCompleted ?? 0;
+                    //    if (stepcomp < model.StepCompleted)
+                    //    {
+                    //        stepcomp = model.StepCompleted;
+                    //    }
+                    //    applyNow.StepCompleted = stepcomp;
+                    //    db.SaveChanges();
+                    //}
+
+                }
+              
+                var saveApplicantGender = db.tbl_Applicant.Where(p => p.Email == model.Email).FirstOrDefault();
+                if (saveApplicantGender != null)
+                {
+                   
+                    saveApplicantGender.DateOfBirth = model.DateOfBirth;
+                    saveApplicantGender.Gender = model.Gender;
+                    saveApplicantGender.OtherGender = model.OtherGender;
+                    saveApplicantGender.Relationship = "1";
+                    db.SaveChanges();
+
                 }
 
                 msg = "Applicant Updated Successfully";
