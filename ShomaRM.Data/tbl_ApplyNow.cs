@@ -24,9 +24,7 @@ namespace ShomaRM.Data
             this.tbl_TenantStorage = new HashSet<tbl_TenantStorage>();
             this.tbl_Vehicle = new HashSet<tbl_Vehicle>();
             this.tbl_TenantOnline = new HashSet<tbl_TenantOnline>();
-
             this.tbl_TenantPet = new HashSet<tbl_TenantPet>();
-
         }
     
         public long ID { get; set; }
@@ -87,9 +85,7 @@ namespace ShomaRM.Data
         public virtual ICollection<tbl_Vehicle> tbl_Vehicle { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_TenantOnline> tbl_TenantOnline { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_TenantPet> tbl_TenantPet { get; set; }
-
     }
 }

@@ -110,10 +110,7 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_EmployerHistory> tbl_EmployerHistory { get; set; }
         public virtual DbSet<tbl_Login> tbl_Login { get; set; }
         public virtual DbSet<tbl_BackgroundScreening> tbl_BackgroundScreening { get; set; }
-
         public virtual DbSet<tbl_TenantOnline> tbl_TenantOnline { get; set; }
-
         public virtual DbSet<tbl_TenantPet> tbl_TenantPet { get; set; }
-
     }
 }

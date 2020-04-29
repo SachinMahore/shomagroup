@@ -1418,8 +1418,8 @@
           <Property Name="VetsName" Type="varchar" MaxLength="500" />
           <Property Name="OriginalPhoto" Type="varchar" MaxLength="500" />
           <Property Name="OriginalVaccinationCert" Type="varchar" MaxLength="500" />
-          <Property Name="UniqID" Type="varchar" MaxLength="50" />
           <Property Name="ExpiryDate" Type="datetime" />
+          <Property Name="UniqID" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tbl_TenantPetPlace">
           <Key>
@@ -3308,17 +3308,15 @@
             <End Role="tbl_Vendor" EntitySet="tbl_Vendor" />
           </AssociationSet>
           <EntitySet Name="tbl_BackgroundScreening" EntityType="ShomaRMEntitiesModel.tbl_BackgroundScreening" />
-
           <EntitySet Name="tbl_TenantOnline" EntityType="ShomaRMEntitiesModel.tbl_TenantOnline" />
           <AssociationSet Name="FK_tbl_TenantOnline_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow">
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_TenantOnline" EntitySet="tbl_TenantOnline" />
-
+          </AssociationSet>
           <EntitySet Name="tbl_TenantPet" EntityType="ShomaRMEntitiesModel.tbl_TenantPet" />
           <AssociationSet Name="FK_tbl_TenantPet_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantPet_tbl_ApplyNow">
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_TenantPet" EntitySet="tbl_TenantPet" />
-
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="tbl_AcutraqScrenning">
@@ -5839,7 +5837,6 @@
           <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PDFUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-
         <EntityType Name="tbl_TenantOnline">
           <Key>
             <PropertyRef Name="ID" />
@@ -5951,7 +5948,15 @@
         <Association Name="FK_tbl_TenantOnline_tbl_ApplyNow">
           <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
           <End Type="ShomaRMEntitiesModel.tbl_TenantOnline" Role="tbl_TenantOnline" Multiplicity="*" />
-
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_TenantOnline">
+              <PropertyRef Name="ProspectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="tbl_TenantPet">
           <Key>
             <PropertyRef Name="PetID" />
@@ -5968,25 +5973,19 @@
           <Property Name="VetsName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="OriginalPhoto" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="OriginalVaccinationCert" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="UniqID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
+          <Property Name="UniqID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantPet_tbl_ApplyNow" FromRole="tbl_TenantPet" ToRole="tbl_ApplyNow" />
         </EntityType>
         <Association Name="FK_tbl_TenantPet_tbl_ApplyNow">
           <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
           <End Type="ShomaRMEntitiesModel.tbl_TenantPet" Role="tbl_TenantPet" Multiplicity="*" />
-
           <ReferentialConstraint>
             <Principal Role="tbl_ApplyNow">
               <PropertyRef Name="ID" />
             </Principal>
-
-            <Dependent Role="tbl_TenantOnline">
-              <PropertyRef Name="ProspectID" />
-
             <Dependent Role="tbl_TenantPet">
               <PropertyRef Name="TenantID" />
-
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7655,24 +7654,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-
-          <EntitySetMapping Name="tbl_BackgroundScreening">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_BackgroundScreening">
-              <MappingFragment StoreEntitySet="tbl_BackgroundScreening">
-                <ScalarProperty Name="PDFUrl" ColumnName="PDFUrl" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_TenantPet">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantPet">
               <MappingFragment StoreEntitySet="tbl_TenantPet">
-                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
                 <ScalarProperty Name="UniqID" ColumnName="UniqID" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
                 <ScalarProperty Name="OriginalVaccinationCert" ColumnName="OriginalVaccinationCert" />
                 <ScalarProperty Name="OriginalPhoto" ColumnName="OriginalPhoto" />
                 <ScalarProperty Name="VetsName" ColumnName="VetsName" />
@@ -7688,7 +7674,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
