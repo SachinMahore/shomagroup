@@ -58,7 +58,8 @@ namespace ShomaRM.Models
         public Nullable<decimal> ProcessingFees { get; set; }
         public int AcceptSummary { get; set; }
         public int FromAcc { get; set; }
-
+        // Sachin M added 28 Apr
+        public List<ApplicantModel> lstApp { get; set; }
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
@@ -106,13 +107,15 @@ namespace ShomaRM.Models
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 if (strlist[1] != "000000")
                 {
-                    var coappliList = db.tbl_Applicant.Where(pp => pp.TenantID == model.ProspectId && pp.Type != "Co-Applicant" ).ToList();
-                    if(coappliList!=null)
-                    {
-                        foreach(var coapp in coappliList)
+                    foreach (var coapp in model.lstApp)
+                    { //Added by Sachin M 28 Apr 7:26PM
+                        var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID==coapp.ApplicantID).FirstOrDefault();
+                        if (coappliList != null)
                         {
-                            coapp.Paid = 1;
+
+                            coappliList.Paid = 1;
                             db.SaveChanges();
+
                         }
                     }
 
@@ -149,7 +152,7 @@ namespace ShomaRM.Models
                     var saveTransaction = new tbl_Transaction()
                     {
 
-                        TenantID = Convert.ToInt64(GetProspectData.UserId),
+                        TenantID =ShomaGroupWebSession.CurrentUser.UserID,
                         Revision_Num = 1,
                         Transaction_Type = "1",
                         Transaction_Date = DateTime.Now,
@@ -218,6 +221,158 @@ namespace ShomaRM.Models
             db.Dispose();
             return msg;
         }
+        public string SaveCoGuPaymentDetails(ApplyNowModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string msg = "";
+
+            if (model.PID != 0)
+            {
+                var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
+                var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId).FirstOrDefault();
+                var GetPropertyDetails = db.tbl_Properties.Where(P => P.PID == 8).FirstOrDefault();
+
+                decimal processingFees = 0;
+
+                if (GetPropertyDetails != null)
+                {
+                    processingFees = GetPropertyDetails.ProcessingFees ?? 0;
+                }
+
+                string encrytpedCardNumber = new EncryptDecrypt().EncryptText(model.CardNumber);
+                string encrytpedCardMonth = new EncryptDecrypt().EncryptText(model.CardMonth);
+                string encrytpedCardYear = new EncryptDecrypt().EncryptText(model.CardYear);
+                string encrytpedRoutingNumber = new EncryptDecrypt().EncryptText(model.CCVNumber);
+
+                string decryptedPayemntCardNumber = new EncryptDecrypt().DecryptText(encrytpedCardNumber);
+
+                string transStatus = "";
+                model.Email = GetProspectData.Email;
+                model.ProcessingFees = processingFees;
+                if (model.PaymentMethod == 2)
+                {
+
+                    transStatus = new UsaePayModel().ChargeCard(model);
+                }
+                else if (model.PaymentMethod == 1)
+                {
+
+                    transStatus = new UsaePayModel().ChargeACH(model);
+                }
+
+                String[] spearator = { "|" };
+                String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
+                if (strlist[1] != "000000")
+                {
+                    //Added by Sachin M 29 Apr 5:16PM
+                   
+                    if (GetPayDetails != null)
+                    {
+                        GetPayDetails.Name_On_Card = model.Name_On_Card;
+                        GetPayDetails.CardNumber = encrytpedCardNumber;
+                        GetPayDetails.CardMonth = encrytpedCardMonth;
+                        GetPayDetails.CardYear = encrytpedCardYear;
+                        GetPayDetails.CCVNumber = encrytpedRoutingNumber;
+                        GetPayDetails.ProspectId = model.ProspectId;
+                        GetPayDetails.PaymentMethod = model.PaymentMethod;
+                        GetPayDetails.ApplicantID = 0;
+                        db.SaveChanges();
+
+                    }
+                    else
+                    {
+                        var savePaymentDetails = new tbl_OnlinePayment()
+                        {
+                            PID = model.PID,
+                            Name_On_Card = model.Name_On_Card,
+                            CardNumber = !string.IsNullOrWhiteSpace(model.CardNumber) ? new EncryptDecrypt().EncryptText(model.CardNumber) : "",
+                            CardMonth = !string.IsNullOrWhiteSpace(model.CardMonth) ? new EncryptDecrypt().EncryptText(model.CardMonth) : "",
+                            CardYear = !string.IsNullOrWhiteSpace(model.CardYear) ? new EncryptDecrypt().EncryptText(model.CardYear) : "",
+                            CCVNumber = !string.IsNullOrWhiteSpace(model.CCVNumber) ? new EncryptDecrypt().EncryptText(model.CCVNumber) : "",
+                            ProspectId = model.ProspectId,
+                            PaymentMethod = model.PaymentMethod,
+                            ApplicantID = model.AID,
+                        };
+                        db.tbl_OnlinePayment.Add(savePaymentDetails);
+                        db.SaveChanges();
+                    }
+                    var saveTransaction = new tbl_Transaction()
+                    {
+
+                        TenantID = ShomaGroupWebSession.CurrentUser.UserID,
+                        Revision_Num = 1,
+                        Transaction_Type = "1",
+                        Transaction_Date = DateTime.Now,
+                        Run = 1,
+                        LeaseID = 0,
+                        Reference = "PID" + model.ProspectId,
+                        CreatedDate = DateTime.Now,
+                        Credit_Amount = model.Charge_Amount,
+                        Description = model.Description + "| TransID: " + strlist[1],
+                        Charge_Date = DateTime.Now,
+                        Charge_Type = 1,
+
+                        Authcode = strlist[1],
+                        Charge_Amount = model.Charge_Amount,
+                        Miscellaneous_Amount = processingFees,
+                        Accounting_Date = DateTime.Now,
+
+                        Batch = "1",
+                        Batch_Source = "",
+                        CreatedBy = Convert.ToInt32(GetProspectData.UserId),
+                        GL_Trans_Description = transStatus.ToString(),
+                        ProspectID = 0,
+                    };
+                    db.tbl_Transaction.Add(saveTransaction);
+                    db.SaveChanges();
+
+                    var TransId = saveTransaction.TransID;
+                    MyTransactionModel mm = new MyTransactionModel();
+                    mm.CreateTransBill(TransId, Convert.ToDecimal(model.Charge_Amount), model.Description);
+
+                    var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID == model.AID).FirstOrDefault();
+                    if (coappliList != null)
+                    {
+
+                        coappliList.Paid = 1;
+                        db.SaveChanges();
+
+                    }
+                    string reportHTML = "";
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    string message = "";
+                    string phonenumber = coappliList.Phone;
+                    if (model != null)
+                    {
+                        reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Completed and Payment Received");
+                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Thank you for signing and submitting your application.  This email confirms that we have received your online application fees payment.  Please save this email for your personal records.  Your application is being processed, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p><p style='font-size: 14px;font-style:italic; line-height: 21px; text-align: justify; margin: 0;'><br/><br/>*Application fees are non-refundable, even if the application is denied, except to the extent otherwise required by applicable law. </p>");
+
+                        reportHTML = reportHTML.Replace("[%TenantName%]", coappliList.FirstName + " " + coappliList.LastName);
+
+                        reportHTML = reportHTML.Replace("[%TenantEmail%]", coappliList.Email);
+
+                    }
+                    string body = reportHTML;
+                    new EmailSendModel().SendEmail(coappliList.Email, "Application Completed and Payment Received", body);
+                    message = "Online Application Completed and Payment of $" + model.Charge_Amount + " Received. Please check the email for detail.";
+                    if (SendMessage == "yes")
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
+                    msg = "1";
+                }
+                else
+                {
+                    msg = "0";
+                }
+
+            }
+
+            db.Dispose();
+            return msg;
+        }
+
         public string saveCoAppPayment(ApplyNowModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -253,16 +408,26 @@ namespace ShomaRM.Models
                 String[] spearator = { "|" };
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 string bat = "";
-                if(model.FromAcc != 3)
-                {
-                    bat = model.AID.ToString();
-                }
-                else
-                {
-                    bat = "1";
-                }
+               
                 if (strlist[1] != "000000")
                 {
+                    if (model.FromAcc != 3)
+                    {
+                        bat = model.AID.ToString();
+                        //Added by Sachin M 28 Apr 8:28PM
+                        var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID == model.AID).FirstOrDefault();
+                        if (coappliList != null)
+                        {
+
+                            coappliList.Paid = 1;
+                            db.SaveChanges();
+
+                        }
+                    }
+                    else
+                    {
+                        bat = "1";
+                    }
                     long paid = 0;
                     var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId && P.ApplicantID == model.AID).FirstOrDefault();
                     if (GetPayDetails == null)
