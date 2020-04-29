@@ -94,6 +94,13 @@
     <Reference Include="itext.svg, Version=7.1.6.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\itext7.7.1.6\lib\net40\itext.svg.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="LoggerEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\LoggerEngine.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Graph, Version=1.21.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Graph.1.21.0\lib\net45\Microsoft.Graph.dll</HintPath>
@@ -2670,6 +2677,7 @@
     <Content Include="Areas\Admin\Views\FobManagement\AddEdit.cshtml" />
     <Content Include="Areas\Admin\Views\FobManagement\Index.cshtml" />
     <Content Include="Areas\Admin\Views\TenantPetManagement\Index.cshtml" />
+    <Content Include="Log4Net.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

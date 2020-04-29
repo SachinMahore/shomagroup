@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using ShomaRM.Data;
 using ShomaRM.Models;
+using LoggerEngine;
 
 namespace ShomaRM.Controllers
 {
@@ -57,6 +58,7 @@ namespace ShomaRM.Controllers
                 var user = db.tbl_Login.Where(p => p.Username == model.UserName && p.Password == encryptedPassword && p.IsActive == 1).FirstOrDefault();
                 if (user != null)
                 {
+                    LoggingHelper.LogMessage("Name Mahendra", System.Diagnostics.TraceLevel.Info);
 
                     SignIn(model.UserName, model.RememberMe);
                     // Set Current User
