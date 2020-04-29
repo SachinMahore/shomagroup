@@ -2179,6 +2179,7 @@ function savePayment() {
         BankName: bankName,
         PaymentMethod: paymentMethod,
         AcceptSummary: isSummarychecked,
+        AID: addApplicntArray,
     };
     $.alert({
         title: "",
@@ -2189,7 +2190,7 @@ function savePayment() {
                 text: 'Yes',
                 action: function (yes) {
                     $.ajax({
-                        url: "/ApplyNow/SavePaymentDetails/",
+                        url: "/ApplyNow/SaveCoGuPaymentDetails/",
                         type: "post",
                         contentType: "application/json utf-8",
                         data: JSON.stringify(model),
@@ -3865,7 +3866,7 @@ var saveupdateApplicant = function () {
 
 }
 var totpaid = 0;
-
+var addApplicntArray = 0;
 var getApplicantLists = function () {
     var model = {
 
@@ -3960,16 +3961,14 @@ var getApplicantLists = function () {
                     if (elementValue.Paid == "0") {
                         if (elementValue.Type == "Guarantor") {
                             totalFinalFees += parseFloat(guarantorFees);
+                            addApplicntArray = elementValue.ApplicantID;
                             pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + guarantorFees + "</td><td style='width:14%; padding:6px;'></td><td></td></tr>";
                         }
                     } else {
-                        if (elementValue.Type == "Primary Applicant") {
-                            pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + applicantFees + "</td><td style='width:14%; padding:6px;text-align: center;'>Paid</td><td></td></tr>";
-                        } else if (elementValue.Type == "Guarantor") {
+                      if (elementValue.Type == "Guarantor") {
                             pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + guarantorFees + "</td><td style='width:14%; padding:6px;text-align: center;'>Paid</td><td></td></tr>";
-                        } else {
-                            pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + applicantFees + "</td><td style='width:14%; padding:6px;'>Paid</td><td></td></tr>";
-                        }
+                            $("#carddetails").addClass("hidden");
+                        } 
                     }
                 }
                 if (elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
@@ -4968,7 +4967,7 @@ var saveupdateTenantOnline = function (stepcompleted) {
     }
 
     $.ajax({
-        url: '/ApplyNow/SaveTenantOnline',
+        url: '/ApplyNow/SaveCoGuTenantOnline',
         type: 'post',
         data: $formData,
         contentType: 'application/json; charset=utf-8',

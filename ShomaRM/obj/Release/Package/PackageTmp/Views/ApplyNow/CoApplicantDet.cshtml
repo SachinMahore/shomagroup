@@ -2325,7 +2325,7 @@
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">Vehicle Information </h3>
-                                        <button type="button" class="btn btn-primary pull-right hidden" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle"></i> Add</button>
+                                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle"></i> Add</button>
                                     </div>
                                     <div class="row hidden">
                                         <div class="col-sm-12">
@@ -2374,7 +2374,7 @@
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                     <div class="panel-heading">
                                         <h3 class="panel-title"> Pet Information</h3>
-                                        <button type="button" class="btn btn-primary pull-right hidden" data-toggle="modal" data-target="#popPet" id="btnAddPet"><i class="fa fa-plus-circle"></i> Add</button>
+                                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popPet" id="btnAddPet"><i class="fa fa-plus-circle"></i> Add</button>
                                         <input type="hidden" id="hndPetPlaceCount" value="0" />
                                     </div>
                                     <div class="row hidden">
@@ -3670,25 +3670,25 @@
                                 </p>
                             </div>
                             <div class="col-sm-12">
+                                <div>
+                                    <div class="col-sm-12"><b><label id="lblClientName"></label></b></div>
+                                    <table width="100%" id="tblPayment">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th>Online Application Fee</th>
+                                                <th style="text-align:center;"></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
 
+                                </div>
                                 <div id="carddetails" class="example_content">
                                     <div class="col-sm-12 table-bordered">
-                                        <div>
-                                            <div class="col-sm-12"><b><label id="lblClientName"></label></b></div>
-                                            <table width="100%" id="tblPayment">
-                                                <thead>
-                                                    <tr>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th>Online Application Fee</th>
-                                                        <th style="text-align:center;"></th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody></tbody>
-                                            </table>
 
-                                        </div>
 
                                     </div>
                                     <div class="col-sm-12">
@@ -3800,12 +3800,9 @@
                                 </div>
 
                                 <div class="col-sm-12 hidden" id="Divtranslist">
-                                    <br />
+
                                     <div class="col-sm-12">
-                                        <p>Transaction Details</p>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <table id="tblTransaction" class="table-bordered table-responsive" width="100%">
+                                        <table id="tblTransaction" class="table-bordered table-responsive hidden" width="100%">
                                             <thead>
                                                 <tr>
 
@@ -3842,20 +3839,14 @@
 
                             <div class="col-sm-12">
                                 <p><center><b>CONGRATULATIONS!!</b> You have completed your Online Application.</center></p>
-                                <h5> <center> What Next?</center></h5>
-                                <p>
-                                    Your Application has been saved waiting for Co-Applicant(s) to complete their application. Once all adult
-                                    tenants and guarantor (if applicable) have completed the application, the application is ready to be submitted.
-                                    Once we receive the completed application, we will notify you within 24 to 48 hours of the result. Once approved,
-                                    you will be directed to finalize your online lease and be given Move in procedures.
-                                </p>
-                                <div class="col-md-12 clear">
+
+                                <div class="col-md-12 clear hidden">
                                     <div id="tblApplicantFinal" class="proerty-th">
                                     </div>
                                 </div>
 
                             </div>
-                            <div class="col-sm-12 table-bordered" id="divFinalcoappemail">
+                            <div class="col-sm-12 table-bordered hidden" id="divFinalcoappemail">
                                 <div>
                                     <h5> <center> Now?</center></h5>
                                     <p>
