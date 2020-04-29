@@ -8579,62 +8579,47 @@ var makeid = function (length) {
 var ddlEverBeenEvictedFunction = function () {
     if ($('#ddlEverBeenEvicted').val() == '2') {
         $('#txtEverBeenEvictedDetails').val("");
-        $('#divEverBeenEvictedDetails').removeClass('hidden');
-        $('#ddlEverBeenConvicted').val("1");
-        $('#divEverBeenConvicted').removeClass('hidden');
-        $('#txtEverBeenConvictedDetails').val("");
-        $('#divEverBeenConvictedDetails').addClass('hidden');
-        $('#ddlAnyCriminalCharges').val("1");
-        $('#divAnyCriminalCharges').removeClass('hidden');
-        $('#txtAnyCriminalChargesDetails').val("");
-        $('#divAnyCriminalChargesDetails').addClass('hidden');
+        $('#txtEverBeenEvictedDetails').removeProp("disabled");
     }
     else if ($('#ddlEverBeenEvicted').val() == '1') {
         $('#txtEverBeenEvictedDetails').val("");
-        $('#divEverBeenEvictedDetails').addClass('hidden');
-        $('#ddlEverBeenConvicted').val("1");
-        $('#divEverBeenConvicted').addClass('hidden');
-        $('#txtEverBeenConvictedDetails').val("");
-        $('#divEverBeenConvictedDetails').addClass('hidden');
-        $('#ddlAnyCriminalCharges').val("1");
-        $('#divAnyCriminalCharges').addClass('hidden');
-        $('#txtAnyCriminalChargesDetails').val("");
-        $('#divAnyCriminalChargesDetails').addClass('hidden');
+        $('#txtEverBeenEvictedDetails').prop("disabled", "disabled");
     }
 };
 
 var ddlEverBeenConvictedFunction = function () {
     if ($('#ddlEverBeenConvicted').val() == '2') {
         $('#txtEverBeenConvictedDetails').val("");
-        $('#divEverBeenConvictedDetails').removeClass('hidden');
+        $('#txtEverBeenConvictedDetails').removeProp("disabled");
     }
     else if ($('#ddlEverBeenConvicted').val() == '1') {
         $('#txtEverBeenConvictedDetails').val("");
-        $('#divEverBeenConvictedDetails').addClass('hidden');
+        $('#txtEverBeenConvictedDetails').prop("disabled", "disabled");
     }
 };
 
 var ddlAnyCriminalChargesFunction = function () {
     if ($('#ddlAnyCriminalCharges').val() == '2') {
         $('#txtAnyCriminalChargesDetails').val("");
-        $('#divAnyCriminalChargesDetails').removeClass('hidden');
+        $('#txtAnyCriminalChargesDetails').removeProp("disabled");
     }
     else if ($('#ddlAnyCriminalCharges').val() == '1') {
         $('#txtAnyCriminalChargesDetails').val("");
-        $('#divAnyCriminalChargesDetails').addClass('hidden');
+        $('#txtAnyCriminalChargesDetails').prop("disabled", "disabled");
     }
 };
 
 var ddlReferredByAnotherResidentFunction = function () {
     if ($('#ddlReferredByAnotherResident').val() == '2') {
         $('#txtReferredByAnotherResidentName').val("");
-        $('#divReferredByAnotherResidentName').removeClass('hidden');
+        $('#txtReferredByAnotherResidentName').removeProp("disabled");
     }
     else if ($('#ddlReferredByAnotherResident').val() == '1') {
         $('#txtReferredByAnotherResidentName').val("");
-        $('#divReferredByAnotherResidentName').addClass('hidden');
+        $('#txtReferredByAnotherResidentName').prop("disabled", "disabled");
     }
 };
+
 
 var getPreviousAddressInfo = function (id) {
     $("#divLoaderFullData").show();

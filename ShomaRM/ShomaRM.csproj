@@ -297,6 +297,7 @@
     <Compile Include="Areas\Admin\Controllers\State\StateController.cs" />
     <Compile Include="Areas\Admin\Controllers\Storage\StorageController.cs" />
     <Compile Include="Areas\Admin\Controllers\TenantEventJoinApprove\TenantEventJoinApproveController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TenantPetManagement\TenantPetManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\Tenant\TenantController.cs" />
     <Compile Include="Areas\Admin\Controllers\Transaction\TransactionController.cs" />
     <Compile Include="Areas\Admin\Controllers\TwilioSMS\TwilioReceivedSMSController.cs" />
@@ -344,6 +345,7 @@
     <Compile Include="Areas\Admin\Models\State\StateModel.cs" />
     <Compile Include="Areas\Admin\Models\Storage\StorageModel.cs" />
     <Compile Include="Areas\Admin\Models\TenantEventJoinApprove\TenantEventJoinApproveModel.cs" />
+    <Compile Include="Areas\Admin\Models\TenantPetManagement\TenantPetManagementModel.cs" />
     <Compile Include="Areas\Admin\Models\Tenant\TenantModel.cs" />
     <Compile Include="Areas\Admin\Models\Transaction\TransactionModel.cs" />
     <Compile Include="Areas\Admin\Models\Users\UsersModel.cs" />
@@ -501,6 +503,7 @@
     <Content Include="Areas\Admin\Content\Pages\State\StateList.js" />
     <Content Include="Areas\Admin\Content\Pages\Storage\Storage.js" />
     <Content Include="Areas\Admin\Content\Pages\TenantEventJoinApprove\TenantEventJoinApprove.js" />
+    <Content Include="Areas\Admin\Content\Pages\TenantPetManagement\TenantPetManagementList_js.txt" />
     <Content Include="Areas\Admin\Content\Pages\Tenant\NewTenant.js" />
     <Content Include="Areas\Admin\Content\Pages\Transaction\Transaction.js" />
     <Content Include="Areas\Admin\Content\Pages\Transaction\TransactionList.js" />
@@ -2440,11 +2443,14 @@
     <Content Include="DatabaseChanges\24-04-2020\Add Column To Database.sql" />
     <Content Include="DatabaseChanges\24-04-2020\BackgroundScreening_Table.sql" />
     <Content Include="DatabaseChanges\24-04-2020\Stored Procedure Changes.sql" />
+    <Content Include="DatabaseChanges\28-04-2020\Add_Column_TenantPet.sql" />
+    <Content Include="DatabaseChanges\28-04-2020\usp_GetTenantPetPaginationAndSearchData.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="lib\USAePayAPI.dll" />
+    <Content Include="Log\Log.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\assets\fonts\fontawesome-webfont.eot" />
@@ -2663,6 +2669,7 @@
     <Content Include="Areas\Admin\Views\TwilioReceivedSMS\Index.cshtml" />
     <Content Include="Areas\Admin\Views\FobManagement\AddEdit.cshtml" />
     <Content Include="Areas\Admin\Views\FobManagement\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\TenantPetManagement\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

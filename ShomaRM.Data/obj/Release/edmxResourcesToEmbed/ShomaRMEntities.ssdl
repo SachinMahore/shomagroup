@@ -1412,6 +1412,8 @@
     <Property Name="VetsName" Type="varchar" MaxLength="500" />
     <Property Name="OriginalPhoto" Type="varchar" MaxLength="500" />
     <Property Name="OriginalVaccinationCert" Type="varchar" MaxLength="500" />
+    <Property Name="UniqID" Type="varchar" MaxLength="50" />
+    <Property Name="ExpiryDate" Type="datetime" />
   </EntityType>
   <EntityType Name="tbl_TenantPetPlace">
     <Key>

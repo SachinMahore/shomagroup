@@ -106,7 +106,8 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<decimal> PetDNAAmt { get; set; }
         public int LeaseTermID { get; set; }
         public Nullable<int> IsCheckSD { get; set; }
-        public Nullable<decimal> VehicleRegistration { get; set; } 
+        public Nullable<decimal> VehicleRegistration { get; set; }
+        public decimal MoveInChargesFMIT { get; set; }
 
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
@@ -786,7 +787,8 @@ namespace ShomaRM.Areas.Admin.Models
 
                     //model.MoveInDateTxt = "";
                     model.MoveInTime = "";
-                   // model.MoveInCharges = 0;
+                    // model.MoveInCharges = 0;
+                    model.MoveInChargesFMIT = 0;
                     model.IsCheckATT = 0;
                     model.IsCheckPO = 0;
                     model.IsCheckWater = 0;
@@ -798,7 +800,8 @@ namespace ShomaRM.Areas.Admin.Models
                     {
                         model.MoveInDateTxt = MoveInData.MoveInDate.HasValue ? MoveInData.MoveInDate.Value.ToString("MM/dd/yyyy") : "";
                         model.MoveInTime = MoveInData.MoveInTime;
-                       // model.MoveInCharges = MoveInData.MoveInCharges ?? 0;
+                        // model.MoveInCharges = MoveInData.MoveInCharges ?? 0;
+                        model.MoveInChargesFMIT = MoveInData.MoveInCharges ?? 0;
                         model.IsCheckATT = MoveInData.IsCheckATT ?? 0;
                         model.IsCheckPO = MoveInData.IsCheckPO ?? 0;
                         model.IsCheckWater = MoveInData.IsCheckWater ?? 0;

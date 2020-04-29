@@ -1179,24 +1179,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_TenantPet">
-      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantPet">
-        <MappingFragment StoreEntitySet="tbl_TenantPet">
-          <ScalarProperty Name="OriginalVaccinationCert" ColumnName="OriginalVaccinationCert" />
-          <ScalarProperty Name="OriginalPhoto" ColumnName="OriginalPhoto" />
-          <ScalarProperty Name="VetsName" ColumnName="VetsName" />
-          <ScalarProperty Name="PetName" ColumnName="PetName" />
-          <ScalarProperty Name="PetVaccinationCert" ColumnName="PetVaccinationCert" />
-          <ScalarProperty Name="Photo" ColumnName="Photo" />
-          <ScalarProperty Name="Age" ColumnName="Age" />
-          <ScalarProperty Name="Weight" ColumnName="Weight" />
-          <ScalarProperty Name="Breed" ColumnName="Breed" />
-          <ScalarProperty Name="PetType" ColumnName="PetType" />
-          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-          <ScalarProperty Name="PetID" ColumnName="PetID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_TenantPetPlace">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantPetPlace">
         <MappingFragment StoreEntitySet="tbl_TenantPetPlace">
@@ -1674,6 +1656,26 @@
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="TenantId" ColumnName="TenantId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_TenantPet">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantPet">
+        <MappingFragment StoreEntitySet="tbl_TenantPet">
+          <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+          <ScalarProperty Name="UniqID" ColumnName="UniqID" />
+          <ScalarProperty Name="OriginalVaccinationCert" ColumnName="OriginalVaccinationCert" />
+          <ScalarProperty Name="OriginalPhoto" ColumnName="OriginalPhoto" />
+          <ScalarProperty Name="VetsName" ColumnName="VetsName" />
+          <ScalarProperty Name="PetName" ColumnName="PetName" />
+          <ScalarProperty Name="PetVaccinationCert" ColumnName="PetVaccinationCert" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="Breed" ColumnName="Breed" />
+          <ScalarProperty Name="PetType" ColumnName="PetType" />
+          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+          <ScalarProperty Name="PetID" ColumnName="PetID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

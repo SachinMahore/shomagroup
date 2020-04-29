@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ShomaRM.ApiService;
 using ShomaRM.Models;
+using System.IO;
 
 namespace ShomaRM.Controllers
 {
@@ -34,10 +35,10 @@ namespace ShomaRM.Controllers
 
                 Service _Services = new Service();
                 string Attendees = "'attendees': [";
-                foreach(var item in GetProspectusList)
-                {
-                    Attendees = Attendees + "{ 'emailAddress': {'address':'" + item.EmailId + "','name': '" + item.FirstName + " " + item.LastName + "'},'type': 'required'},";
-                }
+                //foreach(var item in GetProspectusList)
+                //{
+                //    Attendees = Attendees + "{ 'emailAddress': {'address':'" + item.EmailId + "','name': '" + item.FirstName + " " + item.LastName + "'},'type': 'required'},";
+                //}
                 
                 Attendees = Attendees + "{ 'emailAddress': {'address':'" + model.EmailId + "','name': '" + model.FirstName + " " + model.LastName + "'},'type': 'required'}";
                 Attendees = Attendees + "]";
