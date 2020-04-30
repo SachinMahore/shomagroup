@@ -1265,12 +1265,12 @@ var goToStep = function (stepid, id, calldataupdate) {
                 if (!validateEmail($("#txtEmailNew").val())) {
                     msg += "Please Fill Valid Email </br>";
                 }
-            } 
+            }
             if (!unformatText($("#txtMobileNumber").val())) {
                 msg += "Please Fill The Mobile Number </br>";
             }
             else {
-                if ((unformatText($("#txtMobileNumber").val())).length<10) {
+                if ((unformatText($("#txtMobileNumber").val())).length < 10) {
                     msg += "Please enter 10 digit mobile number </br>";
                 }
             }
@@ -1295,13 +1295,15 @@ var goToStep = function (stepid, id, calldataupdate) {
                 if ($("#ddlCountryOfOrigin").val() == '0') {
                     msg += "Please select the country of origin</br>";
                 }
+            } else {
+                if ($("#ddlStatePersonal").val() == "0") {
+                    msg += "Please Select The State </br>";
+                }
             }
             if ($("#ddlDocumentTypePersonal").val() == "0") {
                 msg += "Please Select The Id Type </br>";
             }
-            //if ($("#ddlStatePersonal").val() == "0") {
-            //    msg += "Please Select The State </br>";
-            //}
+
             if (!$("#txtIDNumber").val()) {
                 msg += "Please Fill The  Id Number </br>";
             }
@@ -1341,12 +1343,12 @@ var goToStep = function (stepid, id, calldataupdate) {
             }
             else {
                 $("#popApplicantSummary").modal("hide");
-                $("#summName").text($("#txtFirstNamePersonal").val() + " " + ((!$("#txtMiddleInitial").val()) ? "" : $("#txtMiddleInitial").val()+" ") + $("#txtLastNamePersonal").val());
+                $("#summName").text($("#txtFirstNamePersonal").val() + " " + ((!$("#txtMiddleInitial").val()) ? "" : $("#txtMiddleInitial").val() + " ") + $("#txtLastNamePersonal").val());
                 $("#summNamep").text($("#txtFirstNamePersonal").val() + " " + ((!$("#txtMiddleInitial").val()) ? "" : $("#txtMiddleInitial").val() + " ") + $("#txtLastNamePersonal").val());
                 $("#mainApplName").text($("#txtFirstNamePersonal").val() + " " + ((!$("#txtMiddleInitial").val()) ? "" : $("#txtMiddleInitial").val() + " ") + $("#txtLastNamePersonal").val());
 
 
-                
+
                 $("#summDob").text($("#txtDateOfBirth").val());
                 $("#summSSN").text($("#txtSSNNumber").val());
                 $("#summPhone").text($("#txtMobileNumber").val());
@@ -1355,7 +1357,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                     $("#summGender").text("Male");
                 } else if ($("#ddlGender").val() == 2) {
                     $("#summGender").text("Female");
-                }else {
+                } else {
                     $("#summGender").text($("#txtOtherGender").val());
                 }
                 $("#summDriverL").text($("#txtIDNumber").val());
@@ -8720,8 +8722,12 @@ var ddlDocumentTypePersonal = function (id) {
     option += '<option value="1">Drivers License</option>';
     option += '<option value="2">Military ID</option>';
     option += '<option value="4">State Issued ID</option>';
-    if (id == '1') {
+    $('#divIDState').removeClass("hidden");
+    if (id == '0') {
         option += '<option value="3">Passport</option>';
+    }
+    else {
+        $('#divIDState').addClass("hidden");
     }
     $('#ddlDocumentTypePersonal').append(option);
     $('#ddlDocumentTypePersonal').val($("#hndDocumentTypePersonal").val());

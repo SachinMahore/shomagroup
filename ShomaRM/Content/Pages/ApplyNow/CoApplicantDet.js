@@ -811,13 +811,15 @@ var goToStep = function (stepid, id, calldataupdate) {
                 if ($("#ddlCountryOfOrigin").val() == '0') {
                     msg += "Please select the country of origin</br>";
                 }
+            } else {
+                if ($("#ddlStatePersonal").val() == "0") {
+                msg += "Please Select The State </br>";
+            }
             }
             if ($("#ddlDocumentTypePersonal").val() == "0") {
                 msg += "Please Select The Id Type </br>";
             }
-            //if ($("#ddlStatePersonal").val() == "0") {
-            //    msg += "Please Select The State </br>";
-            //}
+            
             if (!$("#txtIDNumber").val()) {
                 msg += "Please Fill The  Id Number </br>";
             }
@@ -7819,10 +7821,14 @@ var ddlDocumentTypePersonalCoapplicant = function (id) {
     $('#ddlDocumentTypePersonal').empty();
     var option = '<option value="0">Select</option>';
     option += '<option value="1">Drivers License</option>';
-    option += '<option value="2">Military ID</option>'
-    option += '<option value="4">State Issued ID</option>'
-    if (id == '1') {
-        option += '<option value="3">Passport</option>'
+    option += '<option value="2">Military ID</option>';
+    option += '<option value="4">State Issued ID</option>';
+    $('#divIDState').removeClass("hidden");
+    if (id == '0') {
+        option += '<option value="3">Passport</option>';
+    }
+    else {
+        $('#divIDState').addClass("hidden");
     }
     $('#ddlDocumentTypePersonal').append(option);
     $('#ddlDocumentTypePersonal').val($("#hndDocumentTypePersonal").val());
