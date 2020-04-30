@@ -8,8 +8,13 @@ using ShomaRM.Data;
 using ShomaRM.Areas.Tenant.Models;
 using System.Data;
 
+using iText;
+using iText.Html2pdf;
+using iText.Layout.Element;
+using iText.Kernel.Pdf;
+using iText.Layout;
 using System.IO;
-using System.Text;
+using System.Text.RegularExpressions;
 
 
 namespace ShomaRM.Controllers
@@ -999,6 +1004,17 @@ namespace ShomaRM.Controllers
             try
             {
                 return Json(new { filename = new ApplyNowModel().PrintCoapplicantForm(TenantID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { filename = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult PrintQuotation(PrintQuotationModel model)
+        {
+            try
+            {
+                return Json(new { filename = new ApplyNowModel().PrintQuotation(model) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception Ex)
             {
