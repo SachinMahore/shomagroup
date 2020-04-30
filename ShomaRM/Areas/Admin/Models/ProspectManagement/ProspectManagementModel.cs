@@ -57,6 +57,7 @@ namespace ShomaRM.Areas.Admin.Models
         public string OutlookID { get; set; }
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
+        string ServerURL = WebConfigurationManager.AppSettings["ServerURL"];
         public List<ProspectManagementModel> GetProspectList(DateTime FromDate, DateTime ToDate)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -315,9 +316,9 @@ namespace ShomaRM.Areas.Admin.Models
                             var info = db.tbl_Login.Where(p => p.UserID == prospData.AssignAgentId).FirstOrDefault();
 
                             string reportHTML = "";
-                            string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                            string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                             reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
-
+                            reportHTML = reportHTML.Replace("[%ServerURL%]", ServerURL);
                             //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
                             reportHTML = reportHTML.Replace("[%TenantName%]", prospData.FirstName + " " + prospData.LastName);
                             reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; This is a confirmation email to your appointment with  <b>" + info.FirstName + " " + info.LastName + " </b> Dated on <b>" + model.RequiredDateText + "</b> at office. If you have queries or require any clarifications or any assistance in finding the location  please do not hesitate to contact me at <i>" + info.CellPhone + "</i>, " + info.Email + ". I genuinely appreciate a prompt confirmation from your side. Looking forward to meeting you there. </p>");
@@ -333,9 +334,9 @@ namespace ShomaRM.Areas.Admin.Models
                             }
 
                             string reportHTMLAgent = "";
-                            string filePathAg = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                            string filePathAg = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                             reportHTMLAgent = System.IO.File.ReadAllText(filePathAg + "EmailTemplateAmenity.html");
-
+                            reportHTMLAgent = reportHTMLAgent.Replace("[%ServerURL%]", ServerURL);
                             //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
                             reportHTMLAgent = reportHTMLAgent.Replace("[%TenantName%]", info.FirstName + " " + info.LastName);
                             reportHTMLAgent = reportHTMLAgent.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Please be informed that a meeting has been scheduled  with <b> " + prospData.FirstName + " " + prospData.LastName + " </b> Dated on  <b>" + model.RequiredDateText + "</b>.We shall meet at office . Please inform me if you'd like to add anything to list above. All suggestions and questions are highly welcomed.Kindly signal that you received this email and confirm your attendance.Please make sure to be on time as you always do.Looking forward to seeing you there.</p>");
@@ -361,10 +362,10 @@ namespace ShomaRM.Areas.Admin.Models
 
 
                         string reportHTML = "";
-                        string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                        string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                         reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
 
-                        //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
+                        reportHTML = reportHTML.Replace("[%ServerURL%]", ServerURL);
                         reportHTML = reportHTML.Replace("[%TenantName%]", prospData.FirstName + " " + prospData.LastName);
                         reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; " + info.FirstName + " " + info.LastName + " was unfortunately not able to make the meeting, please contact us back so we can schedule another tour at your earliest convenience. </p>");
                         reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");

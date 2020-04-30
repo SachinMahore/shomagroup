@@ -83,6 +83,7 @@ namespace ShomaRM.Areas.Admin.Models
 
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
+        string ServerURL = WebConfigurationManager.AppSettings["ServerURL"];
 
         public int BuildPaganationUserList(ServicesSearchModel model)
         {
@@ -388,10 +389,10 @@ namespace ShomaRM.Areas.Admin.Models
 
 
                 string reportHTML = "";
-                string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
 
-                //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
+                reportHTML = reportHTML.Replace("[%ServerURL%]", ServerURL);
                 reportHTML = reportHTML.Replace("[%TenantName%]", model.TenantName);
                 reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We hereby assign your service of " + model.ProblemCategorystring + " (facility) on " + model.PermissionComeDate.Value.ToString("MM/dd/yyyy") + " (date) at " + model.PermissionComeTime + " to " + userdetail.FirstName + " " + userdetail.LastName + "</p>");
                 reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
@@ -580,6 +581,7 @@ namespace ShomaRM.Areas.Admin.Models
             public string SendMessage { get; private set; }
             public Nullable<long> TenantID { get; set; }
             string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
+            string sendMessage = WebConfigurationManager.AppSettings["SendMessage"];
             public  string TenantName { get; set; }
 
             public string SaveUpdateEstimate(EstimateModel model)
@@ -606,7 +608,7 @@ namespace ShomaRM.Areas.Admin.Models
                     var GetServiceData = db.tbl_ServiceRequest.Where(p => p.ServiceID == model.ServiceID).FirstOrDefault();
                     var GetTenantData = db.tbl_TenantInfo.Where(p => p.TenantID == GetServiceData.TenantID).FirstOrDefault();
                     string reportHTML = "";
-                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/Template/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
                     string message = "";
                     string phonenumber = GetTenantData.Mobile;
@@ -616,6 +618,7 @@ namespace ShomaRM.Areas.Admin.Models
                     accserviceid = new EncryptDecrypt().EncryptText(model.EID.ToString() + ",1");
                     denserviceid = new EncryptDecrypt().EncryptText(model.EID.ToString() + ",2");
 
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                     reportHTML = reportHTML.Replace("[%EmailHeader%]", "Estimate of Repair");
                     reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
 
@@ -629,7 +632,7 @@ namespace ShomaRM.Areas.Admin.Models
 
                     string body = reportHTML;
                     new EmailSendModel().SendEmail(GetTenantData.Email, "Estimate of Repair", body);
-                    if (SendMessage == "yes")
+                    if (sendMessage == "yes")
                     {
                         new TwilioService().SMS(phonenumber, message);
                     }
@@ -652,7 +655,7 @@ namespace ShomaRM.Areas.Admin.Models
                     var GetServiceData = db.tbl_ServiceRequest.Where(p => p.ServiceID == model.ServiceID).FirstOrDefault();
                     var GetTenantData = db.tbl_TenantInfo.Where(p => p.TenantID == GetServiceData.TenantID).FirstOrDefault();
                     string reportHTML = "";
-                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/Template/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
                     string message = "";
                     string phonenumber = GetTenantData.Mobile;
@@ -663,6 +666,8 @@ namespace ShomaRM.Areas.Admin.Models
                     {
                         accserviceid = new EncryptDecrypt().EncryptText(model.EID.ToString() + ",1"); 
                         denserviceid = new EncryptDecrypt().EncryptText(model.EID.ToString() + ",2");
+
+                        reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                         reportHTML = reportHTML.Replace("[%EmailHeader%]", "Estimate of Repair");
                         reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
 
@@ -674,7 +679,7 @@ namespace ShomaRM.Areas.Admin.Models
 
                         string body = reportHTML;
                         new EmailSendModel().SendEmail(GetTenantData.Email, "Estimate of Repair", body);
-                        if (SendMessage == "yes")
+                        if (sendMessage == "yes")
                         {
                             new TwilioService().SMS(phonenumber, message);
                         }

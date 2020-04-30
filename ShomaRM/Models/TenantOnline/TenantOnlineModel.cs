@@ -816,8 +816,11 @@ namespace ShomaRM.Models
                         {
                             getAppldata.StepCompleted = 10;
                             string reportHTML = "";
-                            string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                            string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                             reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+
+                            reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+
                             string phonenumber = applyNow.Phone;
                             if (model != null)
                             {
@@ -846,8 +849,11 @@ namespace ShomaRM.Models
                     {
                         getAppldata.StepCompleted = 17;
                         string reportHTML = "";
-                        string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                        string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                         reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+
+                        reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+
                         string phonenumber = applyNow.Phone;
                         if (model != null)
                         {

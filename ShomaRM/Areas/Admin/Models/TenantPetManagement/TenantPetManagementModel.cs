@@ -7,6 +7,7 @@ using System.Web;
 using ShomaRM.Data;
 using ShomaRM.Areas.Tenant.Models;
 using System.IO;
+using System.Web.Configuration;
 
 namespace ShomaRM.Areas.Admin.Models
 {
@@ -43,6 +44,8 @@ namespace ShomaRM.Areas.Admin.Models
         public string SortBy { get; set; }
         public string OrderBy { get; set; }
         public string FilePath { get; set; }
+
+        string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
 
         public int BuildPaganationTenantPetList(TenantPetSearchListModel model)
         {
@@ -236,7 +239,7 @@ namespace ShomaRM.Areas.Admin.Models
         public string ExpiryDateString { get; set; }
         public string Email { get; set; }
 
-
+        string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
         public String SaveUpdateTenantPet(TenantPetListModel model)
         {
             string msg = "";
@@ -290,8 +293,9 @@ namespace ShomaRM.Areas.Admin.Models
 
 
                     string reportHTML = "";
-                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                     if (model != null)
                     {
                         reportHTML = reportHTML.Replace("[%EmailHeader%]", "Pet Vaccination Certificate Expiry Remainder");
