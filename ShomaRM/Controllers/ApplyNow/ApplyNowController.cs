@@ -994,16 +994,16 @@ namespace ShomaRM.Controllers
                 return Json(new { filename = "" }, JsonRequestBehavior.AllowGet);
             }
         }
-    }
-    public ActionResult PrintCoapplicantForm(long TenantID)
-    {
-        try
+        public ActionResult PrintCoapplicantForm(long TenantID)
         {
-            return Json(new { filename = new ApplyNowModel().PrintCoapplicantForm(TenantID) }, JsonRequestBehavior.AllowGet);
-        }
-        catch (Exception Ex)
-        {
-            return Json(new { filename = "" }, JsonRequestBehavior.AllowGet);
+            try
+            {
+                return Json(new { filename = new ApplyNowModel().PrintCoapplicantForm(TenantID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { filename = "" }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }
