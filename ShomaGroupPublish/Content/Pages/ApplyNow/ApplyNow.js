@@ -472,6 +472,8 @@ $(document).ready(function () {
     //});
     
     $("#ddlIsInter").on("change", function () {
+        var isInterId = $(this).val();
+        ddlDocumentTypePersonal(isInterId);
         if ($(this).val() == 1) {
             $("#passportDiv").removeClass("hidden");
             $("#divSSNNumber").addClass("col-sm-4 hidden");
@@ -1263,12 +1265,12 @@ var goToStep = function (stepid, id, calldataupdate) {
                 if (!validateEmail($("#txtEmailNew").val())) {
                     msg += "Please Fill Valid Email </br>";
                 }
-            } 
+            }
             if (!unformatText($("#txtMobileNumber").val())) {
                 msg += "Please Fill The Mobile Number </br>";
             }
             else {
-                if ((unformatText($("#txtMobileNumber").val())).length<10) {
+                if ((unformatText($("#txtMobileNumber").val())).length < 10) {
                     msg += "Please enter 10 digit mobile number </br>";
                 }
             }
@@ -1293,13 +1295,15 @@ var goToStep = function (stepid, id, calldataupdate) {
                 if ($("#ddlCountryOfOrigin").val() == '0') {
                     msg += "Please select the country of origin</br>";
                 }
+            } else {
+                if ($("#ddlStatePersonal").val() == "0") {
+                    msg += "Please Select The State </br>";
+                }
             }
             if ($("#ddlDocumentTypePersonal").val() == "0") {
                 msg += "Please Select The Id Type </br>";
             }
-            if ($("#ddlStatePersonal").val() == "0") {
-                msg += "Please Select The State </br>";
-            }
+
             if (!$("#txtIDNumber").val()) {
                 msg += "Please Fill The  Id Number </br>";
             }
@@ -1339,12 +1343,12 @@ var goToStep = function (stepid, id, calldataupdate) {
             }
             else {
                 $("#popApplicantSummary").modal("hide");
-                $("#summName").text($("#txtFirstNamePersonal").val() + " " + ((!$("#txtMiddleInitial").val()) ? "" : $("#txtMiddleInitial").val()+" ") + $("#txtLastNamePersonal").val());
+                $("#summName").text($("#txtFirstNamePersonal").val() + " " + ((!$("#txtMiddleInitial").val()) ? "" : $("#txtMiddleInitial").val() + " ") + $("#txtLastNamePersonal").val());
                 $("#summNamep").text($("#txtFirstNamePersonal").val() + " " + ((!$("#txtMiddleInitial").val()) ? "" : $("#txtMiddleInitial").val() + " ") + $("#txtLastNamePersonal").val());
                 $("#mainApplName").text($("#txtFirstNamePersonal").val() + " " + ((!$("#txtMiddleInitial").val()) ? "" : $("#txtMiddleInitial").val() + " ") + $("#txtLastNamePersonal").val());
 
 
-                
+
                 $("#summDob").text($("#txtDateOfBirth").val());
                 $("#summSSN").text($("#txtSSNNumber").val());
                 $("#summPhone").text($("#txtMobileNumber").val());
@@ -1353,7 +1357,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                     $("#summGender").text("Male");
                 } else if ($("#ddlGender").val() == 2) {
                     $("#summGender").text("Female");
-                }else {
+                } else {
                     $("#summGender").text($("#txtOtherGender").val());
                 }
                 $("#summDriverL").text($("#txtIDNumber").val());
@@ -6028,6 +6032,7 @@ var getTenantOnlineList = function (id) {
         success: function (response) {
 
             $("#ddlIsInter").val(response.model.IsInternational).change();
+            $("#hndDocumentTypePersonal").val(response.model.IDType);
             //new
             $("#ddlCountryOfOrigin").val(response.model.CountryOfOrigin);
             $("#ddlEverBeenEvicted").val(response.model.Evicted).change();
@@ -8689,25 +8694,74 @@ var printSummary=function()
             $("#divLoader").hide();
             $("#ifrmAppSummary").attr("src", response.filename);
             $("#modalApplicationSummary").show();
-            //var hyperlink = document.createElement('a');
-            //hyperlink.href = response.filename;
-            //hyperlink.target = '_blank';
-            //hyperlink.download = "Application Summary.pdf";
-
-            //(document.body || document.documentElement).appendChild(hyperlink);
-            //hyperlink.onclick = function () {
-            //    (document.body || document.documentElement).removeChild(hyperlink);
-            //};
-            //var mouseEvent = new MouseEvent('click', {
-            //    view: window,
-            //    bubbles: true,
-            //    cancelable: true
-            //});
-            //hyperlink.dispatchEvent(mouseEvent);
-            //if (!navigator.mozGetUserMedia) {
-            //    window.URL.revokeObjectURL(hyperlink.href);
-            //}
-            //hyperlink.remove();
         }
     });
 }
+var ddlDocumentTypePersonal = function (id) {
+    $('#ddlDocumentTypePersonal').empty();
+    var option = '<option value="0">Select</option>';
+    option += '<option value="1">Drivers License</option>';
+    option += '<option value="2">Military ID</option>';
+    option += '<option value="4">State Issued ID</option>';
+    $('#divIDState').removeClass("hidden");
+    if (id == '0') {
+        option += '<option value="3">Passport</option>';
+    }
+    else {
+        $('#divIDState').addClass("hidden");
+    }
+    $('#ddlDocumentTypePersonal').append(option);
+    $('#ddlDocumentTypePersonal').val($("#hndDocumentTypePersonal").val());
+}
+
+var printQuotationPrint = function () {
+    $("#divLoader").show();
+    var model = {
+            TenantID: $("#hdnOPId").val(),
+        QuoteDate: $("#lblFNLQuoteDate").text(),
+        ApplicantName: $("#lblFNLResidentName1").text(),
+        QuoteExpires: $("#lblFNLQuoteExpires").text(),
+        PhoneNumber: $("#lblFNLPhone").text(),
+        Email: $("#lblFNLEmail").text(),
+        DesiredMoveIn: $("#lblFNLDesiredMoveIn").text(),
+        UnitNo: $("#lblFNLUnit").text(),
+        ModelName: $("#lblFNLModel").text(),
+        LeaseTerm: $("#lblFNLTerm").text(),
+        AssignParkingSpace: $("#lblAssginPakingSpace").text(),
+        ApplicationFees: $("#lblFNLApplicationFee").text(),
+        SecurityDeposit: $("#fdepo").text(),
+        GuarantorFees: $("#lblFNLGautantorFee").text(),
+        PetNonRefundableFee: $("#fpetd").text(),
+        AdministratorFee: $("#lblFNLAdministratorFee").text(),
+        PetDNAFee: $("#fpetdna").text(),
+        VehicleRegistration: $("#lblVehicleFees").text(),
+        MonthlyRent: $("#lblMonthly_MonthlyCharge").text(),
+        ProratedMonthlyRent: $("#lblProrated_MonthlyCharge").text(),
+        TrashFee: $("#spanTrashRecycle").text(),
+        ProratedTrashFee: $("#lblProrated_TrashAmt").text(),
+        PestControlFee: $("#spanPestControl").text(),
+        ProratedPestControlFee: $("#lblProrated_PestAmt").text(),
+        ConvergentBillingFee: $("#spanConvergentAmt").text(),
+        ProratedConvergentBillingFee: $("#lblProrated_ConvergentAmt").text(),
+        AdditionalParking: $("#lblMonthly_AditionalParking").text(),
+        ProratedAdditionalParking: $("#lblProrated_AditionalParking").text(),
+        StorageAmount: $("#lblMonthly_Storage").text(),
+        ProratedStorageAmount: $("#lblProrated_Storage").text(),
+        PetFee: $("#lblMonthly_PetRent").text(),
+        ProratedPetFee: $("#lblProrated_PetRent").text(),
+        MonthlyCharges: $("#lblMonthly_TotalRent").text(),
+        ProratedMonthlyCharges: $("#lblProrated_TotalRent").text()
+    };
+    $.ajax({
+        url: '/ApplyNow/PrintQuotation',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+            $("#ifrmQuotationPrint").attr("src", response.filename);
+            $("#modalQuotationPrint").show();
+        }
+    });
+};

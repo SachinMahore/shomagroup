@@ -24,6 +24,7 @@
 <input type="hidden" id="hndProcessingFees" value="@(Model.ProcessingFees)" />
 <input type="hidden" id="hndAdditionalParking" value="@(Model.AdditionalParking)" />
 <input type="hidden" id="HndAddParkingCount" value="0" />
+<input type="hidden" id="hndDocumentTypePersonal" value="0" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container">
@@ -580,7 +581,7 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="col-sm-4">
-                                        <span id="">Security Deposit (Refundable): </span>
+                                        <span id="">Security Deposit **: </span>
                                     </div>
                                     <div class="col-sm-2">
                                         $<span id="lbldeposit1"></span>
@@ -713,6 +714,11 @@
                                 <div class="col-sm-12">
                                     <div class="col-sm-12">
                                         <p><i class="star"></i> Excluding the utility reimbursement for water & sewer, which is  billed monthly based on actual consumption</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-12">
+                                        <p><i class="star"></i><i class="star"></i> Security Deposit is subject to various criteria including credit history.  Additionally, we participate in the SureDeposit Program which may assist you in bonding your Deposit for a small fee. </p>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 clearfix">
@@ -866,7 +872,7 @@
                                                     &nbsp;
                                                 </div>
                                                 <div class="col-sm-7">
-                                                    <span id="" style="text-decoration:underline;font-weight:bold;">$150.00/Guarantor (if needed)</span>
+                                                    $<span id="lblFNLGautantorFee" style="text-decoration:underline;font-weight:bold;">@((Model.GuarantorFees ?? 0).ToString("0.00"))/Guarantor (if needed)</span>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
@@ -874,7 +880,7 @@
                                                     <span>ADMINISTRATION FEE: </span>
                                                 </div>
                                                 <div class="col-sm-7">
-                                                    <span style="text-decoration:underline;font-weight:bold;">$@((Model.AdminFees ?? 0).ToString("0.00"))/unit</span>
+                                                    $<span id="lblFNLAdministratorFee" style="text-decoration:underline;font-weight:bold;">@((Model.AdminFees ?? 0).ToString("0.00"))/unit</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -890,7 +896,7 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="col-sm-5">
-                                                    <span>Security Deposit (Refundable): </span>
+                                                    <span>Security Deposit **: </span>
                                                 </div>
                                                 <div class="col-sm-7">
                                                     $<span style="text-decoration:underline;font-weight:bold;" id="fdepo">@((Model.Deposit ?? 0).ToString("0.00"))</span>
@@ -975,7 +981,7 @@
                                             <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
                                         </div>
                                         <div class="col-sm-3">
-                                            $<span style="text-decoration:underline;font-weight:bold;">@((Model.TrashAmt ?? 0).ToString("0.00"))</span>
+                                            $<span id="spanTrashRecycle" style="text-decoration:underline;font-weight:bold;">@((Model.TrashAmt ?? 0).ToString("0.00"))</span>
                                         </div>
                                         <div class="col-sm-3">
                                             $ <span id="lblProrated_TrashAmt" style="text-decoration:underline;font-weight:bold;"></span>
@@ -990,7 +996,7 @@
                                             <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
                                         </div>
                                         <div class="col-sm-3">
-                                            $<span style="text-decoration:underline;font-weight:bold;">@((Model.PestAmt ?? 0).ToString("0.00"))</span>
+                                            $<span id="spanPestControl" style="text-decoration:underline;font-weight:bold;">@((Model.PestAmt ?? 0).ToString("0.00"))</span>
                                         </div>
                                         <div class="col-sm-3">
                                             $ <span id="lblProrated_PestAmt" style="text-decoration:underline;font-weight:bold;"></span>
@@ -999,13 +1005,12 @@
                                     <div class="col-sm-12">
                                         <div class="col-sm-3">
                                             <span> Convergent billing fee </span>
-
                                         </div>
                                         <div class="col-sm-2">
                                             <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
                                         </div>
                                         <div class="col-sm-3">
-                                            $<span style="text-decoration:underline;font-weight:bold;">@((Model.ConvergentAmt ?? 0).ToString("0.00"))</span>
+                                            $<span id="spanConvergentAmt" style="text-decoration:underline;font-weight:bold;">@((Model.ConvergentAmt ?? 0).ToString("0.00"))</span>
                                         </div>
                                         <div class="col-sm-3">
                                             $ <span id="lblProrated_ConvergentAmt" style="text-decoration:underline;font-weight:bold;"></span>
@@ -1099,20 +1104,19 @@
                                 <div class="col-sm-12">
                                     <p>
                                         <i>
-                                            *The Administration fee is due to reserve your apartment for a maximum of 30 days, once approved, and may be applied towards your Initial Payment.
-                                            <br />**The Security Deposit may be bonded with a third-party company.  Please contact by phone (866) 312-3090 or e-mail SelectDeposit@Assurant.com. The Client Support Team is available Monday – Friday 9am – 6pm ET to assist you.
+                                            *The Administration fee is due to reserve your apartment for a maximum of 30 days, once approved.
+                                            <br />**TThe Security Deposit may be bonded using the SureDeposit Program. Please contact by hone (866) 312-3090 or email <a href="mailto:SelectDeposit@Assurant.com">SelectDeposit@Assurant.com</a>. The Client Support Team is available Monday through Friday 9am-6pm ET to assist you.
                                         </i>
                                     </p>
                                     <p>
                                         <i>
-                                            ***General liability insurance with a minimum limit of $100,000 is required. Proof of coverage will be required prior to move-in.
+                                            ***General Liability insurance with a minimum limit of $300,000 is required.  Proof of coverage will be required prior to move-in.
                                             <br />****Excludes the Utility reimbursement for water & sewer which is billed monthly based on actual consumption.
                                         </i>
                                     </p>
                                     <p>
                                         <i>
-                                            The amounts herein are estimates based upon policies and rates in effect at the time.  The amounts are subject to change without notice and not final until lease is executed. If you make changes to the desired move-in date, lease term, or any other options, the amounts herein may vary.
-
+                                            The amounts herein are estimates based upon policies and rates in effect at the time.  The amounts are subject to change without notice and not final until lease is executed.  If you make changes to the desired move-in date, lease term, or any other option, the amounts herein may vary.
                                         </i>
                                     </p>
                                 </div>
@@ -1127,7 +1131,7 @@
                                 </div>
 
                                 <div class="text-center">
-                                    <button id="quotePrint" class="btn btn-primary" onclick="print('divQuotes')"> Print</button>
+                                    <button id="quotePrint" class="btn btn-primary" onclick="printQuotationPrint()"> Print</button>
                                     <div class="pull-right">
                                         <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(6,6,0)"> Continue</button>
                                     </div>
@@ -1290,7 +1294,7 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-8">
-                                                <span>Security Deposit (Refundable): </span>
+                                                <span>Security Deposit **: </span>
                                             </div>
                                             <div class="col-sm-1"></div>
                                             <div class="col-sm-3">
@@ -1477,7 +1481,6 @@
                                             <option value="0" selected="selected">Yes</option>
                                             <option value="1">No</option>
                                         </select>
-
                                     </div>
                                 </div>
                                 <div class="col-sm-4 hidden" id="divCountryOfOrigin">
@@ -1627,16 +1630,10 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="ddlDocumentType" class="star">ID Type</label>
-                                        <select id="ddlDocumentTypePersonal" class="form-control " style="width:100%!important">
-                                            <option value="0">Select</option>
-                                            <option value="1">Driver's License</option>
-                                            <option value="2">Military ID</option>
-                                            <option value="4">State Issued ID</option>
-                                            <option value="3">Passport</option>
-                                        </select>
+                                        <select id="ddlDocumentTypePersonal" class="form-control " style="width:100%!important"></select>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div id="divIDState" class="col-sm-4">
                                     <div class="form-group">
                                         <label id="lblStatePersonal" class="star"> State</label>
                                         <select id="ddlStatePersonal" class="form-control">
@@ -1654,6 +1651,9 @@
                                         <input class="form-control form-control-small" id="txtIDNumber" maxlength="25" />
                                     </div>
                                 </div>
+
+                            </div>
+                            <div class="col-sm-12">
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label class="star">Upload <span id="lblUploadIdentity"></span></label><br />
@@ -1712,13 +1712,13 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class="form-group hidden" id="divEverBeenConvictedDetails">
+                                    <div class="form-group" id="divEverBeenConvictedDetails">
                                         <label for="txtEverBeenConvictedDetails" class="star">Details</label>
                                         <textarea id="txtEverBeenConvictedDetails" class="form-control form-control-small" maxlength="500"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class="form-group hidden" id="divAnyCriminalChargesDetails">
+                                    <div class="form-group" id="divAnyCriminalChargesDetails">
                                         <label for="txtAnyCriminalChargesDetails" class="star">Details</label>
                                         <textarea id="txtAnyCriminalChargesDetails" class="form-control form-control-small" maxlength="500"></textarea>
                                     </div>
@@ -3643,7 +3643,6 @@
                                     </div>
                                 </div>
                                 <div class="pull-right text-center">
-                                    @*<button type="submit" class="btn btn-primary" id="btnPrintSummary" onclick="printSumm('divsummPrint')"><i class="fa fa-print"></i> Print</button>*@
                                     <button type="submit" class="btn btn-primary" id="btnPrintSummary" onclick="printSummary()"><i class="fa fa-print"></i> Print</button>
                                 </div>
                             </div>
@@ -4770,7 +4769,7 @@
                         <td colspan="2">
 
                             <p style="font-size:small; color:#838383;">Before you proceed, we want to let you know that Sanctuary uses a third-party screening company which utilizes certain guidelines to qualify applicants for residency in our community.  Before you apply, we want to inform you of some of the criteria, so you can determine your options. </p>
-                            <p style="font-size:small; color:#838383;"><b>The rental application fee per applicant and co-applicant is $135 and is non-refundable.  If a Guarantor is provided, the Guarantor must also complete an application and pay a non-refundable fee of $150.</b> Because there are no exceptions, it is important that you review this document carefully before applying, making certain that to the best of your knowledge you meet the rental qualifications shown below. </p>
+                            <p style="font-size:small; color:#838383;"><b>The rental application fee per applicant and co-applicant is @((Model.ApplicationFees ?? 0).ToString("0.00")) and is non-refundable.  If a Guarantor is provided, the Guarantor must also complete an application and pay a non-refundable fee of @((Model.GuarantorFees ?? 0).ToString("0.00")).</b> Because there are no exceptions, it is important that you review this document carefully before applying, making certain that to the best of your knowledge you meet the rental qualifications shown below. </p>
                             <p style="font-size:small; color:#838383;">Additionally, we want to make sure you are happy with your decision to join our community, so we put together this list of Rules and Policies created to ensure a safe and enjoyable environment for all residents.  Before you proceed to apply, you will be kindly asked to accept the Rules and Policies  </p>
                             <p style="font-size:small; color:#838383;">Masmar Management, LLC, Sanctuary’s property management, does not discriminate against persons based on race, color, religion, national origin, familial status, or disability.  Although all residents are subjected to the screening process, nothing contained in these requirements shall constitute representation by Masmar that all residents and occupants currently residing in our community have met or currently meet these guidelines.</p>
 
@@ -4806,8 +4805,8 @@
                             </p>
 
 
-                            <p style="font-size:small; color:#838383;"><span style="color:black; font-weight:600;">ADMINISTRATION FEE :</span>  A $350 Administration fee will be required to reserve a unit once the application has been accepted.  Move in date must be within 30 days of acceptance of application. </p>
-                            <p style="font-size:small; color:#838383;"><span style="color:black; font-weight:600;">DEPOSIT FEES :</span> Standard deposit per unit is $500, subject to change depending on results of application.   </p>
+                            <p style="font-size:small; color:#838383;"><span style="color:black; font-weight:600;">ADMINISTRATION FEE :</span>  A $@((Model.AdminFees ?? 0).ToString("0.00")) Administration fee will be required to reserve a unit once the application has been accepted.  Move in date must be within 30 days of acceptance of application. </p>
+                            <p style="font-size:small; color:#838383;"><span style="color:black; font-weight:600;">DEPOSIT FEES :</span> Standard deposit per unit is $@((Model.Deposit ?? 0).ToString("0.00")), subject to change depending on results of application.   </p>
                             <p style="font-size:small; color:#838383;"><span style="color:black; font-weight:600;">LIABILITY/RENTERS INSURANCE :</span>  Residents are required to have Renters liability insurance policy of $100,000 or more for the duration of your residency.  Sanctuary at Doral, LLC and Masmar Management LLC must be listed as additional insureds.  Proof of liability insurance is required before move-in.  Additionally, we strongly recommend a Renter’s Property Insurance for the contents of your unit.  If you would like assistance in obtaining the required insurance, please visit ____________________________. </p>
                             <p style="font-size:small; color:#838383;"><span style="color:black; font-weight:600;">MOVE-IN CHARGES AND MONTHLY PAYMENTS :</span>  All move in charges and monthly payments must be done online.  Once you become a resident, you can easily set-up recurring payments using either your bank account or credit card.  No cash payments allowed. No payments will be accepted at the management office. </p>
                             <p style="font-size:small; color:#838383;"><span style="color:black; font-weight:600;">SMOKE FREE :</span> This is a smoke free community which means that smoking and any other smoke generating products, such as incense, are strictly forbidden on the premises.  Smoking is not allowed in the common areas and apartments except in designated areas or balconies.</p>
@@ -4820,7 +4819,7 @@
                             <p style="font-size:small; color:#838383;">
                                 <ul type="" style="color:#838383;">
                                     <li>A $500 non-refundable pet fee for one pet or $750 for two pets will be required to be paid prior to move in.   </li>
-                                    <li>A one-time DNA per pet fee of $29 is due at the time of move in. </li>
+                                    <li>A one-time DNA per pet fee of $@((Model.PetDNAAmt ?? 0).ToString("0.00")) is due at the time of move in. </li>
                                     <li>A monthly pet rent of $20.00 for 1 pet and $40 for 2 pets will be charged for the term of the lease while the pet(s) occupy the apartment. </li>
                                     <li>At the time of application (or later if acquired after move-in date), a photograph of your pet(s) must be uploaded together with a veterinarian certificate verifying the pet’s age, weight, and current vaccinations. </li>
                                     <li>Pets must be kept on a leash at all times and owners must clean up after their pets.  Pets must not be left unattended in a garage or on a patio/balcony at any time. </li>
@@ -5145,6 +5144,16 @@
         </div>
     </div>
 </div>
+<div id="modalQuotationPrint" class="modal" style="width:100% !important">
+    <div class="modal-header">
+        <span class="close" id="closeQuotationPrint" data-dismiss="modal" style="margin-top: -10px !important;margin-right: -200px !important;">&times;</span>
+    </div>
+    <div class="modal-content" style="width:66% !important">
+        <div class="text-center">
+            <div><iframe id="ifrmQuotationPrint" width="100%" height="625" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+        </div>
+    </div>
+</div>
 <div class="modal " id="popQuote" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
     <div class="modal-dialog" style="width:1100px">
         <div class="modal-content" style="width: 100% !important;">
@@ -5211,12 +5220,12 @@
                                 <tr>
                                     <td>APPLICATION FEE : </td>
                                     <td>$ <span id="lblFNLApplicationFee" style="text-decoration:underline;font-weight:bold;">@((Model.ApplicationFees ?? 0).ToString("0.00"))/per applicant</span></td>
-                                    <td>Security Deposit (Refundable) </td>
+                                    <td>Security Deposit ** </td>
                                     <td>$ <span style="text-decoration:underline;font-weight:bold;" id="fdepo">@((Model.Deposit ?? 0).ToString("0.00"))</span></td>
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td><span id="" style="text-decoration:underline;font-weight:bold;">$150.00/Guarantor (if needed)</span></td>
+                                    <td><span id="" style="text-decoration:underline;font-weight:bold;">@((Model.GuarantorFees ?? 0).ToString("0.00"))/Guarantor (if needed)</span></td>
                                     <td>Pet Non-Refundable Deposit: </td>
                                     <td>$ <span style="text-decoration:underline;font-weight:bold;" id="fpetd">@((Model.PetDeposit ?? 0).ToString("0.00"))</span></td>
                                 </tr>
@@ -5347,20 +5356,19 @@
                         <td>
                             <p>
                                 <i>
-                                    *The Administration fee is due to reserve your apartment for a maximum of 30 days, once approved, and may be applied towards your Initial Payment.
-                                    <br />**The Security Deposit may be bonded with a third-party company.  Please contact by phone (866) 312-3090 or e-mail SelectDeposit@Assurant.com. The Client Support Team is available Monday – Friday 9am – 6pm ET to assist you.
+                                    *The Administration fee is due in order to reserve your unit for a maximum of 30 days, once approved.
+                                    <br />**The Security Deposit may be bonded using the SureDeposit Program .  Please contact by hone (866) 312-3090 or email <a href="javascript:void(0)">SelectDeposit@Assurant.com</a>.  The Client Support Team is available Monday through Friday 9am-6pm ET to assist you.
                                 </i>
                             </p>
                             <p>
                                 <i>
-                                    ***General liability insurance with a minimum limit of $100,000 is required. Proof of coverage will be required prior to move-in.
+                                    ***General Liability insurance with a minimum limit of $300,000 is required.  Proof of coverage will be required prior to move-in.
                                     <br />****Excludes the Utility reimbursement for water & sewer which is billed monthly based on actual consumption.
                                 </i>
                             </p>
                             <p>
                                 <i>
-                                    The amounts herein are estimates based upon policies and rates in effect at the time.  The amounts are subject to change without notice and not final until lease is executed. If you make changes to the desired move-in date, lease term, or any other options, the amounts herein may vary.
-
+                                    The amounts herein are estimates based upon policies and rates in effect at the time.  The amounts are subject to change without notice and not final until lease is executed.  If you make changes to the desired move-in date, lease term, or any other option, the amounts herein may vary.
                                 </i>
                             </p>
                         </td>
@@ -5665,7 +5673,7 @@
         padding: 15px 11px;
         min-width: 210px;
         max-width: 365px;
-        padding: 0px 15px;
+        padding: 10px;
     }
 
     .margin-left-0 {
@@ -5716,6 +5724,7 @@
         );
         popupWin.document.close();
     }
+
     $(function () {
         var searchMinDate = "-2y";
         var searchMaxDate = "-1m";
@@ -6068,6 +6077,12 @@
         modalAppSummary.style.display = "none";
     }
 
+    var modalQuotationPrint = document.getElementById("modalQuotationPrint");
+    var spanQuotationPrintClose = document.getElementById("closeQuotationPrint");
+    spanQuotationPrintClose.onclick = function () {
+        modalQuotationPrint.style.display = "none";
+    }
+
     var btnApp = document.getElementById("btnsignInAppl");
 
     btnApp.onclick = function () {
@@ -6092,283 +6107,5 @@
             content: msg,
             type: 'red'
         });
-    }
-    function printSumm(divName) {
-        let printContents, popupWin;
-        printContents = document.getElementById(divName).innerHTML;
-        popupWin = window.open('', '', 'width=950,height=800,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes');
-        popupWin.document.open();
-        //popupWin.document.write(`
-        //                              <html >
-        //                                <head>
-        //                                <link rel="stylesheet" href="/Content/bootstrap/css/bootstrap.css" >
-        //                                <link rel="stylesheet" href="/Content/bootstrap/css/bootstrap.min.css">
-        //                                <link rel="stylesheet" href="/Content/assets/css/wizard.css" >
-        //                                <link rel="stylesheet" href="/Content/assets/css/style.css">
-        //                                <link rel="stylesheet" href="/Content/assets/css/PrintGuest.css">
-        //                                </head>
-        //                                <style>
-        //                        hr {
-        //                            margin-top: 0px !important;
-        //                            margin-bottom: 0px !important;
-        //                            border: 0;
-        //                            border-top: 1px solid #bebdbd;
-        //                        }
-        //                        body { font-size: 12px;line-height: 20px; margin: 0px 10px 0px 0px; }
-        //                        h3, .h3 { font-size: 18px;margin: 10px 0 5px; }
-        //                        p { font-size: 14px; line-height: 1.20em;}
-
-        //                                </style>
-        //                            <body onload="window.print();window.close()">${printContents}</body>
-        //                              </html>`
-        //);
-        popupWin.document.write(`
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>myriluz</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style type="text/css">
-        body {
-            font-size: 14px;
-            padding: 0px;
-            margin: 0px;
-            font-family: Tahoma;
-            background: #f1f1f1;
-            color: black;
-        }
-
-        .layout-section {
-            margin: 0 auto;
-            display: table;
-            height: auto;
-            background: #fff;
-            padding-bottom: 30px;
-        }
-
-        .heder {
-            width:100%;
-            background: #4D738A;
-            height: 100px;
-            border: 1px solid #000;
-            color:#fff;
-        }
-
-        .logo-section {
-            background:#fff;
-            width: 30%;
-            padding-left: 10px;
-            height:100px;
-        }
-
-        .address-section {
-            width: 70%;
-        }
-
-        table, th, td {
-            color: black;
-            border-collapse: collapse;
-            width:100%;
-        }
-
-        th, td {
-            padding: 5px;
-            padding-bottom: 2px;
-            font-family: Tahoma;
-            color: black;
-            text-align: left;
-        }
-
-        .text-white {
-            color: #fff;
-        }
-        .text-white-bold-center{
-            color:#fff;
-            text-align:center;
-            font-size:18px;
-            font-weight:600;
-        }
-        .Item-section {
-            background: #FFF2CC;
-        }
-
-        .Item-list {
-            background: #c6efce;
-        }
-
-        .Dete-section {
-            width: 380px;
-            float: left;
-            padding: 20px;
-        }
-
-        .comman-section {
-            width: 35%;
-            float: left;
-            padding-bottom: 8px;
-            font-size: 15px;
-            font-weight: bold;
-        }
-
-        .Email-section {
-            width: 375px;
-            float: left;
-            padding: 20px;
-        }
-
-        .Emailcomman-section {
-            width: 51%;
-            float: left;
-            padding-bottom: 8px;
-            font-size: 15px;
-            font-weight: bold;
-            text-align: right;
-        }
-
-        .Emailcomman-right {
-            width: 40%;
-            float: left;
-            padding-bottom: 8px;
-            font-size: 15px;
-            font-weight: bold;
-        }
-
-        .assurance {
-            width: 20%;
-            float: left;
-            height: auto;
-            padding-bottom: 20px;
-            font-size: 15px;
-        }
-
-        .benefits-sectionlayout {
-            width: 62%;
-            float: left;
-            height: auto;
-            padding-bottom: 20px;
-            text-align: center;
-        }
-
-        .benefits-section {
-            width: 100%;
-            float: left;
-            height: auto;
-            padding-bottom: 5px;
-            text-align: center;
-            font-size: 18px;
-        }
-
-        .section-one {
-            width: 850px;
-            /*margin: 0 auto;*/
-            padding: 0px;
-            display: table;
-        }
-
-
-
-        .detail-section-table {
-            width: 100%;
-            border: 1px solid white;
-            color:#000;
-        }
-
-        .detail-section-Header {
-            border: 1px solid white;
-            width: 20%;
-            font-weight: bold;
-        }
-
-        .detail-section-Data {
-            width: 30%;
-            border: 1px solid white;
-        }
-
-        .Left-Bottom-remove {
-            border-left: none;
-            border-bottom: none;
-        }
-
-        .Border-remove {
-            border: none;
-        }
-
-
-
-    </style>
-</head>
-<body onload="window.print();window.close()">
-    <div class="layout-section">
-        <table class="heder">
-            <tbody>
-                <tr>
-                    <td class="logo-section"><img src="http://localhost:53678/Content/assets/img/Document/images/logo.png" width="150" height="100" /></td>
-                    <td class="address-section">
-                        <table >
-                            <tbody >
-                                <tr>
-                                    <td class="text-white-bold-center">Application for "Sanctuary at Doral"</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-white">9400 NW 41st Street,</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-white">Doral, FL, 33178</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-white">Phone No: 786.437.8658</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div style="padding:20px;">
-            <table >
-                <tbody style="color:#000;">
-                    <tr>
-                        <td class="detail-section-Header Bold black-text">Date</td>
-                        <td class="detail-section-Data">6/10/2019</td>
-                        <td class="detail-section-Header Bold black-text">Quotation Valid Until:</td>
-                        <td class="detail-section-Data">7/11/2019</td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-Header Bold black-text">Quotation #</td>
-                        <td class="detail-section-Data">3</td>
-                        <td class="detail-section-Header Bold black-text">Prepared By:</td>
-                        <td class="detail-section-Data">Apurva</td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-Header Bold black-text">Customer</td>
-                        <td class="detail-section-Data">peter Incorporate</td>
-                        <td class="detail-section-Header Bold black-text">Contact</td>
-                        <td class="detail-section-Data">07038551722</td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-Header Bold black-text">Quote To</td>
-                        <td class="detail-section-Data">testing</td>
-                        <td class="detail-section-Header Bold black-text">Email</td>
-                        <td class="detail-section-Data">apurvaraut20@gmail.com</td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-Header Bold black-text">Project</td>
-                        <td class="detail-section-Data">Raut</td>
-                        <td class="detail-section-Data">&nbsp;</td>
-                        <td class="detail-section-Data">&nbsp;</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</body>
-</html>`
-        );
-        popupWin.document.close();
     }
 </script>
