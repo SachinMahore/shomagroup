@@ -983,5 +983,27 @@ namespace ShomaRM.Controllers
             }
 
         }
+        public ActionResult PrintGuarantorForm(long TenantID)
+        {
+            try
+            {
+                return Json(new { filename = new ApplyNowModel().PrintGuarantorForm(TenantID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { filename = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+    }
+    public ActionResult PrintCoapplicantForm(long TenantID)
+    {
+        try
+        {
+            return Json(new { filename = new ApplyNowModel().PrintCoapplicantForm(TenantID) }, JsonRequestBehavior.AllowGet);
+        }
+        catch (Exception Ex)
+        {
+            return Json(new { filename = "" }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

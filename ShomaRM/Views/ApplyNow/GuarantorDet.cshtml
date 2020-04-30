@@ -25,6 +25,7 @@
 <input type="hidden" id="hndBuilding" value="@(Model.Building)" />
 <input type="hidden" id="hndProcessingFees" value="@(Model.ProcessingFees)" />
 <input type="hidden" id="hndAdditionalParking" value="@(Model.AdditionalParking)" />
+<input type="hidden" id="hndDocumentTypePersonal" value="0" />
 @*Sachin Mahore 21 Apr 2020*@
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
@@ -1090,20 +1091,19 @@
                                 <div class="col-sm-12">
                                     <p>
                                         <i>
-                                            *The Administration fee is due to reserve your apartment for a maximum of 30 days, once approved, and may be applied towards your Initial Payment.
-                                            <br />**The Security Deposit may be bonded with a third-party company.  Please contact by phone (866) 312-3090 or e-mail SelectDeposit@Assurant.com. The Client Support Team is available Monday – Friday 9am – 6pm ET to assist you.
+                                            *The Administration fee is due in order to reserve your unit for a maximum of 30 days, once approved.
+                                            <br />**The Security Deposit may be bonded using the SureDeposit Program .  Please contact by hone (866) 312-3090 or email <a href="mailto:SelectDeposit@Assurant.com">SelectDeposit@Assurant.com</a>. The Client Support Team is available Monday through Friday 9am-6pm ET to assist you.
                                         </i>
                                     </p>
                                     <p>
                                         <i>
-                                            ***General liability insurance with a minimum limit of $100,000 is required. Proof of coverage will be required prior to move-in.
+                                            ***General Liability insurance with a minimum limit of $300,000 is required.  Proof of coverage will be required prior to move-in.
                                             <br />****Excludes the Utility reimbursement for water & sewer which is billed monthly based on actual consumption.
                                         </i>
                                     </p>
                                     <p>
                                         <i>
-                                            The amounts herein are estimates based upon policies and rates in effect at the time.  The amounts are subject to change without notice and not final until lease is executed. If you make changes to the desired move-in date, lease term, or any other options, the amounts herein may vary.
-
+                                            The amounts herein are estimates based upon policies and rates in effect at the time.  The amounts are subject to change without notice and not final until lease is executed.  If you make changes to the desired move-in date, lease term, or any other option, the amounts herein may vary.
                                         </i>
                                     </p>
                                 </div>
@@ -1617,16 +1617,10 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="ddlDocumentType" class="star">ID Type</label>
-                                        <select id="ddlDocumentTypePersonal" class="form-control " style="width:100%!important">
-                                            <option value="0">Select</option>
-                                            <option value="1">Driver's License</option>
-                                            <option value="2">Military ID</option>
-                                            <option value="4">State Issued ID</option>
-                                            <option value="3">Passport</option>
-                                        </select>
+                                        <select id="ddlDocumentTypePersonal" class="form-control " style="width:100%!important"></select>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-4 hidden">
                                     <div class="form-group">
                                         <label id="lblStatePersonal" class="star"> State</label>
                                         <select id="ddlStatePersonal" class="form-control">
@@ -1644,6 +1638,8 @@
                                         <input class="form-control form-control-small" id="txtIDNumber" maxlength="25" />
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-sm-12">
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label class="star">Upload <span id="lblUploadIdentity"></span></label><br />
@@ -1672,7 +1668,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 hidden" id="divEverBeenConvicted">
+                                <div class="col-sm-4" id="divEverBeenConvicted">
                                     <div class="form-group">
                                         <label for="ddlEverBeenConvicted" class="star">Have you ever been convicted of a felony?</label>
                                         <select id="ddlEverBeenConvicted" class="form-control" style="width:100%!important" onchange="ddlEverBeenConvictedFunction();">
@@ -1681,7 +1677,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 hidden" id="divAnyCriminalCharges" style="margin-top: -29px;">
+                                <div class="col-sm-4" id="divAnyCriminalCharges" style="margin-top: -29px;">
                                     <div class="form-group">
                                         <label for="ddlAnyCriminalCharges" class="star">
                                             Do you have any criminal charges pending, awaiting
@@ -1696,21 +1692,21 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="col-sm-4">
-                                    <div class="form-group hidden" id="divEverBeenEvictedDetails">
+                                    <div class="form-group" id="divEverBeenEvictedDetails">
                                         <label for="txtEverBeenEvictedDetails" class="star">Details</label>
-                                        <input id="txtEverBeenEvictedDetails" class="form-control form-control-small" type="text" max="500" />
+                                        <textarea id="txtEverBeenEvictedDetails" class="form-control form-control-small" maxlength="500"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class="form-group hidden" id="divEverBeenConvictedDetails">
+                                    <div class="form-group" id="divEverBeenConvictedDetails">
                                         <label for="txtEverBeenConvictedDetails" class="star">Details</label>
-                                        <input id="txtEverBeenConvictedDetails" class="form-control form-control-small" type="text" max="500" />
+                                        <textarea id="txtEverBeenConvictedDetails" class="form-control form-control-small" maxlength="500"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class="form-group hidden" id="divAnyCriminalChargesDetails">
+                                    <div class="form-group" id="divAnyCriminalChargesDetails">
                                         <label for="txtAnyCriminalChargesDetails" class="star">Details</label>
-                                        <input id="txtAnyCriminalChargesDetails" class="form-control form-control-small" type="text" max="500" />
+                                        <textarea id="txtAnyCriminalChargesDetails" class="form-control form-control-small" maxlength="500"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -1750,9 +1746,14 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class="form-group hidden" id="divReferredByAnotherResidentName">
+                                    <div class="form-group">
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group" id="divReferredByAnotherResidentName">
                                         <label for="txtReferredByAnotherResidentName" class="star">Please provide Name</label>
-                                        <input id="txtReferredByAnotherResidentName" class="form-control form-control-small" type="text" max="500" />
+                                        <textarea id="txtReferredByAnotherResidentName" class="form-control form-control-small" maxlength="500"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -2440,7 +2441,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Applicants <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(7,7,0)">&nbsp;&nbsp;Edit</a></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Applicants <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a><a href="javascript:void(0);" class="pull-right" onclick="goToStep(7,7,0)">&nbsp;&nbsp;Edit</a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse1" class="panel-collapse collapse">
@@ -2464,37 +2465,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="panel panel-default accordian-border-group hidden">
-                                                <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
-                                                    <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Responsibility <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(8,8,0)">&nbsp;&nbsp;Edit</a></a>
-                                                    </h3>
-                                                </div>
-                                                <div id="collapse2" class="panel-collapse collapse">
-                                                    <div class="panel panel-default ">
-                                                        <div class="panel-heading " id="">
-                                                            <table id="tblRespo15" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Applicant Name</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Type</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Move In%</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Move In Charges</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Monthly %</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Monthly Charges</th>
-
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody></tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Personal Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(9,9,0)">&nbsp;&nbsp;Edit</a></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Personal Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a><a href="javascript:void(0);" class="pull-right" onclick="goToStep(9,9,0)">&nbsp;&nbsp;Edit</a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse3" class="panel-collapse collapse">
@@ -2514,31 +2488,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="panel panel-default accordian-border-group hidden">
-                                                <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
-                                                    <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Residence History <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(10,10,0)">&nbsp;&nbsp;Edit</a></a>
-                                                    </h3>
-                                                </div>
-                                                <div id="collapse4" class="panel-collapse collapse">
-                                                    <div class="panel panel-default ">
-                                                        <div class="panel-heading " id="">
-                                                            <table class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
-                                                                <tbody>
-
-                                                                    <tr><td style='width: 195px;'>Current Address</td><td><span id="summCuAdd"></span></td></tr>
-                                                                <tbody></tbody>
-
-                                                            </table>
-                                                            <table id="prevadd" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%"><tbody></tbody></table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(11,11,0)">&nbsp;&nbsp;Edit</a></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a><a href="javascript:void(0);" class="pull-right" onclick="goToStep(11,11,0)">&nbsp;&nbsp;Edit</a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse5" class="panel-collapse collapse">
@@ -2556,84 +2509,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="panel panel-default accordian-border-group hidden">
-                                                <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
-                                                    <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Emergency Contact <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(12,12,0)">&nbsp;&nbsp;Edit</a></a>
-                                                    </h3>
-                                                </div>
-                                                <div id="collapse6" class="panel-collapse collapse">
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading" id="" style="background-color:transparent">
-                                                            <table class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
-
-                                                                <tr><td style='width: 195px;'>Name</td><td><span id="summEmergname"></span></td></tr>
-                                                                <tr><td>Relation</td><td><span id="summEmerrelation"></span></td></tr>
-                                                                <tr><td>Mobile</td><td><span id="summEmegmobile"></span></td></tr>
-
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="panel panel-default accordian-border-group hidden">
-                                                <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
-                                                    <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Vehicle Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(13,13,0)">&nbsp;&nbsp;Edit</a></a>
-                                                    </h3>
-                                                </div>
-                                                <div id="collapse7" class="panel-collapse collapse">
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading" id="" style="background-color:transparent">
-                                                            <table id="tblVehicle15" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Owner Name</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Vehicle Make</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Model</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Year</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Color</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">License Plate</th>
-
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody></tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="panel panel-default accordian-border-group hidden">
-                                                <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
-                                                    <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Pet Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(14,14,0)">&nbsp;&nbsp;Edit</a></a>
-                                                    </h3>
-                                                </div>
-                                                <div id="collapse8" class="panel-collapse collapse">
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading" id="" style="background-color:transparent">
-                                                            <table id="tblPet15" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
-                                                                <thead>
-                                                                    <tr>
-
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Pet Name</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Breed</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Weight</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Vet's Name</th>
-
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody></tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </p>
                                 </div>
-
-
                             </div>
                             <div class="col-md-12 hidden" id="divsummPrint">
                                 <div style="padding: 10px 15px;text-align:center;">
@@ -2870,7 +2748,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row p hidden">
+                                    <div class="row p">
                                         <div class="col-sm-12">
                                             <div class="">
                                                 <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 10px 15px;text-align:center;">
@@ -2974,38 +2852,38 @@
 
                                             </div>
                                             @*<div class="col-sm-12">
-                                                    <div class="col-sm-4">
-                                                        <span id="">Landlord Name : </span>
-                                                    </div>
-                                                    <div class="col-sm-8">
-                                                        <span id="sdd">211212</span>
-                                                    </div>
+                                <div class="col-sm-4">
+                                    <span id="">Landlord Name : </span>
+                                </div>
+                                <div class="col-sm-8">
+                                    <span id="sdd">211212</span>
+                                </div>
 
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <div class="col-sm-4">
-                                                        <span id="">Landlord Phone : </span>
-                                                    </div>
-                                                    <div class="col-sm-8">
-                                                        <span id="sdd">211212</span>
-                                                    </div>
-
-
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <div class="col-sm-4">
-                                                        <span id="">Landlord Email : </span>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <span id="sdd">211212</span>
-                                                    </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-4">
+                                    <span id="">Landlord Phone : </span>
+                                </div>
+                                <div class="col-sm-8">
+                                    <span id="sdd">211212</span>
+                                </div>
 
 
-                                                </div>*@
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-4">
+                                    <span id="">Landlord Email : </span>
+                                </div>
+                                <div class="col-sm-2">
+                                    <span id="sdd">211212</span>
+                                </div>
+
+
+                            </div>*@
                                         </div>
                                     </div>
 
-                                    <div class="row p hidden">
+                                    <div class="row p">
                                         <div class="col-sm-12">
                                             <div class="">
                                                 <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 10px 15px;text-align:center;">
@@ -3087,41 +2965,41 @@
                                                 </div>
                                             </div>
                                             @*<div class="col-sm-12">
-                                                    <div class="col-sm-4">
-                                                        <span id="">Landlord Name : </span>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <span id="sdd">211212</span>
-                                                    </div>
+                                <div class="col-sm-4">
+                                    <span id="">Landlord Name : </span>
+                                </div>
+                                <div class="col-sm-2">
+                                    <span id="sdd">211212</span>
+                                </div>
 
-                                                    <div class="col-sm-6">
-                                                        <span id="">&nbsp;</span>
-                                                    </div>
-                                                </div>*@
+                                <div class="col-sm-6">
+                                    <span id="">&nbsp;</span>
+                                </div>
+                            </div>*@
                                             @*<div class="col-sm-12">
-                                                    <div class="col-sm-4">
-                                                        <span id="">Landlord Phone : </span>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <span id="sdd">211212</span>
-                                                    </div>
+                                <div class="col-sm-4">
+                                    <span id="">Landlord Phone : </span>
+                                </div>
+                                <div class="col-sm-2">
+                                    <span id="sdd">211212</span>
+                                </div>
 
-                                                    <div class="col-sm-6">
-                                                        <span id="">&nbsp;</span>
-                                                    </div>
-                                                </div>*@
+                                <div class="col-sm-6">
+                                    <span id="">&nbsp;</span>
+                                </div>
+                            </div>*@
                                             @*<div class="col-sm-12">
-                                                    <div class="col-sm-4">
-                                                        <span id="">Landlord Email : </span>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <span id="sdd">211212</span>
-                                                    </div>
+                                <div class="col-sm-4">
+                                    <span id="">Landlord Email : </span>
+                                </div>
+                                <div class="col-sm-2">
+                                    <span id="sdd">211212</span>
+                                </div>
 
-                                                    <div class="col-sm-6">
-                                                        <span id="">&nbsp;</span>
-                                                    </div>
-                                                </div>*@
+                                <div class="col-sm-6">
+                                    <span id="">&nbsp;</span>
+                                </div>
+                            </div>*@
                                         </div>
                                     </div>
 
@@ -3215,17 +3093,17 @@
                                                 </div>
                                             </div>
                                             @*<div class="col-sm-12">
-                                                    <div class="col-sm-4">
-                                                        <span id="">Gross Monthly Additional Income Source : </span>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <span id="sdd">211212</span>
-                                                    </div>
+                                <div class="col-sm-4">
+                                    <span id="">Gross Monthly Additional Income Source : </span>
+                                </div>
+                                <div class="col-sm-2">
+                                    <span id="sdd">211212</span>
+                                </div>
 
-                                                    <div class="col-sm-6">
-                                                        <span id="">&nbsp;</span>
-                                                    </div>
-                                                </div>*@
+                                <div class="col-sm-6">
+                                    <span id="">&nbsp;</span>
+                                </div>
+                            </div>*@
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4">
                                                     <span id="">Employer Phone : </span>
@@ -3336,7 +3214,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row p hidden">
+                                    <div class="row p">
                                         <div class="col-sm-12">
                                             <div class="">
                                                 <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 10px 15px;text-align:center;">
@@ -3392,7 +3270,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="row p hidden">
+                                    <div class="row p">
                                         <div class="col-sm-12">
                                             <div class="">
                                                 <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 10px 15px;text-align:center;">
@@ -3420,7 +3298,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="row p hidden">
+                                    <div class="row p">
                                         <div class="col-sm-12">
                                             <div class="">
                                                 <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 10px 15px;text-align:center;">
@@ -3436,7 +3314,7 @@
                                                     <tr>
                                                         <th>Pet Name</th>
                                                         <th>Breed</th>
-                                                        <th>Weight</th>
+                                                        <th>Weight(lbs)</th>
                                                         <th>Vet's Name</th>
                                                     </tr>
                                                 </thead>
@@ -3633,13 +3511,13 @@
                                     </div>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="printSumm('divsummPrint')"><i class="fa fa-print"></i> Print</button>
+                                    <button type="submit" class="btn btn-primary" id="btnPrintSummary" onclick="printSummary()"><i class="fa fa-print"></i> Print</button>
                                 </div>
                             </div>
                             <div class="col-sm-12">
 
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(10,10,0)"> Back</button>
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(11,11,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
                                     <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(16,16,0)"> Continue</button>
@@ -5244,6 +5122,16 @@
                     <button type="submit" class="btn btn-primary pull-right" onclick="saveEmployerHistory()" style="margin-right: 10px;">Save</button>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<div id="modalApplicationSummary" class="modal" style="width:100% !important">
+    <div class="modal-header">
+        <span class="close" id="closeAppSummary" data-dismiss="modal" style="margin-top: -10px !important;margin-right: -200px !important;">&times;</span>
+    </div>
+    <div class="modal-content" style="width:66% !important">
+        <div class="text-center">
+            <div><iframe id="ifrmAppSummary" width="100%" height="625" frameborder="0" style="border:0" allowfullscreen></iframe></div>
         </div>
     </div>
 </div>

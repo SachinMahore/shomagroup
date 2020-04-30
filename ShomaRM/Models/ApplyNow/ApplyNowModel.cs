@@ -962,5 +962,409 @@ namespace ShomaRM.Models
             try { decimaltring = Convert.ToDecimal(converDecimal).ToString("0.00"); } catch { decimaltring = "0.00"; }
             return decimaltring;
         }
+        public string PrintGuarantorForm(long TenantID)
+        {
+            string filename = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+            try
+            {
+                DataSet dtTableSet = new DataSet();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetGuarantorApplicationSummaryData";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter paramTID = cmd.CreateParameter();
+                    paramTID.ParameterName = "TenantID";
+                    paramTID.Value = TenantID;
+                    cmd.Parameters.Add(paramTID);
+
+                    DbParameter paramUID = cmd.CreateParameter();
+                    paramUID.ParameterName = "UserId";
+                    paramUID.Value = ShomaGroupWebSession.CurrentUser.UserID;
+                    cmd.Parameters.Add(paramUID);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTableSet);
+                    db.Database.Connection.Close();
+                }
+
+                if (dtTableSet.Tables.Count > 0)
+                {
+                    dtTableSet.Tables[0].TableName = "ApartmentInfo";
+                    dtTableSet.Tables[1].TableName = "ApplicantFullInfo";
+                    dtTableSet.Tables[2].TableName = "OtherEmpInfo";
+                }
+
+
+                string reportHTML = "";
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                reportHTML = System.IO.File.ReadAllText(filePath + "GuarantorPrintTemplate.html");
+                //--ServerURL--//
+                reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+
+                //-- ApplicantInfo --//
+                reportHTML = reportHTML.Replace("[%ApplicantName%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantName"].ToString());
+                reportHTML = reportHTML.Replace("[%ApplicantDOB%]", DateString(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantDOB"].ToString()));
+                reportHTML = reportHTML.Replace("[%ApplicantEmail%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantEmail"].ToString());
+
+                string ssn = "";
+                try { ssn = new EncryptDecrypt().DecryptText(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantSSN"].ToString()); ssn = "***-**-" + ssn.Substring(4, 5); } catch { }
+
+                reportHTML = reportHTML.Replace("[%ApplicantSSN%]", ssn);
+
+                reportHTML = reportHTML.Replace("[%ApplicantPhone%]", FormatPhoneNumber(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantPhone"].ToString()));
+                reportHTML = reportHTML.Replace("[%ApplicantIDType%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantIDType"].ToString());
+
+                string idnumber = "";
+                try { idnumber = new EncryptDecrypt().DecryptText(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantIDNumber"].ToString()); idnumber = new String('*', idnumber.Length - 4) + idnumber.Substring(idnumber.Length - 4, 4); } catch { }
+                reportHTML = reportHTML.Replace("[%ApplicantIDNumber%]", idnumber);
+
+                reportHTML = reportHTML.Replace("[%ApplicantIDIssuingState%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantIDIssuingState"].ToString());
+                reportHTML = reportHTML.Replace("[%ApplicantIssuingCountry%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantIssuingCountry"].ToString());
+
+                //-- CurrentEmploymentInfo --//
+                reportHTML = reportHTML.Replace("[%CurrentOfficeCountry%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentOfficeCountry"].ToString());
+                reportHTML = reportHTML.Replace("[%CurrentJobTitle%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentJobTitle"].ToString());
+                reportHTML = reportHTML.Replace("[%CurrentJobType%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentJobType"].ToString());
+                reportHTML = reportHTML.Replace("[%CurrentStartDate%]", DateString(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentStartDate"].ToString()));
+                reportHTML = reportHTML.Replace("[%CurrentEmployerName%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentEmployerName"].ToString());
+                reportHTML = reportHTML.Replace("[%CurrentAnnualIncome%]", DecimalString(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentAnnualIncome"].ToString()));
+                reportHTML = reportHTML.Replace("[%CurrentSupervisorName%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentSupervisorName"].ToString());
+                reportHTML = reportHTML.Replace("[%CurrentAnnualAddIncome%]", DecimalString(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentAnnualAddIncome"].ToString()));
+                reportHTML = reportHTML.Replace("[%CurrentEmployeerAddress%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentEmployeerAddress"].ToString());
+                reportHTML = reportHTML.Replace("[%CurrentSupervisorPhone%]", FormatPhoneNumber(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentSupervisorPhone"].ToString()));
+
+                //--PreviousEmploymentInfo --//
+                int startIndexPEI = reportHTML.IndexOf("[%PEHStart%]") + 12;
+                int endIndexPEI = reportHTML.IndexOf("[%PEHEnd%]");
+                int stringLengthPEI = endIndexPEI - startIndexPEI;
+                string otherEmpRepeat = reportHTML.Substring(startIndexPEI, stringLengthPEI);
+                string otherEmpData = "";
+                reportHTML = reportHTML.Replace(otherEmpRepeat, "");
+                reportHTML = reportHTML.Replace("[%PEHStart%]", "");
+                reportHTML = reportHTML.Replace("[%PEHEnd%]", "");
+
+                if (dtTableSet.Tables["OtherEmpInfo"].Rows.Count > 0)
+                {
+                    reportHTML = reportHTML.Replace("[%PerviousResidenceHidden%]", "");
+                    foreach (DataRow drPEH in dtTableSet.Tables["OtherEmpInfo"].Rows)
+                    {
+                        otherEmpData += otherEmpRepeat;
+                        otherEmpData = otherEmpData.Replace("[%OtherEmployerName%]", drPEH["OtherEmployerName"].ToString());
+                        otherEmpData = otherEmpData.Replace("[%OtherJobTitle%]", drPEH["OtherJobTitle"].ToString());
+                        otherEmpData = otherEmpData.Replace("[%OtherStartDate%]", DateString(drPEH["OtherStartDate"].ToString()));
+                        otherEmpData = otherEmpData.Replace("[%OtherTerminationDate%]", DateString(drPEH["OtherTerminationDate"].ToString()));
+                        otherEmpData = otherEmpData.Replace("[%OtherSupervisorName%]", drPEH["OtherSupervisorName"].ToString());
+                        otherEmpData = otherEmpData.Replace("[%OtherEmployeerAddress%]", drPEH["OtherEmployeerAddress"].ToString());
+                        otherEmpData = otherEmpData.Replace("[%OtherAnnualIncome%]", DecimalString(drPEH["OtherAnnualIncome"].ToString()));
+                        otherEmpData = otherEmpData.Replace("[%OtherAnnualAddIncome%]", DecimalString(drPEH["OtherAnnualAddIncome"].ToString()));
+                    }
+                    reportHTML = reportHTML.Replace("[%PreviousEmploymentInformation%]", otherEmpData);
+                }
+                else
+                {
+                    reportHTML = reportHTML.Replace("[%PerviousEmploymentHidden%]", "hidden");
+                }
+
+
+
+                //--AdditionalQuestions--//
+
+                reportHTML = reportHTML.Replace("[%EvictedDetails%]", !string.IsNullOrWhiteSpace(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["EvictedDetails"].ToString()) ? dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["EvictedDetails"].ToString() : "__________");
+                reportHTML = reportHTML.Replace("[%Evicted%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["Evicted"].ToString());
+                reportHTML = reportHTML.Replace("[%EvictedHidden%]", (dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["Evicted"].ToString() == "No" ? "hidden" : ""));
+                reportHTML = reportHTML.Replace("[%ConvictedFelonyDetails%]", !string.IsNullOrWhiteSpace(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ConvictedFelonyDetails"].ToString()) ? dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ConvictedFelonyDetails"].ToString() : "__________");
+                reportHTML = reportHTML.Replace("[%ConvictedFelony%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ConvictedFelony"].ToString());
+                reportHTML = reportHTML.Replace("[%CriminalChargPenDetails%]", !string.IsNullOrWhiteSpace(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CriminalChargPenDetails"].ToString()) ? dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CriminalChargPenDetails"].ToString() : "__________");
+                reportHTML = reportHTML.Replace("[%CriminalChargPen%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CriminalChargPen"].ToString());
+                reportHTML = reportHTML.Replace("[%DoYouSmoke%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["DoYouSmoke"].ToString());
+                reportHTML = reportHTML.Replace("[%ReferredResident%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ReferredResident"].ToString());
+                reportHTML = reportHTML.Replace("[%ReferredResidentName%]", !string.IsNullOrWhiteSpace(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ReferredResidentName"].ToString()) ? dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ReferredResidentName"].ToString() : "__________");
+                reportHTML = reportHTML.Replace("[%ReferredBrokerMerchant%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ReferredBrokerMerchant"].ToString());
+
+
+                List<IElement> elements = iText.Html2pdf.HtmlConverter.ConvertToElements(reportHTML).ToList();
+                byte[] bytes;
+                using (var stream = new MemoryStream())
+                {
+                    PdfDocument pdf = new PdfDocument(new PdfWriter(stream));
+                    pdf.SetTagged();
+                    Document document = new Document(pdf);
+                    document.SetMargins(0, 0, 0, 0);
+                    foreach (IElement element in elements)
+                    {
+                        document.Add((IBlockElement)element);
+                    }
+                    document.Close();
+                    bytes = stream.ToArray();
+                }
+                filename = filePath + "GuarantorApplicationSummary_" + TenantID.ToString() + ".pdf";
+                System.IO.File.WriteAllBytes(filename, bytes);
+                filename = "/Content/assets/img/Document/GuarantorApplicationSummary_" + TenantID.ToString() + ".pdf";
+                db.Dispose();
+
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+
+            return filename;
+        }
+        public string PrintCoapplicantForm(long TenantID)
+        {
+            string filename = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+            try
+            {
+                DataSet dtTableSet = new DataSet();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetCoapplicantSummaryData";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter paramTID = cmd.CreateParameter();
+                    paramTID.ParameterName = "TenantID";
+                    paramTID.Value = TenantID;
+                    cmd.Parameters.Add(paramTID);
+
+                    DbParameter paramUID = cmd.CreateParameter();
+                    paramUID.ParameterName = "UserId";
+                    paramUID.Value = ShomaGroupWebSession.CurrentUser.UserID;
+                    cmd.Parameters.Add(paramUID);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTableSet);
+                    db.Database.Connection.Close();
+                }
+
+                if (dtTableSet.Tables.Count > 0)
+                {
+                    dtTableSet.Tables[0].TableName = "ApartmentInfo";
+                    dtTableSet.Tables[1].TableName = "ApplicantFullInfo";
+                    dtTableSet.Tables[2].TableName = "OtherResInfo";
+                    dtTableSet.Tables[3].TableName = "OtherEmpInfo";
+                    dtTableSet.Tables[4].TableName = "PetInfo";
+                    dtTableSet.Tables[5].TableName = "VehicleInfo";
+                }
+
+
+                string reportHTML = "";
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                reportHTML = System.IO.File.ReadAllText(filePath + "CoapplicantApplicationPrintTemplate.html");
+                //--ServerURL--//
+                reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                //-- ApartmentInfo --//
+                reportHTML = reportHTML.Replace("[%UnitNo%]", dtTableSet.Tables["ApartmentInfo"].Rows[0]["UnitNo"].ToString());
+                reportHTML = reportHTML.Replace("[%MoveInDate%]", DateString(dtTableSet.Tables["ApartmentInfo"].Rows[0]["MoveInDate"].ToString()));
+                reportHTML = reportHTML.Replace("[%Model%]", dtTableSet.Tables["ApartmentInfo"].Rows[0]["Building"].ToString());
+                reportHTML = reportHTML.Replace("[%LeaseTerm%]", dtTableSet.Tables["ApartmentInfo"].Rows[0]["LeaseTerm"].ToString());
+                reportHTML = reportHTML.Replace("[%BedRoom%]", dtTableSet.Tables["ApartmentInfo"].Rows[0]["Bedroom"].ToString());
+                reportHTML = reportHTML.Replace("[%Deposite%]", DecimalString(dtTableSet.Tables["ApartmentInfo"].Rows[0]["Deposit"].ToString()));
+                reportHTML = reportHTML.Replace("[%Bath%]", dtTableSet.Tables["ApartmentInfo"].Rows[0]["Bathroom"].ToString());
+                reportHTML = reportHTML.Replace("[%Rent%]", DecimalString(dtTableSet.Tables["ApartmentInfo"].Rows[0]["MonthlyCharges"].ToString()));
+                reportHTML = reportHTML.Replace("[%Area%]", dtTableSet.Tables["ApartmentInfo"].Rows[0]["Area"].ToString() + " Sq. Ft.");
+
+                //-- ApplicantInfo --//
+                reportHTML = reportHTML.Replace("[%ApplicantName%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantName"].ToString());
+                reportHTML = reportHTML.Replace("[%ApplicantDOB%]", DateString(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantDOB"].ToString()));
+                reportHTML = reportHTML.Replace("[%ApplicantEmail%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantEmail"].ToString());
+
+                string ssn = "";
+                try { ssn = new EncryptDecrypt().DecryptText(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantSSN"].ToString()); ssn = "***-**-" + ssn.Substring(4, 5); } catch { }
+
+                reportHTML = reportHTML.Replace("[%ApplicantSSN%]", ssn);
+
+                reportHTML = reportHTML.Replace("[%ApplicantPhone%]", FormatPhoneNumber(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantPhone"].ToString()));
+                reportHTML = reportHTML.Replace("[%ApplicantIDType%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantIDType"].ToString());
+
+                string idnumber = "";
+                try { idnumber = new EncryptDecrypt().DecryptText(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantIDNumber"].ToString()); idnumber = new String('*', idnumber.Length - 4) + idnumber.Substring(idnumber.Length - 4, 4); } catch { }
+                reportHTML = reportHTML.Replace("[%ApplicantIDNumber%]", idnumber);
+
+                reportHTML = reportHTML.Replace("[%ApplicantIDIssuingState%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantIDIssuingState"].ToString());
+                reportHTML = reportHTML.Replace("[%ApplicantIssuingCountry%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantIssuingCountry"].ToString());
+
+                //-- CurrentResidenceInfo --//
+                reportHTML = reportHTML.Replace("[%CurrentMoveInDate%]", DateString(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentMoveInDate"].ToString()));
+                reportHTML = reportHTML.Replace("[%CurrentAddress%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentAddress"].ToString());
+                reportHTML = reportHTML.Replace("[%CurrentMonthlyPayment%]", DecimalString(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentMonthlyPayment"].ToString()));
+                reportHTML = reportHTML.Replace("[%CurrentCountry%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentCountry"].ToString());
+                reportHTML = reportHTML.Replace("[%CurrentAptCommunity%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentAptCommunity"].ToString());
+                reportHTML = reportHTML.Replace("[%CurrentNoticeGiven%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentNoticeGiven"].ToString());
+                reportHTML = reportHTML.Replace("[%CurrentMgmtCompany%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentMgmtCompany"].ToString());
+                reportHTML = reportHTML.Replace("[%CurrentMgmtCompanyPhone%]", FormatPhoneNumber(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentMgmtCompanyPhone"].ToString()));
+
+                //--PerviousResidenceInfo --//
+                int startIndexPRI = reportHTML.IndexOf("[%PRHStart%]") + 12;
+                int endIndexPRI = reportHTML.IndexOf("[%PRHEnd%]");
+                int stringLengthPRI = endIndexPRI - startIndexPRI;
+                string otherResRepeat = reportHTML.Substring(startIndexPRI, stringLengthPRI);
+                string otherResData = "";
+                reportHTML = reportHTML.Replace(otherResRepeat, "");
+                reportHTML = reportHTML.Replace("[%PRHStart%]", "");
+                reportHTML = reportHTML.Replace("[%PRHEnd%]", "");
+
+                if (dtTableSet.Tables["OtherResInfo"].Rows.Count > 0)
+                {
+                    reportHTML = reportHTML.Replace("[%PerviousResidenceHidden%]", "");
+                    foreach (DataRow drPRH in dtTableSet.Tables["OtherResInfo"].Rows)
+                    {
+                        otherResData += otherResRepeat;
+                        otherResData = otherResData.Replace("[%OtherMoveInDateFrom%]", DateString(drPRH["OtherMoveInDateFrom"].ToString()));
+                        otherResData = otherResData.Replace("[%OtherMoveInDateTo%]", DateString(drPRH["OtherMoveInDateTo"].ToString()));
+                        otherResData = otherResData.Replace("[%OtherAddress%]", drPRH["OtherAddress"].ToString());
+                        otherResData = otherResData.Replace("[%OtherMonthlyPayment%]", DecimalString(drPRH["OtherMonthlyPayment"].ToString()));
+                        otherResData = otherResData.Replace("[%OtherCountry%]", drPRH["OtherCountry"].ToString());
+                        otherResData = otherResData.Replace("[%OtherAptCommunity%]", drPRH["OtherAptCommunity"].ToString());
+                        otherResData = otherResData.Replace("[%OtherNoticeGiven%]", drPRH["OtherNoticeGiven"].ToString());
+                        otherResData = otherResData.Replace("[%OtherMgmtCompany%]", drPRH["OtherMgmtCompany"].ToString());
+                        otherResData = otherResData.Replace("[%OtherMgmtCompanyPhone%]", FormatPhoneNumber(drPRH["OtherMgmtCompanyPhone"].ToString()));
+                    }
+                    reportHTML = reportHTML.Replace("[%PreviousResidenceInformation%]", otherResData);
+                }
+                else
+                {
+                    reportHTML = reportHTML.Replace("[%PerviousResidenceHidden%]", "hidden");
+                }
+
+                //-- CurrentEmploymentInfo --//
+                reportHTML = reportHTML.Replace("[%CurrentOfficeCountry%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentOfficeCountry"].ToString());
+                reportHTML = reportHTML.Replace("[%CurrentJobTitle%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentJobTitle"].ToString());
+                reportHTML = reportHTML.Replace("[%CurrentJobType%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentJobType"].ToString());
+                reportHTML = reportHTML.Replace("[%CurrentStartDate%]", DateString(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentStartDate"].ToString()));
+                reportHTML = reportHTML.Replace("[%CurrentEmployerName%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentEmployerName"].ToString());
+                reportHTML = reportHTML.Replace("[%CurrentAnnualIncome%]", DecimalString(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentAnnualIncome"].ToString()));
+                reportHTML = reportHTML.Replace("[%CurrentSupervisorName%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentSupervisorName"].ToString());
+                reportHTML = reportHTML.Replace("[%CurrentAnnualAddIncome%]", DecimalString(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentAnnualAddIncome"].ToString()));
+                reportHTML = reportHTML.Replace("[%CurrentEmployeerAddress%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentEmployeerAddress"].ToString());
+                reportHTML = reportHTML.Replace("[%CurrentSupervisorPhone%]", FormatPhoneNumber(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CurrentSupervisorPhone"].ToString()));
+
+                //--PreviousEmploymentInfo --//
+                int startIndexPEI = reportHTML.IndexOf("[%PEHStart%]") + 12;
+                int endIndexPEI = reportHTML.IndexOf("[%PEHEnd%]");
+                int stringLengthPEI = endIndexPEI - startIndexPEI;
+                string otherEmpRepeat = reportHTML.Substring(startIndexPEI, stringLengthPEI);
+                string otherEmpData = "";
+                reportHTML = reportHTML.Replace(otherEmpRepeat, "");
+                reportHTML = reportHTML.Replace("[%PEHStart%]", "");
+                reportHTML = reportHTML.Replace("[%PEHEnd%]", "");
+
+                if (dtTableSet.Tables["OtherEmpInfo"].Rows.Count > 0)
+                {
+                    reportHTML = reportHTML.Replace("[%PerviousEmploymentHidden%]", "");
+                    foreach (DataRow drPEH in dtTableSet.Tables["OtherEmpInfo"].Rows)
+                    {
+                        otherEmpData += otherEmpRepeat;
+                        otherEmpData = otherEmpData.Replace("[%OtherEmployerName%]", drPEH["OtherEmployerName"].ToString());
+                        otherEmpData = otherEmpData.Replace("[%OtherJobTitle%]", drPEH["OtherJobTitle"].ToString());
+                        otherEmpData = otherEmpData.Replace("[%OtherStartDate%]", DateString(drPEH["OtherStartDate"].ToString()));
+                        otherEmpData = otherEmpData.Replace("[%OtherTerminationDate%]", DateString(drPEH["OtherTerminationDate"].ToString()));
+                        otherEmpData = otherEmpData.Replace("[%OtherSupervisorName%]", drPEH["OtherSupervisorName"].ToString());
+                        otherEmpData = otherEmpData.Replace("[%OtherEmployeerAddress%]", drPEH["OtherEmployeerAddress"].ToString());
+                        otherEmpData = otherEmpData.Replace("[%OtherAnnualIncome%]", DecimalString(drPEH["OtherAnnualIncome"].ToString()));
+                        otherEmpData = otherEmpData.Replace("[%OtherAnnualAddIncome%]", DecimalString(drPEH["OtherAnnualAddIncome"].ToString()));
+                    }
+                    reportHTML = reportHTML.Replace("[%PreviousEmploymentInformation%]", otherEmpData);
+                }
+                else
+                {
+                    reportHTML = reportHTML.Replace("[%PerviousEmploymentHidden%]", "hidden");
+                }
+
+                //-- PetInfo --//
+                string petInfo = "";
+                if (dtTableSet.Tables["PetInfo"].Rows.Count > 0)
+                {
+                    foreach (DataRow drPet in dtTableSet.Tables["PetInfo"].Rows)
+                    {
+                        petInfo += "<tr>";
+                        petInfo += "<td class='td-pet'>" + drPet["PetName"].ToString() + "</td>";
+                        petInfo += "<td class='td-pet'>" + drPet["Breed"].ToString() + "</td>";
+                        petInfo += "<td class='td-pet'>" + drPet["Weight"].ToString() + "</td>";
+                        petInfo += "</tr>";
+                    }
+
+                    reportHTML = reportHTML.Replace("[%PetInformation%]", petInfo);
+                }
+                else
+                {
+                    reportHTML = reportHTML.Replace("[%PetInformation%]", "");
+                }
+
+                //-- VehicleInfo --//
+                string vehicleInfo = "";
+                if (dtTableSet.Tables["VehicleInfo"].Rows.Count > 0)
+                {
+                    foreach (DataRow drPet in dtTableSet.Tables["VehicleInfo"].Rows)
+                    {
+                        vehicleInfo += "<tr>";
+                        vehicleInfo += "<td class='td-vehicle'>" + drPet["Make"].ToString() + "</td>";
+                        vehicleInfo += "<td class='td-vehicle'>" + drPet["Model"].ToString() + "</td>";
+                        vehicleInfo += "<td class='td-vehicle'>" + drPet["Year"].ToString() + "</td>";
+                        vehicleInfo += "<td class='td-vehicle'>" + drPet["Color"].ToString() + "</td>";
+                        vehicleInfo += "<td class='td-vehicle'>" + drPet["License"].ToString() + "</td>";
+                        vehicleInfo += "<td class='td-vehicle'>" + drPet["StateName"].ToString() + "</td>";
+                        vehicleInfo += "</tr>";
+                    }
+
+                    reportHTML = reportHTML.Replace("[%VehicleInfromation%]", vehicleInfo);
+                }
+                else
+                {
+                    reportHTML = reportHTML.Replace("[%VehicleInfromation%]", "");
+                }
+
+                //--AdditionalQuestions--//
+
+                reportHTML = reportHTML.Replace("[%EvictedDetails%]", !string.IsNullOrWhiteSpace(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["EvictedDetails"].ToString()) ? dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["EvictedDetails"].ToString() : "__________");
+                reportHTML = reportHTML.Replace("[%Evicted%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["Evicted"].ToString());
+                reportHTML = reportHTML.Replace("[%EvictedHidden%]", (dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["Evicted"].ToString() == "No" ? "hidden" : ""));
+                reportHTML = reportHTML.Replace("[%ConvictedFelonyDetails%]", !string.IsNullOrWhiteSpace(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ConvictedFelonyDetails"].ToString()) ? dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ConvictedFelonyDetails"].ToString() : "__________");
+                reportHTML = reportHTML.Replace("[%ConvictedFelony%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ConvictedFelony"].ToString());
+                reportHTML = reportHTML.Replace("[%CriminalChargPenDetails%]", !string.IsNullOrWhiteSpace(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CriminalChargPenDetails"].ToString()) ? dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CriminalChargPenDetails"].ToString() : "__________");
+                reportHTML = reportHTML.Replace("[%CriminalChargPen%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["CriminalChargPen"].ToString());
+                reportHTML = reportHTML.Replace("[%DoYouSmoke%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["DoYouSmoke"].ToString());
+                reportHTML = reportHTML.Replace("[%ReferredResident%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ReferredResident"].ToString());
+                reportHTML = reportHTML.Replace("[%ReferredResidentName%]", !string.IsNullOrWhiteSpace(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ReferredResidentName"].ToString()) ? dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ReferredResidentName"].ToString() : "__________");
+                reportHTML = reportHTML.Replace("[%ReferredBrokerMerchant%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ReferredBrokerMerchant"].ToString());
+
+
+                List<IElement> elements = iText.Html2pdf.HtmlConverter.ConvertToElements(reportHTML).ToList();
+                byte[] bytes;
+                using (var stream = new MemoryStream())
+                {
+                    PdfDocument pdf = new PdfDocument(new PdfWriter(stream));
+                    pdf.SetTagged();
+                    Document document = new Document(pdf);
+                    document.SetMargins(0, 0, 0, 0);
+                    foreach (IElement element in elements)
+                    {
+                        document.Add((IBlockElement)element);
+                    }
+                    document.Close();
+                    bytes = stream.ToArray();
+                }
+                filename = filePath + "Coapplicant_ApplicationSummary_" + TenantID.ToString() + ".pdf";
+                System.IO.File.WriteAllBytes(filename, bytes);
+                filename = "/Content/assets/img/Document/Coapplicant_ApplicationSummary_" + TenantID.ToString() + ".pdf";
+                db.Dispose();
+
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+
+            return filename;
+        }
+
     }
 }

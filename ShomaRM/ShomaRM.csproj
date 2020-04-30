@@ -2236,11 +2236,13 @@
     <Content Include="Content\assets\img\demo\small-property-1.jpg" />
     <Content Include="Content\assets\img\demo\small-property-2.jpg" />
     <Content Include="Content\assets\img\demo\small-property-3.jpg" />
+    <Content Include="Content\assets\img\Document\CoapplicantApplicationPrintTemplate.html" />
     <Content Include="Content\assets\img\Document\EmailTemplate.html" />
     <Content Include="Content\assets\img\Document\EmailTemplateProspect.html" />
     <Content Include="Content\assets\img\Document\EmailTemplateProspect1.html" />
     <Content Include="Content\assets\img\Document\EmailTemplateProspect2.html" />
     <Content Include="Content\assets\img\Document\ForgetPassword.html" />
+    <Content Include="Content\assets\img\Document\GuarantorPrintTemplate.html" />
     <Content Include="Content\assets\img\Document\images\divider.png" />
     <Content Include="Content\assets\img\Document\images\facebook%402x.png" />
     <Content Include="Content\assets\img\Document\images\googleplus%402x.png" />

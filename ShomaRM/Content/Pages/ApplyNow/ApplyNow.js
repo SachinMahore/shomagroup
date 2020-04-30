@@ -472,6 +472,8 @@ $(document).ready(function () {
     //});
     
     $("#ddlIsInter").on("change", function () {
+        var isInterId = $(this).val();
+        ddlDocumentTypePersonal(isInterId);
         if ($(this).val() == 1) {
             $("#passportDiv").removeClass("hidden");
             $("#divSSNNumber").addClass("col-sm-4 hidden");
@@ -1297,9 +1299,9 @@ var goToStep = function (stepid, id, calldataupdate) {
             if ($("#ddlDocumentTypePersonal").val() == "0") {
                 msg += "Please Select The Id Type </br>";
             }
-            if ($("#ddlStatePersonal").val() == "0") {
-                msg += "Please Select The State </br>";
-            }
+            //if ($("#ddlStatePersonal").val() == "0") {
+            //    msg += "Please Select The State </br>";
+            //}
             if (!$("#txtIDNumber").val()) {
                 msg += "Please Fill The  Id Number </br>";
             }
@@ -6028,6 +6030,7 @@ var getTenantOnlineList = function (id) {
         success: function (response) {
 
             $("#ddlIsInter").val(response.model.IsInternational).change();
+            $("#hndDocumentTypePersonal").val(response.model.IDType);
             //new
             $("#ddlCountryOfOrigin").val(response.model.CountryOfOrigin);
             $("#ddlEverBeenEvicted").val(response.model.Evicted).change();
@@ -8710,4 +8713,16 @@ var printSummary=function()
             //hyperlink.remove();
         }
     });
+}
+var ddlDocumentTypePersonal = function (id) {
+    $('#ddlDocumentTypePersonal').empty();
+    var option = '<option value="0">Select</option>';
+    option += '<option value="1">Drivers License</option>';
+    option += '<option value="2">Military ID</option>';
+    option += '<option value="4">State Issued ID</option>';
+    if (id == '1') {
+        option += '<option value="3">Passport</option>';
+    }
+    $('#ddlDocumentTypePersonal').append(option);
+    $('#ddlDocumentTypePersonal').val($("#hndDocumentTypePersonal").val());
 }

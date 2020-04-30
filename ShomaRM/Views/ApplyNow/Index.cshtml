@@ -24,6 +24,7 @@
 <input type="hidden" id="hndProcessingFees" value="@(Model.ProcessingFees)" />
 <input type="hidden" id="hndAdditionalParking" value="@(Model.AdditionalParking)" />
 <input type="hidden" id="HndAddParkingCount" value="0" />
+<input type="hidden" id="hndDocumentTypePersonal" value="0" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container">
@@ -580,7 +581,7 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="col-sm-4">
-                                        <span id="">Security Deposit (Refundable): </span>
+                                        <span id="">Security Deposit **: </span>
                                     </div>
                                     <div class="col-sm-2">
                                         $<span id="lbldeposit1"></span>
@@ -713,6 +714,11 @@
                                 <div class="col-sm-12">
                                     <div class="col-sm-12">
                                         <p><i class="star"></i> Excluding the utility reimbursement for water & sewer, which is  billed monthly based on actual consumption</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-12">
+                                        <p><i class="star"></i><i class="star"></i> Security Deposit is subject to various criteria including credit history.  Additionally, we participate in the SureDeposit Program which may assist you in bonding your Deposit for a small fee. </p>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 clearfix">
@@ -1099,20 +1105,19 @@
                                 <div class="col-sm-12">
                                     <p>
                                         <i>
-                                            *The Administration fee is due to reserve your apartment for a maximum of 30 days, once approved, and may be applied towards your Initial Payment.
-                                            <br />**The Security Deposit may be bonded with a third-party company.  Please contact by phone (866) 312-3090 or e-mail SelectDeposit@Assurant.com. The Client Support Team is available Monday – Friday 9am – 6pm ET to assist you.
+                                            *The Administration fee is due to reserve your apartment for a maximum of 30 days, once approved.
+                                            <br />**TThe Security Deposit may be bonded using the SureDeposit Program. Please contact by hone (866) 312-3090 or email <a href="mailto:SelectDeposit@Assurant.com">SelectDeposit@Assurant.com</a>. The Client Support Team is available Monday through Friday 9am-6pm ET to assist you.
                                         </i>
                                     </p>
                                     <p>
                                         <i>
-                                            ***General liability insurance with a minimum limit of $100,000 is required. Proof of coverage will be required prior to move-in.
+                                            ***General Liability insurance with a minimum limit of $300,000 is required.  Proof of coverage will be required prior to move-in.
                                             <br />****Excludes the Utility reimbursement for water & sewer which is billed monthly based on actual consumption.
                                         </i>
                                     </p>
                                     <p>
                                         <i>
-                                            The amounts herein are estimates based upon policies and rates in effect at the time.  The amounts are subject to change without notice and not final until lease is executed. If you make changes to the desired move-in date, lease term, or any other options, the amounts herein may vary.
-
+                                            The amounts herein are estimates based upon policies and rates in effect at the time.  The amounts are subject to change without notice and not final until lease is executed.  If you make changes to the desired move-in date, lease term, or any other option, the amounts herein may vary.
                                         </i>
                                     </p>
                                 </div>
@@ -1627,16 +1632,16 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="ddlDocumentType" class="star">ID Type</label>
-                                        <select id="ddlDocumentTypePersonal" class="form-control " style="width:100%!important">
-                                            <option value="0">Select</option>
-                                            <option value="1">Driver's License</option>
-                                            <option value="2">Military ID</option>
-                                            <option value="4">State Issued ID</option>
-                                            <option value="3">Passport</option>
-                                        </select>
+                                        <select id="ddlDocumentTypePersonal" class="form-control " style="width:100%!important"></select>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label id="lblIDNumber" for="txtIDNumber" class="star">ID Number</label>
+                                        <input class="form-control form-control-small" id="txtIDNumber" maxlength="25" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 hidden">
                                     <div class="form-group">
                                         <label id="lblStatePersonal" class="star"> State</label>
                                         <select id="ddlStatePersonal" class="form-control">
@@ -1648,12 +1653,8 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label id="lblIDNumber" for="txtIDNumber" class="star">ID Number</label>
-                                        <input class="form-control form-control-small" id="txtIDNumber" maxlength="25" />
-                                    </div>
-                                </div>
+                            </div>
+                            <div class="col-sm-12">
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label class="star">Upload <span id="lblUploadIdentity"></span></label><br />
@@ -5347,20 +5348,19 @@
                         <td>
                             <p>
                                 <i>
-                                    *The Administration fee is due to reserve your apartment for a maximum of 30 days, once approved, and may be applied towards your Initial Payment.
-                                    <br />**The Security Deposit may be bonded with a third-party company.  Please contact by phone (866) 312-3090 or e-mail SelectDeposit@Assurant.com. The Client Support Team is available Monday – Friday 9am – 6pm ET to assist you.
+                                    *The Administration fee is due in order to reserve your unit for a maximum of 30 days, once approved.
+                                    <br />**The Security Deposit may be bonded using the SureDeposit Program .  Please contact by hone (866) 312-3090 or email <a href="javascript:void(0)">SelectDeposit@Assurant.com</a>.  The Client Support Team is available Monday through Friday 9am-6pm ET to assist you.
                                 </i>
                             </p>
                             <p>
                                 <i>
-                                    ***General liability insurance with a minimum limit of $100,000 is required. Proof of coverage will be required prior to move-in.
+                                    ***General Liability insurance with a minimum limit of $300,000 is required.  Proof of coverage will be required prior to move-in.
                                     <br />****Excludes the Utility reimbursement for water & sewer which is billed monthly based on actual consumption.
                                 </i>
                             </p>
                             <p>
                                 <i>
-                                    The amounts herein are estimates based upon policies and rates in effect at the time.  The amounts are subject to change without notice and not final until lease is executed. If you make changes to the desired move-in date, lease term, or any other options, the amounts herein may vary.
-
+                                    The amounts herein are estimates based upon policies and rates in effect at the time.  The amounts are subject to change without notice and not final until lease is executed.  If you make changes to the desired move-in date, lease term, or any other option, the amounts herein may vary.
                                 </i>
                             </p>
                         </td>

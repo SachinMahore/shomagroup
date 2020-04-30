@@ -670,6 +670,12 @@ namespace ShomaRM.Models
 
                     db.SaveChanges();
                     //Sachin Mahore 21 Apr 2020
+                    var updateGuarantorPhone = db.tbl_Applicant.Where(co => co.TenantID == model.ProspectID && co.Email == model.Email).FirstOrDefault();
+                    if (updateGuarantorPhone != null)
+                    {
+                        updateGuarantorPhone.Phone = model.Mobile;
+                        db.SaveChanges();
+                    }
                     if (applyNow != null)
                     {
                         int stepcomp = 0;
