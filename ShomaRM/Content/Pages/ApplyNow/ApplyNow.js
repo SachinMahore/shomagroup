@@ -8694,25 +8694,6 @@ var printSummary=function()
             $("#divLoader").hide();
             $("#ifrmAppSummary").attr("src", response.filename);
             $("#modalApplicationSummary").show();
-            //var hyperlink = document.createElement('a');
-            //hyperlink.href = response.filename;
-            //hyperlink.target = '_blank';
-            //hyperlink.download = "Application Summary.pdf";
-
-            //(document.body || document.documentElement).appendChild(hyperlink);
-            //hyperlink.onclick = function () {
-            //    (document.body || document.documentElement).removeChild(hyperlink);
-            //};
-            //var mouseEvent = new MouseEvent('click', {
-            //    view: window,
-            //    bubbles: true,
-            //    cancelable: true
-            //});
-            //hyperlink.dispatchEvent(mouseEvent);
-            //if (!navigator.mozGetUserMedia) {
-            //    window.URL.revokeObjectURL(hyperlink.href);
-            //}
-            //hyperlink.remove();
         }
     });
 }
@@ -8732,3 +8713,55 @@ var ddlDocumentTypePersonal = function (id) {
     $('#ddlDocumentTypePersonal').append(option);
     $('#ddlDocumentTypePersonal').val($("#hndDocumentTypePersonal").val());
 }
+
+var printQuotationPrint = function () {
+    $("#divLoader").show();
+    var model = {
+            TenantID: $("#hdnOPId").val(),
+        QuoteDate: $("#lblFNLQuoteDate").text(),
+        ApplicantName: $("#lblFNLResidentName1").text(),
+        QuoteExpires: $("#lblFNLQuoteExpires").text(),
+        PhoneNumber: $("#lblFNLPhone").text(),
+        Email: $("#lblFNLEmail").text(),
+        DesiredMoveIn: $("#lblFNLDesiredMoveIn").text(),
+        UnitNo: $("#lblFNLUnit").text(),
+        ModelName: $("#lblFNLModel").text(),
+        LeaseTerm: $("#lblFNLTerm").text(),
+        AssignParkingSpace: $("#lblAssginPakingSpace").text(),
+        ApplicationFees: $("#lblFNLApplicationFee").text(),
+        SecurityDeposit: $("#fdepo").text(),
+        GuarantorFees: $("#lblFNLGautantorFee").text(),
+        PetNonRefundableFee: $("#fpetd").text(),
+        AdministratorFee: $("#lblFNLAdministratorFee").text(),
+        PetDNAFee: $("#fpetdna").text(),
+        VehicleRegistration: $("#lblVehicleFees").text(),
+        MonthlyRent: $("#lblMonthly_MonthlyCharge").text(),
+        ProratedMonthlyRent: $("#lblProrated_MonthlyCharge").text(),
+        TrashFee: $("#spanTrashRecycle").text(),
+        ProratedTrashFee: $("#lblProrated_TrashAmt").text(),
+        PestControlFee: $("#spanPestControl").text(),
+        ProratedPestControlFee: $("#lblProrated_PestAmt").text(),
+        ConvergentBillingFee: $("#spanConvergentAmt").text(),
+        ProratedConvergentBillingFee: $("#lblProrated_ConvergentAmt").text(),
+        AdditionalParking: $("#lblMonthly_AditionalParking").text(),
+        ProratedAdditionalParking: $("#lblProrated_AditionalParking").text(),
+        StorageAmount: $("#lblMonthly_Storage").text(),
+        ProratedStorageAmount: $("#lblProrated_Storage").text(),
+        PetFee: $("#lblMonthly_PetRent").text(),
+        ProratedPetFee: $("#lblProrated_PetRent").text(),
+        MonthlyCharges: $("#lblMonthly_TotalRent").text(),
+        ProratedMonthlyCharges: $("#lblProrated_TotalRent").text()
+    };
+    $.ajax({
+        url: '/ApplyNow/PrintQuotation',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+            $("#ifrmQuotationPrint").attr("src", response.filename);
+            $("#modalQuotationPrint").show();
+        }
+    });
+};

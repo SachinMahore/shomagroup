@@ -434,6 +434,7 @@
     <Compile Include="Models\ApplyNow\ApplyNowModel.cs" />
     <Compile Include="Models\ApplyNow\CheckListModel.cs" />
     <Compile Include="Models\ApplyNow\OnlineProspectModule.cs" />
+    <Compile Include="Models\ApplyNow\PrintQuotationModel.cs" />
     <Compile Include="Models\AquatraqHelper.cs" />
     <Compile Include="Models\BackgroundScreeningModel.cs" />
     <Compile Include="Models\Bluemoon\BluemoonService.cs" />
@@ -2445,6 +2446,7 @@
     <Content Include="Content\Templates\images\sanctuary_logo.png" />
     <Content Include="Content\Templates\images\twitter%402x.png" />
     <Content Include="Content\Templates\LeaseDoc.html" />
+    <Content Include="Content\Templates\QuotationPrint.html" />
     <Content Include="Content\Templates\RecurringTerms.html" />
     <Content Include="Content\timepicki.css" />
     <Content Include="Content\timepicki.js" />

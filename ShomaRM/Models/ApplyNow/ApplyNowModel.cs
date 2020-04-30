@@ -727,7 +727,8 @@ namespace ShomaRM.Models
 
 
                 string reportHTML = "";
-                string filePath =HttpContext.Current. Server.MapPath("~/Content/Templates/");
+                string savePath =HttpContext.Current. Server.MapPath("~/Content/assets/img/Document/");
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "ApplicationPrintTemplate.html");
                 //--ServerURL--//
                 reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
@@ -930,7 +931,7 @@ namespace ShomaRM.Models
                     document.Close();
                     bytes = stream.ToArray();
                 }
-                filename = filePath + "ApplicationSummary_" + TenantID.ToString() + ".pdf";
+                filename = savePath + "ApplicationSummary_" + TenantID.ToString() + ".pdf";
                 System.IO.File.WriteAllBytes(filename, bytes);
                 filename = "/Content/assets/img/Document/ApplicationSummary_" + TenantID.ToString() + ".pdf";
                 db.Dispose();
@@ -1005,6 +1006,7 @@ namespace ShomaRM.Models
 
 
                 string reportHTML = "";
+                string savePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
                 string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "GuarantorPrintTemplate.html");
                 //--ServerURL--//
@@ -1106,7 +1108,7 @@ namespace ShomaRM.Models
                     document.Close();
                     bytes = stream.ToArray();
                 }
-                filename = filePath + "GuarantorApplicationSummary_" + TenantID.ToString() + ".pdf";
+                filename = savePath + "GuarantorApplicationSummary_" + TenantID.ToString() + ".pdf";
                 System.IO.File.WriteAllBytes(filename, bytes);
                 filename = "/Content/assets/img/Document/GuarantorApplicationSummary_" + TenantID.ToString() + ".pdf";
                 db.Dispose();
@@ -1161,6 +1163,7 @@ namespace ShomaRM.Models
 
 
                 string reportHTML = "";
+                string savePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
                 string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "CoapplicantApplicationPrintTemplate.html");
                 //--ServerURL--//
@@ -1356,7 +1359,7 @@ namespace ShomaRM.Models
                     document.Close();
                     bytes = stream.ToArray();
                 }
-                filename = filePath + "Coapplicant_ApplicationSummary_" + TenantID.ToString() + ".pdf";
+                filename = savePath + "Coapplicant_ApplicationSummary_" + TenantID.ToString() + ".pdf";
                 System.IO.File.WriteAllBytes(filename, bytes);
                 filename = "/Content/assets/img/Document/Coapplicant_ApplicationSummary_" + TenantID.ToString() + ".pdf";
                 db.Dispose();
@@ -1370,6 +1373,79 @@ namespace ShomaRM.Models
 
             return filename;
         }
+        public string PrintQuotation(PrintQuotationModel model)
+        {
+            string filename = "";
+            try
+            {
 
+                string reportHTML = "";
+                string savePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
+                reportHTML = System.IO.File.ReadAllText(filePath + "QuotationPrint.html");
+               
+                reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                
+                reportHTML = reportHTML.Replace("[%QuoteDate%]", model.QuoteDate);
+                reportHTML = reportHTML.Replace("[%ApplicantName%]", model.ApplicantName);
+                reportHTML = reportHTML.Replace("[%QuoteExpires%]", model.QuoteExpires);
+                reportHTML = reportHTML.Replace("[%PhoneNumber%]", model.PhoneNumber);
+                reportHTML = reportHTML.Replace("[%Email%]", model.Email);
+                reportHTML = reportHTML.Replace("[%DesiredMoveIn%]", model.DesiredMoveIn);
+                reportHTML = reportHTML.Replace("[%UnitNo%]", model.UnitNo);
+                reportHTML = reportHTML.Replace("[%ModelName%]", model.ModelName);
+                reportHTML = reportHTML.Replace("[%LeaseTerm%]", model.LeaseTerm);
+                reportHTML = reportHTML.Replace("[%AssignParkingSpace%]", model.AssignParkingSpace);
+                reportHTML = reportHTML.Replace("[%ApplicationFees%]", model.ApplicationFees);
+                reportHTML = reportHTML.Replace("[%SecurityDeposit%]", model.SecurityDeposit);
+                reportHTML = reportHTML.Replace("[%GuarantorFees%]", model.GuarantorFees);
+                reportHTML = reportHTML.Replace("[%PetNonRefundableFee%]", model.PetNonRefundableFee);
+                reportHTML = reportHTML.Replace("[%AdministratorFee%]", model.AdministratorFee);
+                reportHTML = reportHTML.Replace("[%PetDNAFee%]", model.PetDNAFee    );
+                reportHTML = reportHTML.Replace("[%VehicleRegistration%]", model.VehicleRegistration);
+                reportHTML = reportHTML.Replace("[%MonthlyRent%]", model.MonthlyRent);
+                reportHTML = reportHTML.Replace("[%ProratedMonthlyRent%]", model.ProratedMonthlyRent);
+                reportHTML = reportHTML.Replace("[%TrashFee%]", model.TrashFee);
+                reportHTML = reportHTML.Replace("[%ProratedTrashFee%]", model.ProratedTrashFee);
+                reportHTML = reportHTML.Replace("[%PestControlFee%]", model.PestControlFee);
+                reportHTML = reportHTML.Replace("[%ProratedPestControlFee%]", model.ProratedPestControlFee);
+                reportHTML = reportHTML.Replace("[%ConvergentBillingFee%]", model.ConvergentBillingFee);
+                reportHTML = reportHTML.Replace("[%ProratedConvergentBillingFee%]", model.ProratedConvergentBillingFee);
+                reportHTML = reportHTML.Replace("[%AdditionalParking%]", model.AdditionalParking);
+                reportHTML = reportHTML.Replace("[%ProratedAdditionalParking%]", model.ProratedAdditionalParking);
+                reportHTML = reportHTML.Replace("[%StorageAmount%]", model.StorageAmount);
+                reportHTML = reportHTML.Replace("[%ProratedStorageAmount%]", model.ProratedStorageAmount);
+                reportHTML = reportHTML.Replace("[%PetFee%]", model.PetFee);
+                reportHTML = reportHTML.Replace("[%ProratedPetFee%]", model.ProratedPetFee);
+                reportHTML = reportHTML.Replace("[%MonthlyCharges%]", model.MonthlyCharges);
+                reportHTML = reportHTML.Replace("[%ProratedMonthlyCharges%]", model.ProratedMonthlyCharges);
+                reportHTML = reportHTML.Replace("[%ModelImage%]", serverURL+ "content/assets/img/plan/" + model.ModelName+".jpg");
+
+                List<IElement> elements = iText.Html2pdf.HtmlConverter.ConvertToElements(reportHTML).ToList();
+                byte[] bytes;
+                using (var stream = new MemoryStream())
+                {
+                    PdfDocument pdf = new PdfDocument(new PdfWriter(stream));
+                    pdf.SetTagged();
+                    Document document = new Document(pdf);
+                    document.SetMargins(0, 0, 0, 0);
+                    foreach (IElement element in elements)
+                    {
+                        document.Add((IBlockElement)element);
+                    }
+                    document.Close();
+                    bytes = stream.ToArray();
+                }
+                filename = savePath + "Quotation_" + model.TenantID + ".pdf";
+                System.IO.File.WriteAllBytes(filename, bytes);
+                filename = "/Content/assets/img/Document/Quotation_" + model.TenantID + ".pdf";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return filename;
+        }
     }
 }
