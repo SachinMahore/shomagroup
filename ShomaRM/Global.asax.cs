@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net.Config;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -17,7 +18,7 @@ namespace ShomaRM
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
+            XmlConfigurator.Configure();
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072; //TLS 1.2
         }
     }

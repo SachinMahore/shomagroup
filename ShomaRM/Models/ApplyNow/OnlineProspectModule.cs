@@ -260,8 +260,9 @@ namespace ShomaRM.Models
 
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == model.PropertyId).FirstOrDefault();
                 string reportHTML = "";
-                string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                 string phonenumber = model.Phone;
                 if (model != null)
                 {
@@ -437,8 +438,10 @@ namespace ShomaRM.Models
                 if (onlineProspectData.IsRentalPolicy == null)
                 {
                     string reportHTML = "";
-                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                     string phonenumber = onlineProspectData.Phone;
                     if (model != null)
                     {
@@ -704,7 +707,7 @@ namespace ShomaRM.Models
         {
             string msg = "";
             string reportHTML = "";
-            string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+            string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
             string body = "";
             ShomaRMEntities db = new ShomaRMEntities();
 
@@ -721,6 +724,9 @@ namespace ShomaRM.Models
                     body = "";
                     reportHTML = "";
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+
                     reportHTML = reportHTML.Replace("[%TenantName%]", cd.FirstName + " " + cd.LastName);
                     reportHTML = reportHTML.Replace("[%TenantEmail%]", cd.Email);
 
@@ -752,6 +758,7 @@ namespace ShomaRM.Models
                     body = "";
                     reportHTML = "";
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                     reportHTML = reportHTML.Replace("[%TenantName%]", cd.FirstName + " " + cd.LastName);
                     reportHTML = reportHTML.Replace("[%TenantEmail%]", cd.Email);
 
@@ -777,8 +784,11 @@ namespace ShomaRM.Models
         {
             string msg = "";
             string reportHTML = "";
-            string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+            string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
             reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect5.html");
+
+            reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+
             ShomaRMEntities db = new ShomaRMEntities();
             var phonenumber = "";
             if (model.lstemailsend != null)
@@ -823,7 +833,7 @@ namespace ShomaRM.Models
         {
             string msg = "";
             string reportHTML = "";
-            string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+            string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
             reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect2.html");
             ShomaRMEntities db = new ShomaRMEntities();
             var phonenumber = "";
@@ -837,6 +847,8 @@ namespace ShomaRM.Models
                 var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
 
                 string payid = new EncryptDecrypt().EncryptText(GetCoappDet.ApplicantID.ToString() + ",1," + propertDet.ApplicationFees.Value.ToString("0.00"));
+
+                reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
 
                 reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Fee Payment Link");
                 reportHTML = reportHTML.Replace("[%CoAppType%]", GetCoappDet.Type);

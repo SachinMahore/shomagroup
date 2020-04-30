@@ -896,7 +896,7 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="col-sm-5">
-                                                    <span>Security Deposit (Refundable): </span>
+                                                    <span>Security Deposit **: </span>
                                                 </div>
                                                 <div class="col-sm-7">
                                                     $<span style="text-decoration:underline;font-weight:bold;" id="fdepo">@((Model.Deposit ?? 0).ToString("0.00"))</span>
@@ -1295,7 +1295,7 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-8">
-                                                <span>Security Deposit (Refundable): </span>
+                                                <span>Security Deposit **: </span>
                                             </div>
                                             <div class="col-sm-1"></div>
                                             <div class="col-sm-3">
@@ -1713,13 +1713,13 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class="form-group hidden" id="divEverBeenConvictedDetails">
+                                    <div class="form-group" id="divEverBeenConvictedDetails">
                                         <label for="txtEverBeenConvictedDetails" class="star">Details</label>
                                         <textarea id="txtEverBeenConvictedDetails" class="form-control form-control-small" maxlength="500"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class="form-group hidden" id="divAnyCriminalChargesDetails">
+                                    <div class="form-group" id="divAnyCriminalChargesDetails">
                                         <label for="txtAnyCriminalChargesDetails" class="star">Details</label>
                                         <textarea id="txtAnyCriminalChargesDetails" class="form-control form-control-small" maxlength="500"></textarea>
                                     </div>
@@ -5212,7 +5212,7 @@
                                 <tr>
                                     <td>APPLICATION FEE : </td>
                                     <td>$ <span id="lblFNLApplicationFee" style="text-decoration:underline;font-weight:bold;">@((Model.ApplicationFees ?? 0).ToString("0.00"))/per applicant</span></td>
-                                    <td>Security Deposit (Refundable) </td>
+                                    <td>Security Deposit ** </td>
                                     <td>$ <span style="text-decoration:underline;font-weight:bold;" id="fdepo">@((Model.Deposit ?? 0).ToString("0.00"))</span></td>
                                 </tr>
                                 <tr>
@@ -5665,7 +5665,7 @@
         padding: 15px 11px;
         min-width: 210px;
         max-width: 365px;
-        padding: 0px 15px;
+        padding: 10px;
     }
 
     .margin-left-0 {

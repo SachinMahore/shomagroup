@@ -7,6 +7,7 @@ using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 
 namespace ShomaRM.Models
 {
@@ -35,6 +36,9 @@ namespace ShomaRM.Models
         public int IsAllChecked { get; set; }
 
         public Nullable<System.DateTime> CreatedDate { get; set; }
+
+        string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
+
         public CheckListModel GetMoveInData(long Id)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -323,8 +327,10 @@ namespace ShomaRM.Models
                     //Save  Data In tbl_MoveInChecklist//
 
                     string reportHTML = "";
-                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                     if (model != null)
                     {
                         reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Completed and Move In Charges Received");

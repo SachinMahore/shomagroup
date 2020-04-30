@@ -134,8 +134,10 @@ namespace ShomaRM.Areas.Tenant.Models
                     {
                         string reportCoappHTML = "";
 
-                        string coappfilePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                        string coappfilePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                         reportCoappHTML = System.IO.File.ReadAllText(coappfilePath + "EmailTemplateProspect5.html");
+
+                        reportCoappHTML = reportCoappHTML.Replace("[%ServerURL%]", serverURL);
 
                         reportCoappHTML = reportCoappHTML.Replace("[%CoAppType%]", model.Type);
                         reportCoappHTML = reportCoappHTML.Replace("[%EmailHeader%]", "Your Application Added. Fill your Details");
@@ -158,8 +160,10 @@ namespace ShomaRM.Areas.Tenant.Models
                     {
                         string reportCoappHTML = "";
 
-                        string coappfilePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                        string coappfilePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                         reportCoappHTML = System.IO.File.ReadAllText(coappfilePath + "EmailTemplateProspect5.html");
+
+                        reportCoappHTML = reportCoappHTML.Replace("[%ServerURL%]", serverURL);
 
                         reportCoappHTML = reportCoappHTML.Replace("[%CoAppType%]", model.Type);
                         reportCoappHTML = reportCoappHTML.Replace("[%EmailHeader%]", "Your Application Added as Guarantor. Fill your Details");

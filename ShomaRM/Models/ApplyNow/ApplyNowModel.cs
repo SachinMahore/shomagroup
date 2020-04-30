@@ -188,10 +188,11 @@ namespace ShomaRM.Models
                     db.SaveChanges();
 
                     string reportHTML = "";
-                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
                     string message = "";
                     string phonenumber = GetProspectData.Phone;
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                     if (model != null)
                     {
                         reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Completed and Payment Received");
@@ -339,8 +340,9 @@ namespace ShomaRM.Models
 
                     }
                     string reportHTML = "";
-                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                     string message = "";
                     string phonenumber = coappliList.Phone;
                     if (model != null)
@@ -354,6 +356,7 @@ namespace ShomaRM.Models
 
                     }
                     string body = reportHTML;
+
                     new EmailSendModel().SendEmail(coappliList.Email, "Application Completed and Payment Received", body);
                     message = "Online Application Completed and Payment of $" + model.Charge_Amount + " Received. Please check the email for detail.";
                     if (SendMessage == "yes")
@@ -489,8 +492,9 @@ namespace ShomaRM.Models
                     db.SaveChanges();
 
                     string reportHTML = "";
-                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                     string message = "";
                     string phonenumber = GetCoappDet.Phone;
                     string sub = "";
@@ -571,10 +575,11 @@ namespace ShomaRM.Models
                 }
                 string uidd = new EncryptDecrypt().EncryptText(forgetPassword.UserID.ToString());
                 string reportHTML = "";
-                string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "ForgetPassword.html");
 
-                //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
+                reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+
                 reportHTML = reportHTML.Replace("[%TenantName%]", model.FullName);
                 reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/ApplyNow/ChangePassword/?uid=" + uidd + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/ApplyNow/ChangePassword/?uid=" + uidd + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Change Password</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
 
@@ -722,7 +727,7 @@ namespace ShomaRM.Models
 
 
                 string reportHTML = "";
-                string filePath =HttpContext.Current. Server.MapPath("~/Content/assets/img/Document/");
+                string filePath =HttpContext.Current. Server.MapPath("~/Content/Templates/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "ApplicationPrintTemplate.html");
                 //--ServerURL--//
                 reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
@@ -1000,7 +1005,7 @@ namespace ShomaRM.Models
 
 
                 string reportHTML = "";
-                string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "GuarantorPrintTemplate.html");
                 //--ServerURL--//
                 reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
@@ -1156,7 +1161,7 @@ namespace ShomaRM.Models
 
 
                 string reportHTML = "";
-                string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "CoapplicantApplicationPrintTemplate.html");
                 //--ServerURL--//
                 reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);

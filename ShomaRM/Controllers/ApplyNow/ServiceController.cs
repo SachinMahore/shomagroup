@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ShomaRM.Models;
+using System.Web.Configuration;
 
 namespace ShomaRM.Controllers.ApplyNow
 {
@@ -33,9 +34,13 @@ namespace ShomaRM.Controllers.ApplyNow
                     GetServiceData.Status = Status.ToString();
                     db.SaveChanges();
 
+                    string ServerURL = WebConfigurationManager.AppSettings["ServerURL"];
+
                     string reportHTMLAgent = "";
-                    string filePathAg = HttpContext.Server.MapPath("~/Content/assets/img/Document/");
+                    string filePathAg = HttpContext.Server.MapPath("~/Content/Templates/");
                     reportHTMLAgent = System.IO.File.ReadAllText(filePathAg + "EmailTemplateAmenity.html");
+
+                    reportHTMLAgent = reportHTMLAgent.Replace("[%ServerURL%]", ServerURL);
 
                     reportHTMLAgent = reportHTMLAgent.Replace("[%TenantName%]", salesPersonnInfo.FirstName + " " + salesPersonnInfo.LastName);
 

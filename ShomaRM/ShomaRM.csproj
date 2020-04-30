@@ -129,8 +129,8 @@
     <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.4.0\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=100.0.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharpSigned.105.2.3\lib\net46\RestSharp.dll</HintPath>
@@ -2424,6 +2424,28 @@
     <Content Include="Content\Pages\Tenant\Tenant.js" />
     <Content Include="Content\Pages\Verification\Verification.js" />
     <Content Include="Content\printThis.js" />
+    <Content Include="Content\Templates\ApplicationPrintTemplate.html" />
+    <Content Include="Content\Templates\AppSummary.html" />
+    <Content Include="Content\Templates\CoapplicantApplicationPrintTemplate.html" />
+    <Content Include="Content\Templates\EmailTemplate.html" />
+    <Content Include="Content\Templates\EmailTemplateAmenity.html" />
+    <Content Include="Content\Templates\EmailTemplateProspect.html" />
+    <Content Include="Content\Templates\EmailTemplateProspect1.html" />
+    <Content Include="Content\Templates\EmailTemplateProspect2.html" />
+    <Content Include="Content\Templates\EmailTemplateProspect3.html" />
+    <Content Include="Content\Templates\EmailTemplateProspect5.html" />
+    <Content Include="Content\Templates\ForgetPassword.html" />
+    <Content Include="Content\Templates\GuarantorPrintTemplate.html" />
+    <Content Include="Content\Templates\images\divider.png" />
+    <Content Include="Content\Templates\images\facebook%402x.png" />
+    <Content Include="Content\Templates\images\googleplus%402x.png" />
+    <Content Include="Content\Templates\images\logo.png" />
+    <Content Include="Content\Templates\images\rounder-dwn.png" />
+    <Content Include="Content\Templates\images\rounder-up.png" />
+    <Content Include="Content\Templates\images\sanctuary_logo.png" />
+    <Content Include="Content\Templates\images\twitter%402x.png" />
+    <Content Include="Content\Templates\LeaseDoc.html" />
+    <Content Include="Content\Templates\RecurringTerms.html" />
     <Content Include="Content\timepicki.css" />
     <Content Include="Content\timepicki.js" />
     <Content Include="Content\zabuto_calendar.js" />
@@ -2454,6 +2476,9 @@
     <Content Include="DatabaseChanges\24-04-2020\Stored Procedure Changes.sql" />
     <Content Include="DatabaseChanges\28-04-2020\Add_Column_TenantPet.sql" />
     <Content Include="DatabaseChanges\28-04-2020\usp_GetTenantPetPaginationAndSearchData.sql" />
+    <Content Include="DatabaseChanges\29-04-2020\Add_Column_TenantOnline.sql" />
+    <Content Include="DatabaseChanges\29-04-2020\GetCoapplicantSummaryData.sql" />
+    <Content Include="DatabaseChanges\29-04-2020\GetGuarantorApplicationSummaryData.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

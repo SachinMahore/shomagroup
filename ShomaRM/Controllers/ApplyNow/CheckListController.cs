@@ -158,7 +158,9 @@ namespace ShomaRM.Controllers
         {
             var bmservice = new BluemoonService();
             LeaseRequestModel leaseRequestModel = new LeaseRequestModel();
+            string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
             string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
+
             ShomaRMEntities db = new ShomaRMEntities();
             string uid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID.ToString();
             long UserID = Convert.ToInt64(uid);
@@ -381,11 +383,11 @@ namespace ShomaRM.Controllers
                 {
                     string reportHTML = "";
                     string reportHTMLCoapp = "";
-                    string filePath = HttpContext.Server.MapPath("~/Content/assets/img/Document/");
+                    string filePath = HttpContext.Server.MapPath("~/Content/Templates/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect3.html");
                     reportHTMLCoapp = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect3.html");
                     string message = "";
-                    string SendMessage = "";
+                   
 
                     var keydata = leaseKeys.EsigneResidents.Where(p => p.Email == apptdata.Email).FirstOrDefault();
                     if (keydata != null)
@@ -407,6 +409,8 @@ namespace ShomaRM.Controllers
 
                         //string payid = new EncryptDecrypt().EncryptText(keydata.Key.ToString());
                         string payid = keydata.Key.ToString();
+
+                        reportHTMLCoapp = reportHTMLCoapp.Replace("[%ServerURL%]", serverURL);
 
                         reportHTMLCoapp = reportHTMLCoapp.Replace("[%Status%]", "Review and Sign your application");
                         reportHTMLCoapp = reportHTMLCoapp.Replace("[%EmailHeader%]", "Review and Sign your application");
