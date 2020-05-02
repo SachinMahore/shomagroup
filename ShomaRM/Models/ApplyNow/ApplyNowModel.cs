@@ -1018,7 +1018,7 @@ namespace ShomaRM.Models
                 reportHTML = reportHTML.Replace("[%ApplicantEmail%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantEmail"].ToString());
 
                 string ssn = "";
-                try { ssn = new EncryptDecrypt().DecryptText(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantSSN"].ToString()); ssn = "***-**-" + ssn.Substring(4, 5); } catch { }
+                try { ssn = new EncryptDecrypt().DecryptText(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantSSN"].ToString()); ssn = "***-**-" + ssn.Substring(5, 4); } catch { }
 
                 reportHTML = reportHTML.Replace("[%ApplicantSSN%]", ssn);
 
@@ -1185,7 +1185,7 @@ namespace ShomaRM.Models
                 reportHTML = reportHTML.Replace("[%ApplicantEmail%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantEmail"].ToString());
 
                 string ssn = "";
-                try { ssn = new EncryptDecrypt().DecryptText(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantSSN"].ToString()); ssn = "***-**-" + ssn.Substring(4, 5); } catch { }
+                try { ssn = new EncryptDecrypt().DecryptText(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantSSN"].ToString()); ssn = "***-**-" + ssn.Substring(5, 4); } catch { }
 
                 reportHTML = reportHTML.Replace("[%ApplicantSSN%]", ssn);
 
