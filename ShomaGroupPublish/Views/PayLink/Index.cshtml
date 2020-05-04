@@ -154,8 +154,11 @@
         }else if (@ViewBag.FromAcc=="1") {
             $("#lblDes").text("Co-Applicant Online Application Fees ");
             charge_Type = 1;
-        } else {
+        } else if (@ViewBag.FromAcc=="3") {
             $("#lblDes").text("Applicant Administration Fees ");
+            charge_Type = 3;
+        }else if (@ViewBag.FromAcc=="4") {
+            $("#lblDes").text("Background Check Fees ");
             charge_Type = 3;
         }
         if ("@Model.Type"=="5")

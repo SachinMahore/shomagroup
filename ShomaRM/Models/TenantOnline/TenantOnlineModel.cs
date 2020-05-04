@@ -24,7 +24,7 @@ namespace ShomaRM.Models
         public Nullable<System.DateTime> DateOfBirth { get; set; }
         public string DateOfBirthTxt { get; set; }
         public Nullable<int> Gender { get; set; }
-    
+
         public string Email { get; set; }
         public string Mobile { get; set; }
         public string PassportNumber { get; set; }
@@ -350,7 +350,7 @@ namespace ShomaRM.Models
                     lstpr.Email = dr["Email"].ToString();
                     lstpr.Mobile = dr["Mobile"].ToString();
 
-                    if(!string.IsNullOrWhiteSpace(dr["PassportNumber"].ToString()))
+                    if (!string.IsNullOrWhiteSpace(dr["PassportNumber"].ToString()))
                     {
                         string decryptedPassportNumber = new EncryptDecrypt().DecryptText(dr["PassportNumber"].ToString());
                         int passportlength = decryptedPassportNumber.Length > 4 ? decryptedPassportNumber.Length - 4 : 0;
@@ -372,7 +372,7 @@ namespace ShomaRM.Models
                     {
                         lstpr.PassportNumber = "";
                     }
-                  
+
                     lstpr.CountryIssuance = dr["CountryIssuance"].ToString();
                     lstpr.DateIssuanceTxt = dateIssuance == null ? "" : dateIssuance.Value.ToString("MM/dd/yyy");
                     lstpr.DateExpireTxt = dateExpire == null ? "" : dateExpire.Value.ToString("MM/dd/yyy");
@@ -383,11 +383,11 @@ namespace ShomaRM.Models
                         string decryptedIDNumber = new EncryptDecrypt().DecryptText(dr["IDNumber"].ToString());
                         int idnumlength = decryptedIDNumber.Length > 4 ? decryptedIDNumber.Length - 4 : 0;
                         string maskidnumber = "";
-                        for(int i=0;i<idnumlength;i++)
+                        for (int i = 0; i < idnumlength; i++)
                         {
                             maskidnumber += "*";
                         }
-                        if(decryptedIDNumber.Length>4)
+                        if (decryptedIDNumber.Length > 4)
                         {
                             lstpr.IDNumber = maskidnumber + decryptedIDNumber.Substring(decryptedIDNumber.Length - 4, 4);
                         }
@@ -400,18 +400,18 @@ namespace ShomaRM.Models
                     {
                         lstpr.IDNumber = "";
                     }
-                    
+
                     if (!string.IsNullOrWhiteSpace(dr["SSN"].ToString()))
                     {
                         string decryptedSSN = new EncryptDecrypt().DecryptText(dr["SSN"].ToString());
-                        //if (decryptedSSN.Length > 5)
-                        //{
-                        //    lstpr.SSN = "***-**-" + decryptedSSN.Substring(decryptedSSN.Length - 5, 4);
-                        //}
-                        //else
-                        //{
+                        if (decryptedSSN.Length > 5)
+                        {
+                            lstpr.SSN = "***-**-" + decryptedSSN.Substring(decryptedSSN.Length - 5, 4);
+                        }
+                        else
+                        {
                             lstpr.SSN = decryptedSSN;
-                        //}
+                        }
                     }
                     else
                     {
@@ -535,7 +535,7 @@ namespace ShomaRM.Models
                     lstpr.StringReferredBrokerMerchant = Convert.ToInt32(dr["ReferredBrokerMerchant"]) == 1 ? "No" : "Yes";
                     lstpr.stringIsProprNoticeLeaseAgreement = Convert.ToInt32(dr["IsProprNoticeLeaseAgreement"]) == 1 ? "Yes" : "No";
 
-                    var stepCompleted= Convert.ToInt32(dr["StepCompleted"].ToString());
+                    var stepCompleted = Convert.ToInt32(dr["StepCompleted"].ToString());
                     lstpr.StepCompleted = stepCompleted;
                 }
                 db.Dispose();
@@ -557,15 +557,15 @@ namespace ShomaRM.Models
             {
                 if (vid == 1)
                 {
-                    result= !string.IsNullOrWhiteSpace(appData.SSN) ? new EncryptDecrypt().DecryptText(appData.SSN) : "";
+                    result = !string.IsNullOrWhiteSpace(appData.SSN) ? new EncryptDecrypt().DecryptText(appData.SSN) : "";
                 }
                 else if (vid == 2)
                 {
-                    result= !string.IsNullOrWhiteSpace(appData.PassportNumber) ? new EncryptDecrypt().DecryptText(appData.PassportNumber) : "";
+                    result = !string.IsNullOrWhiteSpace(appData.PassportNumber) ? new EncryptDecrypt().DecryptText(appData.PassportNumber) : "";
                 }
                 else if (vid == 3)
                 {
-                    result= !string.IsNullOrWhiteSpace(appData.IDNumber) ? new EncryptDecrypt().DecryptText(appData.IDNumber) : "";
+                    result = !string.IsNullOrWhiteSpace(appData.IDNumber) ? new EncryptDecrypt().DecryptText(appData.IDNumber) : "";
                 }
             }
             return result;
@@ -577,8 +577,8 @@ namespace ShomaRM.Models
 
             if (model.ProspectID != 0)
             {
-                var applyNow= db.tbl_ApplyNow.Where(p => p.ID == model.ProspectID).FirstOrDefault();
-                var getAppldata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID && p.ParentTOID==ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
+                var applyNow = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectID).FirstOrDefault();
+                var getAppldata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID && p.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
                 if (getAppldata != null)
                 {
                     getAppldata.IsInternational = model.IsInternational;
@@ -691,7 +691,7 @@ namespace ShomaRM.Models
                         db.SaveChanges();
                     }
                 }
-             
+
                 var saveApplicantGender = db.tbl_Applicant.Where(p => p.Email == model.Email).FirstOrDefault();
                 if (saveApplicantGender != null)
                 {
@@ -884,7 +884,7 @@ namespace ShomaRM.Models
 
 
                     db.SaveChanges();
-                    
+
                     //if (applyNow != null)
                     //{
                     //    int stepcomp = 0;
@@ -898,11 +898,11 @@ namespace ShomaRM.Models
                     //}
 
                 }
-              
+
                 var saveApplicantGender = db.tbl_Applicant.Where(p => p.Email == model.Email).FirstOrDefault();
                 if (saveApplicantGender != null)
                 {
-                   
+
                     saveApplicantGender.DateOfBirth = model.DateOfBirth;
                     saveApplicantGender.Gender = model.Gender;
                     saveApplicantGender.OtherGender = model.OtherGender;
@@ -945,7 +945,7 @@ namespace ShomaRM.Models
 
         }
         public string SaveUpdateIDNumber(TenantOnlineModel model)
-        { 
+        {
             //Sachin Mahore 22 Apr 2020
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
@@ -966,7 +966,7 @@ namespace ShomaRM.Models
             return msg;
         }
         public string SaveUpdatePassportNumber(TenantOnlineModel model)
-        { 
+        {
             //Sachin Mahore 22 Apr 2020
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
@@ -1167,6 +1167,20 @@ namespace ShomaRM.Models
             }
             return tenantModelIdentityU;
         }
+        public string GetEncDecSSNPassportIDNum(string EncDecVal, int EncDec)
+        {
+            string result = "";
+            if (EncDec == 1)
+            {
+                result = !string.IsNullOrWhiteSpace(EncDecVal) ? new EncryptDecrypt().DecryptText(EncDecVal) : "";
+
+            }
+            else
+            {
+                result = !string.IsNullOrWhiteSpace(EncDecVal) ? new EncryptDecrypt().EncryptText(EncDecVal) : "";
+            }
+            return result;
+        }
     }
 
     public class TenantPetPlace
@@ -1198,5 +1212,6 @@ namespace ShomaRM.Models
             model.TenantID = Id;
             return model;
         }
+       
     }
 }

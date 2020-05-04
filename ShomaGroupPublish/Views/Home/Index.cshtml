@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ShomaRM.Models.HomeModel
+@{
     ViewBag.Title = "Home Page";
 }
 <script src="~/Content/Pages/Home.js"></script>
@@ -113,7 +114,12 @@
                                             <span class="tooltiptexts">Desired Lease Term</span>
                                         </button>
                                     </span>
-                                    <select id="ddlLease" class="form-control" style="background-color:white;"></select>
+                                    <select id="ddlLease" class="form-control" style="background-color:white;">
+                                        @foreach (var lt in Model.leaseTerms)
+                                        {
+                                            <option value="@lt.LTID" @(lt.LeaseTerms=="12"?"selected":"")>@lt.LeaseTerms</option>
+                                        }
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-2"></div>
@@ -652,7 +658,7 @@
 <script type="text/javascript">
 
     $(function () {
-        getLeaseTermsList();
+        //getLeaseTermsList();
         var dtend = new Date();
         dtend.setFullYear(new Date().getFullYear() + 100);
         //$("#txtMoveInDate").datepicker();
@@ -668,41 +674,41 @@
             $("#txtMoveInDate").focus();
         });
     });
-    var getLeaseTermsList = function (sortby, orderby) {
-        if (!sortby) {
-            sortby = 'LeaseTerms';
-        }
-        if (!orderby) {
-            orderby = 'ASC';
-        }
-        var params = {
-            SortBy: sortby,
-            OrderBy: orderby
-        };
-        $("#divLoader").show();
-        $.ajax({
-            url: '/LeaseTerms/GetLeaseTermsList',
-            method: "post",
-            data: JSON.stringify(params),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                $("#ddlLease").empty();
-                var hasItems = false;
-                $.each(response.model, function (index, elementValue) {
-                    if (elementValue.LeaseTerms == "12") {
-                        $("#ddlLease").append("<option value=" + elementValue.LTID + " selected>" + elementValue.LeaseTerms + "</option>");
-                    } else {
-                        $("#ddlLease").append("<option value=" + elementValue.LTID + ">" + elementValue.LeaseTerms + "</option>");
-                    }
-                    hasItems = true;
-                });
-                if (hasItems == false) {
-                    $("#ddlLease").append("<option value='0' selected>No Lease Term</option>");
-                }
+    //var getLeaseTermsList = function (sortby, orderby) {
+    //    if (!sortby) {
+    //        sortby = 'LeaseTerms';
+    //    }
+    //    if (!orderby) {
+    //        orderby = 'ASC';
+    //    }
+    //    var params = {
+    //        SortBy: sortby,
+    //        OrderBy: orderby
+    //    };
+    //    $("#divLoader").show();
+    //    $.ajax({
+    //        url: '/LeaseTerms/GetLeaseTermsList',
+    //        method: "post",
+    //        data: JSON.stringify(params),
+    //        contentType: "application/json; charset=utf-8",
+    //        dataType: "json",
+    //        success: function (response) {
+    //            $("#ddlLease").empty();
+    //            var hasItems = false;
+    //            $.each(response.model, function (index, elementValue) {
+    //                if (elementValue.LeaseTerms == "12") {
+    //                    $("#ddlLease").append("<option value=" + elementValue.LTID + " selected>" + elementValue.LeaseTerms + "</option>");
+    //                } else {
+    //                    $("#ddlLease").append("<option value=" + elementValue.LTID + ">" + elementValue.LeaseTerms + "</option>");
+    //                }
+    //                hasItems = true;
+    //            });
+    //            if (hasItems == false) {
+    //                $("#ddlLease").append("<option value='0' selected>No Lease Term</option>");
+    //            }
 
-                $("#divLoader").hide();
-            }
-        });
-    }
+    //            $("#divLoader").hide();
+    //        }
+    //    });
+    //}
 </script>

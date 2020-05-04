@@ -293,7 +293,7 @@ $(document).ready(function () {
     });
     tenantOnlineID = $("#hdnOPId").val();
 
-    getTenantOnlineList(tenantOnlineID);
+    getTenantOnlineListGuarantor(tenantOnlineID);
     getPreviousAddressInfo(tenantOnlineID);
     getPreviousEmployementInfo(tenantOnlineID);
 
@@ -313,7 +313,7 @@ $(document).ready(function () {
     $("#txtCountryOfficeHEI").on('change', function (evt, params) {
         var selected = $(this).val();
         if (selected != null) {
-            fillStateDDL_OfficeHEI(selected, 0);
+            //fillStateDDL_OfficeHEI(selected, 0);
         }
     });
     $("#txtEmergencyCountry").on('change', function (evt, params) {
@@ -435,9 +435,9 @@ $(document).ready(function () {
 
     //});
     setTimeout(function () {
-        getApplicantLists();
-        getVehicleLists();
-        getPetLists();
+        getApplicantListsGuarantor();
+        //getVehicleLists();
+        //getPetLists();
     }, 2000);
 
     //fillCountryDropDownList();
@@ -556,10 +556,7 @@ function checkFormstatus() {
 }
 var totalAmt = 0;
 var goToStep = function (stepid, id, calldataupdate) {
-
     if (stepid == "6") {
-        getApplicantLists();
-
         if (id == "6") {
             $("#subMenu").addClass("hidden");
 
@@ -597,87 +594,72 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
     }
     if (stepid == "7") {
-
-        if (id == "7") {
-            $("#subMenu").removeClass("hidden");
-            SaveCheckPolicy(7);
-            $("#as6").removeAttr("onclick");
-            $("#as6").attr("onclick", "goToStep(7,7,0)");
-            $("#step2").addClass("hidden");
-            $("#step1").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").removeClass("hidden");
-            $("#step8").addClass("hidden");
-            $("#step9").addClass("hidden");
-            $("#step10").addClass("hidden");
-            $("#step11").addClass("hidden");
-            $("#step12").addClass("hidden");
-            $("#step13").addClass("hidden");
-            $("#step14").addClass("hidden");
-            $("#step15").addClass("hidden");
-            $("#step16").addClass("hidden");
-            $("#step17").addClass("hidden");
-
-            $("#li7").addClass("active");
-            $("#li8").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li10").removeClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").removeClass("active");
-            $("#li13").removeClass("active");
-            $("#li14").removeClass("active");
-            $("#li15").removeClass("active");
-            $("#li16").removeClass("active");
-            $("#li17").removeClass("active");
+        if (parseInt($("#hdnStepCompleted").val()) < 6) {
+            var msg = getStepCompletedMsgGuarantor(parseInt($("#hdnStepCompleted").val()) + 2, 9);
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
         }
-    }
-    if (stepid == "8") {
+        if (id == "7") {
+            var isCheck = $('#chkAgreeTermsPolicy').is(':checked') ? "1" : "0";
+            if (isCheck == "0") {
+                getApplicantListsG(6);
+                $.alert({
+                    title: "",
+                    content: 'Please check to agree the terms and condition',
+                    type: 'red'
+                });
+            }
+            else {
+                $("#subMenu").removeClass("hidden");
+                SaveCheckPolicy(7);
+                $("#as6").removeAttr("onclick");
+                $("#as6").attr("onclick", "goToStep(7,7,0)");
+                $("#step2").addClass("hidden");
+                $("#step1").addClass("hidden");
+                $("#step4").addClass("hidden");
+                $("#step3").addClass("hidden");
+                $("#step5").addClass("hidden");
+                $("#step6").addClass("hidden");
+                $("#step7").removeClass("hidden");
+                $("#step8").addClass("hidden");
+                $("#step9").addClass("hidden");
+                $("#step10").addClass("hidden");
+                $("#step11").addClass("hidden");
+                $("#step12").addClass("hidden");
+                $("#step13").addClass("hidden");
+                $("#step14").addClass("hidden");
+                $("#step15").addClass("hidden");
+                $("#step16").addClass("hidden");
+                $("#step17").addClass("hidden");
 
-        if (id == "8") {
-            // SaveUpdateStep(8);
-            $('#lblRFPAdditionalParking').text($('#lblMonthly_AditionalParking').text());
-            $('#lblRFPStorageUnit').text($('#lblMonthly_Storage').text());
-            $('#lblRFPPetRent').text($('#lblMonthly_PetRent').text());
-            $("#lblRFPTotalMonthlyPayment").text(formatMoney(parseFloat((parseFloat(unformatText($("#lblRFPMonthlyCharges").text()))) + (parseFloat($("#lblRFPAdditionalParking").text())) + (parseFloat($("#lblRFPStorageUnit").text())) + (parseFloat($("#lblRFPPetRent").text())) + (parseFloat($("#lblRFPTrashRecycling").text())) + (parseFloat($("#lblRFPPestControl").text())) + (parseFloat($("#lblRFPConvergentbillingfee").text()))).toFixed(2)));
-
-
-
-            $("#step2").addClass("hidden");
-            $("#step1").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
-            $("#step8").removeClass("hidden");
-            $("#step9").addClass("hidden");
-            $("#step10").addClass("hidden");
-            $("#step11").addClass("hidden");
-            $("#step12").addClass("hidden");
-            $("#step13").addClass("hidden");
-            $("#step14").addClass("hidden");
-            $("#step15").addClass("hidden");
-            $("#step16").addClass("hidden");
-            $("#step17").addClass("hidden");
-
-            $("#li8").addClass("active");
-            $("#li7").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li10").removeClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").removeClass("active");
-            $("#li13").removeClass("active");
-            $("#li14").removeClass("active");
-            $("#li15").removeClass("active");
-            $("#li16").removeClass("active");
-            $("#li17").removeClass("active");
+                $("#li7").addClass("active");
+                $("#li8").removeClass("active");
+                $("#li9").removeClass("active");
+                $("#li10").removeClass("active");
+                $("#li11").removeClass("active");
+                $("#li12").removeClass("active");
+                $("#li13").removeClass("active");
+                $("#li14").removeClass("active");
+                $("#li15").removeClass("active");
+                $("#li16").removeClass("active");
+                $("#li17").removeClass("active");
+            }
         }
     }
     if (stepid == "9") {
-
+        if (parseInt($("#hdnStepCompleted").val()) < 7) {
+            var msg = getStepCompletedMsgGuarantor(parseInt($("#hdnStepCompleted").val()) + 2, 9);
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
         var msg = "";
         if (id == "9") {
             // var msg = '';
@@ -732,7 +714,15 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
     }
     if (stepid == "11") {
-
+        if (parseInt($("#hdnStepCompleted").val()) < 9) {
+            var msg = getStepCompletedMsgGuarantor(parseInt($("#hdnStepCompleted").val()) + 4, 11);
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
         if (id == "11") {
 
             var msg = '';
@@ -810,7 +800,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             if ($("#ddlDocumentTypePersonal").val() == "0") {
                 msg += "Please Select The Id Type </br>";
             }
-            
+
             if (!$("#txtIDNumber").val()) {
                 msg += "Please Fill The  Id Number </br>";
             }
@@ -867,7 +857,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                 }
                 $("#summDriverL").text($("#txtIDNumber").val());
 
-                saveupdateTenantOnlineGuarantor(10);
+                saveupdateTenantOnlineGuarantor(11);
                 $("#step2").addClass("hidden");
                 $("#step1").addClass("hidden");
                 $("#step4").addClass("hidden");
@@ -900,197 +890,18 @@ var goToStep = function (stepid, id, calldataupdate) {
             }
         }
     }
-
-    if (stepid == "13") {
-
-        if (id == "13") {
-            var msg = '';
-            if (!$("#txtEmployerName").val()) {
-                msg += "Please Fill The Employer Name </br>";
-            }
-            if (!$("#txtStartDate").val()) {
-                msg += "Please Fill The Start Date </br>";
-            }
-            if (!$("#txtAnnualIncome").val()) {
-                msg += "Please Fill The Annual Income </br>";
-            }
-            if ($("#txtAnnualIncome").val() == '0.00') {
-                msg += "Please Fill The Annual Income </br>";
-            }
-            var inc = parseFloat($("#txtAnnualIncome").val())/12;
-            var montpay = parseFloat($("#lblRFPTotalMonthlyPayment").text) * 5;
-            alert(inc)
-            if (inc < montpay)
-            {
-                msg += "The Annual Income must 5 times greater than Monthly Rent</br>";
-            }
-
-            if ($("#hndHasTaxReturnFile").val() == "0") {
-                if (document.getElementById('fileUploadTaxReturn').files.length == '0') {
-                    msg += "Please Upload last 3 paystubs or if self-employed last 2 year's Federal Tax Returns </br>";
-                }
-            }
-            if ($("#rbtnPaystub").is(":checked")) {
-                if ($("#hndHasTaxReturnFile1").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn1').files.length == '0') {
-                        var upLabel = $('#lblUpload1').text();
-                        msg += "Please Upload " + upLabel + " </br>";
-                    }
-                }
-                if ($("#hndHasTaxReturnFile2").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn2').files.length == '0') {
-                        var upLabel2 = $('#lblUpload2').text();
-                        msg += "Please Upload " + upLabel2 + " </br>";
-                    }
-                }
-                if ($("#hndHasTaxReturnFile3").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn3').files.length == '0') {
-                        var upLabel3 = $('#lblUpload3').text();
-                        msg += "Please Upload " + upLabel3 + " </br>";
-                    }
-                }
-            }
-            if ($("#rbtnFedralTax").is(":checked")) {
-                if ($("#hndHasTaxReturnFile1").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn1').files.length == '0') {
-                        var upLabel4 = $('#lblUpload1').text();
-                        msg += "Please Upload " + upLabel4 + " </br>";
-                    }
-                }
-                if ($("#hndHasTaxReturnFile2").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn2').files.length == '0') {
-                        var upLabel5 = $('#lblUpload2').text();
-                        msg += "Please Upload " + upLabel5 + " </br>";
-                    }
-                }
-            }
-            if ($("#txtCountryOffice").val() == '0') {
-                msg += "Please Select The Country </br>";
-            }
-            if (!$("#txtofficeAddress1").val()) {
-                msg += "Please Fill The Address Line 1 </br>";
-            }
-            if ($("#ddlStateEmployee").val() == '0') {
-                msg += "Please Select The State </br>";
-            }
-            if (!$("#ddlCityEmployee").val()) {
-                msg += "Please Fill The City </br>";
-            }
-            if (!$("#txtZipOffice").val()) {
-                msg += "Please Fill The Zip </br>";
-            }
-            if (msg != "") {
-                $.alert({
-                    title: "",
-                    content: msg,
-                    type: 'red'
-                });
-                return;
-            }
-            else {
-                var todaysDate = new Date();
-                var twoDigitMonth = ((todaysDate.getMonth().length + 1) === 1) ? (todaysDate.getMonth() + 1) : '0' + (todaysDate.getMonth() + 1);
-                var twoDigitDay = ((todaysDate.getDate().length) === 1) ? (todaysDate.getDate()) : '0' + (todaysDate.getDate());
-                todaysDate = twoDigitMonth + "/" + todaysDate.getDate() + "/" + todaysDate.getFullYear();
-                var tenantId = $("#hdnOPId").val();
-                var fromDateEmpHis = $('#txtStartDate').val();
-                var toDateEmpHis = todaysDate;
-                var model = {
-                    TenantId: tenantId,
-                    EmpStartDate: fromDateEmpHis,
-                    EmpTerminationDate: toDateEmpHis
-                };
-                $.ajax({
-                    url: '/ApplyNow/GetMonthsFromEmployerHistory',
-                    type: "post",
-                    contentType: "application/json utf-8",
-                    data: JSON.stringify(model),
-                    dataType: "JSON",
-                    success: function (response) {
-                        $("#hdnEmployerHistory").val(response.model.TotalMonthsEmployerHistory);
-                        if ($("#hdnEmployerHistory").val() < 36) {
-                            alert("Please provide at least 3 years of employment history");
-                        } else {
-                            $("#summEmployer").text($("#txtEmployerName").val() + ", " + $("#txtofficeAddress1").val() + ", " + ((!$("#txtofficeAddress2").val()) ? "" : ", " + $("#txtofficeAddress2").val()) + $("#ddlCityEmployee").val() + ", " + $("#ddlStateEmployee option:selected").text() + " - " + $("#txtZipOffice").val() + ", " + $("#txtCountryOffice option:selected").text());
-                            $("#summEstartdate").text($("#txtStartDate").val());
-                            $("#summSalary").text(formatMoney($("#txtAnnualIncome").val()));
-                            saveupdateTenantOnlineGuarantor(13);
-                            $("#step2").addClass("hidden");
-                            $("#step1").addClass("hidden");
-                            $("#step4").addClass("hidden");
-                            $("#step3").addClass("hidden");
-                            $("#step5").addClass("hidden");
-                            $("#step6").addClass("hidden");
-                            $("#step7").addClass("hidden");
-                            $("#step8").addClass("hidden");
-                            $("#step9").addClass("hidden");
-                            $("#step10").addClass("hidden");
-                            $("#step11").addClass("hidden");
-                            $("#step12").addClass("hidden");
-                            $("#step13").removeClass("hidden");
-                            $("#step14").addClass("hidden");
-                            $("#step15").addClass("hidden");
-                            $("#step16").addClass("hidden");
-
-                            $("#li13").addClass("active");
-                            $("#li8").removeClass("active");
-                            $("#li9").removeClass("active");
-                            $("#li7").removeClass("active");
-                            $("#li11").removeClass("active");
-                            $("#li12").removeClass("active");
-                            $("#li10").removeClass("active");
-                            $("#li14").removeClass("active");
-                            $("#li15").removeClass("active");
-                            $("#li16").removeClass("active");
-                            $("#li17").removeClass("active");
-                        }
-                    }
-                });
-            }
-
-            
-        }
-    }
-    if (stepid == "14") {
-
-        if (id == "14") {
-
-            $("#step2").addClass("hidden");
-            $("#step1").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
-            $("#step8").addClass("hidden");
-            $("#step9").addClass("hidden");
-            $("#step10").addClass("hidden");
-            $("#step11").addClass("hidden");
-            $("#step12").addClass("hidden");
-            $("#step13").addClass("hidden");
-            $("#step14").removeClass("hidden");
-            $("#step15").addClass("hidden");
-            $("#step16").addClass("hidden");
-            $("#step17").addClass("hidden");
-
-            $("#li14").addClass("active");
-            $("#li8").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li7").removeClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").removeClass("active");
-            $("#li13").removeClass("active");
-            $("#li10").removeClass("active");
-            $("#li15").removeClass("active");
-            $("#li16").removeClass("active");
-            $("#li17").removeClass("active");
-
-        }
-    }
     if (stepid == "15") {
-
+        if (parseInt($("#hdnStepCompleted").val()) < 11) {
+            var msg = getStepCompletedMsgGuarantor(parseInt($("#hdnStepCompleted").val()) + 4, 15);
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
         if (id == "15") {
-            getApplicantLists();
+            getApplicantListsG();
             var msg = '';
             if (!$("#txtEmployerName").val()) {
                 msg += "Please Fill The Employer Name </br>";
@@ -1245,7 +1056,15 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
     }
     if (stepid == "16") {
-
+        if (parseInt($("#hdnStepCompleted").val()) < 15) {
+            var msg = getStepCompletedMsgGuarantor(parseInt($("#hdnStepCompleted").val()) + 1, 16);
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
         if (id == "16") {
             var msgmm = '';
 
@@ -1284,45 +1103,9 @@ var goToStep = function (stepid, id, calldataupdate) {
 
         }
     }
-    if (stepid == "17") {
-
-        if (id == "17") {
-            // SaveUpdateStep(17);
-            $("#step2").addClass("hidden");
-            $("#step1").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
-            $("#step8").addClass("hidden");
-            $("#step9").addClass("hidden");
-            $("#step10").addClass("hidden");
-            $("#step11").addClass("hidden");
-            $("#step12").addClass("hidden");
-            $("#step13").addClass("hidden");
-            $("#step14").addClass("hidden");
-            $("#step15").addClass("hidden");
-            $("#step16").addClass("hidden");
-            $("#step17").removeClass("hidden");
-
-            $("#li17").addClass("active");
-            $("#li8").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li7").removeClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").removeClass("active");
-            $("#li13").removeClass("active");
-            $("#li14").removeClass("active");
-            $("#li15").removeClass("active");
-            $("#li16").removeClass("active");
-            $("#li10").removeClass("active");
-
-        }
-    }
 };
-var getStepCompletedMsg = function (currentstep, clickstep) {
-    var stepArray = [{ StepID: 2, StepName: "Select Unit" }, { StepID: 3, StepName: "Complete Registration" }, { StepID: 4, StepName: "Select Options" }, { StepID: 5, StepName: "Quotation" }, { StepID: 6, StepName: "Policies & Conditions" }, { StepID: 7, StepName: "Applicants" }, { StepID: 8, StepName: "Responsibility" }, { StepID: 9, StepName: "Personal Info" }, { StepID: 10, StepName: "Residence History" }, { StepID: 11, StepName: "Employment and Income" }, { StepID: 12, StepName: "Emergency Contacts" }, { StepID: 13, StepName: "Vehicle Info" }, { StepID: 14, StepName: "Pet Info" }, { StepID: 15, StepName: "Payment" }, { StepID: 16, StepName: "Lease" }];
+var getStepCompletedMsgGuarantor = function (currentstep, clickstep) {
+    var stepArray = [{ StepID: 7, StepName: "Applicant" }, { StepID: 9, StepName: "Personal Info" }, { StepID: 11, StepName: "Employment & Income" }, { StepID: 15, StepName: "Summary" }, { StepID: 16, StepName: "Payment" }];
     var clickstepname = "";
     var remainingstepname = "";
 
@@ -1341,173 +1124,8 @@ var getStepCompletedMsg = function (currentstep, clickstep) {
 };
 
 var showCurrentStep = function (stepid, id) {
-    if (stepid == 1) {
-        $("#subMenu").addClass("hidden");
-        $("#li1").addClass("active");
-        $("#li2").removeClass("active");
-        $("#li3").removeClass("active");
-        $("#li4").removeClass("active");
-        $("#li5").removeClass("active");
-        $("#li6").removeClass("active");
-        $("#li7").removeClass("active");
-
-        $("#step1").removeClass("hidden");
-        $("#step2").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
-        $("#step8").addClass("hidden");
-        $("#step9").addClass("hidden");
-        $("#step10").addClass("hidden");
-        $("#step11").addClass("hidden");
-        $("#step12").addClass("hidden");
-        $("#step13").addClass("hidden");
-        $("#step14").addClass("hidden");
-        $("#step15").addClass("hidden");
-        $("#step16").addClass("hidden");
-        $("#step17").addClass("hidden");
-        $("#subMenu").addClass("hidden");
-    }
-    if (stepid == "2") {
-        $("#subMenu").addClass("hidden");
-        $("#as2").removeAttr("onclick");
-        $("#as2").attr("onclick", "goToStep(2,2,1)");
-        $("#li1").addClass("active");
-        $("#li2").addClass("active");
-
-        $("#li3").removeClass("active");
-        $("#li4").removeClass("active");
-        $("#li5").removeClass("active");
-        $("#li6").removeClass("active");
-        $("#li7").removeClass("active");
-        $("#step1").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step2").removeClass("hidden");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
-        $("#step8").addClass("hidden");
-        $("#step9").addClass("hidden");
-        $("#step10").addClass("hidden");
-        $("#step11").addClass("hidden");
-        $("#step12").addClass("hidden");
-        $("#step13").addClass("hidden");
-        $("#step14").addClass("hidden");
-        $("#step15").addClass("hidden");
-        $("#step16").addClass("hidden");
-        $("#step17").addClass("hidden");
-
-    }
-    if (stepid == "3") {
-        $("#subMenu").addClass("hidden");
-        $("#as3").removeAttr("onclick");
-        $("#as3").attr("onclick", "goToStep(4,4,0)");
-        $("#subMenu").addClass("hidden");
-
-        $("#li1").addClass("active");
-        $("#li2").addClass("active");
-        $("#li3").addClass("active");
-
-        $("#li4").removeClass("active");
-        $("#li5").removeClass("active");
-        $("#li6").removeClass("active");
-        $("#li7").removeClass("active");
-        $("#step2").addClass("hidden");
-        $("#step1").addClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step3").removeClass("hidden");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
-        $("#step8").addClass("hidden");
-        $("#step9").addClass("hidden");
-        $("#step10").addClass("hidden");
-        $("#step11").addClass("hidden");
-        $("#step12").addClass("hidden");
-        $("#step13").addClass("hidden");
-        $("#step14").addClass("hidden");
-        $("#step15").addClass("hidden");
-        $("#step16").addClass("hidden");
-        $("#step17").addClass("hidden");
-    }
-    if (stepid == "4") {
-
-        $("#subMenu").addClass("hidden");
-        $("#as4").removeAttr("onclick");
-        $("#as4").attr("onclick", "goToStep(5,5,0)");
-
-        $("#li1").addClass("active");
-        $("#li2").addClass("active");
-        $("#li3").addClass("active");
-        $("#li4").removeClass("active");
-        $("#li5").removeClass("active");
-        $("#li6").removeClass("active");
-        $("#li7").removeClass("active");
-        $("#step2").addClass("hidden");
-        $("#step1").addClass("hidden");
-        $("#step4").removeClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
-        $("#step8").addClass("hidden");
-        $("#step9").addClass("hidden");
-        $("#step10").addClass("hidden");
-        $("#step11").addClass("hidden");
-        $("#step12").addClass("hidden");
-        $("#step13").addClass("hidden");
-        $("#step14").addClass("hidden");
-        $("#step15").addClass("hidden");
-        $("#step16").addClass("hidden");
-        $("#step17").addClass("hidden");
-
-    }
-    if (stepid == "5") {
-
-        $("#subMenu").addClass("hidden");
-        $("#as5").removeAttr("onclick");
-        $("#as5").attr("onclick", "goToStep(6,6,0)");
-
-        $("#mainApplName").removeClass("hidden");
-        $("#getting-startedTimeRemainingClock").removeClass("hidden");
-        $("#li1").addClass("active");
-        $("#li2").addClass("active");
-        $("#li3").addClass("active");
-        $("#li4").addClass("active");
-
-        $("#li5").removeClass("active");
-        $("#li6").removeClass("active");
-        $("#li7").removeClass("active");
-
-        $("#step2").addClass("hidden");
-        $("#step1").addClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step5").removeClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
-        $("#step8").addClass("hidden");
-        $("#step9").addClass("hidden");
-        $("#step10").addClass("hidden");
-        $("#step11").addClass("hidden");
-        $("#step12").addClass("hidden");
-        $("#step13").addClass("hidden");
-        $("#step14").addClass("hidden");
-        $("#step15").addClass("hidden");
-        $("#step16").addClass("hidden");
-        $("#step17").addClass("hidden");
-
-    }
     if (stepid == "6") {
 
-        $("#subMenu").addClass("hidden");
-        $('#lblRFPAdditionalParking').text($('#lblMonthly_AditionalParking').text());
-        $('#lblRFPStorageUnit').text($('#lblMonthly_Storage').text());
-        $('#lblRFPPetRent').text($('#lblMonthly_PetRent').text());
-        $("#lblRFPTotalMonthlyPayment").text(formatMoney((parseFloat(unformatText($("#lblRFPMonthlyCharges").text()))) + (parseFloat($("#lblRFPAdditionalParking").text())) + (parseFloat($("#lblRFPStorageUnit").text())) + (parseFloat($("#lblRFPPetRent").text())) + (parseFloat($("#lblRFPTrashRecycling").text())) + (parseFloat($("#lblRFPPestControl").text())) + (parseFloat($("#lblRFPConvergentbillingfee").text()))));
         $("#li1").addClass("active");
         $("#li2").addClass("active");
         $("#li3").addClass("active");
@@ -1571,42 +1189,6 @@ var showCurrentStep = function (stepid, id) {
         $("#li16").removeClass("active");
         $("#li17").removeClass("active");
     }
-    if (stepid == "8") {
-        $("#subMenu").removeClass("hidden");
-        $('#lblRFPAdditionalParking').text($('#lblMonthly_AditionalParking').text());
-        $('#lblRFPStorageUnit').text($('#lblMonthly_Storage').text());
-        $('#lblRFPPetRent').text($('#lblMonthly_PetRent').text());
-        $("#lblRFPTotalMonthlyPayment").text(formatMoney(parseFloat((parseFloat(unformatText($("#lblRFPMonthlyCharges").text()))) + (parseFloat($("#lblRFPAdditionalParking").text())) + (parseFloat($("#lblRFPStorageUnit").text())) + (parseFloat($("#lblRFPPetRent").text())) + (parseFloat($("#lblRFPTrashRecycling").text())) + (parseFloat($("#lblRFPPestControl").text())) + (parseFloat($("#lblRFPConvergentbillingfee").text()))).toFixed(2)));
-        $("#step2").addClass("hidden");
-        $("#step1").addClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
-        $("#step8").removeClass("hidden");
-        $("#step9").addClass("hidden");
-        $("#step10").addClass("hidden");
-        $("#step11").addClass("hidden");
-        $("#step12").addClass("hidden");
-        $("#step13").addClass("hidden");
-        $("#step14").addClass("hidden");
-        $("#step15").addClass("hidden");
-        $("#step16").addClass("hidden");
-        $("#step17").addClass("hidden");
-
-        $("#li8").addClass("active");
-        $("#li7").removeClass("active");
-        $("#li9").removeClass("active");
-        $("#li10").removeClass("active");
-        $("#li11").removeClass("active");
-        $("#li12").removeClass("active");
-        $("#li13").removeClass("active");
-        $("#li14").removeClass("active");
-        $("#li15").removeClass("active");
-        $("#li16").removeClass("active");
-        $("#li17").removeClass("active");
-    }
     if (stepid == "9") {
         $("#subMenu").removeClass("hidden");
         $("#popApplicantSummary").modal("hide");
@@ -1628,6 +1210,7 @@ var showCurrentStep = function (stepid, id) {
         $("#step16").addClass("hidden");
         $("#step17").addClass("hidden");
 
+
         $("#li9").addClass("active");
         $("#li8").removeClass("active");
         $("#li7").removeClass("active");
@@ -1641,40 +1224,9 @@ var showCurrentStep = function (stepid, id) {
         $("#li17").removeClass("active");
 
     }
-    if (stepid == "10") {
-        $("#subMenu").removeClass("hidden");
-        $("#popApplicantSummary").modal("hide");
-        $("#step2").addClass("hidden");
-        $("#step1").addClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
-        $("#step8").addClass("hidden");
-        $("#step9").addClass("hidden");
-        $("#step10").removeClass("hidden");
-        $("#step11").addClass("hidden");
-        $("#step12").addClass("hidden");
-        $("#step13").addClass("hidden");
-        $("#step14").addClass("hidden");
-        $("#step15").addClass("hidden");
-        $("#step16").addClass("hidden");
-
-        $("#li10").addClass("active");
-        $("#li8").removeClass("active");
-        $("#li9").removeClass("active");
-        $("#li7").removeClass("active");
-        $("#li11").removeClass("active");
-        $("#li12").removeClass("active");
-        $("#li13").removeClass("active");
-        $("#li14").removeClass("active");
-        $("#li15").removeClass("active");
-        $("#li16").removeClass("active");
-        $("#li17").removeClass("active");
-    }
     if (stepid == "11") {
         $("#subMenu").removeClass("hidden");
+        $("#step11").removeClass("hidden");
         $("#step2").addClass("hidden");
         $("#step1").addClass("hidden");
         $("#step4").addClass("hidden");
@@ -1685,7 +1237,7 @@ var showCurrentStep = function (stepid, id) {
         $("#step8").addClass("hidden");
         $("#step9").addClass("hidden");
         $("#step10").addClass("hidden");
-        $("#step11").removeClass("hidden");
+
         $("#step12").addClass("hidden");
         $("#step13").addClass("hidden");
         $("#step14").addClass("hidden");
@@ -1704,99 +1256,6 @@ var showCurrentStep = function (stepid, id) {
         $("#li15").removeClass("active");
         $("#li16").removeClass("active");
         $("#li17").removeClass("active");
-    }
-    if (stepid == "12") {
-        $("#subMenu").removeClass("hidden");
-        $("#step2").addClass("hidden");
-        $("#step1").addClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
-        $("#step8").addClass("hidden");
-        $("#step9").addClass("hidden");
-        $("#step10").addClass("hidden");
-        $("#step11").addClass("hidden");
-        $("#step12").removeClass("hidden");
-        $("#step13").addClass("hidden");
-        $("#step14").addClass("hidden");
-        $("#step15").addClass("hidden");
-        $("#step16").addClass("hidden");
-
-        $("#li12").addClass("active");
-        $("#li8").removeClass("active");
-        $("#li9").removeClass("active");
-        $("#li7").removeClass("active");
-        $("#li11").removeClass("active");
-        $("#li10").removeClass("active");
-        $("#li13").removeClass("active");
-        $("#li14").removeClass("active");
-        $("#li15").removeClass("active");
-        $("#li16").removeClass("active");
-        $("#li17").removeClass("active");
-    }
-    if (stepid == "13") {
-        $("#subMenu").removeClass("hidden");
-        $("#step2").addClass("hidden");
-        $("#step1").addClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
-        $("#step8").addClass("hidden");
-        $("#step9").addClass("hidden");
-        $("#step10").addClass("hidden");
-        $("#step11").addClass("hidden");
-        $("#step12").addClass("hidden");
-        $("#step13").removeClass("hidden");
-        $("#step14").addClass("hidden");
-        $("#step15").addClass("hidden");
-        $("#step16").addClass("hidden");
-
-        $("#li13").addClass("active");
-        $("#li8").removeClass("active");
-        $("#li9").removeClass("active");
-        $("#li7").removeClass("active");
-        $("#li11").removeClass("active");
-        $("#li12").removeClass("active");
-        $("#li10").removeClass("active");
-        $("#li14").removeClass("active");
-        $("#li15").removeClass("active");
-        $("#li16").removeClass("active");
-        $("#li17").removeClass("active");
-    }
-    if (stepid == "14") {
-        $("#subMenu").removeClass("hidden");
-        $("#step2").addClass("hidden");
-        $("#step1").addClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
-        $("#step8").addClass("hidden");
-        $("#step9").addClass("hidden");
-        $("#step10").addClass("hidden");
-        $("#step11").addClass("hidden");
-        $("#step12").addClass("hidden");
-        $("#step13").addClass("hidden");
-        $("#step14").removeClass("hidden");
-        $("#step15").addClass("hidden");
-        $("#step16").addClass("hidden");
-        $("#step17").addClass("hidden");
-
-        $("#li14").addClass("active");
-        $("#li8").removeClass("active");
-        $("#li9").removeClass("active");
-        $("#li7").removeClass("active");
-        $("#li11").removeClass("active");
-        $("#li12").removeClass("active");
-        $("#li13").removeClass("active");
-        $("#li10").removeClass("active");
-        $("#li15").removeClass("active");
-        $("#li16").removeClass("active");
     }
     if (stepid == "15") {
 
@@ -1865,38 +1324,6 @@ var showCurrentStep = function (stepid, id) {
         $("#li15").removeClass("active");
         $("#li10").removeClass("active");
         $("#li17").removeClass("active");
-    }
-    if (stepid == "17") {
-        $("#subMenu").removeClass("hidden");
-        $("#step2").addClass("hidden");
-        $("#step1").addClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
-        $("#step8").addClass("hidden");
-        $("#step9").addClass("hidden");
-        $("#step10").addClass("hidden");
-        $("#step11").addClass("hidden");
-        $("#step12").addClass("hidden");
-        $("#step13").addClass("hidden");
-        $("#step14").addClass("hidden");
-        $("#step15").addClass("hidden");
-        $("#step16").addClass("hidden");
-        $("#step17").removeClass("hidden");
-
-        $("#li17").addClass("active");
-        $("#li8").removeClass("active");
-        $("#li9").removeClass("active");
-        $("#li7").removeClass("active");
-        $("#li11").removeClass("active");
-        $("#li12").removeClass("active");
-        $("#li13").removeClass("active");
-        $("#li14").removeClass("active");
-        $("#li15").removeClass("active");
-        $("#li16").removeClass("active");
-        $("#li10").removeClass("active");
     }
 };
 var SaveOnlineProspect = function () {
@@ -2001,8 +1428,8 @@ var SaveOnlineProspect = function () {
                 $("#hdnOPId").val(idmsg[0]);
                 $("#lblQuoteID").text("#" + idmsg[0]);
                 getApplyNowList(idmsg[0]);
-                getTenantOnlineList(idmsg[0]);
-                getApplicantLists(idmsg[0]);
+                getTenantOnlineListGuarantor(idmsg[0]);
+                getApplicantListsGuarantor(idmsg[0]);
                 $("#divstep3save").addClass("hidden");
                 $("#divstep3").removeClass("hidden");
                 $("#hdnStepCompleted").val(4);
@@ -2127,7 +1554,7 @@ var updateCalculation = function () {
     $("#lblAdditionalParking").text("0.00");
     var totalAmount = (parseFloat(unformatText($("#lblFMRent").text())) + parseFloat(unformatText($("#lblStorageUnit").text())) + parseFloat(unformatText($("#lblTrashAmt").text())) + parseFloat($("#lblPestAmt").text()) + parseFloat($("#lblConvergentAmt").text()) + parseFloat(unformatText($("#lblPetFee").text()))).toFixed(2);
     $("#lbltotalAmount").text(formatMoney(totalAmount));
-    getApplicantLists();
+    getApplicantListsGuarantor();
 }
 var SaveCheckPolicy = function (stepcompleted) {
     $("#divLoader").show();
@@ -2328,7 +1755,7 @@ function savePayment() {
                                     type: 'red'
                                 });
                                 getTransationLists($("#hdnUserId").val());
-                                getApplicantLists();
+                                getApplicantListsGuarantor();
                             } else {
                                 $.alert({
                                     title: "",
@@ -3281,6 +2708,7 @@ var fillUnitParkingList = function () {
         data: JSON.stringify(model),
         dataType: "json",
         success: function (response) {
+            var countPark = response.length;
             $("#divLoader").hide();
             if ($.trim(response.error) != "") {
                 //this.cancelChanges();
@@ -3292,17 +2720,25 @@ var fillUnitParkingList = function () {
                 $.each(response, function (index, elementValue) {
                     if (elementValue.Status == 0) {
                         dhtml += "<option value='" + elementValue.ParkingID + "' selected='selected' data-value='" + elementValue.ParkingID + "'>" + elementValue.ParkingName + "</option>";
+                        countPark--;
                     }
                     var html = "";
                     html += "<span style='text-decoration:underline; font - weight:bold;'>  #" + elementValue.ParkingName + " </span>";
                     $("#lblParkSpace").append(html);
                     $("#lblAssginPakingSpace").append(html);
+                    $("#lblAssginPakingSpace1").append(html);
                     if (elementValue.Type == 2) {
                         $("#parkUnit").text("#" + elementValue.ParkingName);
                     }
                     noofpark += 1;
                 });
                 $('#ddlParking').append(dhtml);
+            }
+            if (response.length == countPark) {
+                $('#btnAddVehicle').attr('disabled', 'disabled');
+            }
+            else {
+                $('#btnAddVehicle').removeAttr('disabled');
             }
         }
     });
@@ -3977,7 +3413,7 @@ var saveupdateApplicant = function () {
                 content: "Progress Saved.",
                 type: 'blue',
             });
-            getApplicantLists();
+            getApplicantListsGuarantor();
             //$("#popApplicant").PopupWindow("close");
             $("#popApplicant").modal("hide");
         }
@@ -3988,7 +3424,7 @@ var saveupdateApplicant = function () {
 }
 var totpaid = 0;
 var addApplicntArray = 0;
-var getApplicantLists = function () {
+var getApplicantListsGuarantor = function () {
     var model = {
 
         TenantID: $("#hdnOPId").val(),
@@ -4116,9 +3552,9 @@ var getApplicantLists = function () {
                 html15 += "<td>" + elementValue.FirstName + " " + elementValue.LastName + "</td>";
                 html15 += "<td>" + elementValue.Type + "</td>";
                 html15 += "<td>" + elementValue.GenderString + "</td>";
-                html15 += "<td>" + elementValue.Email + "</td>";
-                html15 += "<td>" + elementValue.Phone + "</td>";
-                html15 += "<td>" + elementValue.DateOfBirthTxt + "</td>";
+                //html15 += "<td>" + elementValue.Email + "</td>";
+                //html15 += "<td>" + elementValue.Phone + "</td>";
+                //html15 += "<td>" + elementValue.DateOfBirthTxt + "</td>";
 
                 html15 += "</tr>";
                 $("#tblApplicant15>tbody").append(html15);
@@ -4813,7 +4249,7 @@ var getVehicleLists = function () {
                 noofveh += 1;
             });
             if (noofpark == noofveh) {
-                $("#btnAddVehicle").addClass("hidden");
+                //$("#btnAddVehicle").addClass("hidden");
             }
         }
     });
@@ -5154,7 +4590,7 @@ var getFillSummary = function (id) {
         }
     });
 };
-var getTenantOnlineList = function (id) {
+var getTenantOnlineListGuarantor = function (id) {
     $("#divLoaderFullData").show();
     var model = {
         id: id
@@ -5631,7 +5067,7 @@ var delApplicant = function (appliId) {
                             $("#divLoader").hide();
                             $('#div_' + appliId).remove();
 
-                            getApplicantLists();
+                            getApplicantListsGuarantor();
                         }
                     });
                 }
@@ -5909,7 +5345,7 @@ function saveupdatePaymentResponsibility(stepcompleted) {
         dataType: "JSON",
         success: function (response) {
             $("#divLoader").hide();
-            getApplicantLists();
+            getApplicantListsGuarantor();
             $("#popApplicant").modal("hide");
             var stepcomp = parseInt($("#hdnStepCompleted").val());
             if (stepcomp < stepcompleted) {
@@ -6668,6 +6104,7 @@ var getTenantPetPlaceData = function () {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
+            var tenantCount = response.model.TenantPetCount;
             $("#divLoader").hide();
             var valueCount = response.model.NumberOfPets;
             var rowCount = $("#tblPet >tbody").children().length;
@@ -6679,19 +6116,19 @@ var getTenantPetPlaceData = function () {
             }
             if (!valueCount) { valueCount = 0; }
 
-            if (valueCount == 0 && rowCount == 0) {
+            if (valueCount == 0 && tenantCount == 0) {
                 $("#tblPet>tbody").empty();
                 $("#chkDontHavePetDiv").removeClass("hidden");
                 $("#chkDontHavePet").iCheck('check');
                 $("#btnAddPet").attr("disabled", true);
                 $("#btnAddPet").css("background-color", "#b4ada5");
             }
-            else if (rowCount == 1 && valueCount == 1) {
+            else if (valueCount == 1 && tenantCount == 1) {
                 $("#btnAddPet").attr("disabled", true);
                 $("#btnAddPet").css("background-color", "#b4ada5");
                 $("#chkDontHavePetDiv").addClass("hidden");
             }
-            else if (rowCount == 2 && valueCount == 2) {
+            else if (valueCount == 2 && tenantCount == 2) {
                 $("#btnAddPet").attr("disabled", true);
                 $("#btnAddPet").css("background-color", "#b4ada5");
                 $("#chkDontHavePetDiv").addClass("hidden");
@@ -7333,7 +6770,7 @@ var clearHistoryOfResidence = function () {
     $('#txtSupervisiorPhoneHEI').val('');
     $('#txtSupervisiorEmailHEI').val('');
     $('#txtCountryOfficeHEI').val('1');
-    fillStateDDL_OfficeHEI(1, 0);
+    //fillStateDDL_OfficeHEI(1, 0);
 
     $('#txtofficeAddress1HEI').val('');
     $('#txtofficeAddress2HEI').val('');

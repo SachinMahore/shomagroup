@@ -376,6 +376,12 @@ $(document).ready(function () {
             fillStateDDL_Home(selected,0);
         }
     });
+    $("#txtCountryReg").on('change', function (evt, params) {
+        var selected = $(this).val();
+        if (selected != null) {
+            fillStateDDLReg_IDType(selected, 0);
+        }
+    });
     $("#txtCountryOffice").on('change', function (evt, params) {
         var selected = $(this).val();
         if (selected != null) {
@@ -487,6 +493,7 @@ $(document).ready(function () {
             $("#divCountryOfOrigin").addClass("hidden");
         }
     });
+    
     //Sohan
 
     //$("#popApplicant").PopupWindow({
@@ -1369,6 +1376,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                 $("#step14").addClass("hidden");
                 $("#step15").addClass("hidden");
                 $("#step16").addClass("hidden");
+                $("#step17").addClass("hidden");
 
                 $("#li10").addClass("active");
                 $("#li8").removeClass("active");
@@ -2603,41 +2611,62 @@ var SaveOnlineProspect = function () {
     var onlineProspectId = $("#hdnOPId").val();
     var firstName = $("#txtFirstName").val();
     var lastName = $("#txtLastName").val();
+    var middleInitial = $("#txtMiddleInitialReg").val();
+
+    var gender = $("#ddlGenderReg").val();
+    var otherGender = $("#txtOtherGenderReg").val();
+
     var phoneNumber = unformatText($("#txtPhoneNumber").val());
     var emailId = $("#txtEmail").val();
+   
+    var ssnNumber = $("#txtSSNNumberReg").attr("data-value");
+    var ssncheck = $("#txtSSNNumberReg").val();
+
+    var idType = $("#ddlIDTypeReg").val();
+    var idState = $("#ddlStateIDDocReg").val();
+    var idNumber = $("#txtIDNumberReg").attr("data-value");
+
+    var country = $("#txtCountryReg").val();
+    var homeAddress1 = $("#txtAddress1Reg").val();
+    var homeAddress2 = $("#txtAddress2Reg").val();
+    var stateHome = $("#ddlStateReg").val();
+    var cityHome = $("#ddlCityReg").val();
+    var zipHome = $("#txtZipReg").val();
+
+    var marketsource = $("#ddlMarketSource").val();
+
     var password = $("#txtPassword").val();
     var confirmPassword = $("#txtConfPassword").val();
+
     var address = $("#txtAddress").val();
     var dob = $("#txtDOB").val();
     var annualIncome = $("#txtAnnualIncome").val();
     var addiAnnualIncome = $("#txtAddiAnnualIncome").val();
-    var marketsource = $("#ddlMarketSource").val();
+   
     var moveInDate = $("#txtDate").val();
     var isAgree = $("#chkAgreeTerms").is(":checked") ? "1" : "0";
     var leaseterm = $("#hndLeaseTermID").val();
 
-    //Sachin M 30apr
-    var IDNumber = $("#txtIDNumber").val();
-    var SSNNumber = $("#txtSSNNumber").val();
-    var Country = $("#txtCountry").val();
-    var HomeAddress1 = $("#txtAddress1").val();
-    var HomeAddress2 = $("#txtAddress2").val();
-    var StateHome = $("#ddlStateHome").val();
-    var CityHome = $("#ddlCityHome").val();
-    var ZipHome = $("#txtZip").val();
-    //sachin m 01 May 2020
-    var OtherGender = $("#txtOtherGender").val();
-    var Gender = $("#ddlGender").val();
-    var MiddleInitial = $("#txtMiddleInitial1").val();
-    //if (isAgree == 0) {
-    //    msg += "Please agree with Sanctuary's terms and conditions</br>";
-    //}
     if (!firstName) {
         msg += "Please fill the First Name </br>";
     }
     if (!lastName) {
         msg += "Please fill the  Last Name </br>";
     }
+
+    if (!gender || gender == "0") {
+        msg += "Please Select The Gender </br>";
+    }
+    else if (gender == "3") {
+        if (!otherGender) {
+            msg += "Please Fill The Other Gender </br>";
+        }
+    } else if (gender == "2") {
+        if (!middleInitial) {
+            msg += "Please enter Middle Name  </br>";
+        }
+    }
+
     if (!phoneNumber) {
         msg += "Please fill Mobile Number </br>";
     }
@@ -2653,39 +2682,42 @@ var SaveOnlineProspect = function () {
             msg += "Please fill Valid Email </br>";
         }
     }
+
     //Sachin M 30 apr 
-    if ($("#txtSSNNumber").val().length < 9) {
+    if (ssncheck.length < 9) {
         msg += "SSN number must be 9 digit </br>";
     }
-    if ($("#txtCountry").val() == "0") {
-        msg += "Please Select Country </br>";
+
+    if (!idType || idType == "0") {
+        msg += "Please select Document Type </br>";
     }
 
-    if (!$("#txtAddress1").val()) {
+    if (!idState || idState == "0") {
+        msg += "Please select Document Issue State </br>";
+    }
+
+    if (idNumber.length < 5) {
+        msg += "ID Number should be greater then 4 digit </br>";
+    }
+
+    if (!country || country == "0") {
+        msg += "Please select Country </br>";
+    }
+
+    if (!homeAddress1) {
         msg += "Please Fill Address 1 </br>";
     }
 
-    if ($("#ddlStateHome").val() == "0") {
+    if (!stateHome || stateHome == "0") {
         msg += "Please Select State </br>";
     }
-    if (!$("#ddlCityHome").val()) {
+    if (!cityHome) {
         msg += "Please Fill City </br>";
     }
-    if (!$("#txtZip").val()) {
+    if (!zipHome) {
         msg += "Please Fill Zip </br>";
     }
-    if (!$("#ddlGender").val() || $("#ddlGender").val()=="0") {
-        msg += "Please Select The Gender </br>";
-    }
-    else if ($("#ddlGender").val() == "3") {
-        if ($("#txtOtherGender").val() == "") {
-            msg += "Please Fill The Other Gender </br>";
-        }
-    } else if ($("#ddlGender").val() == "2") {
-        if ($("#txtMiddleInitial1").val() == "") {
-            msg += "Please enter Middle Name  </br>";
-        }
-    }
+    
 
     if (!password) {
         msg += "Please fill the Password </br>";
@@ -2711,12 +2743,11 @@ var SaveOnlineProspect = function () {
         return;
     }
 
-   
-
     var model = {
         ID: onlineProspectId,
         PropertyId: propertyId,
         FirstName: firstName,
+        MiddleInitial: middleInitial,
         LastName: lastName,
         Email: emailId,
         Phone: phoneNumber,
@@ -2728,18 +2759,21 @@ var SaveOnlineProspect = function () {
         Marketsource: marketsource,
         MoveInDate: moveInDate,
         LeaseTerm: leaseterm,
-        IDNumber: IDNumber,
-        SSN: SSNNumber,
-        Country: Country,
-        HomeAddress1: HomeAddress1,
-        HomeAddress2: HomeAddress2,
-        StateHome: StateHome,
-        CityHome: CityHome,
-        ZipHome: ZipHome,
-        MiddleInitial: MiddleInitial,
-        Gender: Gender,
-        OtherGender: OtherGender,
-    }
+
+        DocumentType: idType,
+        DocumentState: idState,
+        DocumentIDNumber: idNumber,
+        SSN: ssnNumber,
+        Country: country,
+        HomeAddress1: homeAddress1,
+        HomeAddress2: homeAddress2,
+        StateHome: stateHome,
+        CityHome: cityHome,
+        ZipHome: zipHome,
+
+        Gender: gender,
+        OtherGender: otherGender
+    };
 
     $.ajax({
         url: '/ApplyNow/SaveOnlineProspect',
@@ -2753,26 +2787,24 @@ var SaveOnlineProspect = function () {
             if (idmsg[0] != 0) {
                 $("#hdnOPId").val(idmsg[0]);
                 $("#lblQuoteID").text("#" + idmsg[0]);
-
-
-                var ssn = $("#txtSSNNumber").val();
-                if (ssn.length < 9) {
-                    alert("SSN must be 9 digit");
-                    return;
-                }
-                if (ssn.length > 4) {
-                    saveupdateSSN(ssn);
-                    $("#txtSSNNumber").val("***-**-" + ssn.substr(ssn.length - 4, 4));
-                }
-                var idnumber = $("#txtIDNumber").val();
-                if (idnumber.length < 5) {
-                    alert("ID Number should be greater then 4 digit");
-                    return;
-                }
-                if (idnumber.length > 4) {
-                    saveupdateIDNumber(idnumber);
-                    $("#txtIDNumber").val(("*".repeat(idnumber.length - 4) + idnumber.substr(idnumber.length - 4, 4)));
-                }
+                //var ssn = $("#txtSSNNumber").val();
+                //if (ssn.length < 9) {
+                //    alert("SSN must be 9 digit");
+                //    return;
+                //}
+                //if (ssn.length > 4) {
+                //    saveupdateSSN(ssn);
+                //    $("#txtSSNNumber").val("***-**-" + ssn.substr(ssn.length - 4, 4));
+                //}
+                //var idnumber = $("#txtIDNumber").val();
+                //if (idnumber.length < 5) {
+                //    alert("ID Number should be greater then 4 digit");
+                //    return;
+                //}
+                //if (idnumber.length > 4) {
+                //    saveupdateIDNumber(idnumber);
+                //    $("#txtIDNumber").val(("*".repeat(idnumber.length - 4) + idnumber.substr(idnumber.length - 4, 4)));
+                //}
 
                 getApplyNowList(idmsg[0]);
                 getTenantOnlineList(idmsg[0]);
@@ -3306,6 +3338,61 @@ var fillStateDDL = function () {
         }
     });
 }
+
+var fillStateDDLReg_Home = function (countryid, selval) {
+    $("#divLoader").show();
+    var param = { CID: countryid };
+    $.ajax({
+        url: '/City/FillStateDropDownListByCountryID',
+        method: "post",
+        data: JSON.stringify(param),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#divLoader").hide();
+            if ($.trim(response.error) != "") {
+                //this.cancelChanges();
+            } else {
+                $("#ddlStateIDDocReg").empty();
+                $("#ddlStateIDDocReg").append("<option value='0'>--Select State--</option>");
+                $.each(response, function (index, elementValue) {
+                    $("#ddlStateIDDocReg").append("<option value=" + elementValue.ID + ">" + elementValue.StateName + "</option>");
+                });
+                $("#ddlStateIDDocReg").val(selval);
+
+                $("#ddlStateReg").empty();
+                $("#ddlStateReg").append("<option value='0'>--Select State--</option>");
+                $.each(response, function (index, elementValue) {
+                    $("#ddlStateReg").append("<option value=" + elementValue.ID + ">" + elementValue.StateName + "</option>");
+                });
+            }
+        }
+    });
+}
+var fillStateDDLReg_IDType = function (countryid, selval) {
+    $("#divLoader").show();
+    var param = { CID: countryid };
+    $.ajax({
+        url: '/City/FillStateDropDownListByCountryID',
+        method: "post",
+        data: JSON.stringify(param),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#divLoader").hide();
+            if ($.trim(response.error) != "") {
+                //this.cancelChanges();
+            } else {
+                $("#ddlStateReg").empty();
+                $("#ddlStateReg").append("<option value='0'>--Select State--</option>");
+                $.each(response, function (index, elementValue) {
+                    $("#ddlStateReg").append("<option value=" + elementValue.ID + ">" + elementValue.StateName + "</option>");
+                });
+                $("#ddlStateReg").val(selval);
+            }
+        }
+    });
+}
 var fillCountryDropDownList = function () {
     $("#divLoader").show();
     $.ajax({
@@ -3580,7 +3667,7 @@ var getCompareModelList = function () {
             $("#divLoader").hide();
             if (response != null) {
                 $("#listModelCompare").empty();
-                console.log(addModelArray)
+                //console.log(addModelArray)
                 var chtml = "<div class='col-sm-3'><div class='col-sm-12'><span><br><br><br><br><br></span></div><div class='col-sm-12'><span><br /> </span></div><div class='col-sm-12'><span> </span></div> <div class='col-sm-12'><span>Monthly Rent: </span></div><div class='col-sm-12'><span>Square feet: </span></div><div class='col-sm-12'><span id=''>Bedrooms: </span></div><div class='col-sm-12'><span id=''>Bathrooms: </span></div><div class='col-sm-12'><span>Available: </span></div> <div class='col-sm-12'><span id=''>Occupancy: </span></div></div>";
                 $.each(response.model, function (elementType, value) {
                     for (var j = 0; j < addModelArray.length; j++) {
@@ -5117,7 +5204,6 @@ var getApplicantLists = function () {
                 data: JSON.stringify(model),
                 dataType: "JSON",
                 success: function (response) {
-                    console.log(JSON.stringify(response));
                     $.each(response.model, function (elementType, elementValue) {
                         if (elementValue.Type == "Co-Applicant") {
                             noofCapl += 1;
@@ -5142,11 +5228,11 @@ var getApplicantLists = function () {
                     var totalCoAppl = noofCapl;
                     var totalMinor = noofminor;
                     var total = 0;
-                    console.log("Applicant:" + totalAppl + " Co-app:" + totalCoAppl + " Minor:" + totalMinor);
+                    //console.log("Applicant:" + totalAppl + " Co-app:" + totalCoAppl + " Minor:" + totalMinor);
 
                     if (nofbed == 1) {
                         total = parseInt(noofapl) + parseInt(totalCoAppl) + parseInt(totalMinor);
-                        console.log("Condtion1: " + total + "Total People: " + totalPeople);
+                        //console.log("Condtion1: " + total + "Total People: " + totalPeople);
                         if (totalCoAppl <= parseInt(totalPeople) - 1) {
                             if (total <= parseInt(totalPeople) - 1) {
                                 $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
@@ -5166,7 +5252,7 @@ var getApplicantLists = function () {
                     }
                     else if (nofbed == 2) {
                         total = parseInt(noofapl) + parseInt(totalCoAppl) + parseInt(totalMinor);
-                        console.log("Condtion2: " + total + "Total People: " + totalPeople);
+                        //console.log("Condtion2: " + total + "Total People: " + totalPeople);
                         if (total <= parseInt(totalPeople) - 1) {
                             if (totalCoAppl < 2) {
                                 if (total < parseInt(totalPeople)) {
@@ -5191,7 +5277,7 @@ var getApplicantLists = function () {
                     }
                     else if (nofbed == 3) {
                         total = parseInt(noofapl) + parseInt(totalCoAppl) + parseInt(totalMinor);
-                        console.log("Condtion3: " + total + "Total People: " + totalPeople + "Total People: " + totalPeople);
+                        ///console.log("Condtion3: " + total + "Total People: " + totalPeople + "Total People: " + totalPeople);
 
                         if (total <= parseInt(totalPeople) - 1) {
                             if (totalCoAppl < 3) {
@@ -5252,7 +5338,7 @@ var addAppFess = function (appFees,appid) {
         $("#btnSendPayLink" + appid).removeClass("hidden");
         addApplicntArray.pop({ ApplicantID: appid });
     }
-    console.log(addApplicntArray)
+    //console.log(addApplicntArray)
 }
 var goToEditApplicant = function (aid) {
 
@@ -6150,10 +6236,7 @@ var getTenantOnlineList = function (id) {
             $("#txtManagementCompany").val(response.model.ManagementCompany);
             $("#txtManagementCompanyPhone").val(formatPhoneFax(response.model.ManagementCompanyPhone));
             $("#ddlProperNoticeLeaseAgreement").val(response.model.IsProprNoticeLeaseAgreement);
-
-
             //For Summary Print
-
             if (response.model.IsInternational == 1) {
                 $("#SCountryOfOriginStringtext").text(response.model.CountryOfOriginString);
                 $("#SumPass").removeClass('hidden');
@@ -6169,7 +6252,6 @@ var getTenantOnlineList = function (id) {
             $("#sumAManagementCompany").text(response.model.ManagementCompany);
             $("#sumAManagementCompanyPhone").text(formatPhoneFax(response.model.ManagementCompanyPhone));
 
-
             $("#sumAIsProprNoticeLeaseAgreement").text(response.model.stringIsProprNoticeLeaseAgreement);
             $("#sumAQStringEvicted").text(response.model.StringEvicted);
             $("#AQStringEvicted").text(response.model.StringEvicted);
@@ -6184,12 +6266,6 @@ var getTenantOnlineList = function (id) {
             $("#AQCriminalChargPenDetails").text(response.model.CriminalChargPenDetails);
             $("#AQReferredResidentName").text(response.model.ReferredResidentName);
 
-
-
-
-
-
-
             $("#summCredateF").text(response.model.MoveInDateFromTxt);
             $("#summCRE").text(response.model.HomeAddress1 + " , " + response.model.HomeAddress2);
             $("#summECountry").text(response.model.CityHome);
@@ -6198,7 +6274,6 @@ var getTenantOnlineList = function (id) {
             $("#summreCou").text(response.model.CountryString);
             $("#summMrent").text("$ " + formatMoney(response.model.MonthlyPayment));
             $("#summReson").text(response.model.Reason);
-
 
             $("#summECountry").text(response.model.CountryString);
             $("#summEmployerName").text(response.model.EmployerName);
@@ -6217,10 +6292,6 @@ var getTenantOnlineList = function (id) {
             $("#summEmerAddd").text(response.model.EmergencyAddress1 + "  " + response.model.EmergencyAddress2);
             /// End
 
-
-
-
-
             //if ($("#ddlIsInter").val() == 1) {
             //    $("#passportDiv").removeClass("hidden");
             //    $("#divSSNNumber").addClass("col-sm-4 hidden");
@@ -6234,8 +6305,9 @@ var getTenantOnlineList = function (id) {
             //$("#ddladdHistory").val(response.model.IsAdditionalRHistory).change();
             $("#txtFirstNamePersonal").val(response.model.FirstName);
             $("#txtMiddleInitial").val(response.model.MiddleInitial);
-            $("#txtMiddleInitial1").val(response.model.MiddleInitial);
+            $("#txtMiddleInitialReg").val(response.model.MiddleInitial);
             $("#txtLastNamePersonal").val(response.model.LastName);
+
             $("#summName").text(response.model.FirstName + " " + response.model.MiddleInitial + " " + response.model.LastName);
             $("#summNamep").text(response.model.FirstName + " " + response.model.MiddleInitial + " " + response.model.LastName);
             if (response.model.FirstName != null) {
@@ -6245,6 +6317,8 @@ var getTenantOnlineList = function (id) {
             $("#summDob").text(response.model.DateOfBirthTxt);
             $("#summDobp").text(response.model.DateOfBirthTxt);
             $("#ddlGender").val(response.model.Gender).change();
+            $("#ddlGenderReg").val(response.model.Gender).change();
+
             $("#txtEmailNew").val(response.model.Email);
             $("#summEmail").text(response.model.Email);
             $("#summEmailp").text(response.model.Email);
@@ -6256,12 +6330,22 @@ var getTenantOnlineList = function (id) {
             $("#txtDateOfIssuance").val(response.model.DateIssuanceTxt);
             $("#txtDateOfExpiration").val(response.model.DateExpireTxt);
             $("#ddlDocumentTypePersonal").val(response.model.IDType).change();
+            $("#ddlIDTypeReg").val(response.model.IDType).change();
             //setTimeout(function () {
             $("#ddlStatePersonal").val(response.model.State).change();
+            $("#ddlStateIDDocReg").val(response.model.State).change();
             //$("#ddlStatePersonal").find("option[value='" + response.model.State + "']").attr('selected', 'selected');
             //}, 1500);
 
             $("#txtSSNNumber").val(response.model.SSN);
+            $("#txtSSNNumberReg").val(response.model.SSN);
+            if (id != 0) {
+                $("#txtSSNNumberReg").attr("disabled", true);
+                $("#txtIDNumberReg").attr("disabled", true);
+                $("#ddlStateIDDocReg").attr("disabled", true);
+                $("#ddlIDTypeReg").attr("disabled", true);
+            }
+
             $("#summSSN").text(response.model.SSN);
             // $("#summSSNp").text(response.model.SSN);
             if (response.model.Gender == 1) {
@@ -6275,8 +6359,12 @@ var getTenantOnlineList = function (id) {
             $("#summDriverL").text(response.model.IDNumber);
 
             $("#txtIDNumber").val(response.model.IDNumber);
+            $("#txtIDNumberReg").val(response.model.IDNumber);
+
             $("#txtAddress1").val(response.model.HomeAddress1);
+            $("#txtAddress1Reg").val(response.model.HomeAddress1);
             $("#txtAddress2").val(response.model.HomeAddress2);
+            $("#txtAddress2Reg").val(response.model.HomeAddress2);
             $("#summCuAdd").text(response.model.HomeAddress1 + " " + response.model.HomeAddress2 + ", " + response.model.CityHome + ", " + response.model.StateHomeString + "- " + response.model.ZipHome);
             $("#summCuAddp").text(response.model.HomeAddress1 + " " + response.model.HomeAddress2 + ", " + response.model.CityHome + ", " + response.model.StateHomeString + "- " + response.model.ZipHome);
 
@@ -6284,6 +6372,7 @@ var getTenantOnlineList = function (id) {
             //setTimeout(function () {
 
             $("#txtZip").val(response.model.ZipHome);
+            $("#txtZipReg").val(response.model.ZipHome);
             $("#ddlRentOwn").val(response.model.RentOwn);
             //$("#txtMoveInDate").val(response.model.MoveInDateTxt);
             $("#txtMonthlyPayment").val(formatMoney(response.model.MonthlyPayment));
@@ -6338,6 +6427,8 @@ var getTenantOnlineList = function (id) {
             $("#txtEmergencyZip").val(response.model.EmergencyZipHome);
             //17082019 - start
             $("#ddlCityHome").val(response.model.CityHome);
+            $("#ddlCityReg").val(response.model.CityHome);
+
             $("#ddlCityContact").val(response.model.EmergencyCityHome);
             $("#ddlCityEmployee").val(response.model.OfficeCity);
             if (response.model.Gender == '3') {
@@ -6347,10 +6438,21 @@ var getTenantOnlineList = function (id) {
                 $("#txtOtherGender").val('');
             }
 
+            if (response.model.Gender == '3') {
+                $("#txtOtherGenderReg").val(response.model.OtherGender);
+            }
+            else {
+                $("#txtOtherGenderReg").val('');
+            }
+
             $("#txtMoveInDateFrom").val(response.model.MoveInDateFromTxt);
             //$("#txtMoveInDateTo").val(response.model.MoveInDateToTxt);
             $("#txtCountry").val(response.model.Country);
             fillStateDDL_Home(response.model.Country, response.model.StateHome);
+
+            $("#txtCountryReg").val(response.model.Country);
+            fillStateDDLReg_IDType(response.model.Country, response.model.StateHome);
+            fillStateDDLReg_Home(response.model.Country, response.model.StateHome);
 
             //$("#ddlStateHome").val(response.model.StateHome).change();
             //setTimeout(function () {
@@ -7803,68 +7905,96 @@ var onFocusApplyNow = function () {
             $("#txtSupervisiorPhoneHEI").val(unformatText($("#txtSupervisiorPhoneHEI").val()));
         });
 
-    //$("#txtSSNNumber").focusin(function () {
-    //    var id = $("#hdnOPId").val();
-    //    var model = {
-    //        id: id,
-    //        vid:1
-    //    };
-    //    $.ajax({
-    //        url: '/ApplyNow/GetSSNIdNumberPassportNumber',
-    //        type: "post",
-    //        contentType: "application/json utf-8",
-    //        data: JSON.stringify(model),
-    //        dataType: "JSON",
-    //        success: function (response) {
-    //            $("#txtSSNNumber").val(response.ssn);
-    //        }
-    //    });
-    //}).focusout(function () {
-    //    var ssn = $(this).val();
-    //    if (ssn.length < 9) {
-    //        alert("SSN must be 9 digit");
-    //        return;
-    //    }
-    //    if (ssn.length > 4) {
-    //        saveupdateSSN(ssn);
-    //        $(this).val("***-**-" + ssn.substr(ssn.length - 4, 4));
-    //    }
-    //    });
+    $("#txtSSNNumber").focusin(function () {
+        var id = $("#hdnOPId").val();
+        var model = {
+            id: id,
+            vid: 1
+        };
+        $.ajax({
+            url: '/ApplyNow/GetSSNIdNumberPassportNumber',
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                $("#txtSSNNumber").val(response.ssn);
+            }
+        });
+    }).focusout(function () {
+        var ssn = $(this).val();
+        if (ssn.length < 9) {
+            alert("SSN must be 9 digit");
+            return;
+        }
+        if (ssn.length > 4) {
+            saveupdateSSN(ssn);
+            $(this).val("***-**-" + ssn.substr(ssn.length - 4, 4));
+        }
+    });
 
-    //$("#txtIDNumber").focusin(function () {
-    //    var id = $("#hdnOPId").val();
-    //    var model = {
-    //        id: id,
-    //        vid:3
-    //    };
-    //    $.ajax({
-    //        url: '/ApplyNow/GetSSNIdNumberPassportNumber',
-    //        type: "post",
-    //        contentType: "application/json utf-8",
-    //        data: JSON.stringify(model),
-    //        dataType: "JSON",
-    //        success: function (response) {
-    //            $("#txtIDNumber").val(response.ssn);
-    //        }
-    //    });
-    //}).focusout(function () {
-    //    var idnumber = $(this).val();
-    //    if (idnumber.length < 5) {
-    //        alert("ID Number should be greater then 4 digit");
-    //        return;
-    //    }
-    //    if (idnumber.length > 4) {
-    //        saveupdateIDNumber(idnumber);
-    //        $(this).val(("*".repeat(idnumber.length - 4) + idnumber.substr(idnumber.length - 4, 4)));
-    //    }
-       
-    //    });
+    $("#txtIDNumber").focusin(function () {
+        var id = $("#hdnOPId").val();
+        var model = {
+            id: id,
+            vid: 3
+        };
+        $.ajax({
+            url: '/ApplyNow/GetSSNIdNumberPassportNumber',
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                $("#txtIDNumber").val(response.ssn);
+            }
+        });
+    }).focusout(function () {
+        var idnumber = $(this).val();
+        if (idnumber.length < 5) {
+            alert("ID Number should be greater then 4 digit");
+            return;
+        }
+        if (idnumber.length > 4) {
+            saveupdateIDNumber(idnumber);
+            $(this).val(("*".repeat(idnumber.length - 4) + idnumber.substr(idnumber.length - 4, 4)));
+        }
+
+    });
+
+    $("#txtSSNNumberReg").focusin(function () {
+        getEncDecValue(this, 1);
+    }).focusout(function () {
+        var ssn = $(this).val();
+        if (ssn.length < 9) {
+            alert("SSN must be 9 digit");
+            return;
+        }
+        if (ssn.length > 4) {
+            getEncDecValue(this, 2);
+            $(this).val("***-**-" + ssn.substr(ssn.length - 4, 4));
+        }
+    });
+
+    $("#txtIDNumberReg").focusin(function () {
+        getEncDecValue(this, 1);
+    }).focusout(function () {
+        var idnumber = $(this).val();
+        if (idnumber.length < 5) {
+            alert("ID Number should be greater then 4 digit");
+            return;
+        }
+        if (idnumber.length > 4) {
+            getEncDecValue(this, 2);
+            $(this).val(("*".repeat(idnumber.length - 4) + idnumber.substr(idnumber.length - 4, 4)));
+        }
+    });
 
     $("#txtPassportNum").focusin(function () {
         var id = $("#hdnOPId").val();
         var model = {
             id: id,
-            vid:2
+            vid: 2
         };
         $.ajax({
             url: '/ApplyNow/GetSSNIdNumberPassportNumber',
@@ -8866,4 +8996,35 @@ var printQuotationPrint = function () {
             $("#modalQuotationPrint").show();
         }
     });
+};
+var getEncDecValue = function (txtBox, encdec) {
+    var encdecval = "";
+    if (encdec == 1) {
+        encdecval = $(txtBox).attr("data-value");
+    } else {
+        encdecval = $(txtBox).val();
+    }
+    if (encdecval) {
+        $("#divLoader").show();
+        var model = {
+            EncDecVal: encdecval,
+            EncDec: encdec
+        };
+
+        $.ajax({
+            url: '/ApplyNow/GetEncDecSSNPassportIDNum',
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                if (encdec == 1) {
+                    $(txtBox).val(response.result);
+                } else {
+                    $(txtBox).attr("data-value", response.result);
+                }
+                $("#divLoader").hide();
+            }
+        });
+    }
 };

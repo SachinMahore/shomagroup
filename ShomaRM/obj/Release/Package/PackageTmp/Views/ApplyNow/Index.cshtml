@@ -37,8 +37,9 @@
                             <b>Online  </b>Application <br>
                         </h3>
                         <div class="button pull-right">
-                            @if (ShomaGroupWebSession.CurrentUser != null) {
-                            <a href="javascript:void(0)" class="btn-success" style="padding:5px;" onclick="gotoLogOffAN()"> Logout..</a>
+                            @if (ShomaGroupWebSession.CurrentUser != null)
+                            {
+                                <a href="javascript:void(0)" class="btn-success" style="padding:5px;" onclick="gotoLogOffAN()"> Logout..</a>
                             }
                         </div>
                         <span class="pull-right" style="color:black;font-size: 15px;margin-right: 10px; font-weight:bold;" id="mainApplName"></span>
@@ -342,33 +343,138 @@
                             <input id="hdnUserId" type="hidden" value="@Model.ID" />
 
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="txtFirstName" class="star">First Name</label>
                                     <input type="text" class="form-control" id="txtFirstName" value="@Model.FirstName" placeholder="First Name">
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label id="lblMiddleInitialReg" for="txtMiddleInitialReg" class="">Middle Initial</label>
+                                    <input id="txtMiddleInitialReg" class="form-control form-control-small" maxlength="15" type="text" value="@Model.MiddleInitial" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="txtLastName" class="star">Last Name</label>
                                     <input type="text" class="form-control" id="txtLastName" value="@Model.LastName" placeholder="Last Name">
                                 </div>
                             </div>
-
-                            <div class="col-sm-6">
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label for="ddlGenderReg" class="star">Gender</label>
+                                    <select id="ddlGenderReg" class=" form-control" style="width:100%!important">
+                                        <option value="0">-Status-</option>
+                                        <option value="1">Male</option>
+                                        <option value="2">Female</option>
+                                        <option value="3">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label>&nbsp;</label>
+                                    <input id="txtOtherGenderReg" class="form-control" type="text" disabled />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="txtPhone" class="star">Mobile</label>
                                     <input type="text" class="form-control" id="txtPhoneNumber" maxlength="10" onkeypress="return isOnlyNumber(event)" placeholder="Phone Number">
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="txtEmail" class="star">Email</label>
                                     <input type="text" class="form-control" id="txtEmail" onchange="checkEmailAreadyExist()" value="@Model.Email" placeholder="Email">
                                 </div>
                             </div>
+                            <div class="col-sm-4" id="divSSNNumberReg">
+                                <div class="form-group">
+                                    <label id="lblSSNNumberReg" for="txtSSNNumberReg" class="star">SSN#</label>
+                                    <input class="form-control form-control-small" id="txtSSNNumberReg" data-value="" value="" maxlength="9" onkeypress="return isOnlyNumber(event)" />
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label for="ddlIDTypeReg" class="star">Document Type</label>
+                                    <select id="ddlIDTypeReg" class=" form-control" style="width:100%!important">
+                                        <option value="0">Select</option>
+                                        <option value="1">Driver's License</option>
+                                        <option value="2">Military ID</option>
+                                        <option value="4">State Issued ID</option>
+                                        <option value="3">Passport</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label for="ddlStateIDDocReg" class="star">State</label>
+                                    <select id="ddlStateIDDocReg" class=" form-control" style="width:100%!important">
+                                        <option value="0">--Select State--</option>
+                                        @foreach (var state in Model.StateList)
+                                        {
+                                            <option value="@state.ID">@state.StateName</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label id="lblIDNumberReg" for="txtIDNumberReg" class="star">ID Number</label>
+                                    <input class="form-control form-control-small" id="txtIDNumberReg" data-value="" maxlength="25" />
+                                </div>
+                            </div>
 
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="txtCountryReg" class="star">Country</label>
+                                    <select id="txtCountryReg" class="form-control">
+                                        @foreach (var country in Model.CountryList)
+                                        {
+                                            <option value="@country.ID">@country.CountryName</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="txtAddress1Reg" class="star">Address 1</label>
+                                    <input id="txtAddress1Reg" type="text" class="form-control form-control-small" maxlength="300" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="txtAddress2Reg">Address Line 2</label>
+                                    <input id="txtAddress2Reg" type="text" class="form-control form-control-small" maxlength="300" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="star"> State :</label>
+                                    <select id="ddlStateReg" class="form-control">
+                                        <option value="0">--Select State--</option>
+                                        @foreach (var state in Model.StateList)
+                                        {
+                                            <option value="@state.ID">@state.StateName</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="star"> City :</label>
+                                    <input id="ddlCityReg" type="text" class="form-control form-control-small" maxlength="100" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="txtZipReg" class="star">Zip</label>
+                                    <input class="form-control form-control-small" id="txtZipReg" maxlength="7" />
+                                </div>
+                            </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="txtPassword" class="star">Password</label>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-info-circle" style="cursor: pointer;" onclick="passwordInfo()"></i>
@@ -388,28 +494,28 @@
                                 </div>
                             </div>
 
-                                <div class="col-sm-12" id="divstep3save">
-                                    <div class="pull-left text-center hidden">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" id="chkAgreeTerms"> I agree with Sanctuary's terms and conditions.
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="pull-right text-center">
-                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="SaveOnlineProspect()"> Save</button>
+                            <div class="col-sm-12" id="divstep3save">
+                                <div class="pull-left text-center hidden">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="chkAgreeTerms"> I agree with Sanctuary's terms and conditions.
+                                        </label>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 hidden" id="divstep3">
-                                    <div class="pull-left text-center">
-                                        <button type="submit" class="btn btn-primary" onclick="goToStep(2,2,1)"> Back</button>
-                                    </div>
-                                    <div class="pull-right text-center">
-                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(4,4,0)"> Continue</button>
-                                    </div>
+                                <div class="pull-right text-center">
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="SaveOnlineProspect()"> Save</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 hidden" id="divstep3">
+                                <div class="pull-left text-center">
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(2,2,1)"> Back</button>
+                                </div>
+                                <div class="pull-right text-center">
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(4,4,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     <div class="hidden" id="step4">
 
                         <div class="row p-b-15  ">
@@ -1283,7 +1389,7 @@
                                         <div class="col-md-8"></div>
                                         <div class="col-md-1"></div>
                                         <div class="col-md-3"></div>
-                         <div class="col-sm-12">
+                                        <div class="col-sm-12">
                                             <div class="col-sm-8">
                                                 <span>Vehicle Registration: </span>
                                             </div>
@@ -1871,16 +1977,16 @@
                                     </div>
                                 </div>
                                 @*<div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="txtMoveInDate" class="star"> Move Out Date</label>
-                                            <input id="txtMoveInDateTo" type="text" class="form-control form-control-small" value="" />
+                        <div class="form-group">
+                            <label for="txtMoveInDate" class="star"> Move Out Date</label>
+                            <input id="txtMoveInDateTo" type="text" class="form-control form-control-small" value="" />
 
-                                            <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 209px;">
-                                                <button class="btn btn-primary search" id="SPMoveInDateT" type="button"><i class="fa-calendar fa"></i></button>
-                                            </span>
+                            <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 209px;">
+                                <button class="btn btn-primary search" id="SPMoveInDateT" type="button"><i class="fa-calendar fa"></i></button>
+                            </span>
 
-                                        </div>
-                                    </div>*@
+                        </div>
+                    </div>*@
                                 <div class="col-sm-4">
                                     <label for="txtMonthlyPayment"> Monthly Payment </label>
                                     <div class="input-group">
@@ -2433,7 +2539,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="hidden" id="step15">
                         <div class="row p-b-15  ">
                             <div class="col-md-12" id="">
@@ -2984,34 +3089,34 @@
 
                                             </div>
                                             @*<div class="col-sm-12">
-                        <div class="col-sm-4">
-                            <span id="">Landlord Name : </span>
-                        </div>
-                        <div class="col-sm-8">
-                            <span id="sdd">211212</span>
-                        </div>
+                                    <div class="col-sm-4">
+                                        <span id="">Landlord Name : </span>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <span id="sdd">211212</span>
+                                    </div>
 
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="col-sm-4">
-                            <span id="">Landlord Phone : </span>
-                        </div>
-                        <div class="col-sm-8">
-                            <span id="sdd">211212</span>
-                        </div>
-
-
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="col-sm-4">
-                            <span id="">Landlord Email : </span>
-                        </div>
-                        <div class="col-sm-2">
-                            <span id="sdd">211212</span>
-                        </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <span id="">Landlord Phone : </span>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <span id="sdd">211212</span>
+                                    </div>
 
 
-                    </div>*@
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <span id="">Landlord Email : </span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span id="sdd">211212</span>
+                                    </div>
+
+
+                                </div>*@
                                         </div>
                                     </div>
 
@@ -3097,41 +3202,41 @@
                                                 </div>
                                             </div>
                                             @*<div class="col-sm-12">
-                        <div class="col-sm-4">
-                            <span id="">Landlord Name : </span>
-                        </div>
-                        <div class="col-sm-2">
-                            <span id="sdd">211212</span>
-                        </div>
+                                    <div class="col-sm-4">
+                                        <span id="">Landlord Name : </span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span id="sdd">211212</span>
+                                    </div>
 
-                        <div class="col-sm-6">
-                            <span id="">&nbsp;</span>
-                        </div>
-                    </div>*@
+                                    <div class="col-sm-6">
+                                        <span id="">&nbsp;</span>
+                                    </div>
+                                </div>*@
                                             @*<div class="col-sm-12">
-                        <div class="col-sm-4">
-                            <span id="">Landlord Phone : </span>
-                        </div>
-                        <div class="col-sm-2">
-                            <span id="sdd">211212</span>
-                        </div>
+                                    <div class="col-sm-4">
+                                        <span id="">Landlord Phone : </span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span id="sdd">211212</span>
+                                    </div>
 
-                        <div class="col-sm-6">
-                            <span id="">&nbsp;</span>
-                        </div>
-                    </div>*@
+                                    <div class="col-sm-6">
+                                        <span id="">&nbsp;</span>
+                                    </div>
+                                </div>*@
                                             @*<div class="col-sm-12">
-                        <div class="col-sm-4">
-                            <span id="">Landlord Email : </span>
-                        </div>
-                        <div class="col-sm-2">
-                            <span id="sdd">211212</span>
-                        </div>
+                                    <div class="col-sm-4">
+                                        <span id="">Landlord Email : </span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span id="sdd">211212</span>
+                                    </div>
 
-                        <div class="col-sm-6">
-                            <span id="">&nbsp;</span>
-                        </div>
-                    </div>*@
+                                    <div class="col-sm-6">
+                                        <span id="">&nbsp;</span>
+                                    </div>
+                                </div>*@
                                         </div>
                                     </div>
 
@@ -3225,17 +3330,17 @@
                                                 </div>
                                             </div>
                                             @*<div class="col-sm-12">
-                        <div class="col-sm-4">
-                            <span id="">Gross Monthly Additional Income Source : </span>
-                        </div>
-                        <div class="col-sm-2">
-                            <span id="sdd">211212</span>
-                        </div>
+                                    <div class="col-sm-4">
+                                        <span id="">Gross Monthly Additional Income Source : </span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span id="sdd">211212</span>
+                                    </div>
 
-                        <div class="col-sm-6">
-                            <span id="">&nbsp;</span>
-                        </div>
-                    </div>*@
+                                    <div class="col-sm-6">
+                                        <span id="">&nbsp;</span>
+                                    </div>
+                                </div>*@
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4">
                                                     <span id="">Employer Phone : </span>
@@ -3844,7 +3949,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="hidden" id="step17">
 
                         <div class="row p-b-15">
@@ -3895,7 +3999,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="hidden" id="step18">
                         <input type="hidden" id="hndANID" value="0" />
                         <div class="row p-b-15">
@@ -5846,31 +5949,46 @@
             else {
                 $("#txtOtherGender").attr("disabled", true);
             }
-            if ('@Model.ParkingAmt' != '') {
-                $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(@Model.ParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
-                $("#lblProrated_AditionalParking_print").text(parseFloat(parseFloat(@Model.ParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+        });
+        $("#ddlGenderReg").on("change", function () {
+            if ($(this).val() == 2) {
+                $("#lblMiddleInitialReg").addClass("star");
             }
             else {
-                $("#lblProrated_AditionalParking").text('0.00');
-                $("#lblProrated_AditionalParking_print").text('0.00');
+                $("#lblMiddleInitialReg").removeClass("star");
             }
-            if ('@Model.StorageAmt' != '') {
-                $("#lblProrated_Storage").text(parseFloat(parseFloat(@Model.StorageAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
-                $("#lblProrated_Storage_print").text(parseFloat(parseFloat(@Model.StorageAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+            if ($(this).val() == 3) {
+                $("#txtOtherGenderReg").attr("disabled", false);
             }
             else {
-                $("#lblProrated_Storage").text('0.00');
-                $("#lblProrated_Storage_print").text('0.00');
-            }
-            if ('@Model.PetPlaceAmt' != '') {
-                $("#lblProrated_PetRent").text(parseFloat(parseFloat(@Model.PetPlaceAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
-                $("#lblProrated_PetRent_print").text(parseFloat(parseFloat(@Model.PetPlaceAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
-            }
-            else {
-                $("#lblProrated_PetRent").text('0.00');
-                $("#lblProrated_PetRent_print").text('0.00');
+                $("#txtOtherGenderReg").attr("disabled", true);
             }
         });
+        if ('@Model.ParkingAmt' != '') {
+            $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(@Model.ParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+            $("#lblProrated_AditionalParking_print").text(parseFloat(parseFloat(@Model.ParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+        }
+        else {
+            $("#lblProrated_AditionalParking").text('0.00');
+            $("#lblProrated_AditionalParking_print").text('0.00');
+        }
+        if ('@Model.StorageAmt' != '') {
+            $("#lblProrated_Storage").text(parseFloat(parseFloat(@Model.StorageAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+            $("#lblProrated_Storage_print").text(parseFloat(parseFloat(@Model.StorageAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+        }
+        else {
+            $("#lblProrated_Storage").text('0.00');
+            $("#lblProrated_Storage_print").text('0.00');
+        }
+        if ('@Model.PetPlaceAmt' != '') {
+            $("#lblProrated_PetRent").text(parseFloat(parseFloat(@Model.PetPlaceAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+            $("#lblProrated_PetRent_print").text(parseFloat(parseFloat(@Model.PetPlaceAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+        }
+        else {
+            $("#lblProrated_PetRent").text('0.00');
+            $("#lblProrated_PetRent_print").text('0.00');
+        }
+       
         fillMarketSourceDDL();
         if (@Model.ProspectId != 0) {
             if (@Model.HasPropertyList==1) {
