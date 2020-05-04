@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using ShomaRM.Models;
 
 
 namespace ShomaRM.Areas.Tenant.Models
@@ -49,7 +50,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     OriginalPhoto = model.OriginalPetNameFile,
                     OriginalVaccinationCert = model.OriginalPetVaccinationCertificateFile,
                     PetName = model.PetName,
-                    VetsName = model.VetsName
+                    VetsName = model.VetsName,
+                    AddedBy = ShomaGroupWebSession.CurrentUser.UserID
                 };
                 db.tbl_TenantPet.Add(savePet);
                 db.SaveChanges();
@@ -90,7 +92,8 @@ namespace ShomaRM.Areas.Tenant.Models
             ShomaRMEntities db = new ShomaRMEntities();
             List<PetModel> lstProp = new List<PetModel>();
 
-            var petList = db.tbl_TenantPet.Where(p => p.TenantID == TenantID).ToList();
+            //var petList = db.tbl_TenantPet.Where(p => p.TenantID == TenantID).ToList();
+            var petList = db.tbl_TenantPet.Where(p => p.TenantID == TenantID && p.AddedBy == ShomaGroupWebSession.CurrentUser.UserID).ToList();
             foreach (var pl in petList)
             {
                 lstProp.Add(new PetModel
@@ -143,7 +146,7 @@ namespace ShomaRM.Areas.Tenant.Models
             if (PetID != 0)
             {
 
-                var petData = db.tbl_TenantPet.Where(p => p.PetID == PetID).FirstOrDefault();
+                var petData = db.tbl_TenantPet.Where(p => p.PetID == PetID && p.AddedBy == ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
                 if (petData != null)
                 {
                     db.tbl_TenantPet.Remove(petData);

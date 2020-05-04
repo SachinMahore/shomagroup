@@ -1,0 +1,1 @@
+ALTER TABLE tbl_TenantOnline ADD StepCompleted INT

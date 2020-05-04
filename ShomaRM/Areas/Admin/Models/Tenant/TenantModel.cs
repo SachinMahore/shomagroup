@@ -439,7 +439,7 @@ namespace ShomaRM.Areas.Admin.Models
 
             var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == model.UnitID).FirstOrDefault();
             string reportHTML = "";
-            string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+            string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
             reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplate.html");
             string message = "";
             string phonenumber = prospectDet.Phone;
@@ -1157,8 +1157,10 @@ namespace ShomaRM.Areas.Admin.Models
                         {
                             string reportCoappHTML = "";
 
-                            string coappfilePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                            string coappfilePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                             reportCoappHTML = System.IO.File.ReadAllText(coappfilePath + "EmailTemplateProspect5.html");
+
+                            reportCoappHTML = reportCoappHTML.Replace("[%ServerURL%]", serverURL);
 
                             reportCoappHTML = reportCoappHTML.Replace("[%CoAppType%]", tl.Type);
                             reportCoappHTML = reportCoappHTML.Replace("[%EmailHeader%]", "Tenant Account Created Successfully");
@@ -1347,7 +1349,7 @@ namespace ShomaRM.Areas.Admin.Models
                 }
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == model.UnitID).FirstOrDefault();
                 string reportHTML = "";
-                string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplate.html");
 
                 string message = "";

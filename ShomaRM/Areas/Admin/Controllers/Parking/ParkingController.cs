@@ -23,7 +23,12 @@ namespace ShomaRM.Areas.Admin.Controllers
             var model = new ParkingModel().GetParkingData(Id);
             return View("..\\Parking\\Edit", model);
         }
-
+        public ActionResult ParkingExcel(int Id)
+        {
+            ViewBag.ActiveMenu = "admin";
+            var model = new ParkingModel().GetParkingData(Id);
+            return View("..\\Parking\\ParkingExcel", model);
+        }
 
         public ActionResult GetParkingList(long TenantID)
         {
@@ -164,6 +169,28 @@ namespace ShomaRM.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult SaveUpdateParkingName(ParkingModel model)
+        {
+            try
+            {
+                return Json(new { models = new ParkingModel().SaveUpdateParkingName(model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { models = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult SaveUpdateParkingLocation(ParkingModel model)
+        {
+            try
+            {
+                return Json(new { models = new ParkingModel().SaveUpdateParkingLocation(model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { models = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
     }

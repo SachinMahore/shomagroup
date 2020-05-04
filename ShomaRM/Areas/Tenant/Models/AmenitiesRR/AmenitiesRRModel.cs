@@ -501,7 +501,7 @@ namespace ShomaRM.Areas.Tenant.Models
 
                     var GetTenantData = db.tbl_TenantInfo.Where(p => p.TenantID == GetARRData.TenantID).FirstOrDefault();
                     string reportHTML = "";
-                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/Template/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
                     string message = "";
                     string phonenumber = "";
@@ -513,7 +513,6 @@ namespace ShomaRM.Areas.Tenant.Models
                         DateTime? arDate = null;
                         try
                         {
-
                             arDate = Convert.ToDateTime(GetARRData.DesiredDate);
                         }
                         catch
@@ -521,6 +520,7 @@ namespace ShomaRM.Areas.Tenant.Models
 
                         }
                         var tm = new MyTransactionModel();
+                        reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                         reportHTML = reportHTML.Replace("[%EmailHeader%]", "Amenity Reservation Request Status");
                         reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
 

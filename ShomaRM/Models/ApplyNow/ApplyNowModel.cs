@@ -107,18 +107,19 @@ namespace ShomaRM.Models
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 if (strlist[1] != "000000")
                 {
-                    foreach (var coapp in model.lstApp)
-                    { //Added by Sachin M 28 Apr 7:26PM
-                        var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID==coapp.ApplicantID).FirstOrDefault();
-                        if (coappliList != null)
-                        {
+                    if (model.lstApp != null)
+                    {
+                        foreach (var coapp in model.lstApp)
+                        { //Added by Sachin M 28 Apr 7:26PM
+                            var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID == coapp.ApplicantID).FirstOrDefault();
+                            if (coappliList != null)
+                            {
+                                coappliList.Paid = 1;
+                                db.SaveChanges();
 
-                            coappliList.Paid = 1;
-                            db.SaveChanges();
-
+                            }
                         }
                     }
-
                     if (GetPayDetails != null)
                     {
                         GetPayDetails.Name_On_Card = model.Name_On_Card;
@@ -188,10 +189,11 @@ namespace ShomaRM.Models
                     db.SaveChanges();
 
                     string reportHTML = "";
-                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
                     string message = "";
                     string phonenumber = GetProspectData.Phone;
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                     if (model != null)
                     {
                         reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Completed and Payment Received");
@@ -339,8 +341,9 @@ namespace ShomaRM.Models
 
                     }
                     string reportHTML = "";
-                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                     string message = "";
                     string phonenumber = coappliList.Phone;
                     if (model != null)
@@ -354,6 +357,7 @@ namespace ShomaRM.Models
 
                     }
                     string body = reportHTML;
+
                     new EmailSendModel().SendEmail(coappliList.Email, "Application Completed and Payment Received", body);
                     message = "Online Application Completed and Payment of $" + model.Charge_Amount + " Received. Please check the email for detail.";
                     if (SendMessage == "yes")
@@ -493,8 +497,9 @@ namespace ShomaRM.Models
                     db.SaveChanges();
 
                     string reportHTML = "";
-                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                     string message = "";
                     string phonenumber = GetCoappDet.Phone;
                     string sub = "";
@@ -622,10 +627,11 @@ namespace ShomaRM.Models
                 }
                 string uidd = new EncryptDecrypt().EncryptText(forgetPassword.UserID.ToString());
                 string reportHTML = "";
-                string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "ForgetPassword.html");
 
-                //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
+                reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+
                 reportHTML = reportHTML.Replace("[%TenantName%]", model.FullName);
                 reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/ApplyNow/ChangePassword/?uid=" + uidd + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/ApplyNow/ChangePassword/?uid=" + uidd + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Change Password</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
 
@@ -773,7 +779,8 @@ namespace ShomaRM.Models
 
 
                 string reportHTML = "";
-                string filePath =HttpContext.Current. Server.MapPath("~/Content/assets/img/Document/");
+                string savePath =HttpContext.Current. Server.MapPath("~/Content/assets/img/Document/");
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "ApplicationPrintTemplate.html");
                 //--ServerURL--//
                 reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
@@ -794,7 +801,7 @@ namespace ShomaRM.Models
                 reportHTML = reportHTML.Replace("[%ApplicantEmail%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantEmail"].ToString());
 
                 string ssn = "";
-                try { ssn = new EncryptDecrypt().DecryptText(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantSSN"].ToString()); ssn = "***-**-" + ssn.Substring(4, 5); } catch { }
+                try { ssn = new EncryptDecrypt().DecryptText(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantSSN"].ToString()); ssn = "***-**-" + ssn.Substring(5, 4); } catch { }
 
                 reportHTML = reportHTML.Replace("[%ApplicantSSN%]", ssn);
 
@@ -976,7 +983,7 @@ namespace ShomaRM.Models
                     document.Close();
                     bytes = stream.ToArray();
                 }
-                filename = filePath + "ApplicationSummary_" + TenantID.ToString() + ".pdf";
+                filename = savePath + "ApplicationSummary_" + TenantID.ToString() + ".pdf";
                 System.IO.File.WriteAllBytes(filename, bytes);
                 filename = "/Content/assets/img/Document/ApplicationSummary_" + TenantID.ToString() + ".pdf";
                 db.Dispose();
@@ -1051,7 +1058,8 @@ namespace ShomaRM.Models
 
 
                 string reportHTML = "";
-                string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                string savePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "GuarantorPrintTemplate.html");
                 //--ServerURL--//
                 reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
@@ -1062,7 +1070,7 @@ namespace ShomaRM.Models
                 reportHTML = reportHTML.Replace("[%ApplicantEmail%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantEmail"].ToString());
 
                 string ssn = "";
-                try { ssn = new EncryptDecrypt().DecryptText(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantSSN"].ToString()); ssn = "***-**-" + ssn.Substring(4, 5); } catch { }
+                try { ssn = new EncryptDecrypt().DecryptText(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantSSN"].ToString()); ssn = "***-**-" + ssn.Substring(5, 4); } catch { }
 
                 reportHTML = reportHTML.Replace("[%ApplicantSSN%]", ssn);
 
@@ -1152,7 +1160,7 @@ namespace ShomaRM.Models
                     document.Close();
                     bytes = stream.ToArray();
                 }
-                filename = filePath + "GuarantorApplicationSummary_" + TenantID.ToString() + ".pdf";
+                filename = savePath + "GuarantorApplicationSummary_" + TenantID.ToString() + ".pdf";
                 System.IO.File.WriteAllBytes(filename, bytes);
                 filename = "/Content/assets/img/Document/GuarantorApplicationSummary_" + TenantID.ToString() + ".pdf";
                 db.Dispose();
@@ -1207,7 +1215,8 @@ namespace ShomaRM.Models
 
 
                 string reportHTML = "";
-                string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                string savePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "CoapplicantApplicationPrintTemplate.html");
                 //--ServerURL--//
                 reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
@@ -1228,7 +1237,7 @@ namespace ShomaRM.Models
                 reportHTML = reportHTML.Replace("[%ApplicantEmail%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantEmail"].ToString());
 
                 string ssn = "";
-                try { ssn = new EncryptDecrypt().DecryptText(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantSSN"].ToString()); ssn = "***-**-" + ssn.Substring(4, 5); } catch { }
+                try { ssn = new EncryptDecrypt().DecryptText(dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantSSN"].ToString()); ssn = "***-**-" + ssn.Substring(5, 4); } catch { }
 
                 reportHTML = reportHTML.Replace("[%ApplicantSSN%]", ssn);
 
@@ -1402,7 +1411,7 @@ namespace ShomaRM.Models
                     document.Close();
                     bytes = stream.ToArray();
                 }
-                filename = filePath + "Coapplicant_ApplicationSummary_" + TenantID.ToString() + ".pdf";
+                filename = savePath + "Coapplicant_ApplicationSummary_" + TenantID.ToString() + ".pdf";
                 System.IO.File.WriteAllBytes(filename, bytes);
                 filename = "/Content/assets/img/Document/Coapplicant_ApplicationSummary_" + TenantID.ToString() + ".pdf";
                 db.Dispose();
@@ -1416,6 +1425,79 @@ namespace ShomaRM.Models
 
             return filename;
         }
+        public string PrintQuotation(PrintQuotationModel model)
+        {
+            string filename = "";
+            try
+            {
 
+                string reportHTML = "";
+                string savePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
+                reportHTML = System.IO.File.ReadAllText(filePath + "QuotationPrint.html");
+               
+                reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                
+                reportHTML = reportHTML.Replace("[%QuoteDate%]", model.QuoteDate);
+                reportHTML = reportHTML.Replace("[%ApplicantName%]", model.ApplicantName);
+                reportHTML = reportHTML.Replace("[%QuoteExpires%]", model.QuoteExpires);
+                reportHTML = reportHTML.Replace("[%PhoneNumber%]", model.PhoneNumber);
+                reportHTML = reportHTML.Replace("[%Email%]", model.Email);
+                reportHTML = reportHTML.Replace("[%DesiredMoveIn%]", model.DesiredMoveIn);
+                reportHTML = reportHTML.Replace("[%UnitNo%]", model.UnitNo);
+                reportHTML = reportHTML.Replace("[%ModelName%]", model.ModelName);
+                reportHTML = reportHTML.Replace("[%LeaseTerm%]", model.LeaseTerm);
+                reportHTML = reportHTML.Replace("[%AssignParkingSpace%]", model.AssignParkingSpace);
+                reportHTML = reportHTML.Replace("[%ApplicationFees%]", model.ApplicationFees);
+                reportHTML = reportHTML.Replace("[%SecurityDeposit%]", model.SecurityDeposit);
+                reportHTML = reportHTML.Replace("[%GuarantorFees%]", model.GuarantorFees);
+                reportHTML = reportHTML.Replace("[%PetNonRefundableFee%]", model.PetNonRefundableFee);
+                reportHTML = reportHTML.Replace("[%AdministratorFee%]", model.AdministratorFee);
+                reportHTML = reportHTML.Replace("[%PetDNAFee%]", model.PetDNAFee    );
+                reportHTML = reportHTML.Replace("[%VehicleRegistration%]", model.VehicleRegistration);
+                reportHTML = reportHTML.Replace("[%MonthlyRent%]", model.MonthlyRent);
+                reportHTML = reportHTML.Replace("[%ProratedMonthlyRent%]", model.ProratedMonthlyRent);
+                reportHTML = reportHTML.Replace("[%TrashFee%]", model.TrashFee);
+                reportHTML = reportHTML.Replace("[%ProratedTrashFee%]", model.ProratedTrashFee);
+                reportHTML = reportHTML.Replace("[%PestControlFee%]", model.PestControlFee);
+                reportHTML = reportHTML.Replace("[%ProratedPestControlFee%]", model.ProratedPestControlFee);
+                reportHTML = reportHTML.Replace("[%ConvergentBillingFee%]", model.ConvergentBillingFee);
+                reportHTML = reportHTML.Replace("[%ProratedConvergentBillingFee%]", model.ProratedConvergentBillingFee);
+                reportHTML = reportHTML.Replace("[%AdditionalParking%]", model.AdditionalParking);
+                reportHTML = reportHTML.Replace("[%ProratedAdditionalParking%]", model.ProratedAdditionalParking);
+                reportHTML = reportHTML.Replace("[%StorageAmount%]", model.StorageAmount);
+                reportHTML = reportHTML.Replace("[%ProratedStorageAmount%]", model.ProratedStorageAmount);
+                reportHTML = reportHTML.Replace("[%PetFee%]", model.PetFee);
+                reportHTML = reportHTML.Replace("[%ProratedPetFee%]", model.ProratedPetFee);
+                reportHTML = reportHTML.Replace("[%MonthlyCharges%]", model.MonthlyCharges);
+                reportHTML = reportHTML.Replace("[%ProratedMonthlyCharges%]", model.ProratedMonthlyCharges);
+                reportHTML = reportHTML.Replace("[%ModelImage%]", serverURL+ "content/assets/img/plan/" + model.ModelName+".jpg");
+
+                List<IElement> elements = iText.Html2pdf.HtmlConverter.ConvertToElements(reportHTML).ToList();
+                byte[] bytes;
+                using (var stream = new MemoryStream())
+                {
+                    PdfDocument pdf = new PdfDocument(new PdfWriter(stream));
+                    pdf.SetTagged();
+                    Document document = new Document(pdf);
+                    document.SetMargins(0, 0, 0, 0);
+                    foreach (IElement element in elements)
+                    {
+                        document.Add((IBlockElement)element);
+                    }
+                    document.Close();
+                    bytes = stream.ToArray();
+                }
+                filename = savePath + "Quotation_" + model.TenantID + ".pdf";
+                System.IO.File.WriteAllBytes(filename, bytes);
+                filename = "/Content/assets/img/Document/Quotation_" + model.TenantID + ".pdf";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return filename;
+        }
     }
 }

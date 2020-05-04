@@ -88,6 +88,7 @@ namespace ShomaRM.Areas.Tenant.Models
 
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
+        string ServerURL = WebConfigurationManager.AppSettings["ServerURL"];
 
         public List<MyTransactionModel> GetTenantTransactionList(long TenantID, int AccountHistoryDDL)
         {
@@ -997,8 +998,9 @@ namespace ShomaRM.Areas.Tenant.Models
                         string reportHTML = "";
                         string body = "";
                         string subject = "";
-                        string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                        string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                         reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+                        reportHTML = reportHTML.Replace("[%ServerURL%]", ServerURL);
                         string message = "";
                         string phonenumber = tenantData.Mobile;
 
@@ -1297,8 +1299,10 @@ namespace ShomaRM.Areas.Tenant.Models
                 string reportHTML = "";
                 string body = "";
 
-                string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+
+                reportHTML = reportHTML.Replace("[%ServerURL%]", ServerURL);
 
                 string message = "";
                 string phonenumber = GetTenantData.Mobile;
@@ -1470,8 +1474,10 @@ namespace ShomaRM.Areas.Tenant.Models
                 string reportHTML = "";
                 string body = "";
 
-                string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/Template/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+
+                reportHTML = reportHTML.Replace("[%ServerURL%]", ServerURL);
 
                 string message = "";
                 string phonenumber = GetTenantData.Mobile;

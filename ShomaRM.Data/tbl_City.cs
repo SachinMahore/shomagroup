@@ -17,9 +17,9 @@ namespace ShomaRM.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbl_City()
         {
-            this.tbl_Prospect = new HashSet<tbl_Prospect>();
             this.tbl_SalesAgent = new HashSet<tbl_SalesAgent>();
             this.tbl_ZipCodes = new HashSet<tbl_ZipCodes>();
+            this.tbl_Prospect = new HashSet<tbl_Prospect>();
             this.tbl_Properties = new HashSet<tbl_Properties>();
         }
     
@@ -29,11 +29,11 @@ namespace ShomaRM.Data
     
         public virtual tbl_State tbl_State { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_Prospect> tbl_Prospect { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_SalesAgent> tbl_SalesAgent { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_ZipCodes> tbl_ZipCodes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_Prospect> tbl_Prospect { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Properties> tbl_Properties { get; set; }
     }
