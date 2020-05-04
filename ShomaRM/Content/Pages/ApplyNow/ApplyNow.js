@@ -4755,7 +4755,7 @@ var saveupdateApplicant = function () {
 }
 var totpaid = 0;
 
-vvar getApplicantLists = function () {
+var getApplicantLists = function () {
     var model = {
 
         TenantID: $("#hdnOPId").val(),

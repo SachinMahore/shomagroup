@@ -114,7 +114,6 @@ namespace ShomaRM.Models
                             var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID == coapp.ApplicantID).FirstOrDefault();
                             if (coappliList != null)
                             {
-
                                 coappliList.Paid = 1;
                                 db.SaveChanges();
 
