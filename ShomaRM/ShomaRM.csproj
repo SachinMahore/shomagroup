@@ -421,6 +421,7 @@
     <Compile Include="Controllers\Property\PropertyController.cs" />
     <Compile Include="Controllers\Prospect\ProspectController.cs" />
     <Compile Include="Controllers\ShomaAPIController.cs" />
+    <Compile Include="Controllers\ShomaBaseController.cs" />
     <Compile Include="Controllers\ShomaGroupWebAuthorizationController.cs" />
     <Compile Include="Controllers\TwilioSMSController.cs" />
     <Compile Include="Controllers\Verification\VerificationController.cs" />
@@ -2780,6 +2781,7 @@
     <Folder Include="Content\assets\img\slide1\" />
     <Folder Include="Logs\" />
     <Folder Include="Views\BackgroundScreening\" />
+    <Folder Include="Views\ShomaBase\" />
     <Folder Include="Views\TwilioSMS\" />
   </ItemGroup>
   <ItemGroup>

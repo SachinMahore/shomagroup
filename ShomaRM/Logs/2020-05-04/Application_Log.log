@@ -18,3 +18,63 @@ Line Number: 61
 Logger: AccountController.cs
 
 
+
+Date - 04 May 2020 14:46:36
+Level - INFO
+UserAgent - 
+Message - 
+Method LogError -Name Mahendra
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Controllers\ShomaBaseController.cs
+
+Method Name: LogError
+
+Line Number: 14
+
+Logger: ShomaBaseController.cs
+
+
+
+Date - 04 May 2020 14:47:38
+Level - INFO
+UserAgent - 
+Message - 
+Method LogError -Name Mahendra
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Controllers\ShomaBaseController.cs
+
+Method Name: LogError
+
+Line Number: 14
+
+Logger: ShomaBaseController.cs
+
+
+
+Date - 04 May 2020 14:47:58
+Level - INFO
+UserAgent - 
+Message - 
+Method LogError -Vijay Ramteke
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Controllers\ShomaBaseController.cs
+
+Method Name: LogError
+
+Line Number: 14
+
+Logger: ShomaBaseController.cs
+
+

@@ -11,7 +11,7 @@ using LoggerEngine;
 namespace ShomaRM.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : ShomaBaseController
     {
         private ShomaRMEntities db = new ShomaRMEntities();
         //public AccountController()
@@ -58,8 +58,8 @@ namespace ShomaRM.Controllers
                 var user = db.tbl_Login.Where(p => p.Username == model.UserName && p.Password == encryptedPassword && p.IsActive == 1).FirstOrDefault();
                 if (user != null)
                 {
-                    LoggingHelper.LogMessage("Name Mahendra", System.Diagnostics.TraceLevel.Info);
-
+                    
+                    //LogError("Vijay Ramteke");
                     SignIn(model.UserName, model.RememberMe);
                     // Set Current User
                     var currentUser = new CurrentUser();
@@ -166,8 +166,6 @@ namespace ShomaRM.Controllers
                     }
                 }
             }
-
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
         
