@@ -1240,24 +1240,17 @@ var goToStep = function (stepid, id, calldataupdate) {
             if (!$("#txtDateOfBirth").val()) {
                 msg += "Please Fill The  Date Of Birth </br>";
             }
-            if ($("#ddlGender").val() == "0") {
-                msg += "Please Select The Gender </br>";
-            }
-            else if ($("#ddlGender").val() == "3") {
-                if ($("#txtOtherGender").val() == "") {
-                    msg += "Please Fill The Other Gender </br>";
-                }
-            }
-            if ($("#ddlIsInter").val() == "0") {
-                if (!$("#txtSSNNumber").val()) {
-                    msg += "Please Fill The SSN number </br>";
-                }
-                else {
-                    if ($("#txtSSNNumber").val().length < 9) {
-                        msg += "SSN number must be 9 digit </br>";
-                    }
-                }
-            }
+           
+            //if ($("#ddlIsInter").val() == "0") {
+            //    if (!$("#txtSSNNumber").val()) {
+            //        msg += "Please Fill The SSN number </br>";
+            //    }
+            //    else {
+            //        if ($("#txtSSNNumber").val().length < 9) {
+            //            msg += "SSN number must be 9 digit </br>";
+            //        }
+            //    }
+            //}
             if (!$("#txtEmailNew").val()) {
                 msg += "Please Fill The Email </br>";
             }
@@ -1274,39 +1267,35 @@ var goToStep = function (stepid, id, calldataupdate) {
                     msg += "Please enter 10 digit mobile number </br>";
                 }
             }
-            if ($("#ddlIsInter").val() == "1") {
-                if (!$("#txtPassportNum").val()) {
-                    msg += "Please Fill The Passport number </br>";
-                }
-                if (!$("#txtCOI").val()) {
-                    msg += "Please Fill The Country Of Issuance </br>";
-                }
-                if (!$("#txtDateOfIssuance").val()) {
-                    msg += "Please Fill The Date of Issuance </br>";
-                }
-                if (!$("#txtDateOfExpiration").val()) {
-                    msg += "Please Fill The Date of Expiration </br>";
-                }
-                if ($("#hndHasPassportFile").val() == "0") {
-                    if (document.getElementById('fileUploadPassport').files.length == '0') {
-                        msg += "Please Upload The Passport </br>";
-                    }
-                }
-                if ($("#ddlCountryOfOrigin").val() == '0') {
-                    msg += "Please select the country of origin</br>";
-                }
-            } else {
-                if ($("#ddlStatePersonal").val() == "0") {
-                    msg += "Please Select The State </br>";
-                }
-            }
+            //if ($("#ddlIsInter").val() == "1") {
+            //    if (!$("#txtPassportNum").val()) {
+            //        msg += "Please Fill The Passport number </br>";
+            //    }
+            //    if (!$("#txtCOI").val()) {
+            //        msg += "Please Fill The Country Of Issuance </br>";
+            //    }
+            //    if (!$("#txtDateOfIssuance").val()) {
+            //        msg += "Please Fill The Date of Issuance </br>";
+            //    }
+            //    if (!$("#txtDateOfExpiration").val()) {
+            //        msg += "Please Fill The Date of Expiration </br>";
+            //    }
+            //    if ($("#hndHasPassportFile").val() == "0") {
+            //        if (document.getElementById('fileUploadPassport').files.length == '0') {
+            //            msg += "Please Upload The Passport </br>";
+            //        }
+            //    }
+            //    if ($("#ddlCountryOfOrigin").val() == '0') {
+            //        msg += "Please select the country of origin</br>";
+            //    }
+            //} else {
+               
+            //}
             if ($("#ddlDocumentTypePersonal").val() == "0") {
                 msg += "Please Select The Id Type </br>";
             }
 
-            if (!$("#txtIDNumber").val()) {
-                msg += "Please Fill The  Id Number </br>";
-            }
+           
             if ($("#hndHasIdentityFile").val() == "0") {
                 if (document.getElementById('fileUploadIdentity').files.length == '0') {
                     var idType = document.getElementById('lblUploadIdentity').innerHTML;
@@ -1408,23 +1397,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#divLoader").show();
             $("#popApplicantSummary").modal("hide");
             var msg = '';
-            if ($("#txtCountry").val() == "0") {
-                msg += "Please Select Country </br>";
-            }
-
-            if (!$("#txtAddress1").val()) {
-                msg += "Please Fill Address 1 </br>";
-            }
-
-            if ($("#ddlStateHome").val() == "0") {
-                msg += "Please Select State </br>";
-            }
-            if (!$("#ddlCityHome").val()) {
-                msg += "Please Fill City </br>";
-            }
-            if (!$("#txtZip").val()) {
-                msg += "Please Fill Zip </br>";
-            }
+           
             if ($("#ddlRentOwn").val() == '0') {
                 msg += 'Please Select Rent or Own</br>';
             }
@@ -2642,7 +2615,19 @@ var SaveOnlineProspect = function () {
     var isAgree = $("#chkAgreeTerms").is(":checked") ? "1" : "0";
     var leaseterm = $("#hndLeaseTermID").val();
 
-
+    //Sachin M 30apr
+    var IDNumber = $("#txtIDNumber").val();
+    var SSNNumber = $("#txtSSNNumber").val();
+    var Country = $("#txtCountry").val();
+    var HomeAddress1 = $("#txtAddress1").val();
+    var HomeAddress2 = $("#txtAddress2").val();
+    var StateHome = $("#ddlStateHome").val();
+    var CityHome = $("#ddlCityHome").val();
+    var ZipHome = $("#txtZip").val();
+    //sachin m 01 May 2020
+    var OtherGender = $("#txtOtherGender").val();
+    var Gender = $("#ddlGender").val();
+    var MiddleInitial = $("#txtMiddleInitial1").val();
     //if (isAgree == 0) {
     //    msg += "Please agree with Sanctuary's terms and conditions</br>";
     //}
@@ -2667,7 +2652,40 @@ var SaveOnlineProspect = function () {
             msg += "Please fill Valid Email </br>";
         }
     }
-    
+    //Sachin M 30 apr 
+    if ($("#txtSSNNumber").val().length < 9) {
+        msg += "SSN number must be 9 digit </br>";
+    }
+    if ($("#txtCountry").val() == "0") {
+        msg += "Please Select Country </br>";
+    }
+
+    if (!$("#txtAddress1").val()) {
+        msg += "Please Fill Address 1 </br>";
+    }
+
+    if ($("#ddlStateHome").val() == "0") {
+        msg += "Please Select State </br>";
+    }
+    if (!$("#ddlCityHome").val()) {
+        msg += "Please Fill City </br>";
+    }
+    if (!$("#txtZip").val()) {
+        msg += "Please Fill Zip </br>";
+    }
+    if (!$("#ddlGender").val() || $("#ddlGender").val()=="0") {
+        msg += "Please Select The Gender </br>";
+    }
+    else if ($("#ddlGender").val() == "3") {
+        if ($("#txtOtherGender").val() == "") {
+            msg += "Please Fill The Other Gender </br>";
+        }
+    } else if ($("#ddlGender").val() == "2") {
+        if ($("#txtMiddleInitial1").val() == "") {
+            msg += "Please enter Middle Name  </br>";
+        }
+    }
+
     if (!password) {
         msg += "Please fill the Password </br>";
     } else {
@@ -2708,7 +2726,18 @@ var SaveOnlineProspect = function () {
         AddiAnnualIncome: addiAnnualIncome,
         Marketsource: marketsource,
         MoveInDate: moveInDate,
-        LeaseTerm: leaseterm
+        LeaseTerm: leaseterm,
+        IDNumber: IDNumber,
+        SSN: SSNNumber,
+        Country: Country,
+        HomeAddress1: HomeAddress1,
+        HomeAddress2: HomeAddress2,
+        StateHome: StateHome,
+        CityHome: CityHome,
+        ZipHome: ZipHome,
+        MiddleInitial: MiddleInitial,
+        Gender: Gender,
+        OtherGender: OtherGender,
     }
 
     $.ajax({
@@ -2723,6 +2752,27 @@ var SaveOnlineProspect = function () {
             if (idmsg[0] != 0) {
                 $("#hdnOPId").val(idmsg[0]);
                 $("#lblQuoteID").text("#" + idmsg[0]);
+
+
+                var ssn = $("#txtSSNNumber").val();
+                if (ssn.length < 9) {
+                    alert("SSN must be 9 digit");
+                    return;
+                }
+                if (ssn.length > 4) {
+                    saveupdateSSN(ssn);
+                    $("#txtSSNNumber").val("***-**-" + ssn.substr(ssn.length - 4, 4));
+                }
+                var idnumber = $("#txtIDNumber").val();
+                if (idnumber.length < 5) {
+                    alert("ID Number should be greater then 4 digit");
+                    return;
+                }
+                if (idnumber.length > 4) {
+                    saveupdateIDNumber(idnumber);
+                    $("#txtIDNumber").val(("*".repeat(idnumber.length - 4) + idnumber.substr(idnumber.length - 4, 4)));
+                }
+
                 getApplyNowList(idmsg[0]);
                 getTenantOnlineList(idmsg[0]);
                 getApplicantLists(idmsg[0]);
@@ -6135,6 +6185,7 @@ var getTenantOnlineList = function (id) {
             //$("#ddladdHistory").val(response.model.IsAdditionalRHistory).change();
             $("#txtFirstNamePersonal").val(response.model.FirstName);
             $("#txtMiddleInitial").val(response.model.MiddleInitial);
+            $("#txtMiddleInitial1").val(response.model.MiddleInitial);
             $("#txtLastNamePersonal").val(response.model.LastName);
             $("#summName").text(response.model.FirstName + " " + response.model.MiddleInitial + " " + response.model.LastName);
             $("#summNamep").text(response.model.FirstName + " " + response.model.MiddleInitial + " " + response.model.LastName);
@@ -7702,62 +7753,62 @@ var onFocusApplyNow = function () {
             $("#txtSupervisiorPhoneHEI").val(unformatText($("#txtSupervisiorPhoneHEI").val()));
         });
 
-    $("#txtSSNNumber").focusin(function () {
-        var id = $("#hdnOPId").val();
-        var model = {
-            id: id,
-            vid:1
-        };
-        $.ajax({
-            url: '/ApplyNow/GetSSNIdNumberPassportNumber',
-            type: "post",
-            contentType: "application/json utf-8",
-            data: JSON.stringify(model),
-            dataType: "JSON",
-            success: function (response) {
-                $("#txtSSNNumber").val(response.ssn);
-            }
-        });
-    }).focusout(function () {
-        var ssn = $(this).val();
-        if (ssn.length < 9) {
-            alert("SSN must be 9 digit");
-            return;
-        }
-        if (ssn.length > 4) {
-            saveupdateSSN(ssn);
-            $(this).val("***-**-" + ssn.substr(ssn.length - 4, 4));
-        }
-        });
+    //$("#txtSSNNumber").focusin(function () {
+    //    var id = $("#hdnOPId").val();
+    //    var model = {
+    //        id: id,
+    //        vid:1
+    //    };
+    //    $.ajax({
+    //        url: '/ApplyNow/GetSSNIdNumberPassportNumber',
+    //        type: "post",
+    //        contentType: "application/json utf-8",
+    //        data: JSON.stringify(model),
+    //        dataType: "JSON",
+    //        success: function (response) {
+    //            $("#txtSSNNumber").val(response.ssn);
+    //        }
+    //    });
+    //}).focusout(function () {
+    //    var ssn = $(this).val();
+    //    if (ssn.length < 9) {
+    //        alert("SSN must be 9 digit");
+    //        return;
+    //    }
+    //    if (ssn.length > 4) {
+    //        saveupdateSSN(ssn);
+    //        $(this).val("***-**-" + ssn.substr(ssn.length - 4, 4));
+    //    }
+    //    });
 
-    $("#txtIDNumber").focusin(function () {
-        var id = $("#hdnOPId").val();
-        var model = {
-            id: id,
-            vid:3
-        };
-        $.ajax({
-            url: '/ApplyNow/GetSSNIdNumberPassportNumber',
-            type: "post",
-            contentType: "application/json utf-8",
-            data: JSON.stringify(model),
-            dataType: "JSON",
-            success: function (response) {
-                $("#txtIDNumber").val(response.ssn);
-            }
-        });
-    }).focusout(function () {
-        var idnumber = $(this).val();
-        if (idnumber.length < 5) {
-            alert("ID Number should be greater then 4 digit");
-            return;
-        }
-        if (idnumber.length > 4) {
-            saveupdateIDNumber(idnumber);
-            $(this).val(("*".repeat(idnumber.length - 4) + idnumber.substr(idnumber.length - 4, 4)));
-        }
+    //$("#txtIDNumber").focusin(function () {
+    //    var id = $("#hdnOPId").val();
+    //    var model = {
+    //        id: id,
+    //        vid:3
+    //    };
+    //    $.ajax({
+    //        url: '/ApplyNow/GetSSNIdNumberPassportNumber',
+    //        type: "post",
+    //        contentType: "application/json utf-8",
+    //        data: JSON.stringify(model),
+    //        dataType: "JSON",
+    //        success: function (response) {
+    //            $("#txtIDNumber").val(response.ssn);
+    //        }
+    //    });
+    //}).focusout(function () {
+    //    var idnumber = $(this).val();
+    //    if (idnumber.length < 5) {
+    //        alert("ID Number should be greater then 4 digit");
+    //        return;
+    //    }
+    //    if (idnumber.length > 4) {
+    //        saveupdateIDNumber(idnumber);
+    //        $(this).val(("*".repeat(idnumber.length - 4) + idnumber.substr(idnumber.length - 4, 4)));
+    //    }
        
-        });
+    //    });
 
     $("#txtPassportNum").focusin(function () {
         var id = $("#hdnOPId").val();
@@ -8522,6 +8573,7 @@ var savepudateOnlineProspect = function () {
     var password = $("#txtPassword").val();
     var confirmPassword = $("#txtConfPassword").val();
     var marketsource = $("#ddlMarketSource").val();
+   
     if (phoneNumber.length < 10) {
         alert("Please enter 10 digit mobile number.");
         return;

@@ -59,11 +59,11 @@ namespace ShomaRM.Data
         public virtual tbl_City tbl_City { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Document> tbl_Document { get; set; }
-        public virtual tbl_Properties tbl_Properties { get; set; }
+        public virtual tbl_Login tbl_Login { get; set; }
+        public virtual tbl_Login tbl_Login1 { get; set; }
         public virtual tbl_State tbl_State { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Visit> tbl_Visit { get; set; }
-        public virtual tbl_Login tbl_Login { get; set; }
-        public virtual tbl_Login tbl_Login1 { get; set; }
+        public virtual tbl_Properties tbl_Properties { get; set; }
     }
 }
