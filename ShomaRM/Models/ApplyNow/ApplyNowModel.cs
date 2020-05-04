@@ -107,18 +107,20 @@ namespace ShomaRM.Models
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 if (strlist[1] != "000000")
                 {
-                    foreach (var coapp in model.lstApp)
-                    { //Added by Sachin M 28 Apr 7:26PM
-                        var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID==coapp.ApplicantID).FirstOrDefault();
-                        if (coappliList != null)
-                        {
+                    if (model.lstApp != null)
+                    {
+                        foreach (var coapp in model.lstApp)
+                        { //Added by Sachin M 28 Apr 7:26PM
+                            var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID == coapp.ApplicantID).FirstOrDefault();
+                            if (coappliList != null)
+                            {
 
-                            coappliList.Paid = 1;
-                            db.SaveChanges();
+                                coappliList.Paid = 1;
+                                db.SaveChanges();
 
+                            }
                         }
                     }
-
                     if (GetPayDetails != null)
                     {
                         GetPayDetails.Name_On_Card = model.Name_On_Card;
