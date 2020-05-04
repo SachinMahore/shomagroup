@@ -70,7 +70,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_PetPlace> tbl_PetPlace { get; set; }
         public virtual DbSet<tbl_PremiumType> tbl_PremiumType { get; set; }
         public virtual DbSet<tbl_Promotion> tbl_Promotion { get; set; }
-        public virtual DbSet<tbl_Properties> tbl_Properties { get; set; }
         public virtual DbSet<tbl_PropertyFloor> tbl_PropertyFloor { get; set; }
         public virtual DbSet<tbl_PropertyUnits> tbl_PropertyUnits { get; set; }
         public virtual DbSet<tbl_PurchaseOrder> tbl_PurchaseOrder { get; set; }
@@ -112,5 +111,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Parking> tbl_Parking { get; set; }
         public virtual DbSet<tbl_TenantPet> tbl_TenantPet { get; set; }
         public virtual DbSet<tbl_Vehicle> tbl_Vehicle { get; set; }
+        public virtual DbSet<tbl_Properties> tbl_Properties { get; set; }
     }
 }
