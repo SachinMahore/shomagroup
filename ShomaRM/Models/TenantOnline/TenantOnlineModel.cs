@@ -153,6 +153,9 @@ namespace ShomaRM.Models
         public String StringReferredResident { get; set; }
         public String StringReferredBrokerMerchant { get; set; }
         public string stringIsProprNoticeLeaseAgreement { get; set; }
+
+        public int StepCompletedCoappGu { get; set; }
+
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
@@ -809,6 +812,7 @@ namespace ShomaRM.Models
                     getAppldata.ManagementCompanyPhone = model.ManagementCompanyPhone;
                     getAppldata.IsProprNoticeLeaseAgreement = model.IsProprNoticeLeaseAgreement;
 
+                    getAppldata.StepCompleted = model.StepCompleted;
 
                     if (model.StepCompleted == 10)
                     {
@@ -903,6 +907,7 @@ namespace ShomaRM.Models
                     saveApplicantGender.Gender = model.Gender;
                     saveApplicantGender.OtherGender = model.OtherGender;
                     saveApplicantGender.Relationship = "1";
+                    saveApplicantGender.Phone = model.Mobile;
                     db.SaveChanges();
 
                 }
@@ -1171,6 +1176,7 @@ namespace ShomaRM.Models
         public Nullable<long> TenantID { get; set; }
         public Nullable<decimal> Charges { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public int TenantPetCount { get; set; }
         public int NumberOfPets { get; set; }
 
         public TenantPetPlace GetTenantPetPlaceData(long Id)
@@ -1179,13 +1185,16 @@ namespace ShomaRM.Models
             TenantPetPlace model = new TenantPetPlace();
 
             var getTenantPetPlaceData = db.tbl_TenantPetPlace.Where(p => p.TenantID == Id).FirstOrDefault();
-            
+            var getPetCount = db.tbl_TenantPet.Where(p => p.TenantID == getTenantPetPlaceData.TenantID).ToList();
+
             if (getTenantPetPlaceData != null)
             {
                 var getPetData = db.tbl_PetPlace.Where(p => p.PetPlaceID == getTenantPetPlaceData.PetPlaceID).FirstOrDefault();
                 model.PetPlaceID = getTenantPetPlaceData.PetPlaceID;
                 model.NumberOfPets = getPetData.Type??0;
+                
             }
+            model.TenantPetCount = getPetCount != null ? getPetCount.Count : 0;
             model.TenantID = Id;
             return model;
         }

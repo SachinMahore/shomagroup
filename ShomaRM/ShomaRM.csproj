@@ -492,6 +492,7 @@
     <Content Include="Areas\Admin\Content\Pages\Notice\Notice.js" />
     <Content Include="Areas\Admin\Content\Pages\Notice\NoticeList.js" />
     <Content Include="Areas\Admin\Content\Pages\Parking\Parking.js" />
+    <Content Include="Areas\Admin\Content\Pages\Parking\ParkingExcelList.js" />
     <Content Include="Areas\Admin\Content\Pages\Parking\ParkingList.js" />
     <Content Include="Areas\Admin\Content\Pages\PetManagement\PetManagement.js" />
     <Content Include="Areas\Admin\Content\Pages\PremiumType\PremiumType.js" />
@@ -2707,6 +2708,7 @@
     <Content Include="Areas\Admin\Views\FobManagement\Index.cshtml" />
     <Content Include="Areas\Admin\Views\TenantPetManagement\Index.cshtml" />
     <Content Include="Log4Net.config" />
+    <Content Include="Areas\Admin\Views\Parking\ParkingExcel.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

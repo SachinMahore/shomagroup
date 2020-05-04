@@ -30,6 +30,7 @@ namespace ShomaRM.Data
         public Nullable<decimal> MonthlyPayment { get; set; }
         public string OtherGender { get; set; }
         public Nullable<int> Paid { get; set; }
+        public Nullable<long> AddedBy { get; set; }
     
         public virtual tbl_ApplyNow tbl_ApplyNow { get; set; }
     }

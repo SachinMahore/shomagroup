@@ -77,5 +77,31 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult GetCoApplicantList(long TenantID)
+        {
+            try
+            {
+                return Json(new { model = new ApplicantModel().GetCoApplicantList(TenantID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
+        public ActionResult GetGuarantorApplicantData(string Email, long TenantID)
+        {
+            try
+            {
+                return Json(new { model = new ApplicantModel().GetGuarantorApplicantData(Email, TenantID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
     }
 }

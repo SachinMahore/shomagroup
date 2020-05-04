@@ -23,6 +23,7 @@ namespace ShomaRM.Areas.Admin.Models
         public string OwnerName { get; set; }
         public string VehicleMake { get; set; }
         public string VehicleModel { get; set; }
+        public long AddedBy { get; set; }
 
         public List<ParkingModel> GetParkingList(long TenantID)
         {
@@ -120,6 +121,7 @@ namespace ShomaRM.Areas.Admin.Models
                     usm.Description = dr["Description"].ToString();
                     usm.Type = int.Parse(dr["Type"].ToString());
                     usm.Status = int.Parse(dr["Status"].ToString());
+                    usm.AddedBy = Convert.ToInt64(dr["AddedBy"].ToString());
                     model.Add(usm);
                 }
                 db.Dispose();
@@ -394,6 +396,8 @@ namespace ShomaRM.Areas.Admin.Models
                     //usm.Available = dr["Available"].ToString();
                     usm.UnitNo = dr["UnitID"].ToString();
                     usm.VehicleTag = dr["VehicleTag"].ToString();
+                    usm.VehicleMake = dr["VehicleMake"].ToString();
+                    usm.VehicleModel = dr["VehicleModel"].ToString();
                     usm.OwnerName = dr["TenantName"].ToString();
                     usm.NumberOfPages = int.Parse(dr["NumberOfPages"].ToString());
                     lstData.Add(usm);
@@ -446,6 +450,57 @@ namespace ShomaRM.Areas.Admin.Models
                 db.Database.Connection.Close();
                 throw ex;
             }
+        }
+
+        
+        public string SaveUpdateParkingName(ParkingModel model)
+        {
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            if (model.ParkingID != 0)
+            {
+                var ParkingInfo = db.tbl_Parking.Where(p => p.ParkingID == model.ParkingID).FirstOrDefault();
+                if (ParkingInfo != null)
+                {
+                    ParkingInfo.ParkingName = model.ParkingName;
+                    db.SaveChanges();
+                    msg = "Parking information updated successfully.</br>";
+                }
+                else
+                {
+                    msg = "Parking not updated successfully.";
+
+                }
+            }
+            db.Dispose();
+            return msg;
+        }
+        public string SaveUpdateParkingLocation(ParkingModel model)
+        {
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            if (model.ParkingID != 0)
+            {
+                var ParkingInfo = db.tbl_Parking.Where(p => p.ParkingID == model.ParkingID).FirstOrDefault();
+                if (ParkingInfo != null)
+                {
+                    ParkingInfo.Description = model.Description;
+                    db.SaveChanges();
+                    msg = "Parking information updated successfully.</br>";
+                }
+                else
+                {
+                    msg = "Parking not updated successfully.";
+
+                }
+
+            }
+
+            db.Dispose();
+            return msg;
+
         }
     }
     
@@ -708,5 +763,7 @@ namespace ShomaRM.Areas.Admin.Models
         public string UnitNo { get; set; }
         public string VehicleTag { get; set; }
         public string OwnerName { get; set; }
+        public string VehicleMake { get; set; }
+        public string VehicleModel { get; set; }
     }
 }

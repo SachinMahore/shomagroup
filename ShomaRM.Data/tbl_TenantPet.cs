@@ -26,8 +26,9 @@ namespace ShomaRM.Data
         public string VetsName { get; set; }
         public string OriginalPhoto { get; set; }
         public string OriginalVaccinationCert { get; set; }
-        public Nullable<System.DateTime> ExpiryDate { get; set; }
         public string UniqID { get; set; }
+        public Nullable<System.DateTime> ExpiryDate { get; set; }
+        public Nullable<long> AddedBy { get; set; }
     
         public virtual tbl_ApplyNow tbl_ApplyNow { get; set; }
     }
