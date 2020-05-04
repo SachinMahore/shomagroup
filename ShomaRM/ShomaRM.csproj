@@ -2452,6 +2452,7 @@
     <Content Include="Content\timepicki.css" />
     <Content Include="Content\timepicki.js" />
     <Content Include="Content\zabuto_calendar.js" />
+    <Content Include="DatabaseChanges\01-05-2020\AddColumn_Applicant_ProcedureChange.sql" />
     <Content Include="DatabaseChanges\09-04-2020\usp_GetClientModelUnitList.sql" />
     <Content Include="DatabaseChanges\09-04-2020\usp_GetPropertyModelUnitList.sql" />
     <Content Include="DatabaseChanges\09-04-2020\usp_GetPropertyUnitListCord.sql" />
