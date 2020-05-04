@@ -96,7 +96,16 @@ namespace ShomaRM.Models
         public int AcceptSummary { get; set; }
         public int StepCompleted { get; set; }
         public decimal ProcessingFees { get; set; }
+        //sachin m 30 apr
+        public string SSN { get; set; }
+        public string IDNumber { get; set; }
+        public string Country { get; set; }
+        public string HomeAddress1 { get; set; }
+        public string HomeAddress2 { get; set; }
+        public Nullable<long> StateHome { get; set; }
 
+        public string CityHome { get; set; }
+        public string ZipHome { get; set; }
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
@@ -106,7 +115,9 @@ namespace ShomaRM.Models
         public long UserID { get; set; }
         public int HasPropertyList { get; set; }
         public int AdditionalParking { get; set; }
-
+        public Nullable<int> Gender { get; set; }
+        public string OtherGender { get; set; }
+        public string MiddleInitial { get; set; }
 
         public string SaveOnlineProspect(OnlineProspectModule model)
         {
@@ -233,11 +244,11 @@ namespace ShomaRM.Models
                     Mobile = model.Phone,
                     CreatedDate = DateTime.Now,
                     IsInternational = 0,
-                    Gender = 0,
+                    Gender = model.Gender,
                     IDType = 0,
-                    State = 0,
-                    Country = "1",
-                    StateHome = 0,
+                    State = model.StateHome,
+                    Country = model.Country,
+                    StateHome = model.StateHome,
                     RentOwn = 0,
                     JobType = 0,
                     OfficeCountry = "1",
@@ -245,6 +256,14 @@ namespace ShomaRM.Models
                     EmergencyCountry = "1",
                     EmergencyStateHome = 0,
                     ParentTOID=Uid,
+                    SSN=model.SSN,
+                    IDNumber=model.IDNumber,
+                    CityHome=model.CityHome,                   
+                    HomeAddress1=model.HomeAddress1,
+                    HomeAddress2=model.HomeAddress2,
+                    ZipHome=model.ZipHome,
+                    OtherGender=model.OtherGender,
+                    MiddleInitial=model.MiddleInitial,
                 };
                 db.tbl_TenantOnline.Add(getAppldata);
                 db.SaveChanges();
@@ -260,32 +279,37 @@ namespace ShomaRM.Models
 
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == model.PropertyId).FirstOrDefault();
                 string reportHTML = "";
+
                 string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
                 reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+
                 string phonenumber = model.Phone;
                 if (model != null)
                 {
-                    reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
-                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  Thank you for registering on our fast and easy Leasing Portal!  Your account has been successfully created as follows:</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;Username : [%TenantEmail%]</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;We are excited you are considering us as your place to live.  If you need any assistance in completing your online application or have any questions about our community, </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Please feel free to contact us at your convenience.  Our contact information with some highlights about our property is shown below. We look forward to serving you.</p>");
+                    var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
 
+                    string payid = new EncryptDecrypt().EncryptText(saveApplicant.ApplicantID.ToString() + ",4," + propertDet.BGCheckFees.Value.ToString("0.00"));
+
+                    reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submitted and Payment Link for Background Check");
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  Thank you for registering on our fast and easy Leasing Portal!  Your account has been successfully created as follows:</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;Username : [%TenantEmail%]</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Please pay your fees $" + propertDet.BGCheckFees.Value.ToString("0.00") + " for Background check. We are excited you are considering us as your place to live.  If you need any assistance in completing your online application or have any questions about our community, </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Please feel free to contact us at your convenience.  Our contact information with some highlights about our property is shown below. We look forward to serving you.</p>");
+                    reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
                     reportHTML = reportHTML.Replace("[%TenantName%]", model.FirstName + " " + model.LastName);
-                    reportHTML = reportHTML.Replace("[%TenantAddress%]", model.Address);
-                    reportHTML = reportHTML.Replace("[%LeaseStartDate%]", DateTime.Now.ToString());
-                    reportHTML = reportHTML.Replace("[%LeaseEndDate%]", DateTime.Now.AddMonths(13).ToString());
+                    reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
                     reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
                     reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
                     reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString("0.00"));
                     reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString("0.00"));
                     reportHTML = reportHTML.Replace("[%TenantEmail%]", model.Email);
-                    reportHTML = reportHTML.Replace("[%TenantPassword%]", model.Password);
+
                     reportHTML = reportHTML.Replace("[%QuoteNo%]", model.ID.ToString());
                     reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+                    
 
-                    message = "Your account has been successfully created. Please check the email for detail.";
+                    message = "Your account has been successfully created. Please pay your fees $"+ propertDet.BGCheckFees.Value.ToString("0.00")+" for Background check. Please check the email for detail.";
                 }
                 string body = reportHTML;
-                new EmailSendModel().SendEmail(model.Email, "Application Submission", body);
+                new EmailSendModel().SendEmail(model.Email, "Application Submitted and Payment Link for Background Check", body);
                 if (SendMessage == "yes")
                 {
                     new TwilioService().SMS(phonenumber, message);

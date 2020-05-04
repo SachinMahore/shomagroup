@@ -35,7 +35,21 @@ namespace ShomaRM.Areas.Tenant.Models
         public long ProspectID { get; set; }
         public Nullable<int> Paid { get; set; }
         public string FeesPaidType { get; set; }
+
+
+        //sachin m 04 May
+        public string SSN { get; set; }
+        public string IDNumber { get; set; }
+        public string Country { get; set; }
+        public string HomeAddress1 { get; set; }
+        public string HomeAddress2 { get; set; }
+        public Nullable<long> StateHome { get; set; }
+
+        public string CityHome { get; set; }
+        public string ZipHome { get; set; }
+
         public Nullable<long> AddedBy { get; set; }
+
 
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
@@ -118,16 +132,26 @@ namespace ShomaRM.Areas.Tenant.Models
                     IsInternational = 0,
                     Gender = 0,
                     IDType = 0,
-                    State = 0,
-                    Country = "1",
-                    StateHome = 0,
+                    State = model.StateHome,
+                    Country = model.Country,
+                    StateHome = model.StateHome,
                     RentOwn = 0,
                     JobType = 0,
                     OfficeCountry = "1",
                     OfficeState = 0,
                     EmergencyCountry = "1",
                     EmergencyStateHome = 0,
+                   
+                    SSN = model.SSN,
+                    IDNumber = model.IDNumber,
+                    CityHome = model.CityHome,
+                    HomeAddress1 = model.HomeAddress1,
+                    HomeAddress2 = model.HomeAddress2,
+                    ZipHome = model.ZipHome,
+                    OtherGender = model.OtherGender,
+                    //MiddleInitial = model.MiddleInitial,
                     ParentTOID = createCoApplLogin.UserID,
+
                 };
                 db.tbl_TenantOnline.Add(getAppldata);
                 db.SaveChanges();

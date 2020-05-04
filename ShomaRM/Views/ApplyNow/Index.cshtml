@@ -342,32 +342,119 @@
                             <input id="hdnUserId" type="hidden" value="@Model.ID" />
 
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="txtFirstName" class="star">First Name</label>
                                     <input type="text" class="form-control" id="txtFirstName" value="@Model.FirstName" placeholder="First Name">
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="txtMiddleInitial1">Middle Initial</label>
+                                    <input id="txtMiddleInitial1" class="form-control form-control-small" maxlength="15" type="text" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="txtLastName" class="star">Last Name</label>
                                     <input type="text" class="form-control" id="txtLastName" value="@Model.LastName" placeholder="Last Name">
                                 </div>
                             </div>
-
-                            <div class="col-sm-6">
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label for="ddlGender" class="star">Gender</label>
+                                    <select id="ddlGender" class=" form-control" style="width:100%!important">
+                                        <option value="0">-Status-</option>
+                                        <option value="1">Male</option>
+                                        <option value="2">Female</option>
+                                        <option value="3">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label>&nbsp;</label>
+                                    <input id="txtOtherGender" class="form-control" type="text" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="txtPhone" class="star">Mobile</label>
                                     <input type="text" class="form-control" id="txtPhoneNumber" maxlength="10" onkeypress="return isOnlyNumber(event)" placeholder="Phone Number">
                                 </div>
                             </div>
-
-                            <div class="col-sm-6">
+                           
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="txtEmail" class="star">Email</label>
                                     <input type="text" class="form-control" id="txtEmail" onchange="checkEmailAreadyExist()" value="@Model.Email" placeholder="Email">
                                 </div>
                             </div>
+                            <div class="col-sm-6" id="divSSNNumber">
+                                <div class="form-group">
+                                    <label id="lblSSNNumber" for="txtSSNNumber" class="star">SSN#</label>
+                                    <input class="form-control form-control-small" id="txtSSNNumber" value="" maxlength="9" onkeypress="return isOnlyNumber(event)" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label id="lblIDNumber" for="txtIDNumber" class="star">ID Number</label>
+                                    <input class="form-control form-control-small" id="txtIDNumber" maxlength="25" />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="txtCountry" class="star">Country</label>
+                                        <select id="txtCountry" class="form-control">
+                                            @foreach (var country in Model.CountryList)
+                                            {
+                                                <option value="@country.ID">@country.CountryName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                           
+                            <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="txtAddress1" class="star">Address 1</label>
+                                        <input id="txtAddress1" type="text" class="form-control form-control-small" maxlength="300" />
+                                    </div>
+                                </div>
+                            <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="txtAddress2">Address Line 2</label>
+                                        <input id="txtAddress2" type="text" class="form-control form-control-small" maxlength="300" />
+                                    </div>
+                                </div>
+                           
+                     
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="star"> State :</label>
+                                        <select id="ddlStateHome" class="form-control">
+                                            <option value="0">--Select State--</option>
+                                            @foreach (var state in Model.StateList)
+                                            {
+                                                <option value="@state.ID">@state.StateName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="star"> City :</label>
+                                        @*<select id="ddlCityHome" class="form-control"></select>*@
+                                        <input id="ddlCityHome" type="text" class="form-control form-control-small" maxlength="100" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="txtZip" class="star">Zip</label>
+                                        <input class="form-control form-control-small" id="txtZip" maxlength="7" />
+                                    </div>
+                                </div>
+                           
 
                             <div class="col-sm-4">
                                 <div class="form-group">
@@ -1524,45 +1611,22 @@
 
                                     </div>
                                 </div>
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label for="ddlGender" class="star">Gender</label>
-                                        <select id="ddlGender" class=" form-control" style="width:100%!important">
-                                            <option value="0">-Status-</option>
-                                            <option value="1">Male</option>
-                                            <option value="2">Female</option>
-                                            <option value="3">Other</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label>&nbsp;</label>
-                                        <input id="txtOtherGender" class="form-control" type="text" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-4" id="divSSNNumber">
-                                    <div class="form-group">
-                                        <label id="lblSSNNumber" for="txtSSNNumber" class="star">SSN#</label>
-                                        <input class="form-control form-control-small" id="txtSSNNumber" value="" maxlength="9" onkeypress="return isOnlyNumber(event)" />
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="txtEmailNew" class="star">Email</label>
                                         <input id="txtEmailNew" class="form-control form-control-small" type="text" />
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="txtMobileNumber" class="star">Mobile Number</label>
                                         <input id="txtMobileNumber" class="form-control form-control-small" maxlength="10" type="text" onkeypress="return isOnlyNumber(event)" />
                                     </div>
                                 </div>
+                               
+
                             </div>
+                           
                             <div id="passportDiv" class="hidden">
                                 <div class="col-md-12">
                                     <div class="panel panel-default sidebar-menu wow fadeInRight animated">
@@ -1645,12 +1709,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label id="lblIDNumber" for="txtIDNumber" class="star">ID Number</label>
-                                        <input class="form-control form-control-small" id="txtIDNumber" maxlength="25" />
-                                    </div>
-                                </div>
+                               
 
                             </div>
                             <div class="col-sm-12">
@@ -1794,60 +1853,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-sm-12">
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="txtCountry" class="star">Country</label>
-                                        <select id="txtCountry" class="form-control">
-                                            @foreach (var country in Model.CountryList)
-                                            {
-                                                <option value="@country.ID">@country.CountryName</option>
-                                            }
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="txtAddress1" class="star">Address 1</label>
-                                        <input id="txtAddress1" type="text" class="form-control form-control-small" maxlength="300" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="txtAddress2">Address Line 2</label>
-                                        <input id="txtAddress2" type="text" class="form-control form-control-small" maxlength="300" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label class="star"> State :</label>
-                                        <select id="ddlStateHome" class="form-control">
-                                            <option value="0">--Select State--</option>
-                                            @foreach (var state in Model.StateList)
-                                            {
-                                                <option value="@state.ID">@state.StateName</option>
-                                            }
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label class="star"> City :</label>
-                                        @*<select id="ddlCityHome" class="form-control"></select>*@
-                                        <input id="ddlCityHome" type="text" class="form-control form-control-small" maxlength="100" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="txtZip" class="star">Zip</label>
-                                        <input class="form-control form-control-small" id="txtZip" maxlength="7" />
-                                    </div>
-                                </div>
-                            </div>
+                           
                             <div class="col-sm-12">
                                 <div class="col-sm-4">
                                     <div class="form-group">
