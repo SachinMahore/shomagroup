@@ -122,35 +122,80 @@ namespace ShomaRM.Areas.Tenant.Models
               
                 var getAppldata = new tbl_TenantOnline()
                 {
+                    //ProspectID = model.TenantID,
+                    //FirstName = model.FirstName,
+                    //LastName = model.LastName,
+                    //DateOfBirth = model.DateOfBirth,
+                    //Email = model.Email,
+                    //Mobile = model.Phone,
+                    //CreatedDate = DateTime.Now,
+                    //IsInternational = 0,
+                    //Gender = 0,
+                    //IDType = 0,
+                    //State = model.StateHome,
+                    //Country = model.Country,
+                    //StateHome = model.StateHome,
+                    //RentOwn = 0,
+                    //JobType = 0,
+                    //OfficeCountry = "1",
+                    //OfficeState = 0,
+                    //EmergencyCountry = "1",
+                    //EmergencyStateHome = 0,
+
+                    //SSN = model.SSN,
+                    //IDNumber = model.IDNumber,
+                    //CityHome = model.CityHome,
+                    //HomeAddress1 = model.HomeAddress1,
+                    //HomeAddress2 = model.HomeAddress2,
+                    //ZipHome = model.ZipHome,
+                    //OtherGender = model.OtherGender,
+                    ////MiddleInitial = model.MiddleInitial,
+                    //ParentTOID = createCoApplLogin.UserID,
+
                     ProspectID = model.TenantID,
                     FirstName = model.FirstName,
+                    //MiddleInitial = model.MiddleInitial,
                     LastName = model.LastName,
-                    DateOfBirth = model.DateOfBirth,
+                    ////DateOfBirth = model.DateofBirth,
+                    Gender = model.Gender,
                     Email = model.Email,
                     Mobile = model.Phone,
-                    CreatedDate = DateTime.Now,
-                    IsInternational = 0,
-                    Gender = 0,
-                    IDType = 0,
-                    State = model.StateHome,
+                    PassportNumber = "",
+                    
+                    ////IDType = model.DocumentType,
+                    ////State = Convert.ToInt64(model.DocumentState),
+                    ////IDNumber = model.DocumentIDNumber,
                     Country = model.Country,
+                    HomeAddress1 = model.HomeAddress1,
+                    HomeAddress2 = model.HomeAddress2,
                     StateHome = model.StateHome,
+                    CityHome = model.CityHome,
+                    ZipHome = model.ZipHome,
                     RentOwn = 0,
+                    ////MoveInDate = model.MoveInDate,
                     JobType = 0,
                     OfficeCountry = "1",
                     OfficeState = 0,
                     EmergencyCountry = "1",
                     EmergencyStateHome = 0,
-                   
-                    SSN = model.SSN,
-                    IDNumber = model.IDNumber,
-                    CityHome = model.CityHome,
-                    HomeAddress1 = model.HomeAddress1,
-                    HomeAddress2 = model.HomeAddress2,
-                    ZipHome = model.ZipHome,
+                    CreatedDate = DateTime.Now,
+                    IsInternational = 0,
                     OtherGender = model.OtherGender,
-                    //MiddleInitial = model.MiddleInitial,
-                    ParentTOID = createCoApplLogin.UserID,
+                    Country2 = "1",
+                    StateHome2 = 0,
+                    ZipHome2 = "",
+                    RentOwn2 = 0,
+                    SSN = model.SSN,
+                    CountryOfOrigin = 1,
+                    Evicted = 1,
+                    ConvictedFelony = 1,
+                    CriminalChargPen = 1,
+                    DoYouSmoke = 1,
+                    ReferredResident = 1,
+                    ReferredBrokerMerchant = 1,
+                    IsProprNoticeLeaseAgreement = 1,
+                    StepCompleted = 4,
+                    ParentTOID = createCoApplLogin.UserID
 
                 };
                 db.tbl_TenantOnline.Add(getAppldata);
@@ -219,8 +264,6 @@ namespace ShomaRM.Areas.Tenant.Models
                         db.SaveChanges();
                     }
                 }
-
-               
 
                 msg = "Applicant Saved Successfully";
             }

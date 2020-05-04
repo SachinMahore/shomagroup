@@ -445,6 +445,7 @@
     <Compile Include="Models\Bluemoon\ResponseModel.cs" />
     <Compile Include="Models\CommonModel.cs" />
     <Compile Include="Models\EncryptDecrypt\EncryptDecrypt.cs" />
+    <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\Property\PropertyModel.cs" />
     <Compile Include="Models\Prospect\ProspectModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
@@ -2437,6 +2438,7 @@
     <Content Include="Content\Templates\EmailTemplateProspect2.html" />
     <Content Include="Content\Templates\EmailTemplateProspect3.html" />
     <Content Include="Content\Templates\EmailTemplateProspect5.html" />
+    <Content Include="Content\Templates\EmailTemplateRegBG.html" />
     <Content Include="Content\Templates\ForgetPassword.html" />
     <Content Include="Content\Templates\GuarantorPrintTemplate.html" />
     <Content Include="Content\Templates\images\divider.png" />

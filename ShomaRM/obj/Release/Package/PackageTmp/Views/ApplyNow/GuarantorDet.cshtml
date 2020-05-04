@@ -15,7 +15,7 @@
 <input type="hidden" id="hndHistory" value="0" />
 <input type="hidden" id="hndLeaseTermID" value="@Model.LeaseTermID" />
 <input type="hidden" id="hdnEmployerHistory" value="0" />
-<input type="hidden" id="hdnStepCompleted" value="7" />
+<input type="hidden" id="hdnStepCompleted" value="6" />
 <input type="hidden" id="hndShowTermPolicy" value="1" />
 <input type="hidden" id="hndShowPaymentPolicy" value="1" />
 <input type="hidden" id="hndShowPropertyDetails" value="0" />
@@ -2441,7 +2441,7 @@
                                             <div class="panel panel-default accordian-border-group">
                                                 <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                     <h3 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Applicants <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a><a href="javascript:void(0);" class="pull-right" onclick="goToStep(7,7,0)">&nbsp;&nbsp;Edit</a>
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Applicants <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a><a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(7,7,0)">&nbsp;&nbsp;Edit</a>
                                                     </h3>
                                                 </div>
                                                 <div id="collapse1" class="panel-collapse collapse">
@@ -2453,9 +2453,6 @@
                                                                         <th style="background-color: #c7cdd5;color:#3d3939">Applicant Name</th>
                                                                         <th style="background-color: #c7cdd5;color:#3d3939">Type</th>
                                                                         <th style="background-color: #c7cdd5;color:#3d3939">Gender</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Email</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Phone</th>
-                                                                        <th style="background-color: #c7cdd5;color:#3d3939">Date of Birth</th>
 
                                                                     </tr>
                                                                 </thead>
@@ -5713,7 +5710,7 @@
             $("#divstep3save").addClass("hidden");
             $("#divstep3").removeClass("hidden");
             getTransationLists(@Model.ID);
-            getApplicantLists();
+            getApplicantListsGuarantor();
 
             //$("#carddetails").addClass("hidden");
         }

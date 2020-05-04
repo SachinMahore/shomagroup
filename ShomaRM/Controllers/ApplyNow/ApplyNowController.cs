@@ -1021,5 +1021,16 @@ namespace ShomaRM.Controllers
                 return Json(new { filename = "" }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult GetEncDecSSNPassportIDNum(string EncDecVal, int EncDec)
+        {
+            try
+            {
+                return Json(new { result = new TenantOnlineModel().GetEncDecSSNPassportIDNum(EncDecVal, EncDec) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

@@ -78,6 +78,7 @@
     <Property Name="MonthlyPayment" Type="money" />
     <Property Name="OtherGender" Type="varchar" MaxLength="100" />
     <Property Name="Paid" Type="int" />
+    <Property Name="AddedBy" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_ApplicantHistory">
     <Key>
@@ -754,6 +755,7 @@
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
     <Property Name="Type" Type="int" />
     <Property Name="Status" Type="int" />
+    <Property Name="AddedBy" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_PaymentAccounts">
     <Key>
@@ -841,6 +843,7 @@
     <Property Name="AdminFees" Type="money" />
     <Property Name="PetDNAAmt" Type="money" />
     <Property Name="ProcessingFees" Type="money" />
+    <Property Name="BGCheckFees" Type="money" />
   </EntityType>
   <EntityType Name="tbl_PropertyFloor">
     <Key>
@@ -1385,6 +1388,7 @@
     <Property Name="ManagementCompanyPhone" Type="varchar" MaxLength="20" />
     <Property Name="IsProprNoticeLeaseAgreement" Type="int" />
     <Property Name="ParentTOID" Type="bigint" />
+    <Property Name="StepCompleted" Type="int" />
   </EntityType>
   <EntityType Name="tbl_TenantParking">
     <Key>
@@ -1412,6 +1416,9 @@
     <Property Name="VetsName" Type="varchar" MaxLength="500" />
     <Property Name="OriginalPhoto" Type="varchar" MaxLength="500" />
     <Property Name="OriginalVaccinationCert" Type="varchar" MaxLength="500" />
+    <Property Name="UniqID" Type="varchar" MaxLength="50" />
+    <Property Name="ExpiryDate" Type="datetime" />
+    <Property Name="AddedBy" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_TenantPetPlace">
     <Key>
@@ -1532,6 +1539,7 @@
     <Property Name="State" Type="varchar" MaxLength="5" />
     <Property Name="Tag" Type="nvarchar" MaxLength="50" />
     <Property Name="ParkingID" Type="int" />
+    <Property Name="AddedBy" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_Vendor">
     <Key>

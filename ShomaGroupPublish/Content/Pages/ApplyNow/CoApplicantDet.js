@@ -1145,7 +1145,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                         } else {
 
                             saveupdateTenantOnlineCoapplicant(15);
-                            getTenantPetPlaceData();
+                            getTenantPetPlaceDataCoapp();
                             $("#subMenu").removeClass("hidden");
                             // SaveUpdateStep(15);
                             tenantOnlineID = $("#hdnOPId").val();
@@ -2921,7 +2921,7 @@ var getPropertyUnitDetails = function (uid) {
             $("#unitdiv_" + uid).addClass("select-unit");
             $("#hndUID").val(uid);
 
-            fillUnitParkingList();
+            fillUnitParkingListCoApp();
             if ($("#unitdiv_" + uid).length) {
                 $("#unitdiv_" + uid)[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
 
@@ -3289,7 +3289,7 @@ var clearCard = function () {
     $("#lblPaymentDet").text("Enter Credit Card Details.");
 }
 var noofpark = 0;
-var fillUnitParkingList = function () {
+var fillUnitParkingListCoApp = function () {
     $("#divLoader").show();
     var model = { UID: $("#hndUID").val(), PType: 2 };
     $.ajax({
@@ -3299,10 +3299,12 @@ var fillUnitParkingList = function () {
         data: JSON.stringify(model),
         dataType: "json",
         success: function (response) {
+           
             $("#divLoader").hide();
             if ($.trim(response.error) != "") {
                 //this.cancelChanges();
             } else {
+                var countPark = response.length;
                 $('#ddlParking').empty();
                 $("#lblParkSpace").text("");
                 $("#lblAssginPakingSpace").text("");
@@ -3310,6 +3312,7 @@ var fillUnitParkingList = function () {
                 $.each(response, function (index, elementValue) {
                     if (elementValue.Status == 0) {
                         dhtml += "<option value='" + elementValue.ParkingID + "' selected='selected' data-value='" + elementValue.ParkingID + "'>" + elementValue.ParkingName + "</option>";
+                        countPark--;
                     }
                     var html = "";
                     html += "<span style='text-decoration:underline; font - weight:bold;'>  #" + elementValue.ParkingName + " </span>";
@@ -3320,6 +3323,12 @@ var fillUnitParkingList = function () {
                     }
                     noofpark += 1;
                 });
+                if (response.length == countPark) {
+                    $('#btnAddVehicle').attr('disabled', 'disabled');
+                }
+                else {
+                    $('#btnAddVehicle').removeAttr('disabled');
+                }
                 $('#ddlParking').append(dhtml);
             }
         }
@@ -3528,7 +3537,7 @@ var saveupdateParking = function () {
             $("#lblMonthly_AditionalParking").text(parseFloat(response.totalParkingAmt).toFixed(2));
             $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(response.totalParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
             $("#lblparkingplace").text(addParkingArray.length > 0 ? addParkingArray[0].ParkingID : 0);
-            fillUnitParkingList();
+            fillUnitParkingListCoApp();
             if (parseInt(response.numOfParking) == 1) {
                 $("#lblVehicleFees").text("15.00");
                 $("#lblVehicleFees1").text("15.00");
@@ -4010,9 +4019,9 @@ var getApplicantLists = function () {
     var model = {
 
         TenantID: $("#hdnOPId").val(),
-    }
+    };
     $.ajax({
-        url: "/Applicant/GetApplicantList",
+        url: "/Applicant/GetCoApplicantList",
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
@@ -4049,7 +4058,7 @@ var getApplicantLists = function () {
                         "<img src='/Content/assets/img/user.png'></div>" +
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
                         "<label> " + elementValue.Type + " </label><br/>" +
-                         "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: In progress</b></label></center></div>" +
+                        "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: In progress</b></label></center></div>" +
                         "</div></div>";
                 }
                 else {
@@ -4087,7 +4096,7 @@ var getApplicantLists = function () {
                         "</div >" +
                         "</td></tr>";
                 }
-                if ( elementValue.Type == "Co-Applicant" ) {
+                if (elementValue.Type == "Co-Applicant") {
                     if (elementValue.Paid == "0") {
                         if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
                             totpaid += parseFloat(applicantFees);
@@ -4098,15 +4107,15 @@ var getApplicantLists = function () {
                     }
 
                     if (elementValue.Paid == "0") {
-                      
+
                         totalFinalFees += parseFloat(applicantFees);
-                            addApplicntArray = elementValue.ApplicantID ;
-                            pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + applicantFees + "</td><td style='width:14%; padding:6px;'></td><td></td></tr>";
-                       
+                        addApplicntArray = elementValue.ApplicantID;
+                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + applicantFees + "</td><td style='width:14%; padding:6px;'></td><td></td></tr>";
+
                     } else {
-                      
-                            pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + applicantFees + "</td><td style='width:14%; padding:6px;'>Paid</td><td></td></tr>";
-                        
+
+                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + applicantFees + "</td><td style='width:14%; padding:6px;'>Paid</td><td></td></tr>";
+
                     }
                 }
                 if (elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
@@ -4255,7 +4264,7 @@ var getApplicantLists = function () {
                     $("#txtpayamtMo" + elementValue.ApplicantID).val(formatMoney(unformatText($("#txtpayamtMo" + elementValue.ApplicantID).val())));
                 });
 
-               
+
                 var sum = parseFloat(0);
                 $(".payper").each(function () {
                     sum += parseFloat(this.value);
@@ -4274,31 +4283,125 @@ var getApplicantLists = function () {
                 //Primary Applicant
                 //Co-Applicant
 
-                if (elementValue.Type == "Co-Applicant") {
-                    noofCapl += 1;
-                }
-                else if (elementValue.Type == "Minor") {
-                    noofminor += 1;
-                }
-                else if (elementValue.Type == "Primary Applicant") {
-                    noofapl += 1;
-                }
-                else {
-                    noofgur += 1;
-                }
+                //if (elementValue.Type == "Co-Applicant") {
+                //    noofCapl += 1;
+                //}
+                //else if (elementValue.Type == "Minor") {
+                //    noofminor += 1;
+                //}
+                //else if (elementValue.Type == "Primary Applicant") {
+                //    noofapl += 1;
+                //}
+                //else {
+                //    noofgur += 1;
+                //}
 
             });
+            $.ajax({
+                url: "/Applicant/GetApplicantList",
+                type: "post",
+                contentType: "application/json utf-8",
+                data: JSON.stringify(model),
+                dataType: "JSON",
+                success: function (response) {
+                    console.log(JSON.stringify(response));
+                    $.each(response.model, function (elementType, elementValue) {
+                        if (elementValue.Type == "Co-Applicant") {
+                            noofCapl += 1;
+                        }
+                        else if (elementValue.Type == "Minor") {
+                            noofminor += 1;
+                        }
+                        else if (elementValue.Type == "Primary Applicant") {
+                            noofapl += 1;
+                        }
+                        else {
+                            noofgur += 1;
+                        }
+                    });
 
-            var nofbed = $("#lblBed").text();
-            var allowedAppli = 0;
-            var allowedMinor = 0;
-            var totalPeople = (parseInt(nofbed) * 2);
-            var totalAppl = noofapl;
-            var totalCoAppl = noofCapl;
-            var totalMinor = noofminor;
-            var total = 0;
+                    var nofbed = $("#lblBed").text();
+                    var allowedAppli = 0;
+                    var allowedMinor = 0;
+                    var totalPeople = (parseInt(nofbed) * 2);
+                    var totalAppl = noofapl;
+                    var totalCoAppl = noofCapl;
+                    var totalMinor = noofminor;
+                    var total = 0;
+                    console.log("Applicant:" + totalAppl + " Co-app:" + totalCoAppl + " Minor:" + totalMinor);
+                    if (nofbed == 1) {
+                        total = parseInt(noofapl) + parseInt(totalCoAppl) + parseInt(totalMinor);
+                        console.log("Condtion1: " + total + " Total People: " + totalPeople);
+                        if (totalCoAppl <= parseInt(totalPeople) - 1) {
+                            if (total <= parseInt(totalPeople) - 1) {
+                                $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
+                            }
+                            else {
+                                var test = "";
+                            }
+                        }
+                        if (totalMinor <= parseInt(totalPeople) - 1) {
+                            if (total <= parseInt(totalPeople) - 1) {
+                                $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
+                            }
+                            else {
+                                test = "";
+                            }
+                        }
+                    }
+                    else if (nofbed == 2) {
+                        total = parseInt(noofapl) + parseInt(totalCoAppl) + parseInt(totalMinor);
+                        console.log("Condtion2: " + total + " Total People: " + totalPeople);
+                        if (total <= parseInt(totalPeople) - 1) {
+                            if (totalCoAppl < 2) {
+                                if (total < parseInt(totalPeople)) {
+                                    $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
+                                    if (totalMinor <= 1) {
+                                        $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
+                                    }
+                                }
+                            }
+                            else if (totalMinor < 2) {
+                                if (total < parseInt(totalPeople)) {
+                                    $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
+                                    if (totalCoAppl <= 1) {
+                                        $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
+                                    }
+                                }
+                            }
+                        }
+                        else {
+                            test = "";
+                        }
+                    }
+                    else if (nofbed == 3) {
 
-           
+                        total = parseInt(noofapl) + parseInt(totalCoAppl) + parseInt(totalMinor);
+                        console.log("Condtion3: " + total + " Total People: " + totalPeople);
+                        if (total <= parseInt(totalPeople) - 1) {
+                            if (totalCoAppl < 3) {
+                                if (total < parseInt(totalPeople)) {
+                                    $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
+                                    if (totalMinor <= 2) {
+                                        $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
+                                    }
+                                }
+                            }
+                            else if (totalMinor < 3) {
+                                if (total < parseInt(totalPeople)) {
+                                    $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
+                                    if (totalCoAppl <= 2) {
+                                        $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
+                                    }
+                                }
+                            }
+                        }
+                        else {
+                            test = "";
+                        }
+                    }
+                }
+            });
             $("#totalFinalFees").text("$" + parseFloat(totalFinalFees).toFixed(2));
 
         }
@@ -4637,7 +4740,7 @@ var getPetLists = function () {
 
             });
 
-            getTenantPetPlaceData();
+            getTenantPetPlaceDataCoapp();
 
         }
     });
@@ -4781,7 +4884,7 @@ var saveupdateVehicle = function () {
             getVehicleLists();
             //$("#popVehicle").PopupWindow("close");
             $("#popVehicle").modal("hide");
-            fillUnitParkingList();
+            fillUnitParkingListCoApp();
         }
     });
 
@@ -5575,7 +5678,7 @@ var delVehicle = function (vehId) {
                         success: function (response) {
                             $("#divLoader").hide();
                             $('#tr_' + vehId).remove();
-                            fillUnitParkingList();
+                            fillUnitParkingListCoApp();
                             $("#btnAddVehicle").removeClass("hidden");
                         }
                     });
@@ -6678,7 +6781,7 @@ var uploadVehicleCertificate = function () {
     });
 };
 
-var getTenantPetPlaceData = function () {
+var getTenantPetPlaceDataCoapp = function () {
     $("#divLoader").show();
     var ProspectID = $("#hdnOPId").val();
 
@@ -6694,6 +6797,7 @@ var getTenantPetPlaceData = function () {
         success: function (response) {
             $("#divLoader").hide();
             var valueCount = response.model.NumberOfPets;
+            var tenantCount = response.model.TenantPetCount;
             var rowCount = $("#tblPet >tbody").children().length;
             $("#hndPetPlaceCount").val(valueCount);
 
@@ -6703,19 +6807,19 @@ var getTenantPetPlaceData = function () {
             }
             if (!valueCount) { valueCount = 0; }
 
-            if (valueCount == 0 && rowCount == 0) {
+            if (valueCount == 0 && tenantCount == 0) {
                 $("#tblPet>tbody").empty();
                 $("#chkDontHavePetDiv").removeClass("hidden");
                 $("#chkDontHavePet").iCheck('check');
                 $("#btnAddPet").attr("disabled", true);
                 $("#btnAddPet").css("background-color", "#b4ada5");
             }
-            else if (rowCount == 1 && valueCount == 1) {
+            else if (valueCount == 1 && tenantCount == 1) {
                 $("#btnAddPet").attr("disabled", true);
                 $("#btnAddPet").css("background-color", "#b4ada5");
                 $("#chkDontHavePetDiv").addClass("hidden");
             }
-            else if (rowCount == 2 && valueCount == 2) {
+            else if (valueCount == 2 && tenantCount == 2) {
                 $("#btnAddPet").attr("disabled", true);
                 $("#btnAddPet").css("background-color", "#b4ada5");
                 $("#chkDontHavePetDiv").addClass("hidden");
@@ -6728,6 +6832,7 @@ var getTenantPetPlaceData = function () {
         }
     });
 };
+
 
 var onFocusApplyNow = function () {
 

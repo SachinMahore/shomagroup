@@ -2,18 +2,6 @@ ALTER TABLE tbl_Applicant ADD AddedBy BIGINT
 
 GO
 
-ALTER TABLE tbl_vehicle ADD AddedBy BIGINT
-
-GO
-
-ALTER TABLE tbl_TenantPet ADD AddedBy BIGINT
-
-GO
-
-ALTER TABLE tbl_Parking ADD AddedBy BIGINT
-
-GO
-
 /****** Object:  StoredProcedure [dbo].[usp_GetParkingPaginationAndSearchData]    Script Date: 05/04/2020 11:09:39 AM ******/
 DROP PROCEDURE [dbo].[usp_GetParkingPaginationAndSearchData]
 GO
