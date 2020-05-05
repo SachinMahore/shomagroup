@@ -35,6 +35,7 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.Vehicle_ID == 0)
             {
                 var saveVehicle = new tbl_Vehicle()
@@ -53,14 +54,14 @@ namespace ShomaRM.Areas.Tenant.Models
                     Notes = model.Notes,
                     Tag=model.Tag,
                     ParkingID=model.ParkingID,
-                    AddedBy = ShomaGroupWebSession.CurrentUser.UserID,
+                    AddedBy = userid,
                 };
                 db.tbl_Vehicle.Add(saveVehicle);
                 db.SaveChanges();
 
                 var ParkingInfo = db.tbl_Parking.Where(p => p.ParkingID == model.ParkingID).FirstOrDefault();
                 ParkingInfo.Status = 1;
-                ParkingInfo.AddedBy = ShomaGroupWebSession.CurrentUser.UserID;
+                ParkingInfo.AddedBy = userid;
                 db.SaveChanges();
                 msg = "Vehicle Saved Successfully";
             }
@@ -156,7 +157,8 @@ namespace ShomaRM.Areas.Tenant.Models
             List<VehicleModel> lstProp = new List<VehicleModel>();
 
             //var vehList = db.tbl_Vehicle.Where(p => p.TenantID == TenantID).ToList();
-            var vehList = db.tbl_Vehicle.Where(p => p.TenantID == TenantID && p.AddedBy == ShomaGroupWebSession.CurrentUser.UserID).ToList();
+            long addedby = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
+            var vehList = db.tbl_Vehicle.Where(p => p.TenantID == TenantID && p.AddedBy == addedby).ToList();
 
             foreach (var pl in vehList)
             {
@@ -183,14 +185,14 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (VID != 0)
             {
 
                 var vehData = db.tbl_Vehicle.Where(p => p.Vehicle_ID == VID).FirstOrDefault();
                 if (vehData != null)
                 {
-                    var updateParking = db.tbl_Parking.Where(co => co.ParkingID == vehData.ParkingID && co.AddedBy == ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
+                    var updateParking = db.tbl_Parking.Where(co => co.ParkingID == vehData.ParkingID && co.AddedBy == userid).FirstOrDefault();
                     if (updateParking != null)
                     {
                         updateParking.Status = 0;
@@ -380,7 +382,8 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             string msg = string.Empty;
             ShomaRMEntities db = new ShomaRMEntities();
-            var deleteVehicle = db.tbl_Vehicle.Where(co => co.TenantID == TenantId && co.AddedBy == ShomaGroupWebSession.CurrentUser.UserID).ToList();
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
+            var deleteVehicle = db.tbl_Vehicle.Where(co => co.TenantID == TenantId && co.AddedBy == userid).ToList();
             if (deleteVehicle != null)
             {
                 foreach (var mod in deleteVehicle)

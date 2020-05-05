@@ -518,7 +518,7 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             var editPaymentAccounts = db.tbl_PaymentAccounts.Where(co => co.PAID == model.PAID).FirstOrDefault();
             var propertyDet = db.tbl_Properties.Where(co => co.PID ==8).FirstOrDefault();
             ApplyNowModel mm = new ApplyNowModel();
@@ -588,7 +588,7 @@ namespace ShomaRM.Areas.Tenant.Models
                      
                         Batch = "0",
                         Batch_Source = "",
-                        CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
+                        CreatedBy = userid,
                        
                         GL_Trans_Description = transStatus.ToString(),
                         
@@ -796,6 +796,7 @@ namespace ShomaRM.Areas.Tenant.Models
             MyTransactionModel model = new MyTransactionModel();
             ShomaRMEntities db = new ShomaRMEntities();
             List<BillModel> listbill = new List<BillModel>();
+            
             model.lstpr = listbill;
             try
             {
@@ -849,7 +850,7 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             var transDetails = db.tbl_Transaction.Where(p => p.TransID == TransID).FirstOrDefault();
 
             string transStatus = new UsaePayModel().RefundCharge(TransID);
@@ -876,15 +877,10 @@ namespace ShomaRM.Areas.Tenant.Models
                     Charge_Amount = Convert.ToDecimal(transDetails.Charge_Amount),
                     Miscellaneous_Amount = transDetails.Miscellaneous_Amount,
                     Accounting_Date = DateTime.Now,
-
-                    CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
-
-
+                    CreatedBy = userid,
                 };
                 db.tbl_Transaction.Add(saveTransaction);
                 db.SaveChanges();
-
-
             }
 
             db.Dispose();
@@ -1042,7 +1038,7 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             List<TenantMonthlyPayments> lsttmp = new List<TenantMonthlyPayments>();
             try
             {
@@ -1089,7 +1085,7 @@ namespace ShomaRM.Areas.Tenant.Models
                         Accounting_Date = DateTime.Now,
                         Batch = Batch,
                         Batch_Source = "",
-                        CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
+                        CreatedBy = userid,
 
                     };
                     db.tbl_Transaction.Add(saveTransaction);
@@ -1123,8 +1119,6 @@ namespace ShomaRM.Areas.Tenant.Models
                     {
                         CreateTransBill(TransId, Convert.ToDecimal(prospectDet.StorageAmt), "Storage Charges");
                     }
-
-
                 }
                 db.Dispose();
 
@@ -1135,10 +1129,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 throw ex;
             }
 
-
             msg = "Monthly Payment Generated Successfully";
-
-
             db.Dispose();
             return msg;
         }

@@ -218,13 +218,13 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             var UpdateStatus = db.tbl_GuestRegistration.Where(co => co.GuestID == model.GuestID).FirstOrDefault();
 
             if (UpdateStatus != null)
             {
                 UpdateStatus.Status = model.Status;
-                UpdateStatus.ApprovedBy = Convert.ToInt32(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID);
+                UpdateStatus.ApprovedBy = userid;
 
                 db.SaveChanges();
                 msg = "Guest Status Update Successfully";

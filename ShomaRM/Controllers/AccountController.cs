@@ -250,11 +250,11 @@ namespace ShomaRM.Controllers
             Session.RemoveAll();
             FormsAuthentication.SignOut();
             (new ShomaGroupWebSession()).RemoveWebSession();
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             new CommonModel().AddPageLoginHistory("");
             try
             {
-                var loginHistory = db.tbl_LoginHistory.Where(p => p.UserID == ShomaGroupWebSession.CurrentUser.UserID && p.SessionID == Session.SessionID.ToString() && p.LogoutDateTime == null).FirstOrDefault();
+                var loginHistory = db.tbl_LoginHistory.Where(p => p.UserID == userid && p.SessionID == Session.SessionID.ToString() && p.LogoutDateTime == null).FirstOrDefault();
 
                 if (loginHistory != null)
                 {

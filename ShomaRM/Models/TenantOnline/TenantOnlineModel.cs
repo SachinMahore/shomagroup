@@ -217,6 +217,7 @@ namespace ShomaRM.Models
             TenantOnlineModel lstpr = new TenantOnlineModel();
             try
             {
+                long toid = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
                 DataTable dtTable = new DataTable();
                 using (var cmd = db.Database.Connection.CreateCommand())
                 {
@@ -231,7 +232,7 @@ namespace ShomaRM.Models
                     //Sachin Mahore 21 Apr 2020
                     DbParameter paramfF = cmd.CreateParameter();
                     paramfF.ParameterName = "toid";
-                    paramfF.Value = ShomaGroupWebSession.CurrentUser.UserID;
+                    paramfF.Value = toid;
                     cmd.Parameters.Add(paramfF);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
@@ -552,7 +553,8 @@ namespace ShomaRM.Models
             //Sachin Mahore 21 Apr 2020
             ShomaRMEntities db = new ShomaRMEntities();
             string result = "";
-            var appData = db.tbl_TenantOnline.Where(p => p.ProspectID == id && p.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
+            var appData = db.tbl_TenantOnline.Where(p => p.ProspectID == id && p.ParentTOID == userid).FirstOrDefault();
             if (appData != null)
             {
                 if (vid == 1)
@@ -577,8 +579,9 @@ namespace ShomaRM.Models
 
             if (model.ProspectID != 0)
             {
+                int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
                 var applyNow = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectID).FirstOrDefault();
-                var getAppldata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID && p.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
+                var getAppldata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID && p.ParentTOID == userid).FirstOrDefault();
                 if (getAppldata != null)
                 {
                     getAppldata.IsInternational = model.IsInternational;
@@ -715,11 +718,12 @@ namespace ShomaRM.Models
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.ProspectID != 0)
             {
+
                 var applyNow = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectID).FirstOrDefault();
-                var getAppldata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID && p.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
+                var getAppldata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID && p.ParentTOID == userid).FirstOrDefault();
                 if (getAppldata != null)
                 {
                     getAppldata.IsInternational = model.IsInternational;
@@ -925,11 +929,11 @@ namespace ShomaRM.Models
             //Sachin Mahore 22 Apr 2020
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.ProspectID != 0)
             {
                 string encryptedSSN = new EncryptDecrypt().EncryptText(model.SSN);
-                var getSSNdata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID && p.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
+                var getSSNdata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID && p.ParentTOID == userid).FirstOrDefault();
                 if (getSSNdata != null)
                 {
                     getSSNdata.SSN = encryptedSSN;
@@ -949,11 +953,11 @@ namespace ShomaRM.Models
             //Sachin Mahore 22 Apr 2020
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.ProspectID != 0)
             {
                 string encryptedData = new EncryptDecrypt().EncryptText(model.IDNumber);
-                var getdata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID && p.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
+                var getdata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID && p.ParentTOID == userid).FirstOrDefault();
                 if (getdata != null)
                 {
                     getdata.IDNumber = encryptedData;
@@ -970,11 +974,11 @@ namespace ShomaRM.Models
             //Sachin Mahore 22 Apr 2020
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.ProspectID != 0)
             {
                 string encryptedData = new EncryptDecrypt().EncryptText(model.PassportNumber);
-                var getdata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID && p.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
+                var getdata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID && p.ParentTOID == userid).FirstOrDefault();
                 if (getdata != null)
                 {
                     getdata.PassportNumber = encryptedData;

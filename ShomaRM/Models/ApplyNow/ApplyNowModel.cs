@@ -68,7 +68,7 @@ namespace ShomaRM.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.PID != 0)
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
@@ -153,7 +153,7 @@ namespace ShomaRM.Models
                     var saveTransaction = new tbl_Transaction()
                     {
 
-                        TenantID =ShomaGroupWebSession.CurrentUser.UserID,
+                        TenantID = userid,
                         Revision_Num = 1,
                         Transaction_Type = "1",
                         Transaction_Date = DateTime.Now,
@@ -227,7 +227,7 @@ namespace ShomaRM.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.PID != 0)
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
@@ -301,7 +301,7 @@ namespace ShomaRM.Models
                     var saveTransaction = new tbl_Transaction()
                     {
 
-                        TenantID = ShomaGroupWebSession.CurrentUser.UserID,
+                        TenantID = userid,
                         Revision_Num = 1,
                         Transaction_Type = "1",
                         Transaction_Date = DateTime.Now,
@@ -1017,6 +1017,7 @@ namespace ShomaRM.Models
         {
             string filename = "";
             ShomaRMEntities db = new ShomaRMEntities();
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             try
             {
                 DataSet dtTableSet = new DataSet();
@@ -1033,7 +1034,7 @@ namespace ShomaRM.Models
 
                     DbParameter paramUID = cmd.CreateParameter();
                     paramUID.ParameterName = "UserId";
-                    paramUID.Value = ShomaGroupWebSession.CurrentUser.UserID;
+                    paramUID.Value = userid;
                     cmd.Parameters.Add(paramUID);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
@@ -1173,6 +1174,7 @@ namespace ShomaRM.Models
             ShomaRMEntities db = new ShomaRMEntities();
             try
             {
+                int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
                 DataSet dtTableSet = new DataSet();
                 using (var cmd = db.Database.Connection.CreateCommand())
                 {
@@ -1187,7 +1189,7 @@ namespace ShomaRM.Models
 
                     DbParameter paramUID = cmd.CreateParameter();
                     paramUID.ParameterName = "UserId";
-                    paramUID.Value = ShomaGroupWebSession.CurrentUser.UserID;
+                    paramUID.Value = userid;
                     cmd.Parameters.Add(paramUID);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();

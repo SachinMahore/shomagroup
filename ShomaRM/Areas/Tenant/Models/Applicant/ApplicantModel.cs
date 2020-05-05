@@ -49,7 +49,9 @@ namespace ShomaRM.Areas.Tenant.Models
         public string ZipHome { get; set; }
 
         public Nullable<long> AddedBy { get; set; }
+        public string MiddleName { get; set; }
 
+        public Nullable<int> IDType { get; set; }
 
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
@@ -59,6 +61,7 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.DateOfBirth == Convert.ToDateTime("01/01/0001 12:00:00 AM"))
             {
                 model.DateOfBirth = null;
@@ -83,7 +86,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     Relationship = model.Relationship,
                     OtherGender = model.OtherGender,
                     Paid = 0,
-                    AddedBy = ShomaGroupWebSession.CurrentUser.UserID
+                    AddedBy = userid
                 };
                 db.tbl_Applicant.Add(saveApplicant);
                 db.SaveChanges();
@@ -114,12 +117,19 @@ namespace ShomaRM.Areas.Tenant.Models
                     TenantID = 0,
                     IsSuperUser = 0,
                     UserType = model.Type == "Guarantor" ?34:33,
-                    ParentUserID = ShomaGroupWebSession.CurrentUser.UserID,
+                    ParentUserID = userid,
 
                 };
                 db.tbl_Login.Add(createCoApplLogin);
                 db.SaveChanges();
-              
+                if (model.DateOfBirth == Convert.ToDateTime("01/01/0001 12:00:00 AM"))
+                {
+                    model.DateOfBirth = null;
+                }
+                else
+                {
+                    model.DateOfBirth = model.DateOfBirth;
+                }
                 var getAppldata = new tbl_TenantOnline()
                 {
                     //ProspectID = model.TenantID,
@@ -154,9 +164,9 @@ namespace ShomaRM.Areas.Tenant.Models
 
                     ProspectID = model.TenantID,
                     FirstName = model.FirstName,
-                    //MiddleInitial = model.MiddleInitial,
+                    MiddleInitial = model.MiddleName,
                     LastName = model.LastName,
-                    ////DateOfBirth = model.DateofBirth,
+                    DateOfBirth = model.DateOfBirth,
                     Gender = model.Gender,
                     Email = model.Email,
                     Mobile = model.Phone,
@@ -319,12 +329,15 @@ namespace ShomaRM.Areas.Tenant.Models
             ShomaRMEntities db = new ShomaRMEntities();
             List<ApplicantModel> lstAppli = new List<ApplicantModel>();
             var PriApplData = db.tbl_Applicant.Where(p => p.TenantID == TenantID && p.Type == "Primary Applicant").FirstOrDefault();
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
+            string username = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.Username : "";
             if (PriApplData != null)
             {
-                var CoappData = db.tbl_Applicant.Where(p => p.Email == ShomaGroupWebSession.CurrentUser.Username && p.Type == "Co-Applicant").FirstOrDefault();
+               
+                var CoappData = db.tbl_Applicant.Where(p => p.Email == username && p.Type == "Co-Applicant").FirstOrDefault();
                 if (CoappData != null)
                 {
-                    var NewCoAppDataList = db.tbl_Applicant.Where(p => p.AddedBy == ShomaGroupWebSession.CurrentUser.UserID).ToList();
+                    var NewCoAppDataList = db.tbl_Applicant.Where(p => p.AddedBy == userid).ToList();
                     if (NewCoAppDataList != null)
                     {
                         foreach (var ap in NewCoAppDataList)
@@ -387,7 +400,7 @@ namespace ShomaRM.Areas.Tenant.Models
                                 DateOfBirthTxt = dobDateTime == null ? "" : dobDateTime.Value.ToString("MM/dd/yyyy"),
                                 GenderString = ap.Gender == 1 ? "Male" : ap.Gender == 2 ? "Female" : ap.Gender == 3 ? "Other" : "",
                                 Paid = ap.Paid == null ? 0 : ap.Paid,
-                                AddedBy = ShomaGroupWebSession.CurrentUser.UserID
+                                AddedBy = userid
 
                             });
 
@@ -441,7 +454,7 @@ namespace ShomaRM.Areas.Tenant.Models
                         DateOfBirthTxt = dobDateTime == null ? "" : dobDateTime.Value.ToString("MM/dd/yyyy"),
                         GenderString = PriApplData.Gender == 1 ? "Male" : PriApplData.Gender == 2 ? "Female" : PriApplData.Gender == 3 ? "Other" : "",
                         Paid = PriApplData.Paid == null ? 0 : PriApplData.Paid,
-                        AddedBy = ShomaGroupWebSession.CurrentUser.UserID
+                        AddedBy = userid
                     });
                 }
                 var NewLogDataList = db.tbl_ApplyNow.Where(p => p.ID == TenantID).FirstOrDefault();
@@ -509,15 +522,12 @@ namespace ShomaRM.Areas.Tenant.Models
                             DateOfBirthTxt = dobDateTime == null ? "" : dobDateTime.Value.ToString("MM/dd/yyyy"),
                             GenderString = ap.Gender == 1 ? "Male" : ap.Gender == 2 ? "Female" : ap.Gender == 3 ? "Other" : "",
                             Paid = ap.Paid == null ? 0 : ap.Paid,
-                            AddedBy = ShomaGroupWebSession.CurrentUser.UserID
+                            AddedBy = userid
 
                         });
 
                     }
                 }
-
-
-
             }
             else
             {
@@ -585,7 +595,7 @@ namespace ShomaRM.Areas.Tenant.Models
                             DateOfBirthTxt = dobDateTime == null ? "" : dobDateTime.Value.ToString("MM/dd/yyyy"),
                             GenderString = ap.Gender == 1 ? "Male" : ap.Gender == 2 ? "Female" : ap.Gender == 3 ? "Other" : "",
                             Paid = ap.Paid == null ? 0 : ap.Paid,
-                            AddedBy = ShomaGroupWebSession.CurrentUser.UserID
+                            AddedBy = userid
 
                         });
 
@@ -733,7 +743,9 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<ApplicantModel> lstProp = new List<ApplicantModel>();
-            var CoAppData = db.tbl_Applicant.Where(p => p.Email == ShomaGroupWebSession.CurrentUser.Username && p.Type == "Co-Applicant").FirstOrDefault();
+            var email = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.Username : "";
+            long addedby = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
+            var CoAppData = db.tbl_Applicant.Where(p => p.Email == email && p.Type == "Co-Applicant").FirstOrDefault();
             if (CoAppData != null)
             {
                 //var PriApplData = db.tbl_Applicant.Where(p => p.TenantID == TenantID && p.Type == "Primary Applicant").FirstOrDefault();
@@ -788,7 +800,8 @@ namespace ShomaRM.Areas.Tenant.Models
                 //        });
                 //    }
                 //}
-                var CoAppDataList = db.tbl_Applicant.Where(p => p.AddedBy == ShomaGroupWebSession.CurrentUser.UserID).ToList();
+                
+                var CoAppDataList = db.tbl_Applicant.Where(p => p.AddedBy == addedby).ToList();
                 foreach (var ap in CoAppDataList)
                 {
                     string compl = "";
@@ -849,7 +862,7 @@ namespace ShomaRM.Areas.Tenant.Models
                         DateOfBirthTxt = dobDateTime == null ? "" : dobDateTime.Value.ToString("MM/dd/yyyy"),
                         GenderString = ap.Gender == 1 ? "Male" : ap.Gender == 2 ? "Female" : ap.Gender == 3 ? "Other" : "",
                         Paid = ap.Paid == null ? 0 : ap.Paid,
-                        AddedBy = ShomaGroupWebSession.CurrentUser.UserID
+                        AddedBy =addedby
 
                     });
                 }
@@ -917,7 +930,7 @@ namespace ShomaRM.Areas.Tenant.Models
                         DateOfBirthTxt = dobDateTime == null ? "" : dobDateTime.Value.ToString("MM/dd/yyyy"),
                         GenderString = ap.Gender == 1 ? "Male" : ap.Gender == 2 ? "Female" : ap.Gender == 3 ? "Other" : "",
                         Paid = ap.Paid == null ? 0 : ap.Paid,
-                        AddedBy = ShomaGroupWebSession.CurrentUser.UserID
+                        AddedBy = addedby
 
                     });
                 }
@@ -938,12 +951,10 @@ namespace ShomaRM.Areas.Tenant.Models
                 DateTime? dobDateTime = null;
                 try
                 {
-
                     dobDateTime = Convert.ToDateTime(getApplicantDet.DateOfBirth);
                 }
                 catch
                 {
-
                 }
 
                 model.DateOfBirthTxt = dobDateTime == null ? "" : (dobDateTime.Value.ToString("MM/dd/yyyy")!="01/01/0001"? dobDateTime.Value.ToString("MM/dd/yyyy") : "");

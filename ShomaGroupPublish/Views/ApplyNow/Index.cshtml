@@ -363,8 +363,8 @@
                             </div>
                             <div class="col-sm-2">
                                 <div class="form-group">
-                                    <label for="ddlGenderReg" class="star">Gender</label>
-                                    <select id="ddlGenderReg" class=" form-control" style="width:100%!important">
+                                    <label class="star">Gender</label>
+                                    <select id="ddlGenderReg" class="form-control" style="width:100%!important">
                                         <option value="0">-Status-</option>
                                         <option value="1">Male</option>
                                         <option value="2">Female</option>
@@ -5950,6 +5950,7 @@
                 $("#txtOtherGender").attr("disabled", true);
             }
         });
+
         $("#ddlGenderReg").on("change", function () {
             if ($(this).val() == 2) {
                 $("#lblMiddleInitialReg").addClass("star");
@@ -5964,6 +5965,7 @@
                 $("#txtOtherGenderReg").attr("disabled", true);
             }
         });
+
         if ('@Model.ParkingAmt' != '') {
             $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(@Model.ParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
             $("#lblProrated_AditionalParking_print").text(parseFloat(parseFloat(@Model.ParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));

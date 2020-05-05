@@ -28,19 +28,20 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
+            long tenantid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID : 0;
             if (model.FacilityBookingID == 0)
             {
                 var saveFacilityBooking=new tbl_FacilityBooking()
                 {
                     FacilityBookingID = model.FacilityBookingID,
-                    TenantID = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID,
+                    TenantID = tenantid,
                     FacilityID = model.FacilityID,
                     BookingDate = model.BookingDate,
                     RequiredFromDate = model.RequiredFromDate,
                     RequiredToDate = model.RequiredToDate,
                     BookingDetails = model.BookingDetails,
-                    CreatedByID = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
+                    CreatedByID = userid,
                     CreatedDate=DateTime.Now
                 };
                 db.tbl_FacilityBooking.Add(saveFacilityBooking);
@@ -54,13 +55,13 @@ namespace ShomaRM.Areas.Tenant.Models
                 if (GetFacilityBookingData != null)
                 {
                     GetFacilityBookingData.FacilityBookingID = model.FacilityBookingID;
-                    GetFacilityBookingData.TenantID = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID;
+                    GetFacilityBookingData.TenantID = tenantid;
                     GetFacilityBookingData.FacilityID = model.FacilityID;
                     GetFacilityBookingData.BookingDate = model.BookingDate;
                     GetFacilityBookingData.RequiredFromDate = model.RequiredFromDate;
                     GetFacilityBookingData.RequiredToDate = model.RequiredToDate;
                     GetFacilityBookingData.BookingDetails = model.BookingDetails;
-                    CreatedByID = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID;
+                    CreatedByID = userid;
                     CreatedDate = DateTime.Now;
                     db.SaveChanges();
                     msg = "Facility Booking Updated Successfully";

@@ -559,7 +559,8 @@ namespace ShomaRM.Areas.Admin.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
+            string fullname= ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.FullName : "";
             if (model.TransID == 0)
             {
                 var saveTransaction = new tbl_Transaction()
@@ -589,9 +590,9 @@ namespace ShomaRM.Areas.Admin.Models
                     Appl_of_Origin = "SRM",
                     Batch = "1",
                     Batch_Source = "",
-                    CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
+                    CreatedBy = userid,
                     GL_Trans_Reference_1 = model.PropertyID.ToString(),
-                    GL_Trans_Reference_2 = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.FullName.ToString(),
+                    GL_Trans_Reference_2 = fullname,
                     GL_Entries_Created = 1,
                     GL_Trans_Description = model.Description,
                     ProspectID = model.ProspectID,

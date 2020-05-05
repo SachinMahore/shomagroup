@@ -160,6 +160,7 @@ namespace ShomaRM.Areas.Admin.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.PromotionID == 0)
             {
                 var savePromotion = new tbl_Promotion()
@@ -170,7 +171,7 @@ namespace ShomaRM.Areas.Admin.Models
                     StartDate = model.StartDate,
                     EndDate = model.EndDate,
                     CreatedDate = Convert.ToDateTime(DateTime.Now.ToString("MM/dd/yyyy")),
-                    CreatedById = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID
+                    CreatedById = userid
                 };
                 db.tbl_Promotion.Add(savePromotion);
                 db.SaveChanges();
@@ -187,7 +188,7 @@ namespace ShomaRM.Areas.Admin.Models
                     getNOdata.StartDate = model.StartDate;
                     getNOdata.EndDate = model.EndDate;
                     getNOdata.CreatedDate = Convert.ToDateTime(DateTime.Now.ToString("MM/dd/yyyy"));
-                    getNOdata.CreatedById = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID;
+                    getNOdata.CreatedById = userid;
                 }
                 db.SaveChanges();
                 msg = "Promotion Details Updated Successfully";

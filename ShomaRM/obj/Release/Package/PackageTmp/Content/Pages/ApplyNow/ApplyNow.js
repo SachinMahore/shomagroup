@@ -379,8 +379,8 @@ $(document).ready(function () {
     $("#txtCountryReg").on('change', function (evt, params) {
         var selected = $(this).val();
         if (selected != null) {
-            fillStateDDLReg_Home(selected, 0);
             fillStateDDLReg_IDType(selected, 0);
+            fillStateDDLReg_Home(selected, 0);
         }
     });
     $("#txtCountryOffice").on('change', function (evt, params) {
@@ -3366,6 +3366,7 @@ var fillStateDDLReg_Home = function (countryid, selval) {
                 $.each(response, function (index, elementValue) {
                     $("#ddlStateReg").append("<option value=" + elementValue.ID + ">" + elementValue.StateName + "</option>");
                 });
+                $("#ddlStateReg").val(selval);
             }
         }
     });
@@ -3384,12 +3385,12 @@ var fillStateDDLReg_IDType = function (countryid, selval) {
             if ($.trim(response.error) != "") {
                 //this.cancelChanges();
             } else {
-                $("#ddlStateReg").empty();
-                $("#ddlStateReg").append("<option value='0'>--Select State--</option>");
+                $("#ddlStateIDDocReg").empty();
+                $("#ddlStateIDDocReg").append("<option value='0'>--Select State--</option>");
                 $.each(response, function (index, elementValue) {
-                    $("#ddlStateReg").append("<option value=" + elementValue.ID + ">" + elementValue.StateName + "</option>");
+                    $("#ddlStateIDDocReg").append("<option value=" + elementValue.ID + ">" + elementValue.StateName + "</option>");
                 });
-                $("#ddlStateReg").val(selval);
+                $("#ddlStateIDDocReg").val(selval);
             }
         }
     });
@@ -3668,7 +3669,7 @@ var getCompareModelList = function () {
             $("#divLoader").hide();
             if (response != null) {
                 $("#listModelCompare").empty();
-                console.log(addModelArray)
+                //console.log(addModelArray)
                 var chtml = "<div class='col-sm-3'><div class='col-sm-12'><span><br><br><br><br><br></span></div><div class='col-sm-12'><span><br /> </span></div><div class='col-sm-12'><span> </span></div> <div class='col-sm-12'><span>Monthly Rent: </span></div><div class='col-sm-12'><span>Square feet: </span></div><div class='col-sm-12'><span id=''>Bedrooms: </span></div><div class='col-sm-12'><span id=''>Bathrooms: </span></div><div class='col-sm-12'><span>Available: </span></div> <div class='col-sm-12'><span id=''>Occupancy: </span></div></div>";
                 $.each(response.model, function (elementType, value) {
                     for (var j = 0; j < addModelArray.length; j++) {
@@ -5205,7 +5206,6 @@ var getApplicantLists = function () {
                 data: JSON.stringify(model),
                 dataType: "JSON",
                 success: function (response) {
-                    console.log(JSON.stringify(response));
                     $.each(response.model, function (elementType, elementValue) {
                         if (elementValue.Type == "Co-Applicant") {
                             noofCapl += 1;
@@ -5230,11 +5230,11 @@ var getApplicantLists = function () {
                     var totalCoAppl = noofCapl;
                     var totalMinor = noofminor;
                     var total = 0;
-                    console.log("Applicant:" + totalAppl + " Co-app:" + totalCoAppl + " Minor:" + totalMinor);
+                    //console.log("Applicant:" + totalAppl + " Co-app:" + totalCoAppl + " Minor:" + totalMinor);
 
                     if (nofbed == 1) {
                         total = parseInt(noofapl) + parseInt(totalCoAppl) + parseInt(totalMinor);
-                        console.log("Condtion1: " + total + "Total People: " + totalPeople);
+                        //console.log("Condtion1: " + total + "Total People: " + totalPeople);
                         if (totalCoAppl <= parseInt(totalPeople) - 1) {
                             if (total <= parseInt(totalPeople) - 1) {
                                 $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
@@ -5254,7 +5254,7 @@ var getApplicantLists = function () {
                     }
                     else if (nofbed == 2) {
                         total = parseInt(noofapl) + parseInt(totalCoAppl) + parseInt(totalMinor);
-                        console.log("Condtion2: " + total + "Total People: " + totalPeople);
+                        //console.log("Condtion2: " + total + "Total People: " + totalPeople);
                         if (total <= parseInt(totalPeople) - 1) {
                             if (totalCoAppl < 2) {
                                 if (total < parseInt(totalPeople)) {
@@ -5279,7 +5279,7 @@ var getApplicantLists = function () {
                     }
                     else if (nofbed == 3) {
                         total = parseInt(noofapl) + parseInt(totalCoAppl) + parseInt(totalMinor);
-                        console.log("Condtion3: " + total + "Total People: " + totalPeople + "Total People: " + totalPeople);
+                        ///console.log("Condtion3: " + total + "Total People: " + totalPeople + "Total People: " + totalPeople);
 
                         if (total <= parseInt(totalPeople) - 1) {
                             if (totalCoAppl < 3) {
@@ -5340,7 +5340,7 @@ var addAppFess = function (appFees,appid) {
         $("#btnSendPayLink" + appid).removeClass("hidden");
         addApplicntArray.pop({ ApplicantID: appid });
     }
-    console.log(addApplicntArray)
+    //console.log(addApplicntArray)
 }
 var goToEditApplicant = function (aid) {
 
@@ -6319,7 +6319,12 @@ var getTenantOnlineList = function (id) {
             $("#summDob").text(response.model.DateOfBirthTxt);
             $("#summDobp").text(response.model.DateOfBirthTxt);
             $("#ddlGender").val(response.model.Gender).change();
+
+
+
             $("#ddlGenderReg").val(response.model.Gender).change();
+
+
 
             $("#txtEmailNew").val(response.model.Email);
             $("#summEmail").text(response.model.Email);
@@ -6453,7 +6458,9 @@ var getTenantOnlineList = function (id) {
             fillStateDDL_Home(response.model.Country, response.model.StateHome);
 
             $("#txtCountryReg").val(response.model.Country);
+
             fillStateDDLReg_IDType(response.model.Country, response.model.StateHome);
+            fillStateDDLReg_Home(response.model.Country, response.model.StateHome);
 
             //$("#ddlStateHome").val(response.model.StateHome).change();
             //setTimeout(function () {

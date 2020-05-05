@@ -48,6 +48,7 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.HEIID == 0)
             {
                 var saveEmployerHistory = new tbl_EmployerHistory()
@@ -71,7 +72,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     Zip = model.Zip,
                     TenantId = model.TenantId,
                     TerminationReason = model.TerminationReason,
-                    ParentTOID=ShomaGroupWebSession.CurrentUser.UserID,
+                    ParentTOID= userid,
                 };
                 db.tbl_EmployerHistory.Add(saveEmployerHistory);
                 db.SaveChanges();
@@ -113,7 +114,8 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             List<EmployerHistoryModel> model = new List<EmployerHistoryModel>();
             ShomaRMEntities db = new ShomaRMEntities();
-            var getEmployerHistorydata = db.tbl_EmployerHistory.Where(co => co.TenantId == TenantId && co.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).ToList();
+            long addedby = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
+            var getEmployerHistorydata = db.tbl_EmployerHistory.Where(co => co.TenantId == TenantId && co.ParentTOID == addedby).ToList();
             if (getEmployerHistorydata != null)
             {
                 foreach (var item in getEmployerHistorydata)
@@ -218,7 +220,8 @@ namespace ShomaRM.Areas.Tenant.Models
                 int monthsCount = 0;
                 string fromDateDB = string.Empty;
                 string toDateDB = string.Empty;
-                var empHist = db.tbl_EmployerHistory.Where(co => co.TenantId == TenantId && co.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).ToList();
+                long ptoid = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
+                var empHist = db.tbl_EmployerHistory.Where(co => co.TenantId == TenantId && co.ParentTOID == ptoid).ToList();
                 if (empHist != null)
                 {
                     foreach (var item in empHist)
@@ -256,7 +259,8 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             EmployerHistoryModel model = new EmployerHistoryModel();
             ShomaRMEntities db = new ShomaRMEntities();
-            var PriousEmploymentdata = db.tbl_EmployerHistory.Where(co => co.TenantId == id && co.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).OrderByDescending(s => s.HEIID).FirstOrDefault();
+            long ptoid = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
+            var PriousEmploymentdata = db.tbl_EmployerHistory.Where(co => co.TenantId == id && co.ParentTOID == ptoid).OrderByDescending(s => s.HEIID).FirstOrDefault();
 
             if (PriousEmploymentdata != null)
             {

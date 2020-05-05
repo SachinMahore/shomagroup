@@ -48,7 +48,7 @@ namespace ShomaRM.Models
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.AHID == 0)
             {
                 var saveApplicantHistory = new tbl_ApplicantHistory()
@@ -69,7 +69,7 @@ namespace ShomaRM.Models
                     ManagementCompany = model.ManagementCompany,
                     ManagementCompanyPhone = model.ManagementCompanyPhone,
                     IsProprNoticeLeaseAgreement = model.IsProprNoticeLeaseAgreement,
-                    ParentTOID= ShomaGroupWebSession.CurrentUser.UserID,
+                    ParentTOID= userid,
                 };
                 db.tbl_ApplicantHistory.Add(saveApplicantHistory);
                 db.SaveChanges();
@@ -112,34 +112,28 @@ namespace ShomaRM.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<ApplicantHistoryModel> lstProp = new List<ApplicantHistoryModel>();
-
-            var applicantHistoryList = db.tbl_ApplicantHistory.Where(p => p.TenantID == TenantID && p.ParentTOID== ShomaGroupWebSession.CurrentUser.UserID).ToList();
+            long ptoid = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
+            var applicantHistoryList = db.tbl_ApplicantHistory.Where(p => p.TenantID == TenantID && p.ParentTOID== ptoid).ToList();
             foreach (var ahl in applicantHistoryList)
             {
                 DateTime? moveInFrom = null;
                 try
-
                 {
-
                     moveInFrom = Convert.ToDateTime(ahl.MoveInDateFrom);
                 }
                 catch
                 {
-
                 }
                 DateTime? moveInTo = null;
                 try
                 {
-
                     moveInTo = Convert.ToDateTime(ahl.MoveInDateTo);
                 }
                 catch
                 {
-
                 }
                 lstProp.Add(new ApplicantHistoryModel
                 {
-
                     AHID = ahl.AHID,
                     Country = ahl.Country,
                     HomeAddress1 = ahl.HomeAddress1,
@@ -162,7 +156,7 @@ namespace ShomaRM.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<ApplicantHistoryModel> lstProp = new List<ApplicantHistoryModel>();
-
+            long ptoid = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
             try
             {
                 DataTable dtTable = new DataTable();
@@ -179,7 +173,7 @@ namespace ShomaRM.Models
 
                     DbParameter paramfF = cmd.CreateParameter();
                     paramfF.ParameterName = "ptoid";
-                    paramfF.Value = ShomaGroupWebSession.CurrentUser.UserID;
+                    paramfF.Value = ptoid;
                     cmd.Parameters.Add(paramfF);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
@@ -193,7 +187,6 @@ namespace ShomaRM.Models
                     try
 
                     {
-
                         moveInFrom = Convert.ToDateTime(dr["MoveInDateFrom"].ToString());
                     }
                     catch
@@ -319,10 +312,11 @@ namespace ShomaRM.Models
 
             try
             {
+                long ptoid = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
                 int monthsCount = 0;
                 string fromDateDB = string.Empty;
                 string toDateDB = string.Empty;
-                var moveInApplHist = db.tbl_ApplicantHistory.Where(co => co.TenantID == TenantId && co.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).ToList();
+                var moveInApplHist = db.tbl_ApplicantHistory.Where(co => co.TenantID == TenantId && co.ParentTOID == ptoid).ToList();
                 if (moveInApplHist != null)
                 {
                     foreach (var item in moveInApplHist)
@@ -360,7 +354,8 @@ namespace ShomaRM.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             ApplicantHistoryModel model = new ApplicantHistoryModel();
-            var getAHRdata = db.tbl_ApplicantHistory.Where(p => p.TenantID == id && p.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).OrderByDescending(s => s.AHID).FirstOrDefault();
+            long ptoid = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
+            var getAHRdata = db.tbl_ApplicantHistory.Where(p => p.TenantID == id && p.ParentTOID == ptoid).OrderByDescending(s => s.AHID).FirstOrDefault();
             if (getAHRdata != null)
             {
                 DateTime? moveInFrom = null;

@@ -37,7 +37,7 @@ namespace ShomaRM.Areas.Admin.Models
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.InvoiceID == 0)
             {
                 var saveInvoice = new tbl_Invoice()
@@ -56,7 +56,7 @@ namespace ShomaRM.Areas.Admin.Models
                     Approved = model.Approved,
                     ApprovedBy = model.ApprovedBy,
                     BatchID = model.BatchID,
-                    CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
+                    CreatedBy = userid,
                     CreatedDate = DateTime.Now.Date
                 };
                 db.tbl_Invoice.Add(saveInvoice);
@@ -83,7 +83,7 @@ namespace ShomaRM.Areas.Admin.Models
                     GetInvoiceData.Approved = model.Approved;
                     GetInvoiceData.ApprovedBy = model.ApprovedBy;
                     GetInvoiceData.BatchID = model.BatchID;
-                    GetInvoiceData.CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID;
+                    GetInvoiceData.CreatedBy = userid;
                     GetInvoiceData.CreatedDate = DateTime.Now.Date;
                     db.SaveChanges();
                     msg = "Invoice Updated Successfully";

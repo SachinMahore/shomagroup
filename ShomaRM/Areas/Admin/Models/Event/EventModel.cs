@@ -39,6 +39,7 @@ namespace ShomaRM.Areas.Admin.Models
             DateTime dt = DateTime.Parse(model.EventTimeString != null ? model.EventTimeString : "00:00");
             
             TimeSpan time = dt.TimeOfDay;
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.EventID == 0)
             {
                 var saveEvent = new tbl_Event()
@@ -48,7 +49,7 @@ namespace ShomaRM.Areas.Admin.Models
                     EventDate = model.EventDate,
                     Photo = model.Photo,
                     Description = model.Description,
-                    CreatedByID = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
+                    CreatedByID = userid,
                     CreatedByDate = DateTime.Now.Date,
                     Type = model.Type,
 

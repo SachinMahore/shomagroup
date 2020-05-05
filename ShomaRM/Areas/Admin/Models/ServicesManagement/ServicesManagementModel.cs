@@ -89,6 +89,7 @@ namespace ShomaRM.Areas.Admin.Models
         {
             int NOP = 0;
             ShomaRMEntities db = new ShomaRMEntities();
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             try
             {
                 DataTable dtTable = new DataTable();
@@ -121,7 +122,7 @@ namespace ShomaRM.Areas.Admin.Models
 
                     DbParameter param5 = cmd.CreateParameter();
                     param5.ParameterName = "UserID";
-                    param5.Value = Convert.ToInt32(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID);
+                    param5.Value = userid;
                     cmd.Parameters.Add(param5);
 
                     DbParameter param6 = cmd.CreateParameter();
@@ -170,6 +171,7 @@ namespace ShomaRM.Areas.Admin.Models
         public List<ServicesSearchModel> FillServicesSearchGrid(ServicesSearchModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             List<ServicesSearchModel> lstUser = new List<ServicesSearchModel>();
             try
             {
@@ -202,7 +204,7 @@ namespace ShomaRM.Areas.Admin.Models
 
                     DbParameter param5 = cmd.CreateParameter();
                     param5.ParameterName = "UserID";
-                    param5.Value = Convert.ToInt32(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID);
+                    param5.Value = userid;
                     cmd.Parameters.Add(param5);
 
                     DbParameter param6 = cmd.CreateParameter();
@@ -364,6 +366,7 @@ namespace ShomaRM.Areas.Admin.Models
             var UpdateStatusService = db.tbl_ServiceRequest.Where(co => co.ServiceID == model.ServiceID).FirstOrDefault();
             string message = "";
             string phonenumber = "";
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (UpdateStatusService != null)
             {
 
@@ -381,7 +384,7 @@ namespace ShomaRM.Areas.Admin.Models
                 UpdateStatusService.OwnerSignature = model.OwnerSignature;
                 UpdateStatusService.TempOwnerSignature = model.TempOwnerSignature;
                 UpdateStatusService.WarrantyStatus = model.WarrantyStatus;
-                UpdateStatusService.ApprovedBy = Convert.ToInt32(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID);
+                UpdateStatusService.ApprovedBy = userid;
                 db.SaveChanges();
                 msg = "Service Request Assign Successfully";
 
@@ -588,7 +591,7 @@ namespace ShomaRM.Areas.Admin.Models
             {
                 string msg = "";
                 ShomaRMEntities db = new ShomaRMEntities();
-
+                int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
                 if (model.EID == 0)
                 {
                     var saveEstimate = new tbl_Estimate()
@@ -600,7 +603,7 @@ namespace ShomaRM.Areas.Admin.Models
                         Description = model.Description,
                         Status = model.Status,
                         CreatedDate = DateTime.Now,
-                        CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID
+                        CreatedBy = userid
                     };
                     db.tbl_Estimate.Add(saveEstimate);
                     db.SaveChanges();

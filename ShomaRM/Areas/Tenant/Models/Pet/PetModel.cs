@@ -34,7 +34,7 @@ namespace ShomaRM.Areas.Tenant.Models
 
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.PetID == 0)
             {
                 var savePet = new tbl_TenantPet()
@@ -51,7 +51,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     OriginalVaccinationCert = model.OriginalPetVaccinationCertificateFile,
                     PetName = model.PetName,
                     VetsName = model.VetsName,
-                    AddedBy = ShomaGroupWebSession.CurrentUser.UserID
+                    AddedBy = userid
                 };
                 db.tbl_TenantPet.Add(savePet);
                 db.SaveChanges();
@@ -93,7 +93,11 @@ namespace ShomaRM.Areas.Tenant.Models
             List<PetModel> lstProp = new List<PetModel>();
 
             //var petList = db.tbl_TenantPet.Where(p => p.TenantID == TenantID).ToList();
-            var petList = db.tbl_TenantPet.Where(p => p.TenantID == TenantID && p.AddedBy == ShomaGroupWebSession.CurrentUser.UserID).ToList();
+            //var petList = db.tbl_TenantPet.Where(p => p.TenantID == TenantID && p.AddedBy == ShomaGroupWebSession.CurrentUser.UserID).ToList();
+
+            long addedby = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
+
+            var petList = db.tbl_TenantPet.Where(p => p.TenantID == TenantID && p.AddedBy == addedby).ToList();
             foreach (var pl in petList)
             {
                 lstProp.Add(new PetModel
@@ -142,11 +146,11 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (PetID != 0)
             {
 
-                var petData = db.tbl_TenantPet.Where(p => p.PetID == PetID && p.AddedBy == ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
+                var petData = db.tbl_TenantPet.Where(p => p.PetID == PetID && p.AddedBy == userid).FirstOrDefault();
                 if (petData != null)
                 {
                     db.tbl_TenantPet.Remove(petData);
