@@ -4777,12 +4777,25 @@ var saveupdateApplicant = function () {
     var aid = $("#hndApplicantID").val();
     var prospectID = $("#hdnOPId").val();
     var fname = $("#txtApplicantFirstName").val();
+    var mname = $("#txtApplicantMiddleName").val();
     var lname = $("#txtApplicantLastName").val();
     var aphone = unformatText($("#txtApplicantPhone").val());
     var aemail = $("#txtApplicantEmail").val();
     var agender = $("#ddlApplicantGender").val();
     var type = $("#ddlApplicantType").text();
     var aotherGender = $("#txtApplicantOtherGender").val();
+    var applicantSSNNumber = $("#txtApplicantSSNNumber").val();
+    var applicantIDNumber = $("#txtApplicantIDNumber").val();
+    var applicantIDType = $("#ddlApplicantDocumentTypePersonal").val();
+    var applicantStateDoc = $("#ddlApplicantStateDoc").val();
+    var applicantAppliantAddress12 = $("#txtAppliantAddress12").val();
+    var applicantAppliantAddress22 = $("#txtAppliantAddress22").val();
+    var applicantState = $("#ddlApplicantState").val();
+    var applicantCountry = $("#txtApplicantCountry").val();
+    var applicantCity = $("#txtApplicantCity").val();
+    var applicantApplicantZip2 = $("#txtApplicantZip2").val();
+
+
 
     var dob = "";
     if (type == "Co-Applicant") {
@@ -4856,9 +4869,12 @@ var saveupdateApplicant = function () {
         return;
     }
 
+
+
     var model = {
         ApplicantID: aid,
         FirstName: fname,
+        Middle: mname,
         LastName: lname,
         Phone: aphone,
         Email: aemail,
@@ -4867,7 +4883,17 @@ var saveupdateApplicant = function () {
         TenantID: prospectID,
         Type: type,
         Relationship: relationship,
-        OtherGender: aotherGender
+        OtherGender: aotherGender,
+        SSN: applicantSSNNumber,
+        IDNumber: applicantIDNumber,
+        IDType: applicantIDType,
+        State: applicantStateDoc,
+        HomeAddress1: applicantAppliantAddress12,
+        HomeAddress2: applicantAppliantAddress22,
+        StateHome: applicantState,
+        Country: applicantCountry,
+        CityHome: applicantCity,
+        ZipHome: applicantApplicantZip2
     };
 
     $.ajax({
@@ -4887,10 +4913,7 @@ var saveupdateApplicant = function () {
             //$("#popApplicant").PopupWindow("close");
             $("#popApplicant").modal("hide");
         }
-
-
     });
-
 }
 var totpaid = 0;
 
@@ -5343,11 +5366,11 @@ var addAppFess = function (appFees,appid) {
     //console.log(addApplicntArray)
 }
 var goToEditApplicant = function (aid) {
-
+    clearApplicant();
     if (aid != null) {
         //sacxhis
         $("#hndApplicantID").val(aid);
-        var model = { id: aid,FromAcc:0 };
+        var model = { id: aid, FromAcc: 0 };
         $.ajax({
             url: "/Tenant/Applicant/GetApplicantDetails",
             type: "post",
@@ -5357,9 +5380,11 @@ var goToEditApplicant = function (aid) {
             success: function (response) {
 
                 $("#txtApplicantFirstName").val(response.model.FirstName);
+                $("#txtApplicantMiddleName").val(response.model.MiddleName);
                 $("#txtApplicantLastName").val(response.model.LastName);
 
                 if (response.model.Type == "Primary Applicant") {
+
                     $("#ddlApplicantGender").val(response.model.Gender);
                     $("#ddlApplicantGender").trigger('change');
                     $("#ddlApplicantType").text("Primary Applicant");
@@ -5373,6 +5398,8 @@ var goToEditApplicant = function (aid) {
                     $("#apprelationship").addClass("hidden");
                     $("#txtApplicantPhone").val(formatPhoneFax(response.model.Phone));
                     $("#txtApplicantEmail").val(response.model.Email);
+                    $("#txtApplicantSSNNumber").val(response.model.SSN);
+                    $("#txtApplicantIDNumber").val(response.model.IDNumber);
                     //$("#ddlARelationship").removeCs("hidden");
                     $("#ddlARelationship").empty();
                     var opt = "<option value='0'>Select Relationship</option>";
@@ -5380,6 +5407,14 @@ var goToEditApplicant = function (aid) {
                     $("#ddlARelationship").append(opt);
 
                     $("#ddlARelationship").val(response.model.Relationship).change();
+                    $("#ddlApplicantDocumentTypePersonal").val(response.model.IDType).change();
+                    $("#ddlApplicantStateDoc").val(response.model.State).change();
+                    $("#ddlApplicantState").val(response.model.StateHome).change();
+
+                    $("#txtAppliantAddress12").val(response.model.HomeAddress1);
+                    $("#txtAppliantAddress22").val(response.model.HomeAddress2);
+                    $("#txtApplicantCity").val(response.model.CityHome);
+                    $("#txtApplicantZip2").val(response.model.ZipHome);
 
                     //$("#ddlGRelationship").addClass("hidden");
                     $('#txtADateOfBirth').addClass("hidden");
@@ -5407,7 +5442,7 @@ var goToEditApplicant = function (aid) {
                     $("#ddlApplicantType").text("Co-Applicant");
                     //$("#popApplicant").PopupWindow("setTitle", "Edit Applicant");
                     //$("#popApplicant").PopupWindow("open");
-                    var modal = $(popApplicant);
+                    modal = $(popApplicant);
                     modal.find('.modal-title').text('Edit Applicant');
                     $("#popApplicant").modal("show");
                     $("#appphone").removeClass("hidden");
@@ -5433,6 +5468,15 @@ var goToEditApplicant = function (aid) {
                     //dtApp.setFullYear(new Date().getFullYear() - 18);
                     //$('#txtADateOfBirth').datepicker({ endDate: dtApp, autoclose: true });
                     //$("#txtApplicantOtherGender").val(response.model.OtherGender);
+                    $("#ddlARelationship").val(response.model.Relationship).change();
+                    $("#ddlApplicantDocumentTypePersonal").val(response.model.IDType).change();
+                    $("#ddlApplicantStateDoc").val(response.model.State).change();
+                    $("#ddlApplicantState").val(response.model.StateHome).change();
+
+                    $("#txtAppliantAddress12").val(response.model.HomeAddress1);
+                    $("#txtAppliantAddress22").val(response.model.HomeAddress2);
+                    $("#txtApplicantCity").val(response.model.CityHome);
+                    $("#txtApplicantZip2").val(response.model.ZipHome);
 
                 }
                 else if (response.model.Type == "Minor") {
@@ -5441,7 +5485,7 @@ var goToEditApplicant = function (aid) {
                     $("#ddlApplicantType").text("Minor");
                     //$("#popApplicant").PopupWindow("setTitle", "Edit Minor");
                     //$("#popApplicant").PopupWindow("open");
-                    var modal = $(popApplicant);
+                    modal = $(popApplicant);
                     modal.find('.modal-title').text('Edit Minor');
                     $("#popApplicant").modal("show");
                     $("#appphone").addClass("hidden");
@@ -5464,7 +5508,17 @@ var goToEditApplicant = function (aid) {
                     //dtMin.setFullYear(new Date().getFullYear() - 18);
                     //var dtEnd = new Date();
                     //$('#txtMDateOfBirth').datepicker({ viewMode: "years", startDate: dtMin, endDate: dtEnd, autoclose: true });
-                    $("#txtApplicantOtherGender").val(response.model.OtherGender);
+                    $("#txtApplicantOtherGender").addClass("hidden");
+
+                    $("#ddlARelationship").addClass("hidden");
+                    $("#ddlApplicantDocumentTypePersonal").addClass("hidden");
+                    $("#ddlApplicantStateDoc").addClass("hidden");
+                    $("#ddlApplicantState").addClass("hidden");
+
+                    $("#txtAppliantAddress12").addClass("hidden");
+                    $("#txtAppliantAddress22").addClass("hidden");
+                    $("#txtApplicantCity").addClass("hidden");
+                    $("#txtApplicantZip2").addClass("hidden");
 
                 }
                 else if (response.model.Type == "Guarantor") {
@@ -5474,7 +5528,7 @@ var goToEditApplicant = function (aid) {
                     $("#ddlApplicantType").text("Guarantor");
                     //$("#popApplicant").PopupWindow("setTitle", "Edit Guarantor");
                     //$("#popApplicant").PopupWindow("open");
-                    var modal = $(popApplicant);
+                    modal = $(popApplicant);
                     modal.find('.modal-title').text('Edit Guarantor');
                     $("#popApplicant").modal("show");
                     $("#appphone").addClass("hidden");
@@ -5499,6 +5553,15 @@ var goToEditApplicant = function (aid) {
                     //dtGApp.setFullYear(new Date().getFullYear() - 18);
                     //$('#txtGDateOfBirth').datepicker({ endDate: dtGApp, autoclose: true });
                     $("#txtApplicantOtherGender").val(response.model.OtherGender);
+                    $("#ddlARelationship").val(response.model.Relationship).change();
+                    $("#ddlApplicantDocumentTypePersonal").val(response.model.IDType).change();
+                    $("#ddlApplicantStateDoc").val(response.model.State).change();
+                    $("#ddlApplicantState").val(response.model.StateHome).change();
+
+                    $("#txtAppliantAddress12").val(response.model.HomeAddress1);
+                    $("#txtAppliantAddress22").val(response.model.HomeAddress2);
+                    $("#txtApplicantCity").val(response.model.CityHome);
+                    $("#txtApplicantZip2").val(response.model.ZipHome);
                 }
             }
         });
@@ -5509,6 +5572,8 @@ var clearApplicant = function () {
     $("#hndApplicantID").val(0);
     $("#txtApplicantFirstName").val("");
     $("#txtApplicantLastName").val("");
+    $("#txtApplicantSSNNumber").val("");
+    $("#txtApplicantIDNumber").val("");
 
     $("#txtApplicantPhone").val("");
     $("#txtApplicantEmail").val("");
@@ -5517,6 +5582,14 @@ var clearApplicant = function () {
     $('#txtADateOfBirth').val("");
     $('#txtHDateOfBirth').val("");
     $('#txtGDateOfBirth').val("");
+    $("#ddlApplicantDocumentTypePersonal").val(0);
+    $("#ddlApplicantStateDoc").val(0);
+    $("#txtAppliantAddress12").val("");
+    $("#txtAppliantAddress22").val("");
+    $("#ddlApplicantState").val(0);
+    $("#txtApplicantCountry").val(0);
+    $("#txtApplicantCity").val("");
+    $("#txtApplicantZip2").val("");
 }
 var saveupdatePet = function () {
     $("#divLoader").show();
@@ -8937,22 +9010,7 @@ var printSummary=function()
         }
     });
 }
-var ddlDocumentTypePersonal = function (id) {
-    $('#ddlDocumentTypePersonal').empty();
-    var option = '<option value="0">Select</option>';
-    option += '<option value="1">Drivers License</option>';
-    option += '<option value="2">Military ID</option>';
-    option += '<option value="4">State Issued ID</option>';
-    $('#divIDState').removeClass("hidden");
-    if (id == '0') {
-        option += '<option value="3">Passport</option>';
-    }
-    else {
-        $('#divIDState').addClass("hidden");
-    }
-    $('#ddlDocumentTypePersonal').append(option);
-    $('#ddlDocumentTypePersonal').val($("#hndDocumentTypePersonal").val());
-}
+
 
 var printQuotationPrint = function () {
     $("#divLoader").show();
@@ -9036,3 +9094,29 @@ var getEncDecValue = function (txtBox, encdec) {
         });
     }
 };
+
+var ddlDocumentTypePersonal = function (id) {
+    $('#ddlDocumentTypePersonal').empty();
+    var option = '<option value="0">Select</option>';
+    option += '<option value="1">Drivers License</option>';
+    option += '<option value="2">Military ID</option>';
+    option += '<option value="4">State Issued ID</option>';
+    $('#divIDState').removeClass("hidden");
+    if (id == '0') {
+        option += '<option value="3">Passport</option>';
+    }
+    else {
+        $('#divIDState').addClass("hidden");
+    }
+    $('#ddlDocumentTypePersonal').append(option);
+    $('#ddlDocumentTypePersonal').val($("#hndDocumentTypePersonal").val());
+
+    $('#ddlApplicantDocumentTypePersonal').empty();
+    var optionNew = '<option value="0">Select</option>';
+    optionNew += '<option value="1">Drivers License</option>';
+    optionNew += '<option value="2">Military ID</option>';
+    optionNew += '<option value="4">State Issued ID</option>';
+
+    $('#ddlApplicantDocumentTypePersonal').append(optionNew);
+    $('#ddlApplicantDocumentTypePersonal').val($("#hndDocumentTypePersonal").val());
+}
