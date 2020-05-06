@@ -6,6 +6,7 @@ var tenantOnlineID = 0;
 $(document).ready(function () {
     onFocusApplyNow();
     localStorage.removeItem("CheckReload");
+    localStorage.removeItem("MonthlyRent");
     fillMarketSourceDDLA();
 
     $("#popRentalQualification").modal("hide");
@@ -556,6 +557,16 @@ function checkFormstatus() {
 }
 var totalAmt = 0;
 var goToStep = function (stepid, id, calldataupdate) {
+    if (stepid > 7) {
+        if ($("#hndCreditPaid").val() == 0) {
+            $.alert({
+                title: "",
+                content: "Please Pay Credit Check Fees, Please check mail for more detail.",
+                type: 'red'
+            });
+            return;
+        }
+    }
     if (stepid == "6") {
         if (id == "6") {
             $("#subMenu").addClass("hidden");
@@ -606,7 +617,7 @@ var goToStep = function (stepid, id, calldataupdate) {
         if (id == "7") {
             var isCheck = $('#chkAgreeTermsPolicy').is(':checked') ? "1" : "0";
             if (isCheck == "0") {
-                getApplicantListsG(6);
+                getApplicantListsGuarantor(6);
                 $.alert({
                     title: "",
                     content: 'Please check to agree the terms and condition',
@@ -614,6 +625,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                 });
             }
             else {
+
                 $("#subMenu").removeClass("hidden");
                 SaveCheckPolicy(7);
                 $("#as6").removeAttr("onclick");
@@ -901,7 +913,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             return;
         }
         if (id == "15") {
-            getApplicantListsG();
+            getApplicantListsGuarantor();
             var msg = '';
             if (!$("#txtEmployerName").val()) {
                 msg += "Please Fill The Employer Name </br>";
@@ -912,8 +924,19 @@ var goToStep = function (stepid, id, calldataupdate) {
             if (!$("#txtAnnualIncome").val()) {
                 msg += "Please Fill The Annual Income </br>";
             }
-            if ($("#txtAnnualIncome").val() == '0.00') {
+            else if ($("#txtAnnualIncome").val() == '0.00') {
                 msg += "Please Fill The Annual Income </br>";
+            }
+            else {
+                var rent = parseFloat($("#hndMonthlyCharges").val());
+                var annualCondition = parseFloat(rent) * 5;
+                var income = parseFloat($("#txtAnnualIncome").val());
+
+                if (income < annualCondition) {
+                    msg += "Annual Income should be gretor than 5 times the Monthly Rent($" + rent.toFixed(2) + ")</br>";
+                }
+
+
             }
             if ($("#hndHasTaxReturnFile").val() == "0") {
                 if (document.getElementById('fileUploadTaxReturn').files.length == '0') {
@@ -3282,7 +3305,7 @@ var addApplicant = function (at) {
         $('#txtADateOfBirth').addClass("hidden");
         $('#txtMDateOfBirth').addClass('hidden');
 
-        $("#appphone").addClass("hidden");
+        $("#appphone").removeClass("hidden");
         $("#appemail").removeClass("hidden");
         $("#txtApplicantPhone").val('');
         $("#txtApplicantEmail").val('');
@@ -3497,13 +3520,37 @@ var saveupdateApplicant = function () {
         dataType: "JSON",
         success: function (response) {
             $("#divLoader").hide();
-            $.alert({
-                title: "",
-                content: "Progress Saved.",
-                type: 'blue',
-            });
+            //$.alert({
+            //    title: "",
+            //    content: "Progress Saved.",
+            //    type: 'blue',
+            //});
             getApplicantListsGuarantor();
             $("#popApplicant").modal("hide");
+            $("#hndApplicantID").val(aid);
+            var model = { id: aid, FromAcc: 0 };
+            $.ajax({
+                url: "/Tenant/Applicant/GetApplicantDetails",
+                type: "post",
+                contentType: "application/json utf-8",
+                data: JSON.stringify(model),
+                dataType: "JSON",
+                success: function (response) {
+                    if (response.model.Type == "Guarantor") {
+                        if (response.model.Paid == 0) {
+                            $.alert({
+                                title: "",
+                                content: "Progress saved. </br> You have to paid the background application fees to continue",
+                                type: 'red',
+                            });
+                        }
+                        else {
+                            $(".guarConti").attr("disabled", false);
+                        }
+                    }
+                }
+
+            });
         }
     });
 };
@@ -3520,10 +3567,12 @@ var goToEditApplicant = function (aid) {
             data: JSON.stringify(model),
             dataType: "JSON",
             success: function (response) {
+
                 var modal = $("#popApplicant");
                 $("#txtApplicantFirstName").val(response.model.FirstName);
                 $("#txtApplicantMiddleName").val(response.model.MiddleName);
                 $("#txtApplicantLastName").val(response.model.LastName);
+                localStorage.setItem("MonthlyRent", response.model.MonthlyRent);
 
                 if (response.model.Type == "Primary Applicant") {
                     $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
@@ -3653,7 +3702,7 @@ var goToEditApplicant = function (aid) {
                     $('#txtADateOfBirth').addClass("hidden");
                     $('#txtMDateOfBirth').addClass('hidden');
 
-                    $("#appphone").addClass("hidden");
+                    $("#appphone").removeClass("hidden");
                     $("#appemail").removeClass("hidden");
                     $("#txtApplicantPhone").val(formatPhoneFax(response.model.Phone));
                     $("#txtApplicantEmail").val(response.model.Email);
@@ -3713,6 +3762,29 @@ var goToEditApplicant = function (aid) {
 
     }
 };
+var clearApplicant = function () {
+    $("#hndApplicantID").val(0);
+    $("#txtApplicantFirstName").val("");
+    $("#txtApplicantLastName").val("");
+    $("#txtApplicantSSNNumber").val("");
+    $("#txtApplicantIDNumber").val("");
+
+    $("#txtApplicantPhone").val("");
+    $("#txtApplicantEmail").val("");
+    $("#ddlApplicantGender").val(0);
+    $('#txtMDateOfBirth').val("");
+    $('#txtADateOfBirth').val("");
+    $('#txtHDateOfBirth').val("");
+    $('#txtGDateOfBirth').val("");
+    $("#ddlApplicantDocumentTypePersonal").val(0);
+    $("#ddlApplicantStateDoc").val(0);
+    $("#txtAddressLine1").val("");
+    $("#txtAddressLine2").val("");
+    $("#ddlApplicantState").val(0);
+    $("#txtApplicantCountry").val(0);
+    $("#txtApplicantCity").val("");
+    $("#txtApplicantZip2").val("");
+}
 var totpaid = 0;
 var addApplicntArray = 0;
 var getApplicantListsGuarantor = function () {
@@ -3753,13 +3825,18 @@ var getApplicantListsGuarantor = function () {
                 var pprhtml = '';
                 var emailhtml = '';
                 if (elementValue.Type != "Primary Applicant") {
-                    html += "<div class='col-sm-4 box-two proerty-item' id='div_" + elementValue.ApplicantID + "'>" +
-                        "<div class='form-group col-sm-3'><br>" +
-                        "<img src='/Content/assets/img/user.png'></div>" +
-                        "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
-                        "<label> " + elementValue.Type + " </label><br/>" +
-                        "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: In progress</b></label></center></div>" +
-                        "</div></div>";
+                    html += "<div class='col-sm-4 box-two proerty-item' id='div_" + elementValue.ApplicantID + "'>";
+                    html += "<div class='form-group col-sm-3'><br>";
+                    html += "<img src='/Content/assets/img/user.png'></div>";
+                    html += "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>";
+                    html += "<label> " + elementValue.Type + " </label><br/>";
+                    if (elementValue.Type == "Guarantor") {
+                        html += "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;";
+                        // html += "<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>";
+                    }
+
+                    html += "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: In progress</b></label></center></div>";
+                    html += "</div></div>";
                 }
                 else {
                     html += "<div class='col-sm-4 box-two proerty-item'>" +
@@ -3813,10 +3890,10 @@ var getApplicantListsGuarantor = function () {
                             pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + guarantorFees + "</td><td style='width:14%; padding:6px;'></td><td></td></tr>";
                         }
                     } else {
-                      if (elementValue.Type == "Guarantor") {
+                        if (elementValue.Type == "Guarantor") {
                             pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + guarantorFees + "</td><td style='width:14%; padding:6px;text-align: center;'>Paid</td><td></td></tr>";
                             $("#carddetails").addClass("hidden");
-                        } 
+                        }
                     }
                 }
                 if (elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
@@ -4027,191 +4104,8 @@ var addAppFess = function (appFees, appid) {
         $("#btnSendPayLink" + appid).removeClass("hidden");
     }
 }
-var goToEditApplicant = function (aid) {
 
-    if (aid != null) {
-        //sacxhis
-        $("#hndApplicantID").val(aid);
-        var model = { id: aid, FromAcc: 0 };
-        $.ajax({
-            url: "/Tenant/Applicant/GetApplicantDetails",
-            type: "post",
-            contentType: "application/json utf-8",
-            data: JSON.stringify(model),
-            dataType: "JSON",
-            success: function (response) {
 
-                $("#txtApplicantFirstName").val(response.model.FirstName);
-                $("#txtApplicantLastName").val(response.model.LastName);
-
-                if (response.model.Type == "Primary Applicant") {
-                    $("#ddlApplicantGender").val(response.model.Gender);
-                    $("#ddlApplicantGender").trigger('change');
-                    $("#ddlApplicantType").text("Primary Applicant");
-                    //$("#popApplicant").PopupWindow("setTitle", "Edit Primary Applicant");
-                    //$("#popApplicant").PopupWindow("open");
-                    var modal = $(popApplicant);
-                    modal.find('.modal-title').text('Edit Primary Applicant');
-                    $("#popApplicant").modal("show");
-                    $("#appphone").removeClass("hidden");
-                    $("#appemail").removeClass("hidden");
-                    $("#apprelationship").addClass("hidden");
-                    $("#txtApplicantPhone").val(formatPhoneFax(response.model.Phone));
-                    $("#txtApplicantEmail").val(response.model.Email);
-                    //$("#ddlARelationship").removeCs("hidden");
-                    $("#ddlARelationship").empty();
-                    var opt = "<option value='0'>Select Relationship</option>";
-                    opt += "<option value='1' selected='selected'>Self</option>";
-                    $("#ddlARelationship").append(opt);
-
-                    $("#ddlARelationship").val(response.model.Relationship).change();
-
-                    //$("#ddlGRelationship").addClass("hidden");
-                    $('#txtADateOfBirth').addClass("hidden");
-                    $('#txtHDateOfBirth').removeClass("hidden");
-                    $("#txtHDateOfBirth").val(response.model.DateOfBirthTxt);
-                    $('#txtMDateOfBirth').addClass("hidden");
-                    $('#txtGDateOfBirth').addClass('hidden');
-                    //var dtHApp = new Date();
-                    //dtHApp.setFullYear(new Date().getFullYear() - 18);
-                    //$('#txtHDateOfBirth').datepicker({ endDate: dtHApp, autoclose: true });
-                    //$("#iconCalenderApplicant").click(function () {
-                    //    $("#txtHDateOfBirth").focus();
-                    //});
-                    if (response.model.OtherGender == '3') {
-                        $("#txtApplicantOtherGender").val(response.model.OtherGender);
-                    }
-                    else {
-                        $("#txtApplicantOtherGender").val('');
-                    }
-
-                }
-                else if (response.model.Type == "Co-Applicant") {
-                    $("#ddlApplicantGender").val(response.model.Gender);
-                    $("#ddlApplicantGender").trigger('change');
-                    $("#ddlApplicantType").text("Co-Applicant");
-                    //$("#popApplicant").PopupWindow("setTitle", "Edit Applicant");
-                    //$("#popApplicant").PopupWindow("open");
-                    var modal = $(popApplicant);
-                    modal.find('.modal-title').text('Edit Applicant');
-                    $("#popApplicant").modal("show");
-                    $("#appphone").removeClass("hidden");
-                    $("#apprelationship").addClass("hidden");
-                    $("#txtApplicantPhone").val(formatPhoneFax(response.model.Phone));
-                    $("#txtApplicantEmail").val(response.model.Email);
-                    //$("#ddlARelationship").removeClass("hidden");
-                    $("#ddlARelationship").empty();
-                    var opt = "<option value='0'>Select Relationship</option>";
-                    opt += "<option value='1'>Spouse</option>";
-                    opt += "<option value='2'>Partner</option>";
-                    opt += "<option value='3'>Adult Child</option>";
-                    opt += "<option value='4'>Friend/Roommate</option>";
-                    $("#ddlARelationship").append(opt);
-                    $("#ddlARelationship").val(response.model.Relationship).change();
-                    //$("#ddlGRelationship").addClass("hidden");
-                    $('#txtADateOfBirth').removeClass("hidden");
-                    $("#txtADateOfBirth").val(response.model.DateOfBirthTxt);
-                    $('#txtHDateOfBirth').addClass("hidden");
-                    $('#txtMDateOfBirth').addClass("hidden");
-                    $('#txtGDateOfBirth').addClass('hidden');
-                    //var dtApp = new Date();
-                    //dtApp.setFullYear(new Date().getFullYear() - 18);
-                    //$('#txtADateOfBirth').datepicker({ endDate: dtApp, autoclose: true });
-                    //$("#txtApplicantOtherGender").val(response.model.OtherGender);
-
-                }
-                else if (response.model.Type == "Minor") {
-                    $("#ddlApplicantGender").val(response.model.Gender);
-                    $("#ddlApplicantGender").trigger('change');
-                    $("#ddlApplicantType").text("Minor");
-                    //$("#popApplicant").PopupWindow("setTitle", "Edit Minor");
-                    //$("#popApplicant").PopupWindow("open");
-                    var modal = $(popApplicant);
-                    modal.find('.modal-title').text('Edit Minor');
-                    $("#popApplicant").modal("show");
-                    $("#appphone").addClass("hidden");
-                    $("#appemail").addClass("hidden");
-                    $('#txtMDateOfBirth').removeClass("hidden");
-                    $('#txtADateOfBirth').addClass("hidden");
-                    $('#txtHDateOfBirth').addClass("hidden");
-                    $('#txtGDateOfBirth').addClass('hidden');
-                    $("#txtMDateOfBirth").val(response.model.DateOfBirthTxt);
-                    //$("#ddlARelationship").removeClass("hidden");
-                    $("#ddlARelationship").empty();
-                    var opt = "<option value='0'>Select Relationship</option>";
-                    opt += "<option value='1'>Family Member</option>";
-                    opt += "<option value='2'>Child</option>";
-                    $("#ddlARelationship").append(opt);
-                    $("#ddlARelationship").val(response.model.Relationship).change();
-                    //$("#ddlGRelationship").addClass("hidden");
-                    // $("#ddlGRelationship").addClass("hidden");
-                    //var dtMin = new Date();
-                    //dtMin.setFullYear(new Date().getFullYear() - 18);
-                    //var dtEnd = new Date();
-                    //$('#txtMDateOfBirth').datepicker({ viewMode: "years", startDate: dtMin, endDate: dtEnd, autoclose: true });
-                    $("#txtApplicantOtherGender").val(response.model.OtherGender);
-
-                }
-                else if (response.model.Type == "Guarantor") {
-
-                    $("#ddlApplicantGender").val(response.model.Gender);
-                    $("#ddlApplicantGender").trigger('change');
-                    $("#ddlApplicantType").text("Guarantor");
-                    //$("#popApplicant").PopupWindow("setTitle", "Edit Guarantor");
-                    //$("#popApplicant").PopupWindow("open");
-                    var modal = $(popApplicant);
-                    modal.find('.modal-title').text('Edit Guarantor');
-                    $("#popApplicant").modal("show");
-                    $("#appphone").addClass("hidden");
-                    $("#appemail").removeClass("hidden");
-                    // $("#apprelationship").removeClass("hidden");
-                    $('#txtGDateOfBirth').removeClass("hidden");
-                    $('#txtMDateOfBirth').addClass("hidden");
-                    $('#txtADateOfBirth').addClass("hidden");
-                    $('#txtHDateOfBirth').addClass("hidden");
-                    $("#txtGDateOfBirth").val(response.model.DateOfBirthTxt);
-                    $//("#ddlGRelationship").removeClass("hidden");
-                    //$("#ddlGRelationship").val(response.model.Relationship).change();
-                    //$("#ddlARelationship").addClass("hidden");
-                    $("#ddlARelationship").empty();
-                    var opt = "<option value='0'>Select Relationship</option>";
-                    opt += "<option value='1'>Family</option>";
-                    opt += "<option value='2'>Friend</option>";
-                    $("#ddlARelationship").append(opt);
-                    $("#ddlARelationship").val(response.model.Relationship).change();
-                    //var dtGApp = new Date();
-                    //dtGApp.setFullYear(new Date().getFullYear() - 18);
-                    //$('#txtGDateOfBirth').datepicker({ endDate: dtGApp, autoclose: true });
-                    $("#txtApplicantOtherGender").val(response.model.OtherGender);
-                }
-            }
-        });
-
-    }
-};
-var clearApplicant = function () {
-    $("#hndApplicantID").val(0);
-    $("#txtApplicantFirstName").val("");
-    $("#txtApplicantLastName").val("");
-    $("#txtApplicantSSNNumber").val("");
-    $("#txtApplicantIDNumber").val("");
-
-    $("#txtApplicantPhone").val("");
-    $("#txtApplicantEmail").val("");
-    $("#ddlApplicantGender").val(0);
-    $('#txtMDateOfBirth').val("");
-    $('#txtADateOfBirth').val("");
-    $('#txtHDateOfBirth').val("");
-    $('#txtGDateOfBirth').val("");
-    $("#ddlApplicantDocumentTypePersonal").val(0);
-    $("#ddlApplicantStateDoc").val(0);
-    $("#txtAddressLine1").val("");
-    $("#txtAddressLine2").val("");
-    $("#ddlApplicantState").val(0);
-    $("#txtApplicantCountry").val(0);
-    $("#txtApplicantCity").val("");
-    $("#txtApplicantZip2").val("");
-}
 var saveupdatePet = function () {
     $("#divLoader").show();
     var msg = "";
@@ -6445,6 +6339,8 @@ var getTenantPetPlaceData = function () {
 
 var onFocusApplyNow = function () {
 
+
+
     $("#txtApplicantPhone").focusout(function () {
         var phoneNum = $("#txtApplicantPhone").val();
         //if (phoneNum.length < 10) {
@@ -7506,23 +7402,7 @@ var ddlReferredByAnotherResidentFunction = function () {
         $('#txtReferredByAnotherResidentName').prop("disabled", "disabled");
     }
 };
-var ddlDocumentTypePersonal = function (id) {
-    $('#ddlDocumentTypePersonal').empty();
-    var option = '<option value="0">Select</option>';
-    option += '<option value="1">Drivers License</option>';
-    option += '<option value="2">Military ID</option>';
-    option += '<option value="4">State Issued ID</option>';
-    $('#divIDState').removeClass("hidden");
-    if (id == '0') {
-        option += '<option value="3">Passport</option>';
-    }
-    else {
-        $('#divIDState').addClass("hidden");
-    }
 
-    $('#ddlDocumentTypePersonal').append(option);
-    $('#ddlDocumentTypePersonal').val($("#hndDocumentTypePersonal").val());
-}
 var getPreviousAddressInfo = function (id) {
     $("#divLoaderFullData").show();
     var model = {
@@ -7624,3 +7504,28 @@ var getEncDecValue = function (txtBox, encdec) {
         });
     }
 };
+var ddlDocumentTypePersonal = function (id) {
+    $('#ddlDocumentTypePersonal').empty();
+    var option = '<option value="0">Select</option>';
+    option += '<option value="1">Drivers License</option>';
+    option += '<option value="2">Military ID</option>';
+    option += '<option value="4">State Issued ID</option>';
+    $('#divIDState').removeClass("hidden");
+    if (id == '0') {
+        option += '<option value="3">Passport</option>';
+    }
+    else {
+        $('#divIDState').addClass("hidden");
+    }
+    $('#ddlDocumentTypePersonal').append(option);
+    $('#ddlDocumentTypePersonal').val($("#hndDocumentTypePersonal").val());
+
+    $('#ddlApplicantDocumentTypePersonal').empty();
+    var optionNew = '<option value="0">Select</option>';
+    optionNew += '<option value="1">Drivers License</option>';
+    optionNew += '<option value="2">Military ID</option>';
+    optionNew += '<option value="4">State Issued ID</option>';
+
+    $('#ddlApplicantDocumentTypePersonal').append(optionNew);
+    $('#ddlApplicantDocumentTypePersonal').val($("#hndDocumentTypePersonal").val());
+}

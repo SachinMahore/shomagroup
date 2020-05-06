@@ -26,6 +26,8 @@
 <input type="hidden" id="hndProcessingFees" value="@(Model.ProcessingFees)" />
 <input type="hidden" id="hndAdditionalParking" value="@(Model.AdditionalParking)" />
 <input type="hidden" id="hndDocumentTypePersonal" value="0" />
+<input type="hidden" id="hndCreditPaid" value="@Model.CreditPaid" />
+<input type="hidden" id="hndMonthlyCharges" value="@Model.MonthlyCharges" />
 @*Sachin Mahore 21 Apr 2020*@
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
@@ -1245,15 +1247,25 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="col-sm-12 @(Model.CreditPaid != 0 ? "hidden" : "")">
+                                <h3 class="panel-title pull-right">Please Pay Credit Check Fees, Please check mail for more detail.</h3>
+                            </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
                                     <button type="submit" class="btn btn-primary" onclick="goToStep(6,6,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(9,9,0)"> Continue</button>
+                                    <button type="submit" class="btn btn-primary @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnext" onclick="goToStep(9,9,0)"> Continue</button>
                                 </div>
                             </div>
+                            @*<div class="col-sm-12">
+                                    <div class="pull-left text-center">
+                                        <button type="submit" class="btn btn-primary" onclick="goToStep(6,6,0)"> Back</button>
+                                    </div>
+                                    <div class="pull-right text-center">
+                                        <button type="submit" class="btn btn-primary guarConti" id="btnnext" onclick="goToStep(9,9,0)" disabled> Continue</button>
+                                    </div>
+                                </div>*@
                         </div>
                     </div>
                     <div class="hidden" id="step8">
@@ -2849,34 +2861,34 @@
 
                                             </div>
                                             @*<div class="col-sm-12">
-                                <div class="col-sm-4">
-                                    <span id="">Landlord Name : </span>
-                                </div>
-                                <div class="col-sm-8">
-                                    <span id="sdd">211212</span>
-                                </div>
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Name : </span>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="col-sm-4">
-                                    <span id="">Landlord Phone : </span>
-                                </div>
-                                <div class="col-sm-8">
-                                    <span id="sdd">211212</span>
-                                </div>
-
-
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="col-sm-4">
-                                    <span id="">Landlord Email : </span>
-                                </div>
-                                <div class="col-sm-2">
-                                    <span id="sdd">211212</span>
-                                </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Phone : </span>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
 
-                            </div>*@
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Email : </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
+
+
+                                                </div>*@
                                         </div>
                                     </div>
 
@@ -2962,41 +2974,41 @@
                                                 </div>
                                             </div>
                                             @*<div class="col-sm-12">
-                                <div class="col-sm-4">
-                                    <span id="">Landlord Name : </span>
-                                </div>
-                                <div class="col-sm-2">
-                                    <span id="sdd">211212</span>
-                                </div>
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Name : </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
-                                <div class="col-sm-6">
-                                    <span id="">&nbsp;</span>
-                                </div>
-                            </div>*@
+                                                    <div class="col-sm-6">
+                                                        <span id="">&nbsp;</span>
+                                                    </div>
+                                                </div>*@
                                             @*<div class="col-sm-12">
-                                <div class="col-sm-4">
-                                    <span id="">Landlord Phone : </span>
-                                </div>
-                                <div class="col-sm-2">
-                                    <span id="sdd">211212</span>
-                                </div>
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Phone : </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
-                                <div class="col-sm-6">
-                                    <span id="">&nbsp;</span>
-                                </div>
-                            </div>*@
+                                                    <div class="col-sm-6">
+                                                        <span id="">&nbsp;</span>
+                                                    </div>
+                                                </div>*@
                                             @*<div class="col-sm-12">
-                                <div class="col-sm-4">
-                                    <span id="">Landlord Email : </span>
-                                </div>
-                                <div class="col-sm-2">
-                                    <span id="sdd">211212</span>
-                                </div>
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Email : </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
-                                <div class="col-sm-6">
-                                    <span id="">&nbsp;</span>
-                                </div>
-                            </div>*@
+                                                    <div class="col-sm-6">
+                                                        <span id="">&nbsp;</span>
+                                                    </div>
+                                                </div>*@
                                         </div>
                                     </div>
 
@@ -3090,17 +3102,17 @@
                                                 </div>
                                             </div>
                                             @*<div class="col-sm-12">
-                                <div class="col-sm-4">
-                                    <span id="">Gross Monthly Additional Income Source : </span>
-                                </div>
-                                <div class="col-sm-2">
-                                    <span id="sdd">211212</span>
-                                </div>
+                                                    <div class="col-sm-4">
+                                                        <span id="">Gross Monthly Additional Income Source : </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
-                                <div class="col-sm-6">
-                                    <span id="">&nbsp;</span>
-                                </div>
-                            </div>*@
+                                                    <div class="col-sm-6">
+                                                        <span id="">&nbsp;</span>
+                                                    </div>
+                                                </div>*@
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4">
                                                     <span id="">Employer Phone : </span>
@@ -3562,7 +3574,7 @@
                                 </div>
                                 <div id="carddetails" class="example_content">
                                     <div class="col-sm-12 table-bordered">
-                                 
+
 
                                     </div>
                                     <div class="col-sm-12">
@@ -3674,7 +3686,7 @@
                                 </div>
 
                                 <div class="col-sm-12 hidden" id="Divtranslist">
-                                   
+
                                     <div class="col-sm-12">
                                         <table id="tblTransaction" class="table-bordered table-responsive hidden" width="100%">
                                             <thead>
@@ -3713,7 +3725,7 @@
 
                             <div class="col-sm-12">
                                 <p><center><b>CONGRATULATIONS!!</b> You have completed your Online Application.</center></p>
-                                
+
                                 <div class="col-md-12 clear hidden">
                                     <div id="tblApplicantFinal" class="proerty-th">
                                     </div>

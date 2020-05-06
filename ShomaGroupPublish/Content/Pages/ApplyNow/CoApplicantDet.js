@@ -5,6 +5,7 @@ var tenantOnlineID = 0;
 //Sachin Mahore 21 Apr 2020
 $(document).ready(function () {
     onFocusApplyNow();
+    isCreditPaidBackgroundPaid();
     localStorage.removeItem("CheckReload");
     fillMarketSourceDDLA();
 
@@ -170,7 +171,7 @@ $(document).ready(function () {
         }
 
     };
-    
+
     if ($("#chkAgreeTermsPolicy").is(":checked")) {
         $("#policyStart").attr("disabled", true);
         InnerPolicyCheck();
@@ -297,7 +298,7 @@ $(document).ready(function () {
     getPreviousAddressInfo(tenantOnlineID);
     getPreviousEmployementInfo(tenantOnlineID);
 
-   
+
     $("#txtCountry").on('change', function (evt, params) {
         var selected = $(this).val();
         if (selected != null) {
@@ -336,7 +337,7 @@ $(document).ready(function () {
         addParkingArray = [];
         $("#popParking").PopupWindow("open");
     });
-  
+
     $("#btnFob").on("click", function (event) {
         fillFOBList();
         $("#popFobs").PopupWindow("open");
@@ -483,6 +484,13 @@ $(document).ready(function () {
             //$("#appGenderOther").addClass("hidden");
         }
         $("#txtApplicantOtherGender").val("");
+
+        if ($("#ddlApplicantGender").val() == '2') {
+            $("#lblApplicantMiddleName").addClass("star");
+        }
+        else {
+            $("#lblApplicantMiddleName").removeClass("star");
+        }
     });
     var d = $('#txtAvailableDate').text();
     var date = new Date(d);
@@ -562,7 +570,7 @@ var goToStep = function (stepid, id, calldataupdate) {
 
         if (id == "6") {
             $("#subMenu").addClass("hidden");
-         
+
             $('#lblRFPAdditionalParking').text($('#lblMonthly_AditionalParking').text());
             $('#lblRFPStorageUnit').text($('#lblMonthly_Storage').text());
             $('#lblRFPPetRent').text($('#lblMonthly_PetRent').text());
@@ -813,13 +821,13 @@ var goToStep = function (stepid, id, calldataupdate) {
                 }
             } else {
                 if ($("#ddlStatePersonal").val() == "0") {
-                msg += "Please Select The State </br>";
-            }
+                    msg += "Please Select The State </br>";
+                }
             }
             if ($("#ddlDocumentTypePersonal").val() == "0") {
                 msg += "Please Select The Id Type </br>";
             }
-            
+
             if (!$("#txtIDNumber").val()) {
                 msg += "Please Fill The  Id Number </br>";
             }
@@ -1031,7 +1039,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             }
         }
     }
- 
+
     if (stepid == "13") {
 
         if (id == "13") {
@@ -1189,7 +1197,7 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
     }
     if (stepid == "14") {
-       
+
         if (id == "14") {
 
             $("#step2").addClass("hidden");
@@ -1225,122 +1233,122 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
     }
     if (stepid == "15") {
-        
+
         if (id == "15") {
-           
-                $("#subMenu").removeClass("hidden");
-               // SaveUpdateStep(15);
-                tenantOnlineID = $("#hdnOPId").val();
-                getFillSummary(tenantOnlineID);
-                getPreviousAddressInfo(tenantOnlineID);
-                getPreviousEmployementInfo(tenantOnlineID);
 
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").addClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").addClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").addClass("hidden");
-                $("#step10").addClass("hidden");
-                $("#step11").addClass("hidden");
-                $("#step12").addClass("hidden");
-                $("#step13").addClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").removeClass("hidden");
-                $("#step16").addClass("hidden");
-                $("#step17").addClass("hidden");
+            $("#subMenu").removeClass("hidden");
+            // SaveUpdateStep(15);
+            tenantOnlineID = $("#hdnOPId").val();
+            getFillSummary(tenantOnlineID);
+            getPreviousAddressInfo(tenantOnlineID);
+            getPreviousEmployementInfo(tenantOnlineID);
 
-                $("#li15").addClass("active");
-                $("#li8").removeClass("active");
-                $("#li9").removeClass("active");
-                $("#li7").removeClass("active");
-                $("#li11").removeClass("active");
-                $("#li12").removeClass("active");
-                $("#li13").removeClass("active");
-                $("#li14").removeClass("active");
-                $("#li10").removeClass("active");
-                $("#li16").removeClass("active");
-                $("#li17").removeClass("active");
-            
+            $("#step2").addClass("hidden");
+            $("#step1").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+            $("#step13").addClass("hidden");
+            $("#step14").addClass("hidden");
+            $("#step15").removeClass("hidden");
+            $("#step16").addClass("hidden");
+            $("#step17").addClass("hidden");
+
+            $("#li15").addClass("active");
+            $("#li8").removeClass("active");
+            $("#li9").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+            $("#li13").removeClass("active");
+            $("#li14").removeClass("active");
+            $("#li10").removeClass("active");
+            $("#li16").removeClass("active");
+            $("#li17").removeClass("active");
+
         }
     }
     if (stepid == "16") {
-       
+
         if (id == "16") {
             var msgmm = '';
-            
-           
-               // SaveUpdateStep(16);
-                $("#subMenu").removeClass("hidden");
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").addClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").addClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").addClass("hidden");
-                $("#step10").addClass("hidden");
-                $("#step11").addClass("hidden");
-                $("#step12").addClass("hidden");
-                $("#step13").addClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").removeClass("hidden");
-                $("#step17").addClass("hidden");
 
-                $("#li16").addClass("active");
-                $("#li8").removeClass("active");
-                $("#li9").removeClass("active");
-                $("#li7").removeClass("active");
-                $("#li11").removeClass("active");
-                $("#li12").removeClass("active");
-                $("#li13").removeClass("active");
-                $("#li14").removeClass("active");
-                $("#li15").removeClass("active");
-                $("#li10").removeClass("active");
-                $("#li17").removeClass("active");
-            
+
+            // SaveUpdateStep(16);
+            $("#subMenu").removeClass("hidden");
+            $("#step2").addClass("hidden");
+            $("#step1").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+            $("#step13").addClass("hidden");
+            $("#step14").addClass("hidden");
+            $("#step15").addClass("hidden");
+            $("#step16").removeClass("hidden");
+            $("#step17").addClass("hidden");
+
+            $("#li16").addClass("active");
+            $("#li8").removeClass("active");
+            $("#li9").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+            $("#li13").removeClass("active");
+            $("#li14").removeClass("active");
+            $("#li15").removeClass("active");
+            $("#li10").removeClass("active");
+            $("#li17").removeClass("active");
+
         }
     }
     if (stepid == "17") {
-      
-            if (id == "17") {
-               // SaveUpdateStep(17);
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").addClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").addClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").addClass("hidden");
-                $("#step10").addClass("hidden");
-                $("#step11").addClass("hidden");
-                $("#step12").addClass("hidden");
-                $("#step13").addClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").addClass("hidden");
-                $("#step17").removeClass("hidden");
 
-                $("#li17").addClass("active");
-                $("#li8").removeClass("active");
-                $("#li9").removeClass("active");
-                $("#li7").removeClass("active");
-                $("#li11").removeClass("active");
-                $("#li12").removeClass("active");
-                $("#li13").removeClass("active");
-                $("#li14").removeClass("active");
-                $("#li15").removeClass("active");
-                $("#li16").removeClass("active");
-                $("#li10").removeClass("active");
-            
+        if (id == "17") {
+            // SaveUpdateStep(17);
+            $("#step2").addClass("hidden");
+            $("#step1").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+            $("#step13").addClass("hidden");
+            $("#step14").addClass("hidden");
+            $("#step15").addClass("hidden");
+            $("#step16").addClass("hidden");
+            $("#step17").removeClass("hidden");
+
+            $("#li17").addClass("active");
+            $("#li8").removeClass("active");
+            $("#li9").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+            $("#li13").removeClass("active");
+            $("#li14").removeClass("active");
+            $("#li15").removeClass("active");
+            $("#li16").removeClass("active");
+            $("#li10").removeClass("active");
+
         }
     }
 };
@@ -3266,7 +3274,7 @@ var getTransationLists = function (userid) {
                 paidamt += parseFloat(elementValue.Charge_Amount);
             });
 
-          
+
         }
     });
 }
@@ -3299,7 +3307,7 @@ var fillUnitParkingListCoApp = function () {
         data: JSON.stringify(model),
         dataType: "json",
         success: function (response) {
-           
+
             $("#divLoader").hide();
             if ($.trim(response.error) != "") {
                 //this.cancelChanges();
@@ -3782,8 +3790,8 @@ var saveupdateStorage = function () {
 var addApplicant = function (at) {
     var modal = $("#popApplicant");
     if (at == 1) {
-        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
-        modal.find('.modal-content').css("height", "610px");
+        $("#appphone,#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
+        modal.find('.modal-content').css("height", "350px");
         modal.find('.modal-title').text('Add Co-Applicant');
         $("#popApplicant").modal("show");
         $("#ddlApplicantType").text("Co-Applicant");
@@ -3805,7 +3813,7 @@ var addApplicant = function (at) {
         $('#txtMDateOfBirth').addClass("hidden");
         $('#txtGDateOfBirth').addClass('hidden');
 
-        $("#appphone").removeClass("hidden");
+        $("#appphone").addClass("hidden");
         $("#appemail").removeClass("hidden");
         $("#txtApplicantPhone").val("");
         $("#txtApplicantEmail").val("");
@@ -3824,6 +3832,7 @@ var addApplicant = function (at) {
         $("#ddlApplicantState").val(0).change();
         $("#txtApplicantCity").val("");
         $("#txtApplicantZip2").val("");
+        $("#hndNewCoApp").val("1");
     }
     else if (at == 2) {
         $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
@@ -3930,24 +3939,29 @@ var saveupdateApplicant = function () {
     if (type == "Co-Applicant") {
         checkEmail = 1;
         var dob = $("#txtADateOfBirth").val();
-        if (!applicantSSNNumber) {
-            msg += "Enter SSN Number</br>";
-        } if (!applicantIDNumber) {
-            msg += "Enter ID Number</br>";
-        } if (applicantIDType <= 0) {
-            msg += "Select ID Type</br>";
-        } if (applicantStateDoc <= 0) {
-            msg += "Select State of issuence</br>";
-        } if (!addressLine1) {
-            msg += "Enter Address Line 1</br>";
-        } if (!applicantState) {
-            msg += "Enter State </br>";
-        } if (applicantCountry <= 0) {
-            msg += "Select Country</br>";
-        } if (applicantCity <= 0) {
-            msg += "Enter the City</br>";
-        } if (applicantApplicantZip2 <= 0) {
-            msg += "Select Zip</br>";
+        if ($("#hndNewCoApp").val() == "1") {
+
+        }
+        else {
+            if (!applicantSSNNumber) {
+                msg += "Enter SSN Number</br>";
+            } if (!applicantIDNumber) {
+                msg += "Enter ID Number</br>";
+            } if (applicantIDType <= 0) {
+                msg += "Select ID Type</br>";
+            } if (applicantStateDoc <= 0) {
+                msg += "Select State of issuence</br>";
+            } if (!addressLine1) {
+                msg += "Enter Address Line 1</br>";
+            } if (!applicantState) {
+                msg += "Enter State </br>";
+            } if (applicantCountry <= 0) {
+                msg += "Select Country</br>";
+            } if (applicantCity <= 0) {
+                msg += "Enter the City</br>";
+            } if (applicantApplicantZip2 <= 0) {
+                msg += "Select Zip</br>";
+            }
         }
     } else if (type == "Minor") {
         dob = $("#txtMDateOfBirth").val();
@@ -4003,6 +4017,7 @@ var saveupdateApplicant = function () {
                 msg += "Please Fill Valid Email </br>";
             }
         }
+
     }
 
     if (!dob) {
@@ -4140,14 +4155,49 @@ var getApplicantLists = function () {
                 var prhtml = '';
                 var pprhtml = '';
                 var emailhtml = '';
-                if (elementValue.Type != "Primary Applicant") {
+                if (elementValue.ApplicantUserId == $('#hndCoAppUserId').val()) {
                     html += "<div class='col-sm-4 box-two proerty-item' id='div_" + elementValue.ApplicantID + "'>" +
                         "<div class='form-group col-sm-3'><br>" +
                         "<img src='/Content/assets/img/user.png'></div>" +
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
                         "<label> " + elementValue.Type + " </label><br/>" +
-                        "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: In progress</b></label></center></div>" +
-                        "</div></div>";
+                        "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
+                        //"<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>" +
+                        "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: " + ComplStatus+"</b></label></center></div>" +
+                        "</div></div>"
+                }
+                else if (elementValue.ApplicantAddedBy == $('#hndCoAppUserId').val()) {
+                    html += "<div class='col-sm-4 box-two proerty-item' id='div_" + elementValue.ApplicantID + "'>" +
+                        "<div class='form-group col-sm-3'><br>" +
+                        "<img src='/Content/assets/img/user.png'></div>" +
+                        "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
+                        "<label> " + elementValue.Type + " </label><br/>" +
+                        "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
+                        "<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>" +
+                        "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: " + ComplStatus +"</b></label></center></div>" +
+                        "</div></div>"
+                }
+                else if (elementValue.Type != "Primary Applicant") {
+                    if ((elementValue.ApplicantAddedBy == $('#hndCoAppUserId').val()) && (elementValue.Type == "Minor")) {
+                        html += "<div class='col-sm-4 box-two proerty-item' id='div_" + elementValue.ApplicantID + "'>" +
+                            "<div class='form-group col-sm-3'><br>" +
+                            "<img src='/Content/assets/img/user.png'></div>" +
+                            "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
+                            "<label> " + elementValue.Type + " </label><br/>" +
+                            "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
+                            "<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>" +
+                            "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status:  " + ComplStatus +"</b></label></center></div>" +
+                            "</div></div>"
+                    }
+                    else {
+                        html += "<div class='col-sm-4 box-two proerty-item' id='div_" + elementValue.ApplicantID + "'>" +
+                            "<div class='form-group col-sm-3'><br>" +
+                            "<img src='/Content/assets/img/user.png'></div>" +
+                            "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
+                            "<label> " + elementValue.Type + " </label><br/>" +
+                            "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status:  " + ComplStatus +"</b></label></center></div>" +
+                            "</div></div>";
+                    }
                 }
                 else {
                     html += "<div class='col-sm-4 box-two proerty-item'>" +
@@ -4156,7 +4206,7 @@ var getApplicantLists = function () {
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
 
                         "<label>Primary Applicant</label><br/>" +
-                        "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: In progress</b></label></center></div>" +
+                        "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status:  " + ComplStatus +"</b></label></center></div>" +
                         "</div></div>";
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
@@ -4386,7 +4436,7 @@ var getApplicantLists = function () {
 
             });
             $.ajax({
-                url: "/Applicant/GetApplicantList",
+                url: "/Applicant/GetCoApplicantList",
                 type: "post",
                 contentType: "application/json utf-8",
                 data: JSON.stringify(model),
@@ -4577,55 +4627,88 @@ var goToEditApplicant = function (aid) {
 
                 }
                 else if (response.model.Type == "Co-Applicant") {
-                    $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
-                    modal.find('.modal-content').css("height", "610px");
-                    modal.find('.modal-title').text('Edit Co-Applicant');
-                    $("#popApplicant").modal("show");
-                    $("#ddlApplicantType").text("Co-Applicant");
-                    $("#ddlARelationship").empty();
-                    opt = "<option value='0'>Select Relationship</option>";
-                    opt += "<option value='1'>Spouse</option>";
-                    opt += "<option value='2'>Partner</option>";
-                    opt += "<option value='3'>Adult Child</option>";
-                    opt += "<option value='4'>Friend/Roommate</option>";
-                    $("#ddlARelationship").append(opt);
-                    $("#ddlARelationship").val(response.model.Relationship).change();
+                    if (response.model.ApplicantAddedBy == $('#hndCoAppUserId').val()) {
+                        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
+                        modal.find('.modal-content').css("height", "300px");
+                        modal.find('.modal-title').text('Edit Minor');
+                        $("#popApplicant").modal("show");
+                        $("#ddlApplicantType").text("Minor");
+                        $("#ddlARelationship").empty();
+                        opt = "<option value='0'>Select Relationship</option>";
+                        opt += "<option value='1'>Family Member</option>";
+                        opt += "<option value='2'>Child</option>";
+                        $("#ddlARelationship").append(opt);
+                        $("#ddlARelationship").val(response.model.Relationship).change();
 
-                    $("#ddlApplicantGender").val(response.model.Gender);
-                    $("#ddlApplicantGender").trigger('change');
-                    if (response.model.OtherGender == '3') {
-                        $("#txtApplicantOtherGender").val(response.model.OtherGender);
+                        $("#ddlApplicantGender").val(response.model.Gender);
+                        $("#ddlApplicantGender").trigger('change');
+                        if (response.model.OtherGender == '3') {
+                            $("#txtApplicantOtherGender").val(response.model.OtherGender);
+                        }
+                        else {
+                            $("#txtApplicantOtherGender").val('');
+                        }
+
+                        $("#txtMDateOfBirth").removeClass("hidden").val(response.model.DateOfBirthTxt);
+                        $('#txtHDateOfBirth').addClass("hidden");
+                        $('#txtADateOfBirth').addClass("hidden");
+                        $('#txtGDateOfBirth').addClass('hidden');
+
+                        $("#appphone").addClass("hidden");
+                        $("#appemail").addClass("hidden");
+                        $("#hndNewCoApp").val("1");
                     }
                     else {
-                        $("#txtApplicantOtherGender").val('');
+                        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
+                        modal.find('.modal-content').css("height", "610px");
+                        modal.find('.modal-title').text('Edit Co-Applicant');
+                        $("#popApplicant").modal("show");
+                        $("#ddlApplicantType").text("Co-Applicant");
+                        $("#ddlARelationship").empty();
+                        opt = "<option value='0'>Select Relationship</option>";
+                        opt += "<option value='1'>Spouse</option>";
+                        opt += "<option value='2'>Partner</option>";
+                        opt += "<option value='3'>Adult Child</option>";
+                        opt += "<option value='4'>Friend/Roommate</option>";
+                        $("#ddlARelationship").append(opt);
+                        $("#ddlARelationship").val(response.model.Relationship).change();
+
+                        $("#ddlApplicantGender").val(response.model.Gender);
+                        $("#ddlApplicantGender").trigger('change');
+                        if (response.model.OtherGender == '3') {
+                            $("#txtApplicantOtherGender").val(response.model.OtherGender);
+                        }
+                        else {
+                            $("#txtApplicantOtherGender").val('');
+                        }
+
+                        $("#txtADateOfBirth").removeClass("hidden").val(response.model.DateOfBirthTxt);
+                        $('#txtHDateOfBirth').addClass("hidden");
+                        $('#txtMDateOfBirth').addClass("hidden");
+                        $('#txtGDateOfBirth').addClass('hidden');
+
+                        $("#appphone").removeClass("hidden");
+                        $("#appemail").removeClass("hidden");
+                        $("#txtApplicantPhone").val(formatPhoneFax(response.model.Phone));
+                        $("#txtApplicantEmail").val(response.model.Email);
+
+                        $("#txtApplicantSSNNumber").val(response.model.SSN);
+                        $("#txtApplicantSSNNumber").attr("data-value", response.model.SSNEnc);
+
+                        $("#ddlApplicantDocumentTypePersonal").val(response.model.IDType).change();
+                        $("#ddlApplicantStateDoc").val(response.model.State).change();
+                        $("#txtApplicantIDNumber").val(response.model.IDNumber);
+                        $("#txtApplicantIDNumber").attr("data-value", response.model.IDNumberEnc);
+
+                        $("#txtApplicantCountry").val(response.model.Country);
+                        $("#txtApplicantCountry").trigger('change');
+                        $("#txtAddressLine1").val(response.model.HomeAddress1);
+                        $("#txtAddressLine2").val(response.model.HomeAddress2);
+                        $("#ddlApplicantState").val(response.model.StateHome).change();
+                        $("#txtApplicantCity").val(response.model.CityHome);
+                        $("#txtApplicantZip2").val(response.model.ZipHome);
+                        $("#hndNewCoApp").val("0");
                     }
-
-                    $("#txtADateOfBirth").removeClass("hidden").val(response.model.DateOfBirthTxt);
-                    $('#txtHDateOfBirth').addClass("hidden");
-                    $('#txtMDateOfBirth').addClass("hidden");
-                    $('#txtGDateOfBirth').addClass('hidden');
-
-                    $("#appphone").removeClass("hidden");
-                    $("#appemail").removeClass("hidden");
-                    $("#txtApplicantPhone").val(formatPhoneFax(response.model.Phone));
-                    $("#txtApplicantEmail").val(response.model.Email);
-
-                    $("#txtApplicantSSNNumber").val(response.model.SSN);
-                    $("#txtApplicantSSNNumber").attr("data-value", response.model.SSNEnc);
-
-                    $("#ddlApplicantDocumentTypePersonal").val(response.model.IDType).change();
-                    $("#ddlApplicantStateDoc").val(response.model.State).change();
-                    $("#txtApplicantIDNumber").val(response.model.IDNumber);
-                    $("#txtApplicantIDNumber").attr("data-value", response.model.IDNumberEnc);
-
-                    $("#txtApplicantCountry").val(response.model.Country);
-                    $("#txtApplicantCountry").trigger('change');
-                    $("#txtAddressLine1").val(response.model.HomeAddress1);
-                    $("#txtAddressLine2").val(response.model.HomeAddress2);
-                    $("#ddlApplicantState").val(response.model.StateHome).change();
-                    $("#txtApplicantCity").val(response.model.CityHome);
-                    $("#txtApplicantZip2").val(response.model.ZipHome);
-
                 }
                 else if (response.model.Type == "Guarantor") {
                     $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
@@ -8094,6 +8177,20 @@ var getPreviousEmployementInfo = function (id) {
     });
 };
 var ddlDocumentTypePersonalCoapplicant = function (id) {
+    //$('#ddlDocumentTypePersonal').empty();
+    //var option = '<option value="0">Select</option>';
+    //option += '<option value="1">Drivers License</option>';
+    //option += '<option value="2">Military ID</option>';
+    //option += '<option value="4">State Issued ID</option>';
+    //$('#divIDState').removeClass("hidden");
+    //if (id == '0') {
+    //    option += '<option value="3">Passport</option>';
+    //}
+    //else {
+    //    $('#divIDState').addClass("hidden");
+    //}
+    //$('#ddlDocumentTypePersonal').append(option);
+    //$('#ddlDocumentTypePersonal').val($("#hndDocumentTypePersonal").val());
     $('#ddlDocumentTypePersonal').empty();
     var option = '<option value="0">Select</option>';
     option += '<option value="1">Drivers License</option>';
@@ -8108,6 +8205,15 @@ var ddlDocumentTypePersonalCoapplicant = function (id) {
     }
     $('#ddlDocumentTypePersonal').append(option);
     $('#ddlDocumentTypePersonal').val($("#hndDocumentTypePersonal").val());
+
+    $('#ddlApplicantDocumentTypePersonal').empty();
+    var optionNew = '<option value="0">Select</option>';
+    optionNew += '<option value="1">Drivers License</option>';
+    optionNew += '<option value="2">Military ID</option>';
+    optionNew += '<option value="4">State Issued ID</option>';
+
+    $('#ddlApplicantDocumentTypePersonal').append(optionNew);
+    $('#ddlApplicantDocumentTypePersonal').val($("#hndDocumentTypePersonal").val());
 }
 
 var printSummary = function () {
@@ -8159,3 +8265,38 @@ var getEncDecValue = function (txtBox, encdec) {
         });
     }
 };
+
+var isCreditPaidBackgroundPaid = function () {
+    $("#divLoader").show();
+    var model = {
+        TenantID: $("#hdnOPId").val()
+    };
+    $.ajax({
+        url: '/Applicant/IsCreditPaidBackgroundPaid',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+            if (response.Msg.CreditPaid == "0") {
+                $("#btnCreditPaidContinue").addClass("hidden");
+                $("#divCreditPaidContinue").removeClass("hidden");
+                $("#ali8,#ali9,#ali10,#ali11,#ali12,#ali13,#ali14,#ali15,#ali16").removeAttr("onclick");
+            }
+            else {
+                $("#btnCreditPaidContinue").removeClass("hidden");
+                $("#divCreditPaidContinue").addClass("hidden");
+                $("#ali8").attr("onclick", "goToStep(8,8,0)");
+                $("#ali9").attr("onclick", "goToStep(9,9,0)");
+                $("#ali10").attr("onclick", "goToStep(10,10,0)");
+                $("#ali11").attr("onclick", "goToStep(11,11,0)");
+                $("#ali12").attr("onclick", "goToStep(12,12,0)");
+                $("#ali13").attr("onclick", "goToStep(13,13,0)");
+                $("#ali14").attr("onclick", "goToStep(14,14,0)");
+                $("#ali15").attr("onclick", "goToStep(15,15,0)");
+                $("#ali16").attr("onclick", "goToStep(16,16,0)");
+            }
+        }
+    });
+}

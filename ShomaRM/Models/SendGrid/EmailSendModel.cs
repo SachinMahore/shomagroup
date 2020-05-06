@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Data;
 using System.Data.Common;
+using LoggerEngine;
 
 namespace ShomaRM.Models
 {
@@ -33,16 +34,18 @@ namespace ShomaRM.Models
                 try
                 {
                     SendAsync(myMessage, s_username, s_password);
+                    LoggingHelper.LogMessage("Success", System.Diagnostics.TraceLevel.Info);
                 }
                 catch (Exception ex)
                 {
+                    LoggingHelper.LogMessage(ex, System.Diagnostics.TraceLevel.Error);
                     throw ex;
+                    
                 }
-
             }
             catch (Exception ex)
             {
-
+                LoggingHelper.LogMessage(ex, System.Diagnostics.TraceLevel.Error);
             }
         }
         void SendAsync(SendGridMessage message, string SGUserName, string SGPassword)
@@ -52,9 +55,11 @@ namespace ShomaRM.Models
             try
             {
                 transportWeb.Deliver(message);
+                LoggingHelper.LogMessage("Success", System.Diagnostics.TraceLevel.Info);
             }
             catch (Exception ex)
             {
+                LoggingHelper.LogMessage(ex, System.Diagnostics.TraceLevel.Error);
                 throw ex;
             }
         }

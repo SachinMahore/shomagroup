@@ -103,5 +103,16 @@ namespace ShomaRM.Areas.Tenant.Controllers
 
 
         }
+        public ActionResult IsCreditPaidBackgroundPaid()
+        {
+            try
+            {
+                return Json(new { Msg = (new ApplicantModel().IsCreditPaidBackgroundPaid()) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
