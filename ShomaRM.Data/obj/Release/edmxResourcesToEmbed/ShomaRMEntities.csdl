@@ -3059,6 +3059,8 @@
     <Property Name="Paid" Type="Int32" />
     <Property Name="AddedBy" Type="Int64" />
     <Property Name="UserID" Type="Int32" />
+    <Property Name="CreditPaid" Type="Int32" />
+    <Property Name="BackGroundPaid" Type="Int32" />
     <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_Applicant" ToRole="tbl_ApplyNow" />
   </EntityType>
   <Association Name="FK_tbl_Applicant_tbl_ApplyNow">

@@ -213,49 +213,64 @@
                     <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "property" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "" : "style=display:none")>
                         <a href="/Admin/PropertyManagement/EditProperty/8">Property</a>
                     </li>
-                    @*<li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "property" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "":"style=display:none")>
-            <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="200">Property <b class="caret"></b></a>
-            <ul class="dropdown-menu navbar-nav">
-                <li>
-                    <a href="/Admin/PropertyManagement/">Property List</a>
-                </li>
-                <li>
-                    <a href="/Admin/PropertyManagement/AddProperty/0">Add New Property</a>
-                </li>
+                    <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "prospectverification" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 ? "" : "style=display:none")>
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="200">Online Process <b class="caret"></b></a>
+                        <ul class="dropdown-menu navbar-nav">
+                            <li>
+                                <a class="" href="~/Admin/ProspectVerification">Online Application</a>
+                            </li>
+                            <li>
+                                <a href="~/Admin/GenerateQuotation/Index/0">Generate Quotation</a>
+                            </li>
+                            <li>
+                                <a class="" href="~/Admin/FobManagement">Pre Moving</a>
+                            </li>
+                        </ul>
+                    </li>
+                    @*<li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "prospectverification" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 ? "" : "style=display:none")>
+                        <a class="" href="~/Admin/ProspectVerification">Online Application</a>
 
-            </ul>
-        </li>*@
-                    <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "prospectverification" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 ? "" : "style=display:none")><a class="" href="~/Admin/ProspectVerification">Online Application</a></li>
+                    </li>*@
                     <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "TwilioSMS" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 ? "" : "style=display:none")><a class="" href="~/Admin/TwilioReceivedSMS">View Received SMS</a></li>
-                    <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "fobmanagement" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 ? "" : "style=display:none")><a class="" href="~/Admin/FobManagement">Pre Moving</a></li>
-                    <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "tenantpetmanagement" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 ? "" : "style=display:none")><a class="" href="~/Admin/TenantPetManagement">Tenant Pet Management</a></li>
+                    @*<li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "fobmanagement" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 ? "" : "style=display:none")><a class="" href="~/Admin/FobManagement">Pre Moving</a></li>*@
+                    @*<li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "tenantpetmanagement" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 ? "" : "style=display:none")><a class="" href="~/Admin/TenantPetManagement">Tenant Pet Management</a></li>*@
                     <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "prospect" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "" : "style=display:none")>
                         <a href="/Admin/ProspectManagement/">Appointment</a>
                         @*<a href="/Admin/ProspectManagement/" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="200" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "":"style=display:none")>Appointment <b class="caret"></b></a>
-            <ul class="dropdown-menu navbar-nav">
-                <li>
-                    <a href="/Admin/ProspectManagement/">Appointment List</a>
-                </li>
-                <li>
-                    <a href="/Admin/ProspectManagement/AddEdit/0">Add New Appointment</a>
-                </li>
-            </ul>*@
+                            <ul class="dropdown-menu navbar-nav">
+                                <li>
+                                    <a href="/Admin/ProspectManagement/">Appointment List</a>
+                                </li>
+                                <li>
+                                    <a href="/Admin/ProspectManagement/AddEdit/0">Add New Appointment</a>
+                                </li>
+                            </ul>*@
                     </li>
 
-                    <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "tenant" ? "active" : "")" data-wow-delay="0.1s">
+                    @*<li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "tenant" ? "active" : "")" data-wow-delay="0.1s">
                         <a href="/Admin/Tenant/" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "" : "style=display:none")>Tenant List</a>
                         @*<a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="200">Tenant <b class="caret"></b></a>
-            <ul class="dropdown-menu navbar-nav">
-                <li>
-                    <a href="/Admin/Tenant/">Tenant List</a>
-                </li>
-                <li>
-                    <a href="/Admin/Tenant/New">Add New Tenant</a>
-                </li>
+                            <ul class="dropdown-menu navbar-nav">
+                                <li>
+                                    <a href="/Admin/Tenant/">Tenant List</a>
+                                </li>
+                                <li>
+                                    <a href="/Admin/Tenant/New">Add New Tenant</a>
+                                </li>
 
-            </ul>*@
+                            </ul>
+                    </li>*@
+                    <li class="dropdown ymm-sw @(ViewBag.ActiveMenu == "tenant" ? "active" : "")" data-wow-delay="0.1s" @(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 1 || ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserType == 2 ? "" : "style=display:none")>
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="200">Tenant<b class="caret"></b></a>
+                        <ul class="dropdown-menu navbar-nav">
+                            <li>
+                                <a class="" href="/Admin/Tenant/">Tenant List</a>
+                            </li>
+                            <li>
+                                <a href="~/Admin/TenantPetManagement">Tenant Pet Management</a>
+                            </li>
+                        </ul>
                     </li>
-
 
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -314,7 +329,7 @@
 </html>
 <style>
     #divLoader {
-        z-index:9999!important;
+        z-index: 9999 !important;
         position: fixed;
         width: 100%;
         left: 0;
@@ -330,7 +345,7 @@
         window.location.href = "../../../Home/Index";
     }
 
-    
+
     $(document).ajaxComplete(function () {
         $("#divLoader").hide();
     });

@@ -25,6 +25,7 @@
 <input type="hidden" id="hndAdditionalParking" value="@(Model.AdditionalParking)" />
 <input type="hidden" id="HndAddParkingCount" value="0" />
 <input type="hidden" id="hndDocumentTypePersonal" value="0" />
+<input type="hidden" id="hndCreditPaid" value="@Model.CreditPaid" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container">
@@ -391,13 +392,13 @@
                                     <input type="text" class="form-control" id="txtEmail" onchange="checkEmailAreadyExist()" value="@Model.Email" placeholder="Email">
                                 </div>
                             </div>
-                            <div class="col-sm-4" id="divSSNNumberReg">
+                            <div class="col-sm-4 hidden" id="divSSNNumberReg">
                                 <div class="form-group">
                                     <label id="lblSSNNumberReg" for="txtSSNNumberReg" class="star">SSN#</label>
                                     <input class="form-control form-control-small" id="txtSSNNumberReg" data-value="" value="" maxlength="9" onkeypress="return isOnlyNumber(event)" />
                                 </div>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-2 hidden">
                                 <div class="form-group">
                                     <label for="ddlIDTypeReg" class="star">Document Type</label>
                                     <select id="ddlIDTypeReg" class=" form-control" style="width:100%!important">
@@ -409,7 +410,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-2 hidden">
                                 <div class="form-group">
                                     <label for="ddlStateIDDocReg" class="star">State</label>
                                     <select id="ddlStateIDDocReg" class=" form-control" style="width:100%!important">
@@ -421,14 +422,14 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-4 hidden">
                                 <div class="form-group">
                                     <label id="lblIDNumberReg" for="txtIDNumberReg" class="star">ID Number</label>
                                     <input class="form-control form-control-small" id="txtIDNumberReg" data-value="" maxlength="25" />
                                 </div>
                             </div>
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-4 hidden">
                                 <div class="form-group">
                                     <label for="txtCountryReg" class="star">Country</label>
                                     <select id="txtCountryReg" class="form-control">
@@ -439,19 +440,19 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-4 hidden">
                                 <div class="form-group">
                                     <label for="txtAddress1Reg" class="star">Address 1</label>
                                     <input id="txtAddress1Reg" type="text" class="form-control form-control-small" maxlength="300" />
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-4 hidden">
                                 <div class="form-group">
                                     <label for="txtAddress2Reg">Address Line 2</label>
                                     <input id="txtAddress2Reg" type="text" class="form-control form-control-small" maxlength="300" />
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-4 hidden">
                                 <div class="form-group">
                                     <label class="star"> State :</label>
                                     <select id="ddlStateReg" class="form-control">
@@ -463,13 +464,13 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-4 hidden">
                                 <div class="form-group">
                                     <label class="star"> City :</label>
                                     <input id="ddlCityReg" type="text" class="form-control form-control-small" maxlength="100" />
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-4 hidden">
                                 <div class="form-group">
                                     <label for="txtZipReg" class="star">Zip</label>
                                     <input class="form-control form-control-small" id="txtZipReg" maxlength="7" />
@@ -1365,13 +1366,15 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="col-sm-12 @(Model.CreditPaid != 0 ? "hidden" : "")">
+                                <h3 class="panel-title pull-right">Please Pay Credit Check Fees, Please check mail for more detail.</h3>
+                            </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
                                     <button type="submit" class="btn btn-primary" onclick="goToStep(6,6,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(8,8,0)"> Continue</button>
+                                    <button type="submit" class="btn btn-primary @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnext" onclick="goToStep(8,8,0)" > Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -2000,19 +2003,19 @@
                             <div class="col-sm-12">
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="txtApartmentCommunity" class="star">Apartment Community</label>
+                                        <label id="lbl_txtApartmentCommunity" class="star">Apartment Community</label>
                                         <input class="form-control form-control-small" id="txtApartmentCommunity" max="500" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="txtManagementCompany" class="star">Management Company</label>
+                                        <label id="lbl_txtManagementCompany" class="star">Management Company</label>
                                         <input class="form-control form-control-small" id="txtManagementCompany" max="500" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="txtManagementCompanyPhone" class="star">Management Company Phone</label>
+                                        <label id="lbl_txtManagementCompanyPhone" class="star">Management Company Phone</label>
                                         <input class="form-control form-control-small" id="txtManagementCompanyPhone" maxlength="10" onkeypress="return isNumber(event)" />
                                     </div>
                                 </div>
@@ -4346,7 +4349,7 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label> Middle Name</label>
+                            <label id="lbl_txtApplicantMiddleName" class=""> Middle Name</label>
                             <input id="txtApplicantMiddleName" type="text" class="form-control" maxlength="100" placeholder="Middle Name" value="">
                         </div>
                     </div>
@@ -4882,19 +4885,19 @@
                 <div class="col-sm-12">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="txtApartmentCommunity2" class="star">Apartment Community</label>
+                            <label id="lbl_txtApartmentCommunity2" class="star">Apartment Community</label>
                             <input class="form-control form-control-small" id="txtApartmentCommunity2" max="500" />
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="txtManagementCompany2" class="star">Management Company</label>
+                            <label id="lbl_txtManagementCompany2" class="star">Management Company</label>
                             <input class="form-control form-control-small" id="txtManagementCompany2" max="500" />
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="txtManagementCompanyPhone2" class="star">Management Company Phone</label>
+                            <label id="lbl_txtManagementCompanyPhone2" class="star">Management Company Phone</label>
                             <input class="form-control form-control-small" id="txtManagementCompanyPhone2" maxlength="10" onkeypress="return isNumber(event)" />
                         </div>
                     </div>
@@ -6173,6 +6176,12 @@
 
 
         $('#ddlApplicantGender').on('change', function () {
+            if ($(this).val() == 2) {
+                $("#lbl_txtApplicantMiddleName").addClass("star");
+            }
+            else {
+                $("#lbl_txtApplicantMiddleName").removeClass("star");
+            }
             if ($(this).val() == '3') {
                 $('#txtApplicantOtherGender').removeAttr('disabled', 'disabled');
             }

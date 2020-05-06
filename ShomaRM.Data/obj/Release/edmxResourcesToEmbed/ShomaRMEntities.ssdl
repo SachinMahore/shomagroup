@@ -80,6 +80,8 @@
     <Property Name="Paid" Type="int" />
     <Property Name="AddedBy" Type="bigint" />
     <Property Name="UserID" Type="int" />
+    <Property Name="CreditPaid" Type="int" />
+    <Property Name="BackGroundPaid" Type="int" />
   </EntityType>
   <EntityType Name="tbl_ApplicantHistory">
     <Key>

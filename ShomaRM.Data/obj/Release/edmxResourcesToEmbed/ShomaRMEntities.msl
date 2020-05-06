@@ -1665,6 +1665,8 @@
     <EntitySetMapping Name="tbl_Applicant">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Applicant">
         <MappingFragment StoreEntitySet="tbl_Applicant">
+          <ScalarProperty Name="BackGroundPaid" ColumnName="BackGroundPaid" />
+          <ScalarProperty Name="CreditPaid" ColumnName="CreditPaid" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
           <ScalarProperty Name="Paid" ColumnName="Paid" />

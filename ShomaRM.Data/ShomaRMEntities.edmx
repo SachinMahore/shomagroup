@@ -85,6 +85,8 @@
           <Property Name="Paid" Type="int" />
           <Property Name="AddedBy" Type="bigint" />
           <Property Name="UserID" Type="int" />
+          <Property Name="CreditPaid" Type="int" />
+          <Property Name="BackGroundPaid" Type="int" />
         </EntityType>
         <EntityType Name="tbl_ApplicantHistory">
           <Key>
@@ -5987,6 +5989,8 @@
           <Property Name="Paid" Type="Int32" />
           <Property Name="AddedBy" Type="Int64" />
           <Property Name="UserID" Type="Int32" />
+          <Property Name="CreditPaid" Type="Int32" />
+          <Property Name="BackGroundPaid" Type="Int32" />
           <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_Applicant" ToRole="tbl_ApplyNow" />
         </EntityType>
         <Association Name="FK_tbl_Applicant_tbl_ApplyNow">
@@ -7671,6 +7675,8 @@
           <EntitySetMapping Name="tbl_Applicant">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Applicant">
               <MappingFragment StoreEntitySet="tbl_Applicant">
+                <ScalarProperty Name="BackGroundPaid" ColumnName="BackGroundPaid" />
+                <ScalarProperty Name="CreditPaid" ColumnName="CreditPaid" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
                 <ScalarProperty Name="Paid" ColumnName="Paid" />
