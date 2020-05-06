@@ -122,6 +122,10 @@ namespace ShomaRM.Areas.Tenant.Models
                 };
                 db.tbl_Login.Add(createCoApplLogin);
                 db.SaveChanges();
+
+                saveApplicant.UserID = createCoApplLogin.UserID;
+                db.SaveChanges();
+
                 if (model.DateOfBirth == Convert.ToDateTime("01/01/0001 12:00:00 AM"))
                 {
                     model.DateOfBirth = null;
