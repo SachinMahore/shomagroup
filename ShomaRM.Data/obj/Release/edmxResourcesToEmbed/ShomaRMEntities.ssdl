@@ -79,6 +79,7 @@
     <Property Name="OtherGender" Type="varchar" MaxLength="100" />
     <Property Name="Paid" Type="int" />
     <Property Name="AddedBy" Type="bigint" />
+    <Property Name="UserID" Type="int" />
   </EntityType>
   <EntityType Name="tbl_ApplicantHistory">
     <Key>

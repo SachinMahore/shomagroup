@@ -36,21 +36,21 @@ namespace ShomaRM.Areas.Tenant.Models
         public Nullable<int> Paid { get; set; }
         public string FeesPaidType { get; set; }
 
-
-        //sachin m 04 May
         public string SSN { get; set; }
+        public string SSNEnc { get; set; }
         public string IDNumber { get; set; }
+        public string IDNumberEnc { get; set; }
         public string Country { get; set; }
         public string HomeAddress1 { get; set; }
         public string HomeAddress2 { get; set; }
         public Nullable<long> StateHome { get; set; }
+        public Nullable<long> State { get; set; }
 
         public string CityHome { get; set; }
         public string ZipHome { get; set; }
-
-        public Nullable<long> AddedBy { get; set; }
         public string MiddleName { get; set; }
 
+        public Nullable<long> AddedBy { get; set; }
         public Nullable<int> IDType { get; set; }
 
         string message = "";
@@ -116,7 +116,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     IsActive = 1,
                     TenantID = 0,
                     IsSuperUser = 0,
-                    UserType = model.Type == "Guarantor" ?34:33,
+                    UserType = model.Type == "Guarantor" ? 34 : 33,
                     ParentUserID = userid,
 
                 };
@@ -171,10 +171,10 @@ namespace ShomaRM.Areas.Tenant.Models
                     Email = model.Email,
                     Mobile = model.Phone,
                     PassportNumber = "",
-                    
-                    ////IDType = model.DocumentType,
-                    ////State = Convert.ToInt64(model.DocumentState),
-                    ////IDNumber = model.DocumentIDNumber,
+
+                    IDType = model.IDType,
+                    State = model.State,
+                    IDNumber = model.IDNumber,
                     Country = model.Country,
                     HomeAddress1 = model.HomeAddress1,
                     HomeAddress2 = model.HomeAddress2,
@@ -214,25 +214,24 @@ namespace ShomaRM.Areas.Tenant.Models
                 {
                     if (model.Email != "")
                     {
+                        var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+                        string payid = new EncryptDecrypt().EncryptText(saveApplicant.ApplicantID.ToString() + ",4," + propertDet.BGCheckFees.Value.ToString("0.00"));
                         string reportCoappHTML = "";
-
                         string coappfilePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                         reportCoappHTML = System.IO.File.ReadAllText(coappfilePath + "EmailTemplateProspect5.html");
-
                         reportCoappHTML = reportCoappHTML.Replace("[%ServerURL%]", serverURL);
 
                         reportCoappHTML = reportCoappHTML.Replace("[%CoAppType%]", model.Type);
-                        reportCoappHTML = reportCoappHTML.Replace("[%EmailHeader%]", "Your Application Added. Fill your Details");
-                        reportCoappHTML = reportCoappHTML.Replace("[%EmailBody%]", "Your Online Application Added by " + mainappdet.FirstName + " " + mainappdet.LastName + " for Sanctuary Doral. Fill your Details by clicking below link <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + model.Email + " </br>Password :" + pass);
+                        reportCoappHTML = reportCoappHTML.Replace("[%EmailHeader%]", "Your Application Added as Co-applicant and Payment Link for Credit Check");
+                        reportCoappHTML = reportCoappHTML.Replace("[%EmailBody%]", "Your Online Application Added by " + mainappdet.FirstName + " " + mainappdet.LastName + " for Sanctuary Doral. Please pay your fees $" + propertDet.BGCheckFees.Value.ToString("0.00") + " for credit check<br/><br/>");
                         reportCoappHTML = reportCoappHTML.Replace("[%TenantName%]", model.FirstName + " " + model.LastName);
-                        reportCoappHTML = reportCoappHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Login</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
-
+                        reportCoappHTML = reportCoappHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
                         string coappbody = reportCoappHTML;
-                        new EmailSendModel().SendEmail(model.Email, "Your Application Added. Fill your Details", coappbody);
+                        new EmailSendModel().SendEmail(model.Email, "Application Added and Payment Link for Credit Check", coappbody);
 
                         if (SendMessage == "yes")
                         {
-                            new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Your Application Added. Fill your Details. Credentials has been sent on your email. Please check the email for detail.");
+                            new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Application Added and Payment Link for Credit Check. Please check the email for detail.");
                         }
                     }
                 }
@@ -240,25 +239,25 @@ namespace ShomaRM.Areas.Tenant.Models
                 {
                     if (model.Email != "")
                     {
-                        string reportCoappHTML = "";
+                        var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+                        string payid = new EncryptDecrypt().EncryptText(saveApplicant.ApplicantID.ToString() + ",4," + propertDet.BGCheckFees.Value.ToString("0.00"));
 
+                        string reportCoappHTML = "";
                         string coappfilePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                         reportCoappHTML = System.IO.File.ReadAllText(coappfilePath + "EmailTemplateProspect5.html");
-
                         reportCoappHTML = reportCoappHTML.Replace("[%ServerURL%]", serverURL);
 
                         reportCoappHTML = reportCoappHTML.Replace("[%CoAppType%]", model.Type);
-                        reportCoappHTML = reportCoappHTML.Replace("[%EmailHeader%]", "Your Application Added as Guarantor. Fill your Details");
-                        reportCoappHTML = reportCoappHTML.Replace("[%EmailBody%]", "Your Online Application Added as Guarantor by " + mainappdet.FirstName + " " + mainappdet.LastName + " for Sanctuary Doral. Fill your Details by clicking below link <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + model.Email + " </br>Password :" + pass);
+                        reportCoappHTML = reportCoappHTML.Replace("[%EmailHeader%]", "Your Application Added as Guarantor and Payment Link for Credit Check");
+                        reportCoappHTML = reportCoappHTML.Replace("[%EmailBody%]", "Your Online Application Added as Guarantoe by " + mainappdet.FirstName + " " + mainappdet.LastName + " for Sanctuary Doral. Please pay your fees $" + propertDet.BGCheckFees.Value.ToString("0.00") + " for credit check<br/><br/>");
                         reportCoappHTML = reportCoappHTML.Replace("[%TenantName%]", model.FirstName + " " + model.LastName);
-                        reportCoappHTML = reportCoappHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Login</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
-
+                        reportCoappHTML = reportCoappHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
                         string coappbody = reportCoappHTML;
-                        new EmailSendModel().SendEmail(model.Email, "Your Application Added. Fill your Details", coappbody);
+                        new EmailSendModel().SendEmail(model.Email, "Application Added and Payment Link for Credit Check", coappbody);
 
                         if (SendMessage == "yes")
                         {
-                            new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Your Application Added. Fill your Details. Credentials has been sent on your email. Please check the email for detail.");
+                            new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Application Added and Payment Link for Credit Check. Please check the email for detail.");
                         }
                     }
                 }
@@ -297,7 +296,6 @@ namespace ShomaRM.Areas.Tenant.Models
                     }
 
                     getAppldata.Gender = model.Gender;
-                    getAppldata.Type = model.Type;
                     getAppldata.Relationship = model.Relationship;
                     getAppldata.OtherGender = model.OtherGender;
 
@@ -313,6 +311,26 @@ namespace ShomaRM.Areas.Tenant.Models
                             db.SaveChanges();
                         }
                     }
+                    var getLoginDet = db.tbl_Login.Where(p => p.Email == getAppldata.Email).FirstOrDefault();
+                    if (getLoginDet != null)
+                    {
+                        var getTenantOnline = db.tbl_TenantOnline.Where(p => p.ParentTOID == getLoginDet.UserID).FirstOrDefault();
+                        if (getTenantOnline != null)
+                        {
+                            getTenantOnline.SSN = model.SSN;
+                            getTenantOnline.IDNumber = model.IDNumber;
+                            getTenantOnline.IDType = model.IDType;
+                            getTenantOnline.State = model.State;
+                            getTenantOnline.StateHome = model.StateHome;
+                            getTenantOnline.HomeAddress1 = model.HomeAddress1;
+                            getTenantOnline.HomeAddress2 = model.HomeAddress2;
+                            getTenantOnline.CityHome = model.CityHome;
+                            getTenantOnline.ZipHome = model.ZipHome;
+                            getTenantOnline.MiddleInitial = model.MiddleName;
+                            getTenantOnline.Country = model.Country;
+                            db.SaveChanges();
+                        }
+                    }
                 }
                 db.SaveChanges();
                 msg = "Applicant Updated Successfully";
@@ -320,8 +338,6 @@ namespace ShomaRM.Areas.Tenant.Models
 
             db.Dispose();
             return msg;
-
-
         }
 
         public List<ApplicantModel> GetApplicantList(long TenantID)
@@ -743,209 +759,240 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<ApplicantModel> lstProp = new List<ApplicantModel>();
-            var email = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.Username : "";
+            //var email = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.Username : "";
             long addedby = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
-            var CoAppData = db.tbl_Applicant.Where(p => p.Email == email && p.Type == "Co-Applicant").FirstOrDefault();
-            if (CoAppData != null)
+            //var CoAppData = db.tbl_Applicant.Where(p => p.Email == email && p.Type == "Co-Applicant").FirstOrDefault();
+            //if (CoAppData != null)
+            //{
+            //    //var PriApplData = db.tbl_Applicant.Where(p => p.TenantID == TenantID && p.Type == "Primary Applicant").FirstOrDefault();
+            //    //if (PriApplData != null)
+            //    //{
+            //    //    if (PriApplData.Type == "Primary Applicant")
+            //    //    {
+            //    //        string compl = "";
+            //    //        string Rel = "";
+            //    //        if (PriApplData.Phone == null && PriApplData.Email == null && PriApplData.DateOfBirth == null)
+            //    //        {
+            //    //            compl = "Unstarted";
+            //    //        }
+            //    //        else if (PriApplData.Phone != null && PriApplData.Email != null && PriApplData.DateOfBirth != null)
+            //    //        {
+            //    //            compl = "Completed";
+            //    //        }
+            //    //        else
+            //    //        {
+            //    //            compl = "Pending";
+            //    //        }
+            //    //        DateTime? dobDateTime = null;
+            //    //        try
+            //    //        {
+            //    //            dobDateTime = Convert.ToDateTime(PriApplData.DateOfBirth);
+            //    //        }
+            //    //        catch { }
+
+
+            //    //        lstProp.Add(new ApplicantModel
+            //    //        {
+            //    //            ApplicantID = PriApplData.ApplicantID,
+            //    //            FirstName = PriApplData.FirstName,
+            //    //            LastName = PriApplData.LastName,
+            //    //            Phone = PriApplData.Phone,
+            //    //            Email = PriApplData.Email,
+            //    //            Type = PriApplData.Type,
+            //    //            Gender = PriApplData.Gender,
+            //    //            MoveInPercentage = PriApplData.MoveInPercentage != null ? PriApplData.MoveInPercentage : 0,
+            //    //            MoveInCharge = PriApplData.MoveInCharge != null ? PriApplData.MoveInCharge : 0,
+            //    //            MonthlyPercentage = PriApplData.MonthlyPercentage != null ? PriApplData.MonthlyPercentage : 0,
+            //    //            MonthlyPayment = PriApplData.MonthlyPayment != null ? PriApplData.MonthlyPayment : 0,
+            //    //            ComplStatus = compl,
+            //    //            OtherGender = PriApplData.OtherGender != null ? OtherGender : "",
+
+            //    //            RelationshipString = PriApplData.Relationship == null ? "" : PriApplData.Relationship == "1" ? "Self" : "",
+            //    //            DateOfBirth = PriApplData.DateOfBirth,
+            //    //            DateOfBirthTxt = dobDateTime == null ? "" : dobDateTime.Value.ToString("MM/dd/yyyy"),
+            //    //            GenderString = PriApplData.Gender == 1 ? "Male" : PriApplData.Gender == 2 ? "Female" : PriApplData.Gender == 3 ? "Other" : "",
+            //    //            Paid = PriApplData.Paid == null ? 0 : PriApplData.Paid,
+            //    //            AddedBy = ShomaGroupWebSession.CurrentUser.UserID
+            //    //        });
+            //    //    }
+            //    //}
+
+            //    var CoAppDataList = db.tbl_Applicant.Where(p => p.UserID == addedby).ToList();
+            //    foreach (var ap in CoAppDataList)
+            //    {
+            //        string compl = "";
+            //        string Rel = "";
+            //        if (ap.Phone == null && ap.Email == null && ap.DateOfBirth == null)
+            //        {
+            //            compl = "Unstarted";
+            //        }
+            //        else if (ap.Phone != null && ap.Email != null && ap.DateOfBirth != null)
+            //        {
+            //            compl = "Completed";
+            //        }
+            //        else
+            //        {
+            //            compl = "Pending";
+            //        }
+            //        DateTime? dobDateTime = null;
+            //        try
+            //        {
+            //            dobDateTime = Convert.ToDateTime(ap.DateOfBirth);
+            //        }
+            //        catch { }
+            //        if (ap.Type == "Primary Applicant")
+            //        {
+            //            Rel = ap.Relationship == null ? "" : ap.Relationship == "1" ? "Self" : "";
+            //        }
+            //        else if (ap.Type == "Co-Applicant")
+            //        {
+            //            Rel = ap.Relationship == null ? "" : ap.Relationship == "1" ? "Spouse" : ap.Relationship == "2" ? "Partner" : ap.Relationship == "3" ? "Adult Child" : ap.Relationship == "4" ? "Friend/Roommate" : "";
+            //        }
+            //        else if (ap.Type == "Minor")
+            //        {
+            //            Rel = ap.Relationship == null ? "" : ap.Relationship == "1" ? "Family Member" : ap.Relationship == "2" ? "Child" : "";
+            //        }
+            //        else if (ap.Type == "Guarantor")
+            //        {
+            //            Rel = ap.Relationship == null ? "" : ap.Relationship == "1" ? "Family Member" : ap.Relationship == "2" ? "Friend" : "";
+            //        }
+            //        lstProp.Add(new ApplicantModel
+            //        {
+
+            //            ApplicantID = ap.ApplicantID,
+            //            FirstName = ap.FirstName,
+            //            LastName = ap.LastName,
+            //            Phone = ap.Phone,
+            //            Email = ap.Email,
+            //            Type = ap.Type,
+            //            Gender = ap.Gender,
+            //            MoveInPercentage = ap.MoveInPercentage != null ? ap.MoveInPercentage : 0,
+            //            MoveInCharge = ap.MoveInCharge != null ? ap.MoveInCharge : 0,
+            //            MonthlyPercentage = ap.MonthlyPercentage != null ? ap.MonthlyPercentage : 0,
+            //            MonthlyPayment = ap.MonthlyPayment != null ? ap.MonthlyPayment : 0,
+            //            ComplStatus = compl,
+            //            OtherGender = ap.OtherGender != null ? OtherGender : "",
+
+            //            RelationshipString = Rel,
+            //            DateOfBirth = ap.DateOfBirth,
+            //            DateOfBirthTxt = dobDateTime == null ? "" : dobDateTime.Value.ToString("MM/dd/yyyy"),
+            //            GenderString = ap.Gender == 1 ? "Male" : ap.Gender == 2 ? "Female" : ap.Gender == 3 ? "Other" : "",
+            //            Paid = ap.Paid == null ? 0 : ap.Paid,
+            //            AddedBy =addedby
+
+            //        });
+            //    }
+            //}
+            //else
+            //{
+            var CoAppDataList = db.tbl_Applicant.Where(p => p.TenantID == TenantID).ToList();
+            foreach (var ap in CoAppDataList)
             {
-                //var PriApplData = db.tbl_Applicant.Where(p => p.TenantID == TenantID && p.Type == "Primary Applicant").FirstOrDefault();
-                //if (PriApplData != null)
-                //{
-                //    if (PriApplData.Type == "Primary Applicant")
-                //    {
-                //        string compl = "";
-                //        string Rel = "";
-                //        if (PriApplData.Phone == null && PriApplData.Email == null && PriApplData.DateOfBirth == null)
-                //        {
-                //            compl = "Unstarted";
-                //        }
-                //        else if (PriApplData.Phone != null && PriApplData.Email != null && PriApplData.DateOfBirth != null)
-                //        {
-                //            compl = "Completed";
-                //        }
-                //        else
-                //        {
-                //            compl = "Pending";
-                //        }
-                //        DateTime? dobDateTime = null;
-                //        try
-                //        {
-                //            dobDateTime = Convert.ToDateTime(PriApplData.DateOfBirth);
-                //        }
-                //        catch { }
-
-
-                //        lstProp.Add(new ApplicantModel
-                //        {
-                //            ApplicantID = PriApplData.ApplicantID,
-                //            FirstName = PriApplData.FirstName,
-                //            LastName = PriApplData.LastName,
-                //            Phone = PriApplData.Phone,
-                //            Email = PriApplData.Email,
-                //            Type = PriApplData.Type,
-                //            Gender = PriApplData.Gender,
-                //            MoveInPercentage = PriApplData.MoveInPercentage != null ? PriApplData.MoveInPercentage : 0,
-                //            MoveInCharge = PriApplData.MoveInCharge != null ? PriApplData.MoveInCharge : 0,
-                //            MonthlyPercentage = PriApplData.MonthlyPercentage != null ? PriApplData.MonthlyPercentage : 0,
-                //            MonthlyPayment = PriApplData.MonthlyPayment != null ? PriApplData.MonthlyPayment : 0,
-                //            ComplStatus = compl,
-                //            OtherGender = PriApplData.OtherGender != null ? OtherGender : "",
-
-                //            RelationshipString = PriApplData.Relationship == null ? "" : PriApplData.Relationship == "1" ? "Self" : "",
-                //            DateOfBirth = PriApplData.DateOfBirth,
-                //            DateOfBirthTxt = dobDateTime == null ? "" : dobDateTime.Value.ToString("MM/dd/yyyy"),
-                //            GenderString = PriApplData.Gender == 1 ? "Male" : PriApplData.Gender == 2 ? "Female" : PriApplData.Gender == 3 ? "Other" : "",
-                //            Paid = PriApplData.Paid == null ? 0 : PriApplData.Paid,
-                //            AddedBy = ShomaGroupWebSession.CurrentUser.UserID
-                //        });
-                //    }
-                //}
-                
-                var CoAppDataList = db.tbl_Applicant.Where(p => p.AddedBy == addedby).ToList();
-                foreach (var ap in CoAppDataList)
+                string compl = "";
+                string Rel = "";
+                if (ap.Phone == null && ap.Email == null && ap.DateOfBirth == null)
                 {
-                    string compl = "";
-                    string Rel = "";
-                    if (ap.Phone == null && ap.Email == null && ap.DateOfBirth == null)
-                    {
-                        compl = "Unstarted";
-                    }
-                    else if (ap.Phone != null && ap.Email != null && ap.DateOfBirth != null)
-                    {
-                        compl = "Completed";
-                    }
-                    else
-                    {
-                        compl = "Pending";
-                    }
-                    DateTime? dobDateTime = null;
-                    try
-                    {
-                        dobDateTime = Convert.ToDateTime(ap.DateOfBirth);
-                    }
-                    catch { }
-                    if (ap.Type == "Primary Applicant")
-                    {
-                        Rel = ap.Relationship == null ? "" : ap.Relationship == "1" ? "Self" : "";
-                    }
-                    else if (ap.Type == "Co-Applicant")
-                    {
-                        Rel = ap.Relationship == null ? "" : ap.Relationship == "1" ? "Spouse" : ap.Relationship == "2" ? "Partner" : ap.Relationship == "3" ? "Adult Child" : ap.Relationship == "4" ? "Friend/Roommate" : "";
-                    }
-                    else if (ap.Type == "Minor")
-                    {
-                        Rel = ap.Relationship == null ? "" : ap.Relationship == "1" ? "Family Member" : ap.Relationship == "2" ? "Child" : "";
-                    }
-                    else if (ap.Type == "Guarantor")
-                    {
-                        Rel = ap.Relationship == null ? "" : ap.Relationship == "1" ? "Family Member" : ap.Relationship == "2" ? "Friend" : "";
-                    }
-                    lstProp.Add(new ApplicantModel
-                    {
-
-                        ApplicantID = ap.ApplicantID,
-                        FirstName = ap.FirstName,
-                        LastName = ap.LastName,
-                        Phone = ap.Phone,
-                        Email = ap.Email,
-                        Type = ap.Type,
-                        Gender = ap.Gender,
-                        MoveInPercentage = ap.MoveInPercentage != null ? ap.MoveInPercentage : 0,
-                        MoveInCharge = ap.MoveInCharge != null ? ap.MoveInCharge : 0,
-                        MonthlyPercentage = ap.MonthlyPercentage != null ? ap.MonthlyPercentage : 0,
-                        MonthlyPayment = ap.MonthlyPayment != null ? ap.MonthlyPayment : 0,
-                        ComplStatus = compl,
-                        OtherGender = ap.OtherGender != null ? OtherGender : "",
-
-                        RelationshipString = Rel,
-                        DateOfBirth = ap.DateOfBirth,
-                        DateOfBirthTxt = dobDateTime == null ? "" : dobDateTime.Value.ToString("MM/dd/yyyy"),
-                        GenderString = ap.Gender == 1 ? "Male" : ap.Gender == 2 ? "Female" : ap.Gender == 3 ? "Other" : "",
-                        Paid = ap.Paid == null ? 0 : ap.Paid,
-                        AddedBy =addedby
-
-                    });
+                    compl = "Unstarted";
                 }
-            }
-            else
-            {
-                var CoAppDataList = db.tbl_Applicant.Where(p => p.TenantID == TenantID).ToList();
-                foreach (var ap in CoAppDataList)
+                else if (ap.Phone != null && ap.Email != null && ap.DateOfBirth != null)
                 {
-                    string compl = "";
-                    string Rel = "";
-                    if (ap.Phone == null && ap.Email == null && ap.DateOfBirth == null)
-                    {
-                        compl = "Unstarted";
-                    }
-                    else if (ap.Phone != null && ap.Email != null && ap.DateOfBirth != null)
-                    {
-                        compl = "Completed";
-                    }
-                    else
-                    {
-                        compl = "Pending";
-                    }
-                    DateTime? dobDateTime = null;
-                    try
-                    {
-                        dobDateTime = Convert.ToDateTime(ap.DateOfBirth);
-                    }
-                    catch { }
-                    if (ap.Type == "Primary Applicant")
-                    {
-                        Rel = ap.Relationship == null ? "" : ap.Relationship == "1" ? "Self" : "";
-                    }
-                    else if (ap.Type == "Co-Applicant")
-                    {
-                        Rel = ap.Relationship == null ? "" : ap.Relationship == "1" ? "Spouse" : ap.Relationship == "2" ? "Partner" : ap.Relationship == "3" ? "Adult Child" : ap.Relationship == "4" ? "Friend/Roommate" : "";
-                    }
-                    else if (ap.Type == "Minor")
-                    {
-                        Rel = ap.Relationship == null ? "" : ap.Relationship == "1" ? "Family Member" : ap.Relationship == "2" ? "Child" : "";
-                    }
-                    else if (ap.Type == "Guarantor")
-                    {
-                        Rel = ap.Relationship == null ? "" : ap.Relationship == "1" ? "Family Member" : ap.Relationship == "2" ? "Friend" : "";
-                    }
-                    lstProp.Add(new ApplicantModel
-                    {
-
-                        ApplicantID = ap.ApplicantID,
-                        FirstName = ap.FirstName,
-                        LastName = ap.LastName,
-                        Phone = ap.Phone,
-                        Email = ap.Email,
-                        Type = ap.Type,
-                        Gender = ap.Gender,
-                        MoveInPercentage = ap.MoveInPercentage != null ? ap.MoveInPercentage : 0,
-                        MoveInCharge = ap.MoveInCharge != null ? ap.MoveInCharge : 0,
-                        MonthlyPercentage = ap.MonthlyPercentage != null ? ap.MonthlyPercentage : 0,
-                        MonthlyPayment = ap.MonthlyPayment != null ? ap.MonthlyPayment : 0,
-                        ComplStatus = compl,
-                        OtherGender = ap.OtherGender != null ? OtherGender : "",
-
-                        RelationshipString = Rel,
-                        DateOfBirth = ap.DateOfBirth,
-                        DateOfBirthTxt = dobDateTime == null ? "" : dobDateTime.Value.ToString("MM/dd/yyyy"),
-                        GenderString = ap.Gender == 1 ? "Male" : ap.Gender == 2 ? "Female" : ap.Gender == 3 ? "Other" : "",
-                        Paid = ap.Paid == null ? 0 : ap.Paid,
-                        AddedBy = addedby
-
-                    });
+                    compl = "Completed";
                 }
+                else
+                {
+                    compl = "Pending";
+                }
+                DateTime? dobDateTime = null;
+                try
+                {
+                    dobDateTime = Convert.ToDateTime(ap.DateOfBirth);
+                }
+                catch { }
+                if (ap.Type == "Primary Applicant")
+                {
+                    Rel = ap.Relationship == null ? "" : ap.Relationship == "1" ? "Self" : "";
+                }
+                else if (ap.Type == "Co-Applicant")
+                {
+                    Rel = ap.Relationship == null ? "" : ap.Relationship == "1" ? "Spouse" : ap.Relationship == "2" ? "Partner" : ap.Relationship == "3" ? "Adult Child" : ap.Relationship == "4" ? "Friend/Roommate" : "";
+                }
+                else if (ap.Type == "Minor")
+                {
+                    Rel = ap.Relationship == null ? "" : ap.Relationship == "1" ? "Family Member" : ap.Relationship == "2" ? "Child" : "";
+                }
+                else if (ap.Type == "Guarantor")
+                {
+                    Rel = ap.Relationship == null ? "" : ap.Relationship == "1" ? "Family Member" : ap.Relationship == "2" ? "Friend" : "";
+                }
+                lstProp.Add(new ApplicantModel
+                {
 
+                    ApplicantID = ap.ApplicantID,
+                    FirstName = ap.FirstName,
+                    LastName = ap.LastName,
+                    Phone = ap.Phone,
+                    Email = ap.Email,
+                    Type = ap.Type,
+                    Gender = ap.Gender,
+                    MoveInPercentage = ap.MoveInPercentage != null ? ap.MoveInPercentage : 0,
+                    MoveInCharge = ap.MoveInCharge != null ? ap.MoveInCharge : 0,
+                    MonthlyPercentage = ap.MonthlyPercentage != null ? ap.MonthlyPercentage : 0,
+                    MonthlyPayment = ap.MonthlyPayment != null ? ap.MonthlyPayment : 0,
+                    ComplStatus = compl,
+                    OtherGender = ap.OtherGender != null ? OtherGender : "",
+
+                    RelationshipString = Rel,
+                    DateOfBirth = ap.DateOfBirth,
+                    DateOfBirthTxt = dobDateTime == null ? "" : dobDateTime.Value.ToString("MM/dd/yyyy"),
+                    GenderString = ap.Gender == 1 ? "Male" : ap.Gender == 2 ? "Female" : ap.Gender == 3 ? "Other" : "",
+                    Paid = ap.Paid == null ? 0 : ap.Paid,
+                    AddedBy = addedby
+
+                });
             }
+
+            //}
             return lstProp;
         }
         public ApplicantModel GetApplicantDetails(int id,int chargetype)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             ApplicantModel model = new ApplicantModel();
+           
+            string bat = "";
+            if (chargetype == 1)
+            {
+                bat = id.ToString();
+                var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID == id).FirstOrDefault();
+                if (coappliList != null)
+                {
+                    coappliList.Paid = 1;
+                    db.SaveChanges();
+                }
+            }
+            else
+            {
+                bat = "1";
+            }
+            if (chargetype == 4)
+            {
+                bat = "4";
+            }
+            //var getApplicantDet = db.tbl_Applicant.Where(p => p.ApplicantID == id).FirstOrDefault();
+            //var getTenantDet = db.tbl_ApplyNow.Where(p => p.ID == getApplicantDet.TenantID).FirstOrDefault();
+            var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ApplicantID == id).FirstOrDefault();
+            //var GetTenantData = db.tbl_TenantOnline.Where(P => P.ParentTOID == getApplicantDet.UserID).FirstOrDefault();
 
+            string transType = "0";
+            if(GetPayDetails!=null)
+            {
+                transType = GetPayDetails.ID.ToString();
+            }
             var getApplicantDet = db.tbl_Applicant.Where(p => p.ApplicantID == id).FirstOrDefault();
             var getTenantDet = db.tbl_ApplyNow.Where(p => p.ID == getApplicantDet.TenantID).FirstOrDefault();
-            var getAppliTransDet = db.tbl_Transaction.Where(p => p.TenantID ==getTenantDet.UserId  && p.Batch==id.ToString() && p.Charge_Type== chargetype).FirstOrDefault();
+            var getAppliTransDet = db.tbl_Transaction.Where(p => p.TenantID == getTenantDet.UserId && p.Transaction_Type==transType).FirstOrDefault();
+            
+            //var getAppliTransDet = db.tbl_Transaction.Where(p => p.TenantID == getTenantDet.UserId && p.Batch == id.ToString() && p.Charge_Type == chargetype).FirstOrDefault();
             if (getAppliTransDet == null)
             {
                 DateTime? dobDateTime = null;
@@ -957,7 +1004,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 {
                 }
 
-                model.DateOfBirthTxt = dobDateTime == null ? "" : (dobDateTime.Value.ToString("MM/dd/yyyy")!="01/01/0001"? dobDateTime.Value.ToString("MM/dd/yyyy") : "");
+                model.DateOfBirthTxt = dobDateTime == null ? "" : (dobDateTime.Value.ToString("MM/dd/yyyy") != "01/01/0001" ? dobDateTime.Value.ToString("MM/dd/yyyy") : "");
                 model.FirstName = getApplicantDet.FirstName;
                 model.LastName = getApplicantDet.LastName;
                 model.Phone = getApplicantDet.Phone;
@@ -971,6 +1018,82 @@ namespace ShomaRM.Areas.Tenant.Models
                 model.MonthlyPayment = getApplicantDet.MonthlyPayment;
                 model.OtherGender = getApplicantDet.OtherGender;
                 model.TenantID = getApplicantDet.TenantID;
+
+                //New
+                var getTenantOnline = db.tbl_TenantOnline.Where(p => p.Email == getApplicantDet.Email).FirstOrDefault();
+
+                if (!string.IsNullOrWhiteSpace(getTenantOnline.IDNumber))
+                {
+                    try
+                    {
+                        model.IDNumberEnc = getTenantOnline.IDNumber;
+                        string decryptedIDNumber = new EncryptDecrypt().DecryptText(getTenantOnline.IDNumber);
+                        int idnumlength = decryptedIDNumber.Length > 4 ? decryptedIDNumber.Length - 4 : 0;
+                        string maskidnumber = "";
+                        for (int i = 0; i < idnumlength; i++)
+                        {
+                            maskidnumber += "*";
+                        }
+                        if (decryptedIDNumber.Length > 4)
+                        {
+                            model.IDNumber = maskidnumber + decryptedIDNumber.Substring(decryptedIDNumber.Length - 4, 4);
+                        }
+                        else
+                        {
+                            model.IDNumber = decryptedIDNumber;
+                        }
+                    }
+                    catch
+                    {
+                        model.IDNumberEnc = "";
+                        model.IDNumber = "";
+                    }
+                    
+                }
+                else
+                {
+                    model.IDNumberEnc = "";
+                    model.IDNumber = "";
+                }
+
+                if (!string.IsNullOrWhiteSpace(getTenantOnline.SSN))
+                {
+                    try
+                    {
+                        model.SSNEnc = getTenantOnline.SSN;
+                        string decryptedSSN = new EncryptDecrypt().DecryptText(getTenantOnline.SSN);
+                        if (decryptedSSN.Length > 5)
+                        {
+                            model.SSN = "***-**-" + decryptedSSN.Substring(decryptedSSN.Length - 5, 4);
+                        }
+                        else
+                        {
+                            model.SSN = decryptedSSN;
+                        }
+                    }
+                    catch
+                    {
+                        model.SSNEnc = "";
+                        model.SSN = "";
+                    }
+                    
+                }
+                else
+                {
+                    model.SSNEnc = "";
+                    model.SSN = ""; ;
+                }
+
+                model.IDType = getTenantOnline.IDType;
+                model.State = getTenantOnline.State;
+
+                model.Country = getTenantOnline.Country;
+                model.StateHome = getTenantOnline.StateHome;
+                model.HomeAddress1 = getTenantOnline.HomeAddress1;
+                model.HomeAddress2 = getTenantOnline.HomeAddress2;
+                model.CityHome = getTenantOnline.CityHome;
+                model.ZipHome = getTenantOnline.ZipHome;
+                model.MiddleName = getTenantOnline.MiddleInitial;
             }
             else
             {
@@ -996,6 +1119,10 @@ namespace ShomaRM.Areas.Tenant.Models
             {
                 chargeType = "Administrative Fee";
             }
+            else if (chargetype == 4)
+            {
+                chargeType = "Credit Check Fee";
+            }
             else
             {
                 chargeType = "General/Miscellaneous Charge";
@@ -1010,29 +1137,26 @@ namespace ShomaRM.Areas.Tenant.Models
 
             if (AID != 0)
             {
-
                 var appliData = db.tbl_Applicant.Where(p => p.ApplicantID == AID).FirstOrDefault();
+                var tenData = db.tbl_TenantOnline.Where(p => p.Email == appliData.Email && p.ProspectID == appliData.TenantID).FirstOrDefault();
+                var logData = db.tbl_Login.Where(p => p.UserID == tenData.ParentTOID).FirstOrDefault();
+
                 if (appliData != null)
                 {
                     db.tbl_Applicant.Remove(appliData);
                     db.SaveChanges();
-                  
                 }
-
-                var tenData = db.tbl_Applicant.Where(p => p.ApplicantID == AID).FirstOrDefault();
                 if (tenData != null)
                 {
-                    db.tbl_Applicant.Remove(tenData);
+                    db.tbl_TenantOnline.Remove(tenData);
                     db.SaveChanges();
-                   
                 }
-                var logData = db.tbl_Applicant.Where(p => p.ApplicantID == AID).FirstOrDefault();
                 if (logData != null)
                 {
-                    db.tbl_Applicant.Remove(logData);
+                    db.tbl_Login.Remove(logData);
                     db.SaveChanges();
-                    msg = "Applicant Removed Successfully";
                 }
+                msg = "Applicant Removed Successfully";
             }
             db.Dispose();
             return msg;

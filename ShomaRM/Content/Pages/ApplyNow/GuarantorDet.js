@@ -3189,114 +3189,121 @@ var saveupdateStorage = function () {
 };
 //Sohan
 var addApplicant = function (at) {
-
+    var modal = $("#popApplicant");
     if (at == 1) {
-
+        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
+        modal.find('.modal-content').css("height", "610px");
+        modal.find('.modal-title').text('Add Co-Applicant');
+        $("#popApplicant").modal("show");
         $("#ddlApplicantType").text("Co-Applicant");
-        //$("#popApplicant").PopupWindow("setTitle", "Add Applicant");
-        var modal = $(popApplicant);
-        modal.find('.modal-title').text('Add Applicant');
-        $("#appphone").removeClass("hidden");
-        $("#appemail").removeClass("hidden");
-        $("#apprelationship").addClass("hidden");
-        $//("#ddlGRelationship").removeClass("hidden");
-        //$("#ddlGRelationship").val(response.model.Relationship).change();
-        //$("#ddlARelationship").addClass("hidden");
         $("#ddlARelationship").empty();
-        var opt = "<option value='0'>Select Relationship</option>";
+        opt = "<option value='0'>Select Relationship</option>";
         opt += "<option value='1'>Spouse</option>";
         opt += "<option value='2'>Partner</option>";
         opt += "<option value='3'>Adult Child</option>";
         opt += "<option value='4'>Friend/Roommate</option>";
-
         $("#ddlARelationship").append(opt);
         $("#ddlARelationship").val(0).change();
-        //var dtAppStart = new Date();
-        //dtAppStart.setFullYear(new Date().getFullYear() - 18);
-        //var dtAppEnd = new Date();
-        //dtAppEnd.setFullYear(new Date().getFullYear() - 100);
 
-        //$('#txtADateOfBirth').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtAppStart, endDate: dtAppEnd, maxViewMode: 2, autoclose: true });
+        $("#ddlApplicantGender").val(0);
+        $("#ddlApplicantGender").trigger('change');
+        $("#txtApplicantOtherGender").val('');
 
-        $("#iconCalenderApplicant").click(function () {
-            $("#txtADateOfBirth").focus();
-        });
-        $('#txtADateOfBirth').removeClass("hidden");
+        $("#txtADateOfBirth").removeClass("hidden").val("");
         $('#txtHDateOfBirth').addClass("hidden");
         $('#txtMDateOfBirth').addClass("hidden");
-        $('#txtGDateOfBirth').addClass("hidden");
+        $('#txtGDateOfBirth').addClass('hidden');
 
-        $('#txtApplicantOtherGender').val('');
-        //$('#appGenderOther').addClass('hidden');
+        $("#appphone").removeClass("hidden");
+        $("#appemail").removeClass("hidden");
+        $("#txtApplicantPhone").val("");
+        $("#txtApplicantEmail").val("");
+        $("#txtApplicantSSNNumber").val('');
+        $("#txtApplicantSSNNumber").attr("data-value", '');
+
+        $("#ddlApplicantDocumentTypePersonal").val(0).change();
+        $("#ddlApplicantStateDoc").val(0).change();
+        $("#txtApplicantIDNumber").val('');
+        $("#txtApplicantIDNumber").attr("data-value", '');
+
+        $("#txtApplicantCountry").val(1);
+        $("#txtApplicantCountry").trigger('change');
+        $("#txtAddressLine1").val("");
+        $("#txtAddressLine2").val("");
+        $("#ddlApplicantState").val(0).change();
+        $("#txtApplicantCity").val("");
+        $("#txtApplicantZip2").val("");
     }
     else if (at == 2) {
-        $("#ddlApplicantType").text("Minor");
-        //$("#popApplicant").PopupWindow("setTitle", "Add Minor");
-        var modal = $(popApplicant);
+        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
+        modal.find('.modal-content').css("height", "300px");
         modal.find('.modal-title').text('Add Minor');
-        $("#appphone").addClass("hidden");
-        $("#appemail").addClass("hidden");
-        $("#apprelationship").removeClass("hidden");
-        $('#txtMDateOfBirth').removeClass("hidden");
-        $('#txtADateOfBirth').addClass("hidden");
-        $('#txtHDateOfBirth').addClass("hidden");
-        $('#txtGDateOfBirth').addClass("hidden");
-        $//("#ddlGRelationship").removeClass("hidden");
-        //$("#ddlGRelationship").val(response.model.Relationship).change();
-        //$("#ddlARelationship").addClass("hidden");
+        $("#popApplicant").modal("show");
+        $("#ddlApplicantType").text("Minor");
         $("#ddlARelationship").empty();
-        var opt = "<option value='0'>Select Relationship</option>";
+        opt = "<option value='0'>Select Relationship</option>";
         opt += "<option value='1'>Family Member</option>";
         opt += "<option value='2'>Child</option>";
         $("#ddlARelationship").append(opt);
         $("#ddlARelationship").val(0).change();
-        //var dtMinStart = new Date();
-        //dtMin.setFullYear(new Date().getFullYear() - 18);
-        //var dtMinEnd = new Date();
-        //$('#txtMDateOfBirth').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtMinStart, endDate: dtMinEnd, maxViewMode: 2, autoclose: true });
-        $("#iconCalenderApplicant").click(function () {
-            $("#txtMDateOfBirth").focus();
-        });
-        $('#txtApplicantOtherGender').val('');
-        //$('#appGenderOther').addClass('hidden');
+
+        $("#ddlApplicantGender").val(0);
+        $("#ddlApplicantGender").trigger('change');
+        $("#txtApplicantOtherGender").val('');
+
+        $("#txtMDateOfBirth").removeClass("hidden").val('');
+        $('#txtHDateOfBirth').addClass("hidden");
+        $('#txtADateOfBirth').addClass("hidden");
+        $('#txtGDateOfBirth').addClass('hidden');
+
+        $("#appphone").addClass("hidden");
+        $("#appemail").addClass("hidden");
     }
     else if (at == 3) {
-        $("#ddlApplicantType").text("Guarantor");
-        //$("#popApplicant").PopupWindow("setTitle", "Add Guarantor");
-        var modal = $(popApplicant);
+        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
+        modal.find('.modal-content').css("height", "610px");
         modal.find('.modal-title').text('Add Guarantor');
-        $("#appphone").addClass("hidden");
-        $("#appemail").removeClass("hidden");
-        $("#apprelationship").removeClass("hidden");
-        $('#txtGDateOfBirth').removeClass("hidden");
-        $('#txtMDateOfBirth').addClass("hidden");
-        $('#txtADateOfBirth').addClass("hidden");
-        $('#txtHDateOfBirth').addClass("hidden");
-        $//("#ddlGRelationship").removeClass("hidden");
-        //$("#ddlGRelationship").val(response.model.Relationship).change();
-        //$("#ddlARelationship").addClass("hidden");
+        $("#popApplicant").modal("show");
+        $("#ddlApplicantType").text("Guarantor");
         $("#ddlARelationship").empty();
-        var opt = "<option value='0'>Select Relationship</option>";
-        opt += "<option value='1'>Family Member</option>";
+        opt = "<option value='0'>Select Relationship</option>";
+        opt += "<option value='1'>Family</option>";
         opt += "<option value='2'>Friend</option>";
         $("#ddlARelationship").append(opt);
         $("#ddlARelationship").val(0).change();
-        //var dtGAppStart = new Date();
-        //dtGAppStart.setFullYear(new Date().getFullYear() - 18);
-        //var dtGAppEnd = new Date();
-        //dtGAppEnd.setFullYear(new Date().getFullYear() - 100);
-        //$('#txtGDateOfBirth').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtGAppStart, endDate: dtGAppEnd, maxViewMode: 2, autoclose: true });
 
-        $("#iconCalenderApplicant").click(function () {
-            $("#txtGDateOfBirth").focus();
-        });
-        $('#txtApplicantOtherGender').val('');
-        //$('#appGenderOther').addClass('hidden');
+        $("#ddlApplicantGender").val(0);
+        $("#ddlApplicantGender").trigger('change');
+
+        $("#txtApplicantOtherGender").val('');
+
+        $("#txtGDateOfBirth").removeClass("hidden").val('');
+        $('#txtHDateOfBirth').addClass("hidden");
+        $('#txtADateOfBirth').addClass("hidden");
+        $('#txtMDateOfBirth').addClass('hidden');
+
+        $("#appphone").addClass("hidden");
+        $("#appemail").removeClass("hidden");
+        $("#txtApplicantPhone").val('');
+        $("#txtApplicantEmail").val('');
+
+        $("#txtApplicantSSNNumber").val('');
+        $("#txtApplicantSSNNumber").attr("data-value", '');
+
+        $("#ddlApplicantDocumentTypePersonal").val(0).change();
+        $("#ddlApplicantStateDoc").val(0).change();
+        $("#txtApplicantIDNumber").val('');
+        $("#txtApplicantIDNumber").attr("data-value", '');
+
+        $("#txtApplicantCountry").val(1);
+        $("#txtApplicantCountry").trigger('change');
+        $("#txtAddressLine1").val('');
+        $("#txtAddressLine2").val('');
+        $("#ddlApplicantState").val(0).change();
+        $("#txtApplicantCity").val('');
+        $("#txtApplicantZip2").val('');
     }
-
     clearApplicant();
-
-    //$("#popApplicant").PopupWindow("open");
     $("#popApplicant").modal("show");
 };
 var saveupdateApplicant = function () {
@@ -3307,22 +3314,71 @@ var saveupdateApplicant = function () {
     var aid = $("#hndApplicantID").val();
     var prospectID = $("#hdnOPId").val();
     var fname = $("#txtApplicantFirstName").val();
+    var mname = $("#txtApplicantMiddleName").val();
     var lname = $("#txtApplicantLastName").val();
     var aphone = unformatText($("#txtApplicantPhone").val());
     var aemail = $("#txtApplicantEmail").val();
     var agender = $("#ddlApplicantGender").val();
     var type = $("#ddlApplicantType").text();
     var aotherGender = $("#txtApplicantOtherGender").val();
+    var applicantSSNNumber = $("#txtApplicantSSNNumber").attr("data-value");
+    var applicantIDNumber = $("#txtApplicantIDNumber").attr("data-value");
+    var applicantIDType = $("#ddlApplicantDocumentTypePersonal").val();
+    var applicantStateDoc = $("#ddlApplicantStateDoc").val();
+    var addressLine1 = $("#txtAddressLine1").val();
+    var addressLine2 = $("#txtAddressLine2").val();
+    var applicantState = $("#ddlApplicantState").val();
+    var applicantCountry = $("#txtApplicantCountry").val();
+    var applicantCity = $("#txtApplicantCity").val();
+    var applicantApplicantZip2 = $("#txtApplicantZip2").val();
 
-    var dob = "";
+
     if (type == "Co-Applicant") {
         checkEmail = 1;
-        dob = $("#txtADateOfBirth").val();
+        var dob = $("#txtADateOfBirth").val();
+        if (!applicantSSNNumber) {
+            msg += "Enter SSN Number</br>";
+        } if (!applicantIDNumber) {
+            msg += "Enter ID Number</br>";
+        } if (applicantIDType <= 0) {
+            msg += "Select ID Type</br>";
+        } if (applicantStateDoc <= 0) {
+            msg += "Select State of issuence</br>";
+        } if (!addressLine1) {
+            msg += "Enter Address Line 1</br>";
+        } if (!applicantState) {
+            msg += "Enter State </br>";
+        } if (applicantCountry <= 0) {
+            msg += "Select Country</br>";
+        } if (applicantCity <= 0) {
+            msg += "Enter the City</br>";
+        } if (applicantApplicantZip2 <= 0) {
+            msg += "Select Zip</br>";
+        }
     } else if (type == "Minor") {
         dob = $("#txtMDateOfBirth").val();
     }
     else if (type == "Guarantor") {
         dob = $("#txtGDateOfBirth").val();
+        if (!applicantSSNNumber) {
+            msg += "Enter SSN Number</br>";
+        } if (!applicantIDNumber) {
+            msg += "Enter ID Number</br>";
+        } if (applicantIDType <= 0) {
+            msg += "Select ID Type</br>";
+        } if (applicantStateDoc <= 0) {
+            msg += "Select State of issuence</br>";
+        } if (!addressLine1) {
+            msg += "Enter Address Line 1</br>";
+        } if (!applicantState) {
+            msg += "Enter State </br>";
+        } if (applicantCountry <= 0) {
+            msg += "Select Country</br>";
+        } if (applicantCity <= 0) {
+            msg += "Enter the City</br>";
+        } if (applicantApplicantZip2 <= 0) {
+            msg += "Select Zip</br>";
+        }
     }
     else {
         checkEmail = 1;
@@ -3375,6 +3431,26 @@ var saveupdateApplicant = function () {
         else {
             $('#txtOtherGender').val('');
         }
+
+        if (!applicantSSNNumber) {
+            msg += "Enter SSN Number</br>";
+        } if (!applicantIDNumber) {
+            msg += "Enter ID Number</br>";
+        } if (applicantIDType <= 0) {
+            msg += "Select ID Type</br>";
+        } if (applicantStateDoc <= 0) {
+            msg += "Select State of issuence</br>";
+        } if (!addressLine1) {
+            msg += "Enter Address Line 1</br>";
+        } if (!applicantState) {
+            msg += "Enter State </br>";
+        } if (applicantCountry <= 0) {
+            msg += "Select Country</br>";
+        } if (applicantCity <= 0) {
+            msg += "Enter the City</br>";
+        } if (applicantApplicantZip2 <= 0) {
+            msg += "Select Zip</br>";
+        }
     }
     if (msg != "") {
         $("#divLoader").hide();
@@ -3386,9 +3462,12 @@ var saveupdateApplicant = function () {
         return;
     }
 
+
+
     var model = {
         ApplicantID: aid,
         FirstName: fname,
+        Middle: mname,
         LastName: lname,
         Phone: aphone,
         Email: aemail,
@@ -3397,9 +3476,19 @@ var saveupdateApplicant = function () {
         TenantID: prospectID,
         Type: type,
         Relationship: relationship,
-        OtherGender: aotherGender
+        OtherGender: aotherGender,
+        SSN: applicantSSNNumber,
+        IDNumber: applicantIDNumber,
+        IDType: applicantIDType,
+        State: applicantStateDoc,
+        HomeAddress1: addressLine1,
+        HomeAddress2: addressLine2,
+        StateHome: applicantState,
+        Country: applicantCountry,
+        CityHome: applicantCity,
+        ZipHome: applicantApplicantZip2
     };
-
+    // console.log(model);
     $.ajax({
         url: "/Tenant/Applicant/SaveUpdateApplicant/",
         type: "post",
@@ -3414,14 +3503,216 @@ var saveupdateApplicant = function () {
                 type: 'blue',
             });
             getApplicantListsGuarantor();
-            //$("#popApplicant").PopupWindow("close");
             $("#popApplicant").modal("hide");
         }
-
-
     });
+};
+var goToEditApplicant = function (aid) {
+    clearApplicant();
+    if (aid != null) {
+        //sacxhis
+        $("#hndApplicantID").val(aid);
+        var model = { id: aid, FromAcc: 0 };
+        $.ajax({
+            url: "/Tenant/Applicant/GetApplicantDetails",
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                var modal = $("#popApplicant");
+                $("#txtApplicantFirstName").val(response.model.FirstName);
+                $("#txtApplicantMiddleName").val(response.model.MiddleName);
+                $("#txtApplicantLastName").val(response.model.LastName);
 
-}
+                if (response.model.Type == "Primary Applicant") {
+                    $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
+                    modal.find('.modal-content').css("height", "610px");
+                    modal.find('.modal-title').text('Edit Primary Applicant');
+                    $("#popApplicant").modal("show");
+                    $("#ddlApplicantType").text("Primary Applicant");
+                    $("#ddlARelationship").empty();
+                    var opt = "<option value='0'>Select Relationship</option>";
+                    opt += "<option value='1' selected='selected'>Self</option>";
+                    $("#ddlARelationship").append(opt);
+                    $("#ddlARelationship").val(response.model.Relationship).change();
+
+                    $("#ddlApplicantGender").val(response.model.Gender);
+                    $("#ddlApplicantGender").trigger('change');
+                    if (response.model.OtherGender == '3') {
+                        $("#txtApplicantOtherGender").val(response.model.OtherGender);
+                    }
+                    else {
+                        $("#txtApplicantOtherGender").val('');
+                    }
+
+                    $("#txtHDateOfBirth").removeClass("hidden").val(response.model.DateOfBirthTxt);
+                    $('#txtADateOfBirth').addClass("hidden");
+                    $('#txtMDateOfBirth').addClass("hidden");
+                    $('#txtGDateOfBirth').addClass('hidden');
+
+                    $("#appphone").removeClass("hidden");
+                    $("#appemail").removeClass("hidden");
+                    $("#txtApplicantPhone").val(formatPhoneFax(response.model.Phone));
+                    $("#txtApplicantEmail").val(response.model.Email);
+
+                    $("#txtApplicantSSNNumber").val(response.model.SSN);
+                    $("#txtApplicantSSNNumber").attr("data-value", response.model.SSNEnc);
+
+                    $("#ddlApplicantDocumentTypePersonal").val(response.model.IDType).change();
+                    $("#ddlApplicantStateDoc").val(response.model.State).change();
+                    $("#txtApplicantIDNumber").val(response.model.IDNumber);
+                    $("#txtApplicantIDNumber").attr("data-value", response.model.IDNumberEnc);
+
+                    $("#txtApplicantCountry").val(response.model.Country);
+                    $("#txtApplicantCountry").trigger('change');
+                    $("#txtAddressLine1").val(response.model.HomeAddress1);
+                    $("#txtAddressLine2").val(response.model.HomeAddress2);
+                    $("#ddlApplicantState").val(response.model.StateHome).change();
+                    $("#txtApplicantCity").val(response.model.CityHome);
+                    $("#txtApplicantZip2").val(response.model.ZipHome);
+
+
+
+                }
+                else if (response.model.Type == "Co-Applicant") {
+                    $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
+                    modal.find('.modal-content').css("height", "610px");
+                    modal.find('.modal-title').text('Edit Co-Applicant');
+                    $("#popApplicant").modal("show");
+                    $("#ddlApplicantType").text("Co-Applicant");
+                    $("#ddlARelationship").empty();
+                    opt = "<option value='0'>Select Relationship</option>";
+                    opt += "<option value='1'>Spouse</option>";
+                    opt += "<option value='2'>Partner</option>";
+                    opt += "<option value='3'>Adult Child</option>";
+                    opt += "<option value='4'>Friend/Roommate</option>";
+                    $("#ddlARelationship").append(opt);
+                    $("#ddlARelationship").val(response.model.Relationship).change();
+
+                    $("#ddlApplicantGender").val(response.model.Gender);
+                    $("#ddlApplicantGender").trigger('change');
+                    if (response.model.OtherGender == '3') {
+                        $("#txtApplicantOtherGender").val(response.model.OtherGender);
+                    }
+                    else {
+                        $("#txtApplicantOtherGender").val('');
+                    }
+
+                    $("#txtADateOfBirth").removeClass("hidden").val(response.model.DateOfBirthTxt);
+                    $('#txtHDateOfBirth').addClass("hidden");
+                    $('#txtMDateOfBirth').addClass("hidden");
+                    $('#txtGDateOfBirth').addClass('hidden');
+
+                    $("#appphone").removeClass("hidden");
+                    $("#appemail").removeClass("hidden");
+                    $("#txtApplicantPhone").val(formatPhoneFax(response.model.Phone));
+                    $("#txtApplicantEmail").val(response.model.Email);
+
+                    $("#txtApplicantSSNNumber").val(response.model.SSN);
+                    $("#txtApplicantSSNNumber").attr("data-value", response.model.SSNEnc);
+
+                    $("#ddlApplicantDocumentTypePersonal").val(response.model.IDType).change();
+                    $("#ddlApplicantStateDoc").val(response.model.State).change();
+                    $("#txtApplicantIDNumber").val(response.model.IDNumber);
+                    $("#txtApplicantIDNumber").attr("data-value", response.model.IDNumberEnc);
+
+                    $("#txtApplicantCountry").val(response.model.Country);
+                    $("#txtApplicantCountry").trigger('change');
+                    $("#txtAddressLine1").val(response.model.HomeAddress1);
+                    $("#txtAddressLine2").val(response.model.HomeAddress2);
+                    $("#ddlApplicantState").val(response.model.StateHome).change();
+                    $("#txtApplicantCity").val(response.model.CityHome);
+                    $("#txtApplicantZip2").val(response.model.ZipHome);
+
+                }
+                else if (response.model.Type == "Guarantor") {
+                    $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
+                    modal.find('.modal-content').css("height", "610px");
+                    modal.find('.modal-title').text('Edit Guarantor');
+                    $("#popApplicant").modal("show");
+                    $("#ddlApplicantType").text("Guarantor");
+                    $("#ddlARelationship").empty();
+                    opt = "<option value='0'>Select Relationship</option>";
+                    opt += "<option value='1'>Family</option>";
+                    opt += "<option value='2'>Friend</option>";
+                    $("#ddlARelationship").append(opt);
+                    $("#ddlARelationship").val(response.model.Relationship).change();
+
+                    $("#ddlApplicantGender").val(response.model.Gender);
+                    $("#ddlApplicantGender").trigger('change');
+                    if (response.model.OtherGender == '3') {
+                        $("#txtApplicantOtherGender").val(response.model.OtherGender);
+                    }
+                    else {
+                        $("#txtApplicantOtherGender").val('');
+                    }
+
+                    $("#txtGDateOfBirth").removeClass("hidden").val(response.model.DateOfBirthTxt);
+                    $('#txtHDateOfBirth').addClass("hidden");
+                    $('#txtADateOfBirth').addClass("hidden");
+                    $('#txtMDateOfBirth').addClass('hidden');
+
+                    $("#appphone").addClass("hidden");
+                    $("#appemail").removeClass("hidden");
+                    $("#txtApplicantPhone").val(formatPhoneFax(response.model.Phone));
+                    $("#txtApplicantEmail").val(response.model.Email);
+
+                    $("#txtApplicantSSNNumber").val(response.model.SSN);
+                    $("#txtApplicantSSNNumber").attr("data-value", response.model.SSNEnc);
+
+                    $("#ddlApplicantDocumentTypePersonal").val(response.model.IDType).change();
+                    $("#ddlApplicantStateDoc").val(response.model.State).change();
+                    $("#txtApplicantIDNumber").val(response.model.IDNumber);
+                    $("#txtApplicantIDNumber").attr("data-value", response.model.IDNumberEnc);
+
+                    $("#txtApplicantCountry").val(response.model.Country);
+                    $("#txtApplicantCountry").trigger('change');
+                    $("#txtAddressLine1").val(response.model.HomeAddress1);
+                    $("#txtAddressLine2").val(response.model.HomeAddress2);
+                    $("#ddlApplicantState").val(response.model.StateHome).change();
+                    $("#txtApplicantCity").val(response.model.CityHome);
+                    $("#txtApplicantZip2").val(response.model.ZipHome);
+
+                }
+                else if (response.model.Type == "Minor") {
+                    $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
+                    modal.find('.modal-content').css("height", "300px");
+                    modal.find('.modal-title').text('Edit Minor');
+                    $("#popApplicant").modal("show");
+                    $("#ddlApplicantType").text("Minor");
+                    $("#ddlARelationship").empty();
+                    opt = "<option value='0'>Select Relationship</option>";
+                    opt += "<option value='1'>Family Member</option>";
+                    opt += "<option value='2'>Child</option>";
+                    $("#ddlARelationship").append(opt);
+                    $("#ddlARelationship").val(response.model.Relationship).change();
+
+                    $("#ddlApplicantGender").val(response.model.Gender);
+                    $("#ddlApplicantGender").trigger('change');
+                    if (response.model.OtherGender == '3') {
+                        $("#txtApplicantOtherGender").val(response.model.OtherGender);
+                    }
+                    else {
+                        $("#txtApplicantOtherGender").val('');
+                    }
+
+                    $("#txtMDateOfBirth").removeClass("hidden").val(response.model.DateOfBirthTxt);
+                    $('#txtHDateOfBirth').addClass("hidden");
+                    $('#txtADateOfBirth').addClass("hidden");
+                    $('#txtGDateOfBirth').addClass('hidden');
+
+                    $("#appphone").addClass("hidden");
+                    $("#appemail").addClass("hidden");
+
+
+                }
+
+            }
+        });
+
+    }
+};
 var totpaid = 0;
 var addApplicntArray = 0;
 var getApplicantListsGuarantor = function () {
@@ -3902,6 +4193,8 @@ var clearApplicant = function () {
     $("#hndApplicantID").val(0);
     $("#txtApplicantFirstName").val("");
     $("#txtApplicantLastName").val("");
+    $("#txtApplicantSSNNumber").val("");
+    $("#txtApplicantIDNumber").val("");
 
     $("#txtApplicantPhone").val("");
     $("#txtApplicantEmail").val("");
@@ -3910,6 +4203,14 @@ var clearApplicant = function () {
     $('#txtADateOfBirth').val("");
     $('#txtHDateOfBirth').val("");
     $('#txtGDateOfBirth').val("");
+    $("#ddlApplicantDocumentTypePersonal").val(0);
+    $("#ddlApplicantStateDoc").val(0);
+    $("#txtAddressLine1").val("");
+    $("#txtAddressLine2").val("");
+    $("#ddlApplicantState").val(0);
+    $("#txtApplicantCountry").val(0);
+    $("#txtApplicantCity").val("");
+    $("#txtApplicantZip2").val("");
 }
 var saveupdatePet = function () {
     $("#divLoader").show();
@@ -6313,6 +6614,34 @@ var onFocusApplyNow = function () {
 
     });
 
+    $("#txtSSNNumberReg").focusin(function () {
+        getEncDecValue(this, 1);
+    }).focusout(function () {
+        var ssn = $(this).val();
+        if (ssn.length < 9) {
+            alert("SSN must be 9 digit");
+            return;
+        }
+        if (ssn.length > 4) {
+            getEncDecValue(this, 2);
+            $(this).val("***-**-" + ssn.substr(ssn.length - 4, 4));
+        }
+    });
+
+    $("#txtIDNumberReg").focusin(function () {
+        getEncDecValue(this, 1);
+    }).focusout(function () {
+        var idnumber = $(this).val();
+        if (idnumber.length < 5) {
+            alert("ID Number should be greater then 4 digit");
+            return;
+        }
+        if (idnumber.length > 4) {
+            getEncDecValue(this, 2);
+            $(this).val(("*".repeat(idnumber.length - 4) + idnumber.substr(idnumber.length - 4, 4)));
+        }
+    });
+
     $("#txtPassportNum").focusin(function () {
         var id = $("#hdnOPId").val();
         var model = {
@@ -7264,3 +7593,34 @@ var printSummary = function () {
         }
     });
 }
+var getEncDecValue = function (txtBox, encdec) {
+    var encdecval = "";
+    if (encdec == 1) {
+        encdecval = $(txtBox).attr("data-value");
+    } else {
+        encdecval = $(txtBox).val();
+    }
+    if (encdecval) {
+        $("#divLoader").show();
+        var model = {
+            EncDecVal: encdecval,
+            EncDec: encdec
+        };
+
+        $.ajax({
+            url: '/ApplyNow/GetEncDecSSNPassportIDNum',
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                if (encdec == 1) {
+                    $(txtBox).val(response.result);
+                } else {
+                    $(txtBox).attr("data-value", response.result);
+                }
+                $("#divLoader").hide();
+            }
+        });
+    }
+};

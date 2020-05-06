@@ -2000,19 +2000,19 @@
                             <div class="col-sm-12">
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="txtApartmentCommunity" class="star">Apartment Community</label>
+                                        <label id="lbl_txtApartmentCommunity" class="star">Apartment Community</label>
                                         <input class="form-control form-control-small" id="txtApartmentCommunity" max="500" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="txtManagementCompany" class="star">Management Company</label>
+                                        <label id="lbl_txtManagementCompany" class="star">Management Company</label>
                                         <input class="form-control form-control-small" id="txtManagementCompany" max="500" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="txtManagementCompanyPhone" class="star">Management Company Phone</label>
+                                        <label id="lbl_txtManagementCompanyPhone" class="star">Management Company Phone</label>
                                         <input class="form-control form-control-small" id="txtManagementCompanyPhone" maxlength="10" onkeypress="return isNumber(event)" />
                                     </div>
                                 </div>
@@ -4414,7 +4414,7 @@
                             <input id="txtApplicantEmail" type="text" class="form-control" maxlength="200" placeholder="Email" value="">
                         </div>
                     </div>
-                    <div class="col-sm-4" id="divSSNNumber">
+                    <div class="col-sm-4" id="divPopSSN">
                         <div class="form-group">
                             <label id="lblSSNNumber" class="star">SSN#</label>
                             <input class="form-control form-control-small" id="txtApplicantSSNNumber" value="" maxlength="9" onkeypress="return isOnlyNumber(event)" />
@@ -4424,13 +4424,13 @@
 
                 <div class="col-sm-12">
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-4" id="divPopIDType">
                         <div class="form-group">
                             <label for="ddlDocumentType" class="star">ID Type</label>
                             <select id="ddlApplicantDocumentTypePersonal" class="form-control " style="width:100%!important"></select>
                         </div>
                     </div>
-                    <div id="divIDState" class="col-sm-4">
+                    <div id="divPopIDState" class="col-sm-4">
                         <div class="form-group">
                             <label id="lblStatePersonal" class="star"> State</label>
                             <select id="ddlApplicantStateDoc" class="form-control">
@@ -4442,7 +4442,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-4" id="divPopIDNumber">
                         <div class="form-group">
                             <label class="star">ID Number</label>
                             <input class="form-control form-control-small" id="txtApplicantIDNumber" maxlength="25" />
@@ -4450,7 +4450,7 @@
                     </div>
                 </div>
                 <div class="col-sm-12">
-                    <div class="col-sm-4">
+                    <div class="col-sm-4" id="divPopCountry">
                         <div class="form-group">
                             <label for="txtCountry" class="star">Country</label>
                             <select id="txtApplicantCountry" class="form-control">
@@ -4461,21 +4461,21 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-4" id="divPopAddressLine1">
                         <div class="form-group">
-                            <label for="txtAddress1" class="star">Address Line 1</label>
-                            <input id="txtAppliantAddress12" type="text" class="form-control form-control-small" maxlength="300" />
+                            <label class="star">Address Line 1</label>
+                            <input id="txtAddressLine1" type="text" class="form-control form-control-small" maxlength="300" />
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-4" id="divPopAddressLine2">
                         <div class="form-group">
-                            <label for="txtAddress2">Address Line 2</label>
-                            <input id="txtApplicantAddress22" type="text" class="form-control form-control-small" maxlength="300" />
+                            <label>Address Line 2</label>
+                            <input id="txtAddressLine2" type="text" class="form-control form-control-small" maxlength="300" />
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-12">
-                    <div class="col-sm-4">
+                    <div class="col-sm-4" id="divPopState">
                         <div class="form-group">
                             <label class="star">State</label>
                             <select id="ddlApplicantState" class="form-control">
@@ -4487,14 +4487,14 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-4" id="divPopCity">
                         <div class="form-group">
                             <label class="star">City</label>
                             @*<select id="ddlCityHome" class="form-control"></select>*@
                             <input id="txtApplicantCity" type="text" class="form-control form-control-small" maxlength="100" />
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-4" id="divPopZip">
                         <div class="form-group">
                             <label class="star">Zip</label>
                             <input class="form-control form-control-small" id="txtApplicantZip2" maxlength="7" />
@@ -4882,19 +4882,19 @@
                 <div class="col-sm-12">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="txtApartmentCommunity2" class="star">Apartment Community</label>
+                            <label id="lbl_txtApartmentCommunity2" class="star">Apartment Community</label>
                             <input class="form-control form-control-small" id="txtApartmentCommunity2" max="500" />
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="txtManagementCompany2" class="star">Management Company</label>
+                            <label id="lbl_txtManagementCompany2" class="star">Management Company</label>
                             <input class="form-control form-control-small" id="txtManagementCompany2" max="500" />
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="txtManagementCompanyPhone2" class="star">Management Company Phone</label>
+                            <label id="lbl_txtManagementCompanyPhone2" class="star">Management Company Phone</label>
                             <input class="form-control form-control-small" id="txtManagementCompanyPhone2" maxlength="10" onkeypress="return isNumber(event)" />
                         </div>
                     </div>

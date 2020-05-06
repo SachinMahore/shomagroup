@@ -107,10 +107,10 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Login> tbl_Login { get; set; }
         public virtual DbSet<tbl_BackgroundScreening> tbl_BackgroundScreening { get; set; }
         public virtual DbSet<tbl_TenantOnline> tbl_TenantOnline { get; set; }
-        public virtual DbSet<tbl_Applicant> tbl_Applicant { get; set; }
         public virtual DbSet<tbl_Parking> tbl_Parking { get; set; }
         public virtual DbSet<tbl_TenantPet> tbl_TenantPet { get; set; }
         public virtual DbSet<tbl_Vehicle> tbl_Vehicle { get; set; }
         public virtual DbSet<tbl_Properties> tbl_Properties { get; set; }
+        public virtual DbSet<tbl_Applicant> tbl_Applicant { get; set; }
     }
 }

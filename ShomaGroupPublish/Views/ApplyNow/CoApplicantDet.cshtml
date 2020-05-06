@@ -4210,106 +4210,191 @@
     </div>
 </div>
 
-<div class="modal" id="popApplicant">
-    <div class="modal-dialog">
-        <div class="modal-content" style="width: 100%; height:500px;">
+<div class="modal " id="popApplicant" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
+    <div class="modal-dialog" style="width:1100px !important; height:500px;">
+        <div class="modal-content" style="width: 100% !important; height:610px;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
-            <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Add Applicant</h5>
-
             </div>
-
-            <!-- Modal body -->
             <div class="modal-body">
                 <input type="hidden" id="hndApplicantID" value="0" />
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="star"> First Name</label>
+                            <input id="txtApplicantFirstName" type="text" class="form-control" maxlength="100" placeholder="First Name" value="">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label> Middle Name</label>
+                            <input id="txtApplicantMiddleName" type="text" class="form-control" maxlength="100" placeholder="Middle Name" value="">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="star"> Last Name</label>
+                            <input id="txtApplicantLastName" type="text" class="form-control" maxlength="100" placeholder="Last Name" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="star">Gender</label>
+                            <select id="ddlApplicantGender" class="form-control">
+                                <option value='0'>Select Type</option>
+                                <option value='1'>Male</option>
+                                <option value='2'>Female</option>
+                                <option value='3'>Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Other Gender</label>
+                            <input id="txtApplicantOtherGender" type="text" class="form-control" maxlength="200" disabled="disabled" value="">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="star">Relationship</label>
+                            <select id="ddlARelationship" class="  form-control">
+                                <option value='0'>Select Relationship</option>
+                                <option value='1'>Spouse</option>
+                                <option value='2'>Partner</option>
+                                <option value='3'>Adult Child</option>
+                                <option value='5'>Friend/Roommate</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="star"> Date of Birth </label>
+                        <div class="input-group">
+                            <input id="txtHDateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" />
+                            <input id="txtADateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" />
+                            <input id="txtMDateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" />
+                            <input id="txtGDateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                            </span>
+                        </div>
+                    </div>
 
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="star"> First Name</label>
-                        <input id="txtApplicantFirstName" type="text" class="form-control" maxlength="100" placeholder="First Name" value="">
-                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="star">Last Name</label>
-                        <input id="txtApplicantLastName" type="text" class="form-control" maxlength="100" placeholder="Last Name" value="">
+                <div class="col-sm-12">
+                    <div class="col-sm-4" id="appphone">
+                        <div class="form-group">
+                            <label>Phone No.</label>
+                            <input id="txtApplicantPhone" type="text" class="form-control" maxlength="10" placeholder="Phone" value="" onkeypress="return isOnlyNumber(event)">
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="star">Relationship</label>
-                        <select id="ddlARelationship" class="  form-control">
-                            <option value='0'>Select Relationship</option>
-                            <option value='1'>Spouse</option>
-                            <option value='2'>Partner</option>
-                            <option value='3'>Adult Child</option>
-                            <option value='5'>Friend/Roommate</option>
-                        </select>
+                    <div class="col-sm-4" id="appemail">
+                        <div class="form-group">
+                            <label class="star">Email</label>
+                            <input id="txtApplicantEmail" type="text" class="form-control" maxlength="200" placeholder="Email" value="">
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-6" id="appphone">
-                    <div class="form-group">
-                        <label>Phone No.</label>
-                        <input id="txtApplicantPhone" type="text" class="form-control" maxlength="10" placeholder="Phone" value="" onkeypress="return isOnlyNumber(event)">
-                    </div>
-                </div>
-                <div class="col-sm-6" id="appemail">
-                    <div class="form-group">
-                        <label class="star">Email</label>
-                        <input id="txtApplicantEmail" type="text" class="form-control" maxlength="200" placeholder="Email" value="">
+                    <div class="col-sm-4" id="divPopSSN">
+                        <div class="form-group">
+                            <label id="lblSSNNumber" class="star">SSN#</label>
+                            <input class="form-control form-control-small" id="txtApplicantSSNNumber" value="" maxlength="9" onkeypress="return isOnlyNumber(event)" />
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="dob" class="star">Date of Birth</label>
-                        <input id="txtHDateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" />
-                        <input id="txtADateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" />
-                        <input id="txtMDateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" />
-                        <input id="txtGDateOfBirth" class="form-control form-control-small hidden" maxlength="20" type="text" />
+                <div class="col-sm-12">
 
-                        <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 196px;">
-                            <button class="btn btn-primary search" id="iconCalenderApplicant" type="button"><i class="fa-calendar fa"></i></button>
-                        </span>
-
+                    <div class="col-sm-4" id="divPopIDType">
+                        <div class="form-group">
+                            <label for="ddlDocumentType" class="star">ID Type</label>
+                            <select id="ddlApplicantDocumentTypePersonal" class="form-control " style="width:100%!important"></select>
+                        </div>
+                    </div>
+                    <div id="divPopIDState" class="col-sm-4">
+                        <div class="form-group">
+                            <label id="lblStatePersonal" class="star"> State</label>
+                            <select id="ddlApplicantStateDoc" class="form-control">
+                                <option value="0">--Select State--</option>
+                                @foreach (var state in Model.StateList)
+                                {
+                                    <option value="@state.ID">@state.StateName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" id="divPopIDNumber">
+                        <div class="form-group">
+                            <label class="star">ID Number</label>
+                            <input class="form-control form-control-small" id="txtApplicantIDNumber" maxlength="25" />
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="star">Gender</label>
-                        <select id="ddlApplicantGender" class="form-control">
-                            <option value='0'>Select Type</option>
-                            <option value='1'>Male</option>
-                            <option value='2'>Female</option>
-                            <option value='3'>Other</option>
-                        </select>
+                <div class="col-sm-12">
+                    <div class="col-sm-4" id="divPopCountry">
+                        <div class="form-group">
+                            <label for="txtCountry" class="star">Country</label>
+                            <select id="txtApplicantCountry" class="form-control">
+                                @foreach (var country in Model.CountryList)
+                                {
+                                    <option value="@country.ID">@country.CountryName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" id="divPopAddressLine1">
+                        <div class="form-group">
+                            <label class="star">Address Line 1</label>
+                            <input id="txtAddressLine1" type="text" class="form-control form-control-small" maxlength="300" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4" id="divPopAddressLine2">
+                        <div class="form-group">
+                            <label>Address Line 2</label>
+                            <input id="txtAddressLine2" type="text" class="form-control form-control-small" maxlength="300" />
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-6" id="appGenderOther">
-                    <div class="form-group">
-                        <label>Other Gender</label>
-                        <input id="txtApplicantOtherGender" type="text" class="form-control" maxlength="200" disabled="disabled" value="">
+                <div class="col-sm-12">
+                    <div class="col-sm-4" id="divPopState">
+                        <div class="form-group">
+                            <label class="star">State</label>
+                            <select id="ddlApplicantState" class="form-control">
+                                <option value="0">--Select State--</option>
+                                @foreach (var state in Model.StateList)
+                                {
+                                    <option value="@state.ID">@state.StateName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" id="divPopCity">
+                        <div class="form-group">
+                            <label class="star">City</label>
+                            @*<select id="ddlCityHome" class="form-control"></select>*@
+                            <input id="txtApplicantCity" type="text" class="form-control form-control-small" maxlength="100" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4" id="divPopZip">
+                        <div class="form-group">
+                            <label class="star">Zip</label>
+                            <input class="form-control form-control-small" id="txtApplicantZip2" maxlength="7" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4 hidden">
+                        <div class="form-group">
+                            <label id="">Type</label>
+                            <label class="form-control form-control-small" id="ddlApplicantType"></label>
+                        </div>
                     </div>
                 </div>
-
-                <div class="col-sm-4 hidden">
-                    <div class="form-group">
-                        <label id="">Type</label>
-                        <label class="form-control form-control-small" id="ddlApplicantType"></label>
-                    </div>
-                </div>
+            </div>
+            <div class="modal-footer-custom">
                 <div class="col-sm-12 text-center">
                     <button type="submit" class="btn btn-primary" onclick="saveupdateApplicant()">Save</button>
                 </div>
-
             </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer-custom">
-
-            </div>
-
         </div>
     </div>
 </div>

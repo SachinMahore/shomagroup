@@ -281,6 +281,7 @@
     <Compile Include="Areas\Admin\Controllers\Facility\FacilityController.cs" />
     <Compile Include="Areas\Admin\Controllers\FobManagement\FobManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\FOB\FOBController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Generate Quotation\GenerateQuotationController.cs" />
     <Compile Include="Areas\Admin\Controllers\GuestManagement\GuestManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\Invoice\InvoiceController.cs" />
     <Compile Include="Areas\Admin\Controllers\LeaseManagement\LeaseManagementController.cs" />
@@ -485,6 +486,7 @@
     <Content Include="Areas\Admin\Content\Pages\FobManagement\FobManagement.js" />
     <Content Include="Areas\Admin\Content\Pages\FobManagement\FobManagementList.js" />
     <Content Include="Areas\Admin\Content\Pages\FOB\FOB.js" />
+    <Content Include="Areas\Admin\Content\Pages\GenerateQuotation\GenerateQuotation.js" />
     <Content Include="Areas\Admin\Content\Pages\GuestRegistrationManagement\GuestRegistrationManagement.js" />
     <Content Include="Areas\Admin\Content\Pages\Invoice\Invoice.js" />
     <Content Include="Areas\Admin\Content\Pages\Invoice\InvoiceList.js" />
@@ -2438,6 +2440,7 @@
     <Content Include="Content\Templates\EmailTemplateProspect2.html" />
     <Content Include="Content\Templates\EmailTemplateProspect3.html" />
     <Content Include="Content\Templates\EmailTemplateProspect5.html" />
+    <Content Include="Content\Templates\EmailTemplateProspect6.html" />
     <Content Include="Content\Templates\EmailTemplateRegBG.html" />
     <Content Include="Content\Templates\ForgetPassword.html" />
     <Content Include="Content\Templates\GuarantorPrintTemplate.html" />
@@ -2713,6 +2716,7 @@
     <Content Include="Areas\Admin\Views\TenantPetManagement\Index.cshtml" />
     <Content Include="Log4Net.config" />
     <Content Include="Areas\Admin\Views\Parking\ParkingExcel.cshtml" />
+    <Content Include="Areas\Admin\Views\GenerateQuotation\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

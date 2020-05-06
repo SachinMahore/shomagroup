@@ -156,6 +156,9 @@ namespace ShomaRM.Models
 
         public int StepCompletedCoappGu { get; set; }
 
+        public string CreatedDateString { get; set; }
+        public string ExpireDate { get; set; }
+
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
@@ -1184,6 +1187,261 @@ namespace ShomaRM.Models
                 result = !string.IsNullOrWhiteSpace(EncDecVal) ? new EncryptDecrypt().EncryptText(EncDecVal) : "";
             }
             return result;
+        }
+        public TenantOnlineModel GetTenantOnlineListGenerateQuotation(int id, long UserId)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            TenantOnlineModel lstpr = new TenantOnlineModel();
+            try
+            {
+                long toid = UserId;
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetTenantOnlineData";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter paramF = cmd.CreateParameter();
+                    paramF.ParameterName = "id";
+                    paramF.Value = id;
+                    cmd.Parameters.Add(paramF);
+                    //Sachin Mahore 21 Apr 2020
+                    DbParameter paramfF = cmd.CreateParameter();
+                    paramfF.ParameterName = "toid";
+                    paramfF.Value = toid;
+                    cmd.Parameters.Add(paramfF);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                lstpr.IsInternational = 0;
+                lstpr.Gender = 0;
+                lstpr.IDType = 0;
+                lstpr.State = 0;
+                lstpr.Country = "1";
+                lstpr.StateHome = 0;
+                lstpr.RentOwn = 0;
+
+                lstpr.Country2 = "0";
+                lstpr.StateHome2 = 0;
+                lstpr.RentOwn2 = 0;
+
+                lstpr.JobType = 0;
+                lstpr.OfficeCountry = "1";
+                lstpr.OfficeState = 0;
+
+                lstpr.EmergencyCountry = "1";
+                lstpr.EmergencyStateHome = 0;
+                lstpr.StepCompleted = 1;
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    DateTime? dateOfBirth = null;
+                    try
+                    {
+
+                        dateOfBirth = Convert.ToDateTime(dr["DateOfBirth"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? dateIssuance = null;
+                    try
+                    {
+
+                        dateIssuance = Convert.ToDateTime(dr["DateIssuance"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? dateExpire = null;
+                    try
+                    {
+
+                        dateExpire = Convert.ToDateTime(dr["DateExpire"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? moveInDateFrom = null;
+                    try
+                    {
+
+                        moveInDateFrom = Convert.ToDateTime(dr["MoveInDateFrom"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? moveInDateTo = null;
+                    try
+                    {
+
+                        moveInDateTo = Convert.ToDateTime(dr["MoveInDateTo"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? moveInDateFrom2 = null;
+                    try
+                    {
+
+                        moveInDateFrom2 = Convert.ToDateTime(dr["MoveInDateFrom2"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? moveInDateTo2 = null;
+                    try
+                    {
+
+                        moveInDateTo2 = Convert.ToDateTime(dr["MoveInDateTo2"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? startDate = null;
+                    try
+                    {
+
+                        startDate = Convert.ToDateTime(dr["StartDate"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    lstpr.IsInternational = Convert.ToInt32(dr["IsInternational"].ToString());
+                    lstpr.IsAdditionalRHistory = Convert.ToInt32(dr["IsAdditionalRHistory"].ToString());
+                    lstpr.FirstName = dr["FirstName"].ToString();
+                    lstpr.MiddleInitial = dr["MiddleInitial"].ToString();
+                    lstpr.LastName = dr["LastName"].ToString();
+                    lstpr.DateOfBirthTxt = dateOfBirth == null ? "" : dateOfBirth.Value.ToString("MM/dd/yyy");
+                    lstpr.Gender = Convert.ToInt32(dr["Gender"].ToString());
+                    lstpr.Email = dr["Email"].ToString();
+                    lstpr.Mobile = dr["Mobile"].ToString();
+                    DateTime? dt = Convert.ToDateTime(dr["CreatedDate"].ToString());
+                    lstpr.CreatedDateString = dt != null ? dt.Value.ToString("MM/dd/yyyy") : "";
+                    lstpr.ExpireDate = Convert.ToDateTime(dt).AddHours(48).ToString("MM/dd/yyyy") + " 23:59:59";
+                    if (!string.IsNullOrWhiteSpace(dr["PassportNumber"].ToString()))
+                    {
+                        string decryptedPassportNumber = new EncryptDecrypt().DecryptText(dr["PassportNumber"].ToString());
+                        int passportlength = decryptedPassportNumber.Length > 4 ? decryptedPassportNumber.Length - 4 : 0;
+                        string maskidnumber = "";
+                        for (int i = 0; i < passportlength; i++)
+                        {
+                            maskidnumber += "*";
+                        }
+                        if (decryptedPassportNumber.Length > 4)
+                        {
+                            lstpr.PassportNumber = maskidnumber + decryptedPassportNumber.Substring(decryptedPassportNumber.Length - 4, 4);
+                        }
+                        else
+                        {
+                            lstpr.PassportNumber = decryptedPassportNumber;
+                        }
+                    }
+                    else
+                    {
+                        lstpr.PassportNumber = "";
+                    }
+
+                    lstpr.CountryIssuance = dr["CountryIssuance"].ToString();
+                    lstpr.DateIssuanceTxt = dateIssuance == null ? "" : dateIssuance.Value.ToString("MM/dd/yyy");
+                    lstpr.DateExpireTxt = dateExpire == null ? "" : dateExpire.Value.ToString("MM/dd/yyy");
+                    lstpr.IDType = Convert.ToInt32(dr["IDType"].ToString());
+                    lstpr.State = Convert.ToInt64(dr["State"].ToString());
+                    if (!string.IsNullOrWhiteSpace(dr["IDNumber"].ToString()))
+                    {
+                        string decryptedIDNumber = new EncryptDecrypt().DecryptText(dr["IDNumber"].ToString());
+                        int idnumlength = decryptedIDNumber.Length > 4 ? decryptedIDNumber.Length - 4 : 0;
+                        string maskidnumber = "";
+                        for (int i = 0; i < idnumlength; i++)
+                        {
+                            maskidnumber += "*";
+                        }
+                        if (decryptedIDNumber.Length > 4)
+                        {
+                            lstpr.IDNumber = maskidnumber + decryptedIDNumber.Substring(decryptedIDNumber.Length - 4, 4);
+                        }
+                        else
+                        {
+                            lstpr.IDNumber = decryptedIDNumber;
+                        }
+                    }
+                    else
+                    {
+                        lstpr.IDNumber = "";
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(dr["SSN"].ToString()))
+                    {
+                        string decryptedSSN = new EncryptDecrypt().DecryptText(dr["SSN"].ToString());
+                        if (decryptedSSN.Length > 5)
+                        {
+                            lstpr.SSN = "***-**-" + decryptedSSN.Substring(decryptedSSN.Length - 5, 4);
+                        }
+                        else
+                        {
+                            lstpr.SSN = decryptedSSN;
+                        }
+                    }
+                    else
+                    {
+                        lstpr.SSN = "";
+                    }
+                    lstpr.Country = dr["Country"].ToString();
+                    lstpr.HomeAddress1 = dr["HomeAddress1"].ToString();
+                    lstpr.HomeAddress2 = dr["HomeAddress2"].ToString();
+                    lstpr.StateHome = Convert.ToInt64(dr["StateHome"].ToString());
+                    lstpr.CityHome = dr["CityHome"].ToString();
+                    lstpr.ZipHome = dr["ZipHome"].ToString();
+
+                    lstpr.OtherGender = dr["OtherGender"].ToString();
+
+
+                    int countryOrigintemp = lstpr.CountryOfOrigin.HasValue ? Convert.ToInt32(lstpr.CountryOfOrigin) : 0;
+                    var countryOriginVar = db.tbl_Country.Where(co => co.ID == countryOrigintemp).FirstOrDefault();
+                    lstpr.CountryOfOriginString = countryOriginVar != null ? countryOriginVar.CountryName : "";
+
+
+
+                    var PersonalStateVar = db.tbl_State.Where(co => co.ID == lstpr.State).FirstOrDefault();
+                    lstpr.StatePersonalString = PersonalStateVar != null ? PersonalStateVar.StateName : "";
+                    var StateHomeVar = db.tbl_State.Where(co => co.ID == lstpr.StateHome).FirstOrDefault();
+                    lstpr.StateHomeString = StateHomeVar != null ? StateHomeVar.StateName : "";
+                    int contryTemp = lstpr.Country != "" ? Convert.ToInt32(lstpr.Country) : 0;
+                    var CountryVar = db.tbl_Country.Where(co => co.ID == contryTemp).FirstOrDefault();
+                    lstpr.CountryString = CountryVar != null ? CountryVar.CountryName : "";
+                    int officeContryTemp = lstpr.OfficeCountry != "" ? Convert.ToInt32(lstpr.OfficeCountry) : 0;
+                    var OfficeCountryVar = db.tbl_Country.Where(co => co.ID == officeContryTemp).FirstOrDefault();
+                    lstpr.OfficeCountryString = OfficeCountryVar != null ? OfficeCountryVar.CountryName : "";
+                    int emergencyContryTemp = lstpr.EmergencyCountry != "" ? Convert.ToInt32(lstpr.EmergencyCountry) : 0;
+                    var EmergencyCountryVar = db.tbl_Country.Where(co => co.ID == emergencyContryTemp).FirstOrDefault();
+                    lstpr.EmergencyCountryString = EmergencyCountryVar != null ? EmergencyCountryVar.CountryName : "";
+                    int emergencyStateHomeTemp = lstpr.EmergencyStateHome != null ? Convert.ToInt32(lstpr.EmergencyStateHome) : 0;
+                    var EmergencyStateHomeVar = db.tbl_State.Where(co => co.ID == emergencyStateHomeTemp).FirstOrDefault();
+                    lstpr.EmergencyStateHomeString = EmergencyStateHomeVar != null ? EmergencyStateHomeVar.StateName : "";
+
+
+                    var stepCompleted = Convert.ToInt32(dr["StepCompleted"].ToString());
+                    lstpr.StepCompleted = stepCompleted;
+                }
+                db.Dispose();
+                return lstpr;
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
         }
     }
 
