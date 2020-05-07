@@ -737,7 +737,7 @@ namespace ShomaRM.Models
             }
             if(StepCompleted==18)
             {
-                if(applicantData.Type=="")
+                if(applicantData.Type!= "Primary Applicant ")
                 {
                     string reportHTML = "";
                     string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
@@ -758,7 +758,7 @@ namespace ShomaRM.Models
                         message =applicantData.Type+ " " + applicantData.FirstName + " " + applicantData.LastName + " has completed the application";
                     }
                     string body = reportHTML;
-                    new EmailSendModel().SendEmail(onlineProspectData.Email, applicantData.Type + " " + applicantData.FirstName + " " + applicantData.LastName + " has completed the application, body);
+                    new EmailSendModel().SendEmail(onlineProspectData.Email, applicantData.Type + " " + applicantData.FirstName + " " + applicantData.LastName + " has completed the application", body);
                     if (SendMessage == "yes")
                     {
                         new TwilioService().SMS(phonenumber, message);

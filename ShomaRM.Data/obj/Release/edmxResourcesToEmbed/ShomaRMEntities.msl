@@ -1462,6 +1462,8 @@
     <EntitySetMapping Name="tbl_TenantOnline">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantOnline">
         <MappingFragment StoreEntitySet="tbl_TenantOnline">
+          <ScalarProperty Name="IsRentalQualification" ColumnName="IsRentalQualification" />
+          <ScalarProperty Name="IsRentalPolicy" ColumnName="IsRentalPolicy" />
           <ScalarProperty Name="StepCompleted" ColumnName="StepCompleted" />
           <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
           <ScalarProperty Name="IsProprNoticeLeaseAgreement" ColumnName="IsProprNoticeLeaseAgreement" />

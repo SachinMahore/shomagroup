@@ -694,7 +694,7 @@ var goToStep = function (stepid, id, calldataupdate) {
         if ($("#hndCreditPaid").val() == 0) {
             $.alert({
                 title: "",
-                content: "Please Pay Credit Check Fees, Please check mail for more detail.",
+                content: "Please Pay Credit Check Fees, Please fill Information to get the Credit Pay Link, if alerady filled please check email for detail.",
                 type: 'red'
             });
             return;
@@ -4966,7 +4966,7 @@ var saveupdateApplicant = function () {
     var model = {
         ApplicantID: aid,
         FirstName: fname,
-        Middle: mname,
+        MiddleName: mname,
         LastName: lname,
         Phone: aphone,
         Email: aemail,
@@ -5198,8 +5198,7 @@ var getApplicantLists = function () {
                         "<label> " + elementValue.Type + " </label><br/>" +
                         "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
                         "<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>" +
-                        "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: " + elementValue.ComplStatus +"</b></label></center></div>" +
-                        "</div></div>";
+                        "</div><div><center><label><b>Status: " + elementValue.ComplStatus +"</b></label></center></div></div>";
                 }
                 else {
                     html += "<div class='col-sm-4 box-two proerty-item'>" +
@@ -5208,8 +5207,8 @@ var getApplicantLists = function () {
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
 
                         "<label>Primary Applicant</label><br/>" +
-                        "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label><br/><div style='border: 2px solid #E6E6E6;'><center><label><b>Status: " + elementValue.ComplStatus +"</b></label></center></div>" +
-                        "</div></div>";
+                        "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>" +
+                        "</div><div><center><label><b>Status: " +  elementValue.ComplStatus +"</b></label></center></div></div>";
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
                     //Amit's work 17-10
@@ -5413,19 +5412,6 @@ var getApplicantLists = function () {
                     $("#txtpayamtMo" + elementValue.ApplicantID).val(formatMoney(unformatText($("#txtpayamtMo" + elementValue.ApplicantID).val())));
                 });
 
-                //$(":input").on("keyup", function (e) {
-                //    var id = this.id;
-                //    var totalPercentage = 100;
-                //    if (id == "txtpayper" + elementValue.ApplicantID) {
-                //        if ($(":input").hasClass("payper")) {
-                //            var payperLength = $(this).length;
-                //            if (payperLength == 1) {
-                //                $(id).val(totalPercentage);
-                //            }
-                //        }
-                //    }
-                //});
-
                 var sum = parseFloat(0);
                 $(".payper").each(function () {
                     sum += parseFloat(this.value);
@@ -5438,25 +5424,6 @@ var getApplicantLists = function () {
 
                 });
                 localStorage.setItem("percentageMo", sumMo);
-
-                //Guarantor
-                //Minor
-                //Primary Applicant
-                //Co-Applicant
-
-                //if (elementValue.Type == "Co-Applicant") {
-                //    noofCapl += 1;
-                //}
-                //else if (elementValue.Type == "Minor") {
-                //    noofminor += 1;
-                //}
-                //else if (elementValue.Type == "Primary Applicant") {
-                //    noofapl += 1;
-                //}
-                //else {
-                //    noofgur += 1;
-                //}
-
             });
 
             $.ajax({
@@ -5565,16 +5532,7 @@ var getApplicantLists = function () {
                     }
                 }
             });
-
-
-
-            //var nofbed = $("#lblBed").text();
-            //if ((parseInt(nofbed) * 2) <= noofapl) {
-            //    var test = "";
-            //} else {
-            //    $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
-            //    $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
-            //}
+            
             $("#totalFinalFees").text("$" + parseFloat(totalFinalFees).toFixed(2));
 
             if (noofgur == 0) {
@@ -5640,7 +5598,6 @@ var goToEditApplicant = function (aid) {
                     else {
                         $("#txtApplicantOtherGender").val('');
                     }
-                    $("#txtApplicantMiddleName").val("");
                     $("#txtHDateOfBirth").removeClass("hidden").val(response.model.DateOfBirthTxt);
                     $('#txtADateOfBirth').addClass("hidden");
                     $('#txtMDateOfBirth').addClass("hidden");
@@ -5692,12 +5649,10 @@ var goToEditApplicant = function (aid) {
                     else {
                         $("#txtApplicantOtherGender").val('');
                     }
-                    $("#txtApplicantMiddleName").val("");
                     $("#txtADateOfBirth").removeClass("hidden").val(response.model.DateOfBirthTxt);
                     $('#txtHDateOfBirth').addClass("hidden");
                     $('#txtMDateOfBirth').addClass("hidden");
                     $('#txtGDateOfBirth').addClass('hidden');
-                    $("#txtApplicantMiddleName").val("");
                     $("#appphone").removeClass("hidden");
                     $("#appemail").removeClass("hidden");
                     $("#txtApplicantPhone").val(formatPhoneFax(response.model.Phone));
@@ -5741,7 +5696,6 @@ var goToEditApplicant = function (aid) {
                     else {
                         $("#txtApplicantOtherGender").val('');
                     }
-                    $("#txtApplicantMiddleName").val("");
                     $("#txtGDateOfBirth").removeClass("hidden").val(response.model.DateOfBirthTxt);
                     $('#txtHDateOfBirth').addClass("hidden");
                     $('#txtADateOfBirth').addClass("hidden");
@@ -5790,7 +5744,6 @@ var goToEditApplicant = function (aid) {
                     else {
                         $("#txtApplicantOtherGender").val('');
                     }
-                    $("#txtApplicantMiddleName").val("");
                     $("#txtMDateOfBirth").removeClass("hidden").val(response.model.DateOfBirthTxt);
                     $('#txtHDateOfBirth').addClass("hidden");
                     $('#txtADateOfBirth').addClass("hidden");

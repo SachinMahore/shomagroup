@@ -550,7 +550,43 @@ $(document).ready(function () {
 });
 
 var cancel = function () {
-    window.location.href = "/home";
+    $.alert({
+        title: "",
+        content: "Do you want to submit application?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $("#divLoader").show();
+                    var ProspectId = $("#hdnOPId").val();
+                    var model = {
+                        ID: ProspectId,
+                        StepCompleted: 18
+                    };
+
+                    $.ajax({
+                        url: '/ApplyNow/SaveUpdateStep',
+                        type: 'post',
+                        data: JSON.stringify(model),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        success: function (response) {
+                            $("#divLoader").hide();
+                            window.location.href = "/home";
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                    $("#divLoader").hide();
+                }
+            }
+        }
+    });
+
 }
 function checkFormstatus() {
     $("#checkForm").toggleClass("hidden");
@@ -561,7 +597,7 @@ var goToStep = function (stepid, id, calldataupdate) {
         if ($("#hndCreditPaid").val() == 0) {
             $.alert({
                 title: "",
-                content: "Please Pay Credit Check Fees, Please check mail for more detail.",
+                content: "Please Pay Credit Check Fees, Please fill Information to get the Credit Pay Link, if alerady filled please check email for detail.",
                 type: 'red'
             });
             return;
@@ -727,6 +763,7 @@ var goToStep = function (stepid, id, calldataupdate) {
     }
     if (stepid == "11") {
         if (parseInt($("#hdnStepCompleted").val()) < 9) {
+            alert($("#hdnStepCompleted").val());
             var msg = getStepCompletedMsgGuarantor(parseInt($("#hdnStepCompleted").val()) + 4, 11);
             $.alert({
                 title: "",
@@ -930,7 +967,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             else {
                 var rent = parseFloat($("#hndMonthlyCharges").val());
                 var annualCondition = parseFloat(rent) * 5;
-                var income = parseFloat($("#txtAnnualIncome").val());
+                var income = parseFloat(unformatText( $("#txtAnnualIncome").val()));
 
                 if (income < annualCondition) {
                     msg += "Annual Income should be gretor than 5 times the Monthly Rent($" + rent.toFixed(2) + ")</br>";
@@ -1125,6 +1162,42 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#li17").removeClass("active");
 
         }
+    }
+    if (stepid == "17") {
+        
+            if (id == "17") {
+                SaveUpdateStep(17);
+                $("#step2").addClass("hidden");
+                $("#step1").addClass("hidden");
+                $("#step4").addClass("hidden");
+                $("#step3").addClass("hidden");
+                $("#step5").addClass("hidden");
+                $("#step6").addClass("hidden");
+                $("#step7").addClass("hidden");
+                $("#step8").addClass("hidden");
+                $("#step9").addClass("hidden");
+                $("#step10").addClass("hidden");
+                $("#step11").addClass("hidden");
+                $("#step12").addClass("hidden");
+                $("#step13").addClass("hidden");
+                $("#step14").addClass("hidden");
+                $("#step15").addClass("hidden");
+                $("#step16").addClass("hidden");
+                $("#step17").removeClass("hidden");
+
+                $("#li17").addClass("active");
+                $("#li8").removeClass("active");
+                $("#li9").removeClass("active");
+                $("#li7").removeClass("active");
+                $("#li11").removeClass("active");
+                $("#li12").removeClass("active");
+                $("#li13").removeClass("active");
+                $("#li14").removeClass("active");
+                $("#li15").removeClass("active");
+                $("#li16").removeClass("active");
+                $("#li10").removeClass("active");
+            }
+        
     }
 };
 var getStepCompletedMsgGuarantor = function (currentstep, clickstep) {
@@ -1637,15 +1710,15 @@ function savePayment() {
         return;
 
     }
-    if (isSummarychecked != "1") {
-        $("#divLoader").hide();
-        $.alert({
-            title: "",
-            content: "Please ACCEPT AGREEMENTS </br>",
-            type: 'red'
-        });
-        return;
-    }
+    //if (isSummarychecked != "1") {
+    //    $("#divLoader").hide();
+    //    $.alert({
+    //        title: "",
+    //        content: "Please ACCEPT AGREEMENTS </br>",
+    //        type: 'red'
+    //    });
+    //    return;
+    //}
     if ($("#hndTransMethod").val() == 2) {
         var paymentMethod = 2;
         var propertyId = $("#hndUID").val();
@@ -3485,8 +3558,6 @@ var saveupdateApplicant = function () {
         return;
     }
 
-
-
     var model = {
         ApplicantID: aid,
         FirstName: fname,
@@ -3832,21 +3903,21 @@ var getApplicantListsGuarantor = function () {
                     html += "<label> " + elementValue.Type + " </label><br/>";
                     if (elementValue.Type == "Guarantor") {
                         html += "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;";
-                        // html += "<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>";
+                        //html += "<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>";
                     }
-
-                    html += "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: " + elementValue.ComplStatus +"</b></label></center></div>";
-                    html += "</div></div>";
+                    else {
+                        html += "<label>&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;&nbsp;&nbsp;&nbsp;";
+                    }
+                    html += "</div><div><center><label><b>Status: " + elementValue.ComplStatus +"</b></label></center></div></div>";
                 }
                 else {
                     html += "<div class='col-sm-4 box-two proerty-item'>" +
                         "<div class='form-group col-sm-3'><br>" +
                         "<img src='/Content/assets/img/user.png'></div>" +
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
-
                         "<label>Primary Applicant</label><br/>" +
-                        "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: " + elementValue.ComplStatus +"</b></label></center></div>" +
-                        "</div></div>";
+                        "<label>&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;&nbsp;&nbsp;&nbsp;"+
+                        "</div><div><center><label><b>Status: " + elementValue.ComplStatus +"</b></label></center></div></div>";
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
                     //Amit's work 17-10
@@ -4928,7 +4999,7 @@ var getTenantOnlineListGuarantor = function (id) {
             //$("#ddlStatePersonal").find("option[value='" + response.model.State + "']").attr('selected', 'selected');
             //}, 1500);
 
-            $("#txtSSNNumber").val(response.model.SSN).focusout();
+            $("#txtSSNNumber").val(response.model.SSN);
             $("#summSSN").text(response.model.SSN);
             // $("#summSSNp").text(response.model.SSN);
             if (response.model.Gender == 1) {

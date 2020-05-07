@@ -1392,6 +1392,8 @@
     <Property Name="IsProprNoticeLeaseAgreement" Type="int" />
     <Property Name="ParentTOID" Type="bigint" />
     <Property Name="StepCompleted" Type="int" />
+    <Property Name="IsRentalPolicy" Type="int" />
+    <Property Name="IsRentalQualification" Type="int" />
   </EntityType>
   <EntityType Name="tbl_TenantParking">
     <Key>

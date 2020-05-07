@@ -27,6 +27,7 @@
 <input type="hidden" id="hndDocumentTypePersonal" value="0" />
 <input type="hidden" id="hndCoAppUserId" value="@ShomaGroupWebSession.CurrentUser.UserID" />
 <input type="hidden" id="hndNewCoApp" value="0" />
+<input type="hidden" id="hndCreditPaid" value="@Model.CreditPaid" />
 @*Sachin Mahore 21 Apr 2020*@
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
@@ -1248,17 +1249,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="divCreditPaidContinue" class="col-sm-12">
-                                <div class="col-sm-12 hidden">
-                                    <h3 class="panel-title pull-right">Please Pay Credit Check Fees, Please check mail for more detail.</h3>
-                                </div>
+                            <div class="col-sm-12 @(Model.CreditPaid != 0 ? "hidden" : "")">
+                                <h3 class="panel-title pull-right">Please Pay Credit Check Fees, Please fill Information to get the Credit Pay Link, if alerady filled please check email for detail.</h3>
                             </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
                                     <button type="submit" class="btn btn-primary" onclick="goToStep(6,6,0)"> Back</button>
                                 </div>
-                                <div id="btnCreditPaidContinue" class="pull-right text-center hidden">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(8,8,0)"> Continue</button>
+                                <div class="pull-right text-center">
+                                    <button type="submit" class="btn btn-primary @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnext" onclick="goToStep(8,8,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -5900,16 +5899,14 @@
              //Sachin Mahore 23 Apr 2020
             showCurrentStep(6, 6);
             if (@Model.IsRentalPolicy== "1" && @Model.IsRentalQualification== "1") {
-               // showCurrentStep(7, 7);
+                showCurrentStep(@Model.StepCompleted, @Model.StepCompleted);
                 $("#hndShowTermPolicy").val(0);
                 $("#chkAgreeTermsPolicy").iCheck('check');
             }
             else {
                 $("#hndShowTermPolicy").val(1);
-                showCurrentStep(3, 3);
+                showCurrentStep(6, 6);
             }
-           
-
             if (('@Model.EnvelopeID') != "") {
                 $("#btnleaseDownl").removeAttr("disabled");
                 $("#btnDownloadLeaseDocument").css("background-color", "#B4ADA5").attr("disabled", "disabled");

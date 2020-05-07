@@ -2580,6 +2580,8 @@
     <Property Name="ParentTOID" Type="Int64" />
     <Property Name="StepCompleted" Type="Int32" />
     <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" FromRole="tbl_TenantOnline" ToRole="tbl_ApplyNow" />
+    <Property Name="IsRentalPolicy" Type="Int32" />
+    <Property Name="IsRentalQualification" Type="Int32" />
   </EntityType>
   <Association Name="FK_tbl_TenantOnline_tbl_ApplyNow">
     <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
