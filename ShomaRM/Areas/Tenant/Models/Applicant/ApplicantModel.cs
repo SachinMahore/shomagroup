@@ -126,7 +126,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     TenantID = 0,
                     IsSuperUser = 0,
                     UserType = model.Type == "Guarantor" ? 34 : 33,
-                    ParentUserID = userid,
+                    ParentUserID = mainappdet.UserId,
 
                 };
                 db.tbl_Login.Add(createCoApplLogin);

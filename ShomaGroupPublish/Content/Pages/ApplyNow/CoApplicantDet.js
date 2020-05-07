@@ -3963,9 +3963,9 @@ var saveupdateApplicantCoApplicant = function () {
 
         }
         else {
-            if (!applicantSSNNumber) {
-                msg += "Enter SSN Number</br>";
-            }
+            //if (!applicantSSNNumber) {
+            //    msg += "Enter SSN Number</br>";
+            //}
             //if (!applicantIDNumber) {
             //    msg += "Enter ID Number</br>";
             //}
@@ -3975,26 +3975,26 @@ var saveupdateApplicantCoApplicant = function () {
             //if (applicantStateDoc <= 0) {
             //    msg += "Select State of issuence</br>";
             //}
-            if (!addressLine1) {
-                msg += "Enter Address Line 1</br>";
-            } if (!applicantState) {
-                msg += "Enter State </br>";
-            } if (applicantCountry <= 0) {
-                msg += "Select Country</br>";
-            } if (applicantCity <= 0) {
-                msg += "Enter the City</br>";
-            } if (applicantApplicantZip2 <= 0) {
-                msg += "Select Zip</br>";
-            }
+            //if (!addressLine1) {
+            //    msg += "Enter Address Line 1</br>";
+            //} if (!applicantState) {
+            //    msg += "Enter State </br>";
+            //} if (applicantCountry <= 0) {
+            //    msg += "Select Country</br>";
+            //} if (applicantCity <= 0) {
+            //    msg += "Enter the City</br>";
+            //} if (applicantApplicantZip2 <= 0) {
+            //    msg += "Select Zip</br>";
+            //}
         }
     } else if (type == "Minor") {
         dob = $("#txtMDateOfBirth").val();
     }
     else if (type == "Guarantor") {
         dob = $("#txtGDateOfBirth").val();
-        if (!applicantSSNNumber) {
-            msg += "Enter SSN Number</br>";
-        }
+        //if (!applicantSSNNumber) {
+        //    msg += "Enter SSN Number</br>";
+        //}
         //if (!applicantIDNumber) {
         //    msg += "Enter ID Number</br>";
         //}
@@ -4004,17 +4004,17 @@ var saveupdateApplicantCoApplicant = function () {
         //if (applicantStateDoc <= 0) {
         //    msg += "Select State of issuence</br>";
         //}
-        if (!addressLine1) {
-            msg += "Enter Address Line 1</br>";
-        } if (!applicantState) {
-            msg += "Enter State </br>";
-        } if (applicantCountry <= 0) {
-            msg += "Select Country</br>";
-        } if (applicantCity <= 0) {
-            msg += "Enter the City</br>";
-        } if (applicantApplicantZip2 <= 0) {
-            msg += "Select Zip</br>";
-        }
+        //if (!addressLine1) {
+        //    msg += "Enter Address Line 1</br>";
+        //} if (!applicantState) {
+        //    msg += "Enter State </br>";
+        //} if (applicantCountry <= 0) {
+        //    msg += "Select Country</br>";
+        //} if (applicantCity <= 0) {
+        //    msg += "Enter the City</br>";
+        //} if (applicantApplicantZip2 <= 0) {
+        //    msg += "Select Zip</br>";
+        //}
     }
     else {
         checkEmail = 1;
@@ -4068,9 +4068,9 @@ var saveupdateApplicantCoApplicant = function () {
         else {
             $('#txtOtherGender').val('');
         }
-        if (!applicantSSNNumber) {
-            msg += "Enter SSN Number</br>";
-        }
+        //if (!applicantSSNNumber) {
+        //    msg += "Enter SSN Number</br>";
+        //}
         //if (!applicantIDNumber) {
         //    msg += "Enter ID Number</br>";
         //}
@@ -4080,17 +4080,17 @@ var saveupdateApplicantCoApplicant = function () {
         //if (applicantStateDoc <= 0) {
         //    msg += "Select State of issuence</br>";
         //}
-        if (!addressLine1) {
-            msg += "Enter Address Line 1</br>";
-        } if (!applicantState) {
-            msg += "Enter State </br>";
-        } if (applicantCountry <= 0) {
-            msg += "Select Country</br>";
-        } if (applicantCity <= 0) {
-            msg += "Enter the City</br>";
-        } if (applicantApplicantZip2 <= 0) {
-            msg += "Select Zip</br>";
-        }
+        //if (!addressLine1) {
+        //    msg += "Enter Address Line 1</br>";
+        //} if (!applicantState) {
+        //    msg += "Enter State </br>";
+        //} if (applicantCountry <= 0) {
+        //    msg += "Select Country</br>";
+        //} if (applicantCity <= 0) {
+        //    msg += "Enter the City</br>";
+        //} if (applicantApplicantZip2 <= 0) {
+        //    msg += "Select Zip</br>";
+        //}
     }
     if (msg != "") {
         $("#divLoader").hide();
